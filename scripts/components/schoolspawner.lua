@@ -210,7 +210,9 @@ function self:SpawnSchool(spawnpoint, target, override_spawn_offset)
     end
 
 	local herd = SpawnPrefab("schoolherd_"..schooldata.prefab)
+	if herd then
 	herd.Transform:SetPosition(spawnpoint:Get())
+	end
 
     local schoolsize = math.random(schooldata.schoolmin, schooldata.schoolmax)
     local rotation = math.random()*360
