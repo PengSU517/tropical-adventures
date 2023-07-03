@@ -1,11 +1,11 @@
-name = " Tropical Experience Return of Them"
+name = " Tropical Experience beta"
 description =
-"Attention: We added a complement to this mod. In it will have several changes to improve the experience of the game. Visit only the main mod page and download. Tropical Experience| Complement"
+"test"
 author = "Vagner da Rocha Santos."
 version = "3.30"
 forumthread = ""
 api_version = 10
-priority = -20
+priority = -20 --我去还能是负数
 
 dst_compatible = true
 dont_starve_compatible = false
@@ -18,6 +18,19 @@ server_filter_tags = { "shipwrecked", "tropical experience", "Hamlet", "Economy"
 
 icon_atlas = "modicon.xml"
 icon = "modicon.tex"
+
+--[[
+进出房屋时间过长
+靠近人的时候猪人动画有问题
+
+
+]]
+
+
+
+
+
+
 
 configuration_options =
 {
