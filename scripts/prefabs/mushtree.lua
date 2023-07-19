@@ -58,6 +58,8 @@ local REMOVABLE =
     ["charcoal"] = true,
 }
 
+local DECAYREMOVE_MUST_TAGS = { "_inventoryitem" }
+local DECAYREMOVE_CANT_TAGS = { "INLIMBO", "fire" }
 local function ontimerdone(inst, data)
     if data.name == "decay" then
         local x, y, z = inst.Transform:GetWorldPosition()
@@ -65,7 +67,7 @@ local function ontimerdone(inst, data)
             -- before we disappear, clean up any crap left on the ground
             -- too many objects is as bad for server health as too few!
             local leftone = false
-            for i, v in ipairs(TheSim:FindEntities(x, y, z, 6, { "_inventoryitem" }, { "INLIMBO", "fire" })) do
+            for i, v in ipairs(TheSim:FindEntities(x, y, z, 6, DECAYREMOVE_MUST_TAGS, DECAYREMOVE_CANT_TAGS)) do
                 if REMOVABLE[v.prefab] then
                     if leftone then
                         v:Remove()
@@ -454,6 +456,7 @@ local function maketree(name, data, state)
         inst.AnimState:SetBuild(data.build)
         inst.AnimState:SetBank(data.bank)
         inst.AnimState:PlayAnimation("idle_loop", true)
+        inst.scrapbook_anim = "idle_loop"		
 
         inst.MiniMapEntity:SetIcon(data.icon)
 
@@ -517,6 +520,7 @@ local function maketree(name, data, state)
 		
         inst:AddComponent("simplemagicgrower")
         inst.components.simplemagicgrower:SetLastStage(#inst.components.growable.stages-1)		
+
 
         inst:AddComponent("plantregrowth")
         inst.components.plantregrowth:SetRegrowthRate(TUNING.MUSHTREE_REGROWTH.OFFSPRING_TIME)

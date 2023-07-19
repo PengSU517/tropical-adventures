@@ -59,6 +59,7 @@ local function common(anim, tags, removephysicscolliders)
     inst.AnimState:SetBank("blow_dart")
     inst.AnimState:SetBuild("blow_dart")
     inst.AnimState:PlayAnimation(anim)
+    inst.scrapbook_anim = anim	
 
     inst:AddTag("blowdart")
     inst:AddTag("sharp")
@@ -128,7 +129,9 @@ local function sleepattack(inst, attacker, target)
         return
     end
 
-    target.SoundEmitter:PlaySound("dontstarve/wilson/blowdart_impact_sleep")
+	if target.SoundEmitter ~= nil then
+	    target.SoundEmitter:PlaySound("dontstarve/wilson/blowdart_impact_sleep")
+	end
 
     if target.components.sleeper ~= nil then
         target.components.sleeper:AddSleepiness(1, 15, inst)
@@ -173,7 +176,10 @@ local function fireattack(inst, attacker, target)
         return
     end
 
-    target.SoundEmitter:PlaySound("dontstarve/wilson/blowdart_impact_fire")
+	if target.SoundEmitter ~= nil then
+	    target.SoundEmitter:PlaySound("dontstarve/wilson/blowdart_impact_fire")
+	end
+	
     target:PushEvent("attacked", {attacker = attacker, damage = 0})
     if target.components.burnable then
         target.components.burnable:Ignite(nil, attacker)
@@ -304,6 +310,7 @@ end
 local function poisonthrown(inst)
 	inst.AnimState:PlayAnimation("dart_poison")
 end
+
 local function poisonattack(inst, attacker, target, projectile)
 if target and target.components.poisonable == nil then
 target:AddComponent("poisonable")
@@ -337,6 +344,7 @@ local function poison()
 	inst.AnimState:SetBank("blow_dart")
     inst.AnimState:SetBuild("blow_dart")
     inst.AnimState:PlayAnimation("idle_poison")
+    inst.scrapbook_anim = "idle_poison"
 
     inst:AddTag("blowdart")
     inst:AddTag("sharp")
@@ -408,6 +416,7 @@ local function flup()
 	inst.AnimState:SetBank("blow_dart")
     inst.AnimState:SetBuild("blow_dart")
     inst.AnimState:PlayAnimation("idle_flup")
+    inst.scrapbook_anim = "idle_flup"
 
     inst:AddTag("blowdart")
     inst:AddTag("sharp")
@@ -467,4 +476,4 @@ return Prefab("blowdart_sleep", sleep, assets, prefabs),
        Prefab("blowdart_yellow", yellow, assets, prefabs_yellow),
        Prefab("blowdart_walrus", walrus, assets, prefabs),
 	   Prefab("blowdart_flup", flup, assets, prefabs),
-	   Prefab("blowdart_poison", poison, assets, prefabs)   
+	   Prefab("blowdart_poison", poison, assets, prefabs)

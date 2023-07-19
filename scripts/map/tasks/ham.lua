@@ -235,7 +235,7 @@ AddTask("Deep_lost_ruins_gas", {
 AddTask("pincale", {
     locks = {},
     keys_given = {},
-    region_id = "hamlet15",
+    region_id = "mainland",
     room_choices = {
         ["BG_pinacle_base_set"] = 1,
         ["BG_pinacle_base"] = 2,
@@ -245,18 +245,6 @@ AddTask("pincale", {
     colour = { r = 1, g = 1, b = 1, a = 0.3 }
 })
 
-AddTask("pincalejunto", {
-    locks = {},
-    keys_given = {},
-    region_id = "junto",
-    room_choices = {
-        ["BG_pinacle_base_set"] = 1,
-        ["BG_pinacle_base"] = 2,
-    },
-    room_bg = GROUND.ROCKY,
-    background_room = "BG_pinacle_base",
-    colour = { r = 1, g = 1, b = 1, a = 0.3 }
-})
 ------------------------------------------------------------------------HAMLET continental tasks----------------------------------------------------------------------	
 AddTask("MEdge_of_the_unknown", {
     locks = {},

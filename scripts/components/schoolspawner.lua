@@ -191,15 +191,17 @@ function self:GetSpawnPoint(pt)
 end
 
 local function DoSpawnFish(prefab, pos, rot, herd)
-    if herd:IsValid() then
+    if herd and herd:IsValid() then
         local fish = SpawnPrefab(prefab)
+		if fish then
         fish.Physics:Teleport(pos:Get())
         fish.Transform:SetRotation(rot)
         fish.components.herdmember:Enable(true)
         fish.components.herdmember.herdprefab = herd.prefab
         fish.sg:GoToState("arrive")
-
+		end
     	herd.components.herd:AddMember(fish)
+
     end
 end
 

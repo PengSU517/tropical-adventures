@@ -82,9 +82,10 @@ local function testfortransformonload(inst)
     return TheWorld.state.isfullmoon
 end
 
+local FINDLIGHT_MUST_TAGS = { "daylight", "lightsource" }
 local function DieInDarkness(inst)
     local x,y,z = inst.Transform:GetWorldPosition()
-    local ents = TheSim:FindEntities(x,0,z, DAYLIGHT_SEARCH_RANGE, { "daylight", "lightsource" })
+    local ents = TheSim:FindEntities(x,0,z, TUNING.DAYLIGHT_SEARCH_RANGE, FINDLIGHT_MUST_TAGS)
     for i,v in ipairs(ents) do
         local lightrad = v.Light:GetCalculatedRadius() * .7
         if v:GetDistanceSqToPoint(x,y,z) < lightrad * lightrad then
@@ -119,6 +120,7 @@ local function commonfn(isplanted)
     inst.AnimState:SetBank("flowers")
     inst.AnimState:SetBuild("flowers")
     inst.AnimState:SetRayTestOnBB(true)
+    inst.scrapbook_anim = "f1"	
 
     inst:AddTag("flower")
     inst:AddTag("cattoy")
@@ -150,7 +152,6 @@ local function commonfn(isplanted)
     if not isplanted then -- This will be true during load but it will be false and cut down on runtime.
         inst:DoTaskInTime(0, CheckForPlanted)
     end
-
     MakeSmallPropagator(inst)
 
 	inst:AddComponent("halloweenmoonmutable")

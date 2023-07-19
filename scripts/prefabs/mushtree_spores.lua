@@ -125,6 +125,7 @@ local function makespore(data)
         inst.AnimState:SetBuild(data.build)
         inst.AnimState:SetBank("mushroom_spore")
         inst.AnimState:PlayAnimation("flight_cycle", true)
+        inst.scrapbook_anim = "flight_cycle"		
 
         inst.DynamicShadow:Enable(false)
 
