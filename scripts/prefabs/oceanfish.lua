@@ -1,5 +1,7 @@
 local FISH_DATA = require("prefabs/oceanfishdef1")
 
+local easing = require("easing")
+
 local SWIMMING_COLLISION_MASK   = COLLISION.GROUND
 								+ COLLISION.LAND_OCEAN_LIMITS
 								+ COLLISION.OBSTACLES
@@ -306,6 +308,8 @@ local function water_common(data)
     inst.AnimState:PlayAnimation("idle_loop")
 	
 	end
+	
+    inst.scrapbook_anim = "idle_ground"	
 
     inst.AnimState:SetSortOrder(ANIM_SORT_ORDER_BELOW_GROUND.UNDERWATER)
     inst.AnimState:SetLayer(LAYER_WIP_BELOW_OCEAN)
@@ -624,6 +628,9 @@ local function inv_common(fish_def)
     inst.AnimState:SetBuild(fish_def.build)
     inst.AnimState:PlayAnimation("flop_pst")
 	end	
+	
+    inst.scrapbook_anim = "idle_ground"	
+	
 
 	if fish_def.tamanho then
 	inst.Transform:SetScale(fish_def.tamanho, fish_def.tamanho, fish_def.tamanho)

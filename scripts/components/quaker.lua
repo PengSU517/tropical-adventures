@@ -53,7 +53,7 @@ local _state = nil
 local _debrispersecond = 1 -- how much junk falls
 local _mammalsremaining = 0
 local _task = nil
-local _frequencymultiplier = 1
+local _frequencymultiplier = TUNING.QUAKE_FREQUENCY_MULTIPLIER
 local _pausesources = SourceModifierList(inst, false, SourceModifierList.boolean)
 
 local _quakedata = nil -- populated through configuration
@@ -61,6 +61,10 @@ local _quakedata = nil -- populated through configuration
 local _debris =
 {
     { weight = 1, loot = { "rocks" } },
+}
+
+local _tagdebris =
+{
 }
 
 local _activeplayers = {}
@@ -81,14 +85,36 @@ local UpdateShadowSize = _ismastersim and function(shadow, height)
     shadow.Transform:SetScale(scaleFactor, scaleFactor, scaleFactor)
 end or nil
 
-local GetDebris = _ismastersim and function()
+local GetDebris = _ismastersim and function(node_data)
+    local debris_table = nil
+    if node_data == nil or node_data.tags == nil then
+        debris_table = _debris
+    else
+        debris_table = {}
+
+        -- We support empty tables to produce no debris,
+        -- so we can't just test for an empty table later.
+        local tag_found = false
+        for _, tag in ipairs(node_data.tags) do
+            local tag_table = _tagdebris[tag]
+            if tag_table ~= nil then
+                tag_found = true
+                ConcatArrays(debris_table, tag_table)
+            end
+        end
+
+        if not tag_found then
+            debris_table = _debris
+        end
+    end
+
     local weighttotal = 0
-    for i,v in ipairs(_debris) do
+    for i,v in ipairs(debris_table) do
         weighttotal = weighttotal + v.weight
     end
     local val = math.random() * weighttotal
     local droptable = nil
-    for i,v in ipairs(_debris) do
+    for i,v in ipairs(debris_table) do
         if val < v.weight then
             droptable = deepcopy(v.loot) -- we will be modifying this
             break
@@ -102,7 +128,7 @@ local GetDebris = _ismastersim and function()
         while todrop == nil and #droptable > 0 do
             local index = math.random(1,#droptable)
             todrop = droptable[index]
-            if todrop == "mole" or todrop == "rabbit" then
+            if todrop == "mole" or todrop == "rabbit" or todrop == "carrat" then
                 -- if it's a small creature, count it, or remove it from the table and try again
                 if _mammalsremaining == 0 then
                     table.remove(droptable, index)
@@ -135,6 +161,9 @@ local _BreakDebris = _ismastersim and function(debris)
     debris:Remove()
 end or nil
 
+local QUAKEDEBRIS_CANT_TAGS = { "quakedebris" }
+local QUAKEDEBRIS_ONEOF_TAGS = { "INLIMBO" }
+
 local _GroundDetectionUpdate = _ismastersim and function(debris, override_density)
     local x, y, z = debris.Transform:GetWorldPosition()
     if y <= .2 then
@@ -142,7 +171,7 @@ local _GroundDetectionUpdate = _ismastersim and function(debris, override_densit
             debris:PushEvent("detachchild")
             debris:Remove()
         elseif _world.Map:IsPointNearHole(Vector3(x, 0, z)) then
-            if debris.prefab == "mole" or debris.prefab == "rabbit" then
+            if debris.prefab == "mole" or debris.prefab == "rabbit" or debris.prefab == "carrat" then
                 debris:PushEvent("detachchild")
                 debris:Remove()
             else
@@ -226,9 +255,10 @@ local _GroundDetectionUpdate = _ismastersim and function(debris, override_densit
             if density <= 0 or
                 debris.prefab == "mole" or
                 debris.prefab == "rabbit" or
+                debris.prefab == "carrat" or				
                 not (math.random() < .75 or
                     --NOTE: There will always be at least one found within DENSITYRADIUS, ourself!
-                    #TheSim:FindEntities(x, 0, y, density, nil, { "quakedebris" }, { "INLIMBO" }) > 1
+                    #TheSim:FindEntities(x, 0, y, density, nil, QUAKEDEBRIS_CANT_TAGS, QUAKEDEBRIS_ONEOF_TAGS) > 1
                 ) then
                 --keep it
                 debris.persists = true
@@ -268,7 +298,7 @@ local _GroundDetectionUpdate = _ismastersim and function(debris, override_densit
             end
         end
         debris:PushEvent("stopfalling")
-    elseif debris.prefab == "mole" or debris.prefab == "rabbit" then
+    elseif debris.prefab == "mole" or debris.prefab == "rabbit" or debris.prefab == "carrat" then
         --failsafe
         debris:PushEvent("detachchild")
         debris:Remove()
@@ -290,14 +320,18 @@ local ground = map:GetTile(map:GetTileCoordsAtPoint(spawn_point.x, 0, spawn_poin
 if ground == GROUND.UNDERWATER_SANDY or ground == GROUND.UNDERWATER_ROCKY or (ground == GROUND.BEACH and TheWorld:HasTag("cave"))  or (ground == GROUND.BATTLEGROUND and TheWorld:HasTag("cave")) or (ground == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave"))  or (ground == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground == GROUND.PAINTED and TheWorld:HasTag("cave")) then 
 return 
 end
-    local prefab = override_prefab or GetDebris()
+
+    local node_index = _world.Map:GetNodeIdAtPoint(spawn_point:Get())
+
+    local prefab = GetDebris(_world.topology.nodes[node_index])
     if prefab ~= nil then
+        prefab = override_prefab or prefab
         local debris = SpawnPrefab(prefab)
         if debris ~= nil then
             debris.entity:SetCanSleep(false)
             debris.persists = false
 
-            if (prefab == "rabbit" or prefab == "mole") and debris.sg ~= nil then
+            if (prefab == "rabbit" or prefab == "mole" or prefab == "carrat") and debris.sg ~= nil then
                 _mammalsremaining = _mammalsremaining - 1
                 debris.sg:GoToState("fall")
             end
@@ -349,6 +383,29 @@ local DoDropForPlayer = _ismastersim and function(player, reschedulefn)
     if spawn_point ~= nil then
         player:ShakeCamera(CAMERASHAKE.FULL, 0.7, 0.02, .75)
         SpawnDebris(spawn_point)
+    end
+    reschedulefn(player)
+end or nil
+
+local STRUCTURES_CANT_TAGS = { "INLIMBO", "burnt" } -- Excluding "fire" tag for firepits.
+local STRUCTURES_ONEOF_TAGS = { "wall", "structure" }
+local DoDropForPlayer = _ismastersim and function(player, reschedulefn)
+    local px, py, pz = player.Transform:GetWorldPosition()
+    local char_pos = Vector3(px, py, pz)
+    local override_prefab, rad, override_density
+    local riftspawner = _world.components.riftspawner
+    if riftspawner and riftspawner:IsShadowPortalActive() and math.random() < TUNING.RIFT_SHADOW1_QUAKER_ODDS then
+        local ents = TheSim:FindEntities(px, py, pz, TUNING.RIFT_SHADOW1_QUAKER_RADIUS, nil, STRUCTURES_CANT_TAGS, STRUCTURES_ONEOF_TAGS)
+        if ents[1] == nil then
+            override_prefab = "cavein_boulder"
+            rad = TUNING.RIFT_SHADOW1_QUAKER_RADIUS
+            override_density = 0
+        end
+    end
+    local spawn_point = GetSpawnPoint(char_pos, rad)
+    if spawn_point ~= nil then
+        player:ShakeCamera(CAMERASHAKE.FULL, 0.7, 0.02, .75)
+        SpawnDebris(spawn_point, override_prefab, override_density)
     end
     reschedulefn(player)
 end or nil
@@ -427,8 +484,8 @@ end or nil
 local StartQuake = _ismastersim and function(inst, data, overridetime)
     _quakesoundintensity:set(2)
 
-    _debrispersecond = type(data.debrispersecond) == "function" and data.debrispersecond() or data.debrispersecond
-    _mammalsremaining = type(data.mammals) == "function" and data.mammals() or data.mammals
+    _debrispersecond = FunctionOrValue(data.debrispersecond)
+    _mammalsremaining = FunctionOrValue(data.mammals)
 
 	_originalplayers = {}
     for i, v in ipairs(_activeplayers) do
@@ -439,7 +496,7 @@ local StartQuake = _ismastersim and function(inst, data, overridetime)
 
     inst:PushEvent("startquake")
 
-    local quaketime = overridetime or (type(data.quaketime) == "function" and data.quaketime()) or data.quaketime
+    local quaketime = overridetime or FunctionOrValue(data.quaketime)
     UpdateTask(quaketime, EndQuake, true)
     _state = QUAKESTATE.QUAKING
 end or nil
@@ -460,7 +517,7 @@ local WarnQuake = _ismastersim and function(inst, data, overridetime)
     inst:DoTaskInTime(1, DoWarnQuake)
     _quakesoundintensity:set(1)
 
-    local warntime = overridetime or (type(data.warningtime) == "function" and data.warningtime()) or data.warningtime
+    local warntime = overridetime or FunctionOrValue(data.warningtime)
     ShakeAllCameras(CAMERASHAKE.FULL, warntime + 3, .02, .2, nil, 40)
     UpdateTask(warntime, StartQuake, data)
     _state = QUAKESTATE.WARNING
@@ -474,7 +531,7 @@ SetNextQuake = _ismastersim and function(data, overridetime)
         return
     end
 
-    local nexttime = overridetime or (type(data.nextquake) == "function" and data.nextquake() or data.nextquake) / _frequencymultiplier
+    local nexttime = overridetime or FunctionOrValue(data.nextquake) / _frequencymultiplier
     UpdateTask(nexttime, WarnQuake, data)
     _state = QUAKESTATE.WAITING
 end or nil
@@ -575,15 +632,6 @@ local OnPlayerLeft = _ismastersim and function(src, player)
     end
 end or nil
 
-local OnFrequencyMultiplier = _ismastersim and function(src, multiplier)
-    _frequencymultiplier = multiplier
-    if _frequencymultiplier > 0 and _quakedata ~= nil then
-        SetNextQuake(_quakedata)
-    else
-        ClearTask()
-    end
-end or nil
-
 local OnPauseQuakes = _ismastersim and function(src, data)
     if data ~= nil and data.source ~= nil then
         _pausesources:SetModifier(data.source, true, data.reason)
@@ -617,6 +665,12 @@ function self:SetDebris(data)
     _debris = data
 end
 
+function self:SetTagDebris(tile, data)
+    if not _ismastersim then return end
+
+    _tagdebris[tile] = data
+end
+
 --------------------------------------------------------------------------
 --[[ Initialization ]]
 --------------------------------------------------------------------------
@@ -634,8 +688,6 @@ if _ismastersim then
 
     inst:ListenForEvent("ms_miniquake", OnMiniQuake, _world)
     inst:ListenForEvent("ms_forcequake", OnForceQuake, _world)
-
-    inst:ListenForEvent("ms_quakefrequencymultiplier", OnFrequencyMultiplier, _world)
 
     inst:ListenForEvent("explosion", OnExplosion, _world)
 
@@ -670,6 +722,31 @@ self:SetDebris( {
         },
     },
 })
+
+local MUTATED_MUSH_DEBRIS =
+{
+    { -- common
+        weight = 0.60,
+        loot =
+        {
+            "rocks",
+            "flint",
+            "moonglass",
+        }
+    },
+    { -- uncomon
+        weight = 0.40,
+        loot =
+        {
+            "rock_avocado_fruit",
+            "carrat",
+        },
+    },
+}
+self:SetTagDebris( "lunacyarea", MUTATED_MUSH_DEBRIS )
+
+-- If we were to use nil, we would fall through to the default debris table.
+self:SetTagDebris( "nocavein", {})
 
 self:SetQuakeData({
     warningtime = 7,

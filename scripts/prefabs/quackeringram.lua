@@ -91,9 +91,10 @@ local function onfinished(inst)
 end
 
 local function spawnWake(driver)
+if driver then
 	local wake = SpawnPrefab("quackering_wake")
 	wake.entity:AddFollower()
-	if driver.wakeLeft == true then
+	if driver and driver.wakeLeft == true then
 		wake.idleanimation = "idle"
 		driver.wakeLeft = false
 	else
@@ -116,6 +117,7 @@ local function spawnWake(driver)
 
 	driver.wakeTask = driver:DoTaskInTime(5 * FRAMES, function() spawnWake(driver) end)
 end
+end
 
 local function onPotentialRamHit(inst, target)
 
@@ -131,26 +133,6 @@ local function onPotentialRamHit(inst, target)
 
 			impactFX.Transform:SetPosition(x + dx, y, z + dz)
 		end
-
---        local driver = inst.components.rammer:FindDriver()
---		if driver then
---			local currentSpeed = driver.Physics:GetMotorSpeed()
---			local boost = 25
-
---			inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/quackering_ram/impact")
---			driver.Physics:SetMotorVel(currentSpeed + boost, 0, 0)
---			driver.wakeLeft = true
---			driver.wakeTask = spawnWake(driver)
---			driver:DoTaskInTime(40 * FRAMES, 
---				function()
---					if driver and driver.wakeTask then 
---						driver.wakeTask:Cancel() 
---						driver.wakeTask = nil 
---					end 
---				end)
---		end
-
---	ShakeAllCameras(CAMERASHAKE.FULL, .35, .02, 1.25, inst, 40)	
 
 	end
 

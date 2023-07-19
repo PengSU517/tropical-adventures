@@ -5,6 +5,7 @@ local assets =
     Asset("ANIM", "anim/pedestal_crate.zip"),
     Asset("ATLAS_BUILD", "images/inventoryimages1.xml", 256),
     Asset("ATLAS_BUILD", "images/inventoryimages2.xml", 256),
+    Asset("ATLAS_BUILD", "images/inventoryimages3.xml", 256),	
     Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
     Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),  
 }
@@ -272,10 +273,14 @@ local function SetImage(inst, ent)
 	if ent.caminho then atlas = ent.caminho
 	elseif atlas and atlas == "images/inventoryimages1.xml" then atlas = "images/inventoryimages1.xml"
 	elseif atlas and atlas == "images/inventoryimages2.xml" then atlas = "images/inventoryimages2.xml"
+	elseif atlas and atlas == "images/inventoryimages3.xml" then atlas = "images/inventoryimages3.xml"	
 	else atlas = "images/inventoryimages/hamletinventory.xml" end
 
-    inst.AnimState:OverrideSymbol("SWAP_SIGN", resolvefilepath(atlas), texname)		
-		
+	if(image == "waffles_plate_generic") then
+	inst.AnimState:OverrideSymbol("SWAP_SIGN", "images/inventoryimages2.xml", "waffles.tex")
+	else
+    inst.AnimState:OverrideSymbol("SWAP_SIGN", resolvefilepath(atlas), texname)	
+	end		
         --inst.AnimState:OverrideSymbol("SWAP_SIGN", "store_items", image)
         inst.imagename = image
     else

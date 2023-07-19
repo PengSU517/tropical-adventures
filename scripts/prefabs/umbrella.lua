@@ -37,6 +37,12 @@ local function onunequip(inst, owner)
     inst.components.fueled:StopConsuming()
 end
 
+local function onequiptomodel(inst, owner, from_ground)
+    if inst.components.fueled then
+        inst.components.fueled:StopConsuming()
+    end
+end
+
 local function onequip_grass(inst, owner) 
     local skin_build = inst:GetSkinBuild()
     if skin_build ~= nil then
@@ -144,12 +150,13 @@ local function grass()
 
     inst.components.equippable:SetOnEquip( onequip_grass )
     inst.components.equippable:SetOnUnequip( onunequip_grass )
+    inst.components.equippable:SetOnEquipToModel( onequiptomodel )	
     inst.components.equippable.dapperness = TUNING.DAPPERNESS_SMALL
 
     local swap_data = {sym_build = "swap_parasol", bank = "parasol"}
     inst.components.floater:SetBankSwapOnFloat(true, -40, swap_data)
     inst.components.floater:SetVerticalOffset(0.05)
-    inst.components.floater:SetScale({0.9, 0.4, 0.9})
+	inst.components.floater:SetScale({ 0.75, 0.35, 1 })
 
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
@@ -178,9 +185,10 @@ local function pigskin()
 
     inst.components.equippable:SetOnEquip(onequip)
     inst.components.equippable:SetOnUnequip(onunequip)
+    inst.components.equippable:SetOnEquipToModel( onequiptomodel )
 
-    inst.components.floater:SetScale({1.0, 0.4, 1.0})
-    inst.components.floater:SetBankSwapOnFloat(true, -40, {sym_build = "swap_umbrella"})
+	inst.components.floater:SetScale({ .75, 0.35, 1.0 })
+	inst.components.floater:SetBankSwapOnFloat(true, -35, { sym_name = "swap_umbrella_float", sym_build = "swap_umbrella" })
 
     return inst
 end

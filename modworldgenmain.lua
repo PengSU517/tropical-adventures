@@ -36,7 +36,7 @@ AddGlobalClassPostConstruct("map/storygen", "Story", function(self)
 	end
 end)
 
-local size = 200 --450是默认边长
+local size = 150 --450是默认边长
 
 if GLOBAL.rawget(GLOBAL, "WorldSim") then
 	local idx = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
@@ -52,6 +52,8 @@ if GLOBAL.rawget(GLOBAL, "WorldSim") then
 	idx.ConvertToTileMap = function(self, length)
 		OldConvertToTileMap(self, size or length)
 	end
+
+	idx.SeparateIslands = function(self) print("不分离土地") end
 end
 
 -- local Layouts = require("map/layouts").Layouts
@@ -72,16 +74,6 @@ AddStartLocation("MyNewStart", {
 	start_node = "Clearing",          --"Blank",  --生成位置, 并在包含改room的task新生成一个相同room  blank就是生成在海上
 })
 
-
--- AddTaskPreInit("Make a pick", function(task)  --将对应的room加入task中，出现这个task时就肯定有这个room出现
--- 	task.room_choices["MAINcity_base_1_set"] = 1 --玫瑰花丛区域会出现在猪王村附近
--- end)
-
-
---这里很奇怪，没升级传送门的时候会在原处出生，升级了之后会在默认的出生点出生，太奇怪了
-----------------------------------------------------------------------------------
-
-----如何设置地图大小呢
 
 
 local function LevelPreInit(level)
@@ -120,40 +112,31 @@ local function LevelPreInit(level)
 	end
 
 	if level.location == "forest" then
-		-- level.tasks = { "Make a pick", "MoonIsland_Beach" }
-		level.ocean_population = {}  --海洋生态 礁石 海带之类的 只执行这一行的时候只会出现盐矿和巨树, 也就是说删除了奶奶岛 和猴岛？ 这代码逻辑太奇怪了
-		level.ocean_prefill_setpieces = {} --海洋奇遇 特指奶奶岛之类的  执行这一行时有礁石，奶奶岛和猴岛
-		-- level.ocean_prefill_setpieces["newstartlocation2"] = 1 --额外添加一个奶奶岛  在不执行前一行的时候时可运行的
 		level.tasks = { "Make a pick", "Dig that rock" }
-		-- table.insert(level.tasks, "Speak to the newking")
-		--不能加make a new pick 因为也是lock.none， 但是为什么加新的月岛task也报错
-		--设置地形后就会报错，好奇怪啊
+		-- level.overrides.start_location = "MyNewStart"
+		
 
 		level.numoptionaltasks = 0
 		level.optionaltasks = {}
-		-- level.valid_start_tasks = "Speak to the newking" --nil  --可以通过修改start taks修改出生门位置 设置了这一条override就没用了吧
-		-- 指定了猪王地区也没用，出生地只会设置在lock.none的task
-		level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋
-		-- level.set_pieces["newstartlocation2"] = { count = 1, tasks = { "Dig that rock" } }
-		--即使加上这一行也会刷新泰拉瑞亚
 		level.random_set_pieces = {}
-		level.ordered_story_setpieces = {}
 		level.numrandom_set_pieces = 0
-		--如果执行了以上四行和AddTaskSetPreInit那就生成不了世界
 
+		level.ocean_population = {}
+		level.ocean_prefill_setpieces = {}
 
-
-		level.overrides.start_location = "MyNewStart"
-		-- --似乎出生点只能设置在 LOCKS.NONE的区域
-		-- --也可以通过插入一个 start location 确定出生门位置 似乎只是在出生地位置加入一个想要的地形，而不是搜寻相应的地形加入一个出生大门
 		level.overrides.keep_disconnected_tiles = true
 		level.overrides.roads = "never"
-		level.overrides.birds = "never" --没鸟
-		level.overrides.has_ocean = true --false	--没海
-		level.required_prefabs = {} --温蒂更新后的修复
+		level.overrides.birds = "never"
+		level.overrides.has_ocean = true
+		level.required_prefabs = {}
+		level.set_pieces = {}
+		level.ordered_story_setpieces = {}
+		---------------即使加上这两也会刷新泰拉瑞亚
+		---------------而且不设置task把pieces置空的话会导致世界无法生成，似乎是某个task需要特定的pieces
+		level.set_pieces["cidade1"] = { count = 1, tasks = { "Make a pick" } }
 
-		--if GetModConfigData("Hamlet") == 10 then
-		-- table.insert(level.tasks, "Deep_rainforest_2") --hamlet6
+
+
 		-- table.insert(level.tasks, "Mplains") --island3
 		-- table.insert(level.tasks, "Mplains_ruins") --island3
 		-- -- table.insert(level.tasks, "MDeep_rainforest") --
@@ -167,36 +150,26 @@ local function LevelPreInit(level)
 
 		-- table.insert(level.tasks, "M_BLANK2")
 		-- table.insert(level.tasks, "Edge_of_the_unknownC") --pugalisk_fountain 蛇岛
-		-- -- --end
-		-- -- level.set_pieces["newstartlocation2"] = { count = 1, tasks = { "Mplains" } }
-		level.set_pieces["cidade1"] = { count = 1, tasks = { "Make a pick" } }
-		-- --layout的地皮配置有问题
-		-- -- ------------continent----------------------
-		-- -- --if GetModConfigData("pigcity1") == 15 then
-		-- table.insert(level.tasks, "MPigcity") --猪镇的地皮生成有问题
+
+		-- table.insert(level.tasks, "MPigcity")
 		-- table.insert(level.tasks, "MPigcityside1")
 		-- table.insert(level.tasks, "MPigcityside2")
 		-- table.insert(level.tasks, "MPigcityside3")
 		-- table.insert(level.tasks, "MPigcityside4")
-		-- -- --end
 
-		-- -- ------------continent----------------------
-		-- -- --if GetModConfigData("pigcity2") == 15 then
-		-- -- table.insert(level.tasks, "M_BLANK1")
-		-- -- -- table.insert(level.tasks, "MDeep_rainforestC")--这里面有个pigcity
+		-- table.insert(level.tasks, "M_BLANK1")
 		-- table.insert(level.tasks, "MPigcity2")
 		-- table.insert(level.tasks, "MPigcity2side1")
 		-- table.insert(level.tasks, "MPigcity2side2")
 		-- table.insert(level.tasks, "MPigcity2side3")
 		-- table.insert(level.tasks, "MPigcity2side4")
 		-- table.insert(level.tasks, "MDeep_rainforest_3")
-		-- --end
 
-		-- --if GetModConfigData("pinacle") == 1 then
 		-- table.insert(level.tasks, "pincale")
-		--end
 
-		-- --if GetModConfigData("Shipwrecked") == 25 then
+
+
+
 		-- table.insert(level.tasks, "A_MISTO6") --火山矿区
 		-- table.insert(level.tasks, "A_MISTO7") --野猪王
 		-- table.insert(level.tasks, "A_MISTO8") --火山矿
@@ -229,11 +202,7 @@ local function LevelPreInit(level)
 		-- table.insert(level.tasks, "A_BLANK11")
 		-- table.insert(level.tasks, "A_BLANK12")
 
-		-- level.set_pieces["coralpool1"] = { count = 1, tasks = { "Dig that rock" } }
-		--需要找到合适的地形插入这些
-		-- --end
 
-		-- --if GetModConfigData("Together") == 20 then
 		-- table.insert(level.tasks, "Dig that rock")
 		-- table.insert(level.tasks, "Great Plains")
 		-- table.insert(level.tasks, "Squeltch")
@@ -243,19 +212,12 @@ local function LevelPreInit(level)
 		-- table.insert(level.tasks, "Badlands")
 		-- table.insert(level.tasks, "For a nice walk")
 		-- table.insert(level.tasks, "Lightning Bluff")
-		-- -- --end
 
-		-- -- -------------------------
-
-		-- -- --if GetModConfigData("Moon") == 10 then
 		-- table.insert(level.tasks, "MoonIsland_IslandShards")
 		-- table.insert(level.tasks, "MoonIsland_Beach")
 		-- table.insert(level.tasks, "MoonIsland_Forest")
 		-- table.insert(level.tasks, "MoonIsland_Baths")
 		-- table.insert(level.tasks, "MoonIsland_Mine")
-		-- --加了月岛会生成不了地形 不太清楚是为什么
-		-- --end
-		-- -----------------------------------------------a partir daqui modo de jogo 3 ilhas------------------------------------------------------------------------------
 
 		-- level.ocean_prefill_setpieces["coralpool1"] = { count = 3 }
 		-- level.ocean_prefill_setpieces["coralpool2"] = { count = 3 }
