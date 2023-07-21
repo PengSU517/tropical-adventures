@@ -7,7 +7,7 @@ local assets =
 	Asset("ANIM", "anim/wallhamletcity1.zip"),
 }
 
-local BASEMENT_SHADE = 0.5
+local BASEMENT_SHADE = 1 --地板的亮度，1是最亮，0是全黑
 local TAMANHODOMAPA = 1
 
 local function OnSave(inst, data)
@@ -95,7 +95,7 @@ local function entrance()
 	inst.AnimState:SetSortOrder(1)
 	inst.AnimState:SetFinalOffset(2)
 
-	inst.Transform:SetEightFaced()
+	inst.Transform:SetEightFaced() -----啥玩意还能设置八个面
 
 	inst.MiniMapEntity:SetIcon("minimap_volcano_entrance.tex")
 
@@ -118,8 +118,9 @@ local function entrance()
 	inst.components.teleporter.onActivate = OnActivate
 	inst.components.teleporter.onActivateByOther = OnActivateByOther
 	inst.components.teleporter.offset = 0
-	inst.components.teleporter.travelcameratime = 0.6 --0.6 --改了这个没啥影响
-	inst.components.teleporter.travelarrivetime = 0.5 --0.5
+	inst.components.teleporter.travelcameratime = 0.6
+	inst.components.teleporter.travelarrivetime = 0.5
+	--这里好像不起作用
 
 	inst:AddComponent("inventory")
 
@@ -147,10 +148,10 @@ local function entrance()
 		inst.exit = SpawnPrefab("pig_shop_cityhall_door_saida")
 		inst.exit.Transform:SetPosition(x + 5.2, 0, z + 0.5)
 		---------------------------cria a parede inicio------------------------------------------------------------------	
-		local tipodemuro = "wall_tigerpond"
+		local tipodemuro = "wall_tigerpond" --这应该是墙柱子
 		---------------------------cria a parede inicio -------------------------------------
 		---------------------------parade dos aposento------------------------------------------------------------------	
-		local y = 0
+		-- local y = 0
 
 		x, z = math.floor(x) + 0.5, math.floor(z) + 0.5 --matching with normal walls
 		inst.Transform:SetPosition(x, 0, z)
@@ -158,7 +159,7 @@ local function entrance()
 		local POS = {}
 		for x = -5.5, 5.5 do
 			for z = -8.5, 8.5 do
-				if x == -5.5 or x == 5.5 or z == -8.5 or z == 8.5 then
+				if x == -5.5 or x == 5.5 or z == -8.5 or z == 8.5 then ---刚定义的xz为什么还要check一遍
 					table.insert(POS, { x = x, z = z })
 				end
 			end
@@ -395,17 +396,8 @@ local function entrance()
 
 
 		--------------------------------------------cria o piso e itens fim -------------------------------------------------------	
-
-
-
-
-
-
-
-
-
-
-		inst:DoTaskInTime(1, function(inst) ----------------------------------如果修改这里呢 也没啥用
+		---------------------------这一点实在没看懂，啥玩意创建了又删掉inst
+		inst:DoTaskInTime(0.1, function(inst)
 			local portaentrada = SpawnPrefab("pig_shop_cityhall")
 			local a, b, c = inst.Transform:GetWorldPosition()
 			portaentrada.Transform:SetPosition(a, b, c)
@@ -444,7 +436,7 @@ local function SpawnPiso1(inst)
 	inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
 	inst.AnimState:SetLayer(LAYER_BACKGROUND)
 	inst.AnimState:SetSortOrder(5)
-	--	inst.AnimState:OverrideShade(BASEMENT_SHADE)
+	inst.AnimState:OverrideShade(BASEMENT_SHADE)
 	--tamanho do chao
 	inst.AnimState:SetScale(4.5, 4.5, 4.5)
 	inst.AnimState:PlayAnimation("floor_cityhall")
@@ -566,10 +558,14 @@ local function fnescada()
 	inst:AddComponent("teleporter")
 	inst.components.teleporter.onActivate = OnActivate
 	inst.components.teleporter.onActivateByOther = OnActivateByOther
-	inst.components.teleporter.travelcameratime = 0.01 --0.6 --改了之后进屋反而会很快，奇怪了
-	inst.components.teleporter.travelarrivetime = 0.01 --0.5
+
+
+
 	inst.components.teleporter.offset = 0
 	inst.components.teleporter.hamlet = true
+	inst.components.teleporter.travelcameratime = 0.2
+	inst.components.teleporter.travelarrivetime = 0.1
+	-----这里的是起作用的
 	inst:ListenForEvent("starttravelsound", StartTravelSound) -- triggered by player stategraph
 	inst:ListenForEvent("doneteleporting", OnDoneTeleporting)
 
