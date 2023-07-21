@@ -8,7 +8,7 @@ local assets =
     Asset("ANIM", "anim/palace_door.zip"),
 }
 
-local prefabs = 
+local prefabs =
 {
     "trinket_giftshop_1",
     "trinket_giftshop_3",
@@ -34,7 +34,7 @@ local function LightsOff(inst)
     end
 end
 
-local function onfar(inst) 
+local function onfar(inst)
     if not inst:HasTag("burnt") then
         if inst.components.spawner and inst.components.spawner:IsOccupied() then
             LightsOn(inst)
@@ -54,7 +54,7 @@ local function getstatus(inst)
     end
 end
 
-local function onnear(inst) 
+local function onnear(inst)
     if not inst:HasTag("burnt") then
         if inst.components.spawner and inst.components.spawner:IsOccupied() then
             LightsOff(inst)
@@ -78,21 +78,21 @@ end
 
 local function onoccupied(inst, child)
     if not inst:HasTag("burnt") then
-    	inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/city_pig/pig_in_house_LP", "pigsound")
+        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/city_pig/pig_in_house_LP", "pigsound")
         inst.SoundEmitter:PlaySound("dontstarve/common/pighouse_door")
-    	
+
         if inst.doortask then
             inst.doortask:Cancel()
             inst.doortask = nil
         end
 
-    	-- inst.doortask = inst:DoTaskInTime(1, function() if not inst.components.playerprox:IsPlayerClose() then LightsOn(inst) end end)
+        -- inst.doortask = inst:DoTaskInTime(1, function() if not inst.components.playerprox:IsPlayerClose() then LightsOn(inst) end end)
         inst.doortask = inst:DoTaskInTime(1, function() LightsOn(inst) end)
 
-    	if child then
-    	    inst:ListenForEvent("transformwere", onwere, child)
-    	    inst:ListenForEvent("transformnormal", onnormal, child)
-    	end
+        if child then
+            inst:ListenForEvent("transformwere", onwere, child)
+            inst:ListenForEvent("transformnormal", onnormal, child)
+        end
     end
 end
 
@@ -105,23 +105,23 @@ local function onvacate(inst, child)
 
         inst.SoundEmitter:PlaySound("dontstarve/common/pighouse_door")
         inst.SoundEmitter:KillSound("pigsound")
-    	
-    	if child then
-    	    inst:RemoveEventCallback("transformwere", onwere, child)
-    	    inst:RemoveEventCallback("transformnormal", onnormal, child)
+
+        if child then
+            inst:RemoveEventCallback("transformwere", onwere, child)
+            inst:RemoveEventCallback("transformnormal", onnormal, child)
 
             if child.components.werebeast then
-    		    child.components.werebeast:ResetTriggers()
-    		end
+                child.components.werebeast:ResetTriggers()
+            end
 
-    		if child.components.health then
-    		    child.components.health:SetPercent(1)
-    		end
-    	end    
+            if child.components.health then
+                child.components.health:SetPercent(1)
+            end
+        end
     end
 end
-        
-        
+
+
 local function onhammered(inst, worker)
     if inst:HasTag("fire") and inst.components.burnable then
         inst.components.burnable:Extinguish()
@@ -132,12 +132,12 @@ local function onhammered(inst, worker)
         inst.doortask = nil
     end
 
-	if inst.components.spawner then inst.components.spawner:ReleaseChild() end
+    if inst.components.spawner then inst.components.spawner:ReleaseChild() end
 
-	inst.components.lootdropper:DropLoot()
-	SpawnPrefab("collapse_big").Transform:SetPosition(inst.Transform:GetWorldPosition())
-	inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
-	inst:Remove()
+    inst.components.lootdropper:DropLoot()
+    SpawnPrefab("collapse_big").Transform:SetPosition(inst.Transform:GetWorldPosition())
+    inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
+    inst:Remove()
 end
 
 local function ongusthammerfn(inst)
@@ -146,8 +146,8 @@ end
 
 local function onhit(inst, worker)
     if not inst:HasTag("burnt") then
-    	inst.AnimState:PlayAnimation("hit")
-    	inst.AnimState:PushAnimation("idle")
+        inst.AnimState:PlayAnimation("hit")
+        inst.AnimState:PushAnimation("idle")
     end
 end
 
@@ -162,14 +162,15 @@ local function OnDay(inst)
                 inst.doortask = nil
             end
 
-            inst.doortask = inst:DoTaskInTime(1 + math.random()*2, function() inst.components.spawner:ReleaseChild() end)
+            inst.doortask = inst:DoTaskInTime(1 + math.random() * 2,
+                function() inst.components.spawner:ReleaseChild() end)
         end
     end
 end
 
 local function onbuilt(inst)
-	inst.AnimState:PlayAnimation("place")
-	inst.AnimState:PushAnimation("idle")
+    inst.AnimState:PlayAnimation("place")
+    inst.AnimState:PushAnimation("idle")
 end
 
 local function onsave(inst, data)
@@ -192,10 +193,10 @@ local function onload(inst, data)
     end
 end
 
-local function usedoor(inst,data)
+local function usedoor(inst, data)
     if inst.usesounds then
         if data and data.doer and data.doer.SoundEmitter then
-            for i,sound in ipairs(inst.usesounds)do
+            for i, sound in ipairs(inst.usesounds) do
                 data.doer.SoundEmitter:PlaySound(sound)
             end
         end
@@ -204,31 +205,30 @@ end
 --------------------------------------do teleporter------------------------
 local function OnDoneTeleporting(inst, obj)
 
-
 end
 local function StartTravelSound(inst, doer)
 
 end
 
 local function OnActivateByOther(inst, source, doer)
---	if not inst.sg:HasStateTag("open") then
---		inst.sg:GoToState("opening")
---	end
-	if doer ~= nil and doer.Physics ~= nil then
-		doer.Physics:CollidesWith(COLLISION.WORLD)
-	end
+    --	if not inst.sg:HasStateTag("open") then
+    --		inst.sg:GoToState("opening")
+    --	end
+    if doer ~= nil and doer.Physics ~= nil then
+        doer.Physics:CollidesWith(COLLISION.WORLD)
+    end
 end
 
 local function OnActivate(inst, doer)
     if doer:HasTag("player") then
         ProfileStatsSet("wormhole_used", true)
-	doer.mynetvarCameraMode:set(1)
-	
+        doer.mynetvarCameraMode:set(1)
+
         local other = inst.components.teleporter.targetTeleporter
         if other ~= nil then
             DeleteCloseEntsWithTag("WORM_DANGER", other, 15)
-        end		
-			
+        end
+
         --Sounds are triggered in player's stategraph
     elseif inst.SoundEmitter ~= nil then
 
@@ -236,26 +236,26 @@ local function OnActivate(inst, doer)
 end
 -----------------------------------------------------------------------------
 local function OnHaunt(inst, haunter)
-inst.components.teleporter:Activate(haunter)
+    inst.components.teleporter:Activate(haunter)
 end
 
 local function fn(Sim)
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
     local light = inst.entity:AddLight()
     inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
-	
-	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon( "pig_palace.png" )
+
+    local minimap = inst.entity:AddMiniMapEntity()
+    minimap:SetIcon("pig_palace.png")
 
     light:SetFalloff(1)
     light:SetIntensity(.5)
     light:SetRadius(1)
     light:Enable(false)
-    light:SetColour(180/255, 195/255, 50/255)
-    
+    light:SetColour(180 / 255, 195 / 255, 50 / 255)
+
     MakeObstaclePhysics(inst, 1.25)
 
     anim:SetBank("palace")
@@ -266,17 +266,17 @@ local function fn(Sim)
 
 
     inst:AddTag("structure")
-	inst:AddTag("hamletteleport")
-	
-	inst.entity:SetPristine()
+    inst:AddTag("hamletteleport")
 
-	if not TheWorld.ismastersim then
-		return inst
-	end	
-	
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("lootdropper")
 
---    inst:AddComponent("door")
+    --    inst:AddComponent("door")
     --[[
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
@@ -284,19 +284,19 @@ local function fn(Sim)
 	inst.components.workable:SetOnFinishCallback(onhammered)
 	inst.components.workable:SetOnWorkCallback(onhit)
 	]]
-	inst:AddComponent("spawner")
-	WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME*4, true)
-    inst.components.spawner:Configure("pigman_royalguard_3", TUNING.TOTAL_DAY_TIME*4)
+    inst:AddComponent("spawner")
+    WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME * 4, true)
+    inst.components.spawner:Configure("pigman_royalguard_3", TUNING.TOTAL_DAY_TIME * 4)
     inst.components.spawner.onoccupied = onoccupied
     inst.components.spawner.onvacate = onvacate
-	
-	inst:WatchWorldState("isday", OnDay)	  
-   
-    inst:AddComponent("inspectable")    
-	
+
+    inst:WatchWorldState("isday", OnDay)
+
+    inst:AddComponent("inspectable")
+
     inst.components.inspectable.getstatus = getstatus
-	
-	MakeSnowCovered(inst, .01)
+
+    MakeSnowCovered(inst, .01)
 
     inst:AddComponent("fixable")
     inst.components.fixable:AddRecinstructionStageData("rubble", "pig_shop", "palace")
@@ -306,10 +306,12 @@ local function fn(Sim)
     inst.components.teleporter.onActivate = OnActivate
     inst.components.teleporter.onActivateByOther = OnActivateByOther
     inst.components.teleporter.offset = 0
-	inst.components.teleporter.hamlet = true	
+    inst.components.teleporter.hamlet = true
+    inst.components.teleporter.travelcameratime = 0.2
+    inst.components.teleporter.travelarrivetime = 0.1
     inst:ListenForEvent("starttravelsound", StartTravelSound) -- triggered by player stategraph
-    inst:ListenForEvent("doneteleporting", OnDoneTeleporting)	
-	
+    inst:ListenForEvent("doneteleporting", OnDoneTeleporting)
+
     inst:ListenForEvent("burntup", function(inst)
         inst.components.fixable:AddRecinstructionStageData("burnt", "pig_shop", "palace", 1)
         if inst.doortask then
@@ -325,24 +327,23 @@ local function fn(Sim)
         end
     end)
 
-    inst.OnSave = onsave 
+    inst.OnSave = onsave
     inst.OnLoad = onload
 
-	inst:ListenForEvent( "onbuilt", onbuilt)
-    inst:DoTaskInTime(math.random(), function() 
-        if TheWorld.state.isday then 
+    inst:ListenForEvent("onbuilt", onbuilt)
+    inst:DoTaskInTime(math.random(), function()
+        if TheWorld.state.isday then
             OnDay(inst)
-        end 
+        end
     end)
-	
-    inst:AddComponent("hauntable")
-    inst.components.hauntable:SetOnHauntFn(OnHaunt)		
 
-    inst.usesounds = {"Hamlet/common/objects/store/door_open"}
-    inst:ListenForEvent("usedoor", function(inst,data) usedoor(inst,data) end)  
+    inst:AddComponent("hauntable")
+    inst.components.hauntable:SetOnHauntFn(OnHaunt)
+
+    inst.usesounds = { "Hamlet/common/objects/store/door_open" }
+    inst:ListenForEvent("usedoor", function(inst, data) usedoor(inst, data) end)
 
     return inst
 end
 
 return Prefab("common/objects/pig_palace", fn, assets, prefabs)
-
