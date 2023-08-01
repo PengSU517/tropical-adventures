@@ -463,12 +463,14 @@ local function entrance()
 
 
 
-		inst:DoTaskInTime(1, function(inst)
+		inst:DoTaskInTime(0, function(inst)
 			local portaentrada = SpawnPrefab("pig_shop_weapons")
 			local a, b, c = inst.Transform:GetWorldPosition()
 			portaentrada.Transform:SetPosition(a, b, c)
 			portaentrada.components.teleporter.targetTeleporter = inst.exit
 			inst.exit.components.teleporter.targetTeleporter = portaentrada
+			portaentrada.AnimState:PlayAnimation("place")
+			portaentrada.AnimState:PushAnimation("idle")
 
 			inst:Remove()
 		end)

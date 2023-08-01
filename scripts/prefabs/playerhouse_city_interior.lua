@@ -285,10 +285,10 @@ local function entrance()
 
 		----------------parede do fundo---------------------------------------------
 
-		local part = SpawnPrefab("wallinteriorplayerhouse")
+		local part = SpawnPrefab("wallinteriorplayerhouse") -----------墙纸贴图
 		if part ~= nil then
-			part.Transform:SetPosition(x - 2.8, 0, z)
-			part.Transform:SetRotation(180)
+			part.Transform:SetPosition(x - 4.8, 0, z)
+			part.Transform:SetRotation(90)
 			if part.components.health ~= nil then
 				part.components.health:SetPercent(1)
 			end
@@ -350,7 +350,7 @@ local function entrance()
 
 		local part = SpawnPrefab("deco_antiquities_cornerbeam2")
 		if part ~= nil then
-			part.Transform:SetPosition(x + 4.7, 0, z - 15 / 2)
+			part.Transform:SetPosition(x + 5.5, 0, z - 17 / 2)
 			--	part.Transform:SetRotation(180)
 			if part.components.health ~= nil then
 				part.components.health:SetPercent(1)
@@ -359,7 +359,7 @@ local function entrance()
 
 		local part = SpawnPrefab("deco_antiquities_cornerbeam2")
 		if part ~= nil then
-			part.Transform:SetPosition(x + 4.7, 0, z + 15 / 2)
+			part.Transform:SetPosition(x + 5.5, 0, z + 17 / 2)
 			part.Transform:SetRotation(90)
 			if part.components.health ~= nil then
 				part.components.health:SetPercent(1)
@@ -406,6 +406,12 @@ local function entrance()
 			if part.components.health ~= nil then
 				part.components.health:SetPercent(1)
 			end
+
+			-- part.Transform:SetScale(2.26, 2, 1.8)
+
+			-- part.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
+			-- part.AnimState:SetLayer(LAYER_BELOW_GROUND)
+			-- part.AnimState:SetSortOrder(0)
 		end
 		----------------------------criature dentro das jaulas-------------------------------------------------------------
 
@@ -425,12 +431,14 @@ local function entrance()
 
 
 
-		inst:DoTaskInTime(1, function(inst)
+		inst:DoTaskInTime(0, function(inst)
 			local portaentrada = SpawnPrefab("playerhouse_city")
 			local a, b, c = inst.Transform:GetWorldPosition()
 			portaentrada.Transform:SetPosition(a, b, c)
 			portaentrada.components.teleporter.targetTeleporter = inst.exit
 			inst.exit.components.teleporter.targetTeleporter = portaentrada
+			portaentrada.AnimState:PlayAnimation("place")
+			portaentrada.AnimState:PushAnimation("idle")
 
 			inst:Remove()
 		end)
@@ -473,8 +481,11 @@ local function SpawnPiso1(inst)
 	inst.AnimState:SetLayer(LAYER_BACKGROUND)
 	inst.AnimState:SetSortOrder(5)
 
-	inst.AnimState:SetScale(4.5, 4.5, 4.5)
+	inst.AnimState:SetScale(5, 5, 5)
 	inst.AnimState:PlayAnimation("noise_woodfloor")
+	inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
+	inst.AnimState:SetLayer(LAYER_BELOW_GROUND)
+	inst.AnimState:SetSortOrder(0)
 	--inst.Transform:SetRotation(45)
 
 	--inst.Transform:SetScale(2.82, 2.82, 2.82)
@@ -556,7 +567,7 @@ local function wall_common(build)
 	inst.AnimState:SetBuild("wallhamletcity1")
 	inst.AnimState:PlayAnimation("shop_wall_woodwall", true)
 	inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-	inst.AnimState:SetScale(2.8, 2.8, 2.8)
+	inst.AnimState:SetScale(3.5, 3.5, 2.5) ----SetScale(2.8, 2.8, 2.8)
 
 	inst:AddTag("wallhousehamlet")
 	inst:AddTag("liberado")
