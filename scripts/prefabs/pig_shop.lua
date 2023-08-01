@@ -74,14 +74,6 @@ local function LightsOff(inst)
     end
 end
 
-local function onfar(inst)
-    if not inst:HasTag("burnt") then
-        if inst.components.spawner and inst.components.spawner:IsOccupied() then
-            LightsOn(inst)
-        end
-    end
-end
-
 local function getstatus(inst)
     if inst:HasTag("burnt") then
         return "BURNT"
@@ -210,6 +202,8 @@ end
 local function onbuilt(inst)
     inst.AnimState:PlayAnimation("place")
     inst.AnimState:PushAnimation("idle")
+    -----------------这个函数不知道怎么被覆盖掉了 还是listentoevent不起作用
+    -----------------listenforevent 没有触发，因为房间是直接生成的，
 end
 
 local function onsave(inst, data)
@@ -320,6 +314,7 @@ local function makespawnerfn(Sim)
 
     MakeObstaclePhysics(inst, 1)
     anim:SetBank("pig_shop")
+    anim:PlayAnimation("place") -------------------------
     anim:PlayAnimation("idle", true)
 
     inst:AddTag("pig_shop_spawner")
@@ -329,7 +324,7 @@ local function makespawnerfn(Sim)
 
     ------------------------------------------------------------------------
 
-    inst:DoTaskInTime(1, function()
+    inst:DoTaskInTime(0, function()
         local coloca = SpawnPrefab(shops[math.random(1, 11)])
         local x, y, z = inst.Transform:GetWorldPosition()
         coloca.Transform:SetPosition(x, y, z)
@@ -404,7 +399,12 @@ local function makefn(name, build, bank, data)
         inst.entity:AddSoundEmitter()
 
         local minimap = inst.entity:AddMiniMapEntity()
-        minimap:SetIcon(name .. ".png")
+
+        if name == "pig_shop_cityhall_player" then
+            minimap:SetIcon("pig_shop_cityhall.png")
+        else
+            minimap:SetIcon(name .. ".png")
+        end
 
         light:SetFalloff(1)
         light:SetIntensity(.5)
@@ -422,6 +422,7 @@ local function makefn(name, build, bank, data)
 
         anim:SetBuild(build)
 
+        anim:PlayAnimation("place") -------------------------------
         anim:PlayAnimation("idle", true)
         anim:Hide("YOTP")
 
@@ -629,11 +630,8 @@ local function makehouse(name, build, bank, data)
 end
 
 return
-    makeshop("pig_shop_deli", "pig_shop_deli", nil, {
-        indestructable = true,
-        sounds = { SHOPSOUND_ENTER1,
-            SHOPSOUND_ENTER2 }
-    }),
+    makeshop("pig_shop_deli", "pig_shop_deli", nil,
+        { indestructable = true, sounds = { SHOPSOUND_ENTER1, SHOPSOUND_ENTER2 } }),
     makeshop("pig_shop_general", "pig_shop_general", nil,
         { indestructable = true, sounds = { SHOPSOUND_ENTER1, SHOPSOUND_ENTER2 } }),
     makeshop("pig_shop_hoofspa", "pig_shop_hoofspa", nil,
