@@ -397,12 +397,14 @@ local function entrance()
 
 		--------------------------------------------cria o piso e itens fim -------------------------------------------------------	
 		---------------------------这一点实在没看懂，啥玩意创建了又删掉inst
-		inst:DoTaskInTime(0.1, function(inst)
+		inst:DoTaskInTime(0, function(inst)
 			local portaentrada = SpawnPrefab("pig_shop_cityhall")
 			local a, b, c = inst.Transform:GetWorldPosition()
 			portaentrada.Transform:SetPosition(a, b, c)
 			portaentrada.components.teleporter.targetTeleporter = inst.exit
 			inst.exit.components.teleporter.targetTeleporter = portaentrada
+			portaentrada.AnimState:PlayAnimation("place")
+			portaentrada.AnimState:PushAnimation("idle")
 
 			inst:Remove()
 		end)

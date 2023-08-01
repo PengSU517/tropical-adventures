@@ -33,8 +33,36 @@ COLLISION = _G.COLLISION
 
 AllPlayers = _G.AllPlayers
 
--- WorldSim:SetWorldSize(700, 700) ----设置地图大小
--- modimport("postinit/map/forest_map")
+
+
+GLOBAL.TUNING.tropical = {
+	wind                         = GetModConfigData("wind"),
+	hail                         = GetModConfigData("hail"),
+	hamworld                     = GetModConfigData("kindofworld"),
+	bramble                      = GetModConfigData("bramble"),
+	roc                          = GetModConfigData("roc"),
+	megarandomCompatibilityWater = GetModConfigData("megarandomCompatibilityWater"),
+	disableWater                 = GetModConfigData("Disable_Water"),
+	springflood                  = GetModConfigData("flood"),
+	sealnado                     = GetModConfigData("sealnado"),
+	waves                        = GetModConfigData("Waves"),
+	hamlet                       = GetModConfigData("Hamlet"),
+	shipwrecked                  = GetModConfigData("Shipwrecked"),
+	tropicalshards               = GetModConfigData("tropicalshards"),
+	removedark                   = GetModConfigData("removedark"),
+	aporkalypse                  = GetModConfigData("aporkalypse"),
+	multiplayerportal            = GetModConfigData("startlocation"),
+	greenmod                     = GLOBAL.KnownModIndex:IsModEnabled("workshop-1418878027"),
+	kindofworld                  = GetModConfigData("kindofworld"),
+	volcaniceruption             = GetModConfigData("volcaniceruption"),
+	forge                        = GetModConfigData("forge"),
+	fog                          = GetModConfigData("fog"),
+	hayfever                     = GetModConfigData("hayfever"),
+	disembarkation               = GetModConfigData("automatic_disembarkation"),
+	bosslife                     = GetModConfigData("bosslife"),
+}
+
+
 
 PrefabFiles =
 {
@@ -514,28 +542,29 @@ end
 -- table.insert(PrefabFiles, "maxwellphonograph")
 -- table.insert(PrefabFiles, "maxwellestatua")
 -- table.insert(PrefabFiles, "maxwellshadowheart")
--- table.insert(PrefabFiles, "tree_forest")
--- table.insert(PrefabFiles, "tree_forest_deep")
--- table.insert(PrefabFiles, "tree_forest_rot")
--- table.insert(PrefabFiles, "tree_forestseed")
--- table.insert(PrefabFiles, "spider_monkey_tree")
--- table.insert(PrefabFiles, "spider_monkey")
--- table.insert(PrefabFiles, "spider_monkey_herd")
--- table.insert(PrefabFiles, "spider_ape")
--- table.insert(PrefabFiles, "trapslug")
--- table.insert(PrefabFiles, "antman2")
--- table.insert(PrefabFiles, "fennel")
--- table.insert(PrefabFiles, "pig_palace2")
--- table.insert(PrefabFiles, "pig_palace2_interior")
--- table.insert(PrefabFiles, "peagawk_prism")
--- table.insert(PrefabFiles, "peagawkfeather_prism")
--- table.insert(PrefabFiles, "city_lamp2")
--- table.insert(PrefabFiles, "pig_guard_tower2")
--- table.insert(PrefabFiles, "wall_spawn_city")
--- --table.insert(PrefabFiles,"spider_ape_tree")
--- table.insert(PrefabFiles, "slipstor")
--- table.insert(PrefabFiles, "slip")
--- table.insert(PrefabFiles, "slipstor_spawner")
+
+table.insert(PrefabFiles, "tree_forest")
+table.insert(PrefabFiles, "tree_forest_deep")
+table.insert(PrefabFiles, "tree_forest_rot")
+table.insert(PrefabFiles, "tree_forestseed")
+table.insert(PrefabFiles, "spider_monkey_tree")
+table.insert(PrefabFiles, "spider_monkey")
+table.insert(PrefabFiles, "spider_monkey_herd")
+table.insert(PrefabFiles, "spider_ape")
+table.insert(PrefabFiles, "trapslug")
+table.insert(PrefabFiles, "antman2")
+table.insert(PrefabFiles, "fennel")
+table.insert(PrefabFiles, "pig_palace2")
+table.insert(PrefabFiles, "pig_palace2_interior")
+table.insert(PrefabFiles, "peagawk_prism")
+table.insert(PrefabFiles, "peagawkfeather_prism")
+table.insert(PrefabFiles, "city_lamp2")
+table.insert(PrefabFiles, "pig_guard_tower2")
+table.insert(PrefabFiles, "wall_spawn_city")
+table.insert(PrefabFiles, "spider_ape_tree")
+table.insert(PrefabFiles, "slipstor")
+table.insert(PrefabFiles, "slip")
+table.insert(PrefabFiles, "slipstor_spawner")
 
 -- if GetModConfigData("Shipwrecked_plus") == true or GetModConfigData("enableallprefabs") == true or GetModConfigData("Shipwreckedworld_plus") == true then
 -- 	table.insert(PrefabFiles, "goldbishop")
@@ -622,34 +651,6 @@ table.insert(PrefabFiles, "whale")
 table.insert(PrefabFiles, "whale_carcass")
 table.insert(PrefabFiles, "knightboat")
 table.insert(PrefabFiles, "poisonmistparticle")
-
-GLOBAL.TUNING.tropical = {
-	wind                         = GetModConfigData("wind"),
-	hail                         = GetModConfigData("hail"),
-	hamworld                     = GetModConfigData("kindofworld"),
-	bramble                      = GetModConfigData("bramble"),
-	roc                          = GetModConfigData("roc"),
-	megarandomCompatibilityWater = GetModConfigData("megarandomCompatibilityWater"),
-	disableWater                 = GetModConfigData("Disable_Water"),
-	springflood                  = GetModConfigData("flood"),
-	sealnado                     = GetModConfigData("sealnado"),
-	waves                        = GetModConfigData("Waves"),
-	hamlet                       = GetModConfigData("Hamlet"),
-	shipwrecked                  = GetModConfigData("Shipwrecked"),
-	tropicalshards               = GetModConfigData("tropicalshards"),
-	removedark                   = GetModConfigData("removedark"),
-	aporkalypse                  = GetModConfigData("aporkalypse"),
-	multiplayerportal            = GetModConfigData("startlocation"),
-	greenmod                     = GLOBAL.KnownModIndex:IsModEnabled("workshop-1418878027"),
-	kindofworld                  = GetModConfigData("kindofworld"),
-	volcaniceruption             = GetModConfigData("volcaniceruption"),
-	forge                        = GetModConfigData("forge"),
-	fog                          = GetModConfigData("fog"),
-	hayfever                     = GetModConfigData("hayfever"),
-	disembarkation               = GetModConfigData("automatic_disembarkation"),
-	bosslife                     = GetModConfigData("bosslife"),
-}
-
 
 
 table.insert(PrefabFiles, "deco_util")
@@ -2151,8 +2152,7 @@ AddPrefabPostInit("forest", function(inst)
 		end
 
 		if GetModConfigData("kindofworld") ~= 10 and GetModConfigData("Hamlet") ~= 5 then
-			inst:AddComponent(
-				"tropicalgroundspawner")
+			inst:AddComponent("tropicalgroundspawner")
 		end
 		if GetModConfigData("kindofworld") == 15 or GetModConfigData("kindofworld") == 10 or GetModConfigData("kindofworld") == 20 then
 			if GetModConfigData("aquaticcreatures") then
@@ -3003,6 +3003,7 @@ AddComponentPostInit("inventory", preventpick)
 AddPrefabPostInit("inventory_classified", preventpickclassified)
 
 ------------------------------------------------------------
+---------------------现在不会报错，但是仍然不能修理虚空装备
 AddComponentPostInit("armor", function(self)
 	function self:SetCondition(amount)
 		if self.indestructible then
@@ -3018,13 +3019,24 @@ AddComponentPostInit("armor", function(self)
 			GLOBAL.ProfileStatsSet("armor", self.inst.prefab)
 
 			if self.onfinished ~= nil then
-				self.onfinished()
+				self.onfinished(self.inst)
 			end
 
-			if not self.dontremove then
+			if not self.keeponfinished then --if not self.dontremove then
 				self.inst:Remove()
 			end
 		end
+	end
+
+	function self:SetKeepOnFinished(keep)
+		self.keeponfinished = (keep ~= false) or false
+	end
+
+	function self:SetOnFinished(fn)
+		local function alternative(inst)
+			return
+		end
+		self.onfinished = fn or alternative
 	end
 end)
 
@@ -3256,6 +3268,9 @@ local function getspeedbonus(inst)
 	return val
 end
 
+--------------------这里控制水上的速度-------------------------
+------------------为什么function不能加local啊
+----------------在船上关闭保存世界就会传送至出生门
 AddComponentPostInit("locomotor", function(self)
 	local OldGetSpeedMultiplier = self.GetSpeedMultiplier
 	function self:GetSpeedMultiplier()
