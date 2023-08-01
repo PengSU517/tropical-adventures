@@ -112,6 +112,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
         inst.AnimState:SetBuild("player_small_house1_cottage_build")
         inst.bank = "playerhouse_small"
         inst.AnimState:SetBank("playerhouse_small")
+        inst.MiniMapEntity:SetIcon("player_house_cottage.png")
     end
 
     if item.prefab == "player_house_villa_craft" then
@@ -119,6 +120,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
         inst.AnimState:SetBuild("player_large_house1_villa_build")
         inst.bank = "playerhouse_large"
         inst.AnimState:SetBank("playerhouse_large")
+        inst.MiniMapEntity:SetIcon("player_house_villa.png")
     end
 
     if item.prefab == "player_house_manor_craft" then
@@ -126,6 +128,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
         inst.AnimState:SetBuild("player_large_house1_manor_build")
         inst.bank = "playerhouse_large"
         inst.AnimState:SetBank("playerhouse_large")
+        inst.MiniMapEntity:SetIcon("player_house_manor.png")
     end
 
     if item.prefab == "player_house_tudor_craft" then
@@ -133,6 +136,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
         inst.AnimState:SetBuild("player_small_house1_tudor_build")
         inst.bank = "playerhouse_small"
         inst.AnimState:SetBank("playerhouse_small")
+        inst.MiniMapEntity:SetIcon("player_house_tudor.png")
     end
 
     if item.prefab == "player_house_gothic_craft" then
@@ -140,6 +144,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
         inst.AnimState:SetBuild("player_small_house1_gothic_build")
         inst.bank = "playerhouse_small"
         inst.AnimState:SetBank("playerhouse_small")
+        inst.MiniMapEntity:SetIcon("player_house_gothic.png")
     end
 
     if item.prefab == "player_house_brick_craft" then
@@ -147,6 +152,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
         inst.AnimState:SetBuild("player_small_house1_brick_build")
         inst.bank = "playerhouse_small"
         inst.AnimState:SetBank("playerhouse_small")
+        inst.MiniMapEntity:SetIcon("player_house_brick.png")
     end
 
     if item.prefab == "player_house_turret_craft" then
@@ -154,6 +160,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
         inst.AnimState:SetBuild("player_small_house1_turret_build")
         inst.bank = "playerhouse_small"
         inst.AnimState:SetBank("playerhouse_small")
+        inst.MiniMapEntity:SetIcon("player_house_turret.png")
     end
 end
 
@@ -169,6 +176,7 @@ local function onhammered(inst, worker)
         SpawnPrefab("collapse_small").Transform:SetPosition(inst.Transform:GetWorldPosition())
         if worker and worker.SoundEmitter then
             worker.SoundEmitter:PlaySound("dontstarve/common/destroy_stone")
+            ---------为啥这里是人播放音效啊，不该是锤烂的房子吗
         end
     end
 end
@@ -186,11 +194,14 @@ local function makehousefn(name, build, bank, data)
         local minimap = inst.entity:AddMiniMapEntity()
         minimap:SetIcon("pig_house_sale.png")
 
-        light:SetFalloff(1)
-        light:SetIntensity(.5)
-        light:SetRadius(1)
-        light:Enable(false)
-        light:SetColour(180 / 255, 195 / 255, 50 / 255)
+        -- minimap:SetIcon("pig_house_sale.png") --------这个图片哪儿来的  minimap
+
+        light:SetFalloff(1)     --没看出来干啥的
+        light:SetIntensity(0.8) --设置光的衰减速度
+        light:SetRadius(10)
+        light:Enable(true)
+        light:SetColour(180 / 255, 195 / 255, 180 / 255) ---RGB色彩调节
+        -------SetColour(180 / 255, 195 / 255, 50 / 255)黄光太暖了
         inst.Transform:SetScale(0.75, 0.75, 0.75)
 
         MakeObstaclePhysics(inst, 1.25)
