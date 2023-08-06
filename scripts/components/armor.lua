@@ -1,11 +1,14 @@
 local function PercentChanged(inst, data)
-    if inst.components.armor ~= nil and
-        data.percent ~= nil and
-        data.percent <= 0 and
-        inst.components.inventoryitem ~= nil and
-        inst.components.inventoryitem.owner ~= nil then
-        inst.components.inventoryitem.owner:PushEvent("armorbroke", { armor = inst })
-        --ProfileStatsSet("armor_broke_"..inst.prefab, true)
+    if inst.components.armor ~= nil and data.percent ~= nil then
+        if inst.components.forgerepairable ~= nil then
+            inst.components.forgerepairable:SetRepairable(data.percent < 1)
+        end
+        if data.percent <= 0 and
+            inst.components.inventoryitem ~= nil and
+            inst.components.inventoryitem.owner ~= nil then
+            inst.components.inventoryitem.owner:PushEvent("armorbroke", { armor = inst })
+            --ProfileStatsSet("armor_broke_"..inst.prefab, true)
+        end
     end
 end
 
@@ -15,8 +18,18 @@ local Armor = Class(function(self, inst)
     self.maxcondition = 100
     self.tags = nil
     self.weakness = nil
+    --self.onfinished = nil
+    --self.keeponfinished = nil
     self.inst:ListenForEvent("percentusedchange", PercentChanged)
 end)
+
+function Armor:SetOnFinished(fn)
+    self.onfinished = fn
+end
+
+function Armor:SetKeepOnFinished(keep)
+    self.keeponfinished = keep ~= false
+end
 
 function Armor:InitCondition(amount, absorb_percent)
     self.condition = amount
@@ -30,11 +43,11 @@ function Armor:InitIndestructible(absorb_percent)
 end
 
 function Armor:IsIndestructible()
-	return self.indestructible == true
+    return self.indestructible == true
 end
 
 function Armor:IsDamaged()
-	return self.condition < self.maxcondition
+    return self.condition < self.maxcondition
 end
 
 function Armor:GetPercent()
@@ -73,23 +86,25 @@ function Armor:SetPercent(amount)
 end
 
 function Armor:SetCondition(amount)
-	if self.indestructible then
-		return
-	end
+    if self.indestructible then
+        return
+    end
 
     self.condition = math.min(amount, self.maxcondition)
     self.inst:PushEvent("percentusedchange", { percent = self:GetPercent() })
 
     if self.condition <= 0 then
         self.condition = 0
-        ProfileStatsSet("armor_broke_"..self.inst.prefab, true)
+        ProfileStatsSet("armor_broke_" .. self.inst.prefab, true)
         ProfileStatsSet("armor", self.inst.prefab)
 
         if self.onfinished ~= nil then
-            self.onfinished()
+            self.onfinished(self.inst)
         end
 
-        self.inst:Remove()
+        if not self.keeponfinished then
+            self.inst:Remove()
+        end
     end
 end
 
@@ -108,8 +123,8 @@ function Armor:SetImmuneTags(tags)
 end
 
 function Armor:CanResist(attacker, weapon)
-    if attacker and self.immunetags then        
-        for k,v in pairs(self.immunetags) do
+    if attacker and self.immunetags then
+        for k, v in pairs(self.immunetags) do
             if attacker:HasTag(v) then
                 return false
             end
@@ -161,7 +176,7 @@ function Armor:Repair(amount)
 end
 
 function Armor:GetDebugString()
-	return self.condition .. "/" .. self.maxcondition
+    return self.condition .. "/" .. self.maxcondition
 end
 
 return Armor

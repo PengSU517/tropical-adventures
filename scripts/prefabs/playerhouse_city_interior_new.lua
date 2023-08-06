@@ -23,12 +23,65 @@ local function OnLoad(inst, data)
 	if data.entrada then inst.entrada = data.entrada end
 	if data.wallpaper then
 		inst.wallpaper = data.wallpaper
-		inst.AnimState:SetBank("wallhamletcity1")
-		inst.AnimState:SetBuild("wallhamletcity1")
-		if type(inst.wallpaper) == "string" then
+
+		if inst.wallpaper == "shop_wall_checkered_metal" then
+			inst.AnimState:SetBank("wallhamletcity1")
+			inst.AnimState:SetBuild("wallhamletcity1")
 			inst.AnimState:PlayAnimation(inst.wallpaper, true)
-		else
-			inst.AnimState:PlayAnimation("shop_wall_woodwall", true)
+		end
+
+		if inst.wallpaper == "shop_wall_circles" then
+			inst.AnimState:SetBank("wallhamletcity1")
+			inst.AnimState:SetBuild("wallhamletcity1")
+			inst.AnimState:PlayAnimation(inst.wallpaper, true)
+		end
+
+		if inst.wallpaper == "shop_wall_marble" then
+			inst.AnimState:SetBank("wallhamletcity1")
+			inst.AnimState:SetBuild("wallhamletcity1")
+			inst.AnimState:PlayAnimation(inst.wallpaper, true)
+		end
+
+		if inst.wallpaper == "shop_wall_sunflower" then
+			inst.AnimState:SetBank("wallhamletcity1")
+			inst.AnimState:SetBuild("wallhamletcity1")
+			inst.AnimState:PlayAnimation(inst.wallpaper, true)
+		end
+
+		if inst.wallpaper == "shop_wall_woodwall" then
+			inst.AnimState:SetBank("wallhamletcity1")
+			inst.AnimState:SetBuild("wallhamletcity1")
+			inst.AnimState:PlayAnimation(inst.wallpaper, true)
+		end
+
+		if inst.wallpaper == "wall_mayorsoffice_whispy" then
+			inst.AnimState:SetBank("wallhamletcity1")
+			inst.AnimState:SetBuild("wallhamletcity1")
+			inst.AnimState:PlayAnimation(inst.wallpaper, true)
+		end
+
+		if inst.wallpaper == "harlequin_panel" then
+			inst.AnimState:SetBank("wallhamletcity2")
+			inst.AnimState:SetBuild("wallhamletcity2")
+			inst.AnimState:PlayAnimation(inst.wallpaper, true)
+		end
+
+		if inst.wallpaper == "shop_wall_fullwall_moulding" then
+			inst.AnimState:SetBank("wallhamletcity2")
+			inst.AnimState:SetBuild("wallhamletcity2")
+			inst.AnimState:PlayAnimation(inst.wallpaper, true)
+		end
+
+		if inst.wallpaper == "shop_wall_floraltrim2" then
+			inst.AnimState:SetBank("wallhamletcity2")
+			inst.AnimState:SetBuild("wallhamletcity2")
+			inst.AnimState:PlayAnimation(inst.wallpaper, true)
+		end
+
+		if inst.wallpaper == "shop_wall_upholstered" then
+			inst.AnimState:SetBank("wallhamletcity2")
+			inst.AnimState:SetBuild("wallhamletcity2")
+			inst.AnimState:PlayAnimation(inst.wallpaper, true)
 		end
 	end
 end
@@ -149,14 +202,14 @@ local function entrance()
 	inst.AnimState:SetSortOrder(1)
 	inst.AnimState:SetFinalOffset(2)
 
-	inst.Transform:SetEightFaced() -------八个面是干啥呢
+	inst.Transform:SetEightFaced()
 
-	-- inst.MiniMapEntity:SetIcon("minimap_volcano_entrance.tex")
+	inst.MiniMapEntity:SetIcon("minimap_volcano_entrance.tex")
 
 	inst:AddTag("vulcano_part")
 	inst:AddTag("antlion_sinkhole_blocker")
 
-	inst:SetDeployExtraSpacing(2.5) -------------------这个难道是放置的spacing
+	inst:SetDeployExtraSpacing(2.5)
 
 	if not TheNet:IsDedicated() then
 		inst:ListenForEvent("mouseover", OnMouseOver)
@@ -237,20 +290,16 @@ local function entrance()
 			part.Transform:SetPosition(x - 3.5 * size, 0, z)
 			part.Transform:SetRotation(90)
 		end
+		---------------------------------itens de dentro----------------------------
 
-		local part = SpawnPrefab("playerhouse_city_floor")
+		local part = SpawnPrefab("playerhouse_room_pedra_cima")
 		if part ~= nil then
-			part.Transform:SetPosition(x - 1.5 * size, 0, z) -----------------怪不得，这是视角的中心
+			part.Transform:SetPosition(x - 6.5, 0, z + 3.9)
+			part.Transform:SetRotation(90)
+			if part.components.health ~= nil then
+				part.components.health:SetPercent(1)
+			end
 		end
-
-
-
-		-- local part = SpawnPrefab("playerhouse_room_pedra_cima")
-		-- if part ~= nil then
-		-- 	part.Transform:SetPosition(x - 6.5, 0, z + 3.9)
-		-- 	part.Transform:SetRotation(90)
-
-		-- end
 
 		-- local part = SpawnPrefab("deco_roomglow") ---这个是光亮效果？-------仍然不知道啥用
 		-- if part ~= nil then
@@ -263,37 +312,39 @@ local function entrance()
 			part.Transform:SetRotation(-90)
 		end
 
-		local part = SpawnPrefab("deco_antiquities_wallfish") ---刚建的时候贴图是丢失的，重新加载之后反而没事了
-		--门也是替代的这个墙纸
+		local part = SpawnPrefab("deco_antiquities_wallfish")
 		if part ~= nil then
 			part.Transform:SetPosition(x - 6.5 * size, 0, z + 4 * size)
 			part.Transform:SetRotation(90)
+			if part.components.health ~= nil then
+				part.components.health:SetPercent(1)
+			end
 		end
 
 		local part = SpawnPrefab("deco_antiquities_cornerbeam")
 		if part ~= nil then
-			part.Transform:SetPosition(x - 6.5 * size, 0, z - 11 * size)
+			part.Transform:SetPosition(x - 6.5 * size, 0, z - 9.5 * size)
 			--	part.Transform:SetRotation(180)
-			part.Transform:SetScale(1, 1.3, 1) ---设置z没用
+			part.Transform:SetScale(1, 1.2, 1) ---设置z没用
 		end
 
 		local part = SpawnPrefab("deco_antiquities_cornerbeam")
 		if part ~= nil then
-			part.Transform:SetPosition(x - 6.5 * size, 0, z + 11 * size)
+			part.Transform:SetPosition(x - 6.5 * size, 0, z + 9.5 * size)
 			part.Transform:SetRotation(90)
-			part.Transform:SetScale(1, 1.3, 1) ---设置z没用
+			part.Transform:SetScale(1, 1.2, 1) ---设置z没用
 		end
 
 		local part = SpawnPrefab("deco_antiquities_cornerbeam2")
 		if part ~= nil then
-			part.Transform:SetPosition(x + 6.5 * size, 0, z - 11 * size)
+			part.Transform:SetPosition(x + 6.5 * size, 0, z - 10 * size)
 			--	part.Transform:SetRotation(180)
 			part.Transform:SetScale(1, 1.2, 1)
 		end
 
 		local part = SpawnPrefab("deco_antiquities_cornerbeam2")
 		if part ~= nil then
-			part.Transform:SetPosition(x + 6.5 * size, 0, z + 11 * size)
+			part.Transform:SetPosition(x + 6.5 * size, 0, z + 10 * size)
 			part.Transform:SetRotation(180)
 			part.Transform:SetScale(1, 1.2, 1) ---设置z没用
 		end
@@ -301,7 +352,7 @@ local function entrance()
 
 		local part = SpawnPrefab("swinging_light_rope_1")
 		if part ~= nil then
-			part.Transform:SetPosition(x - 0 * size, 3, z)
+			part.Transform:SetPosition(x - 6 * size, 0, z)
 			part.Transform:SetRotation(-90)
 		end
 
@@ -321,18 +372,24 @@ local function entrance()
 		-- 	end
 		-- end
 
-		local part = SpawnPrefab("window_round_curtains_nails") -----------之前的亮度设置时通过窗户影响光亮的，反而灯没有受影响
+		-- local part = SpawnPrefab("window_round_curtains_nails") -----------之前的亮度设置时通过窗户影响光亮的，反而灯没有受影响
+		-- if part ~= nil then
+		-- 	part.Transform:SetPosition(x, 0, z + 9.5 * size)
+		-- 	part.Transform:SetRotation(90)
+		-- end
+		------------------------portoes trancados--------------------------------
+		local part = SpawnPrefab("playerhouse_city_floor")
 		if part ~= nil then
-			part.Transform:SetPosition(x, 0, z + 11 * size)
-			-- part.Transform:SetRotation(90)
-		end
+			part.Transform:SetPosition(x - 1.5 * size, 0, z) -----------------怪不得，这是视角的中心
 
-		local part = SpawnPrefab("window_round_curtains_nails") -----------之前的亮度设置时通过窗户影响光亮的，反而灯没有受影响
-		if part ~= nil then
-			part.Transform:SetPosition(x, 0, z - 11 * size)
-			-- part.Transform:SetRotation(90)
-		end
 
+			part.Transform:SetScale(1, 1, 1.15)
+
+			-- part.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
+			-- part.AnimState:SetLayer(LAYER_BELOW_GROUND)
+			-- part.AnimState:SetSortOrder(0)
+		end
+		----------------------------criature dentro das jaulas-------------------------------------------------------------
 
 		if inst.caverna == nil then
 			inst.caverna = 1
@@ -384,15 +441,13 @@ local function SpawnPiso1(inst)
 	inst.entity:AddSoundEmitter()
 	inst.entity:AddNetwork()
 
-	-- inst.Transform:SetScale(1, 1, 1.2)
 	inst.AnimState:SetBank("pisohamlet")
 	inst.AnimState:SetBuild("pisohamlet")
 	inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
 	inst.AnimState:SetLayer(LAYER_BACKGROUND)
 	inst.AnimState:SetSortOrder(5)
 
-	inst.AnimState:SetScale(5, 7, 1) ---- y设置宽度，z无用
-
+	inst.AnimState:SetScale(5, 5, 5)
 	inst.AnimState:PlayAnimation("noise_woodfloor")
 	-- inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
 	-- inst.AnimState:SetLayer(LAYER_BELOW_GROUND)
@@ -400,11 +455,6 @@ local function SpawnPiso1(inst)
 	--inst.Transform:SetRotation(45)
 
 	--inst.Transform:SetScale(2.82, 2.82, 2.82)
-
-	-- inst:AddComponent("prototyper")
-	-- inst.components.prototyper.trees = TUNING.PROTOTYPER_TREES.HOME_TWO
-	-- inst.components.prototyper.onturnoff = OnTurnOff
-	-- inst.components.prototyper.onturnon = OnTurnOn
 
 	--	inst:AddTag("NOCLICK")
 	inst:AddTag("alt_tile")
@@ -423,33 +473,15 @@ local function SpawnPiso1(inst)
 
 	inst:AddComponent("interactions")
 
-	inst:DoTaskInTime(1, function(inst)
-		local prot = SpawnPrefab("wallrenovation")
-		local prot1 = SpawnPrefab("wallrenovation")
-		local a, b, c = inst.Transform:GetWorldPosition()
-		if prot and prot1 then
-			prot.Transform:SetPosition(a + 2, b, c + 3)
-			prot1.Transform:SetPosition(a + 2, b, c - 3)
-		end
-	end)
-
-	--------------------直接用这一部分不显示图标，但是能用科技栏
-	-- inst:AddTag("NOBLOCK")
-	-- inst:AddTag("NOCLICK")
-	-- inst:AddTag("prototyper")
-
-	-- inst.entity:SetPristine()
-
-	-- if not TheWorld.ismastersim then
-	-- 	return inst
-	-- end
-
-	-- inst.persists = false
-
-	-- inst:AddComponent("prototyper")
-	-- inst.components.prototyper.trees = TUNING.PROTOTYPER_TREES.HOME_TWO
-	-- inst.components.prototyper.onturnoff = OnTurnOff
-	-- inst.components.prototyper.onturnon = OnTurnOn
+	-- inst:DoTaskInTime(1, function(inst)
+	-- 	local prot = SpawnPrefab("wallrenovation")
+	-- 	local prot1 = SpawnPrefab("wallrenovation")
+	-- 	local a, b, c = inst.Transform:GetWorldPosition()
+	-- 	if prot and prot1 then
+	-- 		prot.Transform:SetPosition(a + 2, b, c + 3)
+	-- 		prot1.Transform:SetPosition(a + 2, b, c - 3)
+	-- 	end
+	-- end)
 
 	inst.OnSave = OnSave1
 	inst.OnLoad = OnLoad1
@@ -467,9 +499,9 @@ local function SpawnPiso2(inst)
 	inst.AnimState:SetBank("pisohamlet")
 	inst.AnimState:SetBuild("pisohamlet")
 	inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
-	inst.AnimState:SetLayer(LAYER_BACKGROUND) ----设置这一行就会放在最下层
+	-- inst.AnimState:SetLayer(LAYER_BACKGROUND)
 	inst.AnimState:SetSortOrder(5)
-	inst.Transform:SetScale(0, 0, 0)
+	inst.Transform:SetScale(0.3, 0.3, 0.3)
 	inst.AnimState:PlayAnimation("noise_woodfloor")
 
 	inst:AddTag("NOBLOCK")
@@ -501,7 +533,7 @@ local function wall_common(build)
 	inst.AnimState:SetBuild("wallhamletcity1")
 	inst.AnimState:PlayAnimation("shop_wall_woodwall", true)
 	inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-	inst.AnimState:SetScale(4, 3.5, 1) ----SetScale(2.8, 2.8, 2.8) 对于墙纸，x控制宽度，y控制高度，z无用
+	inst.AnimState:SetScale(3.6, 3.5, 1) ----SetScale(2.8, 2.8, 2.8) 对于墙纸，x控制宽度，y控制高度，z无用
 
 	inst:AddTag("wallhousehamlet")
 	inst:AddTag("liberado")

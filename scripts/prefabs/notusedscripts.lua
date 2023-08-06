@@ -1,4 +1,4 @@
-32400 português
+32400 português ---------------啥jb玩意
 
 GLOBAL.STRINGS.CHARACTERS.WAGSTAFF.DESCRIBE.ABIGAIL_FLOWER_GENERIC = "Emitting a psychokinetic energy."
 GLOBAL.STRINGS.CHARACTERS.WAGSTAFF.DESCRIBE.ABIGAIL_FLOWER_HAUNTED_GROUND = "Requires a sacrifice for a reactant."
