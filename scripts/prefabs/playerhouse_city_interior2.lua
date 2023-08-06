@@ -194,13 +194,13 @@ local function entrance()
 	inst.entity:AddNetwork()
 	inst.entity:AddMiniMapEntity()
 
-	--    inst.AnimState:SetBuild("palace")
-	--    inst.AnimState:SetBank("palace")
-	--    inst.AnimState:PlayAnimation("idle", true)
-	inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
-	inst.AnimState:SetLayer(LAYER_BACKGROUND)
-	inst.AnimState:SetSortOrder(1)
-	inst.AnimState:SetFinalOffset(2)
+	-- inst.AnimState:SetBuild("portas")
+	-- inst.AnimState:SetBank("portas")
+	-- inst.AnimState:PlayAnimation("pedra", true)
+	-- inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
+	-- inst.AnimState:SetLayer(LAYER_BACKGROUND)
+	-- inst.AnimState:SetSortOrder(1)
+	-- inst.AnimState:SetFinalOffset(2)
 
 	inst.Transform:SetEightFaced()
 
@@ -425,8 +425,7 @@ local function entrance()
 				portaentrada.Transform:SetPosition(a, b, c)
 				portaentrada.components.teleporter.targetTeleporter = inst.exit
 				inst.exit.components.teleporter.targetTeleporter = portaentrada
-				portaentrada.AnimState:PlayAnimation("place")
-				portaentrada.AnimState:PushAnimation("idle")
+				portaentrada.AnimState:PlayAnimation("pedra")
 			end
 
 			if inst.prefab == "playerhouse_room_metal_cima" then
@@ -435,8 +434,7 @@ local function entrance()
 				portaentrada.Transform:SetPosition(a, b, c)
 				portaentrada.components.teleporter.targetTeleporter = inst.exit
 				inst.exit.components.teleporter.targetTeleporter = portaentrada
-				portaentrada.AnimState:PlayAnimation("place")
-				portaentrada.AnimState:PushAnimation("idle")
+				portaentrada.AnimState:PlayAnimation("metal")
 			end
 
 			if inst.prefab == "playerhouse_room_pano_cima" then
@@ -445,8 +443,7 @@ local function entrance()
 				portaentrada.Transform:SetPosition(a, b, c)
 				portaentrada.components.teleporter.targetTeleporter = inst.exit
 				inst.exit.components.teleporter.targetTeleporter = portaentrada
-				portaentrada.AnimState:PlayAnimation("place")
-				portaentrada.AnimState:PushAnimation("idle")
+				portaentrada.AnimState:PlayAnimation("pano")
 			end
 
 			if inst.prefab == "playerhouse_room_peagank_cima" then
@@ -455,8 +452,7 @@ local function entrance()
 				portaentrada.Transform:SetPosition(a, b, c)
 				portaentrada.components.teleporter.targetTeleporter = inst.exit
 				inst.exit.components.teleporter.targetTeleporter = portaentrada
-				portaentrada.AnimState:PlayAnimation("place")
-				portaentrada.AnimState:PushAnimation("idle")
+				portaentrada.AnimState:PlayAnimation("peagank")
 			end
 
 			inst:Remove()

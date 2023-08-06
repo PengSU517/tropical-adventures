@@ -66,6 +66,7 @@ GLOBAL.TUNING.tropical = {
 
 PrefabFiles =
 {
+	"house_wall",
 	"sparkle_fx",
 	"fx",
 	"Axes",
@@ -3004,41 +3005,30 @@ AddPrefabPostInit("inventory_classified", preventpickclassified)
 
 ------------------------------------------------------------
 ---------------------现在不会报错，但是仍然不能修理虚空装备
-AddComponentPostInit("armor", function(self)
-	function self:SetCondition(amount)
-		if self.indestructible then
-			return
-		end
+-- AddComponentPostInit("armor", function(self)
+-- 	function self:SetCondition(amount)
+-- 		if self.indestructible then
+-- 			return
+-- 		end
 
-		self.condition = math.min(amount, self.maxcondition)
-		self.inst:PushEvent("percentusedchange", { percent = self:GetPercent() })
+-- 		self.condition = math.min(amount, self.maxcondition)
+-- 		self.inst:PushEvent("percentusedchange", { percent = self:GetPercent() })
 
-		if self.condition <= 0 then
-			self.condition = 0
-			GLOBAL.ProfileStatsSet("armor_broke_" .. self.inst.prefab, true)
-			GLOBAL.ProfileStatsSet("armor", self.inst.prefab)
+-- 		if self.condition <= 0 then
+-- 			self.condition = 0
+-- 			GLOBAL.ProfileStatsSet("armor_broke_" .. self.inst.prefab, true)
+-- 			GLOBAL.ProfileStatsSet("armor", self.inst.prefab)
 
-			if self.onfinished ~= nil then
-				self.onfinished(self.inst)
-			end
+-- 			if self.onfinished ~= nil then
+-- 				self.onfinished()
+-- 			end
 
-			if not self.keeponfinished then --if not self.dontremove then
-				self.inst:Remove()
-			end
-		end
-	end
-
-	function self:SetKeepOnFinished(keep)
-		self.keeponfinished = (keep ~= false) or false
-	end
-
-	function self:SetOnFinished(fn)
-		local function alternative(inst)
-			return
-		end
-		self.onfinished = fn or alternative
-	end
-end)
+-- 			if not self.dontremove then
+-- 				self.inst:Remove()
+-- 			end
+-- 		end
+-- 	end
+-- end)
 
 -----------------------------Treasure Reveal by EvenMr----------------------------
 local function OnRevealTreasureDirty(inst)
@@ -4976,11 +4966,18 @@ PLANT_DEFS.radish.max_killjoys_tolerance       = TUNING.FARM_PLANT_KILLJOY_TOLER
 PLANT_DEFS.wheat.max_killjoys_tolerance        = TUNING.FARM_PLANT_KILLJOY_TOLERANCE
 PLANT_DEFS.turnip.max_killjoys_tolerance       = TUNING.FARM_PLANT_KILLJOY_TOLERANCE
 
-PLANT_DEFS.sweet_potato.weight_data            = { 361.51, 506.04, .28 }
-PLANT_DEFS.aloe.weight_data                    = { 361.51, 506.04, .28 }
-PLANT_DEFS.radish.weight_data                  = { 361.51, 506.04, .28 }
-PLANT_DEFS.wheat.weight_data                   = { 361.51, 506.04, .28 }
-PLANT_DEFS.turnip.weight_data                  = { 361.51, 506.04, .28 }
+PLANT_DEFS.sweet_potato.weight_data            = { 0, 0, 0 }
+PLANT_DEFS.aloe.weight_data                    = { 0, 0, 0 }
+PLANT_DEFS.radish.weight_data                  = { 0, 0, 0 }
+PLANT_DEFS.wheat.weight_data                   = { 0, 0, 0 }
+PLANT_DEFS.turnip.weight_data                  = { 0, 0, 0 }
+PLANT_DEFS.carrot.weight_data                  = { 0, 0, 0 }
+
+-- PLANT_DEFS.sweet_potato.weight_data            = { 361.51, 506.04, .28 }
+-- PLANT_DEFS.aloe.weight_data                    = { 361.51, 506.04, .28 }
+-- PLANT_DEFS.radish.weight_data                  = { 361.51, 506.04, .28 }
+-- PLANT_DEFS.wheat.weight_data                   = { 361.51, 506.04, .28 }
+-- PLANT_DEFS.turnip.weight_data                  = { 361.51, 506.04, .28 }
 
 PLANT_DEFS.sweet_potato.pictureframeanim       = { anim = "emote_happycheer", time = 12 * GLOBAL.FRAMES }
 PLANT_DEFS.aloe.pictureframeanim               = { anim = "emote_happycheer", time = 12 * GLOBAL.FRAMES }

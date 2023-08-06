@@ -84,17 +84,18 @@ end
 
 local function OnActivate(inst, doer)
     if doer:HasTag("player") then
-        ProfileStatsSet("wormhole_used", true)
+        -- ProfileStatsSet("wormhole_used", true)
         doer.mynetvarCameraMode:set(1)
 
-        local other = inst.components.teleporter.targetTeleporter
-        if other ~= nil then
-            DeleteCloseEntsWithTag("WORM_DANGER", other, 15)
-        end
+        -- local other = inst.components.teleporter.targetTeleporter
+        -- if other ~= nil then
+        --     DeleteCloseEntsWithTag("WORM_DANGER", other, 15)
+        -- end
 
         --Sounds are triggered in player's stategraph
-    elseif inst.SoundEmitter ~= nil then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/store/door_close")
+    end
+    if doer.SoundEmitter ~= nil then
+        doer.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/store/door_close")
     end
 end
 

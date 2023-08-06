@@ -224,19 +224,19 @@ end
 
     local pt = inst:GetPosition()
     local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
-    if tiletype == GROUND.SUBURB or tiletype == GROUND.FOUNDATION or tiletype == GROUND.COBBLEROAD or tiletype == GROUND.LAWN or tiletype == GROUND.FIELDS or tiletype == GROUND.CHECKEREDLAWN then
-        if worker and worker:HasTag("player") and not worker:HasTag("sneaky") then
-            local x, y, z = inst.Transform:GetWorldPosition()
-            local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
-            local eles = TheSim:FindEntities(x, y, z, 40, { "guard" })
-            for k, guardas in pairs(eles) do
-                if guardas.components.combat and guardas.components.combat.target == nil then
-                    guardas.components.combat
-                        :SetTarget(worker)
-                end
+    -- if tiletype == GROUND.SUBURB or tiletype == GROUND.FOUNDATION or tiletype == GROUND.COBBLEROAD or tiletype == GROUND.LAWN or tiletype == GROUND.FIELDS or tiletype == GROUND.CHECKEREDLAWN then
+    ----------为什么要检查地皮吗，不懂
+    if worker and worker:HasTag("player") and not worker:HasTag("sneaky") then
+        local x, y, z = inst.Transform:GetWorldPosition()
+        local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
+        local eles = TheSim:FindEntities(x, y, z, 40, { "guard" })
+        for k, guardas in pairs(eles) do
+            if guardas.components.combat and guardas.components.combat.target == nil then
+                guardas.components.combat:SetTarget(worker)
             end
         end
     end
+    -- end
 
     if inst:HasTag("fire") and inst.components.burnable then
         inst.components.burnable:Extinguish()
