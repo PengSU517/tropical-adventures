@@ -1,5 +1,5 @@
 require("components/deployhelper")
--- mudei a 53
+
 local Placer = Class(function(self, inst)
     self.inst = inst
 
@@ -14,13 +14,13 @@ local Placer = Class(function(self, inst)
     self.onfailedplacement = nil
     self.linked = {}
     self.offset = 1
-	
-	self.hide_inv_icon = true	
+
+	self.hide_inv_icon = true
 
     self.override_build_point_fn = nil
     self.override_testfn = nil
-	
-    self.BOAT_MUST_TAGS = { "boat" } --probably don't want static, but still cached per placer at least	
+
+    self.BOAT_MUST_TAGS = { "boat" } --probably don't want static, but still cached per placer at least
 end)
 
 function Placer:SetBuilder(builder, recipe, invobject)
@@ -58,6 +58,8 @@ function Placer:OnUpdate(dt)
          if TheWorld.Map:GetTileCenterPoint(pt:Get()) ~= nil then self.inst.Transform:SetPosition(TheWorld.Map:GetTileCenterPoint(pt:Get())) else self.inst.Transform:SetPosition(math.floor(pt.x) + .5, 0, math.floor(pt.z) + .5) end
         elseif self.snap_to_meters then
             self.inst.Transform:SetPosition(math.floor(pt.x) + .5, 0, math.floor(pt.z) + .5)
+		elseif self.snaptogrid then
+			self.inst.Transform:SetPosition(math.floor(pt.x + .5), 0, math.floor(pt.z + .5))
         elseif self.snap_to_boat_edge then
             local boats = TheSim:FindEntities(pt.x, 0, pt.z, TUNING.MAX_WALKABLE_PLATFORM_RADIUS, self.BOAT_MUST_TAGS)
             local boat = GetClosest(self.inst, boats)
@@ -90,6 +92,9 @@ function Placer:OnUpdate(dt)
     elseif self.snap_to_meters then
         local x, y, z = ThePlayer.entity:LocalToWorldSpace(self.offset, 0, 0)
         self.inst.Transform:SetPosition(math.floor(x) + .5, 0, math.floor(z) + .5)
+	elseif self.snaptogrid then
+		local x, y, z = ThePlayer.entity:LocalToWorldSpace(self.offset, 0, 0)
+		self.inst.Transform:SetPosition(math.floor(x + .5), 0, math.floor(z + .5))
     elseif self.snap_to_boat_edge then
         local x, y, z = ThePlayer.entity:LocalToWorldSpace(self.offset, 0, 0)
         local boat = ThePlayer:GetCurrentPlatform()
