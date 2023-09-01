@@ -1,3 +1,11 @@
+----动画什么时候该注册什么呢（地上动画，inventory动画，小地图icon）
+----注册海上地皮
+----随机种子权重究竟是什么影响的
+
+GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
+_G = GLOBAL
+
+
 local Recipe = GLOBAL.Recipe
 local Ingredient = GLOBAL.Ingredient
 local RECIPETABS = GLOBAL.RECIPETABS
@@ -12,10 +20,9 @@ local Inv = require "widgets/inventorybar"
 local containers = GLOBAL.require "containers"
 local TheWorld = GLOBAL.TheWorld
 
-GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
-
-_G = GLOBAL; require, rawget, getmetatable, unpack = _G.require, _G.rawget, _G.getmetatable, _G.unpack
-TheNet = _G.TheNet; IsServer, IsDedicated = TheNet:GetIsServer(), TheNet:IsDedicated()
+require, rawget, getmetatable, unpack = _G.require, _G.rawget, _G.getmetatable, _G.unpack
+TheNet = _G.TheNet
+IsServer, IsDedicated = TheNet:GetIsServer(), TheNet:IsDedicated()
 TheSim = _G.TheSim
 STRINGS = _G.STRINGS
 RECIPETABS, TECH, AllRecipes, GetValidRecipe = _G.RECIPETABS, _G.TECH, _G.AllRecipes, _G.GetValidRecipe
@@ -1187,13 +1194,15 @@ modimport("scripts/stringscreeps.lua")
 modimport("scripts/wurt_quotes.lua")
 
 --configurar idioma
-if GetModConfigData("set_idioma") ~= nil then
-	if GetModConfigData("set_idioma") == "strings" then
-		modimport("scripts/stringsEU.lua")
-	else
-		modimport("scripts/" .. GetModConfigData("set_idioma") .. ".lua")
-	end
-end
+modimport("scripts/stringsEU.lua")
+
+-- if GetModConfigData("set_idioma") ~= nil then
+-- 	if GetModConfigData("set_idioma") == "strings" then
+-- 		modimport("scripts/stringsEU.lua")
+-- 	else
+-- 		modimport("scripts/" .. GetModConfigData("set_idioma") .. ".lua")
+-- 	end
+-- end
 
 
 
