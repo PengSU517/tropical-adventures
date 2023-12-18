@@ -85,8 +85,8 @@ AddTask("Deep_rainforest_2", {
         ["deeprainforest_spider_monkey_nest"] = 1,
         ["deeprainforest_fireflygrove"] = 1,
         ["deeprainforest_flytrap_grove"] = 1,
-        ["deeprainforest_anthill_exit"] = 1,
-        ["deeprainforest_ruins_entrance2"] = 1,
+        ["deeprainforest_anthill_exit"] = 1,    -----遗迹竟然在这个room
+        ["deeprainforest_ruins_entrance2"] = 1, ----这个room反而没有遗迹
     },
     room_bg = GROUND.DEEPRAINFOREST,
     background_room = "BG_deeprainforest_base",
@@ -264,8 +264,10 @@ AddTask("Mplains", {
     keys_given = { KEYS.JUNGLE_DEPTH_2 },
     region_id = "island3",
     room_choices = {
-        ["plains_tallgrass"] = math.random(2, 3),
-        ["plains_pogs_ruin"] = 1,
+        ["BG_plains_base"] = math.random(2, 3),
+        ["Lilypond"] = 2,
+        -- ["plains_tallgrass"] = math.random(2, 3),
+        ["plains_pogs_ruin"] = 1, -----这个和"plains_pogs"完全一致
     },
     room_bg = GROUND.PLAINS,
     background_room = "BG_plains_base",
@@ -533,11 +535,17 @@ AddTask("Mrainforest_ruins", {
     keys_given = { KEYS.NONE },
     region_id = "island3",
     room_choices = {
-        ["rainforest_ruins"] = 3,
+        ["rainforest_ruins"] = 1,
         ["rainforest_ruins_entrance"] = 1,
+        -- ["Lake"] = 2,
     },
     room_bg = GROUND.RAINFOREST,
     background_room = "BG_rainforest_base",
+    cove_room_name = "rainforest_ruins",
+    make_loop = true,
+    crosslink_factor = 10, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
+    cove_room_chance = 1,  --加边界房间把中心房间围起来 但是coveroom的个数不能多于room个数
+    cove_room_max_edges = 10,
     colour = { r = 1, g = 1, b = 1, a = 0.3 }
 })
 
@@ -957,30 +965,34 @@ AddTask("separahamcave", {
 
 
 AddTask("HamMudWorld", {
-    locks = { LOCKS.LAND_DIVIDE_5 },
-    keys_given = { KEYS.ISLAND1, KEYS.ISLAND2 },
+    locks = { LOCKS.HAM_CAVE },
+    keys_given = { KEYS.HAM_ANT }, -- KEYS.ISLAND1, KEYS.ISLAND2,
+    -- region_id = "hamlet_cave",
     room_choices = {
         ["HamLightPlantField"] = 1,
-        ["HamLightPlantFieldexit"] = 1,
+        ["HamLightPlantFieldexit"] = 1, --exit1
+        -- ["HamMudWithRabbitexit"] = 1,   --exit2
         ["HamWormPlantField"] = 1,
         ["HamFernGully"] = 1,
         ["HamSlurtlePlains"] = 1,
         ["HamMudWithRabbit"] = 1,
         ["PitRoom"] = 1,
     },
+    entrance_room = "HamArchiveMazeEntrance",
     background_room = "HamBGMud",
     room_bg = GROUND.MUD,
     colour = { r = 0.6, g = 0.4, b = 0.0, a = 0.9 },
 })
 
 AddTask("HamMudCave", {
-    locks = { LOCKS.ISLAND1, LOCKS.ISLAND2 },
-    keys_given = { KEYS.ISLAND1, KEYS.ISLAND3 },
+    locks = { LOCKS.HAM_CAVE2 },    --LOCKS.ISLAND1, LOCKS.ISLAND2
+    keys_given = { KEYS.HAM_MAZE }, --KEYS.ISLAND1, KEYS.ISLAND3
+    region_id = "hamlet_cave",
     room_choices = {
         ["HamWormPlantField"] = 1,
         ["HamSlurtlePlains"] = 1,
         ["HamMudWithRabbit"] = 1,
-        ["HamMudWithRabbitexit"] = 1,
+        ["HamMudWithRabbitexit"] = 1, --exit2
         ["PitRoom"] = 1,
     },
     background_room = "HamBGBatCaveRoom",
@@ -1034,8 +1046,8 @@ AddTask("HamBigBatCave", {
 
 -- Rocky Land
 AddTask("HamRockyLand", {
-    locks = { LOCKS.ISLAND1, LOCKS.ISLAND3 },
-    keys_given = { KEYS.ISLAND1, KEYS.ISLAND4, KEYS.ISLAND7 },
+    locks = { LOCKS.HAM_ANT },       --LOCKS.ISLAND1, LOCKS.ISLAND3
+    keys_given = { KEYS.HAM_CAVE2 }, -- KEYS.ISLAND1, KEYS.ISLAND4, KEYS.ISLAND7
     room_choices = {
         ["HamSlurtleCanyon"] = 1,
         ["HamBatsAndSlurtles"] = 1,
@@ -1144,7 +1156,7 @@ AddTask("HamMoonCaveForest", {
 })
 
 AddTask("HamArchiveMaze", {
-    locks = { LOCKS.ISLAND6 },
+    locks = { LOCKS.HAM_MAZE },
     keys_given = {},
     room_tags = { "nocavein" },
     entrance_room = "HamArchiveMazeEntrance",

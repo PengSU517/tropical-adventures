@@ -9,7 +9,7 @@ end
 
 local function onmoisture(self, moisture)
     if self.inst.player_classified ~= nil then
-       self.inst.player_classified:SetValue("moisture", moisture)
+        self.inst.player_classified:SetValue("moisture", moisture)
     end
 end
 
@@ -24,75 +24,75 @@ local function onwet(self, wet)
 end
 
 local Moisture = Class(function(self, inst)
-    self.inst = inst
+        self.inst = inst
 
-    self.maxmoisture = 100
-    self.moisture = 0
-    self.numSegs = 5
-    self.baseDryingRate = 0
+        self.maxmoisture = 100
+        self.moisture = 0
+        self.numSegs = 5
+        self.baseDryingRate = 0
 
-    self.maxDryingRate = 0.1
-    self.minDryingRate = 0
+        self.maxDryingRate = 0.1
+        self.minDryingRate = 0
 
-    self.maxPlayerTempDrying = 5
-    self.minPlayerTempDrying = 0
+        self.maxPlayerTempDrying = 5
+        self.minPlayerTempDrying = 0
 
-    self.maxMoistureRate = .75
-    self.minMoistureRate = 0
-	
-	self.hamletzone = false	
+        self.maxMoistureRate = .75
+        self.minMoistureRate = 0
 
-    self.inherentWaterproofness = 0 -- DEPRECATED, USE THE SourceModifierList BELOW
-    self.waterproofnessmodifiers = SourceModifierList(inst, 0, SourceModifierList.additive)
+        self.hamletzone = false
 
-    --self.waterproofinventory = false --DEPRECATED, USE forcedrysources BELOW
-	--self.forcedrysources = nil
-	self._onremoveforcedrysource = function(src)
-		self.forcedrysources[src] = nil
-		if next(self.forcedrysources) == nil then
-			self.forcedrysources = nil
-			inst:StartUpdatingComponent(self)
-		end
-	end
+        self.inherentWaterproofness = 0 -- DEPRECATED, USE THE SourceModifierList BELOW
+        self.waterproofnessmodifiers = SourceModifierList(inst, 0, SourceModifierList.additive)
 
-    self.optimalDryingTemp = 50
+        --self.waterproofinventory = false --DEPRECATED, USE forcedrysources BELOW
+        --self.forcedrysources = nil
+        self._onremoveforcedrysource = function(src)
+            self.forcedrysources[src] = nil
+            if next(self.forcedrysources) == nil then
+                self.forcedrysources = nil
+                inst:StartUpdatingComponent(self)
+            end
+        end
 
-    self.rate = 0 --rate at which moisture is trying to change
-    self.ratescale = RATE_SCALE.NEUTRAL --based on actual delta, limited by min/max bounds
-    self.wet = false
+        self.optimalDryingTemp = 50
 
-    self.inst:StartUpdatingComponent(self)
-end,
-nil,
-{
-    maxmoisture = onmaxmoisture,
-    moisture = onmoisture,
-    ratescale = onratescale,
-    wet = onwet,
-})
+        self.rate = 0                   --rate at which moisture is trying to change
+        self.ratescale = RATE_SCALE.NEUTRAL --based on actual delta, limited by min/max bounds
+        self.wet = false
+
+        self.inst:StartUpdatingComponent(self)
+    end,
+    nil,
+    {
+        maxmoisture = onmaxmoisture,
+        moisture = onmoisture,
+        ratescale = onratescale,
+        wet = onwet,
+    })
 
 function Moisture:ForceDry(force, source)
-	source = source or self.inst
+    source = source or self.inst
     if force then
-		if self.forcedrysources == nil then
+        if self.forcedrysources == nil then
             self.rate = 0
             self.ratescale = RATE_SCALE.NEUTRAL
             self:SetMoistureLevel(0)
             self.inst:StopUpdatingComponent(self)
-			self.forcedrysources = { [source] = true }
-		elseif not self.forcedrysources[source] then
-			self.forcedrysources[source] = true
-		else
-			return
+            self.forcedrysources = { [source] = true }
+        elseif not self.forcedrysources[source] then
+            self.forcedrysources[source] = true
+        else
+            return
         end
-		if source ~= self.inst then
-			self.inst:ListenForEvent("onremove", self._onremoveforcedrysource, source)
-		end
-	elseif self.forcedrysources ~= nil and self.forcedrysources[source] then
-		if source ~= self.inst then
-			self.inst:RemoveEventCallback("onremove", self._onremoveforcedrysource, source)
-		end
-		self._onremoveforcedrysource(source)
+        if source ~= self.inst then
+            self.inst:ListenForEvent("onremove", self._onremoveforcedrysource, source)
+        end
+    elseif self.forcedrysources ~= nil and self.forcedrysources[source] then
+        if source ~= self.inst then
+            self.inst:RemoveEventCallback("onremove", self._onremoveforcedrysource, source)
+        end
+        self._onremoveforcedrysource(source)
     end
 end
 
@@ -100,19 +100,19 @@ function Moisture:GetDebugString()
     local str = string.format("moisture: %2.2f", self:GetMoisture())
     local sleepingbagdryingrate = self:GetSleepingBagDryingRate()
     if sleepingbagdryingrate ~= nil then
-        str = str..string.format(" rate: %2.2f (sleepingbag)", -sleepingbagdryingrate)
+        str = str .. string.format(" rate: %2.2f (sleepingbag)", -sleepingbagdryingrate)
     else
         local moisturerate = self:GetMoistureRate()
         local dryingrate = self:GetDryingRate(moisturerate)
         local equippedmoisturerate = self:GetEquippedMoistureRate(dryingrate)
         local rate = moisturerate + equippedmoisturerate - dryingrate
-        str = str..string.format(" rate: %s%2.2f (precip: %s%2.2f equip: %s%2.2f drying: %s%2.2f)",
+        str = str .. string.format(" rate: %s%2.2f (precip: %s%2.2f equip: %s%2.2f drying: %s%2.2f)",
             rate > 0 and "+" or "", rate,
             moisturerate > 0 and "+" or "", moisturerate,
             equippedmoisturerate > 0 and "+" or "", equippedmoisturerate,
             dryingrate < 0 and "+" or (dryingrate > 0 and "-") or "", math.abs(dryingrate))
     end
-	return self:IsForceDry() and (str.." FORCED DRY") or str
+    return self:IsForceDry() and (str .. " FORCED DRY") or str
 end
 
 function Moisture:AnnounceMoisture(oldSegs, newSegs)
@@ -130,7 +130,7 @@ function Moisture:AnnounceMoisture(oldSegs, newSegs)
 end
 
 function Moisture:DoDelta(num, no_announce)
-	if self:IsForceDry() then
+    if self:IsForceDry() then
         return
     end
 
@@ -140,14 +140,14 @@ function Moisture:DoDelta(num, no_announce)
     local newSegs = self:GetSegs()
     local delta = self.moisture - oldLevel
     self.wet = newSegs >= 2
-	if not no_announce then
-	    self:AnnounceMoisture(oldSegs, newSegs)
-	end
+    if not no_announce then
+        self:AnnounceMoisture(oldSegs, newSegs)
+    end
     self.inst:PushEvent("moisturedelta", { old = oldLevel, new = self.moisture })
 end
 
 function Moisture:SetMoistureLevel(num)
-	if self:IsForceDry() then
+    if self:IsForceDry() then
         return
     end
 
@@ -173,15 +173,15 @@ function Moisture:GetMoisturePercent()
 end
 
 function Moisture:GetWaterproofInventory()
-	return self.waterproofinventory or self:IsForceDry()
+    return self.waterproofinventory or self:IsForceDry()
 end
 
 function Moisture:IsForceDry()
-	return self.forcedrysources ~= nil
+    return self.forcedrysources ~= nil
 end
 
 function Moisture:SetWaterproofInventory(waterproof)
-	--DEPRECATED use ForceDry instead
+    --DEPRECATED use ForceDry instead
     self.waterproofinventory = waterproof
 end
 
@@ -210,19 +210,19 @@ end
 
 -- NOTES(JBK): More of an internal function to get a raw number elsewhere.
 function Moisture:_GetMoistureRateAssumingRain()
-	if self.inst.components.rainimmunity ~= nil then
-		return 0
-	end
+    if self.inst.components.rainimmunity ~= nil then
+        return 0
+    end
 
     local waterproofmult =
-        (   self.inst.components.sheltered ~= nil and
+        (self.inst.components.sheltered ~= nil and
             self.inst.components.sheltered.sheltered and
             self.inst.components.sheltered.waterproofness or 0
         ) +
-        (   self.inst.components.inventory ~= nil and
+        (self.inst.components.inventory ~= nil and
             self.inst.components.inventory:GetWaterproofness() or 0
         ) +
-        (   self.inherentWaterproofness or 0
+        (self.inherentWaterproofness or 0
         ) +
         (
             self.waterproofnessmodifiers:Get() or 0
@@ -238,20 +238,20 @@ end
 -- DiogoW: Used by events that add moisture: waves, row fail, etc.
 function Moisture:GetWaterproofness()
     local waterproofness =
-        (   self.inst.components.inventory ~= nil and
+        (self.inst.components.inventory ~= nil and
             self.inst.components.inventory:GetWaterproofness() or 0
         ) +
-        (   self.inherentWaterproofness or 0
+        (self.inherentWaterproofness or 0
         ) +
         (
             self.waterproofnessmodifiers:Get() or 0
         )
-    
+
     return math.clamp(waterproofness, 0, 1)
 end
 
 function Moisture:GetMoistureRate()
-    if not TheWorld.state.israining and self.hamletzone == false  then
+    if not TheWorld.state.israining and self.hamletzone == false then
         return 0
     end
 
@@ -281,18 +281,20 @@ function Moisture:GetDryingRate(moisturerate)
         return 0
     end
 
-    local heaterPower = self.inst.components.temperature ~= nil and math.clamp(self.inst.components.temperature.externalheaterpower, 0, 1) or 0
+    local heaterPower = self.inst.components.temperature ~= nil and
+    math.clamp(self.inst.components.temperature.externalheaterpower, 0, 1) or 0
 
     local rate = self.baseDryingRate
         + easing.linear(heaterPower, self.minPlayerTempDrying, self:GetSegs() < 3 and 2 or 5, 1)
-        + easing.linear(TheWorld.state.temperature, self.minDryingRate, self.maxDryingRate, self.optimalDryingTemp)
+        + easing.linear(GetLocalTemperature(self.inst), self.minDryingRate, self.maxDryingRate, self.optimalDryingTemp)
         + easing.inExpo(self:GetMoisture(), 0, 1, self.maxmoisture)
 
     return math.clamp(rate, 0, self.maxDryingRate + self.maxPlayerTempDrying)
 end
 
 function Moisture:GetSleepingBagDryingRate()
-    local rate = self.inst.sleepingbag ~= nil and self.inst.sleepingbag.components.sleepingbag ~= nil and self.inst.sleepingbag.components.sleepingbag.dryingrate or nil
+    local rate = self.inst.sleepingbag ~= nil and self.inst.sleepingbag.components.sleepingbag ~= nil and
+    self.inst.sleepingbag.components.sleepingbag.dryingrate or nil
     return rate ~= nil and math.max(0, rate) or nil
 end
 
@@ -305,7 +307,7 @@ function Moisture:GetRateScale()
 end
 
 function Moisture:OnUpdate(dt)
-	if self:IsForceDry() then
+    if self:IsForceDry() then
         --can still get here even if we're not in the update list
         --i.e. LongUpdate or OnUpdate called explicitly
         return
@@ -318,14 +320,16 @@ function Moisture:OnUpdate(dt)
         local moisturerate = self:GetMoistureRate()
         local dryingrate = self:GetDryingRate(moisturerate)
         local equippedmoisturerate = self:GetEquippedMoistureRate(dryingrate)
-		
-		local protecao = self.inst.components.inventory ~= nil and self.inst.components.inventory:GetWaterproofness() or 0
-		local lago = 0
-		local alagamento = GetClosestInstWithTag("mare", self.inst, 10)
-		if alagamento then lago = 0.5 - 0.5*protecao/2 end
+
+        local protecao = self.inst.components.inventory ~= nil and self.inst.components.inventory:GetWaterproofness() or
+        0
+        local lago = 0
+        local alagamento = GetClosestInstWithTag("mare", self.inst, 10)
+        if alagamento then lago = 0.5 - 0.5 * protecao / 2 end
 
         self.rate = moisturerate + equippedmoisturerate - dryingrate + lago
-		if self.inst:HasTag("hamfog") then self.rate = easing.inSine(TheWorld.state.precipitationrate, self.minMoistureRate, self.maxMoistureRate, 1)*2 end
+        if self.inst:HasTag("hamfog") then self.rate = easing.inSine(TheWorld.state.precipitationrate,
+                self.minMoistureRate, self.maxMoistureRate, 1) * 2 end
     end
 
     self.ratescale =
