@@ -1,9 +1,9 @@
 require("stategraphs/commonstates")
 
-local actionhandlers = 
+local actionhandlers =
 {
 
-   -- ActionHandler(ACTIONS.GOHOME, "action"),
+    -- ActionHandler(ACTIONS.GOHOME, "action"),
 }
 
 local events =
@@ -15,10 +15,10 @@ local events =
     EventHandler("attacked", function(inst) if inst.components.health:GetPercent() > 0 then inst.sg:GoToState("hit") end end),
     EventHandler("doattack", function(inst, data) if not inst.components.health:IsDead() and (inst.sg:HasStateTag("hit") or not inst.sg:HasStateTag("busy")) then inst.sg:GoToState("attack", data.target) end end),
     EventHandler("death", function(inst) inst.sg:GoToState("death") end),
-    EventHandler("locomote", 
-        function(inst) 
+    EventHandler("locomote",
+        function(inst)
             if not inst.sg:HasStateTag("idle") and not inst.sg:HasStateTag("moving") then return end
-            
+
             if not inst.components.locomotor:WantsToMoveForward() then
                 if not inst.sg:HasStateTag("idle") then
                     if not inst.sg:HasStateTag("running") then
@@ -41,27 +41,25 @@ local events =
 }
 
 local function DoStep(inst)
---local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
---if player then
---player:ShakeCamera(CAMERASHAKE.SIDE, 2, .06, .25)
---end
-inst.components.groundpounder:GroundPound()
-inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/glommer/foot_ground")
-TheWorld:PushEvent("bigfootstep")
+    --local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
+    --if player then
+    --player:ShakeCamera(CAMERASHAKE.SIDE, 2, .06, .25)
+    --end
+    inst.components.groundpounder:GroundPound()
+    inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/glommer/foot_ground")
+    TheWorld:PushEvent("bigfootstep")
 end
 
 local states =
 {
-    State
-    {
+    State {
         name = "idle",
-        tags = {"idle" },
+        tags = { "idle" },
 
         onenter = function(inst)
-            inst.AnimState:PlayAnimation("ground_loop")    
-
+            inst.AnimState:PlayAnimation("ground_loop")
         end,
-        
+
         events =
         {
             EventHandler("animover", function(inst, data)
@@ -70,30 +68,29 @@ local states =
         }
     },
 
-    State
-    {
+    State {
         name = "land",
-        tags = {"busy" },
+        tags = { "busy" },
 
         onenter = function(inst)
             inst.Physics:Stop()
-            inst.AnimState:PlayAnimation("ground_pre")    
+            inst.AnimState:PlayAnimation("ground_pre")
         end,
-        
-        
-        timeline=
-        {            
-            TimeEvent(30*FRAMES, function(inst) inst.components.roccontroller:Spawnbodyparts() end),
-            TimeEvent(5*FRAMES, function(inst) 
-                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/flap","flaps")
+
+
+        timeline =
+        {
+            TimeEvent(30 * FRAMES, function(inst) inst.components.roccontroller:Spawnbodyparts() end),
+            TimeEvent(5 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/flap", "flaps")
                 inst.SoundEmitter:SetParameter("flaps", "intensity", inst.sounddistance)
             end),
-            TimeEvent(17*FRAMES, function(inst) 
-                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/flap","flaps")
+            TimeEvent(17 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/flap", "flaps")
                 inst.SoundEmitter:SetParameter("flaps", "intensity", inst.sounddistance)
             end),
         },
-        
+
         events =
         {
             EventHandler("animover", function(inst, data)
@@ -103,22 +100,20 @@ local states =
     },
 
 
-    State
-    {
+    State {
         name = "takeoff",
-        tags = {"busy" },
+        tags = { "busy" },
 
         onenter = function(inst)
-            
             inst.Physics:Stop()
-            inst.AnimState:PlayAnimation("ground_pst")    
+            inst.AnimState:PlayAnimation("ground_pst")
         end,
 
-        timeline=
-        {            
-            TimeEvent(15*FRAMES, function(inst) inst.components.locomotor:RunForward() end),
+        timeline =
+        {
+            TimeEvent(15 * FRAMES, function(inst) inst.components.locomotor:RunForward() end),
         },
-        
+
 
         events =
         {
@@ -129,67 +124,65 @@ local states =
     },
 
 
-    State
-    {
+    State {
         name = "fly",
-        tags = {"moving","canrotate"},
+        tags = { "moving", "canrotate" },
 
         onenter = function(inst)
             inst.components.locomotor:RunForward()
-            inst.sg:SetTimeout(1+2*math.random())
-            inst.AnimState:PlayAnimation("shadow")      
-        end,
-        
-        onupdate = function(inst)
-           
+            inst.sg:SetTimeout(1 + 2 * math.random())
+            inst.AnimState:PlayAnimation("shadow")
         end,
 
-        ontimeout=function(inst)
+        onupdate = function(inst)
+
+        end,
+
+        ontimeout = function(inst)
             inst.sg:GoToState("flap")
         end,
     },
 
-    State
-    {
+    State {
         name = "flap",
-        tags = {"moving","canrotate"},
+        tags = { "moving", "canrotate" },
 
         onenter = function(inst)
-         inst.components.locomotor:RunForward()
-            inst.AnimState:PlayAnimation("shadow_flap_loop")      
+            inst.components.locomotor:RunForward()
+            inst.AnimState:PlayAnimation("shadow_flap_loop")
         end,
 
-    timeline=
+        timeline =
         {
-            TimeEvent(16*FRAMES, function(inst) 
-                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/flap","flaps")
+            TimeEvent(16 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/flap", "flaps")
                 inst.SoundEmitter:SetParameter("flaps", "intensity", inst.sounddistance)
             end),
-            
-            TimeEvent(1*FRAMES, function(inst) if math.random() < 0.5 then
-                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/call","calls") end
+
+            TimeEvent(1 * FRAMES, function(inst)
+                if math.random() < 0.5 then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/call", "calls")
+                end
                 inst.SoundEmitter:SetParameter("calls", "intensity", inst.sounddistance)
             end),
         },
         onupdate = function(inst)
-           
+
         end,
 
-        events=
+        events =
         {
-            EventHandler("animover", function(inst) 
+            EventHandler("animover", function(inst)
                 if not inst.flap then
                     inst.sg:GoToState("flap")
                     inst.flap = true
-                else    
+                else
                     inst.sg:GoToState("fly")
                     inst.flap = nil
                 end
-
             end),
         },
-    },        
+    },
 }
 
 return StateGraph("roc", states, events, "idle", actionhandlers)
-

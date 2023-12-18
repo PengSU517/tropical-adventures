@@ -1306,14 +1306,12 @@ local function entrance()
 
 
 
-			inst:DoTaskInTime(0, function(inst)
+			inst:DoTaskInTime(1, function(inst)
 				local portaentrada = SpawnPrefab("pig_palace")
 				local a, b, c = inst.Transform:GetWorldPosition()
 				portaentrada.Transform:SetPosition(a, b, c)
 				portaentrada.components.teleporter.targetTeleporter = inst.exit
 				inst.exit.components.teleporter.targetTeleporter = portaentrada
-				portaentrada.AnimState:PlayAnimation("place")
-				portaentrada.AnimState:PushAnimation("idle")
 
 				portaesquerdapalacio.components.teleporter.targetTeleporter = portadireitagaleria
 				portadireitagaleria.components.teleporter.targetTeleporter = portaesquerdapalacio

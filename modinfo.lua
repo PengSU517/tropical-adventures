@@ -19,14 +19,6 @@ server_filter_tags = { "shipwrecked", "tropical experience", "Hamlet", "Economy"
 icon_atlas = "modicon.xml"
 icon = "modicon.tex"
 
---[[
-进出房屋时间过长
-靠近人的时候猪人动画有问题
-
-
-]]
-
-
 
 
 
@@ -41,15 +33,15 @@ configuration_options =
 		hover = "Change mod language...",
 		options =
 		{
-			{ description = "English",    data = "stringsEU" },
+			{ description = "English", data = "stringsEU" },
 			{ description = "Português", data = "stringsPT" },
-			{ description = "中国",     data = "stringsCh" },
-			{ description = "Italian",    data = "stringsIT" },
-			{ description = "Russian",    data = "stringsRU" },
-			{ description = "Spanish",    data = "stringsSP" },
-			{ description = "한국어",  data = "stringsKO" },
-			{ description = "Magyar",     data = "stringsHUN" },
-			{ description = "Français",  data = "stringsFR" },
+			{ description = "中国", data = "stringsCh" },
+			{ description = "Italian", data = "stringsIT" },
+			{ description = "Russian", data = "stringsRU" },
+			{ description = "Spanish", data = "stringsSP" },
+			{ description = "한국어", data = "stringsKO" },
+			{ description = "Magyar", data = "stringsHUN" },
+			{ description = "Français", data = "stringsFR" },
 		},
 		default = "stringsEU",
 	},

@@ -52,6 +52,7 @@ local function GroundImage(name)
     if name == "checkeredlawn" then return "levels/tiles/cobbleroad.tex" end
     if name == "foundation" then return "levels/tiles/blocky.tex" end
     if name == "pigruins" then return "levels/tiles/carpet.tex" end
+    -- if name == "lilypond" then return "levels/tiles/jungle.tex" end
     --[[
 
 
@@ -98,6 +99,7 @@ local function GroundAtlas(name)
     if name == "checkeredlawn" then return "levels/tiles/cobbleroad.xml" end
     if name == "foundation" then return "levels/tiles/blocky.xml" end
     if name == "pigruins" then return "levels/tiles/carpet.xml" end
+    -- if name == "lilypond" then return "levels/tiles/jungle.xml" end
     --[[
 
 

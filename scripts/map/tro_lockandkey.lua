@@ -12,6 +12,13 @@ require("map/lockandkey")
 
 ARRAY_NEW =
 {
+
+    "HAM_CAVE",
+    "HAM_ANT",
+    "HAM_CAVE2",
+    "HAM_MAZE",
+
+
     "JUNGLE_DEPTH_1",
     "JUNGLE_DEPTH_2",
     "JUNGLE_DEPTH_3",

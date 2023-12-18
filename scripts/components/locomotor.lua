@@ -624,7 +624,7 @@ else
 		
         self.groundspeedmultiplier = (self:IsFasterOnGroundTile(current_ground_tile) or 
 									 (self:FasterOnRoad() and ((RoadManager ~= nil and RoadManager:IsOnRoad(x, 0, z)) or current_ground_tile == GROUND.ROAD or 
-									 (self:FasterOnCreep() and oncreep) or current_ground_tile == GROUND.COBBLEROAD)))
+									 (oncreep and self:FasterOnCreep()) or current_ground_tile == GROUND.COBBLEROAD)))
 									 and self.fastmultiplier 
 									 or 1
     end

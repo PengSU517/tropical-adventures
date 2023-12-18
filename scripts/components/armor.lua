@@ -81,29 +81,6 @@ function Armor:SetAbsorption(absorb_percent)
     self.absorb_percent = absorb_percent
 end
 
-function Armor:SetCondition(amount)
-    if self.indestructible then
-        return
-    end
-
-    self.condition = math.min(amount, self.maxcondition)
-    self.inst:PushEvent("percentusedchange", { percent = self:GetPercent() })
-
-    if self.condition <= 0 then
-        self.condition = 0
-        ProfileStatsSet("armor_broke_" .. self.inst.prefab, true)
-        ProfileStatsSet("armor", self.inst.prefab)
-
-        if self.onfinished ~= nil then
-            self.onfinished()
-        end
-
-        if not self.dontremove then
-            self.inst:Remove()
-        end
-    end
-end
-
 function Armor:SetPercent(amount)
     self:SetCondition(self.maxcondition * amount)
 end
@@ -125,7 +102,7 @@ function Armor:SetCondition(amount)
             self.onfinished(self.inst)
         end
 
-        if not self.keeponfinished then
+        if not self.keeponfinished and not self.dontremove then
             self.inst:Remove()
         end
     end

@@ -24,7 +24,7 @@ local function fn(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("portal.png")
+    inst.MiniMapEntity:SetIcon("shipwrecked_exit.png")
 	
     anim:SetBank("boatportal")
     anim:SetBuild("portal_shipwrecked_build")

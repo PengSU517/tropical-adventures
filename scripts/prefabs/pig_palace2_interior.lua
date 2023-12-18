@@ -565,14 +565,12 @@ local function entrance()
 
 		--------------------------------------------cria o piso e itens fim -------------------------------------------------------	
 
-		inst:DoTaskInTime(0, function(inst)
+		inst:DoTaskInTime(1, function(inst)
 			local portaentrada = SpawnPrefab("pig_palace2")
 			local a, b, c = inst.Transform:GetWorldPosition()
 			portaentrada.Transform:SetPosition(a, b, c)
 			portaentrada.components.teleporter.targetTeleporter = inst.exit
 			inst.exit.components.teleporter.targetTeleporter = portaentrada
-			portaentrada.AnimState:PlayAnimation("place")
-			portaentrada.AnimState:PushAnimation("idle")
 
 			inst:Remove()
 		end)

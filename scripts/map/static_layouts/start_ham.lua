@@ -2,8 +2,8 @@ return {
   version = "1.1",
   luaversion = "5.1",
   orientation = "orthogonal",
-  width = 8,       --最大边界值
-  height = 8,      --最大边界值，一定要设置成正方形！
+  width = 4,       --最大边界值
+  height = 4,      --最大边界值，一定要设置成正方形！
   tilewidth = 64,  --像素点，推荐64
   tileheight = 64, --像素点，推荐64
   properties = {},
@@ -28,21 +28,17 @@ return {
       name = "BG_TILES",
       x = 0,
       y = 0,
-      width = 8,  --最大边界值
-      height = 8, --最大边界值
+      width = 4,  --最大边界值
+      height = 4, --最大边界值
       visible = true,
       opacity = 1,
       properties = {},
       encoding = "lua",
       data = { --大地图生成不了世界，好奇怪啊
-        10, 6, 6, 6, 6, 6, 6, 6,
-        6, 10, 6, 6, 6, 6, 6, 6,
-        6, 6, 10, 6, 6, 6, 6, 6,
-        6, 6, 6, 10, 6, 6, 6, 6,
-        6, 6, 6, 6, 10, 6, 6, 6,
-        6, 6, 6, 6, 6, 10, 6, 6,
-        6, 6, 6, 6, 6, 6, 10, 6,
-        10, 6, 6, 6, 6, 6, 6, 10,
+        0, 6, 6, 6,
+        0, 0, 6, 6,
+        6, 6, 6, 0,
+        0, 0, 6, 6,
 
       }
     },
@@ -54,23 +50,44 @@ return {
       properties = {},
       objects = {
         {
-          name = "传送门",
-          type = "multiplayer_portal", --传送门
+          name = "",
+          type = "welcomitem",
           shape = "rectangle",
-          x = 256,                     --横坐标，64的倍数
-          y = 256,                     --纵坐标，64的倍数
+          x = 192,
+          y = 80,
           width = 0,
           height = 0,
           visible = true,
           properties = {}
         },
-
         {
-          name = "哈哈哈",
-          type = "welcomitem", --致查理
+          name = "",
+          type = "welcomitem",
           shape = "rectangle",
-          x = 512,             --横坐标，64的倍数就会在地皮交叉点上
-          y = 512,             --纵坐标，64的倍数
+          x = 128,
+          y = 48,
+          width = 0,
+          height = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "welcomitem",
+          shape = "rectangle",
+          x = 32,
+          y = 144,
+          width = 0,
+          height = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "multiplayer_portal",
+          shape = "rectangle",
+          x = 160,
+          y = 160,
           width = 0,
           height = 0,
           visible = true,
