@@ -43,7 +43,7 @@ VEGGIES =
         TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0,
         { "small", 0.05, 0.9 }, { "med", nil, 0.75 }),
 
-    carrot = MakeVegStats(COMMON, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, 0,
+    carrot = MakeVegStats(0, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, 0,
         TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0,
         { "med", 0.05, 0.8 }, { "small", 0.1, nil },
         nil, nil,
@@ -86,8 +86,13 @@ VEGGIES =
         nil,
         FOODTYPE.BERRY,
         nil,
-        { lure_data = TUNING.OCEANFISHING_LURE.BERRY, single_use = true, build = "oceanfishing_lure_mis", symbol =
-        "hook_berries" }),
+        {
+            lure_data = TUNING.OCEANFISHING_LURE.BERRY,
+            single_use = true,
+            build = "oceanfishing_lure_mis",
+            symbol =
+            "hook_berries"
+        }),
 
     berries_juicy = MakeVegStats(0, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_TWO_DAY, 0,
         TUNING.CALORIES_MEDSMALL, TUNING.HEALING_SMALL, TUNING.PERISH_ONE_DAY, 0,
@@ -95,8 +100,13 @@ VEGGIES =
         nil,
         FOODTYPE.BERRY,
         nil,
-        { lure_data = TUNING.OCEANFISHING_LURE.BERRY, single_use = true, build = "oceanfishing_lure_mis", symbol =
-        "hook_juiceberries" }),
+        {
+            lure_data = TUNING.OCEANFISHING_LURE.BERRY,
+            single_use = true,
+            build = "oceanfishing_lure_mis",
+            symbol =
+            "hook_juiceberries"
+        }),
 
     fig = MakeVegStats(0, TUNING.CALORIES_SMALL, 0, TUNING.PERISH_FAST, 0,
         TUNING.CALORIES_MEDSMALL, TUNING.HEALING_TINY, TUNING.PERISH_SUPERFAST, 0,
@@ -104,8 +114,13 @@ VEGGIES =
         nil,
         FOODTYPE.BERRY,
         nil,
-        { lure_data = TUNING.OCEANFISHING_LURE.BERRY, single_use = true, build = "oceanfishing_lure_mis", symbol =
-        "hook_fig" }),
+        {
+            lure_data = TUNING.OCEANFISHING_LURE.BERRY,
+            single_use = true,
+            build = "oceanfishing_lure_mis",
+            symbol =
+            "hook_fig"
+        }),
 
     cactus_meat = MakeVegStats(0, TUNING.CALORIES_SMALL, -TUNING.HEALING_SMALL, TUNING.PERISH_MED, -TUNING.SANITY_TINY,
         TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, TUNING.SANITY_MED),
@@ -118,8 +133,15 @@ VEGGIES =
     kelp = MakeVegStats(0, TUNING.CALORIES_TINY, -TUNING.HEALING_TINY, TUNING.PERISH_MED, -TUNING.SANITY_SMALL,
         TUNING.CALORIES_TINY, 0, TUNING.PERISH_MED, -TUNING.SANITY_TINY,
         { "med", nil, 0.7 }, { "med", nil, 0.65 },
-        { build = "meat_rack_food_tot", hunger = TUNING.CALORIES_TINY, health = TUNING.HEALING_TINY, sanity = TUNING
-        .SANITY_SMALL, perish = TUNING.PERISH_PRESERVED, time = TUNING.DRY_SUPERFAST }),
+        {
+            build = "meat_rack_food_tot",
+            hunger = TUNING.CALORIES_TINY,
+            health = TUNING.HEALING_TINY,
+            sanity = TUNING
+                .SANITY_SMALL,
+            perish = TUNING.PERISH_PRESERVED,
+            time = TUNING.DRY_SUPERFAST
+        }),
 
 
     tomato = MakeVegStats(COMMON, TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0,
@@ -146,15 +168,15 @@ VEGGIES =
         TUNING.CALORIES_TINY, -TUNING.HEALING_SMALL, TUNING.PERISH_SLOW, -TUNING.SANITY_SMALL,
         { nil, 0.1, 0.75 }),
 
-    radish = MakeVegStats(COMMON, TUNING.CALORIES_MED, TUNING.HEALING_TINY, TUNING.PERISH_SLOW, 0,
+    radish = MakeVegStats(0, TUNING.CALORIES_MED, TUNING.HEALING_TINY, TUNING.PERISH_SLOW, 0,
         TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_MED, 0),
 
-    aloe = MakeVegStats(COMMON, TUNING.CALORIES_TINY, TUNING.HEALING_MEDSMALL, TUNING.PERISH_FAST, 0,
+    aloe = MakeVegStats(0, TUNING.CALORIES_TINY, TUNING.HEALING_MEDSMALL, TUNING.PERISH_FAST, 0,
         TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_SLOW, 0),
     gooseberry = MakeVegStats(0, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, 0,
         TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0,
         { "small", 0.05, 0.9 }, { "med", nil, 0.75 }),
-    sweet_potato = MakeVegStats(COMMON, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, 0,
+    sweet_potato = MakeVegStats(0, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, 0,
         TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0),
 
     blueberries = MakeVegStats(0, TUNING.CALORIES_TINY, 0, TUNING.PERISH_FAST, 0,
@@ -163,12 +185,17 @@ VEGGIES =
         nil,
         FOODTYPE.BERRY,
         nil,
-        { lure_data = TUNING.OCEANFISHING_LURE.BERRY, single_use = true, build = "oceanfishing_lure_mis", symbol =
-        "hook_berries" }),
-    turnip = MakeVegStats(COMMON, TUNING.CALORIES_MED, TUNING.HEALING_TINY, TUNING.PERISH_SLOW, 0,
+        {
+            lure_data = TUNING.OCEANFISHING_LURE.BERRY,
+            single_use = true,
+            build = "oceanfishing_lure_mis",
+            symbol =
+            "hook_berries"
+        }),
+    turnip = MakeVegStats(0, TUNING.CALORIES_MED, TUNING.HEALING_TINY, TUNING.PERISH_SLOW, 0,
         TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_MED, 0),
 
-    wheat = MakeVegStats(COMMON, 0, 0, TUNING.PERISH_SLOW, 0,
+    wheat = MakeVegStats(0, 0, 0, TUNING.PERISH_SLOW, 0,
         0, 0, TUNING.PERISH_SLOW, 0),
 
 }
@@ -553,8 +580,13 @@ local function MakeVeggie(name, has_seeds)
         inst.components.deployable.ondeploy = OnDeploy
 
         inst:AddComponent("oceanfishingtackle")
-        inst.components.oceanfishingtackle:SetupLure({ build = "oceanfishing_lure_mis", symbol = "hook_seeds", single_use = true, lure_data =
-        TUNING.OCEANFISHING_LURE.SEED })
+        inst.components.oceanfishingtackle:SetupLure({
+            build = "oceanfishing_lure_mis",
+            symbol = "hook_seeds",
+            single_use = true,
+            lure_data =
+                TUNING.OCEANFISHING_LURE.SEED
+        })
 
         MakeSmallBurnable(inst)
         MakeSmallPropagator(inst)

@@ -63,10 +63,10 @@ end
 
 local OCEAN_COLOR =
 {
-    primary_color = { 220, 240, 255, 60 },
-    secondary_color = { 21, 96, 110, 140 },
+    primary_color = { 140, 255, 180, 50 },
+    secondary_color = { 21, 110, 76, 140 },
     secondary_color_dusk = { 0, 0, 0, 50 },
-    minimap_color = { 23, 51, 62, 102 },
+    minimap_color = { 23, 62, 51, 102 },
 }
 
 local WAVETINTS =
@@ -125,30 +125,30 @@ local ia_tiledefs = {
     --         bank_build = "turf_ia",
     --     },
     -- },
-    -- JUNGLE = {
-    --     tile_range       = TileRanges.LAND,
-    --     tile_data        = {
-    --         ground_name = "Jungle",
-    --         old_static_id = 92,
-    --     },
-    --     ground_tile_def  = {
-    --         name = "jungle",
-    --         noise_texture = "ground_noise_jungle",
-    --         runsound = "dontstarve/movement/run_dirt",
-    --         walksound = "dontstarve/movement/walk_dirt",
-    --         -- snowsound = "dontstarve/movement/run_ice",
-    --         -- mudsound = "dontstarve/movement/run_mud",
-    --         flashpoint_modifier = 0,
-    --     },
-    --     minimap_tile_def = {
-    --         name = "map_edge",
-    --         noise_texture = "mini_jungle_noise",
-    --     },
-    --     turf_def         = {
-    --         name = "jungle",
-    --         bank_build = "turf",
-    --     },
-    -- },
+    JUNGLE = {
+        tile_range       = TileRanges.LAND,
+        tile_data        = {
+            ground_name = "Jungle",
+            old_static_id = 92,
+        },
+        ground_tile_def  = {
+            name = "jungle",
+            noise_texture = "ground_noise_jungle",
+            runsound = "dontstarve/movement/run_dirt",
+            walksound = "dontstarve/movement/walk_dirt",
+            -- snowsound = "dontstarve/movement/run_ice",
+            -- mudsound = "dontstarve/movement/run_mud",
+            flashpoint_modifier = 0,
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "mini_jungle_noise",
+        },
+        turf_def         = {
+            name = "jungle",
+            bank_build = "turf",
+        },
+    },
     -- -- SWAMP = { --note this majestic creature is unused
     -- --     tile_range = TileRanges.LAND,
     -- --     tile_data = {
@@ -345,6 +345,9 @@ local ia_tiledefs = {
             -- is_shoreline = true,   -------------加上
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
+            colors = OCEAN_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
+            wavetint = WAVETINTS.waterlog,
+            is_shoreline = true,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -363,9 +366,9 @@ local ia_tiledefs = {
             noise_texture = "ground_water_coral", --   "ground_water_coral",
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
-            colors = OCEAN_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
-            wavetint = WAVETINTS.waterlog,
-            is_shoreline = true,
+            -- colors = OCEAN_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
+            -- wavetint = WAVETINTS.waterlog,
+            -- is_shoreline = true,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -521,6 +524,7 @@ for tile, def in pairs(ia_tiledefs) do
     if def.tile_range == TileRanges.IA_OCEAN then
         if not is_worldgen then
             TileGroupManager:AddInvalidTile(TileGroups.TransparentOceanTiles, tile_id)
+            -- TileGroupManager:AddValidTile(TileGroups.OceanTiles, tile_id)
             TileGroupManager:AddValidTile(TileGroups.IAOceanTiles, tile_id)
         end
         IA_OCEAN_TILES[tile_id] = true
@@ -569,7 +573,7 @@ end
 -- ChangeTileRenderOrder(WORLD_TILES.VOLCANO, WORLD_TILES.DESERT_DIRT, true)
 -- ChangeTileRenderOrder(WORLD_TILES.VOLCANO_ROCK, WORLD_TILES.DESERT_DIRT, true)
 -- ChangeTileRenderOrder(WORLD_TILES.BEACH, WORLD_TILES.DESERT_DIRT, true)
-ChangeTileRenderOrder(WORLD_TILES.LILYPOND, WORLD_TILES.OCEAN_COASTAL, true)
+ChangeTileRenderOrder(WORLD_TILES.LILYPOND, WORLD_TILES.OCEAN_COASTAL, false)
 ChangeTileRenderOrder(WORLD_TILES.CORAL, WORLD_TILES.OCEAN_COASTAL, true)
 ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.OCEAN_COASTAL, true)
 -- --Priority turf

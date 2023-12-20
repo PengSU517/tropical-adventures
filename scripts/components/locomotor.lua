@@ -1,3 +1,5 @@
+local SourceModifierList = require("util/sourcemodifierlist")
+
 local DOZE_OFF_TIME = 2 --adicionei a 1178
 
 local PATHFIND_PERIOD = 1
@@ -242,8 +244,7 @@ if self.inst:HasTag("hamfogspeed") then
 fogspeed = 0.4
 end
 
-    return (self.inst.player_classified ~= nil and self.inst.player_classified.externalspeedmultiplier:value() or 
-	self.externalspeedmultiplier) * wind_speed  * wave_speed  * fogspeed * flood_speed
+	return ((self.inst.player_classified and self.inst.player_classified.externalspeedmultiplier:value() or self.externalspeedmultiplier) * self:GetPredictExternalSpeedMultipler()) * wind_speed  * wave_speed  * fogspeed * flood_speed
 end
 
 local function ServerGetSpeedMultiplier(self)
@@ -390,7 +391,8 @@ local LocoMotor = Class(function(self, inst)
     self.faster_on_tiles = {}
 	
     --self.isupdating = nil
-    --self.predictrunspeed = nil	
+    --self.predictrunspeed = nil
+	--self.predictexternalspeedmultiplier = nil	
 end,
 nil,
 {
@@ -542,6 +544,25 @@ function LocoMotor:GetExternalSpeedMultiplier(source, key)
         return m
     end
     return src_params.multipliers[key] or 1
+end
+
+function LocoMotor:SetPredictExternalSpeedMultiplier(source, key, m)
+	if not self.predictexternalspeedmultiplier then
+		self.predictexternalspeedmultiplier = SourceModifierList(self.inst)
+	end
+	self.predictexternalspeedmultiplier:SetModifier(source, m, key)
+end
+
+--key is optional if you want to remove the entire source
+function LocoMotor:RemovePredictExternalSpeedMultiplier(source, key)
+	if self.predictexternalspeedmultiplier then
+		self.predictexternalspeedmultiplier:RemoveModifier(source, key)
+	end
+end
+
+--key is optional if you want to calculate the entire source
+function LocoMotor:GetPredictExternalSpeedMultipler(source, key)
+	return self.predictexternalspeedmultiplier and self.predictexternalspeedmultiplier:Get() or 1
 end
 
 function LocoMotor:SetSlowMultiplier(m)
@@ -910,6 +931,11 @@ function LocoMotor:GoToEntity(target, bufferedaction, run)
     self.wantstorun = run
     --self.arrive_step_dist = ARRIVE_STEP
     self:StartUpdatingInternal()
+	
+	--Try instant arrive check if we're not moving
+	if not (self.inst.sg and self.inst.sg:HasStateTag("moving")) then
+		self:OnUpdate(0, true)
+	end	
 end
 
 --V2C: Added overridedest for additional network controller support
@@ -944,8 +970,12 @@ function LocoMotor:GoToPoint(pt, bufferedaction, run, overridedest)
     self.wantstomoveforward = true
     self:SetBufferedAction(bufferedaction)
     self:StartUpdatingInternal()
+	
+	--Try instant arrive check if we're not moving
+	if not (self.inst.sg and self.inst.sg:HasStateTag("moving")) then
+		self:OnUpdate(0, true)
+	end	
 end
-
 
 function LocoMotor:SetBufferedAction(act)
     if self.bufferedaction ~= nil then
@@ -1307,8 +1337,8 @@ end
     self.time_before_next_hop_is_allowed = 0.2
 end
 
-function LocoMotor:OnUpdate(dt)
-    if self.hopping then 
+function LocoMotor:OnUpdate(dt, arrive_check_only)
+    if self.hopping then
         --self:UpdateHopping(dt)
         return
     end
@@ -1317,11 +1347,11 @@ function LocoMotor:OnUpdate(dt)
         Print(VERBOSITY.DEBUG, "OnUpdate INVALID", self.inst.prefab)
         self:ResetPath()
         self:StopUpdatingInternal()
-        self:StopMoveTimerInternal()		
+        self:StopMoveTimerInternal()
         return
     end
 
-    if self.enablegroundspeedmultiplier then
+	if self.enablegroundspeedmultiplier and not arrive_check_only then
         local x, y, z = self.inst.Transform:GetWorldPosition()
         local tx, ty = TheWorld.Map:GetTileCoordsAtPoint(x, 0, z)
         if tx ~= self.lastpos.x or ty ~= self.lastpos.y then
@@ -1347,23 +1377,27 @@ function LocoMotor:OnUpdate(dt)
         local mypos_x, mypos_y, mypos_z = self.inst.Transform:GetWorldPosition()
 
         local reached_dest, invalid, in_cooldown = nil, nil, false
-        if self.bufferedaction ~= nil and
-            self.bufferedaction.action == ACTIONS.ATTACK and
-			not (self.bufferedaction.forced and self.bufferedaction.target == nil) and
-            self.inst.replica.combat ~= nil then
+		if self.bufferedaction and self.bufferedaction.action.customarrivecheck then
+			reached_dest, invalid = self.bufferedaction.action.customarrivecheck(self.inst, self.dest)
+		else
+			local dsq = distsq(destpos_x, destpos_z, mypos_x, mypos_z)
+			local arrive_dsq = self.arrive_dist * self.arrive_dist
+			if dt > 0 then
+				local run_dist = self:GetRunSpeed() * dt * .5
+				arrive_dsq = math.max(arrive_dsq, run_dist * run_dist)
+			end
+			reached_dest = dsq <= arrive_dsq
 
-            local dsq = distsq(destpos_x, destpos_z, mypos_x, mypos_z)
-            local run_dist = self:GetRunSpeed() * dt * .5
-            reached_dest = dsq <= math.max(run_dist * run_dist, self.arrive_dist * self.arrive_dist)
-            
-            reached_dest, invalid, in_cooldown = self.inst.replica.combat:LocomotorCanAttack(reached_dest, self.bufferedaction.target)
-        elseif self.bufferedaction ~= nil 
-            and self.bufferedaction.action.customarrivecheck ~= nil then
-            reached_dest, invalid = self.bufferedaction.action.customarrivecheck(self.inst, self.dest)
-        else
-            local dsq = distsq(destpos_x, destpos_z, mypos_x, mypos_z)
-            local run_dist = self:GetRunSpeed() * dt * .5
-            reached_dest = dsq <= math.max(run_dist * run_dist, self.arrive_dist * self.arrive_dist)
+			--special case for attacks (in_cooldown can get set here)
+			if self.bufferedaction and
+				self.bufferedaction.action == ACTIONS.ATTACK and
+				not (self.bufferedaction.forced and self.bufferedaction.target == nil)
+			then
+				local combat = self.inst.replica.combat
+				if combat then
+					reached_dest, invalid, in_cooldown = combat:LocomotorCanAttack(reached_dest, self.bufferedaction.target)
+				end
+			end
         end
 
         if invalid then
@@ -1382,10 +1416,10 @@ function LocoMotor:OnUpdate(dt)
                 if self.bufferedaction.target ~= nil and self.bufferedaction.target.Transform ~= nil and not self.bufferedaction.action.skip_locomotor_facing then
                     self.inst:FacePoint(self.bufferedaction.target.Transform:GetWorldPosition())
                 elseif self.bufferedaction.invobject ~= nil and not self.bufferedaction.action.skip_locomotor_facing then
-					local act_pos = self.bufferedaction:GetActionPoint() 
-					if act_pos ~= nil then
-	                    self.inst:FacePoint(act_pos:Get())
-					end
+                    local act_pos = self.bufferedaction:GetActionPoint()
+                    if act_pos ~= nil then
+                        self.inst:FacePoint(act_pos:Get())
+                    end
                 end
                 if self.ismastersim then
                     self.inst:PushBufferedAction(self.bufferedaction)
@@ -1395,7 +1429,7 @@ function LocoMotor:OnUpdate(dt)
             end
             self:Stop()
             self:Clear()
-        else
+		elseif not arrive_check_only then
             --Print(VERBOSITY.DEBUG, "LOCOMOTING")
             if self:WaitingForPathSearch() then
                 local pathstatus = TheWorld.Pathfinder:GetSearchStatus(self.path.handle)
@@ -1487,6 +1521,10 @@ function LocoMotor:OnUpdate(dt)
         end
     end
 
+	if arrive_check_only then
+		return
+	end
+
     local should_locomote = false
     if (self.ismastersim and not self.inst:IsInLimbo()) or not (self.ismastersim or self.inst:HasTag("INLIMBO")) then
         local is_moving = self.inst.sg ~= nil and self.inst.sg:HasStateTag("moving")
@@ -1495,10 +1533,10 @@ function LocoMotor:OnUpdate(dt)
         should_locomote =
             (not is_moving ~= not self.wantstomoveforward) or
             (is_moving and (not is_running ~= not self.wantstorun))
-			
+
         if is_moving or is_running then
             self:StartMoveTimerInternal()
-        end			
+        end
     end
 
     if should_locomote then
@@ -1506,7 +1544,7 @@ function LocoMotor:OnUpdate(dt)
     elseif not self.wantstomoveforward and not self:WaitingForPathSearch() then
         self:ResetPath()
         self:StopUpdatingInternal()
-        self:StopMoveTimerInternal()		
+        self:StopMoveTimerInternal()
     end
 
     local cur_speed = self.inst.Physics:GetMotorSpeed()

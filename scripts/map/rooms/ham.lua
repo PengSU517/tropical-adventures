@@ -3,26 +3,26 @@
 ---------------------------------------------------------
 AddRoom("Lilypond", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = WORLD_TILES.LILYPOND,  --GROUND.OCEAN_COASTAL,
-    tags = { "RoadPoison", "hamlet" },
+    value = WORLD_TILES.LILYPOND, --GROUND.OCEAN_COASTAL,
+    tags = { "RoadPoison", "hamlet", "ExitPiece" },
     contents = {
         distributepercent = .2, --.22, --.26
         distributeprefabs =
         {
             watercress_planted = .05,
-            grasswater = .05,
+            -- grasswater = .05,
             lotus = 0.05,
             reeds_water = .05,
         },
         countprefabs =
         {
-            hippopotamoose = math.random(2, 3),
+            hippopotamoose = math.random(2, 4),
             -- bill = math.random(1, 3),
             lilypad = math.random(3, 4),
 
         },
         countstaticlayouts = {
-            -- ["lilypad"] = math.random(2, 4),
+            -- ["lilypad"] = 1,
         },
     }
 })
@@ -30,28 +30,31 @@ AddRoom("Lilypond", {
 
 
 
-AddRoom("PorklandPortalRoom", {
+AddRoom("Ham start", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.PLAINS,
-    tags = { "RoadPoison", "Chester_Eyebone" },
+    tags = { "hamlet" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
         {
-            clawpalmtree = .25,
+            clawpalmtree = 0.5,
             grass_tall = 1,
+            saplingnova = .3,
             flower = 0.05,
-            pog = 0.1,
+            dungpile = 0.03,
+            peagawk = 0.01,
+            --		randomrelic = 0.0016,
+            --randomruin = 0.0025,	
             randomdust = 0.0025,
             rock_flippable = 0.08,
             aloe_planted = 0.08,
+            pog = 0.01,
             asparagus_planted = 0.05,
-
         },
-        countprefabs =
-        {
-            spawnpoint_multiplayer = 1,
-        }
+        countstaticlayouts = {
+            ["start_ham"] = 1,
+        },
 
     }
 })
@@ -763,7 +766,7 @@ AddRoom("BG_rainforest_base", {
 
 AddRoom("rainforest_ruins", {
     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
-    value = GROUND.JUNGLE,
+    value = GROUND.RAINFOREST,
     tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
     contents = {
         distributepercent = .35, -- .5

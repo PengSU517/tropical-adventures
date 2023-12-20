@@ -18,6 +18,19 @@ ARRAY_NEW =
     "HAM_CAVE2",
     "HAM_MAZE",
 
+    "PLAIN",
+    "RAINFOREST",
+    "DEEPRAINFOREST",
+    "EDGE",
+    "PAINTED",
+    "CITY_1",
+    "CITY_2",
+
+    "HAM_BLANK",
+    "SNAKE",
+
+
+
 
     "JUNGLE_DEPTH_1",
     "JUNGLE_DEPTH_2",
