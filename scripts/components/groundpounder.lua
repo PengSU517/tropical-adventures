@@ -138,7 +138,7 @@ function GroundPounder:DestroyPoints(points, breakobjects, dodamage, pushplatfor
 
         if pushplatforms then
             local platform_ents = TheSim:FindEntities(v.x, v.y, v.z, self.ringWidth + TUNING
-                .MAX_WALKABLE_PLATFORM_RADIUS, WALKABLEPLATFORM_TAGS, self.noTags)
+            .MAX_WALKABLE_PLATFORM_RADIUS, WALKABLEPLATFORM_TAGS, self.noTags)
             for i, p_ent in ipairs(platform_ents) do
                 if p_ent ~= self.inst
                     and not platforms_hit[p_ent]
@@ -205,7 +205,7 @@ function GroundPounder:DestroyRing(pt, radius, points, breakobjects, dodamage, p
                                     v2.components.workable:Destroy(self.inst)
                                 end
                             end
-                            if v2:IsValid() and        --might've changed after work?
+                            if v2:IsValid() and --might've changed after work?
                                 not v2:IsInLimbo() and --might've changed after work?
                                 self.burner and
                                 v2.components.fueled == nil and
@@ -303,7 +303,7 @@ local function OnDestroyRing(inst, self, pt, radius, points, breakobjects, dodam
         platforms_hit)
 end
 
-function GroundPounder:GroundPound(pt)
+function GroundPounder:GroundPound(pt, ents_hit)
     pt = pt or self.inst:GetPosition()
 
     local fx = SpawnPrefab(self.groundpoundringfx)
@@ -323,8 +323,10 @@ function GroundPounder:GroundPound(pt)
     local points = self:GetPoints(pt)
     local delay = 0
     local radius = self.initialRadius
-    local ents_hit = {}
     local platforms_hit = {}
+    if ents_hit == nil then
+        ents_hit = {}
+    end
     for i = 1, self.numRings do
         if self.usePointMode then
             --Deprecated

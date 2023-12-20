@@ -22,6 +22,7 @@ modimport("scripts/map/rooms/ocean")
 modimport("scripts/map/rooms/unknown")
 modimport("scripts/map/tasks/ham")
 modimport("scripts/map/tasks/sw")
+modimport("scripts/map/newstartlocation")
 
 -------------修改之前内容
 modimport("postinit/map/storygen")
@@ -32,7 +33,7 @@ modimport("postinit/map/tasks")
 
 
 
-local size = 250 --450是默认边长 --地图太小可能生成不了世界
+local size = 400 --450是默认边长 --地图太小可能生成不了世界
 
 if GLOBAL.rawget(GLOBAL, "WorldSim") then
     local idx = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
@@ -56,17 +57,6 @@ end
 
 
 
-AddStartLocation("NewStart", {
-    name = STRINGS.UI.SANDBOXMENU.DEFAULTSTART,
-    location = "forest",
-    start_setpeice = "newstart", --生成的static layout  --layout太大的话需要设置大小
-    start_node = "Clearing",     --"Blank",  --生成位置, 并在包含该room的task新生成一个相同room  blank就是生成在海上
-})
-
-
-
-
-
 AddLevelPreInitAny(function(level)
     if level.location == "cave" then
         level.overrides.keep_disconnected_tiles = true
@@ -87,37 +77,39 @@ AddLevelPreInitAny(function(level)
 
 
     if level.location == "forest" then
-        level.tasks = { "Make a pick", "Speak to the king" }
-        table.insert(level.tasks, "Mrainforest_ruins") --这才应该是出门位置
-        table.insert(level.tasks, "Mplains")           --island3 高草地形，类似牛场
-        -- table.insert(level.tasks, "Mpainted_sands")        --废铁机器人和铁矿区, 有cave_entrance_roc，但是太大了
-        -- table.insert(level.tasks, "MEdge_of_civilization") --城郊地区
-        -- table.insert(level.tasks, "MDeep_rainforest_mandrake")
-        -- table.insert(level.tasks, "MDeep_lost_ruins_gas")  --毒气森林 有entrance_6
+        -- level.tasks = { "Make a pick", "Speak to the king" }
+        table.insert(level.tasks, "Plains")               --island3 高草地形，类似牛场
+        table.insert(level.tasks, "Rainforest_ruins")
+        table.insert(level.tasks, "Painted_sands")        --废铁机器人和铁矿区, 有cave_entrance_roc，但是太大了
+        table.insert(level.tasks, "Edge_of_civilization") --城郊地区
+        -- table.insert(level.tasks, "Deep_rainforest")
+        -- table.insert(level.tasks, "Deep_rainforest_2")    ----有荨麻，遗迹入口  entrance_5  --并入曼达拉
+        -- table.insert(level.tasks, "Deep_lost_ruins_gas")  --毒气森林 有entrance_6
         -- -- -- table.insert(level.tasks, "MEdge_of_the_unknown_2") --这个的地形和其他地形高度重复
-        -- table.insert(level.tasks, "MDeep_rainforest_2")    ----有荨麻，遗迹入口  entrance_5
 
-        -- -- -- table.insert(level.tasks, "M_BLANK2")       --这是个空的
-        -- table.insert(level.tasks, "Edge_of_the_unknownC") --pugalisk_fountain 蛇岛
 
-        -- table.insert(level.tasks, "MPigcity")
+        -- table.insert(level.tasks, "Ham_blank1")          --这是个空的
+        -- table.insert(level.tasks, "Ham_blank2")          --这是个空的
+        -- table.insert(level.tasks, "Edge_of_the_unknown") --pugalisk_fountain 蛇岛
+
+        table.insert(level.tasks, "Pigcity")
         -- table.insert(level.tasks, "MPigcityside1")
         -- table.insert(level.tasks, "MPigcityside2")
         -- table.insert(level.tasks, "MPigcityside3")
         -- table.insert(level.tasks, "MPigcityside4")
 
         -- table.insert(level.tasks, "M_BLANK1")
-        -- table.insert(level.tasks, "MPigcity2")
+        -- table.insert(level.tasks, "Pigcity2")
         -- table.insert(level.tasks, "MPigcity2side1")
         -- table.insert(level.tasks, "MPigcity2side2")
         -- table.insert(level.tasks, "MPigcity2side3")
         -- table.insert(level.tasks, "MPigcity2side4")
         -- table.insert(level.tasks, "MDeep_rainforest_3")
 
-        -- table.insert(level.tasks, "pincale")
+        -- table.insert(level.tasks, "Pincale")
 
-        table.insert(level.tasks, "A_MISTO6") --火山矿区
-        table.insert(level.tasks, "A_MISTO7") --野猪王
+        -- table.insert(level.tasks, "A_MISTO6") --火山矿区
+        -- table.insert(level.tasks, "A_MISTO7") --野猪王
 
         level.numoptionaltasks = 0
 
@@ -128,8 +120,8 @@ AddLevelPreInitAny(function(level)
         level.ordered_story_setpieces = {}
         level.numrandom_set_pieces = 0
 
-        -- level.ocean_population = nil        --海洋生态 礁石 海带之类的 也就是说删除了奶奶岛 和猴岛？ 这代码逻辑太奇怪了
-        -- level.ocean_prefill_setpieces = nil -- 不用这一行，海上只会生成巨树和盐矿的layout
+        level.ocean_population = nil        --海洋生态 礁石 海带之类的 也就是说删除了奶奶岛 和猴岛？ 这代码逻辑太奇怪了
+        level.ocean_prefill_setpieces = nil -- 不用这一行，海上只会生成巨树和盐矿的layout
 
         -- level.overrides.keep_disconnected_tiles = true
         -- level.overrides.roads = "never"
@@ -138,7 +130,8 @@ AddLevelPreInitAny(function(level)
         level.required_prefabs = {} --温蒂更新后的修复
 
         -- level.set_pieces["cave_entranceham1"] = { count = 1, tasks = { "Mrainforest_ruins" } }
-        level.set_pieces["start_ham"] = { count = 1, tasks = { "Mrainforest_ruins" } }
+        -- level.set_pieces["start_ham"] = { count = 1, tasks = { "Mrainforest_ruins" } }
+        -- level.set_pieces["octopuskinghome"] = { count = 1, tasks = { "A_MISTO6" } }  ---coral地皮咋用不了呢
 
         -- table.insert(level.ocean_population, "OceanCoastal_lily")-------不管用呢
 
@@ -151,7 +144,7 @@ AddLevelPreInitAny(function(level)
         -- level.ocean_prefill_setpieces["wreck"] = { count = 1 }
         -- level.ocean_prefill_setpieces["wreck2"] = { count = 1 }
         -- level.ocean_prefill_setpieces["kraken"] = { count = 1 }
-        -- level.ocean_prefill_setpieces["lilypadnovo"] = { count = 3 }
+        -- level.ocean_prefill_setpieces["octopuskinghome"] = { count = 3 }
 
 
         -- level.set_pieces["lilypad"] = { count = 1, tasks = { "Mplains" } }
@@ -160,16 +153,13 @@ AddLevelPreInitAny(function(level)
 
 
 
-        --------------------------------------水面波纹，现在只能暴力覆盖
+        -----解决---------------------------------水面波纹，现在只能暴力覆盖
         --------------------------------------默认的落鸟 --落在荷叶上会很小
-        -----------------------------以及生成海域时不再重新铺地皮，
+        -----解决------------------------以及生成海域时不再重新铺地皮，
         -----------------------------怎么放码头,
-        ----------------------------海岸线不够渐变, 水陆分界类似河堤的东西
+        ----------------------------海岸线不够渐变, 水陆分界类似河堤的东西 --------------需要了解tex动画怎么做的
         ----------------------------三基佬等layout的生成
-        ---------------------怎么解决暴力覆盖
         ---------------------在海面上退档会传送会出生门
-        ------------------水陆地皮的动画层级似乎不一样
-        -----------------突然不刷新水母了
     end
 end)
 

@@ -64,7 +64,7 @@ local function redirecthealth(inst, amount, overtime, cause, ignore_invincible)
         fx.Transform:SetPosition(pt.x,pt.y + 2 + math.random()*2,pt.z)
 
         inst:PushEvent("dohitanim")
-        inst.host.components.health:DoDelta(amount, overtime, cause, ignore_invincible, true)
+        if inst.host.components.health then inst.host.components.health:DoDelta(amount, overtime, cause, ignore_invincible, true) end
         inst.host:PushEvent("attacked")
     end    
 end
