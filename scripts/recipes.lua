@@ -346,76 +346,76 @@ AddRecipe2("porto_sea_yard", { Ingredient("limestone", 6, v_atlas), Ingredient("
 	TECH.SEAFARING_TWO, { atlas = v_atlas, image = "sea_yard.tex" }, { "SEAFARING" })
 
 --HAMLET--
-if GetModConfigData("Hamlet") ~= 5 or GetModConfigData("startlocation") == 15 or GetModConfigData("kindofworld") == 5 then --GetModConfigData("painted_sands")
-	AddRecipe2("shears", { Ingredient("twigs", 2), Ingredient("iron", 2, h_atlas) }, TECH.SCIENCE_ONE,
-		{ atlas = h_atlas },
-		{ "TOOLS" })
-	AddRecipe2("bugrepellent", { Ingredient("tuber_crop", 6, v_atlas), Ingredient("venus_stalk", 1, v_atlas) },
-		TECH.SCIENCE_ONE, { atlas = h_atlas }, { "TOOLS" })
-	AddRecipe2("goldpan", { Ingredient("iron", 2, h_atlas), Ingredient("hammer", 1) }, TECH.SCIENCE_ONE, {
-		atlas =
-			h_atlas
-	}, { "TOOLS" })
-	AddRecipe2("bathat", { Ingredient("pigskin", 2), Ingredient("batwing", 1), Ingredient("compass", 1) },
-		TECH.SCIENCE_TWO, { atlas = h_atlas }, { "LIGHT" })
-	AddRecipe2("candlehat", { Ingredient("cork", 4, h_atlas), Ingredient("iron", 2, h_atlas) }, TECH.SCIENCE_ONE,
-		{ atlas = h_atlas }, { "LIGHT" })
-	AddRecipe2("glass_shards", { Ingredient("sand", 3, v_atlas) }, TECH.SCIENCE_ONE, { atlas = v_atlas }, { "REFINE" })
-	--AddRecipe2("goldnugget",			{Ingredient("gold_dust", 6, h_atlas)},  																	TECH.SCIENCE_ONE, {atlas=h_atlas}, {"REFINE"})
-	AddRecipe2("shard_sword",
-		{ Ingredient("glass_shards", 3, v_atlas), Ingredient("nightmarefuel", 2), Ingredient("twigs", 2) },
-		TECH.MAGIC_TWO, { atlas = v_atlas }, { "MAGIC" })
-	AddRecipe2("shard_beak", { Ingredient("glass_shards", 3, v_atlas), Ingredient("crow", 1), Ingredient("twigs", 2) },
-		TECH.MAGIC_TWO, { atlas = v_atlas }, { "MAGIC" })
-	AddRecipe2("armor_weevole", { Ingredient("weevole_carapace", 4, v_atlas), Ingredient("chitin", 2, h_atlas) },
-		TECH.SCIENCE_TWO, { atlas = h_atlas }, { "ARMOUR" })
-	AddRecipe2("antsuit", { Ingredient("chitin", 5, h_atlas), Ingredient("armorwood", 1) }, TECH.SCIENCE_ONE,
-		{ atlas = h_atlas }, { "ARMOUR" })
-	AddRecipe2("antmaskhat", { Ingredient("chitin", 5, h_atlas), Ingredient("footballhat", 1) }, TECH.SCIENCE_ONE,
-		{ atlas = h_atlas }, { "ARMOUR" })
-	AddRecipe2("metalplatehat", { Ingredient("alloy", 3, h_atlas), Ingredient("cork", 3, h_atlas) }, TECH.SCIENCE_ONE,
-		{ atlas = h_atlas }, { "ARMOUR" })
-	AddRecipe2("armor_metalplate", { Ingredient("alloy", 3, h_atlas), Ingredient("hammer", 1) }, TECH.SCIENCE_ONE,
-		{ atlas = h_atlas }, { "ARMOUR" })
-	AddRecipe2("halberd", { Ingredient("alloy", 1, h_atlas), Ingredient("twigs", 2) }, TECH.SCIENCE_ONE, {
-		atlas =
-			h_atlas
-	}, { "WEAPONS" })
-	AddRecipe2("cork_bat", { Ingredient("cork", 3, h_atlas), Ingredient("boards", 1) }, TECH.SCIENCE_ONE, {
-		atlas =
-			h_atlas
-	}, { "WEAPONS" })
-	AddRecipe2("blunderbuss", { Ingredient("oinc10", 1, h_atlas), Ingredient("boards", 2), Ingredient("gears", 1) },
-		TECH.SCIENCE_ONE, { atlas = h_atlas }, { "WEAPONS" })
-	AddRecipe2("corkchest", { Ingredient("cork", 2, h_atlas), Ingredient("rope", 1) }, TECH.SCIENCE_ONE,
-		{ atlas = h_atlas, min_spacing = 1, placer = "corkchest_placer" }, { "CONTAINERS" })
-	AddRecipe2("roottrunk_child",
-		{ Ingredient("bramble_bulb", 1, h_atlas), Ingredient("venus_stalk", 2, v_atlas), Ingredient("boards", 2) },
-		TECH.SCIENCE_ONE, { atlas = h_atlas, min_spacing = 1, placer = "roottrunk_child_placer" }, { "CONTAINERS" })
-	AddRecipe2("basefan", { Ingredient("alloy", 2, h_atlas), Ingredient("transistor", 2), Ingredient("gears", 1) },
-		TECH.SCIENCE_TWO, { atlas = h_atlas, placer = "basefan_placer" }, { "PROTOTYPERS" })
-	AddRecipe2("sprinkler1", { Ingredient("alloy", 2, h_atlas), Ingredient("bluegem", 1), Ingredient("ice", 6) },
-		TECH.SCIENCE_TWO, { atlas = h_atlas, placer = "sprinkler1_placer" }, { "GARDENING" })
-	AddRecipe2("smelter", { Ingredient("cutstone", 6), Ingredient("boards", 4), Ingredient("redgem", 1) },
-		TECH.SCIENCE_TWO, { atlas = h_atlas, placer = "smetler_placer" }, { "PROTOTYPERS" })
-	AddRecipe2("ballpein_hammer", { Ingredient("iron", 2, h_atlas), Ingredient("twigs", 1) }, TECH.SCIENCE_ONE,
-		{ atlas = h_atlas }, { "TOOLS" })
-	AddRecipe2("magnifying_glass", { Ingredient("iron", 1, h_atlas), Ingredient("twigs", 1), Ingredient("bluegem", 1) },
-		TECH.SCIENCE_TWO, { atlas = h_atlas }, { "TOOLS" })
-	AddRecipe2("disguisehat", { Ingredient("twigs", 2), Ingredient("pigskin", 1), Ingredient("beardhair", 1) },
-		TECH.SCIENCE_TWO, { atlas = h_atlas }, { "CLOTHING" })
-	AddRecipe2("pithhat",
-		{ Ingredient("fabric", 1, v_atlas), Ingredient("vine", 3, v_atlas), Ingredient("cork", 6, h_atlas) },
-		TECH.SCIENCE_TWO, { atlas = h_atlas }, { "CLOTHING" })
-	AddRecipe2("thunderhat",
-		{ Ingredient("feather_thunder", 1, h_atlas), Ingredient("goldnugget", 1), Ingredient("cork", 2, h_atlas) },
-		TECH.SCIENCE_TWO, { atlas = h_atlas }, { "CLOTHING" })
-	AddRecipe2("gasmaskhat",
-		{ Ingredient("peagawkfeather", 4, h_atlas), Ingredient("fabric", 1, h_atlas), Ingredient("pigskin", 1) },
-		TECH.SCIENCE_ONE, { atlas = h_atlas }, { "CLOTHING" })
-	AddRecipe2("corkboatitem", { Ingredient("rope", 1), Ingredient("cork", 4, h_atlas) }, TECH.NONE, { atlas = h_atlas },
-		{ "SEAFARING" })
-end
+-- if GetModConfigData("Hamlet") ~= 5 or GetModConfigData("startlocation") == 15 or GetModConfigData("kindofworld") == 5 then --GetModConfigData("painted_sands")
+AddRecipe2("shears", { Ingredient("twigs", 2), Ingredient("iron", 2, h_atlas) }, TECH.SCIENCE_ONE,
+	{ atlas = h_atlas },
+	{ "TOOLS" })
+AddRecipe2("bugrepellent", { Ingredient("tuber_crop", 6, v_atlas), Ingredient("venus_stalk", 1, v_atlas) },
+	TECH.SCIENCE_ONE, { atlas = h_atlas }, { "TOOLS" })
+AddRecipe2("goldpan", { Ingredient("iron", 2, h_atlas), Ingredient("hammer", 1) }, TECH.SCIENCE_ONE, {
+	atlas =
+		h_atlas
+}, { "TOOLS" })
+AddRecipe2("bathat", { Ingredient("pigskin", 2), Ingredient("batwing", 1), Ingredient("compass", 1) },
+	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "LIGHT" })
+AddRecipe2("candlehat", { Ingredient("cork", 4, h_atlas), Ingredient("iron", 2, h_atlas) }, TECH.SCIENCE_ONE,
+	{ atlas = h_atlas }, { "LIGHT" })
+AddRecipe2("glass_shards", { Ingredient("sand", 3, v_atlas) }, TECH.SCIENCE_ONE, { atlas = v_atlas }, { "REFINE" })
+--AddRecipe2("goldnugget",			{Ingredient("gold_dust", 6, h_atlas)},  																	TECH.SCIENCE_ONE, {atlas=h_atlas}, {"REFINE"})
+AddRecipe2("shard_sword",
+	{ Ingredient("glass_shards", 3, v_atlas), Ingredient("nightmarefuel", 2), Ingredient("twigs", 2) },
+	TECH.MAGIC_TWO, { atlas = v_atlas }, { "MAGIC" })
+AddRecipe2("shard_beak", { Ingredient("glass_shards", 3, v_atlas), Ingredient("crow", 1), Ingredient("twigs", 2) },
+	TECH.MAGIC_TWO, { atlas = v_atlas }, { "MAGIC" })
+AddRecipe2("armor_weevole", { Ingredient("weevole_carapace", 4, v_atlas), Ingredient("chitin", 2, h_atlas) },
+	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "ARMOUR" })
+AddRecipe2("antsuit", { Ingredient("chitin", 5, h_atlas), Ingredient("armorwood", 1) }, TECH.SCIENCE_ONE,
+	{ atlas = h_atlas }, { "ARMOUR" })
+AddRecipe2("antmaskhat", { Ingredient("chitin", 5, h_atlas), Ingredient("footballhat", 1) }, TECH.SCIENCE_ONE,
+	{ atlas = h_atlas }, { "ARMOUR" })
+AddRecipe2("metalplatehat", { Ingredient("alloy", 3, h_atlas), Ingredient("cork", 3, h_atlas) }, TECH.SCIENCE_ONE,
+	{ atlas = h_atlas }, { "ARMOUR" })
+AddRecipe2("armor_metalplate", { Ingredient("alloy", 3, h_atlas), Ingredient("hammer", 1) }, TECH.SCIENCE_ONE,
+	{ atlas = h_atlas }, { "ARMOUR" })
+AddRecipe2("halberd", { Ingredient("alloy", 1, h_atlas), Ingredient("twigs", 2) }, TECH.SCIENCE_ONE, {
+	atlas =
+		h_atlas
+}, { "WEAPONS" })
+AddRecipe2("cork_bat", { Ingredient("cork", 3, h_atlas), Ingredient("boards", 1) }, TECH.SCIENCE_ONE, {
+	atlas =
+		h_atlas
+}, { "WEAPONS" })
+AddRecipe2("blunderbuss", { Ingredient("oinc10", 1, h_atlas), Ingredient("boards", 2), Ingredient("gears", 1) },
+	TECH.SCIENCE_ONE, { atlas = h_atlas }, { "WEAPONS" })
+AddRecipe2("corkchest", { Ingredient("cork", 2, h_atlas), Ingredient("rope", 1) }, TECH.SCIENCE_ONE,
+	{ atlas = h_atlas, min_spacing = 1, placer = "corkchest_placer" }, { "CONTAINERS" })
+AddRecipe2("roottrunk_child",
+	{ Ingredient("bramble_bulb", 1, h_atlas), Ingredient("venus_stalk", 2, v_atlas), Ingredient("boards", 2) },
+	TECH.SCIENCE_ONE, { atlas = h_atlas, min_spacing = 1, placer = "roottrunk_child_placer" }, { "CONTAINERS" })
+AddRecipe2("basefan", { Ingredient("alloy", 2, h_atlas), Ingredient("transistor", 2), Ingredient("gears", 1) },
+	TECH.SCIENCE_TWO, { atlas = h_atlas, placer = "basefan_placer" }, { "PROTOTYPERS" })
+AddRecipe2("sprinkler1", { Ingredient("alloy", 2, h_atlas), Ingredient("bluegem", 1), Ingredient("ice", 6) },
+	TECH.SCIENCE_TWO, { atlas = h_atlas, placer = "sprinkler1_placer" }, { "GARDENING" })
+AddRecipe2("smelter", { Ingredient("cutstone", 6), Ingredient("boards", 4), Ingredient("redgem", 1) },
+	TECH.SCIENCE_TWO, { atlas = h_atlas, placer = "smetler_placer" }, { "PROTOTYPERS" })
+AddRecipe2("ballpein_hammer", { Ingredient("iron", 2, h_atlas), Ingredient("twigs", 1) }, TECH.SCIENCE_ONE,
+	{ atlas = h_atlas }, { "TOOLS" })
+AddRecipe2("magnifying_glass", { Ingredient("iron", 1, h_atlas), Ingredient("twigs", 1), Ingredient("bluegem", 1) },
+	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "TOOLS" })
+AddRecipe2("disguisehat", { Ingredient("twigs", 2), Ingredient("pigskin", 1), Ingredient("beardhair", 1) },
+	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "CLOTHING" })
+AddRecipe2("pithhat",
+	{ Ingredient("fabric", 1, v_atlas), Ingredient("vine", 3, v_atlas), Ingredient("cork", 6, h_atlas) },
+	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "CLOTHING" })
+AddRecipe2("thunderhat",
+	{ Ingredient("feather_thunder", 1, h_atlas), Ingredient("goldnugget", 1), Ingredient("cork", 2, h_atlas) },
+	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "CLOTHING" })
+AddRecipe2("gasmaskhat",
+	{ Ingredient("peagawkfeather", 4, h_atlas), Ingredient("fabric", 1, h_atlas), Ingredient("pigskin", 1) },
+	TECH.SCIENCE_ONE, { atlas = h_atlas }, { "CLOTHING" })
+AddRecipe2("corkboatitem", { Ingredient("rope", 1), Ingredient("cork", 4, h_atlas) }, TECH.NONE, { atlas = h_atlas },
+	{ "SEAFARING" })
+-- end
 
 -- if GetModConfigData("kindofworld") == 5 then
 AddRecipe2("antler",
