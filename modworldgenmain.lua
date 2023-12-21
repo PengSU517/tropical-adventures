@@ -82,7 +82,7 @@ AddLevelPreInitAny(function(level)
         table.insert(level.tasks, "Rainforest_ruins")
         -- table.insert(level.tasks, "Painted_sands")        --废铁机器人和铁矿区, 有cave_entrance_roc，但是太大了
         -- table.insert(level.tasks, "Edge_of_civilization") --城郊地区
-        table.insert(level.tasks, "Deep_rainforest")
+        table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
         -- table.insert(level.tasks, "Deep_rainforest_2")    ----有荨麻，遗迹入口  entrance_5  --并入曼达拉
         -- table.insert(level.tasks, "Deep_lost_ruins_gas")  --毒气森林 有entrance_6
         -- -- -- table.insert(level.tasks, "MEdge_of_the_unknown_2") --这个的地形和其他地形高度重复
@@ -92,10 +92,10 @@ AddLevelPreInitAny(function(level)
         -- table.insert(level.tasks, "Ham_blank2")          --这是个空的
         -- table.insert(level.tasks, "Edge_of_the_unknown") --pugalisk_fountain 蛇岛
 
-        -- table.insert(level.tasks, "Pigcity")
+        table.insert(level.tasks, "Pigcity")
 
         -- table.insert(level.tasks, "M_BLANK1")
-        -- table.insert(level.tasks, "Pigcity2")
+        table.insert(level.tasks, "Pigcity2")
         -- table.insert(level.tasks, "MDeep_rainforest_3")
 
         -- table.insert(level.tasks, "Pincale")

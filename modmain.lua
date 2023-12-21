@@ -2,6 +2,9 @@ GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL,
 _G = GLOBAL
 
 
+-------------------placer需要同名
+
+
 modimport("scripts/tuning") -- Usados no portal the forge: lavaarena_spawner, quagmire_key, lavarenainside   and fueltype, tool action
 GLOBAL.TUNING.tropical = {
 	wind              = GetModConfigData("wind"),
@@ -33,10 +36,16 @@ GLOBAL.TUNING.tropical = {
 
 
 
-modimport("main/assets")                  -----材质包， prefabs
+modimport("main/assets") -----材质包， prefabs
 
+
+------------------修正暴力覆盖的components
 modimport("postinit/components/aoespell") ----------怎么利用原函数
 modimport("postinit/components/armor")
+
+
+
+
 
 modimport("scripts/languages/language_setting.lua")
 modimport("scripts/actions.lua")
