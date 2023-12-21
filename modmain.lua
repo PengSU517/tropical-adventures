@@ -33,14 +33,16 @@ GLOBAL.TUNING.tropical = {
 
 
 
-modimport("main/assets")
+modimport("main/assets")                  -----材质包， prefabs
 
+modimport("postinit/components/aoespell") ----------怎么利用原函数
+modimport("postinit/components/armor")
 
 modimport("scripts/languages/language_setting.lua")
 modimport("scripts/actions.lua")
-modimport "tileadder.lua" -------添加小地图
+-- modimport "tileadder.lua" -------添加小地图
 modimport("scripts/ham_fx.lua")
-AddMinimap()
+-- AddMinimap()
 
 modimport("scripts/tools/waffles1")        ------------------volcano-------------------
 modimport("scripts/recipe_tabs")

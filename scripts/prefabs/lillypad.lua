@@ -41,17 +41,7 @@ local sounds = {
 local BOATBUMPER_MUST_TAGS = { "boatbumper" }
 local BOATCANNON_MUST_TAGS = { "boatcannon" }
 
-local function IsWater(tile)
-    if (tile >= LEGACY_WORLD_TILES_OCEAN_START and tile <= LEGACY_WORLD_TILES_OCEAN_END) then
-        return true
-    end
 
-    if (tile >= WORLD_TILES_OCEAN_START and tile <= WORLD_TILES_OCEAN_END) then
-        return true
-    end
-
-    return false
-end
 
 local function OnLoadPostPass(inst)
     local boatring = inst.components.boatring
@@ -105,20 +95,18 @@ end
 local function groundtest(inst)
     local map = TheWorld.Map
     local ex, ey, ez = inst.Transform:GetWorldPosition()
-    local posicao1 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez + 5))
-    local posicao2 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez - 5))
-    local posicao3 = map:GetTile(map:GetTileCoordsAtPoint(ex + 5, ey, ez))
-    local posicao4 = map:GetTile(map:GetTileCoordsAtPoint(ex - 5, ey, ez))
-
-    -- if posicao1 ~= (GROUND.OCEAN_SWELL) and posicao1 ~= (GROUND.OCEAN_WATERLOG) and posicao1 ~= (GROUND.OCEAN_BRINEPOOL) and posicao1 ~= (GROUND.OCEAN_BRINEPOOL_SHORE) and posicao1 ~= (GROUND.OCEAN_HAZARDOUS) and posicao1 ~= (GROUND.OCEAN_ROUGH) and posicao1 ~= (GROUND.OCEAN_COASTAL) and posicao1 ~= (GROUND.OCEAN_COASTAL_SHORE)
-    --     or posicao2 ~= (GROUND.OCEAN_SWELL) and posicao2 ~= (GROUND.OCEAN_WATERLOG) and posicao2 ~= (GROUND.OCEAN_BRINEPOOL) and posicao2 ~= (GROUND.OCEAN_BRINEPOOL_SHORE) and posicao2 ~= (GROUND.OCEAN_HAZARDOUS) and posicao2 ~= (GROUND.OCEAN_ROUGH) and posicao2 ~= (GROUND.OCEAN_COASTAL) and posicao2 ~= (GROUND.OCEAN_COASTAL_SHORE)
-    --     or posicao3 ~= (GROUND.OCEAN_SWELL) and posicao3 ~= (GROUND.OCEAN_WATERLOG) and posicao3 ~= (GROUND.OCEAN_BRINEPOOL) and posicao3 ~= (GROUND.OCEAN_BRINEPOOL_SHORE) and posicao3 ~= (GROUND.OCEAN_HAZARDOUS) and posicao3 ~= (GROUND.OCEAN_ROUGH) and posicao3 ~= (GROUND.OCEAN_COASTAL) and posicao3 ~= (GROUND.OCEAN_COASTAL_SHORE)
-    --     or posicao4 ~= (GROUND.OCEAN_SWELL) and posicao4 ~= (GROUND.OCEAN_WATERLOG) and posicao4 ~= (GROUND.OCEAN_BRINEPOOL) and posicao4 ~= (GROUND.OCEAN_BRINEPOOL_SHORE) and posicao4 ~= (GROUND.OCEAN_HAZARDOUS) and posicao4 ~= (GROUND.OCEAN_ROUGH) and posicao4 ~= (GROUND.OCEAN_COASTAL) and posicao4 ~= (GROUND.OCEAN_COASTAL_SHORE) then
-    --     inst:Remove()
-    -- end
-
-    if (not IsWater(posicao1)) or (not IsWater(posicao2)) or (not IsWater(posicao3)) or (not IsWater(posicao4)) then
+    if not map:IsSurroundedByWater(ex, ey, ez, 4) then
         inst:Remove()
+    end
+end
+
+local function otheritemtest(inst)
+    local ex, ey, ez = inst.Transform:GetWorldPosition()
+    local ents = TheSim:FindEntities(ex, ey, ez, 6)
+    for k, v in pairs(ents) do
+        if v ~= inst then ----------排除自己？
+            v:Remove()
+        end
     end
 end
 
@@ -443,6 +431,7 @@ local function fn()
     inst:WatchWorldState("stopday", ReturnChildren)
 
     inst:DoTaskInTime(0, groundtest)
+    inst:DoTaskInTime(0, otheritemtest)
 
     inst.speed = speed
 

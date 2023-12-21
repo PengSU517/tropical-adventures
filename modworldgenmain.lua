@@ -7,12 +7,12 @@ require("map/tasks")
 require("map/tro_lockandkey")
 require("map/ocean_gen_new") ----啊这。。。只要更新这个就好了？？？
 
-modimport 'tileadder.lua'    --add new terrain AddTile()
-AddTiles()                   --addtiles加在这里就能在小地图上正确显示地皮,但是为啥啊，这又不是小地图的事
+-- modimport 'tileadder.lua'    --add new terrain AddTile()
+-- AddTiles()                   --addtiles加在这里就能在小地图上正确显示地皮,但是为啥啊，这又不是小地图的事
 
-modimport("main/tiledefs")
+modimport("main/tiledefs")            ------------缺少行走的声音
 modimport("main/node")
-modimport("main/forest_map_postinit") ----防止世界生成难产
+modimport("main/forest_map_postinit") ----防止世界生成难产，但可能会缺失重要地形
 
 ----------新内容
 modimport("scripts/init_static_layouts") --add new static layouts
@@ -33,7 +33,7 @@ modimport("postinit/map/tasks")
 
 
 
-local size = 400 --450是默认边长 --地图太小可能生成不了世界
+local size = 300 --450是默认边长 --地图太小可能生成不了世界
 
 if GLOBAL.rawget(GLOBAL, "WorldSim") then
     local idx = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
@@ -77,12 +77,12 @@ AddLevelPreInitAny(function(level)
 
 
     if level.location == "forest" then
-        -- level.tasks = { "Make a pick", "Speak to the king" }
-        table.insert(level.tasks, "Plains")               --island3 高草地形，类似牛场
+        level.tasks = { "Make a pick", "Speak to the king" }
+        table.insert(level.tasks, "Plains") --island3 高草地形，类似牛场
         table.insert(level.tasks, "Rainforest_ruins")
-        table.insert(level.tasks, "Painted_sands")        --废铁机器人和铁矿区, 有cave_entrance_roc，但是太大了
-        table.insert(level.tasks, "Edge_of_civilization") --城郊地区
-        -- table.insert(level.tasks, "Deep_rainforest")
+        -- table.insert(level.tasks, "Painted_sands")        --废铁机器人和铁矿区, 有cave_entrance_roc，但是太大了
+        -- table.insert(level.tasks, "Edge_of_civilization") --城郊地区
+        table.insert(level.tasks, "Deep_rainforest")
         -- table.insert(level.tasks, "Deep_rainforest_2")    ----有荨麻，遗迹入口  entrance_5  --并入曼达拉
         -- table.insert(level.tasks, "Deep_lost_ruins_gas")  --毒气森林 有entrance_6
         -- -- -- table.insert(level.tasks, "MEdge_of_the_unknown_2") --这个的地形和其他地形高度重复
@@ -92,18 +92,10 @@ AddLevelPreInitAny(function(level)
         -- table.insert(level.tasks, "Ham_blank2")          --这是个空的
         -- table.insert(level.tasks, "Edge_of_the_unknown") --pugalisk_fountain 蛇岛
 
-        table.insert(level.tasks, "Pigcity")
-        -- table.insert(level.tasks, "MPigcityside1")
-        -- table.insert(level.tasks, "MPigcityside2")
-        -- table.insert(level.tasks, "MPigcityside3")
-        -- table.insert(level.tasks, "MPigcityside4")
+        -- table.insert(level.tasks, "Pigcity")
 
         -- table.insert(level.tasks, "M_BLANK1")
         -- table.insert(level.tasks, "Pigcity2")
-        -- table.insert(level.tasks, "MPigcity2side1")
-        -- table.insert(level.tasks, "MPigcity2side2")
-        -- table.insert(level.tasks, "MPigcity2side3")
-        -- table.insert(level.tasks, "MPigcity2side4")
         -- table.insert(level.tasks, "MDeep_rainforest_3")
 
         -- table.insert(level.tasks, "Pincale")
@@ -130,7 +122,7 @@ AddLevelPreInitAny(function(level)
         level.required_prefabs = {} --温蒂更新后的修复
 
         -- level.set_pieces["cave_entranceham1"] = { count = 1, tasks = { "Mrainforest_ruins" } }
-        -- level.set_pieces["start_ham"] = { count = 1, tasks = { "Mrainforest_ruins" } }
+        -- level.set_pieces["start_ham"] = { count = 1, tasks = { "A_MISTO6" } }
         -- level.set_pieces["octopuskinghome"] = { count = 1, tasks = { "A_MISTO6" } }  ---coral地皮咋用不了呢
 
         -- table.insert(level.ocean_population, "OceanCoastal_lily")-------不管用呢
