@@ -65,25 +65,25 @@ return Class(function(self, inst)
     BIRD_TYPES[GROUND.MEADOW] = { "parrot", "toucan" }
     BIRD_TYPES[GROUND.BEACH] = { "toucan" }
     BIRD_TYPES[GROUND.JUNGLE] = { "parrot" }
-    BIRD_TYPES[GROUND.QUAGMIRE_PEATFOREST] = { "quagmire_pigeon" } --, "pigeon_swarm"
-    BIRD_TYPES[GROUND.QUAGMIRE_PARKFIELD] = { "quagmire_pigeon" }  --, "pigeon_swarm"
-    BIRD_TYPES[GROUND.QUAGMIRE_PARKSTONE] = { "quagmire_pigeon" }  --, "pigeon_swarm"
-    BIRD_TYPES[GROUND.QUAGMIRE_GATEWAY] = { "quagmire_pigeon" }    --, "pigeon_swarm"
-    BIRD_TYPES[GROUND.QUAGMIRE_SOIL] = { "quagmire_pigeon" }       --, "pigeon_swarm"
-    BIRD_TYPES[GROUND.QUAGMIRE_CITYSTONE] = { "quagmire_pigeon" }  --, "pigeon_swarm"
-    BIRD_TYPES[GROUND.IMPASSABLE] = { "log" }
-    BIRD_TYPES[GROUND.INVALID] = { "log" }
-    BIRD_TYPES[GROUND.WATER_MANGROVE] = { "robin_winter" }
-    BIRD_TYPES[GROUND.ANTFLOOR] = { "robin_winter" }
+    -- BIRD_TYPES[GROUND.QUAGMIRE_PEATFOREST] = { "quagmire_pigeon" } --, "pigeon_swarm"
+    -- BIRD_TYPES[GROUND.QUAGMIRE_PARKFIELD] = { "quagmire_pigeon" }  --, "pigeon_swarm"
+    -- BIRD_TYPES[GROUND.QUAGMIRE_PARKSTONE] = { "quagmire_pigeon" }  --, "pigeon_swarm"
+    -- BIRD_TYPES[GROUND.QUAGMIRE_GATEWAY] = { "quagmire_pigeon" }    --, "pigeon_swarm"
+    -- BIRD_TYPES[GROUND.QUAGMIRE_SOIL] = { "quagmire_pigeon" }       --, "pigeon_swarm"
+    -- BIRD_TYPES[GROUND.QUAGMIRE_CITYSTONE] = { "quagmire_pigeon" }  --, "pigeon_swarm"
+    -- BIRD_TYPES[GROUND.IMPASSABLE] = { "log" }
+    -- BIRD_TYPES[GROUND.INVALID] = { "log" }
+    -- BIRD_TYPES[GROUND.WATER_MANGROVE] = { "robin_winter" }
+    -- BIRD_TYPES[GROUND.ANTFLOOR] = { "robin_winter" }
 
-    if KnownModIndex:IsModEnabled("workshop-1289779251") then
-        BIRD_TYPES[WORLD_TILES.CHERRY] = { "catbird", "crow" }
-        BIRD_TYPES[WORLD_TILES.CHERRY2] = { "chaffinch", "robin" }
-        BIRD_TYPES[WORLD_TILES.CHERRY3] = { "catbird" }
-        BIRD_TYPES[WORLD_TILES.CHERRY4] = { "chaffinch" }
-    end
+    -- if KnownModIndex:IsModEnabled("workshop-1289779251") then
+    --     BIRD_TYPES[WORLD_TILES.CHERRY] = { "catbird", "crow" }
+    --     BIRD_TYPES[WORLD_TILES.CHERRY2] = { "chaffinch", "robin" }
+    --     BIRD_TYPES[WORLD_TILES.CHERRY3] = { "catbird" }
+    --     BIRD_TYPES[WORLD_TILES.CHERRY4] = { "chaffinch" }
+    -- end
 
-    BIRD_TYPES[GROUND.WINDY] = { "goddess_bird" }
+    -- BIRD_TYPES[GROUND.WINDY] = { "goddess_bird" }
 
     --------------------------------------------------------------------------
     --[[ Member variables ]]
