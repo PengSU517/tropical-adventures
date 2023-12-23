@@ -4,11 +4,11 @@ local assets =
 {
     Asset("ANIM", "anim/cave_entrance.zip"),
     Asset("ANIM", "anim/ruins_entrance.zip"),
-    Asset("MINIMAP_IMAGE", "cave_closed"),
-    Asset("MINIMAP_IMAGE", "cave_open"),
-    Asset("MINIMAP_IMAGE", "cave_no_access"),
-    Asset("MINIMAP_IMAGE", "cave_overcapacity"),
-    Asset("MINIMAP_IMAGE", "ruins_closed"),
+	Asset("MINIMAP_IMAGE", "cave_closed"),
+	Asset("MINIMAP_IMAGE", "cave_open"),
+	Asset("MINIMAP_IMAGE", "cave_no_access"),
+	Asset("MINIMAP_IMAGE", "cave_overcapacity"),
+	Asset("MINIMAP_IMAGE", "ruins_closed"),
 }
 
 local prefabs =
@@ -30,7 +30,7 @@ local function full(inst)
 end
 
 --local function activate(inst)
--- nothing
+    -- nothing
 --end
 
 local function ReturnChildren(inst)
@@ -60,12 +60,12 @@ local function OnWork(inst, worker, workleft)
         inst.components.lootdropper:DropLoot(pt)
         ProfileStatsSet("cave_entrance_opened", true)
         if worker ~= nil then
-            AwardPlayerAchievement("cave_entrance_opened", worker)
-        end
-        local openinst = SpawnPrefab("cave_entrance_open", inst.linked_skinname, inst.skin_id)
+	        AwardPlayerAchievement("cave_entrance_opened", worker)
+	    end
+        local openinst = SpawnPrefab("cave_entrance_open", inst.linked_skinname, inst.skin_id )
         openinst.Transform:SetPosition(pt:Get())
         openinst.components.worldmigrator.id = inst.components.worldmigrator.id
-        openinst.components.worldmigrator.auto = inst.components.worldmigrator.auto
+        openinst.components.worldmigrator.auto = inst.components.worldmigrator.auto		
         openinst.components.worldmigrator.linkedWorld = inst.components.worldmigrator.linkedWorld
         openinst.components.worldmigrator.receivedPortal = inst.components.worldmigrator.receivedPortal
         inst:Remove()
@@ -125,7 +125,7 @@ local function fn(bank, build, anim, minimap, isbackground)
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0, 0)
+        inst.AnimState:SetScale(0,0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
@@ -133,11 +133,11 @@ local function fn(bank, build, anim, minimap, isbackground)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("worldmigrator")
-
-    if TUNING.tropical.tropicalshards == 5 or TUNING.tropical.tropicalshards == 10 or TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
-        inst.components.worldmigrator.auto = false
-        inst.components.worldmigrator.linkedWorld = "2"
-    end
+	
+	if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 or  TUNING.tropical.tropicalshards == 30 then
+	inst.components.worldmigrator.auto = false
+	inst.components.worldmigrator.linkedWorld = "2"	
+	end		
 
     return inst
 end
@@ -145,6 +145,16 @@ end
 local function closed_fn()
     local inst = fn("cave_entrance", "cave_entrance", "idle_closed", "cave_closed.png", false)
 
+    inst.scrapbook_anim = "idle_closed"    
+	
+    if not TheNet:IsDedicated() then
+        inst:AddComponent("pointofinterest")
+        inst.components.pointofinterest:SetHeight(200)
+        inst.components.pointofinterest:SetShouldShowFn(function(inst)
+            return not inst:HasTag("NOCLICK")
+        end)
+    end	
+	
     if not TheWorld.ismastersim then
         return inst
     end
@@ -185,8 +195,7 @@ local function ruins_fn()
 end
 
 local function OnPreLoad(inst, data)
-    WorldSettings_ChildSpawner_PreLoad(inst, data, TUNING.CAVE_ENTRANCE_BATS_SPAWN_PERIOD,
-        TUNING.CAVE_ENTRANCE_BATS_REGEN_PERIOD)
+    WorldSettings_ChildSpawner_PreLoad(inst, data, TUNING.CAVE_ENTRANCE_BATS_SPAWN_PERIOD, TUNING.CAVE_ENTRANCE_BATS_REGEN_PERIOD)
 end
 
 local function open_fn()
@@ -222,8 +231,8 @@ local function open_fn()
     --             -watch iscaveday world state
     OnIsDay(inst, TheWorld.state.isday)
     inst:WatchWorldState("isday", OnIsDay)
-
-    inst.OnPreLoad = OnPreLoad
+	
+    inst.OnPreLoad = OnPreLoad	
 
     return inst
 end
@@ -233,32 +242,32 @@ local function fn_ham1(Sim)
     local inst = CreateEntity()
 
     inst.entity:AddTransform()
-    local anim = inst.entity:AddAnimState()
+	local anim = inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
     inst.MiniMapEntity:SetIcon("cave_open.png")
-
+	
     anim:SetBank("cave_entrance")
     anim:SetBuild("cave_entrance")
-
-    inst.AnimState:PlayAnimation("open")
+	
+	inst.AnimState:PlayAnimation("open")
 
     inst:AddTag("antlion_sinkhole_blocker")
 
     inst.entity:SetPristine()
-
+	
     if not TheWorld.ismastersim then
         return inst
-    end
-
+    end		
+	
     if TheNet:GetServerIsClientHosted() and not (TheShard:IsMaster() or TheShard:IsSecondary()) then
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0, 0)
+        inst.AnimState:SetScale(0,0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
@@ -266,14 +275,14 @@ local function fn_ham1(Sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("worldmigrator")
-    inst.components.worldmigrator.id = 1272
-    inst.components.worldmigrator.receivedPortal = 1271
-
-    if TUNING.tropical.tropicalshards == 5 or TUNING.tropical.tropicalshards == 10 or TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
-        inst.components.worldmigrator.auto = false
-        inst.components.worldmigrator.linkedWorld = "2"
-    end
-
+	inst.components.worldmigrator.id = 1272
+	inst.components.worldmigrator.receivedPortal = 1271	
+	
+	if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
+	inst.components.worldmigrator.auto = false
+	inst.components.worldmigrator.linkedWorld = "2"	
+	end
+	
     return inst
 end
 
@@ -281,32 +290,32 @@ local function fn_ham2(Sim)
     local inst = CreateEntity()
 
     inst.entity:AddTransform()
-    local anim = inst.entity:AddAnimState()
+	local anim = inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
     inst.MiniMapEntity:SetIcon("cave_open.png")
-
+	
     anim:SetBank("cave_entrance")
     anim:SetBuild("cave_entrance")
-
-    inst.AnimState:PlayAnimation("open")
+	
+	inst.AnimState:PlayAnimation("open")
 
     inst:AddTag("antlion_sinkhole_blocker")
 
     inst.entity:SetPristine()
-
+	
     if not TheWorld.ismastersim then
         return inst
-    end
-
+    end		
+	
     if TheNet:GetServerIsClientHosted() and not (TheShard:IsMaster() or TheShard:IsSecondary()) then
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0, 0)
+        inst.AnimState:SetScale(0,0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
@@ -314,14 +323,14 @@ local function fn_ham2(Sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("worldmigrator")
-    inst.components.worldmigrator.id = 1372
-    inst.components.worldmigrator.receivedPortal = 1371
-
-    if TUNING.tropical.tropicalshards == 5 or TUNING.tropical.tropicalshards == 10 or TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
-        inst.components.worldmigrator.auto = false
-        inst.components.worldmigrator.linkedWorld = "2"
-    end
-
+	inst.components.worldmigrator.id = 1372
+	inst.components.worldmigrator.receivedPortal = 1371	
+	
+	if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
+	inst.components.worldmigrator.auto = false
+	inst.components.worldmigrator.linkedWorld = "2"	
+	end
+	
     return inst
 end
 
@@ -329,32 +338,32 @@ local function fn_ham3(Sim)
     local inst = CreateEntity()
 
     inst.entity:AddTransform()
-    local anim = inst.entity:AddAnimState()
+	local anim = inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
     inst.MiniMapEntity:SetIcon("cave_open.png")
-
+	
     anim:SetBank("cave_entrance")
     anim:SetBuild("cave_entrance")
-
-    inst.AnimState:PlayAnimation("open")
+	
+	inst.AnimState:PlayAnimation("open")
 
     inst:AddTag("antlion_sinkhole_blocker")
 
     inst.entity:SetPristine()
-
+	
     if not TheWorld.ismastersim then
         return inst
-    end
-
+    end		
+	
     if TheNet:GetServerIsClientHosted() and not (TheShard:IsMaster() or TheShard:IsSecondary()) then
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0, 0)
+        inst.AnimState:SetScale(0,0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
@@ -362,21 +371,20 @@ local function fn_ham3(Sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("worldmigrator")
-    inst.components.worldmigrator.id = 1472
-    inst.components.worldmigrator.receivedPortal = 1471
-
-    if TUNING.tropical.tropicalshards == 5 or TUNING.tropical.tropicalshards == 10 or TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
-        inst.components.worldmigrator.auto = false
-        inst.components.worldmigrator.linkedWorld = "2"
-    end
-
+	inst.components.worldmigrator.id = 1472
+	inst.components.worldmigrator.receivedPortal = 1471	
+	
+	if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
+	inst.components.worldmigrator.auto = false
+	inst.components.worldmigrator.linkedWorld = "2"	
+	end
+	
     return inst
 end
 
-return
-    Prefab("cave_entrance", closed_fn, assets, prefabs),
+return Prefab("cave_entrance", closed_fn, assets, prefabs),
     Prefab("cave_entrance_ruins", ruins_fn, assets, prefabs),
     Prefab("cave_entrance_open", open_fn, assets, prefabs),
-    Prefab("cave_entrance_ham1", fn_ham1, assets, prefabs),
-    Prefab("cave_entrance_ham2", fn_ham2, assets, prefabs),
-    Prefab("cave_entrance_ham3", fn_ham3, assets, prefabs)
+	Prefab("cave_entrance_ham1", fn_ham1, assets, prefabs),
+	Prefab("cave_entrance_ham2", fn_ham2, assets, prefabs),
+	Prefab("cave_entrance_ham3", fn_ham3, assets, prefabs)
