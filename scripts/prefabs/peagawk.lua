@@ -3,7 +3,7 @@ require "stategraphs/SGpeagawk"
 
 local MAX_PRISM_DROPS = 5
 
-local assets=
+local assets =
 {
     Asset("ANIM", "anim/peagawk_basic.zip"),
     Asset("ANIM", "anim/peagawk_actions.zip"),
@@ -12,7 +12,7 @@ local assets=
     Asset("ANIM", "anim/peagawk_prism_build.zip"),
     Asset("ANIM", "anim/eyebush.zip"),
     Asset("ANIM", "anim/eyebush_prism_build.zip"),
-	Asset("SOUND", "sound/perd.fsb"),
+    Asset("SOUND", "sound/perd.fsb"),
 }
 
 local PERD_SPAWNCHANCE = 0.1
@@ -30,14 +30,14 @@ local PEAGAWK_REGROW_TIME = 480
 local PEAGAWK_PICKTIMER = 180
 local PEAGAWK_PRISM_STOP_TIMER = 45
 local PEAGAWK_TAIL_FEATHERS_MAX = 7
-		
+
 local prefabs =
 {
     "drumstick",
     "peagawkfeather",
 }
 
-local loot = 
+local loot =
 {
     "drumstick",
     "drumstick",
@@ -47,17 +47,17 @@ local loot =
 local TAIL_FEATHERS_MAX = PEAGAWK_TAIL_FEATHERS_MAX
 
 local function refreshart(inst)
-print(inst.feathers)
-    for i=1,TAIL_FEATHERS_MAX do
+    print(inst.feathers)
+    for i = 1, TAIL_FEATHERS_MAX do
         if inst.feathers < i then
-            inst.AnimState:Hide("perd_tail_"..i)
+            inst.AnimState:Hide("perd_tail_" .. i)
         else
-            inst.AnimState:Show("perd_tail_"..i)
+            inst.AnimState:Show("perd_tail_" .. i)
         end
     end
-if inst.feathers < TAIL_FEATHERS_MAX then
-inst.components.timer:StartTimer("tempodapena", PEAGAWK_REGROW_TIME)	
-end	
+    if inst.feathers < TAIL_FEATHERS_MAX then
+        inst.components.timer:StartTimer("tempodapena", PEAGAWK_REGROW_TIME)
+    end
 end
 
 local function TransformToRainbow(inst)
@@ -67,13 +67,21 @@ local function TransformToRainbow(inst)
         inst.AnimState:SetBuild("peagawk_prism_build")
     end
 
+    -- for i = 1, TAIL_FEATHERS_MAX do
+    --     if inst.feathers < i then
+    --         inst.AnimState:Hide("perd_tail_" .. i)
+    --     else
+    --         inst.AnimState:Show("perd_tail_" .. i)
+    --     end
+    -- end
+
     inst.prism = true
     inst.prismdroptask = inst:DoPeriodicTask(1, function() inst:PrismDrop() end)
     inst.prismdropped = 0
 
     inst.components.pickable:SetUp("peagawkfeather_prism", PEAGAWK_REGROW_TIME)
     inst:SetupPrismTimer(PEAGAWK_PRISM_STOP_TIMER)
-end 
+end
 
 local function UnRainbow(inst)
     inst.prism = false
@@ -86,16 +94,16 @@ local function UnRainbow(inst)
 
     if inst.prismdroptask ~= nil then
         inst.prismdroptask:Stop()
-    end 
-end 
+    end
+end
 
 local function PrismDrop(inst)
     local pos = inst.Transform:GetWorldPosition()
-    if distsq(Vector3(pos), Vector3(inst.lastpos)) >= 10*10 and inst.prismdropped < MAX_PRISM_DROPS then
+    if distsq(Vector3(pos), Vector3(inst.lastpos)) >= 10 * 10 and inst.prismdropped < MAX_PRISM_DROPS then
         local feather = SpawnPrefab("peagawkfeather_prism")
-        local x,y,z = inst.Transform:GetWorldPosition()
-        feather.Transform:SetPosition(x,y,z)
-        inst.lastpos = pos 
+        local x, y, z = inst.Transform:GetWorldPosition()
+        feather.Transform:SetPosition(x, y, z)
+        inst.lastpos = pos
         inst.prismdropped = inst.prismdropped + 1
     end
 end
@@ -111,13 +119,13 @@ end
 
 local function OnTimerDone(inst, data)
     if data.name == "tempodapena" then
-    inst.feathers = inst.feathers+1
-    refreshart(inst)
+        inst.feathers = inst.feathers + 1
+        refreshart(inst)
     end
 end
 
 local function OnRegen(inst)
-    inst.feathers = inst.feathers+1
+    inst.feathers = inst.feathers + 1
     refreshart(inst)
 end
 
@@ -161,13 +169,12 @@ local function OnPicked(inst, picker, loot)
     inst.feathers = inst.feathers - 1
     refreshart(inst)
 
-    inst:DoTaskInTime(0.1, function() 
+    inst:DoTaskInTime(0.1, function()
         if inst.feathers > 0 then
             inst.components.pickable.canbepicked = true
             inst.components.pickable.hasbeenpicked = false
         end
     end)
-	
 end
 
 
@@ -187,25 +194,25 @@ end
 
 local function OnLoad(inst, data)
     if data and data.feathers then
-    inst.feathers = data.feathers
-    inst.prism = data.prism
-	refreshart(inst)
+        inst.feathers = data.feathers
+        inst.prism = data.prism
+        refreshart(inst)
     end
 end
 
 local function fn()
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
-	local sound = inst.entity:AddSoundEmitter()
-	local shadow = inst.entity:AddDynamicShadow()
-	shadow:SetSize( 1.5, .75 )
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
+    local sound = inst.entity:AddSoundEmitter()
+    local shadow = inst.entity:AddDynamicShadow()
+    shadow:SetSize(1.5, .75)
     inst.Transform:SetFourFaced()
     inst.entity:AddNetwork()
- 
+
     MakeCharacterPhysics(inst, 50, .5)
---    MakePoisonableCharacter(inst)
-     
+    --    MakePoisonableCharacter(inst)
+
     anim:SetBank("peagawk")
     anim:SetBuild("peagawk_build")
     anim:Hide("hat")
@@ -216,21 +223,21 @@ local function fn()
 
     inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end
-    
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("pickable")
     inst.components.pickable:SetUp("peagawkfeather", PEAGAWK_REGROW_TIME)
-    inst.components.pickable.canbepickedfn = canbepickedfn 
+    inst.components.pickable.canbepickedfn = canbepickedfn
     inst.components.pickable.onregenfn = OnRegen
     inst.components.pickable.onpickedfn = OnPicked
 
     inst:AddComponent("eater")
     inst.components.eater:SetDiet({ FOODTYPE.VEGGIE }, { FOODTYPE.VEGGIE })
-    
+
     inst:AddComponent("sleeper")
-    inst.components.sleeper:SetWakeTest( function() return true end)    --always wake up if we're asleep
+    inst.components.sleeper:SetWakeTest(function() return true end) --always wake up if we're asleep
 
     inst:AddComponent("combat")
     inst.components.combat.hiteffectsymbol = "pig_torso"
@@ -238,33 +245,33 @@ local function fn()
     inst.components.health:SetMaxHealth(PERD_HEALTH)
     inst.components.combat:SetDefaultDamage(PERD_DAMAGE)
     inst.components.combat:SetAttackPeriod(PERD_ATTACK_PERIOD)
-	
-    inst:AddComponent("lootdropper") 
+
+    inst:AddComponent("lootdropper")
     inst.components.lootdropper:SetLoot(loot)
 
     inst.TransformToRainbow = TransformToRainbow
     inst.UnRainbow = UnRainbow
     inst.PrismDrop = PrismDrop
     inst.SetupPrismTimer = SetupPrismTimer
-    inst.prism = false 
+    inst.prism = false
     inst.prismtimer = 0
-    inst.prismdropped = 0 
+    inst.prismdropped = 0
     inst.lastpos = inst.Transform:GetWorldPosition()
-    
+
     inst:AddComponent("inventory")
     inst:AddComponent("inspectable")
 
     inst:AddComponent("locomotor")
     inst.components.locomotor.runspeed = PEAGAWK_RUN_SPEED
-    inst.components.locomotor.walkspeed = PEAGAWK_WALK_SPEED  
-	
+    inst.components.locomotor.walkspeed = PEAGAWK_WALK_SPEED
+
     inst:AddComponent("timer")
-    inst:ListenForEvent("timerdone", OnTimerDone)	
+    inst:ListenForEvent("timerdone", OnTimerDone)
 
     local brain = require "brains/peagawkbrain"
-    inst:SetBrain(brain)	
+    inst:SetBrain(brain)
     inst:SetStateGraph("SGpeagawk")
-    
+
     MakeMediumBurnableCharacter(inst, "pig_torso")
     MakeMediumFreezableCharacter(inst, "pig_torso")
 
@@ -280,7 +287,7 @@ local function fn()
     inst.refreshart = refreshart
 
     inst.TransformToAnimal(inst)
-    
+
     return inst
 end
 --[[
@@ -293,10 +300,10 @@ local function fn2()
 	shadow:SetSize( 1.5, .75 )
     inst.Transform:SetFourFaced()
     inst.entity:AddNetwork()
- 
+
     MakeCharacterPhysics(inst, 50, .5)
 --    MakePoisonableCharacter(inst)
-     
+
     anim:SetBank("peagawk")
     anim:SetBuild("peagawk_build")
     anim:Hide("hat")
@@ -310,16 +317,16 @@ local function fn2()
 	if not TheWorld.ismastersim then
 		return inst
 	end
-    
+
     inst:AddComponent("pickable")
     inst.components.pickable:SetUp("peagawkfeather", PEAGAWK_REGROW_TIME)
-    inst.components.pickable.canbepickedfn = canbepickedfn 
+    inst.components.pickable.canbepickedfn = canbepickedfn
     inst.components.pickable.onregenfn = OnRegen
     inst.components.pickable.onpickedfn = OnPicked
 
     inst:AddComponent("eater")
     inst.components.eater:SetDiet({ FOODTYPE.VEGGIE }, { FOODTYPE.VEGGIE })
-    
+
     inst:AddComponent("sleeper")
     inst.components.sleeper:SetWakeTest( function() return true end)    --always wake up if we're asleep
 
@@ -330,7 +337,7 @@ local function fn2()
     inst.components.combat:SetDefaultDamage(PERD_DAMAGE)
     inst.components.combat:SetAttackPeriod(PERD_ATTACK_PERIOD)
 	
-    inst:AddComponent("lootdropper") 
+    inst:AddComponent("lootdropper")
     inst.components.lootdropper:SetLoot(loot)
 
     inst.TransformToRainbow = TransformToRainbow
@@ -339,20 +346,20 @@ local function fn2()
     inst.SetupPrismTimer = SetupPrismTimer
     inst.prism = true
     inst.prismtimer = 0
-    inst.prismdropped = 0 
+    inst.prismdropped = 0
     inst.lastpos = inst.Transform:GetWorldPosition()
-    
+
     inst:AddComponent("inventory")
     inst:AddComponent("inspectable")
 
     inst:AddComponent("locomotor")
     inst.components.locomotor.runspeed = PEAGAWK_RUN_SPEED
-    inst.components.locomotor.walkspeed = PEAGAWK_WALK_SPEED  
+    inst.components.locomotor.walkspeed = PEAGAWK_WALK_SPEED
 
     local brain = require "brains/peagawkbrain"
     inst:SetBrain(brain)	
     inst:SetStateGraph("SGpeagawk")
-    
+
     MakeMediumBurnableCharacter(inst, "pig_torso")
     MakeMediumFreezableCharacter(inst, "pig_torso")
 
@@ -368,9 +375,9 @@ local function fn2()
     inst.refreshart = refreshart
 
     inst.TransformToAnimal(inst)
-    
+
     return inst
 end
 ]]
-return Prefab( "forest/animals/peagawk", fn, assets, prefabs)
-	   --Prefab( "forest/animals/peagawk_prism", fn2, assets, prefabs)
+return Prefab("forest/animals/peagawk", fn, assets, prefabs)
+--Prefab( "forest/animals/peagawk_prism", fn2, assets, prefabs)

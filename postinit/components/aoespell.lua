@@ -3,33 +3,33 @@ GLOBAL.setfenv(1, GLOBAL)
 
 
 ----------------------------------------------------------------------------------------
-local AOESpell = require("components/aoespell")
+local aoespell = require("components/aoespell")
 
 
 
-TROENV.AddComponentPostInit("AOESpell", function(self)
+TROENV.AddComponentPostInit("aoespell", function(self)
     self.spell_type = nil
     self.aoe_cast = nil
 
     -- cmp.SetWaveSettings = SetWaveSettings
 end)
 
-function AOESpell:SetAOESpell(inst)
+function aoespell:Setaoespell(inst)
     self.aoe_cast = inst
 end;
 
-function AOESpell:CanCast(doer, pos)
+function aoespell:CanCast(doer, pos)
     local x, y, z = pos:Get()
     return self.inst.components.aoetargeting ~= nil and self.inst.components.aoetargeting.alwaysvalid or
         TheWorld.Map:IsPassableAtPoint(x, y, z) and not TheWorld.Map:IsGroundTargetBlocked(pos)
 end;
 
-function AOESpell:SetSpellFn(fn)
+function aoespell:SetSpellFn(fn)
     self.spellfn = fn
 end
 
 -----------------怎么嵌入旧的函数呢
-function AOESpell:CastSpell(doer, pos)
+function aoespell:CastSpell(doer, pos)
     if self.inst.components.reticule_spawner and (self.inst.components.recarregavel and self.inst.components.recarregavel.isready) then
         self.inst.components.reticule_spawner:Spawn(pos)
         self.inst:PushEvent("aoe_casted", { caster = doer, pos = pos })
@@ -65,10 +65,10 @@ function AOESpell:CastSpell(doer, pos)
     return success, reason
 end;
 
-function AOESpell:SetSpellType(inst)
+function aoespell:SetSpellType(inst)
     self.spell_type = inst
 end;
 
-function AOESpell:OnSpellCast(d, j)
+function aoespell:OnSpellCast(d, j)
     d:PushEvent("spell_complete", { spell_type = self.spell_type })
 end;
