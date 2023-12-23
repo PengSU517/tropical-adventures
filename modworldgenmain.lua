@@ -1,6 +1,28 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 local require = GLOBAL.require
 
+
+function GLOBAL.Getupvalue(func, name)
+    local debug = GLOBAL.debug
+    local i = 1
+    while true do
+        local n, v = debug.getupvalue(func, i)
+        if not n then
+            return nil, nil
+        end
+        if n == name then
+            return v, i
+        end
+        i = i + 1
+    end
+end
+
+function GLOBAL.Setupvalue(func, ind, value)
+    local debug = GLOBAL.debug
+    debug.setupvalue(func, ind, value)
+end
+
+-- require("globalfuncs")
 require("constants")
 require("map/rooms")
 require("map/tasks")
@@ -33,7 +55,7 @@ modimport("postinit/map/tasks")
 
 
 
-local size = 300 --450是默认边长 --地图太小可能生成不了世界
+local size = 350 --450是默认边长 --地图太小可能生成不了世界
 
 if GLOBAL.rawget(GLOBAL, "WorldSim") then
     local idx = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
@@ -77,20 +99,20 @@ AddLevelPreInitAny(function(level)
 
 
     if level.location == "forest" then
-        level.tasks = { "Make a pick", "Speak to the king" }
-        table.insert(level.tasks, "Plains") --island3 高草地形，类似牛场
+        level.tasks = { "Make a pick", "Speak to the king", "Befriend the pigs" }
+        table.insert(level.tasks, "Plains")               --island3 高草地形，类似牛场
         table.insert(level.tasks, "Rainforest_ruins")
-        -- table.insert(level.tasks, "Painted_sands")        --废铁机器人和铁矿区, 有cave_entrance_roc，但是太大了
-        -- table.insert(level.tasks, "Edge_of_civilization") --城郊地区
-        table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
-        -- table.insert(level.tasks, "Deep_rainforest_2")    ----有荨麻，遗迹入口  entrance_5  --并入曼达拉
-        -- table.insert(level.tasks, "Deep_lost_ruins_gas")  --毒气森林 有entrance_6
+        table.insert(level.tasks, "Painted_sands")        --废铁机器人和铁矿区, 有cave_entrance_roc，但是太大了
+        table.insert(level.tasks, "Edge_of_civilization") --城郊地区
+        table.insert(level.tasks, "Deep_rainforest")      ----有蚁穴
+        table.insert(level.tasks, "Deep_rainforest_2")    ----有荨麻，遗迹入口  entrance_5  --并入曼达拉
+        table.insert(level.tasks, "Deep_lost_ruins_gas")  --毒气森林 有entrance_6
         -- -- -- table.insert(level.tasks, "MEdge_of_the_unknown_2") --这个的地形和其他地形高度重复
 
 
         -- table.insert(level.tasks, "Ham_blank1")          --这是个空的
         -- table.insert(level.tasks, "Ham_blank2")          --这是个空的
-        -- table.insert(level.tasks, "Edge_of_the_unknown") --pugalisk_fountain 蛇岛
+        table.insert(level.tasks, "Edge_of_the_unknown") --pugalisk_fountain 蛇岛
 
         table.insert(level.tasks, "Pigcity")
 
@@ -106,11 +128,18 @@ AddLevelPreInitAny(function(level)
         level.numoptionaltasks = 0
 
         level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋
+
         level.set_pieces["CaveEntrance"] = { count = 2, tasks = { "Make a pick", "Speak to the king" } }
         level.overrides.start_location = "NewStart"
+
+        -- level.required_setpieces = {} ------------"Sculptures_1" "Maxwell5" 是通过这个实现的
         level.random_set_pieces = {}
         level.ordered_story_setpieces = {}
         level.numrandom_set_pieces = 0
+
+        -- level.overrides.terrariumchest = "never" ----------泰拉瑞亚
+        -- level.overrides.stageplays = "never"     ---------舞台之手和舞台剧
+        -- level.overrides.layout_mode = "RestrictNodesByKey"
 
         level.ocean_population = nil        --海洋生态 礁石 海带之类的 也就是说删除了奶奶岛 和猴岛？ 这代码逻辑太奇怪了
         level.ocean_prefill_setpieces = nil -- 不用这一行，海上只会生成巨树和盐矿的layout
@@ -119,7 +148,7 @@ AddLevelPreInitAny(function(level)
         -- level.overrides.roads = "never"
         -- level.overrides.birds = "never"  --没鸟
         -- level.overrides.has_ocean = false --false	--没海  ----如果设置了有海的话会清除所有非地面地皮然后根据规则重新生成
-        level.required_prefabs = {} --温蒂更新后的修复
+        level.required_prefabs = {} -----这个是为了检测是否有必要的prefabs
 
         -- level.set_pieces["cave_entranceham1"] = { count = 1, tasks = { "Mrainforest_ruins" } }
         -- level.set_pieces["start_ham"] = { count = 1, tasks = { "A_MISTO6" } }

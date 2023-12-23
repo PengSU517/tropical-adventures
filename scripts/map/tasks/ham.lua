@@ -263,6 +263,8 @@ AddTask("Plains", {
     locks = {},
     keys_given = { KEYS.RAINFOREST, KEYS.EDGE, KEYS.PAINTED, KEYS.DEEPRAINFOREST },
     region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    -- room_tags = { "RoadPoison", "moonhunt", "nohasslers", "lunacyarea", "not_mainland" },
     room_choices = {
         ["BG_plains_base"] = math.random(2, 3),
         ["Lilypond"] = math.random(2, 3),
@@ -284,6 +286,7 @@ AddTask("Plains_ruins", {
     locks = { LOCKS.JUNGLE_DEPTH_2 },
     keys_given = { KEYS.JUNGLE_DEPTH_2, KEYS.HAM_BLANK },
     region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
         ["plains_ruins"] = 1,
         ["plains_ruins_set"] = 1,
@@ -298,6 +301,8 @@ AddTask("Rainforest_ruins", {
     locks = { LOCKS.RAINFOREST },
     keys_given = { KEYS.DEEPRAINFOREST, KEYS.HAM_BLANK },
     region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    -- room_tags = { "RoadPoison", "moonhunt", "nohasslers", "lunacyarea", "not_mainland" },
     room_choices = {
         ["rainforest_ruins"] = 2,
         ["rainforest_ruins_entrance"] = 1,
@@ -319,6 +324,7 @@ AddTask("Painted_sands", {
     locks = { LOCKS.PAINTED },
     keys_given = { KEYS.HAM_BLANK },
     region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
         ["BG_battleground_base"] = 1,
         ["battleground_ribs"] = 1,
@@ -340,6 +346,7 @@ AddTask("Deep_rainforest", {
     locks = { LOCKS.DEEPRAINFOREST },
     keys_given = { KEYS.HAM_BLANK },
     region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
         ["BG_rainforest_base"] = math.random(2, 3),
         ["BG_deeprainforest_base"] = 1,
@@ -358,6 +365,7 @@ AddTask("Deep_rainforest_2", {
     locks = { LOCKS.DEEPRAINFOREST },
     keys_given = { KEYS.HAM_BLANK },
     region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
         ["BG_deeprainforest_base"] = 1,
         ["deeprainforest_spider_monkey_nest"] = 1,
@@ -389,6 +397,7 @@ AddTask("Edge_of_civilization", {
     locks = { LOCKS.EDGE },
     keys_given = { KEYS.CITY_1, KEYS.HAM_BLANK },
     region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
         ["cultivated_base_1"] = 1,
         ["cultivated_base_2"] = 1,
@@ -407,7 +416,7 @@ AddTask("Pigcity", {
     locks = { LOCKS.CITY_1 },
     keys_given = { KEYS.HAM_BLANK },
     region_id = "hamlet",
-    room_tags = { "RoadPoison", "hamlet" },
+    room_tags = { "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
         ["city_base_1_set"] = 1,
         ["city_base"] = 2,
@@ -487,6 +496,7 @@ AddTask("Deep_rainforest_3", {
     locks = {},
     keys_given = { KEYS.CIVILIZATION_2 },
     region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
         ["BG_deeprainforest_base"] = 2,
         ["deeprainforest_fireflygrove"] = 1,
@@ -503,7 +513,7 @@ AddTask("Pigcity2", {
     locks = { LOCKS.CITY_2 },
     keys_given = {},
     region_id = "hamlet",
-    room_tags = { "RoadPoison", "hamlet" },
+    room_tags = { "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
         ["city_base_2_set"] = 1,
         ["city_base"] = 2,
@@ -579,6 +589,7 @@ AddTask("Edge_of_the_unknown_2", {
     locks = LOCKS.CIVILIZATION_1,
     keys_given = { KEYS.HAM_BLANK },
     region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
         ["BG_rainforest_base"] = math.random(2, 3),
         ["plains_tallgrass"] = math.random(1, 2),
@@ -596,6 +607,7 @@ AddTask("Deep_lost_ruins_gas", {
     locks = { LOCKS.DEEPRAINFOREST },
     keys_given = {},
     region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
         ["deeprainforest_gas"] = math.random(3, 4),
         ["deeprainforest_gas_flytrap_grove"] = math.random(2),
@@ -610,6 +622,7 @@ AddTask("Ham_blank1", {
     locks = { LOCKS.HAM_BLANK },
     keys_given = { KEYS.CITY_2 },
     region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoom"] = 10,
@@ -623,7 +636,8 @@ AddTask("Ham_blank1", {
 AddTask("Ham_blank2", {
     locks = { LOCKS.HAM_BLANK },
     keys_given = { KEYS.SNALE },
-    region_id = "island3",
+    region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoom"] = 10,
@@ -637,7 +651,8 @@ AddTask("Ham_blank2", {
 AddTask("Deep_rainforestC", {
     locks = { LOCKS.ISLAND9 },
     keys_given = { KEYS.ISLAND9 },
-    region_id = "island3",
+    region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
         ["city_base_2_set"] = 1,
         ["BG_rainforest_base"] = math.random(2, 3),
@@ -675,7 +690,8 @@ AddTask("Deep_rainforestC", {
 AddTask("Edge_of_the_unknown", {
     locks = { LOCKS.SNAKE },
     keys_given = {},
-    region_id = "island3",
+    region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
         ["BG_plains_base"] = 2,
         ["BG_plains_base_nocanopy1"] = 1,

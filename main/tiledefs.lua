@@ -86,7 +86,7 @@ local ia_tiledefs = {
         tile_range       = TileRanges.LAND,
         tile_data        = {
             ground_name = "Jungle",
-            old_static_id = 92,
+            old_static_id = 33,
         },
         ground_tile_def  = {
             name = "jungle",
@@ -111,7 +111,7 @@ local ia_tiledefs = {
         tile_range       = TileRanges.LAND,
         tile_data        = {
             ground_name = "Magmafield",
-            old_static_id = 95,
+            old_static_id = 33,
         },
         ground_tile_def  = {
             name = "cave",
@@ -136,7 +136,7 @@ local ia_tiledefs = {
         tile_range       = TileRanges.LAND,
         tile_data        = {
             ground_name = "Ash",
-            old_static_id = 98,
+            old_static_id = 33,
         },
         ground_tile_def  = {
             name = "cave",
@@ -161,7 +161,7 @@ local ia_tiledefs = {
         tile_range       = TileRanges.LAND,
         tile_data        = {
             ground_name = "Lava Rock",
-            old_static_id = 97,
+            old_static_id = 33,
         },
         ground_tile_def  = {
             name = "cave",
@@ -186,7 +186,7 @@ local ia_tiledefs = {
         tile_range       = TileRanges.LAND,
         tile_data        = {
             ground_name = "Tidal Marsh",
-            old_static_id = 94,
+            old_static_id = 33,
         },
         ground_tile_def  = {
             name = "tidalmarsh",
@@ -209,7 +209,7 @@ local ia_tiledefs = {
         tile_range       = TileRanges.LAND,
         tile_data        = {
             ground_name = "Beach",
-            old_static_id = 91,
+            old_static_id = 33,
         },
         ground_tile_def  = {
             name = "jungle",
@@ -231,7 +231,7 @@ local ia_tiledefs = {
         tile_range       = TileRanges.LAND,
         tile_data        = {
             ground_name = "Snakeskin Carpet",
-            old_static_id = 99,
+            old_static_id = 33,
         },
         ground_tile_def  = {
             name = "carpet",
@@ -256,7 +256,7 @@ local ia_tiledefs = {
         tile_range       = TileRanges.LAND,
         tile_data        = {
             ground_name = "Beach",
-            old_static_id = 90,
+            old_static_id = 33,
         },
         ground_tile_def  = {
             name = "beach",
@@ -477,7 +477,7 @@ local ia_tiledefs = {
         tile_range = TileRanges.LAND,
         tile_data = {
             ground_name = "Plains",
-            -- old_static_id = 91,
+            old_static_id = 33,
         },
         ground_tile_def = {
             name = "jungle",
@@ -500,7 +500,7 @@ local ia_tiledefs = {
         tile_range       = TileRanges.LAND,
         tile_data        = {
             ground_name = "Jungle Deep",
-            -- old_static_id = 92,
+            old_static_id = 33,
         },
         ground_tile_def  = {
             name = "deeprainforest",
@@ -523,7 +523,7 @@ local ia_tiledefs = {
         tile_range = TileRanges.LAND,
         tile_data = {
             ground_name = "Rain Forest",
-            -- old_static_id = 33,
+            old_static_id = 33,
         },
         ground_tile_def = {
             name = "rainforest",
@@ -547,7 +547,7 @@ local ia_tiledefs = {
         tile_range = TileRanges.LAND,
         tile_data = {
             ground_name = "Painted",
-            -- old_static_id = 91,
+            old_static_id = 33,
         },
         ground_tile_def = {
             name = "cave",
@@ -570,6 +570,7 @@ local ia_tiledefs = {
         tile_range = TileRanges.LAND,
         tile_data = {
             ground_name = "Pigruins",
+            old_static_id = 33,
         },
         ground_tile_def = {
             name = "cave",
@@ -592,7 +593,7 @@ local ia_tiledefs = {
         tile_range = TileRanges.LAND,
         tile_data = {
             ground_name = "Gas Jungle",
-            -- old_static_id = 93,
+            old_static_id = 33,
         },
         ground_tile_def = {
             name = "deeprainforest",
@@ -617,7 +618,7 @@ local ia_tiledefs = {
         tile_range = TileRanges.LAND,
         tile_data = {
             ground_name = "fields",
-            -- old_static_id = 91,
+            old_static_id = 33,
         },
         ground_tile_def = {
             name = "jungle",
@@ -639,7 +640,7 @@ local ia_tiledefs = {
         tile_range = TileRanges.LAND,
         tile_data = {
             ground_name = "Lawn",
-            -- old_static_id = 91,
+            old_static_id = 33,
         },
         ground_tile_def = {
             name = "cobbleroad",
@@ -667,7 +668,7 @@ local ia_tiledefs = {
         tile_range = TileRanges.LAND,
         tile_data = {
             ground_name = "Suburb",
-            -- old_static_id = 91,
+            old_static_id = 33,
         },
         ground_tile_def = {
             name = "deciduous",
@@ -690,7 +691,7 @@ local ia_tiledefs = {
         tile_range       = TileRanges.LAND,
         tile_data        = {
             ground_name = "Beard Rug",
-            -- old_static_id = 33,
+            old_static_id = 33,
         },
         ground_tile_def  = {
             name = "carpet",
@@ -716,7 +717,7 @@ local ia_tiledefs = {
         tile_range = TileRanges.LAND,
         tile_data = {
             ground_name = "Foundation",
-            -- old_static_id = 91,
+            old_static_id = 33,
         },
         ground_tile_def = {
             name = "blocky",
@@ -743,7 +744,7 @@ local ia_tiledefs = {
         tile_range = TileRanges.LAND,
         tile_data = {
             ground_name = "Cobbleroad",
-            -- old_static_id = 91,
+            old_static_id = 33,
         },
         ground_tile_def = {
             name = "Cobbleroad",
@@ -892,12 +893,11 @@ ChangeTileRenderOrder(WORLD_TILES.BEARDRUG, WORLD_TILES.CARPET, false)
 ChangeTileRenderOrder(WORLD_TILES.COBBLEROAD, WORLD_TILES.WOODFLOOR, true)
 ChangeTileRenderOrder(WORLD_TILES.CHECKEREDLAWN, WORLD_TILES.WOODFLOOR, true)
 ChangeTileRenderOrder(WORLD_TILES.FOUNDATION, WORLD_TILES.WOODFLOOR, true)
-
 -----ocean turf
-ChangeTileRenderOrder(WORLD_TILES.LILYPOND, WORLD_TILES.OCEAN_COASTAL, false)
-ChangeTileRenderOrder(WORLD_TILES.CORAL, WORLD_TILES.OCEAN_COASTAL, true)
-ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.OCEAN_COASTAL, true)
-
+ChangeTileRenderOrder(WORLD_TILES.LILYPOND, WORLD_TILES.MONKEY_DOCK, false)
+ChangeTileRenderOrder(WORLD_TILES.CORAL, WORLD_TILES.MONKEY_DOCK, true)
+ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.MONKEY_DOCK, true)
+-- ChangeTileRenderOrder(WORLD_TILES.OCEAN_COASTAL, WORLD_TILES.CARPET2, true)---这种海洋地皮不可能在陆地地皮上面
 
 -- local _Initialize = GroundTiles.Initialize
 -- local function Initialize(...)

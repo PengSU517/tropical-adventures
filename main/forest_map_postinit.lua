@@ -1,24 +1,4 @@
-require("map/ocean_gen_new") -------------啊？
-
-local function Getupvalue(func, name)
-    local debug = GLOBAL.debug
-    local i = 1
-    while true do
-        local n, v = debug.getupvalue(func, i)
-        if not n then
-            return nil, nil
-        end
-        if n == name then
-            return v, i
-        end
-        i = i + 1
-    end
-end
-
-local function Setupvalue(func, ind, value)
-    local debug = GLOBAL.debug
-    debug.setupvalue(func, ind, value)
-end
+-- require("map/ocean_gen_new") -------------啊？
 
 local function HackGenChecksForIslands()
     local generate_fn = GLOBAL.require("map/forest_map").Generate

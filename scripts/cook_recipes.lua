@@ -1,3 +1,5 @@
+AddIngredientValues({ "butterfly_tropical_wings" }, { veggie = 0.5 }, true, false)
+
 AddIngredientValues({ "limpets_cooked" }, { fish = 0.5 }, true, false)
 AddIngredientValues({ "limpets" }, { fish = 0.5 }, true, false)
 AddIngredientValues({ "coconut_cooked", "coconut_halved" }, { fruit = 1, fat = 1 }, true, false)
