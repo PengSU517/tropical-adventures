@@ -47,7 +47,7 @@ local function fnbuoy(sim)
     inst:AddComponent("deployable")
     inst.components.deployable.ondeploy = ondeploybuoy
     inst.components.deployable:SetDeployMode(DEPLOYMODE.WATER)
-    inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.MEDIUM)
+    inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.LESS) --DEPLOYSPACING.MEDIUM
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")

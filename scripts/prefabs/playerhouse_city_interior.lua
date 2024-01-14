@@ -324,7 +324,7 @@ local function entrance()
 		local part = SpawnPrefab("window_round_curtains_nails") -----------之前的亮度设置时通过窗户影响光亮的，反而灯没有受影响
 		if part ~= nil then
 			part.Transform:SetPosition(x, 0, z + 11 * size)
-			-- part.Transform:SetRotation(90)
+			part.Transform:SetRotation(90)
 		end
 
 		local part = SpawnPrefab("window_round_curtains_nails") -----------之前的亮度设置时通过窗户影响光亮的，反而灯没有受影响

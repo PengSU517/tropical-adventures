@@ -116,8 +116,10 @@ local ia_tiledefs = {
         ground_tile_def  = {
             name = "cave",
             noise_texture = "noise_magmafield",
-            runsound = "dontstarve/movement/run_slate",
-            walksound = "dontstarve/movement/walk_slate",
+            runsound = "dontstarve/movement/run_rock",
+            walksound = "dontstarve/movement/walk_rock",
+            -- runsound = "dontstarve/movement/run_slate",
+            -- walksound = "dontstarve/movement/walk_slate",
             snowsound = "dontstarve/movement/run_ice",
             flashpoint_modifier = 0,
             hard = true,
@@ -566,7 +568,30 @@ local ia_tiledefs = {
         },
     },
 
-    BATTLEGROUND = {
+    -- BATTLEGROUND = { --------BATTLEGROUND
+    --     tile_range = TileRanges.LAND,
+    --     tile_data = {
+    --         ground_name = "Battleground",
+    --         old_static_id = 33,
+    --     },
+    --     ground_tile_def = {
+    --         name = "cave",
+    --         noise_texture = "noise_pigruins",
+    --         runsound = "dontstarve/movement/run_dirt",
+    --         walksound = "dontstarve/movement/walk_dirt",
+    --         snowsound = "run_ice",
+    --     },
+    --     minimap_tile_def = {
+    --         name = "map_edge",
+    --         noise_texture = "mini_noise_pigruins"
+    --     },
+    --     turf_def = {
+    --         name = "battleground",
+    --         bank_build = "turf",
+    --     },
+    -- },
+
+    PIGRUINS = { --------BATTLEGROUND
         tile_range = TileRanges.LAND,
         tile_data = {
             ground_name = "Pigruins",
@@ -574,17 +599,17 @@ local ia_tiledefs = {
         },
         ground_tile_def = {
             name = "cave",
-            noise_texture = "noise_battleground",
-            runsound = "run_dirt",
-            walksound = "walk_dirt",
+            noise_texture = "noise_pigruins",
+            runsound = "dontstarve/movement/run_dirt",
+            walksound = "dontstarve/movement/walk_dirt",
             snowsound = "run_ice",
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_battleground"
+            noise_texture = "mini_noise_pigruins"
         },
         turf_def = {
-            name = "battleground",
+            name = "pigruins",
             bank_build = "turf",
         },
     },
@@ -645,8 +670,10 @@ local ia_tiledefs = {
         ground_tile_def = {
             name = "cobbleroad",
             noise_texture = "noise_checkeredlawn",
-            runsound = "run_grass",
-            walksound = "walk_grass",
+            runsound = "dontstarve/movement/run_grass",
+            walksound = "dontstarve/movement/walk_grass",
+            -- runsound = "run_grass",
+            -- walksound = "walk_grass",
             flashpoint_modifier = 0,
             flooring = true,
             hard = true,
@@ -722,8 +749,10 @@ local ia_tiledefs = {
         ground_tile_def = {
             name = "blocky",
             noise_texture = "noise_foundation",
-            runsound = "dontstarve/movement/run_slate",
-            walksound = "dontstarve/movement/walk_slate",
+            runsound = "dontstarve/movement/run_marble",
+            walksound = "dontstarve/movement/walk_marble",
+            -- runsound = "dontstarve/movement/run_slate",
+            -- walksound = "dontstarve/movement/walk_slate",
             snowsound = "run_ice",
             flashpoint_modifier = 0,
             flooring = true,
@@ -749,8 +778,10 @@ local ia_tiledefs = {
         ground_tile_def = {
             name = "Cobbleroad",
             noise_texture = "noise_cobbleroad",
-            runsound = "dontstarve/movement/run_rock",
-            walksound = "dontstarve/movement/walk_rock",
+            runsound = "dontstarve/movement/run_marble",
+            walksound = "dontstarve/movement/walk_marble",
+            -- runsound = "dontstarve/movement/run_rock",
+            -- walksound = "dontstarve/movement/walk_rock",
             snowsound = "run_ice",
             flashpoint_modifier = 0,
             flooring = true,
@@ -883,7 +914,7 @@ ChangeTileRenderOrder(WORLD_TILES.PLAINS, WORLD_TILES.MUD, true)
 ChangeTileRenderOrder(WORLD_TILES.SUBURB, WORLD_TILES.MUD, true)
 ChangeTileRenderOrder(WORLD_TILES.FIELDS, WORLD_TILES.MUD, true)
 ChangeTileRenderOrder(WORLD_TILES.PAINTED, WORLD_TILES.CHECKER, false)
-ChangeTileRenderOrder(WORLD_TILES.BATTLEGROUND, WORLD_TILES.CHECKER, true)
+ChangeTileRenderOrder(WORLD_TILES.PIGRUINS, WORLD_TILES.CHECKER, true)
 
 
 -- --Priority turf

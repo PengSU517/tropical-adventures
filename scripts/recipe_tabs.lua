@@ -107,20 +107,21 @@ GLOBAL.RECIPETABS['CITY'] = {
 	sort = 91,
 	icon = "tab_city.tex",
 	icon_atlas = "images/tabs.xml",
-	crafting_station = true
+	crafting_station = false
 }
 AddPrototyperDef("key_to_city",
-	{ action_str = "CITY", icon_image = "tab_city.tex", icon_atlas = "images/tabs.xml", is_crafting_station = true })
+	{ action_str = "CITY", icon_image = "tab_city.tex", icon_atlas = "images/tabs.xml", is_crafting_station = false })
+
 
 GLOBAL.RECIPETABS['HOME'] = {
 	str = "HOME",
 	sort = 92,
 	icon = "tab_home_decor.tex",
 	icon_atlas = "images/tabs.xml",
-	crafting_station = true
+	crafting_station = false
 }
 AddPrototyperDef("wallrenovation",
-	{ action_str = "HOME", icon_image = "tab_home_decor.tex", icon_atlas = "images/tabs.xml", is_crafting_station = true })
+	{ action_str = "HOME", icon_image = "tab_home_decor.tex", icon_atlas = "images/tabs.xml", is_crafting_station = false })
 
 GLOBAL.RECIPETABS['GODDESSTAB'] = {
 	str = "GODDESSTAB",

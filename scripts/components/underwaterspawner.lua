@@ -519,7 +519,7 @@ local PESODOGRUPO = {
 			goldfish_alive	= 				1,			
 	    },	
 		
-	    [GROUND.BATTLEGROUND] = 
+	    [GROUND.PIGRUINS] = 
 		{
 	        bioluminescence =				0.5,
 	        bubble_fx = 					2,
@@ -824,7 +824,7 @@ local PESODOGRUPO = {
 			goldfish_alive	= 				1,			
 	    },	
 		
-	    [GROUND.BATTLEGROUND] = 
+	    [GROUND.PIGRUINS] = 
 		{
 	        bioluminescence =				0.5,
 	        bubble_fx = 					2,
@@ -1129,7 +1129,7 @@ local PESODOGRUPO = {
 			goldfish_alive	= 				1,			
 	    },	
 		
-	    [GROUND.BATTLEGROUND] = 
+	    [GROUND.PIGRUINS] = 
 		{
 	        bioluminescence =				0.5,
 	        bubble_fx = 					2,
@@ -1434,7 +1434,7 @@ local PESODOGRUPO = {
 			goldfish_alive	= 				1,		
 	    },	
 		
-	    [GROUND.BATTLEGROUND] = 
+	    [GROUND.PIGRUINS] = 
 		{
 	        bioluminescence =				0.5,
 	        bubble_fx = 					2,

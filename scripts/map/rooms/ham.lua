@@ -486,7 +486,7 @@ AddRoom("battleground_ribs", {
         {
             ancient_robot_ribs = 1,
             vampirebatcave_potential = 1,
-            maze_cave_roc_entrance = 1,
+            -- maze_cave_roc_entrance = 1,
         },
     }
 })
@@ -1150,7 +1150,10 @@ AddRoom("deeprainforest_anthill_exit", {
     value = GROUND.DEEPRAINFOREST,
     tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
     contents = {
-        countstaticlayouts = { ["pig_ruins_entrance_5"] = GetModConfigData("pigruins") },
+        countstaticlayouts = {
+            -- ["pig_ruins_entrance_5"] = GetModConfigData("pigruins")
+
+        },
         distributepercent = 0.25, --.3
         distributeprefabs =
         {
@@ -1193,8 +1196,8 @@ AddRoom("deeprainforest_anthill_exit2", {
 
         countprefabs =
         {
-            maze_anthillentradarainha = GetModConfigData("anthill"),
-            underwater_entrance2 = 1,
+            -- maze_anthillentradarainha = GetModConfigData("anthill"),
+            -- underwater_entrance2 = 1,
         },
 
     }

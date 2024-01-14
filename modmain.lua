@@ -74,7 +74,7 @@ modimport("main/containers")             ---new containers
 modimport("postinit/components/weather") ---- disable snow effeccts
 modimport("postinit/container_woodleg_boat")
 modimport("postinit/container_boat")     ---- boat container sizing tweak by EvenMr
-
+modimport("postinit/prefabs/blueprints")
 
 -------------------------------------------------------------------------
 --AddPlayerPostInit(function(inst)

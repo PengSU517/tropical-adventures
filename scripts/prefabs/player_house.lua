@@ -198,14 +198,14 @@ local function makehousefn(name, build, bank, data)
         -- minimap:SetIcon("pig_house_sale.png") --------这个图片哪儿来的  minimap
 
         light:SetFalloff(1)     --没看出来干啥的
-        light:SetIntensity(0.8) --设置光的衰减速度
-        light:SetRadius(10)
+        light:SetIntensity(0.5) --设置光的衰减速度
+        light:SetRadius(5)
         light:Enable(true)
         light:SetColour(180 / 255, 195 / 255, 180 / 255) ---RGB色彩调节
         -------SetColour(180 / 255, 195 / 255, 50 / 255)黄光太暖了
         inst.Transform:SetScale(0.75, 0.75, 0.75)
 
-        MakeObstaclePhysics(inst, 1.25)
+        MakeObstaclePhysics(inst, 1.25) ---------------怎么修改占地面积啊
 
         anim:SetBank("pig_house_sale")
         anim:SetBuild(build)
@@ -270,4 +270,4 @@ local function makehouse(name, build, bank, data)
 end
 
 return makehouse("playerhouse_city", "pig_house_sale", nil, { indestructable = true }),
-    MakePlacer("common/playerhouse_city_placer", "pig_house_sale", "pig_house_sale", "idle")
+    MakePlacer("common/playerhouse_city_placer", "pig_house_sale", "pig_house_sale", "idle", false, false, false)
