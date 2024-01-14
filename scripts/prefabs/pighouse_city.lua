@@ -634,8 +634,8 @@ local function makefn2(animset, setbuild, spawnList)
             }
 
 
-            inst:AddComponent("spawner")
-            WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME * 3, true)
+            -- inst:AddComponent("spawner")
+            -- WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME * 3, true)
             inst.components.spawner:Configure(lista[math.random(1, 11)], PIGHOUSE_CITY_RESPAWNTIME, 1)
             inst.components.spawner.onoccupied = onoccupied
             inst.components.spawner.onvacate = onvacate

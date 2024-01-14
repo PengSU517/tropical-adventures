@@ -22,14 +22,14 @@ local function InitAnimationFromPosition(inst)
 	local map = TheWorld.Map
 	local x, y, z = inst.Transform:GetWorldPosition()
 	local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-	if ground == GROUND.OCEAN_COASTAL or
+	if TileGroupManager:IsOceanTile(ground) --[[ground == GROUND.OCEAN_COASTAL or
 		ground == GROUND.OCEAN_COASTAL_SHORE or
 		ground == GROUND.OCEAN_SWELL or
 		ground == GROUND.OCEAN_ROUGH or
 		ground == GROUND.OCEAN_BRINEPOOL or
 		ground == GROUND.OCEAN_BRINEPOOL_SHORE or
 		ground == GROUND.OCEAN_WATERLOG or
-		ground == GROUND.OCEAN_HAZARDOUS then
+		ground == GROUND.OCEAN_HAZARDOUS]] then
 		inst.onwater = true
 		inst.components.inventoryitem.canbepickedup = true
 
@@ -41,14 +41,14 @@ local function ondropped(inst)
 	local map = TheWorld.Map
 	local x, y, z = inst.Transform:GetWorldPosition()
 	local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-	if ground == GROUND.OCEAN_COASTAL or
+	if TileGroupManager:IsOceanTile(ground) --[[ground == GROUND.OCEAN_COASTAL or
 		ground == GROUND.OCEAN_COASTAL_SHORE or
 		ground == GROUND.OCEAN_SWELL or
 		ground == GROUND.OCEAN_ROUGH or
 		ground == GROUND.OCEAN_BRINEPOOL or
 		ground == GROUND.OCEAN_BRINEPOOL_SHORE or
 		ground == GROUND.OCEAN_WATERLOG or
-		ground == GROUND.OCEAN_HAZARDOUS then
+		ground == GROUND.OCEAN_HAZARDOUS]] then
 		if inst:HasTag("baby") then
 			local bolha = SpawnPrefab("frogsplash")
 			bolha.Transform:SetPosition(x, y, z)

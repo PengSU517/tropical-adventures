@@ -360,7 +360,8 @@ SHOP.fn = function(act)
                     elseif reason == "closed" then
                         if act.target and act.target.shopkeeper_speech then
                             act.target.shopkeeper_speech(act.target,
-                                STRINGS.CITY_PIG_SHOPKEEPER_CLOSING[math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_CLOSING)])
+                                STRINGS.CITY_PIG_SHOPKEEPER_CLOSING
+                                [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_CLOSING)])
                         end
                     end
                     return true
@@ -409,7 +410,7 @@ local function ExtrarummageRange(doer, dest)
         local target_x, target_y, target_z = dest:GetPoint()
 
         local is_on_water = GLOBAL.TheWorld.Map:IsOceanTileAtPoint(target_x, 0, target_z) and
-        not GLOBAL.TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
+            not GLOBAL.TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
         if is_on_water then
             return 2
         end
@@ -744,7 +745,7 @@ BOATREPAIR.fn = function(act)
         if equipamento then
             if act.target.components.finiteuses.current + 150 >= act.target.components.finiteuses.total then
                 act.target.components.finiteuses.current = act.target.components.finiteuses.total
-                local gastabarco = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)          -------armadura
+                local gastabarco = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)                      -------armadura
                 if gastabarco then gastabarco.components.armor.condition = act.target.components.finiteuses.current end ---------armadura
                 if equipamento.components.finiteuses then
                     equipamento.components.finiteuses:Use(1)
@@ -752,7 +753,7 @@ BOATREPAIR.fn = function(act)
                 return true
             end
             act.target.components.finiteuses.current = act.target.components.finiteuses.current + 150
-            local gastabarco = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)             ---------armadura
+            local gastabarco = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)                      ---------armadura
             if gastabarco then gastabarco.components.armor.condition = act.target.components.finiteuses.current end ---------armadura
             if equipamento.components.finiteuses then
                 equipamento.components.finiteuses:Use(1)
@@ -789,13 +790,17 @@ OPENTUNA.fn = function(act)
 end
 AddAction(OPENTUNA)
 
-local DISLODGE = GLOBAL.Action({ priority = 10, rmb = true, distance = 2, mount_valid = false })
+local DISLODGE = GLOBAL.Action({ priority = 11, rmb = true, distance = 2, mount_valid = false })
 DISLODGE.str = (GLOBAL.STRINGS.ACTIONS.DISLODGE)
 DISLODGE.id = "DISLODGE"
 DISLODGE.fn = function(act)
+    -- print("test fn used aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+
+    -- print(act.target.components.dislodgeable)
+    -- print(act.target.components.dislodgeable.canbedislodged)
+    -- print(act.target.components.dislodgeable.caninteractwith)
     if act.target.components.dislodgeable and act.target.components.dislodgeable.canbedislodged and act.target.components.dislodgeable.caninteractwith then
-        print("aaaaaaaaa??????????????????????")
         if act.doer ~= nil and equipamento then
             if equipamento.components.finiteuses then
                 equipamento.components.finiteuses:Use(1)
@@ -1065,6 +1070,7 @@ FERTILIZECOFFEE.fn = function(act)
                 else
                     act.invobject:Remove()
                 end
+                -- print("check fertilized coffee aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                 TheWorld:PushEvent("CHEVO_fertilized", { target = act.target, doer = act.doer })
                 return true
             end
@@ -1086,7 +1092,7 @@ local function ExtraPickupRange(doer, dest)
         local target_x, target_y, target_z = dest:GetPoint()
 
         local is_on_water = TheWorld.Map:IsOceanTileAtPoint(target_x, 0, target_z) and
-        not TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
+            not TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
         if is_on_water then
             return 0.75
         end
@@ -1163,7 +1169,7 @@ PICKUP.fn = function(act)
                 if equip.components.inventoryitem ~= nil and equip.components.inventoryitem.cangoincontainer then
                     --act.doer.components.inventory:SelectActiveItemFromEquipSlot(act.target.components.equippable.equipslot)
                     act.doer.components.inventory:GiveItem(act.doer.components.inventory:Unequip(act.target.components
-                    .equippable.equipslot))
+                        .equippable.equipslot))
                 else
                     act.doer.components.inventory:DropItem(equip)
                 end
@@ -1390,6 +1396,9 @@ AddComponentAction("SCENE", "dislodgeable", function(inst, doer, actions, right)
     if not right then
         if equipamento and equipamento:HasTag("ballpein_hammer") and inst:HasTag("dislodgeable") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
             table.insert(actions, ACTIONS.DISLODGE)
+            -- print("addcomponent action aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            -- print(equipamento.prefab)
+            -- print(inst.prefab)
             return
         end
     end
@@ -1826,7 +1835,7 @@ AddStategraphState(
             --inst.AnimState:Hide("ARM_carry")
             inst.AnimState:Show("ARM_normal")
             inst.components.inventory:ReturnActiveActionItem(inst.bufferedaction ~= nil and inst.bufferedaction
-            .invobject or nil)
+                .invobject or nil)
         end,
 
         timeline =
@@ -1931,7 +1940,7 @@ AddStategraphState(
             --inst.AnimState:Hide("ARM_carry")
             inst.AnimState:Show("ARM_normal")
             inst.components.inventory:ReturnActiveActionItem(inst.bufferedaction ~= nil and inst.bufferedaction
-            .invobject or nil)
+                .invobject or nil)
         end,
 
         timeline =
@@ -2513,7 +2522,7 @@ AddStategraphActionHandler(
 
 
             return not inst.sg:HasStateTag("prechop") and (inst.sg:HasStateTag("chopping") and "chop" or "chop_start") or
-            nil
+                nil
         end
     )
 )
@@ -2575,7 +2584,7 @@ AddStategraphActionHandler(
                 return not inst.sg:HasStateTag("gnawing") and "gnaw" or nil
             end
             return not inst.sg:HasStateTag("prechop") and (inst.sg:HasStateTag("chopping") and "chop" or "chop_start") or
-            nil
+                nil
         end
     )
 )
@@ -2608,8 +2617,14 @@ AddStategraphActionHandler(
             if not (inst.sg:HasStateTag(attack_tag) and action.target == inst.sg.statemem.attacktarget or inst.components.health:IsDead()) then
                 local weapon = inst.components.combat ~= nil and inst.components.combat:GetWeapon() or nil
                 ---------umcompromissing mode compatibility---------	
-                if weapon and weapon:HasTag("beegun") then if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then return
-                        "beegun_short" else return "beegun" end end
+                if weapon and weapon:HasTag("beegun") then
+                    if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then
+                        return
+                        "beegun_short"
+                    else
+                        return "beegun"
+                    end
+                end
                 if weapon and not ((weapon:HasTag("blowdart") or weapon:HasTag("thrown"))) and inst:HasTag("wathom") and not inst.sg:HasStateTag("attack") and (inst.components.rider ~= nil and not inst.components.rider:IsRiding()) then return ("wathomleap") end
 
                 return (weapon == nil and "attack")
@@ -2642,8 +2657,14 @@ AddStategraphActionHandler(
                 local inventoryitem = equip.replica.inventoryitem
 
                 ---------umcompromissing mode compatibility---------	
-                if equip and equip:HasTag("beegun") then if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then return
-                        "beegun_short" else return "beegun" end end
+                if equip and equip:HasTag("beegun") then
+                    if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then
+                        return
+                        "beegun_short"
+                    else
+                        return "beegun"
+                    end
+                end
                 if equip and not ((equip:HasTag("blowdart") or equip:HasTag("thrown"))) and inst:HasTag("wathom") and not inst.sg:HasStateTag("attack") and (inst.components.rider ~= nil and not inst.components.rider:IsRiding()) then return ("wathomleap") end
 
 
@@ -2691,30 +2712,50 @@ local pan =
 
         timeline =
         {
-            GLOBAL.TimeEvent(6 * GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve_DLC003/common/harvested/pool/pan") end),
-            GLOBAL.TimeEvent(14 * GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve_DLC003/common/harvested/pool/pan") end),
+            GLOBAL.TimeEvent(6 * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+            GLOBAL.TimeEvent(14 * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
 
-            GLOBAL.TimeEvent((6 + 15) * GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve_DLC003/common/harvested/pool/pan") end),
-            GLOBAL.TimeEvent((14 + 15) * GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve_DLC003/common/harvested/pool/pan") end),
+            GLOBAL.TimeEvent((6 + 15) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+            GLOBAL.TimeEvent((14 + 15) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
 
-            GLOBAL.TimeEvent((6 + 30) * GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve_DLC003/common/harvested/pool/pan") end),
-            GLOBAL.TimeEvent((14 + 30) * GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve_DLC003/common/harvested/pool/pan") end),
+            GLOBAL.TimeEvent((6 + 30) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+            GLOBAL.TimeEvent((14 + 30) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
 
-            GLOBAL.TimeEvent((6 + 45) * GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve_DLC003/common/harvested/pool/pan") end),
-            GLOBAL.TimeEvent((14 + 45) * GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve_DLC003/common/harvested/pool/pan") end),
+            GLOBAL.TimeEvent((6 + 45) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+            GLOBAL.TimeEvent((14 + 45) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
 
-            GLOBAL.TimeEvent((6 + 60) * GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve_DLC003/common/harvested/pool/pan") end),
-            GLOBAL.TimeEvent((14 + 60) * GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve_DLC003/common/harvested/pool/pan") end),
+            GLOBAL.TimeEvent((6 + 60) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+            GLOBAL.TimeEvent((14 + 60) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
         },
 
 
@@ -3181,9 +3222,9 @@ local taploop =
         },
 
         ontimeout = function(inst)
+            inst:PerformBufferedAction()
             inst.AnimState:PlayAnimation("tamp_pst")
             inst.sg:GoToState("idle", false)
-            inst:PerformBufferedAction()
         end,
     }
 AddStategraphState("wilson_client", tapserver)
@@ -4096,7 +4137,7 @@ AddStategraphState(
                     inst.SoundEmitter:PlaySound(inst.deathsoundoverride)
                 elseif not inst:HasTag("mime") then
                     inst.SoundEmitter:PlaySound((inst.talker_path_override or "dontstarve/characters/") ..
-                    (inst.soundsname or inst.prefab) .. "/death_voice")
+                        (inst.soundsname or inst.prefab) .. "/death_voice")
                 end
 
                 if GLOBAL.HUMAN_MEAT_ENABLED then
@@ -4159,7 +4200,7 @@ AddStategraphState(
 
                         if not inst:HasTag("mime") then
                             inst.SoundEmitter:PlaySound((inst.talker_path_override or "dontstarve/characters/") ..
-                            (inst.soundsname or inst.prefab) .. "/death_voice")
+                                (inst.soundsname or inst.prefab) .. "/death_voice")
                         end
 
                         if GLOBAL.HUMAN_MEAT_ENABLED then
@@ -4177,7 +4218,7 @@ AddStategraphState(
                         inst.sg:GoToState("corpse")
                     else
                         inst:PushEvent(inst.ghostenabled and "makeplayerghost" or "playerdied",
-                            { skeleton = GLOBAL.TheWorld.Map:IsPassableAtPoint(inst.Transform:GetWorldPosition()) })                                                                     -- if we are not on valid ground then don't drop a skeleton
+                            { skeleton = GLOBAL.TheWorld.Map:IsPassableAtPoint(inst.Transform:GetWorldPosition()) }) -- if we are not on valid ground then don't drop a skeleton
                     end
                 end
             end),
@@ -4409,7 +4450,7 @@ AddStategraphState(
                     inst.sg.statemem.fade - inst.sg.statemem.fadetotal * dt / inst.sg.statemem.fadeouttime)
                 if inst.sg.statemem.fade > 0 then
                     inst.components.colouradder:PushColour("corpse_rebirth", inst.sg.statemem.fade, inst.sg.statemem
-                    .fade, inst.sg.statemem.fade, 0)
+                        .fade, inst.sg.statemem.fade, 0)
                 else
                     inst.components.colouradder:PopColour("corpse_rebirth")
                     inst.sg.statemem.fadeouttime = nil
@@ -4581,8 +4622,15 @@ local boatrunstartcliente =
             ConfigureRunState(inst)
             inst.components.locomotor:RunForward()
             if inst:HasTag("aquatic") then
-                if inst:HasTag("surf") then inst.AnimState:PlayAnimation("surf_pre") else if inst:HasTag("sail") then
-                        inst.AnimState:PlayAnimation("sail_pre") else inst.AnimState:PlayAnimation("row_pre") end end
+                if inst:HasTag("surf") then
+                    inst.AnimState:PlayAnimation("surf_pre")
+                else
+                    if inst:HasTag("sail") then
+                        inst.AnimState:PlayAnimation("sail_pre")
+                    else
+                        inst.AnimState:PlayAnimation("row_pre")
+                    end
+                end
             else
                 if inst.sg.statemem.normalwonkey and inst.components.locomotor:GetTimeMoving() >= TUNING.WONKEY_TIME_TO_RUN then
                     inst.sg:GoToState("run_monkey") --resuming after brief stop from changing directions
@@ -4976,8 +5024,15 @@ local boatrunstopcliente =
 
             inst.components.locomotor:Stop()
             if inst:HasTag("aquatic") then
-                if inst:HasTag("surf") then inst.AnimState:PlayAnimation("surf_pst") else if inst:HasTag("sail") then
-                        inst.AnimState:PlayAnimation("sail_pst") else inst.AnimState:PlayAnimation("row_pst") end end
+                if inst:HasTag("surf") then
+                    inst.AnimState:PlayAnimation("surf_pst")
+                else
+                    if inst:HasTag("sail") then
+                        inst.AnimState:PlayAnimation("sail_pst")
+                    else
+                        inst.AnimState:PlayAnimation("row_pst")
+                    end
+                end
             else
                 inst.AnimState:PlayAnimation(GetRunStateAnim(inst) .. "_pst")
 
@@ -5103,11 +5158,13 @@ local sneeze =
                 if itemstodrop > 0 then
                     for i = 1, itemstodrop do
                         if inst.components.inventory and inst.components.inventory.isopen then
-                            local item = inst.components.inventory:FindItem(function(item) return not item:HasTag(
-                                "nosteal") end)
+                            local item = inst.components.inventory:FindItem(function(item)
+                                return not item:HasTag(
+                                    "nosteal")
+                            end)
                             if item then
                                 local direction = Vector3(inst.Transform:GetWorldPosition()) -
-                                Vector3(inst.Transform:GetWorldPosition())
+                                    Vector3(inst.Transform:GetWorldPosition())
                                 inst.components.inventory:DropItem(item, false, direction:GetNormalized())
                             end
                         end
@@ -5160,7 +5217,7 @@ local speargunstate =
                 --     when they do appear, they're already in front of the player.
                 --     Start the attack early to keep animation in sync.
                 inst.sg.statemem.projectiledelay = (inst.sg.statemem.chained and 9 or 14) * GLOBAL.FRAMES -
-                equip.projectiledelay
+                    equip.projectiledelay
                 if inst.sg.statemem.projectiledelay <= 0 then
                     inst.sg.statemem.projectiledelay = nil
                 end
@@ -5289,7 +5346,7 @@ local speargunstateclient =
                 --     when they do appear, they're already in front of the player.
                 --     Start the attack early to keep animation in sync.
                 inst.sg.statemem.projectiledelay = (inst.sg.statemem.chained and 9 or 14) * FRAMES -
-                equip.projectiledelay
+                    equip.projectiledelay
                 if inst.sg.statemem.projectiledelay <= 0 then
                     inst.sg.statemem.projectiledelay = nil
                 end
@@ -5444,8 +5501,10 @@ local telescopio = GLOBAL.State {
 
     timeline =
     {
-        GLOBAL.TimeEvent(20 * GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-            "dontstarve_DLC002/common/use_spyglass") end),
+        GLOBAL.TimeEvent(20 * GLOBAL.FRAMES, function(inst)
+            inst.SoundEmitter:PlaySound(
+                "dontstarve_DLC002/common/use_spyglass")
+        end),
     },
 
     onexit = function(inst)
@@ -5570,7 +5629,7 @@ local usefansw = GLOBAL.State {
         inst.AnimState:PushAnimation("fan", false)
         local skin_build = invobject:GetSkinBuild()
         local src_symbol = invobject ~= nil and invobject.components.fan ~= nil and
-        invobject.components.fan.overridesymbol or "swap_fan"
+            invobject.components.fan.overridesymbol or "swap_fan"
         if skin_build ~= nil then
             inst.AnimState:OverrideItemSkinSymbol("fan01", skin_build, src_symbol, invobject.GUID, "fan")
         else
@@ -5602,7 +5661,7 @@ local usefansw = GLOBAL.State {
                 inst.sg.statemem.item:IsValid() and
                 inst.sg.statemem.item.components.fan ~= nil then
                 inst.sg.statemem.item.components.fan:Channel(inst.sg.statemem.target ~= nil and
-                inst.sg.statemem.target:IsValid() and inst.sg.statemem.target or inst)
+                    inst.sg.statemem.target:IsValid() and inst.sg.statemem.target or inst)
             end
         end),
         GLOBAL.TimeEvent(50 * FRAMES, function(inst)
@@ -5610,7 +5669,7 @@ local usefansw = GLOBAL.State {
                 inst.sg.statemem.item:IsValid() and
                 inst.sg.statemem.item.components.fan ~= nil then
                 inst.sg.statemem.item.components.fan:Channel(inst.sg.statemem.target ~= nil and
-                inst.sg.statemem.target:IsValid() and inst.sg.statemem.target or inst)
+                    inst.sg.statemem.target:IsValid() and inst.sg.statemem.target or inst)
             end
         end),
         GLOBAL.TimeEvent(70 * FRAMES, function(inst)
@@ -5824,7 +5883,7 @@ local hamletteleport =
             end),
             TimeEvent(1 * GLOBAL.FRAMES, function(inst)
                 inst.Physics:SetMotorVel(
-                inst.sg.statemem.heavy and inst.sg.statemem.speed * .6 or inst.sg.statemem.speed, 0, 0)
+                    inst.sg.statemem.heavy and inst.sg.statemem.speed * .6 or inst.sg.statemem.speed, 0, 0)
             end),
 
             --Heavy lifting
@@ -5952,10 +6011,14 @@ AddStategraphState(
 
         timeline =
         {
-            GLOBAL.TimeEvent(0 * FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve/creatures/spiderwarrior/attack_grunt") end),
-            GLOBAL.TimeEvent(0 * FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve/creatures/spiderwarrior/Jump") end),
+            GLOBAL.TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve/creatures/spiderwarrior/attack_grunt")
+            end),
+            GLOBAL.TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve/creatures/spiderwarrior/Jump")
+            end),
             GLOBAL.TimeEvent(8 * FRAMES, function(inst)
                 local x1, y1, z1 = inst.sg.statemem.target.Transform:GetWorldPosition()
                 local x2, y2, z2 = inst.Transform:GetWorldPosition()
@@ -5965,8 +6028,10 @@ AddStategraphState(
             end),
 
 
-            GLOBAL.TimeEvent(9 * FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve/creatures/spiderwarrior/Attack") end),
+            GLOBAL.TimeEvent(9 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve/creatures/spiderwarrior/Attack")
+            end),
             GLOBAL.TimeEvent(20 * FRAMES,
                 function(inst)
                     inst.Physics:ClearMotorVelOverride()
@@ -6003,10 +6068,14 @@ AddStategraphState(
 
         timeline =
         {
-            GLOBAL.TimeEvent(0 * FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve/creatures/pengull/jumpin") end),
-            GLOBAL.TimeEvent(0 * FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve/creatures/pengull/jumpin") end),
+            GLOBAL.TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve/creatures/pengull/jumpin")
+            end),
+            GLOBAL.TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve/creatures/pengull/jumpin")
+            end),
             GLOBAL.TimeEvent(8 * FRAMES, function(inst)
                 local x1, y1, z1 = inst.sg.statemem.target.Transform:GetWorldPosition()
                 local x2, y2, z2 = inst.Transform:GetWorldPosition()
@@ -6016,8 +6085,10 @@ AddStategraphState(
             end),
 
 
-            GLOBAL.TimeEvent(9 * FRAMES, function(inst) inst.SoundEmitter:PlaySound(
-                "dontstarve/creatures/pengull/jumpin") end),
+            GLOBAL.TimeEvent(9 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve/creatures/pengull/jumpin")
+            end),
             GLOBAL.TimeEvent(20 * FRAMES,
                 function(inst)
                     inst.Physics:ClearMotorVelOverride()
@@ -6050,12 +6121,12 @@ local Vector3 = _G.Vector3
 
 local function DefaultItemTestFn(container, item, slot)
     return (cooking.IsCookingIngredient(item.prefab) or item:HasTag("preparedfood") or item.prefab == "wetgoop") and
-    not container.inst:HasTag("burnt")
+        not container.inst:HasTag("burnt")
 end
 
 local function SyrupItemTestFn(container, item, slot)
     return (item.prefab == "syrup" or item.prefab == "sap" or item.prefab == "wetgoop") and
-    not container.inst:HasTag("burnt")
+        not container.inst:HasTag("burnt")
 end
 
 local cookertypes =
@@ -6217,12 +6288,12 @@ local function CreateMealerWidget()
 
     function params.mealingstone.itemtestfn(container, item, slot)
         return (item:HasTag("mealable") and not container.inst:HasTag("pleasetakeitem")) or
-        (container.inst:HasTag("pleasetakeitem") and (item:HasTag("mealproduct") or item.prefab == "ash" or item.prefab == "spice_salt" or item.prefab == "quagmire_spotspice_ground" or item.prefab == "quagmire_flour"))
+            (container.inst:HasTag("pleasetakeitem") and (item:HasTag("mealproduct") or item.prefab == "ash" or item.prefab == "spice_salt" or item.prefab == "quagmire_spotspice_ground" or item.prefab == "quagmire_flour"))
     end
 
     function params.mealingstone.widget.buttoninfo.validfn(inst)
         return inst.replica.container ~= nil and not inst.replica.container:IsEmpty() and
-        not inst:HasTag("pleasetakeitem")
+            not inst:HasTag("pleasetakeitem")
     end
 end
 
@@ -6238,12 +6309,12 @@ local Vector3 = _G.Vector3
 
 local function DefaultItemTestFn(container, item, slot)
     return (cooking.IsCookingIngredient(item.prefab) or item:HasTag("preparedfood") or item.prefab == "wetgoop") and
-    not container.inst:HasTag("burnt")
+        not container.inst:HasTag("burnt")
 end
 
 local function SyrupItemTestFn(container, item, slot)
     return (item.prefab == "syrup" or item.prefab == "sap" or item.prefab == "wetgoop") and
-    not container.inst:HasTag("burnt")
+        not container.inst:HasTag("burnt")
 end
 
 local cookertypes =
@@ -6340,7 +6411,6 @@ end
 
 function UpdateCookingIngredientTags(names, newtags)
     for _, name in ipairs(names) do
-        --		print(name)
         for tag, value in pairs(newtags) do
             cooking.ingredients[name].tags[tag] = value
             if cooking.ingredients[name .. "_cooked"] ~= nil then
@@ -6578,7 +6648,7 @@ AddComponentPostInit("fueled", function(self)
     function self:CanAcceptFuelItem(item)
         if self.fueltype == "TAR" and item:HasTag("tar") then return true end
         return self.accepting and item and item.components.fuel and
-        (item.components.fuel.fueltype == self.fueltype or item.components.fuel.fueltype == self.secondaryfueltype)
+            (item.components.fuel.fueltype == self.fueltype or item.components.fuel.fueltype == self.secondaryfueltype)
     end
 end)
 
@@ -6671,12 +6741,12 @@ AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.TAPSUGARTREE,
 AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.COLLECTSAP,
     function(inst, action)
         return inst:HasTag("fastpicker") and "doshortaction" or inst:HasTag("quagmire_fasthands") and "domediumaction" or
-        "dolongaction"
+            "dolongaction"
     end))
 AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.COLLECTSAP,
     function(inst, action)
         return inst:HasTag("fastpicker") and "doshortaction" or inst:HasTag("quagmire_fasthands") and "domediumaction" or
-        "dolongaction"
+            "dolongaction"
     end))
 
 AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.SETUPITEM,

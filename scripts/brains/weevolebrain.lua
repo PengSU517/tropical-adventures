@@ -41,23 +41,23 @@ local function GetWanderPoint(inst)
 
     if target then
         return target:GetPosition()
-    end 
+    end
 end
 
 local function GoHomeAction(inst)
-    if inst.components.homeseeker and 
-       inst.components.homeseeker.home and 
-       inst.components.homeseeker.home:IsValid() then
+    if inst.components.homeseeker and
+        inst.components.homeseeker.home and
+        inst.components.homeseeker.home:IsValid() then
         return BufferedAction(inst, inst.components.homeseeker.home, ACTIONS.GOHOME)
     end
 end
 
 local function GetIsOnWater(target)
-if target then
-local map = TheWorld.Map
-local x, y, z = target.Transform:GetWorldPosition()
-local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-if ground == GROUND.OCEAN_SWELL or
+    if target then
+        local map = TheWorld.Map
+        local x, y, z = target.Transform:GetWorldPosition()
+        local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
+        if TileGroupManager:IsOceanTile(ground) --[[ground == GROUND.OCEAN_SWELL or
 ground == GROUND.OCEAN_BRINEPOOL_SHORE or
 ground == GROUND.OCEAN_BRINEPOOL or
 ground == GROUND.OCEAN_HAZARDOUS or
@@ -65,17 +65,17 @@ ground == GROUND.OCEAN_ROUGH or
 ground == GROUND.IMPASSABLE or
 ground == GROUND.OCEAN_COASTAL or
 ground == GROUND.OCEAN_WATERLOG or
-ground == GROUND.OCEAN_COASTAL_SHORE then	
-return true
-else
-return false
-end 
-end
+ground == GROUND.OCEAN_COASTAL_SHORE]] then
+            return true
+        else
+            return false
+        end
+    end
 end
 
 local function EatFoodAction(inst)
-
-    local target = FindEntity(inst, SEE_FOOD_DIST, function(item) return inst.components.eater:CanEat(item) and item:IsOnValidGround() and not GetIsOnWater(item) end)
+    local target = FindEntity(inst, SEE_FOOD_DIST,
+        function(item) return inst.components.eater:CanEat(item) and item:IsOnValidGround() and not GetIsOnWater(item) end)
     if target then
         return BufferedAction(inst, target, ACTIONS.EAT)
     end
@@ -87,26 +87,45 @@ end)
 
 function WeevoleBrain:OnStart()
     local root = PriorityNode(
-    {
-		WhileNode(function() return not self.inst.sg:HasStateTag("jumping") end, "AttackAndWander",
-			PriorityNode(
-			{
-                UseShield(self.inst, DAMAGE_UNTIL_SHIELD, SHIELD_TIME, AVOID_PROJECTILE_ATTACKS),
-				WhileNode( function() return self.inst.components.combat.target == nil or not self.inst.components.combat:InCooldown() end, "AttackMomentarily", ChaseAndAttack(self.inst, MAX_CHASE_TIME, MAX_CHASE_DIST) ),
-				WhileNode( function() return self.inst.components.combat.target and self.inst.components.combat:InCooldown() end, "Dodge", RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST) ),
-                DoAction(self.inst, function() return EatFoodAction(self.inst) end ),
+        {
+            WhileNode(function() return not self.inst.sg:HasStateTag("jumping") end, "AttackAndWander",
+                PriorityNode(
+                    {
+                        UseShield(self.inst, DAMAGE_UNTIL_SHIELD, SHIELD_TIME, AVOID_PROJECTILE_ATTACKS),
+                        WhileNode(
+                            function()
+                                return self.inst.components.combat.target == nil or
+                                    not self.inst.components.combat:InCooldown()
+                            end, "AttackMomentarily",
+                            ChaseAndAttack(self.inst, MAX_CHASE_TIME, MAX_CHASE_DIST)),
+                        WhileNode(
+                            function()
+                                return self.inst.components.combat.target and
+                                    self.inst.components.combat:InCooldown()
+                            end,
+                            "Dodge",
+                            RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST,
+                                STOP_RUN_AWAY_DIST)),
+                        DoAction(self.inst, function() return EatFoodAction(self.inst) end),
 
-                EventNode(self.inst, "gohome", 
-                            DoAction(self.inst, GoHomeAction, "go home", true )),
-                WhileNode(function() return TheWorld.state.isday end, "IsDay",
-                            DoAction(self.inst, GoHomeAction, "go home", true )),                
+                        EventNode(self.inst, "gohome",
+                            DoAction(self.inst, GoHomeAction, "go home", true)),
+                        WhileNode(function() return TheWorld.state.isday end, "IsDay",
+                            DoAction(self.inst, GoHomeAction, "go home", true)),
 
-                WhileNode(function() return GetHome(self.inst) end, "HasHome", Wander(self.inst, GetHomePos, 8) ),
-            --    Wander(self.inst, GetWanderPoint, 20),
-				Wander(self.inst, GetWanderPoint, MAX_WANDER_DIST, { minwalktime = .5, randwalktime = math.random() < 0.5 and .5 or 1, minwaittime = math.random() < 0.5 and 0 or 1, randwaittime = .2, }),
-			}, .25)
-		)
-	}, .25)
+                        WhileNode(function() return GetHome(self.inst) end, "HasHome", Wander(self.inst, GetHomePos, 8)),
+                        --    Wander(self.inst, GetWanderPoint, 20),
+                        Wander(self.inst, GetWanderPoint, MAX_WANDER_DIST,
+                            {
+                                minwalktime = .5,
+                                randwalktime = math.random() < 0.5 and .5 or 1,
+                                minwaittime = math
+                                    .random() < 0.5 and 0 or 1,
+                                randwaittime = .2,
+                            }),
+                    }, .25)
+            )
+        }, .25)
 
     self.bt = BT(self.inst, root)
 end
@@ -115,7 +134,6 @@ function WeevoleBrain:OnInitializationComplete()
     if not self.inst.components.knownlocations:GetLocation("home") then
         self.inst.components.knownlocations:RememberLocation("home", Point(self.inst.Transform:GetWorldPosition()), true)
     end
-
 end
 
 return WeevoleBrain

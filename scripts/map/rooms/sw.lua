@@ -464,8 +464,7 @@ AddRoom("OceanHazardous_SW", {
 AddRoom("strange_island_eldorado", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "RoadPoison", "tropical", "StagehandGarden", "Terrarium_Spawner", "StatueHarp_HedgeSpawner",
-        "CharlieStage_Spawner" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts = { ["eldorado"] = 1 },
         distributepercent = .2,
@@ -2788,8 +2787,7 @@ AddRoom("JungleDenseVery", {
 AddRoom("JungleClearing", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical", "StagehandGarden", "Terrarium_Spawner",
-        "StatueHarp_HedgeSpawner", "CharlieStage_Spawner" },
+    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
     contents = {
         countstaticlayouts = {
             ["MushroomRingLarge"] = function()
@@ -2825,8 +2823,7 @@ AddRoom("JungleClearing", {
 AddRoom("Jungle", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical", "StagehandGarden", "Terrarium_Spawner",
-        "StatueHarp_HedgeSpawner", "CharlieStage_Spawner" },
+    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2919,8 +2916,7 @@ AddRoom("DoyDoyF", {
 AddRoom("JungleSparse", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical", "StagehandGarden", "Terrarium_Spawner",
-        "StatueHarp_HedgeSpawner", "CharlieStage_Spawner" },
+    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2991,8 +2987,7 @@ AddRoom("JungleSparseHome", {
 AddRoom("JungleDense", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical", "StagehandGarden", "Terrarium_Spawner",
-        "StatueHarp_HedgeSpawner", "CharlieStage_Spawner" },
+    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
     contents = {
         countstaticlayouts =
         {

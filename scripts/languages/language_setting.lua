@@ -1,6 +1,3 @@
-modimport("scripts/languages/stringscomplement.lua")
-modimport("scripts/languages/stringscreeps.lua")
--- modimport("scripts/languages/wurt_quotes.lua")
 
 --configurar idioma
 modimport("scripts/languages/stringsEU.lua")
@@ -12,3 +9,7 @@ modimport("scripts/languages/stringsEU.lua")
 -- 		modimport("scripts/" .. GetModConfigData("set_idioma") .. ".lua")
 -- 	end
 -- end
+
+-- modimport("scripts/languages/stringscomplement.lua")
+modimport("scripts/languages/stringscreeps.lua")
+-- modimport("scripts/languages/wurt_quotes.lua")

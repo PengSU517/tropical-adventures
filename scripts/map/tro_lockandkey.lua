@@ -27,7 +27,13 @@ ARRAY_NEW =
     "CITY_2",
 
     "HAM_BLANK",
+    "HAM_BLANK1",
+    "HAM_BLANK2",
     "SNAKE",
+
+    "DEEPRAINFOREST_CITY2",
+    "DEEPRAINFOREST_SNAKE",
+    "LOST_JUNGLE",
 
 
 
@@ -47,7 +53,6 @@ ARRAY_NEW =
 
     "OTHER_JUNGLE_DEPTH_1",
     "OTHER_JUNGLE_DEPTH_2",
-
     "LOST_JUNGLE_DEPTH_2",
 
     "ISLAND_1",

@@ -1611,11 +1611,6 @@ Layouts["HermitcrabIsland"] = StaticLayout.Get("map/static_layouts/hermitcrab_01
 
 ----------------------------------------------------
 
-local layoutsToRemake = { "volcano_entrance" }
-local layoutsToRemakeGrounds =
-{
-	volcano_entrance = { GROUND.BEACH, GROUND.VOLCANO }
-}
 local layoutsToRemakeTiles =
 {
 	volcano_entrance =
@@ -1671,24 +1666,24 @@ local layoutsToRemakeGrounds =
 	IceSpiderpillar      = { GROUND.WATER_MANGROVE, GROUND.WATER_MANGROVE },
 	lobby                = { GROUND.IMPASSABLE, GROUND.CHECKEREDLAWN, GROUND.COBBLEROAD, GROUND.BEACH, GROUND.FOREST,
 		GROUND.GRASS, GROUND.FOUNDATION },
-	atlantida            = { GROUND.IMPASSABLE, GROUND.BATTLEGROUND, GROUND.UNDERWATER_ROCKY },
-	pig_ruins_entrance_1 = { GROUND.DEEPRAINFOREST, GROUND.BATTLEGROUND },
-	pig_ruins_entrance_2 = { GROUND.DEEPRAINFOREST, GROUND.BATTLEGROUND },
-	pig_ruins_entrance_3 = { GROUND.BATTLEGROUND, GROUND.DEEPRAINFOREST },
-	pig_ruins_entrance_4 = { GROUND.BATTLEGROUND, GROUND.DEEPRAINFOREST },
-	pig_ruins_entrance_5 = { GROUND.DEEPRAINFOREST, GROUND.BATTLEGROUND },
-	pig_ruins_exit_1     = { GROUND.DEEPRAINFOREST, GROUND.BATTLEGROUND },
-	pig_ruins_exit_2     = { GROUND.DEEPRAINFOREST, GROUND.BATTLEGROUND },
-	pig_ruins_exit_4     = { GROUND.DEEPRAINFOREST, GROUND.BATTLEGROUND },
-	pugalisk_fountain    = { GROUND.BATTLEGROUND },
-	pig_ruins_head       = { GROUND.BATTLEGROUND },
-	pig_ruins_nocanopy   = { GROUND.BATTLEGROUND },
-	pig_ruins_nocanopy_2 = { GROUND.BATTLEGROUND },
-	pig_ruins_nocanopy_3 = { GROUND.BATTLEGROUND },
-	pig_ruins_nocanopy_4 = { GROUND.BATTLEGROUND },
-	cave_entranceham1    = { GROUND.BATTLEGROUND },
-	cave_entranceham2    = { GROUND.BATTLEGROUND },
-	cave_entranceham3    = { GROUND.BATTLEGROUND },
+	atlantida            = { GROUND.IMPASSABLE, GROUND.PIGRUINS, GROUND.UNDERWATER_ROCKY },
+	pig_ruins_entrance_1 = { GROUND.DEEPRAINFOREST, GROUND.PIGRUINS },
+	pig_ruins_entrance_2 = { GROUND.DEEPRAINFOREST, GROUND.PIGRUINS },
+	pig_ruins_entrance_3 = { GROUND.PIGRUINS, GROUND.DEEPRAINFOREST },
+	pig_ruins_entrance_4 = { GROUND.PIGRUINS, GROUND.DEEPRAINFOREST },
+	pig_ruins_entrance_5 = { GROUND.DEEPRAINFOREST, GROUND.PIGRUINS },
+	pig_ruins_exit_1     = { GROUND.DEEPRAINFOREST, GROUND.PIGRUINS },
+	pig_ruins_exit_2     = { GROUND.DEEPRAINFOREST, GROUND.PIGRUINS },
+	pig_ruins_exit_4     = { GROUND.DEEPRAINFOREST, GROUND.PIGRUINS },
+	pugalisk_fountain    = { GROUND.PIGRUINS },
+	pig_ruins_head       = { GROUND.PIGRUINS },
+	pig_ruins_nocanopy   = { GROUND.PIGRUINS },
+	pig_ruins_nocanopy_2 = { GROUND.PIGRUINS },
+	pig_ruins_nocanopy_3 = { GROUND.PIGRUINS },
+	pig_ruins_nocanopy_4 = { GROUND.PIGRUINS },
+	cave_entranceham1    = { GROUND.PIGRUINS },
+	cave_entranceham2    = { GROUND.PIGRUINS },
+	cave_entranceham3    = { GROUND.PIGRUINS },
 	farm_1               = { GROUND.FIELDS, GROUND.SUBURB },
 	farm_2               = { GROUND.FIELDS, GROUND.SUBURB },
 	farm_3               = { GROUND.FIELDS, GROUND.SUBURB },

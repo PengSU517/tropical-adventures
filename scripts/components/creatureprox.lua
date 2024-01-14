@@ -1,10 +1,9 @@
-local function DoTest(inst)   
+local function DoTest(inst)
     local component = inst.components.creatureprox
-    if component and component.enabled and not inst:HasTag("INTERIOR_LIMBO") then      
-    
-        local x,y,z = inst.Transform:GetWorldPosition()
+    if component and component.enabled and not inst:HasTag("INTERIOR_LIMBO") then
+        local x, y, z = inst.Transform:GetWorldPosition()
 
-        local range = nil       
+        local range = nil
 
         if component.isclose then
             range = component.far
@@ -12,32 +11,32 @@ local function DoTest(inst)
             range = component.near
         end
 
-        local musthave = { "animal","character" }
+        local musthave = { "animal", "character" }
 
         if component.inventorytrigger then
-            musthave = {"isinventoryitem", "monster", "animal", "character", "meat"}
+            musthave = { "isinventoryitem", "monster", "animal", "character", "meat" }
         end
 
-        local nothave = {"INTERIOR_LIMBO", "snake", "scorpion", "shadowcreature"}
-        local ents 
-		if component.all then
-		ents = TheSim:FindEntities(x,y,z, range, nil) 
-		else
-		ents =  TheSim:FindEntities(x,y,z, range, nil, nothave,  musthave )
-		end
+        local nothave = { "INTERIOR_LIMBO", "snake", "scorpion", "shadowcreature" }
+        local ents
+        if component.all then
+            ents = TheSim:FindEntities(x, y, z, range, nil)
+        else
+            ents = TheSim:FindEntities(x, y, z, range, nil, nothave, musthave)
+        end
         local close = nil
 
-        for i=#ents,1,-1 do        
-            if ents[i] == inst or ( component.testfn and not component.testfn(ents[i]) ) then
-                table.remove(ents,i)           
-            end      
+        for i = #ents, 1, -1 do
+            if ents[i] == inst or (component.testfn and not component.testfn(ents[i])) then
+                table.remove(ents, i)
+            end
         end
 
-        if #ents > 0 and inst then 
-            close = true      
+        if #ents > 0 and inst then
+            close = true
             if component.inproxfn then
-                for i, ent in ipairs(ents)do
-                    component.inproxfn(inst,ent)
+                for i, ent in ipairs(ents) do
+                    component.inproxfn(inst, ent)
                 end
             end
         end
@@ -49,8 +48,8 @@ local function DoTest(inst)
 
             if not component.isclose and component.onfar then
                 component.onfar(inst)
-            end        
-        end        
+            end
+        end
         if component.piggybackfn then
             component.piggybackfn(inst)
         end
@@ -65,10 +64,10 @@ local CreatureProx = Class(function(self, inst)
     self.onnear = nil
     self.onfar = nil
     self.isclose = nil
-    self.enabled = true    
+    self.enabled = true
     self.all = nil
     self.task = nil
-    
+
     self:Schedule()
 end)
 
@@ -80,12 +79,12 @@ function CreatureProx:SetOnPlayerNear(fn)
     self.onnear = fn
 end
 
-
 function CreatureProx:OnSave()
-   local data = {
+    local data = {
         enabled = self.enabled
     }
 end
+
 function CreatureProx:OnLoad(data)
     if data.enabled then
         self.enabled = data.enabled
@@ -104,7 +103,7 @@ function CreatureProx:SetOnPlayerFar(fn)
 end
 
 function CreatureProx:IsPlayerClose()
-	return self.isclose
+    return self.isclose
 end
 
 function CreatureProx:SetDist(near, far)
@@ -113,13 +112,12 @@ function CreatureProx:SetDist(near, far)
 end
 
 function CreatureProx:SetTestfn(testfn)
-    self.testfn = testfn    
+    self.testfn = testfn
 end
 
 function CreatureProx:forcetest()
     DoTest(self.inst)
 end
-
 
 function CreatureProx:Schedule()
     if self.task then

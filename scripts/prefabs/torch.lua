@@ -11,7 +11,7 @@ local prefabs =
 }
 
 local function DoIgniteSound(inst, owner)
-	inst._ignitesoundtask = nil
+    inst._ignitesoundtask = nil
     local se = (owner ~= nil and owner:IsValid() and owner or inst).SoundEmitter
     if se ~= nil then
         se:PlaySound("dontstarve/wilson/torch_swing")
@@ -19,79 +19,79 @@ local function DoIgniteSound(inst, owner)
 end
 
 local function DoExtinguishSound(inst, owner)
-	inst._extinguishsoundtask = nil
+    inst._extinguishsoundtask = nil
     local se = (owner ~= nil and owner:IsValid() and owner or inst).SoundEmitter
     if se ~= nil then
-       se:PlaySound("dontstarve/common/fireOut")
+        se:PlaySound("dontstarve/common/fireOut")
     end
 end
 
 local function PlayIgniteSound(inst, owner, instant, force)
-	if inst._extinguishsoundtask ~= nil then
-		inst._extinguishsoundtask:Cancel()
-		inst._extinguishsoundtask = nil
-		if not force then
-			return
-		end
-	end
-	if instant then
-		if inst._ignitesoundtask ~= nil then
-			inst._ignitesoundtask:Cancel()
-		end
-		DoIgniteSound(inst, owner)
-	elseif inst._ignitesoundtask == nil then
-		inst._ignitesoundtask = inst:DoTaskInTime(0, DoIgniteSound, owner)
-	end
+    if inst._extinguishsoundtask ~= nil then
+        inst._extinguishsoundtask:Cancel()
+        inst._extinguishsoundtask = nil
+        if not force then
+            return
+        end
+    end
+    if instant then
+        if inst._ignitesoundtask ~= nil then
+            inst._ignitesoundtask:Cancel()
+        end
+        DoIgniteSound(inst, owner)
+    elseif inst._ignitesoundtask == nil then
+        inst._ignitesoundtask = inst:DoTaskInTime(0, DoIgniteSound, owner)
+    end
 end
 
 local function PlayExtinguishSound(inst, owner, instant, force)
-	if inst._ignitesoundtask ~= nil then
-		inst._ignitesoundtask:Cancel()
-		inst._ignitesoundtask = nil
-		if not force then
-			return
-		end
-	end
-	if instant then
-		if inst._extinguishsoundtask ~= nil then
-			inst._extinguishsoundtask:Cancel()
-		end
-		DoExtinguishSound(inst, owner)
-	elseif inst._extinguishsoundtask == nil then
-		inst._extinguishsoundtask = inst:DoTaskInTime(0, DoExtinguishSound, owner)
-	end
+    if inst._ignitesoundtask ~= nil then
+        inst._ignitesoundtask:Cancel()
+        inst._ignitesoundtask = nil
+        if not force then
+            return
+        end
+    end
+    if instant then
+        if inst._extinguishsoundtask ~= nil then
+            inst._extinguishsoundtask:Cancel()
+        end
+        DoExtinguishSound(inst, owner)
+    elseif inst._extinguishsoundtask == nil then
+        inst._extinguishsoundtask = inst:DoTaskInTime(0, DoExtinguishSound, owner)
+    end
 end
 
 local function OnRemoveEntity(inst)
-	--Due to timing of unequip on removal, we may have passed CancelAllPendingTasks already.
-	if inst._ignitesoundtask ~= nil then
-		inst._ignitesoundtask:Cancel()
-		inst._ignitesoundtask = nil
-	end
-	if inst._extinguishsoundtask ~= nil then
-		inst._extinguishsoundtask:Cancel()
-		inst._extinguishsoundtask = nil
-	end
+    --Due to timing of unequip on removal, we may have passed CancelAllPendingTasks already.
+    if inst._ignitesoundtask ~= nil then
+        inst._ignitesoundtask:Cancel()
+        inst._ignitesoundtask = nil
+    end
+    if inst._extinguishsoundtask ~= nil then
+        inst._extinguishsoundtask:Cancel()
+        inst._extinguishsoundtask = nil
+    end
 end
 
 local function applyskillbrightness(inst, value)
     if inst.fires then
-        for i,fx in ipairs(inst.fires) do
+        for i, fx in ipairs(inst.fires) do
             fx:SetLightRange(value)
         end
-    end     
+    end
 end
 
 local function removeskillbrightness(inst, value)
     if inst.fires then
-        for i,fx in ipairs(inst.fires) do
+        for i, fx in ipairs(inst.fires) do
             fx:SetLightRange(value)
         end
-    end 
+    end
 end
 
-local function applyskillfueleffect(inst,value)
-    inst.components.fueled.rate_modifiers:SetModifier(inst, value,"wilsonskill")
+local function applyskillfueleffect(inst, value)
+    inst.components.fueled.rate_modifiers:SetModifier(inst, value, "wilsonskill")
 end
 local function removeskillfueleffect(inst)
     inst.components.fueled.rate_modifiers:RemoveModifier(inst, "wilsonskill")
@@ -113,12 +113,12 @@ end
 local function getskillbrightnesseffectmodifier(inst, owner)
     if not owner.components.skilltreeupdater then
         return nil
-    end    
+    end
     if owner.components.skilltreeupdater:IsActivated("wilson_torch_6") then
         return TUNING.SKILLS.WILSON_TORCH_6
-    elseif   owner.components.skilltreeupdater:IsActivated("wilson_torch_5") then
+    elseif owner.components.skilltreeupdater:IsActivated("wilson_torch_5") then
         return TUNING.SKILLS.WILSON_TORCH_5
-    elseif   owner.components.skilltreeupdater:IsActivated("wilson_torch_4") then
+    elseif owner.components.skilltreeupdater:IsActivated("wilson_torch_4") then
         return TUNING.SKILLS.WILSON_TORCH_4
     end
 end
@@ -126,38 +126,38 @@ end
 local function applytorchskilleffects(inst, data)
     --SKILLTREE CODE
     if data.fuelmod then
-        applyskillfueleffect(inst,data.fuelmod)
+        applyskillfueleffect(inst, data.fuelmod)
     end
     if data.brightnessmod then
-        applyskillbrightness(inst,data.brightnessmod)
+        applyskillbrightness(inst, data.brightnessmod)
     end
 end
 
-local function removetorchskilleffects(inst,brightnessvalue)
+local function removetorchskilleffects(inst, brightnessvalue)
     --SKILLTREE CODE
     removeskillbrightness(inst, 1)
     removeskillfueleffect(inst)
 end
 
 local function onequip(inst, owner)
-local map = TheWorld.Map
-local x, y, z = inst.Transform:GetWorldPosition()
-local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-local ground1 = map:GetTile(map:GetTileCoordsAtPoint(x+5, y, z))
-local ground2 = map:GetTile(map:GetTileCoordsAtPoint(x-5, y, z))
-local ground3 = map:GetTile(map:GetTileCoordsAtPoint(x, y, z+5))
-local ground4 = map:GetTile(map:GetTileCoordsAtPoint(x, y, z-5))
-local naagua = false
-if ground == GROUND.UNDERWATER_SANDY or ground == GROUND.UNDERWATER_ROCKY or (ground == GROUND.BEACH and TheWorld:HasTag("cave"))  or (ground == GROUND.BATTLEGROUND and TheWorld:HasTag("cave")) or (ground == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave"))  or (ground == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
-if ground1 == GROUND.UNDERWATER_SANDY or ground1 == GROUND.UNDERWATER_ROCKY or (ground1 == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground1 == GROUND.BATTLEGROUND and TheWorld:HasTag("cave")) or (ground1 == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground1 == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground1 == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
-if ground2 == GROUND.UNDERWATER_SANDY or ground2 == GROUND.UNDERWATER_ROCKY or (ground2 == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground2 == GROUND.BATTLEGROUND and TheWorld:HasTag("cave")) or (ground2 == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground2 == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground2 == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
-if ground3 == GROUND.UNDERWATER_SANDY or ground3 == GROUND.UNDERWATER_ROCKY or (ground3 == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground3 == GROUND.BATTLEGROUND and TheWorld:HasTag("cave")) or (ground3 == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground3 == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground3 == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
-if ground4 == GROUND.UNDERWATER_SANDY or ground4 == GROUND.UNDERWATER_ROCKY or (ground4 == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground4 == GROUND.BATTLEGROUND and TheWorld:HasTag("cave")) or (ground4 == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground4 == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground4 == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
+    local map = TheWorld.Map
+    local x, y, z = inst.Transform:GetWorldPosition()
+    local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
+    local ground1 = map:GetTile(map:GetTileCoordsAtPoint(x + 5, y, z))
+    local ground2 = map:GetTile(map:GetTileCoordsAtPoint(x - 5, y, z))
+    local ground3 = map:GetTile(map:GetTileCoordsAtPoint(x, y, z + 5))
+    local ground4 = map:GetTile(map:GetTileCoordsAtPoint(x, y, z - 5))
+    local naagua = false
+    if ground == GROUND.UNDERWATER_SANDY or ground == GROUND.UNDERWATER_ROCKY or (ground == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground == GROUND.PIGRUINS and TheWorld:HasTag("cave")) or (ground == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
+    if ground1 == GROUND.UNDERWATER_SANDY or ground1 == GROUND.UNDERWATER_ROCKY or (ground1 == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground1 == GROUND.PIGRUINS and TheWorld:HasTag("cave")) or (ground1 == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground1 == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground1 == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
+    if ground2 == GROUND.UNDERWATER_SANDY or ground2 == GROUND.UNDERWATER_ROCKY or (ground2 == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground2 == GROUND.PIGRUINS and TheWorld:HasTag("cave")) or (ground2 == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground2 == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground2 == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
+    if ground3 == GROUND.UNDERWATER_SANDY or ground3 == GROUND.UNDERWATER_ROCKY or (ground3 == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground3 == GROUND.PIGRUINS and TheWorld:HasTag("cave")) or (ground3 == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground3 == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground3 == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
+    if ground4 == GROUND.UNDERWATER_SANDY or ground4 == GROUND.UNDERWATER_ROCKY or (ground4 == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground4 == GROUND.PIGRUINS and TheWorld:HasTag("cave")) or (ground4 == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground4 == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground4 == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
 
 
-if naagua == false then
-    inst.components.burnable:Ignite()
-end	
+    if naagua == false then
+        inst.components.burnable:Ignite()
+    end
 
     local skin_build = inst:GetSkinBuild()
     if skin_build ~= nil then
@@ -169,28 +169,30 @@ end
     owner.AnimState:Show("ARM_carry")
     owner.AnimState:Hide("ARM_normal")
 
-	PlayIgniteSound(inst, owner, true, false)
+    PlayIgniteSound(inst, owner, true, false)
 
-if naagua == false then
-    if inst.fires == nil then
-        inst.fires = {}
+    if naagua == false then
+        if inst.fires == nil then
+            inst.fires = {}
 
-        for i, fx_prefab in ipairs(inst:GetSkinName() == nil and { "torchfire" } or SKIN_FX_PREFAB[inst:GetSkinName()] or {}) do
-            local fx = SpawnPrefab(fx_prefab)
-            fx.entity:SetParent(owner.entity)
-            fx.entity:AddFollower()
-            fx.Follower:FollowSymbol(owner.GUID, "swap_object", fx.fx_offset_x or 0, fx.fx_offset, 0)
-            fx:AttachLightTo(owner)
-            if fx.AssignSkinData ~= nil then
-                fx:AssignSkinData(inst)
+            for i, fx_prefab in ipairs(inst:GetSkinName() == nil and { "torchfire" } or SKIN_FX_PREFAB[inst:GetSkinName()] or {}) do
+                local fx = SpawnPrefab(fx_prefab)
+                fx.entity:SetParent(owner.entity)
+                fx.entity:AddFollower()
+                fx.Follower:FollowSymbol(owner.GUID, "swap_object", fx.fx_offset_x or 0, fx.fx_offset, 0)
+                fx:AttachLightTo(owner)
+                if fx.AssignSkinData ~= nil then
+                    fx:AssignSkinData(inst)
+                end
+
+                table.insert(inst.fires, fx)
             end
-
-            table.insert(inst.fires, fx)
         end
-    end
 
-    applytorchskilleffects(inst, {fuelmod = getskillfueleffectmodifier(inst, owner), brightnessmod = getskillbrightnesseffectmodifier(inst, owner) } )
-end	
+        applytorchskilleffects(inst,
+            { fuelmod = getskillfueleffectmodifier(inst, owner), brightnessmod = getskillbrightnesseffectmodifier(inst,
+                owner) })
+    end
 end
 
 local function onunequip(inst, owner)
@@ -204,7 +206,7 @@ local function onunequip(inst, owner)
             fx:Remove()
         end
         inst.fires = nil
-		PlayExtinguishSound(inst, owner, false, false)
+        PlayExtinguishSound(inst, owner, false, false)
     end
 
     inst.components.burnable:Extinguish()
@@ -216,24 +218,24 @@ end
 
 local function applyskilleffect(inst, skill)
     if skill == "wilson_torch_1" then
-        applyskillfueleffect(inst,TUNING.SKILLS.WILSON_TORCH_1)
+        applyskillfueleffect(inst, TUNING.SKILLS.WILSON_TORCH_1)
     elseif skill == "wilson_torch_2" then
         removeskillfueleffect(inst)
-        applyskillfueleffect(inst,TUNING.SKILLS.WILSON_TORCH_2)
+        applyskillfueleffect(inst, TUNING.SKILLS.WILSON_TORCH_2)
     elseif skill == "wilson_torch_3" then
         removeskillfueleffect(inst)
-        applyskillfueleffect(inst,TUNING.SKILLS.WILSON_TORCH_3)
+        applyskillfueleffect(inst, TUNING.SKILLS.WILSON_TORCH_3)
     end
 
     if skill == "wilson_torch_4" then
-        applyskillbrightness(inst,TUNING.SKILLS.WILSON_TORCH_4)
+        applyskillbrightness(inst, TUNING.SKILLS.WILSON_TORCH_4)
     elseif skill == "wilson_torch_5" then
-        removeskillbrightness(inst,TUNING.SKILLS.WILSON_TORCH_4)
-        applyskillbrightness(inst,TUNING.SKILLS.WILSON_TORCH_5)
+        removeskillbrightness(inst, TUNING.SKILLS.WILSON_TORCH_4)
+        applyskillbrightness(inst, TUNING.SKILLS.WILSON_TORCH_5)
     elseif skill == "wilson_torch_6" then
-        removeskillbrightness(inst,TUNING.SKILLS.WILSON_TORCH_5)
-        applyskillbrightness(inst,TUNING.SKILLS.WILSON_TORCH_6)
-    end    
+        removeskillbrightness(inst, TUNING.SKILLS.WILSON_TORCH_5)
+        applyskillbrightness(inst, TUNING.SKILLS.WILSON_TORCH_6)
+    end
 end
 
 local function onequiptomodel(inst, owner, from_ground)
@@ -242,7 +244,7 @@ local function onequiptomodel(inst, owner, from_ground)
             fx:Remove()
         end
         inst.fires = nil
-		PlayExtinguishSound(inst, owner, true, false)
+        PlayExtinguishSound(inst, owner, true, false)
     end
 
     inst.components.burnable:Extinguish()
@@ -287,34 +289,34 @@ local function onfuelchange(newsection, oldsection, inst)
         if inst.components.burnable ~= nil then
             inst.components.burnable:Extinguish()
         end
-		local owner = inst.components.inventoryitem ~= nil and inst.components.inventoryitem.owner or nil
-		if owner ~= nil then
-			local equippable = inst.components.equippable
-			if equippable ~= nil and equippable:IsEquipped() then
+        local owner = inst.components.inventoryitem ~= nil and inst.components.inventoryitem.owner or nil
+        if owner ~= nil then
+            local equippable = inst.components.equippable
+            if equippable ~= nil and equippable:IsEquipped() then
                 local data =
                 {
                     prefab = inst.prefab,
                     equipslot = equippable.equipslot,
                     announce = "ANNOUNCE_TORCH_OUT",
                 }
-				PlayExtinguishSound(inst, owner, true, false)
-				inst:Remove() --need to remove before "itemranout" for auto-reequip to work
+                PlayExtinguishSound(inst, owner, true, false)
+                inst:Remove() --need to remove before "itemranout" for auto-reequip to work
                 owner:PushEvent("itemranout", data)
-			else
-				inst:Remove()
+            else
+                inst:Remove()
             end
-		elseif inst.fires ~= nil then
-			for i, fx in ipairs(inst.fires) do
-				fx:Remove()
-			end
-			inst.fires = nil
-			PlayExtinguishSound(inst, nil, true, false)
-			inst.persists = false
-			inst:AddTag("NOCLICK")
-			ErodeAway(inst)
-		else
-			--Shouldn't reach here
-			inst:Remove()
+        elseif inst.fires ~= nil then
+            for i, fx in ipairs(inst.fires) do
+                fx:Remove()
+            end
+            inst.fires = nil
+            PlayExtinguishSound(inst, nil, true, false)
+            inst.persists = false
+            inst:AddTag("NOCLICK")
+            ErodeAway(inst)
+        else
+            --Shouldn't reach here
+            inst:Remove()
         end
     end
 end
@@ -329,49 +331,51 @@ local function SetFuelRateMult(inst, mult)
 end
 
 local function IgniteTossed(inst)
-	inst.components.burnable:Ignite()
+    inst.components.burnable:Ignite()
 
-	if inst.fires == nil then
-		inst.fires = {}
+    if inst.fires == nil then
+        inst.fires = {}
 
-		for i, fx_prefab in ipairs(inst:GetSkinName() == nil and { "torchfire" } or SKIN_FX_PREFAB[inst:GetSkinName()] or {}) do
-			local fx = SpawnPrefab(fx_prefab)
-			fx.entity:SetParent(inst.entity)
-			fx.entity:AddFollower()
-			fx.Follower:FollowSymbol(inst.GUID, "swap_torch", fx.fx_offset_x or 0, fx.fx_offset, 0)
-			fx:AttachLightTo(inst)
-			if fx.AssignSkinData ~= nil then
-				fx:AssignSkinData(inst)
-			end
+        for i, fx_prefab in ipairs(inst:GetSkinName() == nil and { "torchfire" } or SKIN_FX_PREFAB[inst:GetSkinName()] or {}) do
+            local fx = SpawnPrefab(fx_prefab)
+            fx.entity:SetParent(inst.entity)
+            fx.entity:AddFollower()
+            fx.Follower:FollowSymbol(inst.GUID, "swap_torch", fx.fx_offset_x or 0, fx.fx_offset, 0)
+            fx:AttachLightTo(inst)
+            if fx.AssignSkinData ~= nil then
+                fx:AssignSkinData(inst)
+            end
 
-			table.insert(inst.fires, fx)
-		end
-	end
+            table.insert(inst.fires, fx)
+        end
+    end
     if inst.thrower then
-        applytorchskilleffects(inst, {fuelmod = inst.thrower.fuelmod, brightnessmod = inst.thrower.brightnessmod } )
+        applytorchskilleffects(inst, { fuelmod = inst.thrower.fuelmod, brightnessmod = inst.thrower.brightnessmod })
     end
 end
 
 local function OnThrown(inst, thrower)
-    inst.thrower = thrower and {fuelmod = getskillfueleffectmodifier(inst, thrower), brightnessmod = getskillbrightnesseffectmodifier(inst, thrower) } or nil
-	inst.AnimState:PlayAnimation("spin_loop", true)
-	inst.SoundEmitter:PlaySound("wilson_rework/torch/torch_spin", "spin_loop")
-	PlayIgniteSound(inst, nil, true, true)
-	IgniteTossed(inst)
-	inst.components.inventoryitem.canbepickedup = false
+    inst.thrower = thrower and
+    { fuelmod = getskillfueleffectmodifier(inst, thrower), brightnessmod = getskillbrightnesseffectmodifier(inst, thrower) } or
+    nil
+    inst.AnimState:PlayAnimation("spin_loop", true)
+    inst.SoundEmitter:PlaySound("wilson_rework/torch/torch_spin", "spin_loop")
+    PlayIgniteSound(inst, nil, true, true)
+    IgniteTossed(inst)
+    inst.components.inventoryitem.canbepickedup = false
 end
 
 local function OnHit(inst)
-	inst.AnimState:PlayAnimation("land")
-	inst.SoundEmitter:KillSound("spin_loop")
-	inst.SoundEmitter:PlaySound("wilson_rework/torch/stick_ground")
-	inst.components.inventoryitem.canbepickedup = true
+    inst.AnimState:PlayAnimation("land")
+    inst.SoundEmitter:KillSound("spin_loop")
+    inst.SoundEmitter:PlaySound("wilson_rework/torch/stick_ground")
+    inst.components.inventoryitem.canbepickedup = true
 end
 
 local function RemoveThrower(inst)
     if inst.thrower then
-        removetorchskilleffects(inst,inst.thrower.brightnessmod)
-        inst.thrower=nil 
+        removetorchskilleffects(inst, inst.thrower.brightnessmod)
+        inst.thrower = nil
     end
 end
 
@@ -381,35 +385,35 @@ end
 
 local function OnPutInInventory(inst, owner)
     RemoveThrower(inst)
-	inst.AnimState:PlayAnimation("idle")
+    inst.AnimState:PlayAnimation("idle")
 
-	if inst.fires ~= nil then
-		for i, fx in ipairs(inst.fires) do
-			fx:Remove()
-		end
-		inst.fires = nil
-		PlayExtinguishSound(inst, owner, false, false)
-	end
+    if inst.fires ~= nil then
+        for i, fx in ipairs(inst.fires) do
+            fx:Remove()
+        end
+        inst.fires = nil
+        PlayExtinguishSound(inst, owner, false, false)
+    end
 
-	inst.components.burnable:Extinguish()
+    inst.components.burnable:Extinguish()
 end
 
 local function OnSave(inst, data)
-	if inst.components.burnable:IsBurning() and not inst.components.inventoryitem:IsHeld() then
-		if inst.thrower ~= nil then
-			data.thrower = inst.thrower
-		else
-			data.lit = true
-		end
-	end
+    if inst.components.burnable:IsBurning() and not inst.components.inventoryitem:IsHeld() then
+        if inst.thrower ~= nil then
+            data.thrower = inst.thrower
+        else
+            data.lit = true
+        end
+    end
 end
 
 local function OnLoad(inst, data)
-	if data ~= nil and (data.lit or data.thrower ~= nil) and not inst.components.inventoryitem:IsHeld() then
-		inst.AnimState:PlayAnimation("land")
-		inst.thrower = data.thrower
-		IgniteTossed(inst)
-	end
+    if data ~= nil and (data.lit or data.thrower ~= nil) and not inst.components.inventoryitem:IsHeld() then
+        inst.AnimState:PlayAnimation("land")
+        inst.thrower = data.thrower
+        IgniteTossed(inst)
+    end
 end
 
 local function fn()
@@ -437,14 +441,14 @@ local function fn()
     --weapon (from weapon component) added to pristine state for optimization
     inst:AddTag("weapon")
 
-	--projectile (from complexprojectile component) added to pristine state for optimization
-	inst:AddTag("projectile")
+    --projectile (from complexprojectile component) added to pristine state for optimization
+    inst:AddTag("projectile")
 
-	--Only get TOSS action via PointSpecialActions
+    --Only get TOSS action via PointSpecialActions
     inst:AddTag("special_action_toss")
-	inst:AddTag("keep_equip_toss")
+    inst:AddTag("keep_equip_toss")
 
-	MakeInventoryFloatable(inst, "med", nil, 0.68)
+    MakeInventoryFloatable(inst, "med", nil, 0.68)
 
     inst.entity:SetPristine()
 
@@ -461,7 +465,7 @@ local function fn()
     -----------------------------------
 
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem:SetOnPutInInventoryFn(OnPutInInventory)
+    inst.components.inventoryitem:SetOnPutInInventoryFn(OnPutInInventory)
     inst.components.inventoryitem:SetOnPickupFn(OnPickedUp)
 
     -----------------------------------
@@ -472,15 +476,15 @@ local function fn()
     inst.components.equippable:SetOnUnequip(onunequip)
     inst.components.equippable:SetOnEquipToModel(onequiptomodel)
 
-	-----------------------------------
+    -----------------------------------
 
-	inst:AddComponent("complexprojectile")
-	inst.components.complexprojectile:SetHorizontalSpeed(15)
-	inst.components.complexprojectile:SetGravity(-35)
-	inst.components.complexprojectile:SetLaunchOffset(Vector3(.25, 1, 0))
-	inst.components.complexprojectile:SetOnLaunch(OnThrown)
-	inst.components.complexprojectile:SetOnHit(OnHit)
-	inst.components.complexprojectile.ismeleeweapon = true
+    inst:AddComponent("complexprojectile")
+    inst.components.complexprojectile:SetHorizontalSpeed(15)
+    inst.components.complexprojectile:SetGravity(-35)
+    inst.components.complexprojectile:SetLaunchOffset(Vector3(.25, 1, 0))
+    inst.components.complexprojectile:SetOnLaunch(OnThrown)
+    inst.components.complexprojectile:SetOnHit(OnHit)
+    inst.components.complexprojectile.ismeleeweapon = true
 
     -----------------------------------
 
@@ -517,9 +521,9 @@ local function fn()
 
 
 
-	inst.OnSave = OnSave
-	inst.OnLoad = OnLoad
-	inst.OnRemoveEntity = OnRemoveEntity
+    inst.OnSave = OnSave
+    inst.OnLoad = OnLoad
+    inst.OnRemoveEntity = OnRemoveEntity
 
     return inst
 end

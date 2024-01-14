@@ -52,14 +52,17 @@ local function reset(inst)
     if snake == true then return end
 
     --print("RESET THE PUGALISK FOUNTAIN")
-    inst.dry = nil
-    inst.components.activatable.inactive = true
-    inst.AnimState:PlayAnimation("flow_pre")
-    inst.AnimState:PushAnimation("flow_loop", true)
-    inst.SoundEmitter:KillSound("burble")
+    if inst.dry then
+        inst.components.activatable.inactive = true
+        inst.AnimState:PlayAnimation("flow_pre")
+        inst.AnimState:PushAnimation("flow_loop", true)
+        -- inst.SoundEmitter:KillSound("burble")
 
-    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/pugalisk/fountain_LP", "burble")
-    print("SNAKE PUGALISK RESPAWNED!!!")
+        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/pugalisk/fountain_LP", "burble")
+        print("SNAKE PUGALISK RESPAWNED!!!")
+
+        inst.dry = false
+    end
 end
 
 local function onsave(inst, data)
@@ -72,6 +75,7 @@ local function onload(inst, data)
     if data then
         if data.dry then
             inst.AnimState:PlayAnimation("off", true)
+            inst.SoundEmitter:KillSound("burble")
             inst.dry = true
             inst.components.activatable.inactive = false
         end
@@ -89,6 +93,7 @@ local function fn(Sim)
     anim:SetBank("fountain")
     anim:PlayAnimation("flow_loop", true)
     inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/pugalisk/fountain_LP", "burble")
+
     inst:AddTag("pugalisk_fountain")
     inst:AddTag("pugalisk_avoids")
 

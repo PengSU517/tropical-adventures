@@ -65,6 +65,9 @@ return Class(function(self, inst)
     BIRD_TYPES[GROUND.MEADOW] = { "parrot", "toucan" }
     BIRD_TYPES[GROUND.BEACH] = { "toucan" }
     BIRD_TYPES[GROUND.JUNGLE] = { "parrot" }
+
+    -- BIRD_TYPES[GROUND.IMPASSABLE] = { nil }
+    -- BIRD_TYPES[GROUND.INVALID] = { nil }
     -- BIRD_TYPES[GROUND.QUAGMIRE_PEATFOREST] = { "quagmire_pigeon" } --, "pigeon_swarm"
     -- BIRD_TYPES[GROUND.QUAGMIRE_PARKFIELD] = { "quagmire_pigeon" }  --, "pigeon_swarm"
     -- BIRD_TYPES[GROUND.QUAGMIRE_PARKSTONE] = { "quagmire_pigeon" }  --, "pigeon_swarm"
@@ -325,6 +328,8 @@ return Class(function(self, inst)
             end
 
             return _map:IsPassableAtPoint(spawnpoint_x, spawnpoint_y, spawnpoint_z, allow_water) and
+                _map:IsValidTileAtPoint(spawnpoint_x, spawnpoint_y, spawnpoint_z, allow_water) and
+                ---------------需要检测是不是valid，似乎虚空地皮是passable
                 _map:GetTileAtPoint(spawnpoint_x, spawnpoint_y, spawnpoint_z) ~= GROUND.OCEAN_COASTAL_SHORE and
                 not _groundcreep:OnCreep(spawnpoint_x, spawnpoint_y, spawnpoint_z) and
                 #(TheSim:FindEntities(spawnpoint_x, 0, spawnpoint_z, 4, BIRDBLOCKER_TAGS)) == 0 and

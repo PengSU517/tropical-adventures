@@ -1,5 +1,9 @@
 PrefabFiles =
 {
+
+	---------------新物品
+	"loot_pump",
+
 	"house_wall",
 	"sparkle_fx",
 	"fx",
@@ -266,6 +270,7 @@ table.insert(PrefabFiles, "mermhouse_fisher")
 table.insert(PrefabFiles, "mermtrader")
 table.insert(PrefabFiles, "pig_scepter")
 
+
 table.insert(PrefabFiles, "quagmire_mushroomstump")
 table.insert(PrefabFiles, "quagmire_mushrooms")
 table.insert(PrefabFiles, "quagmire_fern")
@@ -453,6 +458,7 @@ table.insert(PrefabFiles, "packim_fishbone")
 
 -------- pprefabs gorge -----------
 
+-- table.insert(PrefabFiles, "quagmire_portal_key")
 -- table.insert(PrefabFiles, "q_swampig")
 -- table.insert(PrefabFiles, "q_swampig_house")
 -- table.insert(PrefabFiles, "q_pond")
@@ -803,6 +809,7 @@ table.insert(PrefabFiles, "pugalisk")
 table.insert(PrefabFiles, "pugalisk_trap_door")
 table.insert(PrefabFiles, "pugalisk_ruins_pillar")
 table.insert(PrefabFiles, "pugalisk_fountain")
+table.insert(PrefabFiles, "pugalisk_fountain_made")
 table.insert(PrefabFiles, "waterdrop")
 table.insert(PrefabFiles, "floweroflife")
 table.insert(PrefabFiles, "gaze_beam")
@@ -835,6 +842,21 @@ table.insert(PrefabFiles, "cloudpuff")
 
 Assets =
 {
+
+	----------------------新的材质包-------
+	Asset("ATLAS", "images/inventoryimages/loot_pump.xml"),
+	Asset("ATLAS", "minimap/loot_pump.xml"),
+
+	------------------从architectpack添加
+	Asset("IMAGE", "images/inventoryimages/tap_buildingimages.tex"),
+	Asset("ATLAS", "images/inventoryimages/tap_buildingimages.xml"),
+
+	Asset("IMAGE", "images/inventoryimages/tap_buildingimages2.tex"),
+	Asset("ATLAS", "images/inventoryimages/tap_buildingimages2.xml"),
+
+	Asset("IMAGE", "images/minimapimages/tap_minimapicons.tex"),
+	Asset("ATLAS", "images/minimapimages/tap_minimapicons.xml"),
+
 	--Asset("SOUNDPACKAGE", "sound/volcano.fev"),
 	--Asset("SOUND", "sound/volcano.fsb"),
 	--Asset("SOUND", "sound/boats.fsb"),
@@ -944,6 +966,14 @@ Assets =
 	Asset("IMAGE", "images/inventoryimages/meated_nettle.tex"),
 	Asset("ATLAS", "images/inventoryimages/meated_nettle.xml"),
 
+
+
+
+
+
+
+
+
 	Asset("ATLAS", "map_icons/hamleticon.xml"),
 	Asset("IMAGE", "map_icons/hamleticon.tex"),
 	Asset("ATLAS", "map_icons/creepindedeepicon.xml"),
@@ -991,6 +1021,7 @@ Assets =
 
 AddMinimapAtlas("map_icons/creepindedeepicon.xml")
 AddMinimapAtlas("map_icons/hamleticon.xml")
+AddMinimapAtlas("minimap/loot_pump.xml")
 
 
 if GetModConfigData("gorgeisland") and GetModConfigData("kindofworld") == 15 or GetModConfigData("enableallprefabs") == true then
@@ -1112,3 +1143,6 @@ RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "aloe_c
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "weevole_carapace.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "piko_orange.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "snake_bone.tex")
+
+----------------新的图片
+-- RegisterInventoryItemAtlas("images/inventoryimages/tap_buildingimages.xml", "kyno_fountainyouth.tex")

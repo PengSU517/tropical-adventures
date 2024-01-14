@@ -5,147 +5,147 @@ return {
         [002] = "quagmire_coin2",
         [003] = "quagmire_coin3",
         [004] = "quagmire_coin4",
-        [005] = "goldnugget",		
+        [005] = "goldnugget",
     },
     GoodsPrefab =
     {
---------------------------lavaarena_boarlord----------------------------------------------------		
-		[001] = "spiderbattle",
+        --------------------------lavaarena_boarlord----------------------------------------------------		
+        [001] = "spiderbattle",
         [002] = "houndbattle",
         [003] = "mermbattle",
-		[004] = "knightbattle",	
-        [005] = "boarbattle",		
+        [004] = "knightbattle",
+        [005] = "boarbattle",
         [006] = "lizardbattle",
------------------------------lavaarena_spectator2---------------------------------		
-		[007] = "meat",
+        -----------------------------lavaarena_spectator2---------------------------------		
+        [007] = "meat",
         [008] = "fish",
         [009] = "carrot",
         [010] = "tfwp_fire_bomb",
-		[011] = "quagmire_coin1",		
+        [011] = "quagmire_coin1",
         [012] = "quagmire_coin2",
---------------------------lavaarena_spectator4---------------------------------------		
-		[013] = "spidergland",
+        --------------------------lavaarena_spectator4---------------------------------------		
+        [013] = "spidergland",
         [014] = "healingsalve",
         [015] = "bandage",
         [016] = "antidote",
-		[017] = "reviver",		
+        [017] = "reviver",
         [018] = "goatmilk",
---------------------------lavaarena_spectator1---------------------------------------
-		[019] = "lavaarena_armorlight",		
-		[020] = "lavaarena_rechargerhat",
-		[021] = "tfwp_healing_staff",
-		[022] = "tfwp_lava_hammer",
-		[023] = "lavaarena_healingflowerhat",
-        [024] = "lavaarena_armorextraheavy",		
-		
-		[025] = "lavaarena_armorlightspeed",
-		[026] = "lavaarena_feathercrownhat",
-		[027] = "tfwp_infernal_staff",
-		[028] = "tfwp_dragon_dart",
-		[029] = "lavaarena_tiaraflowerpetalshat",
-		[030] = "lavaarena_armor_hpextraheavy",
-		
-		[031] = "lavaarena_armormedium",
-		[032] = "lavaarena_strongdamagerhat",
-		[033] = "tfwp_control_book",
-		[034] = "tfwp_spear_lance",
-        [035] = "lavaarena_eyecirclethat",		
-		[036] = "lavaarena_armor_hpdamager",
-			
-		[037] = "lavaarena_armormediumdamager",
-		[038] = "lavaarena_lightdamagerhat",		
-		[039] = "tfwp_lava_dart",
-		[040] = "tfwp_spear_gung",	
-		[041] = "lavaarena_crowndamagerhat",
-		[042] = "lavaarena_armor_hprecharger",		
+        --------------------------lavaarena_spectator1---------------------------------------
+        [019] = "lavaarena_armorlight",
+        [020] = "lavaarena_rechargerhat",
+        [021] = "tfwp_healing_staff",
+        [022] = "tfwp_lava_hammer",
+        [023] = "lavaarena_healingflowerhat",
+        [024] = "lavaarena_armorextraheavy",
 
------------------------------lavaarena_spectator3---------------------------------
+        [025] = "lavaarena_armorlightspeed",
+        [026] = "lavaarena_feathercrownhat",
+        [027] = "tfwp_infernal_staff",
+        [028] = "tfwp_dragon_dart",
+        [029] = "lavaarena_tiaraflowerpetalshat",
+        [030] = "lavaarena_armor_hpextraheavy",
 
-		[043] = "bedroll_straw",
-		[044] = "cutgrass",		
-		[045] = "minerhat",
-		[046] = "log",	
-		[047] = "twigs",
-		[048] = "rocks",	
+        [031] = "lavaarena_armormedium",
+        [032] = "lavaarena_strongdamagerhat",
+        [033] = "tfwp_control_book",
+        [034] = "tfwp_spear_lance",
+        [035] = "lavaarena_eyecirclethat",
+        [036] = "lavaarena_armor_hpdamager",
 
------------------------------lavaarena_spectator1--------------------------------
+        [037] = "lavaarena_armormediumdamager",
+        [038] = "lavaarena_lightdamagerhat",
+        [039] = "tfwp_lava_dart",
+        [040] = "tfwp_spear_gung",
+        [041] = "lavaarena_crowndamagerhat",
+        [042] = "lavaarena_armor_hprecharger",
 
-		[049] = "lavaarena_armormediumrecharger",
-		[050] = "lavaarena_armorheavy",		
-		[051] = "tfwp_summon_book",
-		[052] = "tfwp_heavy_sword",	
-		[053] = "lavaarena_healinggarlandhat",
-		[054] = "lavaarena_armor_hppetmastery",	
+        -----------------------------lavaarena_spectator3---------------------------------
 
------------------------------goatkid forge--------------------------------
+        [043] = "bedroll_straw",
+        [044] = "cutgrass",
+        [045] = "minerhat",
+        [046] = "log",
+        [047] = "twigs",
+        [048] = "rocks",
 
-		[055] = "knightbattle",
-		[056] = "boarbattle",		
-		[057] = "lizardbattle",
-		[058] = "bossboarbattle",	
-		[059] = "rhinocebrosbattle",
-		[060] = "swineclopsbattle",	
---------------------------gorge mum----------------------------------------
-		[061] = "quagmire_crate_pot_hanger",
-		[062] = "quagmire_crate_oven",		
-		[063] = "quagmire_crate_grill_small",
-		[064] = "plate_silver",	
-		[065] = "bowl_silver",
-		[066] = "quagmire_goatmilk",	
---------------------------trade 1--------------------------------------
+        -----------------------------lavaarena_spectator1--------------------------------
 
-		[067] = "quagmire_seedpacket_1",
-		[068] = "quagmire_seedpacket_2",		
-		[069] = "quagmire_seedpacket_4",
-		[070] = "quagmire_seedpacket_5",	
-		[071] = "quagmire_seedpacket_6",
-		[072] = "quagmire_seedpacket_mix",	
---------------------------trade 2------------------------------------
-		[073] = "quagmire_seedpacket_7",
-		[074] = "quagmire_sapbucket",		
-		[075] = "pot_syrup",
-		[076] = "pot",	
-		[077] = "casseroledish",
-		[078] = "quagmire_crate_grill",		
-		
-----------------------pig elder----------------------------
-		[079] = "wateringcan",
-		[080] = "axe",		
-		[081] = "shovel",
-		[082] = "farm_hoe",	
-		[083] = "fertilizer",
-		[084] = "farm_plow_item",	
-----------------------goatkid gorge-------------------
-		[085] = "quagmire_key_park",
-		[086] = "quagmire_salt_rack_item",		
-		[087] = "fishingrod",
-		[088] = "trap",	
-		[089] = "birdtrap",
-		[090] = "quagmire_slaughtertool",
-		
-----------------------merm trade 3-------------------
-		[091] = "quagmire_seedpacket_3",
-		[092] = "quagmire_coin1",		
-		[093] = "quagmire_coin2",
-		[094] = "quagmire_coin1",	
-		[095] = "dubloon",
-		[096] = "oinc",		
-		
---"quagmire_seedpacket_3" 1
---"quagmire_pigeon" 3
---"quagmire_salt_rack_item" 8
---"fishingrod" 3
---"trap" 4
---"birdtrap" 5
---"quagmire_crabtrap"  1 moeda 3
---"quagmire_slaughtertool"  1 moeda 3
+        [049] = "lavaarena_armormediumrecharger",
+        [050] = "lavaarena_armorheavy",
+        [051] = "tfwp_summon_book",
+        [052] = "tfwp_heavy_sword",
+        [053] = "lavaarena_healinggarlandhat",
+        [054] = "lavaarena_armor_hppetmastery",
 
+        -----------------------------goatkid forge--------------------------------
 
+        [055] = "knightbattle",
+        [056] = "boarbattle",
+        [057] = "lizardbattle",
+        [058] = "bossboarbattle",
+        [059] = "rhinocebrosbattle",
+        [060] = "swineclopsbattle",
+        --------------------------gorge mum----------------------------------------
+        [061] = "quagmire_crate_pot_hanger",
+        [062] = "quagmire_crate_oven",
+        [063] = "quagmire_crate_grill_small",
+        [064] = "plate_silver",
+        [065] = "bowl_silver",
+        [066] = "quagmire_goatmilk",
+        --------------------------trade 1--------------------------------------
+
+        [067] = "quagmire_seedpacket_1",
+        [068] = "quagmire_seedpacket_2",
+        [069] = "quagmire_seedpacket_4",
+        [070] = "quagmire_seedpacket_5",
+        [071] = "quagmire_seedpacket_6",
+        [072] = "quagmire_seedpacket_mix",
+        --------------------------trade 2------------------------------------
+        [073] = "quagmire_seedpacket_7",
+        [074] = "quagmire_portal_key",
+        [075] = "pot_syrup",
+        [076] = "pot",
+        [077] = "casseroledish",
+        [078] = "quagmire_crate_grill",
+
+        ----------------------pig elder----------------------------
+        [079] = "wateringcan",
+        [080] = "axe",
+        [081] = "shovel",
+        [082] = "farm_hoe",
+        [083] = "fertilizer",
+        [084] = "farm_plow_item",
+        ----------------------goatkid gorge-------------------
+        [085] = "quagmire_key_park",
+        [086] = "quagmire_salt_rack_item",
+        [087] = "fishingrod",
+        [088] = "trap",
+        [089] = "birdtrap",
+        [090] = "quagmire_slaughtertool",
+
+        ----------------------merm trade 3-------------------
+        [091] = "quagmire_seedpacket_3",
+        [092] = "quagmire_coin1",
+        [093] = "quagmire_coin2",
+        [094] = "quagmire_coin1",
+        [095] = "dubloon",
+        [096] = "oinc",
+
+        --"quagmire_seedpacket_3" 1
+        --"quagmire_pigeon" 3
+        --"quagmire_salt_rack_item" 8
+        --"fishingrod" 3
+        --"trap" 4
+        --"birdtrap" 5
+        --"quagmire_crabtrap"  1 moeda 3
+        --"quagmire_slaughtertool"  1 moeda 3
 
 
 
-	
-		
+
+
+
+
     }
 }
 
@@ -291,6 +291,6 @@ return {
         [137] = "bird_egg",
         [138] = "bird_egg_cooked",
         [139] = "tallbirdegg",
- 
+
     }
 ]]

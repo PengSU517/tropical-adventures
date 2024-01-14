@@ -1,36 +1,36 @@
-local function IsWater(tile)
-    return tile == GROUND.OCEAN_COASTAL or
-        tile == GROUND.OCEAN_COASTAL_SHORE or
-        tile == GROUND.OCEAN_SWELL or
-        tile == GROUND.OCEAN_ROUGH or
-        tile == GROUND.OCEAN_BRINEPOOL or
-        tile == GROUND.OCEAN_BRINEPOOL_SHORE or
-        tile == GROUND.OCEAN_WATERLOG or
-        tile == GROUND.OCEAN_HAZARDOUS
-end
+-- local function IsWater(tile)
+--     return tile == GROUND.OCEAN_COASTAL or
+--         tile == GROUND.OCEAN_COASTAL_SHORE or
+--         tile == GROUND.OCEAN_SWELL or
+--         tile == GROUND.OCEAN_ROUGH or
+--         tile == GROUND.OCEAN_BRINEPOOL or
+--         tile == GROUND.OCEAN_BRINEPOOL_SHORE or
+--         tile == GROUND.OCEAN_WATERLOG or
+--         tile == GROUND.OCEAN_HAZARDOUS
+-- end
 
-local function GetIsOnWater(target)
-    if target then
-        local map = TheWorld.Map
-        local x, y, z = target.Transform:GetWorldPosition()
-        local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
+-- local function GetIsOnWater(target)
+--     if target then
+--         local map = TheWorld.Map
+--         local x, y, z = target.Transform:GetWorldPosition()
+--         local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
 
 
 
-        if ground == GROUND.OCEAN_COASTAL or
-            ground == GROUND.OCEAN_COASTAL_SHORE or
-            ground == GROUND.OCEAN_SWELL or
-            ground == GROUND.OCEAN_ROUGH or
-            ground == GROUND.OCEAN_BRINEPOOL or
-            ground == GROUND.OCEAN_BRINEPOOL_SHORE or
-            ground == GROUND.OCEAN_WATERLOG or
-            ground == GROUND.OCEAN_HAZARDOUS then
-            return true
-        else
-            return false
-        end
-    end
-end
+--         if ground == GROUND.OCEAN_COASTAL or
+--             ground == GROUND.OCEAN_COASTAL_SHORE or
+--             ground == GROUND.OCEAN_SWELL or
+--             ground == GROUND.OCEAN_ROUGH or
+--             ground == GROUND.OCEAN_BRINEPOOL or
+--             ground == GROUND.OCEAN_BRINEPOOL_SHORE or
+--             ground == GROUND.OCEAN_WATERLOG or
+--             ground == GROUND.OCEAN_HAZARDOUS then
+--             return true
+--         else
+--             return false
+--         end
+--     end
+-- end
 
 local function FindCurrentTarget(inst)
     -- looks for a combat target, if none, sets target as home if range is too far

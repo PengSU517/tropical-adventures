@@ -37,6 +37,7 @@ SetSharedLootTable( 'pugalisk',
     {'monstermeat',             1.00},
     {'monstermeat',             1.00},
     {'monstermeat',             1.00},
+    -- {'pugaliskfountain_blueprint',             1.00},
 })
  
 local SHAKE_DIST = 40
@@ -689,8 +690,8 @@ local function corpsefn(Sim)
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.DIG)
     inst.components.workable:SetWorkLeft(1)
-    inst:AddComponent("lootdropper")
-    inst.components.lootdropper:SetLoot({"bonestaff"})    
+    -- inst:AddComponent("lootdropper")
+    inst.components.lootdropper:SetLoot({"bonestaff", 'pugaliskfountain_made_blueprint'})    
     inst.components.workable:SetOnFinishCallback(onfinishcallback)
 
     return inst
