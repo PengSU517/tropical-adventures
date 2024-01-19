@@ -233,7 +233,7 @@ AddRoom("BG_pinacle_base_set", {
     contents = {
         countstaticlayouts = {
             ["roc_nest"] = 1,
-            ["roc_cave"] = 1,
+            -- ["roc_cave"] = 1,
         },
         distributepercent = .15, --.26
         distributeprefabs =
@@ -844,7 +844,7 @@ AddRoom("BG_deeprainforest_base", {
 
         countprefabs =
         {
-            vampirebatcave_potential = 1
+            vampirebatcave_potential = 1,
         },
 
     }
@@ -1317,7 +1317,7 @@ AddRoom("BG_plains_base_nocanopy1", {
         {
             grass_tall_patch = 2,
             grass_tall_infested = 1,
-            vampirebatcave_entrance_roc = 1,
+            --[[vampirebatcave_entrance_roc = 1,]]
             gravestone = 5,
         },
     }
@@ -1689,7 +1689,7 @@ fazendas =
 --         },
 --         countprefabs =
 --         {
---             vampirebatcave_potential = 1,
+--            vampirebatcave_potential = 1,
 --         },
 --     }
 -- })
@@ -1714,7 +1714,7 @@ fazendas =
 --         countprefabs =
 --         {
 --             ancient_robot_ribs = 1,
---             vampirebatcave_potential = 1,
+--            vampirebatcave_potential = 1,
 --             maze_cave_roc_entrance = 1,
 --         },
 --     }
@@ -1739,7 +1739,7 @@ fazendas =
 --         countprefabs =
 --         {
 --             ancient_robot_claw = 1,
---             vampirebatcave_potential = 1,
+--            vampirebatcave_potential = 1,
 --         },
 --     }
 -- })
@@ -1764,7 +1764,7 @@ fazendas =
 --         countprefabs =
 --         {
 --             ancient_robot_claw = 1,
---             vampirebatcave_potential = 1,
+--            vampirebatcave_potential = 1,
 --         },
 --     }
 -- })
@@ -1789,7 +1789,7 @@ fazendas =
 --         countprefabs =
 --         {
 --             ancient_robot_leg = 1,
---             vampirebatcave_potential = 1,
+--            vampirebatcave_potential = 1,
 --         },
 --     }
 -- })
@@ -1814,7 +1814,7 @@ fazendas =
 --         countprefabs =
 --         {
 --             ancient_robot_leg = 1,
---             vampirebatcave_potential = 1,
+--            vampirebatcave_potential = 1,
 --         },
 --     }
 -- })
@@ -1839,7 +1839,7 @@ fazendas =
 --         countprefabs =
 --         {
 --             ancient_robot_head = 1,
---             vampirebatcave_potential = 1,
+--            vampirebatcave_potential = 1,
 --         },
 --     }
 -- })
@@ -1865,7 +1865,7 @@ fazendas =
 --         countprefabs =
 --         {
 --             pangolden = 1,
---             vampirebatcave_potential = 1,
+--            vampirebatcave_potential = 1,
 --         },
 --     }
 -- })
@@ -2017,7 +2017,7 @@ fazendas =
 --         },
 --         countprefabs =
 --         {
---             vampirebatcave_potential = 1,
+--            vampirebatcave_potential = 1,
 --             peekhenspawner = 2,
 --         },
 --     }

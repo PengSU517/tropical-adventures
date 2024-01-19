@@ -46,6 +46,23 @@ local function smash(inst)
     inst:Remove()
 end
 
+local function MakeInteriorPhysics(inst, rad, height, width)
+    height = height or 20
+
+    inst:AddTag("blocker")
+    local phys = inst.entity:AddPhysics()
+    inst.Physics:SetMass(0)
+    --    inst.Physics:SetRectangle(rad,height,width)
+    --    inst.Physics:SetCollisionGroup(GetWorldCollision())
+    phys:SetCollisionGroup(COLLISION.CHARACTERS)
+    phys:ClearCollisionMask()
+    phys:CollidesWith(COLLISION.WORLD)
+    phys:CollidesWith(COLLISION.OBSTACLES)
+    phys:CollidesWith(COLLISION.SMALLOBSTACLES)
+    phys:CollidesWith(COLLISION.CHARACTERS)
+    phys:CollidesWith(COLLISION.GIANTS)
+end
+
 local function setPlayerUncraftable(inst)
     inst:AddTag("playercrafted")
 

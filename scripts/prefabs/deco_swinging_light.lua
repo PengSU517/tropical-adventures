@@ -7,7 +7,7 @@ local ANIM_ORIENTATION =
 
 -- local DECO_RUINS_BEAM_WORK = 6
 
-function MakeInteriorPhysics(inst, rad, height, width)
+local function MakeInteriorPhysics(inst, rad, height, width)
     height = height or 20
 
     inst:AddTag("blocker")
@@ -344,7 +344,7 @@ local function mirror_OnFar(inst)
     end
 end
 
-function decofn(build, bank, animframe, data, assets, prefabs)
+local function decofn(build, bank, animframe, data, assets, prefabs)
     if not data then
         data = {}
     end

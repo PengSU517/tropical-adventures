@@ -19,7 +19,7 @@ AddTask("Pincale", {
 
 AddTask("Plains", {
     locks = { LOCKS.JUNGLE_DEPTH_1 },
-    keys_given = { KEYS.HAM_BLANK --[[ KEYS.JUNGLE_DEPTH_1 KEYS.RAINFOREST, KEYS.EDGE, KEYS.PAINTED, KEYS.DEEPRAINFOREST]] },
+    keys_given = { --[[KEYS.HAM_BLANK]] --[[ KEYS.JUNGLE_DEPTH_1 KEYS.RAINFOREST, KEYS.EDGE, KEYS.PAINTED, KEYS.DEEPRAINFOREST]] },
     region_id = "hamlet",
     room_tags = { "hamlet", "nohasslers", "not_mainland" },
     -- room_tags = { "RoadPoison", "moonhunt", "nohasslers", "lunacyarea", "not_mainland" },
@@ -42,7 +42,7 @@ AddTask("Plains", {
 
 AddTask("Plains_ruins", {
     locks = { LOCKS.JUNGLE_DEPTH_2 },
-    keys_given = { KEYS.JUNGLE_DEPTH_2, KEYS.HAM_BLANK },
+    keys_given = { KEYS.JUNGLE_DEPTH_2, --[[KEYS.HAM_BLANK]] },
     region_id = "hamlet",
     room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
@@ -57,9 +57,9 @@ AddTask("Plains_ruins", {
 
 AddTask("Rainforest_ruins", {
     -- locks = { LOCKS.RAINFOREST },
-    -- keys_given = { KEYS.DEEPRAINFOREST, KEYS.HAM_BLANK },
+    -- keys_given = { KEYS.DEEPRAINFOREST, --[[KEYS.HAM_BLANK]] },
     locks = { LOCKS.JUNGLE_DEPTH_1 },
-    keys_given = { KEYS.JUNGLE_DEPTH_1, KEYS.HAM_BLANK },
+    keys_given = { KEYS.JUNGLE_DEPTH_1, --[[KEYS.HAM_BLANK]] },
     region_id = "hamlet",
     room_tags = { "hamlet", "nohasslers", "not_mainland" },
     -- room_tags = { "RoadPoison", "moonhunt", "nohasslers", "lunacyarea", "not_mainland" },
@@ -82,9 +82,9 @@ AddTask("Rainforest_ruins", {
 ---------------------	
 AddTask("Painted_sands", {
     -- locks = { LOCKS.PAINTED },
-    -- keys_given = { KEYS.HAM_BLANK },
+    -- keys_given = { --[[KEYS.HAM_BLANK]] },
     locks = { LOCKS.JUNGLE_DEPTH_1 },
-    keys_given = { KEYS.JUNGLE_DEPTH_1, KEYS.HAM_BLANK },
+    keys_given = { KEYS.JUNGLE_DEPTH_1, --[[KEYS.HAM_BLANK]] },
     region_id = "hamlet",
     room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
@@ -107,9 +107,9 @@ AddTask("Painted_sands", {
 -------------------------
 AddTask("Edge_of_civilization", {
     -- locks = { LOCKS.EDGE },
-    -- keys_given = { KEYS.CITY_1, KEYS.HAM_BLANK },
+    -- keys_given = { KEYS.CITY_1, --[[KEYS.HAM_BLANK]] },
     locks = { LOCKS.JUNGLE_DEPTH_1 },
-    keys_given = { KEYS.CITY_1, KEYS.HAM_BLANK },
+    keys_given = { KEYS.CITY_1 },
     region_id = "hamlet",
     room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
@@ -235,9 +235,9 @@ AddTask("Deep_lost_ruins_gas", {
 
 AddTask("Deep_rainforest", {
     -- locks = { LOCKS.DEEPRAINFOREST },
-    -- keys_given = { KEYS.HAM_BLANK },
+    -- keys_given = { --[[KEYS.HAM_BLANK]] },
     locks = { LOCKS.JUNGLE_DEPTH_1 },
-    keys_given = { KEYS.HAM_BLANK },
+    keys_given = { --[[KEYS.HAM_BLANK]] },
     region_id = "hamlet",
     room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
@@ -256,7 +256,7 @@ AddTask("Deep_rainforest", {
 
 AddTask("Deep_rainforest_2", {
     -- locks = { LOCKS.DEEPRAINFOREST },
-    -- keys_given = { KEYS.HAM_BLANK },
+    -- keys_given = { --[[KEYS.HAM_BLANK]] },
     locks = { LOCKS.DEEPRAINFOREST_CITY2 },
     region_id = "hamlet_palace",
     room_tags = { "hamlet", "nohasslers", "not_mainland" },
@@ -278,7 +278,7 @@ AddTask("Deep_rainforest_3", {
     -- locks = {},
     -- keys_given = { KEYS.CIVILIZATION_2 },
     locks = { LOCKS.DEEPRAINFOREST_SNAKE },
-    -- keys_given = { KEYS.JUNGLE_DEPTH_1, KEYS.HAM_BLANK },
+    -- keys_given = { KEYS.JUNGLE_DEPTH_1, --[[KEYS.HAM_BLANK]] },
     region_id = "hamlet_snake",
     room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
@@ -298,9 +298,8 @@ AddTask("Deep_rainforest_3", {
 
 --------------------------------------separahamcave--------------------------------------------------------
 AddTask("separahamcave", {
-    locks = {
-        LOCKS.SACRED,
-    },
+    ----region_id = "hamlet",
+    locks = {        LOCKS.SACRED,    },
     keys_given = KEYS.LAND_DIVIDE_5,
     room_choices = {
         ["ForceDisconnectedRoom"] = 10,
@@ -313,6 +312,7 @@ AddTask("separahamcave", {
 
 
 AddTask("HamMudWorld", {
+    ----region_id = "hamlet",
     locks = { LOCKS.HAM_CAVE },
     keys_given = { KEYS.HAM_ANT }, -- KEYS.ISLAND1, KEYS.ISLAND2,
     -- region_id = "hamlet_cave",
@@ -333,9 +333,9 @@ AddTask("HamMudWorld", {
 })
 
 AddTask("HamMudCave", {
+    ----region_id = "hamlet",
     locks = { LOCKS.HAM_CAVE2 },     --LOCKS.ISLAND1, LOCKS.ISLAND2
     keys_given = { KEYS.HAM_CAVE2 }, --KEYS.ISLAND1, KEYS.ISLAND3
-    region_id = "hamlet_cave",
     room_choices = {
         ["HamWormPlantField"] = 1,
         ["HamSlurtlePlains"] = 1,
@@ -349,6 +349,7 @@ AddTask("HamMudCave", {
 })
 
 AddTask("HamMudLights", {
+    ----region_id = "hamlet",
     locks = { LOCKS.ISLAND1, LOCKS.ISLAND2 },
     keys_given = { KEYS.ISLAND1, KEYS.ISLAND3 },
     room_choices = {
@@ -362,6 +363,7 @@ AddTask("HamMudLights", {
 })
 
 AddTask("HamMudPit", {
+    ----region_id = "hamlet",
     locks = { LOCKS.ISLAND1, LOCKS.ISLAND2 },
     keys_given = { KEYS.ISLAND1, KEYS.ISLAND3 },
     room_choices = {
@@ -378,6 +380,7 @@ AddTask("HamMudPit", {
 ------------------------------------------------------------
 -- Big Bat Cave
 AddTask("HamBigBatCave", {
+    ----region_id = "hamlet",
     locks = { LOCKS.HAM_CAVE2 },
     keys_given = { KEYS.HAM_MAZE },
     room_choices = {
@@ -394,6 +397,7 @@ AddTask("HamBigBatCave", {
 
 -- Rocky Land
 AddTask("HamRockyLand", {
+    ----region_id = "hamlet",
     locks = { LOCKS.HAM_ANT },       --LOCKS.ISLAND1, LOCKS.ISLAND3
     keys_given = { KEYS.HAM_CAVE2 }, -- KEYS.ISLAND1, KEYS.ISLAND4, KEYS.ISLAND7
     room_choices = {
@@ -414,6 +418,7 @@ AddTask("HamRockyLand", {
 
 -- Red Forest
 AddTask("HamRedForest", {
+    ----region_id = "hamlet",
     locks = { LOCKS.ISLAND1, LOCKS.ISLAND3 },
     keys_given = { KEYS.ISLAND1, KEYS.ISLAND4 },
     room_choices = {
@@ -433,6 +438,7 @@ AddTask("HamRedForest", {
 
 ---------------------------------------cave exit -------------------------------------------------
 AddTask("caveruinsexit", {
+    ----region_id = "hamlet",
     locks = { LOCKS.ENTRANCE_INNER },
     keys_given = {},
     room_choices = {
@@ -444,6 +450,7 @@ AddTask("caveruinsexit", {
 })
 
 AddTask("caveruinsexit2", {
+    ----region_id = "hamlet",
     locks = { LOCKS.ENTRANCE_OUTER },
     keys_given = {},
     room_choices = {
@@ -456,6 +463,7 @@ AddTask("caveruinsexit2", {
 
 -- Green Forest
 AddTask("HamGreenForest", {
+    ----region_id = "hamlet",
     locks = { LOCKS.ISLAND1, LOCKS.ISLAND3 },
     keys_given = { KEYS.ISLAND1, KEYS.ISLAND4 },
     room_choices = {
@@ -474,6 +482,7 @@ AddTask("HamGreenForest", {
 
 -- Blue Forest
 AddTask("HamBlueForest", {
+    ----region_id = "hamlet",
     locks = { LOCKS.ISLAND1, LOCKS.ISLAND3 },
     keys_given = { KEYS.ISLAND1, KEYS.ISLAND4, KEYS.ISLAND5 },
     room_choices = {
@@ -491,6 +500,7 @@ AddTask("HamBlueForest", {
 --------------------ham pigmaze--------------------------
 
 AddTask("HamMoonCaveForest", {
+    ----region_id = "hamlet",
     locks = { LOCKS.ISLAND5 },
     keys_given = { KEYS.ISLAND6 },
     room_tags = { "nocavein" },
@@ -504,6 +514,7 @@ AddTask("HamMoonCaveForest", {
 })
 
 AddTask("HamArchiveMaze", {
+    ----region_id = "hamlet",
     locks = { LOCKS.HAM_MAZE },
     keys_given = {},
     room_tags = { "nocavein" },
@@ -529,6 +540,7 @@ AddTask("HamArchiveMaze", {
 
 
 AddTask("HamSpillagmiteCaverns", {
+    ----region_id = "hamlet",
     locks = { LOCKS.ISLAND1, LOCKS.ISLAND3 },
     keys_given = { KEYS.ISLAND1, KEYS.ISLAND4 },
     room_choices = {
@@ -542,6 +554,7 @@ AddTask("HamSpillagmiteCaverns", {
 })
 
 AddTask("HamSpillagmiteCaverns1", {
+    ----region_id = "hamlet",
     locks = { LOCKS.ISLAND1, LOCKS.ISLAND3 },
     keys_given = { KEYS.ISLAND1, KEYS.ISLAND4 },
     room_choices = {

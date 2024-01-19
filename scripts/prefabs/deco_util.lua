@@ -7,7 +7,7 @@ local ANIM_ORIENTATION =
 
 local DECO_RUINS_BEAM_WORK = 6
 
-function MakeInteriorPhysics(inst, rad, height, width)
+local function MakeInteriorPhysics(inst, rad, height, width)
     height = height or 20
 
     inst:AddTag("blocker")
@@ -45,7 +45,7 @@ local function setPlayerUncraftable(inst)
     inst.entity:AddSoundEmitter()
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
-    inst.components.workable:SetWorkLeft(1)
+    inst.components.workable:SetWorkLeft(2)
     inst.components.workable:SetOnWorkCallback(
         function(inst, worker, workleft)
             if workleft <= 0 then
@@ -318,7 +318,7 @@ local function mirror_OnFar(inst)
     end
 end
 
-function decofn(build, bank, animframe, data, assets, prefabs)
+local function decofn(build, bank, animframe, data, assets, prefabs)
     if not data then
         data = {}
     end
@@ -343,24 +343,49 @@ function decofn(build, bank, animframe, data, assets, prefabs)
         local trans = inst.entity:AddTransform()
         local anim = inst.entity:AddAnimState()
 
-        anim:SetBuild(build)
-        anim:SetBank(bank)
-        anim:PlayAnimation(animframe, loopanim)
-
-        inst.Transform:SetRotation(-90)
-
         for i, tag in ipairs(tags) do
             inst:AddTag(tag)
         end
         inst:AddTag("liberado")
+        inst:AddTag("DECOR")
+
+
+        inst.Transform:SetTwoFaced() -----------------可能这是关键原因
+        anim:SetBuild(build)
+        anim:SetBank(bank)
+        anim:PlayAnimation(animframe, loopanim)
+
+
+
+        -- inst.Transform:SetRotation(-90)
+
+        if inst:HasTag("room_window") then
+            inst:DoTaskInTime(0.01, function(inst)
+                local ground = TheWorld.Map
+                local pt = inst:GetPosition() ----local x, y, z = Transform:GetWorldPosition()
+                local iswall = ground:IsHamRoomWallAtPoint(pt.x, pt.y, pt.z)
+                print("!!!!!!!!!!!checkwall") --------------不检查tag的时候为什么这里的函数会执行两次
+                print(iswall)
+                print(pt.x)
+
+                if iswall == "right" then
+                    inst.Transform:SetRotation(-180)
+                end
+
+                print("!!!!!!!!!!!rotation") -----------------问题仍然没有完美解决，rotation为什么会变呢
+                print(inst.Transform:GetRotation())
+            end)
+        end
+
 
         if data.children then
             --            if not inst.childrenspawned then
+            print("!!!!!!!!!!!checkchildren") --------------为什么这里的函数会执行两次
             inst:DoTaskInTime(1, function(inst)
                 for i, child in ipairs(data.children) do
                     local childprop = SpawnPrefab(child)
                     childprop.entity:SetParent(inst.entity)
-                    childprop.Transform:SetRotation(inst.Transform:GetRotation())
+                    childprop.Transform:SetRotation(inst.Transform:GetRotation() / 2)
                     childprop.Transform:SetPosition(0, 0, 0)
                     if not inst.decochildrenToRemove then
                         inst.decochildrenToRemove = {}
@@ -429,7 +454,7 @@ function decofn(build, bank, animframe, data, assets, prefabs)
         --        if decal then
         --            inst.AnimState:SetOrientation(ANIM_ORIENTATION.RotatingBillboard)
         --        else
-        inst.Transform:SetTwoFaced()
+        -- inst.Transform:SetTwoFaced() -----------------可能这是关键原因
         --        end
 
         if loopanim then
@@ -614,6 +639,8 @@ function decofn(build, bank, animframe, data, assets, prefabs)
             inst.recipeproxy = data.recipeproxy
         end
 
+
+
         return inst
     end
     return fn
@@ -661,6 +688,11 @@ local assets =
     Asset("ANIM", "anim/interior_window_small.zip"),
     Asset("ANIM", "anim/interior_window_large.zip"),
     Asset("ANIM", "anim/interior_window_tall.zip"),
+
+    Asset("ANIM", "anim/interior_window_greenhouse.zip"),
+    Asset("ANIM", "anim/interior_window_greenhouse_build.zip"),
+
+
 
     Asset("ANIM", "anim/window_weapons_build.zip"),
 
@@ -728,266 +760,296 @@ end
 
 
 return
-    Prefab("window_round",
-        decofn("interior_window", "interior_window_side", "day_loop",
-            {
-                loopanim = true,
-                decal = true,
-                background = 3,
-                dayevents = true,
-                children = { "window_round_light" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("window_round_backwall",
-        decofn("interior_window", "interior_window", "day_loop",
-            {
-                loopanim = true,
-                decal = true,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light_backwall" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true,
-                recipeproxy = "window_round"
-            }), assets, prefabs),
-    Prefab("window_round_curtains_nails",
-        decofn("interior_window", "interior_window_side", "day_loop",
-            {
-                loopanim = true,
-                decal = true,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light" },
-                tags = { "NOBLOCK", "wallsection", "janela" },
-                onbuilt = true
-            }),
-        assets, prefabs),
-    Prefab("window_round_curtains_nails_backwall",
-        decofn("interior_window", "interior_window", "day_loop",
-            {
-                loopanim = true,
-                decal = true,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light_backwall" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true,
-                recipeproxy = "window_round_curtains_nails"
-            }), assets, prefabs),
-    Prefab("window_round_burlap",
-        decofn("interior_window_burlap", "interior_window_burlap_side", "day_loop",
-            {
-                loopanim = true,
-                decal = true,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light" },
-                tags = { "NOBLOCK", "wallsection", "janela" },
-                onbuilt = true
-            }),
-        assets, prefabs),
-    Prefab("window_round_burlap_backwall",
-        decofn("interior_window_burlap", "interior_window_burlap", "day_loop",
-            {
-                loopanim = true,
-                decal = true,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light_backwall" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true,
-                recipeproxy = "window_round_burlap"
-            }), assets, prefabs),
-    Prefab("window_small_peaked",
-        decofn("interior_window_small", "interior_window_small_side", "day_loop",
-            {
-                loopanim = true,
-                decal = nil,
-                background = 3,
-                dayevents = true,
-                curtains = nil,
-                children = { "window_round_light" },
-                tags = { "NOBLOCK", "wallsection", "janela" },
-                onbuilt = true
-            }),
-        assets, prefabs),
-    Prefab("window_small_peaked_backwall",
-        decofn("interior_window_small", "interior_window_small", "day_loop",
-            {
-                loopanim = true,
-                decal = nil,
-                bckground = 3,
-                dayevents = true,
-                curtains = nil,
-                children = { "window_round_light_backwall" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true,
-                recipeproxy = "window_small_peaked"
-            }), assets, prefabs),
-    Prefab("window_large_square",
-        decofn("interior_window_large", "interior_window_side", "day_loop",
-            {
-                loopanim = true,
-                decal = nil,
-                background = 3,
-                dayevents = true,
-                curtains = nil,
-                children = { "window_round_light" },
-                tags = { "NOBLOCK", "wallsection", "janela" },
-                onbuilt = true
-            }),
-        assets, prefabs),
-    Prefab("window_large_square_backwall",
-        decofn("interior_window_large", "interior_window", "day_loop",
-            {
-                loopanim = true,
-                decal = nil,
-                bckground = 3,
-                dayevents = true,
-                curtains = nil,
-                children = { "window_round_light_backwall" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true,
-                recipeproxy = "window_large_square"
-            }), assets, prefabs),
-    Prefab("window_tall",
-        decofn("interior_window_tall", "interior_window_tall_side", "day_loop",
-            {
-                loopanim = true,
-                decal = nil,
-                background = 3,
-                dayevents = true,
-                curtains = nil,
-                children = { "window_round_light" },
-                tags = { "NOBLOCK", "wallsection", "janela" },
-                onbuilt = true
-            }),
-        assets, prefabs),
-    Prefab("window_tall_backwall",
-        decofn("interior_window_tall", "interior_window_tall", "day_loop",
-            {
-                loopanim = true,
-                decal = nil,
-                bckground = 3,
-                dayevents = true,
-                curtains = nil,
-                children = { "window_round_light_backwall" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true,
-                recipeproxy = "window_tall"
-            }), assets, prefabs),
 
-    --Prefab("window_arcane", "interior_window", "interior_window_side", "day_loop",                        {loopanim=true, decal=true, background=3, dayevents=true, curtains=true, children={"window_round_light"}, tags={"wallsection"}, onbuilt=true}),
-    Prefab("window_round_arcane",
-        decofn("window_arcane_build", "interior_window_large_side", "day_loop",
-            {
-                loopanim = true,
-                decal = true,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true
-            }), assets,
-        prefabs),
-    Prefab("window_round_arcane_backwall",
-        decofn("window_arcane_build", "interior_window_large", "day_loop",
-            {
-                loopanim = true,
-                decal = true,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light_backwall" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true,
-                recipeproxy = "window_round_arcane"
-            }), assets, prefabs),
-    Prefab("window_small_peaked_curtain",
-        decofn("interior_window_small", "interior_window_side", "day_loop",
-            {
-                loopanim = true,
-                decal = nil,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light" },
-                tags = { "NOBLOCK", "wallsection", "janela" },
-                onbuilt = true
-            }),
-        assets, prefabs),
-    Prefab("window_small_peaked_curtain_backwall",
-        decofn("interior_window_small", "interior_window", "day_loop",
-            {
-                loopanim = true,
-                decal = nil,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light_backwall" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true,
-                recipeproxy = "window_small_peaked_curtain"
-            }), assets, prefabs),
-    Prefab("window_large_square_curtain",
-        decofn("interior_window_large", "interior_window_large_side", "day_loop",
-            {
-                loopanim = true,
-                decal = nil,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light" },
-                tags = { "NOBLOCK", "wallsection", "janela" },
-                onbuilt = true
-            }),
-        assets, prefabs),
-    Prefab("window_large_square_curtain_backwall",
-        decofn("interior_window_large", "interior_window_large", "day_loop",
-            {
-                loopanim = true,
-                decal = nil,
-                bckground = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light_backwall" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true,
-                recipeproxy = "window_large_square_curtain"
-            }), assets, prefabs),
-    Prefab("window_tall_curtain",
-        decofn("interior_window_tall", "interior_window_tall_side", "day_loop",
-            {
-                loopanim = true,
-                decal = nil,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light" },
-                tags = { "NOBLOCK", "wallsection", "janela" },
-                onbuilt = true
-            }),
-        assets, prefabs),
-    Prefab("window_tall_curtain_backwall",
-        decofn("interior_window_tall", "interior_window_tall", "day_loop",
-            {
-                loopanim = true,
-                decal = nil,
-                bckground = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light_backwall" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true,
-                recipeproxy = "window_tall_curtain"
-            }), assets, prefabs),
+-- Prefab("window_greenhouse",
+--     decofn("interior_window_greenhouse_build", "interior_window_greenhouse_side", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = true,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light_backwall" },
+--             tags = { "NOBLOCK", "wallsection", "room_window" },
+--             onbuilt = true,
+--             scale = { x = 1.3, y = 1.3, z = 1 },
+--         }), assets, prefabs),
+
+-- Prefab("window_greenhouse_backwall",
+--     decofn("interior_window_greenhouse_build", "interior_window_greenhouse", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = true,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light_backwall" },
+--             tags = { "NOBLOCK", "wallsection", "room_window" },
+--             onbuilt = true,
+--             scale = { x = 1.6, y = 1.3, z = 1 },
+--         }), assets, prefabs),
+
+
+-- Prefab("window_round",
+--     decofn("interior_window", "interior_window_side", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = true,
+--             background = 3,
+--             dayevents = true,
+--             children = { "window_round_light" },
+--             tags = { "NOBLOCK", "wallsection", "room_window" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("window_round_backwall",
+--     decofn("interior_window", "interior_window", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = true,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light_backwall" },
+--             tags = { "NOBLOCK", "wallsection" },
+--             onbuilt = true,
+--             recipeproxy = "window_round"
+--         }), assets, prefabs),
+-- Prefab("window_round_curtains_nails",
+--     decofn("interior_window", "interior_window_side", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = true,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light" },
+--             tags = { "NOBLOCK", "wallsection", "room_window" },
+--             onbuilt = true
+--         }),
+--     assets, prefabs),
+-- Prefab("window_round_curtains_nails_backwall",
+--     decofn("interior_window", "interior_window", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = true,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light_backwall" },
+--             tags = { "NOBLOCK", "wallsection" },
+--             onbuilt = true,
+--             recipeproxy = "window_round_curtains_nails"
+--         }), assets, prefabs),
+-- Prefab("window_round_burlap",
+--     decofn("interior_window_burlap", "interior_window_burlap_side", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = true,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light" },
+--             tags = { "NOBLOCK", "wallsection", "room_window" },
+--             onbuilt = true
+--         }),
+--     assets, prefabs),
+-- Prefab("window_round_burlap_backwall",
+--     decofn("interior_window_burlap", "interior_window_burlap", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = true,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light_backwall" },
+--             tags = { "NOBLOCK", "wallsection" },
+--             onbuilt = true,
+--             recipeproxy = "window_round_burlap"
+--         }), assets, prefabs),
+-- Prefab("window_small_peaked",
+--     decofn("interior_window_small", "interior_window_small_side", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = nil,
+--             background = 3,
+--             dayevents = true,
+--             curtains = nil,
+--             children = { "window_round_light" },
+--             tags = { "NOBLOCK", "wallsection", "room_window" },
+--             onbuilt = true
+--         }),
+--     assets, prefabs),
+-- Prefab("window_small_peaked_backwall",
+--     decofn("interior_window_small", "interior_window_small", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = nil,
+--             bckground = 3,
+--             dayevents = true,
+--             curtains = nil,
+--             children = { "window_round_light_backwall" },
+--             tags = { "NOBLOCK", "wallsection" },
+--             onbuilt = true,
+--             recipeproxy = "window_small_peaked"
+--         }), assets, prefabs),
+-- Prefab("window_large_square",
+--     decofn("interior_window_large", "interior_window_side", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = nil,
+--             background = 3,
+--             dayevents = true,
+--             curtains = nil,
+--             children = { "window_round_light" },
+--             tags = { "NOBLOCK", "wallsection", "room_window" },
+--             onbuilt = true
+--         }),
+--     assets, prefabs),
+-- Prefab("window_large_square_backwall",
+--     decofn("interior_window_large", "interior_window", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = nil,
+--             bckground = 3,
+--             dayevents = true,
+--             curtains = nil,
+--             children = { "window_round_light_backwall" },
+--             tags = { "NOBLOCK", "wallsection" },
+--             onbuilt = true,
+--             recipeproxy = "window_large_square"
+--         }), assets, prefabs),
+-- Prefab("window_tall",
+--     decofn("interior_window_tall", "interior_window_tall_side", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = nil,
+--             background = 3,
+--             dayevents = true,
+--             curtains = nil,
+--             children = { "window_round_light" },
+--             tags = { "NOBLOCK", "wallsection", "room_window" },
+--             onbuilt = true
+--         }),
+--     assets, prefabs),
+-- Prefab("window_tall_backwall",
+--     decofn("interior_window_tall", "interior_window_tall", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = nil,
+--             bckground = 3,
+--             dayevents = true,
+--             curtains = nil,
+--             children = { "window_round_light_backwall" },
+--             tags = { "NOBLOCK", "wallsection" },
+--             onbuilt = true,
+--             recipeproxy = "window_tall"
+--         }), assets, prefabs),
+
+-- --Prefab("window_arcane", "interior_window", "interior_window_side", "day_loop",                        {loopanim=true, decal=true, background=3, dayevents=true, curtains=true, children={"window_round_light"}, tags={"wallsection"}, onbuilt=true}),
+-- Prefab("window_round_arcane",
+--     decofn("window_arcane_build", "interior_window_large_side", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = true,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light" },
+--             tags = { "NOBLOCK", "wallsection" },
+--             onbuilt = true
+--         }), assets,
+--     prefabs),
+-- Prefab("window_round_arcane_backwall",
+--     decofn("window_arcane_build", "interior_window_large", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = true,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light_backwall" },
+--             tags = { "NOBLOCK", "wallsection" },
+--             onbuilt = true,
+--             recipeproxy = "window_round_arcane"
+--         }), assets, prefabs),
+-- Prefab("window_small_peaked_curtain",
+--     decofn("interior_window_small", "interior_window_side", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = nil,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light" },
+--             tags = { "NOBLOCK", "wallsection", "room_window" },
+--             onbuilt = true
+--         }),
+--     assets, prefabs),
+-- Prefab("window_small_peaked_curtain_backwall",
+--     decofn("interior_window_small", "interior_window", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = nil,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light_backwall" },
+--             tags = { "NOBLOCK", "wallsection" },
+--             onbuilt = true,
+--             recipeproxy = "window_small_peaked_curtain"
+--         }), assets, prefabs),
+-- Prefab("window_large_square_curtain",
+--     decofn("interior_window_large", "interior_window_large_side", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = nil,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light" },
+--             tags = { "NOBLOCK", "wallsection", "room_window" },
+--             onbuilt = true
+--         }),
+--     assets, prefabs),
+-- Prefab("window_large_square_curtain_backwall",
+--     decofn("interior_window_large", "interior_window_large", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = nil,
+--             bckground = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light_backwall" },
+--             tags = { "NOBLOCK", "wallsection" },
+--             onbuilt = true,
+--             recipeproxy = "window_large_square_curtain"
+--         }), assets, prefabs),
+-- Prefab("window_tall_curtain",
+--     decofn("interior_window_tall", "interior_window_tall_side", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = nil,
+--             background = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light" },
+--             tags = { "NOBLOCK", "wallsection", "room_window" },
+--             onbuilt = true
+--         }),
+--     assets, prefabs),
+-- Prefab("window_tall_curtain_backwall",
+--     decofn("interior_window_tall", "interior_window_tall", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = nil,
+--             bckground = 3,
+--             dayevents = true,
+--             curtains = true,
+--             children = { "window_round_light_backwall" },
+--             tags = { "NOBLOCK", "wallsection" },
+--             onbuilt = true,
+--             recipeproxy = "window_tall_curtain"
+--         }), assets, prefabs),
     Prefab("window_round_light",
         decofn("interior_window", "interior_window_light_side", "day_loop",
             {
@@ -1012,34 +1074,37 @@ return
                 dustxmod = 1.3,
                 tags = { "NOBLOCK" }
             }), assets, prefabs),
-    Prefab("window_square_weapons",
-        decofn("window_weapons_build", "interior_window_large_side", "day_loop",
-            {
-                loopanim = true,
-                decal = true,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true
-            }), assets,
-        prefabs),
-    Prefab("window_square_weapons_backwall",
-        decofn("window_weapons_build", "interior_window_large", "day_loop",
-            {
-                loopanim = true,
-                decal = true,
-                background = 3,
-                dayevents = true,
-                curtains = true,
-                children = { "window_round_light_backwall" },
-                tags = { "NOBLOCK", "wallsection" },
-                onbuilt = true,
-                recipeproxy = "window_square_weapons"
-            }), assets, prefabs),
-    Prefab("window_sunlight",
-        decofn("interior_window_lightfx", "interior_window_lightfx", "idle_loop_xx", { light = true }), assets, prefabs),
+    -- Prefab("window_square_weapons",
+    --     decofn("window_weapons_build", "interior_window_large_side", "day_loop",
+    --         {
+    --             loopanim = true,
+    --             decal = true,
+    --             background = 3,
+    --             dayevents = true,
+    --             curtains = true,
+    --             children = { "window_round_light" },
+    --             tags = { "NOBLOCK", "wallsection" },
+    --             onbuilt = true
+    --         }), assets,
+    --     prefabs),
+    -- Prefab("window_square_weapons_backwall",
+    --     decofn("window_weapons_build", "interior_window_large", "day_loop",
+    --         {
+    --             loopanim = true,
+    --             decal = true,
+    --             background = 3,
+    --             dayevents = true,
+    --             curtains = true,
+    --             children = { "window_round_light_backwall" },
+    --             tags = { "NOBLOCK", "wallsection" },
+    --             onbuilt = true,
+    --             recipeproxy = "window_square_weapons"
+    --         }), assets, prefabs),
+    -- Prefab("window_sunlight",
+    --     decofn("interior_window_lightfx", "interior_window_lightfx", "idle_loop_xx", { light = true }), assets, prefabs),
+
+
+    ------------------wall paper rips-------------------------------
     Prefab("deco_wallpaper_rip1",
         decofn("interior_wall_decals", "wall_decals", "1", { decal = true, tags = { "NOBLOCK" } }), assets, prefabs),
     Prefab("deco_wallpaper_rip2",
@@ -1053,6 +1118,8 @@ return
         assets, prefabs),
     Prefab("deco_wallpaper_rip_side4", decofn("interior_wall_decals", "wall_decals", "9", { tags = { "NOBLOCK" } }),
         assets, prefabs),
+
+    ----------------------beam---------------------
     Prefab("deco_wood_cornerbeam",
         decofn("interior_wall_decals", "wall_decals", "4", {
             decal = true,
