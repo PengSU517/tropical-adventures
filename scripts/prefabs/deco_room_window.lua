@@ -127,7 +127,7 @@ local function timechange(inst)
 end
 
 
-local function WallSectionfn(prefabname, build, bank, animdata, data, assets, prefabs)
+local function WallSectionfn(prefabname, build, bank, animframe, data, assets, prefabs)
     if not data then
         data = {}
     end
@@ -158,7 +158,7 @@ local function WallSectionfn(prefabname, build, bank, animdata, data, assets, pr
         anim:SetBuild(build)
         anim:SetBank(bank)
         -- anim:SetLayer(LAYER_WORLD_BACKGROUND)
-        anim:PlayAnimation(animdata, true)
+        anim:PlayAnimation("day_loop", true)
         anim:SetLayer(LAYER_WORLD_BACKGROUND)
 
         if inst:HasTag("room_window") then
@@ -250,9 +250,8 @@ end
 
 
 
-local function MakeWallSectionPlacer(placer, build, bank, animdata, data)
+local function MakeWallSectionPlacer(placer, build, bank, scales)
     local function placeAlign(inst)
-        local scales = data.scales or { x = 1.5, y = 1.3, z = 1 }
         inst.Transform:SetScale(scales.x, scales.y, scales.z)
         local pt = inst:GetPosition()
         local ground = TheWorld.Map
@@ -280,29 +279,17 @@ local function MakeWallSectionPlacer(placer, build, bank, animdata, data)
         inst.components.placer.onupdatetransform = placeAlign
     end
 
-    return MakePlacer(placer, bank, build, animdata, false, nil, nil, nil, nil, "two", placefn)
+    return MakePlacer(placer, bank, build, "day_loop", false, nil, nil, nil, nil, "two", placefn)
 end
-
-local function WallSectionFnAndPlacer(prefabname, build, bank, animdata, data)
-    return WallSectionfn(prefabname, build, bank, animdata, data), -------------------这里记得写return！！！！！！！！！！！！！
-        MakeWallSectionPlacer(prefabname .. "_placer", build, bank, animdata, data)
-end
-
 
 
 return
-    WallSectionFnAndPlacer("window_greenhouse", "interior_window_greenhouse_build", "interior_window_greenhouse",
-        "day_loop",
+    WallSectionfn("window_greenhouse", "interior_window_greenhouse_build", "interior_window_greenhouse", "day_loop",
         {
             curtains = true,
             children = { "window_round_light" },
             tags = { "NOBLOCK", "wallsection", "room_window" },
             scales = { x = 1.5, y = 1.3, z = 1 },
         }),
-    WallSectionFnAndPlacer("window_small_peaked_curtain", "interior_window_small", "interior_window", "day_loop",
-        {
-            curtains = true,
-            children = { "window_round_light" },
-            tags = { "NOBLOCK", "wallsection", "room_window" },
-            scales = { x = 1.3, y = 1, z = 1 },
-        })
+    MakeWallSectionPlacer("window_greenhouse_placer", "interior_window_greenhouse_build", "interior_window_greenhouse",
+        { x = 1.5, y = 1.3, z = 1 })
