@@ -71,7 +71,7 @@ local function paintquadro2(inst)
 end
 
 local function paintwindow(inst)
-	local janela = GetClosestInstWithTag("janela", inst, 25)
+	local janela = GetClosestInstWithTag("room_window", inst, 25)
 
 	if janela then
 		local x, y, z = janela.Transform:GetWorldPosition()
@@ -2054,6 +2054,9 @@ return
 	Prefab("common/inventory/reno_wallornament_black_cat", fn30, assets),
 	Prefab("common/inventory/reno_antiquities_wallfish", fn31, assets),
 	Prefab("common/inventory/reno_antiquities_beefalo", fn32, assets),
+
+
+	-------------------window----------------
 	Prefab("common/inventory/reno_window_small_peaked_curtain", fn33, assets),
 	Prefab("common/inventory/reno_window_round_burlap", fn34, assets),
 	Prefab("common/inventory/reno_window_small_peaked", fn35, assets),
@@ -2062,6 +2065,9 @@ return
 	Prefab("common/inventory/reno_window_large_square_curtain", fn38, assets),
 	Prefab("common/inventory/reno_window_tall_curtain", fn39, assets),
 	Prefab("common/inventory/reno_window_greenhouse", fn40, assets),
+
+
+	--------------------------light-------------------------
 	Prefab("common/inventory/reno_light_basic_bulb", fn41, assets),
 	Prefab("common/inventory/reno_light_basic_metal", fn42, assets),
 	Prefab("common/inventory/reno_light_chandalier_candles", fn43, assets),
@@ -2077,6 +2083,9 @@ return
 	Prefab("common/inventory/reno_cornerbeam_millinery", fn53, assets),
 	Prefab("common/inventory/reno_cornerbeam_round", fn54, assets),
 	Prefab("common/inventory/reno_cornerbeam_marble", fn55, assets),
+
+
+
 	Prefab("common/inventory/stone_door", fn56, assets),
 	Prefab("common/inventory/plate_door", fn57, assets),
 	Prefab("common/inventory/organic_door", fn58, assets),

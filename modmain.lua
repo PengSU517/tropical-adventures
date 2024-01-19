@@ -37,6 +37,7 @@ GLOBAL.TUNING.tropical = {
 modimport("main/assets") -----材质包， prefabs
 
 
+
 ------------------修正暴力覆盖的components
 modimport("postinit/components/aoespell") ----------怎么利用原函数
 modimport("postinit/components/armor")
@@ -132,5 +133,9 @@ modimport("postinit/components/embarker")
 modimport("postinit/wx78_module")
 modimport("postinit/sim_ham")              ---------ham cloud
 modimport("postinit/widgets/hoverer_info") ---- show name and anim, for debugging
+
+
 modimport("postinit/components/playerspawner")
 modimport("postinit/components/wavemanager")
+-- modimport("postinit/components/map")
+modimport("main/ham_room") -----------------新的room

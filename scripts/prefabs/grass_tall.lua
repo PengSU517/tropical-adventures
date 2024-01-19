@@ -619,7 +619,7 @@ local function vampirebatcave()
 	local trans = inst.entity:AddTransform()
 	inst.entity:AddAnimState()
 	inst:DoTaskInTime(0, function()
-		if math.random() < 0.2 then
+		if math.random() < 0.3 then
 			local x, y, z = inst.Transform:GetWorldPosition()
 			local plant = SpawnPrefab("vampirebatcave_entrance")
 			if plant ~= nil then
