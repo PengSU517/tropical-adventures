@@ -37,6 +37,21 @@ AddRoom("BGNoisenew", {
         },
     }
 })
+AddTask("Make a NewPick", {
+    locks = {},
+    keys_given = {},
+    room_choices = {
+        --["Forest"] = function() return 1 + math.random(SIZE_VARIATION) end,
+        --["BarePlain"] = 1,
+        --["Plain"] = function() return 1 + math.random(SIZE_VARIATION) end,
+        --["Clearing"] = 1,
+        ["Clearing"] = 1,
+    },
+    room_bg = GROUND.GRASS,
+    --background_room="BGGrass",
+    background_room = "Clearing",
+    colour = { r = 0, g = 1, b = 0, a = 1 }
+})
 
 AddTask("Dig that new rock", {
     locks = { LOCKS.ROCKS },

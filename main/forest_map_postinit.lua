@@ -1,5 +1,5 @@
 -- require("map/ocean_gen_new") -------------啊？
-function GLOBAL.Getupvalue(func, name)
+local function Getupvalue(func, name)
     local debug = GLOBAL.debug
     local i = 1
     while true do
@@ -14,7 +14,7 @@ function GLOBAL.Getupvalue(func, name)
     end
 end
 
-function GLOBAL.Setupvalue(func, ind, value)
+local function Setupvalue(func, ind, value)
     local debug = GLOBAL.debug
     debug.setupvalue(func, ind, value)
 end

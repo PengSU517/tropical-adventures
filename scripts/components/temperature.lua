@@ -326,12 +326,7 @@ function Temperature:OnUpdate(dt, applyhealthdelta)
 	end
 ]]
     ------------------------------------------frost------------------------------------------------------------	
-    if self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("frost") then
-        ambient_temperature = -20
-    elseif
-    -----------------------------------------------mais quente no inverno ------------------------------	
-        TheWorld.state.iswinter and TUNING.tropical.kindofworld == 10 or
-        TheWorld.state.iswinter and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("tropical") or
+    if TheWorld.state.iswinter and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("tropical") or
         TheWorld.state.iswinter and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("hamlet") then
         ambient_temperature = TheWorld.state.temperature + 40
         if self.inst.components.moisture and self.inst:HasTag("player") and TheWorld.components.worldstate.data.issnowing then
@@ -346,13 +341,11 @@ function Temperature:OnUpdate(dt, applyhealthdelta)
         end
     end
     ---------------------------------------frio no verão ------------------------------	
-    if TheWorld.state.issummer and TUNING.tropical.kindofworld == 5 or
-        TheWorld.state.issummer and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("hamlet") then
+    if TheWorld.state.issummer and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("hamlet") then
         ambient_temperature = TheWorld.state.temperature - 30
     end
-    if TheWorld.state.issummer and TUNING.tropical.kindofworld == 10 or
-        TheWorld.state.issummer and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("tropical") then
-        ambient_temperature = TheWorld.state.temperature - 10
+    if TheWorld.state.issummer and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("tropical") then
+        ambient_temperature = TheWorld.state.temperature - 30
     end
     ----------------------ajusta temperatura da casa---------------------------
     if self.inst and self.inst:HasTag("player") then
@@ -365,8 +358,11 @@ function Temperature:OnUpdate(dt, applyhealthdelta)
     end
     ---------------------------hay fever-----------------------------------------
     local interior = GetClosestInstWithTag("blows_air", self.inst, 15)
-    if (TheWorld.state.issummer and self.inst and self.inst:HasTag("player") and TUNING.tropical.hayfever == 10 and (self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("hamlet") or interior)) or
-        (TheWorld.state.issummer and self.inst and self.inst:HasTag("player") and TUNING.tropical.hayfever == 20 and (self.inst.components.areaaware and self.inst.components.areaaware:GetCurrentArea() ~= nil or interior)) then
+    if (TheWorld.state.issummer and
+            self.inst and self.inst:HasTag("player") and
+            TUNING.tropical.hayfever and
+            (self.inst.components.areaaware and
+                self.inst.components.areaaware:CurrentlyInTag("hamlet") or interior)) then
         local mascara = self.inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
         local fan = GetClosestInstWithTag("prevents_hayfever", self.inst, 15)
         if mascara and mascara.prefab == "gasmaskhat" or mascara and mascara.prefab == "gashat" or fan then

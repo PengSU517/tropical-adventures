@@ -1,46 +1,46 @@
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/underwater_entrance.zip"),
+    Asset("ANIM", "anim/underwater_entrance.zip"),
 }
 
-local prefabs = 
+local prefabs =
 {
-	"exitcavelight"
-}  
+    "exitcavelight"
+}
 
 local function fn(Sim)
     local inst = CreateEntity()
 
     inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local anim = inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-	inst.Transform:SetScale(0.3, 0.3, 0.3)
+    inst.Transform:SetScale(0.3, 0.3, 0.3)
     inst.MiniMapEntity:SetIcon("entrance_open.tex")
-	
+
     anim:SetBank("entrance_reef")
     anim:SetBuild("underwater_entrance")
-	
-	inst.AnimState:PlayAnimation("idle_open")
+
+    inst.AnimState:PlayAnimation("idle_open")
 
     inst:AddTag("antlion_sinkhole_blocker")
-	inst:AddTag("entrada_submersa")
-	inst:AddTag("teleportapracaverna")	
+    inst:AddTag("entrada_submersa")
+    inst:AddTag("teleportapracaverna")
 
     inst.entity:SetPristine()
-	
+
     if not TheWorld.ismastersim then
         return inst
-    end		
-	
+    end
+
     if TheNet:GetServerIsClientHosted() and not (TheShard:IsMaster() or TheShard:IsSecondary()) then
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0,0)
+        inst.AnimState:SetScale(0, 0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
@@ -48,14 +48,14 @@ local function fn(Sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("worldmigrator")
-	inst.components.worldmigrator.id = 878
-	inst.components.worldmigrator.receivedPortal = 877
-	
-	if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "2"	
-	end
-	
+    inst.components.worldmigrator.id = 878
+    inst.components.worldmigrator.receivedPortal = 877
+
+    -- if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "2"	
+    -- end
+
     return inst
 end
 
@@ -63,35 +63,35 @@ local function fn1(Sim)
     local inst = CreateEntity()
 
     inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local anim = inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-	inst.Transform:SetScale(0.3, 0.3, 0.3)
+    inst.Transform:SetScale(0.3, 0.3, 0.3)
     inst.MiniMapEntity:SetIcon("entrance_open.tex")
-	
+
     anim:SetBank("entrance_reef")
     anim:SetBuild("underwater_entrance")
-	
-	inst.AnimState:PlayAnimation("idle_open")
+
+    inst.AnimState:PlayAnimation("idle_open")
 
     inst:AddTag("antlion_sinkhole_blocker")
-	inst:AddTag("entrada_submersa")
-	inst:AddTag("teleportapracaverna")	
+    inst:AddTag("entrada_submersa")
+    inst:AddTag("teleportapracaverna")
 
     inst.entity:SetPristine()
-	
+
     if not TheWorld.ismastersim then
         return inst
-    end		
-	
+    end
+
     if TheNet:GetServerIsClientHosted() and not (TheShard:IsMaster() or TheShard:IsSecondary()) then
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0,0)
+        inst.AnimState:SetScale(0, 0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
@@ -99,14 +99,14 @@ local function fn1(Sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("worldmigrator")
-	inst.components.worldmigrator.id = 888
-	inst.components.worldmigrator.receivedPortal = 887	
-	
-	if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "2"	
-	end	
-	
+    inst.components.worldmigrator.id = 888
+    inst.components.worldmigrator.receivedPortal = 887
+
+    -- if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "2"	
+    -- end	
+
     return inst
 end
 
@@ -114,35 +114,35 @@ local function fn2(Sim)
     local inst = CreateEntity()
 
     inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local anim = inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-	inst.Transform:SetScale(0.3, 0.3, 0.3)
+    inst.Transform:SetScale(0.3, 0.3, 0.3)
     inst.MiniMapEntity:SetIcon("entrance_open.tex")
-	
+
     anim:SetBank("entrance_reef")
     anim:SetBuild("underwater_entrance")
-	
-	inst.AnimState:PlayAnimation("idle_open")
+
+    inst.AnimState:PlayAnimation("idle_open")
 
     inst:AddTag("antlion_sinkhole_blocker")
-	inst:AddTag("entrada_submersa")
-	inst:AddTag("teleportapracaverna")	
+    inst:AddTag("entrada_submersa")
+    inst:AddTag("teleportapracaverna")
 
     inst.entity:SetPristine()
-	
+
     if not TheWorld.ismastersim then
         return inst
-    end		
-	
+    end
+
     if TheNet:GetServerIsClientHosted() and not (TheShard:IsMaster() or TheShard:IsSecondary()) then
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0,0)
+        inst.AnimState:SetScale(0, 0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
@@ -150,14 +150,14 @@ local function fn2(Sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("worldmigrator")
-	inst.components.worldmigrator.id = 898
-	inst.components.worldmigrator.receivedPortal = 897	
+    inst.components.worldmigrator.id = 898
+    inst.components.worldmigrator.receivedPortal = 897
 
-	if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "2"	
-	end
-	
+    -- if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "2"	
+    -- end
+
     return inst
 end
 
@@ -195,9 +195,9 @@ local function OnActivate(inst, doer)
 end
 
 local function OnActivateByOther(inst, source, doer)
---    if not inst.sg:HasStateTag("open") then
---        inst.sg:GoToState("opening")
---    end
+    --    if not inst.sg:HasStateTag("open") then
+    --        inst.sg:GoToState("opening")
+    --    end
 end
 
 local function onaccept(inst, giver, item)
@@ -218,8 +218,8 @@ local function fn3()
     inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
 
-	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon( "entrance_open.tex" )
+    local minimap = inst.entity:AddMiniMapEntity()
+    minimap:SetIcon("entrance_open.tex")
 
     inst.AnimState:SetBuild("underwater_entrance")
     inst.AnimState:SetBank("entrance_reef")
@@ -229,15 +229,15 @@ local function fn3()
     inst:AddTag("alltrader")
 
     inst:AddTag("antlion_sinkhole_blocker")
-	inst.Transform:SetScale(0.3, 0.3, 0.3)	
-	
+    inst.Transform:SetScale(0.3, 0.3, 0.3)
+
 
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
-	
+
     inst:AddComponent("inspectable")
     inst.components.inspectable:RecordViews()
 
@@ -254,22 +254,21 @@ local function fn3()
     inst.components.trader.acceptnontradable = true
     inst.components.trader.onaccept = onaccept
     inst.components.trader.deleteitemonaccept = false
-	
-	inst:DoTaskInTime(1, function(inst)		
-	for k,v in pairs(Ents) do
-	if v ~= inst and v.prefab == "underwater_exit3" then
-	inst.components.teleporter.targetTeleporter = v
-	v.components.teleporter.targetTeleporter = inst
-	end
-	end
 
-end)
-	
-	
+    inst:DoTaskInTime(1, function(inst)
+        for k, v in pairs(Ents) do
+            if v ~= inst and v.prefab == "underwater_exit3" then
+                inst.components.teleporter.targetTeleporter = v
+                v.components.teleporter.targetTeleporter = inst
+            end
+        end
+    end)
+
+
     return inst
 end
 
-return 	Prefab( "common/underwater_entrance", fn, assets, prefabs),
-		Prefab( "common/underwater_entrance1", fn1, assets, prefabs), 
-		Prefab( "common/underwater_entrance2", fn2, assets, prefabs),
-		Prefab( "common/underwater_entrance3", fn3, assets, prefabs)		
+return Prefab("common/underwater_entrance", fn, assets, prefabs),
+    Prefab("common/underwater_entrance1", fn1, assets, prefabs),
+    Prefab("common/underwater_entrance2", fn2, assets, prefabs),
+    Prefab("common/underwater_entrance3", fn3, assets, prefabs)

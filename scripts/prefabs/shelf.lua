@@ -1,3 +1,4 @@
+--------------------重新加载之后敲了之后放置物品的动画会消失。。
 local assets =
 {
     --Asset("ANIM", "anim/store_items.zip"),
@@ -22,6 +23,7 @@ local prefabs =
 
 local function smash(inst)
     --    if inst.components.lootdropper then
+    -- local wall = GetClosestInstWithTag("wallhousehamlet", inst, 25)
     --        local interiorSpawner = GetWorld().components.interiorspawner
     --        if interiorSpawner.current_interior then
     --            local originpt = interiorSpawner:getSpawnOrigin()
@@ -46,25 +48,11 @@ local function smash(inst)
     inst:Remove()
 end
 
-local function MakeInteriorPhysics(inst, rad, height, width)
-    height = height or 20
-
-    inst:AddTag("blocker")
-    local phys = inst.entity:AddPhysics()
-    inst.Physics:SetMass(0)
-    --    inst.Physics:SetRectangle(rad,height,width)
-    --    inst.Physics:SetCollisionGroup(GetWorldCollision())
-    phys:SetCollisionGroup(COLLISION.CHARACTERS)
-    phys:ClearCollisionMask()
-    phys:CollidesWith(COLLISION.WORLD)
-    phys:CollidesWith(COLLISION.OBSTACLES)
-    phys:CollidesWith(COLLISION.SMALLOBSTACLES)
-    phys:CollidesWith(COLLISION.CHARACTERS)
-    phys:CollidesWith(COLLISION.GIANTS)
-end
+local scale_made = 0.9
 
 local function setPlayerUncraftable(inst)
     inst:AddTag("playercrafted")
+    inst.Transform:SetScale(scale_made, scale_made, scale_made)
 
     inst:RemoveTag("NOCLICK")
     inst:AddComponent("lootdropper")
@@ -172,7 +160,7 @@ local function spawnchildren(inst)
                 end
             end
             table.insert(inst.shelves, object)
-            if inst.shelfitems then
+            if inst.shelfitems and not inst.onbuilt then
                 for index, set in pairs(inst.shelfitems) do
                     if set[1] == i then
                         local item = SpawnPrefab(set[2])
@@ -198,7 +186,8 @@ local function unlock(inst, key, doer)
             end
         end
     end
-    inst:AddTag("NOCLICK")
+    -- inst:AddTag("NOCLICK")----------加上这个就不能锤了
+    key:Remove()
     inst.destrancado = true
 end
 
@@ -300,18 +289,21 @@ local function common(setsize, swp_img_list, locked, physics_round)
     inst.entity:AddSoundEmitter()
     inst.entity:AddPhysics()
 
-    if physics_round then
-        MakeObstaclePhysics(inst, .5)
-    else
-        --        MakeInteriorPhysics(inst, 1.6, 1, 0.2)
-        MakeInventoryPhysics(inst, 1.6, 1, 0.2)
-    end
+    -- if physics_round then
+    MakeObstaclePhysics(inst, .5)
+    -- else
+    --        MakeInteriorPhysics(inst, 1.6, 1, 0.2)
+    -- MakeInventoryPhysics(inst, 1.6, 1, 0.2)
+    -- end
+
+    -- setPlayerUncraftable(inst)
+    -- inst.onbuilt = true
 
     --    inst.AnimState:SetOrientation(ANIM_ORIENTATION.RotatingBillboard)
     inst.Transform:SetTwoFaced()
 
-    inst:AddTag("NOCLICK")
-    inst:AddTag("wallsection")
+    -- inst:AddTag("NOCLICK")
+    -- inst:AddTag("wallsection")
     inst:AddTag("furniture")
 
     anim:SetBuild("room_shelves")
@@ -346,16 +338,16 @@ local function common(setsize, swp_img_list, locked, physics_round)
     inst.OnLoadPostPass = onloadpostpass
 
     inst:DoTaskInTime(0, function()
-        if inst:HasTag("playercrafted") then
-            setPlayerUncraftable(inst)
-        end
+        -- if inst:HasTag("playercrafted") then
+        --     setPlayerUncraftable(inst)
+        -- end
 
-        spawnchildren(inst, locked)
-        if locked and not inst.destrancado then
-            lock(inst)
-        else
-            unlock(inst)
-        end
+        spawnchildren(inst)
+        -- if locked and not inst.destrancado then
+        --     lock(inst)
+        -- else
+        --     unlock(inst)
+        -- end
     end)
 
     return inst
@@ -365,8 +357,8 @@ local function wood()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("wood", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst.shelfitems = { { 3, "cutgrass" }, { 4, "cutgrass" }, { 5, "cutgrass" }, { 6, "cutgrass" } }
     return inst
 end
@@ -375,8 +367,8 @@ local function wood2()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("wood", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst.shelfitems = { { 3, "rocks" }, { 4, "rocks" }, { 5, "rocks" }, { 6, "rocks" } }
     return inst
 end
@@ -385,8 +377,8 @@ local function wood3()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("wood", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst.shelfitems = { { 1, "trinket_giftshop_3" }, { 2, "trinket_giftshop_3" },
         { math.random(3, 4), "trinket_giftshop_3" }, { 5, "trinket_giftshop_3" }, { 6, "trinket_giftshop_3" } }
     return inst
@@ -396,8 +388,8 @@ local function basic()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("basic", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     return inst
 end
 
@@ -405,8 +397,8 @@ local function marble()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("marble", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst.shelfitems = { { 3, "petals" }, { 4, "petals" }, { 5, "petals" }, { 6, "petals" } }
     return inst
 end
@@ -415,8 +407,8 @@ local function marble2()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("marble", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst.shelfitems = { { 5, "trinket_20" }, { 6, "trinket_14" }, { 3, "trinket_4" }, { 4, "trinket_2" } }
     return inst
 end
@@ -425,8 +417,8 @@ local function glass()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("glass", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst.shelfitems = { { 1, "trinket_1" }, { 5, "trinket_2" }, { 6, "trinket_3" } }
     return inst
 end
@@ -435,8 +427,8 @@ local function ladder()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("ladder", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     return inst
 end
 
@@ -444,8 +436,8 @@ local function hutch()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("hutch", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst.shelfitems = { { 3, "seeds" }, { 4, "seeds" }, { 5, "seeds" }, { 6, "seeds" } }
     return inst
 end
@@ -454,8 +446,8 @@ local function industrial()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("industrial", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     return inst
 end
 
@@ -463,8 +455,8 @@ local function adjustable()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("adjustable", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     return inst
 end
 
@@ -472,8 +464,8 @@ local function fridge()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("fridge", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst.shelfitems = { { 1, "fishmeat_small" }, { 2, "fishmeat_small" }, { 3, "bird_egg" }, { 4, "bird_egg" },
         { 5, "froglegs" }, { 6, "froglegs" } }
     return inst
@@ -483,8 +475,8 @@ local function cinderblocks()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("cinderblocks", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst:AddTag("playercrafted")
     inst:AddTag("estante")
     return inst
@@ -494,8 +486,8 @@ local function midcentury2()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("midcentury", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst.shelfitems = { { 5, "twigs" }, { 6, "twigs" }, { 3, "twigs" }, { 4, "twigs" } }
     return inst
 end
@@ -504,8 +496,8 @@ local function midcentury()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("midcentury", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst.shelfitems = { { 1, "trinket_1" }, { 5, "trinket_2" }, { 6, "trinket_3" } }
     return inst
 end
@@ -514,8 +506,8 @@ local function wallmount()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("wallmount", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     return inst
 end
 
@@ -523,8 +515,8 @@ local function aframe()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("aframe", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     return inst
 end
 
@@ -532,8 +524,8 @@ local function crates()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("crates", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     return inst
 end
 
@@ -541,8 +533,8 @@ local function hooks()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("hooks", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     return inst
 end
 
@@ -550,8 +542,8 @@ local function pipe()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("pipe", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst.shelfitems = { { 3, "strawhat" }, { 5, "strawhat" } }
     return inst
 end
@@ -560,8 +552,8 @@ local function hattree()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("hattree", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     return inst
 end
 
@@ -569,8 +561,8 @@ local function pallet()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("pallet", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     return inst
 end
 
@@ -578,8 +570,8 @@ local function floating()
     local inst = common()
     local anim = inst.AnimState
     anim:PlayAnimation("floating", false)
-    inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
+    -----inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+    -----inst.AnimState:SetSortOrder(3)
     inst.shelfitems = { { 1, "petals" }, { 2, "petals" }, { 3, "petals" }, { 4, "cutgrass" }, { 5, "cutgrass" },
         { 6, "petals" } }
     return inst
@@ -762,8 +754,8 @@ local function ruins()
             setPlayerUncraftable(inst)
         end
 
-        spawnchildren(inst, nil)
-        unlock(inst)
+        spawnchildren(inst)
+        -- unlock(inst)
     end)
 
     inst.entity:SetPristine()
@@ -837,8 +829,8 @@ local function bonestaff()
             setPlayerUncraftable(inst)
         end
 
-        spawnchildren(inst, nil)
-        unlock(inst)
+        spawnchildren(inst)
+        -- unlock(inst)
     end)
 
     inst.entity:SetPristine()
@@ -911,8 +903,8 @@ local function bossboar()
             setPlayerUncraftable(inst)
         end
 
-        spawnchildren(inst, nil)
-        unlock(inst)
+        spawnchildren(inst)
+        -- unlock(inst)
     end)
 
     inst.entity:SetPristine()
@@ -1007,8 +999,8 @@ local function key()
     inst.components.klaussackkey.keytype = "royal gallery"
 
     inst:AddComponent("inspectable")
-    inst:AddComponent("stackable")
-    inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
+    -- inst:AddComponent("stackable")
+    -- inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
@@ -1017,7 +1009,8 @@ local function key()
     return inst
 end
 
-return Prefab("shelves_wood", wood, assets, prefabs),
+return
+    Prefab("shelves_wood", wood, assets, prefabs),
     Prefab("shelves_wood2", wood2, assets, prefabs),
     Prefab("shelves_woodpalace", wood3, assets, prefabs),
     Prefab("shelves_basic", basic, assets, prefabs),
@@ -1046,10 +1039,37 @@ return Prefab("shelves_wood", wood, assets, prefabs),
     Prefab("shelves_queen_display_2", queen_display2, assets, prefabs),
     Prefab("shelves_queen_display_3", queen_display3, assets, prefabs),
     Prefab("shelves_queen_display_4", queen_display4, assets, prefabs),
-
+    MakePlacer("shelves_wood_placer", "bookcase", "room_shelves", "wood", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_basic_placer", "bookcase", "room_shelves", "basic", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_marble_placer", "bookcase", "room_shelves", "marble", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_glass_placer", "bookcase", "room_shelves", "glass", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_ladder_placer", "bookcase", "room_shelves", "ladder", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_hutch_placer", "bookcase", "room_shelves", "hutch", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_industrial_placer", "bookcase", "room_shelves", "industrial", false, nil, nil, scale_made, nil,
+        "two"),
+    MakePlacer("shelves_adjustable_placer", "bookcase", "room_shelves", "adjustable", false, nil, nil, scale_made, nil,
+        "two"),
+    MakePlacer("shelves_fridge_placer", "bookcase", "room_shelves", "fridge", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_cinderblocks_placer", "bookcase", "room_shelves", "cinderblocks", false, nil, nil, scale_made,
+        nil,
+        "two"),
+    MakePlacer("shelves_midcentury_placer", "bookcase", "room_shelves", "midcentury", false, nil, nil, scale_made, nil,
+        "two"),
+    MakePlacer("shelves_wallmount_placer", "bookcase", "room_shelves", "wallmount", false, nil, nil, scale_made, nil,
+        "two"),
+    MakePlacer("shelves_aframe_placer", "bookcase", "room_shelves", "aframe", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_crates_placer", "bookcase", "room_shelves", "crates", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_hooks_placer", "bookcase", "room_shelves", "hooks", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_pipe_placer", "bookcase", "room_shelves", "pipe", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_hattree_placer", "bookcase", "room_shelves", "hattree", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_pallet_placer", "bookcase", "room_shelves", "pallet", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_floating_placer", "bookcase", "room_shelves", "floating", false, nil, nil, scale_made, nil, "two"),
+    MakePlacer("shelves_displaycase_placer", "bookcase", "room_shelves", "display", false, nil, nil, scale_made, nil,
+        "two"),
+    MakePlacer("shelves_displaycase_metal_placer", "bookcase", "room_shelves", "display_metal", false, nil, nil,
+        scale_made, nil,
+        "two"),
     Prefab("shelves_ruins", ruins, assets, prefabs),
-
     Prefab("shelves_bonestaff", bonestaff, assets, prefabs),
     Prefab("shelves_bossboar", bossboar, assets, prefabs),
-
     Prefab("pedestal_key", key, assets, prefabs)

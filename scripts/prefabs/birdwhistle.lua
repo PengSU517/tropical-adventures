@@ -13,12 +13,14 @@ local function OnPlayed(inst, musician)
         local a, b, c = musician.Transform:GetWorldPosition()
         local casa = GetClosestInstWithTag("blows_air", musician, 40)
         local nest = GetClosestInstWithTag("roc_nest", musician, 40)
-        local roc_entity = GetClosestInstWithTag("roc", musician, 40)
+        local roc_entity = TheSim:FindFirstEntityWithTag("roc") ------------------如果想改成boss的话还得改
         if (not casa) and (not nest) and (not roc_entity) then
-            local vento = SpawnPrefab("roc")
-            if vento then
-                vento.Transform:SetPosition(a, b, c)
-            end
+            inst:DoTaskInTime(3, function(...)
+                local vento = SpawnPrefab("roc")
+                if vento then
+                    vento.Transform:SetPosition(a + math.random(-10, 10), 0, c + math.random(-10, 10))
+                end
+            end)
         end
     end
 end

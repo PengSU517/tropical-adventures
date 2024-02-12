@@ -311,7 +311,7 @@ local function RoomCenterFn(inst)
 	inst:AddTag("NOBLOCK")
 	inst:AddTag("NOCLICK")
 	inst:AddTag("blows_air") -----判断地皮
-	inst:AddTag("shopinterior") ----控制视角
+	-- inst:AddTag("shopinterior") ----控制视角
 
 	inst:AddTag("alt_tile")
 	inst:AddTag("vulcano_part")

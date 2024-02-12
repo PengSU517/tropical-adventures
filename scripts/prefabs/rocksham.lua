@@ -54,7 +54,7 @@ SetSharedLootTable('rock1',
 		{ 'flint',      1.00 },
 		{ 'nitre',      0.25 },
 		{ 'flint',      0.60 },
-		{ 'goldnugget', 1.00 }, ---------
+		-- { 'goldnugget', 1.00 }, ---------
 	})
 
 SetSharedLootTable('rock2',
@@ -66,7 +66,7 @@ SetSharedLootTable('rock2',
 		{ 'flint',      1.00 },
 		{ 'goldnugget', 0.25 },
 		{ 'flint',      0.60 },
-		{ 'goldnugget', 1.00 }, --------------
+		-- { 'goldnugget', 1.00 }, --------------
 	})
 
 SetSharedLootTable('rock_flintless',
@@ -76,7 +76,7 @@ SetSharedLootTable('rock_flintless',
 		{ 'rocks',      1.0 },
 		{ 'rocks',      1.0 },
 		{ 'rocks',      0.6 },
-		{ 'goldnugget', 1.00 }, ----------------
+		-- { 'goldnugget', 1.00 }, ----------------
 	})
 
 SetSharedLootTable('rock_flintless_med',
@@ -85,7 +85,7 @@ SetSharedLootTable('rock_flintless_med',
 		{ 'rocks',      1.0 },
 		{ 'rocks',      1.0 },
 		{ 'rocks',      0.4 },
-		{ 'goldnugget', 1.00 }, ------------------
+		-- { 'goldnugget', 1.00 }, ------------------
 	})
 
 
@@ -94,7 +94,7 @@ SetSharedLootTable('rock_flintless_low',
 		{ 'rocks',      1.0 },
 		{ 'rocks',      1.0 },
 		{ 'rocks',      0.2 },
-		{ 'goldnugget', 0.5 }, -----------------
+		-- { 'goldnugget', 0.5 }, -----------------
 	})
 
 SetSharedLootTable('ruins_artichoke',
@@ -106,7 +106,7 @@ SetSharedLootTable('ruins_artichoke',
 		{ 'flint',      0.60 },
 		{ 'flint',      0.60 },
 		{ 'gold_dust',  0.60 },
-		{ 'goldnugget', 1.00 }, -----------------
+		-- { 'goldnugget', 1.00 }, -----------------
 	})
 
 SetSharedLootTable('ruins_pig',
@@ -117,7 +117,7 @@ SetSharedLootTable('ruins_pig',
 		{ 'flint',      0.60 },
 		{ 'gold_dust',  0.60 },
 		{ 'ghost',      0.2 },
-		{ 'goldnugget', 1.00 }, --------------
+		-- { 'goldnugget', 1.00 }, --------------
 	})
 
 SetSharedLootTable('ruins_gianthead',
@@ -131,8 +131,8 @@ SetSharedLootTable('ruins_gianthead',
 		{ 'flint',      0.60 },
 		{ 'flint',      0.60 },
 		{ 'ghost',      0.2 },
-		{ 'goldnugget', 1.00 }, ------------
-		{ 'goldnugget', 1.00 }, ---------
+		-- { 'goldnugget', 1.00 }, ------------
+		-- { 'goldnugget', 1.00 }, ---------
 	})
 
 SetSharedLootTable('antqueen_throne',

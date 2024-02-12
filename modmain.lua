@@ -2,38 +2,8 @@ GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL,
 _G = GLOBAL
 
 
--------------------placer需要同名
 
-
-modimport("scripts/tuning") -- Usados no portal the forge: lavaarena_spawner, quagmire_key, lavarenainside   and fueltype, tool action
-GLOBAL.TUNING.tropical = {
-	wind              = GetModConfigData("wind"),
-	hail              = GetModConfigData("hail"),
-	hamworld          = GetModConfigData("kindofworld"),
-	bramble           = GetModConfigData("bramble"), ----荆棘藤蔓，但似乎实现不怎么样
-	roc               = GetModConfigData("roc"),
-	-- megarandomCompatibilityWater = GetModConfigData("megarandomCompatibilityWater"),
-	-- disableWater      = GetModConfigData("Disable_Water"),
-	springflood       = GetModConfigData("flood"),
-	sealnado          = GetModConfigData("sealnado"),
-	waves             = GetModConfigData("Waves"),
-	hamlet            = GetModConfigData("Hamlet"),
-	shipwrecked       = GetModConfigData("Shipwrecked"),
-	tropicalshards    = GetModConfigData("tropicalshards"),
-	removedark        = GetModConfigData("removedark"),
-	aporkalypse       = GetModConfigData("aporkalypse"),
-	multiplayerportal = GetModConfigData("startlocation"),
-	-- greenmod                     = GLOBAL.KnownModIndex:IsModEnabled("workshop-1418878027"),
-	kindofworld       = GetModConfigData("kindofworld"),
-	-- volcaniceruption  = GetModConfigData("volcaniceruption"), -------没用到？
-	forge             = GetModConfigData("forge"),
-	fog               = GetModConfigData("fog"),
-	hayfever          = GetModConfigData("hayfever"),
-	disembarkation    = GetModConfigData("automatic_disembarkation"),
-	bosslife          = GetModConfigData("bosslife"),
-}
-
-
+modimport("scripts/tuning")
 modimport("main/assets") -----材质包， prefabs
 
 

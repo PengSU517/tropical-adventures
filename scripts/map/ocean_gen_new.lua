@@ -24,7 +24,7 @@ local function is_waterlined(tile)
 end
 
 local function IsOceanTile2(ground)
-	return (IsOceanTile(ground) and (not (ground == WORLD_TILES.MANGROVE)) and (not (ground == WORLD_TILES.LILYPOND)))
+	return (IsOceanTile(ground) and (ground ~= WORLD_TILES.MANGROVE) and (ground ~= WORLD_TILES.LILYPOND))
 end
 
 local function isWaterOrInvalid(ground)
@@ -226,6 +226,7 @@ function Ocean_ConvertImpassibleToWater(width, height, data)
 				local ground = world:GetTile(x, y)
 				if is_waterlined(ground) and (IsCloseToImpassable(x, y, shallowRadius) or IsCloseToWater(x, y, shallowRadius)) then
 					squareFill(width, height, x, y, shallowRadius, WORLD_TILES.OCEAN_COASTAL)
+					-- WORLD_TILES.OCEAN_COASTAL
 				end
 			end
 			--print(string.format("  Square fill %4.2f", (y * width) / (width * height) * 100))
@@ -419,10 +420,10 @@ function Ocean_ConvertImpassibleToWater(width, height, data)
 	local fillOffset = data.fillOffset or 4
 
 
-	do_squarefill(data.shallowRadius)
-	do_groundfill(WORLD_TILES.OCEAN_COASTAL, fillOffset, fillDepth, data.shallowRadius or 5)
-	do_noise() ----只加这一个的话海岸线是平直的，而且随意出入，因为世界边缘位置是平直的
-	do_blend()
+	do_squarefill(data.shallowRadius) ----在陆地周围生成一圈海洋 coastal
+	do_groundfill(WORLD_TILES.OCEAN_COASTAL, fillOffset, fillDepth, data.shallowRadius or 5) ---coastal
+	do_noise() ----将所有的impassable随机填充   只加这一个的话海岸线是平直的，而且随意出入，因为世界边缘位置是平直的
+	do_blend()-----没看出来和do_noise有啥区别
 	AddShoreline(width, height)
 	do_void_outline()
 end

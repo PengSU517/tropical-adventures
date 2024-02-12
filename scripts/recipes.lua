@@ -55,22 +55,22 @@ AddRecipe2("loot_pump",
 
 
 
-if GetModConfigData("frost_island") ~= 5 then
-	AddRecipe2("wildbeaver_house",
-		{ Ingredient("beaverskin", 4, v_atlas), Ingredient("boards", 4), Ingredient("cutstone", 3) }, TECH.SCIENCE_TWO,
-		{ placer = "wildbeaver_house_placer", atlas = v_atlas }, { "STRUCTURES" })
-end
+-- if GetModConfigData("frost_island") ~= 5 then
+-- 	AddRecipe2("wildbeaver_house",
+-- 		{ Ingredient("beaverskin", 4, v_atlas), Ingredient("boards", 4), Ingredient("cutstone", 3) }, TECH.SCIENCE_TWO,
+-- 		{ placer = "wildbeaver_house_placer", atlas = v_atlas }, { "STRUCTURES" })
+-- end
 
-if GetModConfigData("Shipwrecked_plus") == true or GetModConfigData("Shipwreckedworld_plus") == true then
-	AddRecipe2("pandahouse", { Ingredient("pandaskin", 4, v_atlas), Ingredient("boards", 4), Ingredient("cutstone", 3) },
-		TECH.SCIENCE_TWO, { placer = "pandahouse_placer", atlas = v_atlas }, { "STRUCTURES" })
-end
+-- if GetModConfigData("Shipwrecked_plus") == true or GetModConfigData("Shipwreckedworld_plus") == true then
+-- 	AddRecipe2("pandahouse", { Ingredient("pandaskin", 4, v_atlas), Ingredient("boards", 4), Ingredient("cutstone", 3) },
+-- 		TECH.SCIENCE_TWO, { placer = "pandahouse_placer", atlas = v_atlas }, { "STRUCTURES" })
+-- end
 
-if GetModConfigData("gorgeisland") == true or GetModConfigData("Shipwreckedworld_plus") == true then
-	AddRecipe2("galinheiro",
-		{ Ingredient("seeds", 6), Ingredient("boards", 4), Ingredient("feather_chicken", 2, cm_atlas) },
-		TECH.SCIENCE_TWO, { placer = "galinheiro_placer", atlas = cm_atlas }, { "STRUCTURES" })
-end
+-- if GetModConfigData("gorgeisland") == true or GetModConfigData("Shipwreckedworld_plus") == true then
+-- 	AddRecipe2("galinheiro",
+-- 		{ Ingredient("seeds", 6), Ingredient("boards", 4), Ingredient("feather_chicken", 2, cm_atlas) },
+-- 		TECH.SCIENCE_TWO, { placer = "galinheiro_placer", atlas = cm_atlas }, { "STRUCTURES" })
+-- end
 
 ---------------------corrigindo bug estranho-------------
 AddRecipe2("campfire", { Ingredient("cutgrass", 3), Ingredient("log", 2) }, TECH.NONE, { placer = "campfire_placer" })
@@ -285,10 +285,10 @@ AddRecipe2("sand_castle",
 	.NONE, { atlas = v_atlas, placer = "sand_castle_placer" }, { "STRUCTURES" })
 AddRecipe2("turf_road", { Ingredient("cutstone", 1), Ingredient("flint", 2) }, TECH.SCIENCE_TWO, { numtogive = 4 },
 	{ "DECOR" })
-if GetModConfigData("kindofworld") == 10 then --WHAT?
-	AddRecipe2("turf_road", { Ingredient("boards", 1), Ingredient("turf_magmafield", 1, v_atlas) }, TECH.SCIENCE_TWO,
-		{ numtogive = 4 }, { "DECOR" })
-end
+-- if GetModConfigData("kindofworld") == 10 then --WHAT?
+-- 	AddRecipe2("turf_road", { Ingredient("boards", 1), Ingredient("turf_magmafield", 1, v_atlas) }, TECH.SCIENCE_TWO,
+-- 		{ numtogive = 4 }, { "DECOR" })
+-- end
 
 AddRecipe2("dragoonden",
 	{ Ingredient("dragoonheart", 1, v_atlas), Ingredient("rocks", 5), Ingredient("obsidian", 4, v_atlas) },
@@ -332,17 +332,16 @@ AddRecipe2("palmleaf_hut",
 --SEAFARING--
 AddRecipe2("boatmetal_item", { Ingredient("alloy", 4, h_atlas), Ingredient("iron", 4, h_atlas) }, TECH.SEAFARING_TWO,
 	{ atlas = v_atlas }, { "SEAFARING" })
-if GetModConfigData("kindofworld") == 10 or GetModConfigData("raftlog") then
-	AddRecipe2("porto_lograft_old", { Ingredient("log", 6), Ingredient("cutgrass", 4) }, TECH.NONE, { atlas = v_atlas },
-		{ "SEAFARING" })
-	AddRecipe2("porto_raft_old", { Ingredient("bamboo", 4, v_atlas), Ingredient("vine", 3, v_atlas) }, TECH.NONE,
-		{ atlas = v_atlas }, { "SEAFARING" })
-else
-	AddRecipe2("porto_lograft", { Ingredient("log", 6), Ingredient("cutgrass", 4) }, TECH.NONE, { atlas = v_atlas },
-		{ "SEAFARING" })
-	AddRecipe2("porto_raft", { Ingredient("bamboo", 4, v_atlas), Ingredient("vine", 3, v_atlas) }, TECH.NONE,
-		{ atlas = v_atlas }, { "SEAFARING" })
-end
+AddRecipe2("porto_lograft_old", { Ingredient("log", 6), Ingredient("cutgrass", 4) }, TECH.NONE, { atlas = v_atlas },
+	{ "SEAFARING" })
+AddRecipe2("porto_raft_old", { Ingredient("bamboo", 4, v_atlas), Ingredient("vine", 3, v_atlas) }, TECH.NONE,
+	{ atlas = v_atlas }, { "SEAFARING" })
+
+-- AddRecipe2("porto_lograft", { Ingredient("log", 6), Ingredient("cutgrass", 4) }, TECH.NONE, { atlas = v_atlas },
+-- 	{ "SEAFARING" })
+-- AddRecipe2("porto_raft", { Ingredient("bamboo", 4, v_atlas), Ingredient("vine", 3, v_atlas) }, TECH.NONE,
+-- 	{ atlas = v_atlas }, { "SEAFARING" })
+
 AddRecipe2("porto_rowboat", { Ingredient("boards", 3), Ingredient("vine", 4, v_atlas) }, TECH.SEAFARING_TWO,
 	{ atlas = v_atlas }, { "SEAFARING" })
 AddRecipe2("boatrepairkit", { Ingredient("boards", 2), Ingredient("stinger", 2), Ingredient("rope", 2) },
@@ -822,127 +821,179 @@ AddRecipe2("interior_wall_floral", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME
 AddRecipe2("interior_wall_upholstered", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO,
 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
 
-AddRecipe2("reno_wallornament_photo", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_wallornament_embroidery_hoop", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("reno_wallornament_mosaic", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO, {
-	atlas = h_atlas,
-	nounlock = true
-}, { "INTERIOR" })
-AddRecipe2("reno_wallornament_wreath", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO, {
-	atlas = h_atlas,
-	nounlock = true
-}, { "INTERIOR" })
-AddRecipe2("reno_wallornament_axe", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_wallornament_hunt", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_wallornament_periodic_table", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("reno_wallornament_gears_art", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("reno_wallornament_cape", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_wallornament_no_smoking", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("reno_wallornament_black_cat", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
+---------------wall ornament---------------
+-- AddRecipe2("reno_wallornament_photo", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_wallornament_embroidery_hoop", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
+-- AddRecipe2("reno_wallornament_mosaic", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO, {
+-- 	atlas = h_atlas,
+-- 	nounlock = true
+-- }, { "INTERIOR" })
+-- AddRecipe2("reno_wallornament_wreath", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO, {
+-- 	atlas = h_atlas,
+-- 	nounlock = true
+-- }, { "INTERIOR" })
+-- AddRecipe2("reno_wallornament_axe", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_wallornament_hunt", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_wallornament_periodic_table", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
+-- AddRecipe2("reno_wallornament_gears_art", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
+-- AddRecipe2("reno_wallornament_cape", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_wallornament_no_smoking", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
+-- AddRecipe2("reno_wallornament_black_cat", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
 
-AddRecipe2("reno_antiquities_wallfish", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, {
-	atlas = h_atlas,
-	nounlock = true
-}, { "INTERIOR" })
-AddRecipe2("reno_antiquities_beefalo", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO, {
-	atlas = h_atlas,
-	nounlock = true
-}, { "INTERIOR" })
+-- AddRecipe2("reno_antiquities_wallfish", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, {
+-- 	atlas = h_atlas,
+-- 	nounlock = true
+-- }, { "INTERIOR" })
+-- AddRecipe2("reno_antiquities_beefalo", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO, {
+-- 	atlas = h_atlas,
+-- 	nounlock = true
+-- }, { "INTERIOR" })
 
 ----------------------new windows------------------
-AddRecipe2("window_greenhouse",
-	{ Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
-	{
-		atlas = h_atlas,
-		nounlock = true,
-		build_mode = "wallsection",
-		min_spacing = 0,
-		placer = "window_greenhouse_placer",
-		image = "reno_window_greenhouse.tex"
-	},
-	{ "INTERIOR" })
+local function AddWallSectionRecipe(name, oincvalue, data)
+	local presetoincvalue = oincvalue or 5
+	local prefabname = ((name:find("wallornament") or name:find("antiquities")) and ("deco_" .. name)) or name
+	AddRecipe2(prefabname,
+		{ Ingredient("oinc", presetoincvalue, h_atlas) }, TECH.HOME_TWO,
+		{
+			atlas = h_atlas,
+			nounlock = true,
+			build_mode = data and data.buildmode or "wallsection",
+			min_spacing = 0,
+			placer = prefabname .. "_placer",
+			image = "reno_" .. name .. ".tex"
+		},
+		{ "INTERIOR" })
+end
 
-AddRecipe2("window_small_peaked_curtain",
-	{ Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
-	{
-		atlas = h_atlas,
-		nounlock = true,
-		build_mode = "wallsection",
-		min_spacing = 0,
-		placer = "window_small_peaked_curtain_placer",
-		image = "reno_window_small_peaked_curtain.tex"
-	},
-	{ "INTERIOR" })
+-- AddWallSectionRecipe("window_round", 3) ----------------这俩没制作栏贴图
+-- AddWallSectionRecipe("window_round_curtains_nails", 4)
+AddWallSectionRecipe("window_round_burlap", 4)
+
+AddWallSectionRecipe("window_small_peaked", 3)
+AddWallSectionRecipe("window_small_peaked_curtain", 4)
+
+AddWallSectionRecipe("window_large_square", 4)
+AddWallSectionRecipe("window_large_square_curtain", 5)
+
+AddWallSectionRecipe("window_tall", 4)
+AddWallSectionRecipe("window_tall_curtain", 5)
+
+AddWallSectionRecipe("window_greenhouse", 8)
+
+AddWallSectionRecipe("wallornament_axe", 5)
+AddWallSectionRecipe("wallornament_photo", 2)
+AddWallSectionRecipe("wallornament_embroidery_hoop", 3)
+AddWallSectionRecipe("wallornament_mosaic", 4)
+AddWallSectionRecipe("wallornament_wreath", 4)
+AddWallSectionRecipe("wallornament_hunt", 5)
+AddWallSectionRecipe("wallornament_periodic_table", 5)
+AddWallSectionRecipe("wallornament_gears_art", 8)
+AddWallSectionRecipe("wallornament_cape", 5)
+AddWallSectionRecipe("wallornament_no_smoking", 3)
+AddWallSectionRecipe("wallornament_black_cat", 5)
+AddWallSectionRecipe("antiquities_wallfish", 5)
+AddWallSectionRecipe("antiquities_beefalo", 10)
+AddWallSectionRecipe("wallornament_fulllength_mirror", 10)
+-- AddRecipe2("reno_antiquities_beefalo", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO, {
+
+-- AddWallSectionRecipe("wallornament_chalkboard") -----这些没有制作栏贴图
+-- AddWallSectionRecipe("wallornament_whiteboard")
+-- AddWallSectionRecipe("wallornament_fulllength_mirror")
+-- AddWallSectionRecipe("wallornament_cage")
+-- AddWallSectionRecipe("wallornament_shield03")
+-- AddWallSectionRecipe("wallornament_shield02")
+-- AddWallSectionRecipe("wallornament_shield")
+-- AddWallSectionRecipe("wallornament_spears")
+-- AddWallSectionRecipe("wallornament_violet")
 
 
-AddRecipe2("reno_window_small_peaked_curtain", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("reno_window_round_burlap", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO, {
-	atlas = h_atlas,
-	nounlock = true
-}, { "INTERIOR" })
-AddRecipe2("reno_window_small_peaked", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO, {
-	atlas = h_atlas,
-	nounlock = true
-}, { "INTERIOR" })
-AddRecipe2("reno_window_large_square", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO, {
-	atlas = h_atlas,
-	nounlock = true
-}, { "INTERIOR" })
-AddRecipe2("reno_window_tall", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_window_large_square_curtain", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("reno_window_tall_curtain", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO, {
-	atlas = h_atlas,
-	nounlock = true
-}, { "INTERIOR" })
-AddRecipe2("reno_window_greenhouse", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
 
-AddRecipe2("reno_light_basic_bulb", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_light_basic_metal", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_light_chandalier_candles", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("reno_light_rope_1", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_light_rope_2", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_light_floral_bulb", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_light_pendant_cherries", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("reno_light_floral_scallop", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO, {
-	atlas = h_atlas,
-	nounlock = true
-}, { "INTERIOR" })
-AddRecipe2("reno_light_floral_bloomer", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO, {
-	atlas = h_atlas,
-	nounlock = true
-}, { "INTERIOR" })
-AddRecipe2("reno_light_tophat", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_light_derby", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
+local function AddShelfRecipe(name, oincvalue)
+	local presetoincvalue = oincvalue or 5
+	local prefabname = ((name:find("wallornament") or name:find("antiquities")) and ("deco_" .. name)) or name
+	AddRecipe2(prefabname,
+		{ Ingredient("oinc", presetoincvalue, h_atlas) }, TECH.HOME_TWO,
+		{
+			atlas = h_atlas,
+			nounlock = true,
+			-- build_mode = data and data.buildmode or "wallsection",
+			min_spacing = 3.2,
+			placer = prefabname .. "_placer",
+			image = "reno_" .. name .. ".tex"
+		},
+		{ "INTERIOR" })
+end
+
+AddShelfRecipe("shelves_wood", 2)
+AddShelfRecipe("shelves_basic")
+AddShelfRecipe("shelves_floating")
+AddShelfRecipe("shelves_wood")
+AddShelfRecipe("shelves_basic")
+AddShelfRecipe("shelves_marble")
+AddShelfRecipe("shelves_glass")
+AddShelfRecipe("shelves_ladder")
+AddShelfRecipe("shelves_hutch")
+AddShelfRecipe("shelves_industrial")
+AddShelfRecipe("shelves_adjustable")
+AddShelfRecipe("shelves_fridge")
+AddShelfRecipe("shelves_cinderblocks")
+AddShelfRecipe("shelves_midcentury")
+AddShelfRecipe("shelves_wallmount")
+AddShelfRecipe("shelves_aframe")
+AddShelfRecipe("shelves_crates")
+-- AddShelfRecipe("shelves_hooks")
+AddShelfRecipe("shelves_pipe")
+AddShelfRecipe("shelves_hattree")
+AddShelfRecipe("shelves_pallet")
+AddShelfRecipe("shelves_floating")
+-- AddShelfRecipe("shelves_displaycase")
+-- AddShelfRecipe("shelves_displaycase_metal")
+
+
+
+local function AddLightRecipe(name, oincvalue)
+	local presetoincvalue = oincvalue or 5
+	local prefabname = "swinging_" .. name
+	AddRecipe2(prefabname,
+		{ Ingredient("oinc", presetoincvalue, h_atlas) }, TECH.HOME_TWO,
+		{
+			atlas = h_atlas,
+			nounlock = true,
+			-- build_mode = data and data.buildmode or "wallsection",
+			min_spacing = 3.2,
+			placer = prefabname .. "_placer",
+			image = "reno_" .. name .. ".tex"
+		},
+		{ "INTERIOR" })
+end
+
+AddLightRecipe("light_basic_bulb", 4)
+AddLightRecipe("light_basic_metal", 4)
+AddLightRecipe("light_chandalier_candles", 5)
+AddLightRecipe("light_rope_1", 5)
+AddLightRecipe("light_rope_2", 5)
+AddLightRecipe("light_floral_bulb", 8)
+AddLightRecipe("light_pendant_cherries", 5)
+AddLightRecipe("light_floral_scallop", 3)
+AddLightRecipe("light_floral_bloomer", 5)
+AddLightRecipe("light_tophat", 2)
+AddLightRecipe("light_derby", 10)
+
+
 
 AddRecipe2("reno_cornerbeam_wood", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO,
 	{ atlas = h_atlas, nounlock = true },

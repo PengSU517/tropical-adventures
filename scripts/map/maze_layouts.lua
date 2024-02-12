@@ -138,8 +138,8 @@ local function GetLayoutsForType(name, sub_dir, params, areas)
 		v.fill_mask = PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED
 
 		if string.find(name, "hamlet") then
-    		v.ground_types = { [42] = GROUND.PIGRUINS }
-		end	
+			v.ground_types[42] = GROUND.PIGRUINS
+		end
 		-- v.areas = ruins_areas
 	end
 
@@ -167,8 +167,8 @@ local function GetSpecialLayoutsForType(layout_dir, name, sub_dir, areas)
 
 
 		if string.find(name, "hamlet") then
-    		v.ground_types = { [42] = GROUND.PIGRUINS }
-		end	
+			v.ground_types[42] = GROUND.PIGRUINS
+		end
 		-- v.areas = ruins_areas
 	end
 	return layouts
@@ -208,7 +208,7 @@ return {
 		["hamlet_start"] = GetSpecialLayoutsForType("hamlet_start", "hamlet_start", nil, nil, archive_areas),
 		["hamlet_hallway"] = GetLayoutsForType("hamlet_hallway", nil, nil, archive_areas),
 		["hamlet_hallway_two"] = GetLayoutsForType("hamlet_hallway_two", nil, nil, archive_areas),
-		["hamlet_keyroom"] = GetSpecialLayoutsForType("hamlet_keyroom", "keyroom_1", nil, nil, archive_areas),
+		["hamlet_keyroom"] = GetSpecialLayoutsForType("hamlet_keyroom", "hamlet_keyroom_1", nil, nil, archive_areas),
 		["hamlet_end"] = GetSpecialLayoutsForType("hamlet_end", "hamlet_end", nil, nil, archive_areas),
 	},
 }

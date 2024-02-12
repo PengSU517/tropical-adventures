@@ -15,7 +15,22 @@ AddTask("Pincale", {
 
 
 ------------------------------------------------------------------------HAMLET continental tasks----------------------------------------------------------------------	
+AddTask("Plains_start", {
+    locks = { LOCKS.JUNGLE_DEPTH_1 },
+    keys_given = {},
+    region_id = "hamlet",
+    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_choices = {
+        ["BG_plains_base"] = 1,
+        ["Hamlet start"] = 1,
+        ["plains_pogs_ruin"] = 1,
+    },
+    room_bg = GROUND.PLAINS,
+    background_room = "BG_plains_base",
+    crosslink_factor = 1,
 
+    colour = { r = 1, g = 1, b = 1, a = 0.3 }
+})
 
 AddTask("Plains", {
     locks = { LOCKS.JUNGLE_DEPTH_1 },
@@ -24,9 +39,9 @@ AddTask("Plains", {
     room_tags = { "hamlet", "nohasslers", "not_mainland" },
     -- room_tags = { "RoadPoison", "moonhunt", "nohasslers", "lunacyarea", "not_mainland" },
     room_choices = {
-        ["BG_plains_base"] = math.random(2, 3),
+        ["BG_plains_base"] = 2,
         ["Lilypond"] = math.random(2, 3),
-        ["Ham start"] = 1,
+        -- ["Ham start"] = 1,
         -- ["plains_tallgrass"] = math.random(2, 3),
         ["plains_pogs_ruin"] = 1, -----这个和"plains_pogs"完全一致
     },
@@ -34,7 +49,7 @@ AddTask("Plains", {
     background_room = "BG_plains_base",
     -- cove_room_name = "rainforest_ruins",
     -- make_loop = true,
-    crosslink_factor = 10, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
+    crosslink_factor = 3, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
     -- cove_room_chance = 1,  --加边界房间把中心房间围起来 但是coveroom的个数不能多于room个数
     -- cove_room_max_edges = 10,
     colour = { r = 1, g = 1, b = 1, a = 0.3 }
@@ -299,7 +314,7 @@ AddTask("Deep_rainforest_3", {
 --------------------------------------separahamcave--------------------------------------------------------
 AddTask("separahamcave", {
     ----region_id = "hamlet",
-    locks = {        LOCKS.SACRED,    },
+    locks = { LOCKS.SACRED, },
     keys_given = KEYS.LAND_DIVIDE_5,
     room_choices = {
         ["ForceDisconnectedRoom"] = 10,

@@ -684,133 +684,133 @@ end
 
 return
 ---------------------deco_swinging_light------------
-    Prefab("swinging_light_basic_bulb",
-        decofn("ceiling_lights", "ceiling_lights", "light_basic_bulb",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("swinging_light_floral_bloomer",
-        decofn("ceiling_lights", "ceiling_lights", "light_floral_bloomer",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("swinging_light_basic_metal",
-        decofn("ceiling_lights", "ceiling_lights", "light_basic_metal",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("swinging_light_chandalier_candles",
-        decofn("ceiling_lights", "ceiling_lights", "light_chandelier_candles",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("swinging_light_rope_1",
-        decofn("ceiling_lights", "ceiling_lights", "light_rope1",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("swinging_light_rope_2",
-        decofn("ceiling_lights", "ceiling_lights", "light_rope2",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("swinging_light_floral_bulb",
-        decofn("ceiling_lights", "ceiling_lights", "light_floral_bulb",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("swinging_light_pendant_cherries",
-        decofn("ceiling_lights", "ceiling_lights", "light_pendant_cherries",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("swinging_light_floral_scallop",
-        decofn("ceiling_lights", "ceiling_lights", "light_floral_scallop",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("swinging_light_floral_bloomer",
-        decofn("ceiling_lights", "ceiling_lights", "light_floral_bloomer",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("swinging_light_tophat",
-        decofn("ceiling_lights", "ceiling_lights", "light_tophat",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("swinging_light_derby",
-        decofn("ceiling_lights", "ceiling_lights", "light_derby",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs),
-    Prefab("swinging_light_bank",
-        decofn("ceiling_lights", "ceiling_lights", "light_bank",
-            {
-                decal = true,
-                loopanim = true,
-                light = true,
-                followlight = "electric_1",
-                tags = { "NOBLOCK", "NOCLICK", "centerlight" },
-                onbuilt = true
-            }), assets, prefabs)
+-- Prefab("swinging_light_basic_bulb",
+--     decofn("ceiling_lights", "ceiling_lights", "light_basic_bulb",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("swinging_light_floral_bloomer",
+--     decofn("ceiling_lights", "ceiling_lights", "light_floral_bloomer",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("swinging_light_basic_metal",
+--     decofn("ceiling_lights", "ceiling_lights", "light_basic_metal",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("swinging_light_chandalier_candles",
+--     decofn("ceiling_lights", "ceiling_lights", "light_chandelier_candles",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("swinging_light_rope_1",
+--     decofn("ceiling_lights", "ceiling_lights", "light_rope1",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("swinging_light_rope_2",
+--     decofn("ceiling_lights", "ceiling_lights", "light_rope2",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("swinging_light_floral_bulb",
+--     decofn("ceiling_lights", "ceiling_lights", "light_floral_bulb",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("swinging_light_pendant_cherries",
+--     decofn("ceiling_lights", "ceiling_lights", "light_pendant_cherries",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("swinging_light_floral_scallop",
+--     decofn("ceiling_lights", "ceiling_lights", "light_floral_scallop",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("swinging_light_floral_bloomer",
+--     decofn("ceiling_lights", "ceiling_lights", "light_floral_bloomer",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("swinging_light_tophat",
+--     decofn("ceiling_lights", "ceiling_lights", "light_tophat",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("swinging_light_derby",
+--     decofn("ceiling_lights", "ceiling_lights", "light_derby",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs),
+-- Prefab("swinging_light_bank",
+--     decofn("ceiling_lights", "ceiling_lights", "light_bank",
+--         {
+--             decal = true,
+--             loopanim = true,
+--             light = true,
+--             followlight = "electric_1",
+--             tags = { "NOBLOCK", "NOCLICK", "centerlight" },
+--             onbuilt = true
+--         }), assets, prefabs)

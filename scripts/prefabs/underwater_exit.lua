@@ -1,45 +1,45 @@
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/cave_exit_rope.zip"),
-	Asset("ANIM", "anim/underwater_exit.zip"),
+    Asset("ANIM", "anim/cave_exit_rope.zip"),
+    Asset("ANIM", "anim/underwater_exit.zip"),
 }
 
 local function OnEntityWake(inst)
-	inst.components.bubbleblower:Start()	
+    inst.components.bubbleblower:Start()
 end
 
 local function OnEntitySleep(inst)
-	inst.components.bubbleblower:Stop()
+    inst.components.bubbleblower:Stop()
 end
 
 local function fn(Sim)
-	local inst = CreateEntity()
-    inst.entity:AddNetwork()		
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    inst.entity:AddNetwork()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
-     
+
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon( "cave_open2.png" )
-	inst.Transform:SetScale(2, 2, 2)
-	MakeObstaclePhysics(inst, 1)	
+    minimap:SetIcon("cave_open2.png")
+    inst.Transform:SetScale(2, 2, 2)
+    MakeObstaclePhysics(inst, 1)
     anim:SetBank("underwater_exit")
     anim:SetBuild("underwater_exit")
-	
-	inst.AnimState:PlayAnimation("idle")
-	
-	inst:AddTag("teleportaprafloresta")	
-    inst:AddTag("vent")
-	inst:AddTag("underwater")
 
-	inst:AddComponent("bubbleblower")
-	inst.components.bubbleblower:SetYOffset(40)
-	inst.components.bubbleblower:SetYOffset(30)
+    inst.AnimState:PlayAnimation("idle")
+
+    inst:AddTag("teleportaprafloresta")
+    inst:AddTag("vent")
+    inst:AddTag("underwater")
+
+    inst:AddComponent("bubbleblower")
+    inst.components.bubbleblower:SetYOffset(40)
+    inst.components.bubbleblower:SetYOffset(30)
     inst.components.bubbleblower:SetBubbleRate(5)
-	
-	inst:AddComponent("oxygenaura")
-	inst.components.oxygenaura:SetAura(UW_TUNING.GEOTHERMAL_VENT_AIR*0.5)	
-	
+
+    inst:AddComponent("oxygenaura")
+    inst.components.oxygenaura:SetAura(UW_TUNING.GEOTHERMAL_VENT_AIR * 0.5)
+
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
@@ -50,57 +50,57 @@ local function fn(Sim)
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0,0)
+        inst.AnimState:SetScale(0, 0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
-    end	
-	
+    end
+
     inst:AddComponent("inspectable")
 
     inst:AddComponent("worldmigrator")
-	inst.components.worldmigrator.id = 877
-	inst.components.worldmigrator.receivedPortal = 878
-	
-	if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "1"	
-	end	
+    inst.components.worldmigrator.id = 877
+    inst.components.worldmigrator.receivedPortal = 878
 
-	inst.OnEntityWake = OnEntityWake
-	inst.OnEntitySleep = OnEntitySleep		
+    -- if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 or TUNING.tropical.tropicalshards == 30 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "1"	
+    -- end	
+
+    inst.OnEntityWake = OnEntityWake
+    inst.OnEntitySleep = OnEntitySleep
 
     return inst
 end
 
 local function fn1(Sim)
-	local inst = CreateEntity()
-    inst.entity:AddNetwork()		
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    inst.entity:AddNetwork()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
-     
+
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon( "cave_open2.png" )    
-	inst.Transform:SetScale(2, 2, 2)
-	MakeObstaclePhysics(inst, 1)	
+    minimap:SetIcon("cave_open2.png")
+    inst.Transform:SetScale(2, 2, 2)
+    MakeObstaclePhysics(inst, 1)
     anim:SetBank("underwater_exit")
     anim:SetBuild("underwater_exit")
-	
-	inst.AnimState:PlayAnimation("idle")
-	
-	inst:AddTag("teleportapranaufrago")	
-    inst:AddTag("vent")
-	inst:AddTag("underwater")
 
-	inst:AddComponent("bubbleblower")
-	inst.components.bubbleblower:SetYOffset(40)
-	inst.components.bubbleblower:SetYOffset(30)
+    inst.AnimState:PlayAnimation("idle")
+
+    inst:AddTag("teleportapranaufrago")
+    inst:AddTag("vent")
+    inst:AddTag("underwater")
+
+    inst:AddComponent("bubbleblower")
+    inst.components.bubbleblower:SetYOffset(40)
+    inst.components.bubbleblower:SetYOffset(30)
     inst.components.bubbleblower:SetBubbleRate(5)
-	
-	inst:AddComponent("oxygenaura")
-	inst.components.oxygenaura:SetAura(UW_TUNING.GEOTHERMAL_VENT_AIR*0.5)	
-	
+
+    inst:AddComponent("oxygenaura")
+    inst.components.oxygenaura:SetAura(UW_TUNING.GEOTHERMAL_VENT_AIR * 0.5)
+
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
@@ -111,72 +111,72 @@ local function fn1(Sim)
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0,0)
+        inst.AnimState:SetScale(0, 0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
-    end	
-	
+    end
+
     inst:AddComponent("inspectable")
 
     inst:AddComponent("worldmigrator")
-	inst.components.worldmigrator.id = 887
-	inst.components.worldmigrator.receivedPortal = 888
-	
-	if TUNING.tropical.tropicalshards == 5 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "1"	
-	end	
-	
-	if TUNING.tropical.tropicalshards == 10 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "3"	
-	end		
-	
-	if TUNING.tropical.tropicalshards == 20 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "3"	
-	end		
-	
-	if TUNING.tropical.tropicalshards == 30 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "3"	
-	end	
-	
-	inst.OnEntityWake = OnEntityWake
-	inst.OnEntitySleep = OnEntitySleep		
+    inst.components.worldmigrator.id = 887
+    inst.components.worldmigrator.receivedPortal = 888
+
+    -- if TUNING.tropical.tropicalshards == 5 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "1"	
+    -- end	
+
+    -- if TUNING.tropical.tropicalshards == 10 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "3"	
+    -- end		
+
+    -- if TUNING.tropical.tropicalshards == 20 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "3"	
+    -- end		
+
+    -- if TUNING.tropical.tropicalshards == 30 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "3"	
+    -- end	
+
+    inst.OnEntityWake = OnEntityWake
+    inst.OnEntitySleep = OnEntitySleep
 
     return inst
 end
 
 local function fn2(Sim)
-	local inst = CreateEntity()
-    inst.entity:AddNetwork()		
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    inst.entity:AddNetwork()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
-     
+
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon( "cave_open2.png" )
-	inst.Transform:SetScale(2, 2, 2)
-	MakeObstaclePhysics(inst, 1)	
+    minimap:SetIcon("cave_open2.png")
+    inst.Transform:SetScale(2, 2, 2)
+    MakeObstaclePhysics(inst, 1)
     anim:SetBank("underwater_exit")
     anim:SetBuild("underwater_exit")
-	
-	inst.AnimState:PlayAnimation("idle")
-	
-	inst:AddTag("teleportaprahamlet")		
-    inst:AddTag("vent")
-	inst:AddTag("underwater")
 
-	inst:AddComponent("bubbleblower")
-	inst.components.bubbleblower:SetYOffset(40)
-	inst.components.bubbleblower:SetYOffset(30)
+    inst.AnimState:PlayAnimation("idle")
+
+    inst:AddTag("teleportaprahamlet")
+    inst:AddTag("vent")
+    inst:AddTag("underwater")
+
+    inst:AddComponent("bubbleblower")
+    inst.components.bubbleblower:SetYOffset(40)
+    inst.components.bubbleblower:SetYOffset(30)
     inst.components.bubbleblower:SetBubbleRate(5)
-	
-	inst:AddComponent("oxygenaura")
-	inst.components.oxygenaura:SetAura(UW_TUNING.GEOTHERMAL_VENT_AIR*0.5)	
-	
+
+    inst:AddComponent("oxygenaura")
+    inst.components.oxygenaura:SetAura(UW_TUNING.GEOTHERMAL_VENT_AIR * 0.5)
+
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
@@ -187,40 +187,40 @@ local function fn2(Sim)
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0,0)
+        inst.AnimState:SetScale(0, 0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
-    end	
-	
+    end
+
     inst:AddComponent("inspectable")
 
     inst:AddComponent("worldmigrator")
-	inst.components.worldmigrator.id = 897
-	inst.components.worldmigrator.receivedPortal = 898
-	
-	if TUNING.tropical.tropicalshards == 5 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "3"	
-	end	
-	
-	if TUNING.tropical.tropicalshards == 10 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "3"	
-	end		
-	
-	if TUNING.tropical.tropicalshards == 20 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "4"	
-	end	
-	
-	if TUNING.tropical.tropicalshards == 30 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "4"	
-	end		
-	
-	inst.OnEntityWake = OnEntityWake
-	inst.OnEntitySleep = OnEntitySleep		
+    inst.components.worldmigrator.id = 897
+    inst.components.worldmigrator.receivedPortal = 898
+
+    -- if TUNING.tropical.tropicalshards == 5 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "3"	
+    -- end	
+
+    -- if TUNING.tropical.tropicalshards == 10 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "3"	
+    -- end		
+
+    -- if TUNING.tropical.tropicalshards == 20 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "4"	
+    -- end	
+
+    -- if TUNING.tropical.tropicalshards == 30 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "4"	
+    -- end		
+
+    inst.OnEntityWake = OnEntityWake
+    inst.OnEntitySleep = OnEntitySleep
 
     return inst
 end
@@ -260,9 +260,9 @@ local function OnActivate(inst, doer)
 end
 
 local function OnActivateByOther(inst, source, doer)
---    if not inst.sg:HasStateTag("open") then
---        inst.sg:GoToState("opening")
---    end
+    --    if not inst.sg:HasStateTag("open") then
+    --        inst.sg:GoToState("opening")
+    --    end
 end
 
 local function onaccept(inst, giver, item)
@@ -283,13 +283,13 @@ local function fn3()
     inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
 
-	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon( "cave_open2.png" )
+    local minimap = inst.entity:AddMiniMapEntity()
+    minimap:SetIcon("cave_open2.png")
 
     inst.AnimState:SetBuild("underwater_exit")
     inst.AnimState:SetBank("underwater_exit")
     inst.AnimState:PlayAnimation("idle")
-	inst.Transform:SetScale(2, 2, 2)	
+    inst.Transform:SetScale(2, 2, 2)
 
     inst:AddTag("trader")
     inst:AddTag("alltrader")
@@ -301,7 +301,7 @@ local function fn3()
     if not TheWorld.ismastersim then
         return inst
     end
-	
+
     inst:AddComponent("inspectable")
     inst.components.inspectable:RecordViews()
 
@@ -318,22 +318,21 @@ local function fn3()
     inst.components.trader.acceptnontradable = true
     inst.components.trader.onaccept = onaccept
     inst.components.trader.deleteitemonaccept = false
-	
-	inst:DoTaskInTime(1, function(inst)		
-	for k,v in pairs(Ents) do
-	if v ~= inst and v.prefab == "underwater_entrance3" then
-	inst.components.teleporter.targetTeleporter = v
-	v.components.teleporter.targetTeleporter = inst
-	end
-	end
 
-end)
-	
-	
+    inst:DoTaskInTime(1, function(inst)
+        for k, v in pairs(Ents) do
+            if v ~= inst and v.prefab == "underwater_entrance3" then
+                inst.components.teleporter.targetTeleporter = v
+                v.components.teleporter.targetTeleporter = inst
+            end
+        end
+    end)
+
+
     return inst
 end
 
-return 	Prefab( "common/underwater_exit", fn, assets),
-		Prefab( "common/underwater_exit1", fn1, assets),
-		Prefab( "common/underwater_exit2", fn2, assets),
-		Prefab( "common/underwater_exit3", fn3, assets)		
+return Prefab("common/underwater_exit", fn, assets),
+    Prefab("common/underwater_exit1", fn1, assets),
+    Prefab("common/underwater_exit2", fn2, assets),
+    Prefab("common/underwater_exit3", fn3, assets)
