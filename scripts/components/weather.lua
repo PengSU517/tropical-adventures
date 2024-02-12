@@ -256,7 +256,8 @@ return Class(function(self, inst)
         if not _rainsound then
             _rainsound = true
             _world.SoundEmitter:PlaySound(
-            _preciptype:value() == PRECIP_TYPES.lunarhail and "rifts3/lunarhail/lunar_rainAMB" or "dontstarve/AMB/rain",
+                _preciptype:value() == PRECIP_TYPES.lunarhail and "rifts3/lunarhail/lunar_rainAMB" or
+                "dontstarve/AMB/rain",
                 "rain")
         end
         _world.SoundEmitter:SetParameter("rain", "intensity", intensity)
@@ -273,8 +274,8 @@ return Class(function(self, inst)
         if not _treerainsound then
             _treerainsound = true
             TheFocalPoint.SoundEmitter:PlaySound(
-            _preciptype:value() == PRECIP_TYPES.lunarhail and "rifts3/lunarhail/lunarhail_on_tree" or
-            "dontstarve_DLC001/common/rain_on_tree", "treerainsound")
+                _preciptype:value() == PRECIP_TYPES.lunarhail and "rifts3/lunarhail/lunarhail_on_tree" or
+                "dontstarve_DLC001/common/rain_on_tree", "treerainsound")
         end
         TheFocalPoint.SoundEmitter:SetParameter("treerainsound", "intensity", intensity)
     end
@@ -290,8 +291,8 @@ return Class(function(self, inst)
         if not _umbrellarainsound then
             _umbrellarainsound = true
             TheFocalPoint.SoundEmitter:PlaySound(
-            _preciptype:value() == PRECIP_TYPES.lunarhail and "rifts3/lunarhail/hail_on_umbrella" or
-            "dontstarve/rain/rain_on_umbrella", "umbrellarainsound")
+                _preciptype:value() == PRECIP_TYPES.lunarhail and "rifts3/lunarhail/hail_on_umbrella" or
+                "dontstarve/rain/rain_on_umbrella", "umbrellarainsound")
         end
     end
 
@@ -452,8 +453,9 @@ return Class(function(self, inst)
             return 1 - dynrange
         end
         local p = 1 -
-        math.min(
-        math.max((_moisture:value() - _moisturefloor:value()) / (_moistureceil:value() - _moisturefloor:value()), 0), 1)
+            math.min(
+                math.max((_moisture:value() - _moisturefloor:value()) / (_moistureceil:value() - _moisturefloor:value()),
+                    0), 1)
         if _preciptype:value() ~= PRECIP_TYPES.none then
             p = easing.inQuad(p, 0, 1, 1)
         end
@@ -501,7 +503,7 @@ return Class(function(self, inst)
                 --It rains less in the middle of summer
                 local p = 1 - math.sin(PI * data.progress)
                 _moisturerateval = MOISTURE_RATES.MIN[_season] +
-                p * (MOISTURE_RATES.MAX[_season] - MOISTURE_RATES.MIN[_season])
+                    p * (MOISTURE_RATES.MAX[_season] - MOISTURE_RATES.MIN[_season])
                 _moisturerateoffset = 0
             end
 
@@ -996,11 +998,15 @@ return Class(function(self, inst)
         local chuvatropical = 0
         local map = TheWorld.Map
         if _snowfx then
-            if _activatedplayer and _activatedplayer.components.areaaware and _activatedplayer.components.areaaware:CurrentlyInTag("frost") then
+            if _activatedplayer and _activatedplayer.components.areaaware and
+                _activatedplayer.components.areaaware:CurrentlyInTag("frost") then
                 nevenailha = 10
             end
 
-            if (TUNING.tropical.kindofworld ~= 15) or (_activatedplayer and _activatedplayer.components.areaaware and (_activatedplayer.components.areaaware:CurrentlyInTag("tropical") or _activatedplayer.components.areaaware:CurrentlyInTag("hamlet") or _activatedplayer.components.areaaware:CurrentlyInTag("ForceDisconnected"))) then
+            if (_activatedplayer and _activatedplayer.components.areaaware and
+                    (_activatedplayer.components.areaaware:CurrentlyInTag("tropical") or
+                        _activatedplayer.components.areaaware:CurrentlyInTag("hamlet") or
+                        _activatedplayer.components.areaaware:CurrentlyInTag("ForceDisconnected"))) then
                 nevetropical = 0
                 chuvatropical = 20 * preciprate
             end
@@ -1062,10 +1068,13 @@ return Class(function(self, inst)
         end
         SetWithPeriodicSync(_snowlevel, snowlevel, SNOW_LEVEL_SYNC_PERIOD, _ismastersim)
         if _snowlevel:value() > 0 and (_temperature < 0 or _wetness:value() < 5) then
-            if (TUNING.tropical.kindofworld ~= 15) or (_activatedplayer and _activatedplayer.components.areaaware and (_activatedplayer.components.areaaware:CurrentlyInTag("tropical") or _activatedplayer.components.areaaware:CurrentlyInTag("hamlet") or _activatedplayer.components.areaaware:CurrentlyInTag("ForceDisconnected"))) then
+            if _activatedplayer and _activatedplayer.components.areaaware and
+                (_activatedplayer.components.areaaware:CurrentlyInTag("tropical") or
+                    _activatedplayer.components.areaaware:CurrentlyInTag("hamlet") or
+                    _activatedplayer.components.areaaware:CurrentlyInTag("ForceDisconnected")) then
                 SetGroundOverlay(GROUND_OVERLAYS.puddles, _wetness:value() * 3 / 100) -- wetness goes from 0-100	
             else
-                SetGroundOverlay(GROUND_OVERLAYS.snow, _snowlevel:value() * 3) -- snowlevel goes from 0-1
+                SetGroundOverlay(GROUND_OVERLAYS.snow, _snowlevel:value() * 3)        -- snowlevel goes from 0-1
             end
         else
             SetGroundOverlay(GROUND_OVERLAYS.puddles, _wetness:value() * 3 / 100) -- wetness goes from 0-100

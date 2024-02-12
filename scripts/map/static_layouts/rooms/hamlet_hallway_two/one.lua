@@ -177,7 +177,7 @@ return {
         },
         {
           name = "",
-          type = "ancient_herald",
+          type = "ghost",
           shape = "rectangle",
           x = 129,
           y = 153,
@@ -486,7 +486,7 @@ return {
         },
         {
           name = "",
-          type = "pillar_pigarchive",
+          type = "deco_ruins_beam",
           shape = "rectangle",
           x = 96,
           y = 96,
@@ -497,7 +497,7 @@ return {
         },
         {
           name = "",
-          type = "pillar_pigarchive",
+          type = "deco_ruins_beam",
           shape = "rectangle",
           x = 415,
           y = 96,

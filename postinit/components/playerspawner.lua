@@ -1,20 +1,28 @@
 AddComponentPostInit("playerspawner", function(self)
     local OldSpawnAtLocation = self.SpawnAtLocation
     function self:SpawnAtLocation(inst, player, x, y, z, isloading, ...)
-        local stone
+        local portal
         if not isloading then
-            stone = TheSim:FindFirstEntityWithTag("multiplayer_portal") --  multiplayer_portal  constructionsite
-            if stone ~= nil then
-                x, y, z = stone.Transform:GetWorldPosition()
+            portal = TheSim:FindFirstEntityWithTag("multiplayer_portal") --  multiplayer_portal  constructionsite
+            if portal ~= nil then
+                x, y, z = portal.Transform:GetWorldPosition()
             end
         end
         OldSpawnAtLocation(self, inst, player, x, y, z, isloading, ...)
-        if stone ~= nil then
+
+        if portal ~= nil then
             player.Transform:SetPosition(x, y, z)
-            --player.sg:GoToState("wakeup")
-            -- if stone.components.growable ~= nil then
-            --     stone.components.growable:DoGrowth()
-            -- end
+
+            -------------添加出生物品
+            local startitem
+            if TUNING.tropical.startlocation == "shipwrecked" then
+                startitem = SpawnPrefab("porto_raft_old")
+            elseif TUNING.tropical.startlocation == "hamlet" then
+                startitem = SpawnPrefab("machete")
+            end
+            if startitem then
+                player.components.inventory:GiveItem(startitem)
+            end
         end
     end
 end)

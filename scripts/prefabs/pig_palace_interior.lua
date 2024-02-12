@@ -607,7 +607,7 @@ local function entrance()
 
 			local part = SpawnPrefab("pigman_queen")
 			if part ~= nil then
-				part.Transform:SetPosition(x - 3, 0, z)
+				part.Transform:SetPosition(x, 0, z)
 				if part.components.health ~= nil then
 					part.components.health:SetPercent(1)
 				end

@@ -78,7 +78,7 @@ return {
       objects = {
         {
           name = "",
-          type = "pillar_pigarchive",
+          type = "deco_ruins_beam",
           shape = "rectangle",
           x = 351,
           y = 96,
@@ -122,7 +122,7 @@ return {
         },
         {
           name = "",
-          type = "ancient_herald",
+          type = "ghost",
           shape = "rectangle",
           x = 184,
           y = 178,
@@ -313,7 +313,7 @@ return {
         },
         {
           name = "",
-          type = "pillar_pigarchive",
+          type = "deco_ruins_beam",
           shape = "rectangle",
           x = 94,
           y = 416,

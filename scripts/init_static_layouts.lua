@@ -24,6 +24,16 @@ Layouts["start_ham"] = StaticLayout.Get("map/static_layouts/start_ham", {
 	},
 })
 
+Layouts["start_sw"] = StaticLayout.Get("map/static_layouts/start_sw", {
+	start_mask = PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED, --mask什么意思不太明白
+	fill_mask = PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED,
+	layout_position = LAYOUT_POSITION.CENTER,
+	disable_transform = true,
+	defs = {
+		welcomitem = { "flower" } --三矛开局哈哈哈
+	},
+})
+
 Layouts["tigersharkarea"] = StaticLayout.Get("map/static_layouts/tigersharkarea",
 	{
 		start_mask = GLOBAL.PLACE_MASK.IGNORE_IMPASSABLE,
@@ -1639,7 +1649,7 @@ local layoutsToRemakeTiles =
 
 
 
-local layoutsToRemake = { "start_ham", "tigersharkarea", "skull_isle2", "doydoym", "doydoyf",
+local layoutsToRemake = { "start_ham", "start_sw", "tigersharkarea", "skull_isle2", "doydoym", "doydoyf",
 	"cidade1", "cidade2", "city", "vacation", "lava_arena", "lilypad", "lobby", "atlantida",
 	"pig_ruins_entrance_1", "pig_ruins_entrance_2", "pig_ruins_entrance_3", "pig_ruins_entrance_4",
 	"pig_ruins_entrance_5", "pig_ruins_exit_1", "pig_ruins_exit_2", "pig_ruins_exit_4",
@@ -1651,6 +1661,7 @@ local layoutsToRemake = { "start_ham", "tigersharkarea", "skull_isle2", "doydoym
 local layoutsToRemakeGrounds =
 {
 	start_ham            = { GROUND.RAINFOREST },
+	start_sw             = { GROUND.JUNGLE },
 	octopuskinghome      = { GROUND.CORAL },
 	tigersharkarea       = { GROUND.BEACH, GROUND.OCEAN_COASTAL },
 	skull_isle2          = { GROUND.MAGMAFIELD, GROUND.BEACH },
@@ -1703,6 +1714,13 @@ local layoutsToRemakeGrounds =
 local layoutsToRemakeTiles =
 {
 	start_ham = {
+		{ 0, 1, 1, 1 },
+		{ 0, 0, 1, 1 },
+		{ 1, 1, 1, 0 },
+		{ 0, 0, 1, 1 },
+	},
+
+	start_sw = {
 		{ 0, 1, 1, 1 },
 		{ 0, 0, 1, 1 },
 		{ 1, 1, 1, 0 },

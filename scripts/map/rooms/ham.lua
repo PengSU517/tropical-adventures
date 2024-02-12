@@ -6,7 +6,7 @@
 
 
 
-AddRoom("Ham start", {
+AddRoom("Hamlet start", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.PLAINS,
     tags = { "hamlet" },
@@ -55,9 +55,7 @@ AddRoom("Lilypond", {
             lilypad = math.random(3, 4),
 
         },
-        countstaticlayouts = {
-            -- ["lilypad"] = 1,
-        },
+
     }
 })
 

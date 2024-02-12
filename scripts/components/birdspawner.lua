@@ -43,6 +43,11 @@ return Class(function(self, inst)
     BIRD_TYPES[WORLD_TILES.LILYPOND] = { "cormorant", "seagullwater" } -------------------新添加----------------
     BIRD_TYPES[WORLD_TILES.CORAL] = { "puffin", "seagullwater" }
     BIRD_TYPES[WORLD_TILES.MANGROVE] = { "puffin", "seagullwater" }
+    BIRD_TYPES[WORLD_TILES.OCEAN_SHALLOW_SHORE] = { "puffin", "seagullwater" }
+    BIRD_TYPES[WORLD_TILES.OCEAN_SHALLOW] = { "puffin", "seagullwater" }
+    BIRD_TYPES[WORLD_TILES.OCEAN_MEDIUM] = { "puffin", "seagullwater" }
+    BIRD_TYPES[WORLD_TILES.OCEAN_DEEP] = { "puffin", "seagullwater" }
+    BIRD_TYPES[WORLD_TILES.OCEAN_SHIPGRAVEYARD] = { "puffin", "seagullwater" }
 
 
 

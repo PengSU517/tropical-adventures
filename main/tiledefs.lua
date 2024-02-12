@@ -54,7 +54,7 @@ local TileRanges =
     LAND = "LAND",
     NOISE = "NOISE",
     OCEAN = "OCEAN",
-    IA_OCEAN = "IA_OCEAN",
+    TRO_OCEAN = "TRO_OCEAN",
     IMPASSABLE = "IMPASSABLE",
 }
 
@@ -68,6 +68,14 @@ local OCEAN_COLOR =
     secondary_color = { 21, 110, 76, 140 },
     secondary_color_dusk = { 0, 0, 0, 50 },
     minimap_color = { 23, 62, 51, 102 },
+}
+
+local OCEAN_SHALLOW_COLOR =
+{
+    primary_color = { 108, 217, 177, 85 },
+    secondary_color = { 108, 217, 177, 85 },
+    secondary_color_dusk = { 108, 217, 177, 85 },
+    minimap_color = { 108, 217, 177, 85 },
 }
 
 local WAVETINTS =
@@ -157,6 +165,33 @@ local ia_tiledefs = {
             name = "ash",
             bank_build = "turf",
         },
+    },
+
+    VOLCANO_ROCK = { --------------------但这似乎是岩浆地皮
+        tile_range       = TileRanges.LAND,
+        tile_data        = {
+            ground_name = "Beard Rug",
+            old_static_id = 33,
+        },
+        ground_tile_def  = {
+            name = "cave",
+            noise_texture = "noise_beardrug",
+            runsound = "dontstarve/movement/run_rock",
+            walksound = "dontstarve/movement/walk_rock",
+            flashpoint_modifier = 0,
+            flooring = false,
+            hard = true,
+            cannotbedug = true,
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "mini_noise_beardrug",
+        },
+        -- turf_def         = {
+        --     name = "beardrug",
+        --     bank_build = "turf",
+        -- },
+
     },
 
     VOLCANO = {
@@ -285,7 +320,7 @@ local ia_tiledefs = {
     -------------------------------
 
     MANGROVE = {
-        tile_range       = TileRanges.IA_OCEAN,
+        tile_range       = TileRanges.TRO_OCEAN,
         tile_data        = {
             ground_name = "Mangrove",
             old_static_id = 106,
@@ -303,7 +338,7 @@ local ia_tiledefs = {
     },
 
     LILYPOND = {
-        tile_range       = TileRanges.IA_OCEAN,
+        tile_range       = TileRanges.TRO_OCEAN,
         tile_data        = {
             ground_name = "Lilypond",
             old_static_id = 107,
@@ -314,8 +349,8 @@ local ia_tiledefs = {
             -- is_shoreline = true,   -------------加上
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
-            colors = OCEAN_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
-            wavetint = WAVETINTS.waterlog,
+            -- colors = OCEAN_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
+            -- wavetint = WAVETINTS.waterlog,
             is_shoreline = true,
         },
         minimap_tile_def = {
@@ -325,7 +360,7 @@ local ia_tiledefs = {
     },
 
     CORAL = {
-        tile_range       = TileRanges.IA_OCEAN,
+        tile_range       = TileRanges.TRO_OCEAN,
         tile_data        = {
             ground_name = "Coral",
             old_static_id = 104,
@@ -345,26 +380,26 @@ local ia_tiledefs = {
         },
     },
 
-    -- OCEAN_SHALLOW_SHORE = { --was called OCEAN_SHORE in sw, kept for ambientsound
-    --     tile_range       = TileRanges.IA_OCEAN,
-    --     tile_data        = {
-    --         ground_name = "Shallow",
-    --         old_static_id = 101,
-    --     },
-    --     ground_tile_def  = {
-    --         name = "water_medium",
-    --         noise_texture = "ground_noise_water_shallow",
-    --         flashpoint_modifier = 250,
-    --         is_shoreline = true,
-    --         ocean_depth = "SHALLOW",
-    --     },
-    --     minimap_tile_def = {
-    --         name = "map_edge",
-    --         noise_texture = "mini_watershallow_noise",
-    --     },
-    -- },
+    OCEAN_SHALLOW_SHORE = { --was called OCEAN_SHORE in sw, kept for ambientsound
+        tile_range       = TileRanges.TRO_OCEAN,
+        tile_data        = {
+            ground_name = "Shallow",
+            old_static_id = 101,
+        },
+        ground_tile_def  = {
+            name = "water_medium",
+            noise_texture = "ground_noise_water_shallow",
+            flashpoint_modifier = 250,
+            -- is_shoreline = true,
+            ocean_depth = "SHALLOW",
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "mini_watershallow_noise",
+        },
+    },
     -- OCEAN_SHALLOW = {
-    --     tile_range       = TileRanges.IA_OCEAN,
+    --     tile_range       = TileRanges.TRO_OCEAN,
     --     tile_data        = {
     --         ground_name = "Shallow",
     --         old_static_id = 101,
@@ -380,74 +415,100 @@ local ia_tiledefs = {
     --         noise_texture = "mini_watershallow_noise",
     --     },
     -- },
-    -- OCEAN_CORAL = {
-    --     tile_range       = TileRanges.IA_OCEAN,
-    --     tile_data        = {
-    --         ground_name = "Coral",
-    --         old_static_id = 104,
-    --     },
-    --     ground_tile_def  = {
-    --         name = "water_medium",
-    --         noise_texture = "ground_water_coral",
-    --         flashpoint_modifier = 250,
-    --         ocean_depth = "BASIC",
-    --     },
-    --     minimap_tile_def = {
-    --         name = "map_edge",
-    --         noise_texture = "mini_water_coral",
-    --     },
-    -- },
-    -- OCEAN_MEDIUM = {
-    --     tile_range       = TileRanges.IA_OCEAN,
-    --     tile_data        = {
-    --         ground_name = "Medium",
-    --         old_static_id = 102,
-    --     },
-    --     ground_tile_def  = {
-    --         name = "water_medium",
-    --         noise_texture = "ground_noise_water_medium",
-    --         flashpoint_modifier = 250,
-    --         ocean_depth = "DEEP",
-    --     },
-    --     minimap_tile_def = {
-    --         name = "map_edge",
-    --         noise_texture = "mini_watermedium_noise",
-    --     },
-    -- },
-    -- OCEAN_DEEP = {
-    --     tile_range       = TileRanges.IA_OCEAN,
-    --     tile_data        = {
-    --         ground_name = "Deep",
-    --         old_static_id = 103,
-    --     },
-    --     ground_tile_def  = {
-    --         name = "water_medium",
-    --         noise_texture = "ground_noise_water_deep",
-    --         flashpoint_modifier = 250,
+
+    OCEAN_SHALLOW = {
+        tile_range       = TileRanges.OCEAN,
+        tile_data        = {
+            ground_name = "Shallow",
+            old_static_id = 107,
+        },
+        ground_tile_def  = {
+            name = "water_medium", ----- "water_medium"
+            noise_texture = "ocean_noise",
+            ocean_depth = "SHALLOW",
+            colors = OCEAN_SHALLOW_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
+            wavetint = WAVETINTS.shallow,
+            is_shoreline = true,
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "ocean_noise",
+        },
+    },
+
+
+    -- TileManager.AddTile(
+    --     "OCEAN_HAZARDOUS",
+    --     TileRanges.OCEAN,
+    --     { ground_name = "Hazardous Ocean", old_static_id = GROUND.OCEAN_HAZARDOUS },
+    --     {
+    --         name = "cave",
+    --         noise_texture = "ocean_noise",
+    --         runsound = "dontstarve/movement/run_marsh",
+    --         walksound = "dontstarve/movement/walk_marsh",
+    --         snowsound = "dontstarve/movement/run_ice",
+    --         mudsound = "dontstarve/movement/run_mud",
     --         ocean_depth = "VERY_DEEP",
+    --         colors = HAZARDOUS_OCEAN_COLOR,
+    --         wavetint = WAVETINTS.hazardous,
     --     },
-    --     minimap_tile_def = {
+    --     {
     --         name = "map_edge",
-    --         noise_texture = "mini_waterdeep_noise",
-    --     },
-    -- },
-    -- OCEAN_SHIPGRAVEYARD = {
-    --     tile_range       = TileRanges.IA_OCEAN,
-    --     tile_data        = {
-    --         ground_name = "Ship Grave",
-    --         old_static_id = 105,
-    --     },
-    --     ground_tile_def  = {
-    --         name = "water_medium",
-    --         noise_texture = "ground_water_graveyard",
-    --         flashpoint_modifier = 250,
-    --         ocean_depth = "BASIC",
-    --     },
-    --     minimap_tile_def = {
-    --         name = "map_edge",
-    --         noise_texture = "mini_water_graveyard",
-    --     },
-    -- },
+    --         noise_texture = "ocean_noise",
+    --     }
+    -- ),
+
+    OCEAN_MEDIUM = {
+        tile_range       = TileRanges.TRO_OCEAN,
+        tile_data        = {
+            ground_name = "Medium",
+            old_static_id = 102,
+        },
+        ground_tile_def  = {
+            name = "water_medium",
+            noise_texture = "ground_noise_water_medium",
+            flashpoint_modifier = 250,
+            ocean_depth = "DEEP",
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "mini_watermedium_noise",
+        },
+    },
+    OCEAN_DEEP = {
+        tile_range       = TileRanges.TRO_OCEAN,
+        tile_data        = {
+            ground_name = "Deep",
+            old_static_id = 103,
+        },
+        ground_tile_def  = {
+            name = "water_medium",
+            noise_texture = "ground_noise_water_deep",
+            flashpoint_modifier = 250,
+            ocean_depth = "VERY_DEEP",
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "mini_waterdeep_noise",
+        },
+    },
+    OCEAN_SHIPGRAVEYARD = {
+        tile_range       = TileRanges.TRO_OCEAN,
+        tile_data        = {
+            ground_name = "Ship Grave",
+            old_static_id = 105,
+        },
+        ground_tile_def  = {
+            name = "water_medium",
+            noise_texture = "ground_water_graveyard",
+            flashpoint_modifier = 250,
+            ocean_depth = "BASIC",
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "mini_water_graveyard",
+        },
+    },
 
     -------------------------------
     -- IMPASSABLE
@@ -714,31 +775,31 @@ local ia_tiledefs = {
         },
     },
 
-    BEARDRUG = {
-        tile_range       = TileRanges.LAND,
-        tile_data        = {
-            ground_name = "Beard Rug",
-            old_static_id = 33,
-        },
-        ground_tile_def  = {
-            name = "carpet",
-            noise_texture = "noise_beardrug",
-            runsound = "dontstarve/movement/run_carpet",
-            walksound = "dontstarve/movement/walk_carpet",
-            flashpoint_modifier = 0,
-            flooring = true,
-            hard = true,
-        },
-        minimap_tile_def = {
-            name = "map_edge",
-            noise_texture = "mini_noise_beardrug",
-        },
-        turf_def         = {
-            name = "beardrug",
-            bank_build = "turf",
-        },
+    -- BEARDRUG = { --------------------但这似乎是岩浆地皮
+    --     tile_range       = TileRanges.LAND,
+    --     tile_data        = {
+    --         ground_name = "Beard Rug",
+    --         old_static_id = 33,
+    --     },
+    --     ground_tile_def  = {
+    --         name = "cave",
+    --         noise_texture = "noise_beardrug",
+    --         runsound = "dontstarve/movement/run_dirt",
+    --         walksound = "dontstarve/movement/walk_dirt",
+    --         flashpoint_modifier = 0,
+    --         flooring = false,
+    --         hard = true,
+    --     },
+    --     minimap_tile_def = {
+    --         name = "map_edge",
+    --         noise_texture = "mini_noise_beardrug",
+    --     },
+    --     turf_def         = {
+    --         name = "beardrug",
+    --         bank_build = "turf",
+    --     },
 
-    },
+    -- },
 
     FOUNDATION = {
         tile_range = TileRanges.LAND,
@@ -839,12 +900,12 @@ local ia_tiledefs = {
     -- },
 }
 
-IA_OCEAN_TILES = {}
+TRO_OCEAN_TILES = {}
 IA_LAND_TILES = {}
 
 for tile, def in pairs(ia_tiledefs) do
     local range = def.tile_range
-    if range == TileRanges.IA_OCEAN then
+    if range == TileRanges.TRO_OCEAN then
         range = TileRanges.OCEAN
     elseif type(range) == "function" then
         range = TileRanges.NOISE
@@ -854,13 +915,13 @@ for tile, def in pairs(ia_tiledefs) do
 
     local tile_id = WORLD_TILES[tile]
 
-    if def.tile_range == TileRanges.IA_OCEAN then
+    if def.tile_range == TileRanges.TRO_OCEAN then
         if not is_worldgen then
             TileGroupManager:AddInvalidTile(TileGroups.TransparentOceanTiles, tile_id)
             -- TileGroupManager:AddValidTile(TileGroups.OceanTiles, tile_id)
             TileGroupManager:AddValidTile(TileGroups.IAOceanTiles, tile_id)
         end
-        IA_OCEAN_TILES[tile_id] = true
+        TRO_OCEAN_TILES[tile_id] = true
     elseif def.tile_range == TileRanges.LAND then
         IA_LAND_TILES[tile_id] = true
     elseif type(def.tile_range) == "function" then
@@ -919,7 +980,7 @@ ChangeTileRenderOrder(WORLD_TILES.PIGRUINS, WORLD_TILES.CHECKER, true)
 
 -- --Priority turf
 ChangeTileRenderOrder(WORLD_TILES.SNAKESKINFLOOR, WORLD_TILES.CARPET, false)
-ChangeTileRenderOrder(WORLD_TILES.BEARDRUG, WORLD_TILES.CARPET, false)
+-- ChangeTileRenderOrder(WORLD_TILES.BEARDRUG, WORLD_TILES.CARPET, false)
 
 ChangeTileRenderOrder(WORLD_TILES.COBBLEROAD, WORLD_TILES.WOODFLOOR, true)
 ChangeTileRenderOrder(WORLD_TILES.CHECKEREDLAWN, WORLD_TILES.WOODFLOOR, true)
@@ -957,8 +1018,8 @@ ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.MONKEY_DOCK, true)
 --             break
 --         end
 --     end
---     for i = #IA_OCEAN_TILES, 1, -1 do
---         local tile = IA_OCEAN_TILES[i]
+--     for i = #TRO_OCEAN_TILES, 1, -1 do
+--         local tile = TRO_OCEAN_TILES[i]
 --         if tile ~= ground_last then
 --             ChangeTileRenderOrder(tile, ground_last, true)
 --             ground_last = tile

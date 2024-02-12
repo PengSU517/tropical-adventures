@@ -245,7 +245,7 @@ local function ClientExternalSpeedMultiplier(self)
     end
 
     return ((self.inst.player_classified and self.inst.player_classified.externalspeedmultiplier:value() or self.externalspeedmultiplier) * self:GetPredictExternalSpeedMultipler()) *
-    wind_speed * wave_speed * fogspeed * flood_speed
+        wind_speed * wave_speed * fogspeed * flood_speed
 end
 
 local function ServerGetSpeedMultiplier(self)
@@ -261,7 +261,7 @@ local function ServerGetSpeedMultiplier(self)
             --      nothing if inventory is closed.
             --      Don't check visibility though.
             local is_mighty = self.inst.components.mightiness ~= nil and
-            self.inst.components.mightiness:GetState() == "mighty"
+                self.inst.components.mightiness:GetState() == "mighty"
             for k, v in pairs(self.inst.components.inventory.equipslots) do
                 if v.components.equippable ~= nil then
                     local item_speed_mult = v.components.equippable:GetWalkSpeedMult()
@@ -362,7 +362,7 @@ local LocoMotor = Class(function(self, inst)
         self.arrive_step_dist = ARRIVE_STEP
         self.arrive_dist = ARRIVE_STEP
         self.walkspeed = TUNING.WILSON_WALK_SPEED -- 4
-        self.runspeed = TUNING.WILSON_RUN_SPEED -- 6
+        self.runspeed = TUNING.WILSON_RUN_SPEED   -- 6
         self.throttle = 1
         self.lastpos = {}
         self.slowmultiplier = 0.6
@@ -401,6 +401,20 @@ local LocoMotor = Class(function(self, inst)
         runspeed = onrunspeed,
         externalspeedmultiplier = onexternalspeedmultiplier,
     })
+
+function LocoMotor:EnableHopDelay(enable)
+    if enable == false then
+        self.hop_delay = nil
+    elseif self.hop_delay == nil then
+        self.hop_delay =
+        {
+            toplatform = nil,
+            fromplatform = nil,
+            starttick = -1,
+            lasttick = -1,
+        }
+    end
+end
 
 function LocoMotor:StartUpdatingInternal()
     self.isupdating = true
@@ -857,7 +871,7 @@ function LocoMotor:PushAction(bufferedaction, run, try_instant)
         self.inst:PushBufferedAction(bufferedaction)
     elseif bufferedaction.target ~= nil then
         local owner = bufferedaction.target.components.inventoryitem ~= nil and
-        bufferedaction.target.components.inventoryitem.owner or nil
+            bufferedaction.target.components.inventoryitem.owner or nil
         if owner ~= nil and owner:HasTag("pocketdimension_container") then
             --don't try to walk to this container at (0, 0, 0)
             self.inst:FacePoint(bufferedaction.target.Transform:GetWorldPosition())
@@ -904,13 +918,13 @@ function LocoMotor:GoToEntity(target, bufferedaction, run)
         --NOTE: use actual physics (ignoring physicsradiusoverride)
         --      as fallback if bufferedaction.distance is too small
         arrive_dist = ARRIVE_STEP + (target.Physics ~= nil and target.Physics:GetRadius() or 0) +
-        (self.inst.Physics ~= nil and self.inst.Physics:GetRadius() or 0)
+            (self.inst.Physics ~= nil and self.inst.Physics:GetRadius() or 0)
         arrive_dist = math.max(arrive_dist, bufferedaction.distance)
     else
         arrive_dist = ARRIVE_STEP + target:GetPhysicsRadius(0) + self.inst:GetPhysicsRadius(0)
 
         local extra_arrive_dist = (bufferedaction ~= nil and bufferedaction.action ~= nil and bufferedaction.action.extra_arrive_dist) or
-        nil
+            nil
         if extra_arrive_dist ~= nil then
             arrive_dist = arrive_dist + extra_arrive_dist(self.inst, self.dest)
         end
@@ -955,7 +969,7 @@ function LocoMotor:GoToPoint(pt, bufferedaction, run, overridedest)
         or ARRIVE_STEP
 
     local extra_arrive_dist = (bufferedaction ~= nil and bufferedaction.action ~= nil and bufferedaction.action.extra_arrive_dist) or
-    nil
+        nil
     if extra_arrive_dist ~= nil then
         self.arrive_dist = self.arrive_dist + extra_arrive_dist(self.inst, self.dest, bufferedaction)
     end
@@ -1236,7 +1250,7 @@ function LocoMotor:ScanForPlatform(my_platform, target_x, target_z, hop_distance
             blocked = true
         end
         ]]
-           --
+        --
     end
 
     return can_hop, px, pz, found_platform, blocked
@@ -1570,8 +1584,10 @@ function LocoMotor:OnUpdate(dt, arrive_check_only)
             local hop_distance = self:GetHopDistance(self:GetSpeedMultiplier())
 
             local my_platform = self.inst:GetCurrentPlatform()
-            if TUNING.tropical.disembarkation then my_platform = self.inst:GetCurrentPlatform() or
-                GetClosestInstWithTag("barcoapto", self.inst, 0.5) end
+            if TUNING.tropical.disembarkation then
+                my_platform = self.inst:GetCurrentPlatform() or
+                    GetClosestInstWithTag("barcoapto", self.inst, 0.5)
+            end
             local other_platform = nil
             local destpos_x, destpos_y, destpos_z
             if self.dest and self.dest:IsValid() then
@@ -1612,7 +1628,7 @@ function LocoMotor:OnUpdate(dt, arrive_check_only)
                         -- If my_platform ~= nil, we already ran the "is blocked" test as part of ScanForPlatform.
                         -- Otherwise, run one now.
                         if (my_platform ~= nil and not blocked) or
-                            not self:TestForBlocked(mypos_x, mypos_z, forward_x, forward_z, self.inst:GetPhysicsRadius(0), dist * 1.41421) then     -- ~sqrt(2); _x,_z are a dist right triangle so sqrt(dist^2 + dist^2)
+                            not self:TestForBlocked(mypos_x, mypos_z, forward_x, forward_z, self.inst:GetPhysicsRadius(0), dist * 1.41421) then -- ~sqrt(2); _x,_z are a dist right triangle so sqrt(dist^2 + dist^2)
                             self.inst:PushEvent("onhop", { x = _x, z = _z })
                         end
                     end

@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------tira a neve----------------------------------------------------------------------------------------
-if GetModConfigData("disable_snow_effects") == true then
+if --[[GetModConfigData("disable_snow_effects") ==]] true then
     AddComponentPostInit("weather",
         function(self, inst)
             inst:ListenForEvent(

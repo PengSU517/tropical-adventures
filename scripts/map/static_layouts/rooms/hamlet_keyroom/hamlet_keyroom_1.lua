@@ -78,7 +78,7 @@ return {
       objects = {
         {
           name = "",
-          type = "pillar_pigarchive",
+          type = "deco_ruins_beam",
           shape = "rectangle",
           x = 479,
           y = 480,
@@ -131,17 +131,17 @@ return {
           visible = true,
           properties = {}
         },
-        {
-          name = "",
-          type = "smashingpot",
-          shape = "rectangle",
-          x = 257,
-          y = 257,
-          width = 0,
-          height = 0,
-          visible = true,
-          properties = {}
-        },
+        -- {
+        --   name = "",
+        --   type = "smashingpot",
+        --   shape = "rectangle",
+        --   x = 257,
+        --   y = 257,
+        --   width = 0,
+        --   height = 0,
+        --   visible = true,
+        --   properties = {}
+        -- },
         {
           name = "",
           type = "smashingpot",
@@ -232,7 +232,7 @@ return {
         },
         {
           name = "",
-          type = "pillar_pigarchive",
+          type = "deco_ruins_beam",
           shape = "rectangle",
           x = 480,
           y = 32,
@@ -243,7 +243,7 @@ return {
         },
         {
           name = "",
-          type = "pillar_pigarchive",
+          type = "deco_ruins_beam",
           shape = "rectangle",
           x = 31,
           y = 31,
@@ -254,7 +254,7 @@ return {
         },
         {
           name = "",
-          type = "pillar_pigarchive",
+          type = "deco_ruins_beam",
           shape = "rectangle",
           x = 32,
           y = 480,
@@ -408,7 +408,7 @@ return {
         },
         {
           name = "",
-          type = "ruins_chair",
+          type = "pig_ruins_truffle",
           shape = "rectangle",
           x = 323,
           y = 75,
@@ -428,17 +428,17 @@ return {
           visible = true,
           properties = {}
         },
-        {
-          name = "",
-          type = "ruins_chair",
-          shape = "rectangle",
-          x = 440,
-          y = 350,
-          width = 0,
-          height = 0,
-          visible = true,
-          properties = {}
-        },
+        -- {
+        --   name = "",
+        --   type = "ruins_chair",
+        --   shape = "rectangle",
+        --   x = 440,
+        --   y = 350,
+        --   width = 0,
+        --   height = 0,
+        --   visible = true,
+        --   properties = {}
+        -- },
         {
           name = "",
           type = "pig_ruins_torch",

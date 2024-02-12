@@ -1,4 +1,4 @@
-if GetModConfigData("kindofworld") == 20 then
+if --[[GetModConfigData("kindofworld") == 20]] false then
     AddPrefabPostInit("rocks", function(inst)
         GLOBAL.MakeInventoryFloatable(inst, "small", 0.15)
         if GLOBAL.TheWorld.ismastersim then

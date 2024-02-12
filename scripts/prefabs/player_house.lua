@@ -94,11 +94,11 @@ local function onbuild_interior(inst)
     local length = 7 * size --5.5
     local width = 12 * size --8.5
 
-    if not TheWorld.components.getposition or TheWorld.components.getposition:IsMax() then
+    if not TheWorld.components.getposition_hamroom or TheWorld.components.getposition_hamroom:IsMax() then
         return
     end
 
-    local x, z = TheWorld.components.getposition:GetPosition()
+    local x, z = TheWorld.components.getposition_hamroom:GetPosition()
 
     local exit = SpawnPrefab("playerhouse_city_door_saida")
     exit.Transform:SetPosition(x + 6 * size, 0, z)
@@ -120,7 +120,7 @@ local function onbuild_interior(inst)
     end
 
     inst.room = true
-    TheWorld.components.getposition:BuildHouse()
+    TheWorld.components.getposition_hamroom:BuildHouse()
 
 
 
@@ -212,17 +212,15 @@ local function onbuild_interior(inst)
         part.Transform:SetRotation(-90)
     end
 
-    -- local part = SpawnPrefab("window_round_curtains_nails") -----------之前的亮度设置时通过窗户影响光亮的，反而灯没有受影响
-    -- if part ~= nil then
-    --     part.Transform:SetPosition(x, 0, z + 10.55 * size)
-    --     part.Transform:SetScale(1.2, 1.2, 1) ---设置z没用
-    -- end
+    local part = SpawnPrefab("window_round_curtains_nails") -----------之前的亮度设置时通过窗户影响光亮的，反而灯没有受影响
+    if part ~= nil then
+        part.Transform:SetPosition(x, 0, z + 11.5 * size)
+    end
 
-    -- local part = SpawnPrefab("window_round_curtains_nails") -----------之前的亮度设置时通过窗户影响光亮的，反而灯没有受影响
-    -- if part ~= nil then
-    --     part.Transform:SetPosition(x, 0, z - 10.55 * size)
-    --     part.Transform:SetScale(1.2, 1.2, 1) ---设置z没用
-    -- end
+    local part = SpawnPrefab("window_round_curtains_nails") -----------之前的亮度设置时通过窗户影响光亮的，反而灯没有受影响
+    if part ~= nil then
+        part.Transform:SetPosition(x, 0, z - 11.5 * size)
+    end
 end
 
 --------------------------------------do teleporter------------------------
@@ -411,7 +409,7 @@ local function makehousefn(name, build, bank, data)
 
         inst:AddComponent("inventory")
         inst:AddComponent("trader")
-        -- inst.components.trader:SetAcceptTest(ShouldAcceptItem)
+        inst.components.trader:SetAcceptTest(ShouldAcceptItem)
         inst.components.trader.acceptnontradable = true
         inst.components.trader.onaccept = OnGetItemFromPlayer
         inst.components.trader.deleteitemonaccept = false

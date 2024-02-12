@@ -210,7 +210,7 @@ return {
         },
         {
           name = "",
-          type = "ancient_herald",
+          type = "ghost",
           shape = "rectangle",
           x = 117,
           y = 71,

@@ -1,18 +1,178 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end }) --GLOBAL 相关照抄
 
--- local map = require("components/map")
 
+local roomtype = {
+    playerhouse_city_floor = "large",
+    pig_palace_floor = "xlarge",
+    vampirebatcave_floor = "cave",
+    roc_cave_floor = "cave",
+    pig_shop_florist_floor = "small",
+    pig_palace_gallery_floor = "small", ----------这两个啥都不合适
+    pig_palace_shop_floor = "small",
+}
+
+
+local roomcamera = {
+    small = { pitch = 36, distance = 20, pos = -1 },
+    large = { pitch = 36, distance = 27, pos = -2.5 },
+    cave = { pitch = 36, distance = 31, pos = 0 },
+    xlarge = { pitch = 36, distance = 38, pos = -2 },
+
+
+}
+
+local roomsize = {
+    small = { back = 2, front = 8, side = 7.5 },
+    large = { back = 5, front = 8, side = 11.5 },
+    cave = { back = 5, front = 13, side = 13 },
+    xlarge = { back = 6, front = 16, side = 13 },
+}
+
+
+
+---------------------调整摄像头----------------------------
+AddClassPostConstruct("cameras/followcamera", function(self)
+    local Old_Apply = self.Apply
+    function self:Apply()
+        if self.inhamroom == true and self.hamroompos ~= nil then
+            self.headingtarget = 0
+            local cameraset = roomcamera[self.roomtype or "small"]
+            local pitch = cameraset.pitch * DEGREES
+            local heading = 0
+            local distance = cameraset.distance
+            local currentpos = Vector3(self.hamroompos:Get()) + Vector3(cameraset.pos, 0, 0)
+            local fov = 35
+            local currentscreenxoffset = 0
+            local cos_pitch = math.cos(pitch)
+            local cos_heading = math.cos(heading)
+            local sin_heading = math.sin(heading)
+            local dx = -cos_pitch * cos_heading
+            local dy = -math.sin(pitch)
+            local dz = -cos_pitch * sin_heading
+            local xoffs, zoffs = 0, 0
+            if self.shake ~= nil then
+                local shakeOffset = self.shake:Update(FRAMES)
+                if shakeOffset ~= nil then
+                    local rightOffset = self:GetRightVec() * shakeOffset.x
+                    currentpos.x = currentpos.x + rightOffset.x
+                    currentpos.y = currentpos.y + rightOffset.y + shakeOffset.y
+                    currentpos.z = currentpos.z + rightOffset.z
+                else
+                    self.shake = nil
+                end
+            end
+            if currentscreenxoffset ~= 0 then
+                local hoffs = 2 * currentscreenxoffset / RESOLUTION_Y
+                local magic_number = 1.03
+                local screen_heights = math.tan(fov * .5 * DEGREES) * distance * magic_number
+                xoffs = -hoffs * sin_heading * screen_heights
+                zoffs = hoffs * cos_heading * screen_heights
+            end
+
+            TheSim:SetCameraPos(
+                currentpos.x - dx * distance + xoffs,
+                currentpos.y - dy * distance,
+                currentpos.z - dz * distance + zoffs
+            )
+            TheSim:SetCameraDir(dx, dy, dz)
+
+            local right = (heading + 90) * DEGREES
+            local rx = math.cos(right)
+            local ry = 0
+            local rz = math.sin(right)
+
+            local ux = dy * rz - dz * ry
+            local uy = dz * rx - dx * rz
+            local uz = dx * ry - dy * rx
+
+            TheSim:SetCameraUp(ux, uy, uz)
+            TheSim:SetCameraFOV(fov)
+            local listendist = -.1 * distance
+            TheSim:SetListener(
+                dx * listendist + currentpos.x,
+                dy * listendist + currentpos.y,
+                dz * listendist + currentpos.z,
+                dx, dy, dz,
+                ux, uy, uz
+            )
+        else
+            Old_Apply(self)
+        end
+    end
+end)
+
+
+local function OnFocalFocusDirty(inst)
+    if ThePlayer ~= nil and inst == ThePlayer then
+        if inst._inhamroomcamea:value() ~= nil then
+            local ent = inst._inhamroomcamea:value()
+            TheCamera.inhamroom = true
+            local x1, y1, z1 = ent.Transform:GetWorldPosition()
+
+            TheCamera.roomtype = roomtype[ent.prefab] or "small"
+            TheCamera.hamroompos = Vector3(x1 + 2, 0, z1)
+        else
+            TheCamera.inhamroom = false
+            TheCamera.hamroompos = nil
+            TheCamera.roomtype = "small"
+        end
+        if inst.components.playervision then
+            inst.components.playervision:UpdateCCTable()
+        end
+    end
+end
+
+--Load
+local function OnFocusCamera(inst)
+    if inst.spawnanddelete_hamroom then ---------------------------额个东西是啥
+        return
+    end
+    local ent = FindEntity(inst, 30, nil, { "blows_air" })
+    if ent then
+        if inst._inhamroomcamea:value() ~= ent then
+            inst._inhamroomcamea:set(ent)
+        end
+    elseif inst._inhamroomcamea:value() ~= nil then
+        inst._inhamroomcamea:set(nil)
+    end
+end
+--
+AddPlayerPostInit(function(inst)
+    --房子的net
+    inst._inhamroomcamea = net_entity(inst.GUID, "_inhamroomcamea", "inhamroomcameadirty")
+
+
+    if TheWorld.ismastersim then
+        inst:DoPeriodicTask(0.2, OnFocusCamera, 0.2)
+    end
+
+    if not TheNet:IsDedicated() then
+        inst:ListenForEvent("inhamroomcameadirty", OnFocalFocusDirty)
+    end
+end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------调整地图判定
 require "components/map"
-
-
-
 
 --得到瓷砖中心点
 local old_GetTileCenterPoint = Map.GetTileCenterPoint
 Map.GetTileCenterPoint = function(self, x, y, z)
     local map_width, map_height = TheWorld.Map:GetSize()
     if (type(x) == "number" and math.abs(x) >= map_width) and (type(z) == "number" and math.abs(z) >= map_height) then
-        return math.floor((x) / 4) * 4 + 2, 0, math.floor((z) / 4) * 4 + 2
+        return math.floor((x) / 4) * 4, 0, math.floor((z) / 4) * 4
     end
     if z then
         return old_GetTileCenterPoint(self, x, y, z)
@@ -22,17 +182,23 @@ Map.GetTileCenterPoint = function(self, x, y, z)
 end
 
 --------------------------------------------------------------是不是可通行的点--
+
+
+
+
 local function IsHamRoomAtPoint(x, y, z)
     if type(x) ~= "number" then
         x, y, z = x.x or x, x.y or y, x.z or z
     end
 
+
     local entities = TheSim:FindEntities(x, y, z, 20, { "blows_air" })
     if entities then
         for i, v in ipairs(entities) do
             if v then
+                local rsize = roomsize[roomtype[v.prefab] or "small"]
                 local xx, yy, zz = v.Transform:GetWorldPosition()
-                if ((x - xx) <= 8 and (x - xx) >= -4.5 and math.abs(z - zz) <= 11) then ---11
+                if ((x - xx) <= rsize.front and (x - xx) >= -rsize.back and math.abs(z - zz) <= rsize.side) then ---11
                     return true
                 end
             end
@@ -50,16 +216,17 @@ local function IsHamRoomWallAtPoint(x, y, z)
     local entities = TheSim:FindEntities(x, y, z, 20, { "blows_air" })
     if entities then
         for i, v in ipairs(entities) do
-            if v then
+            if v --[[and v.prefab == "playerhouse_city_floor" ]] then
+                local rsize = roomsize[roomtype[v.prefab] or "small"]
                 local xx, yy, zz = v.Transform:GetWorldPosition()
-                if (x - xx) <= -5 and (x - xx) > -5.5 and math.abs(z - zz) <= 11 then ---11
+                if (x - xx) <= -rsize.back and (x - xx) > -(rsize.back + 0.5) and math.abs(z - zz) <= (rsize.side - 0.5) then ---11
                     return "back"
-                elseif (z - zz) >= 11.5 and (z - zz) < 12 and (x - xx) <= 8 and (x - xx) >= -4.5 then
+                elseif (z - zz) >= rsize.side and (z - zz) < (rsize.side + 0.5) and (x - xx) <= rsize.front and (x - xx) >= -(rsize.back - 0.5) then
                     return "right"
-                elseif (zz - z) >= 11.5 and (zz - z) < 12 and (x - xx) <= 8 and (x - xx) >= -4.5 then
+                elseif (zz - z) >= rsize.side and (zz - z) < (rsize.side + 0.5) and (x - xx) <= rsize.front and (x - xx) >= -(rsize.back - 0.5) then
                     return "left"
                 else
-                    return false
+                    -- return false
                 end
             end
         end
@@ -206,7 +373,7 @@ AddPrefabPostInit("world", function(inst)
     if not TheWorld.ismastersim then
         return
     end
-    inst:AddComponent("getposition")
+    inst:AddComponent("getposition_hamroom")
 end)
 AddPrefabPostInit("dirtpile", function(inst)
     if TheWorld.ismastersim then
