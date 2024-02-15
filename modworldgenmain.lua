@@ -57,6 +57,7 @@ GLOBAL.TUNING.tropical = {
     -- forge             = false, ----GetModConfigData("forge"),
     disembarkation    = false, -----GetModConfigData("automatic_disembarkation"),------------自动离开船
     bosslife          = 1,     --------GetModConfigData("bosslife"),
+
     prefabname        = GetModConfigData("prefabname"),
 }
 
