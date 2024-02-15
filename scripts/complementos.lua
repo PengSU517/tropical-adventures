@@ -144,6 +144,6 @@ if GLOBAL.KnownModIndex:IsModEnabled("workshop-1289779251") then GLOBAL.CHERRY =
 
 --------------store---------
 
-modimport("functions/MagicStore.lua")
-modimport("functions/DataProvider.lua")
+modimport("scripts/MagicStore.lua")
+modimport("scripts/DataProvider.lua")
 --------------------------------------

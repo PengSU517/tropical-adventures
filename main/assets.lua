@@ -980,9 +980,9 @@ Assets =
 	Asset("IMAGE", "map_icons/hamleticon.tex"),
 	Asset("ATLAS", "map_icons/creepindedeepicon.xml"),
 	Asset("IMAGE", "map_icons/creepindedeepicon.tex"),
-	Asset("ANIM", "anim/butterflymuffin.zip"),
-	Asset("IMAGE", "images/tfwp_inventoryimgs.tex"),
-	Asset("ATLAS", "images/tfwp_inventoryimgs.xml"),
+	-- Asset("ANIM", "anim/butterflymuffin.zip"),
+	-- Asset("IMAGE", "images/tfwp_inventoryimgs.tex"),
+	-- Asset("ATLAS", "images/tfwp_inventoryimgs.xml"),
 	--Asset("SOUNDPACKAGE", "sound/Hamlet.fev"),
 	--Asset("SOUND", "sound/Hamlet.fsb"),
 
