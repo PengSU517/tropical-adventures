@@ -19,7 +19,7 @@ client_only_mod = false
 reign_of_giants_compatible = false
 server_filter_tags = { "Shipwrecked", "Hamlet", "Economy", "House", "Home", "Boats", "Ruins" }
 
-icon_atlas = "modicon.xml"
+icon_atlas = "images/modicon/modicon.xml"
 icon = "modicon.tex"
 
 
@@ -93,11 +93,11 @@ configuration_options =
 				hover = en_zh("Default settings", "默认设置"),
 				data = "default"
 			},
-			{
-				description = en_zh("No Random Tasks", "无随机地形"),
-				hover = en_zh("No Random Tasks", "无随机地形"),
-				data = "no_random"
-			},
+			-- {
+			-- 	description = en_zh("No Random Tasks", "无随机地形"),
+			-- 	hover = en_zh("No Random Tasks", "无随机地形"),
+			-- 	data = "no_random"
+			-- },
 			{
 				description = en_zh("Killer Bee and Walrus Only", "仅杀人蜂和海象平原"),
 				hover = en_zh("Killer Bee and Walrus Only", "仅杀人蜂和海象平原"),
@@ -105,7 +105,7 @@ configuration_options =
 			},
 
 		},
-		default = "no_random",
+		default = "bee_and_walrus",
 	},
 
 	{
@@ -245,6 +245,16 @@ configuration_options =
 		label = en_zh("Aporkalypse", "毁灭季"),
 		hover = en_zh("Aporkalypse", "毁灭季"),
 		options = options_enable2,
+		default = false,
+	},
+
+	Breaker("Other Settings", "其他设置"),
+
+	{
+		name = "prefabname",
+		label = en_zh("Show Prefab Name", "显示物品代码"),
+		hover = en_zh("Show Prefab Name on Cursor", "显示物品代码"),
+		options = options_enable,
 		default = false,
 	},
 
