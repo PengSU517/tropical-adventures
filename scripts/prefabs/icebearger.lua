@@ -260,6 +260,10 @@ local function OnDead(inst)
     inst.components.shedder:StopShedding()
 end
 
+local function OnRemove(inst)
+    TheWorld:PushEvent("beargerremoved", inst)
+end
+
 local function OnPlayerAction(inst, player, data)
     if data.action == nil or inst.components.sleeper:IsAsleep() then
         return -- don't react to things when asleep
@@ -321,6 +325,20 @@ local function OnKilledOther(inst, data)
             inst.components.locomotor.walkspeed = TUNING.BEARGER_CALM_WALK_SPEED
         end
     end
+end
+
+local function SwitchToEightFaced(inst)
+	if not inst._temp8faced then
+		inst._temp8faced = true
+		inst.Transform:SetEightFaced()
+	end
+end
+
+local function SwitchToFourFaced(inst)
+	if inst._temp8faced then
+		inst._temp8faced = false
+		inst.Transform:SetFourFaced()
+	end
 end
 
 local function fn()
@@ -439,6 +457,7 @@ local function fn()
     inst:ListenForEvent("onhitother", OnHitOther)
     inst:ListenForEvent("timerdone", ontimerdone)
     inst:ListenForEvent("death", OnDead)
+    inst:ListenForEvent("onremove", OnRemove)	
     ------------------------------------------
 
     MakeLargeBurnableCharacter(inst, "swap_fire")
@@ -472,6 +491,8 @@ local function fn()
 
     inst.OnSave = OnSave
     inst.OnLoad = OnLoad
+	inst.SwitchToEightFaced = SwitchToEightFaced
+	inst.SwitchToFourFaced = SwitchToFourFaced	
 
     ------------------------------------------
 

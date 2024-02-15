@@ -181,7 +181,7 @@ PrefabFiles =
 	"gold_dust",
 	"goldpan",
 	-------
-	"icebearger",
+	"icebearger", -------这是永霜岛的
 	"icedeerclops",
 	"icerockcreatures",
 	"cave_exit_vulcao",
@@ -190,7 +190,7 @@ PrefabFiles =
 	"vidanomarseaworld",
 	"ashfx",
 	"boat_raft_rot",
-	"panda",
+	"panda", -----------这是海难plus的
 	"pandaskin",
 	"pandatree",
 	"nectar_pod",

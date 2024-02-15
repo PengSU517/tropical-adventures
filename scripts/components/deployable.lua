@@ -1,48 +1,56 @@
 --Update inventoryitem_replica constructor if any more properties are added
 
 local function onmode(self, mode)
-    if self.inst.replica.inventoryitem ~= nil then
-        self.inst.replica.inventoryitem:SetDeployMode(mode)
+	local inventoryitem = self.inst.replica.inventoryitem
+	if inventoryitem then
+		inventoryitem:SetDeployMode(mode)
     end
 end
 
 local function onspacing(self, spacing)
-    if self.inst.replica.inventoryitem ~= nil then
-        self.inst.replica.inventoryitem:SetDeploySpacing(spacing)
+	local inventoryitem = self.inst.replica.inventoryitem
+	if inventoryitem then
+		inventoryitem:SetDeploySpacing(spacing)
     end
 end
 
 local function onrestrictedtag(self, restrictedtag)
-    if self.inst.replica.inventoryitem ~= nil then
-        self.inst.replica.inventoryitem:SetDeployRestrictedTag(restrictedtag)
+	local inventoryitem = self.inst.replica.inventoryitem
+	if inventoryitem then
+		inventoryitem:SetDeployRestrictedTag(restrictedtag)
     end
 end
 
 local function onusegridplacer(self, usegridplacer)
-    if self.inst.replica.inventoryitem ~= nil then
-        self.inst.replica.inventoryitem:SetUseGridPlacer(usegridplacer)
+	local inventoryitem = self.inst.replica.inventoryitem
+	if inventoryitem then
+		inventoryitem:SetUseGridPlacer(usegridplacer)
     end
 end
 
 local Deployable = Class(function(self, inst)
-        self.inst = inst
+    self.inst = inst
 
-        self.mode = DEPLOYMODE.DEFAULT
-        self.spacing = DEPLOYSPACING.DEFAULT
-        --self.restrictedtag = nil --only entities with this tag can deploy
-        self.usegridplacer = false
+    self.mode = DEPLOYMODE.DEFAULT
+    self.spacing = DEPLOYSPACING.DEFAULT
+    --self.restrictedtag = nil --only entities with this tag can deploy
+	--self.usegridplacer = false
 
-        self.ondeploy = nil
+    self.ondeploy = nil
 
-        self.inst:AddTag("deployable")
-    end,
-    nil,
-    {
-        mode = onmode,
-        spacing = onspacing,
-        restrictedtag = onrestrictedtag,
-        usegridplacer = onusegridplacer,
-    })
+    -- keep_in_inventory_on_deploy = nil
+
+	--self.deploytoss_symbol_override = nil
+
+    self.inst:AddTag("deployable")
+end,
+nil,
+{
+    mode = onmode,
+    spacing = onspacing,
+    restrictedtag = onrestrictedtag,
+    usegridplacer = onusegridplacer,
+})
 
 function Deployable:OnRemoveFromEntity()
     local inventoryitem = self.inst.replica.inventoryitem
@@ -61,7 +69,7 @@ function Deployable:SetDeploySpacing(spacing)
 end
 
 function Deployable:SetUseGridPlacer(usegridplacer)
-    self.usegridplacer = usegridplacer
+	self.usegridplacer = usegridplacer or nil
 end
 
 function Deployable:DeploySpacingRadius()
@@ -70,7 +78,7 @@ end
 
 --For deploy toss, we need to override symbols during the deploytoss_pre anim
 function Deployable:SetDeployTossSymbolOverride(data)
-    self.deploytoss_symbol_override = data
+	self.deploytoss_symbol_override = data
 end
 
 function Deployable:IsDeployable(deployer)
@@ -80,22 +88,21 @@ function Deployable:IsDeployable(deployer)
 end
 
 function Deployable:CanDeploy(pt, mouseover, deployer, rot)
-    if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.UNDERWATER_SANDY) then return false end                      --adicionado por vagner
-    if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.UNDERWATER_ROCKY) then return false end                      --adicionado por vagner
-    if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.BEACH and TheWorld:HasTag("cave")) then return false end     --adicionado por vagner
-    if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) then return false end --adicionado por vagner
-    if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.PAINTED and TheWorld:HasTag("cave")) then return false end   --adicionado por vagner
-    if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.PIGRUINS and TheWorld:HasTag("cave")) then return false end  --adicionado por vagner
-    if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) then return false end --adicionado por vagner
-    if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.ANTFLOOR and TheWorld:HasTag("cave")) then return false end  --adicionado por vagner
-    if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.WATER_MANGROVE and TheWorld:HasTag("cave")) then return false end --adicionado por vagner
+if(TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.UNDERWATER_SANDY) then return false end --adicionado por vagner
+if(TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.UNDERWATER_ROCKY) then return false end --adicionado por vagner
+if(TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.BEACH and TheWorld:HasTag("cave")) then return false end --adicionado por vagner
+if(TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) then return false end --adicionado por vagner
+if(TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.PAINTED and TheWorld:HasTag("cave")) then return false end --adicionado por vagner
+if(TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.BATTLEGROUND and TheWorld:HasTag("cave")) then return false end --adicionado por vagner
+if(TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) then return false end --adicionado por vagner
+if(TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.ANTFLOOR and TheWorld:HasTag("cave")) then return false end --adicionado por vagner
+if(TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.WATER_MANGROVE and TheWorld:HasTag("cave")) then return false end --adicionado por vagner
 
     if not self:IsDeployable(deployer) then
         return false
     elseif self.mode == DEPLOYMODE.ANYWHERE then
-        local x, y, z = pt:Get()
-        return TheWorld.Map:IsPassableAtPointWithPlatformRadiusBias(x, y, z, false, false,
-            TUNING.BOAT.NO_BUILD_BORDER_RADIUS, true)
+        local x,y,z = pt:Get()
+        return TheWorld.Map:IsPassableAtPointWithPlatformRadiusBias(x,y,z,false,false,TUNING.BOAT.NO_BUILD_BORDER_RADIUS,true)
     elseif self.mode == DEPLOYMODE.TURF then
         return TheWorld.Map:CanPlaceTurfAtPoint(pt:Get())
     elseif self.mode == DEPLOYMODE.PLANT then
@@ -106,9 +113,9 @@ function Deployable:CanDeploy(pt, mouseover, deployer, rot)
         return TheWorld.Map:CanDeployAtPoint(pt, self.inst, mouseover)
     elseif self.mode == DEPLOYMODE.WATER then
         return TheWorld.Map:CanDeployAtPointInWater(pt, self.inst, mouseover,
-            {
-                land = 0.2, boat = 0.2, radius = self:DeploySpacingRadius(),
-            })
+        {
+            land = 0.2, boat = 0.2, radius = self:DeploySpacingRadius(),
+        })
     elseif self.mode == DEPLOYMODE.CUSTOM then
         if self.inst._custom_candeploy_fn ~= nil then
             return self.inst._custom_candeploy_fn(self.inst, pt, mouseover, deployer, rot)
