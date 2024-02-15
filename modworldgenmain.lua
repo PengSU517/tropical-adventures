@@ -21,6 +21,10 @@ local require = GLOBAL.require
 
 
 GLOBAL.TUNING.tropical = {
+
+    language = GetModConfigData("language"),
+
+
     together          = GetModConfigData("together"),
     shipwrecked       = GetModConfigData("shipwrecked"),
     hamlet            = GetModConfigData("hamlet"),

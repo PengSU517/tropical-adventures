@@ -23,6 +23,19 @@ local prefabs =
     "winter_ornament_light1",
 }
 
+local normal_sounds =
+{
+	step = "dontstarve/creatures/deerclops/step",
+	taunt_grrr = "dontstarve/creatures/deerclops/taunt_grrr",
+	taunt_howl = "dontstarve/creatures/deerclops/taunt_howl",
+	hurt = "dontstarve/creatures/deerclops/hurt",
+	death = "dontstarve/creatures/deerclops/death",
+	attack = "dontstarve/creatures/deerclops/attack",
+	swipe = "dontstarve/creatures/deerclops/swipe",
+	charge = "dontstarve/creatures/deerclops/charge",
+	walk = nil,
+}
+
 local TARGET_DIST = 16
 local STRUCTURES_PER_HARASS = 5
 
@@ -93,6 +106,34 @@ local function OnLoad(inst, data)
     end
 end
 
+local function OnRemove(inst)
+	if inst.spikefire ~= nil then
+		inst.spikefire:Remove()
+		inst.spikefire = nil
+	end
+	if inst.sg.mem.circle ~= nil then
+		inst.sg.mem.circle:KillFX()
+		inst.sg.mem.circle = nil
+	end
+	if inst.icespike_pool ~= nil then
+		for i, v in ipairs(inst.icespike_pool) do
+			v:Remove()
+		end
+		inst.icespike_pool = nil
+	end
+    TheWorld:PushEvent("hasslerremoved", inst)
+end
+
+local function OnDead(inst)
+	--V2C: make sure we're still burning by the time we actually reach death in stategraph
+	if inst.components.burnable:IsBurning() then
+		inst.components.burnable:SetBurnTime(nil)
+		inst.components.burnable:ExtendBurning()
+	end
+    AwardRadialAchievement("deerclops_killed", inst:GetPosition(), TUNING.ACHIEVEMENT_RADIUS_FOR_GIANT_KILL)
+    TheWorld:PushEvent("hasslerkilled", inst)
+end
+
 local function OnAttacked(inst, data)
     inst.components.combat:SetTarget(data.attacker)
     if data.attacker:HasTag("player") and inst.structuresDestroyed < STRUCTURES_PER_HARASS and inst.components.knownlocations:GetLocation("targetbase") == nil then
@@ -160,6 +201,20 @@ local function WantsToLeave(inst)
     return false
 end
 
+local function SwitchToEightFaced(inst)
+	if not inst._temp8faced then
+		inst._temp8faced = true
+		inst.Transform:SetEightFaced()
+	end
+end
+
+local function SwitchToFourFaced(inst)
+	if inst._temp8faced then
+		inst._temp8faced = false
+		inst.Transform:SetFourFaced()
+	end
+end
+
 local function fn()
     local inst = CreateEntity()
 
@@ -168,6 +223,8 @@ local function fn()
     inst.entity:AddSoundEmitter()
     inst.entity:AddDynamicShadow()
     inst.entity:AddNetwork()
+	
+    inst.sounds = normal_sounds	
 
     MakeGiantCharacterPhysics(inst, 1000, .5)
 
@@ -204,6 +261,7 @@ local function fn()
     inst.Physics:SetCollisionCallback(oncollide)
 
     inst.structuresDestroyed = 0
+	inst.icespike_pool = {}	
 
     ------------------------------------------
 
@@ -262,6 +320,8 @@ local function fn()
 
     inst:ListenForEvent("working", AfterWorking)
     inst:ListenForEvent("attacked", OnAttacked)
+    inst:ListenForEvent("death", OnDead)
+    inst:ListenForEvent("onremove", OnRemove)	
     inst:ListenForEvent("onhitother", OnHitOther)
     inst:ListenForEvent("newcombattarget", OnNewTarget)
 
@@ -269,6 +329,8 @@ local function fn()
     inst.OnLoad = OnLoad
     inst.IsSated = IsSated
 	inst.WantsToLeave = WantsToLeave
+	inst.SwitchToEightFaced = SwitchToEightFaced
+	inst.SwitchToFourFaced = SwitchToFourFaced	
 
     inst:AddComponent("timer")
 	inst:ListenForEvent("newstate", OnNewState)
