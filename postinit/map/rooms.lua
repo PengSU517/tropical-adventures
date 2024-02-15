@@ -6,6 +6,10 @@ AddRoomPreInit("OceanCoastal", function(room)
     -- room.value = WORLD_TILES.LILYPOND ---似乎改不了地皮,改了地皮反而生成不了任何东西
     room.contents.distributeprefabs.messagebottle1 = 0.1
     room.contents.distributeprefabs.seaweed_planted = 2
+    room.contents.distributeprefabs.coralreef = 0.1
+    room.contents.distributeprefabs.ballphinhouse = 0.5
+    room.contents.distributeprefabs.seataro_planted = 0.5
+    room.contents.distributeprefabs.seacucumber_planted = 0.5
 
 
     -- room.contents.countstaticlayouts["coralpool1"] = 3

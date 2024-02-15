@@ -53,6 +53,7 @@ GLOBAL.TUNING.tropical = {
     -- forge             = false, ----GetModConfigData("forge"),
     disembarkation    = false, -----GetModConfigData("automatic_disembarkation"),------------自动离开船
     bosslife          = 1,     --------GetModConfigData("bosslife"),
+    prefabname        = GetModConfigData("prefabname"),
 }
 
 local troadv = GLOBAL.TUNING.tropical
@@ -138,6 +139,22 @@ if (troadv.together == "no_random") or (troadv.together == "bee_and_walrus") the
             if troadv.together == "bee_and_walrus" then
                 table.insert(level.tasks, "Killer bees!")
                 table.insert(level.tasks, "The hunters")
+
+                level.set_pieces["CaveEntrance"] = {
+                    count = 10,
+                    tasks = { "Make a pick",
+                        "Dig that rock",
+                        "Great Plains",
+                        "Squeltch",
+                        "Beeeees!",
+                        "Speak to the king",
+                        "Forest hunters",
+                        "Badlands",
+                        "For a nice walk",
+                        "Lightning Bluff",
+                        "Killer bees!",
+                        "The hunters" }
+                }
             end
         end
     end)
@@ -180,6 +197,16 @@ if troadv.shipwrecked then
             table.insert(level.tasks, "A_BLANK10")
             table.insert(level.tasks, "A_BLANK11")
             table.insert(level.tasks, "A_BLANK12")
+
+            level.ocean_prefill_setpieces["coralpool1"] = 3
+            level.ocean_prefill_setpieces["coralpool2"] = 3
+            level.ocean_prefill_setpieces["coralpool3"] = 2
+            level.ocean_prefill_setpieces["octopuskinghome"] = 1
+            level.ocean_prefill_setpieces["mangrove1"] = 2
+            level.ocean_prefill_setpieces["mangrove2"] = 1
+            level.ocean_prefill_setpieces["wreck"] = 1
+            level.ocean_prefill_setpieces["wreck2"] = 1
+            level.ocean_prefill_setpieces["kraken"] = 1
         end
     end)
 end

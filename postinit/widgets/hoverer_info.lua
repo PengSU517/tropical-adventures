@@ -14,24 +14,31 @@ local function GetBuild(inst)
     return strnn
 end
 
-AddClassPostConstruct("widgets/hoverer", function(self)
-    local old_SetString = self.text.SetString
-    self.text.SetString = function(text, str)
-        local target = TheInput:GetHUDEntityUnderMouse()
-        if target ~= nil then
-            target = target.widget ~= nil and target.widget.parent ~= nil and target.widget.parent.item
-        else
-            target = TheInput:GetWorldEntityUnderMouse()
-        end
-        if target and target.entity ~= nil then
-            if target.prefab ~= nil then
-                str = str .. "\n" .. "代码:" .. target.prefab
+if GLOBAL.TUNING.tropical.prefabname then
+    AddClassPostConstruct("widgets/hoverer", function(self)
+        local old_SetString = self.text.SetString
+        self.text.SetString = function(text, str)
+            local target = TheInput:GetHUDEntityUnderMouse()
+            if target ~= nil then
+                target = target.widget ~= nil and target.widget.parent ~= nil and target.widget.parent.item
+            else
+                target = TheInput:GetWorldEntityUnderMouse()
             end
-            local build = GetBuild(target)
-            if build ~= nil then
-                str = str .. "\n" .. build
+            if target and target.entity ~= nil then
+                if target.prefab ~= nil then
+                    str = str .. "\n" .. "代码:" .. target.prefab
+                end
+                local build = GetBuild(target)
+                if build ~= nil then
+                    str = str .. "\n" .. build
+                end
             end
+            return old_SetString(text, str)
         end
-        return old_SetString(text, str)
-    end
-end)
+    end)
+end
+
+
+
+
+
