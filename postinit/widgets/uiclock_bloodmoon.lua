@@ -1,6 +1,6 @@
 ------------------------------------bloodmoon ----------------------------------------------
 
--- if GetModConfigData("aporkalypse") == true then
+-- if GLOBAL.TUNING.tropical.aporkalypse == true then
 --     local function bloodmoon(self)
 --         local luavermelha = GLOBAL.require "widgets/bloodmoon"
 --         self.luadesangue = self:AddChild(luavermelha(self.owner))

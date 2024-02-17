@@ -4,10 +4,10 @@ end
 
 
 
-name = en_zh(" Tropical Adventure", "热带冒险（海难哈姆雷特三合一）")
+name = en_zh(" Tropical Adventure (Shipwrecked & Hamlet)", "热带冒险（海难哈姆雷特三合一）")
 description = en_zh("Personal modification of Tropical Experience", "在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改")
 author = "Peng"
-version = "6.68"
+version = "6.69"
 forumthread = ""
 api_version = 10
 priority = -20
@@ -243,8 +243,8 @@ configuration_options =
 	{
 		name = "aporkalypse",
 		label = en_zh("Aporkalypse", "毁灭季"),
-		hover = en_zh("Aporkalypse", "毁灭季"),
-		options = options_enable2,
+		hover = en_zh("Aporkalypse in cave", "毁灭季 在洞穴"),
+		options = options_enable,
 		default = false,
 	},
 

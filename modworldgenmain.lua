@@ -43,7 +43,7 @@ GLOBAL.TUNING.tropical = {
 
     fog               = false, ----GetModConfigData("fog"),
     hayfever          = false, ----GetModConfigData("hayfever"),
-    aporkalypse       = false, ----GetModConfigData("aporkalypse"),
+    aporkalypse       = GetModConfigData("aporkalypse"),
     -- tropicalshards    = false, ----GetModConfigData("tropicalshards"),  ------------删掉所有用到的地方
     -- removedark        = false, ----GetModConfigData("removedark"),-----------只在underwater用到
     -- hamworld          = false, ----GetModConfigData("kindofworld"),  没用上
@@ -311,6 +311,7 @@ if troadv.testmode then
             level.overrides.keep_disconnected_tiles = true
 
             level.tasks = { "MudWorld", "CaveExitTask1" }
+            table.insert(level.tasks, "HamArchiveMaze")
             level.numoptionaltasks = 0
             level.optionaltasks = {}
 
@@ -322,6 +323,7 @@ if troadv.testmode then
             level.tasks = { "Make a NewPick" }
             table.insert(level.tasks, "Pincale")
             table.insert(level.tasks, "Verdent")
+            table.insert(level.tasks, "HamArchiveMaze")
             level.numoptionaltasks = 0
 
             level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋
