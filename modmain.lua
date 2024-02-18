@@ -96,7 +96,7 @@ modimport("scripts/complementos.lua") -------------这似乎是个大杂烩，�
 -- 	modimport("scripts/creeps.lua")-- if GetModConfigData("underwater") then
 -- 	modimport("scripts/greenworld.lua")-- if GetModConfigData("greenworld") then
 
-modimport("postinit/components/builder")
+modimport("postinit/components/builder") ----------试试看这个有没有问题
 modimport("postinit/components/inventoryitem")
 modimport("postinit/components/playercontroller")
 modimport("postinit/components/embarker")
@@ -109,3 +109,5 @@ modimport("postinit/components/playerspawner")
 modimport("postinit/components/wavemanager")
 -- modimport("postinit/components/map")
 modimport("main/ham_room") -----------------新的room
+
+modimport("scripts/widgets/seasonsdisplay.lua") --------------雾和花粉症,还有树荫

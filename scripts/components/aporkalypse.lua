@@ -171,7 +171,8 @@ end
 
 function Aporkalypse:ScheduleBatSpawning()
 	self:CancelBatSpawning()
-	self.bat_task = self.inst:DoTaskInTime(TUNING.TOTAL_DAY_TIME + (TUNING.TOTAL_DAY_TIME * math.random(0, 0.25)),
+	self.bat_task = self.inst:DoTaskInTime(
+		15 --[[TUNING.TOTAL_DAY_TIME + (TUNING.TOTAL_DAY_TIME * math.random(0, 0.25))]],
 		function() self:SpawnBats() end)
 end
 
@@ -185,7 +186,8 @@ end
 function Aporkalypse:SpawnBats()
 	for i, player in ipairs(AllPlayers) do
 		local interior = GetClosestInstWithTag("blows_air", player, 30)
-		if not interior then
+		local bat = GetClosestInstWithTag("circlingbat", player, 10)
+		if (not interior) and (not bat) then
 			local x, y, z = player.Transform:GetWorldPosition()
 			local part = SpawnPrefab("circlingbat")
 			if part ~= nil then
@@ -229,7 +231,7 @@ end
 
 function Aporkalypse:ScheduleHeraldCheck()
 	-- self:CancelHeraldCheck()
-	self.herald_check_task = self.inst:DoTaskInTime(math.random(TUNING.TOTAL_DAY_TIME / 16, TUNING.TOTAL_DAY_TIME / 8),
+	self.herald_check_task = self.inst:DoTaskInTime(math.random(TUNING.TOTAL_DAY_TIME / 32, TUNING.TOTAL_DAY_TIME / 16),
 		function()
 			for i, player in ipairs(AllPlayers) do
 				if player and not player.components.health:IsDead() then
