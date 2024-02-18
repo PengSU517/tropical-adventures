@@ -9,6 +9,7 @@
 ---------------浮木舟不掉耐久
 ----------------大鸟地区不该加Hamlet标签 roc的SG也没写好
 -------------waffles_plate缺少贴图
+--------------直接制作帽子戴上会报错。。
 
 
 
@@ -38,11 +39,12 @@ GLOBAL.TUNING.tropical = {
 
     springflood       = false, ---GetModConfigData("flood"),
     wind              = GetModConfigData("wind"),
+    waves             = GetModConfigData("waves"),
     hail              = GetModConfigData("hail"),
     volcaniceruption  = false, ------GetModConfigData("volcaniceruption"),
 
-    fog               = false, ----GetModConfigData("fog"),
-    hayfever          = false, ----GetModConfigData("hayfever"),
+    fog               = GetModConfigData("fog"),
+    hayfever          = GetModConfigData("hayfever"),
     aporkalypse       = GetModConfigData("aporkalypse"),
     -- tropicalshards    = false, ----GetModConfigData("tropicalshards"),  ------------删掉所有用到的地方
     -- removedark        = false, ----GetModConfigData("removedark"),-----------只在underwater用到
@@ -52,13 +54,13 @@ GLOBAL.TUNING.tropical = {
     -- sealnado          = true, ----GetModConfigData("sealnado"),--------------parrotspawner里很多东西很奇怪
     -- greenmod                     = GLOBAL.KnownModIndex:IsModEnabled("workshop-1418878027"),
 
-    waves             = true, ----GetModConfigData("Waves"),
+
     -- kindofworld       = 15,    ------GetModConfigData("kindofworld"),
     -- forge             = false, ----GetModConfigData("forge"),
-    disembarkation    = false, -----GetModConfigData("automatic_disembarkation"),------------自动离开船
-    bosslife          = 1,     --------GetModConfigData("bosslife"),
+    disembarkation = false, -----GetModConfigData("automatic_disembarkation"),------------自动离开船
+    bosslife       = 1,     --------GetModConfigData("bosslife"),
 
-    prefabname        = GetModConfigData("prefabname"),
+    prefabname     = GetModConfigData("prefabname"),
 }
 
 local troadv = GLOBAL.TUNING.tropical
@@ -323,7 +325,11 @@ if troadv.testmode then
             level.tasks = { "Make a NewPick" }
             table.insert(level.tasks, "Pincale")
             table.insert(level.tasks, "Verdent")
-            table.insert(level.tasks, "HamArchiveMaze")
+            table.insert(level.tasks, "Plains_start")
+            table.insert(level.tasks, "Plains")          --island3 高草地形，类似牛场
+            table.insert(level.tasks, "Rainforest_ruins")
+            table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
+            -- table.insert(level.tasks, "HamArchiveMaze")
             level.numoptionaltasks = 0
 
             level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋

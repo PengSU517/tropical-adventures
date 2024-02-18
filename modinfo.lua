@@ -7,7 +7,7 @@ end
 name = en_zh(" Tropical Adventure (Shipwrecked & Hamlet)", "热带冒险（海难哈姆雷特三合一）")
 description = en_zh("Personal modification of Tropical Experience", "在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改")
 author = "Peng"
-version = "6.69"
+version = "6.70"
 forumthread = ""
 api_version = 10
 priority = -20
@@ -209,6 +209,14 @@ configuration_options =
 	},
 
 	{
+		name = "waves",
+		label = en_zh("Waves", "海浪"),
+		hover = en_zh("Waves", "海浪"),
+		options = options_enable,
+		default = true,
+	},
+
+	{
 		name = "flood",
 		label = en_zh("Flood", "洪水"),
 		hover = en_zh("Flood", "洪水"),
@@ -228,7 +236,7 @@ configuration_options =
 		name = "fog",
 		label = en_zh("Fog", "雾"),
 		hover = en_zh("Fog", "雾"),
-		options = options_enable2,
+		options = options_enable,
 		default = false,
 	},
 
@@ -236,14 +244,14 @@ configuration_options =
 		name = "hayfever",
 		label = en_zh("Hayfever", "花粉过敏"),
 		hover = en_zh("Hayfever", "花粉过敏"),
-		options = options_enable2,
+		options = options_enable,
 		default = false,
 	},
 
 	{
 		name = "aporkalypse",
 		label = en_zh("Aporkalypse", "毁灭季"),
-		hover = en_zh("Aporkalypse in cave", "毁灭季 在洞穴"),
+		hover = en_zh("Aporkalypse in caves", "毁灭季 在洞穴"),
 		options = options_enable,
 		default = false,
 	},
