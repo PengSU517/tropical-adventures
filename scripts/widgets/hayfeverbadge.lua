@@ -68,7 +68,7 @@ function HayfeverBadge:OnUpdate(dt)
     --         self.owner:AddTag("hamfogspeed")
     --     end
     -- end
-    local hayfeverval = self.owner.components.temperature.hayfever
+    local hayfeverval = self.owner.components.temperature and self.owner.components.temperature.hayfever
 
     if hayfeverval and hayfeverval > 0 then
         local a = math.max(math.min(hayfeverval / 3400, 1), 0)
