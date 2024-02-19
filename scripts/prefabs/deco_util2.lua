@@ -7,7 +7,7 @@ local ANIM_ORIENTATION =
 
 local DECO_RUINS_BEAM_WORK = 6
 
-function MakeInteriorPhysics(inst, rad, height, width)
+local function MakeInteriorPhysics(inst, rad, height, width)
     height = height or 20
 
     inst:AddTag("blocker")
@@ -394,7 +394,7 @@ local function mirror_OnFar(inst)
     end
 end
 
-function decofn(build, bank, animframe, data, assets, prefabs)
+local function decofn(build, bank, animframe, data, assets, prefabs)
     if not data then
         data = {}
     end
@@ -424,6 +424,7 @@ function decofn(build, bank, animframe, data, assets, prefabs)
         anim:PlayAnimation(animframe, loopanim)
 
         inst.Transform:SetRotation(-90)
+        MakeObstaclePhysics(inst, 0.5)
 
         for i, tag in ipairs(tags) do
             inst:AddTag(tag)
@@ -928,8 +929,13 @@ return
             { physics = "post_physics", tags = { "furniture" }, onbuilt = true }), assets, prefabs),
     Prefab("deco_accademy_cornerbeam",
         decofn("interior_wall_decals_accademia", "wall_decals_accademia", "pillar_square_front",
-            { decal = false, loopanim = true, light = DecoCreator:GetLights().SMALL, tags = { "cornerpost" },
-                onbuilt = true }), assets, prefabs),
+            {
+                decal = false,
+                loopanim = true,
+                light = DecoCreator:GetLights().SMALL,
+                tags = { "cornerpost" },
+                onbuilt = true
+            }), assets, prefabs),
     Prefab("deco_accademy_beam",
         decofn("interior_wall_decals_accademia", "wall_decals_accademia", "pillar_square_corner",
             { decal = false, loopanim = true, light = DecoCreator:GetLights().SMALL }), assets, prefabs),
@@ -943,8 +949,13 @@ return
         decofn("ceiling_decor", "ceiling_decor", "windchime_idle", { loopanim = true }), assets, prefabs),
     Prefab("deco_antiquities_cornerbeam",
         decofn("interior_wall_decals_antiquities", "wall_decals_antiquities", "pillar_corner",
-            { decal = true, light = DecoCreator:GetLights().NONE, background = 3, tags = { "NOBLOCK", "cornerpost",
-                "poste" } }), assets, prefabs),
+            {
+                decal = true,
+                light = DecoCreator:GetLights().NONE,
+                background = 3,
+                tags = { "NOBLOCK", "cornerpost",
+                    "poste" }
+            }), assets, prefabs),
     Prefab("deco_antiquities_cornerbeam2",
         decofn("interior_wall_decals_antiquities", "wall_decals_antiquities", "pillar_sidewall",
             { decal = true, light = DecoCreator:GetLights().NONE, tags = { "NOBLOCK", "cornerpost", "postef" } }), assets,
@@ -952,15 +963,15 @@ return
     Prefab("deco_antiquities_endbeam",
         decofn("interior_wall_decals_antiquities", "wall_decals_antiquities", "pillar_front", { decal = true }), assets,
         prefabs),
-    Prefab("deco_antiquities_beefalo_side",
-        decofn("interior_wall_decals_antiquities", "wall_decals_antiquities", "beefalo_sidewall",
-            { decal = true, tags = { "NOBLOCK" } }), assets, prefabs),
-    Prefab("deco_antiquities_beefalo",
-        decofn("interior_wall_decals_antiquities", "wall_decals_antiquities", "beefalo_front",
-            { decal = true, tags = { "wallsection" }, onbuilt = true }), assets, prefabs),
-    Prefab("deco_antiquities_wallfish_side",
-        decofn("interior_wall_decals_antiquities", "wall_decals_antiquities", "fish_sidewall",
-            { decal = true, background = 3, tags = { "NOBLOCK" } }), assets, prefabs),
+    -- Prefab("deco_antiquities_beefalo_side",
+    --     decofn("interior_wall_decals_antiquities", "wall_decals_antiquities", "beefalo_sidewall",
+    --         { decal = true, tags = { "NOBLOCK" } }), assets, prefabs),
+    -- Prefab("deco_antiquities_beefalo",
+    --     decofn("interior_wall_decals_antiquities", "wall_decals_antiquities", "beefalo_front",
+    --         { decal = true, tags = { "wallsection" }, onbuilt = true }), assets, prefabs),
+    -- Prefab("deco_antiquities_wallfish_side",
+    --     decofn("interior_wall_decals_antiquities", "wall_decals_antiquities", "fish_sidewall",
+    --         { decal = true, background = 3, tags = { "NOBLOCK" } }), assets, prefabs),
     --Prefab("deco_antiquities_wallfish",           decofn("interior_wall_decals_antiquities", "wall_decals_antiquities", "fish_front",        {decal=true, background=3, tags={"NOBLOCK","wallsection"}, onbuilt=true}), assets, prefabs),
     Prefab("deco_antiquities_pallet_sidewall",
         decofn("interior_wall_decals_antiquities", "wall_decals_antiquities", "pallet_sidewall",
@@ -1028,13 +1039,16 @@ return
 
     ------------------------------deco_florist----------------
     Prefab("deco_florist_vines1",
-        decofn("interior_wall_decals_florist", "interior_wall_decals_florist", "vines_1", { decal = true, background = 2 }),
+        decofn("interior_wall_decals_florist", "interior_wall_decals_florist", "vines_1",
+            { decal = true, background = 2 }),
         assets, prefabs),
     Prefab("deco_florist_vines2",
-        decofn("interior_wall_decals_florist", "interior_wall_decals_florist", "vines_2", { decal = true, background = 2 }),
+        decofn("interior_wall_decals_florist", "interior_wall_decals_florist", "vines_2",
+            { decal = true, background = 2 }),
         assets, prefabs),
     Prefab("deco_florist_vines3",
-        decofn("interior_wall_decals_florist", "interior_wall_decals_florist", "vines_3", { decal = true, background = 2 }),
+        decofn("interior_wall_decals_florist", "interior_wall_decals_florist", "vines_3",
+            { decal = true, background = 2 }),
         assets, prefabs),
     Prefab("deco_florist_hangingplant1", decofn("ceiling_decor", "ceiling_decor", "plant1_idle", { loopanim = true }),
         assets, prefabs),

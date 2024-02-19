@@ -11,10 +11,10 @@ local assets =
 	Asset("ANIM", "anim/snakebonesoup.zip"),
 	Asset("ANIM", "anim/nettlelosange.zip"),
 	Asset("ANIM", "anim/fruityjuice.zip"),
-	Asset("ANIM", "anim/meated_nettle.zip"),	
+	Asset("ANIM", "anim/meated_nettle.zip"),
 }
 
-local prefabs = 
+local prefabs =
 {
 	"spoiled_food",
 }
@@ -28,22 +28,22 @@ local function fnasparagussoup(Sim)
 	MakeInventoryPhysics(inst)
 	MakeSmallBurnable(inst)
 	MakeSmallPropagator(inst)
-	
+
 	MakeInventoryPhysics(inst)
-	
+
 	inst.AnimState:SetBank("asparagussoup")
 	inst.AnimState:SetBuild("asparagussoup")
 	inst.AnimState:PlayAnimation("idle")
-			
+
 	inst:AddTag("preparedfood")
 	MakeInventoryFloatable(inst)
-	
+
 	inst.entity:SetPristine()
-    
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "VEGGIE"
@@ -54,7 +54,7 @@ local function fnasparagussoup(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
 	inst.caminho = "images/inventoryimages/hamletinventory.xml"
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -67,9 +67,9 @@ local function fnasparagussoup(Sim)
 	inst:AddComponent("bait")
 
 	inst:AddComponent("tradable")
-	
-	MakeHauntableLaunchAndPerish(inst)		
-    return inst
+
+	MakeHauntableLaunchAndPerish(inst)
+	return inst
 end
 
 local function fnspicyvegstinger(Sim)
@@ -81,22 +81,22 @@ local function fnspicyvegstinger(Sim)
 	MakeInventoryPhysics(inst)
 	MakeSmallBurnable(inst)
 	MakeSmallPropagator(inst)
-	
+
 	MakeInventoryPhysics(inst)
-	
+
 	inst.AnimState:SetBank("spicyvegstinger")
 	inst.AnimState:SetBuild("spicyvegstinger")
 	inst.AnimState:PlayAnimation("idle")
-			
+
 	inst:AddTag("preparedfood")
 	MakeInventoryFloatable(inst)
-	
+
 	inst.entity:SetPristine()
-    
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "VEGGIE"
@@ -107,7 +107,7 @@ local function fnspicyvegstinger(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
 	inst.caminho = "images/inventoryimages/hamletinventory.xml"
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -120,9 +120,9 @@ local function fnspicyvegstinger(Sim)
 	inst:AddComponent("bait")
 
 	inst:AddComponent("tradable")
-	
-	MakeHauntableLaunchAndPerish(inst)		
-    return inst
+
+	MakeHauntableLaunchAndPerish(inst)
+	return inst
 end
 
 local function fnfeijoada(Sim)
@@ -134,22 +134,22 @@ local function fnfeijoada(Sim)
 	MakeInventoryPhysics(inst)
 	MakeSmallBurnable(inst)
 	MakeSmallPropagator(inst)
-	
+
 	MakeInventoryPhysics(inst)
-	
+
 	inst.AnimState:SetBank("feijoada")
 	inst.AnimState:SetBuild("feijoada")
 	inst.AnimState:PlayAnimation("idle")
-			
+
 	inst:AddTag("preparedfood")
 	MakeInventoryFloatable(inst)
-	
+
 	inst.entity:SetPristine()
-    
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "MEAT"
@@ -160,7 +160,7 @@ local function fnfeijoada(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
 	inst.caminho = "images/inventoryimages/hamletinventory.xml"
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -173,9 +173,9 @@ local function fnfeijoada(Sim)
 	inst:AddComponent("bait")
 
 	inst:AddComponent("tradable")
-	
-	MakeHauntableLaunchAndPerish(inst)			
-    return inst
+
+	MakeHauntableLaunchAndPerish(inst)
+	return inst
 end
 
 local function fnsteamedhamsandwich(Sim)
@@ -187,22 +187,22 @@ local function fnsteamedhamsandwich(Sim)
 	MakeInventoryPhysics(inst)
 	MakeSmallBurnable(inst)
 	MakeSmallPropagator(inst)
-	
+
 	MakeInventoryPhysics(inst)
-	
+
 	inst.AnimState:SetBank("steamedhamsandwich")
 	inst.AnimState:SetBuild("steamedhamsandwich")
 	inst.AnimState:PlayAnimation("idle")
-			
+
 	inst:AddTag("preparedfood")
 	MakeInventoryFloatable(inst)
-	
+
 	inst.entity:SetPristine()
-    
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "MEAT"
@@ -213,7 +213,7 @@ local function fnsteamedhamsandwich(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
 	inst.caminho = "images/inventoryimages/hamletinventory.xml"
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -226,9 +226,9 @@ local function fnsteamedhamsandwich(Sim)
 	inst:AddComponent("bait")
 
 	inst:AddComponent("tradable")
-	
-	MakeHauntableLaunchAndPerish(inst)		
-    return inst
+
+	MakeHauntableLaunchAndPerish(inst)
+	return inst
 end
 
 local function fnhardshell_tacos(Sim)
@@ -240,22 +240,22 @@ local function fnhardshell_tacos(Sim)
 	MakeInventoryPhysics(inst)
 	MakeSmallBurnable(inst)
 	MakeSmallPropagator(inst)
-	
+
 	MakeInventoryPhysics(inst)
-	
+
 	inst.AnimState:SetBank("hardshell_tacos")
 	inst.AnimState:SetBuild("hardshell_tacos")
 	inst.AnimState:PlayAnimation("idle")
-			
+
 	inst:AddTag("preparedfood")
 	MakeInventoryFloatable(inst)
-	
+
 	inst.entity:SetPristine()
-    
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "VEGGIE"
@@ -266,7 +266,7 @@ local function fnhardshell_tacos(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
 	inst.caminho = "images/inventoryimages/hamletinventory.xml"
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -279,9 +279,9 @@ local function fnhardshell_tacos(Sim)
 	inst:AddComponent("bait")
 
 	inst:AddComponent("tradable")
-	
-	MakeHauntableLaunchAndPerish(inst)		
-    return inst
+
+	MakeHauntableLaunchAndPerish(inst)
+	return inst
 end
 
 local function fngummy_cake(Sim)
@@ -293,22 +293,22 @@ local function fngummy_cake(Sim)
 	MakeInventoryPhysics(inst)
 	MakeSmallBurnable(inst)
 	MakeSmallPropagator(inst)
-	
+
 	MakeInventoryPhysics(inst)
-	
+
 	inst.AnimState:SetBank("gummy_cake")
 	inst.AnimState:SetBuild("gummy_cake")
 	inst.AnimState:PlayAnimation("idle")
-			
+
 	inst:AddTag("preparedfood")
 	MakeInventoryFloatable(inst)
-	
+
 	inst.entity:SetPristine()
-    
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "MEAT"
@@ -319,7 +319,7 @@ local function fngummy_cake(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
 	inst.caminho = "images/inventoryimages/hamletinventory.xml"
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -332,9 +332,9 @@ local function fngummy_cake(Sim)
 	inst:AddComponent("bait")
 
 	inst:AddComponent("tradable")
-	
-	MakeHauntableLaunchAndPerish(inst)		
-    return inst
+
+	MakeHauntableLaunchAndPerish(inst)
+	return inst
 end
 
 local function fntea(Sim)
@@ -346,22 +346,22 @@ local function fntea(Sim)
 	MakeInventoryPhysics(inst)
 	MakeSmallBurnable(inst)
 	MakeSmallPropagator(inst)
-	
+
 	MakeInventoryPhysics(inst)
-	
+
 	inst.AnimState:SetBank("tes")
 	inst.AnimState:SetBuild("tea")
 	inst.AnimState:PlayAnimation("idle")
-			
+
 	inst:AddTag("preparedfood")
 	MakeInventoryFloatable(inst)
-	
+
 	inst.entity:SetPristine()
-    
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "VEGGIE"
@@ -372,7 +372,7 @@ local function fntea(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
 	inst.caminho = "images/inventoryimages/hamletinventory.xml"
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -385,9 +385,9 @@ local function fntea(Sim)
 	inst:AddComponent("bait")
 
 	inst:AddComponent("tradable")
-	
-	MakeHauntableLaunchAndPerish(inst)	
-    return inst
+
+	MakeHauntableLaunchAndPerish(inst)
+	return inst
 end
 
 local function fnicedtea(Sim)
@@ -399,22 +399,22 @@ local function fnicedtea(Sim)
 	MakeInventoryPhysics(inst)
 	MakeSmallBurnable(inst)
 	MakeSmallPropagator(inst)
-	
+
 	MakeInventoryPhysics(inst)
-	
+
 	inst.AnimState:SetBank("icedtea")
 	inst.AnimState:SetBuild("icedtea")
 	inst.AnimState:PlayAnimation("idle")
-			
+
 	inst:AddTag("preparedfood")
 	MakeInventoryFloatable(inst)
-	
+
 	inst.entity:SetPristine()
-    
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "VEGGIE"
@@ -425,7 +425,7 @@ local function fnicedtea(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
 	inst.caminho = "images/inventoryimages/hamletinventory.xml"
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -438,9 +438,9 @@ local function fnicedtea(Sim)
 	inst:AddComponent("bait")
 
 	inst:AddComponent("tradable")
-	
-	MakeHauntableLaunchAndPerish(inst)		
-    return inst
+
+	MakeHauntableLaunchAndPerish(inst)
+	return inst
 end
 
 local function fnsnakebonesoup(Sim)
@@ -452,22 +452,22 @@ local function fnsnakebonesoup(Sim)
 	MakeInventoryPhysics(inst)
 	MakeSmallBurnable(inst)
 	MakeSmallPropagator(inst)
-	
+
 	MakeInventoryPhysics(inst)
-	
+
 	inst.AnimState:SetBank("snakebonesoup")
 	inst.AnimState:SetBuild("snakebonesoup")
 	inst.AnimState:PlayAnimation("idle")
-			
+
 	inst:AddTag("preparedfood")
 	MakeInventoryFloatable(inst)
-	
+
 	inst.entity:SetPristine()
-    
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "MEAT"
@@ -478,7 +478,7 @@ local function fnsnakebonesoup(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
 	inst.caminho = "images/inventoryimages/hamletinventory.xml"
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -491,15 +491,15 @@ local function fnsnakebonesoup(Sim)
 	inst:AddComponent("bait")
 
 	inst:AddComponent("tradable")
-	
-	MakeHauntableLaunchAndPerish(inst)	
-    return inst
+
+	MakeHauntableLaunchAndPerish(inst)
+	return inst
 end
 
 local function oneatnettlelosange(inst, eater)
-    if eater.components.temperature ~= nil and eater.components.temperature.hayfever then
-    eater.components.temperature.hayfever = - 19000
-    end
+	if eater.components.hayfever ~= nil and eater.components.hayfever.fevervalue then
+		eater.components.hayfever.fevervalue = eater.components.hayfever.fevervalue - 19000
+	end
 end
 
 local function fnnettlelosange(Sim)
@@ -511,34 +511,34 @@ local function fnnettlelosange(Sim)
 	MakeInventoryPhysics(inst)
 	MakeSmallBurnable(inst)
 	MakeSmallPropagator(inst)
-	
+
 	MakeInventoryPhysics(inst)
-	
+
 	inst.AnimState:SetBank("nettlelosange")
 	inst.AnimState:SetBuild("nettlelosange")
 	inst.AnimState:PlayAnimation("idle")
-			
+
 	inst:AddTag("preparedfood")
 	MakeInventoryFloatable(inst)
-	
+
 	inst.entity:SetPristine()
-    
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "VEGGIE"
 	inst.components.edible.healthvalue = TUNING.HEALING_MED
 	inst.components.edible.hungervalue = TUNING.CALORIES_MED
 	inst.components.edible.sanityvalue = TUNING.SANITY_TINY
-    inst.components.edible:SetOnEatenFn(oneatnettlelosange)	
+	inst.components.edible:SetOnEatenFn(oneatnettlelosange)
 
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
 	inst.caminho = "images/inventoryimages/hamletinventory.xml"
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -551,15 +551,15 @@ local function fnnettlelosange(Sim)
 	inst:AddComponent("bait")
 
 	inst:AddComponent("tradable")
-	
-	MakeHauntableLaunchAndPerish(inst)		
-    return inst
+
+	MakeHauntableLaunchAndPerish(inst)
+	return inst
 end
 
 local function oneatmeated_nettle(inst, eater)
-    if eater.components.temperature ~= nil and eater.components.temperature.hayfever then
-    eater.components.temperature.hayfever = - 16000
-    end
+	if eater.components.hayfever ~= nil and eater.components.hayfever.fevervalue then
+		eater.components.hayfever.fevervalue = eater.components.hayfever.fevervalue - 16000
+	end
 end
 
 local function fnmeated_nettle(Sim)
@@ -571,34 +571,34 @@ local function fnmeated_nettle(Sim)
 	MakeInventoryPhysics(inst)
 	MakeSmallBurnable(inst)
 	MakeSmallPropagator(inst)
-	
+
 	MakeInventoryPhysics(inst)
-	
+
 	inst.AnimState:SetBank("meated_nettle")
 	inst.AnimState:SetBuild("meated_nettle")
 	inst.AnimState:PlayAnimation("idle")
-			
+
 	inst:AddTag("preparedfood")
 	MakeInventoryFloatable(inst)
-	
+
 	inst.entity:SetPristine()
-    
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "MEAT"
 	inst.components.edible.healthvalue = TUNING.HEALING_MED
 	inst.components.edible.hungervalue = TUNING.CALORIES_LARGE
 	inst.components.edible.sanityvalue = TUNING.SANITY_TINY
-    inst.components.edible:SetOnEatenFn(oneatmeated_nettle)	
+	inst.components.edible:SetOnEatenFn(oneatmeated_nettle)
 
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/meated_nettle.xml"
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/meated_nettle.xml"
 	inst.caminho = "images/inventoryimages/meated_nettle.xml"
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -611,15 +611,15 @@ local function fnmeated_nettle(Sim)
 	inst:AddComponent("bait")
 
 	inst:AddComponent("tradable")
-	
-	MakeHauntableLaunchAndPerish(inst)		
-    return inst
+
+	MakeHauntableLaunchAndPerish(inst)
+	return inst
 end
 
 local function oneat(inst, eater)
-    if eater.components.temperature ~= nil then
-	eater.components.temperature:DoDelta(-30)
-    end
+	if eater.components.temperature ~= nil then
+		eater.components.temperature:DoDelta(-30)
+	end
 end
 
 local function fnfruityjuice(Sim)
@@ -631,22 +631,22 @@ local function fnfruityjuice(Sim)
 	MakeInventoryPhysics(inst)
 	MakeSmallBurnable(inst)
 	MakeSmallPropagator(inst)
-	
+
 	MakeInventoryPhysics(inst)
-	
+
 	inst.AnimState:SetBank("fruityjuice")
 	inst.AnimState:SetBuild("fruityjuice")
 	inst.AnimState:PlayAnimation("idle")
-			
+
 	inst:AddTag("preparedfood")
 	MakeInventoryFloatable(inst)
-	
+
 	inst.entity:SetPristine()
-    
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "VEGGIE"
@@ -654,11 +654,11 @@ local function fnfruityjuice(Sim)
 	inst.components.edible.hungervalue = 25
 	inst.components.edible.sanityvalue = 33
 	inst.components.edible:SetOnEatenFn(oneat)
-	
+
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
 	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -671,22 +671,20 @@ local function fnfruityjuice(Sim)
 	inst:AddComponent("bait")
 
 	inst:AddComponent("tradable")
-	
-	MakeHauntableLaunchAndPerish(inst)		
-    return inst
+
+	MakeHauntableLaunchAndPerish(inst)
+	return inst
 end
 
-return Prefab( "common/inventory/asparagussoup", fnasparagussoup, assets, prefabs ),
-	   Prefab( "common/inventory/spicyvegstinger", fnspicyvegstinger, assets, prefabs ),
-	   Prefab( "common/inventory/feijoada", fnfeijoada, assets, prefabs ),
-	   Prefab( "common/inventory/steamedhamsandwich", fnsteamedhamsandwich, assets, prefabs ),
-	   Prefab( "common/inventory/hardshell_tacos", fnhardshell_tacos, assets, prefabs ),
-	   Prefab( "common/inventory/gummy_cake", fngummy_cake, assets, prefabs ),
-	   Prefab( "common/inventory/tea", fntea, assets, prefabs ),
-	   Prefab( "common/inventory/icedtea", fnicedtea, assets, prefabs ),
-	   Prefab( "common/inventory/snakebonesoup", fnsnakebonesoup, assets, prefabs ),
-	   Prefab( "common/inventory/nettlelosange", fnnettlelosange, assets, prefabs ),
-	   Prefab( "common/inventory/fruityjuice", fnfruityjuice, assets, prefabs ),	 
-	   Prefab( "common/inventory/meated_nettle", fnmeated_nettle, assets, prefabs )
-
-	   
+return Prefab("common/inventory/asparagussoup", fnasparagussoup, assets, prefabs),
+	Prefab("common/inventory/spicyvegstinger", fnspicyvegstinger, assets, prefabs),
+	Prefab("common/inventory/feijoada", fnfeijoada, assets, prefabs),
+	Prefab("common/inventory/steamedhamsandwich", fnsteamedhamsandwich, assets, prefabs),
+	Prefab("common/inventory/hardshell_tacos", fnhardshell_tacos, assets, prefabs),
+	Prefab("common/inventory/gummy_cake", fngummy_cake, assets, prefabs),
+	Prefab("common/inventory/tea", fntea, assets, prefabs),
+	Prefab("common/inventory/icedtea", fnicedtea, assets, prefabs),
+	Prefab("common/inventory/snakebonesoup", fnsnakebonesoup, assets, prefabs),
+	Prefab("common/inventory/nettlelosange", fnnettlelosange, assets, prefabs),
+	Prefab("common/inventory/fruityjuice", fnfruityjuice, assets, prefabs),
+	Prefab("common/inventory/meated_nettle", fnmeated_nettle, assets, prefabs)

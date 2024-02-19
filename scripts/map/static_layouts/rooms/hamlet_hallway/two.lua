@@ -133,7 +133,7 @@ return {
         },
         {
           name = "",
-          type = "ancient_herald",
+          type = "ghost",
           shape = "rectangle",
           x = 176,
           y = 212,
@@ -427,17 +427,17 @@ return {
             ["data.gridnudge"] = "true"
           }
         },
-        {
-          name = "",
-          type = "archive_cookpot_area",
-          shape = "rectangle",
-          x = 150,
-          y = 249,
-          width = 33,
-          height = 29,
-          visible = true,
-          properties = {}
-        },
+        -- {
+        --   name = "",
+        --   type = "archive_cookpot_area",
+        --   shape = "rectangle",
+        --   x = 150,
+        --   y = 249,
+        --   width = 33,
+        --   height = 29,
+        --   visible = true,
+        --   properties = {}
+        -- },
         {
           name = "",
           type = "archive_sound_area",

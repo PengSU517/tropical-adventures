@@ -247,18 +247,12 @@ local function entrance()
 		local part = SpawnPrefab("deco_wood_cornerbeam")
 		if part ~= nil then
 			part.Transform:SetPosition(x + 5, 0, z + 15 / 2)
-			part.Transform:SetRotation(180)
-			if part.components.health ~= nil then
-				part.components.health:SetPercent(1)
-			end
 		end
 
 		local part = SpawnPrefab("deco_wood_cornerbeam")
 		if part ~= nil then
 			part.Transform:SetPosition(x + 5, 0, z - 15 / 2)
-			if part.components.health ~= nil then
-				part.components.health:SetPercent(1)
-			end
+			part.Transform:SetRotation(180)
 		end
 
 		local part = SpawnPrefab("deco_deli_meatrack")

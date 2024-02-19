@@ -10,22 +10,39 @@ local prefabs =
     "cutreeds",
 }
 
-local function groundtest(inst)
-local map = TheWorld.Map
-local ex, ey, ez = inst.Transform:GetWorldPosition()
-local posicao1 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez+4))
-local posicao2 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez-4))
-local posicao3 = map:GetTile(map:GetTileCoordsAtPoint(ex+4, ey, ez))
-local posicao4 = map:GetTile(map:GetTileCoordsAtPoint(ex-4, ey, ez))
+local function IsWater(tile)
+    if (tile >= LEGACY_WORLD_TILES_OCEAN_START and tile <= LEGACY_WORLD_TILES_OCEAN_END) then
+        return true
+    end
 
-if posicao1 ~= (GROUND.OCEAN_SWELL) and posicao1 ~= (GROUND.OCEAN_WATERLOG) and posicao1 ~= (GROUND.OCEAN_BRINEPOOL) and posicao1 ~= (GROUND.OCEAN_BRINEPOOL_SHORE) and posicao1 ~= (GROUND.OCEAN_HAZARDOUS) and posicao1 ~= (GROUND.OCEAN_ROUGH) and posicao1 ~= (GROUND.OCEAN_COASTAL) and posicao1 ~= (GROUND.OCEAN_COASTAL_SHORE)
-or posicao2 ~= (GROUND.OCEAN_SWELL) and posicao2 ~= (GROUND.OCEAN_WATERLOG) and posicao2 ~= (GROUND.OCEAN_BRINEPOOL) and posicao2 ~= (GROUND.OCEAN_BRINEPOOL_SHORE) and posicao2 ~= (GROUND.OCEAN_HAZARDOUS) and posicao2 ~= (GROUND.OCEAN_ROUGH) and posicao2 ~= (GROUND.OCEAN_COASTAL) and posicao2 ~= (GROUND.OCEAN_COASTAL_SHORE)
-or posicao3 ~= (GROUND.OCEAN_SWELL) and posicao3 ~= (GROUND.OCEAN_WATERLOG) and posicao3 ~= (GROUND.OCEAN_BRINEPOOL) and posicao3 ~= (GROUND.OCEAN_BRINEPOOL_SHORE) and posicao3 ~= (GROUND.OCEAN_HAZARDOUS) and posicao3 ~= (GROUND.OCEAN_ROUGH) and posicao3 ~= (GROUND.OCEAN_COASTAL) and posicao3 ~= (GROUND.OCEAN_COASTAL_SHORE)
-or posicao4 ~= (GROUND.OCEAN_SWELL) and posicao4 ~= (GROUND.OCEAN_WATERLOG) and posicao4 ~= (GROUND.OCEAN_BRINEPOOL) and posicao4 ~= (GROUND.OCEAN_BRINEPOOL_SHORE) and posicao4 ~= (GROUND.OCEAN_HAZARDOUS) and posicao4 ~= (GROUND.OCEAN_ROUGH) and posicao4 ~= (GROUND.OCEAN_COASTAL) and posicao4 ~= (GROUND.OCEAN_COASTAL_SHORE) then
- 
-inst:Remove()
+    if (tile >= WORLD_TILES_OCEAN_START and tile <= WORLD_TILES_OCEAN_END) then
+        return true
+    end
+
+    return false
 end
+
+local function groundtest(inst)
+    local map = TheWorld.Map
+    local ex, ey, ez = inst.Transform:GetWorldPosition()
+    local posicao1 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez + 2))
+    local posicao2 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez - 2))
+    local posicao3 = map:GetTile(map:GetTileCoordsAtPoint(ex + 2, ey, ez))
+    local posicao4 = map:GetTile(map:GetTileCoordsAtPoint(ex - 2, ey, ez))
+
+    -- if posicao1 ~= (GROUND.OCEAN_SWELL) and posicao1 ~= (GROUND.OCEAN_WATERLOG) and posicao1 ~= (GROUND.OCEAN_BRINEPOOL) and posicao1 ~= (GROUND.OCEAN_BRINEPOOL_SHORE) and posicao1 ~= (GROUND.OCEAN_HAZARDOUS) and posicao1 ~= (GROUND.OCEAN_ROUGH) and posicao1 ~= (GROUND.OCEAN_COASTAL) and posicao1 ~= (GROUND.OCEAN_COASTAL_SHORE)
+    --     or posicao2 ~= (GROUND.OCEAN_SWELL) and posicao2 ~= (GROUND.OCEAN_WATERLOG) and posicao2 ~= (GROUND.OCEAN_BRINEPOOL) and posicao2 ~= (GROUND.OCEAN_BRINEPOOL_SHORE) and posicao2 ~= (GROUND.OCEAN_HAZARDOUS) and posicao2 ~= (GROUND.OCEAN_ROUGH) and posicao2 ~= (GROUND.OCEAN_COASTAL) and posicao2 ~= (GROUND.OCEAN_COASTAL_SHORE)
+    --     or posicao3 ~= (GROUND.OCEAN_SWELL) and posicao3 ~= (GROUND.OCEAN_WATERLOG) and posicao3 ~= (GROUND.OCEAN_BRINEPOOL) and posicao3 ~= (GROUND.OCEAN_BRINEPOOL_SHORE) and posicao3 ~= (GROUND.OCEAN_HAZARDOUS) and posicao3 ~= (GROUND.OCEAN_ROUGH) and posicao3 ~= (GROUND.OCEAN_COASTAL) and posicao3 ~= (GROUND.OCEAN_COASTAL_SHORE)
+    --     or posicao4 ~= (GROUND.OCEAN_SWELL) and posicao4 ~= (GROUND.OCEAN_WATERLOG) and posicao4 ~= (GROUND.OCEAN_BRINEPOOL) and posicao4 ~= (GROUND.OCEAN_BRINEPOOL_SHORE) and posicao4 ~= (GROUND.OCEAN_HAZARDOUS) and posicao4 ~= (GROUND.OCEAN_ROUGH) and posicao4 ~= (GROUND.OCEAN_COASTAL) and posicao4 ~= (GROUND.OCEAN_COASTAL_SHORE) then
+    --     inst:Remove()
+    -- end
+
+    if (not IsWater(posicao1)) or (not IsWater(posicao2)) or (not IsWater(posicao3)) or (not IsWater(posicao4)) then
+        inst:Remove()
+    end
 end
+
+
 
 local function onpickedfn(inst)
     inst.SoundEmitter:PlaySound("dontstarve/wilson/pickup_reeds")
@@ -50,7 +67,7 @@ local function fn()
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
-	MakeInventoryPhysics(inst, nil, 0.7)
+    MakeInventoryPhysics(inst, nil, 0.7)
     inst.MiniMapEntity:SetIcon("reeds.png")
 
     inst:AddTag("plant")
@@ -65,9 +82,9 @@ local function fn()
         return inst
     end
 
---    inst.AnimState:SetTime(math.random() * 2)
---    local color = 0.75 + math.random() * 0.25
---    inst.AnimState:SetMultColour(color, color, color, 1)
+    --    inst.AnimState:SetTime(math.random() * 2)
+    --    local color = 0.75 + math.random() * 0.25
+    --    inst.AnimState:SetMultColour(color, color, color, 1)
 
     inst:AddComponent("pickable")
     inst.components.pickable.picksound = "dontstarve/wilson/pickup_reeds"
@@ -79,7 +96,7 @@ local function fn()
 
     inst:AddComponent("inspectable")
 
-    ---------------------        
+    ---------------------
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.SMALL_FUEL
 
@@ -87,10 +104,10 @@ local function fn()
     MakeSmallPropagator(inst)
     MakeNoGrowInWinter(inst)
     MakeHauntableIgnite(inst)
-    ---------------------   
-	inst:DoTaskInTime(0, groundtest)
-	
+    ---------------------
+    inst:DoTaskInTime(0, groundtest)
+
     return inst
 end
 
-return Prefab( "reeds_water", fn, assets, prefabs)
+return Prefab("reeds_water", fn, assets, prefabs)

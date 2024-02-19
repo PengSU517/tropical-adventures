@@ -9,20 +9,27 @@ local assets_baby =
 	Asset("INV_IMAGE", "doydoy_teen"),
 }
 
-local function InitAnimationFromPosition(inst)
-if inst.components.inventoryitem and inst.components.inventoryitem.owner then return end
+local seabeach_amount = {
+	doydoy = 0,
+}
 
-local map = TheWorld.Map
-local x, y, z = inst.Transform:GetWorldPosition()
-local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-if ground == GROUND.OCEAN_COASTAL or
-ground == GROUND.OCEAN_COASTAL_SHORE or
-ground == GROUND.OCEAN_SWELL or
-ground == GROUND.OCEAN_ROUGH or
-ground == GROUND.OCEAN_BRINEPOOL or
-ground == GROUND.OCEAN_BRINEPOOL_SHORE or
-ground == GROUND.OCEAN_WATERLOG or
-ground == GROUND.OCEAN_HAZARDOUS then
+local function InitAnimationFromPosition(inst)
+	if inst.components.inventoryitem and inst.components.inventoryitem.owner then
+		return
+	end
+
+
+	local map = TheWorld.Map
+	local x, y, z = inst.Transform:GetWorldPosition()
+	local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
+	if TileGroupManager:IsOceanTile(ground) --[[ground == GROUND.OCEAN_COASTAL or
+		ground == GROUND.OCEAN_COASTAL_SHORE or
+		ground == GROUND.OCEAN_SWELL or
+		ground == GROUND.OCEAN_ROUGH or
+		ground == GROUND.OCEAN_BRINEPOOL or
+		ground == GROUND.OCEAN_BRINEPOOL_SHORE or
+		ground == GROUND.OCEAN_WATERLOG or
+		ground == GROUND.OCEAN_HAZARDOUS]] then
 		inst.onwater = true
 		inst.components.inventoryitem.canbepickedup = true
 
@@ -31,34 +38,34 @@ ground == GROUND.OCEAN_HAZARDOUS then
 end
 
 local function ondropped(inst)
-local map = TheWorld.Map
-local x, y, z = inst.Transform:GetWorldPosition()
-local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-if ground == GROUND.OCEAN_COASTAL or
-ground == GROUND.OCEAN_COASTAL_SHORE or
-ground == GROUND.OCEAN_SWELL or
-ground == GROUND.OCEAN_ROUGH or
-ground == GROUND.OCEAN_BRINEPOOL or
-ground == GROUND.OCEAN_BRINEPOOL_SHORE or
-ground == GROUND.OCEAN_WATERLOG or
-ground == GROUND.OCEAN_HAZARDOUS then
-if inst:HasTag("baby") then
-local bolha = SpawnPrefab("frogsplash")
-bolha.Transform:SetPosition(x, y, z)
-inst:Remove()
+	local map = TheWorld.Map
+	local x, y, z = inst.Transform:GetWorldPosition()
+	local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
+	if TileGroupManager:IsOceanTile(ground) --[[ground == GROUND.OCEAN_COASTAL or
+		ground == GROUND.OCEAN_COASTAL_SHORE or
+		ground == GROUND.OCEAN_SWELL or
+		ground == GROUND.OCEAN_ROUGH or
+		ground == GROUND.OCEAN_BRINEPOOL or
+		ground == GROUND.OCEAN_BRINEPOOL_SHORE or
+		ground == GROUND.OCEAN_WATERLOG or
+		ground == GROUND.OCEAN_HAZARDOUS]] then
+		if inst:HasTag("baby") then
+			local bolha = SpawnPrefab("frogsplash")
+			bolha.Transform:SetPosition(x, y, z)
+			inst:Remove()
+		else
+			inst:RemoveComponent("sleeper")
+			inst.components.inventoryitem.canbepickedup = true
+			inst.sg:GoToState("idle_water")
+			return
+		end
+	end
 
-else
-inst:RemoveComponent("sleeper")
-inst.components.inventoryitem.canbepickedup = true
-inst.sg:GoToState("idle_water")
-return end	
-end
-
-inst:AddTag("mating")
-if not inst.components.sleeper then
-inst:AddComponent("sleeper")
-end
-inst.components.sleeper:GoToSleep()
+	inst:AddTag("mating")
+	if not inst.components.sleeper then
+		inst:AddComponent("sleeper")
+	end
+	inst.components.sleeper:GoToSleep()
 end
 
 
@@ -82,7 +89,7 @@ local prefabs =
 }
 
 local seg_time = 30 --each segment of the clock is 30 seconds
-local total_day_time = seg_time*16
+local total_day_time = seg_time * 16
 
 local DOYDOY_HEALTH = 100
 local DOYDOY_WALK_SPEED = 2
@@ -94,18 +101,18 @@ local DOYDOY_BABY_GROW_TIME = total_day_time * 2 --time to grow up
 local DOYDOY_TEEN_HEALTH = 75
 local DOYDOY_TEEN_WALK_SPEED = 1.5
 local DOYDOY_TEEN_SCALE = 0.8
-local DOYDOY_TEEN_GROW_TIME =  total_day_time * 1 --time to grow up
+local DOYDOY_TEEN_GROW_TIME = total_day_time * 1 --time to grow up
 
 
-local babyloot = {"smallmeat","doydoyfeather"}
-local teenloot = {"drumstick","doydoyfeather","doydoyfeather"}
-local adultloot = {'meat', 'drumstick', 'drumstick', 'doydoyfeather', 'doydoyfeather'}
+local babyloot = { "smallmeat", "doydoyfeather" }
+local teenloot = { "drumstick", "doydoyfeather", "doydoyfeather" }
+local adultloot = { 'meat', 'drumstick', 'drumstick', 'doydoyfeather', 'doydoyfeather' }
 
-local babyfoodprefs = {"SEEDS"}
-local teenfoodprefs = {"SEEDS", "VEGGIE"}
-local adultfoodprefs = {"MEAT", "VEGGIE", "SEEDS", "ELEMENTAL", "WOOD"}
+local babyfoodprefs = { "SEEDS" }
+local teenfoodprefs = { "SEEDS", "VEGGIE" }
+local adultfoodprefs = { "MEAT", "VEGGIE", "SEEDS", "ELEMENTAL", "WOOD" }
 
-local babysounds = 
+local babysounds =
 {
 	eat_pre = "dontstarve_DLC002/creatures/baby_doy_doy/eat_pre",
 	swallow = "dontstarve_DLC002/creatures/baby_doy_doy/swallow",
@@ -115,7 +122,7 @@ local babysounds =
 	peck = "dontstarve_DLC002/creatures/teen_doy_doy/peck",
 }
 
-local teensounds = 
+local teensounds =
 {
 	idle = "dontstarve_DLC002/creatures/teen_doy_doy/idle",
 	eat_pre = "dontstarve_DLC002/creatures/teen_doy_doy/eat_pre",
@@ -127,11 +134,10 @@ local teensounds =
 }
 
 local function SetBaby(inst)
-
 	if not TheWorld.ismastersim then
-        return inst
-    end
-	
+		return inst
+	end
+
 	inst:AddTag("baby")
 	inst:RemoveTag("teen")
 
@@ -156,10 +162,9 @@ local function SetBaby(inst)
 end
 
 local function SetTeen(inst)
-	
 	if not TheWorld.ismastersim then
-        return inst
-    end
+		return inst
+	end
 
 	inst:AddTag("teen")
 	inst:RemoveTag("baby")
@@ -199,9 +204,9 @@ end
 
 local growth_stages =
 {
-	{name="baby", time = GetBabyGrowTime, fn = SetBaby},
-	{name="teen", time = GetTeenGrowTime, fn = SetTeen},
-	{name="grown", time = GetTeenGrowTime, fn = SetFullyGrown},
+	{ name = "baby",  time = GetBabyGrowTime, fn = SetBaby },
+	{ name = "teen",  time = GetTeenGrowTime, fn = SetTeen },
+	{ name = "grown", time = GetTeenGrowTime, fn = SetFullyGrown },
 }
 
 local function OnEntitySleep(inst)
@@ -215,9 +220,9 @@ local function OnEntityWake(inst)
 
 	if inst.needtogrowup then
 		local grown = SpawnPrefab("doydoy")
-		grown.Transform:SetPosition(inst.Transform:GetWorldPosition() )
-		grown.Transform:SetRotation(inst.Transform:GetRotation() )
-		
+		grown.Transform:SetPosition(inst.Transform:GetWorldPosition())
+		grown.Transform:SetRotation(inst.Transform:GetRotation())
+
 		inst:Remove()
 	end
 end
@@ -232,34 +237,34 @@ local function OnInventory(inst)
 end
 
 local function OnMate(inst, partner)
-	
+
 end
 
 
 function OnDead(inst)
-local x, y, z = inst.Transform:GetLocalPosition()
+	local x, y, z = inst.Transform:GetLocalPosition()
 
-if seabeach_amount.doydoy < 3 then
+	if seabeach_amount.doydoy < 3 then
+		local tamanhodomapa = (TheWorld.Map:GetSize()) * 2 - 2
+		local map = TheWorld.Map
+		local x
+		local z
+		local numerodeitens = 1
 
-local tamanhodomapa = (TheWorld.Map:GetSize())*2 - 2
-local map = TheWorld.Map
-local x
-local z
-local numerodeitens = 1
-
-repeat
-x = math.random(-tamanhodomapa,tamanhodomapa)
-z = math.random(-tamanhodomapa,tamanhodomapa)
-local curr = map:GetTile(map:GetTileCoordsAtPoint(x,0,z))
--------------------coloca os itens------------------------
-if (curr ~= GROUND.OCEAN_COASTAL and curr ~= GROUND.OCEAN_WATERLOG and curr ~= GROUND.OCEAN_COASTAL_SHORE and curr ~= GROUND.OCEAN_SWELL and curr ~= GROUND.OCEAN_ROUGH and curr ~= GROUND.OCEAN_BRINEPOOL and curr ~= GROUND.OCEAN_BRINEPOOL_SHORE and curr ~= GROUND.OCEAN_HAZARDOUS) then 
-local colocaitem = SpawnPrefab("doydoy_spawner") 
-colocaitem.Transform:SetPosition(x, 0, z)
-numerodeitens = numerodeitens - 1 end
------------------------------------------------------------
-until
-numerodeitens <= 0	
-end 
+		repeat
+			x = math.random(-tamanhodomapa, tamanhodomapa)
+			z = math.random(-tamanhodomapa, tamanhodomapa)
+			local curr = map:GetTile(map:GetTileCoordsAtPoint(x, 0, z))
+			-------------------coloca os itens------------------------
+			if (curr ~= GROUND.OCEAN_COASTAL and curr ~= GROUND.OCEAN_WATERLOG and curr ~= GROUND.OCEAN_COASTAL_SHORE and curr ~= GROUND.OCEAN_SWELL and curr ~= GROUND.OCEAN_ROUGH and curr ~= GROUND.OCEAN_BRINEPOOL and curr ~= GROUND.OCEAN_BRINEPOOL_SHORE and curr ~= GROUND.OCEAN_HAZARDOUS) then
+				local colocaitem = SpawnPrefab("doydoy_spawner")
+				colocaitem.Transform:SetPosition(x, 0, z)
+				numerodeitens = numerodeitens - 1
+			end
+			-----------------------------------------------------------
+		until
+			numerodeitens <= 0
+	end
 end
 
 local function commonfn(Sim)
@@ -271,47 +276,47 @@ local function commonfn(Sim)
 	inst.entity:AddNetwork()
 
 	shadow:SetSize(1.5, 0.8)
-	
+
 	inst.Transform:SetFourFaced()
-	
+
 	MakeCharacterPhysics(inst, 50, .5)
 
 	inst.AnimState:SetBank("doydoy")
 	inst.AnimState:SetBuild("doydoy_adult_build")
 	inst.AnimState:PlayAnimation("idle", true)
-	
+
 	inst:AddTag("doydoy")
 	inst:AddTag("companion")
 	inst:AddTag("animal")
-	
-	inst:AddTag("nosteal")--不被猴子偷
-	
+
+	inst:AddTag("nosteal") --不被猴子偷
+
 	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
-	inst:AddComponent("talker")	
+	if not TheWorld.ismastersim then
+		return inst
+	end
+	inst:AddComponent("talker")
 	inst:AddComponent("inventoryitem")
 	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
 	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
-	
+
 	inst.components.inventoryitem.nobounce = true
 	inst.components.inventoryitem.canbepickedup = false
 	inst.components.inventoryitem.longpickup = true
 	inst.components.inventoryitem:SetOnDroppedFn(ondropped)
-	
+
 	inst:AddComponent("health")
 	inst:AddComponent("sizetweener")
 	inst:AddComponent("sleeper")
 
 	inst:AddComponent("lootdropper")
-	
+
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventory")
 	inst:AddComponent("entitytracker")
-	
+
 	inst:AddComponent("eater")
 	inst.components.eater:SetOnEatFn(CanEatFn)
 
@@ -323,39 +328,39 @@ local function commonfn(Sim)
 
 
 	inst:AddComponent("locomotor")
-	
+
 
 	inst:AddComponent("combat")
-	
+
 	inst:ListenForEvent("death", OnDead)
 	inst:ListenForEvent("gotosleep", function(inst) inst.components.inventoryitem.canbepickedup = true end)
-    inst:ListenForEvent("onwakeup", function(inst) 
-    	inst.components.inventoryitem.canbepickedup = false
+	inst:ListenForEvent("onwakeup", function(inst)
+		inst.components.inventoryitem.canbepickedup = false
 		if inst.day_to_spawn then
-			inst.day_to_spawn  = inst.day_to_spawn -1
+			inst.day_to_spawn = inst.day_to_spawn - 1
 		end
-    end)
-	
---	MakeFeedablePet(inst, total_day_time, OnInventory, OnDropped)
-	
-		--数量统计
+	end)
+
+	--	MakeFeedablePet(inst, total_day_time, OnInventory, OnDropped)
+
+	--数量统计
 	seabeach_amount.doydoy = seabeach_amount.doydoy + 1
-	
-	inst:ListenForEvent("onremove", function(inst, data) 
+
+	inst:ListenForEvent("onremove", function(inst, data)
 		if seabeach_amount.doydoy > 0 then
 			seabeach_amount.doydoy = seabeach_amount.doydoy - 1
 		end
 	end)
-	
+
 	return inst
 end
 
 local function babyfn(Sim)
 	local inst = commonfn(Sim)
-	
+
 	if not TheWorld.ismastersim then
-        return inst
-    end
+		return inst
+	end
 
 	inst.AnimState:SetBank("doydoy_baby")
 	inst.AnimState:SetBuild("doydoy_baby_build")
@@ -364,18 +369,18 @@ local function babyfn(Sim)
 	inst:AddTag("baby")
 
 	inst.sounds = babysounds
-	
+
 	inst.components.combat:SetHurtSound("dontstarve_DLC002/creatures/doy_doy/hit")
 	inst:AddComponent("named")
-	
+
 	inst.components.health:SetMaxHealth(DOYDOY_BABY_HEALTH)
 	inst.components.locomotor.walkspeed = DOYDOY_BABY_WALK_SPEED
 	inst.components.locomotor.runspeed = DOYDOY_BABY_WALK_SPEED
 	inst.components.lootdropper:SetLoot(babyloot)
-	
-    -- boat hopping setup
-    inst.components.locomotor:SetAllowPlatformHopping(true)
-    inst:AddComponent("embarker")		
+
+	-- boat hopping setup
+	inst.components.locomotor:SetAllowPlatformHopping(true)
+	inst:AddComponent("embarker")
 
 	inst.components.inventoryitem:ChangeImageName("doydoy_baby")
 
@@ -391,8 +396,8 @@ local function babyfn(Sim)
 	inst.components.growable:SetStage(1)
 	inst.components.growable.growoffscreen = true
 	inst.components.growable:StartGrowing()
-	
-	inst:DoTaskInTime(0, InitAnimationFromPosition)	
+
+	inst:DoTaskInTime(0, InitAnimationFromPosition)
 
 	return inst
 end
@@ -412,7 +417,6 @@ local function onpreload(inst, data)
 			inst:AddTag("mommy")
 		end
 	end
-
 end
 
 local function onsave(inst, data)
@@ -424,52 +428,52 @@ end
 
 local function adultfn(Sim)
 	local inst = commonfn(Sim)
-	
+
 	inst.OnSave = onsave
 	inst.OnPreLoad = onpreload
-	
-	MakeInventoryFloatable(inst, "large", 0.8, {0.8, 0.8, 0.8})
-	
+
+	MakeInventoryFloatable(inst, "large", 0.8, { 0.8, 0.8, 0.8 })
+
 	if not TheWorld.ismastersim then
-        return inst
-    end
-	
+		return inst
+	end
+
 	inst:AddTag("mating")
 	inst.day_to_spawn = 0
 
 	inst.AnimState:SetBank("doydoy")
 	inst.AnimState:SetBuild("doydoy_adult_build")
 	inst.AnimState:PlayAnimation("idle", true)
-	
+
 	inst.components.combat:SetHurtSound("dontstarve_DLC002/creatures/doy_doy/hit")
 
 	inst.components.health:SetMaxHealth(DOYDOY_HEALTH)
 	inst.components.locomotor.walkspeed = DOYDOY_WALK_SPEED
 	inst.components.lootdropper:SetLoot(adultloot)
-	
-    -- boat hopping setup
-    inst.components.locomotor:SetAllowPlatformHopping(true)
-    inst:AddComponent("embarker")	
+
+	-- boat hopping setup
+	inst.components.locomotor:SetAllowPlatformHopping(true)
+	inst:AddComponent("embarker")
 
 	inst.components.eater.foodprefs = adultfoodprefs
-	
+
 	inst:SetStateGraph("SGdoydoy")
 	local brain = require("brains/doydoybrain")
 	inst:SetBrain(brain)
-	
+
 	inst:AddComponent("named")
-if math.fmod (seabeach_amount.doydoy, 2) == 0 then	
+	if math.fmod(seabeach_amount.doydoy, 2) == 0 then
 		inst:AddTag("daddy")
 		inst.components.named:SetName("Doydoy(M)")
 	else
 		inst:AddTag("mommy")
 		inst.components.named:SetName("DoyDoy(F)")
 	end
-	
-	inst:DoTaskInTime(0, InitAnimationFromPosition)	
-	
+
+	inst:DoTaskInTime(0, InitAnimationFromPosition)
+
 	return inst
 end
 
-return  Prefab("common/monsters/doydoybaby", babyfn, assets_baby, prefabs_baby),
-		Prefab("common/monsters/doydoy", adultfn, assets, prefabs)
+return Prefab("common/monsters/doydoybaby", babyfn, assets_baby, prefabs_baby),
+	Prefab("common/monsters/doydoy", adultfn, assets, prefabs)

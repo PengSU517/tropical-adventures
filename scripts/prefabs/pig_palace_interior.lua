@@ -607,7 +607,7 @@ local function entrance()
 
 			local part = SpawnPrefab("pigman_queen")
 			if part ~= nil then
-				part.Transform:SetPosition(x - 3, 0, z)
+				part.Transform:SetPosition(x, 0, z)
 				if part.components.health ~= nil then
 					part.components.health:SetPercent(1)
 				end
@@ -1306,14 +1306,12 @@ local function entrance()
 
 
 
-			inst:DoTaskInTime(0, function(inst)
+			inst:DoTaskInTime(1, function(inst)
 				local portaentrada = SpawnPrefab("pig_palace")
 				local a, b, c = inst.Transform:GetWorldPosition()
 				portaentrada.Transform:SetPosition(a, b, c)
 				portaentrada.components.teleporter.targetTeleporter = inst.exit
 				inst.exit.components.teleporter.targetTeleporter = portaentrada
-				portaentrada.AnimState:PlayAnimation("place")
-				portaentrada.AnimState:PushAnimation("idle")
 
 				portaesquerdapalacio.components.teleporter.targetTeleporter = portadireitagaleria
 				portadireitagaleria.components.teleporter.targetTeleporter = portaesquerdapalacio

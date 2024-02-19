@@ -12,6 +12,32 @@ require("map/lockandkey")
 
 ARRAY_NEW =
 {
+
+    "HAM_CAVE",
+    "HAM_ANT",
+    "HAM_CAVE2",
+    "HAM_MAZE",
+
+    "PLAIN",
+    "RAINFOREST",
+    "DEEPRAINFOREST",
+    "EDGE",
+    "PAINTED",
+    "CITY_1",
+    "CITY_2",
+
+    "HAM_BLANK",
+    "HAM_BLANK1",
+    "HAM_BLANK2",
+    "SNAKE",
+
+    "DEEPRAINFOREST_CITY2",
+    "DEEPRAINFOREST_SNAKE",
+    "LOST_JUNGLE",
+
+
+
+
     "JUNGLE_DEPTH_1",
     "JUNGLE_DEPTH_2",
     "JUNGLE_DEPTH_3",
@@ -27,7 +53,6 @@ ARRAY_NEW =
 
     "OTHER_JUNGLE_DEPTH_1",
     "OTHER_JUNGLE_DEPTH_2",
-
     "LOST_JUNGLE_DEPTH_2",
 
     "ISLAND_1",

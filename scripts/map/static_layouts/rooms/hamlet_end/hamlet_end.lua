@@ -78,7 +78,7 @@ return {
       objects = {
         {
           name = "",
-          type = "pillar_pigarchive",
+          type = "deco_ruins_beam",
           shape = "rectangle",
           x = 415,
           y = 96,
@@ -89,7 +89,7 @@ return {
         },
         {
           name = "",
-          type = "pillar_pigarchive",
+          type = "deco_ruins_beam",
           shape = "rectangle",
           x = 96,
           y = 95,
@@ -100,7 +100,7 @@ return {
         },
         {
           name = "",
-          type = "pillar_pigarchive",
+          type = "deco_ruins_beam",
           shape = "rectangle",
           x = 96,
           y = 416,
@@ -111,7 +111,7 @@ return {
         },
         {
           name = "",
-          type = "pillar_pigarchive",
+          type = "deco_ruins_beam",
           shape = "rectangle",
           x = 416,
           y = 416,
@@ -164,46 +164,46 @@ return {
           visible = true,
           properties = {}
         },
+        -- {
+        --   name = "",
+        --   type = "shelves_ruins",
+        --   shape = "rectangle",
+        --   x = 256,
+        --   y = 206,
+        --   width = 0,
+        --   height = 0,
+        --   visible = true,
+        --   properties = {
+        --     ["data.spawnopal"] = "true"
+        --   }
+        -- },
+        -- {
+        --   name = "",
+        --   type = "shelves_ruins",
+        --   shape = "rectangle",
+        --   x = 300,
+        --   y = 283,
+        --   width = 0,
+        --   height = 0,
+        --   visible = true,
+        --   properties = {}
+        -- },
+        -- {
+        --   name = "",
+        --   type = "shelves_ruins",
+        --   shape = "rectangle",
+        --   x = 210,
+        --   y = 286,
+        --   width = 0,
+        --   height = 0,
+        --   visible = true,
+        --   properties = {
+        --     ["data.spawnopal"] = "true"
+        --   }
+        -- },
         {
           name = "",
-          type = "shelves_ruins",
-          shape = "rectangle",
-          x = 256,
-          y = 206,
-          width = 0,
-          height = 0,
-          visible = true,
-          properties = {
-            ["data.spawnopal"] = "true"
-          }
-        },
-        {
-          name = "",
-          type = "shelves_ruins",
-          shape = "rectangle",
-          x = 300,
-          y = 283,
-          width = 0,
-          height = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          name = "",
-          type = "shelves_ruins",
-          shape = "rectangle",
-          x = 210,
-          y = 286,
-          width = 0,
-          height = 0,
-          visible = true,
-          properties = {
-            ["data.spawnopal"] = "true"
-          }
-        },
-        {
-          name = "",
-          type = "shelves_ruins",
+          type = "aporkalypse_clock",
           shape = "rectangle",
           x = 256,
           y = 255,
@@ -212,17 +212,17 @@ return {
           visible = true,
           properties = {}
         },
---        {
---          name = "",
---          type = "pig_ruins_torch",
---          shape = "rectangle",
---          x = 257,
---          y = 257,
---          width = 0,
---          height = 0,
---          visible = true,
---          properties = {}
---        },
+        --        {
+        --          name = "",
+        --          type = "pig_ruins_torch",
+        --          shape = "rectangle",
+        --          x = 257,
+        --          y = 257,
+        --          width = 0,
+        --          height = 0,
+        --          visible = true,
+        --          properties = {}
+        --        },
         {
           name = "",
           type = "archive_sound_area",

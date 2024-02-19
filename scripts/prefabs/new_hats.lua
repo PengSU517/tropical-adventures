@@ -1,24 +1,26 @@
 local wilson_health = 150
-ARMOR_OXHAT = wilson_health*4
+ARMOR_OXHAT = wilson_health * 4
 ARMOR_OXHAT_ABSORPTION = .85
 
 
 local function generic_perish(inst)
-	inst:Remove()
+    inst:Remove()
 end
 
 local function MakeHat(name, bankparam, prefabnameparam)
-    local fname = "hat_"..name
-    local symname = bankparam or name.."hat"
+    local fname = "hat_" .. name
+    local symname = bankparam or name .. "hat"
     local prefabname = prefabnameparam or symname
 
     local function onequip(inst, owner, symbol_override)
         local skin_build = inst:GetSkinBuild()
+        local symbol_override = symbol_override and "swap_hat" or "swap_hat"
         if skin_build ~= nil then
             owner:PushEvent("equipskinneditem", inst:GetSkinName())
-            owner.AnimState:OverrideItemSkinSymbol("swap_hat", skin_build, symbol_override or "swap_hat", inst.GUID, fname)
+            owner.AnimState:OverrideItemSkinSymbol("swap_hat", skin_build, symbol_override, inst.GUID,
+                fname)
         else
-            owner.AnimState:OverrideSymbol("swap_hat", fname, symbol_override or "swap_hat")
+            owner.AnimState:OverrideSymbol("swap_hat", fname, symbol_override)
         end
         owner.AnimState:Show("HAT")
         owner.AnimState:Show("HAIR_HAT")
@@ -31,15 +33,15 @@ local function MakeHat(name, bankparam, prefabnameparam)
         end
 
         if not owner:HasTag("equipmentmodel") then
-        if inst.components.fueled ~= nil then
-            inst.components.fueled:StartConsuming()
+            if inst.components.fueled ~= nil then
+                inst.components.fueled:StartConsuming()
+            end
         end
-		end
-		
-		if inst:HasTag("disguise") then
-			owner:RemoveTag("monster")
-			owner:RemoveTag("merm")				
-		end		
+
+        if inst:HasTag("disguise") then
+            owner:RemoveTag("monster")
+            owner:RemoveTag("merm")
+        end
     end
 
     local function onunequip(inst, owner)
@@ -62,15 +64,15 @@ local function MakeHat(name, bankparam, prefabnameparam)
         if inst.components.fueled ~= nil then
             inst.components.fueled:StopConsuming()
         end
-		
-		if inst:HasTag("disguise") then
-		if owner:HasTag("spiderwhisperer") or owner:HasTag("playermonster") then
-			owner:AddTag("monster")
-		end
-		if owner:HasTag("playermerm") then
-			owner:AddTag("merm")
-		end		
-		end		
+
+        if inst:HasTag("disguise") then
+            if owner:HasTag("spiderwhisperer") or owner:HasTag("playermonster") then
+                owner:AddTag("monster")
+            end
+            if owner:HasTag("playermerm") then
+                owner:AddTag("merm")
+            end
+        end
     end
 
     local function opentop_onequip(inst, owner)
@@ -91,10 +93,10 @@ local function MakeHat(name, bankparam, prefabnameparam)
         owner.AnimState:Hide("HEAD_HAT")
 
         if not owner:HasTag("equipmentmodel") then
-        if inst.components.fueled ~= nil then
-            inst.components.fueled:StartConsuming()
+            if inst.components.fueled ~= nil then
+                inst.components.fueled:StartConsuming()
+            end
         end
-		end
     end
 
     local function simple(custom_init)
@@ -105,14 +107,14 @@ local function MakeHat(name, bankparam, prefabnameparam)
         inst.entity:AddNetwork()
 
         MakeInventoryPhysics(inst)
-		MakeInventoryFloatable(inst)	
+        MakeInventoryFloatable(inst)
 
         inst.AnimState:SetBank(symname)
         inst.AnimState:SetBuild(fname)
         inst.AnimState:PlayAnimation("anim")
 
         inst:AddTag("hat")
-		inst:AddTag("aquatic")
+        inst:AddTag("aquatic")
 
         if custom_init ~= nil then
             custom_init(inst)
@@ -126,8 +128,8 @@ local function MakeHat(name, bankparam, prefabnameparam)
 
         inst:AddComponent("inventoryitem")
         inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-		inst.caminho = "images/inventoryimages/volcanoinventory.xml"
-		
+        inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
         inst:AddComponent("inspectable")
 
         inst:AddComponent("tradable")
@@ -144,60 +146,60 @@ local function MakeHat(name, bankparam, prefabnameparam)
         return inst
     end
 
-	local function pirate()
-		local inst = simple()
+    local function pirate()
+        local inst = simple()
 
         inst.AnimState:SetBank("piratehat")
         inst.AnimState:SetBuild("hat_pirate")
-        inst.AnimState:PlayAnimation("anim")		
+        inst.AnimState:PlayAnimation("anim")
 
-		inst:AddTag("waterproofer")
-		
-		if not TheWorld.ismastersim then
-        return inst
-		end	
-		
+        inst:AddTag("waterproofer")
+
+        if not TheWorld.ismastersim then
+            return inst
+        end
+
         inst:AddComponent("fueled")
         inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(TUNING.TOPHAT_PERISHTIME)
         inst.components.fueled:SetDepletedFn(generic_perish)
-		
-		inst.components.equippable.dapperness = TUNING.DAPPERNESS_MED
-		
-		inst:AddComponent("waterproofer")
+
+        inst.components.equippable.dapperness = TUNING.DAPPERNESS_MED
+
+        inst:AddComponent("waterproofer")
         inst.components.waterproofer:SetEffectiveness(0.3)
 
-		return inst
-	end	
-	
-		local function captain()
-		local inst = simple()
+        return inst
+    end
+
+    local function captain()
+        local inst = simple()
 
         inst.AnimState:SetBank("captainhat")
         inst.AnimState:SetBuild("hat_captain")
-        inst.AnimState:PlayAnimation("anim")		
+        inst.AnimState:PlayAnimation("anim")
 
-		if not TheWorld.ismastersim then
-        return inst
-		end	
-		
+        if not TheWorld.ismastersim then
+            return inst
+        end
+
         inst:AddComponent("fueled")
         inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(TUNING.TOPHAT_PERISHTIME)
         inst.components.fueled:SetDepletedFn(generic_perish)
-		
-		inst.components.equippable.dapperness = TUNING.DAPPERNESS_MED
-		
-		return inst
-	end	
-	
-	
-	
-	
-	
-	
-	
-	
+
+        inst.components.equippable.dapperness = TUNING.DAPPERNESS_MED
+
+        return inst
+    end
+
+
+
+
+
+
+
+
     local function ox()
         local inst = simple()
 
@@ -258,10 +260,10 @@ local function MakeHat(name, bankparam, prefabnameparam)
         owner.AnimState:Hide("HEAD_HAIR")
 
         if not owner:HasTag("equipmentmodel") then
-        if inst.components.fueled then
-            inst.components.fueled:StartConsuming()
+            if inst.components.fueled then
+                inst.components.fueled:StartConsuming()
+            end
         end
-		end
 
         -- double_umbrella_updatesound(inst)
 
@@ -283,32 +285,32 @@ local function MakeHat(name, bankparam, prefabnameparam)
         inst:Remove()
     end
 
-	
 
 
-	
+
+
     local function double_umbrella()
         local inst = simple()
-		inst.AnimState:SetBank("hat_double_umbrella")
-		inst.AnimState:SetBuild("hat_double_umbrella")
-		inst.AnimState:PlayAnimation("anim")
+        inst.AnimState:SetBank("hat_double_umbrella")
+        inst.AnimState:SetBuild("hat_double_umbrella")
+        inst.AnimState:PlayAnimation("anim")
         inst.entity:AddSoundEmitter()
-		
+
         inst:AddTag("waterproofer")
         inst:AddTag("umbrella")
 
-	
-    if not TheWorld.ismastersim then
-        return inst
-    end	
+
+        if not TheWorld.ismastersim then
+            return inst
+        end
 
         inst:AddComponent("fueled")
         inst.components.fueled.fueltype = FUELTYPE.USAGE
-        inst.components.fueled:InitializeFuelLevel(12*60*8)--TUNING.EYEBRELLA_PERISHTIME)
-        inst.components.fueled:SetDepletedFn( double_umbrella_perish )
+        inst.components.fueled:InitializeFuelLevel(12 * 60 * 8) --TUNING.EYEBRELLA_PERISHTIME)
+        inst.components.fueled:SetDepletedFn(double_umbrella_perish)
 
-        inst.components.equippable:SetOnEquip( double_umbrella_onequip )
-        inst.components.equippable:SetOnUnequip( double_umbrella_onunequip )
+        inst.components.equippable:SetOnEquip(double_umbrella_onequip)
+        inst.components.equippable:SetOnUnequip(double_umbrella_onunequip)
 
         inst:AddComponent("waterproofer")
         inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_ABSOLUTE)
@@ -320,10 +322,10 @@ local function MakeHat(name, bankparam, prefabnameparam)
         inst.components.equippable.insulated = true
 
         return inst
-    end		
-	
-	
-	local function gas()
+    end
+
+
+    local function gas()
         local inst = CreateEntity()
 
         inst.entity:AddTransform()
@@ -331,11 +333,11 @@ local function MakeHat(name, bankparam, prefabnameparam)
         inst.entity:AddNetwork()
 
         MakeInventoryPhysics(inst)
-		MakeInventoryFloatable(inst)	
+        MakeInventoryFloatable(inst)
 
         inst.AnimState:SetBank("gashat")
         inst.AnimState:SetBuild("hat_gas")
-        inst.AnimState:PlayAnimation("anim")	
+        inst.AnimState:PlayAnimation("anim")
 
         inst:AddTag("hat")
 
@@ -345,10 +347,10 @@ local function MakeHat(name, bankparam, prefabnameparam)
             return inst
         end
 
-		inst:AddComponent("inventoryitem")
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"	
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"	
-		
+        inst:AddComponent("inventoryitem")
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
         inst:AddComponent("inspectable")
 
         inst:AddComponent("tradable")
@@ -359,40 +361,40 @@ local function MakeHat(name, bankparam, prefabnameparam)
         inst.components.equippable:SetOnEquip(onequip)
 
         inst.components.equippable:SetOnUnequip(onunequip)
-		
-		inst:AddComponent("fueled")
-		inst.components.fueled.fueltype = "USAGE"
-		inst.components.fueled:InitializeFuelLevel(2400)
-		inst.components.fueled:SetDepletedFn(generic_perish)		
 
-        MakeHauntableLaunch(inst)		
+        inst:AddComponent("fueled")
+        inst.components.fueled.fueltype = "USAGE"
+        inst.components.fueled:InitializeFuelLevel(2400)
+        inst.components.fueled:SetDepletedFn(generic_perish)
 
-		return inst
-	end	
-	
-	
-	local function aerodynamic()
-		local inst = simple()
+        MakeHauntableLaunch(inst)
+
+        return inst
+    end
+
+
+    local function aerodynamic()
+        local inst = simple()
 
         inst.AnimState:SetBank("hat_aerodynamic")
         inst.AnimState:SetBuild("hat_aerodynamic")
-        inst.AnimState:PlayAnimation("anim")		
-    if not TheWorld.ismastersim then
+        inst.AnimState:PlayAnimation("anim")
+        if not TheWorld.ismastersim then
+            return inst
+        end
+
+        inst.components.equippable.walkspeedmult = 1.25
+
+        inst:AddComponent("fueled")
+        inst.components.fueled.fueltype = "USAGE"
+        inst.components.fueled:InitializeFuelLevel(48 * 30)
+        inst.components.fueled:SetDepletedFn(generic_perish)
+
+        --		inst:AddComponent("windproofer")
+        --		inst.components.windproofer:SetEffectiveness(TUNING.WINDPROOFNESS_MED)
+
         return inst
-    end	
-		
-		inst.components.equippable.walkspeedmult = 1.25
-
-		inst:AddComponent("fueled")
-		inst.components.fueled.fueltype = "USAGE"
-		inst.components.fueled:InitializeFuelLevel(48*30)
-		inst.components.fueled:SetDepletedFn(generic_perish)
-
---		inst:AddComponent("windproofer")
---		inst.components.windproofer:SetEffectiveness(TUNING.WINDPROOFNESS_MED)
-
-		return inst
-	end
+    end
 
 
     local function bunny_equip(inst, owner)
@@ -434,106 +436,106 @@ local function MakeHat(name, bankparam, prefabnameparam)
         return inst
     end
 
-	local function brainjelly_onequip(inst, owner)
-		owner.AnimState:OverrideSymbol("swap_hat", fname, "swap_hat")
-		owner.AnimState:Show("HAT")
-		owner.AnimState:Show("HAT_HAIR")
-		owner.AnimState:Hide("HAIR_NOHAT")
-		owner.AnimState:Hide("HAIR")
+    local function brainjelly_onequip(inst, owner)
+        owner.AnimState:OverrideSymbol("swap_hat", fname, "swap_hat")
+        owner.AnimState:Show("HAT")
+        owner.AnimState:Show("HAT_HAIR")
+        owner.AnimState:Hide("HAIR_NOHAT")
+        owner.AnimState:Hide("HAIR")
 
---		local builder = owner.components.builder 
---		if builder then
---		builder:GiveAllRecipes() 
-		owner:AddTag("brainjelly")
---		end	
-	end
+        --		local builder = owner.components.builder
+        --		if builder then
+        --		builder:GiveAllRecipes()
+        owner:AddTag("brainjelly")
+        --		end	
+    end
 
-	local function brainjelly_onunequip(inst, owner)
-		onunequip(inst, owner)
---		local builder = owner.components.builder 
---		if builder then 
---		builder:GiveAllRecipes()
---		builder.brainjelly = false
-		owner:RemoveTag("brainjelly")
---		end	
-	end
+    local function brainjelly_onunequip(inst, owner)
+        onunequip(inst, owner)
+        --		local builder = owner.components.builder
+        --		if builder then
+        --		builder:GiveAllRecipes()
+        --		builder.brainjelly = false
+        owner:RemoveTag("brainjelly")
+        --		end	
+    end
 
-	local function brainjelly()
-		local inst = simple()
+    local function brainjelly()
+        local inst = simple()
 
-		inst:AddTag("brainjelly")		
-		
+        inst:AddTag("brainjelly")
+
         if not TheWorld.ismastersim then
             return inst
-        end		
-		
-		inst:AddComponent("finiteuses")
-		inst.components.finiteuses:SetMaxUses(4)
-		inst.components.finiteuses:SetPercent(1)
-		inst.components.finiteuses.onfinished = function() inst:Remove() end
+        end
 
-		inst.components.equippable:SetOnEquip( brainjelly_onequip )
-		inst.components.equippable:SetOnUnequip( brainjelly_onunequip )	
+        inst:AddComponent("finiteuses")
+        inst.components.finiteuses:SetMaxUses(4)
+        inst.components.finiteuses:SetPercent(1)
+        inst.components.finiteuses.onfinished = function() inst:Remove() end
 
-		return inst
-	end	
-	
-	
-	local function disguise()
-		local inst = CreateEntity()
+        inst.components.equippable:SetOnEquip(brainjelly_onequip)
+        inst.components.equippable:SetOnUnequip(brainjelly_onunequip)
+
+        return inst
+    end
+
+
+    local function disguise()
+        local inst = CreateEntity()
         inst.entity:AddNetwork()
-		inst.entity:AddTransform()
-		inst.entity:AddAnimState()
-		MakeInventoryPhysics(inst)
+        inst.entity:AddTransform()
+        inst.entity:AddAnimState()
+        MakeInventoryPhysics(inst)
 
-		inst.AnimState:SetBank("disguise")
-		inst.AnimState:SetBuild("hat_disguise")
-		inst.AnimState:PlayAnimation("anim")
+        inst.AnimState:SetBank("disguise")
+        inst.AnimState:SetBuild("hat_disguise")
+        inst.AnimState:PlayAnimation("anim")
 
 
-		inst:AddTag("hat")
-		inst:AddTag("disguise")
-		MakeInventoryFloatable(inst)
+        inst:AddTag("hat")
+        inst:AddTag("disguise")
+        MakeInventoryFloatable(inst)
 
-        inst.entity:SetPristine()		
-		
+        inst.entity:SetPristine()
+
         if not TheWorld.ismastersim then
             return inst
-        end	
-		
-		inst:AddComponent("inspectable")
+        end
 
-		inst:AddComponent("inventoryitem")
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"	
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"	
-		inst:AddComponent("tradable")
+        inst:AddComponent("inspectable")
 
-		inst:AddComponent("equippable")
-		inst.components.equippable.equipslot = EQUIPSLOTS.HEAD
+        inst:AddComponent("inventoryitem")
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+        inst:AddComponent("tradable")
 
-		inst.components.equippable:SetOnEquip(onequip)
+        inst:AddComponent("equippable")
+        inst.components.equippable.equipslot = EQUIPSLOTS.HEAD
 
-		inst.components.equippable:SetOnUnequip(onunequip)
-		
-		MakeHauntableLaunch(inst)
+        inst.components.equippable:SetOnEquip(onequip)
 
-		return inst
-	end	
-	
-	
-	
-	
-	
-	
-	
+        inst.components.equippable:SetOnUnequip(onunequip)
+
+        MakeHauntableLaunch(inst)
+
+        return inst
+    end
+
+
+
+
+
+
+
     local fn = nil
-    local assets = { Asset("ANIM", "anim/"..fname..".zip") }
+    local assets = { Asset("ANIM", "anim/" .. fname .. ".zip") }
     local prefabs = nil
 
     if name == "pirate" then
         fn = pirate
-	elseif name == "captain" then
-        fn =captain		
+    elseif name == "captain" then
+        fn = captain
     elseif name == "double_umbrella" then
         fn = double_umbrella
     elseif name == "snakeskin" then
@@ -542,27 +544,27 @@ local function MakeHat(name, bankparam, prefabnameparam)
         fn = ox
     elseif name == "bunny" then
         fn = bunny
-	elseif name == "aerodynamic" then
+    elseif name == "aerodynamic" then
         fn = aerodynamic
-	elseif name == "brainjelly" then
-		fn = brainjelly	
-	elseif name == "gas" then
-		fn = gas		
-	elseif name == "disguise" then
-		fn = disguise
+    elseif name == "brainjelly" then
+        fn = brainjelly
+    elseif name == "gas" then
+        fn = gas
+    elseif name == "disguise" then
+        fn = disguise
     end
 
     return Prefab(prefabname, fn, assets, prefabs)
 end
 
 
-return  MakeHat("pirate"),
-		MakeHat("captain"),
-		MakeHat("double_umbrella"),
-		MakeHat("snakeskin"),
-		MakeHat("ox"),
-		MakeHat("aerodynamic"),
-		MakeHat("brainjelly"),
-		MakeHat("disguise"),
-		MakeHat("gas")
+return MakeHat("pirate"),
+    MakeHat("captain"),
+    MakeHat("double_umbrella"),
+    MakeHat("snakeskin"),
+    MakeHat("ox"),
+    MakeHat("aerodynamic"),
+    MakeHat("brainjelly"),
+    MakeHat("disguise"),
+    MakeHat("gas")
 --    MakeHat("bunny", "beefalohat", "bunnyhat")

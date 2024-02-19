@@ -1,24 +1,24 @@
 local total_day_time = 480
 local night_time = 60
-local CANDLEHAT_LIGHTTIME = night_time*2
-local BANDITHAT_PERISHTIME = total_day_time*1
-local THUNDERHAT_PERISHTIME = total_day_time*4
-local GASMASK_PERISHTIME = total_day_time*3
-local PITHHAT_PERISHTIME = total_day_time*8
-local PEAGAWKHAT_PERISHTIME = total_day_time*0.9
-local ARMORMETAL = 150*8
+local CANDLEHAT_LIGHTTIME = night_time * 2
+local BANDITHAT_PERISHTIME = total_day_time * 1
+local THUNDERHAT_PERISHTIME = total_day_time * 4
+local GASMASK_PERISHTIME = total_day_time * 3
+local PITHHAT_PERISHTIME = total_day_time * 8
+local PEAGAWKHAT_PERISHTIME = total_day_time * 0.9
+local ARMORMETAL = 150 * 8
 local ARMORMETAL_ABSORPTION = .85
 local ARMORMETAL_SLOW = 0.90
-local ARMOR_KNIGHT = 150*8
+local ARMOR_KNIGHT = 150 * 8
 local ARMOR_KNIGHT_ABSORPTION = .85
 
 local function generic_perish(inst)
-		inst:Remove()
+    inst:Remove()
 end
 
 local function MakeHat(name)
-    local fname = "hat_"..name
-    local symname = name.."hat"
+    local fname = "hat_" .. name
+    local symname = name .. "hat"
     local prefabname = symname
 
     --If you want to use generic_perish to do more, it's still
@@ -29,11 +29,13 @@ local function MakeHat(name)
 
     local function onequip(inst, owner, symbol_override)
         local skin_build = inst:GetSkinBuild()
+        local symbol_override = symbol_override and "swap_hat" or "swap_hat"
         if skin_build ~= nil then
             owner:PushEvent("equipskinneditem", inst:GetSkinName())
-            owner.AnimState:OverrideItemSkinSymbol("swap_hat", skin_build, symbol_override or "swap_hat", inst.GUID, fname)
+            owner.AnimState:OverrideItemSkinSymbol("swap_hat", skin_build, symbol_override, inst.GUID,
+                fname)
         else
-            owner.AnimState:OverrideSymbol("swap_hat", fname, symbol_override or "swap_hat")
+            owner.AnimState:OverrideSymbol("swap_hat", fname, symbol_override)
         end
         owner.AnimState:Show("HAT")
         owner.AnimState:Show("HAIR_HAT")
@@ -44,20 +46,20 @@ local function MakeHat(name)
             owner.AnimState:Hide("HEAD")
             owner.AnimState:Show("HEAD_HAT")
         end
-		
-		if inst:HasTag("sneaky") then
-			if not owner:HasTag("monster") then
-				owner:AddTag("monster")
-			else
-				owner:AddTag("originaly_monster")
-			end
-			owner:AddTag("sneaky")
-		end			
-        if not owner:HasTag("equipmentmodel") then
-        if inst.components.fueled ~= nil then
-            inst.components.fueled:StartConsuming()
+
+        if inst:HasTag("sneaky") then
+            if not owner:HasTag("monster") then
+                owner:AddTag("monster")
+            else
+                owner:AddTag("originaly_monster")
+            end
+            owner:AddTag("sneaky")
         end
-		end
+        if not owner:HasTag("equipmentmodel") then
+            if inst.components.fueled ~= nil then
+                inst.components.fueled:StartConsuming()
+            end
+        end
     end
 
     local function onunequip(inst, owner)
@@ -80,15 +82,15 @@ local function MakeHat(name)
         if inst.components.fueled ~= nil then
             inst.components.fueled:StopConsuming()
         end
-		
-		if inst:HasTag("sneaky") then
-			if not owner:HasTag("originaly_monster") then
-				owner:RemoveTag("monster")
-			else
-				owner:RemoveTag("originaly_monster")
-			end
-			owner:RemoveTag("sneaky")
-		end			
+
+        if inst:HasTag("sneaky") then
+            if not owner:HasTag("originaly_monster") then
+                owner:RemoveTag("monster")
+            else
+                owner:RemoveTag("originaly_monster")
+            end
+            owner:RemoveTag("sneaky")
+        end
     end
 
     local function opentop_onequip(inst, owner)
@@ -108,10 +110,10 @@ local function MakeHat(name)
         owner.AnimState:Show("HEAD")
         owner.AnimState:Hide("HEAD_HAT")
         if not owner:HasTag("equipmentmodel") then
-        if inst.components.fueled ~= nil then
-            inst.components.fueled:StartConsuming()
+            if inst.components.fueled ~= nil then
+                inst.components.fueled:StartConsuming()
+            end
         end
-		end
     end
 
     local function simple(custom_init)
@@ -132,8 +134,8 @@ local function MakeHat(name)
         if custom_init ~= nil then
             custom_init(inst)
         end
-		
-		MakeInventoryFloatable(inst)		
+
+        MakeInventoryFloatable(inst)
 
         inst.entity:SetPristine()
 
@@ -178,7 +180,7 @@ local function MakeHat(name)
         inst:AddComponent("fueled")
         inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(TUNING.STRAWHAT_PERISHTIME)
-        inst.components.fueled:SetDepletedFn(--[[generic_perish]]inst.Remove)
+        inst.components.fueled:SetDepletedFn( --[[generic_perish]] inst.Remove)
 
         return inst
     end
@@ -403,7 +405,7 @@ local function MakeHat(name)
             attractor.spawnmodifier:SetModifier(inst, TUNING.BIRD_SPAWN_MAXDELTA_FEATHERHAT, "maxbirds")
             attractor.spawnmodifier:SetModifier(inst, TUNING.BIRD_SPAWN_DELAYDELTA_FEATHERHAT.MIN, "mindelay")
             attractor.spawnmodifier:SetModifier(inst, TUNING.BIRD_SPAWN_DELAYDELTA_FEATHERHAT.MAX, "maxdelay")
-            
+
             local birdspawner = TheWorld.components.birdspawner
             if birdspawner ~= nil then
                 birdspawner:ToggleUpdate(true)
@@ -474,7 +476,7 @@ local function MakeHat(name)
 
         inst:AddComponent("waterproofer")
         inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_SMALL)
- 
+
         inst:AddComponent("fueled")
         inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(TUNING.BEEFALOHAT_PERISHTIME)
@@ -613,11 +615,10 @@ local function MakeHat(name)
         end
         local owner = inst.components.inventoryitem and inst.components.inventoryitem.owner
         if owner and owner.components.leader then
-            
             if not owner:HasTag("spiderwhisperer") then --Webber has to stay a monster.
                 owner:RemoveTag("monster")
 
-                for k,v in pairs(owner.components.leader.followers) do
+                for k, v in pairs(owner.components.leader.followers) do
                     if k:HasTag("spider") and k.components.combat then
                         k.components.combat:SuggestTarget(owner)
                     end
@@ -634,7 +635,6 @@ local function MakeHat(name)
                     end
                 end)
             end
-
         end
     end
 
@@ -642,9 +642,9 @@ local function MakeHat(name)
         local owner = inst.components.inventoryitem and inst.components.inventoryitem.owner
         if owner and owner.components.leader then
             owner.components.leader:RemoveFollowersByTag("pig")
-            local x,y,z = owner.Transform:GetWorldPosition()
-            local ents = TheSim:FindEntities(x,y,z, TUNING.SPIDERHAT_RANGE, {"spider"})
-            for k,v in pairs(ents) do
+            local x, y, z = owner.Transform:GetWorldPosition()
+            local ents = TheSim:FindEntities(x, y, z, TUNING.SPIDERHAT_RANGE, { "spider" })
+            for k, v in pairs(ents) do
                 if v.components.follower and not v.components.follower.leader and not owner.components.leader:IsFollower(v) and owner.components.leader.numfollowers < 10 then
                     owner.components.leader:AddFollower(v)
                 end
@@ -673,7 +673,7 @@ local function MakeHat(name)
 
     local function spider_perish(inst)
         spider_disable(inst)
-        inst:Remove()--generic_perish(inst)
+        inst:Remove() --generic_perish(inst)
     end
 
     local function spider_custom_init(inst)
@@ -723,7 +723,7 @@ local function MakeHat(name)
         inst:AddComponent("fueled")
         inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(TUNING.TOPHAT_PERISHTIME)
-        inst.components.fueled:SetDepletedFn(--[[generic_perish]]inst.Remove)
+        inst.components.fueled:SetDepletedFn( --[[generic_perish]] inst.Remove)
 
         inst:AddComponent("waterproofer")
         inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_SMALL)
@@ -732,7 +732,8 @@ local function MakeHat(name)
     end
 
     local function stopusingbush(inst, data)
-        local hat = inst.components.inventory ~= nil and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD) or nil
+        local hat = inst.components.inventory ~= nil and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD) or
+            nil
         if hat ~= nil and data.statename ~= "hide" then
             hat.components.useableitem:StopUsingItem()
         end
@@ -750,10 +751,10 @@ local function MakeHat(name)
             owner.AnimState:Show("HEAD_HAT")
         end
         if not owner:HasTag("equipmentmodel") then
-        if inst.components.fueled ~= nil then
-            inst.components.fueled:StartConsuming()
+            if inst.components.fueled ~= nil then
+                inst.components.fueled:StartConsuming()
+            end
         end
-		end
         inst:ListenForEvent("newstate", stopusingbush, owner)
     end
 
@@ -771,7 +772,7 @@ local function MakeHat(name)
         end
 
         if inst.components.fueled ~= nil then
-            inst.components.fueled:StopConsuming()        
+            inst.components.fueled:StopConsuming()
         end
 
         inst:RemoveEventCallback("newstate", stopusingbush, owner)
@@ -840,12 +841,12 @@ local function MakeHat(name)
 
         -- check for the armor_snurtleshell pairing achievement
         if owner:HasTag("player") then
-			local equipped_body = owner.components.inventory ~= nil and owner.components.inventory:GetEquippedItem(EQUIPSLOTS.BODY) or nil
-			if equipped_body ~= nil and equipped_body.prefab == "armorsnurtleshell" then
-				AwardPlayerAchievement("snail_armour_set", owner)
-			end
-		end
-
+            local equipped_body = owner.components.inventory ~= nil and
+                owner.components.inventory:GetEquippedItem(EQUIPSLOTS.BODY) or nil
+            if equipped_body ~= nil and equipped_body.prefab == "armorsnurtleshell" then
+                AwardPlayerAchievement("snail_armour_set", owner)
+            end
+        end
     end
 
     local function slurtle()
@@ -861,7 +862,7 @@ local function MakeHat(name)
         inst:AddComponent("waterproofer")
         inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_SMALL)
 
-        inst.components.equippable:SetOnEquip( slurtle_equip )
+        inst.components.equippable:SetOnEquip(slurtle_equip)
 
         return inst
     end
@@ -881,7 +882,7 @@ local function MakeHat(name)
         inst:AddComponent("fueled")
         inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(TUNING.RAINHAT_PERISHTIME)
-        inst.components.fueled:SetDepletedFn(--[[generic_perish]]inst.Remove)
+        inst.components.fueled:SetDepletedFn( --[[generic_perish]] inst.Remove)
 
         inst:AddComponent("waterproofer")
         inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_LARGE)
@@ -891,13 +892,13 @@ local function MakeHat(name)
         return inst
     end
 
-    local function eyebrella_onequip(inst, owner) 
+    local function eyebrella_onequip(inst, owner)
         opentop_onequip(inst, owner)
 
         owner.DynamicShadow:SetSize(2.2, 1.4)
     end
 
-    local function eyebrella_onunequip(inst, owner) 
+    local function eyebrella_onunequip(inst, owner)
         onunequip(inst, owner)
 
         owner.DynamicShadow:SetSize(1.3, 0.6)
@@ -914,12 +915,12 @@ local function MakeHat(name)
                     prefab = inst.prefab,
                     equipslot = equippable.equipslot,
                 }
-                inst:Remove()--generic_perish(inst)
+                inst:Remove() --generic_perish(inst)
                 owner:PushEvent("umbrellaranout", data)
                 return
             end
         end
-        inst:Remove()--generic_perish(inst)
+        inst:Remove() --generic_perish(inst)
     end
 
     local function eyebrella_custom_init(inst)
@@ -1023,7 +1024,7 @@ local function MakeHat(name)
                     owner.components.inventoryitem:AddMoisture(50)
                 end
             end
-            inst:Remove()--generic_perish(inst)
+            inst:Remove() --generic_perish(inst)
         end)
 
         inst:AddComponent("repairable")
@@ -1043,7 +1044,7 @@ local function MakeHat(name)
         inst:AddComponent("fueled")
         inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(TUNING.CATCOONHAT_PERISHTIME)
-        inst.components.fueled:SetDepletedFn(--[[generic_perish]]inst.Remove)
+        inst.components.fueled:SetDepletedFn( --[[generic_perish]] inst.Remove)
 
         inst.components.equippable.dapperness = TUNING.DAPPERNESS_MED
 
@@ -1085,7 +1086,7 @@ local function MakeHat(name)
         inst:AddComponent("perishable")
         inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERFAST)
         inst.components.perishable:StartPerishing()
-        inst.components.perishable:SetOnPerishFn(--[[generic_perish]]inst.Remove)
+        inst.components.perishable:SetOnPerishFn( --[[generic_perish]] inst.Remove)
 
         inst:AddComponent("waterproofer")
         inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_SMALL)
@@ -1120,7 +1121,7 @@ local function MakeHat(name)
                 bat_turnoff(owner)
             end
         end
-        inst:Remove()--generic_perish(inst)
+        inst:Remove() --generic_perish(inst)
     end
 
     local function bat_custom_init(inst)
@@ -1143,14 +1144,14 @@ local function MakeHat(name)
         inst.components.fueled:SetDepletedFn(bat_perish)
         inst.components.fueled:SetFirstPeriod(TUNING.TURNON_FUELED_CONSUMPTION, TUNING.TURNON_FULL_FUELED_CONSUMPTION)
         inst.components.fueled.accepting = true
-		
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"
-		
-		inst:AddTag("no_sewing")	
-		inst:AddTag("venting")
-		inst:AddTag("bat_hat")
-		inst:AddTag("clearfog")		
+
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+        inst:AddTag("no_sewing")
+        inst:AddTag("venting")
+        inst:AddTag("bat_hat")
+        inst:AddTag("clearfog")
 
         return inst
     end
@@ -1164,7 +1165,6 @@ local function MakeHat(name)
         if owner.components.hunger ~= nil then
             owner.components.hunger.burnratemodifiers:SetModifier(inst, TUNING.MUSHROOMHAT_SLOW_HUNGER)
         end
-
     end
 
     local function mushroom_onunequip(inst, owner)
@@ -1419,7 +1419,7 @@ local function MakeHat(name)
         inst:AddComponent("fueled")
         inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(TUNING.GOGGLES_PERISHTIME)
-        inst.components.fueled:SetDepletedFn(--[[generic_perish]]inst.Remove)
+        inst.components.fueled:SetDepletedFn( --[[generic_perish]] inst.Remove)
 
         inst:AddComponent("waterproofer")
         inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_SMALL)
@@ -1442,7 +1442,7 @@ local function MakeHat(name)
         inst:AddComponent("fueled")
         inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(TUNING.GOGGLES_PERISHTIME)
-        inst.components.fueled:SetDepletedFn(--[[generic_perish]]inst.Remove)
+        inst.components.fueled:SetDepletedFn( --[[generic_perish]] inst.Remove)
 
         return inst
     end
@@ -1488,35 +1488,35 @@ local function MakeHat(name)
         return inst
     end
 
-	local function peagawkfeather()
-		local inst = simple()
+    local function peagawkfeather()
+        local inst = simple()
 
         if not TheWorld.ismastersim then
             return inst
         end
-		
-		inst.components.equippable.dapperness = TUNING.DAPPERNESS_LARGE
-		
-		inst:AddComponent("fueled")
-		inst.components.fueled.fueltype = "USAGE"
-		inst.components.fueled:InitializeFuelLevel(PEAGAWKHAT_PERISHTIME)
-		inst.components.fueled:SetDepletedFn(generic_perish)
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"		
-		return inst
-	end	
-	
-	local function antmask_onupdate(inst)
-		inst.components.armor:SetPercent(inst.components.fueled:GetPercent())
-	end	
-	
-	local function antmask_ontakedamage(inst, damage_amount, absorbed)
-		if inst.components.fueled then
-			local percent = inst.components.fueled:GetPercent()
-			local newPercent = percent - 0.03
-			inst.components.fueled:SetPercent(newPercent)
-		end
-	end	
+
+        inst.components.equippable.dapperness = TUNING.DAPPERNESS_LARGE
+
+        inst:AddComponent("fueled")
+        inst.components.fueled.fueltype = "USAGE"
+        inst.components.fueled:InitializeFuelLevel(PEAGAWKHAT_PERISHTIME)
+        inst.components.fueled:SetDepletedFn(generic_perish)
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+        return inst
+    end
+
+    local function antmask_onupdate(inst)
+        inst.components.armor:SetPercent(inst.components.fueled:GetPercent())
+    end
+
+    local function antmask_ontakedamage(inst, damage_amount, absorbed)
+        if inst.components.fueled then
+            local percent = inst.components.fueled:GetPercent()
+            local newPercent = percent - 0.03
+            inst.components.fueled:SetPercent(newPercent)
+        end
+    end
 
     local function onequipantmask(inst, owner, symbol_override)
         owner.AnimState:OverrideSymbol("swap_hat", fname, symbol_override or "swap_hat")
@@ -1524,17 +1524,17 @@ local function MakeHat(name)
         owner.AnimState:Show("HAIR_HAT")
         owner.AnimState:Hide("HAIR_NOHAT")
         owner.AnimState:Hide("HAIR")
-		owner:AddTag("has_antmask")
+        owner:AddTag("has_antmask")
 
         if owner:HasTag("player") then
             owner.AnimState:Hide("HEAD")
             owner.AnimState:Show("HEAD_HAT")
         end
         if not owner:HasTag("equipmentmodel") then
-        if inst.components.fueled ~= nil then
-            inst.components.fueled:StartConsuming()
+            if inst.components.fueled ~= nil then
+                inst.components.fueled:StartConsuming()
+            end
         end
-		end
     end
 
     local function onunequipantmask(inst, owner)
@@ -1543,8 +1543,8 @@ local function MakeHat(name)
         owner.AnimState:Hide("HAIR_HAT")
         owner.AnimState:Show("HAIR_NOHAT")
         owner.AnimState:Show("HAIR")
-		owner:RemoveTag("has_antmask")
-		
+        owner:RemoveTag("has_antmask")
+
         if owner:HasTag("player") then
             owner.AnimState:Show("HEAD")
             owner.AnimState:Hide("HEAD_HAT")
@@ -1554,8 +1554,8 @@ local function MakeHat(name)
             inst.components.fueled:StopConsuming()
         end
     end
-	
-	local function antmask()
+
+    local function antmask()
         local inst = CreateEntity()
         inst.entity:AddTransform()
         inst.entity:AddAnimState()
@@ -1568,9 +1568,9 @@ local function MakeHat(name)
         inst.AnimState:PlayAnimation("anim")
 
         inst:AddTag("hat")
-		inst:AddTag("antmask")	
+        inst:AddTag("antmask")
 
-		MakeInventoryFloatable(inst)		
+        MakeInventoryFloatable(inst)
 
         inst.entity:SetPristine()
 
@@ -1589,170 +1589,171 @@ local function MakeHat(name)
         inst.components.equippable:SetOnUnequip(onunequipantmask)
 
         MakeHauntableLaunch(inst)
-		
-		inst:AddComponent("armor")
-		inst.components.armor:InitCondition(TUNING.ARMOR_FOOTBALLHAT, TUNING.ARMOR_FOOTBALLHAT_ABSORPTION)
-		inst.components.armor.ontakedamage = antmask_ontakedamage		
-		
-		inst:AddComponent("fueled")
-		inst.components.fueled.fueltype = "USAGE"
-		inst.components.fueled:InitializeFuelLevel(4800)
-		inst.components.fueled:SetDepletedFn(generic_perish)
-		inst.components.fueled:SetUpdateFn(antmask_onupdate)		
 
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"
-		return inst
-	end	
+        inst:AddComponent("armor")
+        inst.components.armor:InitCondition(TUNING.ARMOR_FOOTBALLHAT, TUNING.ARMOR_FOOTBALLHAT_ABSORPTION)
+        inst.components.armor.ontakedamage = antmask_ontakedamage
 
-	local function pigcrown()
-		local inst = simple()
-		
-        if not TheWorld.ismastersim then
-            return inst
-        end	
-		
-		inst.components.equippable.dapperness = TUNING.DAPPERNESS_MED_LARGE
-		inst:AddTag("pigcrown")
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"
-		return inst
-	end	
+        inst:AddComponent("fueled")
+        inst.components.fueled.fueltype = "USAGE"
+        inst.components.fueled:InitializeFuelLevel(4800)
+        inst.components.fueled:SetDepletedFn(generic_perish)
+        inst.components.fueled:SetUpdateFn(antmask_onupdate)
 
-	local function bandit()
-		local inst = simple()
-		
-        if not TheWorld.ismastersim then
-            return inst
-        end			
-		
-		inst.components.equippable.dapperness = TUNING.DAPPERNESS_SMALL
-		inst:AddComponent("fueled")
-		inst.components.fueled.fueltype = "USAGE"
-		inst.components.fueled:InitializeFuelLevel(BANDITHAT_PERISHTIME)
-		inst.components.fueled:SetDepletedFn(generic_perish)
-		inst:AddTag("sneaky")
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+        return inst
+    end
 
-		return inst
-	end
-
-
-	local function pith()
-		local inst = simple()
-		
-        if not TheWorld.ismastersim then
-            return inst
-        end			
-		
-		inst.components.equippable.dapperness = TUNING.DAPPERNESS_SMALL
-		inst:AddComponent("fueled")
-		inst.components.fueled.fueltype = "USAGE"
-		inst.components.fueled:InitializeFuelLevel(PITHHAT_PERISHTIME)
-		inst.components.fueled:SetDepletedFn(generic_perish)
-
-		--inst.components.equippable.walkspeedmult = 0.1
-		--inst:AddComponent("armor")
-		--inst.components.armor:InitCondition(TUNING.ARMOR_PITHHAT, TUNING.ARMOR_PITHHAT_ABSORPTION)
-		--inst.components.armor:SetTags({"antmask"})
-
-		inst:AddTag("venting")
-		inst:AddTag("fogproof")
-
-		inst:AddComponent("waterproofer")
-		inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_MED)
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"
-		return inst
-	end
-
-	local function gasmask()
-		local inst = simple()
-		inst:AddTag("gasmask")
-		
-        if not TheWorld.ismastersim then
-            return inst
-        end			
-		
-		inst.components.equippable.dapperness = TUNING.CRAZINESS_SMALL
---		inst.components.equippable.poisongasblocker = true
-
-		inst.components.equippable:SetOnEquip( opentop_onequip )
-
-		inst:AddComponent("fueled")
-		inst.components.fueled.fueltype = "USAGE"
-		inst.components.fueled:InitializeFuelLevel(GASMASK_PERISHTIME)
-		inst.components.fueled:SetDepletedFn(generic_perish)
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"
-		return inst
-	end	
-	
-	
-	local function thunder_equip(inst, owner)
-		onequip(inst, owner)
-		inst:AddTag("lightningrod")
-	end
-
-	local function thunder_unequip(inst, owner)
-		onunequip(inst, owner)
-		inst:RemoveTag("lightningrod")
-	end
-
-	local function thunder()
-		local inst = simple()
+    local function pigcrown()
+        local inst = simple()
 
         if not TheWorld.ismastersim then
             return inst
-        end		
-		
-		inst.components.equippable.dapperness = TUNING.DAPPERNESS_SMALL
-		
-		inst:AddComponent("fueled")
-		inst.components.fueled.fueltype = "USAGE"
-		inst.components.fueled:InitializeFuelLevel(THUNDERHAT_PERISHTIME)
-		inst.components.fueled:SetDepletedFn(generic_perish)
+        end
 
-		inst.components.equippable:SetOnEquip( thunder_equip )
-		inst.components.equippable:SetOnUnequip( thunder_unequip )
+        inst.components.equippable.dapperness = TUNING.DAPPERNESS_MED_LARGE
+        inst:AddTag("pigcrown")
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+        return inst
+    end
 
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"
-		
-		inst:ListenForEvent("lightningstrike", function(inst, data) inst.components.fueled:DoDelta(-inst.components.fueled.maxfuel * 0.05) end)
+    local function bandit()
+        local inst = simple()
 
-		return inst
-	end	
-	
-	local function metalplate()
-		local inst = simple()
-		
         if not TheWorld.ismastersim then
             return inst
-        end				
-		
-		inst:AddComponent("armor")
+        end
 
-		inst:AddComponent("waterproofer")
-		inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_SMALL)
-		
-    	inst.components.equippable.walkspeedmult = ARMORMETAL_SLOW
+        inst.components.equippable.dapperness = TUNING.DAPPERNESS_SMALL
+        inst:AddComponent("fueled")
+        inst.components.fueled.fueltype = "USAGE"
+        inst.components.fueled:InitializeFuelLevel(BANDITHAT_PERISHTIME)
+        inst.components.fueled:SetDepletedFn(generic_perish)
+        inst:AddTag("sneaky")
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+        inst.caminho = "images/inventoryimages/hamletinventory.xml"
 
-		inst.components.armor:InitCondition(ARMOR_KNIGHT, ARMOR_KNIGHT_ABSORPTION)
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"	
-		return inst
-	end
+        return inst
+    end
+
+
+    local function pith()
+        local inst = simple()
+
+        if not TheWorld.ismastersim then
+            return inst
+        end
+
+        inst.components.equippable.dapperness = TUNING.DAPPERNESS_SMALL
+        inst:AddComponent("fueled")
+        inst.components.fueled.fueltype = "USAGE"
+        inst.components.fueled:InitializeFuelLevel(PITHHAT_PERISHTIME)
+        inst.components.fueled:SetDepletedFn(generic_perish)
+
+        --inst.components.equippable.walkspeedmult = 0.1
+        --inst:AddComponent("armor")
+        --inst.components.armor:InitCondition(TUNING.ARMOR_PITHHAT, TUNING.ARMOR_PITHHAT_ABSORPTION)
+        --inst.components.armor:SetTags({"antmask"})
+
+        inst:AddTag("venting")
+        inst:AddTag("fogproof")
+
+        inst:AddComponent("waterproofer")
+        inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_MED)
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+        return inst
+    end
+
+    local function gasmask()
+        local inst = simple()
+        inst:AddTag("gasmask")
+
+        if not TheWorld.ismastersim then
+            return inst
+        end
+
+        inst.components.equippable.dapperness = TUNING.CRAZINESS_SMALL
+        --		inst.components.equippable.poisongasblocker = true
+
+        inst.components.equippable:SetOnEquip(opentop_onequip)
+
+        inst:AddComponent("fueled")
+        inst.components.fueled.fueltype = "USAGE"
+        inst.components.fueled:InitializeFuelLevel(GASMASK_PERISHTIME)
+        inst.components.fueled:SetDepletedFn(generic_perish)
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+        return inst
+    end
+
+
+    local function thunder_equip(inst, owner)
+        onequip(inst, owner)
+        inst:AddTag("lightningrod")
+    end
+
+    local function thunder_unequip(inst, owner)
+        onunequip(inst, owner)
+        inst:RemoveTag("lightningrod")
+    end
+
+    local function thunder()
+        local inst = simple()
+
+        if not TheWorld.ismastersim then
+            return inst
+        end
+
+        inst.components.equippable.dapperness = TUNING.DAPPERNESS_SMALL
+
+        inst:AddComponent("fueled")
+        inst.components.fueled.fueltype = "USAGE"
+        inst.components.fueled:InitializeFuelLevel(THUNDERHAT_PERISHTIME)
+        inst.components.fueled:SetDepletedFn(generic_perish)
+
+        inst.components.equippable:SetOnEquip(thunder_equip)
+        inst.components.equippable:SetOnUnequip(thunder_unequip)
+
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+        inst:ListenForEvent("lightningstrike",
+            function(inst, data) inst.components.fueled:DoDelta(-inst.components.fueled.maxfuel * 0.05) end)
+
+        return inst
+    end
+
+    local function metalplate()
+        local inst = simple()
+
+        if not TheWorld.ismastersim then
+            return inst
+        end
+
+        inst:AddComponent("armor")
+
+        inst:AddComponent("waterproofer")
+        inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_SMALL)
+
+        inst.components.equippable.walkspeedmult = ARMORMETAL_SLOW
+
+        inst.components.armor:InitCondition(ARMOR_KNIGHT, ARMOR_KNIGHT_ABSORPTION)
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+        return inst
+    end
 
 
     local function candle_turnon(inst)
         local owner = inst.components.inventoryitem ~= nil and inst.components.inventoryitem.owner or nil
         if not inst.components.fueled:IsEmpty() then
             if inst._light == nil or not inst._light:IsValid() then
-                inst._light = SpawnPrefab("torchfire")           
-	            local follower = inst._light.entity:AddFollower()
-	            follower:FollowSymbol( owner.GUID, "swap_hat", 0, -250, 0 )					
+                inst._light = SpawnPrefab("torchfire")
+                local follower = inst._light.entity:AddFollower()
+                follower:FollowSymbol(owner.GUID, "swap_hat", 0, -250, 0)
             end
             if owner ~= nil then
                 onequip(inst, owner)
@@ -1762,14 +1763,14 @@ local function MakeHat(name)
             local soundemitter = owner ~= nil and owner.SoundEmitter or inst.SoundEmitter
             soundemitter:PlaySound("dontstarve/common/fireAddFuel")
         elseif owner ~= nil then
-			onequip(inst, owner)
+            onequip(inst, owner)
         end
-    end	
-	
+    end
+
     local function candle_turnoff(inst)
         local owner = inst.components.inventoryitem ~= nil and inst.components.inventoryitem.owner or nil
         if owner ~= nil and inst.components.equippable ~= nil and inst.components.equippable:IsEquipped() then
-			onequip(inst, owner)
+            onequip(inst, owner)
         end
         inst.components.fueled:StopConsuming()
         if inst._light ~= nil then
@@ -1785,8 +1786,8 @@ local function MakeHat(name)
     local function candle_unequip(inst, owner)
         onunequip(inst, owner)
         candle_turnoff(inst)
-    end	
-	
+    end
+
     local function candle_perish(inst)
         local equippable = inst.components.equippable
         if equippable ~= nil and equippable:IsEquipped() then
@@ -1797,71 +1798,71 @@ local function MakeHat(name)
                     prefab = inst.prefab,
                     equipslot = equippable.equipslot,
                 }
-                 candle_turnoff(inst)
+                candle_turnoff(inst)
                 owner:PushEvent("torchranout", data)
                 return
             end
         end
         candle_turnoff(inst)
-    end	
-	
-	local function candle_takefuel(inst)
-		inst.SoundEmitter:PlaySound("dontstarve/common/fireAddFuel")
+    end
+
+    local function candle_takefuel(inst)
+        inst.SoundEmitter:PlaySound("dontstarve/common/fireAddFuel")
         if inst.components.equippable ~= nil and inst.components.equippable:IsEquipped() then
             candle_turnon(inst)
-        end		
-	end
-	
+        end
+    end
+
     local function candle_onremove(inst)
         if inst._light ~= nil and inst._light:IsValid() then
             inst._light:Remove()
         end
-    end	
-	
+    end
+
     local function candle_custom_init(inst)
         inst.entity:AddSoundEmitter()
         --waterproofer (from waterproofer component) added to pristine state for optimization
         inst:AddTag("waterproofer")
-    end	
+    end
 
-	local function candle()
-		local inst = simple(candle_custom_init)
-		
-		inst.components.floater:SetSize("med")
+    local function candle()
+        local inst = simple(candle_custom_init)
+
+        inst.components.floater:SetSize("med")
         inst.components.floater:SetScale(0.6)
 
         if not TheWorld.ismastersim then
             return inst
-        end				
-		
-		inst.entity:AddSoundEmitter()        
-		inst:AddComponent("waterproofer")
-		inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_SMALL)
+        end
 
-		inst.components.inventoryitem:SetOnDroppedFn( candle_turnoff )
-		inst.components.equippable:SetOnEquip( candle_turnon )
-		inst.components.equippable:SetOnUnequip( candle_unequip )
+        inst.entity:AddSoundEmitter()
+        inst:AddComponent("waterproofer")
+        inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_SMALL)
 
-		inst:AddComponent("fueled")
-		inst.components.fueled.fueltype = "CORK"
-		inst.components.fueled:InitializeFuelLevel(CANDLEHAT_LIGHTTIME)
-		inst.components.fueled:SetDepletedFn(candle_perish)
-		inst.components.fueled.ontakefuelfn = candle_takefuel
-		inst.components.fueled.accepting = true
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"
-		
-		inst._light = nil
+        inst.components.inventoryitem:SetOnDroppedFn(candle_turnoff)
+        inst.components.equippable:SetOnEquip(candle_turnon)
+        inst.components.equippable:SetOnUnequip(candle_unequip)
+
+        inst:AddComponent("fueled")
+        inst.components.fueled.fueltype = "CORK"
+        inst.components.fueled:InitializeFuelLevel(CANDLEHAT_LIGHTTIME)
+        inst.components.fueled:SetDepletedFn(candle_perish)
+        inst.components.fueled.ontakefuelfn = candle_takefuel
+        inst.components.fueled.accepting = true
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+        inst._light = nil
         inst.OnRemoveEntity = candle_onremove
-		
-		return inst
-	end	
-	
-	
-	
-	
+
+        return inst
+    end
+
+
+
+
     local fn = nil
-    local assets = { Asset("ANIM", "anim/"..fname..".zip") }
+    local assets = { Asset("ANIM", "anim/" .. fname .. ".zip") }
     local prefabs = nil
 
     if name == "bee" then
@@ -1908,7 +1909,7 @@ local function MakeHat(name)
         fn = catcoon
     elseif name == "watermelon" then
         fn = watermelon
-    elseif name == "eyebrella" then 
+    elseif name == "eyebrella" then
         fn = eyebrella
     elseif name == "red_mushroom" then
         fn = red_mushroom
@@ -1930,26 +1931,26 @@ local function MakeHat(name)
         fn = goggles
     elseif name == "skeleton" then
         fn = skeleton
-	elseif name == "peagawkfeather" then 
-		fn = peagawkfeather 
-	elseif name == "antmask" then 
-		fn = antmask 
-	elseif name == "pigcrown" then 
-		fn = pigcrown 
-	elseif name == "gasmask" then 
-		fn = gasmask 
-	elseif name == "pith" then 
-		fn = pith
-	elseif name == "bandit" then 
-		fn = bandit 		
-	elseif  name == "candle" then 
-		fn = candle 
-	elseif name == "thunder" then
-		fn = thunder
-	elseif name == "metalplate" then
-		fn = metalplate		
-	end	
-	
+    elseif name == "peagawkfeather" then
+        fn = peagawkfeather
+    elseif name == "antmask" then
+        fn = antmask
+    elseif name == "pigcrown" then
+        fn = pigcrown
+    elseif name == "gasmask" then
+        fn = gasmask
+    elseif name == "pith" then
+        fn = pith
+    elseif name == "bandit" then
+        fn = bandit
+    elseif name == "candle" then
+        fn = candle
+    elseif name == "thunder" then
+        fn = thunder
+    elseif name == "metalplate" then
+        fn = metalplate
+    end
+
     return Prefab(prefabname, fn or default, assets, prefabs)
 end
 
@@ -1979,14 +1980,14 @@ local function minerhatlightfn()
     return inst
 end
 
-return  MakeHat("peagawkfeather"),
-		MakeHat("antmask"),
-		MakeHat("pigcrown"),
-		MakeHat("gasmask"),
-		MakeHat("pith"),
-		MakeHat("bandit"),
-		MakeHat("bat"),		
-		MakeHat("candle"),		
-		MakeHat("thunder"),
-		MakeHat("metalplate")
+return MakeHat("peagawkfeather"),
+    MakeHat("antmask"),
+    MakeHat("pigcrown"),
+    MakeHat("gasmask"),
+    MakeHat("pith"),
+    MakeHat("bandit"),
+    MakeHat("bat"),
+    MakeHat("candle"),
+    MakeHat("thunder"),
+    MakeHat("metalplate")
 --        Prefab("minerhatlight", minerhatlightfn)

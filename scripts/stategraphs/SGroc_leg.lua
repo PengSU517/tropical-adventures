@@ -1,9 +1,9 @@
 require("stategraphs/commonstates")
 
-local actionhandlers = 
+local actionhandlers =
 {
 
-   -- ActionHandler(ACTIONS.GOHOME, "action"),
+    -- ActionHandler(ACTIONS.GOHOME, "action"),
 }
 
 local ROC_LEGDSIT = 6
@@ -13,16 +13,16 @@ local events =
 
     EventHandler("enter", function(inst) inst.sg:GoToState("enter") end),
     EventHandler("exit", function(inst) inst.sg:GoToState("exit") end),
-    EventHandler("walk", function(inst) inst.sg:GoToState("step") end), 
-    EventHandler("walkfast", function(inst) inst.sg:GoToState("faststep") end),    
+    EventHandler("walk", function(inst) inst.sg:GoToState("step") end),
+    EventHandler("walkfast", function(inst) inst.sg:GoToState("faststep") end),
     --[[
     EventHandler("attacked", function(inst) if inst.components.health:GetPercent() > 0 then inst.sg:GoToState("hit") end end),
     EventHandler("doattack", function(inst, data) if not inst.components.health:IsDead() and (inst.sg:HasStateTag("hit") or not inst.sg:HasStateTag("busy")) then inst.sg:GoToState("attack", data.target) end end),
     EventHandler("death", function(inst) inst.sg:GoToState("death") end),
-    EventHandler("locomote", 
-        function(inst) 
+    EventHandler("locomote",
+        function(inst)
             if not inst.sg:HasStateTag("idle") and not inst.sg:HasStateTag("moving") then return end
-            
+
             if not inst.components.locomotor:WantsToMoveForward() then
                 if not inst.sg:HasStateTag("idle") then
                     if not inst.sg:HasStateTag("running") then
@@ -45,32 +45,31 @@ local events =
 }
 
 local function DoStep(inst)
---local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
---if player then
---player:ShakeCamera(CAMERASHAKE.SIDE, 2, .06, .25)
---end
-inst.components.groundpounder:GroundPound()
-inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/glommer/foot_ground")
-TheWorld:PushEvent("bigfootstep")
+    --local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
+    --if player then
+    --player:ShakeCamera(CAMERASHAKE.SIDE, 2, .06, .25)
+    --end
+    inst.components.groundpounder:GroundPound()
+    inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/glommer/foot_ground")
+    TheWorld:PushEvent("bigfootstep")
 end
 
 local states =
 {
-    State
-    {
+    State {
         name = "idle",
-        tags = {"idle" },
+        tags = { "idle" },
 
         onenter = function(inst, pushanim)
             if pushanim then
-                inst.AnimState:PlayAnimation(pushanim)           
-                inst.AnimState:PushAnimation("stomp_loop")           
+                inst.AnimState:PlayAnimation(pushanim)
+                inst.AnimState:PushAnimation("stomp_loop")
             else
-                inst.AnimState:PlayAnimation("stomp_loop")           
+                inst.AnimState:PlayAnimation("stomp_loop")
             end
         end,
-        
-        ontimeout=function(inst)
+
+        ontimeout = function(inst)
             inst.sg:GoToState("peek")
         end,
 
@@ -86,33 +85,31 @@ local states =
         }
     },
 
-    State
-    {
+    State {
         name = "peek",
-        tags = {"idle","canrotate"},
+        tags = { "idle", "canrotate" },
 
         onenter = function(inst)
-            inst.AnimState:PlayAnimation("critter_pre")      
-            inst.AnimState:PushAnimation("critter_loop",false)    
+            inst.AnimState:PlayAnimation("critter_pre")
+            inst.AnimState:PushAnimation("critter_loop", false)
         end,
-        
+
 
         events =
         {
             EventHandler("animqueueover", function(inst, data)
-                inst.sg:GoToState("idle","critter_pst")
+                inst.sg:GoToState("idle", "critter_pst")
             end),
         }
-    },    
+    },
 
 
-    State
-    {
+    State {
         name = "step",
-        tags = {"idle","canrotate","walking"},
+        tags = { "idle", "canrotate", "walking" },
 
         onenter = function(inst)
-            inst.AnimState:PlayAnimation("stomp_pst")      
+            inst.AnimState:PlayAnimation("stomp_pst")
         end,
 
         events =
@@ -121,35 +118,36 @@ local states =
                 inst.sg:GoToState("stepfinish")
             end),
         }
-    },   
+    },
 
-    State
-    {
+    State {
         name = "stepfinish",
-        tags = {"idle","canrotate","walking"},
+        tags = { "idle", "canrotate", "walking" },
 
         onenter = function(inst)
-            local angle = inst.body.Transform:GetRotation()*DEGREES
-            local newpos = Vector3(inst.body.Transform:GetWorldPosition()) + Vector3(ROC_LEGDSIT * math.cos( angle+ inst.legoffsetdir ), 0, -ROC_LEGDSIT * math.sin( angle+inst.legoffsetdir ))
+            local angle = inst.body.Transform:GetRotation() * DEGREES
+            local newpos = Vector3(inst.body.Transform:GetWorldPosition()) +
+            Vector3(ROC_LEGDSIT * math.cos(angle + inst.legoffsetdir), 0,
+                -ROC_LEGDSIT * math.sin(angle + inst.legoffsetdir))
 
-            
+
 
             local ground = TheWorld
-            local tile = ground.Map:GetTileAtPoint(newpos.x,newpos.y,newpos.z)
-            
+            local tile = ground.Map:GetTileAtPoint(newpos.x, newpos.y, newpos.z)
+
             if tile < 2 or tile == 255 then
                 -- NEEDS TO PUSH TO BODY!
                 inst.body:PushEvent("liftoff")
             end
 
-            inst.Transform:SetPosition(newpos.x,0,newpos.z)
+            inst.Transform:SetPosition(newpos.x, 0, newpos.z)
             inst.Transform:SetRotation(inst.body.Transform:GetRotation())
             inst.AnimState:PlayAnimation("stomp_pre")
         end,
-        
+
         timeline =
         {
-            TimeEvent(8*FRAMES, function(inst) 
+            TimeEvent(8 * FRAMES, function(inst)
                 DoStep(inst)
             end)
         },
@@ -161,17 +159,16 @@ local states =
                 inst.sg:GoToState("idle")
             end),
         }
-    },   
+    },
 
 
 
-    State
-    {
+    State {
         name = "faststep",
-        tags = {"idle","canrotate","walking"},
+        tags = { "idle", "canrotate", "walking" },
 
         onenter = function(inst)
-            inst.AnimState:PlayAnimation("step_pst")      
+            inst.AnimState:PlayAnimation("step_pst")
         end,
 
         events =
@@ -180,35 +177,36 @@ local states =
                 inst.sg:GoToState("faststepfinish")
             end),
         }
-    },   
+    },
 
-    State
-    {
+    State {
         name = "faststepfinish",
-        tags = {"idle","canrotate","walking"},
+        tags = { "idle", "canrotate", "walking" },
 
         onenter = function(inst)
-            local angle = inst.body.Transform:GetRotation()*DEGREES
-            local newpos = Vector3(inst.body.Transform:GetWorldPosition()) + Vector3(ROC_LEGDSIT * math.cos( angle+ inst.legoffsetdir ), 0, -ROC_LEGDSIT * math.sin( angle+inst.legoffsetdir ))
+            local angle = inst.body.Transform:GetRotation() * DEGREES
+            local newpos = Vector3(inst.body.Transform:GetWorldPosition()) +
+            Vector3(ROC_LEGDSIT * math.cos(angle + inst.legoffsetdir), 0,
+                -ROC_LEGDSIT * math.sin(angle + inst.legoffsetdir))
 
-            
+
 
             local ground = TheWorld
-            local tile = ground.Map:GetTileAtPoint(newpos.x,newpos.y,newpos.z)
-            
+            local tile = ground.Map:GetTileAtPoint(newpos.x, newpos.y, newpos.z)
+
             if tile < 2 or tile == 255 then
                 -- NEEDS TO PUSH TO BODY!
                 inst.body:PushEvent("liftoff")
             end
 
-            inst.Transform:SetPosition(newpos.x,0,newpos.z)
+            inst.Transform:SetPosition(newpos.x, 0, newpos.z)
             inst.Transform:SetRotation(inst.body.Transform:GetRotation())
             inst.AnimState:PlayAnimation("step_pre")
         end,
-        
+
         timeline =
         {
-            TimeEvent(8*FRAMES, function(inst) 
+            TimeEvent(8 * FRAMES, function(inst)
                 DoStep(inst)
             end)
         },
@@ -220,20 +218,19 @@ local states =
                 inst.sg:GoToState("idle")
             end),
         }
-    },   
+    },
 
-    State
-    {
+    State {
         name = "enter",
-        tags = {"idle","canrotate"},
+        tags = { "idle", "canrotate" },
 
-        onenter = function(inst)    
+        onenter = function(inst)
             inst.AnimState:PlayAnimation("stomp_pre")
         end,
 
         timeline =
         {
-            TimeEvent(8*FRAMES, function(inst) 
+            TimeEvent(8 * FRAMES, function(inst)
                 DoStep(inst)
             end)
         },
@@ -241,29 +238,27 @@ local states =
         events =
         {
             EventHandler("animover", function(inst, data)
-               -- print("test")
+                -- print("test")
                 inst.sg:GoToState("idle")
             end),
         }
-    }, 
+    },
 
-    State
-    {
+    State {
         name = "exit",
-        tags = {"idle","canrotate"},
+        tags = { "idle", "canrotate" },
 
-        onenter = function(inst)    
+        onenter = function(inst)
             inst.AnimState:PlayAnimation("stomp_pst")
         end,
 
         events =
         {
-            EventHandler("animover", function(inst, data)            
+            EventHandler("animover", function(inst, data)
                 inst:Remove()
             end),
         }
-    },        
+    },
 }
 
 return StateGraph("roc_leg", states, events, "idle", actionhandlers)
-
