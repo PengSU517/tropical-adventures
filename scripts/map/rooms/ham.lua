@@ -227,7 +227,7 @@ AddRoom("BG_suburb_base", {
 AddRoom("BG_pinacle_base_set", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.ROCKY,
-    tags = { "hamlet" },
+    -- tags = { "hamlet" },
     contents = {
         countstaticlayouts = {
             ["roc_nest"] = 1,
@@ -261,7 +261,7 @@ AddRoom("BG_pinacle_base_set", {
 AddRoom("BG_pinacle_base", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.ROCKY,
-    tags = { "hamlet" },
+    -- tags = { "hamlet" },
     contents = {
         distributepercent = .15, --.26
         distributeprefabs =
@@ -642,7 +642,7 @@ AddRoom("BG_painted_base", {
 AddRoom("deeprainforest_gas", {
     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.GASJUNGLE,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.45, --.45
         distributeprefabs =
@@ -668,7 +668,7 @@ AddRoom("deeprainforest_gas", {
 AddRoom("deeprainforest_gas_entrance6", {
     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.GASJUNGLE,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.45, --.45
         distributeprefabs =
@@ -698,7 +698,7 @@ AddRoom("deeprainforest_gas_entrance6", {
 AddRoom("deeprainforest_gas_flytrap_grove", {
     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.GASJUNGLE,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         countstaticlayouts = {
             ["pig_ruins_head"] = 1,
@@ -734,7 +734,7 @@ AddRoom("deeprainforest_gas_flytrap_grove", {
 AddRoom("BG_rainforest_base", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.RAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = .38, --.5
         distributeprefabs =
@@ -765,7 +765,7 @@ AddRoom("BG_rainforest_base", {
 AddRoom("rainforest_ruins", {
     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
     value = GROUND.RAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = .35, -- .5
         distributeprefabs =
@@ -793,7 +793,7 @@ AddRoom("rainforest_ruins", {
 AddRoom("rainforest_ruins_entrance", {
     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
     value = GROUND.RAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = .35, -- .5
         distributeprefabs =
@@ -820,7 +820,7 @@ AddRoom("rainforest_ruins_entrance", {
 AddRoom("BG_deeprainforest_base", {
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.5,
         distributeprefabs =
@@ -851,7 +851,7 @@ AddRoom("BG_deeprainforest_base", {
 AddRoom("deeprainforest_spider_monkey_nest", {
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -879,7 +879,7 @@ AddRoom("deeprainforest_spider_monkey_nest", {
 AddRoom("deeprainforest_flytrap_grove", {
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         countstaticlayouts = {
             ["nettlegrove"] = function()
@@ -917,7 +917,7 @@ AddRoom("deeprainforest_flytrap_grove", {
 AddRoom("deeprainforest_flytrap_grove_PigRuinsEntrance5", {
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -946,7 +946,7 @@ AddRoom("deeprainforest_flytrap_grove_PigRuinsEntrance5", {
 AddRoom("deeprainforest_fireflygrove", {
     colour = { r = 1, g = 1, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --0.25, --.3
         distributeprefabs =
@@ -974,7 +974,7 @@ AddRoom("deeprainforest_fireflygrove", {
 AddRoom("deeprainforest_ruins_entrance", {
     colour = { r = 1, g = 0.1, b = 0.2, a = 0.5 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -1002,7 +1002,7 @@ AddRoom("deeprainforest_ruins_entrance", {
 AddRoom("deeprainforest_ruins_entrance2", {
     colour = { r = 1, g = 0.1, b = 0.2, a = 0.5 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -1029,7 +1029,7 @@ AddRoom("deeprainforest_ruins_entrance2", {
 AddRoom("deeprainforest_ruins_exit", {
     colour = { r = 0.2, g = 0.1, b = 1, a = 0.5 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -1057,7 +1057,7 @@ AddRoom("deeprainforest_ruins_exit", {
 AddRoom("deeprainforest_ruins_exit2", {
     colour = { r = 0.2, g = 0.1, b = 1, a = 0.5 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         countstaticlayouts = { ["nettlegrove"] = 1 },
         distributepercent = 0.25, --.3
@@ -1088,7 +1088,7 @@ AddRoom("deeprainforest_ruins_exit2", {
 AddRoom("deeprainforest_anthill", {
     colour = { r = 1, g = 0, b = 1, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -1117,7 +1117,7 @@ AddRoom("deeprainforest_anthill", {
 AddRoom("deeprainforest_mandrakeman", {
     colour = { r = 1, g = 0, b = 1, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         countstaticlayouts = { ["mandraketown"] = 1 },
         distributepercent = 0.25, --.3
@@ -1146,7 +1146,7 @@ AddRoom("deeprainforest_mandrakeman", {
 AddRoom("deeprainforest_anthill_exit", {
     colour = { r = 1, g = 0, b = 1, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         countstaticlayouts = {
             -- ["pig_ruins_entrance_5"] = GetModConfigData("pigruins")
@@ -1174,7 +1174,7 @@ AddRoom("deeprainforest_anthill_exit", {
 AddRoom("deeprainforest_anthill_exit2", {
     colour = { r = 1, g = 0, b = 1, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -1871,7 +1871,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_gas", {
 --     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
 --     value = GROUND.GASJUNGLE,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = 0.45, --.45
 --         distributeprefabs =
@@ -1897,7 +1897,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_gas_entrance6", {
 --     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
 --     value = GROUND.GASJUNGLE,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = 0.45, --.45
 --         distributeprefabs =
@@ -1928,7 +1928,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_gas_flytrap_grove", {
 --     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
 --     value = GROUND.GASJUNGLE,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         countstaticlayouts = {
 --             ["pig_ruins_head"] = 1,
@@ -1964,7 +1964,7 @@ fazendas =
 -- AddRoom("MAINBG_rainforest_base", {
 --     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
 --     value = GROUND.RAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha", "StagehandGarden", "Terrarium_Spawner", "StatueHarp_HedgeSpawner",
+--     tags = { "ExitPiece", "RoadPoison", "StagehandGarden", "Terrarium_Spawner", "StatueHarp_HedgeSpawner",
 --         "CharlieStage_Spawner" },
 --     contents = {
 --         distributepercent = .38, --.5
@@ -1996,7 +1996,7 @@ fazendas =
 -- AddRoom("MAINrainforest_ruins", {
 --     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
 --     value = GROUND.RAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = .35, -- .5
 --         distributeprefabs =
@@ -2024,7 +2024,7 @@ fazendas =
 -- AddRoom("MAINrainforest_ruins_entrance", {
 --     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
 --     value = GROUND.RAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = .35, -- .5
 --         distributeprefabs =
@@ -2051,7 +2051,7 @@ fazendas =
 -- AddRoom("MAINBG_deeprainforest_base", {
 --     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = 0.5,
 --         distributeprefabs =
@@ -2082,7 +2082,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_spider_monkey_nest", {
 --     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = 0.25, --.3
 --         distributeprefabs =
@@ -2110,7 +2110,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_flytrap_grove", {
 --     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         countstaticlayouts = {
 --             ["nettlegrove"] = function()
@@ -2148,7 +2148,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_flytrap_grove_PigRuinsEntrance5", {
 --     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = 0.25, --.3
 --         distributeprefabs =
@@ -2177,7 +2177,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_fireflygrove", {
 --     colour = { r = 1, g = 1, b = 0.2, a = 0.3 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = 0.25, --0.25, --.3
 --         distributeprefabs =
@@ -2205,7 +2205,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_ruins_entrance", {
 --     colour = { r = 1, g = 0.1, b = 0.2, a = 0.5 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = 0.25, --.3
 --         distributeprefabs =
@@ -2233,7 +2233,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_ruins_entrance2", {
 --     colour = { r = 1, g = 0.1, b = 0.2, a = 0.5 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = 0.25, --.3
 --         distributeprefabs =
@@ -2260,7 +2260,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_ruins_exit", {
 --     colour = { r = 0.2, g = 0.1, b = 1, a = 0.5 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = 0.25, --.3
 --         distributeprefabs =
@@ -2288,7 +2288,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_ruins_exit2", {
 --     colour = { r = 0.2, g = 0.1, b = 1, a = 0.5 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         countstaticlayouts = { ["nettlegrove"] = 1 },
 --         distributepercent = 0.25, --.3
@@ -2319,7 +2319,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_anthill", {
 --     colour = { r = 1, g = 0, b = 1, a = 0.3 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = 0.25, --.3
 --         distributeprefabs =
@@ -2348,7 +2348,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_mandrakeman", {
 --     colour = { r = 1, g = 0, b = 1, a = 0.3 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         countstaticlayouts = { ["mandraketown"] = 1 },
 --         distributepercent = 0.25, --.3
@@ -2377,7 +2377,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_anthill_exit", {
 --     colour = { r = 1, g = 0, b = 1, a = 0.3 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         countstaticlayouts = { ["pig_ruins_entrance_5"] = GetModConfigData("pigruins") },
 --         distributepercent = 0.25, --.3
@@ -2402,7 +2402,7 @@ fazendas =
 -- AddRoom("MAINdeeprainforest_anthill_exit2", {
 --     colour = { r = 1, g = 0, b = 1, a = 0.3 },
 --     value = GROUND.DEEPRAINFOREST,
---     tags = { "ExitPiece", "RoadPoison", "folha" },
+--     tags = { "ExitPiece", "RoadPoison" },
 --     contents = {
 --         distributepercent = 0.25, --.3
 --         distributeprefabs =
@@ -3430,7 +3430,7 @@ AddRoom("HamBGRockyCaveRoom", {
 AddRoom("HamRedMushForest", {
     colour = { r = 0.8, g = 0.1, b = 0.1, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -3459,7 +3459,7 @@ AddRoom("HamRedMushForest", {
 AddRoom("HamRedSpiderForest", {
     colour = { r = 0.8, g = 0.1, b = 0.4, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -3488,7 +3488,7 @@ AddRoom("HamRedSpiderForest", {
 AddRoom("HamRedSpiderForestexit", {
     colour = { r = 0.8, g = 0.1, b = 0.4, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -3516,7 +3516,7 @@ AddRoom("HamRedSpiderForestexit", {
 AddRoom("HamRedMushPillars", {
     colour = { r = 0.8, g = 0.1, b = 0.4, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .15,
         distributeprefabs =
@@ -3545,7 +3545,7 @@ AddRoom("HamRedMushPillars", {
 AddRoom("HamStalagmiteForest", {
     colour = { r = 0.8, g = 0.1, b = 0.1, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -3574,7 +3574,7 @@ AddRoom("HamStalagmiteForest", {
 AddRoom("HamSpillagmiteMeadow", {
     colour = { r = 0.8, g = 0.1, b = 0.1, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .15,
         distributeprefabs =
@@ -3607,7 +3607,7 @@ AddRoom("HamSpillagmiteMeadow", {
 AddRoom("HamBGRedMush", {
     colour = { r = 0.8, g = 0.1, b = 0.1, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -3632,7 +3632,7 @@ AddRoom("HamBGRedMush", {
 AddRoom("HamGreenMushForest", {
     colour = { r = 0.1, g = 0.8, b = 0.1, a = 0.9 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .35,
         distributeprefabs =
@@ -3665,7 +3665,7 @@ AddRoom("HamGreenMushForest", {
 AddRoom("HamGreenMushPonds", {
     colour = { r = 0.1, g = 0.8, b = 0.3, a = 0.9 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -3700,7 +3700,7 @@ AddRoom("HamGreenMushPonds", {
 AddRoom("HamGreenMushSinkhole", {
     colour = { r = 0.1, g = 0.8, b = 0.3, a = 0.9 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         countstaticlayouts = {
             ["EvergreenSinkhole"] = 1,
@@ -3743,7 +3743,7 @@ AddRoom("HamGreenMushSinkhole", {
 AddRoom("HamGreenMushMeadow", {
     colour = { r = 0.1, g = 0.8, b = 0.3, a = 0.9 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
@@ -3783,7 +3783,7 @@ AddRoom("HamGreenMushMeadow", {
 AddRoom("HamGreenMushRabbits", {
     colour = { r = 0.1, g = 0.8, b = 0.3, a = 0.9 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         countstaticlayouts = {
             ["farm_3"] = 1,
@@ -3829,7 +3829,7 @@ AddRoom("HamGreenMushRabbits", {
 AddRoom("HamGreenMushNoise", {
     colour = { r = .36, g = .32, b = .38, a = .50 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
@@ -3862,7 +3862,7 @@ AddRoom("HamGreenMushNoise", {
 AddRoom("HamBGGreenMush", {
     colour = { r = .36, g = .32, b = .38, a = .50 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .25,
         distributeprefabs =

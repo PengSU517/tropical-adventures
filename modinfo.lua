@@ -7,7 +7,7 @@ end
 name = en_zh(" Tropical Adventure (Shipwrecked & Hamlet)", "热带冒险（海难哈姆雷特三合一）")
 description = en_zh("Personal modification of Tropical Experience", "在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改")
 author = "Peng"
-version = "6.71"
+version = "6.72"
 forumthread = ""
 api_version = 10
 priority = -20
@@ -90,7 +90,7 @@ configuration_options =
 		{
 			{
 				description = en_zh("Default", "默认"),
-				hover = en_zh("Default settings", "默认设置"),
+				hover = en_zh("Default settings with 5 random tasks", "默认设置,有五个随机地形"),
 				data = "default"
 			},
 			-- {
@@ -99,8 +99,8 @@ configuration_options =
 			-- 	data = "no_random"
 			-- },
 			{
-				description = en_zh("Killer Bee and Walrus Only", "仅杀人蜂和海象平原"),
-				hover = en_zh("Killer Bee and Walrus Only", "仅杀人蜂和海象平原"),
+				description = en_zh("Killer Bee and Walrus as random tasks", "仅杀人蜂和海象平原作为随机地形"),
+				hover = en_zh("Killer Bee and Walrus as random tasks", "仅杀人蜂和海象平原作为随机地形"),
 				data = "bee_and_walrus"
 			},
 
@@ -147,7 +147,7 @@ configuration_options =
 			},
 
 		},
-		default = "default",
+		default = "hamlet",
 	},
 
 	{
@@ -237,7 +237,7 @@ configuration_options =
 		label = en_zh("Fog", "雾"),
 		hover = en_zh("Fog", "雾"),
 		options = options_enable,
-		default = false,
+		default = true,
 	},
 
 	{
@@ -245,7 +245,7 @@ configuration_options =
 		label = en_zh("Hayfever", "花粉过敏"),
 		hover = en_zh("Hayfever", "花粉过敏"),
 		options = options_enable,
-		default = false,
+		default = true,
 	},
 
 	{
@@ -253,7 +253,7 @@ configuration_options =
 		label = en_zh("Aporkalypse", "毁灭季"),
 		hover = en_zh("Aporkalypse in caves", "毁灭季 在洞穴"),
 		options = options_enable,
-		default = false,
+		default = true,
 	},
 
 	Breaker("Other Settings", "其他设置"),

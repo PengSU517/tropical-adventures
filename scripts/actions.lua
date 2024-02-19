@@ -5103,6 +5103,9 @@ AddStategraphState("wilson", boatbrake)
 AddStategraphEvent("wilson",
     GLOBAL.EventHandler("sneeze",
         function(inst, data)
+            print("checkstage!!!!!!!!!")
+            print(inst.sg:HasStateTag("busy"))
+            print(inst.sg.currentstate.name ~= "emote")
             if not inst.components.health:IsDead() and not inst.components.health.invincible then
                 if inst.sg:HasStateTag("busy") and inst.sg.currentstate.name ~= "emote" then
                     inst.wantstosneeze = true

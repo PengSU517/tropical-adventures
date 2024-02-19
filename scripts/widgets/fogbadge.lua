@@ -23,13 +23,14 @@ end)
 
 function HayfeverBadge:OnUpdate(dt)
     -------------------------------------fog--------------------------------------------
-    ----
-    local fan = GetClosestInstWithTag("prevents_hayfever", self.owner, 20)
-    local isinhamlet = self.owner and self.owner.components.areaaware and
-        self.owner.components.areaaware:CurrentlyInTag("hamlet")
+    local player = self.owner
+    local fan = GetClosestInstWithTag("prevents_hayfever", player, 20)
+    local isinhamlet = player.components.areaaware and player.components.areaaware:CurrentlyInTag("hamlet")
 
-    local corpo = self.owner.replica.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
-    local cabeca = self.owner.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+    local isinterior = GetClosestInstWithTag("blows_air", player, 15)
+
+    local corpo = player.replica.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
+    local cabeca = player.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
     local hasequip = (corpo and corpo:HasTag("velocidadenormal")) or (cabeca and cabeca:HasTag("velocidadenormal"))
 
 
@@ -40,7 +41,7 @@ function HayfeverBadge:OnUpdate(dt)
     end
 
     -------------沙尘暴动画是sand_over,云雾是clouds_ol
-    if self.neblina > 0 then
+    if self.neblina > 0 and not isinterior then
         local a = math.max(math.min(self.neblina / 1000, 1), 0)
         -- self:GetAnimState():SetBank("vagner_over")
         -- self:GetAnimState():SetBuild("vagner_over")
@@ -53,6 +54,8 @@ function HayfeverBadge:OnUpdate(dt)
         self:GetAnimState():SetMultColour(a, a, a, a * 0.9)
         self:GetAnimState():PushAnimation("idle", true) --------要用push
         self:Show()
+    else
+        self:Hide()
     end
 
 
@@ -60,10 +63,10 @@ function HayfeverBadge:OnUpdate(dt)
 
     if hasequip or self.neblina < 500 or (not isinhamlet) then
         self.speed = false
-        self.owner:RemoveTag("hamfogspeed")
+        player:RemoveTag("hamfogspeed")
     else
         self.speed = true
-        self.owner:AddTag("hamfogspeed")
+        player:AddTag("hamfogspeed")
     end
 end
 

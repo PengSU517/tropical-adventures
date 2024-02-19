@@ -17,59 +17,11 @@ local HayfeverBadge = Class(UIAnim, function(self, owner)
 
     self:StartUpdating()
     self:Hide()
-    self.speed = false
     self.hayfever = 0
-    self.neblina = 0
-    self.ash = false
 end)
 
 function HayfeverBadge:OnUpdate(dt)
-    -------------------------------------fog--------------------------------------------
-    ----
-    -- local fan = GetClosestInstWithTag("prevents_hayfever", self.owner, 30)
-    -- local isinhamlet = self.owner and self.owner.components.areaaware and
-    --     self.owner.components.areaaware:CurrentlyInTag("hamlet")
-
-    -- local corpo = self.owner.replica.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
-    -- local cabeca = self.owner.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
-    -- local hasequip = (corpo and corpo:HasTag("velocidadenormal")) or (cabeca and cabeca:HasTag("velocidadenormal"))
-
-    -- if TUNING.tropical.fog then
-    --     if (TheWorld.state.iswinter and TheWorld.state.precipitationrate > 0 and isinhamlet and (not fan)) then
-    --         if self.neblina < 1000 then self.neblina = self.neblina + 1 end
-    --     else
-    --         if self.neblina > -10 then self.neblina = self.neblina - 2 end
-    --     end
-
-    --     -------------沙尘暴动画是sand_over,云雾是clouds_ol
-    --     if self.neblina > 0 then
-    --         local a = math.max(math.min(self.neblina / 1000, 1), 0)
-    --         -- self:GetAnimState():SetBank("vagner_over")
-    --         -- self:GetAnimState():SetBuild("vagner_over")
-    --         -- self:GetAnimState():SetMultColour(a, a, a, a * 0.7)
-    --         -- self:GetAnimState():PlayAnimation("foog_loop", true)
-
-
-    --         self:GetAnimState():SetBank("clouds_ol")
-    --         self:GetAnimState():SetBuild("clouds_ol")
-    --         self:GetAnimState():SetMultColour(a, a, a, a * 0.9)
-    --         self:GetAnimState():PushAnimation("idle", true) --------要用push
-    --         self:Show()
-    --     end
-
-
-
-
-    --     if hasequip or self.neblina < 500 or (not isinhamlet) then
-    --         self.speed = false
-    --         self.owner:RemoveTag("hamfogspeed")
-    --     else
-    --         self.speed = true
-    --         self.owner:AddTag("hamfogspeed")
-    --     end
-    -- end
-    local hayfeverval = self.owner.components.temperature and self.owner.components.temperature.hayfever
-
+    local hayfeverval = self.owner.components.hayfever and self.owner.components.hayfever.fevervalue
     if hayfeverval and hayfeverval > 0 then
         local a = math.max(math.min(hayfeverval / 3400, 1), 0)
         self:GetAnimState():SetBank("vagner_over")
@@ -80,45 +32,6 @@ function HayfeverBadge:OnUpdate(dt)
     else
         self:Hide()
     end
-    ---------------------------------leaf--------------------------------------------------
-    -- local x, y, z = self.owner.Transform:GetWorldPosition()
-    -- local ground = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(x, y, z))
-    -- if self.owner and self.owner:HasTag("mostraselva") then --    ground == GROUND.DEEPRAINFOREST or ground == GROUND.GASJUNGLE then		
-    --     if self.owner and self.owner.leafbadge then
-    --         self.owner.leafbadge:StartUpdating()
-    --         self.owner.leafbadge:Show()
-    --     end
-    -- else
-    --     if self.owner and self.owner.leafbadge then
-    --         self.owner.leafbadge:StopUpdating()
-    --         self.owner.leafbadge:Hide()
-    --         --	if self.owner.leafbadge.sound then
-    --         --	self.owner.leafbadge.sound = nil
-    --         --	self.owner.SoundEmitter:KillSound("hamletjungle")
-    --         --	end	
-    --     end
-    -- end
-    ---------------------------这是速度图标--------------icone da velocidade coloquei aqui para não ficar atualizando outro componente-------------------------------------------------
-    -- if self.owner and self.owner:HasTag("tropicalbouillabaisse") then
-    --     local iconedavelocidade = self.owner.velocidadeativa
-    --     if iconedavelocidade then
-    --         iconedavelocidade.speediconanim:GetAnimState():PlayAnimation("frame02")
-    --         iconedavelocidade:Show()
-    --     end
-    -- end
-
-    -- if self.owner and self.owner:HasTag("coffee") then
-    --     local iconedavelocidade = self.owner.velocidadeativa
-    --     if iconedavelocidade then
-    --         iconedavelocidade.speediconanim:GetAnimState():PlayAnimation("frame01")
-    --         iconedavelocidade:Show()
-    --     end
-    -- end
-
-    -- if not self.owner:HasTag("coffee") and not self.owner:HasTag("tropicalbouillabaisse") then
-    --     local iconedavelocidade = self.owner.velocidadeativa
-    --     if iconedavelocidade then iconedavelocidade:Hide() end
-    -- end
 end
 
 return HayfeverBadge

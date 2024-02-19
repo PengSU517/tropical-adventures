@@ -346,7 +346,7 @@ AddRoom("strange_island_tikitribe2", {
 AddRoom("JungleDense_plus", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.RAINFOREST,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -575,7 +575,7 @@ AddRoom("MeadowMandrake", {
 AddRoom("Magma", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -595,7 +595,7 @@ AddRoom("Magma", {
 AddRoom("MagmaHome", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -624,7 +624,7 @@ AddRoom("MagmaHome", {
 AddRoom("MagmaHomeBoon", {
     colour = { r = .66, g = .66, b = .66, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .2,
         distributeprefabs =
@@ -652,7 +652,7 @@ AddRoom("MagmaHomeBoon", {
 AddRoom("BG_Magma", {
     colour = { r = .66, g = .66, b = .66, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .2,
         distributeprefabs =
@@ -673,7 +673,7 @@ AddRoom("BG_Magma", {
 AddRoom("GenericMagmaNoThreat", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
@@ -698,7 +698,7 @@ AddRoom("GenericMagmaNoThreat", {
 AddRoom("MagmaVolcano", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -765,7 +765,7 @@ AddRoom("Volcanofundo", {
 AddRoom("Magmadragoon", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = 0.2,
         distributeprefabs =
@@ -793,7 +793,7 @@ AddRoom("Magmadragoon", {
 AddRoom("MagmaGold", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .2,
         distributeprefabs =
@@ -817,7 +817,7 @@ AddRoom("MagmaGold", {
 AddRoom("MagmaGoldmoon", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         --									countstaticlayouts={["CaveEntrance"]=1}, --adds 1 per room					
         distributepercent = .2,
@@ -848,7 +848,7 @@ AddRoom("MagmaGoldmoon", {
 AddRoom("MagmaGoldBoon", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .2,
         distributeprefabs =
@@ -871,7 +871,7 @@ AddRoom("MagmaGoldBoon", {
 AddRoom("MagmaTallBird", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .2,
         distributeprefabs =
@@ -893,7 +893,7 @@ AddRoom("MagmaTallBird", {
 AddRoom("MagmaForest", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .2,
         distributeprefabs =
@@ -1208,7 +1208,7 @@ AddRoom("VolcanoLava", {
 AddRoom("TidalMarsh", {
     colour = { r = 0, g = .5, b = .5, a = .10 },
     value = GROUND.TIDALMARSH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = 0.4,
         distributeprefabs =
@@ -1243,7 +1243,7 @@ AddRoom("TidalMarsh", {
 AddRoom("TidalMarsh1", {
     colour = { r = 0, g = .5, b = .5, a = .10 },
     value = GROUND.TIDALMARSH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = 0.4,
         distributeprefabs =
@@ -1277,7 +1277,7 @@ AddRoom("TidalMarsh1", {
 AddRoom("TidalMermMarsh", {
     colour = { r = 0, g = .5, b = .5, a = .10 },
     value = GROUND.TIDALMARSH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = 0.1,
         distributeprefabs =
@@ -1311,7 +1311,7 @@ AddRoom("TidalMermMarsh", {
 AddRoom("TidalSharkHome", {
     colour = { r = 0.8, g = .8, b = .1, a = .50 },
     value = GROUND.TIDALMARSH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     required_prefabs = { "tigersharkpool" },
     contents = {
         green_mushroom = .05,
@@ -1336,7 +1336,7 @@ AddRoom("TidalSharkHome", {
 AddRoom("ToxicTidalMarsh", {
     colour = { r = 0, g = .5, b = .5, a = .10 },
     value = GROUND.TIDALMARSH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = 0.2,
         distributeprefabs =
@@ -1364,7 +1364,7 @@ AddRoom("ToxicTidalMarsh", {
 AddRoom("TidalMarshnovo", {
     colour = { r = 0, g = .5, b = .5, a = .10 },
     value = GROUND.TIDALMARSH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = 0.4,
         distributeprefabs =
@@ -1424,7 +1424,7 @@ AddRoom("TidalMarshnovo", {
 AddRoom("BeachSand", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
@@ -1454,7 +1454,7 @@ AddRoom("BeachSand", {
 AddRoom("BeachSandHome", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .3, --upped from .05
         distributeprefabs =
@@ -1489,7 +1489,7 @@ AddRoom("BeachSandHome", {
 AddRoom("BeachUnkept", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .3, --lowered from .3
         distributeprefabs =
@@ -1525,7 +1525,7 @@ AddRoom("BeachUnkept", {
 AddRoom("BeachUnkeptInicio", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .3, --lowered from .3
         distributeprefabs =
@@ -1561,7 +1561,7 @@ AddRoom("BeachUnkeptInicio", {
 AddRoom("BeachX", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts = { ["x_spot"] = 1 },
         distributepercent = .3, --lowered from .3
@@ -1598,7 +1598,7 @@ AddRoom("BeachX", {
 AddRoom("BeachUnkeptDubloon", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -1627,7 +1627,7 @@ AddRoom("BeachUnkeptDubloon", {
 AddRoom("BeachGravel", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -1651,7 +1651,7 @@ AddRoom("BeachGravel", {
 AddRoom("BeachSinglePalmTreeHome", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
@@ -1681,7 +1681,7 @@ AddRoom("BeachSinglePalmTreeHome", {
 AddRoom("DoydoyBeach1", {
     colour = { r = .66, g = .66, b = .66, a = .50 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .1,
         distributeprefabs =
@@ -1709,7 +1709,7 @@ AddRoom("DoydoyBeach1", {
 AddRoom("DoydoyBeach", {
     colour = { r = .66, g = .66, b = .66, a = .50 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "ExitPiece", "tropical" },
+    tags = { "RoadPoison", "ExitPiece", "tropical" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -1738,7 +1738,7 @@ AddRoom("DoydoyBeach", {
 AddRoom("BeachWaspy", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .1, -- just copied this whole thing from EvilFlowerPatch in terrain_grass
         distributeprefabs =
@@ -1758,7 +1758,7 @@ AddRoom("BeachWaspy", {
 AddRoom("BeachPalmForest", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -1779,7 +1779,7 @@ AddRoom("BeachPalmForest", {
 AddRoom("BeachPiggy", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .2, -- just copied this whole thing from EvilFlowerPatch in terrain_grass
         distributeprefabs =
@@ -1798,7 +1798,7 @@ AddRoom("BeachPiggy", {
 AddRoom("BeachCassino", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .2, -- just copied this whole thing from EvilFlowerPatch in terrain_grass
         distributeprefabs =
@@ -1818,7 +1818,7 @@ AddRoom("BeachCassino", {
 AddRoom("BeesBeach", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .3, --Up from .025
         distributeprefabs =
@@ -1846,7 +1846,7 @@ AddRoom("BeesBeach", {
 AddRoom("BeachCrabTown", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
@@ -1872,7 +1872,7 @@ AddRoom("BeachCrabTown", {
 AddRoom("BeachDunes", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .1,
         distributeprefabs =
@@ -1892,7 +1892,7 @@ AddRoom("BeachDunes", {
 AddRoom("BeachGrassy", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
 
     contents = {
         distributepercent = .2, --was .1
@@ -1914,7 +1914,7 @@ AddRoom("BeachGrassy", {
 AddRoom("BeachSappy", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .1,
         distributeprefabs =
@@ -1933,7 +1933,7 @@ AddRoom("BeachSappy", {
 AddRoom("BeachRocky", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .1,
         distributeprefabs =
@@ -1956,7 +1956,7 @@ AddRoom("BeachRocky", {
 AddRoom("BeachLimpety", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .1,
         distributeprefabs =
@@ -1977,7 +1977,7 @@ AddRoom("BeachLimpety", {
 AddRoom("BeachSpider", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .2,
         distributeprefabs =
@@ -1999,7 +1999,7 @@ AddRoom("BeachSpider", {
 AddRoom("BeachNoFlowers", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .1, --Lowered a bit
         distributeprefabs =
@@ -2023,7 +2023,7 @@ AddRoom("BeachNoFlowers", {
 AddRoom("BeachFlowers", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .5, --was .1
         distributeprefabs =
@@ -2045,7 +2045,7 @@ AddRoom("BeachFlowers", {
 AddRoom("BeachNoLimpets", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .1, --Lowered a bit
         distributeprefabs =
@@ -2070,7 +2070,7 @@ AddRoom("BeachNoLimpets", {
 AddRoom("BeachNoCrabbits", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .1, --Lowered a bit
         distributeprefabs =
@@ -2094,7 +2094,7 @@ AddRoom("BeachNoCrabbits", {
 AddRoom("BeachPalmCasino", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts = { ["slotmachine"] = 1 }, --adds 1 per room
         distributepercent = .1,                       --Lowered a bit
@@ -2124,7 +2124,7 @@ AddRoom("BeachPalmCasino", {
 AddRoom("BeachShells", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
@@ -2158,7 +2158,7 @@ AddRoom("BeachShells", {
 AddRoom("BeachShark", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
@@ -2192,7 +2192,7 @@ AddRoom("BeachShark", {
 AddRoom("BeachShells1", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
@@ -2228,7 +2228,7 @@ AddRoom("BeachShells1", {
 AddRoom("BeachSkull", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
@@ -2258,7 +2258,7 @@ AddRoom("BeachSkull", {
 AddRoom("JunglePigs", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     --	required_prefabs = {"slipstor"},
     contents = {
         countstaticlayouts =
@@ -2303,7 +2303,7 @@ AddRoom("Beaverkinghome", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.MEADOW,
     --required_prefabs = {"octopusking"},
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         --countstaticlayouts={["octopusking"]=1}, --adds 1 per room
         distributepercent = .2,
@@ -2333,7 +2333,7 @@ AddRoom("Beaverkinghome", {
 AddRoom("Beaverkingcity", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.MEADOW,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         --									countstaticlayouts=
         --									{
@@ -2363,7 +2363,7 @@ AddRoom("Beaverkingcity", {
 AddRoom("JungleEyeplant", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2398,7 +2398,7 @@ AddRoom("JungleEyeplant", {
 AddRoom("JungleFrogSanctuary", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2431,7 +2431,7 @@ AddRoom("JungleFrogSanctuary", {
 AddRoom("JungleBees", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2464,7 +2464,7 @@ AddRoom("JungleBees", {
 AddRoom("JungleDenseVery", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2497,7 +2497,7 @@ AddRoom("JungleDenseVery", {
 AddRoom("JungleClearing", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts = {
             ["MushroomRingLarge"] = function()
@@ -2533,7 +2533,7 @@ AddRoom("JungleClearing", {
 AddRoom("Jungle", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2570,7 +2570,7 @@ AddRoom("Jungle", {
 AddRoom("JungleRockSkull", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts = { ["skull_isle2"] = 1 }, --adds 1 per room
         distributepercent = .1,                       --Lowered a bit
@@ -2600,7 +2600,7 @@ AddRoom("JungleRockSkull", {
 AddRoom("DoyDoyF", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts = { ["doydoyf"] = 1 }, --adds 1 per room
         distributepercent = .1,                   --Lowered a bit
@@ -2626,7 +2626,7 @@ AddRoom("DoyDoyF", {
 AddRoom("JungleSparse", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2662,7 +2662,7 @@ AddRoom("JungleSparse", {
 AddRoom("JungleSparseHome", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2697,7 +2697,7 @@ AddRoom("JungleSparseHome", {
 AddRoom("JungleDense", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2800,7 +2800,7 @@ AddRoom("JungleDenseMed", {
 AddRoom("JungleDenseBerries", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2835,7 +2835,7 @@ AddRoom("JungleDenseBerries", {
 AddRoom("JungleDenseMedHome", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "ExitPiece", "Chester_Eyebone", "tropical" },
+    tags = { "ExitPiece", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2869,7 +2869,7 @@ AddRoom("JungleDenseMedHome", {
 AddRoom("JunglePigGuards", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts = { ["pigguard_berries_easy"] = 1 }, --adds 1 per room
         distributepercent = 0.3,
@@ -2900,7 +2900,7 @@ AddRoom("JunglePigGuards", {
 AddRoom("JungleFlower", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2938,7 +2938,7 @@ AddRoom("JungleFlower", {
 AddRoom("JungleSpidersDense", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -2975,7 +2975,7 @@ AddRoom("JungleSpidersDense", {
 AddRoom("JungleSpiderCity", {
     colour = { r = .30, g = .20, b = .50, a = .50 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3004,7 +3004,7 @@ AddRoom("JungleSpiderCity", {
 AddRoom("JungleBamboozled", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3080,7 +3080,7 @@ AddRoom("JungleMonkeyHell", {
 AddRoom("JungleCritterCrunch", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3116,7 +3116,7 @@ AddRoom("JungleCritterCrunch", {
 AddRoom("JungleDenseCritterCrunch", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3151,7 +3151,7 @@ AddRoom("JungleDenseCritterCrunch", {
 AddRoom("JungleShroomin", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3185,7 +3185,7 @@ AddRoom("JungleShroomin", {
 AddRoom("JungleRockyDrop", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3221,7 +3221,7 @@ AddRoom("JungleRockyDrop", {
 AddRoom("JungleGrassy", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3254,7 +3254,7 @@ AddRoom("JungleGrassy", {
 AddRoom("JungleSappy", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3287,7 +3287,7 @@ AddRoom("JungleSappy", {
 AddRoom("JungleEvilFlowers", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3323,7 +3323,7 @@ AddRoom("JungleEvilFlowers", {
 AddRoom("JungleParrotSanctuary", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3362,7 +3362,7 @@ AddRoom("JungleParrotSanctuary", {
 AddRoom("JungleNoBerry", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3399,7 +3399,7 @@ AddRoom("JungleNoBerry", {
 AddRoom("JungleNoRock", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3435,7 +3435,7 @@ AddRoom("JungleNoRock", {
 AddRoom("JungleNoMushroom", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3471,7 +3471,7 @@ AddRoom("JungleNoMushroom", {
 AddRoom("JungleNoFlowers", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
 
@@ -3514,7 +3514,7 @@ AddRoom("JungleNoFlowers", {
 AddRoom("JungleMorePalms", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3553,7 +3553,7 @@ AddRoom("JungleMorePalms", {
 AddRoom("DoyDoyM", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts = { ["doydoym"] = 1 }, --adds 1 per room
         distributepercent = .1,                   --Lowered a bit
@@ -3581,7 +3581,7 @@ AddRoom("DoyDoyM", {
 AddRoom("JungleSkeleton", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts =
         {
@@ -3620,7 +3620,7 @@ AddRoom("JungleSkeleton", {
 AddRoom("BeachPortalRoom", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         -- countstaticlayouts={["shipwrecked_start"]=1},
         distributepercent = .25,
@@ -3657,7 +3657,7 @@ AddRoom("BeachPortalRoom", {
 AddRoom("PigVillagesw", {
     colour = { r = 0.3, g = .8, b = .5, a = .50 },
     value = GROUND.JUNGLE,
-    tags = { "Chester_Eyebone", "RoadPoison", "tropical" },
+    tags = { "RoadPoison", "tropical" },
     contents = {
         countstaticlayouts = {
             ["Farmplot"] = function() return math.random(2, 5) end,

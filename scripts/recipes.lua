@@ -1,10 +1,10 @@
 local v_atlas = "images/inventoryimages/volcanoinventory.xml"
 local h_atlas = "images/inventoryimages/hamletinventory.xml"
 local hm_atlas = "map_icons/hamleticon.xml"
-local cm_atlas = "map_icons/creepindedeepicon.xml"
-local g_atlas = "images/quagmire_food_common_inv_images.xml"
+-- local cm_atlas = "map_icons/creepindedeepicon.xml"
+-- local g_atlas = "images/quagmire_food_common_inv_images.xml"
 local safe_atlas = "images/tabs.xml"
-local hnew_atlas = "images/inventoryimages/tap_buildingimages.xml"
+-- local hnew_atlas = "images/inventoryimages/tap_buildingimages.xml"
 
 local TECH = GLOBAL.TECH
 
@@ -86,11 +86,11 @@ AddRecipe2("luckyhat",
 	TECH.NONE, { builder_tag = "woodlegs", atlas = v_atlas }, { "CHARACTER" })
 AddRecipe2("poisonbalm", { Ingredient("livinglog", 1), Ingredient("venomgland", 1, v_atlas) }, TECH.NONE,
 	{ builder_tag = "plantkin", atlas = h_atlas }, { "CHARACTER" })
-AddRecipe2("mutator_tropical",
-	{ Ingredient("monstermeat", 2), Ingredient("silk", 1), Ingredient("venomgland", 1, v_atlas) }, TECH.NONE,
-	{ builder_tag = "spiderwhisperer", atlas = cm_atlas }, { "CHARACTER" })
-AddRecipe2("mutator_frost", { Ingredient("monstermeat", 2), Ingredient("silk", 3), Ingredient("ice", 4) }, TECH.NONE,
-	{ builder_tag = "spiderwhisperer", atlas = cm_atlas }, { "CHARACTER" })
+-- AddRecipe2("mutator_tropical",
+-- 	{ Ingredient("monstermeat", 2), Ingredient("silk", 1), Ingredient("venomgland", 1, v_atlas) }, TECH.NONE,
+-- 	{ builder_tag = "spiderwhisperer", atlas = cm_atlas }, { "CHARACTER" })
+-- AddRecipe2("mutator_frost", { Ingredient("monstermeat", 2), Ingredient("silk", 3), Ingredient("ice", 4) }, TECH.NONE,
+-- 	{ builder_tag = "spiderwhisperer", atlas = cm_atlas }, { "CHARACTER" })
 AddRecipe2("mermfishhouse", { Ingredient("boards", 5), Ingredient("cutreeds", 3), Ingredient("fish2", 2, v_atlas) },
 	TECH.SCIENCE_ONE,
 	{

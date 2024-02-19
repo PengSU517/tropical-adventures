@@ -108,6 +108,8 @@ modimport("postinit/widgets/hoverer_info") ---- show name and anim, for debuggin
 modimport("postinit/components/playerspawner")
 modimport("postinit/components/wavemanager")
 -- modimport("postinit/components/map")
-modimport("main/ham_room") -----------------新的room
+modimport("main/ham_room")                      -----------------新的room
 
 modimport("scripts/widgets/seasonsdisplay.lua") --------------雾和花粉症,还有树荫
+
+modimport("postinit/prefabs/player_hayfever")
