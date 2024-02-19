@@ -112,8 +112,8 @@ local function OnLoad(inst, data)
 end
 
 local function oneat(inst, eater)
-    if eater.components.temperature ~= nil and eater.components.temperature.hayfever then
-        eater.components.temperature.hayfever = 200
+    if eater.components.hayfever ~= nil and eater.components.hayfever.fevervalue then
+        eater.components.hayfever.fevervalue = eater.components.hayfever.fevervalue - 2000
     end
 end
 

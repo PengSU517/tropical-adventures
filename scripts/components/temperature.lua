@@ -357,81 +357,81 @@ function Temperature:OnUpdate(dt, applyhealthdelta)
         end
     end
     ---------------------------hay fever-----------------------------------------
-    local interior = GetClosestInstWithTag("blows_air", self.inst, 15)
-    if (TheWorld.state.isspring and
-            self.inst and self.inst:HasTag("player") and
-            TUNING.tropical.hayfever and
-            (self.inst.components.areaaware and
-                self.inst.components.areaaware:CurrentlyInTag("hamlet") or interior)) then
-        local mascara = self.inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
-        local fan = GetClosestInstWithTag("prevents_hayfever", self.inst, 15)
-        if mascara and mascara.prefab == "gasmaskhat" or mascara and mascara.prefab == "gashat" or fan then
-            if self.hayfever > 0 then self.hayfever = self.hayfever - 5 end
-        else
-            if not self.inst:HasTag("wereplayer") and not self.inst:HasTag("plantkin") then
-                self.hayfever = self.hayfever + 1
-            end
-        end
-        -- if self.inst and self.hayfever and self.hayfever < 2000 then
-        --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-        --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-        --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-        --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-        -- end
+    -- local interior = GetClosestInstWithTag("blows_air", self.inst, 15)
+    -- if (TheWorld.state.isspring and
+    --         self.inst and self.inst:HasTag("player") and
+    --         TUNING.tropical.hayfever and
+    --         (self.inst.components.areaaware and
+    --             self.inst.components.areaaware:CurrentlyInTag("hamlet") or interior)) then
+    --     local mascara = self.inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+    --     local fan = GetClosestInstWithTag("prevents_hayfever", self.inst, 15)
+    --     if mascara and mascara.prefab == "gasmaskhat" or mascara and mascara.prefab == "gashat" or fan then
+    --         if self.hayfever > 0 then self.hayfever = self.hayfever - 5 end
+    --     else
+    --         if not self.inst:HasTag("wereplayer") and not self.inst:HasTag("plantkin") and self.hayfever < 4000 then
+    --             self.hayfever = self.hayfever + 1
+    --         end
+    --     end
+    --     -- if self.inst and self.hayfever and self.hayfever < 2000 then
+    --     --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
+    --     --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
+    --     --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
+    --     --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    --     -- end
 
-        -- if self.inst and self.hayfever and self.hayfever < 3000 and self.hayfever > 2000 then
-        --     if not self.inst:HasTag("hayfever1") then self.inst:AddTag("hayfever1") end
-        --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-        --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-        --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-        -- end
+    --     -- if self.inst and self.hayfever and self.hayfever < 3000 and self.hayfever > 2000 then
+    --     --     if not self.inst:HasTag("hayfever1") then self.inst:AddTag("hayfever1") end
+    --     --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
+    --     --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
+    --     --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    --     -- end
 
-        -- if self.inst and self.hayfever and self.hayfever > 3250 then
-        --     if not self.inst:HasTag("hayfever2") then self.inst:AddTag("hayfever2") end
-        --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-        --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-        --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-        -- end
+    --     -- if self.inst and self.hayfever and self.hayfever > 3250 then
+    --     --     if not self.inst:HasTag("hayfever2") then self.inst:AddTag("hayfever2") end
+    --     --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
+    --     --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
+    --     --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    --     -- end
 
-        -- if self.inst and self.hayfever and self.hayfever > 3300 then
-        --     if not self.inst:HasTag("hayfever3") then self.inst:AddTag("hayfever3") end
-        --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-        --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-        --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-        -- end
+    --     -- if self.inst and self.hayfever and self.hayfever > 3300 then
+    --     --     if not self.inst:HasTag("hayfever3") then self.inst:AddTag("hayfever3") end
+    --     --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
+    --     --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
+    --     --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    --     -- end
 
-        -- if self.inst and self.hayfever and self.hayfever > 3350 then
-        --     if not self.inst:HasTag("hayfever4") then self.inst:AddTag("hayfever4") end
-        --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-        --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-        --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-        -- end
+    --     -- if self.inst and self.hayfever and self.hayfever > 3350 then
+    --     --     if not self.inst:HasTag("hayfever4") then self.inst:AddTag("hayfever4") end
+    --     --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
+    --     --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
+    --     --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
+    --     -- end
 
 
-        if self.inst and self.hayfever and self.hayfever > 3400 then
-            self.hayfever = math.random(2000, 2500)
-            if self.inst.sg then self.inst:PushEvent("sneeze") end
-        end
-    else
-        if self.hayfever and self.hayfever > 0 then self.hayfever = self.hayfever - 5 end
-    end
-
-    --print(self.hayfever)
-
-    -- if self.hayfever and self.hayfever < 2000 then
-    --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-    --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-    --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-    --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    --     if self.inst and self.hayfever and self.hayfever > 3400 then
+    --         self.hayfever = math.random(2000, 2500)
+    --         if self.inst.sg then self.inst:PushEvent("sneeze") end
+    --     end
+    -- else
+    --     if self.hayfever and self.hayfever > 0 then self.hayfever = self.hayfever - 5 end
     -- end
 
-    if not TheWorld.state.isspring and self.hayfever > -50 then
-        self.hayfever = self.hayfever - 10
-        -- if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-        -- if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-        -- if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-        -- if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-    end
+    -- --print(self.hayfever)
+
+    -- -- if self.hayfever and self.hayfever < 2000 then
+    -- --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
+    -- --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
+    -- --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
+    -- --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    -- -- end
+
+    -- if not TheWorld.state.isspring and self.hayfever > -50 then
+    --     self.hayfever = self.hayfever - 10
+    --     -- if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
+    --     -- if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
+    --     -- if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
+    --     -- if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    -- end
     ------------------------------------------------------------------------------------------------------------------------------	
 
     if owner ~= nil and owner:HasTag("fridge") and not owner:HasTag("nocool") then
