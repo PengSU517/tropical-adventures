@@ -4,8 +4,8 @@ local BlinkStaff = Class(function(self, inst)
     self.blinktask = nil
     self.frontfx = nil
     self.backfx = nil
-	
-    self:ResetSoundFX()	
+
+    self:ResetSoundFX()
 end)
 
 function BlinkStaff:SetFX(front, back)
@@ -19,8 +19,8 @@ function BlinkStaff:ResetSoundFX()
 end
 
 function BlinkStaff:SetSoundFX(presound, postsound)
-    self.presound = presound or self.presound
-    self.postsound = postsound or self.postsound
+    self.presound = presound
+    self.postsound = postsound
 end
 
 function BlinkStaff:SpawnEffect(inst)
@@ -45,12 +45,12 @@ local function OnBlinked(caster, self, dpt)
     elseif caster.sg.statemem.onstopblinking ~= nil then
         caster.sg.statemem.onstopblinking()
     end
-	local pt = dpt:GetPosition()
-	if pt ~= nil and TheWorld.Map:IsPassableAtPoint(pt:Get()) and not TheWorld.Map:IsGroundTargetBlocked(pt) then
-	    caster.Physics:Teleport(pt:Get())
-	end
+    local pt = dpt:GetPosition()
+    if pt ~= nil and TheWorld.Map:IsPassableAtPoint(pt:Get()) and not TheWorld.Map:IsGroundTargetBlocked(pt) then
+        caster.Physics:Teleport(pt:Get())
+    end
     self:SpawnEffect(caster)
-    if self.postsound ~= "" then
+    if self.postsound and self.postsound ~= "" then
         caster.SoundEmitter:PlaySound(self.postsound)
     end
 end
@@ -59,34 +59,33 @@ function BlinkStaff:Blink(pt, caster)
     if (caster.sg ~= nil and caster.sg.currentstate.name ~= "quicktele") or
         not TheWorld.Map:IsPassableAtPoint(pt:Get()) or
         TheWorld.Map:IsGroundTargetBlocked(pt) or
-		
-TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_SWELL or
-TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_BRINEPOOL or
-TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_BRINEPOOL_SHORE or
-TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_HAZARDOUS or
-TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_ROUGH or
-TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_COASTAL_SHORE or
-TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_WATERLOG or
-TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_COASTAL then		
-		
+
+        TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_SWELL or
+        TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_BRINEPOOL or
+        TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_BRINEPOOL_SHORE or
+        TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_HAZARDOUS or
+        TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_ROUGH or
+        TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_COASTAL_SHORE or
+        TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_WATERLOG or
+        TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.OCEAN_COASTAL then
         return false
     elseif self.blinktask ~= nil then
         self.blinktask:Cancel()
     end
 
     self:SpawnEffect(caster)
-    if self.presound ~= "" then
+    if self.presound and self.presound ~= "" then
         caster.SoundEmitter:PlaySound(self.presound)
     end
 
     if caster.sg == nil then
-		caster:Hide()
-		if caster.DynamicShadow ~= nil then
-			caster.DynamicShadow:Enable(false)
-		end
-		if caster.components.health ~= nil then
-			caster.components.health:SetInvincible(true)
-		end
+        caster:Hide()
+        if caster.DynamicShadow ~= nil then
+            caster.DynamicShadow:Enable(false)
+        end
+        if caster.components.health ~= nil then
+            caster.components.health:SetInvincible(true)
+        end
     elseif caster.sg.statemem.onstartblinking ~= nil then
         caster.sg.statemem.onstartblinking()
     end

@@ -1,18 +1,18 @@
-local events=
+local events =
 {
 	EventHandler("ondropped", function(inst)
 		if inst.components.trap then
-local map = TheWorld.Map
-local x, y, z = inst.Transform:GetWorldPosition()
-local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-if ground == GROUND.OCEAN_COASTAL or
-ground == GROUND.OCEAN_COASTAL_SHORE or
-ground == GROUND.OCEAN_SWELL or
-ground == GROUND.OCEAN_ROUGH or
-ground == GROUND.OCEAN_BRINEPOOL or
-ground == GROUND.OCEAN_BRINEPOOL_SHORE or
-ground == GROUND.OCEAN_WATERLOG or
-ground == GROUND.OCEAN_HAZARDOUS then
+			local map = TheWorld.Map
+			local x, y, z = inst.Transform:GetWorldPosition()
+			local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
+			if TileGroupManager:IsOceanTile(ground) --[[ground == GROUND.OCEAN_COASTAL or
+				ground == GROUND.OCEAN_COASTAL_SHORE or
+				ground == GROUND.OCEAN_SWELL or
+				ground == GROUND.OCEAN_ROUGH or
+				ground == GROUND.OCEAN_BRINEPOOL or
+				ground == GROUND.OCEAN_BRINEPOOL_SHORE or
+				ground == GROUND.OCEAN_WATERLOG or
+				ground == GROUND.OCEAN_HAZARDOUS]] then
 				inst.components.trap:Set()
 				inst.sg:GoToState("idle")
 			else
@@ -33,9 +33,9 @@ ground == GROUND.OCEAN_HAZARDOUS then
 	end),
 }
 
-local states=
+local states =
 {
-	State{
+	State {
 		name = "idle_ground",
 
 		onenter = function(inst)
@@ -43,7 +43,7 @@ local states=
 		end,
 	},
 
-	State{
+	State {
 		name = "idle",
 		onenter = function(inst)
 			if inst.components.trap.bait then
@@ -52,8 +52,8 @@ local states=
 				inst.AnimState:PlayAnimation("idle_water", true)
 			end
 		end,
-		
-		events=
+
+		events =
 		{
 			EventHandler("springtrap", function(inst)
 				if inst.entity:IsAwake() then
@@ -67,36 +67,36 @@ local states=
 			EventHandler("baited", function(inst)
 				inst.AnimState:PlayAnimation("idle_baited", true)
 			end),
-		}        
+		}
 	},
-	
-	State{
+
+	State {
 		name = "full",
 		onenter = function(inst, target)
 			inst.AnimState:PlayAnimation("trap_loop")
 			-- inst.SoundEmitter:PlaySound(inst.sounds.rustle)
 		end,
-		
-		events=
+
+		events =
 		{
 			EventHandler("harvesttrap", function(inst) inst.sg:GoToState("idle") end),
 			EventHandler("animover", function(inst) inst.sg:GoToState("full") end),
 		},
 	},
-	
-	State{
+
+	State {
 		name = "empty",
 		onenter = function(inst, target)
 			inst.AnimState:PlayAnimation("side", true)
-		 end,
-		
-		events=
+		end,
+
+		events =
 		{
 			EventHandler("harvesttrap", function(inst) inst.sg:GoToState("idle") end),
 		},
 	},
-	
-	State{
+
+	State {
 		name = "sprung",
 		onenter = function(inst, target)
 			if inst.components.trap.bait then
@@ -108,19 +108,19 @@ local states=
 
 		timeline =
 		{
-			TimeEvent(13*FRAMES, function(inst)
+			TimeEvent(13 * FRAMES, function(inst)
 				inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sea_trap/sea_trap_drop")
 			end),
-			TimeEvent(15*FRAMES, function(inst)
+			TimeEvent(15 * FRAMES, function(inst)
 				inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sea_trap/sea_trap_ground_hit")
 			end),
-			TimeEvent(17*FRAMES, function(inst)
+			TimeEvent(17 * FRAMES, function(inst)
 				inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sea_trap/sea_trap_flag")
 				inst.components.trap:DoSpring()
 			end),
 		},
-		
-		events=
+
+		events =
 		{
 			EventHandler("animover", function(inst)
 				if inst.components.trap.lootprefabs then
@@ -131,8 +131,8 @@ local states=
 			end),
 		}
 	},
- 
+
 }
 
-	
+
 return StateGraph("trap", states, events, "idle")

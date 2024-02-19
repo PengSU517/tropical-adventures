@@ -1,19 +1,18 @@
-
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/rainbowjellyfish.zip"),
+    Asset("ANIM", "anim/rainbowjellyfish.zip"),
     Asset("ANIM", "anim/meat_rack_food.zip"),
     Asset("INV_IMAGE", "rainbowJellyJerky"),
 }
 
 
-local prefabs=
+local prefabs =
 {
     "rainbowjellyfish_planted",
 }
 
-local		RAINBOWJELLYFISH_LIGHT_RADIUS = 3
-local		RAINBOWJELLYFISH_LIGHT_DURATION = 90
+local RAINBOWJELLYFISH_LIGHT_RADIUS = 3
+local RAINBOWJELLYFISH_LIGHT_DURATION = 90
 
 local function playDeadAnimation(inst)
     inst.AnimState:PlayAnimation("death_ground", true)
@@ -21,35 +20,34 @@ local function playDeadAnimation(inst)
 end
 
 local function ondropped(inst)
-local map = TheWorld.Map
-local x, y, z = inst.Transform:GetWorldPosition()
-local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))   
+    local map = TheWorld.Map
+    local x, y, z = inst.Transform:GetWorldPosition()
+    local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
 
-if ground == GROUND.OCEAN_COASTAL or
-ground == GROUND.OCEAN_COASTAL_SHORE or
-ground == GROUND.OCEAN_SWELL or
-ground == GROUND.OCEAN_ROUGH or
-ground == GROUND.OCEAN_BRINEPOOL or
-ground == GROUND.OCEAN_BRINEPOOL_SHORE or
-ground == GROUND.OCEAN_WATERLOG or
-ground == GROUND.OCEAN_HAZARDOUS then
-if not inst.replica.inventoryitem:IsHeld() then
-        local replacement = SpawnPrefab("rainbowjellyfish_planted")
-        replacement.Transform:SetPosition(inst.Transform:GetWorldPosition())
-        inst:Remove()
-		return
-end 
-end
+    if TileGroupManager:IsOceanTile(ground) --[[ground == GROUND.OCEAN_COASTAL or
+        ground == GROUND.OCEAN_COASTAL_SHORE or
+        ground == GROUND.OCEAN_SWELL or
+        ground == GROUND.OCEAN_ROUGH or
+        ground == GROUND.OCEAN_BRINEPOOL or
+        ground == GROUND.OCEAN_BRINEPOOL_SHORE or
+        ground == GROUND.OCEAN_WATERLOG or
+        ground == GROUND.OCEAN_HAZARDOUS]] then
+        if not inst.replica.inventoryitem:IsHeld() then
+            local replacement = SpawnPrefab("rainbowjellyfish_planted")
+            replacement.Transform:SetPosition(inst.Transform:GetWorldPosition())
+            inst:Remove()
+            return
+        end
+    end
 end
 
 
 local function defaultfn(sim)
-
     local inst = CreateEntity()
     inst.entity:AddTransform()
-	inst.Transform:SetScale(0.8, 0.8, 0.8)
-	inst.entity:AddNetwork()
-	
+    inst.Transform:SetScale(0.8, 0.8, 0.8)
+    inst.entity:AddNetwork()
+
     inst.entity:AddAnimState()
     MakeInventoryPhysics(inst)
     inst.entity:AddSoundEmitter()
@@ -58,28 +56,28 @@ local function defaultfn(sim)
     inst.AnimState:SetBank("rainbowjellyfish")
     inst.AnimState:SetBuild("rainbowjellyfish")
 
-    inst.AnimState:SetLayer( LAYER_BACKGROUND )
-    inst.AnimState:SetSortOrder( 3 )
-	
-	inst:AddTag("show_spoilage")
+    inst.AnimState:SetLayer(LAYER_GROUND) ----LAYER_BACKGROUND
+    inst.AnimState:SetSortOrder(3)
+
+    inst:AddTag("show_spoilage")
     inst:AddTag("jellyfish")
-	inst:AddTag("fishmeat")
-	inst:AddTag("aquatic")
-	inst.entity:SetPristine()
+    inst:AddTag("fishmeat")
+    inst:AddTag("aquatic")
+    inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
-    end	
-	
+    end
+
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
     inst:AddComponent("perishable")
 
     inst:AddComponent("tradable")
     inst.components.tradable.goldvalue = TUNING.GOLD_VALUES.MEAT
---    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
+    --    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
 
     inst.components.perishable:SetPerishTime(TUNING.PERISH_ONE_DAY * 1.5)
     inst.components.perishable:StartPerishing()
@@ -88,19 +86,18 @@ local function defaultfn(sim)
     inst.components.inventoryitem:SetOnDroppedFn(ondropped)
     inst.AnimState:PlayAnimation("idle_ground", true)
 
---    MakeInventoryFloatable(inst, "idle_water", "idle_ground")
+    --    MakeInventoryFloatable(inst, "idle_water", "idle_ground")
 
     inst:AddComponent("cookable")
     inst.components.cookable.product = "rainbowjellyfish_cooked"
 
     inst:AddComponent("health")
---    inst.components.health.murdersound = "dontstarve_DLC002/creatures/jellyfish/death_murder"
+    --    inst.components.health.murdersound = "dontstarve_DLC002/creatures/jellyfish/death_murder"
 
     inst:AddComponent("lootdropper")
-    inst.components.lootdropper:SetLoot({"rainbowjellyfish_dead"})
---	inst:DoTaskInTime(0, ondropped)	
+    inst.components.lootdropper:SetLoot({ "rainbowjellyfish_dead" })
+    --	inst:DoTaskInTime(0, ondropped)	
     return inst
-
 end
 
 local function create_light(eater, lightprefab)
@@ -125,37 +122,45 @@ local function create_light(eater, lightprefab)
     end
 end
 
---[[ LIGHT EMITTING BENEFITS ]]--
+--[[ LIGHT EMITTING BENEFITS ]]
+--
 local function item_oneaten(inst, eater)
-create_light(eater, "wormlight_light_lesser")
+    create_light(eater, "wormlight_light_lesser")
 end
 
 local function swapColor(inst, light)
-	local timeleft = inst.components.spell.duration - inst.components.spell.lifetime
-	local percent = timeleft/inst.components.spell.duration
+    local timeleft = inst.components.spell.duration - inst.components.spell.lifetime
+    local percent = timeleft / inst.components.spell.duration
     local var = inst.components.spell.variables
-	if inst.ispink then
-		inst.ispink = false
-		inst.isgreen = true
-		inst.components.lighttweener:StartTween(light, Lerp(0, var.radius, percent), nil, nil, {0/255, 180/255, 255/255}, 4, swapColor)
-	elseif inst.isgreen then
-		inst.isgreen = false
-		inst.components.lighttweener:StartTween(light, Lerp(0, var.radius, percent), nil, nil, {240/255, 230/255, 100/255}, 4, swapColor)
-	else
-		inst.ispink = true
-		inst.components.lighttweener:StartTween(light, Lerp(0, var.radius, percent), nil, nil, {251/255, 30/255, 30/255}, 4, swapColor)
-	end
+    if inst.ispink then
+        inst.ispink = false
+        inst.isgreen = true
+        inst.components.lighttweener:StartTween(light, Lerp(0, var.radius, percent), nil, nil,
+            { 0 / 255, 180 / 255, 255 /
+            255 }, 4, swapColor)
+    elseif inst.isgreen then
+        inst.isgreen = false
+        inst.components.lighttweener:StartTween(light, Lerp(0, var.radius, percent), nil, nil,
+            { 240 / 255, 230 / 255, 100 / 255 }, 4, swapColor)
+    else
+        inst.ispink = true
+        inst.components.lighttweener:StartTween(light, Lerp(0, var.radius, percent), nil, nil,
+            { 251 / 255, 30 / 255, 30 /
+            255 }, 4, swapColor)
+    end
 end
 
 local function light_resume(inst, time)
-    local percent = time/inst.components.spell.duration
+    local percent = time / inst.components.spell.duration
     local var = inst.components.spell.variables
     if percent and time > 0 then
         --Snap light to value
-		local spell = inst.components.spell
-        inst.components.lighttweener:StartTween(inst.light, Lerp(0, var.radius, percent), 0.8, 0.5, {251/255, 30/255, 30/255}, 0)
-		inst.ispink = true
-		inst.components.lighttweener:StartTween(inst.light, nil, nil, nil, {0/255, 180/255, 255/255}, 4, swapColor)
+        local spell = inst.components.spell
+        inst.components.lighttweener:StartTween(inst.light, Lerp(0, var.radius, percent), 0.8, 0.5,
+            { 251 / 255, 30 / 255, 30 / 255 }, 0)
+        inst.ispink = true
+        inst.components.lighttweener:StartTween(inst.light, nil, nil, nil, { 0 / 255, 180 / 255, 255 / 255 }, 4,
+            swapColor)
     end
 end
 
@@ -167,9 +172,11 @@ end
 
 local function light_start(inst)
     local spell = inst.components.spell
-    inst.components.lighttweener:StartTween(inst.light, spell.variables.radius, 0.8, 0.5, {251/255, 30/255, 30/255}, 0)
-	inst.ispink = true
-	inst.components.lighttweener:StartTween(inst.light, nil, nil, nil, {0/255, 180/255, 255/255}, 4, swapColor)
+    inst.components.lighttweener:StartTween(inst.light, spell.variables.radius, 0.8, 0.5,
+        { 251 / 255, 30 / 255, 30 / 255 },
+        0)
+    inst.ispink = true
+    inst.components.lighttweener:StartTween(inst.light, nil, nil, nil, { 0 / 255, 180 / 255, 255 / 255 }, 4, swapColor)
 end
 
 local function light_ontarget(inst, target)
@@ -188,7 +195,6 @@ local function light_onfinish(inst)
 end
 
 local function lightfn()
-
     local inst = CreateEntity()
     inst.entity:AddTransform()
 
@@ -214,15 +220,16 @@ local function lightfn()
     return inst
 end
 
---[[ end of LIGHT EMITTING BENEFITS ]]--
+--[[ end of LIGHT EMITTING BENEFITS ]]
+--
 
 
 local function deadfn(sim)
     local inst = CreateEntity()
     inst.entity:AddTransform()
-	inst.Transform:SetScale(0.8, 0.8, 0.8)
-	inst.entity:AddNetwork()
-	
+    inst.Transform:SetScale(0.8, 0.8, 0.8)
+    inst.entity:AddNetwork()
+
     inst.entity:AddAnimState()
     MakeInventoryPhysics(inst)
     inst.entity:AddSoundEmitter()
@@ -231,27 +238,27 @@ local function deadfn(sim)
     inst.AnimState:SetBank("rainbowjellyfish")
     inst.AnimState:SetBuild("rainbowjellyfish")
 
-    inst.AnimState:SetLayer( LAYER_BACKGROUND )
-    inst.AnimState:SetSortOrder( 3 )
+    inst.AnimState:SetLayer(LAYER_BACKGROUND)
+    inst.AnimState:SetSortOrder(3)
     MakeInventoryFloatable(inst)
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
-    end		
-	
+    end
+
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
     inst:AddComponent("perishable")
 
     inst:AddComponent("tradable")
     inst.components.tradable.goldvalue = TUNING.GOLD_VALUES.MEAT
---    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
+    --    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
 
-	inst.Transform:SetScale(0.7, 0.7, 0.7)
-	
+    inst.Transform:SetScale(0.7, 0.7, 0.7)
+
     inst:AddComponent("edible")
     inst.components.edible.foodtype = "MEAT"
     inst.components.edible:SetOnEatenFn(item_oneaten)
@@ -262,7 +269,7 @@ local function deadfn(sim)
 
     inst.AnimState:PlayAnimation("idle_ground", true)
 
---    MakeInventoryFloatable(inst, "idle_water", "idle_ground")
+    --    MakeInventoryFloatable(inst, "idle_water", "idle_ground")
 
     inst:AddComponent("cookable")
     inst.components.cookable.product = "rainbowjellyfish_cooked"
@@ -278,40 +285,39 @@ end
 
 
 local function cookedfn(sim)
-
     local inst = CreateEntity()
     inst.entity:AddTransform()
-	inst.Transform:SetScale(0.8, 0.8, 0.8)
-	inst.entity:AddNetwork()
-	
+    inst.Transform:SetScale(0.8, 0.8, 0.8)
+    inst.entity:AddNetwork()
+
     inst.entity:AddAnimState()
     MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst)	
+    MakeInventoryFloatable(inst)
     inst.entity:AddSoundEmitter()
 
     inst.AnimState:SetRayTestOnBB(true);
     inst.AnimState:SetBank("rainbowjellyfish")
     inst.AnimState:SetBuild("rainbowjellyfish")
-	inst.AnimState:PlayAnimation("cooked", true)
+    inst.AnimState:PlayAnimation("cooked", true)
 
-    inst.AnimState:SetLayer( LAYER_BACKGROUND )
-    inst.AnimState:SetSortOrder( 3 )
+    inst.AnimState:SetLayer(LAYER_BACKGROUND)
+    inst.AnimState:SetSortOrder(3)
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
-    end	
-	
+    end
+
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
     inst:AddComponent("perishable")
 
     inst:AddComponent("tradable")
     inst.components.tradable.goldvalue = TUNING.GOLD_VALUES.MEAT
---    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
+    --    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
 
     inst:AddComponent("edible")
     inst.components.edible.foodtype = "MEAT"
@@ -332,42 +338,42 @@ end
 local function driedfn(sim)
     local inst = CreateEntity()
     inst.entity:AddTransform()
-	inst.Transform:SetScale(0.8, 0.8, 0.8)
+    inst.Transform:SetScale(0.8, 0.8, 0.8)
 
     inst.entity:AddAnimState()
     MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst)	
+    MakeInventoryFloatable(inst)
     inst.entity:AddSoundEmitter()
-	inst.entity:AddNetwork()
-	
+    inst.entity:AddNetwork()
+
     inst.AnimState:SetBank("meat_rack_food")
     inst.AnimState:SetBuild("meat_rack_food")
     inst.AnimState:PlayAnimation("idle_dried_large", true)
 
-    inst.AnimState:SetLayer( LAYER_BACKGROUND )
-    inst.AnimState:SetSortOrder( 3 )
+    inst.AnimState:SetLayer(LAYER_BACKGROUND)
+    inst.AnimState:SetSortOrder(3)
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
-    end	
-	
+    end
+
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
     inst:AddComponent("perishable")
 
     inst:AddComponent("tradable")
     inst.components.tradable.goldvalue = TUNING.GOLD_VALUES.MEAT
---    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
+    --    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
     inst:AddComponent("edible")
     inst.components.edible.foodtype = "MEAT"
     inst.components.edible.foodstate = "DRIED"
     inst.components.edible.hungervalue = TUNING.CALORIES_MEDSMALL
     inst.components.edible.sanityvalue = 0
-	
+
 
     inst.components.perishable:SetPerishTime(TUNING.PERISH_PRESERVED)
     inst.components.perishable:StartPerishing()
@@ -376,11 +382,10 @@ local function driedfn(sim)
     inst:AddComponent("stackable")
     inst.components.stackable.maxsize = TUNING.STACK_SIZE_MEDITEM
     return inst
-
 end
 
-return Prefab( "common/inventory/rainbowjellyfish", defaultfn, assets),
-       Prefab( "common/inventory/rainbowjellyfish_dead", deadfn, assets),
-       Prefab( "common/inventory/rainbowjellyfish_cooked", cookedfn, assets),
-       Prefab( "common/inventory/rainbowjellyjerky", driedfn, assets),
-	   Prefab("common/inventory/rainbowjellylight", lightfn, assets)
+return Prefab("common/inventory/rainbowjellyfish", defaultfn, assets),
+    Prefab("common/inventory/rainbowjellyfish_dead", deadfn, assets),
+    Prefab("common/inventory/rainbowjellyfish_cooked", cookedfn, assets),
+    Prefab("common/inventory/rainbowjellyjerky", driedfn, assets),
+    Prefab("common/inventory/rainbowjellylight", lightfn, assets)

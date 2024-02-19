@@ -54,8 +54,29 @@ local function onopen(inst)
 	inst.AnimState:PushAnimation("opened")
 end
 
-local function DisplayNameFn(inst)
-    return inst.replica.container:CanBeOpened() and STRINGS.NAMES.QUAGMIRE_SAFE_UNLOCKED or STRINGS.NAMES.QUAGMIRE_SAFE_LOCKED
+local function onhammered(inst, worker)
+    if inst.components.burnable ~= nil and inst.components.burnable:IsBurning() then
+        inst.components.burnable:Extinguish()
+    end
+    inst.components.lootdropper:DropLoot()
+    if inst.components.container ~= nil then
+        inst.components.container:DropEverything()
+    end
+    local fx = SpawnPrefab("collapse_small")
+    fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
+    fx:SetMaterial("wood")
+    inst:Remove()
+end
+
+local function onhit(inst, worker)
+    if not inst:HasTag("burnt") then
+        if inst.components.container ~= nil then
+            inst.components.container:DropEverything()
+            inst.components.container:Close()
+        end
+        inst.AnimState:PlayAnimation("hit_unlocked")
+        inst.AnimState:PushAnimation("idle_unlock", false)
+    end
 end
 
 local function onusekey(inst, key, doer)
@@ -86,6 +107,12 @@ local function onusekey(inst, key, doer)
 	inst.AnimState:PlayAnimation("unlock")
 	inst.AnimState:PushAnimation("idle_unlock")
 	
+    inst:AddComponent("lootdropper")
+    inst:AddComponent("workable")
+    inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
+    inst.components.workable:SetWorkLeft(2)
+    inst.components.workable:SetOnFinishCallback(onhammered)
+    inst.components.workable:SetOnWorkCallback(onhit)	
     return true, nil, true
 end
 
@@ -103,7 +130,14 @@ local function onload(inst, data)
 	if inst.unlocked then
 	inst.components.container.canbeopened = inst.unlocked and true or false
 	inst.AnimState:PlayAnimation(inst.unlocked and "idle_unlock" or "closed")
+	inst:AddComponent("lootdropper")
+    inst:AddComponent("workable")
+    inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
+    inst.components.workable:SetWorkLeft(2)
+    inst.components.workable:SetOnFinishCallback(onhammered)
+    inst.components.workable:SetOnWorkCallback(onhit)	
 	end	
+
 end
 
 local function fn()
@@ -127,8 +161,6 @@ local function fn()
 	
 	inst:SetPrefabNameOverride("quagmire_safe")
 	
-	inst.displaynamefn = DisplayNameFn
-	
 	inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
@@ -143,7 +175,7 @@ local function fn()
 	inst:AddComponent("klaussacklock")
 	inst.components.klaussacklock:SetOnUseKey(onusekey)
 	
-	inst.keyid = "safe_key"
+	inst.keyid = "quagmire_key_park"
 	
     inst:AddComponent("container")
     inst.components.container:WidgetSetup("quagmire_safe")
@@ -166,7 +198,19 @@ local function regular_fn()
         return inst
     end
 
+
 	inst.unlocked = true
+	
+	
+    if inst.unlocked then
+    inst:AddComponent("lootdropper")
+    inst:AddComponent("workable")
+    inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
+    inst.components.workable:SetWorkLeft(2)
+    inst.components.workable:SetOnFinishCallback(onhammered)
+    inst.components.workable:SetOnWorkCallback(onhit)
+    end	
+	
 	inst.components.container.canbeopened = inst.unlocked and true or false
 	inst.AnimState:PlayAnimation(inst.unlocked and "idle_unlock" or "closed")	
 	

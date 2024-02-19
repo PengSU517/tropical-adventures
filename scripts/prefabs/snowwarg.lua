@@ -181,6 +181,36 @@ local function FindClosestOffset(hound, x, z, offsets)
     end
 end
 
+local function SpawnHounds(inst, radius_override)
+    local hounds = nil
+    local hounded = TheWorld.components.hounded
+    if hounded == nil then
+        return hounds
+    end
+
+    local num = inst:NumHoundsToSpawn()
+    if inst.max_hound_spawns then
+        num = math.min(num,inst.max_hound_spawns)
+        inst.max_hound_spawns = inst.max_hound_spawns - num
+    end
+
+	local forcemutate = inst:HasTag("lunar_aligned") or nil
+    local pt = inst:GetPosition()
+    for i = 1, num do
+        local hound = hounded:SummonSpawn(pt, radius_override)
+        if hound ~= nil then
+            if hound.components.follower ~= nil then
+                hound.components.follower:SetLeader(inst)
+            end
+            if hounds == nil then
+                hounds = {}
+            end
+            table.insert(hounds, hound)
+        end
+    end
+    return hounds
+end
+
 local function GetStatus(inst)
     return (inst.sg:HasStateTag("statue") and "STATUE")
         or nil
@@ -220,7 +250,7 @@ local function MakeWarg(name, bank, build, prefabs, tag)
         inst:AddTag("scarytoprey")
         inst:AddTag("houndfriend")
         inst:AddTag("largecreature")
- 	inst:AddTag("walrus")		
+		inst:AddTag("walrus")		
 
         if tag ~= nil then
             inst:AddTag(tag)
@@ -230,6 +260,7 @@ local function MakeWarg(name, bank, build, prefabs, tag)
         inst.AnimState:SetBuild(build)
         inst.AnimState:PlayAnimation("idle_loop", true)
 
+		inst.SpawnHounds = SpawnHounds
         inst.entity:SetPristine()
 
         if not TheWorld.ismastersim then

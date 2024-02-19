@@ -1,7 +1,7 @@
 local assets =
 {
     Asset("ANIM", "anim/cave_exit.zip"),
-	Asset("MINIMAP_IMAGE", "cave_open2"),
+    Asset("MINIMAP_IMAGE", "cave_open2"),
 }
 
 local function close(inst)
@@ -34,7 +34,7 @@ local function fn()
 
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
-    inst.entity:AddSoundEmitter() 
+    inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
@@ -46,6 +46,8 @@ local function fn()
     inst.AnimState:SetBuild("cave_exit")
     inst.AnimState:PlayAnimation("open")
 
+    inst.scrapbook_anim = "open"
+
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
@@ -56,7 +58,7 @@ local function fn()
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0,0)
+        inst.AnimState:SetScale(0, 0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
@@ -71,16 +73,16 @@ local function fn()
     inst:ListenForEvent("migration_unavailable", close)
     inst:ListenForEvent("migration_full", full)
     inst:ListenForEvent("migration_activate", activate)
-	
-	if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "1"	
-	end		
-	
-	if TUNING.tropical.tropicalshards == 30 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "5"	
-	end		
+
+    -- if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "1"	
+    -- end		
+
+    -- if TUNING.tropical.tropicalshards == 30 then
+    -- inst.components.worldmigrator.auto = false
+    -- inst.components.worldmigrator.linkedWorld = "5"	
+    -- end		
 
     return inst
 end
@@ -90,7 +92,7 @@ local function fn1()
 
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
-    inst.entity:AddSoundEmitter() 
+    inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
@@ -112,7 +114,7 @@ local function fn1()
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0,0)
+        inst.AnimState:SetScale(0, 0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
@@ -123,23 +125,23 @@ local function fn1()
     inst.components.inspectable.getstatus = GetStatus
 
     inst:AddComponent("worldmigrator")
-	inst.components.worldmigrator.id = 1271
-	inst.components.worldmigrator.receivedPortal = 1272	
-	
+    inst.components.worldmigrator.id = 1271
+    inst.components.worldmigrator.receivedPortal = 1272
+
     inst:ListenForEvent("migration_available", open)
     inst:ListenForEvent("migration_unavailable", close)
     inst:ListenForEvent("migration_full", full)
     inst:ListenForEvent("migration_activate", activate)
-	
-	if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "4"	
-	end		
-	
-	if TUNING.tropical.tropicalshards == 30 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "5"	
-	end		
+
+    -- if TUNING.tropical.tropicalshards == 5 or TUNING.tropical.tropicalshards == 10 or TUNING.tropical.tropicalshards == 20 then
+    --     inst.components.worldmigrator.auto = false
+    --     inst.components.worldmigrator.linkedWorld = "4"
+    -- end
+
+    -- if TUNING.tropical.tropicalshards == 30 then
+    --     inst.components.worldmigrator.auto = false
+    --     inst.components.worldmigrator.linkedWorld = "5"
+    -- end
 
     return inst
 end
@@ -149,7 +151,7 @@ local function fn2()
 
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
-    inst.entity:AddSoundEmitter() 
+    inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
@@ -171,7 +173,7 @@ local function fn2()
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0,0)
+        inst.AnimState:SetScale(0, 0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
@@ -182,23 +184,23 @@ local function fn2()
     inst.components.inspectable.getstatus = GetStatus
 
     inst:AddComponent("worldmigrator")
-	inst.components.worldmigrator.id = 1371
-	inst.components.worldmigrator.receivedPortal = 1372	
-	
+    inst.components.worldmigrator.id = 1371
+    inst.components.worldmigrator.receivedPortal = 1372
+
     inst:ListenForEvent("migration_available", open)
     inst:ListenForEvent("migration_unavailable", close)
     inst:ListenForEvent("migration_full", full)
     inst:ListenForEvent("migration_activate", activate)
-	
-	if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "4"	
-	end		
-	
-	if TUNING.tropical.tropicalshards == 30 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "5"	
-	end		
+
+    -- if TUNING.tropical.tropicalshards == 5 or TUNING.tropical.tropicalshards == 10 or TUNING.tropical.tropicalshards == 20 then
+    --     inst.components.worldmigrator.auto = false
+    --     inst.components.worldmigrator.linkedWorld = "4"
+    -- end
+
+    -- if TUNING.tropical.tropicalshards == 30 then
+    --     inst.components.worldmigrator.auto = false
+    --     inst.components.worldmigrator.linkedWorld = "5"
+    -- end
 
     return inst
 end
@@ -208,7 +210,7 @@ local function fn3()
 
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
-    inst.entity:AddSoundEmitter() 
+    inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
@@ -230,7 +232,7 @@ local function fn3()
         --On non-sharded servers we'll make these vanish for now, but still generate them
         --into the world so that they can magically appear in existing saves when sharded
         RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0,0)
+        inst.AnimState:SetScale(0, 0)
         inst.MiniMapEntity:SetEnabled(false)
         inst:AddTag("NOCLICK")
         inst:AddTag("CLASSIFIED")
@@ -241,29 +243,29 @@ local function fn3()
     inst.components.inspectable.getstatus = GetStatus
 
     inst:AddComponent("worldmigrator")
-	inst.components.worldmigrator.id = 1471
-	inst.components.worldmigrator.receivedPortal = 1472	
-	
+    inst.components.worldmigrator.id = 1471
+    inst.components.worldmigrator.receivedPortal = 1472
+
     inst:ListenForEvent("migration_available", open)
     inst:ListenForEvent("migration_unavailable", close)
     inst:ListenForEvent("migration_full", full)
     inst:ListenForEvent("migration_activate", activate)
-	
-	if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "4"	
-	end		
-	
-	if TUNING.tropical.tropicalshards == 30 then
-	inst.components.worldmigrator.auto = false
-	inst.components.worldmigrator.linkedWorld = "5"	
-	end		
+
+    -- if TUNING.tropical.tropicalshards == 5 or TUNING.tropical.tropicalshards == 10 or TUNING.tropical.tropicalshards == 20 then
+    --     inst.components.worldmigrator.auto = false
+    --     inst.components.worldmigrator.linkedWorld = "4"
+    -- end
+
+    -- if TUNING.tropical.tropicalshards == 30 then
+    --     inst.components.worldmigrator.auto = false
+    --     inst.components.worldmigrator.linkedWorld = "5"
+    -- end
 
     return inst
 end
 
 
 return Prefab("cave_exit", fn, assets),
-	   Prefab("cave_exit_ham1", fn1, assets),
-	   Prefab("cave_exit_ham2", fn2, assets),
-	   Prefab("cave_exit_ham3", fn3, assets)   
+    Prefab("cave_exit_ham1", fn1, assets),
+    Prefab("cave_exit_ham2", fn2, assets),
+    Prefab("cave_exit_ham3", fn3, assets)

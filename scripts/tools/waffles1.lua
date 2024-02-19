@@ -253,3 +253,11 @@ end
 --for _,v in pairs({ "dynamicshadow" }) do
 --	table.insert(PrefabFiles, v)
 --end
+
+Waffles1.GetPath(_G, "STRINGS/ACTIONS/JUMPIN").USE = Waffles1.ReturnChild(STRINGS, "ACTIONS/USEITEM") or "Use"
+
+Waffles1.GetPath(_G, "ACTIONS/JUMPIN").strfn = function(act)
+	return act.doer ~= nil and act.doer:HasTag("playerghost") and "HAUNT"
+		or act.target ~= nil and act.target:HasTag("stairs") and "USE"
+		or nil
+end

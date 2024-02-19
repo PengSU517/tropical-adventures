@@ -21,43 +21,43 @@ local function onsheltered(inst, data)
 end
 
 local Temperature = Class(function(self, inst)
-    self.inst = inst
-    self.settemp = nil
-    self.current = TUNING.STARTING_TEMP
-    self.maxtemp = TUNING.MAX_ENTITY_TEMP
-    self.mintemp = TUNING.MIN_ENTITY_TEMP
-    self.overheattemp = TUNING.OVERHEAT_TEMP
-    self.hurtrate = TUNING.WILSON_HEALTH / TUNING.FREEZING_KILL_TIME
-    --self.overheathurtrate = nil --defaults to use same as .hurtrate (freezing rate)
-    self.inherentinsulation = 0
-    self.inherentsummerinsulation = 0
-    self.shelterinsulation = TUNING.INSULATION_MED_LARGE
-    self.bellytemperaturedelta = nil
-    self.bellytime = nil
-    self.bellytask = nil
-    self.ignoreheatertags = { "INLIMBO" }
-    self.usespawnlight = nil
-	self.hayfever = 0
-    --At max moisture, the player will feel cooler than at minimum
-    self.maxmoisturepenalty = TUNING.MOISTURE_TEMP_PENALTY
+        self.inst = inst
+        self.settemp = nil
+        self.current = TUNING.STARTING_TEMP
+        self.maxtemp = TUNING.MAX_ENTITY_TEMP
+        self.mintemp = TUNING.MIN_ENTITY_TEMP
+        self.overheattemp = TUNING.OVERHEAT_TEMP
+        self.hurtrate = TUNING.WILSON_HEALTH / TUNING.FREEZING_KILL_TIME
+        --self.overheathurtrate = nil --defaults to use same as .hurtrate (freezing rate)
+        self.inherentinsulation = 0
+        self.inherentsummerinsulation = 0
+        self.shelterinsulation = TUNING.INSULATION_MED_LARGE
+        self.bellytemperaturedelta = nil
+        self.bellytime = nil
+        self.bellytask = nil
+        self.ignoreheatertags = { "INLIMBO" }
+        self.usespawnlight = nil
+        self.hayfever = 0
+        --At max moisture, the player will feel cooler than at minimum
+        self.maxmoisturepenalty = TUNING.MOISTURE_TEMP_PENALTY
 
-    --Cached update values
-    self.totalmodifiers = 0
-    self.externalheaterpower = 0
-    self.delta = 0
-    self.rate = 0
+        --Cached update values
+        self.totalmodifiers = 0
+        self.externalheaterpower = 0
+        self.delta = 0
+        self.rate = 0
 
-    self.sheltered = false
-    self.sheltered_level = 1	
-    self.inst:ListenForEvent("sheltered", onsheltered)
+        self.sheltered = false
+        self.sheltered_level = 1
+        self.inst:ListenForEvent("sheltered", onsheltered)
 
-    self:OnUpdate(0)
-    self.inst:StartUpdatingComponent(self)
-end,
-nil,
-{
-    current = oncurrent,
-})
+        self:OnUpdate(0)
+        self.inst:StartUpdatingComponent(self)
+    end,
+    nil,
+    {
+        current = oncurrent,
+    })
 
 function Temperature:SetFreezingHurtRate(rate)
     self.hurtrate = rate
@@ -68,7 +68,7 @@ function Temperature:SetOverheatHurtRate(rate)
 end
 
 function Temperature:DoDelta(delta)
-    local winterInsulation,summerInsulation = self:GetInsulation()
+    local winterInsulation, summerInsulation = self:GetInsulation()
 
     if delta > 0 then
         delta = delta * (TUNING.SEG_TIME / (TUNING.SEG_TIME + summerInsulation))
@@ -176,11 +176,12 @@ function Temperature:SetTemperature(value)
 end
 
 function Temperature:GetDebugString()
-	local winter, summer = self:GetInsulation()
-	local str = string.format("%2.2fC at %2.2f (delta: %2.2f) (modifiers: %2.2f) (insulation: %d, %d)", self.current, self.rate, self.delta, self.totalmodifiers, winter, summer)
-	if self.inst.sleepingbag ~= nil and self.inst.sleepingbag.components.sleepingbag.ambient_temp then
-		str = str .. string.format(" (sleepingbag %2.2f)", self.inst.sleepingbag.components.sleepingbag.ambient_temp)
-	end
+    local winter, summer = self:GetInsulation()
+    local str = string.format("%2.2fC at %2.2f (delta: %2.2f) (modifiers: %2.2f) (insulation: %d, %d)", self.current,
+        self.rate, self.delta, self.totalmodifiers, winter, summer)
+    if self.inst.sleepingbag ~= nil and self.inst.sleepingbag.components.sleepingbag.ambient_temp then
+        str = str .. string.format(" (sleepingbag %2.2f)", self.inst.sleepingbag.components.sleepingbag.ambient_temp)
+    end
     return str
 end
 
@@ -233,7 +234,7 @@ function Temperature:GetInsulation()
         for k, v in pairs(self.inst.components.inventory.equipslots) do
             if v.components.insulator ~= nil then
                 local insulationValue, insulationType = v.components.insulator:GetInsulation()
-                
+
                 if insulationType == SEASONS.WINTER then
                     winterInsulation = winterInsulation + insulationValue
                 elseif insulationType == SEASONS.SUMMER then
@@ -265,7 +266,8 @@ function Temperature:GetInsulation()
 end
 
 function Temperature:GetMoisturePenalty()
-    return self.inst.components.moisture ~= nil and -Lerp(0, self.maxmoisturepenalty, self.inst.components.moisture:GetMoisturePercent()) or 0
+    return self.inst.components.moisture ~= nil and
+        -Lerp(0, self.maxmoisturepenalty, self.inst.components.moisture:GetMoisturePercent()) or 0
 end
 
 local UPDATE_SPAWNLIGHT_ONEOF_TAGS = { "HASHEATER", "spawnlight" }
@@ -281,31 +283,37 @@ function Temperature:OnUpdate(dt, applyhealthdelta)
         return
     end
 
+    local x, y, z = self.inst.Transform:GetWorldPosition()
+
     -- Can override range, e.g. in special containers
     local mintemp = self.mintemp
     local maxtemp = self.maxtemp
-    local ambient_temperature = TheWorld.state.temperature
------------------------------------------heatrock----------------------------------------------	
-	if self.inst and self.inst:HasTag("heatrock") then
-	local ex, ey, ez = self.inst.Transform:GetWorldPosition()	
-	local map = TheWorld.Map 
-	local posicao = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez)) 
-	local posicao1 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez+5))
-	local posicao2 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez-5))
-	local posicao3 = map:GetTile(map:GetTileCoordsAtPoint(ex+5, ey, ez))
-	local posicao4 = map:GetTile(map:GetTileCoordsAtPoint(ex-5, ey, ez))	
-	
-	if posicao == (GROUND.ANTFLOOR) or posicao1 == (GROUND.ANTFLOOR) or posicao2 == (GROUND.ANTFLOOR) or posicao3 == (GROUND.ANTFLOOR) or posicao4 == (GROUND.ANTFLOOR) or
-	posicao == (GROUND.WATER_MANGROVE) or posicao1 == (GROUND.WATER_MANGROVE) or posicao2 == (GROUND.WATER_MANGROVE) or posicao3 == (GROUND.WATER_MANGROVE) or posicao4 == (GROUND.WATER_MANGROVE) then
-	ambient_temperature = -20
-	end
-	end	
-------------------------------caverna congelada---------------------------------------------
---[[	
+
+    local owner = self.inst.components.inventoryitem ~= nil and self.inst.components.inventoryitem.owner or nil
+    local inside_pocket_container = owner ~= nil and owner:HasTag("pocketdimension_container")
+
+    local ambient_temperature = inside_pocket_container and TheWorld.state.temperature or GetTemperatureAtXZ(x, z)
+    -----------------------------------------heatrock----------------------------------------------	
+    if self.inst and self.inst:HasTag("heatrock") then
+        local ex, ey, ez = self.inst.Transform:GetWorldPosition()
+        local map = TheWorld.Map
+        local posicao = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez))
+        local posicao1 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez + 5))
+        local posicao2 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez - 5))
+        local posicao3 = map:GetTile(map:GetTileCoordsAtPoint(ex + 5, ey, ez))
+        local posicao4 = map:GetTile(map:GetTileCoordsAtPoint(ex - 5, ey, ez))
+
+        if posicao == (GROUND.ANTFLOOR) or posicao1 == (GROUND.ANTFLOOR) or posicao2 == (GROUND.ANTFLOOR) or posicao3 == (GROUND.ANTFLOOR) or posicao4 == (GROUND.ANTFLOOR) or
+            posicao == (GROUND.WATER_MANGROVE) or posicao1 == (GROUND.WATER_MANGROVE) or posicao2 == (GROUND.WATER_MANGROVE) or posicao3 == (GROUND.WATER_MANGROVE) or posicao4 == (GROUND.WATER_MANGROVE) then
+            ambient_temperature = -20
+        end
+    end
+    ------------------------------caverna congelada---------------------------------------------
+    --[[	
 	if TheWorld:HasTag("cave") then
 	local ex, ey, ez = self.inst.Transform:GetWorldPosition()	
-	local map = TheWorld.Map 
-	local posicao = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez)) 
+	local map = TheWorld.Map
+	local posicao = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez))
 	local posicao1 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez+5))
 	local posicao2 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez-5))
 	local posicao3 = map:GetTile(map:GetTileCoordsAtPoint(ex+5, ey, ez))
@@ -316,141 +324,131 @@ function Temperature:OnUpdate(dt, applyhealthdelta)
 	ambient_temperature = -20
 	end
 	end
-]]	
-------------------------------------------frost------------------------------------------------------------	
-	if self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("frost") then
-	ambient_temperature = -20
-	elseif
------------------------------------------------mais quente no inverno ------------------------------	
-	TheWorld.state.iswinter and TUNING.tropical.kindofworld == 10 or
-	TheWorld.state.iswinter and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("tropical") or 
-	TheWorld.state.iswinter and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("hamlet") then
+]]
+    ------------------------------------------frost------------------------------------------------------------	
+    if TheWorld.state.iswinter and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("tropical") or
+        TheWorld.state.iswinter and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("hamlet") then
+        ambient_temperature = TheWorld.state.temperature + 40
+        if self.inst.components.moisture and self.inst:HasTag("player") and TheWorld.components.worldstate.data.issnowing then
+            self.inst.components.moisture.hamletzone = true
+        end
+        if self.inst.components.moisture and self.inst:HasTag("player") and not TheWorld.components.worldstate.data.issnowing then
+            self.inst.components.moisture.hamletzone = false
+        end
+    else
+        if self.inst.components.moisture and self.inst:HasTag("player") then
+            self.inst.components.moisture.hamletzone = false
+        end
+    end
+    ---------------------------------------frio no verão ------------------------------	
+    if TheWorld.state.issummer and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("hamlet") then
+        ambient_temperature = TheWorld.state.temperature - 30
+    end
+    if TheWorld.state.issummer and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("tropical") then
+        ambient_temperature = TheWorld.state.temperature - 30
+    end
+    ----------------------ajusta temperatura da casa---------------------------
+    if self.inst and self.inst:HasTag("player") then
+        local interior = GetClosestInstWithTag("blows_air", self.inst, 15)
+        if interior and TheWorld.state.iswinter then
+            ambient_temperature = TheWorld.state.temperature + 40
+        elseif interior and TheWorld.state.issummer then
+            ambient_temperature = TheWorld.state.temperature - 30
+        end
+    end
+    ---------------------------hay fever-----------------------------------------
+    -- local interior = GetClosestInstWithTag("blows_air", self.inst, 15)
+    -- if (TheWorld.state.isspring and
+    --         self.inst and self.inst:HasTag("player") and
+    --         TUNING.tropical.hayfever and
+    --         (self.inst.components.areaaware and
+    --             self.inst.components.areaaware:CurrentlyInTag("hamlet") or interior)) then
+    --     local mascara = self.inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+    --     local fan = GetClosestInstWithTag("prevents_hayfever", self.inst, 15)
+    --     if mascara and mascara.prefab == "gasmaskhat" or mascara and mascara.prefab == "gashat" or fan then
+    --         if self.hayfever > 0 then self.hayfever = self.hayfever - 5 end
+    --     else
+    --         if not self.inst:HasTag("wereplayer") and not self.inst:HasTag("plantkin") and self.hayfever < 4000 then
+    --             self.hayfever = self.hayfever + 1
+    --         end
+    --     end
+    --     -- if self.inst and self.hayfever and self.hayfever < 2000 then
+    --     --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
+    --     --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
+    --     --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
+    --     --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    --     -- end
 
-	ambient_temperature = TheWorld.state.temperature + 40
-	if self.inst.components.moisture and self.inst:HasTag("player") and TheWorld.components.worldstate.data.issnowing then
-    self.inst.components.moisture.hamletzone = true
-	end
-	if self.inst.components.moisture and self.inst:HasTag("player") and not TheWorld.components.worldstate.data.issnowing then
-    self.inst.components.moisture.hamletzone = false
-	end	
-	
-	else
-	
-	if self.inst.components.moisture and self.inst:HasTag("player") then
-    self.inst.components.moisture.hamletzone = false
-	end	
-	
-	end	
----------------------------------------frio no verão ------------------------------	
-if	TheWorld.state.issummer and TUNING.tropical.kindofworld == 5 or
-	TheWorld.state.issummer and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("hamlet") then
-	ambient_temperature = TheWorld.state.temperature - 30
-end
-if	TheWorld.state.issummer and TUNING.tropical.kindofworld == 10 or
-	TheWorld.state.issummer and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("tropical") then
-	ambient_temperature = TheWorld.state.temperature - 10
-end
-----------------------ajusta temperatura da casa---------------------------
-	if self.inst and self.inst:HasTag("player") then
-	local interior = GetClosestInstWithTag("blows_air", self.inst, 15)
-	if interior and TheWorld.state.iswinter then
-	ambient_temperature = TheWorld.state.temperature + 40
-	elseif interior and TheWorld.state.issummer then
-	ambient_temperature = TheWorld.state.temperature - 30	
-	end
-	end
----------------------------hay fever-----------------------------------------
-local interior = GetClosestInstWithTag("blows_air", self.inst, 15)
-if (TheWorld.state.issummer and self.inst and self.inst:HasTag("player") and TUNING.tropical.hayfever == 10 and (self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("hamlet") or interior)) or
-   (TheWorld.state.issummer and self.inst and self.inst:HasTag("player") and TUNING.tropical.hayfever == 20 and (self.inst.components.areaaware and self.inst.components.areaaware:GetCurrentArea() ~= nil or interior)) then
-local mascara = self.inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
-local fan = GetClosestInstWithTag("prevents_hayfever", self.inst, 15)
-if mascara and mascara.prefab == "gasmaskhat" or  mascara and mascara.prefab == "gashat"  or fan then
-if self.hayfever > 0 then self.hayfever = self.hayfever - 1 end else
-if not self.inst:HasTag("wereplayer") and not self.inst:HasTag("plantkin") then
-self.hayfever = self.hayfever + 1 end
-end
-if self.inst and self.hayfever and self.hayfever  < 2000 then
-if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-end
+    --     -- if self.inst and self.hayfever and self.hayfever < 3000 and self.hayfever > 2000 then
+    --     --     if not self.inst:HasTag("hayfever1") then self.inst:AddTag("hayfever1") end
+    --     --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
+    --     --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
+    --     --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    --     -- end
 
-if self.inst and self.hayfever and self.hayfever  < 3000 and self.hayfever  > 2000 then
-if not self.inst:HasTag("hayfever1") then self.inst:AddTag("hayfever1") end
-if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-end
+    --     -- if self.inst and self.hayfever and self.hayfever > 3250 then
+    --     --     if not self.inst:HasTag("hayfever2") then self.inst:AddTag("hayfever2") end
+    --     --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
+    --     --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
+    --     --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    --     -- end
 
-if self.inst and self.hayfever and self.hayfever  > 3250 then
-if not self.inst:HasTag("hayfever2") then self.inst:AddTag("hayfever2") end
-if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-end
+    --     -- if self.inst and self.hayfever and self.hayfever > 3300 then
+    --     --     if not self.inst:HasTag("hayfever3") then self.inst:AddTag("hayfever3") end
+    --     --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
+    --     --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
+    --     --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    --     -- end
 
-if self.inst and self.hayfever and self.hayfever  > 3300 then
-if not self.inst:HasTag("hayfever3") then self.inst:AddTag("hayfever3") end
-if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-end
-
-if self.inst and self.hayfever and self.hayfever  > 3350 then
-if not self.inst:HasTag("hayfever4") then self.inst:AddTag("hayfever4") end
-if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-end
+    --     -- if self.inst and self.hayfever and self.hayfever > 3350 then
+    --     --     if not self.inst:HasTag("hayfever4") then self.inst:AddTag("hayfever4") end
+    --     --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
+    --     --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
+    --     --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
+    --     -- end
 
 
-if self.inst and self.hayfever and self.hayfever  > 3400 then
-self.hayfever = math.random(2000, 2500)
-if self.inst.sg then self.inst:PushEvent("sneeze") end
-end
+    --     if self.inst and self.hayfever and self.hayfever > 3400 then
+    --         self.hayfever = math.random(2000, 2500)
+    --         if self.inst.sg then self.inst:PushEvent("sneeze") end
+    --     end
+    -- else
+    --     if self.hayfever and self.hayfever > 0 then self.hayfever = self.hayfever - 5 end
+    -- end
 
-else
-if self.hayfever and self.hayfever > 0 then self.hayfever = self.hayfever - 0.25 end
-end
+    -- --print(self.hayfever)
 
---print(self.hayfever)
+    -- -- if self.hayfever and self.hayfever < 2000 then
+    -- --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
+    -- --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
+    -- --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
+    -- --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    -- -- end
 
-if self.hayfever and self.hayfever < 2000 then
-if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-end
+    -- if not TheWorld.state.isspring and self.hayfever > -50 then
+    --     self.hayfever = self.hayfever - 10
+    --     -- if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
+    --     -- if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
+    --     -- if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
+    --     -- if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
+    -- end
+    ------------------------------------------------------------------------------------------------------------------------------	
 
-if not TheWorld.state.issummer then
-self.hayfever = 0
-if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-end
-------------------------------------------------------------------------------------------------------------------------------	
-
-	
-    local owner = self.inst.components.inventoryitem ~= nil and self.inst.components.inventoryitem.owner or nil
-    local inside_pocket_container = owner ~= nil and owner:HasTag("pocketdimension_container")	
     if owner ~= nil and owner:HasTag("fridge") and not owner:HasTag("nocool") then
         -- Inside a fridge, excluding icepack ("nocool")
         -- Don't cool it below freezing unless ambient temperature is below freezing
         mintemp = math.max(mintemp, math.min(0, ambient_temperature))
         self.rate = owner:HasTag("lowcool") and -.5 * TUNING.WARM_DEGREES_PER_SEC or -TUNING.WARM_DEGREES_PER_SEC
     else
-		local sleepingbag_ambient_temp = self.inst.sleepingbag ~= nil and self.inst.sleepingbag.components.sleepingbag.ambient_temp
-		if sleepingbag_ambient_temp then
+        local sleepingbag_ambient_temp = self.inst.sleepingbag ~= nil and
+            self.inst.sleepingbag.components.sleepingbag.ambient_temp
+        if sleepingbag_ambient_temp then
             ambient_temperature = sleepingbag_ambient_temp
-		end
+        end
 
         local ents
         if not inside_pocket_container then
             -- Prepare to figure out the temperature where we are standing
-            local x, y, z = self.inst.Transform:GetWorldPosition()
             ents = self.usespawnlight and
                 TheSim:FindEntities(x, y, z, ZERO_DISTANCE, nil, self.ignoreheatertags, UPDATE_SPAWNLIGHT_ONEOF_TAGS) or
                 TheSim:FindEntities(x, y, z, ZERO_DISTANCE, UPDATE_NOSPAWNLIGHT_MUST_TAGS, self.ignoreheatertags)
@@ -465,9 +463,8 @@ end
             end
         end
 
-        --print(ambient_temperature, "ambient_temperature")
         if self.sheltered_level > 1 then
-            ambient_temperature = math.min(ambient_temperature,  self.overheattemp - 5)
+            ambient_temperature = math.min(ambient_temperature, self.overheattemp - 5)
         end
 
         self.delta = (ambient_temperature + self.totalmodifiers + self:GetMoisturePenalty()) - self.current
@@ -479,7 +476,7 @@ end
                     local heat = v.components.heater:GetEquippedHeat()
                     if heat ~= nil and
                         ((heat > self.current and v.components.heater:IsExothermic()) or
-                        (heat < self.current and v.components.heater:IsEndothermic())) then
+                            (heat < self.current and v.components.heater:IsEndothermic())) then
                         self.delta = self.delta + heat - self.current
                     end
                 end
@@ -489,7 +486,7 @@ end
                     local heat, carriedmult = v.components.heater:GetCarriedHeat()
                     if heat ~= nil and
                         ((heat > self.current and v.components.heater:IsExothermic()) or
-                        (heat < self.current and v.components.heater:IsEndothermic())) then
+                            (heat < self.current and v.components.heater:IsEndothermic())) then
                         self.delta = self.delta + (heat - self.current) * carriedmult
                     end
                 end
@@ -501,7 +498,7 @@ end
                         local heat, carriedmult = v.components.heater:GetCarriedHeat()
                         if heat ~= nil and
                             ((heat > self.current and v.components.heater:IsExothermic()) or
-                            (heat < self.current and v.components.heater:IsEndothermic())) then
+                                (heat < self.current and v.components.heater:IsEndothermic())) then
                             self.delta = self.delta + (heat - self.current) * carriedmult
                         end
                     end
@@ -533,7 +530,6 @@ end
                     not v:IsInLimbo() and
                     v.components.heater ~= nil and
                     (v.components.heater:IsExothermic() or v.components.heater:IsEndothermic()) then
-
                     local heat = v.components.heater:GetHeat(self.inst)
                     if heat ~= nil then
                         -- This produces a gentle falloff from 1 to zero.
@@ -549,7 +545,7 @@ end
                                 self.delta = self.delta + warmingtemp - self.current
                             end
                             self.externalheaterpower = self.externalheaterpower + warmingtemp
-                        else--if v.components.heater:IsEndothermic() then
+                        else --if v.components.heater:IsEndothermic() then
                             -- cooling heatfactor is relative to overheattemp
                             local coolingtemp = (heat - self.overheattemp) * heatfactor + self.overheattemp
                             if coolingtemp < self.current then
@@ -572,16 +568,18 @@ end
                 self.rate = math.min(self.delta, TUNING.SEG_TIME / (TUNING.SEG_TIME + summerInsulation))
             else
                 -- If they are cooling, do it at full speed, and faster if they're overheated
-                self.rate = math.max(self.delta, self.current >= self.overheattemp and -TUNING.THAW_DEGREES_PER_SEC or -TUNING.WARM_DEGREES_PER_SEC)
+                self.rate = math.max(self.delta,
+                    self.current >= self.overheattemp and -TUNING.THAW_DEGREES_PER_SEC or -TUNING.WARM_DEGREES_PER_SEC)
             end
-        -- it's cold out
+            -- it's cold out
         elseif self.delta < 0 then
             -- If the player is cooling, defend using insulation.
             local winterInsulation, summerInsulation = self:GetInsulation()
             self.rate = math.max(self.delta, -TUNING.SEG_TIME / (TUNING.SEG_TIME + winterInsulation))
         else
             -- If they are heating up, do it at full speed, and faster if they're freezing
-            self.rate = math.min(self.delta, self.current <= 0 and TUNING.THAW_DEGREES_PER_SEC or TUNING.WARM_DEGREES_PER_SEC)
+            self.rate = math.min(self.delta,
+                self.current <= 0 and TUNING.THAW_DEGREES_PER_SEC or TUNING.WARM_DEGREES_PER_SEC)
         end
 
         --print(self.delta + self.current, "after insulation")
@@ -609,7 +607,7 @@ function Temperature:TransferComponent(newinst)
         duration = GetTaskRemaining(self.bellytask)
     end
     if duration then
-        newcomponent:SetTemperatureInBelly(self.bellytemperaturedelta,duration)
+        newcomponent:SetTemperatureInBelly(self.bellytemperaturedelta, duration)
     end
 end
 

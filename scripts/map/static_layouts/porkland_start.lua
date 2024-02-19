@@ -64,24 +64,24 @@ return {
           name = "",
           type = "multiplayer_portal",
           shape = "rectangle",
-          x = 160,
-          y = 160,
+          x = 128,
+          y = 128,
           width = 0,
           height = 0,
           visible = true,
           properties = {}
         },
-        {
-          name = "",
-          type = "spawnpoint_master",
-          shape = "rectangle",
-          x = 160,
-          y = 160,
-          width = 0,
-          height = 0,
-          visible = true,
-          properties = {}
-        },
+        -- {
+        --   name = "",
+        --   type = "spawnpoint_master",
+        --   shape = "rectangle",
+        --   x = 160,
+        --   y = 160,
+        --   width = 0,
+        --   height = 0,
+        --   visible = true,
+        --   properties = {}
+        -- },
         {
           name = "",
           type = "porkland_intro_basket",

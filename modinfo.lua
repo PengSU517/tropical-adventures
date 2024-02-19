@@ -1,1117 +1,270 @@
-name = " Tropical Experience beta"
-description =
-"test"
-author = "Vagner da Rocha Santos."
-version = "3.30"
+local function en_zh(en, zh) -- Other languages don't work
+	return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
+end
+
+
+
+name = en_zh(" Tropical Adventure (Shipwrecked & Hamlet)", "热带冒险（海难哈姆雷特三合一）")
+description = en_zh("Personal modification of Tropical Experience", "在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改")
+author = "Peng"
+version = "6.72"
 forumthread = ""
 api_version = 10
-priority = -20 --我去还能是负数
+priority = -20
 
 dst_compatible = true
 dont_starve_compatible = false
 all_clients_require_mod = true
 client_only_mod = false
 reign_of_giants_compatible = false
-server_filter_tags = { "shipwrecked", "tropical experience", "Hamlet", "Economy", "itens", "biome", "world", "gen",
-	"money", "coins", "house", "home", "boats", "light", "hats", "boss", "companion", "endless", "ruins", "gun", "hard",
-	"trade", "vagner" }
+server_filter_tags = { "Shipwrecked", "Hamlet", "Economy", "House", "Home", "Boats", "Ruins" }
 
-icon_atlas = "modicon.xml"
+icon_atlas = "images/modicon/modicon.xml"
 icon = "modicon.tex"
 
---[[
-进出房屋时间过长
-靠近人的时候猪人动画有问题
 
 
-]]
+-- mod_dependencies = {
+-- 	{ --GEMCORE
+-- 		-- workshop = "workshop-1378549454",
+-- 		-- ["GemCore"] = false,
+-- 		-- ["[API] Gem Core - GitLab Version"] = true,
+-- 	},
+-- }
 
+local options_enable = {
+	{ description = en_zh("Disabled", "关闭"), data = false },
+	{ description = en_zh("Enabled", "开启"), data = true },
+}
 
+local options_enable2 = {
+	{ description = en_zh("Disabled", "关闭"), data = false },
+}
 
+local options_count = {
+	{ description = en_zh("Disabled", "关闭"), data = false },
+	{ description = "1", data = "1" },
+	{ description = "2", data = "2" },
+	{ description = "3", data = "3" },
+	{ description = "4", data = "4" },
+	{ description = "5", data = "5" },
+}
 
+-- Thanks to the Gorge Extender by CunningFox for making me aware of this being possible -M
+local function Breaker(title_en, title_zh) --hover does not work, as this item cannot be hovered
+	return { name = en_zh(title_en, title_zh), options = { { description = "", data = false } }, default = false }
+end
 
 
 
 configuration_options =
 {
-
+	Breaker("Set Language", "选择语言"),
 	{
-		name = "set_idioma",
-		label = "Language/Idioma/选择语言",
-		hover = "Change mod language...",
+		name = "language",
+		label = en_zh("Set Language", "选择语言"),
+		hover = en_zh("Change mod language...", "选择模组语言"),
 		options =
 		{
-			{ description = "English",    data = "stringsEU" },
-			{ description = "Português", data = "stringsPT" },
-			{ description = "中国",     data = "stringsCh" },
-			{ description = "Italian",    data = "stringsIT" },
-			{ description = "Russian",    data = "stringsRU" },
-			{ description = "Spanish",    data = "stringsSP" },
-			{ description = "한국어",  data = "stringsKO" },
-			{ description = "Magyar",     data = "stringsHUN" },
-			{ description = "Français",  data = "stringsFR" },
+			{ description = "English", data = "stringsEN" },
+			{ description = "中文", data = "stringsCH" },
+			-- { description = "Português", data = "stringsPT" },
+			-- { description = "Italian", data = "stringsIT" },
+			-- { description = "Russian", data = "stringsRU" },
+			-- { description = "Spanish", data = "stringsSP" },
+			-- { description = "한국어", data = "stringsKO" },
+			-- { description = "Magyar", data = "stringsHUN" },
+			-- { description = "Français", data = "stringsFR" },
 		},
-		default = "stringsEU",
+		default = "stringsCH",
 	},
 
-	{
-		name = "",
-		label = "KIND OF WORLD",
-		hover = "",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
+	Breaker("World Generation", "世界生成"),
+
 
 	{
-		name = "kindofworld",
-		label = "What is your kind of world?",
-		hover = "",
-		default = 15,
-		options = {
+		name = "together",
+		label = en_zh("Region of Gaints", "巨人国"),
+		hover = en_zh("Default Lands in DST", "联机默认地形"),
+		options =
+		{
 			{
-				description = "hamlet",
-				data = 5,
-				hover =
-				"will generate a world based on hamlet DLC, use settings for hamlet."
+				description = en_zh("Default", "默认"),
+				hover = en_zh("Default settings with 5 random tasks", "默认设置,有五个随机地形"),
+				data = "default"
 			},
+			-- {
+			-- 	description = en_zh("No Random Tasks", "无随机地形"),
+			-- 	hover = en_zh("No Random Tasks", "无随机地形"),
+			-- 	data = "no_random"
+			-- },
 			{
-				description = "shipwrecked",
-				data = 10,
-				hover =
-				"will generate a world based on shipwreck DLC, use settings for shipwrecked."
+				description = en_zh("Killer Bee and Walrus as random tasks", "仅杀人蜂和海象平原作为随机地形"),
+				hover = en_zh("Killer Bee and Walrus as random tasks", "仅杀人蜂和海象平原作为随机地形"),
+				data = "bee_and_walrus"
 			},
-			{
-				description = "custom",
-				data = 15,
-				hover =
-				"will generate a customized world, use settings for custom world."
-			},
-			{
-				description = "Sea World",
-				data = 20,
-				hover =
-				"will generate a world without terain, time to survine in ocean."
-			}, },
+
+		},
+		default = "bee_and_walrus",
 	},
 
 	{
-		name = "",
-		label = "for hamlet world",
-		hover = "Generate a full hamlet only world Includeing all ruins, ponds, BFB+Nest)",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
-
-	{
-		name    = "hamletcaves_hamletworld",
-		label   = "Hamlet Caves",
-		hover   = "Will generate a new cave zone, do not forget to enable caves to work",
-		options =
-		{
-			{ description = "Disabled", data = 0, hover = "This biome will not be generated" },
-			{ description = "Enabled",  data = 1, hover = "Will generate a new cave zone" },
-		},
-		default = 1,
-	},
-
-	{
-		name    = "togethercaves_hamletworld",
-		label   = "Together Caves",
-		hover   = "Will generate defalt cave zone, do not forget to enable caves to work",
-		options =
-		{
-			{ description = "Disabled", data = 0, hover = "This biome will not be generated" },
-			{ description = "Enabled",  data = 1, hover = "Will generate a new cave zone" },
-		},
-		default = 1,
-	},
-
-	{
-		name    = "continentsize",
-		label   = "Continent Size",
-		hover   = "To change the continent size",
-		options =
-		{
-			{
-				description = "Compact",
-				data = 1,
-				hover =
-				"Will generate the continent more compact can reduce lag in the game"
-			},
-			{ description = "Defalt", data = 2, hover = "Will generate the continent in defal size" },
-			{
-				description = "Bigger",
-				data = 3,
-				hover =
-				"Will generate the continent bigger can increase lag in the game"
-			},
-		},
-		default = 2,
-	},
-
-	{
-		name    = "fillingthebiomes",
-		label   = "Filling the Biomes",
-		hover   = "To change the filling the biomes, the smaller the less lag will happen in the game",
-		options =
-		{
-
-			{ description = "0%",   data = 0, hover = "The content of the biome will be reduced to a minimum" },
-			{ description = "25%",  data = 1, hover = "The biome will have 25% of the normal content" },
-			{ description = "50%",  data = 2, hover = "The biome will have 50% of the normal content" },
-			{ description = "75%",  data = 3, hover = "The biome will have 75% of the normal content" },
-			{ description = "100%", data = 4, hover = "The Biome will have defalt content" },
-		},
-		default = 4,
-	},
-
-
-	{
-		name    = "compactruins",
-		label   = "Compact Pig Ruins",
-		hover   = "will generate pig ruins with fewer rooms",
-		options =
-		{
-			{ description = "YES", data = true,  hover = "Less rooms on pig ruins" },
-			{ description = "NO",  data = false, hover = "Standard Quantity" },
-		},
-		default = false,
-	},
-
-	{
-		name = "",
-		label = "for shipwrecked world",
-		hover = "",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
-
-	{
-		name    = "howmanyislands",
-		label   = "How Many Islands",
-		hover   =
-		"You can increase or decrease the number of islands in the game, but more islands will take more time to generate a world",
-		default = 22,
-		options = {
-			{ description = "20", data = 12, hover = "increase in 12 islands" },
-			{ description = "30", data = 22, hover = "increase in 20 islands" },
-			{ description = "40", data = 32, hover = "increase in 30 islands" },
-			{ description = "50", data = 42, hover = "increase in 40 islands" },
-			{ description = "60", data = 52, hover = "increase in 50 islands" },
-			{ description = "70", data = 62, hover = "increase in 60 islands" },
-			{ description = "80", data = 72, hover = "increase in 70 islands" },
-			{ description = "86", data = 78, hover = "increase in 78 islands" },
-		},
-	},
-
-	{
-		name    = "Shipwreckedworld_plus",
-		label   = "Shipwrecked Plus",
-		hover   = "Generate a extra Shipwrecked island based on the Shipwrecked Plus mod",
-		options = {
-			{ description = "NO",  data = false, hover = "Eldorado civilization will not be generated" },
-			{ description = "YES", data = true,  hover = "Eldorado civilization will be generated" },
-		},
+		name = "shipwrecked",
+		label = en_zh("Shipwrecked", "海难"),
+		hover = en_zh("Shipwrecked", "海难"),
+		options = options_enable,
 		default = true,
 	},
+
 	{
-		name    = "frost_islandworld",
-		label   = "Frost Land",
-		hover   =
-		"It creates a snowy island in the ocean where it is winter all the time, it also creates the frozen cave.",
-		default = 10,
-		options = {
-			{ description = "NO",  data = 5,  hover = "Disable Generation" },
-			{ description = "YES", data = 10, hover = "Generate on Caves & World" },
-		},
+		name = "hamlet",
+		label = en_zh("Hamlet", "哈姆雷特"),
+		hover = en_zh("Hamlet", "哈姆雷特"),
+		options = options_enable,
+		default = true,
 	},
 
 	{
-		name    = "Moonshipwrecked",
-		label   = "Moon Biome",
-		hover   = "Generate the Moon continent from together",
-		options = {
-			{ description = "NO",  data = 0, hover = "Moon continent will not be generated" },
-			{ description = "YES", data = 1, hover = "Moon continent will be generated" },
-		},
-		default = 0,
-	},
-
-	{
-		name    = "hamletcaves_shipwreckedworld",
-		label   = "Hamlet Caves",
-		hover   = "Will generate a new cave zone, do not forget to enable caves to work",
+		name = "startlocation",
+		label = en_zh("Start location", "出生地"),
+		hover = en_zh("Start location", "出生地"),
 		options =
 		{
-			{ description = "Disabled", data = 0, hover = "This biome will not be generated" },
-			{ description = "Enabled",  data = 1, hover = "Will generate a new cave zone" },
+			{
+				description = en_zh("Default", "默认"),
+				hover = en_zh("Default (Together Mainland)", "默认(联机大陆)"),
+				data = "default"
+			},
+			{
+				description = en_zh("Shipwrecked region", "海难区域"),
+				hover = en_zh("Shipwrecked region, need corresponding region enabled", "海难区域，需开启相应地形"),
+				data = "shipwrecked"
+			},
+			{
+				description = en_zh("Hamlet region", "哈姆雷特区域"),
+				hover = en_zh("Hamlet region, need corresponding region enabled", "哈姆雷特区域，需开启相应地形"),
+				data = "hamlet"
+			},
+
 		},
-		default = 1,
+		default = "hamlet",
 	},
 
 	{
-		name    = "togethercaves_shipwreckedworld",
-		label   = "Together Caves",
-		hover   = "Will generate defalt cave zone, do not forget to enable caves to work",
+		name = "coastline",
+		label = en_zh("Coastline", "海岸线"),
+		hover = en_zh("Coastline", "海岸线"),
 		options =
 		{
-			{ description = "Disabled", data = 0, hover = "This biome will not be generated" },
-			{ description = "Enabled",  data = 1, hover = "Will generate a new cave zone" },
-		},
-		default = 1,
-	},
-
-	{
-		name = "",
-		label = "for custom world",
-		hover = "",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
-
-	{
-		name    = "startlocation",
-		label   = "Player Portal",
-		hover   = "This is the start point, It represents the biome around the initial portal.",
-		default = 5,
-		options = {
-			{ description = "Together",    data = 5,  hover = "Reign of Giants Biomes" },
-			{ description = "Shipwrecked", data = 10, hover = "Shipwrecked Biomes" },
-			{ description = "Hamlet",      data = 15, hover = "Hamlet Biomes" },
-		},
-	},
-
-	{
-		name    = "Together",
-		label   = "Reign of Giants Biomes",
-		hover   = "Reign of Giants Biomes",
-		default = 20,
-		options = {
-			{ description = "Disabled",  data = 5,  hover = "Disables this biome" },
 			{
-				description = "Main land",
-				data = 20,
-				hover =
-				"This biome will be generated in the main land, where the player starts the game"
-			},
-			{ description = "Continent", data = 10, hover = "This biome will be generated on another continent." },
-			{
-				description = "Islands",
-				data = 15,
-				hover =
-				"This biome will be generated on several separate islands in the ocean"
-			},
-		},
-	},
-
-	{
-		name    = "Moon",
-		label   = "Lunar Biomes",
-		hover   = "Lunar Biomes",
-		default = 10,
-		options = {
-			{ description = "Disabled",  data = 5,  hover = "Disables this biome" },
-			{
-				description = "Main land",
-				data = 20,
-				hover =
-				"This biome will be generated in the main land, where the player starts the game"
-			},
-			{ description = "Continent", data = 10, hover = "This biome will be generated on another continent." },
-			{
-				description = "Islands",
-				data = 15,
-				hover =
-				"This biome will be generated on several separate islands in the ocean"
-			},
-
-		},
-	},
-
-	{
-		name    = "Shipwrecked",
-		label   = "Shipwrecked Biomes",
-		hover   = "Shipwrecked Biomes",
-		default = 25,
-		options = {
-			{ description = "Disabled",  data = 5,  hover = "Disables this biome" },
-			{
-				description = "Main land",
-				data = 20,
-				hover =
-				"This biome will be generated in the main land, where the player starts the game"
-			},
-			{ description = "Continent", data = 10, hover = "This biome will be generated on another continent." },
-			{
-				description = "Islands",
-				data = 15,
-				hover =
-				"This biome will be generated on several separate islands in the ocean"
+				description = en_zh("Smoother", "更平滑的海岸线"),
+				hover = en_zh("Not seperating tasks", "不分离土地, 岛屿有可能粘连在一起"),
+				data = true
 			},
 			{
-				description = "Arquipelago",
-				data = 25,
-				hover =
-				"This biome will be generated as an compact Islands cluster"
+				description = en_zh("Default", "默认"),
+				hover = en_zh("Default settings", "默认设置"),
+				data = false
 			},
 
-		},
-	},
 
-	{
-		name    = "Shipwrecked_plus",
-		label   = "Shipwrecked Plus",
-		hover   = "Generate a extra Shipwrecked island based on the Shipwrecked Plus mod",
-		options = {
-			{ description = "NO",  data = false, hover = "Eldorado civilization will not be generated" },
-			{ description = "YES", data = true,  hover = "Eldorado civilization will be generated" },
 		},
 		default = true,
 	},
 
 	{
-		name    = "Hamlet",
-		label   = "Hamlet Biomes",
-		hover   = "Hamlet Biomes",
-		options =
-		{
-
-
-			{ description = "Disabled",  data = 5,  hover = "Disables this biome" },
-			{
-				description = "Main land",
-				data = 20,
-				hover =
-				"This biome will be generated in the main land, where the player starts the game"
-			},
-			{ description = "Continent", data = 10, hover = "This biome will be generated on another continent." },
-			{
-				description = "Islands",
-				data = 15,
-				hover =
-				"This biome will be generated on several separate islands in the ocean"
-			},
-		},
-		default = 10,
-	},
-
-	{
-		name    = "pigcity1",
-		label   = "Swinesbury",
-		hover   = "Generate City 1",
-		options =
-		{
-			{ description = "Disabled",  data = 5,  hover = "This pig city will not be generated" },
-			{
-				description = "Main land",
-				data = 10,
-				hover =
-				"This pig city will be generated in the main land, where the player starts the game"
-			},
-			{ description = "Continent", data = 15, hover = "This pig city will be generated on another continent." },
-			{ description = "Island",    data = 20, hover = "This pig city will be generated in a islands in ocean" },
-		},
-		default = 15,
-	},
-
-	{
-		name    = "pigcity2",
-		label   = "The Royal Palace",
-		hover   = "Generate City 2",
-		options =
-		{
-			{ description = "Disabled",  data = 5,  hover = "This pig city will not be generated" },
-			{
-				description = "Main land",
-				data = 10,
-				hover =
-				"This pig city will be generated in the main land, where the player starts the game"
-			},
-			{ description = "Continent", data = 15, hover = "This pig city will be generated on another continent." },
-			{ description = "Island",    data = 20, hover = "This pig city will be generated on a islands in ocean" },
-		},
-		default = 15,
-	},
-
-	{
-		name    = "pinacle",
-		label   = "Pinacle",
-		hover   = "Generate Roc Nest Island",
-		options =
-		{
-			{ description = "Disabled", data = 0, hover = "This biome will not be generated" },
-			{ description = "Enabled",  data = 1, hover = "Will generate a small island in the ocean with a roc nest" },
-		},
-		default = 1,
-	},
-
-	{
-		name    = "anthill",
-		label   = "Ant Hill",
-		hover   = "Generate Ant Hill containing: The Den entrance & Queen Womant",
-		options =
-		{
-			{ description = "Disabled", data = 0, hover = "The Anthill will not be generated" },
-			{ description = "Enabled",  data = 1, hover = "The Anthill will be generated" },
-		},
-		default = 1,
-	},
-
-	{
-		name    = "pigruins",
-		label   = "Ancient pig ruins",
-		hover   = "Generate Ancient pig Ruins containing the Aporkalypse Calendar",
-		options =
-		{
-			{ description = "Disabled", data = 0, hover = "The Pig Ruin will not be generated" },
-			{ description = "Enabled",  data = 1, hover = "The Pig Ruin will be generated" },
-		},
-		default = 1,
-	},
-
-	{
-		name    = "gorgeisland",
-		label   = "Gorge Island",
-		hover   = "create an island with content from the gorge event",
-		options =
-		{
-			{ description = "Disabled", data = 0, hover = "This biome will not be generated" },
-			{ description = "Enabled",  data = 1, hover = "Will generate a small island in the ocean with this biome " },
-		},
-		default = 1,
-	},
-	--[[
-	{
-		name    = "gorgecity",
-		label   = "Gorge City",
-		hover   = "Generate a Gorge City in Ocean",
-		options =
-		{
-		{description = "Disabled",         data = 0, hover = "This biome will not be generated"},
-		{description = "Enabled",          data = 1, hover = "Will generate a small island in the ocean with this biome "},	
-		},
-		default = 1,
-	},
-]]
-	{
-		name    = "frost_island",
-		label   = "Frost Land",
-		hover   =
-		"It creates a snowy island in the ocean where it is winter all the time, it also creates the frozen cave.",
-		default = 10,
-		options = {
-			{ description = "NO",  data = 5,  hover = "Disable Generation" },
-			{ description = "YES", data = 10, hover = "Allow Generate on Caves & World" },
-		},
-	},
-
-	{
-		name    = "hamlet_caves",
-		label   = "Hamlet Caves",
-		hover   =
-		"It will generate a new zone in the caves that is very different from the traditional one and with new biomes, accessible in hamlet biome",
-		options =
-		{
-			{ description = "Disabled", data = 0, hover = "This biome will not be generated" },
-			{ description = "Enabled",  data = 1, hover = "Will generate a new cave zone" },
-		},
-		default = 1,
-	},
-
-	{
-		name    = "monkeyisland",
-		label   = "Monkey Island",
-		hover   = "It will generate the Monkey Island in ocean",
-		options = {
-			{ description = "Enabled",  data = 1, hover = "Will generate the Monkey Island" },
-			{ description = "Disabled", data = 0, hover = "The Monkey Island will not spawn" },
-		},
-		default = 1,
-	},
-
-	{
-		name = "",
-		label = "for all worlds",
-		hover = "",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
-
-	{
-		name    = "Volcano",
-		label   = "Volcano",
-		hover   =
-		"Generates the volcano in the world, if your world has a cave enabled, select the option caves. (will only affects custom and shipwrecked world)",
-		options = {
-			{
-				description = "Complete",
-				data = true,
-				hover =
-				"Will Generate a complete volcano in terms of content, need caves enabled"
-			},
-			{ description = "Compact", data = false, hover = "Will Generate a compact volcano not need caves enabled" },
-		},
-		default = true,
-	},
-
-
-	{
-		name    = "forge",
-		label   = "Forge Arena",
-		hover   = "It will generate the forge arena inside volcano. (will only affects custom and shipwrecked world)",
-		options = {
-			{ description = "Enabled",  data = 1, hover = "Will generate the forge arena" },
-			{ description = "Disabled", data = 0, hover = "Will not generate the forge arena" },
-		},
-		default = 1,
-	},
-
-	{
-		name    = "underwater",
-		label   = "Underwater",
-		hover   =
-		"It will generate entrances on the surface that lead to the bottom of the ocean. (will only affects custom, hamlet and shipwrecked world)",
-		options = {
-			{
-				description = "Enabled",
-				data = true,
-				hover =
-				"Generate the Underwater Biome, The caves need be enabled to work"
-			},
-			{ description = "Disabled", data = false, hover = "The Underwater Biome will not spawn" },
-		},
+		name = "layout",
+		label = en_zh("Layout adjustment", "布局调整"),
+		hover = en_zh("Layout adjustment", "如猴岛、寄居蟹岛、帝王蟹的位置调整"),
+		options = options_enable,
 		default = true,
 	},
 
 	{
-		name    = "windyplains",
-		label   = "Windy Plains Biome",
-		hover   = "It will generate the Windy Plains Biome",
-		options = {
-			{ description = "Enabled",  data = true,  hover = "Will generate the Windy Plains Biome" },
-			{ description = "Disabled", data = false, hover = "Windy Plains Biome will not spawn" },
-		},
+		name = "testmode",
+		label = en_zh("Test Mode", "测试模式"),
+		hover = en_zh("A very small world with a very small island only for debugging", "仅生成一块很小的地形用于测试内容"),
+		options = options_enable,
 		default = false,
 	},
 
-	{
-		name    = "greenworld",
-		label   = "Green World",
-		hover   = "It will generate the Green World",
-		options = {
-			{ description = "Enabled",  data = true,  hover = "Will generate the Green World Biome" },
-			{ description = "Disabled", data = false, hover = "Green World Biome will not spawn" },
-		},
-		default = false,
-	},
+
+
+	Breaker("Weather Settings", "气候设置"),
 
 	{
-		name = "",
-		label = "OCEAN SETTINGS",
-		hover = "will only affects custom and shipwrecked world",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
-
-	{
-		name    = "Waves",
-		label   = "Waves",
-		hover   = "The sea generate Waves *wind make them stronger and faster*",
-		options =
-		{
-			{ description = "NO",  data = false, hover = "" },
-			{ description = "YES", data = true,  hover = "" },
-		},
+		name = "wind",
+		label = en_zh("Wind", "海风"),
+		hover = en_zh("Wind", "海风"),
+		options = options_enable,
 		default = true,
 	},
 
 	{
-		name    = "whirlpools",
-		label   = "Whirlpools",
-		hover   = "The sea generate whirlpools",
-		options =
-		{
-			{ description = "NO",  data = false, hover = "" },
-			{ description = "YES", data = true,  hover = "" },
-		},
+		name = "hail",
+		label = en_zh("Hail", "冰雹"),
+		hover = en_zh("Hail", "冰雹"),
+		options = options_enable,
 		default = true,
 	},
 
 	{
-		name    = "aquaticcreatures",
-		label   = "Aquatic Creatures",
-		hover   = "the sea will randomly generate creatures",
-		options =
-		{
-			{ description = "NO",  data = false, hover = "" },
-			{ description = "YES", data = true,  hover = "" },
-		},
+		name = "waves",
+		label = en_zh("Waves", "海浪"),
+		hover = en_zh("Waves", "海浪"),
+		options = options_enable,
 		default = true,
 	},
 
 	{
-		name = "kraken",
-		label = "Kraken",
-		hover = "Shipwrecked Boss *The Quacken*",
-		default = 1,
-		options = {
-			{ description = "NO",  data = 0, hover = "" },
-			{ description = "YES", data = 1, hover = "" },
-		},
+		name = "flood",
+		label = en_zh("Flood", "洪水"),
+		hover = en_zh("Flood", "洪水"),
+		options = options_enable2,
+		default = false,
 	},
 
 	{
-		name = "octopusking",
-		label = "Octopus King",
-		hover = "Shipwrecked Dubloon Trader",
-		default = 1,
-		options = {
-			{ description = "NO",  data = 0, hover = "" },
-			{ description = "YES", data = 1, hover = "" },
-		},
+		name = "volcano",
+		label = en_zh("Volcano Eruption", "火山喷发"),
+		hover = en_zh("Volcano Eruption", "火山喷发"),
+		options = options_enable2,
+		default = false,
 	},
 
 	{
-		name = "mangrove",
-		label = "Mangrove Biome",
-		hover = "Will generate the mangrove biome on ocean, including the Water Beefalo",
-		default = 1,
-		options = {
-			{ description = "NO",  data = 0, hover = "" },
-			{ description = "YES", data = 1, hover = "" },
-		},
-	},
-
-	{
-		name = "lilypad",
-		label = "Lilypad Biome",
-		hover = "Will generate the lylypad biome on the water, including the Hippopotamoose",
-		default = 1,
-		options = {
-			{ description = "NO",  data = 0, hover = "" },
-			{ description = "YES", data = 1, hover = "" },
-		},
-	},
-
-	{
-		name = "shipgraveyard",
-		label = "Ship Graveyard Biome",
-		hover = "Will generate the Ship graveyard Biome",
-		default = 1,
-		options = {
-			{ description = "NO",  data = 0, hover = "" },
-			{ description = "YES", data = 1, hover = "" },
-		},
-	},
-
-	{
-		name = "coralbiome",
-		label = "Coral Biome",
-		hover = "Will generate the Coral Biome",
-		default = 1,
-		options = {
-			{ description = "NO",  data = 0, hover = "" },
-			{ description = "YES", data = 1, hover = "" },
-		},
-	},
-
-	{
-		name = "",
-		label = "GAMEPLAY SETTINGS",
-		hover = "",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
-
-	{
-		name    = "aporkalypse",
-		label   = "Aporkalypse",
-		hover   = "Aporkalypse appear every 60 days, if u don't reset the calendar inside the ruins *Active Time: 20 days*",
-		options =
-		{
-			{ description = "YES", data = true,  hover = "" },
-			{ description = "NO",  data = false, hover = "" },
-		},
+		name = "fog",
+		label = en_zh("Fog", "雾"),
+		hover = en_zh("Fog", "雾"),
+		options = options_enable,
 		default = true,
 	},
 
 	{
-		name    = "sealnado",
-		label   = "Sealnado",
-		hover   = "Will spawn in spring on Shipwrecked Biomes *Sealnado/Twister* ",
-		options =
-		{
-			{ description = "YES", data = true,  hover = "" },
-			{ description = "NO",  data = false, hover = "" },
-		},
+		name = "hayfever",
+		label = en_zh("Hayfever", "花粉过敏"),
+		hover = en_zh("Hayfever", "花粉过敏"),
+		options = options_enable,
 		default = true,
 	},
 
 	{
-		name    = "raftlog",
-		label   = "Raft like in Shipwrecked",
-		hover   = "Raft and Logboat Will move like in Shipwrecked DLC",
-		options =
-		{
-			{ description = "YES", data = true,  hover = "" },
-			{ description = "NO",  data = false, hover = "" },
-		},
-		default = false,
-	},
-
-
-	{
-		name    = "bosslife",
-		label   = "Bosses Life",
-		hover   = "Determines how much health mod bosses will have",
-		default = 1,
-		options = {
-			{ description = "25%",  data = 0.25, hover = "bosses with 25% health" },
-			{ description = "50%",  data = 0.50, hover = "bosses with 50% health" },
-			{ description = "75%",  data = 0.75, hover = "bosses with 75% health" },
-			{ description = "100%", data = 1.00, hover = "bosses with 100% health" },
-			{ description = "125%", data = 1.25, hover = "bosses with 125% health" },
-			{ description = "150%", data = 1.50, hover = "bosses with 50% health" },
-			{ description = "200%", data = 2.00, hover = "bosses with 200% health" },
-		},
-	},
-
-
-	{
-		name = "",
-		label = "WEATHER SETTINGS",
-		hover = "can affects all worlds",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
-
-	{
-		name    = "flood",
-		label   = "Flood",
-		hover   = "In Spring puddles will spawn and attract Mosquitos from the water",
-		options =
-		{
-			{ description = "Disabled",      data = 5,  hover = "Disabled" },
-			{ description = "Tropical Zone", data = 10, hover = "Will appear only in Tropical Zones" },
-			{ description = "All world",     data = 20, hover = "Will appear in all world" },
-		},
-		default = 10,
-	},
-
-	{
-		name    = "wind",
-		label   = "Wind",
-		hover   = "affects speed, make trees & plant fall down and the sea create more and powerfull waves",
-		options =
-		{
-			{ description = "Disabled",        data = 5,  hover = "Disabled" },
-			{ description = "Tropical-Hamlet", data = 10, hover = "Will appear only in Tropical and Hamlet Zones" },
-			{ description = "All world",       data = 20, hover = "Will appear in all world" },
-		},
-		default = 10,
-	},
-
-	{
-		name    = "hail",
-		label   = "Hail",
-		hover   = "enables to rain hail ice fall from the sky",
-		options =
-		{
-			{ description = "YES", data = true,  hover = "" },
-			{ description = "NO",  data = false, hover = "" },
-		},
+		name = "aporkalypse",
+		label = en_zh("Aporkalypse", "毁灭季"),
+		hover = en_zh("Aporkalypse in caves", "毁灭季 在洞穴"),
+		options = options_enable,
 		default = true,
 	},
 
-	{
-		name    = "volcaniceruption",
-		label   = "Volcanic Eruption",
-		hover   = "Enables the Volcanic Eruption",
-		options =
-		{
-			{ description = "Disabled",      data = 5,  hover = "Disabled" },
-			{ description = "Tropical Zone", data = 10, hover = "Will appear only in Tropical Zones" },
-			{ description = "All world",     data = 20, hover = "Will appear in all world" },
-		},
-		default = 10,
-	},
+	Breaker("Other Settings", "其他设置"),
 
 	{
-		name    = "fog",
-		label   = "Winter Fog",
-		hover   = "Enables the fog on Winter",
-		options =
-		{
-			{ description = "Disabled",    data = 5,  hover = "Disabled" },
-			{ description = "Hamlet Zone", data = 10, hover = "Will appear only in Hamlet Zones" },
-			{ description = "All world",   data = 20, hover = "Will appear in all world" },
-		},
-		default = 10,
-	},
-
-	{
-		name    = "hayfever",
-		label   = "Hay Fever",
-		hover   = "Enables the Hay Fever on Summer",
-		options =
-		{
-			{ description = "Disabled",    data = 5,  hover = "Disabled" },
-			{ description = "Hamlet Zone", data = 10, hover = "Will appear only in Hamlet Zones" },
-			{ description = "All world",   data = 20, hover = "Will appear in all world" },
-		},
-		default = 10,
-	},
-
-	{
-		name = "",
-		label = "HUD AJUSTMENT",
-		hover = "",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
-
-	{
-		name    = "removedark",
-		label   = "remove dark",
-		options =
-		{
-			{ description = "YES", data = true,  hover = "" },
-			{ description = "NO",  data = false, hover = "" },
-		},
+		name = "prefabname",
+		label = en_zh("Show Prefab Name", "显示物品代码"),
+		hover = en_zh("Show Prefab Name on Cursor", "显示物品代码"),
+		options = options_enable,
 		default = false,
 	},
 
-	{
-		name    = "automatic_disembarkation",
-		label   = "Automatic Disembarkation",
-		hover   = "The player will automatically disembark from the boats",
-		options =
-		{
-			{ description = "NO",  data = false, hover = "Disable Tab" },
-			{ description = "YES", data = true,  hover = "Own Extra TAB" },
-		},
-		default = false,
-	},
-
-	{
-		name    = "boatlefthud",
-		label   = "Boat HUD(Vertical Adjustment)",
-		default = 0,
-		hover   = "Here u can adjust the height of the boat HUD *Health meter",
-		options = {
-			{ description = "-100", data = -100 },
-			{ description = "-75",  data = -75 },
-			{ description = "-50",  data = -50 },
-			{ description = "-25",  data = -25 },
-			{ description = "0",    data = 0 },
-			{ description = "+25",  data = 25 },
-			{ description = "+50",  data = 50 },
-			{ description = "+75",  data = 75 },
-			{ description = "+100", data = 100 },
-		},
-	},
-
-	{
-		name    = "housewallajust",
-		label   = "house wall ajust",
-		default = 0,
-		hover   = "Can ajust the wall position if it is not in the center",
-		options = {
-			{ description = "-7", data = -7 },
-			{ description = "-6", data = -6 },
-			{ description = "-5", data = -5 },
-			{ description = "-4", data = -4 },
-			{ description = "-3", data = -3 },
-			{ description = "-2", data = -2 },
-			{ description = "-1", data = -1 },
-			{ description = "0",  data = 0 },
-			{ description = "+1", data = 1 },
-			{ description = "+2", data = 2 },
-			{ description = "+3", data = 3 },
-			{ description = "+4", data = 4 },
-			{ description = "+5", data = 5 },
-			{ description = "+6", data = 6 },
-			{ description = "+7", data = 7 },
-		},
-	},
-
-	{
-		name = "",
-		label = "CHARACTERS",
-		hover = "",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
-
-	{
-		name    = "disablecharacters",
-		label   = "Disable characters",
-		hover   = "Used for enable or disable characters from the mod",
-		options =
-		{
-			{ description = "YES", data = true,  hover = "" },
-			{ description = "NO",  data = false, hover = "" },
-		},
-		default = false,
-	},
-
-	{
-		name = "",
-		label = "SHARD-DEDICATED",
-		hover = "",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
-
-	{
-		name    = "enableallprefabs",
-		label   = "Enable all prefabs",
-		hover   = "Used for server shards & Testing, If not active, spawned items can crash in a non mixworld",
-		options =
-		{
-			{ description = "YES", data = true,  hover = "" },
-			{ description = "NO",  data = false, hover = "" },
-		},
-		default = false,
-	},
-
-	{
-		name = "tropicalshards",
-		label = "Tropical shards",
-		hover = "Presets how world&portals connect using the shard Id,s, *ID 1 = Always Master*",
-		--the table is an array of world ID (whose type is string)
-		options = {
-			{ description = "Disabled",      data = 0,  hover = "enable only for dedicated server" },
-			{ description = "2 + 1 + 1",     data = 5,  hover = "ID=1-2-3-> 2=ROG+Shipwrecked - 1=Caves - 1=Hamlet" },
-			{ description = "1 + 1 + 2",     data = 10, hover = "ID=1-2-3-> 1=ROG - 1=Caves - 2=Shipwrecked+Hamlet" },
-			{ description = "1 + 1 + 1 + 1", data = 20, hover = "ID=1-2-3-4-> 1=ROG - 1=Caves - 1=Shipwrecked - 1=Hamlet" },
-			{
-				description = "Lobby Only",
-				data = 30,
-				hover =
-				"ID=1-2-3-4-5-> Lobby=ID 1 & 1+1+1+1 setup *ROG=ID 5 in this setup*"
-			},
-		},
-		default = 0
-	},
-
-	{
-		name    = "lobbyexit",
-		label   = "Lobby exit",
-		hover   = "Spawn an Lobby return portal in ROG -> lobby=ID 1",
-		options =
-		{
-			{ description = "YES", data = true,  hover = "" },
-			{ description = "NO",  data = false, hover = "" },
-		},
-		default = false,
-	},
-
-	{
-		name = "",
-		label = "OTHER MODS (need mod enabled)",
-		hover = "",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
-
-	{
-		name = "cherryforest",
-		label = "Cherry Forest",
-		hover = "only works if the mod below is enabled",
-		options = {
-			{
-				description = "Mainland",
-				data = 10,
-				hover =
-				"Place the Cherry Forest on the main continent so it's easier to find it. 󰀅u󰀅"
-			},
-			{
-				description = "Island",
-				data = 20,
-				hover =
-				"Generate a large island to discover in the ocean, or start on it with Wirlywings."
-			},
-			{
-				description = "Grove",
-				data = 30,
-				hover =
-				"Also an Island, smaller than the original but with more interesting shapes."
-			},
-			{
-				description = "Archipelago",
-				data = 40,
-				hover =
-				"An Island in shards divided by rivers, it's harder but fun for base-building!"
-			},
-			{
-				description = "Moon Morphis",
-				data = 50,
-				hover =
-				"The Cherry Forest will be merged within the Lunar Island!"
-			},
-		},
-		default = 10
-	},
-
-
-	{
-		name = "",
-		label = "LUAJIT",
-		hover = "",
-		options = {
-			{ description = "", data = 0 },
-		},
-		default = 0,
-	},
-
-	{
-		name = "luajit",
-		label = "luajit",
-		hover = "luajit will works but Will disable minimaps on pig ruins entrance.",
-		options = {
-			{ description = "YES", data = true,  hover = "Enable" },
-			{ description = "NO",  data = false, hover = "Disable" }, },
-		default = false
-	},
-	------------ninguem pode ver isso------------------------	
-	{
-		name = "megarandomCompatibilityWater",
-
-		default = false,
-	},
 
 }
-
-
---swampyvenice
---pinacle
---gorgeisland
---gorgecity
---mactuskonice
---pandabiome
---Shipwrecked_plus

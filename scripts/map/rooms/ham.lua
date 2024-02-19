@@ -1,37 +1,68 @@
 ----------------------------------------- ROT -----------------------------------------------------------------------------
 ----------------------Porkland Portal Room------------------------
 ---------------------------------------------------------
-AddRoom("PorklandPortalRoom", {
+
+
+
+
+
+AddRoom("Hamlet start", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.PLAINS,
-    tags = { "RoadPoison", "Chester_Eyebone" },
+    tags = { "hamlet" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
         {
-            clawpalmtree = .25,
+            clawpalmtree = 0.5,
             grass_tall = 1,
+            saplingnova = .3,
             flower = 0.05,
-            pog = 0.1,
+            dungpile = 0.03,
+            peagawk = 0.01,
+            --		randomrelic = 0.0016,
+            --randomruin = 0.0025,	
             randomdust = 0.0025,
             rock_flippable = 0.08,
             aloe_planted = 0.08,
+            pog = 0.01,
             asparagus_planted = 0.05,
-
         },
-        countprefabs =
-        {
-            spawnpoint_multiplayer = 1,
-        }
+        countstaticlayouts = {
+            ["start_ham"] = 1,
+        },
 
     }
 })
 
+AddRoom("Lilypond", {
+    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+    value = WORLD_TILES.LILYPOND, --GROUND.OCEAN_COASTAL,
+    tags = { "RoadPoison", "hamlet", "ExitPiece" },
+    contents = {
+        distributepercent = .2, --.22, --.26
+        distributeprefabs =
+        {
+            watercress_planted = .05,
+            -- grasswater = .05,
+            lotus = 0.05,
+            reeds_water = .05,
+        },
+        countprefabs =
+        {
+            hippopotamoose = math.random(2, 4),
+            -- bill = math.random(1, 3),
+            lilypad = math.random(3, 4),
+
+        },
+
+    }
+})
 
 AddRoom("Rockyham", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece", "Chester_Eyebone" },
+    tags = { "ExitPiece" },
     contents = {
         countprefabs =
         {
@@ -123,84 +154,84 @@ AddRoom("BG_suburb_base", {
     }
 })
 
-AddRoom("MAINcity_base_1_set", {
-    colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
-    value = GROUND.SUBURB,
-    tags = { "RoadPoison" },
-    contents = {
-        countstaticlayouts = {
-            ["cidade1"] = 1,
-        },
-        distributepercent = 0.3,
-        distributeprefabs =
-        {
-            rocks = 0.2,
-            grass = 0.2,
-            spoiled_food = 0.2,
-            twigs = 0.2,
-        },
-    }
-})
+-- AddRoom("MAINcity_base_1_set", {
+--     colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
+--     value = GROUND.SUBURB,
+--     tags = { "RoadPoison" },
+--     contents = {
+--         countstaticlayouts = {
+--             ["cidade1"] = 1,
+--         },
+--         distributepercent = 0.3,
+--         distributeprefabs =
+--         {
+--             rocks = 0.2,
+--             grass = 0.2,
+--             spoiled_food = 0.2,
+--             twigs = 0.2,
+--         },
+--     }
+-- })
 
-AddRoom("MAINcity_base_2_set", {
-    colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
-    value = GROUND.SUBURB,
-    tags = { "RoadPoison" },
-    contents = {
-        countstaticlayouts = {
-            ["cidade2"] = 1,
-        },
-        distributepercent = 0.3,
-        distributeprefabs =
-        {
-            rocks = 0.2,
-            grass = 0.2,
-            spoiled_food = 0.2,
-            twigs = 0.2,
-        },
-    }
-})
+-- AddRoom("MAINcity_base_2_set", {
+--     colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
+--     value = GROUND.SUBURB,
+--     tags = { "RoadPoison" },
+--     contents = {
+--         countstaticlayouts = {
+--             ["cidade2"] = 1,
+--         },
+--         distributepercent = 0.3,
+--         distributeprefabs =
+--         {
+--             rocks = 0.2,
+--             grass = 0.2,
+--             spoiled_food = 0.2,
+--             twigs = 0.2,
+--         },
+--     }
+-- })
 
-AddRoom("MAINcity_base", {
-    colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
-    value = GROUND.SUBURB,
-    tags = { "RoadPoison" },
-    contents = {
-        distributepercent = 0.3,
-        distributeprefabs =
-        {
-            rocks = 0.2,
-            grass = 0.2,
-            spoiled_food = 0.2,
-            twigs = 0.2,
-        },
-    }
-})
+-- AddRoom("MAINcity_base", {
+--     colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
+--     value = GROUND.SUBURB,
+--     tags = { "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.3,
+--         distributeprefabs =
+--         {
+--             rocks = 0.2,
+--             grass = 0.2,
+--             spoiled_food = 0.2,
+--             twigs = 0.2,
+--         },
+--     }
+-- })
 
-AddRoom("MAINBG_suburb_base", {
-    colour = { r = .3, g = 0.3, b = 0.3, a = 0.3 },
-    value = GROUND.SUBURB,
-    tags = { "RoadPoison" },
-    contents = {
-        distributepercent = 0.3,
-        distributeprefabs =
-        {
-            rocks = 1,
-            grass = 1,
-            spoiled_food = 1,
-            twigs = 1,
-        },
-    }
-})
+-- AddRoom("MAINBG_suburb_base", {
+--     colour = { r = .3, g = 0.3, b = 0.3, a = 0.3 },
+--     value = GROUND.SUBURB,
+--     tags = { "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.3,
+--         distributeprefabs =
+--         {
+--             rocks = 1,
+--             grass = 1,
+--             spoiled_food = 1,
+--             twigs = 1,
+--         },
+--     }
+-- })
 -------------------------------pinacle----------------------------------
 AddRoom("BG_pinacle_base_set", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.ROCKY,
-    tags = { "hamlet" },
+    -- tags = { "hamlet" },
     contents = {
         countstaticlayouts = {
             ["roc_nest"] = 1,
-            ["roc_cave"] = 1,
+            -- ["roc_cave"] = 1,
         },
         distributepercent = .15, --.26
         distributeprefabs =
@@ -230,7 +261,7 @@ AddRoom("BG_pinacle_base_set", {
 AddRoom("BG_pinacle_base", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.ROCKY,
-    tags = { "hamlet" },
+    -- tags = { "hamlet" },
     contents = {
         distributepercent = .15, --.26
         distributeprefabs =
@@ -453,7 +484,7 @@ AddRoom("battleground_ribs", {
         {
             ancient_robot_ribs = 1,
             vampirebatcave_potential = 1,
-            maze_cave_roc_entrance = 1,
+            -- maze_cave_roc_entrance = 1,
         },
     }
 })
@@ -611,7 +642,7 @@ AddRoom("BG_painted_base", {
 AddRoom("deeprainforest_gas", {
     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.GASJUNGLE,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.45, --.45
         distributeprefabs =
@@ -637,7 +668,7 @@ AddRoom("deeprainforest_gas", {
 AddRoom("deeprainforest_gas_entrance6", {
     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.GASJUNGLE,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.45, --.45
         distributeprefabs =
@@ -667,7 +698,7 @@ AddRoom("deeprainforest_gas_entrance6", {
 AddRoom("deeprainforest_gas_flytrap_grove", {
     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.GASJUNGLE,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         countstaticlayouts = {
             ["pig_ruins_head"] = 1,
@@ -703,8 +734,7 @@ AddRoom("deeprainforest_gas_flytrap_grove", {
 AddRoom("BG_rainforest_base", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.RAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha", "StagehandGarden", "Terrarium_Spawner",
-        "StatueHarp_HedgeSpawner", "CharlieStage_Spawner" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = .38, --.5
         distributeprefabs =
@@ -735,7 +765,7 @@ AddRoom("BG_rainforest_base", {
 AddRoom("rainforest_ruins", {
     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
     value = GROUND.RAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = .35, -- .5
         distributeprefabs =
@@ -763,7 +793,7 @@ AddRoom("rainforest_ruins", {
 AddRoom("rainforest_ruins_entrance", {
     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
     value = GROUND.RAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = .35, -- .5
         distributeprefabs =
@@ -790,8 +820,7 @@ AddRoom("rainforest_ruins_entrance", {
 AddRoom("BG_deeprainforest_base", {
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha", "Terrarium_Spawner", "StatueHarp_HedgeSpawner",
-        "CharlieStage_Spawner" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.5,
         distributeprefabs =
@@ -813,7 +842,7 @@ AddRoom("BG_deeprainforest_base", {
 
         countprefabs =
         {
-            vampirebatcave_potential = 1
+            vampirebatcave_potential = 1,
         },
 
     }
@@ -822,7 +851,7 @@ AddRoom("BG_deeprainforest_base", {
 AddRoom("deeprainforest_spider_monkey_nest", {
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -850,7 +879,7 @@ AddRoom("deeprainforest_spider_monkey_nest", {
 AddRoom("deeprainforest_flytrap_grove", {
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         countstaticlayouts = {
             ["nettlegrove"] = function()
@@ -888,7 +917,7 @@ AddRoom("deeprainforest_flytrap_grove", {
 AddRoom("deeprainforest_flytrap_grove_PigRuinsEntrance5", {
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -917,7 +946,7 @@ AddRoom("deeprainforest_flytrap_grove_PigRuinsEntrance5", {
 AddRoom("deeprainforest_fireflygrove", {
     colour = { r = 1, g = 1, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --0.25, --.3
         distributeprefabs =
@@ -945,7 +974,7 @@ AddRoom("deeprainforest_fireflygrove", {
 AddRoom("deeprainforest_ruins_entrance", {
     colour = { r = 1, g = 0.1, b = 0.2, a = 0.5 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -973,7 +1002,7 @@ AddRoom("deeprainforest_ruins_entrance", {
 AddRoom("deeprainforest_ruins_entrance2", {
     colour = { r = 1, g = 0.1, b = 0.2, a = 0.5 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -1000,7 +1029,7 @@ AddRoom("deeprainforest_ruins_entrance2", {
 AddRoom("deeprainforest_ruins_exit", {
     colour = { r = 0.2, g = 0.1, b = 1, a = 0.5 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -1028,7 +1057,7 @@ AddRoom("deeprainforest_ruins_exit", {
 AddRoom("deeprainforest_ruins_exit2", {
     colour = { r = 0.2, g = 0.1, b = 1, a = 0.5 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         countstaticlayouts = { ["nettlegrove"] = 1 },
         distributepercent = 0.25, --.3
@@ -1059,7 +1088,7 @@ AddRoom("deeprainforest_ruins_exit2", {
 AddRoom("deeprainforest_anthill", {
     colour = { r = 1, g = 0, b = 1, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -1088,7 +1117,7 @@ AddRoom("deeprainforest_anthill", {
 AddRoom("deeprainforest_mandrakeman", {
     colour = { r = 1, g = 0, b = 1, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         countstaticlayouts = { ["mandraketown"] = 1 },
         distributepercent = 0.25, --.3
@@ -1117,9 +1146,12 @@ AddRoom("deeprainforest_mandrakeman", {
 AddRoom("deeprainforest_anthill_exit", {
     colour = { r = 1, g = 0, b = 1, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
-        countstaticlayouts = { ["pig_ruins_entrance_5"] = GetModConfigData("pigruins") },
+        countstaticlayouts = {
+            -- ["pig_ruins_entrance_5"] = GetModConfigData("pigruins")
+
+        },
         distributepercent = 0.25, --.3
         distributeprefabs =
         {
@@ -1142,7 +1174,7 @@ AddRoom("deeprainforest_anthill_exit", {
 AddRoom("deeprainforest_anthill_exit2", {
     colour = { r = 1, g = 0, b = 1, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "hamlet", "folha" },
+    tags = { "ExitPiece", "RoadPoison", "hamlet" },
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -1162,8 +1194,8 @@ AddRoom("deeprainforest_anthill_exit2", {
 
         countprefabs =
         {
-            maze_anthillentradarainha = GetModConfigData("anthill"),
-            underwater_entrance2 = 1,
+            -- maze_anthillentradarainha = GetModConfigData("anthill"),
+            -- underwater_entrance2 = 1,
         },
 
     }
@@ -1173,7 +1205,7 @@ AddRoom("deeprainforest_anthill_exit2", {
 AddRoom("BG_plains_inicio", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece", "Chester_Eyebone", "hamlet" },
+    tags = { "ExitPiece", "hamlet" },
     contents = {
         distributepercent = .25, --.22, --.26
         distributeprefabs =
@@ -1283,7 +1315,7 @@ AddRoom("BG_plains_base_nocanopy1", {
         {
             grass_tall_patch = 2,
             grass_tall_infested = 1,
-            vampirebatcave_entrance_roc = 1,
+            --[[vampirebatcave_entrance_roc = 1,]]
             gravestone = 5,
         },
     }
@@ -1312,6 +1344,7 @@ AddRoom("BG_plains_base_nocanopy2", {
             randomdust = 0.0025,
             rock_flippable = 0.08,
             aloe_planted = 0.08,
+
             pog = 0.01,
             asparagus_planted = 0.05,
         },
@@ -1489,1221 +1522,1221 @@ fazendas =
     [5] = "farm_5",
 }
 
-AddRoom("MAINBG_cultivated_base", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece" },
-    contents = {
-        distributepercent = 0.06, ---0.1
-        distributeprefabs =
-        {
-            -- 			grass = 0.05,
-            --			flower = 0.3,
-            rock1 = 0.01,
-            teatree = 0.1,
-            --			peekhenspawner = 0.003,
-        },
-    }
-})
-
-
-AddRoom("MAINcultivated_base_1", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece" },
-    contents = {
-        distributepercent = 0.06, ---0.1
-        distributeprefabs =
-        {
-            -- 			grass = 0.05,
-            --			flower = 0.3,
-            rock1 = 0.01,
-            teatree = 0.1,
-            --			peekhenspawner = 0.003,
-        },
-
-        countprefabs =
-        {
-            crabapple_tree = 4,
-
-        },
-        countstaticlayouts = { ["farm_1"] = 1, },
-    }
-})
-
-AddRoom("MAINcultivated_base_2", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece" },
-    contents = {
-        distributepercent = 0.06, ---0.1
-        distributeprefabs =
-        {
-            -- 			grass = 0.05,
-            --			flower = 0.3,
-            rock1 = 0.01,
-            teatree = 0.1,
-            --			peekhenspawner = 0.003,
-        },
-
-        countprefabs =
-        {
-            crabapple_tree = 4,
-        },
-
-        countstaticlayouts = { ["farm_2"] = 1, },
-    }
-})
-
-
-AddRoom("MAINcultivated_base_3", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece" },
-    contents = {
-        distributepercent = 0.06, ---0.1
-        distributeprefabs =
-        {
-            -- 			grass = 0.05,
-            --			flower = 0.3,
-            rock1 = 0.01,
-            teatree = 0.1,
-            --			peekhenspawner = 0.003,
-        },
-        countstaticlayouts = { ["farm_3"] = 1, },
-    }
-})
-
-AddRoom("MAINcultivated_base_4", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece" },
-    contents = {
-        distributepercent = 0.06, ---0.1
-        distributeprefabs =
-        {
-            -- 			grass = 0.05,
-            --			flower = 0.3,
-            rock1 = 0.01,
-            teatree = 0.1,
-            --			peekhenspawner = 0.003,
-        },
-        countstaticlayouts = { ["farm_4"] = 1, },
-
-    }
-})
-
-AddRoom("MAINcultivated_base_5", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece" },
-    contents = {
-        distributepercent = 0.06, ---0.1
-        distributeprefabs =
-        {
-            -- 			grass = 0.05,
-            --			flower = 0.3,
-            rock1 = 0.01,
-            teatree = 0.1,
-            --			peekhenspawner = 0.003,
-        },
-        countstaticlayouts = { ["farm_5"] = 1, },
-
-    }
-})
-
-AddRoom("MAINpiko_land", {
-    colour = { r = 1.0, g = 0.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece" },
-    contents = {
-        distributepercent = 0.06, --0.1
-        distributeprefabs =
-        {
-            --	grass = 0.05,
-            --	flower = 0.3,
-            rock1 = 0.01,
-            teatree = 2.0,
-        },
-        countprefabs =
-        {
-            teatree_piko_nest_patch = 1
-        },
-    }
-
-})
-
------------------------------------------------------------ painted room--------------------------------------------------------------------------------------------------
------------------------------------------------------------ battlegrounds room--------------------------------------------------------------------------------------------------
-AddRoom("MAINBG_battleground_base", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .22, -- .22, --.26
-        distributeprefabs =
-        {
-            rainforesttree = 0.1,
-            flower = 0.7,
-            meteor_impact = 0.5,
-            charcoal = 0.5,
-            rainforesttree_burnt = 1,
-
-            radish_planted = 0.05,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            vampirebatcave_potential = 1,
-        },
-    }
-})
-
-AddRoom("MAINbattleground_ribs", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .22, -- .22, --.26
-        distributeprefabs =
-        {
-            rainforesttree = 0.1,
-            flower = 0.7,
-            meteor_impact = 0.5,
-            charcoal = 0.5,
-            rainforesttree_burnt = 1,
-
-            radish_planted = 0.05,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            ancient_robot_ribs = 1,
-            vampirebatcave_potential = 1,
-            maze_cave_roc_entrance = 1,
-        },
-    }
-})
-AddRoom("MAINbattleground_claw", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .22, -- .22, --.26
-        distributeprefabs =
-        {
-            rainforesttree = 0.1,
-            flower = 0.7,
-            meteor_impact = 0.5,
-            charcoal = 0.5,
-            rainforesttree_burnt = 1,
-
-            radish_planted = 0.05,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            ancient_robot_claw = 1,
-            vampirebatcave_potential = 1,
-        },
-    }
-})
-
-AddRoom("MAINbattleground_claw1", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .22, -- .22, --.26
-        distributeprefabs =
-        {
-            rainforesttree = 0.1,
-            flower = 0.7,
-            meteor_impact = 0.5,
-            charcoal = 0.5,
-            rainforesttree_burnt = 1,
-
-            radish_planted = 0.05,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            ancient_robot_claw = 1,
-            vampirebatcave_potential = 1,
-        },
-    }
-})
-
-AddRoom("MAINbattleground_leg", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .22, -- .22, --.26
-        distributeprefabs =
-        {
-            rainforesttree = 0.1,
-            flower = 0.7,
-            meteor_impact = 0.5,
-            charcoal = 0.5,
-            rainforesttree_burnt = 1,
-
-            radish_planted = 0.05,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            ancient_robot_leg = 1,
-            vampirebatcave_potential = 1,
-        },
-    }
-})
-
-AddRoom("MAINbattleground_leg1", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .22, -- .22, --.26
-        distributeprefabs =
-        {
-            rainforesttree = 0.1,
-            flower = 0.7,
-            meteor_impact = 0.5,
-            charcoal = 0.5,
-            rainforesttree_burnt = 1,
-
-            radish_planted = 0.05,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            ancient_robot_leg = 1,
-            vampirebatcave_potential = 1,
-        },
-    }
-})
-AddRoom("MAINbattleground_head", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        --					countstaticlayouts={["CaveEntrance"]=1},
-        distributepercent = .22, -- .22, --.26
-        distributeprefabs =
-        {
-            rainforesttree = 0.1,
-            flower = 0.7,
-            meteor_impact = 0.5,
-            charcoal = 0.5,
-            rainforesttree_burnt = 1,
-
-            radish_planted = 0.05,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            ancient_robot_head = 1,
-            vampirebatcave_potential = 1,
-        },
-    }
-})
-
-AddRoom("MAINBG_painted_base", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.PAINTED,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .15, --.26
-        distributeprefabs =
-        {
-            tubertree = 1,
-            gnatmound = 0.1,
-            rocks = 0.1,
-            nitre = 0.1,
-            flint = 0.05,
-            iron = 0.2,
-            thunderbirdnest = 0.1,
-            sedimentpuddle = 0.1,
-            pangolden = 0.005,
-        },
-        countprefabs =
-        {
-            pangolden = 1,
-            vampirebatcave_potential = 1,
-        },
-    }
-})
--------------------------------------------room deep florest hamlet-------------------------------------------
-AddRoom("MAINdeeprainforest_gas", {
-    colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
-    value = GROUND.GASJUNGLE,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = 0.45, --.45
-        distributeprefabs =
-        {
-            rainforesttree_rot = 4,
-            tree_pillar = 0.5,
-            nettle = 0.12,
-            red_mushroom = 0.3,
-            green_mushroom = 0.3,
-            blue_mushroom = 0.3,
-            --	berrybush = 1,
-            --										lightrays_jungle = 1.2,
-            poisonmist = 8,
-            randomrelic = 0.02,
-            randomruin = 0.02,
-            randomdust = 0.02,
-            rock_flippable = 0.05,
-            jungle_border_vine = 0.5,
-        },
-    }
-})
-
-AddRoom("MAINdeeprainforest_gas_entrance6", {
-    colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
-    value = GROUND.GASJUNGLE,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = 0.45, --.45
-        distributeprefabs =
-        {
-            rainforesttree_rot = 4,
-            tree_pillar = 0.5,
-            nettle = 0.12,
-            red_mushroom = 0.3,
-            green_mushroom = 0.3,
-            blue_mushroom = 0.3,
-            --	berrybush = 1,
-            --										lightrays_jungle = 1.2,
-            poisonmist = 8,
-            randomrelic = 0.02,
-            randomruin = 0.02,
-            randomdust = 0.02,
-            rock_flippable = 0.05,
-            jungle_border_vine = 0.5,
-        },
-        countprefabs =
-        {
-            maze_pig_ruins_entrance6 = 1,
-            vampirebatcave_entrance_roc = 1,
-        },
-    }
-})
-
-AddRoom("MAINdeeprainforest_gas_flytrap_grove", {
-    colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
-    value = GROUND.GASJUNGLE,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        countstaticlayouts = {
-            ["pig_ruins_head"] = 1,
-            ["pig_ruins_artichoke"] = 1,
-        },
-        distributepercent = 0.5, --.45
-        distributeprefabs =
-        {
-            rainforesttree_rot = 2,
-            tree_pillar = 0.5,
-            nettle = 0.12,
-            red_mushroom = 0.3,
-            green_mushroom = 0.3,
-            blue_mushroom = 0.3,
-            --	berrybush = 1,
-            --										lightrays_jungle = 1.2,
-            --mistarea = 6,	
-            randomrelic = 0.02,
-            randomruin = 0.02,
-            randomdust = 0.02,
-            poisonmist = 8,
-            rock_flippable = 0.05,
-            jungle_border_vine = 0.5,
-        },
-        countprefabs =
-        {
-            --					                	mean_flytrap = math.random(10, 15),
-            --					                	adult_flytrap = math.random(3, 7),
-        },
-    }
-})
-
-AddRoom("MAINBG_rainforest_base", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.RAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha", "StagehandGarden", "Terrarium_Spawner", "StatueHarp_HedgeSpawner",
-        "CharlieStage_Spawner" },
-    contents = {
-        distributepercent = .38, --.5
-        distributeprefabs =
-        {
-            rainforesttree = 0.6, --1.4,
-            grass_tall = .5,
-            saplingnova = .6,
-            flower_rainforest = 0.1,
-            flower = 0.05,
-            dungpile = 0.03,
-            fireflies = 0.05,
-            peagawk = 0.01,
-            --	randomrelic = 0.008,
-            --	randomruin = 0.005,	
-            --										randomdust = 0.005,										
-            rock_flippable = 0.08,
-            radish_planted = 0.05,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            foliage = 1,
-        },
-    }
-})
-
-
-AddRoom("MAINrainforest_ruins", {
-    colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
-    value = GROUND.RAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = .35, -- .5
-        distributeprefabs =
-        {
-            rainforesttree = .5, --.7,
-            grass_tall = 0.5,
-            saplingnova = .6,
-            flower_rainforest = 0.1,
-            flower = 0.05,
-            --	randomrelic = 0.008,
-            --	randomruin = 0.005,	
-            randomdust = 0.005,
-            rock_flippable = 0.08,
-            radish_planted = 0.05,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            vampirebatcave_potential = 1,
-            peekhenspawner = 2,
-        },
-    }
-})
-
-AddRoom("MAINrainforest_ruins_entrance", {
-    colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
-    value = GROUND.RAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = .35, -- .5
-        distributeprefabs =
-        {
-            rainforesttree = .5, --.7,
-            grass_tall = 0.5,
-            saplingnova = .6,
-            flower_rainforest = 0.1,
-            flower = 0.05,
-            --	randomrelic = 0.008,
-            --	randomruin = 0.005,	
-            randomdust = 0.005,
-            rock_flippable = 0.08,
-            radish_planted = 0.05,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            peekhenspawner = 2,
-        },
-    }
-})
-
-AddRoom("MAINBG_deeprainforest_base", {
-    colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = 0.5,
-        distributeprefabs =
-        {
-            rainforesttree = 2, --4,
-            tree_pillar = 0.5,  --0.5,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            fireflies = 0.2,
-            --										hanging_vine_patch = 0.1,	
-            pig_ruins_torch = 0.02,
-            --										mean_flytrap = 0.05,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-
-        countprefabs =
-        {
-            vampirebatcave_potential = 1
-        },
-
-    }
-})
-
-AddRoom("MAINdeeprainforest_spider_monkey_nest", {
-    colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = 0.25, --.3
-        distributeprefabs =
-        {
-            rainforesttree = 3, --4,
-            tree_pillar = 1,    --0.5,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            pig_ruins_torch = 0.02,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-        countprefabs =
-        {
-            spider_monkey_tree = 1,
-            spider_monkey = 1,
-            --					                	hanging_vine_patch = 1,
-        },
-    }
-})
-
-AddRoom("MAINdeeprainforest_flytrap_grove", {
-    colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        countstaticlayouts = {
-            ["nettlegrove"] = function()
-                if math.random(1, 10) > 7 then return 1 end
-                return 0
-            end
-        },
-        distributepercent = 0.25,
-        distributeprefabs =
-        {
-            rainforesttree = 4,
-            tree_pillar = 1, --0.5,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            fireflies = 0.2,
-            randomrelic = 0.02,
-            randomruin = 0.02,
-            randomdust = 0.02,
-            pig_ruins_torch = 0.02,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-        countprefabs =
-        {
-            --					                	mean_flytrap = math.random(10, 15),
-            --					                	adult_flytrap = math.random(3, 7),
-            --					                	hanging_vine_patch = math.random(0,2),
-        },
-    }
-})
-
-AddRoom("MAINdeeprainforest_flytrap_grove_PigRuinsEntrance5", {
-    colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = 0.25, --.3
-        distributeprefabs =
-        {
-            rainforesttree = 4,
-            tree_pillar = 1, --0.5,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            fireflies = 0.2,
-            pig_ruins_torch = 0.02,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-        countprefabs =
-        {
-            --					                	mean_flytrap = math.random(6, 11),
-            --					                	adult_flytrap = math.random(2, 6),
-            --					                	hanging_vine_patch = math.random(0,2)
-        },
-    }
-})
-
-AddRoom("MAINdeeprainforest_fireflygrove", {
-    colour = { r = 1, g = 1, b = 0.2, a = 0.3 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = 0.25, --0.25, --.3
-        distributeprefabs =
-        {
-            rainforesttree = 4,
-            tree_pillar = 1, --0.5,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            fireflies = 5,
-            --										hanging_vine_patch = 0.1,
-            pig_ruins_torch = 0.02,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-        countprefabs =
-        {
-            fireflies = math.random(5, 10),
-        },
-    }
-})
-
-AddRoom("MAINdeeprainforest_ruins_entrance", {
-    colour = { r = 1, g = 0.1, b = 0.2, a = 0.5 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = 0.25, --.3
-        distributeprefabs =
-        {
-            rainforesttree = 4,
-            tree_pillar = 1,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            fireflies = 0.2,
-            pig_ruins_torch = 0.02,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-        countprefabs =
-        {
-
-        },
-
-    }
-})
-
-AddRoom("MAINdeeprainforest_ruins_entrance2", {
-    colour = { r = 1, g = 0.1, b = 0.2, a = 0.5 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = 0.25, --.3
-        distributeprefabs =
-        {
-            rainforesttree = 4,
-            tree_pillar = 1,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            fireflies = 0.2,
-            pig_ruins_torch = 0.02,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-        countprefabs =
-        {
-        },
-
-    }
-})
-
-AddRoom("MAINdeeprainforest_ruins_exit", {
-    colour = { r = 0.2, g = 0.1, b = 1, a = 0.5 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = 0.25, --.3
-        distributeprefabs =
-        {
-            rainforesttree = 4,
-            tree_pillar = 1,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            fireflies = 0.2,
-            pig_ruins_torch = 0.02,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-        countprefabs =
-        {
-
-        },
-
-    }
-})
-
-AddRoom("MAINdeeprainforest_ruins_exit2", {
-    colour = { r = 0.2, g = 0.1, b = 1, a = 0.5 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        countstaticlayouts = { ["nettlegrove"] = 1 },
-        distributepercent = 0.25, --.3
-        distributeprefabs =
-        {
-            rainforesttree = 4,
-            tree_pillar = 1,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            fireflies = 0.2,
-            pig_ruins_torch = 0.02,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-        countprefabs =
-        {
-            -- 	pig_ruins_torch = 3,
-            -- 	pig_ruins_exit = 1,
-            -- 	pig_ruins_head = 1,					                	
-        },
-
-    }
-})
-
-AddRoom("MAINdeeprainforest_anthill", {
-    colour = { r = 1, g = 0, b = 1, a = 0.3 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = 0.25, --.3
-        distributeprefabs =
-        {
-            rainforesttree = 4,
-            tree_pillar = 1,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            fireflies = 0.2,
-            pig_ruins_torch = 0.02,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-
-        countprefabs =
-        {
-            anthill = 1,
-            --					                	pighead = 4,
-        },
-
-    }
-})
-AddRoom("MAINdeeprainforest_mandrakeman", {
-    colour = { r = 1, g = 0, b = 1, a = 0.3 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        countstaticlayouts = { ["mandraketown"] = 1 },
-        distributepercent = 0.25, --.3
-        distributeprefabs =
-        {
-            rainforesttree = 4,
-            tree_pillar = 1,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            fireflies = 0.2,
-            pig_ruins_torch = 0.02,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-
-        countprefabs =
-        {
-            mandrakehouse = 2
-        },
-
-    }
-})
-AddRoom("MAINdeeprainforest_anthill_exit", {
-    colour = { r = 1, g = 0, b = 1, a = 0.3 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        countstaticlayouts = { ["pig_ruins_entrance_5"] = GetModConfigData("pigruins") },
-        distributepercent = 0.25, --.3
-        distributeprefabs =
-        {
-            rainforesttree = 4,
-            tree_pillar = 1,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            fireflies = 0.2,
-            pig_ruins_torch = 0.02,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-
-    }
-})
-
-AddRoom("MAINdeeprainforest_anthill_exit2", {
-    colour = { r = 1, g = 0, b = 1, a = 0.3 },
-    value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece", "RoadPoison", "folha" },
-    contents = {
-        distributepercent = 0.25, --.3
-        distributeprefabs =
-        {
-            rainforesttree = 4,
-            tree_pillar = 1,
-            nettle = 0.12,
-            flower_rainforest = 1,
-            --										lightrays_jungle = 1.2,								
-            deep_jungle_fern_noise = 1,
-            jungle_border_vine = 0.5,
-            fireflies = 0.2,
-            pig_ruins_torch = 0.02,
-            rock_flippable = 0.1,
-            radish_planted = 0.5,
-        },
-
-        countprefabs =
-        {
-            maze_anthillentradarainha = GetModConfigData("anthill"),
-            underwater_entrance2 = 1,
-        },
-
-    }
-})
-
------------------------------------------------------------ plain room--------------------------------------------------------------------------------------------------
-AddRoom("MAINBG_plains_inicio", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.PLAINS,
-    tags = { "ExitPiece", "Chester_Eyebone" },
-    contents = {
-        distributepercent = .25, --.22, --.26
-        distributeprefabs =
-        {
-            clawpalmtree = .25,
-            grass_tall = 1,
-            flower = 0.05,
-            pog = 0.1,
-            randomdust = 0.0025,
-            rock_flippable = 0.08,
-            aloe_planted = 0.08,
-            asparagus_planted = 0.05,
-        },
-    }
-})
-
-AddRoom("MAINBG_plains_base", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.PLAINS,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .25, --.22, --.26
-        distributeprefabs =
-        {
-            clawpalmtree = 0.5,
-            grass_tall = 1,
-            saplingnova = .3,
-            flower = 0.05,
-            dungpile = 0.03,
-            peagawk = 0.01,
-            --		randomrelic = 0.0016,
-            --randomruin = 0.0025,	
-            randomdust = 0.0025,
-            rock_flippable = 0.08,
-            aloe_planted = 0.08,
-            pog = 0.01,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            grass_tall_patch = 2,
-            grass_tall_infested = 1,
-        },
-    }
-})
-
-AddRoom("MAINBG_plains_base_nocanopy", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.PLAINS,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        countstaticlayouts = {
-            ["pig_ruins_nocanopy"] = 1,
-            ["pig_ruins_nocanopy_2"] = 1,
-        },
-        distributepercent = .25, --.22, --.26
-        distributeprefabs =
-        {
-            clawpalmtree = 0.5,
-            grass_tall = 1,
-            saplingnova = .3,
-            flower = 0.05,
-            dungpile = 0.03,
-            peagawk = 0.01,
-            --		randomrelic = 0.0016,
-            --randomruin = 0.0025,	
-            randomdust = 0.0025,
-            rock_flippable = 0.08,
-            aloe_planted = 0.08,
-            pog = 0.01,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            grass_tall_patch = 2,
-            grass_tall_infested = 1,
-        },
-    }
-})
-
-AddRoom("MAINBG_plains_base_nocanopy1", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.PLAINS,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        countstaticlayouts = {
-            ["pugalisk_fountain"] = 1,
-        },
-        distributepercent = .25, --.22, --.26
-        distributeprefabs =
-        {
-            clawpalmtree = 0.5,
-            grass_tall = 1,
-            saplingnova = .3,
-            flower = 0.05,
-            dungpile = 0.03,
-            peagawk = 0.01,
-            --		randomrelic = 0.0016,
-            --randomruin = 0.0025,	
-            randomdust = 0.0025,
-            rock_flippable = 0.08,
-            aloe_planted = 0.08,
-            pog = 0.01,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            grass_tall_patch = 2,
-            grass_tall_infested = 1,
-            vampirebatcave_entrance_roc = 1,
-            gravestone = 5,
-        },
-    }
-})
-
-AddRoom("MAINBG_plains_base_nocanopy2", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.PLAINS,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        countstaticlayouts = {
-            ["pig_ruins_nocanopy_3"] = 1,
-            ["pig_ruins_nocanopy_4"] = 1,
-        },
-        distributepercent = .25, --.22, --.26
-        distributeprefabs =
-        {
-            clawpalmtree = 0.5,
-            grass_tall = 1,
-            saplingnova = .3,
-            flower = 0.05,
-            dungpile = 0.03,
-            peagawk = 0.01,
-            --		randomrelic = 0.0016,
-            --randomruin = 0.0025,	
-            randomdust = 0.0025,
-            rock_flippable = 0.08,
-            aloe_planted = 0.08,
-            pog = 0.01,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            grass_tall_patch = 2,
-            grass_tall_infested = 1,
-        },
-    }
-})
-
-AddRoom("MAINBG_plains_base_nocanopy3", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.PLAINS,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        countstaticlayouts = {
-            ["pig_ruins_nocanopy_4"] = 1,
-            ["pig_ruins_nocanopy"] = 1,
-        },
-        distributepercent = .25, --.22, --.26
-        distributeprefabs =
-        {
-            clawpalmtree = 0.5,
-            grass_tall = 1,
-            saplingnova = .3,
-            flower = 0.05,
-            dungpile = 0.03,
-            peagawk = 0.01,
-            --		randomrelic = 0.0016,
-            --randomruin = 0.0025,	
-            randomdust = 0.0025,
-            rock_flippable = 0.08,
-            aloe_planted = 0.08,
-            pog = 0.01,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            grass_tall_patch = 2,
-            grass_tall_infested = 1,
-        },
-    }
-})
-
-AddRoom("MAINplains_tallgrass", {
-    colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
-    value = GROUND.PLAINS,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .15, -- .15, -- .3
-        distributeprefabs =
-        {
-            clawpalmtree = .25,
-            grass_tall = 1,
-            flower = 0.05,
-            --		randomrelic = 0.0016,
-            --randomruin = 0.0025,	
-            randomdust = 0.0025,
-            rock_flippable = 0.08,
-            aloe_planted = 0.08,
-            pog = 0.01,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            grass_tall_patch = 2,
-            grass_tall_infested = 1,
-        },
-    }
-})
-
-AddRoom("MAINplains_ruins", {
-    colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
-    value = GROUND.PLAINS,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .25, -- .15, -- .3
-        distributeprefabs =
-        {
-            clawpalmtree = .25,
-            grass_tall = 1,
-            flower = 0.05,
-            rock_flippable = 0.08,
-            aloe_planted = 0.08,
-            pog = 0.01,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            grass_tall_patch = 2,
-            grass_tall_infested = 1,
-        },
-    }
-})
-
-AddRoom("MAINplains_ruins_set", {
-    colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
-    value = GROUND.PLAINS,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .25, -- .15, -- .3
-        distributeprefabs =
-        {
-            clawpalmtree = .25,
-            grass_tall = 1,
-            flower = 0.05,
-            rock_flippable = 0.08,
-            aloe_planted = 0.08,
-            pog = 0.01,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            grass_tall_patch = 2,
-            grass_tall_infested = 1,
-        },
-    }
-})
-
-AddRoom("MAINplains_pogs", {
-    colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
-    value = GROUND.PLAINS,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .25, -- .15, -- .3
-        distributeprefabs =
-        {
-            clawpalmtree = .25,
-            grass_tall = 1,
-            flower = 0.05,
-            pog = 0.1,
-            rock_flippable = 0.08,
-            aloe_planted = 0.08,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            pog = 2,
-        },
-    }
-})
-
-AddRoom("MAINplains_pogs_ruin", {
-    colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
-    value = GROUND.PLAINS,
-    tags = { "ExitPiece", "RoadPoison" },
-    contents = {
-        distributepercent = .25, -- .15, -- .3
-        distributeprefabs =
-        {
-            clawpalmtree = .25,
-            grass_tall = 1,
-            flower = 0.05,
-            pog = 0.1,
-            rock_flippable = 0.08,
-            aloe_planted = 0.08,
-            asparagus_planted = 0.05,
-        },
-        countprefabs =
-        {
-            pog = 2,
-        },
-    }
-})
+-- AddRoom("MAINBG_cultivated_base", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.FIELDS,
+--     tags = { "ExitPiece" },
+--     contents = {
+--         distributepercent = 0.06, ---0.1
+--         distributeprefabs =
+--         {
+--             -- 			grass = 0.05,
+--             --			flower = 0.3,
+--             rock1 = 0.01,
+--             teatree = 0.1,
+--             --			peekhenspawner = 0.003,
+--         },
+--     }
+-- })
+
+
+-- AddRoom("MAINcultivated_base_1", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.FIELDS,
+--     tags = { "ExitPiece" },
+--     contents = {
+--         distributepercent = 0.06, ---0.1
+--         distributeprefabs =
+--         {
+--             -- 			grass = 0.05,
+--             --			flower = 0.3,
+--             rock1 = 0.01,
+--             teatree = 0.1,
+--             --			peekhenspawner = 0.003,
+--         },
+
+--         countprefabs =
+--         {
+--             crabapple_tree = 4,
+
+--         },
+--         countstaticlayouts = { ["farm_1"] = 1, },
+--     }
+-- })
+
+-- AddRoom("MAINcultivated_base_2", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.FIELDS,
+--     tags = { "ExitPiece" },
+--     contents = {
+--         distributepercent = 0.06, ---0.1
+--         distributeprefabs =
+--         {
+--             -- 			grass = 0.05,
+--             --			flower = 0.3,
+--             rock1 = 0.01,
+--             teatree = 0.1,
+--             --			peekhenspawner = 0.003,
+--         },
+
+--         countprefabs =
+--         {
+--             crabapple_tree = 4,
+--         },
+
+--         countstaticlayouts = { ["farm_2"] = 1, },
+--     }
+-- })
+
+
+-- AddRoom("MAINcultivated_base_3", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.FIELDS,
+--     tags = { "ExitPiece" },
+--     contents = {
+--         distributepercent = 0.06, ---0.1
+--         distributeprefabs =
+--         {
+--             -- 			grass = 0.05,
+--             --			flower = 0.3,
+--             rock1 = 0.01,
+--             teatree = 0.1,
+--             --			peekhenspawner = 0.003,
+--         },
+--         countstaticlayouts = { ["farm_3"] = 1, },
+--     }
+-- })
+
+-- AddRoom("MAINcultivated_base_4", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.FIELDS,
+--     tags = { "ExitPiece" },
+--     contents = {
+--         distributepercent = 0.06, ---0.1
+--         distributeprefabs =
+--         {
+--             -- 			grass = 0.05,
+--             --			flower = 0.3,
+--             rock1 = 0.01,
+--             teatree = 0.1,
+--             --			peekhenspawner = 0.003,
+--         },
+--         countstaticlayouts = { ["farm_4"] = 1, },
+
+--     }
+-- })
+
+-- AddRoom("MAINcultivated_base_5", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.FIELDS,
+--     tags = { "ExitPiece" },
+--     contents = {
+--         distributepercent = 0.06, ---0.1
+--         distributeprefabs =
+--         {
+--             -- 			grass = 0.05,
+--             --			flower = 0.3,
+--             rock1 = 0.01,
+--             teatree = 0.1,
+--             --			peekhenspawner = 0.003,
+--         },
+--         countstaticlayouts = { ["farm_5"] = 1, },
+
+--     }
+-- })
+
+-- AddRoom("MAINpiko_land", {
+--     colour = { r = 1.0, g = 0.0, b = 1.0, a = 0.3 },
+--     value = GROUND.FIELDS,
+--     tags = { "ExitPiece" },
+--     contents = {
+--         distributepercent = 0.06, --0.1
+--         distributeprefabs =
+--         {
+--             --	grass = 0.05,
+--             --	flower = 0.3,
+--             rock1 = 0.01,
+--             teatree = 2.0,
+--         },
+--         countprefabs =
+--         {
+--             teatree_piko_nest_patch = 1
+--         },
+--     }
+
+-- })
+
+-- ----------------------------------------------------------- painted room--------------------------------------------------------------------------------------------------
+-- ----------------------------------------------------------- battlegrounds room--------------------------------------------------------------------------------------------------
+-- AddRoom("MAINBG_battleground_base", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.DIRT,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .22, -- .22, --.26
+--         distributeprefabs =
+--         {
+--             rainforesttree = 0.1,
+--             flower = 0.7,
+--             meteor_impact = 0.5,
+--             charcoal = 0.5,
+--             rainforesttree_burnt = 1,
+
+--             radish_planted = 0.05,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--            vampirebatcave_potential = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINbattleground_ribs", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.DIRT,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .22, -- .22, --.26
+--         distributeprefabs =
+--         {
+--             rainforesttree = 0.1,
+--             flower = 0.7,
+--             meteor_impact = 0.5,
+--             charcoal = 0.5,
+--             rainforesttree_burnt = 1,
+
+--             radish_planted = 0.05,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             ancient_robot_ribs = 1,
+--            vampirebatcave_potential = 1,
+--             maze_cave_roc_entrance = 1,
+--         },
+--     }
+-- })
+-- AddRoom("MAINbattleground_claw", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.DIRT,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .22, -- .22, --.26
+--         distributeprefabs =
+--         {
+--             rainforesttree = 0.1,
+--             flower = 0.7,
+--             meteor_impact = 0.5,
+--             charcoal = 0.5,
+--             rainforesttree_burnt = 1,
+
+--             radish_planted = 0.05,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             ancient_robot_claw = 1,
+--            vampirebatcave_potential = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINbattleground_claw1", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.DIRT,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .22, -- .22, --.26
+--         distributeprefabs =
+--         {
+--             rainforesttree = 0.1,
+--             flower = 0.7,
+--             meteor_impact = 0.5,
+--             charcoal = 0.5,
+--             rainforesttree_burnt = 1,
+
+--             radish_planted = 0.05,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             ancient_robot_claw = 1,
+--            vampirebatcave_potential = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINbattleground_leg", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.DIRT,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .22, -- .22, --.26
+--         distributeprefabs =
+--         {
+--             rainforesttree = 0.1,
+--             flower = 0.7,
+--             meteor_impact = 0.5,
+--             charcoal = 0.5,
+--             rainforesttree_burnt = 1,
+
+--             radish_planted = 0.05,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             ancient_robot_leg = 1,
+--            vampirebatcave_potential = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINbattleground_leg1", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.DIRT,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .22, -- .22, --.26
+--         distributeprefabs =
+--         {
+--             rainforesttree = 0.1,
+--             flower = 0.7,
+--             meteor_impact = 0.5,
+--             charcoal = 0.5,
+--             rainforesttree_burnt = 1,
+
+--             radish_planted = 0.05,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             ancient_robot_leg = 1,
+--            vampirebatcave_potential = 1,
+--         },
+--     }
+-- })
+-- AddRoom("MAINbattleground_head", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.DIRT,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         --					countstaticlayouts={["CaveEntrance"]=1},
+--         distributepercent = .22, -- .22, --.26
+--         distributeprefabs =
+--         {
+--             rainforesttree = 0.1,
+--             flower = 0.7,
+--             meteor_impact = 0.5,
+--             charcoal = 0.5,
+--             rainforesttree_burnt = 1,
+
+--             radish_planted = 0.05,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             ancient_robot_head = 1,
+--            vampirebatcave_potential = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINBG_painted_base", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.PAINTED,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .15, --.26
+--         distributeprefabs =
+--         {
+--             tubertree = 1,
+--             gnatmound = 0.1,
+--             rocks = 0.1,
+--             nitre = 0.1,
+--             flint = 0.05,
+--             iron = 0.2,
+--             thunderbirdnest = 0.1,
+--             sedimentpuddle = 0.1,
+--             pangolden = 0.005,
+--         },
+--         countprefabs =
+--         {
+--             pangolden = 1,
+--            vampirebatcave_potential = 1,
+--         },
+--     }
+-- })
+-- -------------------------------------------room deep florest hamlet-------------------------------------------
+-- AddRoom("MAINdeeprainforest_gas", {
+--     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
+--     value = GROUND.GASJUNGLE,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.45, --.45
+--         distributeprefabs =
+--         {
+--             rainforesttree_rot = 4,
+--             tree_pillar = 0.5,
+--             nettle = 0.12,
+--             red_mushroom = 0.3,
+--             green_mushroom = 0.3,
+--             blue_mushroom = 0.3,
+--             --	berrybush = 1,
+--             --										lightrays_jungle = 1.2,
+--             poisonmist = 8,
+--             randomrelic = 0.02,
+--             randomruin = 0.02,
+--             randomdust = 0.02,
+--             rock_flippable = 0.05,
+--             jungle_border_vine = 0.5,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINdeeprainforest_gas_entrance6", {
+--     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
+--     value = GROUND.GASJUNGLE,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.45, --.45
+--         distributeprefabs =
+--         {
+--             rainforesttree_rot = 4,
+--             tree_pillar = 0.5,
+--             nettle = 0.12,
+--             red_mushroom = 0.3,
+--             green_mushroom = 0.3,
+--             blue_mushroom = 0.3,
+--             --	berrybush = 1,
+--             --										lightrays_jungle = 1.2,
+--             poisonmist = 8,
+--             randomrelic = 0.02,
+--             randomruin = 0.02,
+--             randomdust = 0.02,
+--             rock_flippable = 0.05,
+--             jungle_border_vine = 0.5,
+--         },
+--         countprefabs =
+--         {
+--             maze_pig_ruins_entrance6 = 1,
+--             vampirebatcave_entrance_roc = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINdeeprainforest_gas_flytrap_grove", {
+--     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
+--     value = GROUND.GASJUNGLE,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         countstaticlayouts = {
+--             ["pig_ruins_head"] = 1,
+--             ["pig_ruins_artichoke"] = 1,
+--         },
+--         distributepercent = 0.5, --.45
+--         distributeprefabs =
+--         {
+--             rainforesttree_rot = 2,
+--             tree_pillar = 0.5,
+--             nettle = 0.12,
+--             red_mushroom = 0.3,
+--             green_mushroom = 0.3,
+--             blue_mushroom = 0.3,
+--             --	berrybush = 1,
+--             --										lightrays_jungle = 1.2,
+--             --mistarea = 6,	
+--             randomrelic = 0.02,
+--             randomruin = 0.02,
+--             randomdust = 0.02,
+--             poisonmist = 8,
+--             rock_flippable = 0.05,
+--             jungle_border_vine = 0.5,
+--         },
+--         countprefabs =
+--         {
+--             --					                	mean_flytrap = math.random(10, 15),
+--             --					                	adult_flytrap = math.random(3, 7),
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINBG_rainforest_base", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.RAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison", "StagehandGarden", "Terrarium_Spawner", "StatueHarp_HedgeSpawner",
+--         "CharlieStage_Spawner" },
+--     contents = {
+--         distributepercent = .38, --.5
+--         distributeprefabs =
+--         {
+--             rainforesttree = 0.6, --1.4,
+--             grass_tall = .5,
+--             saplingnova = .6,
+--             flower_rainforest = 0.1,
+--             flower = 0.05,
+--             dungpile = 0.03,
+--             fireflies = 0.05,
+--             peagawk = 0.01,
+--             --	randomrelic = 0.008,
+--             --	randomruin = 0.005,	
+--             --										randomdust = 0.005,										
+--             rock_flippable = 0.08,
+--             radish_planted = 0.05,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             foliage = 1,
+--         },
+--     }
+-- })
+
+
+-- AddRoom("MAINrainforest_ruins", {
+--     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
+--     value = GROUND.RAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .35, -- .5
+--         distributeprefabs =
+--         {
+--             rainforesttree = .5, --.7,
+--             grass_tall = 0.5,
+--             saplingnova = .6,
+--             flower_rainforest = 0.1,
+--             flower = 0.05,
+--             --	randomrelic = 0.008,
+--             --	randomruin = 0.005,	
+--             randomdust = 0.005,
+--             rock_flippable = 0.08,
+--             radish_planted = 0.05,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--            vampirebatcave_potential = 1,
+--             peekhenspawner = 2,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINrainforest_ruins_entrance", {
+--     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
+--     value = GROUND.RAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .35, -- .5
+--         distributeprefabs =
+--         {
+--             rainforesttree = .5, --.7,
+--             grass_tall = 0.5,
+--             saplingnova = .6,
+--             flower_rainforest = 0.1,
+--             flower = 0.05,
+--             --	randomrelic = 0.008,
+--             --	randomruin = 0.005,	
+--             randomdust = 0.005,
+--             rock_flippable = 0.08,
+--             radish_planted = 0.05,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             peekhenspawner = 2,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINBG_deeprainforest_base", {
+--     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.5,
+--         distributeprefabs =
+--         {
+--             rainforesttree = 2, --4,
+--             tree_pillar = 0.5,  --0.5,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             fireflies = 0.2,
+--             --										hanging_vine_patch = 0.1,	
+--             pig_ruins_torch = 0.02,
+--             --										mean_flytrap = 0.05,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+
+--         countprefabs =
+--         {
+--             vampirebatcave_potential = 1
+--         },
+
+--     }
+-- })
+
+-- AddRoom("MAINdeeprainforest_spider_monkey_nest", {
+--     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.25, --.3
+--         distributeprefabs =
+--         {
+--             rainforesttree = 3, --4,
+--             tree_pillar = 1,    --0.5,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             pig_ruins_torch = 0.02,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+--         countprefabs =
+--         {
+--             spider_monkey_tree = 1,
+--             spider_monkey = 1,
+--             --					                	hanging_vine_patch = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINdeeprainforest_flytrap_grove", {
+--     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         countstaticlayouts = {
+--             ["nettlegrove"] = function()
+--                 if math.random(1, 10) > 7 then return 1 end
+--                 return 0
+--             end
+--         },
+--         distributepercent = 0.25,
+--         distributeprefabs =
+--         {
+--             rainforesttree = 4,
+--             tree_pillar = 1, --0.5,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             fireflies = 0.2,
+--             randomrelic = 0.02,
+--             randomruin = 0.02,
+--             randomdust = 0.02,
+--             pig_ruins_torch = 0.02,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+--         countprefabs =
+--         {
+--             --					                	mean_flytrap = math.random(10, 15),
+--             --					                	adult_flytrap = math.random(3, 7),
+--             --					                	hanging_vine_patch = math.random(0,2),
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINdeeprainforest_flytrap_grove_PigRuinsEntrance5", {
+--     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.25, --.3
+--         distributeprefabs =
+--         {
+--             rainforesttree = 4,
+--             tree_pillar = 1, --0.5,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             fireflies = 0.2,
+--             pig_ruins_torch = 0.02,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+--         countprefabs =
+--         {
+--             --					                	mean_flytrap = math.random(6, 11),
+--             --					                	adult_flytrap = math.random(2, 6),
+--             --					                	hanging_vine_patch = math.random(0,2)
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINdeeprainforest_fireflygrove", {
+--     colour = { r = 1, g = 1, b = 0.2, a = 0.3 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.25, --0.25, --.3
+--         distributeprefabs =
+--         {
+--             rainforesttree = 4,
+--             tree_pillar = 1, --0.5,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             fireflies = 5,
+--             --										hanging_vine_patch = 0.1,
+--             pig_ruins_torch = 0.02,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+--         countprefabs =
+--         {
+--             fireflies = math.random(5, 10),
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINdeeprainforest_ruins_entrance", {
+--     colour = { r = 1, g = 0.1, b = 0.2, a = 0.5 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.25, --.3
+--         distributeprefabs =
+--         {
+--             rainforesttree = 4,
+--             tree_pillar = 1,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             fireflies = 0.2,
+--             pig_ruins_torch = 0.02,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+--         countprefabs =
+--         {
+
+--         },
+
+--     }
+-- })
+
+-- AddRoom("MAINdeeprainforest_ruins_entrance2", {
+--     colour = { r = 1, g = 0.1, b = 0.2, a = 0.5 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.25, --.3
+--         distributeprefabs =
+--         {
+--             rainforesttree = 4,
+--             tree_pillar = 1,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             fireflies = 0.2,
+--             pig_ruins_torch = 0.02,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+--         countprefabs =
+--         {
+--         },
+
+--     }
+-- })
+
+-- AddRoom("MAINdeeprainforest_ruins_exit", {
+--     colour = { r = 0.2, g = 0.1, b = 1, a = 0.5 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.25, --.3
+--         distributeprefabs =
+--         {
+--             rainforesttree = 4,
+--             tree_pillar = 1,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             fireflies = 0.2,
+--             pig_ruins_torch = 0.02,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+--         countprefabs =
+--         {
+
+--         },
+
+--     }
+-- })
+
+-- AddRoom("MAINdeeprainforest_ruins_exit2", {
+--     colour = { r = 0.2, g = 0.1, b = 1, a = 0.5 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         countstaticlayouts = { ["nettlegrove"] = 1 },
+--         distributepercent = 0.25, --.3
+--         distributeprefabs =
+--         {
+--             rainforesttree = 4,
+--             tree_pillar = 1,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             fireflies = 0.2,
+--             pig_ruins_torch = 0.02,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+--         countprefabs =
+--         {
+--             -- 	pig_ruins_torch = 3,
+--             -- 	pig_ruins_exit = 1,
+--             -- 	pig_ruins_head = 1,					                	
+--         },
+
+--     }
+-- })
+
+-- AddRoom("MAINdeeprainforest_anthill", {
+--     colour = { r = 1, g = 0, b = 1, a = 0.3 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.25, --.3
+--         distributeprefabs =
+--         {
+--             rainforesttree = 4,
+--             tree_pillar = 1,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             fireflies = 0.2,
+--             pig_ruins_torch = 0.02,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+
+--         countprefabs =
+--         {
+--             anthill = 1,
+--             --					                	pighead = 4,
+--         },
+
+--     }
+-- })
+-- AddRoom("MAINdeeprainforest_mandrakeman", {
+--     colour = { r = 1, g = 0, b = 1, a = 0.3 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         countstaticlayouts = { ["mandraketown"] = 1 },
+--         distributepercent = 0.25, --.3
+--         distributeprefabs =
+--         {
+--             rainforesttree = 4,
+--             tree_pillar = 1,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             fireflies = 0.2,
+--             pig_ruins_torch = 0.02,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+
+--         countprefabs =
+--         {
+--             mandrakehouse = 2
+--         },
+
+--     }
+-- })
+-- AddRoom("MAINdeeprainforest_anthill_exit", {
+--     colour = { r = 1, g = 0, b = 1, a = 0.3 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         countstaticlayouts = { ["pig_ruins_entrance_5"] = GetModConfigData("pigruins") },
+--         distributepercent = 0.25, --.3
+--         distributeprefabs =
+--         {
+--             rainforesttree = 4,
+--             tree_pillar = 1,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             fireflies = 0.2,
+--             pig_ruins_torch = 0.02,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+
+--     }
+-- })
+
+-- AddRoom("MAINdeeprainforest_anthill_exit2", {
+--     colour = { r = 1, g = 0, b = 1, a = 0.3 },
+--     value = GROUND.DEEPRAINFOREST,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = 0.25, --.3
+--         distributeprefabs =
+--         {
+--             rainforesttree = 4,
+--             tree_pillar = 1,
+--             nettle = 0.12,
+--             flower_rainforest = 1,
+--             --										lightrays_jungle = 1.2,								
+--             deep_jungle_fern_noise = 1,
+--             jungle_border_vine = 0.5,
+--             fireflies = 0.2,
+--             pig_ruins_torch = 0.02,
+--             rock_flippable = 0.1,
+--             radish_planted = 0.5,
+--         },
+
+--         countprefabs =
+--         {
+--             maze_anthillentradarainha = GetModConfigData("anthill"),
+--             underwater_entrance2 = 1,
+--         },
+
+--     }
+-- })
+
+-- ----------------------------------------------------------- plain room--------------------------------------------------------------------------------------------------
+-- AddRoom("MAINBG_plains_inicio", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.PLAINS,
+--     tags = { "ExitPiece"},
+--     contents = {
+--         distributepercent = .25, --.22, --.26
+--         distributeprefabs =
+--         {
+--             clawpalmtree = .25,
+--             grass_tall = 1,
+--             flower = 0.05,
+--             pog = 0.1,
+--             randomdust = 0.0025,
+--             rock_flippable = 0.08,
+--             aloe_planted = 0.08,
+--             asparagus_planted = 0.05,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINBG_plains_base", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.PLAINS,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .25, --.22, --.26
+--         distributeprefabs =
+--         {
+--             clawpalmtree = 0.5,
+--             grass_tall = 1,
+--             saplingnova = .3,
+--             flower = 0.05,
+--             dungpile = 0.03,
+--             peagawk = 0.01,
+--             --		randomrelic = 0.0016,
+--             --randomruin = 0.0025,	
+--             randomdust = 0.0025,
+--             rock_flippable = 0.08,
+--             aloe_planted = 0.08,
+--             pog = 0.01,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             grass_tall_patch = 2,
+--             grass_tall_infested = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINBG_plains_base_nocanopy", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.PLAINS,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         countstaticlayouts = {
+--             ["pig_ruins_nocanopy"] = 1,
+--             ["pig_ruins_nocanopy_2"] = 1,
+--         },
+--         distributepercent = .25, --.22, --.26
+--         distributeprefabs =
+--         {
+--             clawpalmtree = 0.5,
+--             grass_tall = 1,
+--             saplingnova = .3,
+--             flower = 0.05,
+--             dungpile = 0.03,
+--             peagawk = 0.01,
+--             --		randomrelic = 0.0016,
+--             --randomruin = 0.0025,	
+--             randomdust = 0.0025,
+--             rock_flippable = 0.08,
+--             aloe_planted = 0.08,
+--             pog = 0.01,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             grass_tall_patch = 2,
+--             grass_tall_infested = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINBG_plains_base_nocanopy1", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.PLAINS,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         countstaticlayouts = {
+--             ["pugalisk_fountain"] = 1,
+--         },
+--         distributepercent = .25, --.22, --.26
+--         distributeprefabs =
+--         {
+--             clawpalmtree = 0.5,
+--             grass_tall = 1,
+--             saplingnova = .3,
+--             flower = 0.05,
+--             dungpile = 0.03,
+--             peagawk = 0.01,
+--             --		randomrelic = 0.0016,
+--             --randomruin = 0.0025,	
+--             randomdust = 0.0025,
+--             rock_flippable = 0.08,
+--             aloe_planted = 0.08,
+--             pog = 0.01,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             grass_tall_patch = 2,
+--             grass_tall_infested = 1,
+--             vampirebatcave_entrance_roc = 1,
+--             gravestone = 5,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINBG_plains_base_nocanopy2", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.PLAINS,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         countstaticlayouts = {
+--             ["pig_ruins_nocanopy_3"] = 1,
+--             ["pig_ruins_nocanopy_4"] = 1,
+--         },
+--         distributepercent = .25, --.22, --.26
+--         distributeprefabs =
+--         {
+--             clawpalmtree = 0.5,
+--             grass_tall = 1,
+--             saplingnova = .3,
+--             flower = 0.05,
+--             dungpile = 0.03,
+--             peagawk = 0.01,
+--             --		randomrelic = 0.0016,
+--             --randomruin = 0.0025,	
+--             randomdust = 0.0025,
+--             rock_flippable = 0.08,
+--             aloe_planted = 0.08,
+--             pog = 0.01,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             grass_tall_patch = 2,
+--             grass_tall_infested = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINBG_plains_base_nocanopy3", {
+--     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+--     value = GROUND.PLAINS,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         countstaticlayouts = {
+--             ["pig_ruins_nocanopy_4"] = 1,
+--             ["pig_ruins_nocanopy"] = 1,
+--         },
+--         distributepercent = .25, --.22, --.26
+--         distributeprefabs =
+--         {
+--             clawpalmtree = 0.5,
+--             grass_tall = 1,
+--             saplingnova = .3,
+--             flower = 0.05,
+--             dungpile = 0.03,
+--             peagawk = 0.01,
+--             --		randomrelic = 0.0016,
+--             --randomruin = 0.0025,	
+--             randomdust = 0.0025,
+--             rock_flippable = 0.08,
+--             aloe_planted = 0.08,
+--             pog = 0.01,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             grass_tall_patch = 2,
+--             grass_tall_infested = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINplains_tallgrass", {
+--     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
+--     value = GROUND.PLAINS,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .15, -- .15, -- .3
+--         distributeprefabs =
+--         {
+--             clawpalmtree = .25,
+--             grass_tall = 1,
+--             flower = 0.05,
+--             --		randomrelic = 0.0016,
+--             --randomruin = 0.0025,	
+--             randomdust = 0.0025,
+--             rock_flippable = 0.08,
+--             aloe_planted = 0.08,
+--             pog = 0.01,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             grass_tall_patch = 2,
+--             grass_tall_infested = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINplains_ruins", {
+--     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
+--     value = GROUND.PLAINS,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .25, -- .15, -- .3
+--         distributeprefabs =
+--         {
+--             clawpalmtree = .25,
+--             grass_tall = 1,
+--             flower = 0.05,
+--             rock_flippable = 0.08,
+--             aloe_planted = 0.08,
+--             pog = 0.01,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             grass_tall_patch = 2,
+--             grass_tall_infested = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINplains_ruins_set", {
+--     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
+--     value = GROUND.PLAINS,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .25, -- .15, -- .3
+--         distributeprefabs =
+--         {
+--             clawpalmtree = .25,
+--             grass_tall = 1,
+--             flower = 0.05,
+--             rock_flippable = 0.08,
+--             aloe_planted = 0.08,
+--             pog = 0.01,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             grass_tall_patch = 2,
+--             grass_tall_infested = 1,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINplains_pogs", {
+--     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
+--     value = GROUND.PLAINS,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .25, -- .15, -- .3
+--         distributeprefabs =
+--         {
+--             clawpalmtree = .25,
+--             grass_tall = 1,
+--             flower = 0.05,
+--             pog = 0.1,
+--             rock_flippable = 0.08,
+--             aloe_planted = 0.08,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             pog = 2,
+--         },
+--     }
+-- })
+
+-- AddRoom("MAINplains_pogs_ruin", {
+--     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
+--     value = GROUND.PLAINS,
+--     tags = { "ExitPiece", "RoadPoison" },
+--     contents = {
+--         distributepercent = .25, -- .15, -- .3
+--         distributeprefabs =
+--         {
+--             clawpalmtree = .25,
+--             grass_tall = 1,
+--             flower = 0.05,
+--             pog = 0.1,
+--             rock_flippable = 0.08,
+--             aloe_planted = 0.08,
+--             asparagus_planted = 0.05,
+--         },
+--         countprefabs =
+--         {
+--             pog = 2,
+--         },
+--     }
+-- })
 
 
 ----------------------------------------------Ham caves---------------------------------------------------------------------------
@@ -3397,7 +3430,7 @@ AddRoom("HamBGRockyCaveRoom", {
 AddRoom("HamRedMushForest", {
     colour = { r = 0.8, g = 0.1, b = 0.1, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -3426,7 +3459,7 @@ AddRoom("HamRedMushForest", {
 AddRoom("HamRedSpiderForest", {
     colour = { r = 0.8, g = 0.1, b = 0.4, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -3455,7 +3488,7 @@ AddRoom("HamRedSpiderForest", {
 AddRoom("HamRedSpiderForestexit", {
     colour = { r = 0.8, g = 0.1, b = 0.4, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -3483,7 +3516,7 @@ AddRoom("HamRedSpiderForestexit", {
 AddRoom("HamRedMushPillars", {
     colour = { r = 0.8, g = 0.1, b = 0.4, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .15,
         distributeprefabs =
@@ -3512,7 +3545,7 @@ AddRoom("HamRedMushPillars", {
 AddRoom("HamStalagmiteForest", {
     colour = { r = 0.8, g = 0.1, b = 0.1, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -3541,7 +3574,7 @@ AddRoom("HamStalagmiteForest", {
 AddRoom("HamSpillagmiteMeadow", {
     colour = { r = 0.8, g = 0.1, b = 0.1, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .15,
         distributeprefabs =
@@ -3574,7 +3607,7 @@ AddRoom("HamSpillagmiteMeadow", {
 AddRoom("HamBGRedMush", {
     colour = { r = 0.8, g = 0.1, b = 0.1, a = 0.9 },
     value = GROUND.QUAGMIRE_PARKFIELD,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -3599,7 +3632,7 @@ AddRoom("HamBGRedMush", {
 AddRoom("HamGreenMushForest", {
     colour = { r = 0.1, g = 0.8, b = 0.1, a = 0.9 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .35,
         distributeprefabs =
@@ -3632,7 +3665,7 @@ AddRoom("HamGreenMushForest", {
 AddRoom("HamGreenMushPonds", {
     colour = { r = 0.1, g = 0.8, b = 0.3, a = 0.9 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -3667,7 +3700,7 @@ AddRoom("HamGreenMushPonds", {
 AddRoom("HamGreenMushSinkhole", {
     colour = { r = 0.1, g = 0.8, b = 0.3, a = 0.9 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         countstaticlayouts = {
             ["EvergreenSinkhole"] = 1,
@@ -3710,7 +3743,7 @@ AddRoom("HamGreenMushSinkhole", {
 AddRoom("HamGreenMushMeadow", {
     colour = { r = 0.1, g = 0.8, b = 0.3, a = 0.9 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
@@ -3750,7 +3783,7 @@ AddRoom("HamGreenMushMeadow", {
 AddRoom("HamGreenMushRabbits", {
     colour = { r = 0.1, g = 0.8, b = 0.3, a = 0.9 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         countstaticlayouts = {
             ["farm_3"] = 1,
@@ -3796,7 +3829,7 @@ AddRoom("HamGreenMushRabbits", {
 AddRoom("HamGreenMushNoise", {
     colour = { r = .36, g = .32, b = .38, a = .50 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
@@ -3829,7 +3862,7 @@ AddRoom("HamGreenMushNoise", {
 AddRoom("HamBGGreenMush", {
     colour = { r = .36, g = .32, b = .38, a = .50 },
     value = GROUND.RAINFOREST,
-    tags = { "Hutch_Fishbowl", "folha" },
+    tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .25,
         distributeprefabs =

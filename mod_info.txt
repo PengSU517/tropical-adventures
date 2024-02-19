@@ -1,0 +1,26 @@
+1.本mod的主体来自热带体验(tropical experience),已获得原mod作者授权,只保留了海难和哈姆雷特部分.
+代码方面大量参考了岛屿冒险(island adventure)这也是为什么这个mod的名字叫做热带冒险(tropical adventure).
+请注意，这是一个完整的mod,并不是一个补丁,所以请不要同时开启 tropical experience 或者 island adventure.
+
+2.本mod进行了大量的细节调整.目前主要修改为世界生成的调整和哈姆雷特房间系统的调整. 
+简化了mod设置,哈姆雷特所有遗迹房间改造成了洞穴迷宫放在了地下. 气候系统会逐步重写.
+现在玩家在房间内放置建筑更加灵活了.玩家在放置墙上建筑如墙饰和窗户可以用pageup 和pagedown旋转方向,通过上下键调整高度.
+
+
+
+------------2024.02.15
+调整了水上生态
+
+
+This mod is derived from the "Tropical Experience" and has been permitted by the original mod author.
+The mod retains only the contents of Shipwrecked and Hamlet. 
+The code heavily references "Island Adventure," which is also why this mod is named "Tropical Adventure." 
+Please note that this is a complete mod, not a patch, so do not enable Tropical Experience or Island Adventure with this mod.
+
+This mod has many personal adjustments, primarily focusing on adjustments to world generation and the Hamlet room system. 
+Mod settings have been simplified, and all Hamlet ruin rooms have been transformed into cave mazes. 
+The climate system will be rewritten in the future. 
+Players now have greater flexibility when placing buildings inside rooms.
+When placing structures on room walls, such as wall decorations and windows, rotation can be made using PageUp and PageDown keys, 
+while height adjustments can be made with the arrow keys.
+

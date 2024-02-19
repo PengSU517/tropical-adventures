@@ -37,6 +37,7 @@ SetSharedLootTable( 'pugalisk',
     {'monstermeat',             1.00},
     {'monstermeat',             1.00},
     {'monstermeat',             1.00},
+    -- {'pugaliskfountain_blueprint',             1.00},
 })
  
 local SHAKE_DIST = 40
@@ -64,7 +65,7 @@ local function redirecthealth(inst, amount, overtime, cause, ignore_invincible)
         fx.Transform:SetPosition(pt.x,pt.y + 2 + math.random()*2,pt.z)
 
         inst:PushEvent("dohitanim")
-        inst.host.components.health:DoDelta(amount, overtime, cause, ignore_invincible, true)
+        if inst.host.components.health then inst.host.components.health:DoDelta(amount, overtime, cause, ignore_invincible, true) end
         inst.host:PushEvent("attacked")
     end    
 end
@@ -689,8 +690,8 @@ local function corpsefn(Sim)
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.DIG)
     inst.components.workable:SetWorkLeft(1)
-    inst:AddComponent("lootdropper")
-    inst.components.lootdropper:SetLoot({"bonestaff"})    
+    -- inst:AddComponent("lootdropper")
+    inst.components.lootdropper:SetLoot({"bonestaff", 'pugaliskfountain_made_blueprint'})    
     inst.components.workable:SetOnFinishCallback(onfinishcallback)
 
     return inst

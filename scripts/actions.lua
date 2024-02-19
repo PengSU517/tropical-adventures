@@ -56,7 +56,7 @@ AddComponentPostInit(
                 self.ondeploy(self.inst, pt, deployer)
             end
             -- self.inst is removed during ondeploy
-            deployer:PushEvent("deployitem", {prefab = prefab})
+            deployer:PushEvent("deployitem", { prefab = prefab })
             return true
         end
     end
@@ -119,22 +119,22 @@ AddAction(
 )
 
 AddAction(
-	"HIDECRAB",
-	"Hide",
-	function(act)
-		if act.doer then
-			return true
-		end
-	end)
-	
+    "HIDECRAB",
+    "Hide",
+    function(act)
+        if act.doer then
+            return true
+        end
+    end)
+
 AddAction(
-	"SHOWCRAB",
-	"Emerge",
-	function(act)
-		if act.doer then
-			return true
-		end
-	end)	
+    "SHOWCRAB",
+    "Emerge",
+    function(act)
+        if act.doer then
+            return true
+        end
+    end)
 
 --[[
 AddAction(
@@ -153,18 +153,18 @@ AddAction(
 )
 ]]
 
-local THROW = GLOBAL.Action({priority = 0, rmb = true, distance = 20, mount_valid = true})
+local THROW = GLOBAL.Action({ priority = 0, rmb = true, distance = 20, mount_valid = true })
 THROW.str = "Throw"
 THROW.id = "THROW"
 THROW.fn = function(act)
-	local thrown = act.invobject or act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-	if act.target and not act.pos then
-		act.pos = act.target:GetPosition()
-	end
-	if thrown and thrown.components.throwable then
-		thrown.components.throwable:Throw(act.pos, act.doer)
-		return true
-	end
+    local thrown = act.invobject or act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+    if act.target and not act.pos then
+        act.pos = act.target:GetPosition()
+    end
+    if thrown and thrown.components.throwable then
+        thrown.components.throwable:Throw(act.pos, act.doer)
+        return true
+    end
 end
 AddAction(THROW)
 
@@ -181,19 +181,19 @@ AddAction(
     "MANUALEXTINGUISH",
     "Manualextinguish",
     function(act)
-	if act.doer:HasTag("extinguisher") then
-		if act.target.components.burnable and act.target.components.burnable:IsBurning() then
-			act.target.components.burnable:Extinguish()
-			return true
-		end
-	elseif act.target.components.sentientball then
-		act.target.components.burnable:Extinguish()
-		-- damage player?
-		return true
-	elseif act.invobject:HasTag("frozen") and act.target.components.burnable and act.target.components.burnable:IsBurning() then
-		act.target.components.burnable:Extinguish(true, TUNING.SMOTHERER_EXTINGUISH_HEAT_PERCENT, act.invobject)
-		return true
-	end
+        if act.doer:HasTag("extinguisher") then
+            if act.target.components.burnable and act.target.components.burnable:IsBurning() then
+                act.target.components.burnable:Extinguish()
+                return true
+            end
+        elseif act.target.components.sentientball then
+            act.target.components.burnable:Extinguish()
+            -- damage player?
+            return true
+        elseif act.invobject:HasTag("frozen") and act.target.components.burnable and act.target.components.burnable:IsBurning() then
+            act.target.components.burnable:Extinguish(true, TUNING.SMOTHERER_EXTINGUISH_HEAT_PERCENT, act.invobject)
+            return true
+        end
     end
 )
 
@@ -201,10 +201,10 @@ AddAction(
     "SPECIAL_ACTION",
     "Special Actions",
     function(act)
-	if act.doer.special_action then
-		act.doer.special_action(act)
-		return true
-	end
+        if act.doer.special_action then
+            act.doer.special_action(act)
+            return true
+        end
     end
 )
 
@@ -212,10 +212,10 @@ AddAction(
     "SPECIAL_ACTION2",
     "Special Actions2",
     function(act)
-	if act.doer.special_action2 then
-		act.doer.special_action2(act)
-		return true
-	end
+        if act.doer.special_action2 then
+            act.doer.special_action2(act)
+            return true
+        end
     end
 )
 
@@ -224,11 +224,11 @@ AddAction(
     "LAUNCH_THROWABLE",
     "Launch Throwable",
     function(act)
-	if act.target and not act.pos then
-		act.pos = act.target:GetPosition()
-	end
-	act.invobject.components.thrower:Throw(act.pos)
-	return true
+        if act.target and not act.pos then
+            act.pos = act.target:GetPosition()
+        end
+        act.invobject.components.thrower:Throw(act.pos)
+        return true
     end
 )
 
@@ -236,9 +236,9 @@ AddAction(
     "INFEST",
     "Infest",
     function(act)
-	if not act.doer.infesting then
-		act.doer.components.infester:Infest(act.target)
-	end
+        if not act.doer.infesting then
+            act.doer.components.infester:Infest(act.target)
+        end
     end
 )
 
@@ -246,7 +246,7 @@ AddAction(
     "DIGDUNG",
     "Digdung",
     function(act)
-	act.target.components.workable:WorkedBy(act.doer, 1)
+        act.target.components.workable:WorkedBy(act.doer, 1)
     end
 )
 
@@ -254,9 +254,9 @@ AddAction(
     "MOUNTDUNG",
     "Mountdung",
     function(act)
-	act.doer.dung_target:Remove()
-    act.doer:AddTag("hasdung") 
-    act.doer.dung_target = nil
+        act.doer.dung_target:Remove()
+        act.doer:AddTag("hasdung")
+        act.doer.dung_target = nil
     end
 )
 
@@ -264,7 +264,7 @@ AddAction(
     "BARK",
     "Bark",
     function(act)
-	return true
+        return true
     end
 )
 
@@ -272,7 +272,7 @@ AddAction(
     "RANSACK",
     "Ransack",
     function(act)
-	return true
+        return true
     end
 )
 
@@ -280,10 +280,10 @@ AddAction(
     "CUREPOISON",
     "Curepoison",
     function(act)
-	if act.invobject and act.invobject.components.poisonhealer then
-		local target = act.target or act.doer
-		return act.invobject.components.poisonhealer:Cure(target)
-	end
+        if act.invobject and act.invobject.components.poisonhealer then
+            local target = act.target or act.doer
+            return act.invobject.components.poisonhealer:Cure(target)
+        end
     end
 )
 
@@ -291,99 +291,104 @@ AddAction(
     "USEDOOR",
     "Usedoor",
     function(act)
-	if act.target:HasTag("secret_room") then
-		return false
-	end
+        if act.target:HasTag("secret_room") then
+            return false
+        end
 
-	if act.target.components.door and not act.target.components.door.disabled then
-		act.target.components.door:Activate(act.doer)
-		return true
-	elseif act.target.components.door and act.target.components.door.disabled then
-		return false, "LOCKED"
-	end
+        if act.target.components.door and not act.target.components.door.disabled then
+            act.target.components.door:Activate(act.doer)
+            return true
+        elseif act.target.components.door and act.target.components.door.disabled then
+            return false, "LOCKED"
+        end
     end
 )
 
-local SHOP = GLOBAL.Action({priority = 9, rmb = true, distance = 1, mount_valid = false})
+local SHOP = GLOBAL.Action({ priority = 9, rmb = true, distance = 1, mount_valid = false })
 SHOP.stroverridefn = function(act)
-if act.target.imagename and act.target.cost then
-    return "Buy "..act.target.imagename.." for "..act.target.cost.." oincs"
-else
-return "Shop"
-end
+    if act.target.imagename and act.target.cost then
+        return "Buy " .. act.target.imagename .. " for " .. act.target.cost .. " oincs"
+    else
+        return "Shop"
+    end
 end
 SHOP.id = "SHOP"
 SHOP.fn = function(act)
-	if act.doer.components.inventory then
-		if act.doer:HasTag("player") and act.doer.components.shopper then 
+    if act.doer.components.inventory then
+        if act.doer:HasTag("player") and act.doer.components.shopper then
+            if act.doer.components.shopper:IsWatching(act.target) then
+                local sell = true
+                local reason = nil
 
-			if act.doer.components.shopper:IsWatching(act.target) then 
+                if act.target:HasTag("shopclosed") or GLOBAL.TheWorld.state.isnight then
+                    reason = "closed"
+                    sell = false
+                elseif not act.doer.components.shopper:CanPayFor(act.target) then
+                    local prefab_wanted = act.target.costprefab
+                    if prefab_wanted == "oinc" then
+                        reason = "money"
+                    else
+                        reason = "goods"
+                    end
+                    sell = false
+                end
 
-				local sell = true
-				local reason = nil
+                if sell then
+                    act.doer.components.shopper:PayFor(act.target)
+                    act.target.components.shopdispenser:RemoveItem()
+                    act.target:SetImage(nil)
 
-				if act.target:HasTag("shopclosed") or GLOBAL.TheWorld.state.isnight then
-					reason = "closed"
-					sell = false
-				elseif not act.doer.components.shopper:CanPayFor(act.target) then 
-					local prefab_wanted = act.target.costprefab
-					if prefab_wanted == "oinc" then
-						reason = "money"
-					else
-						reason = "goods"
-					end
-					sell = false
-				end
-				
-				if sell then
-					act.doer.components.shopper:PayFor(act.target)
-					act.target.components.shopdispenser:RemoveItem()
-					act.target:SetImage(nil)
+                    if act.target and act.target.shopkeeper_speech then
+                        act.target.shopkeeper_speech(act.target,
+                            STRINGS.CITY_PIG_SHOPKEEPER_SALE[math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_SALE)])
+                    end
 
-					if act.target and act.target.shopkeeper_speech then
-						act.target.shopkeeper_speech(act.target,STRINGS.CITY_PIG_SHOPKEEPER_SALE[math.random(1,#STRINGS.CITY_PIG_SHOPKEEPER_SALE)])
-					end
-
-					return true 
-				else 
-					if reason == "money" then
-						if act.target and act.target.shopkeeper_speech then
-							act.target.shopkeeper_speech(act.target,STRINGS.CITY_PIG_SHOPKEEPER_NOT_ENOUGH[math.random(1,#STRINGS.CITY_PIG_SHOPKEEPER_NOT_ENOUGH)])
-						end
-					elseif reason == "goods" then
-						if act.target and act.target.shopkeeper_speech then
-							act.target.shopkeeper_speech(act.target,STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE[math.random(1,#STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE)])
-						end						
-					elseif reason == "closed" then
-						if act.target and act.target.shopkeeper_speech then
-							act.target.shopkeeper_speech(act.target,STRINGS.CITY_PIG_SHOPKEEPER_CLOSING[math.random(1,#STRINGS.CITY_PIG_SHOPKEEPER_CLOSING)])
-						end						
-					end
-					return true
-				end		
-			else
-				act.doer.components.shopper:Take(act.target)
-				-- THIS IS WHAT HAPPENS IF ISWATCHING IS FALSE
-				act.target.components.shopdispenser:RemoveItem()
-				act.target:SetImage(nil)
-				return true 
-			end 
-		end
-	end
+                    return true
+                else
+                    if reason == "money" then
+                        if act.target and act.target.shopkeeper_speech then
+                            act.target.shopkeeper_speech(act.target,
+                                STRINGS.CITY_PIG_SHOPKEEPER_NOT_ENOUGH
+                                [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_NOT_ENOUGH)])
+                        end
+                    elseif reason == "goods" then
+                        if act.target and act.target.shopkeeper_speech then
+                            act.target.shopkeeper_speech(act.target,
+                                STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE
+                                [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE)])
+                        end
+                    elseif reason == "closed" then
+                        if act.target and act.target.shopkeeper_speech then
+                            act.target.shopkeeper_speech(act.target,
+                                STRINGS.CITY_PIG_SHOPKEEPER_CLOSING
+                                [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_CLOSING)])
+                        end
+                    end
+                    return true
+                end
+            else
+                act.doer.components.shopper:Take(act.target)
+                -- THIS IS WHAT HAPPENS IF ISWATCHING IS FALSE
+                act.target.components.shopdispenser:RemoveItem()
+                act.target:SetImage(nil)
+                return true
+            end
+        end
+    end
 end
-SHOP.encumbered_valid =true
+SHOP.encumbered_valid = true
 AddAction(SHOP)
 
 AddAction(
     "FIX",
     "Fix",
     function(act)
-	if act.target then
-		local target = act.target
-		local numworks = 1
-		target.components.workable:WorkedBy(act.doer, numworks)
-	--	return target:fix(act.doer)		
-	end
+        if act.target then
+            local target = act.target
+            local numworks = 1
+            target.components.workable:WorkedBy(act.doer, numworks)
+            --	return target:fix(act.doer)		
+        end
     end
 )
 
@@ -391,229 +396,228 @@ AddAction(
     "STOCK",
     "Stock",
     function(act)
-	if act.target then		
-		act.target.restock(act.target,true)
-		act.doer.changestock = nil
-		return true
-	end
+        if act.target then
+            act.target.restock(act.target, true)
+            act.doer.changestock = nil
+            return true
+        end
     end
 )
 ----------------------------------------------------------------- acoes do jogador----------------------------------------
 
 local function ExtrarummageRange(doer, dest)
-	if dest ~= nil then
-		local target_x, target_y, target_z = dest:GetPoint()
+    if dest ~= nil then
+        local target_x, target_y, target_z = dest:GetPoint()
 
-		local is_on_water = GLOBAL.TheWorld.Map:IsOceanTileAtPoint(target_x, 0, target_z) and not GLOBAL.TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
-		if is_on_water then
-			return 2
-		end
-	end
+        local is_on_water = GLOBAL.TheWorld.Map:IsOceanTileAtPoint(target_x, 0, target_z) and
+            not GLOBAL.TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
+        if is_on_water then
+            return 2
+        end
+    end
     return 0
 end
 
-GLOBAL.ACTIONS.RUMMAGE.extra_arrive_dist=ExtrarummageRange
+GLOBAL.ACTIONS.RUMMAGE.extra_arrive_dist = ExtrarummageRange
 --------------------------------------------------------------------------------------------------------------
-local BOATMOUNT = GLOBAL.Action({priority = 10, rmb = true, distance = 8, mount_valid = false})
+local BOATMOUNT = GLOBAL.Action({ priority = 10, rmb = true, distance = 8, mount_valid = false })
 BOATMOUNT.str = (GLOBAL.STRINGS.ACTIONS.BOATMOUNT)
 BOATMOUNT.id = "BOATMOUNT"
 BOATMOUNT.fn = function(act)
     if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and
-            act.target:HasTag("boatsw")
-     then
- 
-act.doer:AddTag("pulando")
-if act.doer:HasTag("aquatic") then
-act.doer:RemoveComponent("rowboatwakespawner")
-if act.doer.components.driver then
-local barcoinv = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-if barcoinv and barcoinv.prefab == act.doer.components.driver.vehicle.prefab  then 
-local consumo = SpawnPrefab(act.doer.components.driver.vehicle.prefab)
-consumo.Transform:SetPosition(act.doer.components.driver.vehicle:GetPosition():Get())
-consumo.components.finiteuses.current = barcoinv.components.finiteuses.current
--------------------------transfere o conteudo do barco inventario para o barco do criado---------------------------------
-if barcoinv.components.container then
-local sailslot = barcoinv.components.container:GetItemInSlot(1)
-if sailslot then
-consumo.components.container:GiveItem(sailslot, 1)
-end
+        act.target:HasTag("boatsw")
+    then
+        act.doer:AddTag("pulando")
+        if act.doer:HasTag("aquatic") then
+            act.doer:RemoveComponent("rowboatwakespawner")
+            if act.doer.components.driver then
+                local barcoinv = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+                if barcoinv and barcoinv.prefab == act.doer.components.driver.vehicle.prefab then
+                    local consumo = SpawnPrefab(act.doer.components.driver.vehicle.prefab)
+                    consumo.Transform:SetPosition(act.doer.components.driver.vehicle:GetPosition():Get())
+                    consumo.components.finiteuses.current = barcoinv.components.finiteuses.current
+                    -------------------------transfere o conteudo do barco inventario para o barco do criado---------------------------------
+                    if barcoinv.components.container then
+                        local sailslot = barcoinv.components.container:GetItemInSlot(1)
+                        if sailslot then
+                            consumo.components.container:GiveItem(sailslot, 1)
+                        end
 
-local luzslot = barcoinv.components.container:GetItemInSlot(2)
-if luzslot and luzslot.prefab == "quackeringram" then luzslot.navio1 = nil end
-if luzslot then
-consumo.components.container:GiveItem(luzslot, 2)
-end
+                        local luzslot = barcoinv.components.container:GetItemInSlot(2)
+                        if luzslot and luzslot.prefab == "quackeringram" then luzslot.navio1 = nil end
+                        if luzslot then
+                            consumo.components.container:GiveItem(luzslot, 2)
+                        end
 
-local cargoslot1 = barcoinv.components.container:GetItemInSlot(3)
-if cargoslot1 then
-consumo.components.container:GiveItem(cargoslot1, 3)
-end
+                        local cargoslot1 = barcoinv.components.container:GetItemInSlot(3)
+                        if cargoslot1 then
+                            consumo.components.container:GiveItem(cargoslot1, 3)
+                        end
 
-local cargoslot2 = barcoinv.components.container:GetItemInSlot(4)
-if cargoslot2 then
-consumo.components.container:GiveItem(cargoslot2, 4)
-end
+                        local cargoslot2 = barcoinv.components.container:GetItemInSlot(4)
+                        if cargoslot2 then
+                            consumo.components.container:GiveItem(cargoslot2, 4)
+                        end
 
-local cargoslot3 = barcoinv.components.container:GetItemInSlot(5)
-if cargoslot3 then
-consumo.components.container:GiveItem(cargoslot3, 5)
-end
+                        local cargoslot3 = barcoinv.components.container:GetItemInSlot(5)
+                        if cargoslot3 then
+                            consumo.components.container:GiveItem(cargoslot3, 5)
+                        end
 
-local cargoslot4 = barcoinv.components.container:GetItemInSlot(6)
-if cargoslot4 then
-consumo.components.container:GiveItem(cargoslot4, 6)
-end
+                        local cargoslot4 = barcoinv.components.container:GetItemInSlot(6)
+                        if cargoslot4 then
+                            consumo.components.container:GiveItem(cargoslot4, 6)
+                        end
 
-local cargoslot5 = barcoinv.components.container:GetItemInSlot(7)
-if cargoslot5 then
-consumo.components.container:GiveItem(cargoslot5, 7)
-end
+                        local cargoslot5 = barcoinv.components.container:GetItemInSlot(7)
+                        if cargoslot5 then
+                            consumo.components.container:GiveItem(cargoslot5, 7)
+                        end
 
-local cargoslot6 = barcoinv.components.container:GetItemInSlot(8)
-if cargoslot6 then
-consumo.components.container:GiveItem(cargoslot6, 8)
-end end
-----------------------------------------------------------------------------------------------------------------------
-barcoinv:Remove()
-end
-act.doer.components.driver.vehicle:Remove()
-act.doer:RemoveComponent("driver")
-act.doer:RemoveTag("sail")
-act.doer:RemoveTag("surf")
-act.doer:RemoveTag("aquatic")
-end
-end	 
+                        local cargoslot6 = barcoinv.components.container:GetItemInSlot(8)
+                        if cargoslot6 then
+                            consumo.components.container:GiveItem(cargoslot6, 8)
+                        end
+                    end
+                    ----------------------------------------------------------------------------------------------------------------------
+                    barcoinv:Remove()
+                end
+                act.doer.components.driver.vehicle:Remove()
+                act.doer:RemoveComponent("driver")
+                act.doer:RemoveTag("sail")
+                act.doer:RemoveTag("surf")
+                act.doer:RemoveTag("aquatic")
+            end
+        end
         act.target.components.interactions:BoatJump(act.doer)
         return true
     else
         return false
     end
 end
-BOATMOUNT.encumbered_valid =true
+BOATMOUNT.encumbered_valid = true
 AddAction(BOATMOUNT)
 
 
 
-local BOATDISMOUNT = GLOBAL.Action({priority = 9, rmb = true, distance = 8, mount_valid = false})
+local BOATDISMOUNT = GLOBAL.Action({ priority = 9, rmb = true, distance = 8, mount_valid = false })
 BOATDISMOUNT.str = (GLOBAL.STRINGS.ACTIONS.BOATDISMOUNT)
 BOATDISMOUNT.id = "BOATDISMOUNT"
 BOATDISMOUNT.fn = function(act)
     if act.doer ~= nil and act.doer:HasTag("player") then
-		act.doer:AddTag("pulando")
-		if not act.doer.components.interactions then
-        act.doer:AddComponent("interactions")
-		end
+        act.doer:AddTag("pulando")
+        if not act.doer.components.interactions then
+            act.doer:AddComponent("interactions")
+        end
         act.doer.components.interactions:BoatDismount(act.doer, act:GetActionPoint())
         return true
     end
 end
-BOATDISMOUNT.encumbered_valid =true
+BOATDISMOUNT.encumbered_valid = true
 AddAction(BOATDISMOUNT)
 
 
 local SURF = GLOBAL.Action({
-priority = 4, 
---is_relative_to_platform=true,
---disable_platform_hopping=true, 
-distance = 20
+    priority = 4,
+    --is_relative_to_platform=true,
+    --disable_platform_hopping=true,
+    distance = 20
 })
 SURF.str = (GLOBAL.STRINGS.ACTIONS.SURF)
 SURF.id = "SURF"
 SURF.fn = function(act)
+    local doer_x, doer_y, doer_z = act.doer.Transform:GetWorldPosition()
+    local planchadesurf = GLOBAL.TheWorld.Map:GetPlatformAtPoint(doer_x, doer_z)
+    if planchadesurf and planchadesurf:HasTag("planchadesurf") then
+        local pos = act:GetActionPoint()
+        if pos == nil then
+            pos = act.target:GetPosition()
+        end
+        planchadesurf.components.oar:Row(act.doer, pos)
+        planchadesurf.components.health:DoDelta(-0.5)
 
-	local doer_x, doer_y, doer_z = act.doer.Transform:GetWorldPosition()
-	local planchadesurf = GLOBAL.TheWorld.Map:GetPlatformAtPoint(doer_x, doer_z)
-	if planchadesurf and planchadesurf:HasTag("planchadesurf") then
-    local pos = act:GetActionPoint()
-    if pos == nil then
-        pos = act.target:GetPosition()
+        return true
     end
-    planchadesurf.components.oar:Row(act.doer, pos)
-    planchadesurf.components.health:DoDelta(-0.5)
-	
-    return true
-	end
 end
-SURF.encumbered_valid =true
+SURF.encumbered_valid = true
 AddAction(SURF)
 
 
 
 
 
-local BOATCANNON = GLOBAL.Action({priority = 8, rmb = true, distance = 25, mount_valid = false})
+local BOATCANNON = GLOBAL.Action({ priority = 8, rmb = true, distance = 25, mount_valid = false })
 BOATCANNON.str = (GLOBAL.STRINGS.ACTIONS.BOATCANNON)
 BOATCANNON.id = "BOATCANNON"
 BOATCANNON.fn = function(act)
-if act.doer ~= nil and act.doer:HasTag("player") then
+    if act.doer ~= nil and act.doer:HasTag("player") then
+        act.doer:AddTag("deleidotiro")
+        act.doer:DoTaskInTime(0.5, function(inst) act.doer:RemoveTag("deleidotiro") end)
 
-act.doer:AddTag("deleidotiro")
-act.doer:DoTaskInTime(0.5, function(inst) act.doer:RemoveTag("deleidotiro") end)
 
+        local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+        local canhao = equipamento.replica.container:GetItemInSlot(2)
+        ----------------posiciona pra sair no canhao-----------------------
+        local angle = act.doer:GetRotation()
+        local dist = 1.5
+        local offset = Vector3(dist * math.cos(angle * GLOBAL.DEGREES), 0, -dist * math.sin(angle * GLOBAL.DEGREES))
+        local x, y, z = act.doer.Transform:GetWorldPosition()
+        local x1, y1, z1
+        local pos
+        if act.target then
+            x1, y1, z1 = act.target:GetPosition():Get()
+            pos = act.target:GetPosition()
+        else
+            x1, y1, z1 = act:GetActionPoint():Get()
+            pos = act:GetActionPoint()
+        end
 
-local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-local canhao = equipamento.replica.container:GetItemInSlot(2)
-----------------posiciona pra sair no canhao-----------------------
-local angle = act.doer:GetRotation()
-local dist = 1.5
-local offset = Vector3(dist * math.cos(angle*GLOBAL.DEGREES), 0, -dist*math.sin(angle*GLOBAL.DEGREES))
-local x, y, z = act.doer.Transform:GetWorldPosition()
-local x1, y1, z1
-local pos
-if act.target then
-x1, y1, z1 = act.target:GetPosition():Get()
-pos = act.target:GetPosition()					
-else
-x1, y1, z1 = act:GetActionPoint():Get()
-pos = act:GetActionPoint()
-end
+        local pt = Vector3(x, y, z)
+        local bombpos = pt + offset
+        local x, y, z = bombpos:Get()
 
-local pt = Vector3(x,y,z)
-local bombpos = pt + offset
-local x, y, z = bombpos:Get()
+        -------------------------------------------------------
 
--------------------------------------------------------
-
-if canhao and canhao.prefab == "woodlegs_boatcannon" then
-if equipamento and canhao then canhao.components.finiteuses:Use(1) end
-local bomba = SpawnPrefab("cannonshotobsidian")
-bomba.Transform:SetPosition(x, y+1.5, z)
-bomba.components.complexprojectile:Launch(pos)
-act.doer.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/knight_steamboat/cannon")
-else
-if equipamento and canhao and act.doer.prefab ~= "woodlegs" then 
-canhao.components.finiteuses:Use(1)
-local bomba = SpawnPrefab("cannonshot")
-bomba.Transform:SetPosition(x, y+1.5, z)
-bomba.components.complexprojectile:Launch(pos)
-act.doer.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/knight_steamboat/cannon")
-elseif equipamento and equipamento.prefab == "woodlegsboat" and canhao and act.doer.prefab == "woodlegs" then
-local bomba = SpawnPrefab("cannonshot")
-bomba.components.explosive.explosivedamage = 50
-bomba.Transform:SetPosition(x, y+1.5, z)
-bomba.components.complexprojectile:Launch(pos)
-act.doer.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/knight_steamboat/cannon")
-elseif equipamento and canhao then 
-canhao.components.finiteuses:Use(1)
-local bomba = SpawnPrefab("cannonshot")
-bomba.Transform:SetPosition(x, y+1.5, z)
-bomba.components.complexprojectile:Launch(pos)
-act.doer.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/knight_steamboat/cannon")
-end
-end
+        if canhao and canhao.prefab == "woodlegs_boatcannon" then
+            if equipamento and canhao then canhao.components.finiteuses:Use(1) end
+            local bomba = SpawnPrefab("cannonshotobsidian")
+            bomba.Transform:SetPosition(x, y + 1.5, z)
+            bomba.components.complexprojectile:Launch(pos)
+            act.doer.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/knight_steamboat/cannon")
+        else
+            if equipamento and canhao and act.doer.prefab ~= "woodlegs" then
+                canhao.components.finiteuses:Use(1)
+                local bomba = SpawnPrefab("cannonshot")
+                bomba.Transform:SetPosition(x, y + 1.5, z)
+                bomba.components.complexprojectile:Launch(pos)
+                act.doer.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/knight_steamboat/cannon")
+            elseif equipamento and equipamento.prefab == "woodlegsboat" and canhao and act.doer.prefab == "woodlegs" then
+                local bomba = SpawnPrefab("cannonshot")
+                bomba.components.explosive.explosivedamage = 50
+                bomba.Transform:SetPosition(x, y + 1.5, z)
+                bomba.components.complexprojectile:Launch(pos)
+                act.doer.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/knight_steamboat/cannon")
+            elseif equipamento and canhao then
+                canhao.components.finiteuses:Use(1)
+                local bomba = SpawnPrefab("cannonshot")
+                bomba.Transform:SetPosition(x, y + 1.5, z)
+                bomba.components.complexprojectile:Launch(pos)
+                act.doer.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/knight_steamboat/cannon")
+            end
+        end
 
         return true
     end
 end
 AddAction(BOATCANNON)
 
-local TIRO = GLOBAL.Action({priority = 9, rmb = true, distance = 20, mount_valid = false})
+local TIRO = GLOBAL.Action({ priority = 9, rmb = true, distance = 20, mount_valid = false })
 TIRO.str = (GLOBAL.STRINGS.ACTIONS.TIRO)
 TIRO.id = "TIRO"
 TIRO.fn = function(act)
     if act.doer ~= nil and act.doer:HasTag("ironlord") then
---        act.doer:AddComponent("interactions")
---        act.doer.components.interactions:TIRO(act.doer, act.target:GetPosition())
+        --        act.doer:AddComponent("interactions")
+        --        act.doer.components.interactions:TIRO(act.doer, act.target:GetPosition())
         return true
     end
 end
@@ -621,59 +625,56 @@ end
 AddAction(TIRO)
 
 
-local RETRIEVE = GLOBAL.Action({priority = 11, rmb = true, distance = 2, mount_valid = false})
+local RETRIEVE = GLOBAL.Action({ priority = 11, rmb = true, distance = 2, mount_valid = false })
 RETRIEVE.str = (GLOBAL.STRINGS.ACTIONS.RETRIEVE)
 RETRIEVE.id = "RETRIEVE"
 RETRIEVE.fn = function(act)
+    if act.target.components.breeder and act.target.components.breeder.volume > 0 then
+        return act.target.components.breeder:Harvest(act.doer)
+    end
 
-
-	if act.target.components.breeder and act.target.components.breeder.volume > 0 then
-	return act.target.components.breeder:Harvest(act.doer) end
-	
     if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and act.target.prefab == "surfboard" then
-    if act.target and act.target.prefab == "surfboard" then
-	local panela = SpawnPrefab("surfboarditem")
-	if act.target.components.finiteuses then
-	panela.components.finiteuses.current = act.target.components.finiteuses.current
-	end
-	act.doer.components.inventory:GiveItem(panela, 1)
-	act.target:Remove()
-    end 
-	return true	
-	end
-	
+        if act.target and act.target.prefab == "surfboard" then
+            local panela = SpawnPrefab("surfboarditem")
+            if act.target.components.finiteuses then
+                panela.components.finiteuses.current = act.target.components.finiteuses.current
+            end
+            act.doer.components.inventory:GiveItem(panela, 1)
+            act.target:Remove()
+        end
+        return true
+    end
+
     if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and act.target.prefab == "corkboat" then
-    if act.target and act.target.prefab == "corkboat" then
-	local panela = SpawnPrefab("corkboatitem")
-	if act.target.components.finiteuses then
-	panela.components.finiteuses.current = act.target.components.finiteuses.current
-	end
-	
-	
+        if act.target and act.target.prefab == "corkboat" then
+            local panela = SpawnPrefab("corkboatitem")
+            if act.target.components.finiteuses then
+                panela.components.finiteuses.current = act.target.components.finiteuses.current
+            end
 
--------------------------transfere o conteudo do barco inventario para o barco do criado---------------------------------
-if act.target.components.container then
-local sailslot = act.target.components.container:GetItemInSlot(1)
-if sailslot then
-act.doer.components.inventory:GiveItem(sailslot, 1)
-end
 
-local luzslot = act.target.components.container:GetItemInSlot(2)
-if luzslot and luzslot.prefab == "quackeringram" then luzslot.navio1 = nil end
-if luzslot then
-act.doer.components.inventory:GiveItem(luzslot, 1)
-end
 
+            -------------------------transfere o conteudo do barco inventario para o barco do criado---------------------------------
+            if act.target.components.container then
+                local sailslot = act.target.components.container:GetItemInSlot(1)
+                if sailslot then
+                    act.doer.components.inventory:GiveItem(sailslot, 1)
+                end
+
+                local luzslot = act.target.components.container:GetItemInSlot(2)
+                if luzslot and luzslot.prefab == "quackeringram" then luzslot.navio1 = nil end
+                if luzslot then
+                    act.doer.components.inventory:GiveItem(luzslot, 1)
+                end
+            end
+            ----------------------------------------------------------------------------------------------------------------------
+
+            act.doer.components.inventory:GiveItem(panela, 1)
+            act.target:Remove()
+        end
+        return true
+    end
 end
-----------------------------------------------------------------------------------------------------------------------
-	
-	act.doer.components.inventory:GiveItem(panela, 1)
-	act.target:Remove()
-    end 
-	return true	
-	end	
-	
-end	
 
 AddAction(RETRIEVE)
 
@@ -696,68 +697,67 @@ GLOBAL.ACTIONS.DEPLOY.distance = 6
 
 
 
-local BOATREPAIR = GLOBAL.Action({priority = 10, rmb = true, distance = 1, mount_valid = false})
+local BOATREPAIR = GLOBAL.Action({ priority = 10, rmb = true, distance = 1, mount_valid = false })
 BOATREPAIR.str = (GLOBAL.STRINGS.ACTIONS.BOATREPAIR)
 BOATREPAIR.id = "BOATREPAIR"
 BOATREPAIR.fn = function(act)
-if act.doer ~= nil and act.doer:HasTag("aquatic") and act.invobject ~= nil and act.invobject:HasTag("boatrepairkit") then
-local boat = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-local boat2 = act.doer.components.driver.vehicle
-if boat and boat2 then
+    if act.doer ~= nil and act.doer:HasTag("aquatic") and act.invobject ~= nil and act.invobject:HasTag("boatrepairkit") then
+        local boat = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+        local boat2 = act.doer.components.driver.vehicle
+        if boat and boat2 then
+            if boat2.components.finiteuses and boat.components.armor.condition and boat2.components.finiteuses.current + 150 >= boat2.components.finiteuses.total then
+                boat2.components.finiteuses.current = boat2.components.finiteuses.total
+                boat.components.armor.condition = boat2.components.finiteuses.current
+                if boat2.components.finiteuses then
+                    boat2.components.finiteuses:Use(1)
+                end
+                if act.invobject.prefab == "sewing_tape" then
+                    local nut = act.invobject
+                    if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then
+                        nut = act.invobject.components.stackable:Get()
+                    end
+                    nut:Remove()
+                else
+                    if act.invobject.components.finiteuses then
+                        act.invobject.components.finiteuses:Use(1)
+                    end
+                end
+                return true
+            end
 
-if boat2.components.finiteuses and boat.components.armor.condition and boat2.components.finiteuses.current + 150 >= boat2.components.finiteuses.total then
-boat2.components.finiteuses.current = boat2.components.finiteuses.total
-boat.components.armor.condition = boat2.components.finiteuses.current
-if boat2.components.finiteuses then
-boat2.components.finiteuses:Use(1)
-end
-if act.invobject.prefab == "sewing_tape" then
-local nut = act.invobject
-if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then 
-nut = act.invobject.components.stackable:Get()
-end
-nut:Remove()
-else
-if act.invobject.components.finiteuses then
-act.invobject.components.finiteuses:Use(1)
-end
-end
-return true
-end
-
-boat2.components.finiteuses.current = boat2.components.finiteuses.current + 150
-boat.components.armor.condition = boat.components.armor.condition + 150
-if act.invobject.components.finiteuses then
-act.invobject.components.finiteuses:Use(1)
-end
-end
-return true
-end
+            boat2.components.finiteuses.current = boat2.components.finiteuses.current + 150
+            boat.components.armor.condition = boat.components.armor.condition + 150
+            if act.invobject.components.finiteuses then
+                act.invobject.components.finiteuses:Use(1)
+            end
+        end
+        return true
+    end
 
 
 
     if
         act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and
-            act.target:HasTag("boatsw")
-     then
+        act.target:HasTag("boatsw")
+    then
         local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
 
         if equipamento then
             if act.target.components.finiteuses.current + 150 >= act.target.components.finiteuses.total then
                 act.target.components.finiteuses.current = act.target.components.finiteuses.total
-				local gastabarco = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)-------armadura
-				if gastabarco then gastabarco.components.armor.condition = act.target.components.finiteuses.current end   ---------armadura
-				if equipamento.components.finiteuses then
-                equipamento.components.finiteuses:Use(1)
-				end
+                local gastabarco = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)                      -------armadura
+                if gastabarco then gastabarco.components.armor.condition = act.target.components.finiteuses.current end ---------armadura
+                if equipamento.components.finiteuses then
+                    equipamento.components.finiteuses:Use(1)
+                end
                 return true
             end
             act.target.components.finiteuses.current = act.target.components.finiteuses.current + 150
-			local gastabarco = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)---------armadura
-			if gastabarco then gastabarco.components.armor.condition = act.target.components.finiteuses.current end---------armadura
-			if equipamento.components.finiteuses then
-            equipamento.components.finiteuses:Use(1)
-			end
+            local gastabarco = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)                      ---------armadura
+            if gastabarco then gastabarco.components.armor.condition = act.target.components.finiteuses.current end ---------armadura
+            if equipamento.components.finiteuses then
+                equipamento.components.finiteuses:Use(1)
+            end
         end
         return true
     end
@@ -769,244 +769,242 @@ AddAction(BOATREPAIR)
 
 
 
-local OPENTUNA = GLOBAL.Action({priority = 10, rmb = true, distance = 1, mount_valid = false})
+local OPENTUNA = GLOBAL.Action({ priority = 10, rmb = true, distance = 1, mount_valid = false })
 OPENTUNA.str = (GLOBAL.STRINGS.ACTIONS.OPENTUNA)
 OPENTUNA.id = "OPENTUNA"
 OPENTUNA.fn = function(act)
-if act.doer ~= nil and act.invobject ~= nil and act.invobject:HasTag("tunacan") then
-local nut = act.invobject 
-if act.invobject.replica.inventoryitem then 
-if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then 
-nut = act.invobject.components.stackable:Get()
-end 
-if act.doer.components.inventory then 
-local peixe = SpawnPrefab("fish_med_cooked")
-act.doer.components.inventory:GiveItem(peixe, 1) end
-end
-nut:Remove()
-return true
-end
-
+    if act.doer ~= nil and act.invobject ~= nil and act.invobject:HasTag("tunacan") then
+        local nut = act.invobject
+        if act.invobject.replica.inventoryitem then
+            if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then
+                nut = act.invobject.components.stackable:Get()
+            end
+            if act.doer.components.inventory then
+                local peixe = SpawnPrefab("fish_med_cooked")
+                act.doer.components.inventory:GiveItem(peixe, 1)
+            end
+        end
+        nut:Remove()
+        return true
+    end
 end
 AddAction(OPENTUNA)
 
-local DISLODGE = GLOBAL.Action({priority = 10, rmb = true, distance = 2, mount_valid = false})
+local DISLODGE = GLOBAL.Action({ priority = 11, rmb = true, distance = 2, mount_valid = false })
 DISLODGE.str = (GLOBAL.STRINGS.ACTIONS.DISLODGE)
 DISLODGE.id = "DISLODGE"
 DISLODGE.fn = function(act)
-local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-if act.target.components.dislodgeable and act.target.components.dislodgeable.canbedislodged and act.target.components.dislodgeable.caninteractwith then
+    -- print("test fn used aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+    local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
 
+    -- print(act.target.components.dislodgeable)
+    -- print(act.target.components.dislodgeable.canbedislodged)
+    -- print(act.target.components.dislodgeable.caninteractwith)
+    if act.target.components.dislodgeable and act.target.components.dislodgeable.canbedislodged and act.target.components.dislodgeable.caninteractwith then
+        if act.doer ~= nil and equipamento then
+            if equipamento.components.finiteuses then
+                equipamento.components.finiteuses:Use(1)
+            end
 
-if act.doer ~= nil and equipamento then
-if equipamento.components.finiteuses then
-equipamento.components.finiteuses:Use(1)
-end
-
-if  equipamento and equipamento:HasTag("ballpein_hammer") then
-if act.target.components.dislodgeable then
-act.target.components.dislodgeable:Dislodge(act.doer)
-end
-return true
-end
-
-end
-
-else
-return false
-end
-
+            if equipamento and equipamento:HasTag("ballpein_hammer") then
+                if act.target.components.dislodgeable then
+                    act.target.components.dislodgeable:Dislodge(act.doer)
+                end
+                return true
+            end
+        end
+    else
+        return false
+    end
 end
 AddAction(DISLODGE)
 
 
-local PAINT = GLOBAL.Action({priority = 10, rmb = true, distance = 2, mount_valid = false})
+local PAINT = GLOBAL.Action({ priority = 10, rmb = true, distance = 2, mount_valid = false })
 PAINT.str = (GLOBAL.STRINGS.ACTIONS.PAINT)
 PAINT.id = "PAINT"
 PAINT.fn = function(act)
-local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-if act.doer ~= nil and equipamento then
-if equipamento.components.finiteuses then
-equipamento.components.finiteuses:Use(1)
-end
+    local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+    if act.doer ~= nil and equipamento then
+        if equipamento.components.finiteuses then
+            equipamento.components.finiteuses:Use(1)
+        end
 
-if equipamento and equipamento:HasTag("shop_wall_checkered_metal") then
-act.target.AnimState:SetBank("wallhamletcity1")
-act.target.AnimState:SetBuild("wallhamletcity1")
-act.target.AnimState:PlayAnimation("shop_wall_checkered_metal", true)
-act.target.wallpaper = "shop_wall_checkered_metal"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_wall_checkered_metal") then
+            act.target.AnimState:SetBank("wallhamletcity1")
+            act.target.AnimState:SetBuild("wallhamletcity1")
+            act.target.AnimState:PlayAnimation("shop_wall_checkered_metal", true)
+            act.target.wallpaper = "shop_wall_checkered_metal"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_wall_circles") then
-act.target.AnimState:SetBank("wallhamletcity1")
-act.target.AnimState:SetBuild("wallhamletcity1")
-act.target.AnimState:PlayAnimation("shop_wall_circles", true)
-act.target.wallpaper = "shop_wall_circles"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_wall_circles") then
+            act.target.AnimState:SetBank("wallhamletcity1")
+            act.target.AnimState:SetBuild("wallhamletcity1")
+            act.target.AnimState:PlayAnimation("shop_wall_circles", true)
+            act.target.wallpaper = "shop_wall_circles"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_wall_marble") then
-act.target.AnimState:SetBank("wallhamletcity1")
-act.target.AnimState:SetBuild("wallhamletcity1")
-act.target.AnimState:PlayAnimation("shop_wall_marble", true)
-act.target.wallpaper = "shop_wall_marble"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_wall_marble") then
+            act.target.AnimState:SetBank("wallhamletcity1")
+            act.target.AnimState:SetBuild("wallhamletcity1")
+            act.target.AnimState:PlayAnimation("shop_wall_marble", true)
+            act.target.wallpaper = "shop_wall_marble"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_wall_sunflower") then
-act.target.AnimState:SetBank("wallhamletcity1")
-act.target.AnimState:SetBuild("wallhamletcity1")
-act.target.AnimState:PlayAnimation("shop_wall_sunflower", true)
-act.target.wallpaper = "shop_wall_sunflower"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_wall_sunflower") then
+            act.target.AnimState:SetBank("wallhamletcity1")
+            act.target.AnimState:SetBuild("wallhamletcity1")
+            act.target.AnimState:PlayAnimation("shop_wall_sunflower", true)
+            act.target.wallpaper = "shop_wall_sunflower"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_wall_woodwall") then
-act.target.AnimState:SetBank("wallhamletcity1")
-act.target.AnimState:SetBuild("wallhamletcity1")
-act.target.AnimState:PlayAnimation("shop_wall_woodwall", true)
-act.target.wallpaper = "shop_wall_woodwall"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_wall_woodwall") then
+            act.target.AnimState:SetBank("wallhamletcity1")
+            act.target.AnimState:SetBuild("wallhamletcity1")
+            act.target.AnimState:PlayAnimation("shop_wall_woodwall", true)
+            act.target.wallpaper = "shop_wall_woodwall"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("wall_mayorsoffice_whispy") then
-act.target.AnimState:SetBank("wallhamletcity1")
-act.target.AnimState:SetBuild("wallhamletcity1")
-act.target.AnimState:PlayAnimation("wall_mayorsoffice_whispy", true)
-act.target.wallpaper = "wall_mayorsoffice_whispy"
-return true
-end
+        if equipamento and equipamento:HasTag("wall_mayorsoffice_whispy") then
+            act.target.AnimState:SetBank("wallhamletcity1")
+            act.target.AnimState:SetBuild("wallhamletcity1")
+            act.target.AnimState:PlayAnimation("wall_mayorsoffice_whispy", true)
+            act.target.wallpaper = "wall_mayorsoffice_whispy"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("harlequin_panel") then
-act.target.AnimState:SetBank("wallhamletcity2")
-act.target.AnimState:SetBuild("wallhamletcity2")
-act.target.AnimState:PlayAnimation("harlequin_panel", true)
-act.target.wallpaper = "harlequin_panel"
-return true
-end
+        if equipamento and equipamento:HasTag("harlequin_panel") then
+            act.target.AnimState:SetBank("wallhamletcity2")
+            act.target.AnimState:SetBuild("wallhamletcity2")
+            act.target.AnimState:PlayAnimation("harlequin_panel", true)
+            act.target.wallpaper = "harlequin_panel"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_wall_fullwall_moulding") then
-act.target.AnimState:SetBank("wallhamletcity2")
-act.target.AnimState:SetBuild("wallhamletcity2")
-act.target.AnimState:PlayAnimation("shop_wall_fullwall_moulding", true)
-act.target.wallpaper = "shop_wall_fullwall_moulding"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_wall_fullwall_moulding") then
+            act.target.AnimState:SetBank("wallhamletcity2")
+            act.target.AnimState:SetBuild("wallhamletcity2")
+            act.target.AnimState:PlayAnimation("shop_wall_fullwall_moulding", true)
+            act.target.wallpaper = "shop_wall_fullwall_moulding"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_wall_floraltrim2") then
-act.target.AnimState:SetBank("wallhamletcity2")
-act.target.AnimState:SetBuild("wallhamletcity2")
-act.target.AnimState:PlayAnimation("shop_wall_floraltrim2", true)
-act.target.wallpaper = "shop_wall_floraltrim2"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_wall_floraltrim2") then
+            act.target.AnimState:SetBank("wallhamletcity2")
+            act.target.AnimState:SetBuild("wallhamletcity2")
+            act.target.AnimState:PlayAnimation("shop_wall_floraltrim2", true)
+            act.target.wallpaper = "shop_wall_floraltrim2"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_wall_upholstered") then
-act.target.AnimState:SetBank("wallhamletcity2")
-act.target.AnimState:SetBuild("wallhamletcity2")
-act.target.AnimState:PlayAnimation("shop_wall_upholstered", true)
-act.target.wallpaper = "shop_wall_upholstered"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_wall_upholstered") then
+            act.target.AnimState:SetBank("wallhamletcity2")
+            act.target.AnimState:SetBuild("wallhamletcity2")
+            act.target.AnimState:PlayAnimation("shop_wall_upholstered", true)
+            act.target.wallpaper = "shop_wall_upholstered"
+            return true
+        end
 
 
 
-if equipamento and equipamento:HasTag("floor_cityhall") then
-act.target.AnimState:PlayAnimation("floor_cityhall", true)
-act.target.floorpaper = "floor_cityhall"
-return true
-end
+        if equipamento and equipamento:HasTag("floor_cityhall") then
+            act.target.AnimState:PlayAnimation("floor_cityhall", true)
+            act.target.floorpaper = "floor_cityhall"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("noise_woodfloor") then
-act.target.AnimState:PlayAnimation("noise_woodfloor", true)
-act.target.floorpaper = "noise_woodfloor"
-return true
-end
+        if equipamento and equipamento:HasTag("noise_woodfloor") then
+            act.target.AnimState:PlayAnimation("noise_woodfloor", true)
+            act.target.floorpaper = "noise_woodfloor"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_floor_checker") then
-act.target.AnimState:PlayAnimation("shop_floor_checker", true)
-act.target.floorpaper = "shop_floor_checker"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_floor_checker") then
+            act.target.AnimState:PlayAnimation("shop_floor_checker", true)
+            act.target.floorpaper = "shop_floor_checker"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_floor_herringbone") then
-act.target.AnimState:PlayAnimation("shop_floor_herringbone", true)
-act.target.floorpaper = "shop_floor_herringbone"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_floor_herringbone") then
+            act.target.AnimState:PlayAnimation("shop_floor_herringbone", true)
+            act.target.floorpaper = "shop_floor_herringbone"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_floor_hexagon") then
-act.target.AnimState:PlayAnimation("shop_floor_hexagon", true)
-act.target.floorpaper = "shop_floor_hexagon"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_floor_hexagon") then
+            act.target.AnimState:PlayAnimation("shop_floor_hexagon", true)
+            act.target.floorpaper = "shop_floor_hexagon"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_floor_octagon") then
-act.target.AnimState:PlayAnimation("shop_floor_octagon", true)
-act.target.floorpaper = "shop_floor_octagon"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_floor_octagon") then
+            act.target.AnimState:PlayAnimation("shop_floor_octagon", true)
+            act.target.floorpaper = "shop_floor_octagon"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_floor_sheetmetal") then
-act.target.AnimState:PlayAnimation("shop_floor_sheetmetal", true)
-act.target.floorpaper = "shop_floor_sheetmetal"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_floor_sheetmetal") then
+            act.target.AnimState:PlayAnimation("shop_floor_sheetmetal", true)
+            act.target.floorpaper = "shop_floor_sheetmetal"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_floor_woodmetal") then
-act.target.AnimState:PlayAnimation("shop_floor_woodmetal", true)
-act.target.floorpaper = "shop_floor_woodmetal"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_floor_woodmetal") then
+            act.target.AnimState:PlayAnimation("shop_floor_woodmetal", true)
+            act.target.floorpaper = "shop_floor_woodmetal"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_floor_hoof_curvy") then
-act.target.AnimState:PlayAnimation("shop_floor_hoof_curvy", true)
-act.target.floorpaper = "shop_floor_hoof_curvy"
-return true
-end
+        if equipamento and equipamento:HasTag("shop_floor_hoof_curvy") then
+            act.target.AnimState:PlayAnimation("shop_floor_hoof_curvy", true)
+            act.target.floorpaper = "shop_floor_hoof_curvy"
+            return true
+        end
 
-if equipamento and equipamento:HasTag("shop_floor_woodpaneling2") then
-act.target.AnimState:PlayAnimation("shop_floor_woodpaneling2", true)
-act.target.floorpaper = "shop_floor_woodpaneling2"
-return true
-end
-
-end
+        if equipamento and equipamento:HasTag("shop_floor_woodpaneling2") then
+            act.target.AnimState:PlayAnimation("shop_floor_woodpaneling2", true)
+            act.target.floorpaper = "shop_floor_woodpaneling2"
+            return true
+        end
+    end
 end
 
 AddAction(PAINT)
 
-local SMELT = GLOBAL.Action({priority = 10, mount_valid = true})
+local SMELT = GLOBAL.Action({ priority = 10, mount_valid = true })
 SMELT.str = (GLOBAL.STRINGS.ACTIONS.SMELT)
 SMELT.id = "SMELT"
 SMELT.fn = function(act)
-	if act.target.components.melter then
-		act.target.components.melter:StartCooking()
-		return true
-	end
+    if act.target.components.melter then
+        act.target.components.melter:StartCooking()
+        return true
+    end
 end
 AddAction(SMELT)
 
-local GIVE2 = GLOBAL.Action({priority = 10, distance = 1, mount_valid = true})
+local GIVE2 = GLOBAL.Action({ priority = 10, distance = 1, mount_valid = true })
 GIVE2.str = (GLOBAL.STRINGS.ACTIONS.GIVE2)
 GIVE2.id = "GIVE2"
 GIVE2.fn = function(act)
-	if act.invobject.components.inventoryitem then
-			act.target.components.shelfer:AcceptGift(act.doer, act.invobject)
-			return true
-
-	end 
+    if act.invobject.components.inventoryitem then
+        act.target.components.shelfer:AcceptGift(act.doer, act.invobject)
+        return true
+    end
 end
 AddAction(GIVE2)
 
 
-AddComponentAction("USEITEM", "inventoryitem", function(inst, doer, target, actions, right) 
+AddComponentAction("USEITEM", "inventoryitem", function(inst, doer, target, actions, right)
     if not right then
-    if target:HasTag("shelfcanaccept") then --target.components.shelfer and target.components.shelfer:CanAccept(inst, doer ) then        
-        table.insert(actions, ACTIONS.GIVE2)        
-    end 	
-	end
+        if target:HasTag("shelfcanaccept") then --target.components.shelfer and target.components.shelfer:CanAccept(inst, doer ) then
+            table.insert(actions, ACTIONS.GIVE2)
+        end
+    end
 end)
 
 --[[
@@ -1016,11 +1014,11 @@ FERTILIZE.id = "FERTILIZE"
 FERTILIZE.fn = function(act)
     if act.invobject ~= nil and act.invobject.components.fertilizer ~= nil and act.target ~= nil and not act.target:HasTag("cofeebush") then
 	if act.invobject:HasTag("ashes") then return false end
-        if act.target ~= nil and not (act.doer ~= nil and act.doer.components.rider ~= nil and act.doer.components.rider:IsRiding()) then            
+        if act.target ~= nil and not (act.doer ~= nil and act.doer.components.rider ~= nil and act.doer.components.rider:IsRiding()) then
             if act.target.components.crop ~= nil and not (act.target.components.crop:IsReadyForHarvest() or act.target:HasTag("withered")) then
 			print("1")
                 return act.target.components.crop:Fertilize(act.invobject, act.doer)
-            elseif act.target.components.grower ~= nil and act.target.components.grower:IsEmpty() then                
+            elseif act.target.components.grower ~= nil and act.target.components.grower:IsEmpty() then
                 act.target.components.grower:Fertilize(act.invobject, act.doer)
 				print("2")
                 return true
@@ -1040,7 +1038,7 @@ FERTILIZE.fn = function(act)
     end
 	
     if act.invobject ~= nil and act.invobject:HasTag("ashes") and act.target ~= nil and act.target:HasTag("cofeebush") then
-        if act.target ~= nil and not (act.doer ~= nil and act.doer.components.rider ~= nil and act.doer.components.rider:IsRiding()) then            
+        if act.target ~= nil and not (act.doer ~= nil and act.doer.components.rider ~= nil and act.doer.components.rider:IsRiding()) then
             if act.target.components.pickable ~= nil and act.target.components.pickable:CanBeFertilized() then
                 act.target.components.pickable:Fertilize(act.invobject, act.doer)
                 TheWorld:PushEvent("CHEVO_fertilized",{target=act.target,doer=act.doer})
@@ -1058,85 +1056,85 @@ AddAction(FERTILIZE)
 
 
 
-local FERTILIZECOFFEE = GLOBAL.Action({priority = 1, distance = 2, mount_valid = true})
+local FERTILIZECOFFEE = GLOBAL.Action({ priority = 1, distance = 2, mount_valid = true })
 FERTILIZECOFFEE.str = (GLOBAL.STRINGS.ACTIONS.FERTILIZE)
 FERTILIZECOFFEE.id = "FERTILIZECOFFEE"
 FERTILIZECOFFEE.fn = function(act)
     if act.invobject ~= nil and act.invobject.components.fertilizecoffee ~= nil and act.target ~= nil and act.target:HasTag("cofeebush") then
-        if act.target ~= nil and not (act.doer ~= nil and act.doer.components.rider ~= nil and act.doer.components.rider:IsRiding()) then            
+        if act.target ~= nil and not (act.doer ~= nil and act.doer.components.rider ~= nil and act.doer.components.rider:IsRiding()) then
             if act.target.components.pickable ~= nil and act.target.components.pickable:CanBeFertilized() then
-                act.target.components.pickable:Fertilize(act.invobject, act.doer)	 
-if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then 
-nut = act.invobject.components.stackable:Get()
-nut:Remove()
-else
-act.invobject:Remove()
-end				 		 
-                TheWorld:PushEvent("CHEVO_fertilized",{target=act.target,doer=act.doer})
+                act.target.components.pickable:Fertilize(act.invobject, act.doer)
+                if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then
+                    nut = act.invobject.components.stackable:Get()
+                    nut:Remove()
+                else
+                    act.invobject:Remove()
+                end
+                -- print("check fertilized coffee aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+                TheWorld:PushEvent("CHEVO_fertilized", { target = act.target, doer = act.doer })
                 return true
             end
         end
     end
-
 end
 AddAction(FERTILIZECOFFEE)
 
-AddComponentAction("USEITEM", "fertilizecoffee", function(inst, doer, target, actions, right) 
+AddComponentAction("USEITEM", "fertilizecoffee", function(inst, doer, target, actions, right)
     if not right then
-            if not (doer.replica.rider ~= nil and doer.replica.rider:IsRiding()) and target:HasTag("barren") and target:HasTag("cofeebush") then
-                table.insert(actions, ACTIONS.FERTILIZECOFFEE)
-            end	
-	end
+        if not (doer.replica.rider ~= nil and doer.replica.rider:IsRiding()) and target:HasTag("barren") and target:HasTag("cofeebush") then
+            table.insert(actions, ACTIONS.FERTILIZECOFFEE)
+        end
+    end
 end)
 
 local function ExtraPickupRange(doer, dest)
-	if dest ~= nil then
-		local target_x, target_y, target_z = dest:GetPoint()
+    if dest ~= nil then
+        local target_x, target_y, target_z = dest:GetPoint()
 
-		local is_on_water = TheWorld.Map:IsOceanTileAtPoint(target_x, 0, target_z) and not TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
-		if is_on_water then
-			return 0.75
-		end
-	end
+        local is_on_water = TheWorld.Map:IsOceanTileAtPoint(target_x, 0, target_z) and
+            not TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
+        if is_on_water then
+            return 0.75
+        end
+    end
     return 0
 end
 
-local PICKUP = GLOBAL.Action({priority = 1, distance = 2, extra_arrive_dist=ExtraPickupRange, mount_valid=true})
+local PICKUP = GLOBAL.Action({ priority = 1, distance = 2, extra_arrive_dist = ExtraPickupRange, mount_valid = true })
 PICKUP.str = (GLOBAL.STRINGS.ACTIONS.PICKUP)
 PICKUP.id = "PICKUP"
 PICKUP.fn = function(act)
-	if act.target and act.target.components.inventoryitem and act.target.components.shelfer then
-		local item  = act.target.components.shelfer:GetGift()
-		if item then
-		item:AddTag("cost_one_oinc")
-		if act.target.components.shelfer.shelf and not act.target.components.shelfer.shelf:HasTag("playercrafted") then
-			if act.doer.components.shopper and act.doer.components.shopper:IsWatching(item) then 
-				if act.doer.components.shopper:CanPayFor(item) then 
-					act.doer.components.shopper:PayFor(item)
-				else 			
-					return false, "CANTPAY"
-				end
-			else
-				if act.target.components.shelfer.shelf and act.target.components.shelfer.shelf.curse then
-					act.target.components.shelfer.shelf.curse(act.target)
-				end						
-			end
-		end
-		item:RemoveTag("cost_one_oinc")
-		if item.components.perishable then item.components.perishable:StartPerishing() end		
-		act.target = act.target.components.shelfer:GiveGift()	
-		end
-	end
+    if act.target and act.target.components.inventoryitem and act.target.components.shelfer then
+        local item = act.target.components.shelfer:GetGift()
+        if item then
+            item:AddTag("cost_one_oinc")
+            if act.target.components.shelfer.shelf and not act.target.components.shelfer.shelf:HasTag("playercrafted") then
+                if act.doer.components.shopper and act.doer.components.shopper:IsWatching(item) then
+                    if act.doer.components.shopper:CanPayFor(item) then
+                        act.doer.components.shopper:PayFor(item)
+                    else
+                        return false, "CANTPAY"
+                    end
+                else
+                    if act.target.components.shelfer.shelf and act.target.components.shelfer.shelf.curse then
+                        act.target.components.shelfer.shelf.curse(act.target)
+                    end
+                end
+            end
+            item:RemoveTag("cost_one_oinc")
+            if item.components.perishable then item.components.perishable:StartPerishing() end
+            act.target = act.target.components.shelfer:GiveGift()
+        end
+    end
 
     if act.doer.components.inventory ~= nil and
         act.target ~= nil and
         act.target.components.inventoryitem ~= nil and
         (act.target.components.inventoryitem.canbepickedup or
-        (act.target.components.inventoryitem.canbepickedupalive and not act.doer:HasTag("player"))) and
+            (act.target.components.inventoryitem.canbepickedupalive and not act.doer:HasTag("player"))) and
         not (act.target:IsInLimbo() or
             (act.target.components.burnable ~= nil and act.target.components.burnable:IsBurning() and act.target.components.lighter == nil) or
             (act.target.components.projectile ~= nil and act.target.components.projectile:IsThrown())) then
-
         if act.doer.components.itemtyperestrictions ~= nil and not act.doer.components.itemtyperestrictions:IsAllowed(act.target) then
             return false, "restriction"
         elseif act.target.components.container ~= nil and act.target.components.container:IsOpenedByOthers(act.doer) then
@@ -1146,17 +1144,17 @@ PICKUP.fn = function(act)
             if trainer ~= nil and trainer ~= act.doer then
                 return false, "NOTMINE_YOTC"
             end
-		elseif act.doer.components.inventory.noheavylifting and act.target:HasTag("heavy") then
-			return false, "NO_HEAVY_LIFTING"
+        elseif act.doer.components.inventory.noheavylifting and act.target:HasTag("heavy") then
+            return false, "NO_HEAVY_LIFTING"
         end
 
-        if (act.target:HasTag("spider") and act.doer:HasTag("spiderwhisperer")) and 
-           (act.target.components.follower.leader ~= nil and act.target.components.follower.leader ~= act.doer) then
+        if (act.target:HasTag("spider") and act.doer:HasTag("spiderwhisperer")) and
+            (act.target.components.follower.leader ~= nil and act.target.components.follower.leader ~= act.doer) then
             return false, "NOTMINE_SPIDER"
         end
         if act.target.components.curseditem and not act.target.components.curseditem:checkplayersinventoryforspace(act.doer) then
             return false, "FULL_OF_CURSES"
-        end		
+        end
 
         if act.target.components.inventory ~= nil and act.target:HasTag("drop_inventory_onpickup") then
             act.target.components.inventory:TransferInventory(act.doer)
@@ -1170,7 +1168,8 @@ PICKUP.fn = function(act)
                 --special case for trying to carry two backpacks
                 if equip.components.inventoryitem ~= nil and equip.components.inventoryitem.cangoincontainer then
                     --act.doer.components.inventory:SelectActiveItemFromEquipSlot(act.target.components.equippable.equipslot)
-                    act.doer.components.inventory:GiveItem(act.doer.components.inventory:Unequip(act.target.components.equippable.equipslot))
+                    act.doer.components.inventory:GiveItem(act.doer.components.inventory:Unequip(act.target.components
+                        .equippable.equipslot))
                 else
                     act.doer.components.inventory:DropItem(equip)
                 end
@@ -1195,55 +1194,54 @@ end
 AddAction(PICKUP)
 
 
-local HARVEST1 = GLOBAL.Action({priority = 10, mount_valid = true})
+local HARVEST1 = GLOBAL.Action({ priority = 10, mount_valid = true })
 HARVEST1.str = (GLOBAL.STRINGS.ACTIONS.HARVEST1)
 HARVEST1.id = "HARVEST1"
 HARVEST1.fn = function(act)
-	if act.target.components.melter then
-        return act.target.components.melter:Harvest(act.doer)		
-	end
+    if act.target.components.melter then
+        return act.target.components.melter:Harvest(act.doer)
+    end
 end
 AddAction(HARVEST1)
 
-local PAN = GLOBAL.Action({priority = 10, mount_valid = true})
+local PAN = GLOBAL.Action({ priority = 10, mount_valid = true })
 PAN.str = (GLOBAL.STRINGS.ACTIONS.PAN)
 PAN.id = "PAN"
 PAN.fn = function(act)
-	if act.target.components.workable and act.target.components.workable.action == ACTIONS.PAN then
-		local numworks = 1
+    if act.target.components.workable and act.target.components.workable.action == ACTIONS.PAN then
+        local numworks = 1
 
-		if act.invobject and act.invobject.components.tool then
-			numworks = act.invobject.components.tool:GetEffectiveness(ACTIONS.PAN)
-		elseif act.doer and act.doer.components.worker then
-			numworks = act.doer.components.worker:GetEffectiveness(ACTIONS.PAN)
-		end
-		act.target.components.workable:WorkedBy(act.doer, numworks)
-			
-	end
-	return true
+        if act.invobject and act.invobject.components.tool then
+            numworks = act.invobject.components.tool:GetEffectiveness(ACTIONS.PAN)
+        elseif act.doer and act.doer.components.worker then
+            numworks = act.doer.components.worker:GetEffectiveness(ACTIONS.PAN)
+        end
+        act.target.components.workable:WorkedBy(act.doer, numworks)
+    end
+    return true
 end
 AddAction(PAN)
 
 
-local INVESTIGATEGLASS = GLOBAL.Action({priority = 10, mount_valid = true})
+local INVESTIGATEGLASS = GLOBAL.Action({ priority = 10, mount_valid = true })
 INVESTIGATEGLASS.str = (GLOBAL.STRINGS.ACTIONS.INVESTIGATEGLASS)
 INVESTIGATEGLASS.id = "INVESTIGATEGLASS"
 INVESTIGATEGLASS.fn = function(act)
-	if act.target:HasTag("secret_room") then
-		act.target.Investigate(act.doer)
-		return true
-	end
+    if act.target:HasTag("secret_room") then
+        act.target.Investigate(act.doer)
+        return true
+    end
 
-	if act.target and act.target.components.mystery then
-		act.target.components.mystery:Investigate(act.doer)
-		
-	local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-	if act.doer ~= nil and equipamento then
-	equipamento.components.finiteuses:Use(1)
-	end
+    if act.target and act.target.components.mystery then
+        act.target.components.mystery:Investigate(act.doer)
 
-	return true
-	end
+        local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+        if act.doer ~= nil and equipamento then
+            equipamento.components.finiteuses:Use(1)
+        end
+
+        return true
+    end
 end
 AddAction(INVESTIGATEGLASS)
 
@@ -1251,52 +1249,50 @@ AddAction(INVESTIGATEGLASS)
 local function DoToolWork(act, workaction)
     if
         act.target.components.workable ~= nil and act.target.components.workable:CanBeWorked() and
-            act.target.components.workable.action == workaction
-     then
-	 
-		if act.target:HasTag("grass_tall") then
-		
-		local equipamento = act.doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        if equipamento and equipamento.prefab == "shears" then
-		local x, y, z = act.target.Transform:GetWorldPosition()
-		local gramaextra = SpawnPrefab("cutgrass")
-		if gramaextra then gramaextra.Transform:SetPosition(x, y, z) end
-		end
-		end
-		
-		if act.target:HasTag("hedgetoshear") then
-		local equipamento = act.doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        if equipamento and equipamento.prefab == "shears" then		
-		local x, y, z = act.target.Transform:GetWorldPosition()
-		local gramaextra = SpawnPrefab("clippings")
-		if gramaextra then	gramaextra.Transform:SetPosition(x, y, z) end
-		end
-		end	
+        act.target.components.workable.action == workaction
+    then
+        if act.target:HasTag("grass_tall") then
+            local equipamento = act.doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+            if equipamento and equipamento.prefab == "shears" then
+                local x, y, z = act.target.Transform:GetWorldPosition()
+                local gramaextra = SpawnPrefab("cutgrass")
+                if gramaextra then gramaextra.Transform:SetPosition(x, y, z) end
+            end
+        end
 
-		if act.target:HasTag("hangingvine") then
-		local equipamento = act.doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        if equipamento and equipamento.prefab == "shears" then			
-		local x, y, z = act.target.Transform:GetWorldPosition()	
-		act.target:DoTaskInTime(1, function()  
-		local gramaextra = SpawnPrefab("rope")
-		if gramaextra then gramaextra.Transform:SetPosition(x, y, z) end
-                end)		
-		end
-		end			
+        if act.target:HasTag("hedgetoshear") then
+            local equipamento = act.doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+            if equipamento and equipamento.prefab == "shears" then
+                local x, y, z = act.target.Transform:GetWorldPosition()
+                local gramaextra = SpawnPrefab("clippings")
+                if gramaextra then gramaextra.Transform:SetPosition(x, y, z) end
+            end
+        end
+
+        if act.target:HasTag("hangingvine") then
+            local equipamento = act.doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+            if equipamento and equipamento.prefab == "shears" then
+                local x, y, z = act.target.Transform:GetWorldPosition()
+                act.target:DoTaskInTime(1, function()
+                    local gramaextra = SpawnPrefab("rope")
+                    if gramaextra then gramaextra.Transform:SetPosition(x, y, z) end
+                end)
+            end
+        end
 
         act.target.components.workable:WorkedBy(
             act.doer,
             (act.invobject ~= nil and act.invobject.components.tool ~= nil and
                 act.invobject.components.tool:GetEffectiveness(workaction)) or
-                (act.doer ~= nil and act.doer.components.worker ~= nil and
-                    act.doer.components.worker:GetEffectiveness(workaction)) or
-                1
+            (act.doer ~= nil and act.doer.components.worker ~= nil and
+                act.doer.components.worker:GetEffectiveness(workaction)) or
+            1
         )
     end
     return true
 end
 
-local HACK = GLOBAL.Action({priority = 10, mount_valid = true})
+local HACK = GLOBAL.Action({ priority = 10, mount_valid = true })
 HACK.str = (GLOBAL.STRINGS.ACTIONS.HACK)
 HACK.id = "HACK"
 HACK.fn = function(act, ...)
@@ -1304,122 +1300,118 @@ HACK.fn = function(act, ...)
 end
 AddAction(HACK)
 
-local HACK1 = GLOBAL.Action({priority = 10, mount_valid = true})
+local HACK1 = GLOBAL.Action({ priority = 10, mount_valid = true })
 HACK1.str = (GLOBAL.STRINGS.ACTIONS.HACK)
 HACK1.id = "HACK1"
 HACK1.fn = function(act, ...)
-
-local equipamento = act.doer.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-if equipamento and equipamento.components.finiteuses then
-equipamento.components.finiteuses:Use(1)
-end
-local numworks = 1
-if equipamento and equipamento.components.tool then
-numworks = equipamento.components.tool:GetEffectiveness(ACTIONS.HACK)
-elseif act.doer and act.doer.components.worker then
-numworks = act.doer.components.worker:GetEffectiveness(ACTIONS.HACK)
-end
-if equipamento and equipamento.components.obsidiantool then
-equipamento.components.obsidiantool:Use(act.doer, act.target)
-end
-if act.target and act.target.components.hackable then
-act.target.components.hackable:Hack(act.doer, numworks)
-return true
-end
-if act.target and act.target.components.workable and act.target.components.workable.action == ACTIONS.HACK then
-act.target.components.workable:WorkedBy(act.doer, numworks)
-return true
-end
---    return DoToolWork(act, GLOBAL.ACTIONS.HACK)
+    local equipamento = act.doer.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+    if equipamento and equipamento.components.finiteuses then
+        equipamento.components.finiteuses:Use(1)
+    end
+    local numworks = 1
+    if equipamento and equipamento.components.tool then
+        numworks = equipamento.components.tool:GetEffectiveness(ACTIONS.HACK)
+    elseif act.doer and act.doer.components.worker then
+        numworks = act.doer.components.worker:GetEffectiveness(ACTIONS.HACK)
+    end
+    if equipamento and equipamento.components.obsidiantool then
+        equipamento.components.obsidiantool:Use(act.doer, act.target)
+    end
+    if act.target and act.target.components.hackable then
+        act.target.components.hackable:Hack(act.doer, numworks)
+        return true
+    end
+    if act.target and act.target.components.workable and act.target.components.workable.action == ACTIONS.HACK then
+        act.target.components.workable:WorkedBy(act.doer, numworks)
+        return true
+    end
+    --    return DoToolWork(act, GLOBAL.ACTIONS.HACK)
 end
 AddAction(HACK1)
 
 AddComponentAction("SCENE", "hackable", function(inst, doer, actions, right)
-local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+    local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
     if not right then
         if equipamento and equipamento:HasTag("machete") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then --and equipamento.components.hackable then --and inst.components.hackable.canbehacked then
             table.insert(actions, GLOBAL.ACTIONS.HACK1)
         end
-			
-   end
-   
-    if   right then   
-         if   doer:HasTag("ironlord") then
+    end
+
+    if right then
+        if doer:HasTag("ironlord") then
             table.insert(actions, GLOBAL.ACTIONS.HACK1)
-        end	
-    end		
+        end
+    end
 end)
 
-local GAS = GLOBAL.Action({priority = 10, distance = 3, mount_valid = true})
+local GAS = GLOBAL.Action({ priority = 10, distance = 3, mount_valid = true })
 GAS.str = (GLOBAL.STRINGS.ACTIONS.GAS)
 GAS.id = "GAS"
 GAS.fn = function(act)
-	if act.invobject and act.invobject.components.gasser then
-		act.invobject.components.gasser:Gas(act:GetActionPoint())
-		return true
-	end
+    if act.invobject and act.invobject.components.gasser then
+        act.invobject.components.gasser:Gas(act:GetActionPoint())
+        return true
+    end
 end
 AddAction(GAS)
 
 AddComponentAction("SCENE", "melter", function(inst, doer, actions, right)
     if right then
-	if not inst:HasTag("burnt") then
-	
-		if inst:HasTag("alloydone") then
-	        table.insert(actions, ACTIONS.HARVEST1)
-	    elseif inst.replica.container ~= nil and 
-		inst.replica.container:IsFull() then
-			table.insert(actions, ACTIONS.SMELT)
-	    end
-	end	
-end	
-
+        if not inst:HasTag("burnt") then
+            if inst:HasTag("alloydone") then
+                table.insert(actions, ACTIONS.HARVEST1)
+            elseif inst.replica.container ~= nil and
+                inst.replica.container:IsFull() then
+                table.insert(actions, ACTIONS.SMELT)
+            end
+        end
+    end
 end)
 
 
 
 AddComponentAction("SCENE", "workable", function(inst, doer, actions, right)
-            if right and doer:HasTag("ironlord") then
-			if inst:HasTag("tree") then	
-                table.insert(actions, ACTIONS.CHOP)
-            end
-			
-			if inst:HasTag("bush_vine") or inst:HasTag("bambootree") then	
-                table.insert(actions, ACTIONS.HACK)
-            end	
+    if right and doer:HasTag("ironlord") then
+        if inst:HasTag("tree") then
+            table.insert(actions, ACTIONS.CHOP)
+        end
 
-			if inst:HasTag("boulder") then	
-                table.insert(actions, ACTIONS.MINE)
-            end				
+        if inst:HasTag("bush_vine") or inst:HasTag("bambootree") then
+            table.insert(actions, ACTIONS.HACK)
+        end
 
-			if inst:HasTag("structure") then	
-                table.insert(actions, ACTIONS.HAMMER)
-            end	
+        if inst:HasTag("boulder") then
+            table.insert(actions, ACTIONS.MINE)
+        end
 
-			end
+        if inst:HasTag("structure") then
+            table.insert(actions, ACTIONS.HAMMER)
+        end
+    end
 end)
 
 -------------------------------------------
 AddComponentAction("SCENE", "dislodgeable", function(inst, doer, actions, right)
-	local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+    local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
     if not right then
-	if equipamento and equipamento:HasTag("ballpein_hammer") and inst:HasTag("dislodgeable") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then 
-        table.insert(actions, ACTIONS.DISLODGE)
-		return
+        if equipamento and equipamento:HasTag("ballpein_hammer") and inst:HasTag("dislodgeable") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
+            table.insert(actions, ACTIONS.DISLODGE)
+            -- print("addcomponent action aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+            -- print(equipamento.prefab)
+            -- print(inst.prefab)
+            return
+        end
     end
-end	
-
 end)
 
 
 AddComponentAction("SCENE", "mystery", function(inst, doer, actions, right)
     if not right then
-	local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-	if equipamento and equipamento:HasTag("magnifying_glass") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
-        table.insert(actions, ACTIONS.INVESTIGATEGLASS)
+        local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+        if equipamento and equipamento:HasTag("magnifying_glass") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
+            table.insert(actions, ACTIONS.INVESTIGATEGLASS)
+        end
     end
-end	
-
 end)
 
 
@@ -1428,172 +1420,169 @@ AddComponentAction(
     "interactions",
     function(inst, doer, actions, right)
         local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        --local rightrect = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) 
+        --local rightrect = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
         --  and doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).components.reticule ~= nil or nil
         if right then
-
             if equipamento and equipamento:HasTag("boatrepairkit") and doer:HasTag("aquatic") then
                 table.insert(actions, GLOBAL.ACTIONS.BOATREPAIR)
                 return
-            end		
-					
-            if  inst:HasTag("boatsw") and not inst:HasTag("ocupado") and
-                    not (doer.replica.rider:IsRiding() or
-                        doer:HasTag("bonked"))
-             then
+            end
+
+            if inst:HasTag("boatsw") and not inst:HasTag("ocupado") and
+                not (doer.replica.rider:IsRiding() or
+                    doer:HasTag("bonked"))
+            then
                 table.insert(actions, GLOBAL.ACTIONS.BOATMOUNT)
             end
         end
-		
-	if not right then
-	
-	
-            if  inst:HasTag("boatsw") and not inst:HasTag("ocupado") and
-                    not (doer.replica.rider:IsRiding() or
-                        doer:HasTag("bonked"))
-             then
-                table.insert(actions, GLOBAL.ACTIONS.BOATMOUNT)
-            end	
-	
-	
-	
-            if  inst.prefab == "surfboard" and not inst:HasTag("ocupado") and not doer.replica.inventory:IsFull() then
-                table.insert(actions, GLOBAL.ACTIONS.RETRIEVE)
-                return
-            end			
-			
-            if  inst.prefab == "corkboat" and not inst:HasTag("ocupado") and not doer.replica.inventory:IsFull() then
-                table.insert(actions, GLOBAL.ACTIONS.RETRIEVE)
-                return
-            end			
 
-            if  inst.prefab == "fish_farm" then
+        if not right then
+            if inst:HasTag("boatsw") and not inst:HasTag("ocupado") and
+                not (doer.replica.rider:IsRiding() or
+                    doer:HasTag("bonked"))
+            then
+                table.insert(actions, GLOBAL.ACTIONS.BOATMOUNT)
+            end
+
+
+
+            if inst.prefab == "surfboard" and not inst:HasTag("ocupado") and not doer.replica.inventory:IsFull() then
                 table.insert(actions, GLOBAL.ACTIONS.RETRIEVE)
                 return
-            end				
-			
+            end
+
+            if inst.prefab == "corkboat" and not inst:HasTag("ocupado") and not doer.replica.inventory:IsFull() then
+                table.insert(actions, GLOBAL.ACTIONS.RETRIEVE)
+                return
+            end
+
+            if inst.prefab == "fish_farm" then
+                table.insert(actions, GLOBAL.ACTIONS.RETRIEVE)
+                return
+            end
+
             if inst:HasTag("wallhousehamlet") and equipamento and equipamento:HasTag("hameletwallpaper") then
                 table.insert(actions, GLOBAL.ACTIONS.PAINT)
                 return
-            end			
-			
+            end
+
             if inst:HasTag("pisohousehamlet") and equipamento and equipamento:HasTag("hameletfloor") then
                 table.insert(actions, GLOBAL.ACTIONS.PAINT)
                 return
-            end				
-	end
+            end
+        end
     end
 )
 
-local ACTIVATESAIL = GLOBAL.Action({priority = 10, mount_valid = true})
+local ACTIVATESAIL = GLOBAL.Action({ priority = 10, mount_valid = true })
 ACTIVATESAIL.str = (GLOBAL.STRINGS.ACTIONS.LANTERNON)
 ACTIVATESAIL.id = "ACTIVATESAIL"
 ACTIVATESAIL.fn = function(act)
-if act.doer ~= nil and act.invobject:HasTag("boatlight") then
-act.invobject:AddTag("ligado") end
-return true
+    if act.doer ~= nil and act.invobject:HasTag("boatlight") then
+        act.invobject:AddTag("ligado")
+    end
+    return true
 end
 AddAction(ACTIVATESAIL)
 
-local COMPACTPOOP = GLOBAL.Action({priority = 10, mount_valid = true})
+local COMPACTPOOP = GLOBAL.Action({ priority = 10, mount_valid = true })
 COMPACTPOOP.str = "Compact Poop"
 COMPACTPOOP.id = "COMPACTPOOP"
 COMPACTPOOP.fn = function(act)
-if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then 
-nut = act.invobject.components.stackable:Get()
-nut:Remove()
-else
-act.invobject:Remove()
-end
-act.doer.components.inventory:GiveItem(GLOBAL.SpawnPrefab("poop2"))
-return true
+    if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then
+        nut = act.invobject.components.stackable:Get()
+        nut:Remove()
+    else
+        act.invobject:Remove()
+    end
+    act.doer.components.inventory:GiveItem(GLOBAL.SpawnPrefab("poop2"))
+    return true
 end
 AddAction(COMPACTPOOP)
 
-local DESACTIVATESAIL = GLOBAL.Action({priority = 10, mount_valid = true})
+local DESACTIVATESAIL = GLOBAL.Action({ priority = 10, mount_valid = true })
 DESACTIVATESAIL.str = (GLOBAL.STRINGS.ACTIONS.LANTERNOFF)
 DESACTIVATESAIL.id = "DESACTIVATESAIL"
 DESACTIVATESAIL.fn = function(act)
-if act.doer ~= nil and act.invobject:HasTag("boatlight") then
-act.invobject:RemoveTag("ligado") end
-return true
+    if act.doer ~= nil and act.invobject:HasTag("boatlight") then
+        act.invobject:RemoveTag("ligado")
+    end
+    return true
 end
 AddAction(DESACTIVATESAIL)
 
 AddComponentAction(
-"INVENTORY", 
-"interactions",
-function(inst, doer, actions)
-if inst:HasTag("boatlight") and inst:HasTag("nonavio") and not inst:HasTag("ligado") then     --and inst:HasTag("nonavio")
-        table.insert(actions, ACTIONS.ACTIVATESAIL)
-end
-if inst:HasTag("boatlight") and inst:HasTag("ligado") then
-        table.insert(actions, ACTIONS.DESACTIVATESAIL)
-end
+    "INVENTORY",
+    "interactions",
+    function(inst, doer, actions)
+        if inst:HasTag("boatlight") and inst:HasTag("nonavio") and not inst:HasTag("ligado") then --and inst:HasTag("nonavio")
+            table.insert(actions, ACTIONS.ACTIVATESAIL)
+        end
+        if inst:HasTag("boatlight") and inst:HasTag("ligado") then
+            table.insert(actions, ACTIONS.DESACTIVATESAIL)
+        end
 
-if inst:HasTag("boatrepairkit") then
-        table.insert(actions, ACTIONS.BOATREPAIR)
-end
+        if inst:HasTag("boatrepairkit") then
+            table.insert(actions, ACTIONS.BOATREPAIR)
+        end
 
-if inst:HasTag("tunacan") then
-        table.insert(actions, ACTIONS.OPENTUNA)
-end
+        if inst:HasTag("tunacan") then
+            table.insert(actions, ACTIONS.OPENTUNA)
+        end
 
-if inst:HasTag("pooptocompact") and doer:HasTag("wilbur") then
-table.insert(actions, ACTIONS.COMPACTPOOP)
-end
-
-end)
+        if inst:HasTag("pooptocompact") and doer:HasTag("wilbur") then
+            table.insert(actions, ACTIONS.COMPACTPOOP)
+        end
+    end)
 
 AddComponentAction(
     "SCENE",
     "health",
     function(inst, doer, actions, right)
-    local containedsail = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO)             
-    if  right and doer:HasTag("aquatic") and containedsail and containedsail.replica.container and containedsail.replica.container:GetItemInSlot(2) ~= nil and containedsail.replica.container:GetItemInSlot(2):HasTag("boatcannon") and    
-        not (doer.replica.rider:IsRiding() or doer.replica.inventory:IsHeavyLifting() or doer:HasTag("bonked") or doer:HasTag("deleidotiro")) then
-        table.insert(actions, GLOBAL.ACTIONS.BOATCANNON)
-    end 
-	
+        local containedsail = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO)
+        if right and doer:HasTag("aquatic") and containedsail and containedsail.replica.container and containedsail.replica.container:GetItemInSlot(2) ~= nil and containedsail.replica.container:GetItemInSlot(2):HasTag("boatcannon") and
+            not (doer.replica.rider:IsRiding() or doer.replica.inventory:IsHeavyLifting() or doer:HasTag("bonked") or doer:HasTag("deleidotiro")) then
+            table.insert(actions, GLOBAL.ACTIONS.BOATCANNON)
+        end
 
 
-            if not right and doer:HasTag("ironlord") and
+
+        if not right and doer:HasTag("ironlord") and
+            inst.replica.health ~= nil and not inst.replica.health:IsDead() and
+            inst.replica.combat ~= nil and inst.replica.combat:CanBeAttacked(doer) then
+            table.insert(actions, GLOBAL.ACTIONS.ATTACK)
+        end
+
+        if GLOBAL.TheWorld.ismastersim then
+            if right and doer:HasTag("ironlord") and not inst:HasTag("ironlord") and
                 inst.replica.health ~= nil and not inst.replica.health:IsDead() and
                 inst.replica.combat ~= nil and inst.replica.combat:CanBeAttacked(doer) then
-                table.insert(actions, GLOBAL.ACTIONS.ATTACK)
+                table.insert(actions, ACTIONS.TIRO)
             end
-			
-			if GLOBAL.TheWorld.ismastersim then 
-			if right and doer:HasTag("ironlord") and not inst:HasTag("ironlord") and
-             inst.replica.health ~= nil and not inst.replica.health:IsDead() and
-             inst.replica.combat ~= nil and inst.replica.combat:CanBeAttacked(doer) then
-             table.insert(actions, ACTIONS.TIRO)
-            end
-			end
-
+        end
     end)
 
 AddComponentAction("SCENE", "shopped", function(inst, doer, actions, right)
     if not right then
-	if doer.components.shopper then --and inst.components.shopdispenser and inst.components.shopdispenser.item_served then
-	table.insert(actions, ACTIONS.SHOP)
+        if doer.components.shopper then --and inst.components.shopdispenser and inst.components.shopdispenser.item_served then
+            table.insert(actions, ACTIONS.SHOP)
+        end
     end
-	end
 end)
 
 AddComponentAction("POINT", "gasser", function(inst, doer, pos, actions, right)
     if right and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
-	table.insert(actions, ACTIONS.GAS)
-	end
+        table.insert(actions, ACTIONS.GAS)
+    end
 end)
 
 AddComponentAction("SCENE", "poisonable", function(inst, doer, actions, right)
     if right then
-	local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-	if equipamento and equipamento:HasTag("bugrepellent") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then	
-	table.insert(actions, ACTIONS.GAS)
-	end
-	end
+        local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+        if equipamento and equipamento:HasTag("bugrepellent") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
+            table.insert(actions, ACTIONS.GAS)
+        end
+    end
 end)
 ----------------------------------------permite pular do barco sem ter equipamento---------------------------------------------------------------------------
 
@@ -1619,10 +1608,10 @@ AddComponentPostInit(
         function self:GetLeftClickActions(position, target)
             local boat = self.inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO)
             local acts = OldGetLeftClickActions(self, position, target)
-						
+
             if #acts <= 0 and boat and GLOBAL.TheWorld.Map:IsPassableAtPoint(position:Get()) then
                 acts = self:GetPointActions(position, boat, nil)
-			end
+            end
             return acts
         end
     end
@@ -1639,109 +1628,108 @@ local function boatdismon(inst, doer, pos, actions, right, target)
     local terraformer =
         doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO) and
         doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO).components.terraformer ~= nil or
-        nil 
+        nil
 
-    local containedsail = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO)             
-    if right and doer:HasTag("aquatic") and containedsail and containedsail.replica.container and containedsail.replica.container:GetItemInSlot(2) ~= nil and containedsail.replica.container:GetItemInSlot(2):HasTag("boatcannon") and    
+    local containedsail = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO)
+    if right and doer:HasTag("aquatic") and containedsail and containedsail.replica.container and containedsail.replica.container:GetItemInSlot(2) ~= nil and containedsail.replica.container:GetItemInSlot(2):HasTag("boatcannon") and
         not (doer.replica.rider:IsRiding() or doer.replica.inventory:IsHeavyLifting() or doer:HasTag("bonked") or doer:HasTag("deleidotiro")) then
-		return table.insert(actions, GLOBAL.ACTIONS.BOATCANNON)
-    end 
-   
+        return table.insert(actions, GLOBAL.ACTIONS.BOATCANNON)
+    end
+
     if not right and rightrect == nil and terraformer == nil and doer:HasTag("aquatic") and
-			GLOBAL.TheWorld.Map:IsPassableAtPoint(pos:Get()) and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked"))
-     then 
+        GLOBAL.TheWorld.Map:IsPassableAtPoint(pos:Get()) and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked"))
+    then
         table.insert(actions, GLOBAL.ACTIONS.BOATDISMOUNT)
     end
 
 
-    if right and rightrect == nil and terraformer == nil and dist <= 20 then 
-	local doer_x, doer_y, doer_z = doer.Transform:GetWorldPosition()
-	local planchadesurf = GLOBAL.TheWorld.Map:GetPlatformAtPoint(doer_x, doer_z)
-	if planchadesurf and planchadesurf:HasTag("planchadesurf") then
-        table.insert(actions, GLOBAL.ACTIONS.SURF)
-	end
-    end	
-			
+    if right and rightrect == nil and terraformer == nil and dist <= 20 then
+        local doer_x, doer_y, doer_z = doer.Transform:GetWorldPosition()
+        local planchadesurf = GLOBAL.TheWorld.Map:GetPlatformAtPoint(doer_x, doer_z)
+        if planchadesurf and planchadesurf:HasTag("planchadesurf") then
+            table.insert(actions, GLOBAL.ACTIONS.SURF)
+        end
+    end
 end
 AddComponentAction("POINT", "equippable", boatdismon)
 
 ------------------------------------------------------------------- players stategraph
 local player_overrides = {
-	wathgrithr="wathgrithr_sail",
-	waxwell="waxwell_sail",
-	wendy="wendy_sail",
-	wickerbottom="wickerbottom_sail",
-	willow="willow_sail",
-	wilson="wilson_sail",
-	wes="wes_sail",
-	webber="webber_sail",
-	winona="winona_sail",
-	wolfgang="wolfgang_sail",
-	woodie="woodie_sail",
-	wx78="wx78_sail",
+    wathgrithr = "wathgrithr_sail",
+    waxwell = "waxwell_sail",
+    wendy = "wendy_sail",
+    wickerbottom = "wickerbottom_sail",
+    willow = "willow_sail",
+    wilson = "wilson_sail",
+    wes = "wes_sail",
+    webber = "webber_sail",
+    winona = "winona_sail",
+    wolfgang = "wolfgang_sail",
+    woodie = "woodie_sail",
+    wx78 = "wx78_sail",
 }
 
 local state_jumponboatstart_pre =
     GLOBAL.State {
-    name = "jumponboatstart_pre",
-    tags = {"doing", "busy", "nointerrupt"},
-    onenter = function(inst)
-        inst.components.locomotor:Stop()
-        local heavy = inst.replica.inventory:IsHeavyLifting()
-        inst.AnimState:PlayAnimation(heavy and "heavy_jump_pre" or "jump_pre")
-        inst.sg:SetTimeout(GLOBAL.FRAMES * 18)
-    end,
-    events = {
-        GLOBAL.EventHandler(
-            "animover",
-            function(inst)
-                if GLOBAL.TheWorld.ismastersim then
-                    inst:PerformBufferedAction()
+        name = "jumponboatstart_pre",
+        tags = { "doing", "busy", "nointerrupt" },
+        onenter = function(inst)
+            inst.components.locomotor:Stop()
+            local heavy = inst.replica.inventory:IsHeavyLifting()
+            inst.AnimState:PlayAnimation(heavy and "heavy_jump_pre" or "jump_pre")
+            inst.sg:SetTimeout(GLOBAL.FRAMES * 18)
+        end,
+        events = {
+            GLOBAL.EventHandler(
+                "animover",
+                function(inst)
+                    if GLOBAL.TheWorld.ismastersim then
+                        inst:PerformBufferedAction()
+                    end
+                    if not GLOBAL.TheWorld.ismastersim then
+                        inst:PerformPreviewBufferedAction()
+                    end
                 end
-                if not GLOBAL.TheWorld.ismastersim then
-                    inst:PerformPreviewBufferedAction()
+            )
+        },
+        onupdate = function(inst)
+            if not GLOBAL.TheWorld.ismastersim then
+                if inst:HasTag("doing") then
+                    if inst.entity:FlattenMovementPrediction() then
+                        inst.sg:GoToState("idle", "noanim")
+                    end
+                elseif inst.bufferedaction == nil then
+                    inst.sg:GoToState("idle", true)
                 end
             end
-        )
-    },
-    onupdate = function(inst)
-        if not GLOBAL.TheWorld.ismastersim then
-            if inst:HasTag("doing") then
-                if inst.entity:FlattenMovementPrediction() then
-                    inst.sg:GoToState("idle", "noanim")
-                end
-            elseif inst.bufferedaction == nil then
-                inst.sg:GoToState("idle", true)
+        end,
+        ontimeout = function(inst)
+            if not GLOBAL.TheWorld.ismastersim then -- client
+                inst:ClearBufferedAction()
             end
+            inst.sg:GoToState("idle")
+        end,
+        onexit = function(inst)
+            if inst.bufferedaction == inst.sg.statemem.action then
+                inst:ClearBufferedAction()
+            end
+            inst.sg.statemem.action = nil
         end
-    end,
-    ontimeout = function(inst)
-        if not GLOBAL.TheWorld.ismastersim then -- client
-            inst:ClearBufferedAction()
-        end
-        inst.sg:GoToState("idle")
-    end,
-    onexit = function(inst)
-        if inst.bufferedaction == inst.sg.statemem.action then
-            inst:ClearBufferedAction()
-        end
-        inst.sg.statemem.action = nil
-    end
-}
+    }
 AddStategraphState("wilson", state_jumponboatstart_pre)
 
 local state_jumponboatstart_preclient =
     GLOBAL.State {
-    name = "jumponboatstart_pre",
-    tags = {"doing", "busy", "nointerrupt"},
-    onenter = function(inst)
-        inst.components.locomotor:Stop()
-        local heavy = inst.replica.inventory:IsHeavyLifting()
-        inst.AnimState:PlayAnimation(heavy and "heavy_jump_pre" or "jump_pre")
-        inst:PerformPreviewBufferedAction()
-        inst.sg:SetTimeout(TIMEOUT)
-    end,
-	
+        name = "jumponboatstart_pre",
+        tags = { "doing", "busy", "nointerrupt" },
+        onenter = function(inst)
+            inst.components.locomotor:Stop()
+            local heavy = inst.replica.inventory:IsHeavyLifting()
+            inst.AnimState:PlayAnimation(heavy and "heavy_jump_pre" or "jump_pre")
+            inst:PerformPreviewBufferedAction()
+            inst.sg:SetTimeout(TIMEOUT)
+        end,
+
         onupdate = function(inst)
             if inst:HasTag("doing") then
                 if inst.entity:FlattenMovementPrediction() then
@@ -1756,7 +1744,7 @@ local state_jumponboatstart_preclient =
             inst:ClearBufferedAction()
             inst.sg:GoToState("idle")
         end,
-}
+    }
 
 
 AddStategraphState("wilson_client", state_jumponboatstart_preclient)
@@ -1767,13 +1755,13 @@ AddStategraphActionHandler(
     GLOBAL.ActionHandler(
         GLOBAL.ACTIONS.LIGHT,
         function(inst)
-			local equipped = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+            local equipped = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
             if equipped and equipped:HasTag("magnifying_glass") then
                 return "investigate_start"
             else
                 return "give"
             end
-		end
+        end
     )
 )
 
@@ -1782,13 +1770,13 @@ AddStategraphActionHandler(
     GLOBAL.ActionHandler(
         GLOBAL.ACTIONS.LIGHT,
         function(inst)
-			local equipped = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+            local equipped = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
             if equipped and equipped:HasTag("magnifying_glass") then
                 return "investigate_start"
             else
                 return "give"
             end
-		end
+        end
     )
 )
 
@@ -1797,19 +1785,19 @@ AddStategraphActionHandler(
     GLOBAL.ActionHandler(
         GLOBAL.ACTIONS.PLAY,
         function(inst, action)
-	           if action.invobject ~= nil then
+            if action.invobject ~= nil then
                 return (action.invobject:HasTag("flute") and "play_flute")
                     or (action.invobject:HasTag("horn") and "play_horn")
                     or (action.invobject:HasTag("horn2") and "play_horn2")
-                    or (action.invobject:HasTag("horn3") and "play_horn3")					
+                    or (action.invobject:HasTag("horn3") and "play_horn3")
                     or (action.invobject:HasTag("bell") and "play_bell")
                     or (action.invobject:HasTag("whistle") and "play_whistle")
-					or (action.invobject:HasTag("flutesw") and "play_flutesw")
-					or (action.invobject:HasTag("goddess_bell") and "play_goddess_bell")
-					or (action.invobject:HasTag("goddess_flute") and "play_goddess_flute")					
+                    or (action.invobject:HasTag("flutesw") and "play_flutesw")
+                    or (action.invobject:HasTag("goddess_bell") and "play_goddess_bell")
+                    or (action.invobject:HasTag("goddess_flute") and "play_goddess_flute")
                     or nil
             end
-		end
+        end
     )
 )
 
@@ -1818,17 +1806,17 @@ AddStategraphActionHandler(
     GLOBAL.ActionHandler(
         GLOBAL.ACTIONS.PLAY,
         function(inst, action)
-	           if action.invobject ~= nil then
+            if action.invobject ~= nil then
                 return (action.invobject:HasTag("flute") and "play_flute")
                     or (action.invobject:HasTag("horn") and "play_horn")
                     or (action.invobject:HasTag("horn2") and "play_horn2")
-                    or (action.invobject:HasTag("horn3") and "play_horn3")					
+                    or (action.invobject:HasTag("horn3") and "play_horn3")
                     or (action.invobject:HasTag("bell") and "play_bell")
                     or (action.invobject:HasTag("whistle") and "play_whistle")
-					or (action.invobject:HasTag("flutesw") and "play_flutesw")
+                    or (action.invobject:HasTag("flutesw") and "play_flutesw")
                     or nil
             end
-		end
+        end
     )
 )
 
@@ -1843,10 +1831,11 @@ AddStategraphState(
             inst.components.locomotor:Stop()
             inst.AnimState:PlayAnimation("action_uniqueitem_pre")
             inst.AnimState:PushAnimation("horn", false)
-			inst.AnimState:OverrideSymbol("horn01", "swap_wind_conch", "swap_horn")
+            inst.AnimState:OverrideSymbol("horn01", "swap_wind_conch", "swap_horn")
             --inst.AnimState:Hide("ARM_carry")
             inst.AnimState:Show("ARM_normal")
-            inst.components.inventory:ReturnActiveActionItem(inst.bufferedaction ~= nil and inst.bufferedaction.invobject or nil)
+            inst.components.inventory:ReturnActiveActionItem(inst.bufferedaction ~= nil and inst.bufferedaction
+                .invobject or nil)
         end,
 
         timeline =
@@ -1876,32 +1865,32 @@ AddStategraphState(
             end
         end,
     })
-	
+
 AddStategraphState(
     "wilson_client",
     GLOBAL.State {
         name = "play_horn2",
         tags = { "doing", "busy", "playing" },
-		
-       onenter = function(inst)
+
+        onenter = function(inst)
             inst.components.locomotor:Stop()
             inst.AnimState:PlayAnimation("action_uniqueitem_pre")
             inst.AnimState:PushAnimation("horn", false)
-			inst.AnimState:OverrideSymbol("horn01", "swap_wind_conch", "swap_horn")
+            inst.AnimState:OverrideSymbol("horn01", "swap_wind_conch", "swap_horn")
             inst.AnimState:Show("ARM_normal")
-			inst:PerformPreviewBufferedAction()				
+            inst:PerformPreviewBufferedAction()
         end,
 
         timeline =
         {
             GLOBAL.TimeEvent(21 * FRAMES, function(inst)
-                    inst.SoundEmitter:PlaySound("dontstarve/common/horn_beefalo", "horn2")
+                inst.SoundEmitter:PlaySound("dontstarve/common/horn_beefalo", "horn2")
             end),
 
-			GLOBAL.TimeEvent(36 * FRAMES, function(inst)
-					inst.sg:RemoveStateTag("busy")
-			end),
-					
+            GLOBAL.TimeEvent(36 * FRAMES, function(inst)
+                inst.sg:RemoveStateTag("busy")
+            end),
+
         },
 
         events =
@@ -1916,27 +1905,27 @@ AddStategraphState(
         onexit = function(inst)
             if inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
                 inst.AnimState:Show("ARM_carry")
-                inst.AnimState:Hide("ARM_normal")			
+                inst.AnimState:Hide("ARM_normal")
             end
-        end,	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-    })	
-	
+        end,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    })
+
 AddStategraphState(
     "wilson",
     GLOBAL.State {
@@ -1947,10 +1936,11 @@ AddStategraphState(
             inst.components.locomotor:Stop()
             inst.AnimState:PlayAnimation("action_uniqueitem_pre")
             inst.AnimState:PushAnimation("horn", false)
-			inst.AnimState:OverrideSymbol("horn01", "swap_antler", "swap_horn")
+            inst.AnimState:OverrideSymbol("horn01", "swap_antler", "swap_horn")
             --inst.AnimState:Hide("ARM_carry")
             inst.AnimState:Show("ARM_normal")
-            inst.components.inventory:ReturnActiveActionItem(inst.bufferedaction ~= nil and inst.bufferedaction.invobject or nil)
+            inst.components.inventory:ReturnActiveActionItem(inst.bufferedaction ~= nil and inst.bufferedaction
+                .invobject or nil)
         end,
 
         timeline =
@@ -1979,7 +1969,7 @@ AddStategraphState(
                 inst.AnimState:Hide("ARM_normal")
             end
         end,
-    })	
+    })
 
 AddStategraphState(
     "wilson_client",
@@ -1991,21 +1981,21 @@ AddStategraphState(
             inst.components.locomotor:Stop()
             inst.AnimState:PlayAnimation("action_uniqueitem_pre")
             inst.AnimState:PushAnimation("horn", false)
-			inst.AnimState:OverrideSymbol("horn01", "swap_antler", "swap_horn")
+            inst.AnimState:OverrideSymbol("horn01", "swap_antler", "swap_horn")
             inst.AnimState:Show("ARM_normal")
-			inst:PerformPreviewBufferedAction()		
+            inst:PerformPreviewBufferedAction()
         end,
 
         timeline =
         {
             GLOBAL.TimeEvent(21 * FRAMES, function(inst)
-                    inst.SoundEmitter:PlaySound("dontstarve/common/horn_beefalo", "horn2")
+                inst.SoundEmitter:PlaySound("dontstarve/common/horn_beefalo", "horn2")
             end),
 
-			GLOBAL.TimeEvent(36 * FRAMES, function(inst)
-					inst.sg:RemoveStateTag("busy")
-			end),
-					
+            GLOBAL.TimeEvent(36 * FRAMES, function(inst)
+                inst.sg:RemoveStateTag("busy")
+            end),
+
         },
 
         events =
@@ -2023,13 +2013,13 @@ AddStategraphState(
                 inst.AnimState:Hide("ARM_normal")
             end
         end,
-    })	
-	
+    })
+
 AddStategraphState(
     "wilson",
-    GLOBAL.State{
+    GLOBAL.State {
         name = "play_flutesw",
-		tags = { "doing", "busy", "playing" },
+        tags = { "doing", "busy", "playing" },
 
         onenter = function(inst)
             inst.components.locomotor:Stop()
@@ -2047,24 +2037,24 @@ AddStategraphState(
                 if inst:PerformBufferedAction() then
                     inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/ox_flute", "flute")
                 else
-					inst.sg.statemem.action_failed = true
-					inst.AnimState:SetFrame(94)
+                    inst.sg.statemem.action_failed = true
+                    inst.AnimState:SetFrame(94)
                 end
             end),
-			GLOBAL.TimeEvent(36 * FRAMES, function(inst)
-				if inst.sg.statemem.action_failed then
-					inst.sg:RemoveStateTag("busy")
-				end
-			end),
-			GLOBAL.TimeEvent(52 * FRAMES, function(inst)
-				if not inst.sg.statemem.action_failed then
-					inst.sg:RemoveStateTag("busy")
-				end
-			end),
+            GLOBAL.TimeEvent(36 * FRAMES, function(inst)
+                if inst.sg.statemem.action_failed then
+                    inst.sg:RemoveStateTag("busy")
+                end
+            end),
+            GLOBAL.TimeEvent(52 * FRAMES, function(inst)
+                if not inst.sg.statemem.action_failed then
+                    inst.sg:RemoveStateTag("busy")
+                end
+            end),
             GLOBAL.TimeEvent(85 * FRAMES, function(inst)
-				if not inst.sg.statemem.action_failed then
-					inst.SoundEmitter:KillSound("flute")
-				end
+                if not inst.sg.statemem.action_failed then
+                    inst.SoundEmitter:KillSound("flute")
+                end
             end),
         },
 
@@ -2079,15 +2069,15 @@ AddStategraphState(
 
         onexit = function(inst)
             inst.SoundEmitter:KillSound("flute")
-			inst.AnimState:ClearOverrideSymbol("pan_flute01")
+            inst.AnimState:ClearOverrideSymbol("pan_flute01")
         end,
     })
-	
+
 AddStategraphState(
     "wilson_client",
-    GLOBAL.State{
+    GLOBAL.State {
         name = "play_flutesw",
-		tags = { "doing", "busy", "playing" },
+        tags = { "doing", "busy", "playing" },
 
         onenter = function(inst)
             inst.components.locomotor:Stop()
@@ -2102,13 +2092,13 @@ AddStategraphState(
                 inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/ox_flute", "flute")
             end),
 
-			GLOBAL.TimeEvent(52 * FRAMES, function(inst)
-					inst.sg:RemoveStateTag("busy")
-			end),
-            GLOBAL.TimeEvent(85 * FRAMES, function(inst)
-					inst:PerformPreviewBufferedAction()
+            GLOBAL.TimeEvent(52 * FRAMES, function(inst)
+                inst.sg:RemoveStateTag("busy")
             end),
-					
+            GLOBAL.TimeEvent(85 * FRAMES, function(inst)
+                inst:PerformPreviewBufferedAction()
+            end),
+
         },
 
         events =
@@ -2122,29 +2112,29 @@ AddStategraphState(
 
         onexit = function(inst)
             inst.SoundEmitter:KillSound("flute")
-			inst.AnimState:ClearOverrideSymbol("pan_flute01")
+            inst.AnimState:ClearOverrideSymbol("pan_flute01")
         end,
-    })	
-		
+    })
+
 AddStategraphActionHandler(
     "wilson",
     GLOBAL.ActionHandler(
         GLOBAL.ACTIONS.BLINK,
-        function(inst, action)	
---		if inst:HasTag("aquatic") and inst:HasTag("soulstealer") then return false end
-		local interior = GLOBAL.GetClosestInstWithTag("blows_air", inst, 30)
-		if interior then return false end
-        if  GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_SWELL and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_ROUGH and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL_SHORE and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_WATERLOG and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_HAZARDOUS then	
-            return action.invobject == nil and inst:HasTag("soulstealer") and "portal_jumpin_pre" or "quicktele"			
-		end
-		end
+        function(inst, action)
+            --		if inst:HasTag("aquatic") and inst:HasTag("soulstealer") then return false end
+            local interior = GLOBAL.GetClosestInstWithTag("blows_air", inst, 30)
+            if interior then return false end
+            if GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_SWELL and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_ROUGH and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL_SHORE and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_WATERLOG and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_HAZARDOUS then
+                return action.invobject == nil and inst:HasTag("soulstealer") and "portal_jumpin_pre" or "quicktele"
+            end
+        end
     )
 )
 
@@ -2153,21 +2143,21 @@ AddStategraphActionHandler(
     "wilson_client",
     GLOBAL.ActionHandler(
         GLOBAL.ACTIONS.BLINK,
-        function(inst, action)	
---		if inst:HasTag("aquatic") and inst:HasTag("soulstealer") then return false end
-		local interior = GLOBAL.GetClosestInstWithTag("blows_air", inst, 30)
-		if interior then return false end
-        if  GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_SWELL and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_ROUGH and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL_SHORE and
-			GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_WATERLOG and
-            GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_HAZARDOUS then	
-            return action.invobject == nil and inst:HasTag("soulstealer") and "portal_jumpin_pre" or "quicktele"			
-		end
-		end
+        function(inst, action)
+            --		if inst:HasTag("aquatic") and inst:HasTag("soulstealer") then return false end
+            local interior = GLOBAL.GetClosestInstWithTag("blows_air", inst, 30)
+            if interior then return false end
+            if GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_SWELL and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_ROUGH and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL_SHORE and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_WATERLOG and
+                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_HAZARDOUS then
+                return action.invobject == nil and inst:HasTag("soulstealer") and "portal_jumpin_pre" or "quicktele"
+            end
+        end
     )
 )
 
@@ -2175,17 +2165,17 @@ AddStategraphState(
     "wilson",
     GLOBAL.State {
         name = "jumponboatstart",
-        tags = { "doing", "nointerupt", "busy", "canrotate", "nomorph", "nopredict"},
+        tags = { "doing", "nointerupt", "busy", "canrotate", "nomorph", "nopredict" },
         onenter = function(inst, target)
-        inst.Physics:ClearCollisionMask()
-        inst.Physics:CollidesWith(GLOBAL.COLLISION.GROUND)
-        inst.Physics:CollidesWith(GLOBAL.COLLISION.GIANTS)
+            inst.Physics:ClearCollisionMask()
+            inst.Physics:CollidesWith(GLOBAL.COLLISION.GROUND)
+            inst.Physics:CollidesWith(GLOBAL.COLLISION.GIANTS)
 
-        inst.sg.statemem.heavy = inst.replica.inventory:IsHeavyLifting()
-        inst.AnimState:PlayAnimation(inst.sg.statemem.heavy and "heavy_jumpout" or "jump")
+            inst.sg.statemem.heavy = inst.replica.inventory:IsHeavyLifting()
+            inst.AnimState:PlayAnimation(inst.sg.statemem.heavy and "heavy_jumpout" or "jump")
 
-        inst.sg.statemem.action = inst.bufferedaction
-        inst.sg:SetTimeout(17 * GLOBAL.FRAMES)
+            inst.sg.statemem.action = inst.bufferedaction
+            inst.sg:SetTimeout(17 * GLOBAL.FRAMES)
         end,
         timeline = {
             GLOBAL.TimeEvent(
@@ -2201,13 +2191,13 @@ AddStategraphState(
                 end
             )
         },
-		
+
         events = {
             GLOBAL.EventHandler(
                 "animqueueover",
                 function(inst)
                     if inst.AnimState:AnimDone() then
-                        GLOBAL.ChangeToCharacterPhysics(inst)		
+                        GLOBAL.ChangeToCharacterPhysics(inst)
                         inst.sg:GoToState("idle")
                     end
                 end
@@ -2221,7 +2211,7 @@ AddStategraphState(
             GLOBAL.ChangeToCharacterPhysics(inst)
             inst.sg:GoToState("idle")
         end,
-		
+
         onexit = function(inst)
             GLOBAL.ChangeToCharacterPhysics(inst)
             if inst.components.driver and inst.components.driver.mountdata then
@@ -2239,7 +2229,7 @@ AddStategraphState(
     "wilson",
     GLOBAL.State {
         name = "jumponboatdismount",
-        tags = { "doing", "nointerupt", "busy", "canrotate", "nomorph", "nopredict"},
+        tags = { "doing", "nointerupt", "busy", "canrotate", "nomorph", "nopredict" },
         onenter = function(inst)
             inst.Physics:ClearCollisionMask()
             inst.Physics:CollidesWith(GLOBAL.COLLISION.GROUND)
@@ -2292,7 +2282,7 @@ AddStategraphState(
             inst.sg:GoToState("idle")
         end,
         onexit = function(inst)
-			inst:RemoveTag("pulando")
+            inst:RemoveTag("pulando")
             GLOBAL.ChangeToCharacterPhysics(inst)
             --      local x,y,z = inst.Transform:GetWorldPosition()
             --      inst.Transform:SetPosition(inst.posx,0,inst.posz)
@@ -2310,7 +2300,7 @@ AddStategraphState(
     "wilson",
     GLOBAL.State {
         name = "play_bell",
-        tags = {"doing", "playing"},
+        tags = { "doing", "playing" },
         onenter = function(inst)
             inst.components.locomotor:Stop()
             inst.AnimState:PlayAnimation("action_uniqueitem_pre")
@@ -2365,28 +2355,28 @@ local crop_dust =
             inst.AnimState:PlayAnimation("cropdust_pre")
             inst.AnimState:PushAnimation("cropdust_loop")
             inst.AnimState:PushAnimation("cropdust_loop")
-            inst.AnimState:PushAnimation("cropdust_loop")			
-            inst.AnimState:PushAnimation("cropdust_pst")					
+            inst.AnimState:PushAnimation("cropdust_loop")
+            inst.AnimState:PushAnimation("cropdust_pst")
         end,
 
         timeline =
         {
             GLOBAL.TimeEvent(10 * GLOBAL.FRAMES, function(inst)
-			inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/bugrepellent")
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/bugrepellent")
             end),
-			
+
             GLOBAL.TimeEvent(4 * GLOBAL.FRAMES, function(inst)
                 inst.sg:RemoveStateTag("busy")
-            end),			
-			
-            GLOBAL.TimeEvent(20 * GLOBAL.FRAMES, function(inst)			
-            if GLOBAL.TheWorld.ismastersim then
+            end),
+
+            GLOBAL.TimeEvent(20 * GLOBAL.FRAMES, function(inst)
+                if GLOBAL.TheWorld.ismastersim then
                     inst:PerformBufferedAction()
-            end
-            if not GLOBAL.TheWorld.ismastersim then
+                end
+                if not GLOBAL.TheWorld.ismastersim then
                     inst:PerformPreviewBufferedAction()
-            end				
-            end),				
+                end
+            end),
         },
 
         events = {
@@ -2402,31 +2392,31 @@ local crop_dust =
     }
 
 AddStategraphState("wilson_client", crop_dust)
-AddStategraphState("wilson", crop_dust)	
+AddStategraphState("wilson", crop_dust)
 
 
 local surfando =
-    GLOBAL.State{ name = "surfando",
-        tags = {"canrotate"},
-        
+    GLOBAL.State { name = "surfando",
+        tags = { "canrotate" },
+
         onenter = function(inst)
             local action = inst:GetBufferedAction()
             inst.components.locomotor:Stop()
-			inst.AnimState:PlayAnimation("surf_loop")
+            inst.AnimState:PlayAnimation("surf_loop")
         end,
-        
-        timeline=
-        {
-		
-         GLOBAL.TimeEvent(2 * GLOBAL.FRAMES, function(inst)
-                    inst:PerformBufferedAction()
-            end),
-		
 
-			
+        timeline =
+        {
+
+            GLOBAL.TimeEvent(2 * GLOBAL.FRAMES, function(inst)
+                inst:PerformBufferedAction()
+            end),
+
+
+
         },
-        
-        events=
+
+        events =
         {
             GLOBAL.EventHandler("animqueueover", function(inst) inst.sg:GoToState("surfando") end),
         },
@@ -2519,20 +2509,20 @@ AddStategraphActionHandler(
                 return not inst.sg:HasStateTag("gnawing") and "gnaw" or nil
             end
 
-		local equipamento = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        if equipamento and equipamento.prefab == "shears" then
-		
-		if not inst.sg:HasStateTag("preshear") then
-        if inst.sg:HasStateTag("shearing") then
-        return "shear"
-        else
-        return "shear_start"
-        end
-        end		
-		end
-			
-			
-            return not inst.sg:HasStateTag("prechop") and (inst.sg:HasStateTag("chopping") and "chop" or "chop_start") or nil
+            local equipamento = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+            if equipamento and equipamento.prefab == "shears" then
+                if not inst.sg:HasStateTag("preshear") then
+                    if inst.sg:HasStateTag("shearing") then
+                        return "shear"
+                    else
+                        return "shear_start"
+                    end
+                end
+            end
+
+
+            return not inst.sg:HasStateTag("prechop") and (inst.sg:HasStateTag("chopping") and "chop" or "chop_start") or
+                nil
         end
     )
 )
@@ -2545,19 +2535,19 @@ AddStategraphActionHandler(
             if inst:HasTag("beaver") then
                 return not inst.sg:HasStateTag("gnawing") and "gnaw" or nil
             end
-			
-		local equipamento = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
---        if equipamento and equipamento.prefab == "shears" then
-		
---		if not inst.sg:HasStateTag("preshear") then
---        if inst.sg:HasStateTag("shearing") then
---        return "shear"
---        else
---        return "shear_start"
---        end
---        end	
---		end
-			
+
+            local equipamento = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+            --        if equipamento and equipamento.prefab == "shears" then
+
+            --		if not inst.sg:HasStateTag("preshear") then
+            --        if inst.sg:HasStateTag("shearing") then
+            --        return "shear"
+            --        else
+            --        return "shear_start"
+            --        end
+            --        end	
+            --		end
+
             return not inst.sg:HasStateTag("prechop") and "chop_start" or nil
         end
     )
@@ -2566,8 +2556,8 @@ AddStategraphActionHandler(
 AddStategraphActionHandler(
     "wilson",
     GLOBAL.ActionHandler(
-	GLOBAL.ACTIONS.PAN, 
-        function(inst) 
+        GLOBAL.ACTIONS.PAN,
+        function(inst)
             if not inst.sg:HasStateTag("panning") then
                 return "pan_start"
             end
@@ -2577,8 +2567,8 @@ AddStategraphActionHandler(
 AddStategraphActionHandler(
     "wilson_client",
     GLOBAL.ActionHandler(
-	GLOBAL.ACTIONS.PAN, 
-        function(inst) 
+        GLOBAL.ACTIONS.PAN,
+        function(inst)
             if not inst.sg:HasStateTag("panning") then
                 return "pan_start"
             end
@@ -2593,7 +2583,8 @@ AddStategraphActionHandler(
             if inst:HasTag("beaver") then
                 return not inst.sg:HasStateTag("gnawing") and "gnaw" or nil
             end
-            return not inst.sg:HasStateTag("prechop") and (inst.sg:HasStateTag("chopping") and "chop" or "chop_start") or nil
+            return not inst.sg:HasStateTag("prechop") and (inst.sg:HasStateTag("chopping") and "chop" or "chop_start") or
+                nil
         end
     )
 )
@@ -2616,34 +2607,40 @@ AddStategraphActionHandler(
     GLOBAL.ActionHandler(GLOBAL.ACTIONS.ATTACK,
         function(inst, action)
             inst.sg.mem.localchainattack = not action.forced or nil
-			local playercontroller = inst.components.playercontroller
-			local attack_tag =
-				playercontroller ~= nil and
-				playercontroller.remote_authority and
-				playercontroller.remote_predicting and
-				"abouttoattack" or
-				"attack"
-			if not (inst.sg:HasStateTag(attack_tag) and action.target == inst.sg.statemem.attacktarget or inst.components.health:IsDead()) then
+            local playercontroller = inst.components.playercontroller
+            local attack_tag =
+                playercontroller ~= nil and
+                playercontroller.remote_authority and
+                playercontroller.remote_predicting and
+                "abouttoattack" or
+                "attack"
+            if not (inst.sg:HasStateTag(attack_tag) and action.target == inst.sg.statemem.attacktarget or inst.components.health:IsDead()) then
                 local weapon = inst.components.combat ~= nil and inst.components.combat:GetWeapon() or nil
-			---------umcompromissing mode compatibility---------	
-			if weapon and weapon:HasTag("beegun") then if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then return "beegun_short" else return "beegun" end end
-			if weapon and not ((weapon:HasTag("blowdart") or weapon:HasTag("thrown"))) and inst:HasTag("wathom") and not inst.sg:HasStateTag("attack") and (inst.components.rider ~= nil and not inst.components.rider:IsRiding()) then return ("wathomleap") end				
-			
+                ---------umcompromissing mode compatibility---------	
+                if weapon and weapon:HasTag("beegun") then
+                    if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then
+                        return
+                        "beegun_short"
+                    else
+                        return "beegun"
+                    end
+                end
+                if weapon and not ((weapon:HasTag("blowdart") or weapon:HasTag("thrown"))) and inst:HasTag("wathom") and not inst.sg:HasStateTag("attack") and (inst.components.rider ~= nil and not inst.components.rider:IsRiding()) then return ("wathomleap") end
+
                 return (weapon == nil and "attack")
                     or (weapon:HasTag("blowdart") and "blowdart")
-					or (weapon:HasTag("slingshot") and "slingshot_shoot")					
+                    or (weapon:HasTag("slingshot") and "slingshot_shoot")
                     or (weapon:HasTag("thrown") and "throw")
-                    or (weapon:HasTag("pillow") and "attack_pillow_pre")					
+                    or (weapon:HasTag("pillow") and "attack_pillow_pre")
                     or (weapon:HasTag("propweapon") and "attack_prop_pre")
                     or (weapon:HasTag("multithruster") and "multithrust_pre")
                     or (weapon:HasTag("helmsplitter") and "helmsplitter_pre")
-                    or (weapon:HasTag("speargun") and "speargun")		
-                    or (weapon:HasTag("blunderbuss") and "speargun")					
+                    or (weapon:HasTag("speargun") and "speargun")
+                    or (weapon:HasTag("blunderbuss") and "speargun")
                     or "attack"
-			end
-			
+            end
         end
-	)
+    )
 )
 
 
@@ -2658,85 +2655,122 @@ AddStategraphActionHandler(
                     return "attack"
                 end
                 local inventoryitem = equip.replica.inventoryitem
-				
-			---------umcompromissing mode compatibility---------	
-			if equip and equip:HasTag("beegun") then if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then return "beegun_short" else return "beegun" end end
-			if equip and not ((equip:HasTag("blowdart") or equip:HasTag("thrown"))) and inst:HasTag("wathom") and not inst.sg:HasStateTag("attack") and (inst.components.rider ~= nil and not inst.components.rider:IsRiding()) then return ("wathomleap") end				
-				
-				
+
+                ---------umcompromissing mode compatibility---------	
+                if equip and equip:HasTag("beegun") then
+                    if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then
+                        return
+                        "beegun_short"
+                    else
+                        return "beegun"
+                    end
+                end
+                if equip and not ((equip:HasTag("blowdart") or equip:HasTag("thrown"))) and inst:HasTag("wathom") and not inst.sg:HasStateTag("attack") and (inst.components.rider ~= nil and not inst.components.rider:IsRiding()) then return ("wathomleap") end
+
+
                 return (not (inventoryitem ~= nil and inventoryitem:IsWeapon()) and "attack")
                     or (equip:HasTag("blowdart") and "blowdart")
-					or (equip:HasTag("slingshot") and "slingshot_shoot")					
+                    or (equip:HasTag("slingshot") and "slingshot_shoot")
                     or (equip:HasTag("thrown") and "throw")
-                    or (equip:HasTag("pillow") and "attack_pillow_pre")					
+                    or (equip:HasTag("pillow") and "attack_pillow_pre")
                     or (equip:HasTag("propweapon") and "attack_prop_pre")
-                    or (equip:HasTag("speargun") and "speargun")		
-                    or (equip:HasTag("blunderbuss") and "speargun")						
+                    or (equip:HasTag("speargun") and "speargun")
+                    or (equip:HasTag("blunderbuss") and "speargun")
                     or "attack"
             end
         end
-	)
+    )
 )
 
 
 
-local pan_start =	
-    GLOBAL.State{ name = "pan_start",
-        tags = {"prepan", "panning", "working"},
+local pan_start =
+    GLOBAL.State { name = "pan_start",
+        tags = { "prepan", "panning", "working" },
         onenter = function(inst)
             inst.components.locomotor:Stop()
             inst.AnimState:PlayAnimation("pan_pre")
         end,
-        
-        events=
+
+        events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end ),
+            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
             GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("pan") end),
         },
     }
 
-	
-local pan =	
-    GLOBAL.State{
+
+local pan =
+    GLOBAL.State {
         name = "pan",
-        tags = {"prepan", "panning", "working"},
+        tags = { "prepan", "panning", "working" },
         onenter = function(inst)
             inst.sg.statemem.action = inst:GetBufferedAction()
-            inst.AnimState:PlayAnimation("pan_loop",true) 
-            inst.sg:SetTimeout(1 + math.random())            
+            inst.AnimState:PlayAnimation("pan_loop", true)
+            inst.sg:SetTimeout(1 + math.random())
         end,
-    
-        timeline=
+
+        timeline =
         {
-            GLOBAL.TimeEvent(6*GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/pool/pan") end), 
-            GLOBAL.TimeEvent(14*GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/pool/pan") end), 
+            GLOBAL.TimeEvent(6 * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+            GLOBAL.TimeEvent(14 * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
 
-            GLOBAL.TimeEvent((6+15)*GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/pool/pan") end), 
-            GLOBAL.TimeEvent((14+15)*GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/pool/pan") end), 
+            GLOBAL.TimeEvent((6 + 15) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+            GLOBAL.TimeEvent((14 + 15) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
 
-            GLOBAL.TimeEvent((6+30)*GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/pool/pan") end), 
-            GLOBAL.TimeEvent((14+30)*GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/pool/pan") end), 
+            GLOBAL.TimeEvent((6 + 30) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+            GLOBAL.TimeEvent((14 + 30) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
 
-            GLOBAL.TimeEvent((6+45)*GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/pool/pan") end), 
-            GLOBAL.TimeEvent((14+45)*GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/pool/pan") end),             
+            GLOBAL.TimeEvent((6 + 45) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+            GLOBAL.TimeEvent((14 + 45) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
 
-            GLOBAL.TimeEvent((6+60)*GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/pool/pan") end), 
-            GLOBAL.TimeEvent((14+60)*GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/pool/pan") end),                         
+            GLOBAL.TimeEvent((6 + 60) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+            GLOBAL.TimeEvent((14 + 60) * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
         },
 
-  
-        ontimeout = function(inst)
-            inst:PerformBufferedAction() 
-            inst.sg:GoToState("idle", "pan_pst")
-        end,        
 
-        events=
+        ontimeout = function(inst)
+            inst:PerformBufferedAction()
+            inst.sg:GoToState("idle", "pan_pst")
+        end,
+
+        events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle","pan_pst") end ),
-            --EventHandler("animover", function(inst) 
+            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle", "pan_pst") end),
+            --EventHandler("animover", function(inst)
             --    inst.sg:GoToState("idle","pan_pst")
-            --end ),            
-        },        
+            --end ),
+        },
     }
 
 AddStategraphState("wilson_client", pan_start)
@@ -2746,159 +2780,157 @@ AddStategraphState("wilson", pan)
 
 
 local investigate_start =
-    GLOBAL.State{ name = "investigate_start",
-        tags = {"preinvestigate", "investigating", "working"},
+    GLOBAL.State { name = "investigate_start",
+        tags = { "preinvestigate", "investigating", "working" },
         onenter = function(inst)
             inst.components.locomotor:Stop()
             inst.sg:GoToState("investigate")
             --inst.AnimState:PlayAnimation("chop_pre")
         end,
-        
-        events=
+
+        events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end ),
+            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
             GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("investigate") end),
         },
     }
 
 local investigate =
     GLOBAL.State { name = "investigate",
-        tags = {"preinvestigate", "investigating", "working"},
+        tags = { "preinvestigate", "investigating", "working" },
         onenter = function(inst)
             inst.sg.statemem.action = inst:GetBufferedAction()
             inst.AnimState:PlayAnimation("lens")
         end,
-        
-        timeline=
+
+        timeline =
         {
-            GLOBAL.TimeEvent(9*GLOBAL.FRAMES, function(inst)
+            GLOBAL.TimeEvent(9 * GLOBAL.FRAMES, function(inst)
                 inst.sg:RemoveStateTag("preinvestigate")
             end),
 
 
-            GLOBAL.TimeEvent(16*GLOBAL.FRAMES, function(inst) 
+            GLOBAL.TimeEvent(16 * GLOBAL.FRAMES, function(inst)
                 inst.sg:RemoveStateTag("investigating")
             end),
 
-            GLOBAL.TimeEvent(45*GLOBAL.FRAMES, function(inst)
+            GLOBAL.TimeEvent(45 * GLOBAL.FRAMES, function(inst)
                 -- this covers both mystery and lighting now
-                inst:PerformBufferedAction()               
+                inst:PerformBufferedAction()
             end),
         },
-        
-        events=
+
+        events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end ),
+            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
             GLOBAL.EventHandler("animover", function(inst)
                 inst.sg:GoToState("investigate_post")
-            end ),
+            end),
         },
     }
 
 local investigate_post =
-    GLOBAL.State{ name = "investigate_post",
-        tags = {"investigating", "working"},
+    GLOBAL.State { name = "investigate_post",
+        tags = { "investigating", "working" },
         onenter = function(inst)
             inst.AnimState:PlayAnimation("lens_pst")
         end,
-        
-        events=
+
+        events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end ),
+            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
             GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
     }
-	
+
 AddStategraphState("wilson_client", investigate_start)
 AddStategraphState("wilson", investigate_start)
 AddStategraphState("wilson_client", investigate)
 AddStategraphState("wilson", investigate)
 AddStategraphState("wilson_client", investigate_post)
-AddStategraphState("wilson", investigate_post)	
+AddStategraphState("wilson", investigate_post)
 
 
 local shearstart =
-    GLOBAL.State{ name = "shear_start",
-        tags = {"preshear", "shearing", "working"},
+    GLOBAL.State { name = "shear_start",
+        tags = { "preshear", "shearing", "working" },
         onenter = function(inst)
             inst.components.locomotor:Stop()
             inst.AnimState:PlayAnimation("cut_pre")
         end,
-        
-        events=
+
+        events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end ),
+            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
             GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("shear") end),
         },
     }
 
 local shearshear =
-    GLOBAL.State{
+    GLOBAL.State {
         name = "shear",
-        tags = {"preshear", "shearing", "working"},
+        tags = { "preshear", "shearing", "working" },
         onenter = function(inst)
             inst.sg.statemem.action = inst:GetBufferedAction()
             inst.AnimState:PlayAnimation("cut_loop")
         end,
-        
-        timeline=
+
+        timeline =
         {
-            TimeEvent(4*GLOBAL.FRAMES, function(inst) 
+            TimeEvent(4 * GLOBAL.FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/grass_tall/shears")
-                inst:PerformBufferedAction() 
+                inst:PerformBufferedAction()
             end),
 
 
-            GLOBAL.TimeEvent(9*GLOBAL.FRAMES, function(inst)
+            GLOBAL.TimeEvent(9 * GLOBAL.FRAMES, function(inst)
                 inst.sg:RemoveStateTag("preshear")
             end),
-            
-            GLOBAL.TimeEvent(14*GLOBAL.FRAMES, function(inst)
-                    
-                    
-                    if
-					inst.components.playercontroller ~= nil and
+
+            GLOBAL.TimeEvent(14 * GLOBAL.FRAMES, function(inst)
+                if
+                    inst.components.playercontroller ~= nil and
                     inst.components.playercontroller:IsAnyOfControlsPressed(
                         CONTROL_PRIMARY,
                         CONTROL_ACTION,
                         CONTROL_CONTROLLER_ACTION) and
-                    inst.sg.statemem.action and 
-                    inst.sg.statemem.action:IsValid() and 
-                    inst.sg.statemem.action.target and 
-                    inst.sg.statemem.action.target:IsActionValid(inst.sg.statemem.action.action) and 
+                    inst.sg.statemem.action and
+                    inst.sg.statemem.action:IsValid() and
+                    inst.sg.statemem.action.target and
+                    inst.sg.statemem.action.target:IsActionValid(inst.sg.statemem.action.action) and
                     inst.sg.statemem.action.target.components.shearable then
-                        inst:ClearBufferedAction()
-                        inst:PushBufferedAction(inst.sg.statemem.action)
+                    inst:ClearBufferedAction()
+                    inst:PushBufferedAction(inst.sg.statemem.action)
                 end
             end),
 
-            GLOBAL.TimeEvent(16*GLOBAL.FRAMES, function(inst) 
+            GLOBAL.TimeEvent(16 * GLOBAL.FRAMES, function(inst)
                 inst.sg:RemoveStateTag("shearing")
             end),
         },
-        
-        events=
+
+        events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end ),
-            GLOBAL.EventHandler("animover", function(inst) 
-                --inst.AnimState:PlayAnimation("chop_pst") 
+            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
+            GLOBAL.EventHandler("animover", function(inst)
+                --inst.AnimState:PlayAnimation("chop_pst")
                 inst.sg:GoToState("shear_end")
-            end ),
+            end),
         },
     }
 
 local shearend =
-    GLOBAL.State{ name = "shear_end",
-        tags = {"working"},
+    GLOBAL.State { name = "shear_end",
+        tags = { "working" },
         onenter = function(inst)
             inst.AnimState:PlayAnimation("cut_pst")
         end,
 
-        events=
+        events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle")  end ),
-            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),
-        },        
+            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
+            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
+        },
 
     }
 
@@ -2911,40 +2943,40 @@ AddStategraphState("wilson", shearend)
 
 -----------------------------
 
-AddStategraphEvent("wilson", 
-GLOBAL.EventHandler ("sanity_stun", 
-        function (inst, data)
---            if not inst.components.inventory:IsItemNameEquipped("earmuffshat") then
-                inst.sanity_stunned = true
-                inst.sg:GoToState("sanity_stun")
-                inst.components.sanity:DoDelta(-TUNING.SANITY_LARGE)
+AddStategraphEvent("wilson",
+    GLOBAL.EventHandler("sanity_stun",
+        function(inst, data)
+            --            if not inst.components.inventory:IsItemNameEquipped("earmuffshat") then
+            inst.sanity_stunned = true
+            inst.sg:GoToState("sanity_stun")
+            inst.components.sanity:DoDelta(-TUNING.SANITY_LARGE)
 
-                inst:DoTaskInTime(data.duration, function()  
-                    if inst.sg.currentstate.name == "sanity_stun" then
-                        inst.sg:GoToState("idle")
-                        inst.sanity_stunned = false
-                        inst:PushEvent("sanity_stun_over")
-                    end
-                end)
-  --          end
+            inst:DoTaskInTime(data.duration, function()
+                if inst.sg.currentstate.name == "sanity_stun" then
+                    inst.sg:GoToState("idle")
+                    inst.sanity_stunned = false
+                    inst:PushEvent("sanity_stun_over")
+                end
+            end)
+            --          end
         end))
 
-AddStategraphEvent("wilson_client", 
-GLOBAL.EventHandler ("sanity_stun", 
-        function (inst, data)
---            if not inst.components.inventory:IsItemNameEquipped("earmuffshat") then
-                inst.sanity_stunned = true
-                inst.sg:GoToState("sanity_stun")
-                inst.components.sanity:DoDelta(-TUNING.SANITY_LARGE)
+AddStategraphEvent("wilson_client",
+    GLOBAL.EventHandler("sanity_stun",
+        function(inst, data)
+            --            if not inst.components.inventory:IsItemNameEquipped("earmuffshat") then
+            inst.sanity_stunned = true
+            inst.sg:GoToState("sanity_stun")
+            inst.components.sanity:DoDelta(-TUNING.SANITY_LARGE)
 
-                inst:DoTaskInTime(data.duration, function()  
-                    if inst.sg.currentstate.name == "sanity_stun" then
-                        inst.sg:GoToState("idle")
-                        inst.sanity_stunned = false
-                        inst:PushEvent("sanity_stun_over")
-                    end
-                end)
-  --          end
+            inst:DoTaskInTime(data.duration, function()
+                if inst.sg.currentstate.name == "sanity_stun" then
+                    inst.sg:GoToState("idle")
+                    inst.sanity_stunned = false
+                    inst:PushEvent("sanity_stun_over")
+                end
+            end)
+            --          end
         end))
 
 AddStategraphState(
@@ -2952,34 +2984,34 @@ AddStategraphState(
     GLOBAL.State {
         name = "sanity_stun",
         tags = { "busy" },
-        
+
         onenter = function(inst)
             inst.components.locomotor:Stop()
             inst.AnimState:PlayAnimation("idle_sanity_pre", false)
             inst.AnimState:PushAnimation("idle_sanity_loop", true)
         end,
 
-        events=
+        events =
         {
-            GLOBAL.EventHandler("animqueueover", function(inst) inst.sg:GoToState("idle") end ),
+            GLOBAL.EventHandler("animqueueover", function(inst) inst.sg:GoToState("idle") end),
         },
     })
-	
-	AddStategraphState(
+
+AddStategraphState(
     "wilson_client",
     GLOBAL.State {
         name = "sanity_stun",
         tags = { "busy" },
-        
+
         onenter = function(inst)
             inst.components.locomotor:Stop()
             inst.AnimState:PlayAnimation("idle_sanity_pre", false)
             inst.AnimState:PushAnimation("idle_sanity_loop", true)
         end,
 
-        events=
+        events =
         {
-            GLOBAL.EventHandler("animqueueover", function(inst) inst.sg:GoToState("idle") end ),
+            GLOBAL.EventHandler("animqueueover", function(inst) inst.sg:GoToState("idle") end),
         },
     })
 ---------------------------------death boat-----------------------------------------
@@ -2987,36 +3019,35 @@ AddStategraphState(
     "wilson",
     GLOBAL.State {
         name = "death_boat",
-        tags = {"busy", "nopredict", "nomorph", "drowning", "nointerrupt"},
+        tags = { "busy", "nopredict", "nomorph", "drowning", "nointerrupt" },
         onenter = function(inst)
             inst.components.locomotor:Stop()
-         --   inst.AnimState:Hide("swap_arm_carry")
-         --   inst.AnimState:PlayAnimation("sink")
-			inst.AnimState:SetSortOrder(0)
-			if inst.components.inventory ~= nil then
-			inst.components.inventory:DropEverything(true)
-			end
-			
-			
-			
+            --   inst.AnimState:Hide("swap_arm_carry")
+            --   inst.AnimState:PlayAnimation("sink")
+            inst.AnimState:SetSortOrder(0)
+            if inst.components.inventory ~= nil then
+                inst.components.inventory:DropEverything(true)
+            end
+
+
+
             if inst.components.driver then
-			if inst.components.driver.vehicle then inst.components.driver.vehicle:Remove() end
-			inst.AnimState:SetSortOrder(0)
-            inst:RemoveTag("aquatic")
-            inst:RemoveTag("sail")
-            inst:RemoveTag("surf")
-            inst:RemoveComponent("rowboatwakespawner")
-            inst:RemoveComponent("driver")
-            if inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO) then
-            inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO):Remove()
+                if inst.components.driver.vehicle then inst.components.driver.vehicle:Remove() end
+                inst.AnimState:SetSortOrder(0)
+                inst:RemoveTag("aquatic")
+                inst:RemoveTag("sail")
+                inst:RemoveTag("surf")
+                inst:RemoveComponent("rowboatwakespawner")
+                inst:RemoveComponent("driver")
+                if inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO) then
+                    inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO):Remove()
+                end
             end
-            end
-----------------------------------------------------------------------------------------			
-					
+            ----------------------------------------------------------------------------------------			
         end,
         timeline = {
-            GLOBAL.TimeEvent(2 * GLOBAL.FRAMES, function(inst) inst.DynamicShadow:Enable(false)  end),
-            GLOBAL.TimeEvent(3 * GLOBAL.FRAMES, function(inst) inst.sg:GoToState("idle")   end)	
+            GLOBAL.TimeEvent(2 * GLOBAL.FRAMES, function(inst) inst.DynamicShadow:Enable(false) end),
+            GLOBAL.TimeEvent(3 * GLOBAL.FRAMES, function(inst) inst.sg:GoToState("idle") end)
         },
         events = {
             GLOBAL.EventHandler(
@@ -3030,7 +3061,7 @@ AddStategraphState(
         },
         onexit = function(inst)
             inst.DynamicShadow:Enable(true)
---			inst.components.health:SetVal(0, "drowning")
+            --			inst.components.health:SetVal(0, "drowning")
         end
     }
 )
@@ -3039,37 +3070,36 @@ AddStategraphState(
     "wilson_client",
     GLOBAL.State {
         name = "death_boat",
-        tags = {"busy", "nopredict", "nomorph", "drowning", "nointerrupt"},
+        tags = { "busy", "nopredict", "nomorph", "drowning", "nointerrupt" },
         onenter = function(inst)
             inst.components.locomotor:Stop()
-         --   inst.AnimState:Hide("swap_arm_carry")
-         --   inst.AnimState:PlayAnimation("sink")
-			inst.AnimState:SetSortOrder(0)
-			if inst.components.inventory ~= nil then
-			inst.components.inventory:DropEverything(true)
-			end
-			
-			
-			
+            --   inst.AnimState:Hide("swap_arm_carry")
+            --   inst.AnimState:PlayAnimation("sink")
+            inst.AnimState:SetSortOrder(0)
+            if inst.components.inventory ~= nil then
+                inst.components.inventory:DropEverything(true)
+            end
+
+
+
             if inst.components.driver then
-			if inst.components.driver.vehicle then inst.components.driver.vehicle:Remove() end
-			inst.AnimState:SetSortOrder(0)
-            inst:RemoveTag("aquatic")
-            inst:RemoveTag("sail")
-            inst:RemoveTag("surf")
-            inst:RemoveComponent("rowboatwakespawner")
-            inst:RemoveComponent("driver")
-            if inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO) then
-            inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO):Remove()
+                if inst.components.driver.vehicle then inst.components.driver.vehicle:Remove() end
+                inst.AnimState:SetSortOrder(0)
+                inst:RemoveTag("aquatic")
+                inst:RemoveTag("sail")
+                inst:RemoveTag("surf")
+                inst:RemoveComponent("rowboatwakespawner")
+                inst:RemoveComponent("driver")
+                if inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO) then
+                    inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO):Remove()
+                end
             end
-            end
-----------------------------------------------------------------------------------------			
-					
+            ----------------------------------------------------------------------------------------			
         end,
         timeline = {
-            GLOBAL.TimeEvent(2 * GLOBAL.FRAMES, function(inst) inst.DynamicShadow:Enable(false)  end),
-            GLOBAL.TimeEvent(3 * GLOBAL.FRAMES, function(inst) inst.sg:GoToState("idle")   end)			
-			
+            GLOBAL.TimeEvent(2 * GLOBAL.FRAMES, function(inst) inst.DynamicShadow:Enable(false) end),
+            GLOBAL.TimeEvent(3 * GLOBAL.FRAMES, function(inst) inst.sg:GoToState("idle") end)
+
         },
         events = {
             GLOBAL.EventHandler(
@@ -3083,7 +3113,7 @@ AddStategraphState(
         },
         onexit = function(inst)
             inst.DynamicShadow:Enable(true)
---			inst.components.health:SetVal(0, "drowning")
+            --			inst.components.health:SetVal(0, "drowning")
         end
     }
 )
@@ -3091,7 +3121,7 @@ AddStategraphState(
 --------------------------------------------------------------------------------------------------------------------
 
 local tapserver =
- GLOBAL.State{
+    GLOBAL.State {
         name = "tap",
         tags = { "doing", "busy" },
 
@@ -3136,66 +3166,65 @@ local tapserver =
 
 
 local tapstart =
-    GLOBAL.State{
+    GLOBAL.State {
         name = "tap",
-        tags = {"doing", "busy"},
-        
-        timeline=
+        tags = { "doing", "busy" },
+
+        timeline =
         {
-            GLOBAL.TimeEvent(4*GLOBAL.FRAMES, function( inst )
+            GLOBAL.TimeEvent(4 * GLOBAL.FRAMES, function(inst)
                 inst.sg:RemoveStateTag("busy")
             end),
         },
-        
+
         onenter = function(inst, timeout)
-
             inst.sg:SetTimeout(timeout or 1)
-            inst.components.locomotor:Stop()    
+            inst.components.locomotor:Stop()
 
-            inst.AnimState:PlayAnimation("tamp_pre")    
+            inst.AnimState:PlayAnimation("tamp_pre")
         end,
-        
-        events=
+
+        events =
         {
-            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("tap_loop") end ),
+            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("tap_loop") end),
         },
     }
 
-local taploop =	
-    GLOBAL.State{
+local taploop =
+    GLOBAL.State {
         name = "tap_loop",
-        tags = {"doing"},
+        tags = { "doing" },
 
         onenter = function(inst, timeout)
             local targ = inst:GetBufferedAction() and inst:GetBufferedAction().target or nil
             inst.sg:SetTimeout(timeout or 1)
-            inst.components.locomotor:Stop()         
-            inst.AnimState:PushAnimation("tamp_loop",true)
+            inst.components.locomotor:Stop()
+            inst.AnimState:PushAnimation("tamp_loop", true)
         end,
-        
-        timeline=
+
+        timeline =
         {
-            GLOBAL.TimeEvent(1*GLOBAL.FRAMES, function( inst )
-               inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
+            GLOBAL.TimeEvent(1 * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
             end),
-            GLOBAL.TimeEvent(8*GLOBAL.FRAMES, function( inst )
-               inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
-            end),            
-            GLOBAL.TimeEvent(16*GLOBAL.FRAMES, function( inst )
-               inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
-            end),       
-            GLOBAL.TimeEvent(24*GLOBAL.FRAMES, function( inst )
-               inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
-            end),       
-            GLOBAL.TimeEvent(32*GLOBAL.FRAMES, function( inst )
-               inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
-            end),                   
+            GLOBAL.TimeEvent(8 * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
+            end),
+            GLOBAL.TimeEvent(16 * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
+            end),
+            GLOBAL.TimeEvent(24 * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
+            end),
+            GLOBAL.TimeEvent(32 * GLOBAL.FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
+            end),
         },
-        
-        ontimeout= function(inst)
+
+        ontimeout = function(inst)
+            inst:PerformBufferedAction()
             inst.AnimState:PlayAnimation("tamp_pst")
             inst.sg:GoToState("idle", false)
-            inst:PerformBufferedAction()
         end,
     }
 AddStategraphState("wilson_client", tapserver)
@@ -3207,15 +3236,14 @@ local function ConfigureRunState(inst)
     if inst.components.rider:IsRiding() then
         inst.sg.statemem.riding = true
         inst.sg.statemem.groggy = inst:HasTag("groggy")
-        inst.sg.statemem.hamfog = inst:HasTag("hamfogspeed")		
+        inst.sg.statemem.hamfog = inst:HasTag("hamfogspeed")
         inst.sg:AddStateTag("nodangle")
-		
+
         local mount = inst.components.rider:GetMount()
-        inst.sg.statemem.ridingwoby = mount and mount:HasTag("woby")		
-		
+        inst.sg.statemem.ridingwoby = mount and mount:HasTag("woby")
     elseif inst.components.inventory:IsHeavyLifting() then
         inst.sg.statemem.heavy = true
-		inst.sg.statemem.heavy_fast = inst.components.mightiness ~= nil and inst.components.mightiness:IsMighty()		
+        inst.sg.statemem.heavy_fast = inst.components.mightiness ~= nil and inst.components.mightiness:IsMighty()
     elseif inst:HasTag("wereplayer") then
         inst.sg.statemem.iswere = true
         if inst:HasTag("weremoose") then
@@ -3233,7 +3261,7 @@ local function ConfigureRunState(inst)
         elseif inst:HasTag("groggy") then
             inst.sg.statemem.groggy = true
         elseif inst:HasTag("hamfogspeed") then
-            inst.sg.statemem.hamfog = true			
+            inst.sg.statemem.hamfog = true
         else
             inst.sg.statemem.normal = true
         end
@@ -3242,21 +3270,22 @@ local function ConfigureRunState(inst)
     elseif inst:HasTag("groggy") then
         inst.sg.statemem.groggy = true
     elseif inst:HasTag("hamfogspeed") then
-        inst.sg.statemem.hamfog = true			
+        inst.sg.statemem.hamfog = true
     elseif inst:IsCarefulWalking() then
         inst.sg.statemem.careful = true
     else
         inst.sg.statemem.normal = true
-        inst.sg.statemem.normalwonkey = inst:HasTag("wonkey") and not inst:HasTag("wilbur") or nil			
+        inst.sg.statemem.normalwonkey = inst:HasTag("wonkey") and not inst:HasTag("wilbur") or nil
     end
 end
 
 local function GetRunStateAnim(inst)
     return (inst.sg.statemem.heavy and "heavy_walk")
         or (inst.sg.statemem.sandstorm and "sand_walk")
-        or ((inst.sg.statemem.groggy or inst.sg.statemem.hamfog or inst.sg.statemem.moosegroggy or inst.sg.statemem.goosegroggy) and "idle_walk")
+        or
+        ((inst.sg.statemem.groggy or inst.sg.statemem.hamfog or inst.sg.statemem.moosegroggy or inst.sg.statemem.goosegroggy) and "idle_walk")
         or (inst.sg.statemem.careful and "careful_walk")
-        or (inst.sg.statemem.ridingwoby and "run_woby")		
+        or (inst.sg.statemem.ridingwoby and "run_woby")
         or "run"
 end
 
@@ -3274,9 +3303,9 @@ local function DoFoleySounds(inst)
         if not inst:HasTag("aquatic") then
             inst.SoundEmitter:PlaySound(inst.foleysound, nil, nil, true)
         end
-        if inst:HasTag("aquatic") then		
-		inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boat_paddle")		
-		end
+        if inst:HasTag("aquatic") then
+            inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boat_paddle")
+        end
     end
 end
 
@@ -3299,9 +3328,9 @@ local DoRunSounds = function(inst)
         if not inst:HasTag("aquatic") then
             GLOBAL.PlayFootstep(inst, 1, true)
         end
-        if inst:HasTag("aquatic") then		
-		inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boat_paddle")		
-		end		
+        if inst:HasTag("aquatic") then
+            inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boat_paddle")
+        end
     end
 end
 
@@ -3319,13 +3348,13 @@ end
 
 local function DoGooseStepFX(inst)
     if inst.components.drownable ~= nil and inst.components.drownable:IsOverWater() then
-        SpawnPrefab("weregoose_splash_med"..tostring(math.random(2))).entity:SetParent(inst.entity)
+        SpawnPrefab("weregoose_splash_med" .. tostring(math.random(2))).entity:SetParent(inst.entity)
     end
 end
 
 local function DoGooseWalkFX(inst)
     if inst.components.drownable ~= nil and inst.components.drownable:IsOverWater() then
-        SpawnPrefab("weregoose_splash_less"..tostring(math.random(2))).entity:SetParent(inst.entity)
+        SpawnPrefab("weregoose_splash_less" .. tostring(math.random(2))).entity:SetParent(inst.entity)
     end
 end
 
@@ -3333,259 +3362,256 @@ local function DoGooseRunFX(inst)
     if inst.components.drownable ~= nil and inst.components.drownable:IsOverWater() then
         SpawnPrefab("weregoose_splash").entity:SetParent(inst.entity)
     else
-        SpawnPrefab("weregoose_feathers"..tostring(math.random(3))).entity:SetParent(inst.entity)
+        SpawnPrefab("weregoose_feathers" .. tostring(math.random(3))).entity:SetParent(inst.entity)
     end
 end
 
 local boatrunstart =
     GLOBAL.State {
-    name = "run_start",
-    tags = {"moving", "running", "canrotate", "autopredict", "sailing"},
-    onenter = function(inst)
-        ConfigureRunState(inst)
-        inst.components.locomotor:RunForward()
-        if inst:HasTag("aquatic") then
-			if inst.replica.inventory:IsHeavyLifting() then
-				inst.AnimState:PlayAnimation("heavy_idle") 
-			elseif inst:HasTag("surf") then 
-				inst.AnimState:PlayAnimation("surf_pre") 
-			elseif inst:HasTag("sail") then 
-				inst.AnimState:PlayAnimation("sail_pre") 
-			else 
-				inst.AnimState:PlayAnimation("row_pre") 
-			end
-        else 
-            if inst.sg.statemem.normalwonkey and inst.components.locomotor:GetTimeMoving() >= TUNING.WONKEY_TIME_TO_RUN then
-                inst.sg:GoToState("run_monkey") --resuming after brief stop from changing directions, or resuming prediction after running into obstacle
-                return
-            end		
-			inst.AnimState:PlayAnimation(GetRunStateAnim(inst) .. "_pre") 		
-		end
-        --goose footsteps should always be light			
-		inst.sg.mem.footsteps = (inst.sg.statemem.goose or inst.sg.statemem.goosegroggy) and 4 or 0	
-        if inst:HasTag("aquatic") then
-            inst.AnimState:AddOverrideBuild("player_actions_paddle")
- --           if player_overrides[inst.prefab] then inst.AnimState:AddOverrideBuild(player_overrides[inst.prefab]) end
-        end
-    end,
-    onupdate = function(inst)
-        inst.components.locomotor:RunForward()
-    end,
-    timeline = {
-        --mounted
-        GLOBAL.TimeEvent(
-            0,
-            function(inst)
-                if inst.sg.statemem.riding then
-                    DoMountedFoleySounds(inst)
+        name = "run_start",
+        tags = { "moving", "running", "canrotate", "autopredict", "sailing" },
+        onenter = function(inst)
+            ConfigureRunState(inst)
+            inst.components.locomotor:RunForward()
+            if inst:HasTag("aquatic") then
+                if inst.replica.inventory:IsHeavyLifting() then
+                    inst.AnimState:PlayAnimation("heavy_idle")
+                elseif inst:HasTag("surf") then
+                    inst.AnimState:PlayAnimation("surf_pre")
+                elseif inst:HasTag("sail") then
+                    inst.AnimState:PlayAnimation("sail_pre")
+                else
+                    inst.AnimState:PlayAnimation("row_pre")
                 end
-            end
-        ),
-        --heavy lifting
-        GLOBAL.TimeEvent(
-            1 * GLOBAL.FRAMES,
-            function(inst)
-                if inst.sg.statemem.heavy then
-                    GLOBAL.PlayFootstep(inst, nil, true)
-                    DoFoleySounds(inst)
+            else
+                if inst.sg.statemem.normalwonkey and inst.components.locomotor:GetTimeMoving() >= TUNING.WONKEY_TIME_TO_RUN then
+                    inst.sg:GoToState("run_monkey") --resuming after brief stop from changing directions, or resuming prediction after running into obstacle
+                    return
                 end
+                inst.AnimState:PlayAnimation(GetRunStateAnim(inst) .. "_pre")
             end
-        ),
-		
+            --goose footsteps should always be light			
+            inst.sg.mem.footsteps = (inst.sg.statemem.goose or inst.sg.statemem.goosegroggy) and 4 or 0
+            if inst:HasTag("aquatic") then
+                inst.AnimState:AddOverrideBuild("player_actions_paddle")
+                --           if player_overrides[inst.prefab] then inst.AnimState:AddOverrideBuild(player_overrides[inst.prefab]) end
+            end
+        end,
+        onupdate = function(inst)
+            inst.components.locomotor:RunForward()
+        end,
+        timeline = {
+            --mounted
+            GLOBAL.TimeEvent(
+                0,
+                function(inst)
+                    if inst.sg.statemem.riding then
+                        DoMountedFoleySounds(inst)
+                    end
+                end
+            ),
+            --heavy lifting
+            GLOBAL.TimeEvent(
+                1 * GLOBAL.FRAMES,
+                function(inst)
+                    if inst.sg.statemem.heavy then
+                        GLOBAL.PlayFootstep(inst, nil, true)
+                        DoFoleySounds(inst)
+                    end
+                end
+            ),
+
             --moose
-        GLOBAL.TimeEvent(2 * FRAMES, function(inst)
+            GLOBAL.TimeEvent(2 * FRAMES, function(inst)
                 if inst.sg.statemem.moose then
                     PlayMooseFootstep(inst, nil, true)
                     DoFoleySounds(inst)
                 end
-            end),		
-		
-        --unmounted
-        GLOBAL.TimeEvent(
-            4 * GLOBAL.FRAMES,
-            function(inst)
-                if inst.sg.statemem.normal then
-                    GLOBAL.PlayFootstep(inst, nil, true)
-                    DoFoleySounds(inst)
+            end),
+
+            --unmounted
+            GLOBAL.TimeEvent(
+                4 * GLOBAL.FRAMES,
+                function(inst)
+                    if inst.sg.statemem.normal then
+                        GLOBAL.PlayFootstep(inst, nil, true)
+                        DoFoleySounds(inst)
+                    end
                 end
-            end
-        ),
-        --mounted
-        GLOBAL.TimeEvent(
-            5 * GLOBAL.FRAMES,
-            function(inst)
-                if inst.sg.statemem.riding then
-                    GLOBAL.PlayFootstep(inst, nil, true)
+            ),
+            --mounted
+            GLOBAL.TimeEvent(
+                5 * GLOBAL.FRAMES,
+                function(inst)
+                    if inst.sg.statemem.riding then
+                        GLOBAL.PlayFootstep(inst, nil, true)
+                    end
                 end
-            end
-        ),
-		
+            ),
+
             --moose groggy
             TimeEvent(7 * FRAMES, function(inst)
                 if inst.sg.statemem.moosegroggy then
                     PlayMooseFootstep(inst, nil, true)
                     DoFoleySounds(inst)
                 end
-            end),		
-		
-		
-    },
-    events = {
-        GLOBAL.EventHandler(
-            "animover",
-            function(inst)
-                if inst.AnimState:AnimDone() then
-                    inst.sg:GoToState("run")
+            end),
+
+
+        },
+        events = {
+            GLOBAL.EventHandler(
+                "animover",
+                function(inst)
+                    if inst.AnimState:AnimDone() then
+                        inst.sg:GoToState("run")
+                    end
                 end
-            end
-        )
+            )
+        }
     }
-}
 AddStategraphState("wilson", boatrunstart)
 
 local boatrun =
     GLOBAL.State {
-    name = "run",
-    tags = {"moving", "running", "canrotate", "sailing"},
-    onenter = function(inst)
-        ConfigureRunState(inst)
-        inst.components.locomotor:RunForward()
+        name = "run",
+        tags = { "moving", "running", "canrotate", "sailing" },
+        onenter = function(inst)
+            ConfigureRunState(inst)
+            inst.components.locomotor:RunForward()
 
-        if inst:HasTag("aquatic") and inst.components.rowboatwakespawner then
-            inst.components.rowboatwakespawner:StartSpawning()
-			
-		local barco = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "ironwind" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boatpropellor_lp", "sailmove" ) 
-		end
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "sail" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_cloth", "sailmove" ) 
-		end
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "clothsail" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_cloth", "sailmove" ) 
-		end
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "snakeskinsail" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_snakeskin", "sailmove" ) 
-		end
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "feathersail" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_feather", "sailmove" ) 
-		end
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "woodlegssail" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_sealegs", "sailmove" ) 
-		end
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "malbatrossail" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_sealegs", "sailmove" ) 
-		end		
-		
-        end
+            if inst:HasTag("aquatic") and inst.components.rowboatwakespawner then
+                inst.components.rowboatwakespawner:StartSpawning()
 
-        local anim = GetRunStateAnim(inst)
-        
-        if inst:HasTag("aquatic") then
-			if inst.replica.inventory:IsHeavyLifting() then
-				anim = "heavy_idle"
-			elseif inst:HasTag("surf") then 
-				anim = "surf_loop" 
-			elseif inst:HasTag("sail") then 
-				anim =  "sail_loop" 
-			elseif inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).prefab == "oar_driftwood" then
-				anim = "row_medium"
-			elseif inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).prefab == "oar" then
-				anim = "row_medium"
-			else
-				anim = "row_loop" 
-			end
-        elseif anim == "run" then
-		
-		
-		if inst:HasTag("wilbur") and inst.timeinmotion and inst.timeinmotion > 75  and not inst.replica.rider:IsRiding() and not inst.replica.inventory:IsHeavyLifting() and not inst:IsCarefulWalking() and not inst.sg:HasStateTag("jumping") then
-		inst.components.locomotor.runspeed = TUNING.WILSON_RUN_SPEED + 2.5
-		if inst.components.hunger then inst.components.hunger:SetRate(TUNING.WILSON_HUNGER_RATE * 1.33) end
-		inst.Transform:SetSixFaced()
-		inst.AnimState:SetBank("wilbur_run")
-		inst.AnimState:SetBuild("wilbur_run")
-		if inst.components.inventory and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
-		inst.AnimState:Show("TAIL_carry")
-		inst.AnimState:Hide("TAIL_normal")
-		end			
-		end	
-			
-            anim = "run_loop"		
-        elseif anim == "run_woby" then
-            anim = "run_woby_loop"
-        end
-        
+                local barco = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "ironwind" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boatpropellor_lp", "sailmove")
+                end
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "sail" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_cloth", "sailmove")
+                end
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "clothsail" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_cloth", "sailmove")
+                end
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "snakeskinsail" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_snakeskin", "sailmove")
+                end
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "feathersail" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_feather", "sailmove")
+                end
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "woodlegssail" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_sealegs", "sailmove")
+                end
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "malbatrossail" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_sealegs", "sailmove")
+                end
+            end
 
-        if not inst.AnimState:IsCurrentAnimation(anim) then
-            inst.AnimState:PlayAnimation(anim, true)
-        end
+            local anim = GetRunStateAnim(inst)
 
-        inst.sg:SetTimeout(inst.AnimState:GetCurrentAnimationLength() + .5 * GLOBAL.FRAMES)
-    end,
-    onupdate = function(inst)
+            if inst:HasTag("aquatic") then
+                if inst.replica.inventory:IsHeavyLifting() then
+                    anim = "heavy_idle"
+                elseif inst:HasTag("surf") then
+                    anim = "surf_loop"
+                elseif inst:HasTag("sail") then
+                    anim = "sail_loop"
+                elseif inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).prefab == "oar_driftwood" then
+                    anim = "row_medium"
+                elseif inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).prefab == "oar" then
+                    anim = "row_medium"
+                else
+                    anim = "row_loop"
+                end
+            elseif anim == "run" then
+                if inst:HasTag("wilbur") and inst.timeinmotion and inst.timeinmotion > 75 and not inst.replica.rider:IsRiding() and not inst.replica.inventory:IsHeavyLifting() and not inst:IsCarefulWalking() and not inst.sg:HasStateTag("jumping") then
+                    inst.components.locomotor.runspeed = TUNING.WILSON_RUN_SPEED + 2.5
+                    if inst.components.hunger then inst.components.hunger:SetRate(TUNING.WILSON_HUNGER_RATE * 1.33) end
+                    inst.Transform:SetSixFaced()
+                    inst.AnimState:SetBank("wilbur_run")
+                    inst.AnimState:SetBuild("wilbur_run")
+                    if inst.components.inventory and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
+                        inst.AnimState:Show("TAIL_carry")
+                        inst.AnimState:Hide("TAIL_normal")
+                    end
+                end
+
+                anim = "run_loop"
+            elseif anim == "run_woby" then
+                anim = "run_woby_loop"
+            end
+
+
+            if not inst.AnimState:IsCurrentAnimation(anim) then
+                inst.AnimState:PlayAnimation(anim, true)
+            end
+
+            inst.sg:SetTimeout(inst.AnimState:GetCurrentAnimationLength() + .5 * GLOBAL.FRAMES)
+        end,
+        onupdate = function(inst)
             if inst.sg.statemem.normalwonkey and inst.components.locomotor:GetTimeMoving() >= TUNING.WONKEY_TIME_TO_RUN then
                 inst.sg:GoToState("run_monkey_start")
                 return
-            end	
-        inst.components.locomotor:RunForward()
-    end,
-	
-    timeline = {
-        --unmounted
-        GLOBAL.TimeEvent(
-            7 * GLOBAL.FRAMES,
-            function(inst)
-                if inst.sg.statemem.normal then
-                    DoRunSounds(inst)
-                    DoFoleySounds(inst)
-                end
             end
-        ),
-        GLOBAL.TimeEvent(
-            15 * GLOBAL.FRAMES,
-            function(inst)
-                if inst.sg.statemem.normal then
-                    DoRunSounds(inst)
-                    DoFoleySounds(inst)
+            inst.components.locomotor:RunForward()
+        end,
+
+        timeline = {
+            --unmounted
+            GLOBAL.TimeEvent(
+                7 * GLOBAL.FRAMES,
+                function(inst)
+                    if inst.sg.statemem.normal then
+                        DoRunSounds(inst)
+                        DoFoleySounds(inst)
+                    end
                 end
-            end
-        ),
-        --careful
-        --Frame 11 shared with heavy lifting below
-        --[[GLOBAL.TimeEvent(11 * GLOBAL.FRAMES, function(inst)
+            ),
+            GLOBAL.TimeEvent(
+                15 * GLOBAL.FRAMES,
+                function(inst)
+                    if inst.sg.statemem.normal then
+                        DoRunSounds(inst)
+                        DoFoleySounds(inst)
+                    end
+                end
+            ),
+            --careful
+            --Frame 11 shared with heavy lifting below
+            --[[GLOBAL.TimeEvent(11 * GLOBAL.FRAMES, function(inst)
                 if inst.sg.statemem.careful then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
                 end
             end),]]
-        GLOBAL.TimeEvent(
-            26 * GLOBAL.FRAMES,
-            function(inst)
-                if inst.sg.statemem.careful then
-                    DoRunSounds(inst)
-                    DoFoleySounds(inst)
+            GLOBAL.TimeEvent(
+                26 * GLOBAL.FRAMES,
+                function(inst)
+                    if inst.sg.statemem.careful then
+                        DoRunSounds(inst)
+                        DoFoleySounds(inst)
+                    end
                 end
-            end
-        ),
-        --sandstorm
-        --Frame 12 shared with groggy below
-        --[[GLOBAL.TimeEvent(12 * GLOBAL.FRAMES, function(inst)
+            ),
+            --sandstorm
+            --Frame 12 shared with groggy below
+            --[[GLOBAL.TimeEvent(12 * GLOBAL.FRAMES, function(inst)
                 if inst.sg.statemem.sandstorm then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
                 end
             end),]]
-        GLOBAL.TimeEvent(
-            23 * GLOBAL.FRAMES,
-            function(inst)
-                if inst.sg.statemem.sandstorm then
-                    DoRunSounds(inst)
-                    DoFoleySounds(inst)
+            GLOBAL.TimeEvent(
+                23 * GLOBAL.FRAMES,
+                function(inst)
+                    if inst.sg.statemem.sandstorm then
+                        DoRunSounds(inst)
+                        DoFoleySounds(inst)
+                    end
                 end
-            end
-        ),
-        --groggy	
-        GLOBAL.TimeEvent(1 * FRAMES, function(inst)
+            ),
+            --groggy	
+            GLOBAL.TimeEvent(1 * FRAMES, function(inst)
                 if inst.sg.statemem.groggy or inst.sg.statemem.hamfog then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
@@ -3595,14 +3621,14 @@ local boatrun =
                     DoGooseRunFX(inst)
                 end
             end),
-        GLOBAL.TimeEvent(12 * FRAMES, function(inst)
+            GLOBAL.TimeEvent(12 * FRAMES, function(inst)
                 if inst.sg.statemem.groggy or inst.sg.statemem.hamfog or
                     inst.sg.statemem.sandstorm then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
                 end
-            end),		
-		
+            end),
+
             --heavy lifting
             GLOBAL.TimeEvent(11 * GLOBAL.FRAMES, function(inst)
                 if inst.sg.statemem.heavy then
@@ -3707,18 +3733,18 @@ local boatrun =
                     DoGooseWalkFX(inst)
                 end
             end),
-    },
-    events = {
+        },
+        events = {
             GLOBAL.EventHandler("gogglevision", function(inst, data)
                 if data.enabled then
                     if inst.sg.statemem.sandstorm then
                         inst.sg:GoToState("run")
                     end
                 elseif not (inst.sg.statemem.riding or
-                            inst.sg.statemem.heavy or
-                            inst.sg.statemem.iswere or
-                            inst.sg.statemem.sandstorm or
-                            inst:GetStormLevel() < TUNING.SANDSTORM_FULL_LEVEL) then
+                        inst.sg.statemem.heavy or
+                        inst.sg.statemem.iswere or
+                        inst.sg.statemem.sandstorm or
+                        inst:GetStormLevel() < TUNING.SANDSTORM_FULL_LEVEL) then
                     inst.sg:GoToState("run")
                 end
             end),
@@ -3728,10 +3754,10 @@ local boatrun =
                         inst.sg:GoToState("run")
                     end
                 elseif not (inst.sg.statemem.riding or
-                            inst.sg.statemem.heavy or
-                            inst.sg.statemem.iswere or
-                            inst.sg.statemem.sandstorm or
-                            inst.components.playervision:HasGoggleVision()) then
+                        inst.sg.statemem.heavy or
+                        inst.sg.statemem.iswere or
+                        inst.sg.statemem.sandstorm or
+                        inst.components.playervision:HasGoggleVision()) then
                     inst.sg:GoToState("run")
                 end
             end),
@@ -3741,74 +3767,70 @@ local boatrun =
                         inst.sg:GoToState("run")
                     end
                 elseif not (inst.sg.statemem.riding or
-                            inst.sg.statemem.heavy or
-                            inst.sg.statemem.sandstorm or
-                            inst.sg.statemem.groggy or
-                            inst.sg.statemem.hamfog or							
-                            inst.sg.statemem.careful or
-                            inst.sg.statemem.iswere) then
+                        inst.sg.statemem.heavy or
+                        inst.sg.statemem.sandstorm or
+                        inst.sg.statemem.groggy or
+                        inst.sg.statemem.hamfog or
+                        inst.sg.statemem.careful or
+                        inst.sg.statemem.iswere) then
                     inst.sg:GoToState("run")
                 end
             end),
-    },
-	
-        onexit = function(inst)	
-		if inst:HasTag("wilbur") and not inst.replica.rider:IsRiding() and not inst.replica.inventory:IsHeavyLifting() and not inst:IsCarefulWalking() then
-		inst.components.locomotor.runspeed = TUNING.WILSON_RUN_SPEED-0.5
-		if inst.components.hunger then inst.components.hunger:SetRate(1*TUNING.WILSON_HUNGER_RATE) end
-		inst.AnimState:SetBank("wilson")
-		inst.AnimState:SetBuild(inst.prefab)
-		inst.Transform:SetFourFaced()
-		inst.AnimState:Hide("TAIL_carry")
-		inst.AnimState:Show("TAIL_normal")
-		end				
-        end,		
-	
-    ontimeout = function(inst)
-        inst.sg:GoToState("run")
-    end
-	
-}
+        },
+
+        onexit = function(inst)
+            if inst:HasTag("wilbur") and not inst.replica.rider:IsRiding() and not inst.replica.inventory:IsHeavyLifting() and not inst:IsCarefulWalking() then
+                inst.components.locomotor.runspeed = TUNING.WILSON_RUN_SPEED - 0.5
+                if inst.components.hunger then inst.components.hunger:SetRate(1 * TUNING.WILSON_HUNGER_RATE) end
+                inst.AnimState:SetBank("wilson")
+                inst.AnimState:SetBuild(inst.prefab)
+                inst.Transform:SetFourFaced()
+                inst.AnimState:Hide("TAIL_carry")
+                inst.AnimState:Show("TAIL_normal")
+            end
+        end,
+
+        ontimeout = function(inst)
+            inst.sg:GoToState("run")
+        end
+
+    }
 AddStategraphState("wilson", boatrun)
 
 local boatrunstop =
     GLOBAL.State {
-    name = "run_stop",
-    tags = {"canrotate", "idle", "sailing"},
-    onenter = function(inst)
-	
+        name = "run_stop",
+        tags = { "canrotate", "idle", "sailing" },
+        onenter = function(inst)
+            ConfigureRunState(inst)
 
-	
-        ConfigureRunState(inst)
+            if inst:HasTag("aquatic") and inst.components.rowboatwakespawner then
+                inst.components.rowboatwakespawner:StopSpawning()
 
-        if inst:HasTag("aquatic") and inst.components.rowboatwakespawner then
-            inst.components.rowboatwakespawner:StopSpawning()
-			
-			inst.SoundEmitter:KillSound("sailmove")
-			
-        end
+                inst.SoundEmitter:KillSound("sailmove")
+            end
 
-        inst.components.locomotor:Stop()
-        if inst:HasTag("aquatic") then
-			if inst.replica.inventory:IsHeavyLifting() then
-				inst.AnimState:PlayAnimation("heavy_idle") 
-			elseif inst:HasTag("surf") then 
-				inst.AnimState:PlayAnimation("surf_pst") 
-			elseif inst:HasTag("sail") then 
-				inst.AnimState:PlayAnimation("sail_pst") 
-			else 
-				inst.AnimState:PlayAnimation("row_pst") 
-			end
-        else 
-			inst.AnimState:PlayAnimation(GetRunStateAnim(inst) .. "_pst") 
-			
-            if inst.sg.statemem.moose or inst.sg.statemem.moosegroggy then
-                PlayMooseFootstep(inst, .6, true)
-                DoFoleySounds(inst)
-            end			
-		end
-    end,
-	
+            inst.components.locomotor:Stop()
+            if inst:HasTag("aquatic") then
+                if inst.replica.inventory:IsHeavyLifting() then
+                    inst.AnimState:PlayAnimation("heavy_idle")
+                elseif inst:HasTag("surf") then
+                    inst.AnimState:PlayAnimation("surf_pst")
+                elseif inst:HasTag("sail") then
+                    inst.AnimState:PlayAnimation("sail_pst")
+                else
+                    inst.AnimState:PlayAnimation("row_pst")
+                end
+            else
+                inst.AnimState:PlayAnimation(GetRunStateAnim(inst) .. "_pst")
+
+                if inst.sg.statemem.moose or inst.sg.statemem.moosegroggy then
+                    PlayMooseFootstep(inst, .6, true)
+                    DoFoleySounds(inst)
+                end
+            end
+        end,
+
         timeline =
         {
             GLOBAL.TimeEvent(GLOBAL.FRAMES, function(inst)
@@ -3822,27 +3844,27 @@ local boatrunstop =
                     end
                 end
             end),
-        },		
-	
-    events = {
-        GLOBAL.EventHandler(
-            "animover",
-            function(inst)
-                if inst.AnimState:AnimDone() then
---              if inst:HasTag("aquatic") then 
---              inst.sg:GoToState("brake") 
---              else            
-                    inst.sg:GoToState("idle") --end
+        },
+
+        events = {
+            GLOBAL.EventHandler(
+                "animover",
+                function(inst)
+                    if inst.AnimState:AnimDone() then
+                        --              if inst:HasTag("aquatic") then
+                        --              inst.sg:GoToState("brake")
+                        --              else
+                        inst.sg:GoToState("idle") --end
+                    end
+
+                    if inst:HasTag("aquatic") then
+                        inst.AnimState:ClearOverrideBuild("player_actions_paddle")
+                        --					if player_overrides[inst.prefab] then inst.AnimState:ClearOverrideBuild(player_overrides[inst.prefab]) end
+                    end
                 end
-                
-                if inst:HasTag("aquatic") then
-                    inst.AnimState:ClearOverrideBuild("player_actions_paddle")
---					if player_overrides[inst.prefab] then inst.AnimState:ClearOverrideBuild(player_overrides[inst.prefab]) end
-                end
-            end
-        )
+            )
+        }
     }
-}
 AddStategraphState("wilson", boatrunstop)
 
 
@@ -3858,11 +3880,11 @@ AddStategraphActionHandler(
                 end
                 return "bedroll"
             elseif action.target:HasTag("cama") then
-			local x, y, z = action.target.Transform:GetWorldPosition()
-			action.doer.Transform:SetPosition(x+0.02, y, z+0.02)
+                local x, y, z = action.target.Transform:GetWorldPosition()
+                action.doer.Transform:SetPosition(x + 0.02, y, z + 0.02)
                 return "bedroll1"
-			else
-                return "tent"			
+            else
+                return "tent"
             end
         end)
 )
@@ -3871,13 +3893,13 @@ AddStategraphActionHandler(
     "wilson_client",
     GLOBAL.ActionHandler(GLOBAL.ACTIONS.SLEEPIN,
         function(inst, action)
-			if action and action.target and action.target:HasTag("cama") then
-			local x, y, z = action.target.Transform:GetWorldPosition()	
-			action.doer.Transform:SetPosition(x+0.02, y, z+0.02)
-			end
+            if action and action.target and action.target:HasTag("cama") then
+                local x, y, z = action.target.Transform:GetWorldPosition()
+                action.doer.Transform:SetPosition(x + 0.02, y, z + 0.02)
+            end
             return action.invobject ~= nil and "bedroll" or action.target:HasTag("cama") and "bedroll1" or "tent"
         end)
-)	
+)
 
 local function SetSleeperSleepState(inst)
     if inst.components.grue ~= nil then
@@ -3920,13 +3942,13 @@ end
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State{
+    GLOBAL.State {
         name = "bedroll1",
         tags = { "bedroll", "busy", "nomorph" },
 
         onenter = function(inst)
             inst.components.locomotor:Stop()
-			inst.Transform:SetRotation(180)
+            inst.Transform:SetRotation(180)
 
             local failreason =
                 (GLOBAL.TheWorld.state.isday and
@@ -4004,8 +4026,8 @@ AddStategraphState(
             end
         end,
     })
-	
-	
+
+
 AddStategraphState(
     "wilson_client",
     GLOBAL.State
@@ -4015,7 +4037,7 @@ AddStategraphState(
 
         onenter = function(inst)
             inst.components.locomotor:Stop()
-			inst.Transform:SetRotation(180)
+            inst.Transform:SetRotation(180)
             inst.AnimState:PlayAnimation("bedroll_sleep_loop")
 
             inst:PerformPreviewBufferedAction()
@@ -4063,32 +4085,31 @@ end
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State{
+    GLOBAL.State {
         name = "death",
         tags = { "busy", "dead", "pausepredict", "nomorph" },
 
         onenter = function(inst)
-		
-			if inst:HasTag("aquatic") then
-			if inst.components.inventory ~= nil then
-			inst.components.inventory:DropEverything(true)
-			end
-			
-            if inst.components.driver then
-			if inst.components.driver.vehicle then inst.components.driver.vehicle:Remove() end
-			inst.AnimState:SetSortOrder(0)
-            inst:RemoveTag("aquatic")
-            inst:RemoveTag("sail")
-            inst:RemoveTag("surf")
-            inst:RemoveComponent("rowboatwakespawner")
-            inst:RemoveComponent("driver")
-            if inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO) then
-            inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO):Remove()
+            if inst:HasTag("aquatic") then
+                if inst.components.inventory ~= nil then
+                    inst.components.inventory:DropEverything(true)
+                end
+
+                if inst.components.driver then
+                    if inst.components.driver.vehicle then inst.components.driver.vehicle:Remove() end
+                    inst.AnimState:SetSortOrder(0)
+                    inst:RemoveTag("aquatic")
+                    inst:RemoveTag("sail")
+                    inst:RemoveTag("surf")
+                    inst:RemoveComponent("rowboatwakespawner")
+                    inst:RemoveComponent("driver")
+                    if inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO) then
+                        inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO):Remove()
+                    end
+                end
             end
-            end
-			end
-		
---            GLOBAL.assert(inst.deathcause ~= nil, "Entered death state without cause.")
+
+            --            GLOBAL.assert(inst.deathcause ~= nil, "Entered death state without cause.")
 
             ClearStatusAilments(inst)
             ForceStopHeavyLifting(inst)
@@ -4108,14 +4129,15 @@ AddStategraphState(
                     inst.sg.statemem.beaver = true
                 elseif inst:HasTag("weremoose") then
                     inst.sg.statemem.moose = true
-                else--if inst:HasTag("weregoose") then
+                else --if inst:HasTag("weregoose") then
                     inst.sg.statemem.goose = true
                 end
 
                 if inst.deathsoundoverride ~= nil then
                     inst.SoundEmitter:PlaySound(inst.deathsoundoverride)
                 elseif not inst:HasTag("mime") then
-                    inst.SoundEmitter:PlaySound((inst.talker_path_override or "dontstarve/characters/")..(inst.soundsname or inst.prefab).."/death_voice")
+                    inst.SoundEmitter:PlaySound((inst.talker_path_override or "dontstarve/characters/") ..
+                        (inst.soundsname or inst.prefab) .. "/death_voice")
                 end
 
                 if GLOBAL.HUMAN_MEAT_ENABLED then
@@ -4161,9 +4183,9 @@ AddStategraphState(
 
         onexit = function(inst)
             --You should never leave this state once you enter it!
---            if inst.components.revivablecorpse == nil then
---                GLOBAL.assert(false, "Left death state.")
---            end
+            --            if inst.components.revivablecorpse == nil then
+            --                GLOBAL.assert(false, "Left death state.")
+            --            end
         end,
 
         events =
@@ -4177,7 +4199,8 @@ AddStategraphState(
                         inst.SoundEmitter:PlaySound("dontstarve/wilson/death")
 
                         if not inst:HasTag("mime") then
-                            inst.SoundEmitter:PlaySound((inst.talker_path_override or "dontstarve/characters/")..(inst.soundsname or inst.prefab).."/death_voice")
+                            inst.SoundEmitter:PlaySound((inst.talker_path_override or "dontstarve/characters/") ..
+                                (inst.soundsname or inst.prefab) .. "/death_voice")
                         end
 
                         if GLOBAL.HUMAN_MEAT_ENABLED then
@@ -4194,7 +4217,8 @@ AddStategraphState(
                     elseif inst.components.revivablecorpse ~= nil then
                         inst.sg:GoToState("corpse")
                     else
-                        inst:PushEvent(inst.ghostenabled and "makeplayerghost" or "playerdied", { skeleton = GLOBAL.TheWorld.Map:IsPassableAtPoint(inst.Transform:GetWorldPosition()) }) -- if we are not on valid ground then don't drop a skeleton
+                        inst:PushEvent(inst.ghostenabled and "makeplayerghost" or "playerdied",
+                            { skeleton = GLOBAL.TheWorld.Map:IsPassableAtPoint(inst.Transform:GetWorldPosition()) }) -- if we are not on valid ground then don't drop a skeleton
                     end
                 end
             end),
@@ -4204,7 +4228,7 @@ AddStategraphState(
 ------------------------
 AddStategraphState(
     "wilson",
-    GLOBAL.State{
+    GLOBAL.State {
         name = "reviver_rebirth",
         tags = { "busy", "reviver_rebirth", "pausepredict", "silentmorph", "ghostbuild" },
 
@@ -4231,7 +4255,7 @@ AddStategraphState(
             inst.AnimState:PushAnimation("transform", false)
             inst.components.health:SetInvincible(true)
             inst:ShowHUD(false)
---            inst:SetCameraDistance(14)
+            --            inst:SetCameraDistance(14)
 
             inst:PushEvent("startghostbuildinstate")
         end,
@@ -4256,7 +4280,7 @@ AddStategraphState(
                     DoGooseRunFX(inst)
                 end
             end),
-            GLOBAL.TimeEvent(96 * GLOBAL.FRAMES, function(inst) 
+            GLOBAL.TimeEvent(96 * GLOBAL.FRAMES, function(inst)
                 inst.components.bloomer:PopBloom("playerghostbloom")
                 inst.AnimState:SetLightOverride(0)
             end),
@@ -4293,7 +4317,7 @@ AddStategraphState(
             end
 
             inst:ShowHUD(true)
---            inst:SetCameraDistance()
+            --            inst:SetCameraDistance()
 
             GLOBAL.SerializeUserSession(inst)
         end,
@@ -4302,7 +4326,7 @@ AddStategraphState(
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State{
+    GLOBAL.State {
         name = "amulet_rebirth",
         tags = { "busy", "nopredict", "silentmorph" },
 
@@ -4314,7 +4338,7 @@ AddStategraphState(
             inst.AnimState:OverrideSymbol("FX", "player_amulet_resurrect", "FX")
             inst.components.health:SetInvincible(true)
             inst:ShowHUD(false)
---            inst:SetCameraDistance(14)
+            --            inst:SetCameraDistance(14)
 
             local item = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
             if item ~= nil and item.prefab == "amulet" then
@@ -4362,7 +4386,7 @@ AddStategraphState(
                 inst.AnimState:ClearOverrideSymbol("swap_body")
             end
             inst:ShowHUD(true)
---            inst:SetCameraDistance()
+            --            inst:SetCameraDistance()
             if inst.components.playercontroller ~= nil then
                 inst.components.playercontroller:Enable(true)
             end
@@ -4376,7 +4400,7 @@ AddStategraphState(
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State{
+    GLOBAL.State {
         name = "corpse_rebirth",
         tags = { "busy", "noattack", "nopredict", "nomorph" },
 
@@ -4389,7 +4413,7 @@ AddStategraphState(
 
             inst.components.health:SetInvincible(true)
             inst:ShowActions(false)
---            inst:SetCameraDistance(14)
+            --            inst:SetCameraDistance(14)
         end,
 
         timeline =
@@ -4422,9 +4446,11 @@ AddStategraphState(
 
         onupdate = function(inst, dt)
             if inst.sg.statemem.fadeouttime ~= nil then
-                inst.sg.statemem.fade = math.max(0, inst.sg.statemem.fade - inst.sg.statemem.fadetotal * dt / inst.sg.statemem.fadeouttime)
+                inst.sg.statemem.fade = math.max(0,
+                    inst.sg.statemem.fade - inst.sg.statemem.fadetotal * dt / inst.sg.statemem.fadeouttime)
                 if inst.sg.statemem.fade > 0 then
-                    inst.components.colouradder:PushColour("corpse_rebirth", inst.sg.statemem.fade, inst.sg.statemem.fade, inst.sg.statemem.fade, 0)
+                    inst.components.colouradder:PushColour("corpse_rebirth", inst.sg.statemem.fade, inst.sg.statemem
+                        .fade, inst.sg.statemem.fade, 0)
                 else
                     inst.components.colouradder:PopColour("corpse_rebirth")
                     inst.sg.statemem.fadeouttime = nil
@@ -4432,7 +4458,8 @@ AddStategraphState(
             elseif inst.sg.statemem.fadeintime ~= nil then
                 local k = 1 - inst.sg.statemem.fadetime / inst.sg.statemem.fadeintime
                 inst.sg.statemem.fade = .8 * (1 - k * k)
-                inst.components.colouradder:PushColour("corpse_rebirth", inst.sg.statemem.fade, inst.sg.statemem.fade, inst.sg.statemem.fade, 0)
+                inst.components.colouradder:PushColour("corpse_rebirth", inst.sg.statemem.fade, inst.sg.statemem.fade,
+                    inst.sg.statemem.fade, 0)
                 inst.sg.statemem.fadetime = inst.sg.statemem.fadetime + dt
             end
         end,
@@ -4509,11 +4536,11 @@ local function DoRunSounds(inst)
         inst.sg.mem.footsteps = inst.sg.mem.footsteps + 1
         if not inst:HasTag("aquatic") then
             GLOBAL.PlayFootstep(inst, 1, true)
-        if inst:HasTag("aquatic") then		
-		inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boat_paddle")		
-		end			
+            if inst:HasTag("aquatic") then
+                inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boat_paddle")
+            end
         end
-    end	
+    end
 end
 
 local function PlayMooseFootstep(inst, volume, ispredicted)
@@ -4538,10 +4565,10 @@ local function ConfigureRunState(inst)
     if inst.replica.rider ~= nil and inst.replica.rider:IsRiding() then
         inst.sg.statemem.riding = true
         inst.sg.statemem.groggy = inst:HasTag("groggy")
-        inst.sg.statemem.hamfog = inst:HasTag("hamfogspeed")		
+        inst.sg.statemem.hamfog = inst:HasTag("hamfogspeed")
     elseif inst.replica.inventory:IsHeavyLifting() then
         inst.sg.statemem.heavy = true
-		inst.sg.statemem.heavy_fast = inst:HasTag("mightiness_mighty")		
+        inst.sg.statemem.heavy_fast = inst:HasTag("mightiness_mighty")
     elseif inst:HasTag("wereplayer") then
         inst.sg.statemem.iswere = true
         if inst:HasTag("weremoose") then
@@ -4551,7 +4578,7 @@ local function ConfigureRunState(inst)
                 inst.sg.statemem.moose = true
             end
         elseif inst:HasTag("weregoose") then
-            if inst:HasTag("groggy")  or inst:HasTag("hamfogspeed") then
+            if inst:HasTag("groggy") or inst:HasTag("hamfogspeed") then
                 inst.sg.statemem.goosegroggy = true
             else
                 inst.sg.statemem.goose = true
@@ -4559,7 +4586,7 @@ local function ConfigureRunState(inst)
         elseif inst:HasTag("groggy") then
             inst.sg.statemem.groggy = true
         elseif inst:HasTag("hamfogspeed") then
-            inst.sg.statemem.hamfog = true			
+            inst.sg.statemem.hamfog = true
         else
             inst.sg.statemem.normal = true
         end
@@ -4568,50 +4595,59 @@ local function ConfigureRunState(inst)
     elseif inst:HasTag("groggy") then
         inst.sg.statemem.groggy = true
     elseif inst:HasTag("hamfogspeed") then
-        inst.sg.statemem.hamfog = true			
+        inst.sg.statemem.hamfog = true
     elseif inst:IsCarefulWalking() then
         inst.sg.statemem.careful = true
     else
         inst.sg.statemem.normal = true
-        inst.sg.statemem.normalwonkey = inst:HasTag("wonkey") and not inst:HasTag("wilbur") or nil		
+        inst.sg.statemem.normalwonkey = inst:HasTag("wonkey") and not inst:HasTag("wilbur") or nil
     end
 end
 
 local function GetRunStateAnim(inst)
     return (inst.sg.statemem.heavy and "heavy_walk")
         or (inst.sg.statemem.sandstorm and "sand_walk")
-        or ((inst.sg.statemem.groggy or inst.sg.statemem.hamfog or inst.sg.statemem.moosegroggy or inst.sg.statemem.goosegroggy) and "idle_walk")
+        or
+        ((inst.sg.statemem.groggy or inst.sg.statemem.hamfog or inst.sg.statemem.moosegroggy or inst.sg.statemem.goosegroggy) and "idle_walk")
         or (inst.sg.statemem.careful and "careful_walk")
-        or (inst.sg.statemem.ridingwoby and "run_woby")		
+        or (inst.sg.statemem.ridingwoby and "run_woby")
         or "run"
 end
 
 local boatrunstartcliente =
     GLOBAL.State {
-    name = "run_start",
-    tags = {"moving", "running", "canrotate", "autopredict", "sailing"},
-    onenter = function(inst)
-        ConfigureRunState(inst)
-        inst.components.locomotor:RunForward()
-        if inst:HasTag("aquatic") then
-        if inst:HasTag("surf") then inst.AnimState:PlayAnimation("surf_pre") else if inst:HasTag("sail") then inst.AnimState:PlayAnimation("sail_pre") else inst.AnimState:PlayAnimation("row_pre") end end
-        else 
-		if inst.sg.statemem.normalwonkey and inst.components.locomotor:GetTimeMoving() >= TUNING.WONKEY_TIME_TO_RUN then
-        inst.sg:GoToState("run_monkey") --resuming after brief stop from changing directions
-        return
-        end
-		inst.AnimState:PlayAnimation(GetRunStateAnim(inst) .. "_pre") 
-		end
-        inst.sg.mem.footsteps = (inst.sg.statemem.goose or inst.sg.statemem.goosegroggy) and 4 or 0
-        if inst:HasTag("aquatic") then
-            inst.AnimState:AddOverrideBuild("player_actions_paddle")
---            if player_overrides[inst.prefab] then inst.AnimState:AddOverrideBuild(player_overrides[inst.prefab]) end
-        end
-    end,
-    onupdate = function(inst)
-        inst.components.locomotor:RunForward()
-    end,
-    timeline = {
+        name = "run_start",
+        tags = { "moving", "running", "canrotate", "autopredict", "sailing" },
+        onenter = function(inst)
+            ConfigureRunState(inst)
+            inst.components.locomotor:RunForward()
+            if inst:HasTag("aquatic") then
+                if inst:HasTag("surf") then
+                    inst.AnimState:PlayAnimation("surf_pre")
+                else
+                    if inst:HasTag("sail") then
+                        inst.AnimState:PlayAnimation("sail_pre")
+                    else
+                        inst.AnimState:PlayAnimation("row_pre")
+                    end
+                end
+            else
+                if inst.sg.statemem.normalwonkey and inst.components.locomotor:GetTimeMoving() >= TUNING.WONKEY_TIME_TO_RUN then
+                    inst.sg:GoToState("run_monkey") --resuming after brief stop from changing directions
+                    return
+                end
+                inst.AnimState:PlayAnimation(GetRunStateAnim(inst) .. "_pre")
+            end
+            inst.sg.mem.footsteps = (inst.sg.statemem.goose or inst.sg.statemem.goosegroggy) and 4 or 0
+            if inst:HasTag("aquatic") then
+                inst.AnimState:AddOverrideBuild("player_actions_paddle")
+                --            if player_overrides[inst.prefab] then inst.AnimState:AddOverrideBuild(player_overrides[inst.prefab]) end
+            end
+        end,
+        onupdate = function(inst)
+            inst.components.locomotor:RunForward()
+        end,
+        timeline = {
             --mounted
             GLOBAL.TimeEvent(0, function(inst)
                 if inst.sg.statemem.riding then
@@ -4657,110 +4693,109 @@ local boatrunstartcliente =
                     DoFoleySounds(inst)
                 end
             end),
-    },
-    events = {
-        GLOBAL.EventHandler(
-            "animover",
-            function(inst)
-                if inst.AnimState:AnimDone() then
-                    inst.sg:GoToState("run")
+        },
+        events = {
+            GLOBAL.EventHandler(
+                "animover",
+                function(inst)
+                    if inst.AnimState:AnimDone() then
+                        inst.sg:GoToState("run")
+                    end
                 end
-            end
-        )
+            )
+        }
     }
-}
 AddStategraphState("wilson_client", boatrunstartcliente)
 
 local boatruncliente =
     GLOBAL.State {
-    name = "run",
-    tags = {"moving", "running", "canrotate", "sailing"},
-    onenter = function(inst)
-        ConfigureRunState(inst)
-        inst.components.locomotor:RunForward()
-		
---if inst:HasTag("wilbur") then 
---inst.AnimState:SetBank("wilbur_run") 
---inst.AnimState:SetBuild("wilbur_run")
---inst.Transform:SetSixFaced() 
---end
+        name = "run",
+        tags = { "moving", "running", "canrotate", "sailing" },
+        onenter = function(inst)
+            ConfigureRunState(inst)
+            inst.components.locomotor:RunForward()
 
-if inst:HasTag("aquatic") and inst.components.rowboatwakespawner then
-inst.components.rowboatwakespawner:StartSpawning()
+            --if inst:HasTag("wilbur") then
+            --inst.AnimState:SetBank("wilbur_run")
+            --inst.AnimState:SetBuild("wilbur_run")
+            --inst.Transform:SetSixFaced()
+            --end
 
-		local barco = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "ironwind" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boatpropellor_lp", "sailmove" ) 
-		end
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "sail" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_cloth", "sailmove" ) 
-		end
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "clothsail" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_cloth", "sailmove" ) 
-		end
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "snakeskinsail" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_snakeskin", "sailmove" ) 
-		end
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "feathersail" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_feather", "sailmove" ) 
-		end
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "woodlegssail" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_sealegs", "sailmove" ) 
-		end
-        if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "malbatrossail" then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_sealegs", "sailmove" ) 
-		end	
+            if inst:HasTag("aquatic") and inst.components.rowboatwakespawner then
+                inst.components.rowboatwakespawner:StartSpawning()
 
-end
+                local barco = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "ironwind" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boatpropellor_lp", "sailmove")
+                end
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "sail" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_cloth", "sailmove")
+                end
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "clothsail" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_cloth", "sailmove")
+                end
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "snakeskinsail" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_snakeskin", "sailmove")
+                end
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "feathersail" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_feather", "sailmove")
+                end
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "woodlegssail" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_sealegs", "sailmove")
+                end
+                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "malbatrossail" then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_sealegs", "sailmove")
+                end
+            end
 
-local anim = GetRunStateAnim(inst)
-        if inst:HasTag("aquatic") then
-			if inst.replica.inventory:IsHeavyLifting() then
-				anim = "heavy_idle"
-			elseif inst:HasTag("surf") then 
-				anim = "surf_loop" 
-			elseif inst:HasTag("sail") then 
-				anim =  "sail_loop" 
-			elseif inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).prefab == "oar_driftwood" then
-				anim = "row_medium"
-			elseif inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).prefab == "oar" then
-				anim = "row_medium"
-			else
-				anim = "row_loop" 
-			end
-        elseif anim == "run" then
-		if inst:HasTag("wilbur") and inst.timeinmotion and inst.timeinmotion > 75 and not inst.replica.rider:IsRiding() and not inst.replica.inventory:IsHeavyLifting() and not inst:IsCarefulWalking() then
-		inst.components.locomotor.runspeed = TUNING.WILSON_RUN_SPEED + 2.5
-		if inst.components.hunger then inst.components.hunger:SetRate(TUNING.WILSON_HUNGER_RATE * 1.33) end
-		inst.Transform:SetSixFaced()
-		inst.AnimState:SetBank("wilbur_run")
-		inst.AnimState:SetBuild("wilbur_run")
-		if inst.replica.inventory and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
-		inst.AnimState:Show("TAIL_carry")
-		inst.AnimState:Hide("TAIL_normal")
-		end			
-		end			
-		
-            anim = "run_loop"
-        elseif anim == "run_woby" then
-            anim = "run_woby_loop"
-        end
-		
-        if not inst.AnimState:IsCurrentAnimation(anim) then
-            inst.AnimState:PlayAnimation(anim, true)
-        end
+            local anim = GetRunStateAnim(inst)
+            if inst:HasTag("aquatic") then
+                if inst.replica.inventory:IsHeavyLifting() then
+                    anim = "heavy_idle"
+                elseif inst:HasTag("surf") then
+                    anim = "surf_loop"
+                elseif inst:HasTag("sail") then
+                    anim = "sail_loop"
+                elseif inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).prefab == "oar_driftwood" then
+                    anim = "row_medium"
+                elseif inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).prefab == "oar" then
+                    anim = "row_medium"
+                else
+                    anim = "row_loop"
+                end
+            elseif anim == "run" then
+                if inst:HasTag("wilbur") and inst.timeinmotion and inst.timeinmotion > 75 and not inst.replica.rider:IsRiding() and not inst.replica.inventory:IsHeavyLifting() and not inst:IsCarefulWalking() then
+                    inst.components.locomotor.runspeed = TUNING.WILSON_RUN_SPEED + 2.5
+                    if inst.components.hunger then inst.components.hunger:SetRate(TUNING.WILSON_HUNGER_RATE * 1.33) end
+                    inst.Transform:SetSixFaced()
+                    inst.AnimState:SetBank("wilbur_run")
+                    inst.AnimState:SetBuild("wilbur_run")
+                    if inst.replica.inventory and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
+                        inst.AnimState:Show("TAIL_carry")
+                        inst.AnimState:Hide("TAIL_normal")
+                    end
+                end
 
-        inst.sg:SetTimeout(inst.AnimState:GetCurrentAnimationLength() + .5 * GLOBAL.FRAMES)
-    end,
-    onupdate = function(inst)
+                anim = "run_loop"
+            elseif anim == "run_woby" then
+                anim = "run_woby_loop"
+            end
+
+            if not inst.AnimState:IsCurrentAnimation(anim) then
+                inst.AnimState:PlayAnimation(anim, true)
+            end
+
+            inst.sg:SetTimeout(inst.AnimState:GetCurrentAnimationLength() + .5 * GLOBAL.FRAMES)
+        end,
+        onupdate = function(inst)
             if inst.sg.statemem.normalwonkey and inst.components.locomotor:GetTimeMoving() >= TUNING.WONKEY_TIME_TO_RUN then
                 inst.sg:GoToState("run_monkey_start")
                 return
-            end	
-        inst.components.locomotor:RunForward()
-    end,
-	
-    timeline = {
+            end
+            inst.components.locomotor:RunForward()
+        end,
+
+        timeline = {
             --unmounted
             GLOBAL.TimeEvent(7 * GLOBAL.FRAMES, function(inst)
                 if inst.sg.statemem.normal then
@@ -4911,18 +4946,18 @@ local anim = GetRunStateAnim(inst)
                     DoFoleySounds(inst)
                 end
             end),
-    },
-    events = {
+        },
+        events = {
             GLOBAL.EventHandler("gogglevision", function(inst, data)
                 if data.enabled then
                     if inst.sg.statemem.sandstorm then
                         inst.sg:GoToState("run")
                     end
                 elseif not (inst.sg.statemem.riding or
-                            inst.sg.statemem.heavy or
-                            inst.sg.statemem.iswere or
-                            inst.sg.statemem.sandstorm or
-                            inst:GetStormLevel() < TUNING.SANDSTORM_FULL_LEVEL) then
+                        inst.sg.statemem.heavy or
+                        inst.sg.statemem.iswere or
+                        inst.sg.statemem.sandstorm or
+                        inst:GetStormLevel() < TUNING.SANDSTORM_FULL_LEVEL) then
                     inst.sg:GoToState("run")
                 end
             end),
@@ -4932,10 +4967,10 @@ local anim = GetRunStateAnim(inst)
                         inst.sg:GoToState("run")
                     end
                 elseif not (inst.sg.statemem.riding or
-                            inst.sg.statemem.heavy or
-                            inst.sg.statemem.iswere or
-                            inst.sg.statemem.sandstorm or
-                            inst.components.playervision:HasGoggleVision()) then
+                        inst.sg.statemem.heavy or
+                        inst.sg.statemem.iswere or
+                        inst.sg.statemem.sandstorm or
+                        inst.components.playervision:HasGoggleVision()) then
                     inst.sg:GoToState("run")
                 end
             end),
@@ -4945,62 +4980,69 @@ local anim = GetRunStateAnim(inst)
                         inst.sg:GoToState("run")
                     end
                 elseif not (inst.sg.statemem.riding or
-                            inst.sg.statemem.heavy or
-                            inst.sg.statemem.sandstorm or
-                            inst.sg.statemem.groggy or
-							inst.sg.statemem.hamfog or
-                            inst.sg.statemem.careful or
-                            inst.sg.statemem.iswere) then
+                        inst.sg.statemem.heavy or
+                        inst.sg.statemem.sandstorm or
+                        inst.sg.statemem.groggy or
+                        inst.sg.statemem.hamfog or
+                        inst.sg.statemem.careful or
+                        inst.sg.statemem.iswere) then
                     inst.sg:GoToState("run")
                 end
             end),
-    },
-	
-        onexit = function(inst)	
-		if inst:HasTag("wilbur") and not inst.replica.rider:IsRiding() and not inst.replica.inventory:IsHeavyLifting() and not inst:IsCarefulWalking() then
-		inst.components.locomotor.runspeed = TUNING.WILSON_RUN_SPEED-0.5
-		if inst.components.hunger then inst.components.hunger:SetRate(1*TUNING.WILSON_HUNGER_RATE) end
-		inst.AnimState:SetBank("wilson")
-		inst.AnimState:SetBuild(inst.prefab)
-		inst.Transform:SetFourFaced()
-		inst.AnimState:Hide("TAIL_carry")
-		inst.AnimState:Show("TAIL_normal")
-		end				
-        end,	
-	
-    ontimeout = function(inst)
-        inst.sg:GoToState("run")
-    end
-}
+        },
+
+        onexit = function(inst)
+            if inst:HasTag("wilbur") and not inst.replica.rider:IsRiding() and not inst.replica.inventory:IsHeavyLifting() and not inst:IsCarefulWalking() then
+                inst.components.locomotor.runspeed = TUNING.WILSON_RUN_SPEED - 0.5
+                if inst.components.hunger then inst.components.hunger:SetRate(1 * TUNING.WILSON_HUNGER_RATE) end
+                inst.AnimState:SetBank("wilson")
+                inst.AnimState:SetBuild(inst.prefab)
+                inst.Transform:SetFourFaced()
+                inst.AnimState:Hide("TAIL_carry")
+                inst.AnimState:Show("TAIL_normal")
+            end
+        end,
+
+        ontimeout = function(inst)
+            inst.sg:GoToState("run")
+        end
+    }
 AddStategraphState("wilson_client", boatruncliente)
 
 local boatrunstopcliente =
     GLOBAL.State {
-    name = "run_stop",
-    tags = {"canrotate", "idle", "sailing", "aparece"},
-    onenter = function(inst)
+        name = "run_stop",
+        tags = { "canrotate", "idle", "sailing", "aparece" },
+        onenter = function(inst)
+            ConfigureRunState(inst)
 
-        ConfigureRunState(inst)
+            if inst:HasTag("aquatic") and inst.components.rowboatwakespawner then
+                inst.components.rowboatwakespawner:StopSpawning()
 
-        if inst:HasTag("aquatic") and inst.components.rowboatwakespawner then
-            inst.components.rowboatwakespawner:StopSpawning()
-			
-			inst.SoundEmitter:KillSound("sailmove")
-        end
+                inst.SoundEmitter:KillSound("sailmove")
+            end
 
-        inst.components.locomotor:Stop()
-        if inst:HasTag("aquatic") then
-        if inst:HasTag("surf") then inst.AnimState:PlayAnimation("surf_pst") else if inst:HasTag("sail") then inst.AnimState:PlayAnimation("sail_pst") else inst.AnimState:PlayAnimation("row_pst") end end
-        else inst.AnimState:PlayAnimation(GetRunStateAnim(inst) .. "_pst") 
-		
-		if inst.sg.statemem.moose or inst.sg.statemem.moosegroggy then
-        PlayMooseFootstep(inst, .6, true)
-        DoFoleySounds(inst)
-        end
-		
-		end
-    end,
-	
+            inst.components.locomotor:Stop()
+            if inst:HasTag("aquatic") then
+                if inst:HasTag("surf") then
+                    inst.AnimState:PlayAnimation("surf_pst")
+                else
+                    if inst:HasTag("sail") then
+                        inst.AnimState:PlayAnimation("sail_pst")
+                    else
+                        inst.AnimState:PlayAnimation("row_pst")
+                    end
+                end
+            else
+                inst.AnimState:PlayAnimation(GetRunStateAnim(inst) .. "_pst")
+
+                if inst.sg.statemem.moose or inst.sg.statemem.moosegroggy then
+                    PlayMooseFootstep(inst, .6, true)
+                    DoFoleySounds(inst)
+                end
+            end
+        end,
+
         timeline =
         {
             GLOBAL.TimeEvent(GLOBAL.FRAMES, function(inst)
@@ -5009,128 +5051,135 @@ local boatrunstopcliente =
                     DoFoleySounds(inst)
                 end
             end),
-        },	
-	
-    events = {
-        GLOBAL.EventHandler(
-            "animover",
-            function(inst)
-                if inst.AnimState:AnimDone() then
---              if inst:HasTag("aquatic") then
---                  inst.sg:GoToState("brake")
---               else
-                    inst.sg:GoToState("idle") --end
+        },
+
+        events = {
+            GLOBAL.EventHandler(
+                "animover",
+                function(inst)
+                    if inst.AnimState:AnimDone() then
+                        --              if inst:HasTag("aquatic") then
+                        --                  inst.sg:GoToState("brake")
+                        --               else
+                        inst.sg:GoToState("idle") --end
+                    end
+
+                    if inst:HasTag("aquatic") then
+                        inst.AnimState:ClearOverrideBuild("player_actions_paddle")
+                        --					if player_overrides[inst.prefab] then inst.AnimState:ClearOverrideBuild(player_overrides[inst.prefab]) end
+                    end
                 end
-                
-                if inst:HasTag("aquatic") then
-                    inst.AnimState:ClearOverrideBuild("player_actions_paddle")
---					if player_overrides[inst.prefab] then inst.AnimState:ClearOverrideBuild(player_overrides[inst.prefab]) end
-                end
-            end
-        )
+            )
+        }
     }
-}
 AddStategraphState("wilson_client", boatrunstopcliente)
 
 local boatbrake =
-    GLOBAL.State{
+    GLOBAL.State {
         name = "brake",
-        tags = {"idle", "canrotate", "boating", "sailing", "aparece"},
+        tags = { "idle", "canrotate", "boating", "sailing", "aparece" },
         onenter = function(inst)
         end,
-        
+
         onexit = function(inst)
-            
+
         end,
-        
-    events = {
-        GLOBAL.EventHandler(
-            "animover",
-            function(inst)
-                if inst.AnimState:GetCurrentAnimationTime() > 3 then
-                    inst.sg:GoToState("idle")
+
+        events = {
+            GLOBAL.EventHandler(
+                "animover",
+                function(inst)
+                    if inst.AnimState:GetCurrentAnimationTime() > 3 then
+                        inst.sg:GoToState("idle")
+                    end
                 end
-            end
-        )
-    }       
+            )
+        }
     }
 
 AddStategraphState("wilson_client", boatbrake)
 AddStategraphState("wilson", boatbrake)
 
-AddStategraphEvent("wilson", 
-GLOBAL.EventHandler ("sneeze", 
-        function (inst, data)
-        if not inst.components.health:IsDead() and not inst.components.health.invincible then
-            if inst.sg:HasStateTag("busy") and inst.sg.currentstate.name ~= "emote" then
-                inst.wantstosneeze = true
-            else
-                inst.sg:GoToState("sneeze")
+AddStategraphEvent("wilson",
+    GLOBAL.EventHandler("sneeze",
+        function(inst, data)
+            print("checkstage!!!!!!!!!")
+            print(inst.sg:HasStateTag("busy"))
+            print(inst.sg.currentstate.name ~= "emote")
+            if not inst.components.health:IsDead() and not inst.components.health.invincible then
+                if inst.sg:HasStateTag("busy") and inst.sg.currentstate.name ~= "emote" then
+                    inst.wantstosneeze = true
+                else
+                    inst.sg:GoToState("sneeze")
+                end
             end
-        end
         end))
 
 local sneeze =
-    GLOBAL.State{
+    GLOBAL.State {
         name = "sneeze",
-        tags = {"busy", "sneeze", "pausepredict" },
-        
+        tags = { "busy", "sneeze", "pausepredict" },
+
         onenter = function(inst)
             local usehit = inst.components.rider:IsRiding() or inst:HasTag("wereplayer")
             local stun_frames = usehit and 6 or 9
             inst.wantstosneeze = false
             inst:ClearBufferedAction()
             inst.components.locomotor:Stop()
-            inst.SoundEmitter:PlaySound("dontstarve/wilson/hit",nil,.02)
-			
-			
-			if inst.components.rider ~= nil and not inst.components.rider:IsRiding() then
-				inst.AnimState:PlayAnimation("sneeze")
-			end
-			
-			if inst.components.playercontroller ~= nil then
+            inst.SoundEmitter:PlaySound("dontstarve/wilson/hit", nil, .02)
+
+
+            if inst.components.rider ~= nil and not inst.components.rider:IsRiding() then
+                inst.AnimState:PlayAnimation("sneeze")
+            end
+
+            if inst.components.playercontroller ~= nil then
                 inst.components.playercontroller:RemotePausePrediction(stun_frames <= 7 and stun_frames or nil)
             end
-			
-            
+
+
             if inst.prefab ~= "wes" then
-				inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/sneeze")
-				inst.components.talker:Say(STRINGS.CHARACTERS.GENERIC.ANNOUNCE_SNEEZE)  
-            end        
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/sneeze")
+                inst.components.talker:Say(STRINGS.CHARACTERS.GENERIC.ANNOUNCE_SNEEZE)
+            end
         end,
-        
-        events=
+
+        events =
         {
-            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),
-        }, 
-        
+            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
+        },
+
         timeline =
         {
-            GLOBAL.TimeEvent(1*GLOBAL.FRAMES, function(inst)
-local itemstodrop = 0 
-if math.random() < 0.6 then itemstodrop = itemstodrop +1 end
-if math.random() < 0.3 then itemstodrop = itemstodrop +1 end 
-if math.random() < 0.2 then itemstodrop = itemstodrop +1 end 
-if math.random() < 0.1 then itemstodrop = itemstodrop +1 end   
+            GLOBAL.TimeEvent(1 * GLOBAL.FRAMES, function(inst)
+                local itemstodrop = 0
+                if math.random() < 0.6 then itemstodrop = itemstodrop + 1 end
+                if math.random() < 0.3 then itemstodrop = itemstodrop + 1 end
+                if math.random() < 0.2 then itemstodrop = itemstodrop + 1 end
+                if math.random() < 0.1 then itemstodrop = itemstodrop + 1 end
 
-if itemstodrop > 0 then
-for i=1, itemstodrop do	
-if inst.components.inventory and inst.components.inventory.isopen then
-local item = inst.components.inventory:FindItem(function(item) return not item:HasTag("nosteal") end)
-if item then
-local direction = Vector3(inst.Transform:GetWorldPosition()) - Vector3(inst.Transform:GetWorldPosition() )
-inst.components.inventory:DropItem(item, false, direction:GetNormalized())
-end
-end				
-end	
-end						
-            end),		
-            GLOBAL.TimeEvent(10*GLOBAL.FRAMES, function(inst)
-                inst.sg:RemoveStateTag("busy")		
-				if inst.components.sanity then inst.components.sanity:DoDelta(-3) end
+                if itemstodrop > 0 then
+                    for i = 1, itemstodrop do
+                        if inst.components.inventory and inst.components.inventory.isopen then
+                            local item = inst.components.inventory:FindItem(function(item)
+                                return not item:HasTag(
+                                    "nosteal")
+                            end)
+                            if item then
+                                local direction = Vector3(inst.Transform:GetWorldPosition()) -
+                                    Vector3(inst.Transform:GetWorldPosition())
+                                inst.components.inventory:DropItem(item, false, direction:GetNormalized())
+                            end
+                        end
+                    end
+                end
             end),
-        },        
-               
+            GLOBAL.TimeEvent(10 * GLOBAL.FRAMES, function(inst)
+                inst.sg:RemoveStateTag("busy")
+                if inst.components.sanity then inst.components.sanity:DoDelta(-3) end
+            end),
+        },
+
     }
 
 AddStategraphState("wilson", sneeze)
@@ -5138,27 +5187,28 @@ AddStategraphState("wilson", sneeze)
 
 
 local speargunstate =
-    GLOBAL.State{
+    GLOBAL.State {
         name = "speargun",
         tags = { "attack", "notalking", "abouttoattack", "autopredict" },
 
         onenter = function(inst)
-			if inst.components.rider:IsRiding() then
-			inst.Transform:SetFourFaced()
-            end	
+            if inst.components.rider:IsRiding() then
+                inst.Transform:SetFourFaced()
+            end
             local buffaction = inst:GetBufferedAction()
             local target = buffaction ~= nil and buffaction.target or nil
             local equip = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
             inst.components.combat:SetTarget(target)
             inst.components.combat:StartAttack()
             inst.components.locomotor:Stop()
-			inst.AnimState:PlayAnimation("speargun")			
+            inst.AnimState:PlayAnimation("speargun")
             if inst.sg.prevstate == inst.sg.currentstate then
                 inst.sg.statemem.chained = true
                 inst.AnimState:SetTime(5 * GLOBAL.FRAMES)
             end
 
-            inst.sg:SetTimeout(math.max((inst.sg.statemem.chained and 14 or 18) * GLOBAL.FRAMES, inst.components.combat.min_attack_period + .5 * GLOBAL.FRAMES))
+            inst.sg:SetTimeout(math.max((inst.sg.statemem.chained and 14 or 18) * GLOBAL.FRAMES,
+                inst.components.combat.min_attack_period + .5 * GLOBAL.FRAMES))
 
             if target ~= nil and target:IsValid() then
                 inst:FacePoint(target.Transform:GetWorldPosition())
@@ -5169,7 +5219,8 @@ local speargunstate =
                 --V2C: Projectiles don't show in the initial delayed GLOBAL.FRAMES so that
                 --     when they do appear, they're already in front of the player.
                 --     Start the attack early to keep animation in sync.
-                inst.sg.statemem.projectiledelay = (inst.sg.statemem.chained and 9 or 14) * GLOBAL.FRAMES - equip.projectiledelay
+                inst.sg.statemem.projectiledelay = (inst.sg.statemem.chained and 9 or 14) * GLOBAL.FRAMES -
+                    equip.projectiledelay
                 if inst.sg.statemem.projectiledelay <= 0 then
                     inst.sg.statemem.projectiledelay = nil
                 end
@@ -5199,30 +5250,28 @@ local speargunstate =
                     inst.sg:RemoveStateTag("abouttoattack")
                 end
             end),
-			
 
-			
+
+
             TimeEvent(15 * GLOBAL.FRAMES, function(inst)
                 if not inst.sg.statemem.chained then
-				
-                if inst.components.combat:GetWeapon() and inst.components.combat:GetWeapon():HasTag("blunderbuss") then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/weapon/blunderbuss_shoot")
-					if inst.components.rider:IsRiding() then
-                    local cloud = SpawnPrefab("cloudpuff")
-                    local pt = Vector3(inst.Transform:GetWorldPosition())
-                    cloud.Transform:SetPosition(pt.x,4.5,pt.z)
-					else
-                    local cloud = SpawnPrefab("cloudpuff")
-                    local pt = Vector3(inst.Transform:GetWorldPosition())
-                    cloud.Transform:SetPosition(pt.x,2,pt.z)					
-					end
-                else
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/use_speargun")
-                end					
-				
+                    if inst.components.combat:GetWeapon() and inst.components.combat:GetWeapon():HasTag("blunderbuss") then
+                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/weapon/blunderbuss_shoot")
+                        if inst.components.rider:IsRiding() then
+                            local cloud = SpawnPrefab("cloudpuff")
+                            local pt = Vector3(inst.Transform:GetWorldPosition())
+                            cloud.Transform:SetPosition(pt.x, 4.5, pt.z)
+                        else
+                            local cloud = SpawnPrefab("cloudpuff")
+                            local pt = Vector3(inst.Transform:GetWorldPosition())
+                            cloud.Transform:SetPosition(pt.x, 2, pt.z)
+                        end
+                    else
+                        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/use_speargun")
+                    end
                 end
             end),
-				
+
             TimeEvent(16 * GLOBAL.FRAMES, function(inst)
                 if not inst.sg.statemem.chained and inst.sg.statemem.projectiledelay == nil then
                     inst:PerformBufferedAction()
@@ -5252,7 +5301,7 @@ local speargunstate =
             if inst.sg:HasStateTag("abouttoattack") then
                 inst.components.combat:CancelAttack()
             end
-			if inst.components.rider:IsRiding() then
+            if inst.components.rider:IsRiding() then
                 inst.Transform:SetSixFaced()
             end
         end,
@@ -5261,15 +5310,15 @@ local speargunstate =
 
 
 local speargunstateclient =
-    GLOBAL.    State
+    GLOBAL.State
     {
         name = "speargun",
         tags = { "attack", "notalking", "abouttoattack" },
 
         onenter = function(inst)
-			if inst.replica.rider ~= nil and inst.replica.rider:IsRiding() then
-			inst.Transform:SetFourFaced()
-            end	
+            if inst.replica.rider ~= nil and inst.replica.rider:IsRiding() then
+                inst.Transform:SetFourFaced()
+            end
             local equip = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
             inst.components.locomotor:Stop()
 
@@ -5281,7 +5330,8 @@ local speargunstateclient =
 
             if inst.replica.combat ~= nil then
                 inst.replica.combat:StartAttack()
-                inst.sg:SetTimeout(math.max((inst.sg.statemem.chained and 14 or 18) * FRAMES, inst.replica.combat:MinAttackPeriod() + .5 * FRAMES))
+                inst.sg:SetTimeout(math.max((inst.sg.statemem.chained and 14 or 18) * FRAMES,
+                    inst.replica.combat:MinAttackPeriod() + .5 * FRAMES))
             end
 
             local buffaction = inst:GetBufferedAction()
@@ -5298,7 +5348,8 @@ local speargunstateclient =
                 --V2C: Projectiles don't show in the initial delayed frames so that
                 --     when they do appear, they're already in front of the player.
                 --     Start the attack early to keep animation in sync.
-                inst.sg.statemem.projectiledelay = (inst.sg.statemem.chained and 9 or 14) * FRAMES - equip.projectiledelay
+                inst.sg.statemem.projectiledelay = (inst.sg.statemem.chained and 9 or 14) * FRAMES -
+                    equip.projectiledelay
                 if inst.sg.statemem.projectiledelay <= 0 then
                     inst.sg.statemem.projectiledelay = nil
                 end
@@ -5328,30 +5379,28 @@ local speargunstateclient =
                     inst.sg:RemoveStateTag("abouttoattack")
                 end
             end),
-			
-			
-			
+
+
+
             TimeEvent(15 * GLOBAL.FRAMES, function(inst)
                 if not inst.sg.statemem.chained then
-				
-                if inst.replica.combat:GetWeapon() and inst.replica.combat:GetWeapon():HasTag("blunderbuss") then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/weapon/blunderbuss_shoot")
-					if inst.replica.rider ~= nil and inst.replica.rider:IsRiding() then
-                    local cloud = SpawnPrefab("cloudpuff")
-                    local pt = Vector3(inst.Transform:GetWorldPosition())
-                    cloud.Transform:SetPosition(pt.x,4.5,pt.z)
-					else
-                    local cloud = SpawnPrefab("cloudpuff")
-                    local pt = Vector3(inst.Transform:GetWorldPosition())
-                    cloud.Transform:SetPosition(pt.x,2,pt.z)					
-					end
-                else
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/use_speargun")
-                end					
-				
+                    if inst.replica.combat:GetWeapon() and inst.replica.combat:GetWeapon():HasTag("blunderbuss") then
+                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/weapon/blunderbuss_shoot")
+                        if inst.replica.rider ~= nil and inst.replica.rider:IsRiding() then
+                            local cloud = SpawnPrefab("cloudpuff")
+                            local pt = Vector3(inst.Transform:GetWorldPosition())
+                            cloud.Transform:SetPosition(pt.x, 4.5, pt.z)
+                        else
+                            local cloud = SpawnPrefab("cloudpuff")
+                            local pt = Vector3(inst.Transform:GetWorldPosition())
+                            cloud.Transform:SetPosition(pt.x, 2, pt.z)
+                        end
+                    else
+                        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/use_speargun")
+                    end
                 end
-            end),			
-			
+            end),
+
             TimeEvent(16 * FRAMES, function(inst)
                 if not inst.sg.statemem.chained and inst.sg.statemem.projectiledelay == nil then
                     inst:ClearBufferedAction()
@@ -5378,27 +5427,29 @@ local speargunstateclient =
             if inst.sg:HasStateTag("abouttoattack") and inst.replica.combat ~= nil then
                 inst.replica.combat:CancelAttack()
             end
-			if inst.replica.rider ~= nil and inst.replica.rider:IsRiding() then
+            if inst.replica.rider ~= nil and inst.replica.rider:IsRiding() then
                 inst.Transform:SetSixFaced()
-            end			
+            end
         end,
     }
-	
+
 AddStategraphState("wilson_client", speargunstateclient)
 AddStategraphState("wilson", speargunstate)
 
 local vagnerintro = GLOBAL.State({
     name = "sleep_dlc",
-    
+
     onenter = function(inst)
-if inst.prefab == "walani" or inst.prefab == "warly" or inst.prefab == "wilbur" or inst.prefab == "woodlegs" then
-        inst.AnimState:PlayAnimation("sleep", true)
-		else inst.AnimState:PlayAnimation("sleep_loop", true) end
+        if inst.prefab == "walani" or inst.prefab == "warly" or inst.prefab == "wilbur" or inst.prefab == "woodlegs" then
+            inst.AnimState:PlayAnimation("sleep", true)
+        else
+            inst.AnimState:PlayAnimation("sleep_loop", true)
+        end
         inst.components.playercontroller:Enable(false)
         inst.components.health:SetInvincible(true)
     end,
 
-    onexit=function(inst)
+    onexit = function(inst)
         inst.components.health:SetInvincible(false)
         inst.components.playercontroller:Enable(true)
     end,
@@ -5409,15 +5460,17 @@ if inst.prefab == "walani" or inst.prefab == "warly" or inst.prefab == "wilbur" 
 
 local vagnerintro2 = GLOBAL.State({
     name = "sleep_intro",
-    onenter = function(inst) 
-if inst.prefab == "walani" or inst.prefab == "warly" or inst.prefab == "wilbur" or inst.prefab == "woodlegs" then
-        inst.AnimState:PlayAnimation("sleep", true)
-		else inst.AnimState:PlayAnimation("sleep_loop", true) end
+    onenter = function(inst)
+        if inst.prefab == "walani" or inst.prefab == "warly" or inst.prefab == "wilbur" or inst.prefab == "woodlegs" then
+            inst.AnimState:PlayAnimation("sleep", true)
+        else
+            inst.AnimState:PlayAnimation("sleep_loop", true)
+        end
         inst.components.playercontroller:Enable(false)
         inst.components.health:SetInvincible(true)
     end,
 
-    onexit=function(inst)
+    onexit = function(inst)
         inst.components.health:SetInvincible(false)
         inst.components.playercontroller:Enable(true)
     end,
@@ -5430,90 +5483,91 @@ AddStategraphState("wilson_client", vagnerintro)
 AddStategraphState("wilson_client", vagnerintro2)
 
 
-local telescopio = GLOBAL.State{
-        name = "peertelescope",
-        tags = {"doing", "busy", "canrotate"},
+local telescopio = GLOBAL.State {
+    name = "peertelescope",
+    tags = { "doing", "busy", "canrotate" },
 
-        onenter = function(inst, data)
-			local act
-            inst.sg.statemem.action = inst:GetBufferedAction()	
-            local buffaction = inst:GetBufferedAction()
-            if buffaction ~= nil and buffaction.pos ~= nil then
-			act = buffaction:GetActionPoint()
-			end		
-            inst:ForceFacePoint(act.x, act.y, act.z)
-            inst.components.playercontroller:Enable(false)
-            inst.AnimState:PlayAnimation("telescope", false)
-            inst.AnimState:PushAnimation("telescope_pst", false)
+    onenter = function(inst, data)
+        local act
+        inst.sg.statemem.action = inst:GetBufferedAction()
+        local buffaction = inst:GetBufferedAction()
+        if buffaction ~= nil and buffaction.pos ~= nil then
+            act = buffaction:GetActionPoint()
+        end
+        inst:ForceFacePoint(act.x, act.y, act.z)
+        inst.components.playercontroller:Enable(false)
+        inst.AnimState:PlayAnimation("telescope", false)
+        inst.AnimState:PushAnimation("telescope_pst", false)
 
-            inst.components.locomotor:Stop()
-        end,
+        inst.components.locomotor:Stop()
+    end,
 
-        timeline = 
-        {
-            GLOBAL.TimeEvent(20*GLOBAL.FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/use_spyglass") end),
-        },
+    timeline =
+    {
+        GLOBAL.TimeEvent(20 * GLOBAL.FRAMES, function(inst)
+            inst.SoundEmitter:PlaySound(
+                "dontstarve_DLC002/common/use_spyglass")
+        end),
+    },
 
-        onexit = function(inst)
-            inst.components.playercontroller:Enable(true)
-        end,
+    onexit = function(inst)
+        inst.components.playercontroller:Enable(true)
+    end,
 
-        events = {
-            GLOBAL.EventHandler("animover", function(inst)
-                inst:PerformBufferedAction()
-            end ),
-            GLOBAL.EventHandler("animqueueover", function(inst)
-                
---                local telescope = inst.sg.statemem.action.invobject or inst.sg.statemem.action.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
---                if telescope and telescope.components.finiteuses then
-                    -- this is here because the telescope still needs to exist while playing the put away animation
-                    --telescope.components.finiteuses:Use()
---                end
+    events = {
+        GLOBAL.EventHandler("animover", function(inst)
+            inst:PerformBufferedAction()
+        end),
+        GLOBAL.EventHandler("animqueueover", function(inst)
+            --                local telescope = inst.sg.statemem.action.invobject or inst.sg.statemem.action.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+            --                if telescope and telescope.components.finiteuses then
+            -- this is here because the telescope still needs to exist while playing the put away animation
+            --telescope.components.finiteuses:Use()
+            --                end
 
-                inst.sg:GoToState("idle")
+            inst.sg:GoToState("idle")
+        end),
+    },
+}
 
-            end ),
-        },
-    }
-	
 AddStategraphState("wilson", telescopio)
 AddStategraphState("wilson_client", telescopio)
 
-local magica = GLOBAL.State{
-        name = "quickcastspell",
-        tags = { "doing", "busy", "canrotate" },
+local magica = GLOBAL.State {
+    name = "quickcastspell",
+    tags = { "doing", "busy", "canrotate" },
 
-        onenter = function(inst)
-            inst.components.locomotor:Stop()
-            if inst.components.rider:IsRiding() then
-                inst.AnimState:PlayAnimation("player_atk_pre")
-                inst.AnimState:PushAnimation("player_atk", false)
-            elseif inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS):HasTag("telescope") then
-			inst.sg:GoToState("peertelescope")	
-            else
-                inst.AnimState:PlayAnimation("atk_pre")
-                inst.AnimState:PushAnimation("atk", false)
+    onenter = function(inst)
+        inst.components.locomotor:Stop()
+        if inst.components.rider:IsRiding() then
+            inst.AnimState:PlayAnimation("player_atk_pre")
+            inst.AnimState:PushAnimation("player_atk", false)
+        elseif inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS):HasTag("telescope") then
+            inst.sg:GoToState("peertelescope")
+        else
+            inst.AnimState:PlayAnimation("atk_pre")
+            inst.AnimState:PushAnimation("atk", false)
+        end
+        inst.SoundEmitter:PlaySound("dontstarve/wilson/attack_weapon")
+    end,
+
+    timeline =
+    {
+        GLOBAL.TimeEvent(5 * GLOBAL.FRAMES, function(inst)
+            inst:PerformBufferedAction()
+        end),
+    },
+
+    events =
+    {
+        GLOBAL.EventHandler("animqueueover", function(inst)
+            if inst.AnimState:AnimDone() then
+                inst.sg:GoToState("idle")
             end
-            inst.SoundEmitter:PlaySound("dontstarve/wilson/attack_weapon")
-        end,
+        end),
+    },
+}
 
-        timeline =
-        {
-            GLOBAL.TimeEvent(5 * GLOBAL.FRAMES, function(inst)
-                inst:PerformBufferedAction()
-            end),
-        },
-
-        events =
-        {
-            GLOBAL.EventHandler("animqueueover", function(inst)
-                if inst.AnimState:AnimDone() then
-                    inst.sg:GoToState("idle")
-                end
-            end),
-        },
-    }
-	
 local TIMEOUT = 2
 
 local magica_client = GLOBAL.State
@@ -5527,8 +5581,8 @@ local magica_client = GLOBAL.State
                 inst.AnimState:PlayAnimation("player_atk_pre")
                 inst.AnimState:PushAnimation("player_atk_lag", false)
             elseif inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS):HasTag("telescope") then
-			inst.sg:GoToState("peertelescope")		
-			else
+                inst.sg:GoToState("peertelescope")
+            else
                 inst.AnimState:PlayAnimation("atk_pre")
                 inst.AnimState:PushAnimation("atk_lag", false)
             end
@@ -5553,88 +5607,91 @@ local magica_client = GLOBAL.State
         end,
     }
 
-	
-		
+
+
 AddStategraphState("wilson", magica)
 AddStategraphState("wilson_client", magica_client)
 
 
-local usefansw = GLOBAL.State{
-        name = "use_fan",
-        tags = { "doing" },
+local usefansw = GLOBAL.State {
+    name = "use_fan",
+    tags = { "doing" },
 
-        onenter = function(inst)
-            local invobject = nil
-            if inst.bufferedaction ~= nil then
-                invobject = inst.bufferedaction.invobject
-                if invobject ~= nil and invobject.components.fan ~= nil and invobject.components.fan:IsChanneling() then
-                    inst.sg.statemem.item = invobject
-                    inst.sg.statemem.target = inst.bufferedaction.target or inst.bufferedaction.doer
-                    inst.sg:AddStateTag("busy")
-                end
+    onenter = function(inst)
+        local invobject = nil
+        if inst.bufferedaction ~= nil then
+            invobject = inst.bufferedaction.invobject
+            if invobject ~= nil and invobject.components.fan ~= nil and invobject.components.fan:IsChanneling() then
+                inst.sg.statemem.item = invobject
+                inst.sg.statemem.target = inst.bufferedaction.target or inst.bufferedaction.doer
+                inst.sg:AddStateTag("busy")
             end
-            inst.components.locomotor:Stop()
-            inst.AnimState:PlayAnimation("action_uniqueitem_pre")
-            inst.AnimState:PushAnimation("fan", false)
-            local skin_build = invobject:GetSkinBuild()
-            local src_symbol = invobject ~= nil and invobject.components.fan ~= nil and invobject.components.fan.overridesymbol or "swap_fan"
-            if skin_build ~= nil then
-                inst.AnimState:OverrideItemSkinSymbol( "fan01", skin_build, src_symbol, invobject.GUID, "fan" )
-            else
-                inst.AnimState:OverrideSymbol( "fan01", "fan", src_symbol )
-            end
-			
-			
-			if invobject and invobject.components.fan and invobject.components.fan.overridebuild then
+        end
+        inst.components.locomotor:Stop()
+        inst.AnimState:PlayAnimation("action_uniqueitem_pre")
+        inst.AnimState:PushAnimation("fan", false)
+        local skin_build = invobject:GetSkinBuild()
+        local src_symbol = invobject ~= nil and invobject.components.fan ~= nil and
+            invobject.components.fan.overridesymbol or "swap_fan"
+        if skin_build ~= nil then
+            inst.AnimState:OverrideItemSkinSymbol("fan01", skin_build, src_symbol, invobject.GUID, "fan")
+        else
+            inst.AnimState:OverrideSymbol("fan01", "fan", src_symbol)
+        end
+
+
+        if invobject and invobject.components.fan and invobject.components.fan.overridebuild then
             inst.AnimState:OverrideSymbol(
                 "fan01",
                 invobject.components.fan.overridebuild or "fan",
                 invobject.components.fan.overridesymbol or "swap_fan"
             )
-			end					
-			
-			
-			
-			
-			
-			
-			
-            inst.components.inventory:ReturnActiveActionItem(invobject)
-        end,
+        end
 
-        timeline =
-        {
-            GLOBAL.TimeEvent(30 * FRAMES, function(inst)
-                if inst.sg.statemem.item ~= nil and
-                    inst.sg.statemem.item:IsValid() and
-                    inst.sg.statemem.item.components.fan ~= nil then
-                    inst.sg.statemem.item.components.fan:Channel(inst.sg.statemem.target ~= nil and inst.sg.statemem.target:IsValid() and inst.sg.statemem.target or inst)
-                end
-            end),
-            GLOBAL.TimeEvent(50 * FRAMES, function(inst)
-                if inst.sg.statemem.item ~= nil and
-                    inst.sg.statemem.item:IsValid() and
-                    inst.sg.statemem.item.components.fan ~= nil then
-                    inst.sg.statemem.item.components.fan:Channel(inst.sg.statemem.target ~= nil and inst.sg.statemem.target:IsValid() and inst.sg.statemem.target or inst)
-                end
-            end),
-            GLOBAL.TimeEvent(70 * FRAMES, function(inst)
-                if inst.sg.statemem.item ~= nil then
-                    inst.sg:RemoveStateTag("busy")
-                end
-                inst:PerformBufferedAction()
-            end),
-        },
 
-        events =
-        {
-            EventHandler("animqueueover", function(inst)
-                if inst.AnimState:AnimDone() then
-                    inst.sg:GoToState("idle")
-                end
-            end),
-        },
-    }
+
+
+
+
+
+        inst.components.inventory:ReturnActiveActionItem(invobject)
+    end,
+
+    timeline =
+    {
+        GLOBAL.TimeEvent(30 * FRAMES, function(inst)
+            if inst.sg.statemem.item ~= nil and
+                inst.sg.statemem.item:IsValid() and
+                inst.sg.statemem.item.components.fan ~= nil then
+                inst.sg.statemem.item.components.fan:Channel(inst.sg.statemem.target ~= nil and
+                    inst.sg.statemem.target:IsValid() and inst.sg.statemem.target or inst)
+            end
+        end),
+        GLOBAL.TimeEvent(50 * FRAMES, function(inst)
+            if inst.sg.statemem.item ~= nil and
+                inst.sg.statemem.item:IsValid() and
+                inst.sg.statemem.item.components.fan ~= nil then
+                inst.sg.statemem.item.components.fan:Channel(inst.sg.statemem.target ~= nil and
+                    inst.sg.statemem.target:IsValid() and inst.sg.statemem.target or inst)
+            end
+        end),
+        GLOBAL.TimeEvent(70 * FRAMES, function(inst)
+            if inst.sg.statemem.item ~= nil then
+                inst.sg:RemoveStateTag("busy")
+            end
+            inst:PerformBufferedAction()
+        end),
+    },
+
+    events =
+    {
+        EventHandler("animqueueover", function(inst)
+            if inst.AnimState:AnimDone() then
+                inst.sg:GoToState("idle")
+            end
+        end),
+    },
+}
 
 
 
@@ -5649,8 +5706,8 @@ AddStategraphState("wilson", usefansw)
 local macacorunstart = GLOBAL.State{
         name = "run_monkey_start",
         tags = {"moving", "running", "canrotate", "monkey", "sailing"},
-        
-        onenter = function(inst) 
+
+        onenter = function(inst)
             inst.Transform:SetSixFaced()
             inst.components.locomotor:RunForward()
             inst.AnimState:SetBank("wilbur_run")
@@ -5666,7 +5723,7 @@ local macacorunstart = GLOBAL.State{
         end,
 
         events=
-        {   
+        {
             GLOBAL.EventHandler("animover", function(inst)
                 inst.sg:GoToState("run_monkey")
             end ),
@@ -5676,8 +5733,8 @@ local macacorunstart = GLOBAL.State{
 local macacorun = GLOBAL.State{
         name = "run_monkey",
         tags = {"moving", "running", "canrotate", "monkey", "sailing"},
-        
-        onenter = function(inst) 
+
+        onenter = function(inst)
 		    inst.components.locomotor.runspeed = TUNING.WILSON_RUN_SPEED + 2.5
 if inst.components.hunger then inst.components.hunger:SetRate(TUNING.WILSON_HUNGER_RATE * 1.33) end
 
@@ -5686,7 +5743,7 @@ if inst.components.hunger then inst.components.hunger:SetRate(TUNING.WILSON_HUNG
             inst.AnimState:SetBank("wilbur_run")
             inst.AnimState:SetBuild("wilbur_run")
             inst.AnimState:PlayAnimation("run_loop")
-            
+
  if inst.components.inventory and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
                 inst.AnimState:Show("TAIL_carry")
                 inst.AnimState:Hide("TAIL_normal")
@@ -5702,8 +5759,8 @@ if inst.components.hunger then inst.components.hunger:SetRate(1*TUNING.WILSON_HU
             inst.AnimState:Hide("TAIL_carry")
             inst.AnimState:Show("TAIL_normal")
         end,
-        
-        timeline = 
+
+        timeline =
         {
             GLOBAL.TimeEvent(4*GLOBAL.FRAMES, function(inst) GLOBAL.PlayFootstep(inst, 0.5) end),
             GLOBAL.TimeEvent(5*GLOBAL.FRAMES, function(inst) GLOBAL.PlayFootstep(inst, 0.5) DoFoleySounds(inst) end),
@@ -5714,17 +5771,17 @@ if inst.components.hunger then inst.components.hunger:SetRate(1*TUNING.WILSON_HU
         onupdate = function(inst)
             inst.components.locomotor:RunForward()
         end,
-       
+
         events=
         {
             GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("run_monkey") end),
 
-            GLOBAL.EventHandler("equip", function(inst) 
+            GLOBAL.EventHandler("equip", function(inst)
                 inst.AnimState:Show("TAIL_carry")
                 inst.AnimState:Hide("TAIL_normal")
             end),
 
-            GLOBAL.EventHandler("unequip", function(inst) 
+            GLOBAL.EventHandler("unequip", function(inst)
                 inst.AnimState:Hide("TAIL_carry")
                 inst.AnimState:Show("TAIL_normal")
             end),
@@ -5736,7 +5793,7 @@ AddStategraphState("wilson", macacorun)
 AddStategraphState("wilson_client", macacorunstart)
 AddStategraphState("wilson_client", macacorun)
 ]]
-local JUMPIN = GLOBAL.Action({priority = 10, ghost_valid=true, encumbered_valid=true, invalid_hold_action = true})
+local JUMPIN = GLOBAL.Action({ priority = 10, ghost_valid = true, encumbered_valid = true, invalid_hold_action = true })
 JUMPIN.str = (GLOBAL.STRINGS.ACTIONS.JUMPIN)
 JUMPIN.id = "JUMPIN"
 JUMPIN.fn = function(act)
@@ -5746,11 +5803,11 @@ JUMPIN.fn = function(act)
         if act.target ~= nil and
             act.target.components.teleporter ~= nil and
             act.target.components.teleporter:IsActive() then
-			if act.target:HasTag("hamletteleport") and not act.doer:HasTag("playerghost") then
-            act.doer.sg:GoToState("hamletteleport", { teleporter = act.target })
-			else
-            act.doer.sg:GoToState("jumpin", { teleporter = act.target })			
-			end
+            if act.target:HasTag("hamletteleport") and not act.doer:HasTag("playerghost") then
+                act.doer.sg:GoToState("hamletteleport", { teleporter = act.target })
+            else
+                act.doer.sg:GoToState("jumpin", { teleporter = act.target })
+            end
             return true
         end
         act.doer.sg:GoToState("idle")
@@ -5775,7 +5832,7 @@ local function ToggleOnPhysics(inst)
 end
 
 local hamletteleport =
-    GLOBAL.State{
+    GLOBAL.State {
         name = "hamletteleport",
         tags = { "doing", "busy", "canrotate", "nopredict", "nomorph" },
 
@@ -5828,7 +5885,8 @@ local hamletteleport =
                 inst.Physics:SetMotorVel(inst.sg.statemem.speed * (inst.sg.statemem.heavy and .55 or .75), 0, 0)
             end),
             TimeEvent(1 * GLOBAL.FRAMES, function(inst)
-                inst.Physics:SetMotorVel(inst.sg.statemem.heavy and inst.sg.statemem.speed * .6 or inst.sg.statemem.speed, 0, 0)
+                inst.Physics:SetMotorVel(
+                    inst.sg.statemem.heavy and inst.sg.statemem.speed * .6 or inst.sg.statemem.speed, 0, 0)
             end),
 
             --Heavy lifting
@@ -5928,20 +5986,20 @@ AddStategraphState(
     "spider",
     GLOBAL.State {
         name = "jumper_attack",
-        tags = {"attack", "canrotate", "busy", "spitting"},
+        tags = { "attack", "canrotate", "busy", "spitting" },
 
         onenter = function(inst, target)
             inst.components.locomotor:Stop()
             inst.components.locomotor:EnableGroundSpeedMultiplier(false)
-	
-			inst.sg.statemem.collisionmask = inst.Physics:GetCollisionMask()
-			inst.Physics:SetCollisionMask(COLLISION.GROUND)
-			if not GLOBAL.TheWorld.ismastersim then
-			inst.Physics:SetLocalCollisionMask(COLLISION.GROUND)
-			end	
-	
+
+            inst.sg.statemem.collisionmask = inst.Physics:GetCollisionMask()
+            inst.Physics:SetCollisionMask(COLLISION.GROUND)
+            if not GLOBAL.TheWorld.ismastersim then
+                inst.Physics:SetLocalCollisionMask(COLLISION.GROUND)
+            end
+
             inst.AnimState:PlayAnimation("warrior_atk")
-            inst.sg.statemem.target = target		
+            inst.sg.statemem.target = target
         end,
 
         onexit = function(inst)
@@ -5951,91 +6009,110 @@ AddStategraphState(
             inst.Physics:ClearLocalCollisionMask()
             if inst.sg.statemem.collisionmask ~= nil then
                 inst.Physics:SetCollisionMask(inst.sg.statemem.collisionmask)
-            end				
+            end
         end,
 
         timeline =
         {
-            GLOBAL.TimeEvent(0*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/creatures/spiderwarrior/attack_grunt") end),
-            GLOBAL.TimeEvent(0*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/creatures/spiderwarrior/Jump") end),
-            GLOBAL.TimeEvent(8*FRAMES, function(inst)
-local x1, y1, z1 = inst.sg.statemem.target.Transform:GetWorldPosition()	
-local x2, y2, z2 = inst.Transform:GetWorldPosition()
-inst:ForceFacePoint(x1, y1, z1)
-local dist = math.sqrt((x1 - x2)*(x1 - x2) + (z1 - z2)*(z1 - z2))
-inst.Physics:SetMotorVel(dist * 2, 0, 0)	end),
+            GLOBAL.TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve/creatures/spiderwarrior/attack_grunt")
+            end),
+            GLOBAL.TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve/creatures/spiderwarrior/Jump")
+            end),
+            GLOBAL.TimeEvent(8 * FRAMES, function(inst)
+                local x1, y1, z1 = inst.sg.statemem.target.Transform:GetWorldPosition()
+                local x2, y2, z2 = inst.Transform:GetWorldPosition()
+                inst:ForceFacePoint(x1, y1, z1)
+                local dist = math.sqrt((x1 - x2) * (x1 - x2) + (z1 - z2) * (z1 - z2))
+                inst.Physics:SetMotorVel(dist * 2, 0, 0)
+            end),
 
 
-            GLOBAL.TimeEvent(9*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/creatures/spiderwarrior/Attack") end),
-            GLOBAL.TimeEvent(20*FRAMES,
+            GLOBAL.TimeEvent(9 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve/creatures/spiderwarrior/Attack")
+            end),
+            GLOBAL.TimeEvent(20 * FRAMES,
                 function(inst)
                     inst.Physics:ClearMotorVelOverride()
                     inst.components.locomotor:Stop()
                 end),
         },
 
-        events=
+        events =
         {
             GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("taunt") end),
         }
-}
+    }
 )
 
 AddStategraphState(
     "penguin",
     GLOBAL.State {
         name = "jumper_attack",
-        tags = {"flight", "busy"},
+        tags = { "flight", "busy" },
 
         onenter = function(inst, target)
             inst.components.locomotor:Stop()
             inst.components.locomotor:EnableGroundSpeedMultiplier(false)
-	
-			inst.sg.statemem.collisionmask = inst.Physics:GetCollisionMask()
-			inst.Physics:SetCollisionMask(COLLISION.GROUND)
-			if not GLOBAL.TheWorld.ismastersim then
-			inst.Physics:SetLocalCollisionMask(COLLISION.GROUND)
-			end	
-	
+
+            inst.sg.statemem.collisionmask = inst.Physics:GetCollisionMask()
+            inst.Physics:SetCollisionMask(COLLISION.GROUND)
+            if not GLOBAL.TheWorld.ismastersim then
+                inst.Physics:SetLocalCollisionMask(COLLISION.GROUND)
+            end
+
             inst.AnimState:PlayAnimation("slide_loop", true)
-            inst.sg.statemem.target = target		
+            inst.sg.statemem.target = target
         end,
 
         timeline =
         {
-            GLOBAL.TimeEvent(0*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/creatures/pengull/jumpin") end),
-            GLOBAL.TimeEvent(0*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/creatures/pengull/jumpin") end),
-            GLOBAL.TimeEvent(8*FRAMES, function(inst)
-local x1, y1, z1 = inst.sg.statemem.target.Transform:GetWorldPosition()	
-local x2, y2, z2 = inst.Transform:GetWorldPosition()
-inst:ForceFacePoint(x1, y1, z1)
-local dist = math.sqrt((x1 - x2)*(x1 - x2) + (z1 - z2)*(z1 - z2))
-inst.Physics:SetMotorVel(dist * 2, 0, 0)	end),
+            GLOBAL.TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve/creatures/pengull/jumpin")
+            end),
+            GLOBAL.TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve/creatures/pengull/jumpin")
+            end),
+            GLOBAL.TimeEvent(8 * FRAMES, function(inst)
+                local x1, y1, z1 = inst.sg.statemem.target.Transform:GetWorldPosition()
+                local x2, y2, z2 = inst.Transform:GetWorldPosition()
+                inst:ForceFacePoint(x1, y1, z1)
+                local dist = math.sqrt((x1 - x2) * (x1 - x2) + (z1 - z2) * (z1 - z2))
+                inst.Physics:SetMotorVel(dist * 2, 0, 0)
+            end),
 
 
-            GLOBAL.TimeEvent(9*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/creatures/pengull/jumpin") end),
-            GLOBAL.TimeEvent(20*FRAMES,
+            GLOBAL.TimeEvent(9 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve/creatures/pengull/jumpin")
+            end),
+            GLOBAL.TimeEvent(20 * FRAMES,
                 function(inst)
                     inst.Physics:ClearMotorVelOverride()
                     inst.components.locomotor:Stop()
                 end),
-            GLOBAL.TimeEvent(30*FRAMES, function(inst)
+            GLOBAL.TimeEvent(30 * FRAMES, function(inst)
+                inst.components.locomotor:Stop()
+                inst.components.locomotor:EnableGroundSpeedMultiplier(true)
+                inst.Physics:ClearMotorVelOverride()
+                inst.Physics:ClearLocalCollisionMask()
+                if inst.sg.statemem.collisionmask ~= nil then
+                    inst.Physics:SetCollisionMask(inst.sg.statemem.collisionmask)
+                end
 
-            inst.components.locomotor:Stop()
-            inst.components.locomotor:EnableGroundSpeedMultiplier(true)
-            inst.Physics:ClearMotorVelOverride()
-            inst.Physics:ClearLocalCollisionMask()
-            if inst.sg.statemem.collisionmask ~= nil then
-                inst.Physics:SetCollisionMask(inst.sg.statemem.collisionmask)
-            end		
 
 
-			
-			inst.sg:GoToState("walk_start") 
-			end),
-				
+                inst.sg:GoToState("walk_start")
+            end),
+
         },
-}
+    }
 )
 
 ---------------------------------gorge zone-------------------------------------------
@@ -6046,11 +6123,13 @@ local cooking = _G.require("cooking")
 local Vector3 = _G.Vector3
 
 local function DefaultItemTestFn(container, item, slot)
-    return (cooking.IsCookingIngredient(item.prefab) or item:HasTag("preparedfood") or item.prefab == "wetgoop") and not container.inst:HasTag("burnt")
+    return (cooking.IsCookingIngredient(item.prefab) or item:HasTag("preparedfood") or item.prefab == "wetgoop") and
+        not container.inst:HasTag("burnt")
 end
 
 local function SyrupItemTestFn(container, item, slot)
-    return (item.prefab == "syrup" or item.prefab == "sap" or item.prefab == "wetgoop") and not container.inst:HasTag("burnt")
+    return (item.prefab == "syrup" or item.prefab == "sap" or item.prefab == "wetgoop") and
+        not container.inst:HasTag("burnt")
 end
 
 local cookertypes =
@@ -6131,14 +6210,14 @@ end
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	
 -- Meal
 
-local MEAL = Action({priority=3, instant = false, mount_valid = true, rmb = true, distance = 1, canforce=true})
+local MEAL = Action({ priority = 3, instant = false, mount_valid = true, rmb = true, distance = 1, canforce = true })
 MEAL.id = "MEAL"
 MEAL.str = "Meal"
 MEAL.fn = function(act)
-	if act.target ~= nil  and act.target.components.mealer ~= nil then
-		act.target.components.mealer:StartMealing()
-		return true
-	end
+    if act.target ~= nil and act.target.components.mealer ~= nil then
+        act.target.components.mealer:StartMealing()
+        return true
+    end
 end
 
 AddAction(MEAL)
@@ -6149,73 +6228,76 @@ AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.MEAL, "doshort
 -- Mealler
 
 local function CreateMealerWidget()
-	local params = {}
-	
-	
-	params.mealingstone =
-	{
-    widget =
+    local params = {}
+
+
+    params.mealingstone =
     {
-        slotpos =
+        widget =
         {
-            Vector3(0, 64 + 32 + 8 + 4, 0), 
-            Vector3(0, 32 + 4, 0),
-            Vector3(0, -(32 + 4), 0), 
-            Vector3(0, -(64 + 32 + 8 + 4), 0),
+            slotpos =
+            {
+                Vector3(0, 64 + 32 + 8 + 4, 0),
+                Vector3(0, 32 + 4, 0),
+                Vector3(0, -(32 + 4), 0),
+                Vector3(0, -(64 + 32 + 8 + 4), 0),
+            },
+            animbank = "ui_cookpot_1x4",
+            animbuild = "ui_cookpot_1x4",
+            pos = Vector3(200, 0, 0),
+            side_align_tip = 100,
+            buttoninfo =
+            {
+                text = "Grind",
+                position = Vector3(0, -165, 0),
+            }
         },
-        animbank = "ui_cookpot_1x4",
-        animbuild = "ui_cookpot_1x4",
-        pos = Vector3(200, 0, 0),
-        side_align_tip = 100,
-        buttoninfo =
-        {
-            text = "Grind",
-            position = Vector3(0, -165, 0),
-        }
-    },
-    acceptsstacks = false,
-    type = "cooker",
-	}
+        acceptsstacks = false,
+        type = "cooker",
+    }
 
 
-	local containers = GLOBAL.require "containers"
-	
-	containers.MAXITEMSLOTS = math.max(containers.MAXITEMSLOTS, params.mealingstone.widget.slotpos ~= nil and #params.mealingstone.widget.slotpos or 0)
+    local containers = GLOBAL.require "containers"
 
-	local old_widgetsetup = containers.widgetsetup
-	
-	function containers.widgetsetup(container, prefab, data)
-		local pref = prefab or container.inst.prefab
-		
-		if pref == "mealingstone" then
-			local t = params[pref]
-			
-			if t ~= nil then
-				for k, v in pairs(t) do
-					container[k] = v
-				end
-			container:SetNumSlots(container.widget.slotpos ~= nil and #container.widget.slotpos or 0)
-			end
-		else
-			return old_widgetsetup(container, prefab, data)
-		end
-	end
+    containers.MAXITEMSLOTS = math.max(containers.MAXITEMSLOTS,
+        params.mealingstone.widget.slotpos ~= nil and #params.mealingstone.widget.slotpos or 0)
 
-	function params.mealingstone.widget.buttoninfo.fn(inst)
-		if inst.components.container ~= nil then
-			BufferedAction(inst.components.container.opener, inst, ACTIONS.MEAL):Do()
-		elseif inst.replica.container ~= nil and not inst.replica.container:IsBusy() then
-			SendRPCToServer(RPC.DoWidgetButtonAction, ACTIONS.MEAL.code, inst, ACTIONS.MEAL.mod_name)
-		end
-	end
-	
-	function params.mealingstone.itemtestfn(container, item, slot)
-		return (item:HasTag("mealable") and not container.inst:HasTag("pleasetakeitem")) or (container.inst:HasTag("pleasetakeitem") and (item:HasTag("mealproduct") or item.prefab == "ash" or item.prefab == "spice_salt" or item.prefab == "quagmire_spotspice_ground" or item.prefab == "quagmire_flour"))
-	end
-	
-	function params.mealingstone.widget.buttoninfo.validfn(inst)
-		return inst.replica.container ~= nil and not inst.replica.container:IsEmpty() and not inst:HasTag("pleasetakeitem")
-	end
+    local old_widgetsetup = containers.widgetsetup
+
+    function containers.widgetsetup(container, prefab, data)
+        local pref = prefab or container.inst.prefab
+
+        if pref == "mealingstone" then
+            local t = params[pref]
+
+            if t ~= nil then
+                for k, v in pairs(t) do
+                    container[k] = v
+                end
+                container:SetNumSlots(container.widget.slotpos ~= nil and #container.widget.slotpos or 0)
+            end
+        else
+            return old_widgetsetup(container, prefab, data)
+        end
+    end
+
+    function params.mealingstone.widget.buttoninfo.fn(inst)
+        if inst.components.container ~= nil then
+            BufferedAction(inst.components.container.opener, inst, ACTIONS.MEAL):Do()
+        elseif inst.replica.container ~= nil and not inst.replica.container:IsBusy() then
+            SendRPCToServer(RPC.DoWidgetButtonAction, ACTIONS.MEAL.code, inst, ACTIONS.MEAL.mod_name)
+        end
+    end
+
+    function params.mealingstone.itemtestfn(container, item, slot)
+        return (item:HasTag("mealable") and not container.inst:HasTag("pleasetakeitem")) or
+            (container.inst:HasTag("pleasetakeitem") and (item:HasTag("mealproduct") or item.prefab == "ash" or item.prefab == "spice_salt" or item.prefab == "quagmire_spotspice_ground" or item.prefab == "quagmire_flour"))
+    end
+
+    function params.mealingstone.widget.buttoninfo.validfn(inst)
+        return inst.replica.container ~= nil and not inst.replica.container:IsEmpty() and
+            not inst:HasTag("pleasetakeitem")
+    end
 end
 
 CreateMealerWidget()
@@ -6229,11 +6311,13 @@ local cooking = _G.require("cooking")
 local Vector3 = _G.Vector3
 
 local function DefaultItemTestFn(container, item, slot)
-    return (cooking.IsCookingIngredient(item.prefab) or item:HasTag("preparedfood") or item.prefab == "wetgoop") and not container.inst:HasTag("burnt")
+    return (cooking.IsCookingIngredient(item.prefab) or item:HasTag("preparedfood") or item.prefab == "wetgoop") and
+        not container.inst:HasTag("burnt")
 end
 
 local function SyrupItemTestFn(container, item, slot)
-    return (item.prefab == "syrup" or item.prefab == "sap" or item.prefab == "wetgoop") and not container.inst:HasTag("burnt")
+    return (item.prefab == "syrup" or item.prefab == "sap" or item.prefab == "wetgoop") and
+        not container.inst:HasTag("burnt")
 end
 
 local cookertypes =
@@ -6315,226 +6399,225 @@ end
 -------------------------------------------------------------------------------cook pot-----------------------------------------------------------------
 local cookers =
 {
-	grill = {"grill", "grill_small"},
-	oven = {"oven"},
-	pot = {"pot"},
+    grill = { "grill", "grill_small" },
+    oven = { "oven" },
+    pot = { "pot" },
 }
 
 local function AddCookerRecipeForCookers(recipe, data, cookers)
-	for _,cookerprefabs in pairs(cookers) do
-		for _,cookerprefab in ipairs(cookerprefabs) do
-			AddCookerRecipe(cookerprefab, data)
-		end
-	end
+    for _, cookerprefabs in pairs(cookers) do
+        for _, cookerprefab in ipairs(cookerprefabs) do
+            AddCookerRecipe(cookerprefab, data)
+        end
+    end
 end
 
 function UpdateCookingIngredientTags(names, newtags)
-	for _, name in ipairs(names) do
---		print(name)
-		for tag, value in pairs(newtags) do
-			cooking.ingredients[name].tags[tag] = value
-			if cooking.ingredients[name .. "_cooked"] ~= nil then
-				cooking.ingredients[name .. "_cooked"].tags[tag] = value
-			end
-		end
-	end
+    for _, name in ipairs(names) do
+        for tag, value in pairs(newtags) do
+            cooking.ingredients[name].tags[tag] = value
+            if cooking.ingredients[name .. "_cooked"] ~= nil then
+                cooking.ingredients[name .. "_cooked"].tags[tag] = value
+            end
+        end
+    end
 end
 
-AddIngredientValues({"quagmire_spotspice_ground"}, {spice=1}, true, false)
-AddIngredientValues({"syrup"}, {sweetener=2}, true, false)
+AddIngredientValues({ "quagmire_spotspice_ground" }, { spice = 1 }, true, false)
+AddIngredientValues({ "syrup" }, { sweetener = 2 }, true, false)
 --AddIngredientValues({"crabmeat"}, {fish=0.5, crab=1}, true, false)
 --AddIngredientValues({"tomato", "potato", "turnip", "garlic", "onion"}, {veggie=1}, true, false)
-AddIngredientValues({"quagmire_flour"}, {flour=1}, true, false)
-AddIngredientValues({"rocks"}, {rocks=1}, true, false)
-AddIngredientValues({"sap"}, {}, true, false)
-AddIngredientValues({"quagmire_goatmilk"}, {dairy=1}, true, false)
-UpdateCookingIngredientTags({"red_cap", "green_cap", "blue_cap"}, {mushroom=1})
-UpdateCookingIngredientTags({"smallmeat", "smallmeat_dried", "drumstick", "froglegs"}, {smallmeat=1})
-UpdateCookingIngredientTags({"meat", "monstermeat"}, {bigmeat=1})
+AddIngredientValues({ "quagmire_flour" }, { flour = 1 }, true, false)
+AddIngredientValues({ "rocks" }, { rocks = 1 }, true, false)
+AddIngredientValues({ "sap" }, {}, true, false)
+AddIngredientValues({ "quagmire_goatmilk" }, { dairy = 1 }, true, false)
+UpdateCookingIngredientTags({ "red_cap", "green_cap", "blue_cap" }, { mushroom = 1 })
+UpdateCookingIngredientTags({ "smallmeat", "smallmeat_dried", "drumstick", "froglegs" }, { smallmeat = 1 })
+UpdateCookingIngredientTags({ "meat", "monstermeat" }, { bigmeat = 1 })
 
 AddCookerRecipe(
-	"pot",
-	{
-		name = "syrup",
-		test = function(cooker, names, tags)
-			return names.sap and names.sap >= 3
-		end,
-		priority = 1,
-		weight = 1,
-		foodtype = "GENERIC",
-		health = 10,
-		hunger = 5,
-		sanity = 10,
-		perishtime = TUNING.PERISH_SLOW,
-		cooktime = 2,
-		tags = {},
-	}
+    "pot",
+    {
+        name = "syrup",
+        test = function(cooker, names, tags)
+            return names.sap and names.sap >= 3
+        end,
+        priority = 1,
+        weight = 1,
+        foodtype = "GENERIC",
+        health = 10,
+        hunger = 5,
+        sanity = 10,
+        perishtime = TUNING.PERISH_SLOW,
+        cooktime = 2,
+        tags = {},
+    }
 )
 
 local preparedFoods = GLOBAL.require("gorge_foods")
 
 AddCookerRecipeForCookers(
-	"wetgoop",
-	{
-		name = "wetgoop",
-		test = function(cooker, names, tags)
-			return true
-		end,
-		priority = -1,
-		weight = 1,
-		foodtype = "GENERIC",
-		perishtime = TUNING.PERISH_SLOW,
-		cooktime = 2,
-		health = 0,
-		hunger = 0,
-		sanity = 0,
-		perishtime = TUNING.PERISH_SLOW,
-		cookers = {"grill", "oven", "pot", "pot_syrup"},
-		tags = {},
-	},
-	cookers
+    "wetgoop",
+    {
+        name = "wetgoop",
+        test = function(cooker, names, tags)
+            return true
+        end,
+        priority = -1,
+        weight = 1,
+        foodtype = "GENERIC",
+        perishtime = TUNING.PERISH_SLOW,
+        cooktime = 2,
+        health = 0,
+        hunger = 0,
+        sanity = 0,
+        perishtime = TUNING.PERISH_SLOW,
+        cookers = { "grill", "oven", "pot", "pot_syrup" },
+        tags = {},
+    },
+    cookers
 )
 
 local GNAW_REWARDS = {}
 
-for k,v in pairs(preparedFoods) do
-	GNAW_REWARDS[k] = v.reward
-	if v.cookers then
-		for i,cookertype in ipairs(v.cookers) do
-			for i, cookerprefab in ipairs(cookers[cookertype] or {}) do
-				AddCookerRecipe(cookerprefab, v)
-			end
-		end
-	else
-		AddCookerRecipe("cookpot", v)
-	end
+for k, v in pairs(preparedFoods) do
+    GNAW_REWARDS[k] = v.reward
+    if v.cookers then
+        for i, cookertype in ipairs(v.cookers) do
+            for i, cookerprefab in ipairs(cookers[cookertype] or {}) do
+                AddCookerRecipe(cookerprefab, v)
+            end
+        end
+    else
+        AddCookerRecipe("cookpot", v)
+    end
 end
 
 _G.GNAW_REWARDS = GNAW_REWARDS
 
 AddAction(
-	"INSTALL",
-	"Install",
-	function(act)
-	    if act.invobject ~= nil and act.target ~= nil then
-			if act.invobject.components.installable ~= nil
-				and act.target.components.installations ~= nil
+    "INSTALL",
+    "Install",
+    function(act)
+        if act.invobject ~= nil and act.target ~= nil then
+            if act.invobject.components.installable ~= nil
+                and act.target.components.installations ~= nil
                 and act.target.components.installations:CanInstall(act.invobject.components.installable.prefab)
-	            and act.invobject.components.installable:DoInstall(act.target) then
-		            act.invobject:Remove()
-		            return true
-	        end
-	    end
-	end
+                and act.invobject.components.installable:DoInstall(act.target) then
+                act.invobject:Remove()
+                return true
+            end
+        end
+    end
 )
 
 AddAction(
-	"GIVE_DISH",
-	"Put",
-	function(act)
-		if act.target ~= nil and act.target.components.specialstewer then
-			if act.target.dish == nil and act.invobject.components.specialstewer_dish then
-				if act.invobject.components.specialstewer_dish:IsDishType(act.target.components.specialstewer.cookertype) then
-					act.target:SetDish(act.doer, act.invobject)
-					return true
-				end
-			end
-		end
-	end
+    "GIVE_DISH",
+    "Put",
+    function(act)
+        if act.target ~= nil and act.target.components.specialstewer then
+            if act.target.dish == nil and act.invobject.components.specialstewer_dish then
+                if act.invobject.components.specialstewer_dish:IsDishType(act.target.components.specialstewer.cookertype) then
+                    act.target:SetDish(act.doer, act.invobject)
+                    return true
+                end
+            end
+        end
+    end
 )
 
 AddAction(
-	"SNACKRIFICE",
-	"Snackrifice",
-	function(act)
-		local snackrificer = act.target.components.snackrificer
-		if snackrificer then
-			snackrificer:Snackrifice(act.doer, act.invobject)
-			return true
-		end
-	end
+    "SNACKRIFICE",
+    "Snackrifice",
+    function(act)
+        local snackrificer = act.target.components.snackrificer
+        if snackrificer then
+            snackrificer:Snackrifice(act.doer, act.invobject)
+            return true
+        end
+    end
 )
 
 AddAction(
-	"REPLATE",
-	"Replate",
-	function(act)
-		local replatable = act.target and act.target.components.replatable or nil
-		if act.invobject and replatable and replatable:CanReplate(act.invobject) then
-			replatable:Replate(act.invobject)
-			act.invobject.components.stackable:Get(1):Remove()
-			return true
-		end
-	end
+    "REPLATE",
+    "Replate",
+    function(act)
+        local replatable = act.target and act.target.components.replatable or nil
+        if act.invobject and replatable and replatable:CanReplate(act.invobject) then
+            replatable:Replate(act.invobject)
+            act.invobject.components.stackable:Get(1):Remove()
+            return true
+        end
+    end
 )
 
-local SETUPITEM = GLOBAL.Action({priority = 3, rmb = true, distance = 3, mount_valid = false})
+local SETUPITEM = GLOBAL.Action({ priority = 3, rmb = true, distance = 3, mount_valid = false })
 SETUPITEM.str = (GLOBAL.STRINGS.ACTIONS.SETUPITEM)
 SETUPITEM.id = "SETUPITEM"
 SETUPITEM.fn = function(act)
-		if act.target and act.target.components.setupable and act.invobject then
-			if act.target.components.setupable:IsSetup() then
-				return false
-			else
-				act.target.components.setupable:Setup(act.invobject)
-			
-				return true
-			end
-		end
+    if act.target and act.target.components.setupable and act.invobject then
+        if act.target.components.setupable:IsSetup() then
+            return false
+        else
+            act.target.components.setupable:Setup(act.invobject)
+
+            return true
+        end
+    end
 end
-SETUPITEM.encumbered_valid =true
-AddAction(SETUPITEM)	
-	
-local TAPSUGARTREE = GLOBAL.Action({priority = 3, rmb = true, distance = 1, mount_valid = false})
+SETUPITEM.encumbered_valid = true
+AddAction(SETUPITEM)
+
+local TAPSUGARTREE = GLOBAL.Action({ priority = 3, rmb = true, distance = 1, mount_valid = false })
 TAPSUGARTREE.str = (GLOBAL.STRINGS.ACTIONS.TAPSUGARTREE)
 TAPSUGARTREE.id = "TAPSUGARTREE"
 TAPSUGARTREE.fn = function(act)
-		if act.target and act.invobject and act.target.components.sappy then
-			act.target.components.sappy:Tap(act.invobject)
-			
-			return true
-		end
-end
-TAPSUGARTREE.encumbered_valid =true
-AddAction(TAPSUGARTREE)	
+    if act.target and act.invobject and act.target.components.sappy then
+        act.target.components.sappy:Tap(act.invobject)
 
-local COLLECTSAP = GLOBAL.Action({priority = 3, rmb = true, distance = 1, mount_valid = false})
+        return true
+    end
+end
+TAPSUGARTREE.encumbered_valid = true
+AddAction(TAPSUGARTREE)
+
+local COLLECTSAP = GLOBAL.Action({ priority = 3, rmb = true, distance = 1, mount_valid = false })
 COLLECTSAP.str = (GLOBAL.STRINGS.ACTIONS.COLLECTSAP)
 COLLECTSAP.id = "COLLECTSAP"
 COLLECTSAP.fn = function(act)
-		if act.target and act.target.components.sappy then
-			act.target.components.sappy:CollectSap(act.doer)
-			act.target:RemoveTag("sappy")
-			return true
-		end
+    if act.target and act.target.components.sappy then
+        act.target.components.sappy:CollectSap(act.doer)
+        act.target:RemoveTag("sappy")
+        return true
+    end
 end
-COLLECTSAP.encumbered_valid =true
-AddAction(COLLECTSAP)		
+COLLECTSAP.encumbered_valid = true
+AddAction(COLLECTSAP)
 
 -- Slaughtertool
 
 AddAction(
-	"KILLSOFTLY",
-	GLOBAL.STRINGS.ACTIONS.SLAUGHTER,
-	function(act)
-		if act.target and act.target.components.health and act.target.components.lootdropper then
-			act.target.components.health.invincible = false
-			if act.doer.prefab == "wigfrid" then
-				act.target.components.lootdropper:DropLoot()
-			end
-			
-			if act.invobject ~= nil and act.invobject.components.finiteuses then
-			act.invobject.components.finiteuses:Use(1)
-			end					
-			if act.doer.prefab == "wigfrid" then
-				act.target.components.lootdropper:DropLoot()
-			end		
-			act.target.components.health:Kill()
-			
-			return true
-		end
-	end)
-	
+    "KILLSOFTLY",
+    GLOBAL.STRINGS.ACTIONS.SLAUGHTER,
+    function(act)
+        if act.target and act.target.components.health and act.target.components.lootdropper then
+            act.target.components.health.invincible = false
+            if act.doer.prefab == "wigfrid" then
+                act.target.components.lootdropper:DropLoot()
+            end
+
+            if act.invobject ~= nil and act.invobject.components.finiteuses then
+                act.invobject.components.finiteuses:Use(1)
+            end
+            if act.doer.prefab == "wigfrid" then
+                act.target.components.lootdropper:DropLoot()
+            end
+            act.target.components.health:Kill()
+
+            return true
+        end
+    end)
+
 ACTIONS.KILLSOFTLY.stroverridefn = function(act)
     return act.invobject ~= nil
         and act.invobject.GetSlaughterActionString ~= nil
@@ -6547,15 +6630,15 @@ ACTIONS.KILLSOFTLY.priority = 3
 
 
 AddComponentAction("USEITEM", "sapbucket", function(inst, doer, target, actions, right)
-	if target:HasTag("tappable") and not target:HasTag("tapped") and not target:HasTag("stump") then
-		table.insert(actions, ACTIONS.TAPSUGARTREE)
-	end
+    if target:HasTag("tappable") and not target:HasTag("tapped") and not target:HasTag("stump") then
+        table.insert(actions, ACTIONS.TAPSUGARTREE)
+    end
 end)
 
 AddComponentAction("SCENE", "sappy", function(inst, doer, actions, right)
-	if inst:HasTag("sappy") and not inst:HasTag("stump") then
-		table.insert(actions, ACTIONS.COLLECTSAP)
-	end
+    if inst:HasTag("sappy") and not inst:HasTag("stump") then
+        table.insert(actions, ACTIONS.COLLECTSAP)
+    end
 end)
 
 
@@ -6565,75 +6648,69 @@ end)
 
 
 AddComponentPostInit("fueled", function(self)
-
-
-function self:CanAcceptFuelItem(item)
-
-if self.fueltype == "TAR" and item:HasTag("tar") then return true end
-    return self.accepting and item and item.components.fuel and (item.components.fuel.fueltype == self.fueltype or item.components.fuel.fueltype == self.secondaryfueltype)
-end
-
-
+    function self:CanAcceptFuelItem(item)
+        if self.fueltype == "TAR" and item:HasTag("tar") then return true end
+        return self.accepting and item and item.components.fuel and
+            (item.components.fuel.fueltype == self.fueltype or item.components.fuel.fueltype == self.secondaryfueltype)
+    end
 end)
 
 
 AddComponentAction("USEITEM", "fueltar", function(inst, doer, target, actions)
-if not (doer.replica.rider ~= nil and doer.replica.rider:IsRiding())
-                or (target.replica.inventoryitem ~= nil and target.replica.inventoryitem:IsGrandOwner(doer)) then
+    if not (doer.replica.rider ~= nil and doer.replica.rider:IsRiding())
+        or (target.replica.inventoryitem ~= nil and target.replica.inventoryitem:IsGrandOwner(doer)) then
+        if target:HasTag("seayard") then
+            table.insert(actions, ACTIONS.ADDFUEL)
+        end
 
-if target:HasTag("seayard") then
-table.insert(actions, ACTIONS.ADDFUEL)
-end
+        if target:HasTag("tarlamp") then
+            table.insert(actions, ACTIONS.ADDFUEL)
+        end
 
-if target:HasTag("tarlamp") then
-table.insert(actions, ACTIONS.ADDFUEL)
-end
-
-if target:HasTag("tarsuit") then
-table.insert(actions, ACTIONS.ADDFUEL)
-end
-
-end
+        if target:HasTag("tarsuit") then
+            table.insert(actions, ACTIONS.ADDFUEL)
+        end
+    end
 end)
 
 AddComponentAction("USEITEM", "setupable", function(inst, doer, target, actions, right)
-	if inst:HasTag("honeyed") and target:HasTag("honeyproducer") then
-		table.insert(actions, ACTIONS.SETUPITEM)
-	elseif inst:HasTag("salty") and target:HasTag("saltwater") then
-		table.insert(actions, ACTIONS.SETUPITEM)
-	end
+    if inst:HasTag("honeyed") and target:HasTag("honeyproducer") then
+        table.insert(actions, ACTIONS.SETUPITEM)
+    elseif inst:HasTag("salty") and target:HasTag("saltwater") then
+        table.insert(actions, ACTIONS.SETUPITEM)
+    end
 end)
 
 AddComponentAction("USEITEM", "slaughtertool", function(inst, doer, target, actions, right)
-	if target:HasTag("canbeslaughtered") then
-		table.insert(actions, ACTIONS.KILLSOFTLY)
-	end
+    if target:HasTag("canbeslaughtered") then
+        table.insert(actions, ACTIONS.KILLSOFTLY)
+    end
 end)
 
 AddComponentAction(
-	"USEITEM",
-	"snackrificable",
-	function(inst, doer, target, actions)
-		if target:HasTag("gorge_altar") then
-			table.insert(actions, GLOBAL.ACTIONS.SNACKRIFICE)
-		end
-	end
+    "USEITEM",
+    "snackrificable",
+    function(inst, doer, target, actions)
+        if target:HasTag("gorge_altar") then
+            table.insert(actions, GLOBAL.ACTIONS.SNACKRIFICE)
+        end
+    end
 )
 
 AddComponentAction(
-	"USEITEM",
-	"replater",
-	function(inst, doer, target, actions)
-		if target:HasTag("replatable") then
-			table.insert(actions, GLOBAL.ACTIONS.REPLATE)
-		end
-	end
+    "USEITEM",
+    "replater",
+    function(inst, doer, target, actions)
+        if target:HasTag("replatable") then
+            table.insert(actions, GLOBAL.ACTIONS.REPLATE)
+        end
+    end
 )
 
 AddComponentAction(
-	"USEITEM",
-	"installable",
-	function(inst, doer, target, actions)
+    "USEITEM",
+    "installable",
+    function(inst, doer, target, actions)
         if target:HasTag("installations") and not target:HasTag("installations_occupied") then
             table.insert(actions, GLOBAL.ACTIONS.INSTALL)
         end
@@ -6641,57 +6718,58 @@ AddComponentAction(
 )
 
 AddComponentAction(
-	"USEITEM",
-	"specialstewer_dish",
-	function(inst, doer, target, actions)
+    "USEITEM",
+    "specialstewer_dish",
+    function(inst, doer, target, actions)
         if inst:HasTag("quagmire_casseroledish") and target:HasTag("oven") and target:HasTag("specialstewer_dishtaker") then
             table.insert(actions, GLOBAL.ACTIONS.GIVE_DISH)
         end
-		
-		
-        if inst:HasTag("quagmire_pot") and target:HasTag("pot_hanger") and target:HasTag("specialstewer_dishtaker")then
+
+
+        if inst:HasTag("quagmire_pot") and target:HasTag("pot_hanger") and target:HasTag("specialstewer_dishtaker") then
             table.insert(actions, GLOBAL.ACTIONS.GIVE_DISH)
-        end		
-		
-    end	
+        end
+    end
 )
 
-AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.TAPSUGARTREE,	
-	function(inst, action)
-		return inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
-	end))
-AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.TAPSUGARTREE,	
-	function(inst, action)
-		return inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
-	end))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.TAPSUGARTREE,
+    function(inst, action)
+        return inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
+    end))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.TAPSUGARTREE,
+    function(inst, action)
+        return inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
+    end))
 
-AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.COLLECTSAP,         
-	function(inst, action)
-		return inst:HasTag("fastpicker") and "doshortaction" or inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
-	end))
-AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.COLLECTSAP,         
-	function(inst, action)
-		return inst:HasTag("fastpicker") and "doshortaction" or inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
-	end))
-	
-AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.SETUPITEM,	
-	function(inst, action)
-		return inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
-	end))
-AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.SETUPITEM,	
-	function(inst, action)
-		return inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
-	end))	
-	
-AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.KILLSOFTLY,	
-	function(inst, action)
-		return inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
-	end))
-AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.KILLSOFTLY,	
-	function(inst, action)
-		return inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
-	end))
-	
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.COLLECTSAP,
+    function(inst, action)
+        return inst:HasTag("fastpicker") and "doshortaction" or inst:HasTag("quagmire_fasthands") and "domediumaction" or
+            "dolongaction"
+    end))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.COLLECTSAP,
+    function(inst, action)
+        return inst:HasTag("fastpicker") and "doshortaction" or inst:HasTag("quagmire_fasthands") and "domediumaction" or
+            "dolongaction"
+    end))
+
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.SETUPITEM,
+    function(inst, action)
+        return inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
+    end))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.SETUPITEM,
+    function(inst, action)
+        return inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
+    end))
+
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.KILLSOFTLY,
+    function(inst, action)
+        return inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
+    end))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.KILLSOFTLY,
+    function(inst, action)
+        return inst:HasTag("quagmire_fasthands") and "domediumaction" or "dolongaction"
+    end))
+
 AddStategraphActionHandler(
     "wilson",
     ActionHandler(ACTIONS.GIVE_DISH, "give")
@@ -6782,33 +6860,33 @@ RegisterInventoryItemAtlas("images/inventoryimages/quagmirefoods.xml", "cheeseca
 RegisterInventoryItemAtlas("images/inventoryimages/quagmirefoods.xml", "potato_pancakes.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/quagmirefoods.xml", "potato_soup.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/quagmirefoods.xml", "fishball_skewers.tex")
-	
-	
-	
-	
-	
+
+
+
+
+
 RegisterInventoryItemAtlas("images/inventoryimages/quagmirefoods.xml", "quagmire_spotspice_ground.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/quagmirefoods.xml", "syrup.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/quagmirefoods.xml", "flour.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/quagmirefoods.xml", "sap.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/quagmirefoods.xml", "quagmire_goatmilk.tex")
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
 
 AddPrefabPostInit("saltrock", function(inst)
-	if GLOBAL.TheWorld.ismastersim then
-	inst:AddComponent("mealable")
-	inst.components.mealable:SetType("salt")	
-	end
+    if GLOBAL.TheWorld.ismastersim then
+        inst:AddComponent("mealable")
+        inst.components.mealable:SetType("salt")
+    end
 end)
 
 AddPrefabPostInit("spice_salt", function(inst)
-	inst:AddTag("salty")
+    inst:AddTag("salty")
 end)
 
 
@@ -6818,8 +6896,7 @@ inst:ListenForEvent("entity_death", function(wrld, data)
 if data.cause == inst.prefab then
 					
 end
-         
+
 end, GetWorld())
 
 ]]
-
