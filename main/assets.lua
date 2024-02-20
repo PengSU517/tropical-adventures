@@ -190,12 +190,12 @@ PrefabFiles =
 	"vidanomarseaworld",
 	"ashfx",
 	"boat_raft_rot",
-	"panda", -----------这是海难plus的
-	"pandaskin",
-	"pandatree",
+	-- "panda", -----------这是海难plus的
+	-- "pandaskin",
+	-- "pandatree",
 	"nectar_pod",
 	"piggravestone",
-	"mangrovespawner",
+	"mangrovespawner", --------刷新点
 	"oxwaterspawner",
 	"grasswaterspawner",
 	"waterreedspawner",
@@ -222,11 +222,12 @@ PrefabFiles =
 	"grotto_grub_nest",
 	"grotto_grub",
 	"grotto_parsnip",
-	"otter",
+
 	"grottoqueen",
-	"icedpad",
+	-- "otter",
+	-- "icedpad",
 	--"yeti",
-	"artic_flower",
+	-- "artic_flower",
 	"watertree_pillar2",
 	"firerain",
 	"lavapool",
@@ -234,7 +235,7 @@ PrefabFiles =
 	"bramble_bush",
 	"tidalpoolnew",
 	"marsh_tree_new",
-	"ligamundo",
+	-- "ligamundo",
 }
 
 -- if GetModConfigData("whirlpools") then
@@ -850,14 +851,14 @@ Assets =
 	Asset("ATLAS", "minimap/loot_pump.xml"),
 
 	------------------从architectpack添加
-	Asset("IMAGE", "images/inventoryimages/tap_buildingimages.tex"),
-	Asset("ATLAS", "images/inventoryimages/tap_buildingimages.xml"),
+	-- Asset("IMAGE", "images/inventoryimages/tap_buildingimages.tex"),
+	-- Asset("ATLAS", "images/inventoryimages/tap_buildingimages.xml"),
 
-	Asset("IMAGE", "images/inventoryimages/tap_buildingimages2.tex"),
-	Asset("ATLAS", "images/inventoryimages/tap_buildingimages2.xml"),
+	-- Asset("IMAGE", "images/inventoryimages/tap_buildingimages2.tex"),
+	-- Asset("ATLAS", "images/inventoryimages/tap_buildingimages2.xml"),
 
-	Asset("IMAGE", "images/minimapimages/tap_minimapicons.tex"),
-	Asset("ATLAS", "images/minimapimages/tap_minimapicons.xml"),
+	-- Asset("IMAGE", "images/minimapimages/tap_minimapicons.tex"),
+	-- Asset("ATLAS", "images/minimapimages/tap_minimapicons.xml"),
 
 	--Asset("SOUNDPACKAGE", "sound/volcano.fev"),
 	--Asset("SOUND", "sound/volcano.fsb"),

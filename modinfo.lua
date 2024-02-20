@@ -7,7 +7,7 @@ end
 name = en_zh(" Tropical Adventure (Shipwrecked & Hamlet)", "热带冒险（海难哈姆雷特三合一）")
 description = en_zh("Personal modification of Tropical Experience", "在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改")
 author = "Peng"
-version = "6.73"
+version = "6.74"
 forumthread = ""
 api_version = 10
 priority = -20
@@ -99,8 +99,8 @@ configuration_options =
 			-- 	data = "no_random"
 			-- },
 			{
-				description = en_zh("Killer Bee and Walrus as random tasks", "仅杀人蜂和海象平原作为随机地形"),
-				hover = en_zh("Killer Bee and Walrus as random tasks", "仅杀人蜂和海象平原作为随机地形"),
+				description = en_zh("Killer Bee and Walrus", "仅杀人蜂和海象"),
+				hover = en_zh("Only Killer Bee and Walrus as random tasks", "仅杀人蜂和海象平原作为随机地形"),
 				data = "bee_and_walrus"
 			},
 
