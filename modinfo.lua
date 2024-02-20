@@ -7,7 +7,7 @@ end
 name = en_zh(" Tropical Adventure (Shipwrecked & Hamlet)", "热带冒险（海难哈姆雷特三合一）")
 description = en_zh("Personal modification of Tropical Experience", "在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改")
 author = "Peng"
-version = "6.72"
+version = "6.73"
 forumthread = ""
 api_version = 10
 priority = -20
@@ -175,7 +175,7 @@ configuration_options =
 	{
 		name = "layout",
 		label = en_zh("Layout adjustment", "布局调整"),
-		hover = en_zh("Layout adjustment", "如猴岛、寄居蟹岛、帝王蟹的位置调整"),
+		hover = en_zh("Layout adjustment", "如大理石雕像、猴岛、寄居蟹岛、帝王蟹的位置调整"),
 		options = options_enable,
 		default = true,
 	},
@@ -183,7 +183,7 @@ configuration_options =
 	{
 		name = "testmode",
 		label = en_zh("Test Mode", "测试模式"),
-		hover = en_zh("A very small world with a very small island only for debugging", "仅生成一块很小的地形用于测试内容"),
+		hover = en_zh("A very small world only for debugging", "仅生成一块很小的地形用于测试内容"),
 		options = options_enable,
 		default = false,
 	},
@@ -251,7 +251,7 @@ configuration_options =
 	{
 		name = "aporkalypse",
 		label = en_zh("Aporkalypse", "毁灭季"),
-		hover = en_zh("Aporkalypse in caves", "毁灭季 在洞穴"),
+		hover = en_zh("Aporkalypse, but in caves", "毁灭季 但是在洞穴"),
 		options = options_enable,
 		default = true,
 	},
