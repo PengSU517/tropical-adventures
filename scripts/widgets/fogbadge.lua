@@ -52,6 +52,7 @@ function HayfeverBadge:OnUpdate(dt)
         self:GetAnimState():SetBank("clouds_ol")
         self:GetAnimState():SetBuild("clouds_ol")
         self:GetAnimState():SetMultColour(a, a, a, a * 0.9)
+        -- self:GetAnimState():SetDeltaTimeMultiplier(0.3) -----似乎是控制播放速度  但是现在这个badge似乎是直接附在镜头上，需要改
         self:GetAnimState():PushAnimation("idle", true) --------要用push
         self:Show()
     else
