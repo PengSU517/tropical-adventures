@@ -468,9 +468,10 @@ AddRecipe2("corkboatitem", { Ingredient("rope", 1), Ingredient("cork", 4, h_atla
 -- end
 
 
-AddRecipe2("antler",
-	{ Ingredient("hippo_antler", 1, h_atlas), Ingredient("bill_quill", 3, h_atlas), Ingredient("flint", 1) },
-	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "TOOLS" })
+-- AddRecipe2("antler",
+-- 	{ Ingredient("hippo_antler", 1, h_atlas), Ingredient("bill_quill", 3, h_atlas), Ingredient("flint", 1) },
+-- 	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "TOOLS" })
+
 
 if TUNING.tropical.startlocation == "hamlet" and TUNING.tropical.hamlet then
 	AddRecipe2("researchlab4",

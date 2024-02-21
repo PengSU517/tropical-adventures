@@ -7,7 +7,7 @@ end
 name = en_zh(" Tropical Adventure (Shipwrecked & Hamlet)", "热带冒险（海难哈姆雷特三合一）")
 description = en_zh("Personal modification of Tropical Experience", "在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改")
 author = "Peng"
-version = "6.76"
+version = "6.78"
 forumthread = ""
 api_version = 10
 priority = -20

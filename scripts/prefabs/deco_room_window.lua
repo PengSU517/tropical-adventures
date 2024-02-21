@@ -177,6 +177,9 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
         local scales = data.scales or { x = 1, y = 1, z = 1 }
         local iswall = false
 
+        local pt = inst:GetPosition() ----------------这两行不能放在onbuilt里
+        inst.Transform:SetPosition(pt.x, data and data.height or 0, pt.z)
+
 
         trans:SetTwoFaced() -----------------可能这是关键原因
         trans:SetScale(scales.x, scales.y, scales.z)
@@ -293,14 +296,10 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
         end)
 
 
-        if true then
-            inst:ListenForEvent("onbuilt", function()
-                --------怎么合理地加入"playercrafted"这个标签呢，在makeplacer中加吗 .....监听onbuilt就可以。。。
-                onBuilt(inst)
-                local pt = inst:GetPosition()
-                inst.Transform:SetPosition(pt.x, data and data.height or 0, pt.z)
-            end)
-        end
+        inst:ListenForEvent("onbuilt", function()
+            --------怎么合理地加入"playercrafted"这个标签呢，在makeplacer中加吗 .....监听onbuilt就可以。。。
+            onBuilt(inst)
+        end)
 
         return inst
     end
