@@ -837,7 +837,7 @@ local ia_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def = {
-            name = "Cobbleroad",
+            name = "cobbleroad",
             noise_texture = "noise_cobbleroad",
             runsound = "dontstarve/movement/run_marble",
             walksound = "dontstarve/movement/walk_marble",

@@ -56,14 +56,14 @@ return Class(function(self, inst)
     --"kingfisher_swarm",      "toucan_hamlet_swarm", "parrot_blue_swarm"
     BIRD_TYPES[GROUND.DEEPRAINFOREST] = { "toucan_hamlet", "parrot_blue", "kingfisher" }
     ----"kingfisher_swarm",,      "toucan_hamlet_swarm", "parrot_blue_swarm"
-    BIRD_TYPES[GROUND.GASJUNGLE] = { "parrot_blue" }                   -- , "parrot_blue_swarm"
-    BIRD_TYPES[GROUND.FOUNDATION] = { "canary", "quagmire_pigeon" }    --, "pigeon_swarm"
-    BIRD_TYPES[GROUND.FIELDS] = { "robin", "crow" }
-    BIRD_TYPES[GROUND.SUBURB] = { "robin", "crow", "quagmire_pigeon" } --, "pigeon_swarm"
-    BIRD_TYPES[GROUND.PAINTED] = { "kingfisher", "crow" }              --, "kingfisher_swarm"
-    BIRD_TYPES[GROUND.PLAINS] = { "robin", "crow", "kingfisher" }      --, "kingfisher_swarm"
-    BIRD_TYPES[GROUND.CHECKEREDLAWN] = { "canary", "quagmire_pigeon" } --, "pigeon_swarm"
-    BIRD_TYPES[GROUND.COBBLEROAD] = { "canary", "quagmire_pigeon" }    --, "pigeon_swarm"
+    BIRD_TYPES[GROUND.GASJUNGLE] = { "parrot_blue" }                             -- , "parrot_blue_swarm"
+    BIRD_TYPES[GROUND.FOUNDATION] = { "canary", "quagmire_pigeon" }              --, "pigeon_swarm"
+    BIRD_TYPES[GROUND.FIELDS] = {  "crow", "quagmire_pigeon" }
+    BIRD_TYPES[GROUND.SUBURB] = {  "crow", "quagmire_pigeon" }           --, "pigeon_swarm"
+    BIRD_TYPES[GROUND.PAINTED] = { "kingfisher", "crow" }                        --, "kingfisher_swarm"
+    BIRD_TYPES[GROUND.PLAINS] = { "toucan_hamlet", "kingfisher", "parrot_blue" } --, "kingfisher_swarm"
+    BIRD_TYPES[GROUND.CHECKEREDLAWN] = { "canary", "quagmire_pigeon" }           --, "pigeon_swarm"
+    BIRD_TYPES[GROUND.COBBLEROAD] = { "canary", "quagmire_pigeon" }              --, "pigeon_swarm"
 
     BIRD_TYPES[GROUND.TIDALMARSH] = { "toucan" }
     BIRD_TYPES[GROUND.MAGMAFIELD] = { "toucan" }
