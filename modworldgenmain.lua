@@ -1,21 +1,3 @@
-----------------------海洋之椅，火山祭坛
--------------洞穴的掉落物会落入水中
-------------漂流瓶显示宝藏没有标记
------------雨林的小地图贴图不对
------------relic太少了
-----------------栽种房子的时候有bug------------已解决
--------------不要把东西给房子--------------已解决
----------------浮木舟不掉耐久
-----------------大鸟地区不该加Hamlet标签 roc的SG也没写好
--------------waffles_plate缺少贴图
---------------直接制作帽子戴上会报错。。
-------------------原MOD写的清楚积雪的效果只对主客机一体时有效
-
-
-
-
-
-
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 local require = GLOBAL.require
 
@@ -99,8 +81,7 @@ modimport("postinit/map/tasks")
 
 -------------------------调整地图大小和海岸线--------------------------
 -- local size = 400
-local size = 400 + (troadv.shipwrecked and 100 or 0) + (troadv.hamlet and 100 or 0) +
-    (troadv.together == "default" and 50 or 0)
+local size = 450 + (troadv.shipwrecked and 100 or 0) + (troadv.hamlet and 100 or 0) 
 --450是默认边长 --地图太小可能生成不了世界
 
 if troadv.testmode then size = 150 end
@@ -129,7 +110,7 @@ end
 
 ---------------------联机大陆调整--------------------------
 
-if (troadv.together == "no_random") or (troadv.together == "bee_and_walrus") then
+if (troadv.together == "no_random") or (troadv.together == "fixed") then
     AddLevelPreInitAny(function(level)
         if level.location == "cave" then
             -- level.overrides.keep_disconnected_tiles = true
@@ -142,25 +123,39 @@ if (troadv.together == "no_random") or (troadv.together == "bee_and_walrus") the
             level.numoptionaltasks = 0
             level.optionaltasks = {}
 
-            if troadv.together == "bee_and_walrus" then
+            if troadv.together == "fixed" then
                 table.insert(level.tasks, "Killer bees!")
                 table.insert(level.tasks, "The hunters")
+                table.insert(level.tasks, "Befriend the pigs")
+                table.insert(level.tasks, "Frogs and bugs")
+                table.insert(level.tasks, "Kill the spiders")
 
-                level.set_pieces["CaveEntrance"] = {
-                    count = 10,
-                    tasks = { "Make a pick",
-                        "Dig that rock",
-                        "Great Plains",
-                        "Squeltch",
-                        "Beeeees!",
-                        "Speak to the king",
-                        "Forest hunters",
-                        "Badlands",
-                        "For a nice walk",
-                        "Lightning Bluff",
-                        "Killer bees!",
-                        "The hunters" }
-                }
+                -- "Befriend the pigs",
+                -- "Kill the spiders",---蜘蛛矿区
+                -- "Killer bees!",
+                -- "Make a Beehat", ---蜜蜂矿场？
+                -- "The hunters",
+                -- "Magic meadow", ----有池塘
+                -- "Frogs and bugs", --青蛙和蜜蜂？
+                -- "Mole Colony Deciduous",---第二桦树林
+                -- "Mole Colony Rocks",---大矿区
+                -- "MooseBreedingTask",
+
+                -- level.set_pieces["CaveEntrance"] = {
+                --     count = 10,
+                --     tasks = { "Make a pick",
+                --         "Dig that rock",
+                --         "Great Plains",
+                --         "Squeltch",
+                --         "Beeeees!",
+                --         "Speak to the king",
+                --         "Forest hunters",
+                --         "Badlands",
+                --         "For a nice walk",
+                --         "Lightning Bluff",
+                --         "Killer bees!",
+                --         "The hunters" }
+                -- }
             end
         end
     end)
@@ -322,15 +317,31 @@ if troadv.testmode then
 
         if level.location == "forest" then
             level.tasks = { "Make a NewPick" }
-            table.insert(level.tasks, "Pincale")
-            table.insert(level.tasks, "Verdent")
-            table.insert(level.tasks, "Plains_start")
-            -- table.insert(level.tasks, "Plains")          --island3 高草地形，类似牛场
-            table.insert(level.tasks, "Rainforest_ruins")
-            table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
-            table.insert(level.tasks, "Edge_of_the_unknown")
+            table.insert(level.tasks, "Kill the spiders")
+            -- table.insert(level.tasks, "Pincale")
+            -- table.insert(level.tasks, "Verdent")
+            -- table.insert(level.tasks, "Plains_start")
+            -- -- table.insert(level.tasks, "Plains")          --island3 高草地形，类似牛场
+            -- table.insert(level.tasks, "Rainforest_ruins")
+            -- table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
+            -- table.insert(level.tasks, "Edge_of_the_unknown")
             -- table.insert(level.tasks, "HamArchiveMaze")
             level.numoptionaltasks = 0
+
+            --[[optionaltasks = {
+                "Befriend the pigs",
+                "Kill the spiders",---蜘蛛矿区
+                "Killer bees!",
+                "Make a Beehat", ---蜜蜂矿场？
+                "The hunters",
+                "Magic meadow", ----有池塘
+                "Frogs and bugs", --青蛙和蜜蜂？
+                "Mole Colony Deciduous",---第二桦树林
+                "Mole Colony Rocks",---大矿区
+                "MooseBreedingTask",
+            }]]
+
+
 
             level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋
             level.set_pieces["CaveEntrance"] = { count = 1, tasks = { "Make a NewPick" } }

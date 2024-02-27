@@ -209,7 +209,7 @@ PrefabFiles =
 	"vine",
 	"basefan",
 	"floodsw",
-	-- "birdwhistle",-----------鸟笛
+	"birdwhistle", -----------鸟笛
 	"bundled_structure",
 	"lavaarena_armor",
 	"lavarenainside",

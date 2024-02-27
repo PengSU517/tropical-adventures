@@ -1520,50 +1520,50 @@ AddRecipe2("rug_tiles", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_tiles_placer", image = "reno_rug_tiles.tex" },
 	{ "INTERIOR" })
 
-AddRecipe2("reno_shelves_wood", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_basic", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_cinderblocks", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO, {
-	atlas = h_atlas,
-	nounlock = true
-}, { "INTERIOR" })
-AddRecipe2("reno_shelves_marble", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_glass", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_ladder", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_hutch", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_industrial", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_adjustable", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_midcentury", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_wallmount", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_aframe", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_crates", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_fridge", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_floating", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_pipe", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_hattree", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_pallet", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_wood", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_basic", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_cinderblocks", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO, {
+-- 	atlas = h_atlas,
+-- 	nounlock = true
+-- }, { "INTERIOR" })
+-- AddRecipe2("reno_shelves_marble", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_glass", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_ladder", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_hutch", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_industrial", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_adjustable", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_midcentury", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_wallmount", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_aframe", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_crates", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_fridge", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_floating", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_pipe", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_hattree", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_pallet", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
 
 AddRecipe2("bed0", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed0_placer" }, { "INTERIOR" })
