@@ -324,7 +324,8 @@ if troadv.testmode then
             -- -- table.insert(level.tasks, "Plains")          --island3 高草地形，类似牛场
             -- table.insert(level.tasks, "Rainforest_ruins")
             -- table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
-            table.insert(level.tasks, "Edge_of_the_unknown")
+            -- table.insert(level.tasks, "Edge_of_the_unknown")
+            table.insert(level.tasks, "Pigcity2")
             -- table.insert(level.tasks, "HamArchiveMaze")
             level.numoptionaltasks = 0
 

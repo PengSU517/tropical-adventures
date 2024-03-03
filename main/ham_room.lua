@@ -7,13 +7,15 @@ local roomtype = {
     vampirebatcave_floor = "cave",
     roc_cave_floor = "cave",
     pig_shop_florist_floor = "small",
-    pig_palace_gallery_floor = "small", ----------这两个啥都不合适
-    pig_palace_shop_floor = "small",
+    pig_palace_gallery_floor = "big", ----------这两个啥都不合适
+    pig_palace_shop_floor = "medium",
 }
 
 
 local roomcamera = {
     small = { pitch = 36, distance = 20, pos = -1 },
+    medium = { pitch = 35, distance = 24, pos = -2 },
+    big = { pitch = 35, distance = 27, pos = -1 },
     large = { pitch = 36, distance = 27, pos = -2.5 },
     cave = { pitch = 36, distance = 31, pos = 0 },
     xlarge = { pitch = 36, distance = 38, pos = -2 },
@@ -23,6 +25,8 @@ local roomcamera = {
 
 local roomsize = {
     small = { back = 2, front = 8, side = 7.5 },
+    medium = { back = 2, front = 8, side = 7.5 },
+    big = { back = 2, front = 8, side = 7.5 },
     large = { back = 5, front = 8, side = 11.5 },
     cave = { back = 5, front = 13, side = 13 },
     xlarge = { back = 6, front = 16, side = 13 },
