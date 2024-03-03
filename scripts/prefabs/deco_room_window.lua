@@ -73,6 +73,12 @@ end
 
 local function onsave(inst, data)
     data.rotation = inst.Transform:GetRotation()
+    -- data.pos = inst:GetPosition()
+    -- data.height = inst.height
+
+    -- print("print pos !!!!!!!!!!!!")
+    -- print(data.pos)
+    -- print(data.height)
     data.scales = Vector3(inst.Transform:GetScale())
     data.onbuilt = inst.onbuilt
 end
@@ -82,6 +88,9 @@ local function onload(inst, data)
         if data.rotation then
             inst.Transform:SetRotation(data.rotation)
         end
+        -- if data.pos and data.height then
+        --     inst.Transform:SetPosition(data.pos.x, data.pos.y, data.pos.z)
+        -- end
         if data.scales then
             inst.Transform:SetScale(data.scales.x, data.scales.y, data.scales.z)
         end
@@ -177,6 +186,14 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
         local scales = data.scales or { x = 1, y = 1, z = 1 }
         local iswall = false
 
+        -- local x, y, z = inst.Transform:GetWorldPosition()
+        -- inst.height = data and data.height or 0
+        -- inst.Transform:SetPosition(x, inst.height, z)
+        -- local pt = inst:GetPosition() ----------------这两行不能放在onbuilt里
+        -- inst:SetPosition(pt.x, data and data.height or 0, pt.z)
+        -- print("checkheight!!!!!")
+        -- print(inst.height)
+
 
         trans:SetTwoFaced() -----------------可能这是关键原因
         trans:SetScale(scales.x, scales.y, scales.z)
@@ -188,9 +205,7 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
         -- anim:SetLayer(LAYER_WORLD_BACKGROUND)
         anim:PlayAnimation(animdata, true)
 
-        if data and data.background then
-            anim:SetLayer(LAYER_WORLD_BACKGROUND)
-        end
+
 
 
         if inst:HasTag("wallsection") then
@@ -218,6 +233,17 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
             if data.curtains ~= nil and not data.curtains then
                 anim:Hide("curtain")
             end
+        end
+
+        if inst:HasTag("room_window") then
+            inst:WatchWorldState("isday", timechange)
+            inst:WatchWorldState("isdusk", timechange)
+            inst:WatchWorldState("isnight", timechange)
+            timechange(inst)
+        end
+
+        if data and data.background then
+            anim:SetLayer(LAYER_WORLD_BACKGROUND)
         end
 
         if data.light then
@@ -266,12 +292,7 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
 
 
 
-        if inst:HasTag("room_window") then
-            inst:WatchWorldState("isday", timechange)
-            inst:WatchWorldState("isdusk", timechange)
-            inst:WatchWorldState("isnight", timechange)
-            timechange(inst)
-        end
+
 
         inst.entity:SetPristine()
 
@@ -293,14 +314,15 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
         end)
 
 
-        if true then
-            inst:ListenForEvent("onbuilt", function()
-                --------怎么合理地加入"playercrafted"这个标签呢，在makeplacer中加吗 .....监听onbuilt就可以。。。
-                onBuilt(inst)
-                local pt = inst:GetPosition()
-                inst.Transform:SetPosition(pt.x, data and data.height or 0, pt.z)
-            end)
-        end
+        inst:ListenForEvent("onbuilt", function()
+            --------怎么合理地加入"playercrafted"这个标签呢，在makeplacer中加吗 .....监听onbuilt就可以。。。
+            onBuilt(inst)
+            -- local x, y, z = inst.Transform:GetWorldPosition()
+            -- inst.height = data and data.height or 0
+            -- inst.Transform:SetPosition(x, inst.height, z)
+            -- local pt = inst:GetPosition() ----------------这两行不能放在onbuilt里
+            -- inst:SetPosition(pt.x, data and data.height or 0, pt.z)
+        end)
 
         return inst
     end

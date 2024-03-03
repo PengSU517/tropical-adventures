@@ -29,8 +29,10 @@ function HayfeverBadge:OnUpdate(dt)
 
     local isinterior = GetClosestInstWithTag("blows_air", player, 15)
 
-    local corpo = player.replica.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
-    local cabeca = player.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+    local corpo = (player.replica and player.replica.inventory) and
+        player.replica.inventory:GetEquippedItem(EQUIPSLOTS.BODY) or nil
+    local cabeca = (player.replica and player.replica.inventory) and
+        player.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD) or nil
     local hasequip = (corpo and corpo:HasTag("velocidadenormal")) or (cabeca and cabeca:HasTag("velocidadenormal"))
 
 
@@ -52,6 +54,7 @@ function HayfeverBadge:OnUpdate(dt)
         self:GetAnimState():SetBank("clouds_ol")
         self:GetAnimState():SetBuild("clouds_ol")
         self:GetAnimState():SetMultColour(a, a, a, a * 0.9)
+        -- self:GetAnimState():SetDeltaTimeMultiplier(0.3) -----似乎是控制播放速度  但是现在这个badge似乎是直接附在镜头上，需要改
         self:GetAnimState():PushAnimation("idle", true) --------要用push
         self:Show()
     else

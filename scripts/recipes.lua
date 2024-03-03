@@ -467,13 +467,23 @@ AddRecipe2("corkboatitem", { Ingredient("rope", 1), Ingredient("cork", 4, h_atla
 	{ "SEAFARING" })
 -- end
 
--- if GetModConfigData("kindofworld") == 5 then
-AddRecipe2("antler",
-	{ Ingredient("hippo_antler", 1, h_atlas), Ingredient("bill_quill", 3, h_atlas), Ingredient("flint", 1) },
-	TECH.SCIENCE_ONE, { atlas = h_atlas }, { "MAGIC" })
-AddRecipe2("researchlab4", { Ingredient("pigskin", 4), Ingredient("boards", 4), Ingredient("feather_robin_winter", 4) },
-	TECH.SCIENCE_ONE, { placer = "researchlab4_placer" }, { "MAGIC" })
--- end
+
+-- AddRecipe2("antler",
+-- 	{ Ingredient("hippo_antler", 1, h_atlas), Ingredient("bill_quill", 3, h_atlas), Ingredient("flint", 1) },
+-- 	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "TOOLS" })
+
+
+if TUNING.tropical.startlocation == "hamlet" and TUNING.tropical.hamlet then
+	AddRecipe2("researchlab4",
+		{ Ingredient("pigskin", 4), Ingredient("boards", 4), Ingredient("feather_robin_winter", 2) },
+		TECH.SCIENCE_TWO, { placer = "researchlab4_placer" }, { "MAGIC" })
+end
+
+if TUNING.tropical.startlocation == "shipwrecked" and TUNING.tropical.shipwrecked then
+	AddRecipe2("researchlab4",
+		{ Ingredient("piratehat", 1, v_atlas), Ingredient("boards", 4), Ingredient("parrot_pirate", 1, v_atlas) },
+		TECH.SCIENCE_TWO, { placer = "researchlab4_placer" }, { "MAGIC" })
+end
 
 
 
@@ -1510,50 +1520,50 @@ AddRecipe2("rug_tiles", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_tiles_placer", image = "reno_rug_tiles.tex" },
 	{ "INTERIOR" })
 
-AddRecipe2("reno_shelves_wood", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_basic", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_cinderblocks", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO, {
-	atlas = h_atlas,
-	nounlock = true
-}, { "INTERIOR" })
-AddRecipe2("reno_shelves_marble", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_glass", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_ladder", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_hutch", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_industrial", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_adjustable", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_midcentury", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_wallmount", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_aframe", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_crates", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_fridge", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_floating", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_pipe", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_hattree", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
-AddRecipe2("reno_shelves_pallet", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
-	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_wood", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_basic", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_cinderblocks", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO, {
+-- 	atlas = h_atlas,
+-- 	nounlock = true
+-- }, { "INTERIOR" })
+-- AddRecipe2("reno_shelves_marble", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_glass", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_ladder", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_hutch", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_industrial", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_adjustable", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_midcentury", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_wallmount", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_aframe", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_crates", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_fridge", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_floating", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_pipe", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_hattree", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+-- 	{ atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
+-- AddRecipe2("reno_shelves_pallet", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- 	{ "INTERIOR" })
 
 AddRecipe2("bed0", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed0_placer" }, { "INTERIOR" })
@@ -1575,84 +1585,85 @@ AddRecipe2("bed8", { Ingredient("oinc", 22, h_atlas) }, TECH.HOME_TWO,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed8_placer" }, { "INTERIOR" })
 
 
---[[-----------------------------Sort keys----------------------------------------------------
-------------------------------Code was written by Baku--------------------------------------
-local AllRecipes = GLOBAL.AllRecipes
-------------------------------[TOOLS]----------------------------------------------
-machete.sortkey = AllRecipes["goldenaxe"]["sortkey"] + 0.1
-goldenmachete.sortkey = AllRecipes["machete"]["sortkey"] + 0.1
-------------------------------[LIGHT]----------------------------------------------
-chiminea.sortkey = AllRecipes["firepit"]["sortkey"] + 0.1
-obsidianfirepit.sortkey = AllRecipes["coldfirepit"]["sortkey"] + 0.1
-tarlamp.sortkey = AllRecipes["torch"]["sortkey"] + 0.1
-bottlelantern.sortkey = AllRecipes["minerhat"]["sortkey"] + 0.1
-boat_torch.sortkey = AllRecipes["bottlelantern"]["sortkey"] + 0.1
-boat_lantern.sortkey = AllRecipes["boat_torch"]["sortkey"] + 0.1
-sea_chiminea.sortkey = AllRecipes["boat_lantern"]["sortkey"] + 0.1
-------------------------------[SURVIVAL]-------------------------------------------
-monkeyball.sortkey = AllRecipes["fishingrod"]["sortkey"] + 0.1
-palmleaf_umbrella.sortkey = AllRecipes["umbrella"]["sortkey"] - 0.1
-antidote.sortkey = AllRecipes["healingsalve"]["sortkey"] + 0.1
-thatchpack.sortkey = AllRecipes["backpack"]["sortkey"] + 0.1
-palmleaf_hut.sortkey = AllRecipes["siestahut"]["sortkey"] + 0.1
-doydoyfan.sortkey = AllRecipes["featherfan"]["sortkey"] + 0.1
-seasack.sortkey = AllRecipes["icepack"]["sortkey"] + 0.1
---doydoynest.sortkey = AllRecipes["seasack"]["sortkey"] + 0.1
-------------------------------[FARM]-----------------------------------------------
-mussel_stick.sortkey = 0
-fish_farm.sortkey = AllRecipes["icebox"]["sortkey"] + 0.1
-mussel_bed.sortkey = AllRecipes["porto_fish_farm"]["sortkey"] + 0.1
-------------------------------[SCIENCE]--------------------------------------------
-researchlab5.sortkey = AllRecipes["researchlab2"]["sortkey"] + 0.1 --SEA LAB
-icemaker.sortkey = AllRecipes["firesuppressor"]["sortkey"] + 0.1
-quackendrill.sortkey = AllRecipes["icemaker"]["sortkey"] + 0.1
-------------------------------[WAR]------------------------------------------------
-spear_poison.sortkey = AllRecipes["spear"]["sortkey"] + 0.1
-armor_seashell.sortkey = AllRecipes["armorwood"]["sortkey"] + 0.1
---armorlimestone.sortkey = AllRecipes["armormarble"]["sortkey"] + 0.1
---armorcactus.sortkey = AllRecipes["footballhat"]["sortkey"] - 0.1
-oxhat.sortkey = AllRecipes["footballhat"]["sortkey"] + 0.1
-coconade.sortkey = AllRecipes["trap_teeth"]["sortkey"] + 0.1
-spear_launcher.sortkey = AllRecipes["coconade"]["sortkey"] + 0.1
-cutlass.sortkey = AllRecipes["armordragonfly"]["sortkey"] - 0.1
-------------------------------[STRUCTURES]-----------------------------------------
-waterchest.sortkey = AllRecipes["treasurechest"]["sortkey"] + 0.1
-wall_limestone_item.sortkey = AllRecipes["wall_stone_item"]["sortkey"] + 0.1
-wall_enforcedlimestone_item.sortkey = AllRecipes["wall_limestone_item"]["sortkey"] + 0.1
-wildborehouse.sortkey = AllRecipes["pighouse"]["sortkey"] + 0.1
-ballphinhouse.sortkey = AllRecipes["wildborehouse"]["sortkey"] + 0.1
-primeapebarrel.sortkey = AllRecipes["porto_ballphinhouse"]["sortkey"] + 0.1
-dragoonden.sortkey = AllRecipes["wildborehouse"]["sortkey"] + 0.1 --or primeapebarrel if you add this
-turf_road.sortkey = AllRecipes["turf_woodfloor"]["sortkey"] - 0.1
-turf_snakeskinfloor.sortkey = AllRecipes["turf_woodfloor"]["sortkey"] + 0.1
-sand_castle.sortkey =  AllRecipes["dragonflychest"]["sortkey"] - 0.1
-sandbag_item.sortkey = AllRecipes["sand_castle"]["sortkey"] - 0.1
-------------------------------[REFINE]----------------------------------------------
-fabric.sortkey = AllRecipes["papyrus"]["sortkey"] + 0.1
-limestone.sortkey = AllRecipes["fabric"]["sortkey"] + 0.1
-nubbin.sortkey = AllRecipes["limestone"]["sortkey"] + 0.1
-goldnugget.sortkey = AllRecipes["nubbin"]["sortkey"] + 0.1
-ice.sortkey = AllRecipes["messagebottleempty1"]["sortkey"] - 0.1
-messagebottleempty1.sortkey = AllRecipes["nightmarefuel"]["sortkey"] - 0.1
-------------------------------[MAGIC]-----------------------------------------------
---piratihatitator.sortkey = 0
-ox_flute.sortkey = AllRecipes["panflute"]["sortkey"] + 0.1
-------------------------------[DRESSUP]---------------------------------------------
-brainjellyhat.sortkey = AllRecipes["catcoonhat"]["sortkey"] + 0.1
---shark_teethhat.sortkey = AllRecipes["watermelonhat"]["sortkey"] + 0.1
-snakeskinhat.sortkey = AllRecipes["bushhat"]["sortkey"] + 0.1
-armor_snakeskin.sortkey = AllRecipes["raincoat"]["sortkey"] + 0.1
-blubbersuit.sortkey = AllRecipes["armor_snakeskin"]["sortkey"] + 0.1
-tarsuit.sortkey = AllRecipes["blubbersuit"]["sortkey"] + 0.1
-double_umbrellahat.sortkey = AllRecipes["eyebrellahat"]["sortkey"] + 0.1
-armor_windbreaker.sortkey = AllRecipes["double_umbrellahat"]["sortkey"] + 0.1
-gashat.sortkey = AllRecipes["armor_windbreaker"]["sortkey"] + 0.1
-gashatsw.sortkey = AllRecipes["armor_windbreaker"]["sortkey"] + 0.1
+-- -----------------------------Sort keys----------------------------------------------------
+-- ------------------------------Code was written by Baku--------------------------------------
+-- local AllRecipes = GLOBAL.AllRecipes
+-- ------------------------------[TOOLS]----------------------------------------------
+-- AllRecipes.machete.sortkey = AllRecipes["goldenaxe"]["sortkey"] + 0.1
+-- AllRecipes.goldenmachete.sortkey = AllRecipes["machete"]["sortkey"] + 0.1
+-- ------------------------------[LIGHT]----------------------------------------------
+-- AllRecipes.chiminea.sortkey = AllRecipes["firepit"]["sortkey"] + 0.1
+-- AllRecipes.obsidianfirepit.sortkey = AllRecipes["coldfirepit"]["sortkey"] + 0.1
+-- AllRecipes.tarlamp.sortkey = AllRecipes["torch"]["sortkey"] + 0.1
+-- AllRecipes.bottlelantern.sortkey = AllRecipes["minerhat"]["sortkey"] + 0.1
+-- AllRecipes.boat_torch.sortkey = AllRecipes["bottlelantern"]["sortkey"] + 0.1
+-- AllRecipes.boat_lantern.sortkey = AllRecipes["boat_torch"]["sortkey"] + 0.1
+-- AllRecipes.sea_chiminea.sortkey = AllRecipes["boat_lantern"]["sortkey"] + 0.1
+-- ------------------------------[SURVIVAL]-------------------------------------------
+-- AllRecipes.monkeyball.sortkey = AllRecipes["fishingrod"]["sortkey"] + 0.1
+-- AllRecipes.palmleaf_umbrella.sortkey = AllRecipes["umbrella"]["sortkey"] - 0.1
+-- AllRecipes.antidote.sortkey = AllRecipes["healingsalve"]["sortkey"] + 0.1
+-- AllRecipes.thatchpack.sortkey = AllRecipes["backpack"]["sortkey"] + 0.1
+-- AllRecipes.palmleaf_hut.sortkey = AllRecipes["siestahut"]["sortkey"] + 0.1
+-- AllRecipes.doydoyfan.sortkey = AllRecipes["featherfan"]["sortkey"] + 0.1
+-- AllRecipes.seasack.sortkey = AllRecipes["icepack"]["sortkey"] + 0.1
+-- --doydoynest.sortkey = AllRecipes["seasack"]["sortkey"] + 0.1
+-- ------------------------------[FARM]-----------------------------------------------
+-- AllRecipes.mussel_stick.sortkey = 0
+-- AllRecipes.fish_farm.sortkey = AllRecipes["icebox"]["sortkey"] + 0.1
+-- AllRecipes.mussel_bed.sortkey = AllRecipes["porto_fish_farm"]["sortkey"] + 0.1
+-- ------------------------------[SCIENCE]--------------------------------------------
+-- AllRecipes.researchlab5.sortkey = AllRecipes["researchlab2"]["sortkey"] + 0.1 --SEA LAB
+-- AllRecipes.icemaker.sortkey = AllRecipes["firesuppressor"]["sortkey"] + 0.1
+-- AllRecipes.quackendrill.sortkey = AllRecipes["icemaker"]["sortkey"] + 0.1
+-- ------------------------------[WAR]------------------------------------------------
+-- AllRecipes.spear_poison.sortkey = AllRecipes["spear"]["sortkey"] + 0.1
+-- AllRecipes.armor_seashell.sortkey = AllRecipes["armorwood"]["sortkey"] + 0.1
+-- --armorlimestone.sortkey = AllRecipes["armormarble"]["sortkey"] + 0.1
+-- --armorcactus.sortkey = AllRecipes["footballhat"]["sortkey"] - 0.1
+-- AllRecipes.oxhat.sortkey = AllRecipes["footballhat"]["sortkey"] + 0.1
+-- AllRecipes.coconade.sortkey = AllRecipes["trap_teeth"]["sortkey"] + 0.1
+-- AllRecipes.spear_launcher.sortkey = AllRecipes["coconade"]["sortkey"] + 0.1
+-- AllRecipes.cutlass.sortkey = AllRecipes["armordragonfly"]["sortkey"] - 0.1
+-- ------------------------------[STRUCTURES]-----------------------------------------
+-- AllRecipes.waterchest.sortkey = AllRecipes["treasurechest"]["sortkey"] + 0.1
+-- AllRecipes.wall_limestone_item.sortkey = AllRecipes["wall_stone_item"]["sortkey"] + 0.1
+-- AllRecipes.wall_enforcedlimestone_item.sortkey = AllRecipes["wall_limestone_item"]["sortkey"] + 0.1
+-- AllRecipes.wildborehouse.sortkey = AllRecipes["pighouse"]["sortkey"] + 0.1
+-- AllRecipes.ballphinhouse.sortkey = AllRecipes["wildborehouse"]["sortkey"] + 0.1
+-- AllRecipes.primeapebarrel.sortkey = AllRecipes["porto_ballphinhouse"]["sortkey"] + 0.1
+-- AllRecipes.dragoonden.sortkey = AllRecipes["wildborehouse"]["sortkey"] + 0.1 --or primeapebarrel if you add this
+-- AllRecipes.turf_road.sortkey = AllRecipes["turf_woodfloor"]["sortkey"] - 0.1
+-- AllRecipes.turf_snakeskinfloor.sortkey = AllRecipes["turf_woodfloor"]["sortkey"] + 0.1
+-- AllRecipes.sand_castle.sortkey = AllRecipes["dragonflychest"]["sortkey"] - 0.1
+-- AllRecipes.sandbag_item.sortkey = AllRecipes["sand_castle"]["sortkey"] - 0.1
+-- ------------------------------[REFINE]----------------------------------------------
+-- AllRecipes.fabric.sortkey = AllRecipes["papyrus"]["sortkey"] + 0.1
+-- AllRecipes.limestone.sortkey = AllRecipes["fabric"]["sortkey"] + 0.1
+-- AllRecipes.nubbin.sortkey = AllRecipes["limestone"]["sortkey"] + 0.1
+-- AllRecipes.goldnugget.sortkey = AllRecipes["nubbin"]["sortkey"] + 0.1
+-- AllRecipes.ice.sortkey = AllRecipes["messagebottleempty1"]["sortkey"] - 0.1
+-- AllRecipes.messagebottleempty1.sortkey = AllRecipes["nightmarefuel"]["sortkey"] - 0.1
+-- ------------------------------[MAGIC]-----------------------------------------------
+-- --piratihatitator.sortkey = 0
+-- AllRecipes.ox_flute.sortkey = AllRecipes["panflute"]["sortkey"] + 0.1
+-- ------------------------------[DRESSUP]---------------------------------------------
+-- AllRecipes.brainjellyhat.sortkey = AllRecipes["catcoonhat"]["sortkey"] + 0.1
+-- --shark_teethhat.sortkey = AllRecipes["watermelonhat"]["sortkey"] + 0.1
+-- AllRecipes.snakeskinhat.sortkey = AllRecipes["bushhat"]["sortkey"] + 0.1
+-- AllRecipes.armor_snakeskin.sortkey = AllRecipes["raincoat"]["sortkey"] + 0.1
+-- AllRecipes.blubbersuit.sortkey = AllRecipes["armor_snakeskin"]["sortkey"] + 0.1
+-- AllRecipes.tarsuit.sortkey = AllRecipes["blubbersuit"]["sortkey"] + 0.1
+-- AllRecipes.double_umbrellahat.sortkey = AllRecipes["eyebrellahat"]["sortkey"] + 0.1
+-- AllRecipes.armor_windbreaker.sortkey = AllRecipes["double_umbrellahat"]["sortkey"] + 0.1
+-- AllRecipes.gashat.sortkey = AllRecipes["armor_windbreaker"]["sortkey"] + 0.1
+-- AllRecipes.gashatsw.sortkey = AllRecipes["armor_windbreaker"]["sortkey"] + 0.1
 
-mermhouse_crafted.sortkey = 0
-mermthrone_construction.sortkey = AllRecipes["mermhouse_crafted"]["sortkey"] + 0.1
-mermwatchtower.sortkey = AllRecipes["mermthrone_construction"]["sortkey"] + 0.1
-mermhouse_tropical.sortkey = AllRecipes["mermwatchtower"]["sortkey"] + 0.1
-------------------------------[SHADOW MAXWELL BOOK]-----------------------------------------
---shadowname_builder.sortkey = AllRecipes["shadowlumber_builder"]["sortkey"] + 0.1   ----This sortkey for Machete shadow puppet
-------------------------------Code was written by Baku--------------------------------------]]
+-- AllRecipes.mermhouse_crafted.sortkey = 0
+-- AllRecipes.mermthrone_construction.sortkey = AllRecipes["mermhouse_crafted"]["sortkey"] + 0.1
+-- AllRecipes.mermwatchtower.sortkey = AllRecipes["mermthrone_construction"]["sortkey"] + 0.1
+-- AllRecipes.mermhouse_tropical.sortkey = AllRecipes["mermwatchtower"]["sortkey"] + 0.1
+-- ------------------------------[SHADOW MAXWELL BOOK]-----------------------------------------
+-- AllRecipes.shadowname_builder.sortkey = AllRecipes["shadowlumber_builder"]["sortkey"] + 0.1
+-- ----This sortkey for Machete shadow puppet
+-- ------------------------------Code was written by Baku--------------------------------------

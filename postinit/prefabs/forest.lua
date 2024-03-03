@@ -11,8 +11,8 @@ AddPrefabPostInit("forest", function(inst)
         inst:AddComponent("tropicalspawner")
         inst:AddComponent("whalehunter")
         inst:AddComponent("rainbowjellymigration")
-        inst:AddComponent("shadowmanager")
-        inst:AddComponent("rocmanager")
+        -- inst:AddComponent("shadowmanager")
+        -- inst:AddComponent("rocmanager")
         inst:AddComponent("quaker_interior") ------------这是啥
     end
 end)
