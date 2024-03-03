@@ -81,7 +81,7 @@ modimport("postinit/map/tasks")
 
 -------------------------调整地图大小和海岸线--------------------------
 -- local size = 400
-local size = 450 + (troadv.shipwrecked and 100 or 0) + (troadv.hamlet and 100 or 0) 
+local size = 450 + (troadv.shipwrecked and 100 or 0) + (troadv.hamlet and 100 or 0)
 --450是默认边长 --地图太小可能生成不了世界
 
 if troadv.testmode then size = 150 end
@@ -324,7 +324,7 @@ if troadv.testmode then
             -- -- table.insert(level.tasks, "Plains")          --island3 高草地形，类似牛场
             -- table.insert(level.tasks, "Rainforest_ruins")
             -- table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
-            -- table.insert(level.tasks, "Edge_of_the_unknown")
+            table.insert(level.tasks, "Edge_of_the_unknown")
             -- table.insert(level.tasks, "HamArchiveMaze")
             level.numoptionaltasks = 0
 
