@@ -139,7 +139,7 @@ local PESODOGRUPO                      = {
 		{
 			jellyfish_planted = 1,
 			solofish = 1,
-			whirlpool = 0.20,
+			-- whirlpool = 0.20,
 			rainbowjellyfish_planted = 0.25,
 			ballphin = 0.1,
 		},
