@@ -2,15 +2,36 @@ local function en_zh(en, zh) -- Other languages don't work
 	return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
 end
 
+-----------------修ROC SG
+-----------------载入语言包
+----------------------猪镇的生成设计
+------------蚁穴和洞穴地皮调整
+-----------------室内物品高度怎么调不了啊
+----------------------海洋之椅，火山祭坛
+----------------洞穴的掉落物会落入水中
+----------------漂流瓶显示宝藏没有标记
+---------------雨林的小地图贴图不对
+-----------------relic太少了
+----------------栽种房子的时候有bug------------已解决
+---------------不要把东西给房子--------------已解决
+---------------浮木舟不掉耐久
+----------------大鸟地区不该加Hamlet标签 roc的SG也没写好
+--------------waffles_plate缺少贴图
+--------------直接制作帽子戴上会报错。。
+------------------原MOD写的清楚积雪的效果只对主客机一体时有效
 
+
+local desch = "在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改"
+
+local desen = "Personal modification of Tropical Experience"
 
 name = en_zh(" Tropical Adventure (Shipwrecked & Hamlet)", "热带冒险（海难哈姆雷特三合一）")
-description = en_zh("Personal modification of Tropical Experience", "在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改")
+description = en_zh(desen, desch)
 author = "Peng"
-version = "6.72"
+version = "6.83"
 forumthread = ""
 api_version = 10
-priority = -20
+priority = -10
 
 dst_compatible = true
 dont_starve_compatible = false
@@ -99,13 +120,13 @@ configuration_options =
 			-- 	data = "no_random"
 			-- },
 			{
-				description = en_zh("Killer Bee and Walrus as random tasks", "仅杀人蜂和海象平原作为随机地形"),
-				hover = en_zh("Killer Bee and Walrus as random tasks", "仅杀人蜂和海象平原作为随机地形"),
-				data = "bee_and_walrus"
+				description = en_zh("Fxied Random Tasks", "固定的随机地形"),
+				hover = en_zh("KillerBees, Walrus, PigVillage, Frogs&Bugs, SpiderRocks", "杀人蜂,海象,小猪村,青蛙蜜蜂,蜘蛛矿"),
+				data = "fixed"
 			},
 
 		},
-		default = "bee_and_walrus",
+		default = "fixed",
 	},
 
 	{
@@ -175,7 +196,7 @@ configuration_options =
 	{
 		name = "layout",
 		label = en_zh("Layout adjustment", "布局调整"),
-		hover = en_zh("Layout adjustment", "如猴岛、寄居蟹岛、帝王蟹的位置调整"),
+		hover = en_zh("Layout adjustment", "如大理石雕像、猴岛、寄居蟹岛、帝王蟹的位置调整"),
 		options = options_enable,
 		default = true,
 	},
@@ -183,7 +204,7 @@ configuration_options =
 	{
 		name = "testmode",
 		label = en_zh("Test Mode", "测试模式"),
-		hover = en_zh("A very small world with a very small island only for debugging", "仅生成一块很小的地形用于测试内容"),
+		hover = en_zh("A very small world only for debugging", "仅生成一块很小的地形用于测试内容"),
 		options = options_enable,
 		default = false,
 	},
@@ -251,7 +272,7 @@ configuration_options =
 	{
 		name = "aporkalypse",
 		label = en_zh("Aporkalypse", "毁灭季"),
-		hover = en_zh("Aporkalypse in caves", "毁灭季 在洞穴"),
+		hover = en_zh("Aporkalypse, but in caves", "毁灭季 但是在洞穴"),
 		options = options_enable,
 		default = true,
 	},

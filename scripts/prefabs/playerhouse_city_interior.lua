@@ -150,8 +150,18 @@ local function OnLoad(inst, data)
 	end
 	if data and data.wallpaper then
 		inst.wallpaper = data.wallpaper
-		inst.AnimState:SetBank("wallhamletcity1")
-		inst.AnimState:SetBuild("wallhamletcity1")
+
+		local is2 = inst.wallpaper == "harlequin_panel" or inst.wallpaper == "shop_wall_fullwall_moulding" or
+			inst.wallpaper == "shop_wall_floraltrim2" or inst.wallpaper == "shop_wall_upholstered"
+
+		if is2 then
+			inst.AnimState:SetBank("wallhamletcity2")
+			inst.AnimState:SetBuild("wallhamletcity2")
+		else
+			inst.AnimState:SetBank("wallhamletcity1")
+			inst.AnimState:SetBuild("wallhamletcity1")
+		end
+
 		if type(inst.wallpaper) == "string" then
 			inst.AnimState:PlayAnimation(inst.wallpaper, true)
 		else
@@ -159,6 +169,8 @@ local function OnLoad(inst, data)
 		end
 	end
 end
+
+
 
 local function wall_common(build)
 	local inst = CreateEntity()

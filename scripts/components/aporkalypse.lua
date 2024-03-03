@@ -234,7 +234,7 @@ function Aporkalypse:ScheduleHeraldCheck()
 	self.herald_check_task = self.inst:DoTaskInTime(math.random(TUNING.TOTAL_DAY_TIME / 32, TUNING.TOTAL_DAY_TIME / 16),
 		function()
 			for i, player in ipairs(AllPlayers) do
-				if player and not player.components.health:IsDead() then
+				if player and player.components.health and not player.components.health:IsDead() then
 					local herald = GetClosestInstWithTag("ancient", player, 30)
 					local interior = GetClosestInstWithTag("blows_air", player, 30)
 					if not interior then
