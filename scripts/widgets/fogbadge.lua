@@ -29,8 +29,10 @@ function HayfeverBadge:OnUpdate(dt)
 
     local isinterior = GetClosestInstWithTag("blows_air", player, 15)
 
-    local corpo = player.replica.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
-    local cabeca = player.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+    local corpo = (player.replica and player.replica.inventory) and
+        player.replica.inventory:GetEquippedItem(EQUIPSLOTS.BODY) or nil
+    local cabeca = (player.replica and player.replica.inventory) and
+        player.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD) or nil
     local hasequip = (corpo and corpo:HasTag("velocidadenormal")) or (cabeca and cabeca:HasTag("velocidadenormal"))
 
 
