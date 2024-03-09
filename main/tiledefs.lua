@@ -130,7 +130,7 @@ local ia_tiledefs = {
             -- walksound = "dontstarve/movement/walk_slate",
             snowsound = "dontstarve/movement/run_ice",
             flashpoint_modifier = 0,
-            hard = true,
+            -- hard = true,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -155,7 +155,7 @@ local ia_tiledefs = {
             walksound = "dontstarve/movement/walk_dirt",
             snowsound = "dontstarve/movement/run_ice",
             flashpoint_modifier = 0,
-            hard = true,
+            -- hard = true,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -180,7 +180,7 @@ local ia_tiledefs = {
             walksound = "dontstarve/movement/walk_rock",
             flashpoint_modifier = 0,
             flooring = false,
-            hard = true,
+            -- hard = true,
             cannotbedug = true,
         },
         minimap_tile_def = {
@@ -207,7 +207,7 @@ local ia_tiledefs = {
             walksound = "dontstarve/movement/walk_rock",
             snowsound = "dontstarve/movement/run_ice",
             flashpoint_modifier = 0,
-            hard = true,
+            -- hard = true,
         },
         minimap_tile_def = {
             name = "map_edge",

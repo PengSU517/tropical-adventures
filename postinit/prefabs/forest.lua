@@ -18,7 +18,11 @@ AddPrefabPostInit("forest", function(inst)
 end)
 
 AddPrefabPostInit("cave", function(inst)
-    -- inst:AddComponent("economy")
-    -- inst:AddComponent("contador")
-    inst:AddComponent("aporkalypse")
+    if GLOBAL.TheWorld.ismastersim then
+        -- inst:AddComponent("economy")
+        -- inst:AddComponent("contador")
+        if TUNING.tropical.aporkalypse then
+            inst:AddComponent("aporkalypse")
+        end
+    end
 end)

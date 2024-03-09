@@ -176,7 +176,7 @@ local old_GetTileCenterPoint = Map.GetTileCenterPoint
 Map.GetTileCenterPoint = function(self, x, y, z)
     local map_width, map_height = TheWorld.Map:GetSize()
     if (type(x) == "number" and math.abs(x) >= map_width) and (type(z) == "number" and math.abs(z) >= map_height) then
-        return math.floor((x) / 4) * 4, 0, math.floor((z) / 4) * 4
+        return math.floor((x) / 4) * 4 + 2, 0, math.floor((z) / 4) * 4 + 2
     end
     if z then
         return old_GetTileCenterPoint(self, x, y, z)
@@ -602,16 +602,16 @@ AddComponentPostInit("witherable", function(self)
 end)
 
 --是否睡觉
-AddComponentPostInit("sleeper", function(self)
-    local old_GoToSleep = self.GoToSleep
-    self.GoToSleep = function(...)
-        if self.inst:IsInHamRoom() then
-            return
-        else
-            old_GoToSleep(...)
-        end
-    end
-end)
+-- AddComponentPostInit("sleeper", function(self)
+--     local old_GoToSleep = self.GoToSleep
+--     self.GoToSleep = function(...)
+--         if self.inst:IsInHamRoom() then
+--             return
+--         else
+--             old_GoToSleep(...)
+--         end
+--     end
+-- end)
 
 
 
@@ -748,38 +748,42 @@ end
 
 ------------------------------------------------------------------------------更改相关生物的大脑
 --猪在小房子里面不回家
-local function MakePigsNotGoHome(brain)
-    local flag = 0
-    for i, node in ipairs(brain.bt.root.children) do
-        if node.name == "Parallel" and node.children[1].name == "IsDay" then
-            node.children[1].fn = function() return TheWorld.state.isday or brain.inst:IsInHamRoom() end
-            flag = flag + 1
-        elseif node.name == "Parallel" and node.children[1].name == "IsNight" then
-            node.children[1].fn = function() return not TheWorld.state.isday and not brain.inst:IsInHamRoom() end
-            flag = flag + 1
-        end
-        if flag >= 2 then break end
-    end
-end
+-- local function MakePigsNotGoHome(brain)
+--     local flag = 0
+--     for i, node in ipairs(brain.bt.root.children) do
+--         if node.name == "Parallel" and node.children[1].name == "IsDay" then
+--             node.children[1].fn = function() return TheWorld.state.isday or brain.inst:IsInHamRoom() end
+--             flag = flag + 1
+--         elseif node.name == "Parallel" and node.children[1].name == "IsNight" then
+--             node.children[1].fn = function() return not TheWorld.state.isday and not brain.inst:IsInHamRoom() end
+--             flag = flag + 1
+--         end
+--         if flag >= 2 then break end
+--     end
+-- end
 
-AddBrainPostInit("pigbrain", MakePigsNotGoHome)
+-- AddBrainPostInit("pigbrain", MakePigsNotGoHome)
+
+
 --蜜蜂晚上和冬天依然工作
-local function MakeBeesNotGoHome(brain)
-    local flag = 0
-    for i, node in ipairs(brain.bt.root.children) do
-        if node.name == "Sequence" and node.children[1].name == "IsWinter" then
-            local old_fn = node.children[1].fn
-            node.children[1].fn = function(...) return old_fn(...) and not brain.inst:IsInHamRoom() end
-            flag = flag + 1
-        elseif node.name == "Sequence" and node.children[1].name == "IsNight" then
-            local old_fn = node.children[1].fn
-            node.children[1].fn = function(...) return old_fn(...) and not brain.inst:IsInHamRoom() end
-            flag = flag + 1
-        end
-        if flag >= 2 then break end
-    end
-end
-AddBrainPostInit("beebrain", MakeBeesNotGoHome)
+-- local function MakeBeesNotGoHome(brain)
+--     local flag = 0
+--     for i, node in ipairs(brain.bt.root.children) do
+--         if node.name == "Sequence" and node.children[1].name == "IsWinter" then
+--             local old_fn = node.children[1].fn
+--             node.children[1].fn = function(...) return old_fn(...) and not brain.inst:IsInHamRoom() end
+--             flag = flag + 1
+--         elseif node.name == "Sequence" and node.children[1].name == "IsNight" then
+--             local old_fn = node.children[1].fn
+--             node.children[1].fn = function(...) return old_fn(...) and not brain.inst:IsInHamRoom() end
+--             flag = flag + 1
+--         end
+--         if flag >= 2 then break end
+--     end
+-- end
+-- AddBrainPostInit("beebrain", MakeBeesNotGoHome)
+
+
 --晚上继续产生蝴蝶，蝴蝶不回家
 local function MakeButterflyNotGoHome(brain)
     local flag = 0
@@ -792,15 +796,15 @@ local function MakeButterflyNotGoHome(brain)
 end
 AddBrainPostInit("butterflybrain", MakeButterflyNotGoHome)
 
-local function MakePerdNotGoHome(brain)
-    for i, node in ipairs(brain.bt.root.children) do
-        if node.name == "Parallel" and node.children[1].name == "IsNight" then
-            node.children[1].fn = function() return not TheWorld.state.isday and not brain.inst:IsInHamRoom() end
-        end
-    end
-end
+-- local function MakePerdNotGoHome(brain)
+--     for i, node in ipairs(brain.bt.root.children) do
+--         if node.name == "Parallel" and node.children[1].name == "IsNight" then
+--             node.children[1].fn = function() return not TheWorld.state.isday and not brain.inst:IsInHamRoom() end
+--         end
+--     end
+-- end
 
-AddBrainPostInit("perdbrain", MakePerdNotGoHome)
+-- AddBrainPostInit("perdbrain", MakePerdNotGoHome)
 
 
 
