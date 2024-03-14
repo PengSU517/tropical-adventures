@@ -388,8 +388,9 @@ AddPrefabPostInit("dirtpile", function(inst)
         end)
     end
 end)
-local dog = { "hound", "firehound", "icehound", "moonhound", "mutatedhound", "warg" }
-for i, v in ipairs(dog) do --
+local monster = { "hound", "firehound", "icehound", "moonhound", "mutatedhound", "warg",
+    "warglet", "lunarthrall_plant", "vampirebat", "crawlinghorror", "terrorbeak" }
+for i, v in ipairs(monster) do --
     AddPrefabPostInit(v, function(inst)
         if TheWorld.ismastersim then
             inst:DoTaskInTime(0, function(...)
