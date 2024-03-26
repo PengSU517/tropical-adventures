@@ -20,8 +20,8 @@ STRINGS.UI.CRAFTING_FILTERS.LEGACY = "Legacy Structures"
 
 
 ------------------------new items
-GLOBAL.STRINGS.NAMES.LOOT_PUMP = "Loot Pump"
-GLOBAL.STRINGS.RECIPE_DESC.LOOT_PUMP = "Throw items in containers."
+GLOBAL.STRINGS.NAMES.LOOT_PUMPER = "Loot Pumper"
+GLOBAL.STRINGS.RECIPE_DESC.LOOT_PUMPER = "Throw items in containers."
 
 
 ----------------------------- Name of Things -----------------------------
