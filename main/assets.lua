@@ -2,7 +2,7 @@ PrefabFiles =
 {
 
 	---------------新物品
-	"loot_pump",
+	"loot_pumper",
 
 	"house_wall",
 	"sparkle_fx",
