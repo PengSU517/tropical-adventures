@@ -2,6 +2,8 @@ local function en_zh(en, zh) -- Other languages don't work
 	return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
 end
 
+------------------player_actions_shear.zip
+-------------player_actions_bucked.zip  被扔下来的动画
 -----------------修ROC SG
 -----------------载入语言包
 ----------------------猪镇的生成设计
@@ -21,17 +23,40 @@ end
 ------------------原MOD写的清楚积雪的效果只对主客机一体时有效
 
 
-local desch = "在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改"
-
-local desen = "Personal modification of Tropical Experience"
 
 name = en_zh(" Tropical Adventure (Shipwrecked & Hamlet)", "热带冒险（海难哈姆雷特三合一）")
-description = en_zh(desen, desch)
+
 author = "Peng"
-version = "6.91"
+version = "6.96"
 forumthread = ""
 api_version = 10
 priority = -10
+
+
+local desen = [[
+Personal modification of Tropical Experience
+]]
+
+local desch = [[
+在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改
+QQ 群：469668062
+
+]]
+
+local updateen = [[
+Update:
+
+]]
+
+local updatech = [[
+更新：
+1.
+2.
+
+]]
+
+
+description = en_zh(desen .. "Version " .. version .. updateen, desch .. "版本 " .. version .. updatech)
 
 dst_compatible = true
 dont_starve_compatible = false
