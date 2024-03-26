@@ -37,7 +37,7 @@ AddRecipe2("pugaliskfountain_made",
 -- 	{ atlas = v_atlas, placer = "wildborehouse_placer" }, { "STRUCTURES" })
 -----------------这个为什么不需要图片
 
-AddRecipe2("loot_pump",
+AddRecipe2("loot_pumper",
 	{
 		Ingredient("gears", 1),
 		Ingredient("alloy", 2, h_atlas),
@@ -47,7 +47,7 @@ AddRecipe2("loot_pump",
 	{
 		atlas = "images/inventoryimages/loot_pump.xml",
 		min_spacing = 3.2,
-		placer = "loot_pump_placer",
+		placer = "loot_pumper_placer",
 		image = "loot_pump.tex"
 	},
 	{ "PROTOTYPERS", "STRUCTURES" })
