@@ -326,7 +326,7 @@ if troadv.testmode then
             -- table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
             -- table.insert(level.tasks, "Edge_of_the_unknown")
             table.insert(level.tasks, "Pigcity2")
-            -- table.insert(level.tasks, "HamArchiveMaze")
+            table.insert(level.tasks, "HamArchiveMaze")
             level.numoptionaltasks = 0
 
             --[[optionaltasks = {

@@ -2,6 +2,10 @@ local function en_zh(en, zh) -- Other languages don't work
 	return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
 end
 
+-------------语言添加自动选项
+-------------灵活调整室内摄像头
+-------------限制玩家走到房间之外
+-----------roominterior组件
 ------------------player_actions_shear.zip
 -------------player_actions_bucked.zip  被扔下来的动画
 -----------------修ROC SG
@@ -290,8 +294,8 @@ configuration_options =
 		name = "hayfever",
 		label = en_zh("Hayfever", "花粉过敏"),
 		hover = en_zh("Hayfever", "花粉过敏"),
-		options = options_enable,
-		default = true,
+		options = options_enable2,
+		default = false,
 	},
 
 	{

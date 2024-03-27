@@ -187,7 +187,14 @@ end
 
 --------------------------------------------------------------是不是可通行的点--
 
-
+local check_size = 950
+local function checkxz(x, z)
+    if math.abs(z) >= check_size or math.abs(x) >= check_size then
+        return true
+    else
+        return false
+    end
+end
 
 
 local function IsHamRoomAtPoint(x, y, z)
@@ -196,14 +203,16 @@ local function IsHamRoomAtPoint(x, y, z)
     end
 
 
-    local entities = TheSim:FindEntities(x, y, z, 20, { "blows_air" })
-    if entities then
-        for i, v in ipairs(entities) do
-            if v then
-                local rsize = roomsize[roomtype[v.prefab] or "small"]
-                local xx, yy, zz = v.Transform:GetWorldPosition()
-                if ((x - xx) <= rsize.front and (x - xx) >= -rsize.back and math.abs(z - zz) <= rsize.side) then ---11
-                    return true
+    if checkxz(x, z) then -----判断一下以减少运算
+        local entities = TheSim:FindEntities(x, y, z, 20, { "blows_air" })
+        if entities then
+            for i, v in ipairs(entities) do
+                if v then
+                    local rsize = roomsize[roomtype[v.prefab] or "small"]
+                    local xx, yy, zz = v.Transform:GetWorldPosition()
+                    if ((x - xx) <= rsize.front and (x - xx) >= -rsize.back and math.abs(z - zz) <= rsize.side) then ---11
+                        return true
+                    end
                 end
             end
         end
@@ -217,20 +226,22 @@ local function IsHamRoomWallAtPoint(x, y, z)
         x, y, z = x.x or x, x.y or y, x.z or z
     end
 
-    local entities = TheSim:FindEntities(x, y, z, 20, { "blows_air" })
-    if entities then
-        for i, v in ipairs(entities) do
-            if v --[[and v.prefab == "playerhouse_city_floor" ]] then
-                local rsize = roomsize[roomtype[v.prefab] or "small"]
-                local xx, yy, zz = v.Transform:GetWorldPosition()
-                if (x - xx) <= -rsize.back and (x - xx) > -(rsize.back + 0.5) and math.abs(z - zz) <= (rsize.side - 0.5) then ---11
-                    return "back"
-                elseif (z - zz) >= rsize.side and (z - zz) < (rsize.side + 0.5) and (x - xx) <= rsize.front and (x - xx) >= -(rsize.back - 0.5) then
-                    return "right"
-                elseif (zz - z) >= rsize.side and (zz - z) < (rsize.side + 0.5) and (x - xx) <= rsize.front and (x - xx) >= -(rsize.back - 0.5) then
-                    return "left"
-                else
-                    -- return false
+    if checkxz(x, z) then
+        local entities = TheSim:FindEntities(x, y, z, 20, { "blows_air" })
+        if entities then
+            for i, v in ipairs(entities) do
+                if v --[[and v.prefab == "playerhouse_city_floor" ]] then
+                    local rsize = roomsize[roomtype[v.prefab] or "small"]
+                    local xx, yy, zz = v.Transform:GetWorldPosition()
+                    if (x - xx) <= -rsize.back and (x - xx) > -(rsize.back + 0.5) and math.abs(z - zz) <= (rsize.side - 0.5) then ---11
+                        return "back"
+                    elseif (z - zz) >= rsize.side and (z - zz) < (rsize.side + 0.5) and (x - xx) <= rsize.front and (x - xx) >= -(rsize.back - 0.5) then
+                        return "right"
+                    elseif (zz - z) >= rsize.side and (zz - z) < (rsize.side + 0.5) and (x - xx) <= rsize.front and (x - xx) >= -(rsize.back - 0.5) then
+                        return "left"
+                    else
+                        -- return false
+                    end
                 end
             end
         end
@@ -525,17 +536,17 @@ end)
 
 
 --潮湿度--干燥
-if TUNING.WATER_BM then
-    AddComponentPostInit("moisture", function(self) --房子里面不会降雨
-        local old = self.GetMoistureRate
-        function self:GetMoistureRate()
-            if self.inst:IsInHamRoom() then
-                return 0
-            end
-            return old(self)
+-- if TUNING.WATER_BM then
+AddComponentPostInit("moisture", function(self) --房子里面不会降雨
+    local old = self.GetMoistureRate
+    function self:GetMoistureRate()
+        if self.inst:IsInHamRoom() then
+            return 0
         end
-    end)
-end
+        return old(self)
+    end
+end)
+-- end
 
 
 --如果在区域内就更新滤镜  ------------滤镜似乎没有效果
