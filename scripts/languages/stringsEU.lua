@@ -24,6 +24,12 @@ GLOBAL.STRINGS.NAMES.LOOT_PUMPER = "Loot Pumper"
 GLOBAL.STRINGS.RECIPE_DESC.LOOT_PUMPER = "Throw items in containers."
 
 
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISKFOUNTAIN_MADE = "I prefer fountains of knowledge."
+STRINGS.NAMES.PUGALISKFOUNTAIN_MADE                       = "Fountain of Youth"
+STRINGS.RECIPE_DESC.PUGALISKFOUNTAIN_MADE                 = "Live forever."
+
+
+
 ----------------------------- Name of Things -----------------------------
 
 STRINGS.NAMES.SNAKESKINHAT = "Snake Skin Hat"
@@ -3741,7 +3747,7 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.PROP_DOOR                                 = 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISK                                  = "Scientifically speaking, it shouldn't exist."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISK_CORPSE                           = "Petrifying."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISK_FOUNTAIN                         = "I prefer fountains of knowledge."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISKFOUNTAIN_MADE                     = "I prefer fountains of knowledge."
+
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISK_RUINS_PILLAR                     = "Defying the laws of science."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISK_SKULL                            = "A numbskull."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISK_TRAP_DOOR                        = "Well that looks ominous."
@@ -5421,7 +5427,7 @@ STRINGS.NAMES.PROP_DOOR                                                       = 
 STRINGS.NAMES.PUGALISK                                                        = "Pugalisk"
 STRINGS.NAMES.PUGALISK_CORPSE                                                 = "Petrifying Bones"
 STRINGS.NAMES.PUGALISK_FOUNTAIN                                               = "Fountain of Youth"
-STRINGS.NAMES.PUGALISKFOUNTAIN_MADE                                           = "Fountain of Youth"
+
 STRINGS.NAMES.PUGALISK_RUINS_PILLAR                                           = "Teetering Pillar"
 STRINGS.NAMES.PUGALISK_SKULL                                                  = "Pugalisk Skull"
 STRINGS.NAMES.PUGALISK_TRAP_DOOR                                              = "Ominous Carving"
@@ -6736,83 +6742,83 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.BISHOP_NIGHTMAREB                         = 
 STRINGS.NAMES.TFWP_SPEAR_GUNG                                                 = STRINGS.NAMES.SPEAR_GUNGNIR
 STRINGS.RECIPE_DESC.TFWP_SPEAR_GUNG                                           = "Rush forward, dealing moderate damage."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_SPEAR_GUNG                           = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.SPEAR_GUNGNIR
+	.SPEAR_GUNGNIR
 
 STRINGS.NAMES.TFWP_LAVA_HAMMER                                                = STRINGS.NAMES.HAMMER_MJOLNIR
 STRINGS.RECIPE_DESC.TFWP_LAVA_HAMMER                                          = "Jump at point, dealing moderate damage."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_LAVA_HAMMER                          = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.HAMMER_MJOLNIR
+	.HAMMER_MJOLNIR
 
 STRINGS.NAMES.TFWP_SPEAR_LANCE                                                = STRINGS.NAMES.SPEAR_LANCE
 STRINGS.RECIPE_DESC.TFWP_SPEAR_LANCE                                          = "Jump at point, dealing huge damage."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_SPEAR_LANCE                          = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.SPEAR_LANCE
+	.SPEAR_LANCE
 
 STRINGS.NAMES.TFWP_SUMMON_BOOK                                                = STRINGS.NAMES.BOOK_ELEMENTAL
 STRINGS.RECIPE_DESC.TFWP_SUMMON_BOOK                                          = "Summons Fire Elemental."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_SUMMON_BOOK                          = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.BOOK_ELEMENTAL
+	.BOOK_ELEMENTAL
 
 STRINGS.NAMES.TFWP_CONTROL_BOOK                                               = "Tome of Cold"
 STRINGS.RECIPE_DESC.TFWP_CONTROL_BOOK                                         = "Freezes enemies."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_CONTROL_BOOK                         = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.BOOK_FOSSIL
+	.BOOK_FOSSIL
 
 STRINGS.NAMES.TFWP_HEALING_STAFF                                              = STRINGS.NAMES.HEALINGSTAFF
 STRINGS.RECIPE_DESC.TFWP_HEALING_STAFF                                        = "Creates healing area."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_HEALING_STAFF                        = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.HEALINGSTAFF
+	.HEALINGSTAFF
 
 STRINGS.NAMES.TFWP_INFERNAL_STAFF                                             = STRINGS.NAMES.FIREBALLSTAFF
 STRINGS.RECIPE_DESC.TFWP_INFERNAL_STAFF                                       = "Summons a meteorite, dealing huge damage."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_INFERNAL_STAFF                       = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.FIREBALLSTAFF
+	.FIREBALLSTAFF
 
 STRINGS.NAMES.TFWP_DRAGON_DART                                                = STRINGS.NAMES.BLOWDART_LAVA2
 STRINGS.RECIPE_DESC.TFWP_DRAGON_DART                                          = "Sends a fire shot, dealing moderate damage."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_DRAGON_DART                          = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.BLOWDART_LAVA2
+	.BLOWDART_LAVA2
 
 STRINGS.NAMES.TFWP_LAVA_DART                                                  = STRINGS.NAMES.BLOWDART_LAVA
 STRINGS.RECIPE_DESC.TFWP_LAVA_DART                                            = "Fires off 8 darts, every dart deals low damage."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_LAVA_DART                            = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.BLOWDART_LAVA
+	.BLOWDART_LAVA
 
 STRINGS.NAMES.TFWP_HEAVY_SWORD                                                = STRINGS.NAMES.LAVAARENA_HEAVYBLADE
 STRINGS.RECIPE_DESC.TFWP_HEAVY_SWORD                                          = "Allows to parry attacks."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_HEAVY_SWORD                          = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_HEAVYBLADE
+	.LAVAARENA_HEAVYBLADE
 
 STRINGS.NAMES.TFWP_FIRE_BOMB                                                  = STRINGS.NAMES.LAVAARENA_FIREBOMB
 STRINGS.RECIPE_DESC.TFWP_FIRE_BOMB                                            = "Throw a bottle of liquid fire!"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_FIRE_BOMB                            = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_FIREBOMB
+	.LAVAARENA_FIREBOMB
 
 --armor
 STRINGS.NAMES.TFWP_MOON_HEAVY_ARMOR                                           = "Moon Rock Armor"
 STRINGS.RECIPE_DESC.TFWP_MOON_HEAVY_ARMOR                                     = "Superior protection, speed penalty."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_MOON_HEAVY_ARMOR                     = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_ARMOREXTRAHEAVY
+	.LAVAARENA_ARMOREXTRAHEAVY
 
 STRINGS.NAMES.TFWP_STEEL_WOOL_ARMOR                                           = "Steel Wool Armor"
 STRINGS.RECIPE_DESC.TFWP_STEEL_WOOL_ARMOR                                     = "Increases physical damage."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_STEEL_WOOL_ARMOR                     = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_ARMORMEDIUMDAMAGER
+	.LAVAARENA_ARMORMEDIUMDAMAGER
 
 STRINGS.NAMES.TFWP_GOLDEN_CHAIN_ARMOR                                         = "Gold Chain"
 STRINGS.RECIPE_DESC.TFWP_GOLDEN_CHAIN_ARMOR                                   = "Increases magic damage."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_GOLDEN_CHAIN_ARMOR                   = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_ARMORHEAVY
+	.LAVAARENA_ARMORHEAVY
 
 STRINGS.NAMES.TFWP_LEATHER_LIGHT_ARMOR                                        = "Leather Tunic"
 STRINGS.RECIPE_DESC.TFWP_LEATHER_LIGHT_ARMOR                                  = "Reduces spells cooldown."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_LEATHER_LIGHT_ARMOR                  = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_ARMORMEDIUMRECHARGER
+	.LAVAARENA_ARMORMEDIUMRECHARGER
 
 STRINGS.NAMES.TFWP_GRASS_TUNIC_ARMOR                                          = "Grass Tunic"
 STRINGS.RECIPE_DESC.TFWP_GRASS_TUNIC_ARMOR                                    = "Increases movement speed."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_GRASS_TUNIC_ARMOR                    = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_ARMORLIGHTSPEED
+	.LAVAARENA_ARMORLIGHTSPEED
 
 STRINGS.NAMES.TFWP_WORM_SUIT_ARMOR                                            = "Monster Suit"
 STRINGS.RECIPE_DESC.TFWP_WORM_SUIT_ARMOR                                      = "Buffs on attacks."
@@ -6829,49 +6835,49 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_HYPNO_COAT_ARMOR                     = 
 STRINGS.NAMES.TFWP_BARBED_HELM_HAT                                            = STRINGS.NAMES.LAVAARENA_LIGHTDAMAGERHAT
 STRINGS.RECIPE_DESC.TFWP_BARBED_HELM_HAT                                      = "Low protection and low damage bonus."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_BARBED_HELM_HAT                      = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_LIGHTDAMAGERHAT
+	.LAVAARENA_LIGHTDAMAGERHAT
 
 STRINGS.NAMES.TFWP_NOX_HELM_HAT                                               = STRINGS.NAMES.LAVAARENA_STRONGDAMAGERHAT
 STRINGS.RECIPE_DESC.TFWP_NOX_HELM_HAT                                         = "Moderate protection and huge damage bonus."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_NOX_HELM_HAT                         = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_STRONGDAMAGERHAT
+	.LAVAARENA_STRONGDAMAGERHAT
 
 STRINGS.NAMES.TFWP_LUXURY_NOX_HELM_HAT                                        = STRINGS.NAMES.LAVAARENA_CROWNDAMAGERHAT
 STRINGS.RECIPE_DESC.TFWP_LUXURY_NOX_HELM_HAT                                  = "Protection, CDR, damage and MS. Cool."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_LUXURY_NOX_HELM_HAT                  = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_CROWNDAMAGERHAT
+	.LAVAARENA_CROWNDAMAGERHAT
 
 STRINGS.NAMES.TFWP_CRYSTAL_CROWN_HAT                                          = STRINGS.NAMES.LAVAARENA_RECHARGERHAT
 STRINGS.RECIPE_DESC.TFWP_CRYSTAL_CROWN_HAT                                    = "Reduces spells cooldown."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_CRYSTAL_CROWN_HAT                    = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_RECHARGERHAT
+	.LAVAARENA_RECHARGERHAT
 
 STRINGS.NAMES.TFWP_WIZARD_CROWN_HAT                                           = STRINGS.NAMES.LAVAARENA_EYECIRCLETHAT
 STRINGS.RECIPE_DESC.TFWP_WIZARD_CROWN_HAT                                     = "Spell power, CDR, MS."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_WIZARD_CROWN_HAT                     = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_EYECIRCLETHAT
+	.LAVAARENA_EYECIRCLETHAT
 
 STRINGS.NAMES.TFWP_FLOWER_HEADBAND_HAT                                        = STRINGS.NAMES.LAVAARENA_HEALINGFLOWERHAT
 STRINGS.RECIPE_DESC.TFWP_FLOWER_HEADBAND_HAT                                  = "Increases all incoming healing."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_FLOWER_HEADBAND_HAT                  = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_HEALINGFLOWERHAT
+	.LAVAARENA_HEALINGFLOWERHAT
 
 STRINGS.NAMES.TFWP_WOVEN_GARLAND_HAT                                          = STRINGS.NAMES
-.LAVAARENA_TIARAFLOWERPETALSHAT
+	.LAVAARENA_TIARAFLOWERPETALSHAT
 STRINGS.RECIPE_DESC.TFWP_WOVEN_GARLAND_HAT                                    = "Increases healng spells power."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_WOVEN_GARLAND_HAT                    = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_TIARAFLOWERPETALSHAT
+	.LAVAARENA_TIARAFLOWERPETALSHAT
 
 STRINGS.NAMES.TFWP_FEATHER_GARLAND_HAT                                        = STRINGS.NAMES.LAVAARENA_FEATHERCROWNHAT
 STRINGS.RECIPE_DESC.TFWP_FEATHER_GARLAND_HAT                                  = "Increases movement speed."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_FEATHER_GARLAND_HAT                  = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_FEATHERCROWNHAT
+	.LAVAARENA_FEATHERCROWNHAT
 
 STRINGS.NAMES.TFWP_BLOSSOM_GARLAND_HAT                                        = STRINGS.NAMES
-.LAVAARENA_HEALINGGARLANDHAT
+	.LAVAARENA_HEALINGGARLANDHAT
 STRINGS.RECIPE_DESC.TFWP_BLOSSOM_GARLAND_HAT                                  = "Health regeneration, MS and CDR."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TFWP_BLOSSOM_GARLAND_HAT                  = STRINGS.CHARACTERS.GENERIC.DESCRIBE
-.LAVAARENA_HEALINGGARLANDHAT
+	.LAVAARENA_HEALINGGARLANDHAT
 
 --------------store------------------------
 STRINGS.STORE                                                                 = {}
@@ -7417,7 +7423,7 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.NETTLE                                    =
 }
 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_RUINS_FOUNTAIN                       =
-"What are the probabilities of this working?"                                                           -- this is a "wishing well". You throw coins in it and it might randomly heal you.
+"What are the probabilities of this working?" -- this is a "wishing well". You throw coins in it and it might randomly heal you.
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISK                                  = "Scientifically speaking, it shouldn't exist."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.SNAKE_BONE                                = "Ha ha, snake. I have your bone."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.SNAKEBONESOUP                             = "The best way to serve snake."
@@ -7428,790 +7434,790 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.BANDITTREASURE                            = 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.BLUNDERBUSS                               = "Well, this will come in handy."
 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISK_FOUNTAIN                         = "I prefer fountains of knowledge."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISKFOUNTAIN_MADE                     = "I prefer fountains of knowledge."
-STRINGS.RECIPE_DESC.PUGALISKFOUNTAIN_MADE                                     = "Live forever."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISK_RUINS_PILLAR                     = "Defying the laws of science."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISK_TRAP_DOOR                        = "Well that looks ominous."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TEA                                       = "Tea time!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TEATREE                                   = "What a lovely tree."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TEATREE_SAPLING                           = "It's a little puny."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TEATREE_NUT                               = "Hey there, baby tree."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WALL_PIG_RUINS                            = "It's an old wall."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISK_RUINS_PILLAR               = "Defying the laws of science."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISK_TRAP_DOOR                  = "Well that looks ominous."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_RUINS_DART_TRAP                       = "I wish it wasn't quite so striking."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_RUINS_SPEAR_TRAP                      = "I wonder what wonders hide in there?"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_RUINS_SPEAR_TRAP_TRIGGERED            = "Yeesh. Those look deadly."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_RUINS_SPEAR_TRAP_BROKEN               = "Take that booby traps!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_RUINS_PRESSURE_PLATE                  = "Hmmm...I should avoid stepping on those."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TEA                                 = "Tea time!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TEATREE                             = "What a lovely tree."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TEATREE_SAPLING                     = "It's a little puny."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TEATREE_NUT                         = "Hey there, baby tree."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DISARMING_KIT                             = "A trap for traps!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WALL_PIG_RUINS                      = "It's an old wall."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.BALLPEIN_HAMMER                           = "It's a tiny little hammer."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_RUINS_DART_TRAP                 = "I wish it wasn't quite so striking."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_RUINS_SPEAR_TRAP                = "I wonder what wonders hide in there?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_RUINS_SPEAR_TRAP_TRIGGERED      = "Yeesh. Those look deadly."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_RUINS_SPEAR_TRAP_BROKEN         = "Take that booby traps!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_RUINS_PRESSURE_PLATE            = "Hmmm...I should avoid stepping on those."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.GOLD_DUST                                 = "Aw... it's hardly worth anything."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DISARMING_KIT                       = "A trap for traps!"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ALOE                                      = "Scientifical and nutritional."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ALOE_COOKED                               = "I cooked it!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ALOE_PLANTED                              = "A plant with many uses."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.BALLPEIN_HAMMER                     = "It's a tiny little hammer."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ASPARAGUS                                 = "A vegetable."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ASPARAGUS_COOKED                          = "Science says it's good for me."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ASPARAGUS_PLANTED                         = "I should pick those!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.GOLD_DUST                           = "Aw... it's hardly worth anything."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RADISH                                    = "It looks radishing."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RADISH_COOKED                             = "I wonder if this makes it taste better."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RADISH_PLANTED                            = "It's trying to hide."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ALOE                                = "Scientifical and nutritional."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ALOE_COOKED                         = "I cooked it!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ALOE_PLANTED                        = "A plant with many uses."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SNAKE_AMPHIBIOUS                          = "Agh! Stay away!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ASPARAGUS                           = "A vegetable."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ASPARAGUS_COOKED                    = "Science says it's good for me."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ASPARAGUS_PLANTED                   = "I should pick those!"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.GASMASKHAT                                = "Now I can breath anywhere."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PITHHAT                                   = "Pithy."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RADISH                              = "It looks radishing."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RADISH_COOKED                       = "I wonder if this makes it taste better."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RADISH_PLANTED                      = "It's trying to hide."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.BILL                                      =
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SNAKE_AMPHIBIOUS                    = "Agh! Stay away!"
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.GASMASKHAT                          = "Now I can breath anywhere."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PITHHAT                             = "Pithy."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.BILL                                =
 {
 	GENERIC = "A spinny spiney sort.",
 	SLEEPING = "Good. It's sleeping.",
 	DEAD = "Haha. It's dead.",
 }
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROCK_ANTCAVE                              = "It's a rock."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANT_CAVE_LANTERN                          = "Provides some light in an otherwise dark existence."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PROP_DOOR                                 = "It's adoor-able."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROCK_ANTCAVE                        = "It's a rock."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANT_CAVE_LANTERN                    = "Provides some light in an otherwise dark existence."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PROP_DOOR                           = "It's adoor-able."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIKO_ORANGE                               = "For some reason I'm craving tea."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIKO_ORANGE                         = "For some reason I'm craving tea."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_PIGRUINS                             = "It's a chunk of stone ground."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_RAINFOREST                           = "It's a chunk of ground."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_DEEPRAINFOREST                       = "It's a chunk of ground."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_LAWN                                 = "It's a chunk of ground."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_GASJUNGLE                            = "It's a chunk of ground."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_MOSS                                 = "It's a chunk of ground."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_FIELDS                               = "It's a chunk of ground."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_FOUNDATION                           = "Some nicely cobbled together rocks."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_COBBLEROAD                           = "Some nicely cobbled together rocks."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_PIGRUINS                       = "It's a chunk of stone ground."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_RAINFOREST                     = "It's a chunk of ground."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_DEEPRAINFOREST                 = "It's a chunk of ground."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_LAWN                           = "It's a chunk of ground."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_GASJUNGLE                      = "It's a chunk of ground."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_MOSS                           = "It's a chunk of ground."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_FIELDS                         = "It's a chunk of ground."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_FOUNDATION                     = "Some nicely cobbled together rocks."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_COBBLEROAD                     = "Some nicely cobbled together rocks."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.MANDRAKEMAN                               = "Large and screamy."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.MANDRAKEHOUSE                             = "It looks... screamy."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.MANDRAKEMAN                         = "Large and screamy."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.MANDRAKEHOUSE                       = "It looks... screamy."
 
 -- HOME DECO ITEMS
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_FLOOR_MARBLE                     = "It's the floor."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_FLOOR_CHECK                      = "Totally floored."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_FLOOR_PLAID_TILE                 = "Totally floored."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_FLOOR_SHEET_METAL                = "A-floor-edable."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_FLOOR_WOOD                       = "Totally floored."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_WALL_WOOD                        = "A bunch of wood."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_WALL_CHECKERED                   = "A chunk of checkered stuff put on a wall."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_WALL_FLORAL                      = "Some fancy stuff put on a wall."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_WALL_SUNFLOWER                   = "Pretty paper on a wall."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_WALL_HARLEQUIN                   = "Pretty paper on a wall."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_CLASSIC                        = "I could sit on that."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_CORNER                         = "Someone could sit on that."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_BENCH                          = "A couple people could sit on that."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_HORNED                         = "A spiky seat."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_FOOTREST                       = "Somewhere to rest my feet."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_LOUNGE                         = "I could sit on that."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_MASSAGER                       = "I don't trust it."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_STUFFED                        = "A comfy chair to sit on."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_ROCKING                        = "That chair is rocking!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_OTTOMAN                        = "Seat. Foot rest. The ottoman has many uses."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_FRINGE                          = "A fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_STAINGLASS                      = "A pretty lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_DOWNBRIDGE                      = "A fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_2EMBROIDERED                    = "A fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_CERAMIC                         = "A fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_GLASS                           = "A fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_2FRINGES                        = "Two for the price of one."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_CANDELABRA                      = "A fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_ELIZABETHAN                     = "An old fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_GOTHIC                          = "A fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_ORB                             = "A fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_BELLSHADE                       = "A fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_CRYSTALS                        = "A fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_UPTURN                          = "A fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_2UPTURNS                        = "Two for the price of one!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_SPOOL                           = "A little plain."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_EDISON                          = "This one could use a lampshade."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_ADJUSTABLE                      = "A practical lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_RIGHTANGLES                     = "A fancy lamp."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_HOOFSPA                         = "A fancy lamp."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAISE                               = "A chair to chaise after."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_BASIC                    = "It's a potted plant."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_WIP                      = "It's still a work in progress."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_FANCY                    = "That's fancy."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_BONSAI                   = "A fancy way to hold a plant."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_DISHGARDEN               = "A fancy way to hold a plant."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_PHILODENDRON             = "A fancy way to hold a plant."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_ORCHID                   = "A fancy way to hold a fancy plant."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_DRACEANA                 = "A fancy way to hold a fancy plant."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_XEROGRAPHICA             = "A fancy way to hold a fancy plant."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_BIRDCAGE                 = "A fancy way to hold a plant."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_PALM                     = "A fancy way to hold a plant."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_ZZ                       = "A holder for a fancy plant."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_FERNSTAND                = "A fancy way to hold a boring plant."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_FERN                     = "A hanging plant."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_TERRARIUM                = "A plant cage."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_PLANTPET                 = "It's like a pet that grows!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_TRAPS                    = "Those look hungry."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_PITCHERS                 = "It's a growing chandalier!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_MARBLE                   = "A fancy way to hold a fancy plant."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_TABLE_ROUND                          = "It's a round table."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_TABLE_BANKER                         = "I could get some work done there."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_TABLE_DIY                            = "Pretty basic."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_TABLE_RAW                            = "Interesting decor..."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_TABLE_CRATE                          = "I could put things on that."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_TABLE_CHESS                          = "Check and mate."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_ANTIQUITIES_WALLFISH                 = "So that's where the smell is coming from."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_ANTIQUITIES_BEEFALO                  = "He looks unhappy."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_PHOTO                   = "Who's that kid?"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_FULLLENGTH_MIRROR       = "Now I can look at my gentlemanly figure."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_EMBROIDERY_HOOP         = "How cozy."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_MOSAIC                  = "Well that's nice."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_WREATH                  = "Well that's nice."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_AXE                     = "I have an axe to grind with this."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_HUNT                    = "In-spear-ed."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_PERIODIC_TABLE          = "Science-y."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_GEARS_ART               = "Science-y."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_CAPE                    = "A little dramatic."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_NO_SMOKING              = "Science says it's bad for your health."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_BLACK_CAT               = "Is this bad luck, or good?"
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_ROUND_CURTAINS_NAILS               = "A fancy window."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_ROUND_BURLAP                       = "Not exactly high class."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_SMALL_PEAKED                       = "It's a window."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_LARGE_SQUARE                       = "It's a window."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_TALL                               = "It's a window. A tall window."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_LARGE_SQUARE_CURTAIN               = "Lets in some sunlight."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_TALL_CURTAIN                       = "It's a window. That's tall."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WOOD_CORNERBEAM                      = "Adds some stability."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_MARBLE_CORNERBEAM                    = "Adds some fancy stability."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WOOD                                 = "Stable enough."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_MILLINERY                            = "Adds some stability."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_ROUND                                = "Stable enough."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_MARBLE                               = "Adds some fancy stability."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_BASIC_BULB                 = "Looks pretty sad."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_FLORAL_BLOOMER             = "Fancy hanging light."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_CHANDALIER_CANDLES         = "A fancy hanging light."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_ROPE_1                     = "It could use some decoration."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_ROPE_2                     = "Two boring lights."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_FLORAL_BULB                = "Fancy lightbulb."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_PENDANT_CHERRIES           = "A fancy light."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_FLORAL_SCALLOP             = "A fancy hanging light."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_FLORAL_BLOOMER             = "A fancy hanging light."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_BASIC_METAL                = "Very functional."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_TOPHAT                     = "Someone left their hat up there."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_DERBY                      = "Someone left their hat up there."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_ROUND                                 = "I feel like someone's watching me."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_SQUARE                                = "Kind of square."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_OVAL                                  = "It's a rug."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_RECTANGLE                             = "It covers a lot of ground."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_FUR                                   = "A dead animal someone left on the floor."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_HEDGEHOG                              = "I can step on you!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_PORCUPUSS                             = "A dead animal someone left on the floor."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_HOOFPRINT                             = "Did an animal step on this or is it just decoration?"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_OCTAGON                               = "It's a rug."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_SWIRL                                 = "Swirlish."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_CATCOON                               = "There's a dead animal on the floor."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_RUBBERMAT                             = "Good for the lab."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_WEB                                   = "Oh what a tangled web we weave..."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_METAL                                 = "I better test its metal."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_WORMHOLE                              = "Just a reproduction."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_BRAID                                 = "It's a rug."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_BEARD                                 = "Is that my beard?"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_NAILBED                               = "I think they nailed it."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_CRIME                                 = "Murderous."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_TILES                                 = "Geometrical."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_WOOD                              = "A place to put stuff."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_CINDERBLOCKS                      = "It could use some work."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_MARBLE                            = "A place to put stuff."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_MIDCENTURY                        = "A place to put stuff."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_GLASS                             = "A place to put stuff."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_LADDER                            = "Nice use for a ladder."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_HUTCH                             = "A place to put stuff."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_INDUSTRIAL                        = "Functional."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_ADJUSTABLE                        = "A place to put stuff."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_WALLMOUNT                         = "A place to put stuff."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_AFRAME                            = "A place to put stuff."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_CRATES                            = "It could use some work."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_FRIDGE                            = "This doesn't make sense."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_HOOKS                             = "A place to hang stuff."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_PIPE                              = "A place to hang stuff."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_HATTREE                           = "A place to hang your hat."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_PALLET                            = "It could use some work."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_BASIC                             = "Basic."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_FLOATING                          = "Floating Shelves."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROCK_FLIPPABLE                            = "You never know what you'll find under a rock."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_COTTAGE                      = "Builds a small domicile."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_VILLA                        = "Builds a considerable home."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_TUDOR                        = "Builds a simple residence."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_MANOR                        = "Builds a sizable habitation."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_GOTHIC                       = "Builds a dwelling with some character."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_BRICK                        = "Builds a brickwork residence."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_TURRET                       = "Builds a reasonable shelter."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.BRAMBLESPIKE                              = "An overly complicated spiky thing."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SUNKEN_RELIC                              = "It sleeps with the fishes."
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.IRON                                      = "Isn't it ironic?"
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.CLAWPALMTREE                              = "I'm in-tree-ged."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DUG_NETTLE                                = "Science says this needs dirt, fast!"
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.THUNDERBIRD                               = "A shocking sight!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.THUNDERBIRDNEST                           = "An electrifying discovery!"
-
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.FEATHER_THUNDER                           = "My current favorite."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.THUNDERHAT                                = "Does this hat make me look scientific?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_FLOOR_MARBLE               = "It's the floor."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_FLOOR_CHECK                = "Totally floored."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_FLOOR_PLAID_TILE           = "Totally floored."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_FLOOR_SHEET_METAL          = "A-floor-edable."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_FLOOR_WOOD                 = "Totally floored."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_WALL_WOOD                  = "A bunch of wood."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_WALL_CHECKERED             = "A chunk of checkered stuff put on a wall."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_WALL_FLORAL                = "Some fancy stuff put on a wall."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_WALL_SUNFLOWER             = "Pretty paper on a wall."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.INTERIOR_WALL_HARLEQUIN             = "Pretty paper on a wall."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_CLASSIC                  = "I could sit on that."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_CORNER                   = "Someone could sit on that."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_BENCH                    = "A couple people could sit on that."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_HORNED                   = "A spiky seat."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_FOOTREST                 = "Somewhere to rest my feet."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_LOUNGE                   = "I could sit on that."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_MASSAGER                 = "I don't trust it."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_STUFFED                  = "A comfy chair to sit on."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_ROCKING                  = "That chair is rocking!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAIR_OTTOMAN                  = "Seat. Foot rest. The ottoman has many uses."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_FRINGE                    = "A fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_STAINGLASS                = "A pretty lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_DOWNBRIDGE                = "A fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_2EMBROIDERED              = "A fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_CERAMIC                   = "A fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_GLASS                     = "A fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_2FRINGES                  = "Two for the price of one."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_CANDELABRA                = "A fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_ELIZABETHAN               = "An old fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_GOTHIC                    = "A fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_ORB                       = "A fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_BELLSHADE                 = "A fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_CRYSTALS                  = "A fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_UPTURN                    = "A fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_2UPTURNS                  = "Two for the price of one!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_SPOOL                     = "A little plain."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_EDISON                    = "This one could use a lampshade."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_ADJUSTABLE                = "A practical lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_RIGHTANGLES               = "A fancy lamp."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_LAMP_HOOFSPA                   = "A fancy lamp."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CHAISE                         = "A chair to chaise after."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_BASIC              = "It's a potted plant."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_WIP                = "It's still a work in progress."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_FANCY              = "That's fancy."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_BONSAI             = "A fancy way to hold a plant."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_DISHGARDEN         = "A fancy way to hold a plant."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_PHILODENDRON       = "A fancy way to hold a plant."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_ORCHID             = "A fancy way to hold a fancy plant."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_DRACEANA           = "A fancy way to hold a fancy plant."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_XEROGRAPHICA       = "A fancy way to hold a fancy plant."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_BIRDCAGE           = "A fancy way to hold a plant."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_PALM               = "A fancy way to hold a plant."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_ZZ                 = "A holder for a fancy plant."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_FERNSTAND          = "A fancy way to hold a boring plant."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_FERN               = "A hanging plant."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_TERRARIUM          = "A plant cage."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_PLANTPET           = "It's like a pet that grows!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_TRAPS              = "Those look hungry."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_PITCHERS           = "It's a growing chandalier!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_PLANTHOLDER_MARBLE             = "A fancy way to hold a fancy plant."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_TABLE_ROUND                    = "It's a round table."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_TABLE_BANKER                   = "I could get some work done there."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_TABLE_DIY                      = "Pretty basic."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_TABLE_RAW                      = "Interesting decor..."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_TABLE_CRATE                    = "I could put things on that."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_TABLE_CHESS                    = "Check and mate."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_ANTIQUITIES_WALLFISH           = "So that's where the smell is coming from."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_ANTIQUITIES_BEEFALO            = "He looks unhappy."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_PHOTO             = "Who's that kid?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_FULLLENGTH_MIRROR = "Now I can look at my gentlemanly figure."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_EMBROIDERY_HOOP   = "How cozy."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_MOSAIC            = "Well that's nice."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_WREATH            = "Well that's nice."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_AXE               = "I have an axe to grind with this."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_HUNT              = "In-spear-ed."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_PERIODIC_TABLE    = "Science-y."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_GEARS_ART         = "Science-y."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_CAPE              = "A little dramatic."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_NO_SMOKING        = "Science says it's bad for your health."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WALLORNAMENT_BLACK_CAT         = "Is this bad luck, or good?"
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_ROUND_CURTAINS_NAILS         = "A fancy window."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_ROUND_BURLAP                 = "Not exactly high class."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_SMALL_PEAKED                 = "It's a window."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_LARGE_SQUARE                 = "It's a window."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_TALL                         = "It's a window. A tall window."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_LARGE_SQUARE_CURTAIN         = "Lets in some sunlight."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WINDOW_TALL_CURTAIN                 = "It's a window. That's tall."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WOOD_CORNERBEAM                = "Adds some stability."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_MARBLE_CORNERBEAM              = "Adds some fancy stability."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_WOOD                           = "Stable enough."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_MILLINERY                      = "Adds some stability."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_ROUND                          = "Stable enough."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_MARBLE                         = "Adds some fancy stability."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_BASIC_BULB           = "Looks pretty sad."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_FLORAL_BLOOMER       = "Fancy hanging light."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_CHANDALIER_CANDLES   = "A fancy hanging light."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_ROPE_1               = "It could use some decoration."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_ROPE_2               = "Two boring lights."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_FLORAL_BULB          = "Fancy lightbulb."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_PENDANT_CHERRIES     = "A fancy light."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_FLORAL_SCALLOP       = "A fancy hanging light."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_FLORAL_BLOOMER       = "A fancy hanging light."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_BASIC_METAL          = "Very functional."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_TOPHAT               = "Someone left their hat up there."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SWINGING_LIGHT_DERBY                = "Someone left their hat up there."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_ROUND                           = "I feel like someone's watching me."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_SQUARE                          = "Kind of square."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_OVAL                            = "It's a rug."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_RECTANGLE                       = "It covers a lot of ground."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_FUR                             = "A dead animal someone left on the floor."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_HEDGEHOG                        = "I can step on you!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_PORCUPUSS                       = "A dead animal someone left on the floor."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_HOOFPRINT                       = "Did an animal step on this or is it just decoration?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_OCTAGON                         = "It's a rug."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_SWIRL                           = "Swirlish."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_CATCOON                         = "There's a dead animal on the floor."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_RUBBERMAT                       = "Good for the lab."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_WEB                             = "Oh what a tangled web we weave..."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_METAL                           = "I better test its metal."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_WORMHOLE                        = "Just a reproduction."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_BRAID                           = "It's a rug."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_BEARD                           = "Is that my beard?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_NAILBED                         = "I think they nailed it."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_CRIME                           = "Murderous."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.RUG_TILES                           = "Geometrical."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_WOOD                        = "A place to put stuff."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_CINDERBLOCKS                = "It could use some work."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_MARBLE                      = "A place to put stuff."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_MIDCENTURY                  = "A place to put stuff."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_GLASS                       = "A place to put stuff."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_LADDER                      = "Nice use for a ladder."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_HUTCH                       = "A place to put stuff."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_INDUSTRIAL                  = "Functional."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_ADJUSTABLE                  = "A place to put stuff."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_WALLMOUNT                   = "A place to put stuff."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_AFRAME                      = "A place to put stuff."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_CRATES                      = "It could use some work."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_FRIDGE                      = "This doesn't make sense."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_HOOKS                       = "A place to hang stuff."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_PIPE                        = "A place to hang stuff."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_HATTREE                     = "A place to hang your hat."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_PALLET                      = "It could use some work."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_BASIC                       = "Basic."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHELVES_FLOATING                    = "Floating Shelves."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROCK_FLIPPABLE                      = "You never know what you'll find under a rock."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_COTTAGE                = "Builds a small domicile."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_VILLA                  = "Builds a considerable home."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_TUDOR                  = "Builds a simple residence."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_MANOR                  = "Builds a sizable habitation."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_GOTHIC                 = "Builds a dwelling with some character."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_BRICK                  = "Builds a brickwork residence."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PLAYER_HOUSE_TURRET                 = "Builds a reasonable shelter."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.BRAMBLESPIKE                        = "An overly complicated spiky thing."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SUNKEN_RELIC                        = "It sleeps with the fishes."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.IRON                                = "Isn't it ironic?"
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.CLAWPALMTREE                        = "I'm in-tree-ged."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DUG_NETTLE                          = "Science says this needs dirt, fast!"
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.THUNDERBIRD                         = "A shocking sight!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.THUNDERBIRDNEST                     = "An electrifying discovery!"
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.FEATHER_THUNDER                     = "My current favorite."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.THUNDERHAT                          = "Does this hat make me look scientific?"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WEEVOLE                                   = "Whee!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WEEVOLE_CARAPACE                          = "I'll be careful with this carapace."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ARMOR_WEEVOLE                             = "Yeesh. This is kinda creepy."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WEEVOLE                             = "Whee!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WEEVOLE_CARAPACE                    = "I'll be careful with this carapace."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ARMOR_WEEVOLE                       = "Yeesh. This is kinda creepy."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TUBERTREE                                 = "An axe won't cut it."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.CORK                                      = "Science says it floats."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TUBERTREE                           = "An axe won't cut it."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.CORK                                = "Science says it floats."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.CANDLEHAT                                 = "What a bright idea!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.CORK_BAT                                  = "Put a cork in it."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.CANDLEHAT                           = "What a bright idea!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.CORK_BAT                            = "Put a cork in it."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.LEATHER                                   = "Leather for all kinds of weather."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.BAT_HIDE                                  = "Is the bat hide-ing in there?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.LEATHER                             = "Leather for all kinds of weather."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.BAT_HIDE                            = "Is the bat hide-ing in there?"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANCIENT_ROBOT_RIBS                        = "All that iron should be mine."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANCIENT_ROBOT_CLAW                        = "Careful, it's armed!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANCIENT_ROBOT_LEG                         = "Not a leg to stand on."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANCIENT_ROBOT_HEAD                        = "I'm heading out of here!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANCIENT_ROBOT_RIBS                  = "All that iron should be mine."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANCIENT_ROBOT_CLAW                  = "Careful, it's armed!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANCIENT_ROBOT_LEG                   = "Not a leg to stand on."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANCIENT_ROBOT_HEAD                  = "I'm heading out of here!"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TEATREE_NUT_COOKED                        = "Take that, tiny tree!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TEATREE_NUT_COOKED                  = "Take that, tiny tree!"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.DEED                                      = "At last a home for my science."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.DEED                                = "At last a home for my science."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.CLAWPALMTREE_SAPLING                      = "Science at work."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.CLAWPALMTREE_SAPLING                = "Science at work."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.CORKBOAT                                  = "An accident waiting to happen."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.CORKCHEST                                 = "A pest protector."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.CORKBOAT                            = "An accident waiting to happen."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.CORKCHEST                           = "A pest protector."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.BANDITHAT                                 = "A shadowy chapeau."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIGBANDIT                                 = "Swindling swine."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.BANDITHAT                           = "A shadowy chapeau."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIGBANDIT                           = "Swindling swine."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_RUINS_CREEPING_VINES                  = "Creepy creepers."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_RUINS_CREEPING_VINES            = "Creepy creepers."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.MAGNIFYING_GLASS                          = "Science awaits!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.MAGNIFYING_GLASS                    = "Science awaits!"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SEDIMENTPUDDLE                            = "Pool's gold."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.GOLDPAN                                   = "Critics panned it."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SEDIMENTPUDDLE                      = "Pool's gold."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.GOLDPAN                             = "Critics panned it."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PORKLAND_ENTRANCE                         = "Good clean family amusement."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PORKLAND_EXIT                             = "Looks like an exit-ing ride!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PORKLAND_ENTRANCE                   = "Good clean family amusement."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PORKLAND_EXIT                       = "Looks like an exit-ing ride!"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.POG                                       = "Science says it's always hungry."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.POG                                 = "Science says it's always hungry."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PANGOLDEN                                 = "It likes rich food."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PANGOLDEN                           = "It likes rich food."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_LEG                                   = "A leg up."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_HEAD                                  = "Three heads are better than one."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_TAIL                                  = "The tail end."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_LEG                             = "A leg up."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_HEAD                            = "Three heads are better than one."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_TAIL                            = "The tail end."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.GNATMOUND                                 = "Science says it's gnat good."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.GNAT                                      = "Better gnat go near those guys."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.GNATMOUND                           = "Science says it's gnat good."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.GNAT                                = "Better gnat go near those guys."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PORKLAND_INTRO                            = "I already don't like that guy."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PORKLAND_INTRO                      = "I already don't like that guy."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_TREE1                            = "Science says it's a tree."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_TREE2                            = "Tree-mendous."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_BUSH                             = "Looks bushed."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_BRANCH1                          = "Something big moved that there."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_BRANCH2                          = "Maybe it's branching out."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_TRUNK                            = "What could've broken that?"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_HOUSE                            = "Anyone home?"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_RUSTY_LAMP                       = "Busted and rusted."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_TREE1                      = "Science says it's a tree."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_TREE2                      = "Tree-mendous."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_BUSH                       = "Looks bushed."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_BRANCH1                    = "Something big moved that there."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_BRANCH2                    = "Maybe it's branching out."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_TRUNK                      = "What could've broken that?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_HOUSE                      = "Anyone home?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_RUSTY_LAMP                 = "Busted and rusted."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_EGG1                             = "Eggshell-ent"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_EGG2                             = "What eggsactly is that?"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_EGG3                             = "That makes me eggs-stremely nervous."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_EGG4                             = "Egg-sploded."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_EGG1                       = "Eggshell-ent"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_EGG2                       = "What eggsactly is that?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_EGG3                       = "That makes me eggs-stremely nervous."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_EGG4                       = "Egg-sploded."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_ROBIN_EGG                             = "Stone cold."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_ROBIN_EGG                       = "Stone cold."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TUBER_CROP                                = "Too bad tuber."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TUBER_BLOOM_CROP                          = "It's a blooming tuber!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TUBER_CROP_COOKED                         = "I wonder if it's still poisonous?"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TUBER_BLOOM_CROP_COOKED                   = "Did I cook the flower too?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TUBER_CROP                          = "Too bad tuber."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TUBER_BLOOM_CROP                    = "It's a blooming tuber!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TUBER_CROP_COOKED                   = "I wonder if it's still poisonous?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TUBER_BLOOM_CROP_COOKED             = "Did I cook the flower too?"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ALLOY                                     = "Ahoy there, alloy!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ALLOY                               = "Ahoy there, alloy!"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ARMOR_METALPLATE                          = "Science says I'm safe in here."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.METALPLATEHAT                             = "Protects my brains."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ARMOR_METALPLATE                    = "Science says I'm safe in here."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.METALPLATEHAT                       = "Protects my brains."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SMELTER                                   = "I smelt that!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SMELTER                             = "I smelt that!"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.BUGREPELLENT                              = "Take that, bugs!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.BUGREPELLENT                        = "Take that, bugs!"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.HOGUSPORKUSATOR                           = "More science for my brain!"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.HOGUSPORKUSATOR                     = "More science for my brain!"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.GASCLOUD                                  = "A cloud of coughs."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.GASCLOUD                            = "A cloud of coughs."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHEARS                                    = "Shearly delightful."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.BATHAT                                    = "A hat, made of bat."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SHEARS                              = "Shearly delightful."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.BATHAT                              = "A hat, made of bat."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WATERDROP                                 = "Water you think it does?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WATERDROP                           = "Water you think it does?"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIFEPLANT                                 = "Sure likes looking at itself."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIFEPLANT                           = "Sure likes looking at itself."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TRINKET_GIFTSHOP_1                        = "Maybe I can trade it for something."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TRINKET_GIFTSHOP_3                        = "Says \"Wish-eth thou were'st here.\" "
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TRINKET_GIFTSHOP_1                  = "Maybe I can trade it for something."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TRINKET_GIFTSHOP_3                  = "Says \"Wish-eth thou were'st here.\" "
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.KEY_TO_CITY                               = "City engineering isn't a real science."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.KEY_TO_CITY                         = "City engineering isn't a real science."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PEDESTAL_KEY                              = "Royal-key."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PEDESTAL_KEY                        = "Royal-key."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROYAL_GALLERY                             = "Fancy enough to be behind glass."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROYAL_GALLERY                       = "Fancy enough to be behind glass."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.APORKALYPSE_CLOCK                         = "Looks scientifically apocalyptic."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.APOKALYPSE_HERALD                         = "Metaphisical end-ity."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.APORKALYPSE_CLOCK                   = "Looks scientifically apocalyptic."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.APOKALYPSE_HERALD                   = "Metaphisical end-ity."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ASPARAGUSSOUP                             = "Smells like it tastes."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SPICYVEGSTINGER                           = "Can you use the celery as a straw?"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.FEIJOADA                                  = "With refried rock dwellers."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.HARDSHELL_TACOS                           = "I'm going to pretend I don't know what's in it."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.GUMMY_CAKE                                = "Chewy and confectionary."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.STEAMEDHAMSANDWICH                        = "Science says it's a hamburger."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ASPARAGUSSOUP                       = "Smells like it tastes."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SPICYVEGSTINGER                     = "Can you use the celery as a straw?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.FEIJOADA                            = "With refried rock dwellers."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.HARDSHELL_TACOS                     = "I'm going to pretend I don't know what's in it."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.GUMMY_CAKE                          = "Chewy and confectionary."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.STEAMEDHAMSANDWICH                  = "Science says it's a hamburger."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_DEBRIS1                          = "A sticky situation."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_DEBRIS2                          = "Stick to your tree, stick."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_DEBRIS3                          = "Those sticks sure stick together."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_DEBRIS4                          = "It's in the sticks."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_DEBRIS1                    = "A sticky situation."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_DEBRIS2                    = "Stick to your tree, stick."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_DEBRIS3                    = "Those sticks sure stick together."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_DEBRIS4                    = "It's in the sticks."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.BASEFAN                                   = "Fan-tastic."
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.SPRINKLER1                                = "Water you think it's for?"
-STRINGS.RECIPE_DESC.SPRINKLER1                                                = "Water you think it's for?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.BASEFAN                             = "Fan-tastic."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.SPRINKLER1                          = "Water you think it's for?"
+STRINGS.RECIPE_DESC.SPRINKLER1                                          = "Water you think it's for?"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.NETTLELOSANGE                             = "Innocuous inoculation."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.NETTLELOSANGE                       = "Innocuous inoculation."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.ICEDTEA                                   = "I scream for iced tea."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ICEDTEA                             = "I scream for iced tea."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.TRINKET_GIFTSHOP_4                        = "Comedy in a can."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.TRINKET_GIFTSHOP_4                  = "Comedy in a can."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.WALLCRACK_RUINS                           = "Someone's ruined those ruins."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.WALLCRACK_RUINS                     = "Someone's ruined those ruins."
 ------------------------------------------------
 ----------------------NAME----------------------
 ------------------------------------------------
 --SW--
-STRINGS.NAMES.CARGOBOAT                                                       = "Cargo Boat"
-STRINGS.NAMES.SNAKESKINSAIL                                                   = "Snakeskin Sail"
-STRINGS.NAMES.SNAKESKIN                                                       = "Snakeskin"
-STRINGS.NAMES.ANTIVENOM                                                       = "Anti Venom"
-STRINGS.NAMES.VENOMGLAND                                                      = "Venom Gland"
-STRINGS.NAMES.MACHETE                                                         = "Machete"
-STRINGS.NAMES.GOLDENMACHETE                                                   = "Luxury Machete"
-STRINGS.NAMES.LOGRAFT                                                         = "Log Raft"
-STRINGS.NAMES.VINE                                                            = "Vine"
-STRINGS.NAMES.ROWBOAT                                                         = "Row Boat"
+STRINGS.NAMES.CARGOBOAT                                                 = "Cargo Boat"
+STRINGS.NAMES.SNAKESKINSAIL                                             = "Snakeskin Sail"
+STRINGS.NAMES.SNAKESKIN                                                 = "Snakeskin"
+STRINGS.NAMES.ANTIVENOM                                                 = "Anti Venom"
+STRINGS.NAMES.VENOMGLAND                                                = "Venom Gland"
+STRINGS.NAMES.MACHETE                                                   = "Machete"
+STRINGS.NAMES.GOLDENMACHETE                                             = "Luxury Machete"
+STRINGS.NAMES.LOGRAFT                                                   = "Log Raft"
+STRINGS.NAMES.VINE                                                      = "Vine"
+STRINGS.NAMES.ROWBOAT                                                   = "Row Boat"
 --HM--
-STRINGS.NAMES.PIG_PALACE                                                      = "Palace"
-STRINGS.NAMES.PIG_QUEEN                                                       = "Pig Queen"
-STRINGS.NAMES.PIG_SCEPTER                                                     = "Royal Scepter"
-STRINGS.NAMES.PIGCROWNHAT                                                     = "Royal Crown"
-STRINGS.NAMES.PIG_SHOP_FLORIST                                                = "Miss Sow's\nFloral Arrangements"
-STRINGS.NAMES.PIG_SHOP_GENERAL                                                = "Pigg and Pigglet's\nGeneral Store"
-STRINGS.NAMES.PIG_SHOP_HOOFSPA                                                = "Curly Tails\nMud Spa"
-STRINGS.NAMES.PIG_SHOP_PRODUCE                                                = "Swinesbury Fine Grocer's"
-STRINGS.NAMES.PIG_SHOP_ANTIQUITIES                                            = "'The Sty' Oddities Emporium"
-STRINGS.NAMES.PIG_SHOP_DELI                                                   = "The Sterling Trough Deli"
-STRINGS.NAMES.PIG_SHOP_CITYHALL                                               = "Swinesbury City Hall"
-STRINGS.NAMES.PIG_SHOP_CITYHALL_PLAYER                                        = "My City Hall"
+STRINGS.NAMES.PIG_PALACE                                                = "Palace"
+STRINGS.NAMES.PIG_QUEEN                                                 = "Pig Queen"
+STRINGS.NAMES.PIG_SCEPTER                                               = "Royal Scepter"
+STRINGS.NAMES.PIGCROWNHAT                                               = "Royal Crown"
+STRINGS.NAMES.PIG_SHOP_FLORIST                                          = "Miss Sow's\nFloral Arrangements"
+STRINGS.NAMES.PIG_SHOP_GENERAL                                          = "Pigg and Pigglet's\nGeneral Store"
+STRINGS.NAMES.PIG_SHOP_HOOFSPA                                          = "Curly Tails\nMud Spa"
+STRINGS.NAMES.PIG_SHOP_PRODUCE                                          = "Swinesbury Fine Grocer's"
+STRINGS.NAMES.PIG_SHOP_ANTIQUITIES                                      = "'The Sty' Oddities Emporium"
+STRINGS.NAMES.PIG_SHOP_DELI                                             = "The Sterling Trough Deli"
+STRINGS.NAMES.PIG_SHOP_CITYHALL                                         = "Swinesbury City Hall"
+STRINGS.NAMES.PIG_SHOP_CITYHALL_PLAYER                                  = "My City Hall"
 
-STRINGS.NAMES.PIG_SHOP_ARCANE                                                 = "The Flying Pig \nArcane Shop"
-STRINGS.NAMES.PIG_SHOP_WEAPONS                                                = "The Boar's Tusk \nWeapon Shop"
-STRINGS.NAMES.PIG_SHOP_HATSHOP                                                = "The Sow's Ear \nHat Shop"
-STRINGS.NAMES.PIG_SHOP_ACADEMY                                                = "Swinesbury Academy"
-STRINGS.NAMES.PIG_SHOP_BANK                                                   = "Swinesbury Mineral Exchange"
-STRINGS.NAMES.PIG_SHOP_TINKER                                                 = "The Tinkerer's Tower"
+STRINGS.NAMES.PIG_SHOP_ARCANE                                           = "The Flying Pig \nArcane Shop"
+STRINGS.NAMES.PIG_SHOP_WEAPONS                                          = "The Boar's Tusk \nWeapon Shop"
+STRINGS.NAMES.PIG_SHOP_HATSHOP                                          = "The Sow's Ear \nHat Shop"
+STRINGS.NAMES.PIG_SHOP_ACADEMY                                          = "Swinesbury Academy"
+STRINGS.NAMES.PIG_SHOP_BANK                                             = "Swinesbury Mineral Exchange"
+STRINGS.NAMES.PIG_SHOP_TINKER                                           = "The Tinkerer's Tower"
 
-STRINGS.NAMES.PIGMAN_BEAUTICIAN                                               = "Beautician"
-STRINGS.NAMES.PIGMAN_ROYALGUARD                                               = "Royal Guard"
-STRINGS.NAMES.PIGMAN_COLLECTOR                                                = "Collector"
-STRINGS.NAMES.PIGMAN_MAYOR                                                    = "Mayor Truffleston"
-STRINGS.NAMES.PIGMAN_BANKER                                                   = "Banker"
-STRINGS.NAMES.PIGMAN_MINER                                                    = "Miner"
-STRINGS.NAMES.PIGMAN_MECHANIC                                                 = "Worker"
-STRINGS.NAMES.PIGMAN_FARMER                                                   = "Farmer"
-STRINGS.NAMES.PIGMAN_FLORIST                                                  = "Florist"
-STRINGS.NAMES.PIGMAN_STOREOWNER                                               = "Shopkeep"
-STRINGS.NAMES.PIG_COIN                                                        = "Sty Piece"
-STRINGS.NAMES.TREE_PILLAR                                                     = "Great Leafy Stalk"
-STRINGS.NAMES.PIGHOUSE_CITY                                                   = "Town House"
-STRINGS.NAMES.PIGHOUSE_CITY2                                                  = "Town House"
-STRINGS.NAMES.PIGHOUSE_FARM                                                   = "Farm House"
-STRINGS.NAMES.PIGHOUSE_MINE                                                   = "Quarry Lodgings"
-STRINGS.NAMES.PIG_GUARD_TOWER                                                 = "Watch Tower"
-STRINGS.NAMES.PIG_GUARD_TOWER_PALACE                                          = "Palace Watch Tower"
-STRINGS.NAMES.CITY_LAMP                                                       = "Lamp Post"
-STRINGS.NAMES.DUNGBEETLE                                                      = "Dung Beetle"
-STRINGS.NAMES.DUNGBALL                                                        = "Dung Ball"
-STRINGS.NAMES.DUNGPILE                                                        = "Dung Pile"
-STRINGS.NAMES.PIGEON                                                          = "Pigeon"
-STRINGS.NAMES.SPIDER_MONKEY                                                   = "Spider Monkey"
-STRINGS.NAMES.SPIDER_MONKEY_TREE                                              = "Cocooned Tree"
-STRINGS.NAMES.BILL                                                            = "Platapine"
-STRINGS.NAMES.TOPIARY                                                         = "Intricate Topiary"
-STRINGS.NAMES.LAWNORNAMENT                                                    = "Lawn Decoration"
-STRINGS.NAMES.HEDGE                                                           = "Hedge"
-STRINGS.NAMES.RAINFORESTTREE                                                  = "Rainforest Tree"
-STRINGS.NAMES.RAINFORESTTREE_ROT                                              = "Sick Rainforest Tree"
-STRINGS.NAMES.FLOWER_RAINFOREST                                               = "Exotic Flower"
-STRINGS.NAMES.HALBERD                                                         = "Halberd"
-STRINGS.NAMES.CHICKEN                                                         = "Chicken"
-STRINGS.NAMES.RUIN_GIANT_HEAD                                                 = "Massive Statue"
-STRINGS.NAMES.RUINS_ARTICHOKE                                                 = "Old Statue"
+STRINGS.NAMES.PIGMAN_BEAUTICIAN                                         = "Beautician"
+STRINGS.NAMES.PIGMAN_ROYALGUARD                                         = "Royal Guard"
+STRINGS.NAMES.PIGMAN_COLLECTOR                                          = "Collector"
+STRINGS.NAMES.PIGMAN_MAYOR                                              = "Mayor Truffleston"
+STRINGS.NAMES.PIGMAN_BANKER                                             = "Banker"
+STRINGS.NAMES.PIGMAN_MINER                                              = "Miner"
+STRINGS.NAMES.PIGMAN_MECHANIC                                           = "Worker"
+STRINGS.NAMES.PIGMAN_FARMER                                             = "Farmer"
+STRINGS.NAMES.PIGMAN_FLORIST                                            = "Florist"
+STRINGS.NAMES.PIGMAN_STOREOWNER                                         = "Shopkeep"
+STRINGS.NAMES.PIG_COIN                                                  = "Sty Piece"
+STRINGS.NAMES.TREE_PILLAR                                               = "Great Leafy Stalk"
+STRINGS.NAMES.PIGHOUSE_CITY                                             = "Town House"
+STRINGS.NAMES.PIGHOUSE_CITY2                                            = "Town House"
+STRINGS.NAMES.PIGHOUSE_FARM                                             = "Farm House"
+STRINGS.NAMES.PIGHOUSE_MINE                                             = "Quarry Lodgings"
+STRINGS.NAMES.PIG_GUARD_TOWER                                           = "Watch Tower"
+STRINGS.NAMES.PIG_GUARD_TOWER_PALACE                                    = "Palace Watch Tower"
+STRINGS.NAMES.CITY_LAMP                                                 = "Lamp Post"
+STRINGS.NAMES.DUNGBEETLE                                                = "Dung Beetle"
+STRINGS.NAMES.DUNGBALL                                                  = "Dung Ball"
+STRINGS.NAMES.DUNGPILE                                                  = "Dung Pile"
+STRINGS.NAMES.PIGEON                                                    = "Pigeon"
+STRINGS.NAMES.SPIDER_MONKEY                                             = "Spider Monkey"
+STRINGS.NAMES.SPIDER_MONKEY_TREE                                        = "Cocooned Tree"
+STRINGS.NAMES.BILL                                                      = "Platapine"
+STRINGS.NAMES.TOPIARY                                                   = "Intricate Topiary"
+STRINGS.NAMES.LAWNORNAMENT                                              = "Lawn Decoration"
+STRINGS.NAMES.HEDGE                                                     = "Hedge"
+STRINGS.NAMES.RAINFORESTTREE                                            = "Rainforest Tree"
+STRINGS.NAMES.RAINFORESTTREE_ROT                                        = "Sick Rainforest Tree"
+STRINGS.NAMES.FLOWER_RAINFOREST                                         = "Exotic Flower"
+STRINGS.NAMES.HALBERD                                                   = "Halberd"
+STRINGS.NAMES.CHICKEN                                                   = "Chicken"
+STRINGS.NAMES.RUIN_GIANT_HEAD                                           = "Massive Statue"
+STRINGS.NAMES.RUINS_ARTICHOKE                                           = "Old Statue"
 
-STRINGS.NAMES.PIG_RUINS_ENTRANCE                                              = "Ruinous Entrance"
-STRINGS.NAMES.PIG_RUINS_EXIT                                                  = "Ruinous Entrance"
-STRINGS.NAMES.PIG_RUINS_ENTRANCE2                                             = "Ruinous Entrance"
-STRINGS.NAMES.PIG_RUINS_EXIT2                                                 = "Ruinous Entrance"
-STRINGS.NAMES.PIG_RUINS_ENTRANCE3                                             = "Ruinous Entrance"
-STRINGS.NAMES.PIG_RUINS_ENTRANCE4                                             = "Ruinous Entrance"
-STRINGS.NAMES.PIG_RUINS_EXIT4                                                 = "Ruinous Entrance"
-STRINGS.NAMES.PIG_RUINS_ENTRANCE5                                             = "Ruinous Entrance"
-STRINGS.NAMES.PIG_RUINS_ENTRANCE6                                             = "Ruinous Entrance"
+STRINGS.NAMES.PIG_RUINS_ENTRANCE                                        = "Ruinous Entrance"
+STRINGS.NAMES.PIG_RUINS_EXIT                                            = "Ruinous Entrance"
+STRINGS.NAMES.PIG_RUINS_ENTRANCE2                                       = "Ruinous Entrance"
+STRINGS.NAMES.PIG_RUINS_EXIT2                                           = "Ruinous Entrance"
+STRINGS.NAMES.PIG_RUINS_ENTRANCE3                                       = "Ruinous Entrance"
+STRINGS.NAMES.PIG_RUINS_ENTRANCE4                                       = "Ruinous Entrance"
+STRINGS.NAMES.PIG_RUINS_EXIT4                                           = "Ruinous Entrance"
+STRINGS.NAMES.PIG_RUINS_ENTRANCE5                                       = "Ruinous Entrance"
+STRINGS.NAMES.PIG_RUINS_ENTRANCE6                                       = "Ruinous Entrance"
 
-STRINGS.NAMES.PIG_RUINS_ENTRANCE_SMALL                                        = "Ruinous Entrance"
+STRINGS.NAMES.PIG_RUINS_ENTRANCE_SMALL                                  = "Ruinous Entrance"
 
-STRINGS.NAMES.GRASS_TALL                                                      = "Tall Grass"
-STRINGS.NAMES.GLOWFLY                                                         = "Glowfly"
-STRINGS.NAMES.GLOWFLY_COCOON                                                  = "Glowfly Cocoon"
-STRINGS.NAMES.CHITIN                                                          = "Chitin"
-STRINGS.NAMES.HANGING_VINE                                                    = "Hanging Vine"
-STRINGS.NAMES.GRABBING_VINE                                                   = "Hanging Vine"
-STRINGS.NAMES.VENUS_STALK                                                     = "Flytrap Stalk"
-STRINGS.NAMES.WALKINGSTICK                                                    = "Stalking Stick"
-STRINGS.NAMES.ADULT_FLYTRAP                                                   = "Snaptooth Flytrap"
-STRINGS.NAMES.MEAN_FLYTRAP                                                    = "Snaptooth Seedling"
-STRINGS.NAMES.SNAPDRAGON                                                      = "Snap Dragon"
-STRINGS.NAMES.LILYPAD                                                         = "Giant Lily Pad"
-STRINGS.NAMES.DEED                                                            = "Deed of home ownership"
+STRINGS.NAMES.GRASS_TALL                                                = "Tall Grass"
+STRINGS.NAMES.GLOWFLY                                                   = "Glowfly"
+STRINGS.NAMES.GLOWFLY_COCOON                                            = "Glowfly Cocoon"
+STRINGS.NAMES.CHITIN                                                    = "Chitin"
+STRINGS.NAMES.HANGING_VINE                                              = "Hanging Vine"
+STRINGS.NAMES.GRABBING_VINE                                             = "Hanging Vine"
+STRINGS.NAMES.VENUS_STALK                                               = "Flytrap Stalk"
+STRINGS.NAMES.WALKINGSTICK                                              = "Stalking Stick"
+STRINGS.NAMES.ADULT_FLYTRAP                                             = "Snaptooth Flytrap"
+STRINGS.NAMES.MEAN_FLYTRAP                                              = "Snaptooth Seedling"
+STRINGS.NAMES.SNAPDRAGON                                                = "Snap Dragon"
+STRINGS.NAMES.LILYPAD                                                   = "Giant Lily Pad"
+STRINGS.NAMES.DEED                                                      = "Deed of home ownership"
 
-STRINGS.NAMES.ZEB                                                             = "Zeb"
-STRINGS.NAMES.SCORPION                                                        = "Scorpion"
+STRINGS.NAMES.ZEB                                                       = "Zeb"
+STRINGS.NAMES.SCORPION                                                  = "Scorpion"
 
-STRINGS.NAMES.SHOP_SELLER                                                     = "Sell"
-STRINGS.NAMES.SHOP_BUYER                                                      = "" -- THIS SHOULD BE BLANK
+STRINGS.NAMES.SHOP_SELLER                                               = "Sell"
+STRINGS.NAMES.SHOP_BUYER                                                = ""       -- THIS SHOULD BE BLANK
 
-STRINGS.NAMES.PEAGAWK                                                         = "Peagawk"
-STRINGS.NAMES.PEEKHEN                                                         = "Peep Hen"
-STRINGS.NAMES.PEAGAWK_BUSH                                                    = "Blinkbush"
-STRINGS.NAMES.PEAGAWKFEATHER                                                  = "Peagawk Plume"
-STRINGS.NAMES.PEAGAWKFEATHER_PRISM                                            = "Vibrant Peagawk Plume"
-STRINGS.NAMES.PEAGAWKFEATHERHAT                                               = "Peagawk Hat"
+STRINGS.NAMES.PEAGAWK                                                   = "Peagawk"
+STRINGS.NAMES.PEEKHEN                                                   = "Peep Hen"
+STRINGS.NAMES.PEAGAWK_BUSH                                              = "Blinkbush"
+STRINGS.NAMES.PEAGAWKFEATHER                                            = "Peagawk Plume"
+STRINGS.NAMES.PEAGAWKFEATHER_PRISM                                      = "Vibrant Peagawk Plume"
+STRINGS.NAMES.PEAGAWKFEATHERHAT                                         = "Peagawk Hat"
 
-STRINGS.NAMES.ANTQUEEN                                                        = "Queen Womant"
-STRINGS.NAMES.ANTMASKHAT                                                      = "Mant Mask"
-STRINGS.NAMES.ANTSUIT                                                         = "Mant Suit"
-STRINGS.NAMES.ANTHILL                                                         = "Mant Hill"
-STRINGS.NAMES.ANTQUEEN_CHAMBERS                                               = "Queen Womant Chambers"
-STRINGS.NAMES.ANTQUEEN_THRONE                                                 = "Stalacmite Throne"
-STRINGS.NAMES.ANTMAN_WARRIOR_EGG                                              = "Mant Warrior Egg"
+STRINGS.NAMES.ANTQUEEN                                                  = "Queen Womant"
+STRINGS.NAMES.ANTMASKHAT                                                = "Mant Mask"
+STRINGS.NAMES.ANTSUIT                                                   = "Mant Suit"
+STRINGS.NAMES.ANTHILL                                                   = "Mant Hill"
+STRINGS.NAMES.ANTQUEEN_CHAMBERS                                         = "Queen Womant Chambers"
+STRINGS.NAMES.ANTQUEEN_THRONE                                           = "Stalacmite Throne"
+STRINGS.NAMES.ANTMAN_WARRIOR_EGG                                        = "Mant Warrior Egg"
 
-STRINGS.NAMES.ROCK_ANTCAVE                                                    = "Stalagmite"
-STRINGS.NAMES.ANT_CAVE_LANTERN                                                = "Lamp"
+STRINGS.NAMES.ROCK_ANTCAVE                                              = "Stalagmite"
+STRINGS.NAMES.ANT_CAVE_LANTERN                                          = "Lamp"
 
-STRINGS.NAMES.GASMASKHAT                                                      = "Gas Mask"
-STRINGS.NAMES.PITHHAT                                                         = "Pith Hat"
+STRINGS.NAMES.GASMASKHAT                                                = "Gas Mask"
+STRINGS.NAMES.PITHHAT                                                   = "Pith Hat"
 
-STRINGS.NAMES.PROP_DOOR                                                       = "Door"
-STRINGS.NAMES.PHEROMONESTONE                                                  = "Pherostone"
-STRINGS.NAMES.PIKO                                                            = "Piko"
-STRINGS.NAMES.PIKO_ORANGE                                                     = "Orange Piko"
+STRINGS.NAMES.PROP_DOOR                                                 = "Door"
+STRINGS.NAMES.PHEROMONESTONE                                            = "Pherostone"
+STRINGS.NAMES.PIKO                                                      = "Piko"
+STRINGS.NAMES.PIKO_ORANGE                                               = "Orange Piko"
 
-STRINGS.NAMES.RELIC_1                                                         = "Lost Idol"
-STRINGS.NAMES.RELIC_2                                                         = "Lost Totem"
-STRINGS.NAMES.RELIC_3                                                         = "Relic Fragment"
-STRINGS.NAMES.RELIC_4                                                         = "The Blue Sow"
-STRINGS.NAMES.RELIC_5                                                         = "The Jeweled Truffle"
+STRINGS.NAMES.RELIC_1                                                   = "Lost Idol"
+STRINGS.NAMES.RELIC_2                                                   = "Lost Totem"
+STRINGS.NAMES.RELIC_3                                                   = "Relic Fragment"
+STRINGS.NAMES.RELIC_4                                                   = "The Blue Sow"
+STRINGS.NAMES.RELIC_5                                                   = "The Jeweled Truffle"
 
-STRINGS.NAMES.SHEARS                                                          = "Shears"
-STRINGS.NAMES.MAGNIFYING_GLASS                                                = "Magnifying Glass"
+STRINGS.NAMES.SHEARS                                                    = "Shears"
+STRINGS.NAMES.MAGNIFYING_GLASS                                          = "Magnifying Glass"
 
-STRINGS.NAMES.VAMPIREBAT                                                      = "Vampire Bat"
-STRINGS.NAMES.VAMPIREBATCAVE                                                  = "Cave Cleft"
-STRINGS.NAMES.LILYPAD                                                         = "Lily Pad"
-STRINGS.NAMES.LOTUS                                                           = "Lotus Plant"
-STRINGS.NAMES.REEDS_WATER                                                     = "Reeds"
+STRINGS.NAMES.VAMPIREBAT                                                = "Vampire Bat"
+STRINGS.NAMES.VAMPIREBATCAVE                                            = "Cave Cleft"
+STRINGS.NAMES.LILYPAD                                                   = "Lily Pad"
+STRINGS.NAMES.LOTUS                                                     = "Lotus Plant"
+STRINGS.NAMES.REEDS_WATER                                               = "Reeds"
 
-STRINGS.NAMES.LOTUS_FLOWER1                                                   = "Lotus Flower"
-STRINGS.NAMES.LOTUS_FLOWER1_COOKED                                            = "Cooked Lotus Root"
+STRINGS.NAMES.LOTUS_FLOWER1                                             = "Lotus Flower"
+STRINGS.NAMES.LOTUS_FLOWER1_COOKED                                      = "Cooked Lotus Root"
 
-STRINGS.NAMES.FROGLEGS_POISON                                                 = "Poison Dartfrog Legs"
-STRINGS.NAMES.FROGLEGS_POISON_COOKED                                          = "Cooked Dartfrog Legs"
+STRINGS.NAMES.FROGLEGS_POISON                                           = "Poison Dartfrog Legs"
+STRINGS.NAMES.FROGLEGS_POISON_COOKED                                    = "Cooked Dartfrog Legs"
 
-STRINGS.NAMES.PIG_RUINS_TORCH_WALL                                            = "Wall Brazier"
-STRINGS.NAMES.PIG_RUINS_TORCH                                                 = "Crumbling Brazier"
-STRINGS.NAMES.PIG_RUINS_HEAD                                                  = "Crumbling Visage"
-STRINGS.NAMES.PIG_RUINS_ARTICHOKE                                             = "Crumbling Carved Stone"
-STRINGS.NAMES.PIG_RUINS_PIG                                                   = "Crumbling Icon"
-STRINGS.NAMES.PIG_RUINS_IDOL                                                  = "Tempting Idol"
-STRINGS.NAMES.PIG_RUINS_PLAQUE                                                = "Erroding Totem"
-STRINGS.NAMES.PIG_RUINS_MUSHROOM                                              = "The Jeweled Truffle"
-STRINGS.NAMES.PIG_RUINS_SOW                                                   = "The Blue Sow"
+STRINGS.NAMES.PIG_RUINS_TORCH_WALL                                      = "Wall Brazier"
+STRINGS.NAMES.PIG_RUINS_TORCH                                           = "Crumbling Brazier"
+STRINGS.NAMES.PIG_RUINS_HEAD                                            = "Crumbling Visage"
+STRINGS.NAMES.PIG_RUINS_ARTICHOKE                                       = "Crumbling Carved Stone"
+STRINGS.NAMES.PIG_RUINS_PIG                                             = "Crumbling Icon"
+STRINGS.NAMES.PIG_RUINS_IDOL                                            = "Tempting Idol"
+STRINGS.NAMES.PIG_RUINS_PLAQUE                                          = "Erroding Totem"
+STRINGS.NAMES.PIG_RUINS_MUSHROOM                                        = "The Jeweled Truffle"
+STRINGS.NAMES.PIG_RUINS_SOW                                             = "The Blue Sow"
 
-STRINGS.NAMES.PIG_RUINS_EXTRACTED                                             = "Chiseled Stone"
+STRINGS.NAMES.PIG_RUINS_EXTRACTED                                       = "Chiseled Stone"
 
-STRINGS.NAMES.OINC                                                            = "Oinc"
-STRINGS.NAMES.OINC_PL                                                         = "Oincs" -- the plural form of oinc
-STRINGS.NAMES.OINC10                                                          = "Tenpiece Oinc"
-STRINGS.NAMES.OINC100                                                         = "Centapiece Oinc"
+STRINGS.NAMES.OINC                                                      = "Oinc"
+STRINGS.NAMES.OINC_PL                                                   = "Oincs"       -- the plural form of oinc
+STRINGS.NAMES.OINC10                                                    = "Tenpiece Oinc"
+STRINGS.NAMES.OINC100                                                   = "Centapiece Oinc"
 
-STRINGS.NAMES.RABID_BEETLE                                                    = "Rabid Beetle"
+STRINGS.NAMES.RABID_BEETLE                                              = "Rabid Beetle"
 
-STRINGS.NAMES.PARROT_BLUE                                                     = "Parrot"
-STRINGS.NAMES.KINGFISHER                                                      = "Kingfisher"
+STRINGS.NAMES.PARROT_BLUE                                               = "Parrot"
+STRINGS.NAMES.KINGFISHER                                                = "Kingfisher"
 
-STRINGS.NAMES.BURR                                                            = "Jungle Burr"
-STRINGS.NAMES.BURR_SAPLING                                                    = "Rainforest Tree Sapling"
+STRINGS.NAMES.BURR                                                      = "Jungle Burr"
+STRINGS.NAMES.BURR_SAPLING                                              = "Rainforest Tree Sapling"
 
-STRINGS.NAMES.DECO_RUINS_BEAM_ROOM                                            = "Unimportant Pillar"
-STRINGS.NAMES.DECO_RUINS_BEAM_ROOM_BLUE                                       = "Unimportant Pillar"
-STRINGS.NAMES.DECO_CAVE_BEAM_ROOM                                             = "Unimportant Rock Pillar"
-STRINGS.NAMES.DECO_CAVE_BAT_BURROW                                            = "Spooky Hole"
+STRINGS.NAMES.DECO_RUINS_BEAM_ROOM                                      = "Unimportant Pillar"
+STRINGS.NAMES.DECO_RUINS_BEAM_ROOM_BLUE                                 = "Unimportant Pillar"
+STRINGS.NAMES.DECO_CAVE_BEAM_ROOM                                       = "Unimportant Rock Pillar"
+STRINGS.NAMES.DECO_CAVE_BAT_BURROW                                      = "Spooky Hole"
 
-STRINGS.NAMES.PIG_LATIN_1                                                     = "Some strange pig scrawl"
-STRINGS.NAMES.SMASHINGPOT                                                     = "A Smashing Pot"
+STRINGS.NAMES.PIG_LATIN_1                                               = "Some strange pig scrawl"
+STRINGS.NAMES.SMASHINGPOT                                               = "A Smashing Pot"
 
-STRINGS.NAMES.HIPPOPOTAMOOSE                                                  = "Hippopotamoose"
+STRINGS.NAMES.HIPPOPOTAMOOSE                                            = "Hippopotamoose"
 
-STRINGS.NAMES.PIGGHOST                                                        = "Ancient Spirit"
+STRINGS.NAMES.PIGGHOST                                                  = "Ancient Spirit"
 
-STRINGS.NAMES.GIANTGRUB                                                       = "Giant Grub"
-STRINGS.NAMES.ANTCOMBHOME                                                     = "Antcomb Home"
-STRINGS.NAMES.SECURITYCONTRACT                                                = "Security Contract"
+STRINGS.NAMES.GIANTGRUB                                                 = "Giant Grub"
+STRINGS.NAMES.ANTCOMBHOME                                               = "Antcomb Home"
+STRINGS.NAMES.SECURITYCONTRACT                                          = "Security Contract"
 
-STRINGS.NAMES.TURF_PIGRUINS                                                   = "Ancient Stone Turf"
-STRINGS.NAMES.TURF_RAINFOREST                                                 = "Rainforest Turf"
-STRINGS.NAMES.TURF_DEEPRAINFOREST                                             = "Dense Rainforest Turf"
-STRINGS.NAMES.TURF_LAWN                                                       = "Lawn Turf"
-STRINGS.NAMES.TURF_GASJUNGLE                                                  = "Toxic Turf"
-STRINGS.NAMES.TURF_MOSS                                                       = "Mossy Turf"
-STRINGS.NAMES.TURF_FIELDS                                                     = "Cultivated Turf"
-STRINGS.NAMES.TURF_FOUNDATION                                                 = "Flat Stone Turf"
-STRINGS.NAMES.TURF_COBBLEROAD                                                 = "Stone Road Turf"
+STRINGS.NAMES.TURF_PIGRUINS                                             = "Ancient Stone Turf"
+STRINGS.NAMES.TURF_RAINFOREST                                           = "Rainforest Turf"
+STRINGS.NAMES.TURF_DEEPRAINFOREST                                       = "Dense Rainforest Turf"
+STRINGS.NAMES.TURF_LAWN                                                 = "Lawn Turf"
+STRINGS.NAMES.TURF_GASJUNGLE                                            = "Toxic Turf"
+STRINGS.NAMES.TURF_MOSS                                                 = "Mossy Turf"
+STRINGS.NAMES.TURF_FIELDS                                               = "Cultivated Turf"
+STRINGS.NAMES.TURF_FOUNDATION                                           = "Flat Stone Turf"
+STRINGS.NAMES.TURF_COBBLEROAD                                           = "Stone Road Turf"
 
-STRINGS.NAMES.PIG_SCEPTER                                                     = "Regal Scepter"
-STRINGS.NAMES.HAT_PIGCROWN                                                    = "Regal Scepter"
+STRINGS.NAMES.PIG_SCEPTER                                               = "Regal Scepter"
+STRINGS.NAMES.HAT_PIGCROWN                                              = "Regal Scepter"
 
-STRINGS.NAMES.MANDRAKEMAN                                                     = "Elder Mandrake"
-STRINGS.NAMES.MANDRAKEHOUSE                                                   = "Mandrake Hill"
+STRINGS.NAMES.MANDRAKEMAN                                               = "Elder Mandrake"
+STRINGS.NAMES.MANDRAKEHOUSE                                             = "Mandrake Hill"
 
-STRINGS.NAMES.BASEFAN                                                         = "Oscillating Fan"
-STRINGS.NAMES.SPRINKLER1                                                      = "Sprinkler"
+STRINGS.NAMES.BASEFAN                                                   = "Oscillating Fan"
+STRINGS.NAMES.SPRINKLER1                                                = "Sprinkler"
 
 -- HOME DECO ITEMS
-STRINGS.NAMES.INTERIOR_FLOOR_MARBLE                                           = "Marble Flooring"
-STRINGS.NAMES.INTERIOR_FLOOR_CHECK                                            = "Checkered Flooring"
-STRINGS.NAMES.INTERIOR_FLOOR_PLAID_TILE                                       = "Slate Flooring"
-STRINGS.NAMES.INTERIOR_FLOOR_SHEET_METAL                                      = "Sheet Metal Flooring"
-STRINGS.NAMES.INTERIOR_FLOOR_WOOD                                             = "Wood Flooring"
+STRINGS.NAMES.INTERIOR_FLOOR_MARBLE                                     = "Marble Flooring"
+STRINGS.NAMES.INTERIOR_FLOOR_CHECK                                      = "Checkered Flooring"
+STRINGS.NAMES.INTERIOR_FLOOR_PLAID_TILE                                 = "Slate Flooring"
+STRINGS.NAMES.INTERIOR_FLOOR_SHEET_METAL                                = "Sheet Metal Flooring"
+STRINGS.NAMES.INTERIOR_FLOOR_WOOD                                       = "Wood Flooring"
 
-STRINGS.NAMES.INTERIOR_WALL_WOOD                                              = "Wood Panelling"
-STRINGS.NAMES.INTERIOR_WALL_CHECKERED                                         = "Checkered Wall Paper"
-STRINGS.NAMES.INTERIOR_WALL_FLORAL                                            = "Floral Wall Paper"
-STRINGS.NAMES.INTERIOR_WALL_SUNFLOWER                                         = "Sunflower Wall Paper"
-STRINGS.NAMES.INTERIOR_WALL_HARLEQUIN                                         = "Harlequin Wall Paper"
+STRINGS.NAMES.INTERIOR_WALL_WOOD                                        = "Wood Panelling"
+STRINGS.NAMES.INTERIOR_WALL_CHECKERED                                   = "Checkered Wall Paper"
+STRINGS.NAMES.INTERIOR_WALL_FLORAL                                      = "Floral Wall Paper"
+STRINGS.NAMES.INTERIOR_WALL_SUNFLOWER                                   = "Sunflower Wall Paper"
+STRINGS.NAMES.INTERIOR_WALL_HARLEQUIN                                   = "Harlequin Wall Paper"
 
-STRINGS.NAMES.DECO_CHAISE                                                     = "Fancy Chaise"
-STRINGS.NAMES.DECO_CHAIR_CLASSIC                                              = "Classic Chair"
-STRINGS.NAMES.DECO_CHAIR_CORNER                                               = "Corner Chair"
-STRINGS.NAMES.DECO_CHAIR_BENCH                                                = "Bench"
-STRINGS.NAMES.DECO_CHAIR_HORNED                                               = "Horned Chair"
-STRINGS.NAMES.DECO_CHAIR_FOOTREST                                             = "Footrest"
-STRINGS.NAMES.DECO_CHAIR_LOUNGE                                               = "Lounge Chair"
-STRINGS.NAMES.DECO_CHAIR_MASSAGER                                             = "Massager Chair"
-STRINGS.NAMES.DECO_CHAIR_STUFFED                                              = "Stuffed Chair"
-STRINGS.NAMES.DECO_CHAIR_ROCKING                                              = "Rocking Chair"
-STRINGS.NAMES.DECO_CHAIR_OTTOMAN                                              = "Ottoman Chair"
+STRINGS.NAMES.DECO_CHAISE                                               = "Fancy Chaise"
+STRINGS.NAMES.DECO_CHAIR_CLASSIC                                        = "Classic Chair"
+STRINGS.NAMES.DECO_CHAIR_CORNER                                         = "Corner Chair"
+STRINGS.NAMES.DECO_CHAIR_BENCH                                          = "Bench"
+STRINGS.NAMES.DECO_CHAIR_HORNED                                         = "Horned Chair"
+STRINGS.NAMES.DECO_CHAIR_FOOTREST                                       = "Footrest"
+STRINGS.NAMES.DECO_CHAIR_LOUNGE                                         = "Lounge Chair"
+STRINGS.NAMES.DECO_CHAIR_MASSAGER                                       = "Massager Chair"
+STRINGS.NAMES.DECO_CHAIR_STUFFED                                        = "Stuffed Chair"
+STRINGS.NAMES.DECO_CHAIR_ROCKING                                        = "Rocking Chair"
+STRINGS.NAMES.DECO_CHAIR_OTTOMAN                                        = "Ottoman Chair"
 
-STRINGS.NAMES.DECO_LAMP_FRINGE                                                = "Fringe Lamp"
-STRINGS.NAMES.DECO_LAMP_STAINGLASS                                            = "Stainglass Lamp"
-STRINGS.NAMES.DECO_LAMP_DOWNBRIDGE                                            = "Downbridge Lamp"
-STRINGS.NAMES.DECO_LAMP_2EMBROIDERED                                          = "Dual Embroidered Lamp"
-STRINGS.NAMES.DECO_LAMP_CERAMIC                                               = "Ceramic Lamp"
-STRINGS.NAMES.DECO_LAMP_GLASS                                                 = "Glass Lamp"
-STRINGS.NAMES.DECO_LAMP_2FRINGES                                              = "Dual Fringes Lamp"
-STRINGS.NAMES.DECO_LAMP_CANDELABRA                                            = "Candelabra Lamp"
-STRINGS.NAMES.DECO_LAMP_ELIZABETHAN                                           = "Elizabethan Lamp"
-STRINGS.NAMES.DECO_LAMP_GOTHIC                                                = "Gothic Lamp"
-STRINGS.NAMES.DECO_LAMP_ORB                                                   = "Orb Lamp"
-STRINGS.NAMES.DECO_LAMP_BELLSHADE                                             = "Bellshade Lamp"
-STRINGS.NAMES.DECO_LAMP_CRYSTALS                                              = "Crystals Lamp"
-STRINGS.NAMES.DECO_LAMP_UPTURN                                                = "Upturn Lamp"
-STRINGS.NAMES.DECO_LAMP_2UPTURNS                                              = "Dual Upturn Lamp"
-STRINGS.NAMES.DECO_LAMP_SPOOL                                                 = "Spool Lamp"
-STRINGS.NAMES.DECO_LAMP_EDISON                                                = "Edison Lamp"
-STRINGS.NAMES.DECO_LAMP_ADJUSTABLE                                            = "Adjustable Lamp"
-STRINGS.NAMES.DECO_LAMP_RIGHTANGLES                                           = "Right Angle Lamp"
-STRINGS.NAMES.DECO_LAMP_HOOFSPA                                               = "Fancy Lamp"
+STRINGS.NAMES.DECO_LAMP_FRINGE                                          = "Fringe Lamp"
+STRINGS.NAMES.DECO_LAMP_STAINGLASS                                      = "Stainglass Lamp"
+STRINGS.NAMES.DECO_LAMP_DOWNBRIDGE                                      = "Downbridge Lamp"
+STRINGS.NAMES.DECO_LAMP_2EMBROIDERED                                    = "Dual Embroidered Lamp"
+STRINGS.NAMES.DECO_LAMP_CERAMIC                                         = "Ceramic Lamp"
+STRINGS.NAMES.DECO_LAMP_GLASS                                           = "Glass Lamp"
+STRINGS.NAMES.DECO_LAMP_2FRINGES                                        = "Dual Fringes Lamp"
+STRINGS.NAMES.DECO_LAMP_CANDELABRA                                      = "Candelabra Lamp"
+STRINGS.NAMES.DECO_LAMP_ELIZABETHAN                                     = "Elizabethan Lamp"
+STRINGS.NAMES.DECO_LAMP_GOTHIC                                          = "Gothic Lamp"
+STRINGS.NAMES.DECO_LAMP_ORB                                             = "Orb Lamp"
+STRINGS.NAMES.DECO_LAMP_BELLSHADE                                       = "Bellshade Lamp"
+STRINGS.NAMES.DECO_LAMP_CRYSTALS                                        = "Crystals Lamp"
+STRINGS.NAMES.DECO_LAMP_UPTURN                                          = "Upturn Lamp"
+STRINGS.NAMES.DECO_LAMP_2UPTURNS                                        = "Dual Upturn Lamp"
+STRINGS.NAMES.DECO_LAMP_SPOOL                                           = "Spool Lamp"
+STRINGS.NAMES.DECO_LAMP_EDISON                                          = "Edison Lamp"
+STRINGS.NAMES.DECO_LAMP_ADJUSTABLE                                      = "Adjustable Lamp"
+STRINGS.NAMES.DECO_LAMP_RIGHTANGLES                                     = "Right Angle Lamp"
+STRINGS.NAMES.DECO_LAMP_HOOFSPA                                         = "Fancy Lamp"
 
-STRINGS.NAMES.DECO_PLANTHOLDER_BASIC                                          = "Basic Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_WIP                                            = "WIP Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_FANCY                                          = "Fancy Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_BONSAI                                         = "Bonsai Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_DISHGARDEN                                     = "Dishgarden Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_PHILODENDRON                                   = "Philodendron Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_ORCHID                                         = "Orchid Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_DRACEANA                                       = "Draceana Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_XEROGRAPHICA                                   = "Xerographica Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_BIRDCAGE                                       = "Birdcage Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_PALM                                           = "Palm Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_ZZ                                             = "ZZ Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_FERNSTAND                                      = "Fernstand Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_FERN                                           = "Fern Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_TERRARIUM                                      = "Terrarium Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_PLANTPET                                       = "Plantpet Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_TRAPS                                          = "Traps Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_PITCHERS                                       = "Pitcher Plantholder"
-STRINGS.NAMES.DECO_PLANTHOLDER_MARBLE                                         = "Marble Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_BASIC                                    = "Basic Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_WIP                                      = "WIP Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_FANCY                                    = "Fancy Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_BONSAI                                   = "Bonsai Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_DISHGARDEN                               = "Dishgarden Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_PHILODENDRON                             = "Philodendron Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_ORCHID                                   = "Orchid Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_DRACEANA                                 = "Draceana Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_XEROGRAPHICA                             = "Xerographica Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_BIRDCAGE                                 = "Birdcage Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_PALM                                     = "Palm Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_ZZ                                       = "ZZ Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_FERNSTAND                                = "Fernstand Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_FERN                                     = "Fern Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_TERRARIUM                                = "Terrarium Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_PLANTPET                                 = "Plantpet Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_TRAPS                                    = "Traps Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_PITCHERS                                 = "Pitcher Plantholder"
+STRINGS.NAMES.DECO_PLANTHOLDER_MARBLE                                   = "Marble Plantholder"
 
-STRINGS.NAMES.DECO_TABLE_ROUND                                                = "Round Table"
-STRINGS.NAMES.DECO_TABLE_BANKER                                               = "Hard Wood Desk"
-STRINGS.NAMES.DECO_TABLE_DIY                                                  = "DIY Table"
-STRINGS.NAMES.DECO_TABLE_RAW                                                  = "College Table"
-STRINGS.NAMES.DECO_TABLE_CRATE                                                = "Crate Table"
-STRINGS.NAMES.DECO_TABLE_CHESS                                                = "Chess Table"
+STRINGS.NAMES.DECO_TABLE_ROUND                                          = "Round Table"
+STRINGS.NAMES.DECO_TABLE_BANKER                                         = "Hard Wood Desk"
+STRINGS.NAMES.DECO_TABLE_DIY                                            = "DIY Table"
+STRINGS.NAMES.DECO_TABLE_RAW                                            = "College Table"
+STRINGS.NAMES.DECO_TABLE_CRATE                                          = "Crate Table"
+STRINGS.NAMES.DECO_TABLE_CHESS                                          = "Chess Table"
 
-STRINGS.NAMES.WINDOW_ROUND_CURTAINS_NAILS                                     = "Round Window"
-STRINGS.NAMES.WINDOW_ROUND_BURLAP                                             = "Round Burlap Window"
-STRINGS.NAMES.WINDOW_SMALL_PEAKED                                             = "Peaked Window"
-STRINGS.NAMES.WINDOW_LARGE_SQUARE                                             = "Square Window"
-STRINGS.NAMES.WINDOW_SMALL_PEAKED_CURTAIN                                     = "Peaked Curtain Window"
-STRINGS.NAMES.WINDOW_TALL                                                     = "Tall Window"
-STRINGS.NAMES.WINDOW_LARGE_SQUARE_CURTAIN                                     = "Large Square Curtain Window"
-STRINGS.NAMES.WINDOW_TALL_CURTAIN                                             = "Tall Curtain Window"
+STRINGS.NAMES.WINDOW_ROUND_CURTAINS_NAILS                               = "Round Window"
+STRINGS.NAMES.WINDOW_ROUND_BURLAP                                       = "Round Burlap Window"
+STRINGS.NAMES.WINDOW_SMALL_PEAKED                                       = "Peaked Window"
+STRINGS.NAMES.WINDOW_LARGE_SQUARE                                       = "Square Window"
+STRINGS.NAMES.WINDOW_SMALL_PEAKED_CURTAIN                               = "Peaked Curtain Window"
+STRINGS.NAMES.WINDOW_TALL                                               = "Tall Window"
+STRINGS.NAMES.WINDOW_LARGE_SQUARE_CURTAIN                               = "Large Square Curtain Window"
+STRINGS.NAMES.WINDOW_TALL_CURTAIN                                       = "Tall Curtain Window"
 
-STRINGS.NAMES.DECO_WOOD                                                       = "Planed Wood Column"
-STRINGS.NAMES.DECO_MILLINERY                                                  = "Millinery Column"
-STRINGS.NAMES.DECO_ROUND                                                      = "Round Column"
-STRINGS.NAMES.DECO_MARBLE                                                     = "Lit Marble Column"
+STRINGS.NAMES.DECO_WOOD                                                 = "Planed Wood Column"
+STRINGS.NAMES.DECO_MILLINERY                                            = "Millinery Column"
+STRINGS.NAMES.DECO_ROUND                                                = "Round Column"
+STRINGS.NAMES.DECO_MARBLE                                               = "Lit Marble Column"
 
-STRINGS.NAMES.SWINGING_LIGHT_FLORAL_BLOOMER                                   = "Floral Shade Hanging Light"
-STRINGS.NAMES.SWINGING_LIGHT_CHANDALIER_CANDLES                               = "Chandalier"
-STRINGS.NAMES.SWINGING_LIGHT_ROPE_1                                           = "Rope Light"
-STRINGS.NAMES.SWINGING_LIGHT_FLORAL_BULB                                      = "Blown Glass Bulb"
-STRINGS.NAMES.SWINGING_LIGHT_PENDANT_CHERRIES                                 = "Cherry Lamp Shade"
-STRINGS.NAMES.SWINGING_LIGHT_BASIC_METAL                                      = "Metal Shade Lamp"
-STRINGS.NAMES.SWINGING_LIGHT_BASIC_BULB                                       = "Wired Bulb"
-STRINGS.NAMES.SWINGING_LIGHT_ROPE_2                                           = "Dual Rope Light"
-STRINGS.NAMES.SWINGING_LIGHT_FLORAL_SCALLOP                                   = "Hanging Blooming Lamp"
-STRINGS.NAMES.SWINGING_LIGHT_FLORAL_BLOOMER                                   = "Hanging Floral Lamp"
-STRINGS.NAMES.SWINGING_LIGHT_TOPHAT                                           = "Tophat Light"
-STRINGS.NAMES.SWINGING_LIGHT_DERBY                                            = "Derby Light"
+STRINGS.NAMES.SWINGING_LIGHT_FLORAL_BLOOMER                             = "Floral Shade Hanging Light"
+STRINGS.NAMES.SWINGING_LIGHT_CHANDALIER_CANDLES                         = "Chandalier"
+STRINGS.NAMES.SWINGING_LIGHT_ROPE_1                                     = "Rope Light"
+STRINGS.NAMES.SWINGING_LIGHT_FLORAL_BULB                                = "Blown Glass Bulb"
+STRINGS.NAMES.SWINGING_LIGHT_PENDANT_CHERRIES                           = "Cherry Lamp Shade"
+STRINGS.NAMES.SWINGING_LIGHT_BASIC_METAL                                = "Metal Shade Lamp"
+STRINGS.NAMES.SWINGING_LIGHT_BASIC_BULB                                 = "Wired Bulb"
+STRINGS.NAMES.SWINGING_LIGHT_ROPE_2                                     = "Dual Rope Light"
+STRINGS.NAMES.SWINGING_LIGHT_FLORAL_SCALLOP                             = "Hanging Blooming Lamp"
+STRINGS.NAMES.SWINGING_LIGHT_FLORAL_BLOOMER                             = "Hanging Floral Lamp"
+STRINGS.NAMES.SWINGING_LIGHT_TOPHAT                                     = "Tophat Light"
+STRINGS.NAMES.SWINGING_LIGHT_DERBY                                      = "Derby Light"
 
-STRINGS.NAMES.DECO_WALLORNAMENT_PHOTO                                         = "Photo"
-STRINGS.NAMES.DECO_WALLORNAMENT_FULLLENGTH_MIRROR                             = "Full Length Mirror"
-STRINGS.NAMES.DECO_WALLORNAMENT_EMBROIDERY_HOOP                               = "Embroidery Hoop"
-STRINGS.NAMES.DECO_WALLORNAMENT_MOSAIC                                        = "Mosaic"
-STRINGS.NAMES.DECO_WALLORNAMENT_WREATH                                        = "Wreath"
-STRINGS.NAMES.DECO_WALLORNAMENT_AXE                                           = "Axe"
-STRINGS.NAMES.DECO_WALLORNAMENT_HUNT                                          = "Hunt"
-STRINGS.NAMES.DECO_WALLORNAMENT_PERIODIC_TABLE                                = "Periodic Table"
-STRINGS.NAMES.DECO_WALLORNAMENT_GEARS_ART                                     = "Gears Art"
-STRINGS.NAMES.DECO_WALLORNAMENT_CAPE                                          = "Cape"
-STRINGS.NAMES.DECO_WALLORNAMENT_NO_SMOKING                                    = "No Smoking"
-STRINGS.NAMES.DECO_WALLORNAMENT_BLACK_CAT                                     = "Black Cat"
-STRINGS.NAMES.DECO_ANTIQUITIES_WALLFISH                                       = "Tasteful Fish Mounting"
-STRINGS.NAMES.DECO_ANTIQUITIES_BEEFALO                                        = "Beefalo Mounting"
+STRINGS.NAMES.DECO_WALLORNAMENT_PHOTO                                   = "Photo"
+STRINGS.NAMES.DECO_WALLORNAMENT_FULLLENGTH_MIRROR                       = "Full Length Mirror"
+STRINGS.NAMES.DECO_WALLORNAMENT_EMBROIDERY_HOOP                         = "Embroidery Hoop"
+STRINGS.NAMES.DECO_WALLORNAMENT_MOSAIC                                  = "Mosaic"
+STRINGS.NAMES.DECO_WALLORNAMENT_WREATH                                  = "Wreath"
+STRINGS.NAMES.DECO_WALLORNAMENT_AXE                                     = "Axe"
+STRINGS.NAMES.DECO_WALLORNAMENT_HUNT                                    = "Hunt"
+STRINGS.NAMES.DECO_WALLORNAMENT_PERIODIC_TABLE                          = "Periodic Table"
+STRINGS.NAMES.DECO_WALLORNAMENT_GEARS_ART                               = "Gears Art"
+STRINGS.NAMES.DECO_WALLORNAMENT_CAPE                                    = "Cape"
+STRINGS.NAMES.DECO_WALLORNAMENT_NO_SMOKING                              = "No Smoking"
+STRINGS.NAMES.DECO_WALLORNAMENT_BLACK_CAT                               = "Black Cat"
+STRINGS.NAMES.DECO_ANTIQUITIES_WALLFISH                                 = "Tasteful Fish Mounting"
+STRINGS.NAMES.DECO_ANTIQUITIES_BEEFALO                                  = "Beefalo Mounting"
 
-STRINGS.NAMES.RUG_ROUND                                                       = "Eye Rug"
-STRINGS.NAMES.RUG_SQUARE                                                      = "Square Throw Rug"
-STRINGS.NAMES.RUG_OVAL                                                        = "Oval Rug"
-STRINGS.NAMES.RUG_RECTANGLE                                                   = "Large Rug"
-STRINGS.NAMES.RUG_FUR                                                         = "Fur Throw Rug"
-STRINGS.NAMES.RUG_HEDGEHOG                                                    = "Hedgehog Rug"
-STRINGS.NAMES.RUG_PORCUPUSS                                                   = "Porcupus Hide"
-STRINGS.NAMES.RUG_HOOFPRINT                                                   = "Hoofprint Rug"
-STRINGS.NAMES.RUG_OCTAGON                                                     = "Octagon Rug"
-STRINGS.NAMES.RUG_SWIRL                                                       = "Swirl Rug"
-STRINGS.NAMES.RUG_CATCOON                                                     = "Catcoon Rug"
-STRINGS.NAMES.RUG_RUBBERMAT                                                   = "Rubbermat Rug"
-STRINGS.NAMES.RUG_WEB                                                         = "Web Rug"
-STRINGS.NAMES.RUG_METAL                                                       = "Metal Rug"
-STRINGS.NAMES.RUG_WORMHOLE                                                    = "Wormhole Rug"
-STRINGS.NAMES.RUG_BRAID                                                       = "Braid Rug"
-STRINGS.NAMES.RUG_BEARD                                                       = "Beard Rug"
-STRINGS.NAMES.RUG_NAILBED                                                     = "Nailbed Rug"
-STRINGS.NAMES.RUG_CRIME                                                       = "Crime Rug"
-STRINGS.NAMES.RUG_TILES                                                       = "Soccer Rug"
+STRINGS.NAMES.RUG_ROUND                                                 = "Eye Rug"
+STRINGS.NAMES.RUG_SQUARE                                                = "Square Throw Rug"
+STRINGS.NAMES.RUG_OVAL                                                  = "Oval Rug"
+STRINGS.NAMES.RUG_RECTANGLE                                             = "Large Rug"
+STRINGS.NAMES.RUG_FUR                                                   = "Fur Throw Rug"
+STRINGS.NAMES.RUG_HEDGEHOG                                              = "Hedgehog Rug"
+STRINGS.NAMES.RUG_PORCUPUSS                                             = "Porcupus Hide"
+STRINGS.NAMES.RUG_HOOFPRINT                                             = "Hoofprint Rug"
+STRINGS.NAMES.RUG_OCTAGON                                               = "Octagon Rug"
+STRINGS.NAMES.RUG_SWIRL                                                 = "Swirl Rug"
+STRINGS.NAMES.RUG_CATCOON                                               = "Catcoon Rug"
+STRINGS.NAMES.RUG_RUBBERMAT                                             = "Rubbermat Rug"
+STRINGS.NAMES.RUG_WEB                                                   = "Web Rug"
+STRINGS.NAMES.RUG_METAL                                                 = "Metal Rug"
+STRINGS.NAMES.RUG_WORMHOLE                                              = "Wormhole Rug"
+STRINGS.NAMES.RUG_BRAID                                                 = "Braid Rug"
+STRINGS.NAMES.RUG_BEARD                                                 = "Beard Rug"
+STRINGS.NAMES.RUG_NAILBED                                               = "Nailbed Rug"
+STRINGS.NAMES.RUG_CRIME                                                 = "Crime Rug"
+STRINGS.NAMES.RUG_TILES                                                 = "Soccer Rug"
 
-STRINGS.NAMES.SHELVES_WOOD                                                    = "Carved Bookshelf"
-STRINGS.NAMES.SHELVES_BASIC                                                   = "Basic Bookshelf"
-STRINGS.NAMES.SHELVES_CINDERBLOCKS                                            = "Cinderblock Bookshelf"
-STRINGS.NAMES.SHELVES_MARBLE                                                  = "Marble Shelf"
-STRINGS.NAMES.SHELVES_MIDCENTURY                                              = "Windowed Cabinet"
-STRINGS.NAMES.SHELVES_GLASS                                                   = "Glass Shelf"
-STRINGS.NAMES.SHELVES_LADDER                                                  = "Ladder Shelf"
-STRINGS.NAMES.SHELVES_HUTCH                                                   = "Hutch Shelf"
-STRINGS.NAMES.SHELVES_INDUSTRIAL                                              = "Industrial Shelf"
-STRINGS.NAMES.SHELVES_ADJUSTABLE                                              = "Adjustable Shelf"
-STRINGS.NAMES.SHELVES_WALLMOUNT                                               = "Wall Mounted Shelf"
-STRINGS.NAMES.SHELVES_AFRAME                                                  = "A-Frame Shelf"
-STRINGS.NAMES.SHELVES_CRATES                                                  = "Crates Shelf"
-STRINGS.NAMES.SHELVES_FRIDGE                                                  = "Fridge"
-STRINGS.NAMES.SHELVES_HOOKS                                                   = "Hook Shelf"
-STRINGS.NAMES.SHELVES_PIPE                                                    = "Pipe Shelf"
-STRINGS.NAMES.SHELVES_HATTREE                                                 = "Hat Tree"
-STRINGS.NAMES.SHELVES_PALLET                                                  = "Pallet Shelf"
-STRINGS.NAMES.SHELVES_FLOATING                                                = "Floating Shelves."
+STRINGS.NAMES.SHELVES_WOOD                                              = "Carved Bookshelf"
+STRINGS.NAMES.SHELVES_BASIC                                             = "Basic Bookshelf"
+STRINGS.NAMES.SHELVES_CINDERBLOCKS                                      = "Cinderblock Bookshelf"
+STRINGS.NAMES.SHELVES_MARBLE                                            = "Marble Shelf"
+STRINGS.NAMES.SHELVES_MIDCENTURY                                        = "Windowed Cabinet"
+STRINGS.NAMES.SHELVES_GLASS                                             = "Glass Shelf"
+STRINGS.NAMES.SHELVES_LADDER                                            = "Ladder Shelf"
+STRINGS.NAMES.SHELVES_HUTCH                                             = "Hutch Shelf"
+STRINGS.NAMES.SHELVES_INDUSTRIAL                                        = "Industrial Shelf"
+STRINGS.NAMES.SHELVES_ADJUSTABLE                                        = "Adjustable Shelf"
+STRINGS.NAMES.SHELVES_WALLMOUNT                                         = "Wall Mounted Shelf"
+STRINGS.NAMES.SHELVES_AFRAME                                            = "A-Frame Shelf"
+STRINGS.NAMES.SHELVES_CRATES                                            = "Crates Shelf"
+STRINGS.NAMES.SHELVES_FRIDGE                                            = "Fridge"
+STRINGS.NAMES.SHELVES_HOOKS                                             = "Hook Shelf"
+STRINGS.NAMES.SHELVES_PIPE                                              = "Pipe Shelf"
+STRINGS.NAMES.SHELVES_HATTREE                                           = "Hat Tree"
+STRINGS.NAMES.SHELVES_PALLET                                            = "Pallet Shelf"
+STRINGS.NAMES.SHELVES_FLOATING                                          = "Floating Shelves."
 
-STRINGS.NAMES.JELLYBUG                                                        = "Bean Bugs"
-STRINGS.NAMES.JELLYBUG_COOKED                                                 = "Cooked Bean Bugs"
-STRINGS.NAMES.SLUGBUG                                                         = "Gummy Slug"
-STRINGS.NAMES.SLUGBUG_COOKED                                                  = "Cooked Gummy Slug"
-STRINGS.NAMES.ROCK_FLIPPABLE                                                  = "Stone Slab"
+STRINGS.NAMES.JELLYBUG                                                  = "Bean Bugs"
+STRINGS.NAMES.JELLYBUG_COOKED                                           = "Cooked Bean Bugs"
+STRINGS.NAMES.SLUGBUG                                                   = "Gummy Slug"
+STRINGS.NAMES.SLUGBUG_COOKED                                            = "Cooked Gummy Slug"
+STRINGS.NAMES.ROCK_FLIPPABLE                                            = "Stone Slab"
 
-STRINGS.NAMES.PLAYERHOUSE_CITY                                                = "Slanty Shanty"
-STRINGS.NAMES.PLAYERHOUSE_VILLA                                               = "Glorious Villa"
-STRINGS.NAMES.PLAYERHOUSE_COTTAGE                                             = "Cozy Cottage"
-STRINGS.NAMES.PLAYERHOUSE_MANOR                                               = "Impressive Manor"
-STRINGS.NAMES.PLAYERHOUSE_TUDOR                                               = "Tudor Home"
-STRINGS.NAMES.PLAYERHOUSE_GOTHIC                                              = "Gothic Home"
-STRINGS.NAMES.PLAYERHOUSE_BRICK                                               = "Brick Home"
-STRINGS.NAMES.PLAYERHOUSE_TURRET                                              = "Turreted Home"
+STRINGS.NAMES.PLAYERHOUSE_CITY                                          = "Slanty Shanty"
+STRINGS.NAMES.PLAYERHOUSE_VILLA                                         = "Glorious Villa"
+STRINGS.NAMES.PLAYERHOUSE_COTTAGE                                       = "Cozy Cottage"
+STRINGS.NAMES.PLAYERHOUSE_MANOR                                         = "Impressive Manor"
+STRINGS.NAMES.PLAYERHOUSE_TUDOR                                         = "Tudor Home"
+STRINGS.NAMES.PLAYERHOUSE_GOTHIC                                        = "Gothic Home"
+STRINGS.NAMES.PLAYERHOUSE_BRICK                                         = "Brick Home"
+STRINGS.NAMES.PLAYERHOUSE_TURRET                                        = "Turreted Home"
 
-STRINGS.NAMES.PLAYER_HOUSE_COTTAGE_CRAFT                                      = "Cottage Kit"
-STRINGS.NAMES.PLAYER_HOUSE_VILLA_CRAFT                                        = "Villa Kit"
-STRINGS.NAMES.PLAYER_HOUSE_TUDOR_CRAFT                                        = "Tudor Home Kit"
-STRINGS.NAMES.PLAYER_HOUSE_MANOR_CRAFT                                        = "Manor Kit"
-STRINGS.NAMES.PLAYER_HOUSE_GOTHIC_CRAFT                                       = "Gothic Home Kit"
-STRINGS.NAMES.PLAYER_HOUSE_BRICK_CRAFT                                        = "Brick Home Kit"
-STRINGS.NAMES.PLAYER_HOUSE_TURRET_CRAFT                                       = "Turreted Home Kit"
+STRINGS.NAMES.PLAYER_HOUSE_COTTAGE_CRAFT                                = "Cottage Kit"
+STRINGS.NAMES.PLAYER_HOUSE_VILLA_CRAFT                                  = "Villa Kit"
+STRINGS.NAMES.PLAYER_HOUSE_TUDOR_CRAFT                                  = "Tudor Home Kit"
+STRINGS.NAMES.PLAYER_HOUSE_MANOR_CRAFT                                  = "Manor Kit"
+STRINGS.NAMES.PLAYER_HOUSE_GOTHIC_CRAFT                                 = "Gothic Home Kit"
+STRINGS.NAMES.PLAYER_HOUSE_BRICK_CRAFT                                  = "Brick Home Kit"
+STRINGS.NAMES.PLAYER_HOUSE_TURRET_CRAFT                                 = "Turreted Home Kit"
 
-STRINGS.NAMES.CLIPPINGS                                                       = "Clippings"
+STRINGS.NAMES.CLIPPINGS                                                 = "Clippings"
 
-STRINGS.NAMES.BRAMBLESPIKE                                                    = "Brambles"
+STRINGS.NAMES.BRAMBLESPIKE                                              = "Brambles"
 
-STRINGS.NAMES.CUTNETTLE                                                       = "Nettle"
-STRINGS.NAMES.NETTLE                                                          = "Nettle Vine"
-STRINGS.NAMES.DUG_NETTLE                                                      = "Nettle Plant"
+STRINGS.NAMES.CUTNETTLE                                                 = "Nettle"
+STRINGS.NAMES.NETTLE                                                    = "Nettle Vine"
+STRINGS.NAMES.DUG_NETTLE                                                = "Nettle Plant"
 
-STRINGS.NAMES.NETTLELOSANGE                                                   = "Nettle Rolls"
+STRINGS.NAMES.NETTLELOSANGE                                             = "Nettle Rolls"
 
-STRINGS.NAMES.DECO_RUINS_FOUNTAIN                                             = "Wishing Well"
-STRINGS.NAMES.DECO_RUINS_ENDSWELL                                             = "End's Well"
-STRINGS.NAMES.PUGALISK                                                        = "Pugalisk"
-STRINGS.NAMES.SNAKE_BONE                                                      = "Snake Bone"
-STRINGS.NAMES.SNAKEBONESOUP                                                   = "Snake Bone Soup"
+STRINGS.NAMES.DECO_RUINS_FOUNTAIN                                       = "Wishing Well"
+STRINGS.NAMES.DECO_RUINS_ENDSWELL                                       = "End's Well"
+STRINGS.NAMES.PUGALISK                                                  = "Pugalisk"
+STRINGS.NAMES.SNAKE_BONE                                                = "Snake Bone"
+STRINGS.NAMES.SNAKEBONESOUP                                             = "Snake Bone Soup"
 
 
 STRINGS.NAMES.BANDITMAP = "Bandit Stash Map"
@@ -8220,7 +8226,7 @@ STRINGS.NAMES.BANDITTREASURE = "Secret Bandit Camp"
 STRINGS.NAMES.BLUNDERBUSS = "Blunderbuss"
 
 STRINGS.NAMES.PUGALISK_FOUNTAIN = "Fountain of Youth"
-STRINGS.NAMES.PUGALISKFOUNTAIN_MADE = "Fountain of Youth"
+
 STRINGS.NAMES.PUGALISK_RUINS_PILLAR = "Teetering Pillar"
 STRINGS.NAMES.PUGALISK_TRAP_DOOR = "Ominous Carving"
 
@@ -9026,7 +9032,7 @@ STRINGS.CITY_PIG_TALK_FORGIVE_PLAYER = {
 	DEFAULT = { "I SHOW QUALITY OF MERCY", "ALL IS'T FORGIVEN", "HEARTILY I FORGIVEST THEE", "A POUND OF OINCS HATH SUFFICETH" },
 }
 STRINGS.CITY_PIG_TALK_NOT_ENOUGH = {
-	DEFAULT = { "I WANT-ETH MORE", "DOTH NOT SUFFICETH", "I REQUIRETH MORE", "NEEDETH MORE" },                               -- NEW
+	DEFAULT = { "I WANT-ETH MORE", "DOTH NOT SUFFICETH", "I REQUIRETH MORE", "NEEDETH MORE" }, -- NEW
 }
 STRINGS.CITY_PIG_TALK_EAT_MEAT = {
 	DEFAULT = { "NOM-ETH NOM-ETH, NOM-ETH", "O FOOD! O SLOP!", "MUNCH'D, AND MUNCH'D, AND MUNCH'D" },
@@ -9085,7 +9091,7 @@ STRINGS.CITY_PIG_TALK_REFUSE_GIFT_DELAY_TOMORROW = {
 	DEFAULT = { "COME'ST BACK ON THE MORROW" },
 }
 STRINGS.CITY_PIG_TALK_RELIC_GIFT = {
-	DEFAULT = { "TAKEST TO YON MUSEUM", "THE STY BE THE PLACE FOR IT" },                               -- \"THE STY\"
+	DEFAULT = { "TAKEST TO YON MUSEUM", "THE STY BE THE PLACE FOR IT" }, -- \"THE STY\"
 }
 STRINGS.CITY_PIG_TALK_TAKE_GIFT = {
 	DEFAULT = { "MANY THANKS" },
