@@ -27,22 +27,22 @@ local loot_cold =
 }
 
 local function Hatch(inst)
-    inst.components.inventoryitem.canbepickedup = false
-    inst.AnimState:PlayAnimation("hatch")
-    inst:ListenForEvent("animover", function(inst, data)
-        inst:Remove()
-    end)
+    if inst:IsValid() then
+        inst.components.inventoryitem.canbepickedup = false
+        inst.AnimState:PlayAnimation("hatch")
+        inst:ListenForEvent("animover", function(inst, data)
+            local stone = SpawnPrefab("ro_bin_gizzard_stone")
+            local pt = Point(inst.Transform:GetWorldPosition())
+            stone.Transform:SetPosition(pt.x, pt.y, pt.z)
 
-    inst:DoTaskInTime(50 / 30, function()
-        local stone = SpawnPrefab("ro_bin_gizzard_stone")
-        local pt = Point(inst.Transform:GetWorldPosition())
-        stone.Transform:SetPosition(pt.x, pt.y, pt.z)
+            local down = TheCamera:GetDownVec()
+            local angle = math.atan2(down.z, down.x) + (math.random() * 60 - 30) * DEGREES
+            local speed = 3
+            stone.Physics:SetVel(speed * math.cos(angle), GetRandomWithVariance(8, 4), speed * math.sin(angle))
 
-        local down = TheCamera:GetDownVec()
-        local angle = math.atan2(down.z, down.x) + (math.random() * 60 - 30) * DEGREES
-        local speed = 3
-        stone.Physics:SetVel(speed * math.cos(angle), GetRandomWithVariance(8, 4), speed * math.sin(angle))
-    end)
+            inst:Remove()
+        end)
+    end
 end
 
 local function CheckHatch(inst)
@@ -69,7 +69,7 @@ end
 
 local function OnNear(inst)
     inst.playernear = true
-    -- CheckHatch(inst)
+    CheckHatch(inst)
 end
 
 local function OnFar(inst)
