@@ -781,6 +781,45 @@ AddRecipe2("turf_beardrug", 			{Ingredient("oinc", 1, h_atlas)}, 								TECH.TU
 
 
 --INTERIOR--
+AddRecipe2("stone_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
+	{
+		atlas = h_atlas,
+		nounlock = true,
+		image = "stone_door.tex",
+		min_spacing = 1,
+		placer = "stone_door_placer",
+		build_mode = "insidedoor"
+	},
+	{ "INTERIOR" })
+AddRecipe2("plate_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
+	{
+		atlas = h_atlas,
+		nounlock = true,
+		image = "plate_door.tex",
+		min_spacing = 1,
+		placer = "plate_door_placer",
+		build_mode = "insidedoor"
+	}, { "INTERIOR" })
+AddRecipe2("organic_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
+	{
+		atlas = h_atlas,
+		nounlock = true,
+		image = "organic_door.tex",
+		min_spacing = 1,
+		placer = "organic_door_placer",
+		build_mode = "insidedoor"
+	}, { "INTERIOR" })
+AddRecipe2("round_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
+	{
+		atlas = h_atlas,
+		nounlock = true,
+		image = "round_door.tex",
+		min_spacing = 1,
+		placer = "round_door_placer",
+		build_mode = "insidedoor"
+	}, { "INTERIOR" })
+
+
 AddRecipe2("interior_floor_wood", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
 AddRecipe2("interior_floor_check", { Ingredient("oinc", 7, h_atlas) }, TECH.HOME_TWO,
@@ -1426,43 +1465,7 @@ AddRecipe2("deco_chair_rocking", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_T
 		"reno_chair_rocking.tex"
 	}, { "INTERIOR" })
 
-AddRecipe2("stone_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
-	{
-		atlas = h_atlas,
-		nounlock = true,
-		image = "stone_door.tex",
-		min_spacing = 1,
-		placer = "stone_door_placer",
-		build_mode = "insidedoor"
-	},
-	{ "INTERIOR" })
-AddRecipe2("plate_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
-	{
-		atlas = h_atlas,
-		nounlock = true,
-		image = "plate_door.tex",
-		min_spacing = 1,
-		placer = "plate_door_placer",
-		build_mode = "insidedoor"
-	}, { "INTERIOR" })
-AddRecipe2("organic_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
-	{
-		atlas = h_atlas,
-		nounlock = true,
-		image = "organic_door.tex",
-		min_spacing = 1,
-		placer = "organic_door_placer",
-		build_mode = "insidedoor"
-	}, { "INTERIOR" })
-AddRecipe2("round_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
-	{
-		atlas = h_atlas,
-		nounlock = true,
-		image = "round_door.tex",
-		min_spacing = 1,
-		placer = "round_door_placer",
-		build_mode = "insidedoor"
-	}, { "INTERIOR" })
+
 
 AddRecipe2("rug_round", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_round_placer", image = "reno_rug_round.tex" },
