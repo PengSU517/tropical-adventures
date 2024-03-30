@@ -1003,6 +1003,14 @@ local function entrance()
 				end
 			end
 
+			local part = SpawnPrefab("swinging_light_floral_bloomer")
+			if part ~= nil then
+				part.Transform:SetPosition(x, 3, z)
+				if part.components.health ~= nil then
+					part.components.health:SetPercent(1)
+				end
+			end
+
 			local part = SpawnPrefab("shelves_queen_display_1")
 			if part ~= nil then
 				part.Transform:SetPosition(x - 12 / 4, 0, z - 18 / 3)
@@ -1135,6 +1143,8 @@ local function entrance()
 				end
 			end
 
+
+
 			local portasulgiftshop = SpawnPrefab("giftshop_door_south")
 			if portasulgiftshop ~= nil then
 				portasulgiftshop.Transform:SetPosition(x + 10 / 2, 0, z)
@@ -1262,7 +1272,7 @@ local function entrance()
 
 			local part = SpawnPrefab("swinging_light_floral_bloomer")
 			if part ~= nil then
-				part.Transform:SetPosition(x, 0, z)
+				part.Transform:SetPosition(x, 3, z)
 				if part.components.health ~= nil then
 					part.components.health:SetPercent(1)
 				end
