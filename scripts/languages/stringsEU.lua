@@ -28,6 +28,14 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.PUGALISKFOUNTAIN_MADE = "I prefer fountains 
 STRINGS.NAMES.PUGALISKFOUNTAIN_MADE                       = "Fountain of Youth"
 STRINGS.RECIPE_DESC.PUGALISKFOUNTAIN_MADE                 = "Live forever."
 
+--------------------action------------
+GLOBAL.STRINGS.ACTIONS.JUMPIN                             = {
+	HAMLET = "Enter",
+	GENERIC = "Jump In",
+}
+
+
+
 
 
 ----------------------------- Name of Things -----------------------------
@@ -7915,7 +7923,7 @@ STRINGS.NAMES.ZEB                                                       = "Zeb"
 STRINGS.NAMES.SCORPION                                                  = "Scorpion"
 
 STRINGS.NAMES.SHOP_SELLER                                               = "Sell"
-STRINGS.NAMES.SHOP_BUYER                                                = ""       -- THIS SHOULD BE BLANK
+STRINGS.NAMES.SHOP_BUYER                                                = "" -- THIS SHOULD BE BLANK
 
 STRINGS.NAMES.PEAGAWK                                                   = "Peagawk"
 STRINGS.NAMES.PEEKHEN                                                   = "Peep Hen"
@@ -7977,7 +7985,7 @@ STRINGS.NAMES.PIG_RUINS_SOW                                             = "The B
 STRINGS.NAMES.PIG_RUINS_EXTRACTED                                       = "Chiseled Stone"
 
 STRINGS.NAMES.OINC                                                      = "Oinc"
-STRINGS.NAMES.OINC_PL                                                   = "Oincs"       -- the plural form of oinc
+STRINGS.NAMES.OINC_PL                                                   = "Oincs" -- the plural form of oinc
 STRINGS.NAMES.OINC10                                                    = "Tenpiece Oinc"
 STRINGS.NAMES.OINC100                                                   = "Centapiece Oinc"
 
