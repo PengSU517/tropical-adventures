@@ -16,6 +16,13 @@ STRINGS.NAMES.PUGALISKFOUNTAIN_MADE                       = "不老泉"
 STRINGS.RECIPE_DESC.PUGALISKFOUNTAIN_MADE                 = "万寿无疆!永远健康!"
 
 
+--------------------action------------
+GLOBAL.STRINGS.ACTIONS.JUMPIN = {
+    HAMLET = "进入",
+    GENERIC = "跳入",
+}
+
+
 -------------------沃丽语句wally
 STRINGS.WALLY1 = "傻瓜。"
 STRINGS.WALLY2 = "真是开得一手好船。"
