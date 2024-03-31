@@ -39,7 +39,7 @@ local ChangeTileRenderOrder = ChangeTileRenderOrder
 local ChangeMiniMapTileRenderOrder = ChangeMiniMapTileRenderOrder
 local AddTile = AddTile
 
--- local IAENV = env
+-- local TAENV = env
 GLOBAL.setfenv(1, GLOBAL)
 
 local is_worldgen = rawget(_G, "WORLDGEN_MAIN") ~= nil
