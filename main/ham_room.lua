@@ -8,7 +8,7 @@ local Utils = require("tropical_utils/utils")
 TUNING.BUILD_HEIGHT = 0
 AddModRPCHandler("ham_room", "build_height", function(player, height)
     TUNING.BUILD_HEIGHT = height
-    print("!!!!!!!!!!!!" .. TUNING.BUILD_HEIGHT)
+    -- print("!!!!!!!!!!!!" .. TUNING.BUILD_HEIGHT)
 end)
 
 local roomtype = {
@@ -46,6 +46,8 @@ local roomsize = {
 
 ---------------------调整摄像头----------------------------
 ---------在室内切换角色会黑屏------------
+local extra_distance = 0
+
 AddClassPostConstruct("cameras/followcamera", function(self)
     local Old_Apply = self.Apply
     function self:Apply()
@@ -55,6 +57,17 @@ AddClassPostConstruct("cameras/followcamera", function(self)
             local pitch = cameraset.pitch * DEGREES
             local heading = 0
             local distance = cameraset.distance
+
+            if TheInput:IsKeyDown(KEY_EQUALS) then
+                extra_distance = extra_distance + 0.2
+            elseif TheInput:IsKeyDown(KEY_MINUS) then
+                extra_distance = extra_distance - 0.2
+            end
+
+            extra_distance = math.min(math.max(extra_distance, -5), 30)
+            distance = distance + extra_distance
+
+
             local currentpos = Vector3(self.hamroompos:Get()) + Vector3(cameraset.pos, 0, 0)
             local fov = 35
             local currentscreenxoffset = 0
@@ -323,9 +336,9 @@ end
 
 -------------------来自于猪人部落-------------
 require "components/map"
-local home = {}     --室内的中心坐标，由于地皮一定在中心
-local DIS = 28      --室内的最大半径
-local lastHome = {} --缓冲，短时间内在一个房间附近求值的可能性较大
+local HamHome = {}     --室内的中心坐标，由于地皮一定在中心
+local DIS = 28         --室内的最大半径
+local lastHamHome = {} --缓冲，短时间内在一个房间附近求值的可能性较大
 -- 室内可放置建筑，物品不会掉入“水”中
 
 local function IsInHamRoom(x, z, v, checkwall)
@@ -338,11 +351,11 @@ local function IsInHamRoom(x, z, v, checkwall)
                 return true
             end
         else
-            if (x - xx) <= -rsize.back and (x - xx) > -(rsize.back + 0.5) and math.abs(z - zz) <= (rsize.side - 0.5) then ---11
+            if (x - xx) <= -rsize.back and (x - xx) > -(rsize.back + 0.5) and math.abs(z - zz) <= (rsize.side - 2) then ---11
                 return "back"
-            elseif (z - zz) >= rsize.side and (z - zz) < (rsize.side + 0.5) and (x - xx) <= rsize.front and (x - xx) >= -(rsize.back - 0.5) then
+            elseif (z - zz) >= rsize.side and (z - zz) < (rsize.side + 0.5) and (x - xx) <= (rsize.front - 1) and (x - xx) >= -(rsize.back - 1) then
                 return "right"
-            elseif (zz - z) >= rsize.side and (zz - z) < (rsize.side + 0.5) and (x - xx) <= rsize.front and (x - xx) >= -(rsize.back - 0.5) then
+            elseif (zz - z) >= rsize.side and (zz - z) < (rsize.side + 0.5) and (x - xx) <= (rsize.front - 1) and (x - xx) >= -(rsize.back - 1) then
                 return "left"
             end
         end
@@ -358,32 +371,32 @@ local function IsHamRoomAtPoint(x, y, z, checkwall)
 
     if checkxz(x, z) then --判断的基础，也许光判断z就行了
         -- 缓存
-        if lastHome.home then
-            if lastHome.home:IsValid() then
-                local isroom = IsInHamRoom(x, z, lastHome.home, checkwall)
+        if lastHamHome.home then
+            if lastHamHome.home:IsValid() then
+                local isroom = IsInHamRoom(x, z, lastHamHome.home, checkwall)
                 if isroom
-                --[[VecUtil_DistSq(lastHome.pos[1], lastHome.pos[2], x, z) < DIS_SQ]] then
+                --[[VecUtil_DistSq(lastHamHome.pos[1], lastHamHome.pos[2], x, z) < DIS_SQ]] then
                     return isroom
                 end
             else
-                lastHome.home = nil
-                lastHome.pos = nil
+                lastHamHome.home = nil
+                lastHamHome.pos = nil
             end
         end
 
         -- 缓存表
-        for ent, pos in pairs(home) do
+        for ent, pos in pairs(HamHome) do
             if ent:IsValid() then
                 -- print(x, z, pos[1], pos[2], VecUtil_DistSq(pos[1], pos[2], x, z))
                 local isroom = IsInHamRoom(x, z, ent, checkwall)
                 if isroom
                 --[[VecUtil_DistSq(pos[1], pos[2], x, z) < DIS_SQ]] then
-                    lastHome.home = ent
-                    lastHome.pos = pos
+                    lastHamHome.home = ent
+                    lastHamHome.pos = pos
                     return isroom
                 end
             else
-                home[ent] = nil
+                HamHome[ent] = nil
             end
         end
 
@@ -393,11 +406,11 @@ local function IsHamRoomAtPoint(x, y, z, checkwall)
             for _, ent in ipairs(ents) do
                 if ent:IsValid() then
                     local ex, _, ez = ent.Transform:GetWorldPosition()
-                    home[ent] = { ex, ez }
+                    HamHome[ent] = { ex, ez }
                     local isroom = IsInHamRoom(x, z, ent, checkwall)
                     if isroom then
-                        lastHome.home = ent
-                        lastHome.pos = { ex, ez }
+                        lastHamHome.home = ent
+                        lastHamHome.pos = { ex, ez }
                         return isroom
                     end
                 end
@@ -418,6 +431,15 @@ local function CheckHamRoomBefore(self, x, y, z)
         return { true }, true
     end
 end
+
+
+local function GetHamHomeBefore(self, x, y, z, extra_radius) ----yz乱用的后果
+    local isroom = IsHamRoomAtPoint(x, y, z or y, false)
+    if isroom == true then
+        return { lastHamHome.home }, true
+    end
+end
+
 
 ---------放置检查---------------------限制制作的配方-----------------------
 local banrecipe = { "playerhouse_city", "pugaliskfountain_made", "hua_player_house_recipe",
@@ -485,6 +507,18 @@ Utils.FnDecorator(Map, "IsVisualGroundAtPoint", CheckHamRoomBefore)
 Utils.FnDecorator(Map, "CanPlantAtPoint", CheckHamRoomBefore)              --允许房间里种植，不知道算不算超模
 Utils.FnDecorator(Map, "CanDeployRecipeAtPoint", CheckHamRoomBeforeDeploy) -------检查放置
 Utils.FnDecorator(Map, "GetTileCenterPoint", GetHamTileCenterPointBefore)  -------地皮中心
+-- Utils.FnDecorator(Map, "GetPlatformAtPoint", GetHamHomeBefore)             -------platform
+
+
+-----------进出房间动作--------
+local Oldstrfnjumpin = ACTIONS.JUMPIN.strfn
+GLOBAL.ACTIONS.JUMPIN.strfn = function(act)
+    if act.target ~= nil and act.target:HasTag("hamletteleport") then
+        return "HAMLET"
+    end
+    return Oldstrfnjumpin(act)
+end
+
 
 --------------------------------------------------------------------------------------------
 ----------------------------------[[ entityscript ]]----------------------------------------
@@ -561,7 +595,60 @@ end
 --     end
 -- end
 
+-----------以下来自猪人部落-------------
+-- local StopAmbientRainSound, StopTreeRainSound, StopUmbrellaRainSound, StopBarrierSound
+-- local _rainfx, _snowfx, _lunarhailfx
+-- local function WeatherClientOnUpdateBefore()
+--     if not ThePlayer or TheWorld.ismastersim then return end
 
+--     -- 只在客机执行，这里只改本地玩家视觉效果，实际效果在其他地方修改
+--     local x, _, z = ThePlayer.Transform:GetWorldPosition()
+--     if checkxz(x,z) then
+--         if StopAmbientRainSound then
+--             StopAmbientRainSound()
+--         end
+--         if StopTreeRainSound then
+--             StopTreeRainSound()
+--         end
+--         if StopUmbrellaRainSound then
+--             StopUmbrellaRainSound()
+--         end
+--         if StopBarrierSound then
+--             StopBarrierSound()
+--         end
+
+--         if _rainfx then
+--             _rainfx.particles_per_tick = 0
+--             _rainfx.splashes_per_tick = 0
+--         end
+--         if _lunarhailfx then
+--             _lunarhailfx.particles_per_tick = 0
+--             _lunarhailfx.splashes_per_tick = 0
+--         end
+--         if _snowfx then
+--             _snowfx.particles_per_tick = 0
+--         end
+
+--         return nil, true
+--     end
+-- end
+
+-- AddClassPostConstruct("components/weather", function(self)
+--     if not TheWorld.ismastersim then
+--         StopAmbientRainSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopAmbientRainSound")
+--         StopTreeRainSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopTreeRainSound")
+--         StopUmbrellaRainSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopUmbrellaRainSound")
+--         StopBarrierSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopBarrierSound")
+
+--         _rainfx = Utils.ChainFindUpvalue(self.OnPostInit, "_rainfx")
+--         _snowfx = Utils.ChainFindUpvalue(self.OnPostInit, "_snowfx")
+--         _lunarhailfx = Utils.ChainFindUpvalue(self.OnPostInit, "_lunarhailfx")
+--         -- _pollenfx = Utils.ChainFindUpvalue(self.OnPostInit, "_pollenfx") --应该不用管这个特效
+
+--         Utils.FnDecorator(self, "OnUpdate", WeatherClientOnUpdateBefore)
+--         self.LongUpdate = self.OnUpdate
+--     end
+-- end)
 
 --以下大部分来自花花的神话方寸山
 AddPrefabPostInit("world", function(inst)
@@ -579,8 +666,9 @@ AddPrefabPostInit("dirtpile", function(inst)
         end)
     end
 end)
+
 local monster = { "hound", "firehound", "icehound", "moonhound", "mutatedhound", "warg",
-    "warglet", "lunarthrall_plant", "vampirebat", "crawlinghorror", "terrorbeak" }
+    "warglet", "lunarthrall_plant", "vampirebat", "crawlinghorror", "terrorbeak", "gestalt" }
 for i, v in ipairs(monster) do --
     AddPrefabPostInit(v, function(inst)
         if TheWorld.ismastersim then
