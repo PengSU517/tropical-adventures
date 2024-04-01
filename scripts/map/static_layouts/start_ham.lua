@@ -83,6 +83,17 @@ return {
           properties = {}
         },
         {
+          name = "刷新点",
+          type = "spawnpoint_master", --刷新点
+          shape = "rectangle",
+          x = 160,                    --横坐标，64的倍数
+          y = 160,                    --纵坐标，64的倍数
+          width = 0,
+          height = 0,
+          visible = true,
+          properties = {}
+        },
+        {
           name = "",
           type = "multiplayer_portal",
           shape = "rectangle",

@@ -39,17 +39,17 @@ AddTask("Plains", {
     room_tags = { "hamlet", "nohasslers", "not_mainland" },
     -- room_tags = { "RoadPoison", "moonhunt", "nohasslers", "lunacyarea", "not_mainland" },
     room_choices = {
-        ["BG_plains_base"] = 2,
+        ["BG_plains_base"] = 1,
         ["Lilypond"] = math.random(2, 3),
         -- ["Ham start"] = 1,
         -- ["plains_tallgrass"] = math.random(2, 3),
-        ["plains_pogs_ruin"] = 1, -----这个和"plains_pogs"完全一致
+        ["plains_pogs_ruin"] = 2, -----这个和"plains_pogs"完全一致
     },
     room_bg = GROUND.PLAINS,
     background_room = "BG_plains_base",
     -- cove_room_name = "rainforest_ruins",
     -- make_loop = true,
-    crosslink_factor = 3, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
+    crosslink_factor = 6, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
     -- cove_room_chance = 1,  --加边界房间把中心房间围起来 但是coveroom的个数不能多于room个数
     -- cove_room_max_edges = 10,
     colour = { r = 1, g = 1, b = 1, a = 0.3 }
@@ -87,7 +87,7 @@ AddTask("Rainforest_ruins", {
     background_room = "BG_rainforest_base",
     -- cove_room_name = "rainforest_ruins",
     -- make_loop = true,
-    crosslink_factor = 10, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
+    crosslink_factor = 3, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
     -- cove_room_chance = 1,  --加边界房间把中心房间围起来 但是coveroom的个数不能多于room个数
     -- cove_room_max_edges = 10,
     colour = { r = 1, g = 1, b = 1, a = 0.3 }
@@ -114,7 +114,7 @@ AddTask("Painted_sands", {
     },
     room_bg = GROUND.PLAINS,
     background_room = "BG_painted_base",
-    crosslink_factor = 10,
+    crosslink_factor = 3,
     colour = { r = 1, g = 1, b = 1, a = 0.3 }
 })
 -----------------------------------------
@@ -222,6 +222,7 @@ AddTask("Edge_of_the_unknown", {
     room_choices = {
         ["BG_plains_base"] = 2,
         ["BG_plains_base_nocanopy1"] = 1,
+        ["Lilypond"] = math.random(2, 3),
     },
     room_bg = GROUND.PLAINS,
     background_room = "BG_plains_base",
@@ -242,7 +243,7 @@ AddTask("Deep_lost_ruins_gas", {
     },
     room_bg = GROUND.GASJUNGLE,
     background_room = "deeprainforest_gas",
-    crosslink_factor = 10,
+    crosslink_factor = 3,
     colour = { r = 0.8, g = 0.6, b = 0.2, a = 0.3 }
 })
 
@@ -265,7 +266,7 @@ AddTask("Deep_rainforest", {
     },
     room_bg = GROUND.DEEPRAINFOREST,
     background_room = "BG_deeprainforest_base",
-    crosslink_factor = 10,
+    crosslink_factor = 3,
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 }
 })
 
@@ -304,7 +305,7 @@ AddTask("Deep_rainforest_3", {
     },
     room_bg = GROUND.DEEPRAINFOREST,
     background_room = "BG_deeprainforest_base",
-    crosslink_factor = 10,
+    crosslink_factor = 3,
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 }
 })
 

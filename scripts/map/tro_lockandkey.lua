@@ -35,9 +35,6 @@ ARRAY_NEW =
     "DEEPRAINFOREST_SNAKE",
     "LOST_JUNGLE",
 
-
-
-
     "JUNGLE_DEPTH_1",
     "JUNGLE_DEPTH_2",
     "JUNGLE_DEPTH_3",
@@ -79,7 +76,11 @@ ARRAY_NEW =
     "ISLAND8",
     "ISLAND9",
     "ISLAND10",
-    "ISLAND11"
+    "ISLAND11",
+
+    "VOLCANO_ENTRANCE",
+    "VOLCANO",
+    "VOLCANO_INNER",
 }
 
 
