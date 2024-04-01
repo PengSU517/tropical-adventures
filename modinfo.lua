@@ -2,6 +2,10 @@ local function en_zh(en, zh) -- Other languages don't work
 	return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
 end
 
+--------强盗猪人
+-----------玻璃雨
+-----------蜘蛛网
+------------中文语言包
 -------------语言添加自动选项
 -------------灵活调整室内摄像头
 -------------限制玩家走到房间之外
@@ -31,7 +35,7 @@ end
 name = en_zh(" Tropical Adventure (Shipwrecked & Hamlet)", "热带冒险（海难哈姆雷特三合一）")
 
 author = "Peng"
-version = "6.96"
+version = "7.01"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -48,14 +52,47 @@ QQ 群：469668062
 ]]
 
 local updateen = [[
+
 Update:
+1.Fixed bugs related to updates
+	1.Fixed the crash issue when encountering tropical spiders.
+	2.Forcefully fixed the crash issues related to the weather component.
+2.Adjusted terrain generation rules
+	1.Players can adjust the map size.
+	2.Can choose to disable together content (including mainland, moon islands, and caves). The conditions for disabling are very strict, please read the settings instructions carefully.
+	3.The area where the spawn gate is located will be recognized as the main area, with significantly increased ecological content, while content in other areas will be reduced.
+3.Adjusted room-related content
+	1.When building windows, wall decorations, and chandeliers, you can use the up and down keys to adjust the height.
+	2.When building wall decorations, carpets, and other items, you can use the pageup and pagedown keys to adjust the direction. Carpets can be rotated at any angle.
+	3.Some buildings can be rotated using fencing swords.
+	4.Some indoor buildings can also be constructed outdoors after unlocking.
+
+Last Update:
+1. fix some bugs related with the latest update (locomoter and playervision only)
+2. fix a bug related with the wildboreking
 
 ]]
 
 local updatech = [[
 更新：
-1.
-2.
+1.修复更新相关bug
+	1. 遇到热带毒蜘蛛会闪退
+	2. 暴力修复weather组件相关的闪退问题，我逐渐理解了事情是如何一步一步变成屎山的
+2.调整了地形生成规则
+	1.玩家可以调整地图大小
+	2.可以选择禁用联机内容（包括联机大陆、月岛、和联机洞穴）禁用条件非常严格，请仔细阅读设置说明
+	3.出生门所在区域会认定为主区域，生态内容显著增多，其他区域内容会削减
+3.调整了房间相关内容
+	1.建造窗户、墙饰和吊灯时，可以用 上下键 调整高度
+	2.建造墙饰、地毯等物品时可以用 pageup pagedown键调整方向，地毯可旋转任意角度
+	3.部分建筑可以用栅栏击剑旋转角度
+	4.部分室内建筑在解锁后也可在室外建造
+	5.如果室内视角有问题可以用- + 微调
+
+上次更新：
+1.修复了一部分更新相关bug (大概率还有其他问题但至少能进入游戏)
+2.修复了一个野猪王相关的bug
+
 
 ]]
 
@@ -116,6 +153,7 @@ configuration_options =
 		hover = en_zh("Change mod language...", "选择模组语言"),
 		options =
 		{
+			-- { description = "Auto(自动)", data = (locale == "zh" or locale == "zhr" or locale == "zht") and "stringsCH" or "stringsEN" },
 			{ description = "English", data = "stringsEN" },
 			{ description = "中文", data = "stringsCH" },
 			-- { description = "Português", data = "stringsPT" },
@@ -126,16 +164,16 @@ configuration_options =
 			-- { description = "Magyar", data = "stringsHUN" },
 			-- { description = "Français", data = "stringsFR" },
 		},
-		default = "stringsCH",
+		default = (locale == "zh" or locale == "zhr" or locale == "zht") and "stringsCH" or "stringsEN",
 	},
 
 	Breaker("World Generation", "世界生成"),
 
 
 	{
-		name = "together",
+		name = "rog",
 		label = en_zh("Region of Gaints", "巨人国"),
-		hover = en_zh("Default Lands in DST", "联机默认地形"),
+		hover = en_zh("Mainland, MoonIslands and Together Caves", "联机大陆,月岛和联机洞穴"),
 		options =
 		{
 			{
@@ -154,8 +192,16 @@ configuration_options =
 				data = "fixed"
 			},
 
+			{
+				description = en_zh("Disabled(Not Recommended)", "关闭(不推荐)"),
+				hover = en_zh(
+					"only works when enabling at least one another region and set it as start location",
+					"需要开启至少一个其他区域并设为出生地时此项才能生效"),
+				data = false
+			},
+
 		},
-		default = "fixed",
+		default = "default",
 	},
 
 	{
@@ -201,6 +247,37 @@ configuration_options =
 	},
 
 	{
+		name = "worldsize",
+		label = en_zh("World size", "世界大小"),
+		hover = en_zh("World size", "世界大小"),
+		options =
+		{
+			{
+				description = en_zh("Default", "默认"),
+				hover = en_zh("Follow game settings, not recommended", "跟随游戏设定,不推荐"),
+				data = "default"
+			},
+			{
+				description = en_zh("Normal", "适中"),
+				hover = en_zh("world generation may be slower", "世界生成可能较慢"),
+				data = "normal"
+			},
+			{
+				description = en_zh("Larger", "更大"),
+				hover = en_zh(" a compromising choice", "一个折中的选择"),
+				data = "large"
+			},
+			{
+				description = en_zh("Huger", "巨大"),
+				hover = en_zh("high server pressure.", "服务器压力较大"),
+				data = "huge"
+			},
+
+		},
+		default = "normal",
+	},
+
+	{
 		name = "coastline",
 		label = en_zh("Coastline", "海岸线"),
 		hover = en_zh("Coastline", "海岸线"),
@@ -222,13 +299,13 @@ configuration_options =
 		default = true,
 	},
 
-	{
-		name = "layout",
-		label = en_zh("Layout adjustment", "布局调整"),
-		hover = en_zh("Layout adjustment", "如大理石雕像、猴岛、寄居蟹岛、帝王蟹的位置调整"),
-		options = options_enable,
-		default = true,
-	},
+	-- {
+	-- 	name = "layout",
+	-- 	label = en_zh("Layout adjustment", "布局调整"),
+	-- 	hover = en_zh("Layout adjustment", "如大理石雕像、猴岛、寄居蟹岛、帝王蟹的位置调整"),
+	-- 	options = options_enable,
+	-- 	default = true,
+	-- },
 
 	{
 		name = "testmode",
