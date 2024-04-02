@@ -52,19 +52,22 @@ AddClassPostConstruct("cameras/followcamera", function(self)
     local Old_Apply = self.Apply
     function self:Apply()
         if self.inhamroom == true and self.hamroompos ~= nil then
+            ----视角调整
+            if TheInput:IsKeyDown(KEY_EQUALS) then
+                extra_distance = extra_distance + 0.05
+            elseif TheInput:IsKeyDown(KEY_MINUS) then
+                extra_distance = extra_distance - 0.05
+            end
+
+            extra_distance = math.min(math.max(extra_distance, -5), 5)
+
             self.headingtarget = 0
             local cameraset = roomcamera[self.roomtype or "small"]
             local pitch = cameraset.pitch * DEGREES
             local heading = 0
             local distance = cameraset.distance
 
-            if TheInput:IsKeyDown(KEY_EQUALS) then
-                extra_distance = extra_distance + 0.2
-            elseif TheInput:IsKeyDown(KEY_MINUS) then
-                extra_distance = extra_distance - 0.2
-            end
 
-            extra_distance = math.min(math.max(extra_distance, -5), 30)
             distance = distance + extra_distance
 
 
@@ -650,6 +653,47 @@ end
 --     end
 -- end)
 
+
+--懒得找防寒隔热的组件了，直接覆盖onupdate更省事
+local function OnTemperatureUpdateBefore(self)
+    if self.inst:IsInHamRoom() then
+        local cur = self:GetCurrent()
+        if cur > 30 then
+            self:SetTemperature(self.current - 0.1)
+        elseif cur < 20 then
+            self:SetTemperature(self.current + 0.1)
+        end
+
+        return nil, true
+    end
+end
+
+local function OnMoistureUpdateBefore(self)
+    if self.inst:IsInHamRoom() then
+        if self.moisture > 0 then
+            self:DoDelta(-0.1)
+        end
+        return nil, true
+    end
+end
+
+-- PlayFootstep函数使用，我需要玩家在室内走路时有声音，但是因为没有地皮，只能覆盖函数，这里使用木板地皮的声音
+local function GetCurrentTileTypeBefore(inst)
+    local x, y, z = inst.Transform:GetWorldPosition()
+    if checkxz(x, z) then
+        return { WORLD_TILES.WOODFLOOR, GetTileInfo(WORLD_TILES.WOODFLOOR) }, true
+    end
+end
+
+AddPlayerPostInit(function(inst)
+    if not TheWorld.ismastersim then return end
+    -- Utils.FnDecorator(inst.components.temperature, "OnUpdate", OnTemperatureUpdateBefore)
+    -- Utils.FnDecorator(inst.components.moisture, "OnUpdate", OnMoistureUpdateBefore)
+    Utils.FnDecorator(inst, "GetCurrentTileType", GetCurrentTileTypeBefore)
+end)
+
+
+
 --以下大部分来自花花的神话方寸山
 AddPrefabPostInit("world", function(inst)
     if not TheWorld.ismastersim then
@@ -1002,27 +1046,27 @@ function emitters:PostUpdate(...)
 end
 
 --脚步声音
-local Old_PlayFootstep = GLOBAL.PlayFootstep
-GLOBAL.PlayFootstep = function(inst, volume, ispredicted, ...)
-    if inst:IsInHamRoom() then
-        local sound = inst.SoundEmitter
-        if sound ~= nil then
-            sound:PlaySound(
-                inst.sg ~= nil and inst.sg:HasStateTag("running") and "dontstarve/movement/run_woods" or
-                "dontstarve/movement/walk_woods"
-                ..
-                ((inst:HasTag("smallcreature") and "_small") or
-                    (inst:HasTag("largecreature") and "_large" or "")
-                ),
-                nil,
-                volume or 1,
-                ispredicted
-            )
-        end
-    else
-        Old_PlayFootstep(inst, volume, ispredicted, ...)
-    end
-end
+-- local Old_PlayFootstep = GLOBAL.PlayFootstep
+-- GLOBAL.PlayFootstep = function(inst, volume, ispredicted, ...)
+--     if inst:IsInHamRoom() then
+--         local sound = inst.SoundEmitter
+--         if sound ~= nil then
+--             sound:PlaySound(
+--                 inst.sg ~= nil and inst.sg:HasStateTag("running") and "dontstarve/movement/run_woods" or
+--                 "dontstarve/movement/walk_woods"
+--                 ..
+--                 ((inst:HasTag("smallcreature") and "_small") or
+--                     (inst:HasTag("largecreature") and "_large" or "")
+--                 ),
+--                 nil,
+--                 volume or 1,
+--                 ispredicted
+--             )
+--         end
+--     else
+--         Old_PlayFootstep(inst, volume, ispredicted, ...)
+--     end
+-- end
 
 
 
