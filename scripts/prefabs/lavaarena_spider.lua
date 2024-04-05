@@ -538,7 +538,8 @@ local function create_common(build, tag)
 
     inst.SoundPath = SoundPath
 
-    inst:SetIncineratedSound(SoundPath(inst, "die"))
+    -- inst:SetIncineratedSound(SoundPath(inst, "die"))
+    inst.incineratesound = SoundPath(inst, "die")
 
     inst.build = build
     inst.SetHappyFace = SetHappyFace
