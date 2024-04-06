@@ -709,10 +709,7 @@ return Class(function(self, inst)
             end
         end
 
-        local pref = SpawnPrefab(prefab_type)
-        if pref then
-            pref.Transform:SetPosition(strike_position:Get())
-        end
+        SpawnPrefab(prefab_type).Transform:SetPosition(strike_position:Get())
     end or nil
 
     local OnSimUnpaused = _ismastersim and function()
