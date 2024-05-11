@@ -1,6 +1,6 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end }) --GLOBAL 相关照抄
 
-local Utils = require("tropical_utils/utils")
+local Utils = require("tools/utils")
 
 
 
@@ -327,7 +327,7 @@ end)
 
 -------------------地图判定（新）------------------------------------
 
-local check_size = 950
+local check_size = 1350
 local function checkxz(x, z)
     if math.abs(z) >= check_size or math.abs(x) >= check_size then
         return true
@@ -939,7 +939,7 @@ end)
 
 
 
-local upvaluehelper = require "upvaluehelper"
+local upvaluehelper = require("tools/upvaluehelper")
 AddPrefabPostInit("forest", function(inst)
     if not TheWorld.ismastersim then
         return
