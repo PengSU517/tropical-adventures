@@ -75,8 +75,8 @@ modimport("postinit/components/inventoryitem")
 modimport("postinit/components/playercontroller")
 modimport("postinit/components/embarker")
 modimport("postinit/wx78_module")
-modimport("postinit/sim_ham")              ---------ham cloud
-modimport("postinit/widgets/hoverer_info") ---- show name and anim, for debugging
+modimport("postinit/sim_ham") ---------ham cloud
+
 
 -- modimport("postinit/components/map")
 modimport("main/ham_room")                      -----------------新的room
@@ -86,9 +86,19 @@ modimport("scripts/widgets/seasonsdisplay.lua") --------------雾和花粉症,�
 modimport("postinit/prefabs/player_hayfever")
 
 
+modimport("postinit/entityscript") ----修改entity相关
+
+
 ------------------修正暴力覆盖的components
 modimport "main/postinit"
 -- modimport("postinit/components/playerspawner")
 -- modimport("postinit/components/wavemanager")
 modimport("postinit/components/aoespell")
 modimport("postinit/components/armor")
+
+
+
+
+-----------------debug相关--------------
+modimport("postinit/widgets/hoverer_info") ---- show name and anim, for debugging
+modimport("main/seafork")

@@ -1,41 +1,46 @@
+--to do list
+--马赛克地皮生成
+--给地皮调色
+--建造栏图标未解锁
+--单机海水联机化
+--强盗猪人
+--玻璃雨
+--蜘蛛网
+--中文语言包
+--语言添加自动选项
+--灵活调整室内摄像头
+--进出房间视角
+--限制玩家走到房间之外
+--roominterior组件
+--player_actions_shear.zip
+--player_actions_bucked.zip  被扔下来的动画
+--修ROC SG
+--载入语言包
+--猪镇的生成设计
+--蚁穴和洞穴地皮调整
+--室内物品高度怎么调不了啊
+--海洋之椅，火山祭坛
+--洞穴的掉落物会落入水中
+--漂流瓶显示宝藏没有标记
+--雨林的小地图贴图不对
+--relic太少了
+--栽种房子的时候有bug--已解决
+--不要把东西给房子--已解决
+--浮木舟不掉耐久
+--大鸟地区不该加Hamlet标签 roc的SG也没写好
+--waffles_plate缺少贴图
+--直接制作帽子戴上会报错。。
+--原MOD写的清楚积雪的效果只对主客机一体时有效
+
+
 local function en_zh(en, zh) -- Other languages don't work
 	return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
 end
 
---------强盗猪人
------------玻璃雨
------------蜘蛛网
-------------中文语言包
--------------语言添加自动选项
--------------灵活调整室内摄像头
--------------限制玩家走到房间之外
------------roominterior组件
-------------------player_actions_shear.zip
--------------player_actions_bucked.zip  被扔下来的动画
------------------修ROC SG
------------------载入语言包
-----------------------猪镇的生成设计
-------------蚁穴和洞穴地皮调整
------------------室内物品高度怎么调不了啊
-----------------------海洋之椅，火山祭坛
-----------------洞穴的掉落物会落入水中
-----------------漂流瓶显示宝藏没有标记
----------------雨林的小地图贴图不对
------------------relic太少了
-----------------栽种房子的时候有bug------------已解决
----------------不要把东西给房子--------------已解决
----------------浮木舟不掉耐久
-----------------大鸟地区不该加Hamlet标签 roc的SG也没写好
---------------waffles_plate缺少贴图
---------------直接制作帽子戴上会报错。。
-------------------原MOD写的清楚积雪的效果只对主客机一体时有效
-
-
-
-name = en_zh(" Tropical Adventure (Shipwrecked & Hamlet)", "热带冒险（海难哈姆雷特三合一）")
+name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
 
 author = "Peng"
-version = "7.01"
+version = "7.05"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -54,6 +59,13 @@ QQ 群：469668062
 local updateen = [[
 
 Update:
+1.guess fixed a bug. fix some trivial bugs
+
+Last Update:
+1.Fixed the crash issue when encountering tropical spiders.
+2.fixed climate related component.
+
+Last Update:
 1.Fixed bugs related to updates
 	1.Fixed the crash issue when encountering tropical spiders.
 	2.Forcefully fixed the crash issues related to the weather component.
@@ -75,6 +87,13 @@ Last Update:
 
 local updatech = [[
 更新：
+1. 似乎修了个bug,加上一点细碎bug
+
+上次更新：
+1. 遇到热带毒蜘蛛会闪退
+2. 简单调整气候组件
+
+上次更新：
 1.修复更新相关bug
 	1. 遇到热带毒蜘蛛会闪退
 	2. 暴力修复weather组件相关的闪退问题，我逐渐理解了事情是如何一步一步变成屎山的
@@ -221,6 +240,28 @@ configuration_options =
 	},
 
 	{
+		name = "ocean",
+		label = en_zh("Ocean", "海洋"),
+		hover = en_zh("Ocean Style", "海洋风格"),
+		options =
+		{
+			{
+				description = en_zh("Default", "默认"),
+				hover = en_zh("DST ocean", "联机海洋"),
+				data = "default"
+			},
+			{
+				description = en_zh("Shipwrecked Style", "海难风格"),
+				hover = en_zh("Shipwrecked stylized tropical ocean", "海难风格的热带海洋"),
+				data = "tropical"
+			},
+
+
+		},
+		default = "tropical",
+	},
+
+	{
 		name = "startlocation",
 		label = en_zh("Start location", "出生地"),
 		hover = en_zh("Start location", "出生地"),
@@ -307,13 +348,6 @@ configuration_options =
 	-- 	default = true,
 	-- },
 
-	{
-		name = "testmode",
-		label = en_zh("Test Mode", "测试模式"),
-		hover = en_zh("A very small world only for debugging", "仅生成一块很小的地形用于测试内容"),
-		options = options_enable,
-		default = false,
-	},
 
 
 
@@ -383,12 +417,28 @@ configuration_options =
 		default = true,
 	},
 
-	Breaker("Other Settings", "其他设置"),
+	Breaker("Developer Settings", "开发者选项"),
+
+	{
+		name = "testmode",
+		label = en_zh("Test Mode", "测试模式"),
+		hover = en_zh("A very small world only for debugging", "仅生成一块很小的地形用于测试内容"),
+		options = options_enable,
+		default = false,
+	},
 
 	{
 		name = "prefabname",
 		label = en_zh("Show Prefab Name", "显示物品代码"),
 		hover = en_zh("Show Prefab Name on Cursor", "显示物品代码"),
+		options = options_enable,
+		default = false,
+	},
+
+	{
+		name = "seafork",
+		label = en_zh("Seafork", "填海叉"),
+		hover = en_zh("Sea to Land", "填海造陆"),
 		options = options_enable,
 		default = false,
 	},
