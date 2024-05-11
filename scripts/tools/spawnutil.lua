@@ -7,6 +7,28 @@ function SpawnUtil.IsShoreTile(tile)
     return IsLandTile(tile) or tile == WORLD_TILES.MANGROVE or tile == WORLD_TILES.LILYPOND
 end
 
+------------------这个函数是从util拿过来的
+function CheckTileType(tile, check, ...)
+    if type(tile) == "table" then
+        local x, y, z = GetWorldPosition(tile)
+        if type(check) == "function" then
+            return check(x, y, z, ...)
+        end
+        tile = TheWorld.Map:GetTileAtPoint(x, y, z)
+    end
+
+    if type(check) == "function" then
+        return check(tile, ...)
+    elseif type(check) == "table" then
+        -- return table.contains(check, tile)  -- ewww no, very inefficent
+        return check[tile] ~= nil
+    elseif type(check) == "string" then
+        return WORLD_TILES[check] == tile
+    end
+
+    return tile == check
+end
+
 function SpawnUtil.IsSurroundedByTile(x, y, radius, tile)
     local num_edge_points = math.ceil((radius * 2) / 4) - 1
 
@@ -101,11 +123,11 @@ local commonspawnfn = {
     fishinhole = function(x, y, ents)
         local tile = WorldSim:GetTile(x, y)
         return (tile == WORLD_TILES.OCEAN_CORAL or tile == WORLD_TILES.MANGROVE or (IsOceanTile(tile) and not SpawnUtil.IsCloseToTile(x, y, 5, WORLD_TILES.OCEAN_SHALLOW))) and
-        SpawnUtil.IsSurroundedByWaterTile(x, y, 1)
+            SpawnUtil.IsSurroundedByWaterTile(x, y, 1)
     end,
     tidalpool = function(x, y, ents)
         return not SpawnUtil.IsCloseToWaterTile(x, y, 2) and
-        SpawnUtil.GetShortestDistToPrefab(x, y, ents, "tidalpool") >= 3 * TILE_SCALE
+            SpawnUtil.GetShortestDistToPrefab(x, y, ents, "tidalpool") >= 3 * TILE_SCALE
     end,
 
     seashell_beached = function(x, y, ents)

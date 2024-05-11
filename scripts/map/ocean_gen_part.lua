@@ -10,6 +10,7 @@ function Ocean_SetWorldForOceanGen(w)
 	world = w
 end
 
+TUNING.MAPWRAPPER_WARN_RANGE = 14
 local WORLD_TILES = WORLD_TILES
 
 -- WORLD_TILES.OCEAN_COASTAL_SHORE = WORLD_TILES.OCEAN_SHALLOW_SHORE
@@ -197,6 +198,42 @@ local function do_groundfill(fillTile, fillOffset, fillDepth, landRadius, width,
 	--print("  Ground fill done.")
 end
 
+local function do_groundfill_tropical(fillTile, fillOffset, fillDepth, landRadius, width, height, data)
+	print("Ground fill...")
+	for y = 0, height - 1 do
+		for x = 0, width - 1 do
+			local ground = WorldSim:GetTile(x, y)
+			-- if ground == WORLD_TILES.OCEAN_SHALLOW and SpawnUtil.IsCloseToLandTile(x, y, landRadius) then
+			if is_tropical_oceanlined(ground) then
+				fillGroundType(width, height, x + 1, y, fillOffset, fillDepth, fillTile)
+				fillGroundType(width, height, x - 1, y, fillOffset, fillDepth, fillTile)
+				fillGroundType(width, height, x, y + 1, fillOffset, fillDepth, fillTile)
+				fillGroundType(width, height, x, y - 1, fillOffset, fillDepth, fillTile)
+			end
+		end
+		-- print(string.format("Ground fill %4.2f", (y * width) / (width * height) * 100))
+	end
+	-- print("Ground fill done.")
+end
+
+local function do_groundfill_tropical_outline(fillTile, fillOffset, fillDepth, landRadius, width, height, data)
+	print("Ground fill...")
+	for y = 0, height - 1 do
+		for x = 0, width - 1 do
+			local ground = WorldSim:GetTile(x, y)
+			-- if ground == WORLD_TILES.OCEAN_SHALLOW and SpawnUtil.IsCloseToLandTile(x, y, landRadius) then
+			if is_tropical_oceanlined(ground) then
+				fillGroundType(width, height, x + 1, y, fillOffset, fillDepth, fillTile)
+				fillGroundType(width, height, x - 1, y, fillOffset, fillDepth, fillTile)
+				fillGroundType(width, height, x, y + 1, fillOffset, fillDepth, fillTile)
+				fillGroundType(width, height, x, y - 1, fillOffset, fillDepth, fillTile)
+			end
+		end
+		-- print(string.format("Ground fill %4.2f", (y * width) / (width * height) * 100))
+	end
+	-- print("Ground fill done.")
+end
+
 
 local function do_squarefill(shallowRadius, width, height, data)
 	print("[Ocean]  Square fill...")
@@ -214,6 +251,17 @@ local function do_squarefill(shallowRadius, width, height, data)
 	--print("  Square fill done.")
 end
 
+local function do_squarefill_tropical_outline(deepRadius, width, height, data)
+	print("Square fill...")
+	for y = 0, height - 1 do
+		for x = 0, width - 1 do
+			local ground = WorldSim:GetTile(x, y)
+			if is_tropical_oceanlined(ground) then
+				squareFill(width, height, x, y, deepRadius, WORLD_TILES.OCEAN_DEEP)
+			end
+		end
+	end
+end
 
 local function do_noise(width, height, data)
 	print("[Ocean]  Noise...")
@@ -240,16 +288,66 @@ local function do_noise(width, height, data)
 			local ground = world:GetTile(x, y)
 			if ground == WORLD_TILES.IMPASSABLE then
 				local nx, ny = x / width - 0.5, y / height - 0.5
+				--if simplexnoise2d(noise_scale_coral * (nx + offx_coral), noise_scale_coral * (ny + offy_coral), noise_octave_coral, noise_persistence_coral) > init_level_coral then
+				--	world:SetTile(x, y, WORLD_TILES.OCEAN_BRINEPOOL)
+				--else
+				if simplexnoise2d(noise_scale_water * (nx + offx_water), noise_scale_water * (ny + offy_water), noise_octave_water, noise_persistence_water) > init_level_medium then
+					world:SetTile(x, y, WORLD_TILES.OCEAN_SWELL)
+				else
+					if simplexnoise2d(noise_scale_grave * (nx + offx_grave), noise_scale_grave * (ny + offy_grave), noise_octave_grave, noise_persistence_grave) > init_level_grave then
+						world:SetTile(x, y, WORLD_TILES.OCEAN_HAZARDOUS)
+					else
+						world:SetTile(x, y, WORLD_TILES.OCEAN_ROUGH)
+					end
+				end
+				--end
+			end
+		end
+	end
+end
+
+
+local function do_noise_tropical(width, height, data)
+	print("Noise...")
+	local offx_water, offy_water = math.random(-width, width),
+		math.random(-height, height) -- 2*math.random()-1, 2*math.random()-1
+	local offx_coral, offy_coral = math.random(-width, width),
+		math.random(-height, height) -- 2*math.random()-1, 2*math.random()-1
+	local offx_grave, offy_grave = math.random(-width, width),
+		math.random(-height, height) -- 2*math.random()-1, 2*math.random()-1
+	-- local offx_mangrove, offy_mangrove = 0, 0 -- 2*math.random()-1, 2*math.random()-1
+	local noise_octave_water = data.noise_octave_water or 6
+	local noise_octave_coral = data.noise_octave_coral or 4
+	local noise_octave_grave = data.noise_octave_grave or 4
+	local noise_persistence_water = data.noise_persistence_water or 0.5
+	local noise_persistence_coral = data.noise_persistence_coral or 0.5
+	local noise_persistence_grave = data.noise_persistence_grave or 0.5
+	local noise_scale_water = data.noise_scale_water or 3
+	local noise_scale_coral = data.noise_scale_coral or 6
+	local noise_scale_grave = data.noise_scale_grave or 6
+	-- local noise_scale_mangrove = data.noise_scale_mangrove or 6
+	-- local init_level_coral = data.init_level_coral or 0.65
+	-- local init_level_grave = data.init_level_grave or 0.65
+
+	local init_level_coral = 0.62
+	local init_level_grave = 0.55
+
+	local init_level_medium = data.init_level_medium or 0.5
+	for y = 0, height - 1 do
+		for x = 0, width - 1 do
+			local ground = WorldSim:GetTile(x, y)
+			if ground == WORLD_TILES.OCEAN_DEEP or ground == WORLD_TILES.OCEAN_MEDIUM or ground == WORLD_TILES.OCEAN_SHALLOW then
+				local nx, ny = x / width - 0.5, y / height - 0.5
 				if simplexnoise2d(noise_scale_coral * (nx + offx_coral), noise_scale_coral * (ny + offy_coral), noise_octave_coral, noise_persistence_coral) > init_level_coral then
-					world:SetTile(x, y, WORLD_TILES.OCEAN_BRINEPOOL)
+					WorldSim:SetTile(x, y, WORLD_TILES.OCEAN_CORAL)
 				else
 					if simplexnoise2d(noise_scale_water * (nx + offx_water), noise_scale_water * (ny + offy_water), noise_octave_water, noise_persistence_water) > init_level_medium then
-						world:SetTile(x, y, WORLD_TILES.OCEAN_SWELL)
+						world:SetTile(x, y, WORLD_TILES.OCEAN_MEDIUM)
 					else
 						if simplexnoise2d(noise_scale_grave * (nx + offx_grave), noise_scale_grave * (ny + offy_grave), noise_octave_grave, noise_persistence_grave) > init_level_grave then
-							world:SetTile(x, y, WORLD_TILES.OCEAN_HAZARDOUS)
+							world:SetTile(x, y, WORLD_TILES.OCEAN_SHIPGRAVEYARD)
 						else
-							world:SetTile(x, y, WORLD_TILES.OCEAN_ROUGH)
+							world:SetTile(x, y, WORLD_TILES.OCEAN_DEEP)
 						end
 					end
 				end
@@ -257,8 +355,6 @@ local function do_noise(width, height, data)
 		end
 	end
 end
-
-
 
 local function do_blend(width, height, data)
 	print("[Ocean]  Blend...")
@@ -299,15 +395,15 @@ local function do_blend(width, height, data)
 				local ellevel = el[y * width + x]
 				local cmlevel = cm[y * width + x] * falloff
 				local glevel = g[y * width + x] * falloff
-				if ellevel > final_level_shallow + 0.1 then -------------减少浅海
-					if cmlevel > (final_level_mangrove + 10) and tile == WORLD_TILES.OCEAN_WATERLOG then
+				if ellevel > final_level_shallow then
+					if tile == WORLD_TILES.OCEAN_WATERLOG then
 						world:SetTile(x, y, WORLD_TILES.OCEAN_WATERLOG)
 					elseif cmlevel > final_level_coral and tile == WORLD_TILES.OCEAN_BRINEPOOL then
 						world:SetTile(x, y, WORLD_TILES.OCEAN_BRINEPOOL)
 					else
 						world:SetTile(x, y, WORLD_TILES.OCEAN_COASTAL)
 					end
-				elseif ellevel > final_level_medium then --------------增大深海面积
+				elseif ellevel > final_level_medium then
 					world:SetTile(x, y, WORLD_TILES.OCEAN_SWELL)
 				else
 					if glevel > final_level_grave then
@@ -321,8 +417,92 @@ local function do_blend(width, height, data)
 	end
 end
 
+local function blurTileType(x, y, radius, width, height)
+	local tileCount = {}
+	-- 遍历以(x, y)为中心，半径为radius的区域
+	for dx = -radius, radius do
+		for dy = -radius, radius do
+			local nx, ny = x + dx, y + dy
+			-- 确保(nx, ny)在地图范围内
+			if nx >= 0 and nx < width and ny >= 0 and ny < height then
+				local tile = world:GetTile(nx, ny)
+				if IsTropicalOceanTile(tile) then
+					tileCount[tile] = (tileCount[tile] or 0) + 1 / (0.7 + math.abs(dx) + math.abs(dy))
+				end
+			end
+		end
+	end
+
+	return tileCount
+
+	-- -- 找出数量最多的地块类型
+	-- local mostCommonTile = nil
+	-- local maxCount = 0
+	-- for tile, count in pairs(tileCount) do
+	--     if count > maxCount then
+	--         maxCount = count
+	--         mostCommonTile = tile
+	--     end
+	-- end
+
+	-- -- 将当前地块设置为最常见的地块类型
+	-- if mostCommonTile then
+	--     world:SetTile(x, y, mostCommonTile)
+	-- end
+end
 
 
+local function CalblurTile(width, height, radius)
+	local TileCounts = {}
+	for y = 0, height - 1, 1 do
+		for x = 0, width - 1, 1 do
+			TileCounts[x .. "tile" .. y] = blurTileType(x, y, radius, width, height)
+		end
+	end
+	return TileCounts
+end
+
+
+local function do_blend_tropical(width, height, radius, data)
+	print("[Ocean]  Blend...")
+
+	-- local final_weight_coral = 2
+	-- local final_weight_grave = 4
+
+	local TileCounts = CalblurTile(width, height, radius)
+
+
+	for y = 0, height - 1, 1 do
+		for x = 0, width - 1, 1 do
+			local tile = world:GetTile(x, y)
+			if IsTropicalOceanTile(tile) then
+				local tileCount = TileCounts[x .. "tile" .. y]
+
+				-- local coralweight = tileCount[WORLD_TILES.OCEAN_CORAL] or 0
+				-- tileCount[WORLD_TILES.OCEAN_CORAL] = coralweight * final_weight_coral or nil
+
+				-- local shipgraveweight = tileCount[WORLD_TILES.OCEAN_SHIPGRAVEYARD] or 0
+				-- tileCount[WORLD_TILES.OCEAN_SHIPGRAVEYARD] = shipgraveweight * final_weight_grave or nil
+
+
+				-- 找出数量最多的地块类型
+				local mostCommonTile = nil
+				local maxCount = 0
+				for tile, count in pairs(tileCount) do
+					if count > maxCount then
+						maxCount = count
+						mostCommonTile = tile
+					end
+				end
+
+				-- 将当前地块设置为最常见的地块类型
+				if mostCommonTile then
+					world:SetTile(x, y, mostCommonTile)
+				end
+			end
+		end
+	end
+end
 
 local function AddShoreline(width, height, data)
 	print("[Ocean]  Adding shoreline...")
@@ -442,14 +622,34 @@ function Ocean_ConvertImpassibleToWater(width, height, data)
 	local fillOffset = data.fillOffset or 4
 
 
-	do_squarefill(data.shallowRadius, width, height, data)
-	do_groundfill(WORLD_TILES.OCEAN_DEEP, fillOffset - 1, fillDepth + 4, nil, width, height, data)
-	do_groundfill(WORLD_TILES.OCEAN_MEDIUM, fillOffset - 1, fillDepth + 2, nil, width, height, data) ----在陆地周围生成一圈海洋 coastal
-	do_groundfill(WORLD_TILES.OCEAN_COASTAL, fillOffset - 1, fillDepth, nil, width, height, data) ---基于海洋地皮在周围生成coastal
-	do_noise(width, height, data)                                                                 ----将所有的impassable随机填充   只加这一个的话海岸线是平直的，而且随意出入，因为世界边缘位置是平直的
-	do_blend(width, height, data)                                                                 -----将随机填充变得平滑？
+	do_squarefill(data.shallowRadius, width, height, data)                                                     ----在陆地周围生成一圈海洋 coastal
+	do_groundfill(WORLD_TILES.OCEAN_COASTAL, fillOffset, fillDepth, data.shallowRadius or 5, width, height, data) ---基于海洋地皮在周围生成coastal
+	do_noise(width, height, data)                                                                              ----将所有的impassable随机填充   只加这一个的话海岸线是平直的，而且随意出入，因为世界边缘位置是平直的
+	do_blend(width, height, data)                                                                              -----将随机填充变得平滑？
 	AddShoreline(width, height, data)
 	do_void_outline(width, height, data)
+
+	-- 	data = require("map/watergen")
+
+	-- local depthShallow = data.depthShallow or 10
+	-- local depthMed = data.depthMed or 20
+	-- local fillDepth = data.fillDepth or 5
+	-- local fillOffset = data.fillOffset or 4
+
+	local depthShallow = 4
+	local depthMed = 8
+	local depthDeep = 16
+	local fillDepth = 5
+	local fillOffset = 4
+
+
+	do_squarefill_tropical_outline(depthDeep, width, height, data)
+	do_groundfill_tropical_outline(WORLD_TILES.OCEAN_DEEP, fillOffset, fillDepth, 2 * depthDeep, width, height, data)
+	do_noise_tropical(width, height, data)
+	do_groundfill_tropical(WORLD_TILES.OCEAN_MEDIUM, fillOffset, fillDepth, depthMed or 6, width, height, data)
+	do_groundfill_tropical(WORLD_TILES.OCEAN_SHALLOW, fillOffset - 2, fillDepth - 2,
+		depthShallow or 2, width, height, data)
+	do_blend_tropical(width, height, 6, data)
 end
 
 ---------------------------------------

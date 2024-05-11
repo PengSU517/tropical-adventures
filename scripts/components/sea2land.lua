@@ -15,6 +15,14 @@ local turfs = {
     [GROUND.OCEAN_HAZARDOUS] = 1,
     [GROUND.OCEAN_WATERLOG] = 1,
     [GROUND.LILYPOND] = 1,
+
+    [GROUND.OCEAN_CORAL] = 1,
+    [GROUND.MANGROVE] = 1,
+    [GROUND.OCEAN_SHALLOW_SHORE] = 1,
+    [GROUND.OCEAN_SHALLOW] = 1,
+    [GROUND.OCEAN_MEDIUM] = 1,
+    [GROUND.OCEAN_DEEP] = 1,
+    [GROUND.OCEAN_SHIPGRAVEYARD] = 1,
 }
 
 function Sea2land:Sea2land(pt)
