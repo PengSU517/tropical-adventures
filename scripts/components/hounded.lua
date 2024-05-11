@@ -1,5 +1,6 @@
 --------------------------------------------------------------------------
 --[[ Hounded class definition ]]
+--地图poly相关组件
 --------------------------------------------------------------------------
 
 return Class(function(self, inst)
@@ -206,7 +207,7 @@ return Class(function(self, inst)
 			-- if we never saw a warning or have lived shorter than the minimum wave delay then don't spawn hounds to us
 			local playerInGame = GetTime() - player.components.age.spawntime
 			local spawnsToRelease = (playerInGame > _warnduration and playerAge >= attackdelaybase) and
-			CalcPlayerAttackSize(player) or 0
+				CalcPlayerAttackSize(player) or 0
 
 			if spawnsToRelease > 0 then
 				if groupmap[group] == nil then
@@ -228,7 +229,7 @@ return Class(function(self, inst)
 				_spawninfo[g].totalplayerage = _spawninfo[g].totalplayerage + playerAge
 
 				_spawninfo[g].target_weight[player] = math.sqrt(spawnsToRelease) *
-				(player.components.houndedtarget ~= nil and player.components.houndedtarget:GetTargetWeight() or 1)
+					(player.components.houndedtarget ~= nil and player.components.houndedtarget:GetTargetWeight() or 1)
 				_spawninfo[g].players[player] = 0
 
 				if player.components.houndedtarget ~= nil and player.components.houndedtarget:IsHoundThief() then
@@ -1012,8 +1013,8 @@ return Class(function(self, inst)
 					s = s .. tostring(player) .. ","
 				end
 				s = s ..
-				"} - spawns left:" ..
-				tostring(spawninforec.spawnstorelease) .. " next spawn:" .. tostring(spawninforec.timetonext)
+					"} - spawns left:" ..
+					tostring(spawninforec.spawnstorelease) .. " next spawn:" .. tostring(spawninforec.timetonext)
 			end
 		end
 		return s
