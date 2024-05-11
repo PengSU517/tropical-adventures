@@ -1310,7 +1310,7 @@ AddRoom("TidalMermMarsh", {
 
 AddRoom("TidalSharkHome", {
     colour = { r = 0.8, g = .8, b = .1, a = .50 },
-    value = GROUND.TIDALMARSH,
+    value = GROUND.IMPASSABLE,
     tags = { "RoadPoison", "tropical" },
     required_prefabs = { "tigersharkpool" },
     contents = {
@@ -1319,11 +1319,11 @@ AddRoom("TidalSharkHome", {
         countstaticlayouts = { ["tigersharkarea"] = 1 }, --adds 1 per room
         countprefabs = {
             -- marsh_bush = 1,
-            tidalpool = 3,
-            reeds = 7,
-            poisonhole = 5,
-            mermfishhouse = 2,
-            green_mushroom = 7,
+            -- tidalpool = 3,
+            -- reeds = 7,
+            -- poisonhole = 5,
+            -- mermfishhouse = 2,
+            -- green_mushroom = 7,
             --tigersharkpool = 1,
             -- flupspawner = 3,
         }

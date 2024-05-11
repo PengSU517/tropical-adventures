@@ -77,15 +77,40 @@ local function GetWaveBearing(map, ex, ey, ez)
 	if not is_nearby_land_tile then return false end
 	return -math.atan2(ztotal / n - ez, xtotal / n - ex) / DEGREES - 90
 end
+local function TrySpawnShore(self, map, x, y, z)
+	local bearing = GetWaveBearing(map, x, y, z)
+	if (bearing ~= true) and ((bearing ~= false)) then
+		local wave = SpawnPrefab("wave_shore_tropical")
+		wave.Transform:SetPosition(x, y, z)
+		wave.Transform:SetRotation(bearing)
+		wave:SetAnim()
+	end
+end
+
+local function TrySpawnWavesOrShore_Lake(self, map, x, y, z)
+	local bearing = GetWaveBearing(map, x, y, z)
+	if bearing == false then return end
+
+	if bearing == true then
+		if math.random() < 0.3 then
+			SpawnPrefab("wave_shimmer_tropical").Transform:SetPosition(x, y, z)
+		end
+	else
+		local wave = SpawnPrefab("wave_shore_tropical")
+		wave.Transform:SetPosition(x, y, z)
+		wave.Transform:SetRotation(bearing)
+		wave:SetAnim()
+	end
+end
 
 local function TrySpawnWavesOrShore(self, map, x, y, z)
 	local bearing = GetWaveBearing(map, x, y, z)
 	if bearing == false then return end
 
 	if bearing == true then
-		SpawnPrefab("wave_shimmer").Transform:SetPosition(x, y, z)
+		SpawnPrefab("wave_shimmer_tropical").Transform:SetPosition(x, y, z)
 	else
-		local wave = SpawnPrefab("wave_shore")
+		local wave = SpawnPrefab("wave_shore_tropical")
 		wave.Transform:SetPosition(x, y, z)
 		wave.Transform:SetRotation(bearing)
 		wave:SetAnim()
@@ -94,14 +119,14 @@ end
 
 local function TrySpawnWaveShimmerMedium(self, map, x, y, z)
 	if map:IsSurroundedByWater(x, y, z, 4) then
-		local wave = SpawnPrefab("wave_shimmer_med")
+		local wave = SpawnPrefab("wave_shimmer_med_tropical")
 		wave.Transform:SetPosition(x, y, z)
 	end
 end
 
 local function TrySpawnWaveShimmerDeep(self, map, x, y, z)
 	if map:IsSurroundedByWater(x, y, z, 5) then
-		local wave = SpawnPrefab("wave_shimmer_deep")
+		local wave = SpawnPrefab("wave_shimmer_deep_tropical")
 		wave.Transform:SetPosition(x, y, z)
 	end
 end
@@ -122,13 +147,17 @@ end
 
 
 local tro_shimmer = {
-	[WORLD_TILES.LILYPOND] = { per_sec = 80, spawn_rate = 0, tryspawn = TrySpawnWavesOrShore },
-	-- [WORLD_TILES.OCEAN_SHALLOW] = {per_sec = 75, spawn_rate = 0, tryspawn = TrySpawnIAWavesOrShore},
-	-- [WORLD_TILES.OCEAN_CORAL] = {per_sec = 80, spawn_rate = 0, tryspawn = TrySpawnIAWavesOrShore},
-	-- [WORLD_TILES.OCEAN_MEDIUM] = {per_sec = 75, spawn_rate = 0, tryspawn = TrySpawnIAWaveShimmerMedium},
-	-- [WORLD_TILES.OCEAN_DEEP] = {per_sec = 70, spawn_rate = 0, tryspawn = TrySpawnIAWaveShimmerDeep},
-	-- [WORLD_TILES.OCEAN_SHIPGRAVEYARD] = {per_sec = 80, spawn_rate = 0, tryspawn = TrySpawnIAWaveShimmerDeep},
-	-- [WORLD_TILES.MANGROVE] = {per_sec = 80, spawn_rate = 0, tryspawn = TrySpawnIAWavesOrShore},
+	[WORLD_TILES.LILYPOND] = { per_sec = 200, spawn_rate = 0, tryspawn = TrySpawnWavesOrShore_Lake },
+	[WORLD_TILES.OCEAN_CORAL] = { per_sec = 80, spawn_rate = 0, tryspawn = TrySpawnWaveShimmerDeep },
+	[WORLD_TILES.MANGROVE] = { per_sec = 80, spawn_rate = 0, tryspawn = TrySpawnWavesOrShore },
+
+
+	[WORLD_TILES.OCEAN_SHALLOW_SHORE] = { per_sec = 200, spawn_rate = 0, tryspawn = TrySpawnShore },
+	[WORLD_TILES.OCEAN_SHALLOW] = { per_sec = 75, spawn_rate = 0, tryspawn = TrySpawnWavesOrShore },
+	[WORLD_TILES.OCEAN_MEDIUM] = { per_sec = 75, spawn_rate = 0, tryspawn = TrySpawnWaveShimmerMedium },
+	[WORLD_TILES.OCEAN_DEEP] = { per_sec = 70, spawn_rate = 0, tryspawn = TrySpawnWaveShimmerDeep },
+	[WORLD_TILES.OCEAN_SHIPGRAVEYARD] = { per_sec = 80, spawn_rate = 0, tryspawn = TrySpawnWaveShimmerDeep },
+
 	-- FLOOD = {per_sec = 80, spawn_rate = 0, checkfn = CheckFlood, spawnfn = SpawnIAWaveFlood},
 }
 

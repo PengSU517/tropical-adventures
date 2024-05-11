@@ -1,30 +1,34 @@
-AddTask("HomeIsland_start", {
-    locks = { LOCKS.HARD },
-    keys_given = { KEYS.HARD },
-    region_id = "shipwrecked",
-    room_choices = {
-        ["JungleDenseMedHome"] = 2,
-        ["BeachUnkept"] = 1,
-        ["Shipwrecked start"] = 1,
-    },
-    room_bg = GROUND.JUNGLE,
-    background_room = "BeachSandHome",
-    colour = { r = 1, g = 1, b = 0, a = 1 }
-})
+-- AddTask("HomeIsland_start", {
+--     locks = { LOCKS.HARD },
+--     keys_given = { KEYS.HARD },
+--     region_id = "shipwrecked",
+--     room_choices = {
+--         ["JungleDenseMedHome"] = 2,
+--         ["BeachUnkept"] = 1,
+--         ["Shipwrecked start"] = 1,
+--     },
+--     room_bg = GROUND.JUNGLE,
+--     background_room = "BeachSandHome",
+--     colour = { r = 1, g = 1, b = 0, a = 1 }
+-- })
 
 AddTask("HomeIsland", {
-    locks = { LOCKS.HARD },
+    locks = { LOCKS.NONE },
     keys_given = { KEYS.HARD },
     region_id = "shipwrecked",
     room_choices = {
-        ["JungleDenseMedHome"] = 1,
-        [salasjungle[math.random(1, 24)]] = 1,
-        ["BeachUnkept"] = 1,
-        ["BeachPalmCasino"] = 1,
-        [salasbeach[math.random(1, 24)]] = 1,
+        ["JungleDenseMedHome"] = 4,
+        ["BeachUnkept"] = 2,
     },
     room_bg = GROUND.JUNGLE,
     background_room = "BeachSandHome",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 1, g = 1, b = 0, a = 1 }
 })
 
@@ -35,10 +39,19 @@ AddTask("Casino", {
     room_choices = {
         ["BeachPalmCasino"] = 1,
         [salasbeach[math.random(1, 24)]] = 1,
+        [salasbeach[math.random(1, 24)]] = 1,
     },
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.BEACH,
     background_room = salasbeach[math.random(1, 24)],
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
+
     colour = { 1, .5, .5, .2 },
 })
 
@@ -53,6 +66,13 @@ AddTask("A_BLANK1", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.IMPASSABLE,
     background_room = "ForceDisconnectedRoom",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -68,6 +88,13 @@ AddTask("RockyGold", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.MAGMAFIELD,
     background_room = "Magma",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -82,6 +109,13 @@ AddTask("A_BLANK7", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.IMPASSABLE,
     background_room = "ForceDisconnectedRoom",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -98,6 +132,13 @@ AddTask("BoreKing", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
     background_room = "JungleDenseMed",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -112,6 +153,13 @@ AddTask("RockyTallJungle", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.MAGMAFIELD,
     background_room = "BeachDunes",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -127,6 +175,13 @@ AddTask("A_BLANK2", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.IMPASSABLE,
     background_room = "ForceDisconnectedRoom",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -142,6 +197,13 @@ AddTask("BeachSkull", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
     background_room = salasjungle[math.random(1, 24)],
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -156,6 +218,13 @@ AddTask("A_BLANK8", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.IMPASSABLE,
     background_room = "ForceDisconnectedRoom",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -171,6 +240,13 @@ AddTask("MagmaJungle", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
     background_room = "JungleDense",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -189,10 +265,17 @@ AddTask("Volcano ground", {
         ["VolcanoNoise"] = 2,
 
     },
-    entrance_room = "VolcanoNoise",
+    entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.VOLCANO,
     background_room = "VolcanoNoise",
     crosslink_factor = 5,
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -261,6 +344,13 @@ AddTask("A_BLANK3", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.IMPASSABLE,
     background_room = "ForceDisconnectedRoom",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -277,6 +367,13 @@ AddTask("JungleMarshy", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
     background_room = "BeachSand",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -291,6 +388,13 @@ AddTask("A_BLANK9", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.IMPASSABLE,
     background_room = "ForceDisconnectedRoom",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -306,6 +410,13 @@ AddTask("JungleBushy", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
     background_room = "BeachUnkept",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -322,6 +433,13 @@ AddTask("JungleBeachy", {
     room_bg = GROUND.JUNGLE,
     background_room = "BeachSand",
     "BeachUnkept",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -337,6 +455,13 @@ AddTask("A_BLANK4", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.IMPASSABLE,
     background_room = "ForceDisconnectedRoom",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -353,6 +478,13 @@ AddTask("JungleMonkey", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
     background_room = "TidalMarsh",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -367,6 +499,13 @@ AddTask("A_BLANK10", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.IMPASSABLE,
     background_room = "ForceDisconnectedRoom",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -384,6 +523,13 @@ AddTask("BeachMarshy", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.BEACH,
     background_room = "BeachUnkept",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -400,6 +546,13 @@ AddTask("MoonRocky", {
     room_bg = GROUND.BEACH,
     background_room = "MagmaGold",
     "MagmaHomeBoon",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -416,6 +569,13 @@ AddTask("A_BLANK5", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.IMPASSABLE,
     background_room = "ForceDisconnectedRoom",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -426,11 +586,17 @@ AddTask("TigerSharky", {
     room_choices = {
         -- ["JungleNoBerry"] = 1,
         ["TidalSharkHome"] = 1,
-        ["JungleNoBerry"] = 1,
+        ["ForceDisconnectedRoom"] = 1,
     },
-    entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
-    background_room = "JungleRockyDrop",
+
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -445,6 +611,13 @@ AddTask("A_BLANK11", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.IMPASSABLE,
     background_room = "ForceDisconnectedRoom",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -461,6 +634,13 @@ AddTask("Verdent", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.MEADOW,
     background_room = "MeadowFlowery",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -478,6 +658,13 @@ AddTask("BeachBeachy", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.BEACH,
     background_room = "BeachSand",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -493,6 +680,13 @@ AddTask("A_BLANK6", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.IMPASSABLE,
     background_room = "ForceDisconnectedRoom",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -508,6 +702,13 @@ AddTask("BeachPiggy", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
     background_room = "JungleDenseMed",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -522,6 +723,13 @@ AddTask("A_BLANK12", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.IMPASSABLE,
     background_room = "ForceDisconnectedRoom",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -537,6 +745,13 @@ AddTask("DoyDoyM", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
     background_room = "Jungle",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })
 
@@ -552,5 +767,12 @@ AddTask("DoyDoyF", {
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
     background_room = "Jungle",
+    --------------------------------
+    entrance_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoom",
+    cove_room_name = "ForceDisconnectedRoom",
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    ----------------------------------
     colour = { 1, .5, .5, .2 },
 })

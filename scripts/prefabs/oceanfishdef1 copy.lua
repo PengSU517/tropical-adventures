@@ -1836,7 +1836,8 @@ local SCHOOL_WEIGHTS           = {
 			oceanfish_small_81 = SCHOOL_RARE,
 			oceanfish_small_91 = SCHOOL_RARE,
 		},
-		[WORLD_TILES.OCEAN_COASTAL_SHORE] =
+
+		[WORLD_TILES.OCEAN_SHALLOW] =
 		{
 			oceanfish_small_1 = SCHOOL_UNCOMMON,
 			oceanfish_small_2 = SCHOOL_COMMON,
@@ -1850,6 +1851,27 @@ local SCHOOL_WEIGHTS           = {
 			oceanfish_small_81 = SCHOOL_RARE,
 			oceanfish_small_91 = SCHOOL_RARE,
 		},
+
+		[WORLD_TILES.OCEAN_COASTAL_SHORE] =
+		{
+
+		},
+
+		[WORLD_TILES.OCEAN_SHALLOW_SHORE] =
+		{
+			oceanfish_small_1 = SCHOOL_UNCOMMON,
+			oceanfish_small_2 = SCHOOL_COMMON,
+			oceanfish_small_3 = SCHOOL_RARE,
+			oceanfish_small_4 = SCHOOL_VERY_COMMON,
+			oceanfish_small_5 = SCHOOL_COMMON,
+			oceanfish_medium_1 = SCHOOL_UNCOMMON,
+
+			oceanfish_small_61 = SCHOOL_COMMON,
+			oceanfish_small_71 = SCHOOL_COMMON,
+			oceanfish_small_81 = SCHOOL_RARE,
+			oceanfish_small_91 = SCHOOL_RARE,
+		},
+
 		[WORLD_TILES.OCEAN_SWELL] =
 		{
 			oceanfish_small_61 = SCHOOL_RARE,

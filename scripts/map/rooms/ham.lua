@@ -35,29 +35,6 @@ AddRoom("Hamlet start", {
     }
 })
 
-AddRoom("Lilypond", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = WORLD_TILES.LILYPOND, --GROUND.OCEAN_COASTAL,
-    tags = { "RoadPoison", "hamlet", "ExitPiece" },
-    contents = {
-        distributepercent = .2, --.22, --.26
-        distributeprefabs =
-        {
-            watercress_planted = .05,
-            -- grasswater = .05,
-            lotus = 0.05,
-            reeds_water = .05,
-        },
-        countprefabs =
-        {
-            hippopotamoose = math.random(2, 4),
-            -- bill = math.random(1, 3),
-            lilypad = math.random(3, 4),
-
-        },
-
-    }
-})
 
 AddRoom("Rockyham", {
     colour = { r = .55, g = .75, b = .75, a = .50 },

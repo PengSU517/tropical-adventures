@@ -1,5 +1,6 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 local require = GLOBAL.require
+require("tools/table") ----一些表相关的工具函数
 
 
 GLOBAL.TA_CONFIG = {
@@ -7,26 +8,28 @@ GLOBAL.TA_CONFIG = {
     language = GetModConfigData("language"),
 
 
-    rog               = GetModConfigData("rog"),
-    shipwrecked       = GetModConfigData("shipwrecked"),
-    hamlet            = GetModConfigData("hamlet"),
+    rog         = GetModConfigData("rog"),
+    shipwrecked = GetModConfigData("shipwrecked"),
+    hamlet      = GetModConfigData("hamlet"),
 
+
+    ocean             = GetModConfigData("ocean"),
     multiplayerportal = GetModConfigData("startlocation"),
     startlocation     = GetModConfigData("startlocation"),
     worldsize         = GetModConfigData("worldsize"),
     coastline         = GetModConfigData("coastline"),
     layout            = true, --  GetModConfigData("layout"),
-    testmode          = GetModConfigData("testmode"),
 
-    springflood       = false, ---GetModConfigData("flood"),
-    wind              = GetModConfigData("wind"),
-    waves             = GetModConfigData("waves"),
-    hail              = GetModConfigData("hail"),
-    volcaniceruption  = false, ------GetModConfigData("volcaniceruption"),
 
-    fog               = GetModConfigData("fog"),
-    hayfever          = GetModConfigData("hayfever"),
-    aporkalypse       = GetModConfigData("aporkalypse"),
+    springflood      = false, ---GetModConfigData("flood"),
+    wind             = GetModConfigData("wind"),
+    waves            = GetModConfigData("waves"),
+    hail             = GetModConfigData("hail"),
+    volcaniceruption = false, ------GetModConfigData("volcaniceruption"),
+
+    fog              = GetModConfigData("fog"),
+    hayfever         = GetModConfigData("hayfever"),
+    aporkalypse      = GetModConfigData("aporkalypse"),
     -- tropicalshards    = false, ----GetModConfigData("tropicalshards"),  ------------删掉所有用到的地方
     -- removedark        = false, ----GetModConfigData("removedark"),-----------只在underwater用到
     -- hamworld          = false, ----GetModConfigData("kindofworld"),  没用上
@@ -41,7 +44,10 @@ GLOBAL.TA_CONFIG = {
     disembarkation = false, -----GetModConfigData("automatic_disembarkation"),------------自动离开船
     bosslife       = 1,     --------GetModConfigData("bosslife"),
 
-    prefabname     = GetModConfigData("prefabname"),
+
+    testmode   = GetModConfigData("testmode"),
+    prefabname = GetModConfigData("prefabname"),
+    seafork    = GetModConfigData("seafork"),
 }
 
 TA_CONFIG.sw_start = TA_CONFIG.shipwrecked and (TA_CONFIG.multiplayerportal == "shipwrecked")
@@ -53,8 +59,8 @@ TA_CONFIG.together = not ((not TA_CONFIG.rog) and TA_CONFIG.together_not_mainlan
 GLOBAL.TUNING.tropical = GLOBAL.TA_CONFIG -------------复制一份方便调用--------------
 
 
+modimport("main/tiledefs") ------------缺少行走的声音
 
--- require("globalfuncs")
 require("constants")
 require("map/rooms")
 require("map/tasks")
@@ -62,9 +68,13 @@ require("map/tro_lockandkey")
 require("map/ocean_gen_new") ----防止新的水面地皮被覆盖
 
 
-modimport("main/tiledefs") ------------缺少行走的声音
-modimport("main/node")
--- modimport("main/forest_map_postinit") ----防止世界生成难产，但可能会缺失重要地形
+
+-- modimport("scripts/tools/util") --------很多参数还没调整
+modimport("scripts/tools/spawnutil")
+
+
+modimport("main/node")                ------------防止清空水上内容
+modimport("main/forest_map_postinit") ----防止世界生成难产，但可能会缺失重要地形
 
 ----------新内容
 modimport("scripts/init_static_layouts") --add new static layouts
@@ -84,7 +94,7 @@ modimport("postinit/map/tasks")
 
 
 local troadj = TA_CONFIG
--------------------------调整地图大小和海岸线--------------------------
+-------------------------调整地图大小和海岸线-------但是用的方法有些暴力-------------------
 
 if GLOBAL.rawget(GLOBAL, "WorldSim") then
     local idx = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
@@ -94,7 +104,7 @@ if GLOBAL.rawget(GLOBAL, "WorldSim") then
         --450是默认边长 --地图太小可能生成不了世界
         local multi = (troadj.together and 1 or 0) + (troadj.shipwrecked and 0.5 or 0) + (troadj.hamlet and 0.5 or 0)
         size = math.max(math.ceil(math.sqrt((size ^ 2) * multi)), 400)
-        if troadj.testmode then size = 150 end
+        if troadj.testmode then size = 250 end
 
         TUNING.WORLD_SIZE_ADJ = size
 
@@ -119,7 +129,6 @@ end
 
 ---------------------联机大陆调整--------------------------
 if troadj.together == false then
-    -- modimport("main/forest_map_postinit") ----防止世界生成难产，但可能会缺失重要地形 这里还需要优化
     AddLevelPreInitAny(function(level)
         if level.location == "cave" then
             level.overrides.keep_disconnected_tiles = true
@@ -233,7 +242,6 @@ if troadj.shipwrecked then
             table.insert(level.tasks, "BeachPiggy")      --猪人沙滩
             table.insert(level.tasks, "DoyDoyM")         ---doydoyM
             table.insert(level.tasks, "DoyDoyF")         ---doydoyF
-
             table.insert(level.tasks, "Volcano ground")  --火山  ["VolcanoAsh"] = 1,       ["Volcano"] = 1,    ["VolcanoObsidian"] = 1,
 
             table.insert(level.tasks, "A_BLANK1")
@@ -249,15 +257,21 @@ if troadj.shipwrecked then
             table.insert(level.tasks, "A_BLANK11")
             table.insert(level.tasks, "A_BLANK12")
 
-            level.ocean_prefill_setpieces["coralpool1"] = 3
-            level.ocean_prefill_setpieces["coralpool2"] = 3
-            level.ocean_prefill_setpieces["coralpool3"] = 2
-            level.ocean_prefill_setpieces["octopuskinghome"] = 1
-            level.ocean_prefill_setpieces["mangrove1"] = 2
-            level.ocean_prefill_setpieces["mangrove2"] = 1
-            level.ocean_prefill_setpieces["wreck"] = 1
-            level.ocean_prefill_setpieces["wreck2"] = 1
-            level.ocean_prefill_setpieces["kraken"] = 1
+            table.insert(level.ocean_population, "OceanBrinepool")
+
+            -- if not level.ocean_prefill_setpieces then
+            --     level.ocean_prefill_setpieces = {}
+            -- end
+
+            -- level.ocean_prefill_setpieces["coralpool1"] = 3
+            -- level.ocean_prefill_setpieces["coralpool2"] = 3
+            -- level.ocean_prefill_setpieces["coralpool3"] = 2
+            -- level.ocean_prefill_setpieces["octopuskinghome"] = 1
+            -- level.ocean_prefill_setpieces["mangrove1"] = 2
+            -- level.ocean_prefill_setpieces["mangrove2"] = 1
+            -- level.ocean_prefill_setpieces["wreck"] = 1
+            -- level.ocean_prefill_setpieces["wreck2"] = 1
+            -- level.ocean_prefill_setpieces["kraken"] = 1
         elseif level.location == "cave" then
             table.insert(level.tasks, "Volcano entrance")
             table.insert(level.tasks, "Volcano")
@@ -369,7 +383,7 @@ if troadj.together then
             level.numrandom_set_pieces = 0
 
             ----------泰拉瑞亚
-            -- level.overrides.terrariumchest = "never"
+            level.overrides.terrariumchest = "never"
             local terra = {
                 [1] = "Terrarium_Forest_Spiders",
                 [2] = "Terrarium_Forest_Pigs",
@@ -378,17 +392,21 @@ if troadj.together then
             level.set_pieces[terra[math.random(1, 3)]] = { count = 1, tasks = taskrog }
 
             ---------舞台剧
-            -- level.overrides.stageplays = "never"
+            level.overrides.stageplays = "never"
             level.set_pieces["Charlie1"] = { count = 1, tasks = taskrog }
             level.set_pieces["Charlie2"] = { count = 1, tasks = taskrog }
         end
     end)
 end
 
------------海上布景---------------
+-----------海上布景---------------会显著加快地形生成
 if true then
     AddLevelPreInitAny(function(level)
         if level.location == "forest" then
+            if not level.ocean_prefill_setpieces then
+                level.ocean_prefill_setpieces = {}
+            end
+
             level.ocean_prefill_setpieces["MonkeyIsland"] = 1
             level.ocean_prefill_setpieces["HermitcrabIsland"] = 1
             level.ocean_prefill_setpieces["CrabKing"] = 1
@@ -407,7 +425,40 @@ if true then
 end
 
 
+------------------------热带海域----------------------------
+-- if troadj.ocean == "tropical" then
+--     require("map/ocean_gen_tropical")
+--     AddLevelPreInitAny(function(level)
+--         if level.location == "forest" then
+--             TABLE.insert(level.ocean_population, {
+--                 "WaterShallowShore",
+--                 "WaterShallow",
+--                 "WaterMedium",
+--                 "WaterDeep",
+--                 "WaterCoral",
+--                 "WaterShipGraveyard",
+--             })
 
+--             TABLE.remove(level.ocean_population, {
+--                 "OceanCoastalShore",
+--                 "OceanCoastal",
+--                 "OceanSwell",
+--                 "OceanRough",
+--                 "OceanHazardous",
+--             })
+--         end
+--     end)
+-- elseif troadj.ocean == "default" then
+--     AddLevelPreInitAny(function(level)
+--         if level.location == "forest" then
+--             TABLE.insert(level.ocean_population, {
+--                 "OceanBrinepool",
+--             })
+--         end
+--     end)
+-- end
+
+---------------------测试模式------------
 if troadj.testmode then
     AddLevelPreInitAny(function(level)
         if level.location == "cave" then
@@ -461,8 +512,8 @@ if troadj.testmode then
             level.ordered_story_setpieces = {}
             level.numrandom_set_pieces = 0
 
-            level.ocean_population = nil       --海洋生态 礁石 海带之类的 还有奶奶岛,帝王蟹和猴岛
-            level.ocean_prefill_setpieces = {} -- 巨树和盐矿的layout
+            -- level.ocean_population = nil       --海洋生态 礁石 海带之类的 还有奶奶岛,帝王蟹和猴岛
+            -- level.ocean_prefill_setpieces = {} -- 巨树和盐矿的layout
 
             level.overrides.keep_disconnected_tiles = true
             level.overrides.roads = "never"
