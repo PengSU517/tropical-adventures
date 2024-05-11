@@ -20,9 +20,11 @@ AddComponentPostInit("playerspawner", function(self)
                 startitem = "sea2land_fork"
             end
 
-            local item = SpawnPrefab(startitem)
-            if item then
-                player.components.inventory:GiveItem(item)
+            if startitem then
+                local item = SpawnPrefab(startitem)
+                if item then
+                    player.components.inventory:GiveItem(item)
+                end
             end
 
             ---------莫名其妙不能用

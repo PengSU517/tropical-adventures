@@ -176,16 +176,32 @@ if CLIENT_SIDE then
         end
 
         local turf_options = {
+
+
+
+            { text = '珊瑚海', data = GROUND.OCEAN_CORAL },
+            { text = '红树林', data = GROUND.MANGROVE },
+            { text = '热带海岸', data = GROUND.OCEAN_SHALLOW_SHORE },
+
+            { text = '热带中海', data = GROUND.OCEAN_MEDIUM },
+            { text = '热带深海', data = GROUND.OCEAN_DEEP },
+            { text = '船墓', data = GROUND.OCEAN_SHIPGRAVEYARD },
+
             { text = '虚空', data = GROUND.IMPASSABLE },
             { text = '海岸', data = GROUND.OCEAN_COASTAL_SHORE },
             { text = '浅海', data = GROUND.OCEAN_COASTAL },
+
+            { text = '莲花池', data = GROUND.LILYPOND },
+
+            { text = '热带浅海', data = GROUND.OCEAN_SHALLOW },
+
             { text = '中海', data = GROUND.OCEAN_SWELL },
             { text = '深海', data = GROUND.OCEAN_ROUGH },
             { text = '盐矿海', data = GROUND.OCEAN_BRINEPOOL },
             { text = '盐矿海岸', data = GROUND.OCEAN_BRINEPOOL_SHORE },
             { text = '危险海域', data = GROUND.OCEAN_HAZARDOUS },
             { text = '水中木海', data = GROUND.OCEAN_WATERLOG },
-            { text = '莲花池', data = GROUND.LILYPOND },
+
         }
         self.sea2land_spinner = self.root:AddChild(TEMPLATES.LabelSpinner(
             '地皮', turf_options, 50, 180, 50, 0, BODYTEXTFONT, 40, 0, function(selected)
