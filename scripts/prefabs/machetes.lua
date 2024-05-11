@@ -303,7 +303,7 @@ end
 
 local function PercentChanged(inst)
 	local owner = inst.components.inventoryitem ~= nil and inst.components.inventoryitem.owner or nil
-	if owner ~= nil and owner.sg:HasStateTag("prechop") then
+	if owner ~= nil and owner.sg and owner.sg:HasStateTag("prechop") then
 		inst.components.obsidiantool:Use(owner, owner.bufferedaction.target)
 	end
 end
