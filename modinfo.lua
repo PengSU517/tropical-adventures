@@ -40,7 +40,7 @@ end
 name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
 
 author = "Peng"
-version = "7.05"
+version = "7.06"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -59,6 +59,10 @@ QQ 群：469668062
 local updateen = [[
 
 Update:
+
+Update tropical (shipwrecked) ocean
+
+Last Update:
 1.guess fixed a bug. fix some trivial bugs
 
 Last Update:
@@ -87,6 +91,10 @@ Last Update:
 
 local updatech = [[
 更新：
+
+更新了热带（船难）海域
+
+上次更新：
 1. 似乎修了个bug,加上一点细碎bug
 
 上次更新：
