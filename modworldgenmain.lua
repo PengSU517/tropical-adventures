@@ -426,37 +426,37 @@ end
 
 
 ------------------------热带海域----------------------------
--- if troadj.ocean == "tropical" then
---     require("map/ocean_gen_tropical")
---     AddLevelPreInitAny(function(level)
---         if level.location == "forest" then
---             TABLE.insert(level.ocean_population, {
---                 "WaterShallowShore",
---                 "WaterShallow",
---                 "WaterMedium",
---                 "WaterDeep",
---                 "WaterCoral",
---                 "WaterShipGraveyard",
---             })
+if troadj.ocean == "tropical" then
+    require("map/ocean_gen_tropical")
+    AddLevelPreInitAny(function(level)
+        if level.location == "forest" then
+            TABLE.insert(level.ocean_population, {
+                "WaterShallowShore",
+                "WaterShallow",
+                "WaterMedium",
+                "WaterDeep",
+                "WaterCoral",
+                "WaterShipGraveyard",
+            })
 
---             TABLE.remove(level.ocean_population, {
---                 "OceanCoastalShore",
---                 "OceanCoastal",
---                 "OceanSwell",
---                 "OceanRough",
---                 "OceanHazardous",
---             })
---         end
---     end)
--- elseif troadj.ocean == "default" then
---     AddLevelPreInitAny(function(level)
---         if level.location == "forest" then
---             TABLE.insert(level.ocean_population, {
---                 "OceanBrinepool",
---             })
---         end
---     end)
--- end
+            TABLE.remove(level.ocean_population, {
+                "OceanCoastalShore",
+                "OceanCoastal",
+                "OceanSwell",
+                "OceanRough",
+                "OceanHazardous",
+            })
+        end
+    end)
+elseif troadj.ocean == "default" then
+    AddLevelPreInitAny(function(level)
+        if level.location == "forest" then
+            TABLE.insert(level.ocean_population, {
+                "OceanBrinepool",
+            })
+        end
+    end)
+end
 
 ---------------------测试模式------------
 if troadj.testmode then
