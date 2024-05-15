@@ -1,6 +1,6 @@
 AddPrefabPostInit("forest", function(inst)
-    if GLOBAL.TheWorld.ismastersim then --------------这是检测服务器还是客户端
-        -- inst:AddComponent("parrotspawner") ----不是有birdspawner了吗 -----这个东西很复杂
+    if GLOBAL.TheWorld.ismastersim then    --------------这是检测服务器还是客户端
+        inst:AddComponent("parrotspawner") ----不是有birdspawner了吗 -----这个东西很复杂--海浪在这里
         inst:AddComponent("economy")
         inst:AddComponent("contador")
 
@@ -18,7 +18,11 @@ AddPrefabPostInit("forest", function(inst)
 end)
 
 AddPrefabPostInit("cave", function(inst)
-    -- inst:AddComponent("economy")
-    -- inst:AddComponent("contador")
-    inst:AddComponent("aporkalypse")
+    if GLOBAL.TheWorld.ismastersim then
+        -- inst:AddComponent("economy")
+        -- inst:AddComponent("contador")
+        if TUNING.tropical.aporkalypse then
+            inst:AddComponent("aporkalypse")
+        end
+    end
 end)

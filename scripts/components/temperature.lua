@@ -325,7 +325,7 @@ function Temperature:OnUpdate(dt, applyhealthdelta)
 	end
 	end
 ]]
-    ------------------------------------------frost------------------------------------------------------------	
+    ----------------------------------------frost------------------------------------------------------------	
     if TheWorld.state.iswinter and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("tropical") or
         TheWorld.state.iswinter and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("hamlet") then
         ambient_temperature = TheWorld.state.temperature + 40

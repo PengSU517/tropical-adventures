@@ -10,7 +10,7 @@ local warrior_assets =
 {
     Asset("ANIM", "anim/ds_spider_basic.zip"),
     Asset("ANIM", "anim/ds_spider_warrior.zip"),
-	Asset("ANIM", "anim/spider_tropical_build.zip"),
+    Asset("ANIM", "anim/spider_tropical_build.zip"),
     Asset("ANIM", "anim/spider_warrior_build.zip"),
     Asset("SOUND", "sound/spider.fsb"),
 }
@@ -22,24 +22,23 @@ local prefabs =
     "silk",
     "spider_web_spit",
     "moonspider_spike",
-    
+
     "spider_mutate_fx",
     "spider_heal_fx",
     "spider_heal_target_fx",
-    "spider_heal_ground_fx"	
+    "spider_heal_ground_fx"
 }
 
 local brain = require "brains/spiderbrain"
 
 local function ShouldAcceptItem(inst, item, giver)
-
     local in_inventory = inst.components.inventoryitem.owner ~= nil
     if in_inventory and not inst.components.eater:CanEat(item) then
         return false, "SPIDERNOHAT"
     end
 
     return (giver:HasTag("spiderwhisperer") and inst.components.eater:CanEat(item)) or
-           (item.components.equippable ~= nil and item.components.equippable.equipslot == EQUIPSLOTS.HEAD)
+        (item.components.equippable ~= nil and item.components.equippable.equipslot == EQUIPSLOTS.HEAD)
 end
 
 local SPIDER_TAGS = { "spider" }
@@ -47,7 +46,7 @@ local SPIDER_IGNORE_TAGS = { "FX", "NOCLICK", "DECOR", "INLIMBO" }
 local function GetOtherSpiders(inst, radius, tags)
     tags = tags or SPIDER_TAGS
     local x, y, z = inst.Transform:GetWorldPosition()
-    
+
     local spiders = TheSim:FindEntities(x, y, z, radius, nil, SPIDER_IGNORE_TAGS, tags)
     local valid_spiders = {}
 
@@ -61,7 +60,6 @@ local function GetOtherSpiders(inst, radius, tags)
 end
 
 local function OnGetItemFromPlayer(inst, giver, item)
-
     if inst.components.eater:CanEat(item) then
         inst.components.eater:Eat(item)
 
@@ -76,7 +74,6 @@ local function OnGetItemFromPlayer(inst, giver, item)
             inst.components.combat:SetTarget(nil)
         elseif giver.components.leader ~= nil and
             inst.components.follower ~= nil then
-            
             if giver.components.minigame_participator == nil then
                 giver:PushEvent("makefriend")
                 giver.components.leader:AddFollower(inst)
@@ -112,7 +109,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
 
                     if effectdone then
                         maxSpiders = maxSpiders - 1
-    
+
                         if v.components.sleeper:IsAsleep() then
                             v.components.sleeper:WakeUp()
                         end
@@ -120,7 +117,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
                 end
             end
         end
-    -- I also wear hats
+        -- I also wear hats
     elseif item.components.equippable ~= nil and item.components.equippable.equipslot == EQUIPSLOTS.HEAD then
         local current = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
         if current ~= nil then
@@ -141,9 +138,8 @@ end
 local function HasFriendlyLeader(inst, target)
     local leader = inst.components.follower.leader
     local target_leader = (target.components.follower ~= nil) and target.components.follower.leader or nil
-    
-    if leader ~= nil and target_leader ~= nil then
 
+    if leader ~= nil and target_leader ~= nil then
         if target_leader.components.inventoryitem then
             target_leader = target_leader.components.inventoryitem:GetGrandOwner()
             -- Don't attack followers if their follow object has no owner
@@ -153,14 +149,13 @@ local function HasFriendlyLeader(inst, target)
         end
 
         local PVP_enabled = TheNet:GetPVPEnabled()
-        return leader == target or (target_leader ~= nil 
-                and (target_leader == leader or (target_leader:HasTag("player") 
-                and not PVP_enabled))) or
-                (target.components.domesticatable and target.components.domesticatable:IsDomesticated() 
+        return leader == target or (target_leader ~= nil
+                and (target_leader == leader or (target_leader:HasTag("player")
+                    and not PVP_enabled))) or
+            (target.components.domesticatable and target.components.domesticatable:IsDomesticated()
                 and not PVP_enabled) or
-                (target.components.saltlicker and target.components.saltlicker.salted
+            (target.components.saltlicker and target.components.saltlicker.salted
                 and not PVP_enabled)
-    
     elseif target_leader ~= nil and target_leader.components.inventoryitem then
         -- Don't attack webber's chester
         target_leader = target_leader.components.inventoryitem:GetGrandOwner()
@@ -191,24 +186,26 @@ local function FindTarget(inst, radius)
 end
 
 local function NormalRetarget(inst)
-local player = GetClosestInstWithTag("player", inst, 70)
-if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(player) end
-    return FindTarget(inst, inst.components.knownlocations:GetLocation("investigate") ~= nil and TUNING.SPIDER_INVESTIGATETARGET_DIST or TUNING.SPIDER_TARGET_DIST)
+    local player = GetClosestInstWithTag("player", inst, 70)
+    if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(player) end
+    return FindTarget(inst,
+        inst.components.knownlocations:GetLocation("investigate") ~= nil and TUNING.SPIDER_INVESTIGATETARGET_DIST or
+        TUNING.SPIDER_TARGET_DIST)
 end
 
 local function WarriorRetarget(inst)
-local player = GetClosestInstWithTag("player", inst, 70)
-if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(player) end
+    local player = GetClosestInstWithTag("player", inst, 70)
+    if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(player) end
     return FindTarget(inst, TUNING.SPIDER_WARRIOR_TARGET_DIST)
 end
 
 local function keeptargetfn(inst, target)
-   return target ~= nil
+    return target ~= nil
         and target.components.combat ~= nil
         and target.components.health ~= nil
         and not target.components.health:IsDead()
         and not (inst.components.follower ~= nil and
-                (inst.components.follower.leader == target or inst.components.follower:IsLeaderSame(target)))
+            (inst.components.follower.leader == target or inst.components.follower:IsLeaderSame(target)))
 end
 
 local function BasicWakeCheck(inst)
@@ -222,7 +219,7 @@ local function BasicWakeCheck(inst)
 end
 
 local function ShouldSleep(inst)
-if inst:HasTag("Arena") then return false end
+    if inst:HasTag("Arena") then return false end
     return TheWorld.state.iscaveday and not BasicWakeCheck(inst)
 end
 
@@ -258,11 +255,11 @@ local function OnEntitySleep(inst)
 end
 
 
-local SPIDERDEN_TAGS = {"spiderden"}
+local SPIDERDEN_TAGS = { "spiderden" }
 local function SummonFriends(inst, attacker)
-    local radius = (inst.prefab == "spider" or inst.prefab == "spider_warrior") and 
-                    SpringCombatMod(TUNING.SPIDER_SUMMON_WARRIORS_RADIUS) or
-                    TUNING.SPIDER_SUMMON_WARRIORS_RADIUS
+    local radius = (inst.prefab == "spider" or inst.prefab == "spider_warrior") and
+        SpringCombatMod(TUNING.SPIDER_SUMMON_WARRIORS_RADIUS) or
+        TUNING.SPIDER_SUMMON_WARRIORS_RADIUS
 
     local den = GetClosestInstWithTag(SPIDERDEN_TAGS, inst, radius)
 
@@ -294,7 +291,7 @@ end
 
 local function SetHappyFace(inst, is_happy)
     if is_happy then
-        inst.AnimState:OverrideSymbol("face", "spider_warrior_build", "happy_face")    
+        inst.AnimState:OverrideSymbol("face", "spider_warrior_build", "happy_face")
     else
         inst.AnimState:ClearOverrideSymbol("face")
     end
@@ -347,11 +344,11 @@ local function OnWakeUp(inst)
 end
 
 local function CalcSanityAura(inst, observer)
-    if observer:HasTag("spiderwhisperer") or inst.bedazzled or 
-    (inst.components.follower.leader ~= nil and inst.components.follower.leader:HasTag("spiderwhisperer")) then
+    if observer:HasTag("spiderwhisperer") or inst.bedazzled or
+        (inst.components.follower.leader ~= nil and inst.components.follower.leader:HasTag("spiderwhisperer")) then
         return 0
     end
-    
+
     return inst.components.sanityaura.aura
 end
 
@@ -370,9 +367,25 @@ local function OnPickup(inst)
     inst:PushEvent("detachchild")
 end
 
+local function SoundPath(inst, event)
+    local creature = "spider"
+    if inst:HasTag("spider_healer") then
+        return "webber1/creatures/spider_cannonfodder/" .. event
+    elseif inst:HasTag("spider_moon") then
+        return "turnoftides/creatures/together/spider_moon/" .. event
+    elseif inst:HasTag("spider_warrior") then
+        creature = "spiderwarrior"
+    elseif inst:HasTag("spider_hider") or inst:HasTag("spider_spitter") then
+        creature = "cavespider"
+    else
+        creature = "spider"
+    end
+    return "dontstarve/creatures/" .. creature .. "/" .. event
+end
+
 local function create_common(build, tag)
     local inst = CreateEntity()
-    
+
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
@@ -392,8 +405,8 @@ local function create_common(build, tag)
     inst:AddTag("smallcreature")
     inst:AddTag("spider")
     inst:AddTag("drop_inventory_pickup")
-    inst:AddTag("drop_inventory_murder")	
-	
+    inst:AddTag("drop_inventory_murder")
+
     if tag ~= nil then
         inst:AddTag(tag)
     end
@@ -404,7 +417,7 @@ local function create_common(build, tag)
     inst.AnimState:SetBank("spider")
     inst.AnimState:SetBuild(build)
     inst.AnimState:PlayAnimation("idle")
-	
+
     MakeFeedableSmallLivestockPristine(inst)
 
     inst.entity:SetPristine()
@@ -418,14 +431,14 @@ local function create_common(build, tag)
 
     -- locomotor must be constructed before the stategraph!
     inst:AddComponent("locomotor")
-    inst.components.locomotor:SetSlowMultiplier( 1 )
+    inst.components.locomotor:SetSlowMultiplier(1)
     inst.components.locomotor:SetTriggersCreep(false)
     inst.components.locomotor.pathcaps = { ignorecreep = true }
     -- boat hopping setup
     inst.components.locomotor:SetAllowPlatformHopping(true)
-    
+
     inst:AddComponent("embarker")
-    inst:AddComponent("drownable")	
+    inst:AddComponent("drownable")
 
     inst:SetStateGraph("SGspider")
 
@@ -435,12 +448,12 @@ local function create_common(build, tag)
     inst.components.lootdropper:AddRandomLoot("spidergland", .5)
     inst.components.lootdropper:AddRandomHauntedLoot("spidergland", 1)
     inst.components.lootdropper.numrandomloot = 1
-	
-    ---------------------        
+
+    ---------------------
     MakeMediumBurnableCharacter(inst, "body")
     MakeMediumFreezableCharacter(inst, "body")
     inst.components.burnable.flammability = TUNING.SPIDER_FLAMMABILITY
-    ---------------------       
+    ---------------------
 
     inst:AddComponent("health")
     inst:AddComponent("combat")
@@ -454,7 +467,7 @@ local function create_common(build, tag)
     ------------------
 
     inst:AddComponent("sleeper")
-    inst.components.sleeper.watchlight = true	
+    inst.components.sleeper.watchlight = true
     inst.components.sleeper:SetResistance(2)
     inst.components.sleeper:SetSleepTest(ShouldSleep)
     inst.components.sleeper:SetWakeTest(ShouldWake)
@@ -468,7 +481,7 @@ local function create_common(build, tag)
     inst.components.eater:SetDiet({ FOODTYPE.MEAT }, { FOODTYPE.MEAT })
     inst.components.eater:SetCanEatHorrible()
     inst.components.eater:SetStrongStomach(true) -- can eat monster meat!
-	inst.components.eater:SetCanEatRawMeat(true)
+    inst.components.eater:SetCanEatRawMeat(true)
 
     ------------------
 
@@ -499,29 +512,34 @@ local function create_common(build, tag)
     ------------------
     inst:AddComponent("debuffable")
     ------------------
-    
+
     MakeFeedableSmallLivestock(inst, TUNING.SPIDER_PERISH_TIME)
     MakeHauntablePanic(inst)
 
     inst:SetBrain(brain)
 
     inst:ListenForEvent("attacked", OnAttacked)
-    
+
     inst:ListenForEvent("startleashing", OnStartLeashing)
     inst:ListenForEvent("stopleashing", OnStopLeashing)
-    
+
     inst:ListenForEvent("ontrapped", OnTrapped)
     inst:ListenForEvent("oneat", OnEat)
-	
-    inst:ListenForEvent("ondropped", OnDropped)	
+
+    inst:ListenForEvent("ondropped", OnDropped)
 
     inst:ListenForEvent("gotosleep", OnGoToSleep)
     inst:ListenForEvent("onwakeup", OnWakeUp)
-	
-    inst:ListenForEvent("onpickup", OnPickup)	
+
+    inst:ListenForEvent("onpickup", OnPickup)
 
     inst:WatchWorldState("iscaveday", OnIsCaveDay)
     OnIsCaveDay(inst, TheWorld.state.iscaveday)
+
+    inst.SoundPath = SoundPath
+
+    -- inst:SetIncineratedSound(SoundPath(inst, "die"))
+    inst.incineratesound = SoundPath(inst, "die")
 
     inst.build = build
     inst.SetHappyFace = SetHappyFace
@@ -546,7 +564,7 @@ local function create_spider()
     inst.components.locomotor.runspeed = TUNING.SPIDER_RUN_SPEED
 
     inst.components.sanityaura.aura = -TUNING.SANITYAURA_SMALL
-	
+
     inst:AddComponent("halloweenmoonmutable")
     inst.components.halloweenmoonmutable:SetPrefabMutated("spider_moon")
     inst.components.halloweenmoonmutable:SetOnMutateFn(HalloweenMoonMutate)
@@ -572,10 +590,10 @@ local function create_warrior()
     inst.components.locomotor.runspeed = TUNING.SPIDER_WARRIOR_RUN_SPEED
 
     inst.components.sanityaura.aura = -TUNING.SANITYAURA_MED
-	
+
     inst:AddComponent("halloweenmoonmutable")
     inst.components.halloweenmoonmutable:SetPrefabMutated("spider_moon")
-    inst.components.halloweenmoonmutable:SetOnMutateFn(HalloweenMoonMutate)	
+    inst.components.halloweenmoonmutable:SetOnMutateFn(HalloweenMoonMutate)
 
     inst.recipe = "mutator_warrior"
 
@@ -589,8 +607,8 @@ local function create_tropical()
         return inst
     end
 
-	inst:AddComponent("poisonous")
-		
+    inst:AddComponent("poisonous")
+
     inst.components.health:SetMaxHealth(TUNING.SPIDER_WARRIOR_HEALTH)
 
     inst.components.combat:SetDefaultDamage(TUNING.SPIDER_WARRIOR_DAMAGE)
@@ -602,15 +620,15 @@ local function create_tropical()
     inst.components.locomotor.runspeed = TUNING.SPIDER_WARRIOR_RUN_SPEED
 
     inst.components.sanityaura.aura = -TUNING.SANITYAURA_MED
-	
-	inst.components.lootdropper:AddRandomLoot("venomgland", 2)
-	
+
+    inst.components.lootdropper:AddRandomLoot("venomgland", 2)
+
     inst.components.inventoryitem.atlasname = "images/inventoryimages/novositens.xml"
-	inst.caminho = "images/inventoryimages/novositens.xml"	
+    inst.caminho = "images/inventoryimages/novositens.xml"
 
     inst:AddComponent("halloweenmoonmutable")
     inst.components.halloweenmoonmutable:SetPrefabMutated("spider_moon")
-    inst.components.halloweenmoonmutable:SetOnMutateFn(HalloweenMoonMutate)		
+    inst.components.halloweenmoonmutable:SetOnMutateFn(HalloweenMoonMutate)
 
     return inst
 end
@@ -618,8 +636,8 @@ end
 local function create_spiderb()
     local inst = create_common("spider_build")
 
-	inst:AddTag("Arena")
-	
+    inst:AddTag("Arena")
+
     if not TheWorld.ismastersim then
         return inst
     end
@@ -634,17 +652,17 @@ local function create_spiderb()
     inst.components.locomotor.runspeed = TUNING.SPIDER_RUN_SPEED
 
     inst.components.sanityaura.aura = -TUNING.SANITYAURA_SMALL
-	
-	inst.components.lootdropper.numrandomloot = 0
+
+    inst.components.lootdropper.numrandomloot = 0
 
     return inst
 end
 
 local function create_spiderb1()
     local inst = create_common("spider_warrior_build", "spider_warrior")
-	
-	inst:AddTag("Arena")
-	
+
+    inst:AddTag("Arena")
+
     if not TheWorld.ismastersim then
         return inst
     end
@@ -660,20 +678,20 @@ local function create_spiderb1()
     inst.components.locomotor.runspeed = TUNING.SPIDER_WARRIOR_RUN_SPEED
 
     inst.components.sanityaura.aura = -TUNING.SANITYAURA_MED
-	inst.components.lootdropper.numrandomloot = 0
+    inst.components.lootdropper.numrandomloot = 0
     return inst
 end
 
 local function create_spiderb2()
     local inst = create_common("spider_tropical_build", "spider_warrior")
-	inst:AddTag("Arena")
-	
+    inst:AddTag("Arena")
+
     if not TheWorld.ismastersim then
         return inst
     end
 
---	inst:AddComponent("poisonous")
-		
+    --	inst:AddComponent("poisonous")
+
     inst.components.health:SetMaxHealth(TUNING.SPIDER_WARRIOR_HEALTH)
 
     inst.components.combat:SetDefaultDamage(TUNING.SPIDER_WARRIOR_DAMAGE)
@@ -685,12 +703,12 @@ local function create_spiderb2()
     inst.components.locomotor.runspeed = TUNING.SPIDER_WARRIOR_RUN_SPEED
 
     inst.components.sanityaura.aura = -TUNING.SANITYAURA_MED
-	inst.components.lootdropper.numrandomloot = 0
-	
+    inst.components.lootdropper.numrandomloot = 0
+
     return inst
 end
 
-return  Prefab("spider_tropical", create_tropical,warrior_assets),
-		Prefab("spiderb", create_spiderb,assets, prefabs),
-		Prefab("spiderb1", create_spiderb1,warrior_assets, prefabs),
-		Prefab("spiderb2", create_spiderb2,warrior_assets, prefabs)
+return Prefab("spider_tropical", create_tropical, warrior_assets),
+    Prefab("spiderb", create_spiderb, assets, prefabs),
+    Prefab("spiderb1", create_spiderb1, warrior_assets, prefabs),
+    Prefab("spiderb2", create_spiderb2, warrior_assets, prefabs)

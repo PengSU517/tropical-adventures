@@ -121,7 +121,7 @@ return Class(function(self, inst)
         end
 
         ---------------------------------------------adiciona erupção -------------------------------------------------------------
-        if TUNING.tropical.volcaniceruption ~= 5 then
+        if TUNING.tropical.volcaniceruption then
             if not vulcaonojogo then
                 for k, v in pairs(Ents) do
                     if v:HasTag("vulcaomigrador") then vulcaonojogo = v end
@@ -511,7 +511,7 @@ return Class(function(self, inst)
     function self:SpawnBird(spawnpoint, player)
         local prefab = PickBird(spawnpoint)
         ----------------------------flood--------------------------------------
-        if not TUNING.tropical.springflood then
+        if TUNING.tropical.springflood then
             if (TheWorld.state.isspring and TheWorld.state.iswet and TheWorld.state.israining and math.random() > 0.80 and player and player.components.areaaware and player.components.areaaware:CurrentlyInTag("tropical")) then
                 if TheWorld.Map:IsOceanTileAtPoint(spawnpoint.x, spawnpoint.y, spawnpoint.z) then return end
                 if TheWorld.Map:IsOceanTileAtPoint(spawnpoint.x, spawnpoint.y, spawnpoint.z + 6) then return end

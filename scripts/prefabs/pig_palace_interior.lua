@@ -127,8 +127,8 @@ local function entrance()
 	inst.components.teleporter.onActivate = OnActivate
 	inst.components.teleporter.onActivateByOther = OnActivateByOther
 	inst.components.teleporter.offset = 0
-	inst.components.teleporter.travelcameratime = 0.6
-	inst.components.teleporter.travelarrivetime = 0.5
+	inst.components.teleporter.travelcameratime = 0.2
+	inst.components.teleporter.travelarrivetime = 0.1
 
 	inst:AddComponent("inventory")
 
@@ -819,7 +819,7 @@ local function entrance()
 			----------------parede---------------------------------------------
 			local part = SpawnPrefab("wallgallery")
 			if part ~= nil then
-				part.Transform:SetPosition(x - 1, 0, z)
+				part.Transform:SetPosition(x - 2, 0, z)
 				part.Transform:SetRotation(180)
 				if part.components.health ~= nil then
 					part.components.health:SetPercent(1)
@@ -1003,6 +1003,14 @@ local function entrance()
 				end
 			end
 
+			local part = SpawnPrefab("swinging_light_floral_bloomer")
+			if part ~= nil then
+				part.Transform:SetPosition(x, 3, z)
+				if part.components.health ~= nil then
+					part.components.health:SetPercent(1)
+				end
+			end
+
 			local part = SpawnPrefab("shelves_queen_display_1")
 			if part ~= nil then
 				part.Transform:SetPosition(x - 12 / 4, 0, z - 18 / 3)
@@ -1135,6 +1143,8 @@ local function entrance()
 				end
 			end
 
+
+
 			local portasulgiftshop = SpawnPrefab("giftshop_door_south")
 			if portasulgiftshop ~= nil then
 				portasulgiftshop.Transform:SetPosition(x + 10 / 2, 0, z)
@@ -1262,7 +1272,7 @@ local function entrance()
 
 			local part = SpawnPrefab("swinging_light_floral_bloomer")
 			if part ~= nil then
-				part.Transform:SetPosition(x, 0, z)
+				part.Transform:SetPosition(x, 3, z)
 				if part.components.health ~= nil then
 					part.components.health:SetPercent(1)
 				end
@@ -1616,6 +1626,8 @@ local function fnpalaceesquerda()
 	inst.components.teleporter.onActivate = OnActivate
 	inst.components.teleporter.onActivateByOther = OnActivateByOther
 	inst.components.teleporter.offset = 0
+	inst.components.teleporter.travelcameratime = 0.2
+	inst.components.teleporter.travelarrivetime = 0.1
 	inst:ListenForEvent("starttravelsound", StartTravelSound) -- triggered by player stategraph
 	inst:ListenForEvent("doneteleporting", OnDoneTeleporting)
 
@@ -1671,6 +1683,8 @@ local function fngaleriaesquerda()
 	inst.components.teleporter.onActivate = OnActivate
 	inst.components.teleporter.onActivateByOther = OnActivateByOther
 	inst.components.teleporter.offset = 0
+	inst.components.teleporter.travelcameratime = 0.2
+	inst.components.teleporter.travelarrivetime = 0.1
 	inst:ListenForEvent("starttravelsound", StartTravelSound) -- triggered by player stategraph
 	inst:ListenForEvent("doneteleporting", OnDoneTeleportinggallery)
 
@@ -1727,6 +1741,8 @@ local function fngaleriadireita()
 	inst.components.teleporter.onActivate = OnActivate
 	inst.components.teleporter.onActivateByOther = OnActivateByOther
 	inst.components.teleporter.offset = 0
+	inst.components.teleporter.travelcameratime = 0.2
+	inst.components.teleporter.travelarrivetime = 0.1
 	inst:ListenForEvent("starttravelsound", StartTravelSound) -- triggered by player stategraph
 	inst:ListenForEvent("doneteleporting", OnDoneTeleportinggallery)
 
@@ -1781,6 +1797,8 @@ local function fnshopsul()
 	inst.components.teleporter.onActivate = OnActivate
 	inst.components.teleporter.onActivateByOther = OnActivateByOther
 	inst.components.teleporter.offset = 0
+	inst.components.teleporter.travelcameratime = 0.2
+	inst.components.teleporter.travelarrivetime = 0.1
 	inst:ListenForEvent("starttravelsound", StartTravelSound) -- triggered by player stategraph
 	inst:ListenForEvent("doneteleporting", OnDoneTeleportingshop)
 
@@ -1837,6 +1855,8 @@ local function fnshopdireita()
 	inst.components.teleporter.onActivate = OnActivate
 	inst.components.teleporter.onActivateByOther = OnActivateByOther
 	inst.components.teleporter.offset = 0
+	inst.components.teleporter.travelcameratime = 0.2
+	inst.components.teleporter.travelarrivetime = 0.1
 	inst:ListenForEvent("starttravelsound", StartTravelSound) -- triggered by player stategraph
 	inst:ListenForEvent("doneteleporting", OnDoneTeleportinggalleryesquerda)
 

@@ -41,31 +41,19 @@ local function make_plantable(data)
         end
     end
 
-    local function test_ground(inst, pt)
-        --local another = GetClosestInstWithTag("deployedplant", inst, 2)
-        --if another then return false end
-        if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.MAGMAFIELD) then return true end --adicionado por vagner
-        if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.ASH) then return true end --adicionado por vagner
-        if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.VOLCANO) then return true end --adicionado por vagner
+    local function test_coffee(inst, pt)
+        local tile = TheWorld.Map:GetTileAtPoint(pt:Get())
+        if tile == WORLD_TILES.MAGMAFIELD or tile == WORLD_TILES.ASH or tile == WORLD_TILES.VOLCANO then
+            return true
+        end --adicionado por vagner
         return false
     end
 
     local function test_jungle(inst, pt)
-        if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) ==
-                GROUND.JUNGLE or
-                GROUND.FOREST or
-                GROUND.GRASS or
-                GROUND.DECIDUOUS or
-                GROUND.DIRT or
-                GROUND.RAINFOREST or
-                GROUND.DEEPRAINFOREST or
-                GROUND.FIELDS or
-                GROUND.MEADOW or
-                GROUND.QUAGMIRE_SOIL or
-                GROUND.FARMING_SOIL or
-                GROUND.QUAGMIRE_PARKFIELD) then
+        local tile = TheWorld.Map:GetTileAtPoint(pt:Get())
+        if tile == WORLD_TILES.JUNGLE then
             return true
-        end                                      --adicionado por vagner
+        end
         return false
     end
 
@@ -126,7 +114,7 @@ local function make_plantable(data)
         inst.components.deployable:SetDeployMode(DEPLOYMODE.PLANT)
         inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.DEFAULT) --DEPLOYSPACING.MEDIUM
         if data.name == "elephantcactus" or data.name == "coffeebush" then
-            inst.components.deployable.CanDeploy = test_ground
+            inst.components.deployable.CanDeploy = test_coffee
         elseif data.name == "bush_vine" or data.name == "bambootree" then
             inst.components.deployable.CanDeploy = test_jungle
         end
@@ -144,23 +132,39 @@ end
 
 local plantables =
 {
-    { name = "bambootree",   bank = "bambootree",     build = "bambootree_build", anim = "picked",
-                                                                                                                     floater = {
-            "large", 0.2, 0.65 } },
-    { name = "elephantcactus", bank = "cactus_volcano", build = "cactus_volcano", anim = "idle_dead",
-                                                                                                                     floater = {
-            "large", 0.2, 0.65 } },
-    { name = "bush_vine",    bank = "bush_vine",      build = "bush_vine",        anim = "hacked_idle",
-                                                                                                                     floater = {
-            "large", 0.2, 0.65 } },
-    { name = "nettle",       bank = "nettle",         build = "nettle",           floater = { "large", 0.2, 0.65 } },
-    { name = "coffeebush",   bank = "coffeebush",     build = "coffeebush",       floater = { "large", 0.2, 0.65 } },
+    {
+        name = "bambootree",
+        bank = "bambootree",
+        build = "bambootree_build",
+        anim = "picked",
+        floater = {
+            "large", 0.2, 0.65 }
+    },
+    {
+        name = "elephantcactus",
+        bank = "cactus_volcano",
+        build = "cactus_volcano",
+        anim = "idle_dead",
+        floater = {
+            "large", 0.2, 0.65 }
+    },
+    {
+        name = "bush_vine",
+        bank = "bush_vine",
+        build = "bush_vine",
+        anim = "hacked_idle",
+        floater = {
+            "large", 0.2, 0.65 }
+    },
+    { name = "nettle",     bank = "nettle",     build = "nettle",     floater = { "large", 0.2, 0.65 } },
+    { name = "coffeebush", bank = "coffeebush", build = "coffeebush", floater = { "large", 0.2, 0.65 } },
 }
 
 local prefabs = {}
 for i, v in ipairs(plantables) do
     table.insert(prefabs, make_plantable(v))
-    table.insert(prefabs, MakePlacer("dug_" .. v.name .. "_placer", v.bank or v.name, v.build or v.name, v.anim or "idle"))
+    table.insert(prefabs,
+        MakePlacer("dug_" .. v.name .. "_placer", v.bank or v.name, v.build or v.name, v.anim or "idle"))
 end
 
 return unpack(prefabs)

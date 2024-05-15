@@ -8,7 +8,23 @@ AddTask("HomeIsland_start", {
         ["Shipwrecked start"] = 1,
     },
     room_bg = GROUND.JUNGLE,
-    background_room = { "BeachSandHome" },
+    background_room = "BeachSandHome",
+    colour = { r = 1, g = 1, b = 0, a = 1 }
+})
+
+AddTask("HomeIsland", {
+    locks = { LOCKS.HARD },
+    keys_given = { KEYS.HARD },
+    region_id = "shipwrecked",
+    room_choices = {
+        ["JungleDenseMedHome"] = 1,
+        [salasjungle[math.random(1, 24)]] = 1,
+        ["BeachUnkept"] = 1,
+        ["BeachPalmCasino"] = 1,
+        [salasbeach[math.random(1, 24)]] = 1,
+    },
+    room_bg = GROUND.JUNGLE,
+    background_room = "BeachSandHome",
     colour = { r = 1, g = 1, b = 0, a = 1 }
 })
 
@@ -159,27 +175,75 @@ AddTask("MagmaJungle", {
 })
 
 
-AddTask("Volcano", {
+AddTask("Volcano ground", {
     locks = { LOCKS.MEDIUM },
     keys_given = { KEYS.MEDIUM },
     region_id = "shipwrecked",
     room_choices = {
         [salasvolcano[math.random(1, 5)]] = 1,
+        [salasvolcano[math.random(1, 5)]] = 1,
+        [salasvolcano[math.random(1, 5)]] = 1,
         ["VolcanoAsh"] = 1,
-        -- ["Volcano"] = 1,---------火山入口room
+        ["Volcano"] = 1, ---------火山入口room
         ["VolcanoObsidian"] = 1,
-        -- ["VolcanoAsh"] = 1,
         ["VolcanoNoise"] = 2,
-        -- ["VolcanoStart"] = 1, ------火山出口room
-        ["VolcanoObsidian"] = 1,
-        ["VolcanoRock"] = 1,
 
+    },
+    entrance_room = "VolcanoNoise",
+    room_bg = GROUND.VOLCANO,
+    background_room = "VolcanoNoise",
+    crosslink_factor = 5,
+    colour = { 1, .5, .5, .2 },
+})
 
+AddTask("Volcano entrance", {
+    locks = { LOCKS.VOLCANO_ENTRANCE },
+    keys_given = { KEYS.VOLCANO },
+    -- region_id = "volcano",
+    room_choices = {
+        [salasvolcano[math.random(1, 5)]] = 1,
+        [salasvolcano[math.random(1, 5)]] = 1,
+        [salasvolcano[math.random(1, 5)]] = 1,
+        ["VolcanoNoise"] = 2,
+
+    },
+    entrance_room = "VolcanoAsh",
+    room_bg = GROUND.VOLCANO,
+    background_room = "VolcanoNoise",
+    crosslink_factor = 0,
+    colour = { 1, .5, .5, .2 },
+})
+
+AddTask("Volcano", {
+    locks = { LOCKS.VOLCANO },
+    keys_given = { KEYS.VOLCANO_INNER },
+    -- region_id = "volcano",
+    room_choices = {
+        ["VolcanoAsh"] = 1,
+        ["VolcanoNoise"] = 2,
+        ["VolcanoObsidian"] = 3,
+        ["VolcanoRock"] = 2,
+        ["VolcanoStart"] = 1, ------火山出口room
         ["VolcanoAltar"] = 1,
         ["VolcanoObsidianBench"] = 1,
+    },
+    entrance_room = "VolcanoAsh",
+    room_bg = GROUND.VOLCANO,
+    background_room = "VolcanoNoise",
+    crosslink_factor = 5,
+    colour = { 1, .5, .5, .2 },
+})
+
+AddTask("Volcano inner", {
+    locks = { LOCKS.VOLCANO_INNER },
+    room_choices = {
+        [salasvolcano[math.random(1, 5)]] = 1,
+        [salasvolcano[math.random(1, 5)]] = 1,
+        [salasvolcano[math.random(1, 5)]] = 1,
+        ["VolcanoRock"] = 2,
         ["VolcanoCage"] = 1,
     },
-    entrance_room = "ForceDisconnectedRoom",
+    entrance_room = "VolcanoAsh",
     room_bg = GROUND.VOLCANO,
     background_room = "VolcanoNoise",
     crosslink_factor = 5,
@@ -208,6 +272,7 @@ AddTask("JungleMarshy", {
         ["TidalMermMarsh"] = 1,
         [salasbeach[math.random(1, 24)]] = 1,
         ["BeachSappy"] = 1,
+        ["WaterMangrove"] = 1,
     },
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
@@ -283,6 +348,7 @@ AddTask("JungleMonkey", {
         [salasjungle[math.random(1, 33)]] = 1,
         --        [salasjungle[math.random(1, 33)]] = 1,
         ["JungleMonkeyHell"] = 2,
+        ["WaterMangrove"] = 2,
     },
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
@@ -313,6 +379,7 @@ AddTask("BeachMarshy", {
         [salasbeach[math.random(1, 24)]] = 1,
         [salastidal[math.random(1, 4)]] = 1,
         [salasbeach[math.random(1, 24)]] = 1,
+        ["WaterMangrove"] = 2,
     },
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.BEACH,

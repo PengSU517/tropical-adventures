@@ -139,7 +139,7 @@ local PESODOGRUPO                      = {
 		{
 			jellyfish_planted = 1,
 			solofish = 1,
-			whirlpool = 0.20,
+			-- whirlpool = 0.20,
 			rainbowjellyfish_planted = 0.25,
 			ballphin = 0.1,
 		},
@@ -203,6 +203,82 @@ local PESODOGRUPO                      = {
 			--			ballphin = 					0.1,
 		},
 
+		-----------------------
+		[GROUND.OCEAN_SHALLOW] =
+		{
+			jellyfish_planted = 1,
+			solofish = 1,
+			-- whirlpool = 0.20,
+			rainbowjellyfish_planted = 0.25,
+			ballphin = 0.1,
+		},
+
+		[GROUND.OCEAN_SHALLOW_SHORE] =
+		{
+		},
+
+		[GROUND.OCEAN_MEDIUM] =
+		{
+			jellyfish_planted = 1,
+			rainbowjellyfish_planted = 0.25,
+			bioluminescence = 2,
+			solofish = 4,
+			stungray = 1,
+			whirlpool = 0.2,
+		},
+
+		[GROUND.OCEAN_DEEP] =
+		{
+			ballphin             = 2,
+			swordfish            = 2,
+			solofish             = 2,
+			bioluminescence      = 3,
+			oceanfog             = 1,
+			luggagechest_spawner = 0.4,
+			sharx                = 0.8,
+			whirlpool            = 0.25,
+
+		},
+		[GROUND.OCEAN_CORAL] =
+		{
+
+			bioluminescence = 1,
+			oceanfog = 0.5,
+			luggagechest_spawner = 0.25,
+			ballphin = 0.25,
+			jellyfish_planted = 1,
+			rainbowjellyfish_planted = 1,
+			solofish = 1,
+
+		},
+		[GROUND.OCEAN_BRINEPOOL_SHORE] =
+		{
+		},
+		[GROUND.OCEAN_SHIPGRAVEYARD] =
+		{
+			solofish    = 0.25,
+			swordfish   = 0.5,
+			rookwater   = 0.5,
+			bishopwater = 0.5,
+			knightboat  = 0.5,
+			whirlpool   = 0.25,
+		},
+
+		[GROUND.MANGROVE] =
+		{
+			--	        jellyfish_planted = 		1,
+			solofish = 0.5,
+			--			rainbowjellyfish_planted =  0.25,
+			--			ballphin = 					0.1,
+		},
+
+		[GROUND.LILYPOND] =
+		{
+			--	        jellyfish_planted = 		1,
+			solofish = 0.5,
+			--			rainbowjellyfish_planted =  0.25,
+			--			ballphin = 					0.1,
+		},
 	},
 }
 

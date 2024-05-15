@@ -66,7 +66,13 @@ local function OnEquipChanged(inst)
         if not self.forcenutrientsvision then
             TheWorld:PushEvent("nutrientsvision", { enabled = self.nutrientsvision })
         end
-    end	
+    end
+    if self.scrapmonolevision == not inst.replica.inventory:EquipHasTag("scrapmonolevision") then
+        self.scrapmonolevision = not self.scrapmonolevision
+        if not self.forcescrapmonolevision then
+            inst:PushEvent("scrapmonolevision", { enabled = self.scrapmonolevision })
+        end
+    end
 end
 
 local function OnInit(inst, self)
@@ -86,7 +92,8 @@ local function OnInit(inst, self)
 end
 
 local function OnAreaChanged(inst, data)
-    inst.components.playervision:SetNightmareVision(data ~= nil and data.tags ~= nil and table.contains(data.tags, "Nightmare"))
+    inst.components.playervision:SetNightmareVision(data ~= nil and data.tags ~= nil and
+        table.contains(data.tags, "Nightmare"))
 end
 
 local PlayerVision = Class(function(self, inst)
@@ -99,7 +106,7 @@ local PlayerVision = Class(function(self, inst)
     self.gogglevision = false
     self.forcegogglevision = false
     self.nutrientsvision = false
-    self.forcenutrientsvision = false	
+    self.forcenutrientsvision = false
     self.overridecctable = nil
     self.currentcctable = nil
     self.currentccphasefn = nil
@@ -128,6 +135,10 @@ function PlayerVision:HasNutrientsVision()
     return self.nutrientsvision or self.forcenutrientsvision
 end
 
+function PlayerVision:HasScrapMonoleVision()
+    return self.scrapmonolevision or self.forcescrapmonolevision
+end
+
 function PlayerVision:GetCCPhaseFn()
     return self.currentccphasefn
 end
@@ -137,46 +148,46 @@ function PlayerVision:GetCCTable()
 end
 
 function PlayerVision:UpdateCCTable()
-local alvodaluz = GetClosestInstWithTag("blows_air", self.inst, 30)
-if alvodaluz then
-    local cctable =
-        (self.ghostvision and GHOSTVISION_COLOURCUBES)
-        or self.overridecctable
-        or ((self.nightvision or self.forcenightvision) and NIGHTVISION_COLOURCUBES2)
-        or (self.nightmarevision and NIGHTMARE_COLORCUBES)
-        or nil
+    local alvodaluz = GetClosestInstWithTag("blows_air", self.inst, 30)
+    if alvodaluz then
+        local cctable =
+            (self.ghostvision and GHOSTVISION_COLOURCUBES)
+            or self.overridecctable
+            or ((self.nightvision or self.forcenightvision) and NIGHTVISION_COLOURCUBES2)
+            or (self.nightmarevision and NIGHTMARE_COLORCUBES)
+            or nil
 
-    local ccphasefn = 
-        (cctable == NIGHTVISION_COLOURCUBES2 and NIGHTVISION_PHASEFN)
-        or (cctable == NIGHTMARE_COLORCUBES and NIGHTMARE_PHASEFN)
-        or nil
+        local ccphasefn =
+            (cctable == NIGHTVISION_COLOURCUBES2 and NIGHTVISION_PHASEFN)
+            or (cctable == NIGHTMARE_COLORCUBES and NIGHTMARE_PHASEFN)
+            or nil
 
-    if cctable ~= self.currentcctable then
-        self.currentcctable = cctable
-        self.currentccphasefn = ccphasefn
-        self.inst:PushEvent("ccoverrides", cctable)
-        self.inst:PushEvent("ccphasefn", ccphasefn)
+        if cctable ~= self.currentcctable then
+            self.currentcctable = cctable
+            self.currentccphasefn = ccphasefn
+            self.inst:PushEvent("ccoverrides", cctable)
+            self.inst:PushEvent("ccphasefn", ccphasefn)
+        end
+    else
+        local cctable =
+            (self.ghostvision and GHOSTVISION_COLOURCUBES)
+            or self.overridecctable
+            or ((self.nightvision or self.forcenightvision) and NIGHTVISION_COLOURCUBES)
+            or (self.nightmarevision and NIGHTMARE_COLORCUBES)
+            or nil
+
+        local ccphasefn =
+            (cctable == NIGHTVISION_COLOURCUBES and NIGHTVISION_PHASEFN)
+            or (cctable == NIGHTMARE_COLORCUBES and NIGHTMARE_PHASEFN)
+            or nil
+
+        if cctable ~= self.currentcctable then
+            self.currentcctable = cctable
+            self.currentccphasefn = ccphasefn
+            self.inst:PushEvent("ccoverrides", cctable)
+            self.inst:PushEvent("ccphasefn", ccphasefn)
+        end
     end
-else
-    local cctable =
-        (self.ghostvision and GHOSTVISION_COLOURCUBES)
-        or self.overridecctable
-        or ((self.nightvision or self.forcenightvision) and NIGHTVISION_COLOURCUBES)
-        or (self.nightmarevision and NIGHTMARE_COLORCUBES)
-        or nil
-
-    local ccphasefn = 
-        (cctable == NIGHTVISION_COLOURCUBES and NIGHTVISION_PHASEFN)
-        or (cctable == NIGHTMARE_COLORCUBES and NIGHTMARE_PHASEFN)
-        or nil
-
-    if cctable ~= self.currentcctable then
-        self.currentcctable = cctable
-        self.currentccphasefn = ccphasefn
-        self.inst:PushEvent("ccoverrides", cctable)
-        self.inst:PushEvent("ccphasefn", ccphasefn)
-    end
-end	
 end
 
 function PlayerVision:SetGhostVision(enabled)
@@ -219,6 +230,15 @@ function PlayerVision:ForceNutrientVision(force)
         self.forcenutrientsvision = force == true
         if not self.nutrientsvision then
             TheWorld:PushEvent("nutrientsvision", { enabled = self.forcenutrientsvision })
+        end
+    end
+end
+
+function PlayerVision:ForceScrapMonoleVision(force)
+    if not self.forcescrapmonolevision ~= not force then
+        self.forcescrapmonolevision = force == true
+        if not self.scrapmonolevision then
+            self.inst:PushEvent("scrapmonolevision", { enabled = self.forcescrapmonolevision })
         end
     end
 end
