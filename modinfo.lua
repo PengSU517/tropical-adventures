@@ -2,6 +2,7 @@ local function en_zh(en, zh) -- Other languages don't work
 	return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
 end
 
+----------------更新测试
 -----------------修ROC SG
 -----------------载入语言包
 ----------------------猪镇的生成设计
