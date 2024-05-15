@@ -41,7 +41,7 @@ return Class(function(self, inst)
     BIRD_TYPES[GROUND.OCEAN_HAZARDOUS] = { "puffin", "seagullwater" }
 
     BIRD_TYPES[WORLD_TILES.LILYPOND] = { "cormorant", "seagullwater" } -------------------新添加----------------
-    BIRD_TYPES[WORLD_TILES.CORAL] = { "puffin", "seagullwater" }
+    BIRD_TYPES[WORLD_TILES.OCEAN_CORAL] = { "puffin", "seagullwater" }
     BIRD_TYPES[WORLD_TILES.MANGROVE] = { "puffin", "seagullwater" }
     BIRD_TYPES[WORLD_TILES.OCEAN_SHALLOW_SHORE] = { "puffin", "seagullwater" }
     BIRD_TYPES[WORLD_TILES.OCEAN_SHALLOW] = { "puffin", "seagullwater" }
@@ -58,8 +58,8 @@ return Class(function(self, inst)
     ----"kingfisher_swarm",,      "toucan_hamlet_swarm", "parrot_blue_swarm"
     BIRD_TYPES[GROUND.GASJUNGLE] = { "parrot_blue" }                             -- , "parrot_blue_swarm"
     BIRD_TYPES[GROUND.FOUNDATION] = { "canary", "quagmire_pigeon" }              --, "pigeon_swarm"
-    BIRD_TYPES[GROUND.FIELDS] = {  "crow", "quagmire_pigeon" }
-    BIRD_TYPES[GROUND.SUBURB] = {  "crow", "quagmire_pigeon" }           --, "pigeon_swarm"
+    BIRD_TYPES[GROUND.FIELDS] = { "crow", "quagmire_pigeon" }
+    BIRD_TYPES[GROUND.SUBURB] = { "crow", "quagmire_pigeon" }                    --, "pigeon_swarm"
     BIRD_TYPES[GROUND.PAINTED] = { "kingfisher", "crow" }                        --, "kingfisher_swarm"
     BIRD_TYPES[GROUND.PLAINS] = { "toucan_hamlet", "kingfisher", "parrot_blue" } --, "kingfisher_swarm"
     BIRD_TYPES[GROUND.CHECKEREDLAWN] = { "canary", "quagmire_pigeon" }           --, "pigeon_swarm"

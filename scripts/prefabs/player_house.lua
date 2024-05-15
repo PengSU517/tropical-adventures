@@ -332,6 +332,14 @@ local function onhammered(inst, worker)
     end
 end
 
+local function onhammered_door(inst, worker)
+    -- inst.components.lootdropper:DropLoot()
+    local fx = SpawnPrefab("collapse_small") --这个是拆除动画
+    fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
+    fx:SetMaterial("metal")
+    inst:Remove()
+end
+
 local function OnSnowCoveredChagned(inst, covered)
     if TheWorld.state.issnowcovered then
         inst.AnimState:OverrideSymbol("snow", inst.build, "snow")
@@ -353,6 +361,27 @@ local function updatelight(inst, phase)
     end
 end
 
+local function chuansong(inst, x, y, z, kill)
+    if inst:HasTag("player") then
+        inst:ScreenFade(false)
+        inst:DoTaskInTime(1, function()
+            inst:SnapCamera()
+            inst:ScreenFade(true, 0.5)
+        end)
+    end
+    if inst.Transform ~= nil then
+        inst.Transform:SetPosition(x, y, z)
+    end
+    if kill then -----------------实测生物没有被杀
+        -- inst:DoTaskInTime(0.2, function(inst)
+        if inst and inst:IsValid() and inst.components.health ~= nil and not inst.components.health:IsDead() then
+            -- inst and inst:IsValid() and inst:HasTag("player") and inst.components.health ~= nil and not inst.components.health:IsDead() then
+            --如果不在水里 就kill
+            inst.components.health:Kill()
+        end
+        -- end)
+    end
+end
 
 local function makehousefn(name, build, bank, data)
     local function fn(Sim)
@@ -460,7 +489,7 @@ local function OnDoneDoorTeleporting(inst, obj) ------------这是从房间出�
         local pos = obj:GetPosition()
         local offset = FindWalkableOffset(pos, math.random() * 2 * PI, 2, 10)
         if offset ~= nil then
-            pos.x = pos.x + math.abs(offset.x)
+            pos.x = pos.x + 0.5 + math.abs(offset.x)
             pos.z = pos.z + offset.z
         end
         if obj.Physics ~= nil then
@@ -560,11 +589,12 @@ local function makedoorfn(name, build, bank, animation, data)
         inst.components.trader.deleteitemonaccept = false
 
 
-        -- inst:AddComponent("workable")
-        -- inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
-        -- inst.components.workable:SetWorkLeft(4)
-        -- inst.components.workable:SetOnFinishCallback(onhammered)
+        inst:AddComponent("workable")
+        inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
+        inst.components.workable:SetWorkLeft(4)
+        inst.components.workable:SetOnFinishCallback(onhammered_door)
         -- inst.components.workable:SetOnWorkCallback(onhit)
+
 
 
         inst:AddComponent("inspectable")
@@ -578,7 +608,48 @@ local function makedoorfn(name, build, bank, animation, data)
             end
         end)
 
-        inst:ListenForEvent("onbuilt", onbuilt)
+        -- inst:ListenForEvent("onbuilt", onbuilt)----------没有idle动画
+        inst:ListenForEvent("onremove", function(inst)
+            local x, y, z = inst.Transform:GetWorldPosition()
+            if not x then
+                for k, v in pairs(Ents) do
+                    if v:HasTag("multiplayer_portal") then
+                        x, y, z = v.Transform:GetWorldPosition()
+                    end
+                end
+            end
+            if not x then
+                x, y, z = 0, 0, 0
+            end
+
+            if inst.components.teleporter and inst.components.teleporter.targetTeleporter ~= nil then
+                local target = inst.components.teleporter.targetTeleporter
+                local target_x, target_y, target_z = target.Transform:GetWorldPosition()
+                local ents = TheSim:FindEntities(target_x, 0, target_z, 25, nil, { "INLIMBO" })
+
+
+                for i, v in ipairs(ents) do
+                    if v.components.workable ~= nil then --工作
+                        v.components.workable:Destroy(v) --这里墙不会被摧毁,只会摧毁其他建筑
+                    elseif v:HasTag("player") or v:HasTag("irreplaceable") or v.components.health ~= nil then
+                        chuansong(v, x, y, z, true)
+                    end
+                end
+
+                TheWorld:DoTaskInTime(0.5, function(world)
+                    local ents2 = TheSim:FindEntities(target_x, 0, target_z, 20)
+                    for i, v in ipairs(ents2) do
+                        if v and v.components.inventoryitem ~= nil then
+                            chuansong(v, x, y, z)
+                        else
+                            v:Remove()
+                        end
+                    end
+                    -- local collapse = SpawnPrefab("collapse_big")
+                    -- collapse.Transform:SetPosition(x, 0, z)
+                end)
+            end
+        end)
 
         inst.OnSave = onsave
         inst.OnLoad = onload
@@ -607,12 +678,16 @@ local function placedoorfn(inst)
 end
 
 return makehouse("playerhouse_city", "pig_house_sale", "pig_house_sale", { indestructable = true }),
-    makedoor("playerhouse_city_door_pedra_cima", "portas", "portas", "pedra", { indestructable = true }),
-    makedoor("playerhouse_city_door_metal_cima", "portas", "portas", "metal", { indestructable = true }),
-    makedoor("playerhouse_city_door_pano_cima", "portas", "portas", "pano", { indestructable = true }),
-    makedoor("playerhouse_city_door_peagank_cima", "portas", "portas", "peagank", { indestructable = true }),
+    makedoor("stone_door", "portas", "portas", "pedra", { indestructable = true }),
+    makedoor("plate_door", "portas", "portas", "metal", { indestructable = true }),
+    makedoor("organic_door", "portas", "portas", "peagank", { indestructable = true }), --森林
+    makedoor("round_door", "portas", "portas", "pano", { indestructable = true }),      ---原木
 
     ---------------------------需要根据原本的调整camera
     -- MakePlacer("common/playerhouse_city_placer", "pig_house_sale", "pig_house_sale", "idle", false, false, false)
     MakePlacer("common/playerhouse_city_placer", "pig_house_sale", "pig_house_sale", "idle", nil, nil, nil, nil, nil, nil,
-        placefn)
+        placefn),
+    MakePlacer("common/stone_door_placer", "portas", "portas", "pedra", nil, nil, nil, nil, nil, nil, placedoorfn),
+    MakePlacer("common/plate_door_placer", "portas", "portas", "metal", nil, nil, nil, nil, nil, nil, placedoorfn),
+    MakePlacer("common/organic_door_placer", "portas", "portas", "peagank", nil, nil, nil, nil, nil, nil, placedoorfn), --森林
+    MakePlacer("common/round_door_placer", "portas", "portas", "pano", nil, nil, nil, nil, nil, nil, placedoorfn)       ---原木

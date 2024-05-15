@@ -1,8 +1,19 @@
 PrefabFiles =
 {
 
+
+
 	---------------新物品
-	"loot_pump",
+	"loot_pumper",
+	"sea2land_fork",
+
+
+	-----------修改暴力覆盖
+	"wave_shimmer_tropical",
+	"wave_shore_tropical",
+
+
+	-------------------------------
 
 	"house_wall",
 	"sparkle_fx",
@@ -850,6 +861,10 @@ Assets =
 	Asset("ATLAS", "images/inventoryimages/loot_pump.xml"),
 	Asset("ATLAS", "minimap/loot_pump.xml"),
 
+	Asset("IMAGE", "images/sea2land_fork.tex"),
+	Asset("ATLAS", "images/sea2land_fork.xml"),
+	Asset("ANIM", "anim/swap_land_fork.zip"),
+
 	------------------从architectpack添加
 	-- Asset("IMAGE", "images/inventoryimages/tap_buildingimages.tex"),
 	-- Asset("ATLAS", "images/inventoryimages/tap_buildingimages.xml"),
@@ -889,6 +904,9 @@ Assets =
 	Asset("ATLAS", "images/inventoryimages/novositens.xml"),
 	Asset("IMAGE", "images/inventoryimages/novositens.tex"),
 
+	Asset("ATLAS", "images/fx4te.xml"),
+	Asset("IMAGE", "images/fx4te.tex"),
+
 	Asset("ANIM", "anim/player_actions_paddle.zip"),
 	Asset("ANIM", "anim/player_actions_speargun.zip"),
 	Asset("ANIM", "anim/player_actions_tap.zip"),
@@ -904,8 +922,7 @@ Assets =
 	Asset("ANIM", "anim/player_actions_shear.zip"),
 	Asset("ANIM", "anim/player_actions_cropdust.zip"),
 	Asset("ANIM", "anim/ripple_build.zip"),
-	Asset("ATLAS", "images/fx4te.xml"),
-	Asset("IMAGE", "images/fx4te.tex"),
+
 	Asset("ANIM", "anim/boat_health.zip"),
 	Asset("ANIM", "anim/player_actions_telescope.zip"),
 	Asset("ANIM", "anim/pig_house_old.zip"),

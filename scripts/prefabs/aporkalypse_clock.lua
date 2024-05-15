@@ -354,7 +354,7 @@ local function make_rewind_plate()
 
 	inst.trigger = function()
 		if inst.aporkalypse_clock then
-			inst.aporkalypse_clock.rewind_mult = -0.1
+			inst.aporkalypse_clock.rewind_mult = -1
 			inst.aporkalypse_clock:StartRewind()
 		end
 

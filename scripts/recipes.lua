@@ -37,7 +37,7 @@ AddRecipe2("pugaliskfountain_made",
 -- 	{ atlas = v_atlas, placer = "wildborehouse_placer" }, { "STRUCTURES" })
 -----------------这个为什么不需要图片
 
-AddRecipe2("loot_pump",
+AddRecipe2("loot_pumper",
 	{
 		Ingredient("gears", 1),
 		Ingredient("alloy", 2, h_atlas),
@@ -47,7 +47,7 @@ AddRecipe2("loot_pump",
 	{
 		atlas = "images/inventoryimages/loot_pump.xml",
 		min_spacing = 3.2,
-		placer = "loot_pump_placer",
+		placer = "loot_pumper_placer",
 		image = "loot_pump.tex"
 	},
 	{ "PROTOTYPERS", "STRUCTURES" })
@@ -781,6 +781,45 @@ AddRecipe2("turf_beardrug", 			{Ingredient("oinc", 1, h_atlas)}, 								TECH.TU
 
 
 --INTERIOR--
+AddRecipe2("stone_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
+	{
+		atlas = h_atlas,
+		nounlock = true,
+		image = "stone_door.tex",
+		min_spacing = 1,
+		placer = "stone_door_placer",
+		build_mode = "insidedoor"
+	},
+	{ "INTERIOR" })
+AddRecipe2("plate_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
+	{
+		atlas = h_atlas,
+		nounlock = true,
+		image = "plate_door.tex",
+		min_spacing = 1,
+		placer = "plate_door_placer",
+		build_mode = "insidedoor"
+	}, { "INTERIOR" })
+AddRecipe2("organic_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
+	{
+		atlas = h_atlas,
+		nounlock = true,
+		image = "organic_door.tex",
+		min_spacing = 1,
+		placer = "organic_door_placer",
+		build_mode = "insidedoor"
+	}, { "INTERIOR" })
+AddRecipe2("round_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
+	{
+		atlas = h_atlas,
+		nounlock = true,
+		image = "round_door.tex",
+		min_spacing = 1,
+		placer = "round_door_placer",
+		build_mode = "insidedoor"
+	}, { "INTERIOR" })
+
+
 AddRecipe2("interior_floor_wood", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
 AddRecipe2("interior_floor_check", { Ingredient("oinc", 7, h_atlas) }, TECH.HOME_TWO,
@@ -984,7 +1023,7 @@ local function AddLightRecipe(name, oincvalue)
 			atlas = h_atlas,
 			nounlock = true,
 			-- build_mode = data and data.buildmode or "wallsection",
-			min_spacing = 3.2,
+			min_spacing = 0,
 			placer = prefabname .. "_placer",
 			image = "reno_" .. name .. ".tex"
 		},
@@ -1426,44 +1465,37 @@ AddRecipe2("deco_chair_rocking", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_T
 		"reno_chair_rocking.tex"
 	}, { "INTERIOR" })
 
--- AddRecipe2("stone_door", { Ingredient("oinc", 20, h_atlas) }, TECH.HOME_TWO,
--- 	{ atlas = h_atlas, nounlock = true, image = "stone_door.tex" }, { "INTERIOR" })
--- AddRecipe2("plate_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
--- 	{ atlas = h_atlas, nounlock = true, image = "plate_door.tex" }, { "INTERIOR" })
--- AddRecipe2("organic_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
--- 	{ atlas = h_atlas, nounlock = true, image = "organic_door.tex" }, { "INTERIOR" })
--- AddRecipe2("round_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
--- 	{ atlas = h_atlas, nounlock = true, image = "round_door.tex" }, { "INTERIOR" })
+
 
 AddRecipe2("rug_round", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_round_placer", image = "reno_rug_round.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_round_placer", image = "reno_rug_round.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_square", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_square_placer", image = "reno_rug_square.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_square_placer", image = "reno_rug_square.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_oval", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_oval_placer", image = "reno_rug_oval.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_oval_placer", image = "reno_rug_oval.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_rectangle", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO,
 	{
 		atlas = h_atlas,
 		nounlock = true,
-		min_spacing = 1,
+		min_spacing = 0,
 		placer = "rug_rectangle_placer",
 		image =
 		"reno_rug_rectangle.tex"
 	}, { "INTERIOR" })
 AddRecipe2("rug_fur", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_fur_placer", image = "reno_rug_fur.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_fur_placer", image = "reno_rug_fur.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_hedgehog", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_hedgehog_placer", image = "reno_rug_hedgehog.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_hedgehog_placer", image = "reno_rug_hedgehog.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_porcupuss", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO,
 	{
 		atlas = h_atlas,
 		nounlock = true,
-		min_spacing = 1,
+		min_spacing = 0,
 		placer = "rug_porcupuss_placer",
 		image =
 		"reno_rug_porcupuss.tex"
@@ -1472,52 +1504,52 @@ AddRecipe2("rug_hoofprint", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
 	{
 		atlas = h_atlas,
 		nounlock = true,
-		min_spacing = 1,
+		min_spacing = 0,
 		placer = "rug_hoofprint_placer",
 		image =
 		"reno_rug_hoofprint.tex"
 	}, { "INTERIOR" })
 AddRecipe2("rug_octagon", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_octagon_placer", image = "reno_rug_octagon.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_octagon_placer", image = "reno_rug_octagon.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_swirl", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_swirl_placer", image = "reno_rug_swirl.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_swirl_placer", image = "reno_rug_swirl.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_catcoon", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_catcoon_placer", image = "reno_rug_catcoon.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_catcoon_placer", image = "reno_rug_catcoon.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_rubbermat", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
 	{
 		atlas = h_atlas,
 		nounlock = true,
-		min_spacing = 1,
+		min_spacing = 0,
 		placer = "rug_rubbermat_placer",
 		image =
 		"reno_rug_rubbermat.tex"
 	}, { "INTERIOR" })
 AddRecipe2("rug_web", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_web_placer", image = "reno_rug_web.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_web_placer", image = "reno_rug_web.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_metal", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_metal_placer", image = "reno_rug_metal.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_metal_placer", image = "reno_rug_metal.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_wormhole", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_wormhole_placer", image = "reno_rug_wormhole.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_wormhole_placer", image = "reno_rug_wormhole.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_braid", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_braid_placer", image = "reno_rug_braid.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_braid_placer", image = "reno_rug_braid.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_beard", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_beard_placer", image = "reno_rug_beard.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_beard_placer", image = "reno_rug_beard.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_nailbed", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_nailbed_placer", image = "reno_rug_nailbed.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_nailbed_placer", image = "reno_rug_nailbed.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_crime", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_crime_placer", image = "reno_rug_crime.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_crime_placer", image = "reno_rug_crime.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_tiles", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
-	{ atlas = h_atlas, nounlock = true, min_spacing = 1, placer = "rug_tiles_placer", image = "reno_rug_tiles.tex" },
+	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_tiles_placer", image = "reno_rug_tiles.tex" },
 	{ "INTERIOR" })
 
 -- AddRecipe2("reno_shelves_wood", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },

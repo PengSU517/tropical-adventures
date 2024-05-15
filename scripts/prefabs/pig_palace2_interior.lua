@@ -139,8 +139,8 @@ local function entrance()
 	inst.components.teleporter.onActivate = OnActivate
 	inst.components.teleporter.onActivateByOther = OnActivateByOther
 	inst.components.teleporter.offset = 0
-	inst.components.teleporter.travelcameratime = 0.6
-	inst.components.teleporter.travelarrivetime = 0.5
+	inst.components.teleporter.travelcameratime = 0.2
+	inst.components.teleporter.travelarrivetime = 0.1
 
 	inst:AddComponent("inventory")
 

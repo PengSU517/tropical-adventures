@@ -1,5 +1,6 @@
 --------------------------------------------------------------------------
 --[[ Weather class definition ]]
+--有关地面积雪
 --------------------------------------------------------------------------
 
 return Class(function(self, inst)
@@ -142,7 +143,7 @@ return Class(function(self, inst)
     local DRY_THRESHOLD = TUNING.MOISTURE_DRY_THRESHOLD
     local WET_THRESHOLD = TUNING.MOISTURE_WET_THRESHOLD
     local MIN_WETNESS = 0
-    local MAX_WETNESS = 100
+    local MAX_WETNESS = TUNING.MAX_WETNESS
     local MIN_WETNESS_RATE = 0
     local MAX_WETNESS_RATE = .75
     local MIN_DRYING_RATE = 0
@@ -179,7 +180,7 @@ return Class(function(self, inst)
         autumn = .25,
         winter = 0,
         spring = .25,
-        summer = .5,
+        summer = .2,
     }
 
     --------------------------------------------------------------------------
@@ -433,7 +434,8 @@ return Class(function(self, inst)
 
     local function CalculateLight()
         if _preciptype:value() == PRECIP_TYPES.lunarhail then
-            local dynrange = _daylight and SEASON_DYNRANGE_DAY[_season] or SEASON_DYNRANGE_NIGHT[_season]
+            local dynrange = _daylight and SEASON_DYNRANGE_DAY[_season] or SEASON_DYNRANGE_NIGHT[_season] or
+                SEASON_DYNRANGE_NIGHT.autumn or .25
 
             local p = 1 - CalculateLunarHailRate()
             p = easing.inQuad(p, 0, 1, 1)
@@ -447,7 +449,8 @@ return Class(function(self, inst)
         local season = _season
         local snowlight = _preciptype:value() == PRECIP_TYPES.snow
         local dynrange = snowlight and (_daylight and SEASON_DYNRANGE_DAY["winter"] or SEASON_DYNRANGE_NIGHT["winter"])
-            or (_daylight and SEASON_DYNRANGE_DAY[season] or SEASON_DYNRANGE_NIGHT[season])
+            or (_daylight and SEASON_DYNRANGE_DAY[season] or SEASON_DYNRANGE_NIGHT[season]) or
+            SEASON_DYNRANGE_NIGHT.autumn or .25
 
         if _precipmode:value() == PRECIP_MODES.always then
             return 1 - dynrange
@@ -609,7 +612,7 @@ return Class(function(self, inst)
     end or nil
 
     local LIGHTNINGSTRIKE_CANT_TAGS = { "playerghost", "INLIMBO" }
-    local LIGHTNINGSTRIKE_ONEOF_TAGS = { "lightningrod", "lightningtarget", "blows_air" }
+    local LIGHTNINGSTRIKE_ONEOF_TAGS = { "lightningrod", "lightningtarget", "lightningblocker", "blows_air" }
     local LIGHTNINGSTRIKE_SEARCH_RANGE = 40
     local OnSendLightningStrike = _ismastersim and function(src, pos)
         local closest_generic = nil
@@ -621,6 +624,7 @@ return Class(function(self, inst)
         local blockers = nil
         for _, v in pairs(ents) do
             -- Track any blockers we find, since we redirect the strike position later,
+            -- and might redirect it into their block range.
             local interior = v:HasTag("blows_air")
             if interior then return end
             local is_blocker = v.components.lightningblocker ~= nil
@@ -705,7 +709,10 @@ return Class(function(self, inst)
             end
         end
 
-        SpawnPrefab(prefab_type).Transform:SetPosition(strike_position:Get())
+        local pref = SpawnPrefab(prefab_type)
+        if pref then
+            pref.Transform:SetPosition(strike_position:Get())
+        end
     end or nil
 
     local OnSimUnpaused = _ismastersim and function()
@@ -861,11 +868,11 @@ return Class(function(self, inst)
     --------------------------------------------------------------------------
 
     --[[
-    Client updates temperature, moisture, precipitation effects, and snow
-    level on its own while server force syncs values periodically. Client
-    cannot start, stop, or change precipitation on its own, and must wait
-    for server syncs to trigger these events.
---]]
+        Client updates temperature, moisture, precipitation effects, and snow
+        level on its own while server force syncs values periodically. Client
+        cannot start, stop, or change precipitation on its own, and must wait
+        for server syncs to trigger these events.
+    --]]
     function self:OnUpdate(dt)
         --Update noise
         SetWithPeriodicSync(_noisetime, _noisetime:value() + dt, NOISE_SYNC_PERIOD, _ismastersim)
@@ -992,7 +999,6 @@ return Class(function(self, inst)
             end
         end
 
-
         local nevenailha = 0
         local nevetropical = 1
         local chuvatropical = 0
@@ -1011,8 +1017,8 @@ return Class(function(self, inst)
                 chuvatropical = 20 * preciprate
             end
         end
-        --Update precipitation effects
-        --Update precipitation effects
+
+        ------Update precipitation effects
         if _preciptype:value() == PRECIP_TYPES.rain then
             if _hasfx then
                 _rainfx.particles_per_tick = 5 * preciprate

@@ -16,11 +16,11 @@ local prefabs =
 }
 
 
-local LOOT_PUMP_SCALE = 1
+local LOOT_PUMP_SCALE = 1.5
 local LOOT_PUMP_SPEED = 3
 local LOOT_PUMP_SOUND = true
 local LOOT_PUMP_TWOZN = false
-local LOOT_PUMP_EQUIP = true
+local LOOT_PUMP_EQUIP = false
 
 local OUTER_RANGE = 15 * LOOT_PUMP_SCALE
 local INNER_SCALE = 0.5 -- If you change this value, the animation will not fit the effect radius
@@ -452,7 +452,7 @@ local function DoUpdate(inst)
                 if item.components.stackable then
                     if item.components.stackable:IsStack() then
                         local pos = item:GetPosition()
-                        item = item.components.stackable:Get(1)
+                        -- item = item.components.stackable:Get(1)
                         item.Transform:SetPosition(pos.x, pos.y, pos.z)
                     end
                 end
@@ -659,6 +659,6 @@ local function placer_postinit_fn(inst)
     inst.components.placer:LinkEntity(placer2)
 end
 
-return Prefab("loot_pump", fn, assets, prefabs),
-    MakePlacer("loot_pump_placer", "loot_pump", "loot_pump", PLACER_ANIM, true, nil, nil, PLACER_SCALE, nil, nil,
+return Prefab("loot_pumper", fn, assets, prefabs),
+    MakePlacer("loot_pumper_placer", "loot_pump", "loot_pump", PLACER_ANIM, true, nil, nil, PLACER_SCALE, nil, nil,
         placer_postinit_fn)
