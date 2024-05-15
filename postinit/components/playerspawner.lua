@@ -10,14 +10,10 @@ AddComponentPostInit("playerspawner", function(self)
 
             -------------添加出生物品---------------修改为DOTAskintime或许会更好
             local startitem
-            if TA_CONFIG.sw_start == "shipwrecked" then
+            if TA_CONFIG.sw_start == true then
                 startitem = "porto_raft_old"
-            elseif TA_CONFIG.ham_start == "hamlet" then
+            elseif TA_CONFIG.ham_start == true then
                 startitem = "machete"
-            end
-
-            if TA_CONFIG.seafork then
-                startitem = "sea2land_fork"
             end
 
             if startitem then
@@ -27,17 +23,20 @@ AddComponentPostInit("playerspawner", function(self)
                 end
             end
 
-            ---------莫名其妙不能用
-            -- local startfork
+            ----------填海叉
+            local startitem
+            if TA_CONFIG.seafork then
+                startitem = "sea2land_fork"
+            end
 
-            -- if TA_CONFIG.seafork then
-            --     startfork = "sea2land_fork"
-            -- end
-
-            -- local fork = SpawnPrefab(startfork)
-            -- if fork then
-            --     player.components.inventory:GiveItem(fork)
-            -- end
+            if startitem then
+                local item = SpawnPrefab(startitem)
+                if item then
+                    player.components.inventory:GiveItem(item)
+                    -- local eslot = item.components.equippable.equipslot
+                    -- player:PushEvent("equipped", { item = item, eslot = eslot })
+                end
+            end
         end
         OldSpawnAtLocation(self, inst, player, x, y, z, isloading, ...)
 
