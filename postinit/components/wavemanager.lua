@@ -93,7 +93,7 @@ local function TrySpawnWavesOrShore_Lake(self, map, x, y, z)
 
 	if bearing == true then
 		if math.random() < 0.3 then
-			SpawnPrefab("wave_shimmer_tropical").Transform:SetPosition(x, y, z)
+			SpawnPrefab("wave_shimmer").Transform:SetPosition(x, y, z)
 		end
 	else
 		local wave = SpawnPrefab("wave_shore_tropical")
