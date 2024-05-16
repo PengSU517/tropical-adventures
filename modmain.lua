@@ -87,6 +87,7 @@ modimport("postinit/prefabs/player_hayfever")
 
 
 modimport("postinit/entityscript") ----修改entity相关
+-- modimport("postinit/player")       --------player 出生/进入/退出世界相关
 
 
 ------------------修正暴力覆盖的components
@@ -102,3 +103,29 @@ modimport("postinit/components/armor")
 -----------------debug相关--------------
 modimport("postinit/widgets/hoverer_info") ---- show name and anim, for debugging
 modimport("main/seafork")
+
+
+
+
+
+
+------------------测试内容------------------
+-- require "components/map"
+
+-- local old_IsPassableAtPoint = Map.IsPassableAtPoint
+
+-- function Map:IsPassableAtPoint(x, y, z, allow_water, exclude_boats)
+--     local valid_tile, is_overhang = self:IsPassableAtPointWithPlatformRadiusBias(x, y, z, allow_water, exclude_boats, 0)
+
+--     -- if is_overhang == nil then
+--     --     if not allow_water and not valid_tile then
+--     --         if not exclude_boats then
+--     --             if TheSim:FindEntities(x, y, z, 0.1, { "boatsw" }) then
+--     --                 return true
+--     --             end
+--     --         end
+--     --         return false
+--     --     end
+--     -- end
+--     return valid_tile, is_overhang
+-- end
