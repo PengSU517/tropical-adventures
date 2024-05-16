@@ -79,7 +79,9 @@ modimport("postinit/sim_ham") ---------ham cloud
 
 
 -- modimport("postinit/components/map")
-modimport("main/ham_room")                      -----------------新的room
+modimport("main/ham_room")       -----------------新的room
+modimport("main/tropical_ocean") ----------------新的海洋属性
+
 
 modimport("scripts/widgets/seasonsdisplay.lua") --------------雾和花粉症,还有树荫
 
