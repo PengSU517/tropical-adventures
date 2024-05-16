@@ -41,7 +41,7 @@ end
 name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
 
 author = "Peng"
-version = "7.06"
+version = "7.07"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -60,6 +60,20 @@ QQ 群：469668062
 local updateen = [[
 
 Update:
+Hamlet: From outside the realm
+Vortex Cloak now has a new ability:
+1. Can be repaired by nightmare fuel, 10% each time
+2. It's Shadow Gear
+3. No longer has no rigidity effect when the durability drops to 0
+4. No longer fall off when the durability is 0.
+5. 100% durable repair with Void repair kit
+6.10% Shadow faction takes no damage
+7.100% injury free
+8. Durability 900
+9. Plane Defense 10
+
+
+Last Update:
 
 Update tropical (shipwrecked) ocean
 
@@ -93,10 +107,20 @@ Last Update:
 local updatech = [[
 更新：
 
-更新了热带（船难）海域
+哈姆雷特：来自域外
+现在旋涡斗篷拥有了全新的能力：
+1.可用噩梦燃料修复，每次修复10%
+2.是暗影装备
+3.耐久掉0时不再具有无僵直效果
+4.耐久掉0时不再脱落。
+5.可用虚空修补套件修复100%耐久
+6.10%暗影阵营免伤
+7.100%免伤
+8.耐久900
+9.位面防御10
 
 上次更新：
-1. 似乎修了个bug,加上一点细碎bug
+1. 更新了热带（船难）海域
 
 上次更新：
 1. 遇到热带毒蜘蛛会闪退
