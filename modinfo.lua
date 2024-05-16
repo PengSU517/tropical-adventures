@@ -60,18 +60,11 @@ QQ 群：469668062
 local updateen = [[
 
 Update:
-Hamlet: From outside the realm
-Vortex Cloak now has a new ability:
-1. Can be repaired by nightmare fuel, 10% each time
-2. It's Shadow Gear
-3. No longer has no rigidity effect when the durability drops to 0
-4. No longer fall off when the durability is 0.
-5. 100% durable repair with Void repair kit
-6.10% Shadow faction takes no damage
-7.100% injury free
-8. Durability 900
-9. Plane Defense 10
-
+1. Barely fixed the portal problem
+2. Modified deck laying range, tropical shallow sea, mangrove and lotus pond can be
+3. Hamlet: From outside the realm
+Vortex Cloak now has new abilities: It can be repaired with Nightmare fuel, 10% at a time; It's the Shadow gear; When the durability drops to 0, it no longer has no rigidity effect and no longer falls off. The void repair kit can be used to repair 100% durability;
+10% Shadow faction damage free; 100% injury free; Durability 900; Bit defense 10
 
 Last Update:
 
@@ -105,19 +98,13 @@ Last Update:
 ]]
 
 local updatech = [[
-更新：
 
-哈姆雷特：来自域外
-现在旋涡斗篷拥有了全新的能力：
-1.可用噩梦燃料修复，每次修复10%
-2.是暗影装备
-3.耐久掉0时不再具有无僵直效果
-4.耐久掉0时不再脱落。
-5.可用虚空修补套件修复100%耐久
-6.10%暗影阵营免伤
-7.100%免伤
-8.耐久900
-9.位面防御10
+更新：
+1.勉强修好了传送门的问题
+2.修改甲板的铺设范围，热带浅海、红树林和莲花池塘均可
+3.哈姆雷特：来自域外
+现在旋涡斗篷拥有了全新的能力：可用噩梦燃料修复，每次修复10%；是暗影装备；耐久掉0时不再具有无僵直效果和不再脱落可用虚空修补套件修复100%耐久；
+10%暗影阵营免伤；100%免伤；耐久900；位面防御10
 
 上次更新：
 1. 更新了热带（船难）海域
