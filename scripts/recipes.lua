@@ -8,15 +8,17 @@ local safe_atlas = "images/tabs.xml"
 
 local TECH = GLOBAL.TECH
 
+AddRecipeFilter({ name = "NAUTICAL", atlas = safe_atlas, image = "nauticaltab.png" })
 AddRecipeFilter({ name = "HAMLET", atlas = safe_atlas, image = "tab_city.tex" })
 AddRecipeFilter({ name = "INTERIOR", atlas = safe_atlas, image = "tab_home_decor.tex" })
 AddRecipeFilter({ name = "LEGACY", atlas = safe_atlas, image = "tab_archaeology.tex" })
 
 
+
 ---------新物品
 AddRecipe2("pugaliskfountain_made",
 	{ Ingredient("cutstone", 6), Ingredient("moonrocknugget", 10), Ingredient("bluegem", 2) },
-	TECH.LOST, ----TECH.CITY_TWO,
+	TECH.LOST, ----TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		-- nounlock = true,
@@ -29,7 +31,7 @@ AddRecipe2("pugaliskfountain_made",
 
 
 
--- AddRecipe2("reno_window_greenhouse", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_window_greenhouse", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
 -- AddRecipe2("wildborehouse",
@@ -198,8 +200,9 @@ AddRecipe2("bottlelantern", { Ingredient("messagebottleempty1", 1, v_atlas), Ing
 	TECH.SCIENCE_TWO, { atlas = v_atlas }, { "LIGHT" })
 AddRecipe2("boat_lantern",
 	{ Ingredient("messagebottleempty1", 1, v_atlas), Ingredient("twigs", 2), Ingredient("bioluminescence", 1, v_atlas) },
-	TECH.SCIENCE_TWO, { atlas = v_atlas }, { "LIGHT" })
-AddRecipe2("boat_torch", { Ingredient("torch", 1), Ingredient("twigs", 2) }, TECH.ONE, { atlas = v_atlas }, { "LIGHT" })
+	TECH.SCIENCE_TWO, { atlas = v_atlas }, { "LIGHT", "NAUTICAL" })
+AddRecipe2("boat_torch", { Ingredient("torch", 1), Ingredient("twigs", 2) }, TECH.ONE, { atlas = v_atlas },
+	{ "LIGHT", "NAUTICAL" })
 AddRecipe2("porto_sea_chiminea",
 	{ Ingredient("sand", 4, v_atlas), Ingredient("tar", 6, v_atlas), Ingredient("limestone", 6, v_atlas) },
 	TECH.SCIENCE_ONE, { atlas = v_atlas, image = "sea_chiminea.tex" }, { "LIGHT" })
@@ -333,67 +336,67 @@ AddRecipe2("palmleaf_hut",
 AddRecipe2("boatmetal_item", { Ingredient("alloy", 4, h_atlas), Ingredient("iron", 4, h_atlas) }, TECH.SEAFARING_TWO,
 	{ atlas = v_atlas }, { "SEAFARING" })
 AddRecipe2("porto_lograft_old", { Ingredient("log", 6), Ingredient("cutgrass", 4) }, TECH.NONE, { atlas = v_atlas },
-	{ "SEAFARING" })
+	{ "NAUTICAL" })
 AddRecipe2("porto_raft_old", { Ingredient("bamboo", 4, v_atlas), Ingredient("vine", 3, v_atlas) }, TECH.NONE,
-	{ atlas = v_atlas }, { "SEAFARING" })
+	{ atlas = v_atlas }, { "NAUTICAL" })
 
 -- AddRecipe2("porto_lograft", { Ingredient("log", 6), Ingredient("cutgrass", 4) }, TECH.NONE, { atlas = v_atlas },
 -- 	{ "SEAFARING" })
 -- AddRecipe2("porto_raft", { Ingredient("bamboo", 4, v_atlas), Ingredient("vine", 3, v_atlas) }, TECH.NONE,
 -- 	{ atlas = v_atlas }, { "SEAFARING" })
 
-AddRecipe2("porto_rowboat", { Ingredient("boards", 3), Ingredient("vine", 4, v_atlas) }, TECH.SEAFARING_TWO,
-	{ atlas = v_atlas }, { "SEAFARING" })
+AddRecipe2("porto_rowboat", { Ingredient("boards", 3), Ingredient("vine", 4, v_atlas) }, TECH.SEAFARING_ONE,
+	{ atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("boatrepairkit", { Ingredient("boards", 2), Ingredient("stinger", 2), Ingredient("rope", 2) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
-AddRecipe2("porto_cargoboat", { Ingredient("boards", 6), Ingredient("rope", 3) }, TECH.SEAFARING_TWO, { atlas = v_atlas },
-	{ "SEAFARING" })
+	TECH.SEAFARING_ONE, { atlas = v_atlas }, { "NAUTICAL" })
+AddRecipe2("porto_cargoboat", { Ingredient("boards", 6), Ingredient("rope", 3) }, TECH.SEAFARING_ONE, { atlas = v_atlas },
+	{ "NAUTICAL" })
 AddRecipe2("porto_armouredboat", { Ingredient("boards", 6), Ingredient("rope", 3), Ingredient("seashell", 10, v_atlas) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+	TECH.SEAFARING_ONE, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("porto_encrustedboat", { Ingredient("boards", 6), Ingredient("limestone", 4, v_atlas), Ingredient("rope", 3) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+	TECH.SEAFARING_ONE, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("sail",
 	{ Ingredient("bamboo", 2, v_atlas), Ingredient("vine", 2, v_atlas), Ingredient("palmleaf", 4, v_atlas) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+	TECH.SEAFARING_ONE, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("feathersail",
 	{ Ingredient("bamboo", 2, v_atlas), Ingredient("rope", 4), Ingredient("doydoyfeather", 4, v_atlas) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+	TECH.SEAFARING_ONE, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("clothsail", { Ingredient("bamboo", 2, v_atlas), Ingredient("fabric", 2, v_atlas), Ingredient("rope", 2) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+	TECH.SEAFARING_ONE, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("snakeskinsail", { Ingredient("log", 4), Ingredient("rope", 2), Ingredient("snakeskin", 2, v_atlas) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+	TECH.SEAFARING_ONE, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("ironwind",
 	{ Ingredient("turbine_blades", 1, v_atlas), Ingredient("transistor", 1), Ingredient("goldnugget", 2) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("malbatrossail",
 	{ Ingredient("driftwood_log", 4), Ingredient("rope", 2), Ingredient("malbatross_feather", 4) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("boatcannon", { Ingredient("coconut", 6, v_atlas), Ingredient("log", 5), Ingredient("gunpowder", 4) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("woodlegs_boatcannon",
 	{ Ingredient("obsidian", 6, v_atlas), Ingredient("log", 5), Ingredient("gunpowder", 4) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("trawlnet", { Ingredient("bamboo", 2, v_atlas), Ingredient("rope", 3) }, TECH.SEAFARING_TWO,
 	{ atlas = v_atlas },
-	{ "SEAFARING" })
+	{ "NAUTICAL" })
 AddRecipe2("armor_lifejacket",
 	{ Ingredient("fabric", 2, v_atlas), Ingredient("vine", 2, v_atlas), Ingredient("messagebottleempty1", 2, v_atlas) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("seatrap",
 	{ Ingredient("palmleaf", 4, v_atlas), Ingredient("messagebottleempty1", 2, v_atlas),
-		Ingredient("jellyfish", 1, v_atlas) }, TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+		Ingredient("jellyfish", 1, v_atlas) }, TECH.SEAFARING_TWO, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("porto_buoy",
 	{ Ingredient("messagebottleempty1", 1, v_atlas), Ingredient("bamboo", 4, v_atlas),
 		Ingredient("bioluminescence", 2, v_atlas) }, TECH.SEAFARING_TWO, { atlas = v_atlas, image = "buoy.tex" },
-	{ "LIGHT", "SEAFARING" })
+	{ "LIGHT", "NAUTICAL" })
 AddRecipe2("quackeringram",
 	{ Ingredient("quackenbeak", 1, v_atlas), Ingredient("bamboo", 4, v_atlas), Ingredient("rope", 4) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "SEAFARING" })
+	TECH.SEAFARING_TWO, { atlas = v_atlas }, { "NAUTICAL" })
 AddRecipe2("porto_tar_extractor",
 	{ Ingredient("coconut", 2, v_atlas), Ingredient("bamboo", 4, v_atlas), Ingredient("limestone", 4, v_atlas) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas, image = "tar_extractor.tex" }, { "SEAFARING" })
+	TECH.SEAFARING_TWO, { atlas = v_atlas, image = "tar_extractor.tex" }, { "NAUTICAL" })
 AddRecipe2("porto_sea_yard", { Ingredient("limestone", 6, v_atlas), Ingredient("tar", 6, v_atlas), Ingredient("log", 4) },
-	TECH.SEAFARING_TWO, { atlas = v_atlas, image = "sea_yard.tex" }, { "SEAFARING" })
+	TECH.SEAFARING_TWO, { atlas = v_atlas, image = "sea_yard.tex" }, { "NAUTICAL" })
 
 --HAMLET--
 -- if GetModConfigData("Hamlet") ~= 5 or GetModConfigData("startlocation") == 15 or GetModConfigData("kindofworld") == 5 then --GetModConfigData("painted_sands")
@@ -403,9 +406,7 @@ AddRecipe2("shears", { Ingredient("twigs", 2), Ingredient("iron", 2, h_atlas) },
 AddRecipe2("bugrepellent", { Ingredient("tuber_crop", 6, v_atlas), Ingredient("venus_stalk", 1, v_atlas) },
 	TECH.SCIENCE_ONE, { atlas = h_atlas }, { "TOOLS" })
 AddRecipe2("goldpan", { Ingredient("iron", 2, h_atlas), Ingredient("hammer", 1) }, TECH.SCIENCE_ONE, {
-	atlas =
-		h_atlas
-}, { "TOOLS" })
+	atlas = h_atlas }, { "TOOLS", "LEGACY" })
 AddRecipe2("bathat", { Ingredient("pigskin", 2), Ingredient("batwing", 1), Ingredient("compass", 1) },
 	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "LIGHT" })
 AddRecipe2("candlehat", { Ingredient("cork", 4, h_atlas), Ingredient("iron", 2, h_atlas) }, TECH.SCIENCE_ONE,
@@ -449,9 +450,9 @@ AddRecipe2("sprinkler1", { Ingredient("alloy", 2, h_atlas), Ingredient("bluegem"
 AddRecipe2("smelter", { Ingredient("cutstone", 6), Ingredient("boards", 4), Ingredient("redgem", 1) },
 	TECH.SCIENCE_TWO, { atlas = h_atlas, placer = "smetler_placer" }, { "PROTOTYPERS" })
 AddRecipe2("ballpein_hammer", { Ingredient("iron", 2, h_atlas), Ingredient("twigs", 1) }, TECH.SCIENCE_ONE,
-	{ atlas = h_atlas }, { "TOOLS" })
+	{ atlas = h_atlas }, { "TOOLS", "LEGACY" })
 AddRecipe2("magnifying_glass", { Ingredient("iron", 1, h_atlas), Ingredient("twigs", 1), Ingredient("bluegem", 1) },
-	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "TOOLS" })
+	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "TOOLS", "LEGACY" })
 AddRecipe2("disguisehat", { Ingredient("twigs", 2), Ingredient("pigskin", 1), Ingredient("beardhair", 1) },
 	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "CLOTHING" })
 AddRecipe2("pithhat",
@@ -464,7 +465,7 @@ AddRecipe2("gasmaskhat",
 	{ Ingredient("peagawkfeather", 4, h_atlas), Ingredient("fabric", 1, h_atlas), Ingredient("pigskin", 1) },
 	TECH.SCIENCE_ONE, { atlas = h_atlas }, { "CLOTHING" })
 AddRecipe2("corkboatitem", { Ingredient("rope", 1), Ingredient("cork", 4, h_atlas) }, TECH.NONE, { atlas = h_atlas },
-	{ "SEAFARING" })
+	{ "NAUTICAL" })
 -- end
 
 
@@ -490,16 +491,16 @@ end
 --CITY----------------------------
 
 
-AddRecipe2("city_hammer", { Ingredient("iron", 2, h_atlas), Ingredient("twigs", 1) }, TECH.CITY_TWO,
+AddRecipe2("city_hammer", { Ingredient("iron", 2, h_atlas), Ingredient("twigs", 1) }, TECH.CITY_ONE,
 	{ atlas = h_atlas, --[[nounlock = true]] }, { "HAMLET" })
-AddRecipe2("securitycontract", { Ingredient("oinc", 10, h_atlas) }, TECH.CITY_TWO, { atlas = h_atlas, nounlock = false },
+AddRecipe2("securitycontract", { Ingredient("oinc", 10, h_atlas) }, TECH.CITY_ONE, { atlas = h_atlas, nounlock = false },
 	{ "HAMLET" })
 AddRecipe2("city_lamp", { Ingredient("alloy", 1, h_atlas), Ingredient("transistor", 1), Ingredient("lantern", 1) },
-	TECH.CITY_TWO,
+	TECH.CITY_ONE,
 	{ atlas = h_atlas, nounlock = false, min_spacing = 1, placer = "city_lamp_placer", image = "city_lamp.tex" },
 	{ "HAMLET" })
 AddRecipe2("playerhouse_city",
-	{ Ingredient("boards", 4), Ingredient("cutstone", 3), Ingredient("oinc", 30, h_atlas) }, TECH.CITY_TWO,
+	{ Ingredient("boards", 4), Ingredient("cutstone", 3), Ingredient("oinc", 30, h_atlas) }, TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -510,15 +511,15 @@ AddRecipe2("playerhouse_city",
 	},
 	{ "HAMLET" })
 AddRecipe2("pighouse_city", { Ingredient("boards", 4), Ingredient("cutstone", 3), Ingredient("pigskin", 4) },
-	TECH.CITY_TWO,
+	TECH.CITY_ONE,
 	{ atlas = h_atlas, nounlock = false, min_spacing = 3.2, placer = "pighouse_city_placer", image = "pighouse_city.tex" },
 	{ "HAMLET" })
 AddRecipe2("pig_shop_deli_entrance", { Ingredient("boards", 4), Ingredient("honeyham", 1), Ingredient("pigskin", 4) },
-	TECH.CITY_TWO,
+	TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 3.2, placer = "pig_shop_deli_placer", image = "pig_shop_deli.png" },
 	{ "HAMLET" })
 AddRecipe2("pig_shop_general_entrance", { Ingredient("boards", 4), Ingredient("axe", 3), Ingredient("pigskin", 4) },
-	TECH.CITY_TWO,
+	TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -527,7 +528,7 @@ AddRecipe2("pig_shop_general_entrance", { Ingredient("boards", 4), Ingredient("a
 		image = "pig_shop_general.png"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_hoofspa_entrance", { Ingredient("boards", 4), Ingredient("bandage", 3), Ingredient("pigskin", 4) },
-	TECH.CITY_TWO,
+	TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -536,7 +537,7 @@ AddRecipe2("pig_shop_hoofspa_entrance", { Ingredient("boards", 4), Ingredient("b
 		image = "pig_shop_hoofspa.png"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_produce_entrance", { Ingredient("boards", 4), Ingredient("eggplant", 3), Ingredient("pigskin", 4) },
-	TECH.CITY_TWO,
+	TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -545,7 +546,7 @@ AddRecipe2("pig_shop_produce_entrance", { Ingredient("boards", 4), Ingredient("e
 		image = "pig_shop_produce.png"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_florist_entrance", { Ingredient("boards", 4), Ingredient("petals", 12), Ingredient("pigskin", 4) },
-	TECH.CITY_TWO,
+	TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -554,7 +555,7 @@ AddRecipe2("pig_shop_florist_entrance", { Ingredient("boards", 4), Ingredient("p
 		image = "pig_shop_florist.png"
 	}, { "HAMLET" })
 AddRecipe2("pig_antiquities_entrance",
-	{ Ingredient("boards", 4), Ingredient("ballpein_hammer", 3, h_atlas), Ingredient("pigskin", 4) }, TECH.CITY_TWO,
+	{ Ingredient("boards", 4), Ingredient("ballpein_hammer", 3, h_atlas), Ingredient("pigskin", 4) }, TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -563,7 +564,7 @@ AddRecipe2("pig_antiquities_entrance",
 		image = "pig_shop_antiquities.png"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_arcane_entrance",
-	{ Ingredient("boards", 4), Ingredient("nightmarefuel", 1), Ingredient("pigskin", 4) }, TECH.CITY_TWO,
+	{ Ingredient("boards", 4), Ingredient("nightmarefuel", 1), Ingredient("pigskin", 4) }, TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -573,7 +574,7 @@ AddRecipe2("pig_shop_arcane_entrance",
 		"pig_shop_arcane.png"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_weapons_entrance", { Ingredient("boards", 4), Ingredient("spear", 3), Ingredient("pigskin", 4) },
-	TECH.CITY_TWO,
+	TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -582,7 +583,7 @@ AddRecipe2("pig_shop_weapons_entrance", { Ingredient("boards", 4), Ingredient("s
 		image = "pig_shop_weapons.png"
 	}, { "HAMLET" })
 AddRecipe2("pig_academy_entrance", { Ingredient("boards", 4), Ingredient("cutstone", 3), Ingredient("pigskin", 4) },
-	TECH.CITY_TWO,
+	TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -591,7 +592,7 @@ AddRecipe2("pig_academy_entrance", { Ingredient("boards", 4), Ingredient("cutsto
 		image = "pig_shop_academy.png"
 	}, { "HAMLET" })
 AddRecipe2("hatshop_entrance", { Ingredient("boards", 4), Ingredient("tophat", 2), Ingredient("pigskin", 4) },
-	TECH.CITY_TWO,
+	TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -600,11 +601,11 @@ AddRecipe2("hatshop_entrance", { Ingredient("boards", 4), Ingredient("tophat", 2
 		image = "pig_shop_hatshop.png"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_bank_entrance",
-	{ Ingredient("cutstone", 4), Ingredient("oinc", 100, h_atlas), Ingredient("pigskin", 4) }, TECH.CITY_TWO,
+	{ Ingredient("cutstone", 4), Ingredient("oinc", 100, h_atlas), Ingredient("pigskin", 4) }, TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 3.2, placer = "pig_shop_bank_placer", image = "pig_shop_bank.png" },
 	{ "HAMLET" })
 AddRecipe2("pig_shop_tinker_entrance", { Ingredient("magnifying_glass", 2, h_atlas), Ingredient("pigskin", 4) },
-	TECH.CITY_TWO,
+	TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -614,7 +615,7 @@ AddRecipe2("pig_shop_tinker_entrance", { Ingredient("magnifying_glass", 2, h_atl
 		"pig_shop_tinker.png"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_cityhall_player_entrance",
-	{ Ingredient("boards", 4), Ingredient("goldnugget", 4), Ingredient("pigskin", 4) }, TECH.CITY_TWO,
+	{ Ingredient("boards", 4), Ingredient("goldnugget", 4), Ingredient("pigskin", 4) }, TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -623,16 +624,16 @@ AddRecipe2("pig_shop_cityhall_player_entrance",
 		image = "pig_shop_cityhall.png"
 	}, { "HAMLET" })
 AddRecipe2("pig_guard_tower", { Ingredient("cutstone", 3), Ingredient("halberd", 1, h_atlas), Ingredient("pigskin", 4) },
-	TECH.CITY_TWO, { atlas = h_atlas, nounlock = false, min_spacing = 3.2, placer = "pig_guard_tower_placer" },
+	TECH.CITY_ONE, { atlas = h_atlas, nounlock = false, min_spacing = 3.2, placer = "pig_guard_tower_placer" },
 	{ "HAMLET" })
-AddRecipe2("hedge_block", { Ingredient("clippings", 3, h_atlas), Ingredient("nitre", 1) }, TECH.CITY_TWO,
+AddRecipe2("hedge_block", { Ingredient("clippings", 3, h_atlas), Ingredient("nitre", 1) }, TECH.CITY_ONE,
 	{ atlas = v_atlas, nounlock = false, min_spacing = 1, placer = "hedge_block_placer" }, { "HAMLET" })
-AddRecipe2("hedge_cone", { Ingredient("clippings", 3, h_atlas), Ingredient("nitre", 1) }, TECH.CITY_TWO,
+AddRecipe2("hedge_cone", { Ingredient("clippings", 3, h_atlas), Ingredient("nitre", 1) }, TECH.CITY_ONE,
 	{ atlas = v_atlas, nounlock = false, min_spacing = 1, placer = "hedge_cone_placer" }, { "HAMLET" })
-AddRecipe2("hedge_layered", { Ingredient("clippings", 3, h_atlas), Ingredient("nitre", 1) }, TECH.CITY_TWO,
+AddRecipe2("hedge_layered", { Ingredient("clippings", 3, h_atlas), Ingredient("nitre", 1) }, TECH.CITY_ONE,
 	{ atlas = v_atlas, nounlock = false, min_spacing = 1, placer = "hedge_layered_placer" }, { "HAMLET" })
 AddRecipe2("pig_guard_tower_palace",
-	{ Ingredient("cutstone", 5), Ingredient("halberd", 1, h_atlas), Ingredient("pigskin", 4) }, TECH.CITY_TWO,
+	{ Ingredient("cutstone", 5), Ingredient("halberd", 1, h_atlas), Ingredient("pigskin", 4) }, TECH.CITY_ONE,
 	{
 		atlas = hm_atlas,
 		nounlock = false,
@@ -640,47 +641,47 @@ AddRecipe2("pig_guard_tower_palace",
 		placer = "pig_guard_tower_palace_placer",
 		image = "pig_royal_tower.png"
 	}, { "HAMLET" })
-AddRecipe2("lawnornament_1", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_TWO,
+AddRecipe2("lawnornament_1", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_1_placer", image = "lawnornament_1.png" },
 	{ "HAMLET" })
-AddRecipe2("lawnornament_2", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_TWO,
+AddRecipe2("lawnornament_2", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_2_placer", image = "lawnornament_2.png" },
 	{ "HAMLET" })
-AddRecipe2("lawnornament_3", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_TWO,
+AddRecipe2("lawnornament_3", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_3_placer", image = "lawnornament_3.png" },
 	{ "HAMLET" })
-AddRecipe2("lawnornament_4", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_TWO,
+AddRecipe2("lawnornament_4", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_4_placer", image = "lawnornament_4.png" },
 	{ "HAMLET" })
-AddRecipe2("lawnornament_5", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_TWO,
+AddRecipe2("lawnornament_5", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_5_placer", image = "lawnornament_5.png" },
 	{ "HAMLET" })
-AddRecipe2("lawnornament_6", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_TWO,
+AddRecipe2("lawnornament_6", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_6_placer", image = "lawnornament_6.png" },
 	{ "HAMLET" })
-AddRecipe2("lawnornament_7", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_TWO,
+AddRecipe2("lawnornament_7", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_7_placer", image = "lawnornament_7.png" },
 	{ "HAMLET" })
-AddRecipe2("topiary_1", { Ingredient("cutstone", 2), Ingredient("oinc", 9, h_atlas) }, TECH.CITY_TWO,
+AddRecipe2("topiary_1", { Ingredient("cutstone", 2), Ingredient("oinc", 9, h_atlas) }, TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "topiary_1_placer", image = "topiary_1.png" },
 	{ "HAMLET" })
-AddRecipe2("topiary_2", { Ingredient("cutstone", 2), Ingredient("oinc", 9, h_atlas) }, TECH.CITY_TWO,
+AddRecipe2("topiary_2", { Ingredient("cutstone", 2), Ingredient("oinc", 9, h_atlas) }, TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "topiary_2_placer", image = "topiary_2.png" },
 	{ "HAMLET" })
-AddRecipe2("topiary_3", { Ingredient("cutstone", 2), Ingredient("oinc", 9, h_atlas) }, TECH.CITY_TWO,
+AddRecipe2("topiary_3", { Ingredient("cutstone", 2), Ingredient("oinc", 9, h_atlas) }, TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "topiary_3_placer", image = "topiary_3.png" },
 	{ "HAMLET" })
-AddRecipe2("topiary_4", { Ingredient("cutstone", 2), Ingredient("oinc", 9, h_atlas) }, TECH.CITY_TWO,
+AddRecipe2("topiary_4", { Ingredient("cutstone", 2), Ingredient("oinc", 9, h_atlas) }, TECH.CITY_ONE,
 	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "topiary_4_placer", image = "topiary_4.png" },
 	{ "HAMLET" })
-AddRecipe2("turf_foundation", { Ingredient("cutstone", 1) }, TECH.CITY_TWO, {
+AddRecipe2("turf_foundation", { Ingredient("cutstone", 1) }, TECH.CITY_ONE, {
 	atlas = v_atlas,
 	nounlock = false,
 	numtogive = 4
 }, { "HAMLET" })
-AddRecipe2("turf_cobbleroad", { Ingredient("cutstone", 2), Ingredient("boards", 1) }, TECH.CITY_TWO,
+AddRecipe2("turf_cobbleroad", { Ingredient("cutstone", 2), Ingredient("boards", 1) }, TECH.CITY_ONE,
 	{ atlas = v_atlas, nounlock = false, numtogive = 4 }, { "HAMLET" })
-AddRecipe2("turf_checkeredlawn", { Ingredient("cutgrass", 2), Ingredient("nitre", 1) }, TECH.CITY_TWO,
+AddRecipe2("turf_checkeredlawn", { Ingredient("cutgrass", 2), Ingredient("nitre", 1) }, TECH.CITY_ONE,
 	{ atlas = v_atlas, nounlock = false, numtogive = 4 }, { "HAMLET" })
 
 --TURFS--
@@ -781,7 +782,7 @@ AddRecipe2("turf_beardrug", 			{Ingredient("oinc", 1, h_atlas)}, 								TECH.TU
 
 
 --INTERIOR--
-AddRecipe2("stone_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("stone_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = true,
@@ -791,7 +792,7 @@ AddRecipe2("stone_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
 		build_mode = "insidedoor"
 	},
 	{ "INTERIOR" })
-AddRecipe2("plate_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("plate_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = true,
@@ -800,7 +801,7 @@ AddRecipe2("plate_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
 		placer = "plate_door_placer",
 		build_mode = "insidedoor"
 	}, { "INTERIOR" })
-AddRecipe2("organic_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("organic_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = true,
@@ -809,7 +810,7 @@ AddRecipe2("organic_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
 		placer = "organic_door_placer",
 		build_mode = "insidedoor"
 	}, { "INTERIOR" })
-AddRecipe2("round_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("round_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = true,
@@ -820,93 +821,93 @@ AddRecipe2("round_door", { Ingredient("oinc", 25, h_atlas) }, TECH.HOME_TWO,
 	}, { "INTERIOR" })
 
 
-AddRecipe2("interior_floor_wood", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+AddRecipe2("interior_floor_wood", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
-AddRecipe2("interior_floor_check", { Ingredient("oinc", 7, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_floor_check", { Ingredient("oinc", 7, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
-AddRecipe2("interior_floor_plaid_tile", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_floor_plaid_tile", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("interior_floor_sheet_metal", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_floor_sheet_metal", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("interior_floor_transitional", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_floor_transitional", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("interior_floor_woodpanels", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_floor_woodpanels", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("interior_floor_herringbone", { Ingredient("oinc", 12, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_floor_herringbone", { Ingredient("oinc", 12, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("interior_floor_hexagon", { Ingredient("oinc", 12, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_floor_hexagon", { Ingredient("oinc", 12, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
-AddRecipe2("interior_floor_hoof_curvy", { Ingredient("oinc", 12, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_floor_hoof_curvy", { Ingredient("oinc", 12, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("interior_floor_octagon", { Ingredient("oinc", 12, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_floor_octagon", { Ingredient("oinc", 12, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
 
-AddRecipe2("interior_wall_checkered_metal", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_wall_checkered_metal", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("interior_wall_circles", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_wall_circles", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
-AddRecipe2("interior_wall_marble", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_wall_marble", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
-AddRecipe2("interior_wall_sunflower", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_wall_sunflower", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
-AddRecipe2("interior_wall_wood", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+AddRecipe2("interior_wall_wood", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
-AddRecipe2("interior_wall_mayorsoffice", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_wall_mayorsoffice", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("interior_wall_harlequin", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_wall_harlequin", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
-AddRecipe2("interior_wall_fullwall_moulding", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_wall_fullwall_moulding", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
-AddRecipe2("interior_wall_floral", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_wall_floral", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
-AddRecipe2("interior_wall_upholstered", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("interior_wall_upholstered", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
 
 ---------------wall ornament---------------
--- AddRecipe2("reno_wallornament_photo", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_wallornament_photo", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_wallornament_embroidery_hoop", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_wallornament_embroidery_hoop", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
--- AddRecipe2("reno_wallornament_mosaic", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO, {
+-- AddRecipe2("reno_wallornament_mosaic", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_ONE, {
 -- 	atlas = h_atlas,
 -- 	nounlock = true
 -- }, { "INTERIOR" })
--- AddRecipe2("reno_wallornament_wreath", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO, {
+-- AddRecipe2("reno_wallornament_wreath", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_ONE, {
 -- 	atlas = h_atlas,
 -- 	nounlock = true
 -- }, { "INTERIOR" })
--- AddRecipe2("reno_wallornament_axe", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_wallornament_axe", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_wallornament_hunt", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_wallornament_hunt", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_wallornament_periodic_table", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_wallornament_periodic_table", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
--- AddRecipe2("reno_wallornament_gears_art", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_wallornament_gears_art", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
--- AddRecipe2("reno_wallornament_cape", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_wallornament_cape", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_wallornament_no_smoking", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_wallornament_no_smoking", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
--- AddRecipe2("reno_wallornament_black_cat", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_wallornament_black_cat", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true }, { "INTERIOR" })
 
--- AddRecipe2("reno_antiquities_wallfish", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, {
+-- AddRecipe2("reno_antiquities_wallfish", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE, {
 -- 	atlas = h_atlas,
 -- 	nounlock = true
 -- }, { "INTERIOR" })
--- AddRecipe2("reno_antiquities_beefalo", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO, {
+-- AddRecipe2("reno_antiquities_beefalo", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_ONE, {
 -- 	atlas = h_atlas,
 -- 	nounlock = true
 -- }, { "INTERIOR" })
@@ -916,7 +917,7 @@ local function AddWallSectionRecipe(name, oincvalue, data)
 	local presetoincvalue = oincvalue or 5
 	local prefabname = ((name:find("wallornament") or name:find("antiquities")) and ("deco_" .. name)) or name
 	AddRecipe2(prefabname,
-		{ Ingredient("oinc", presetoincvalue, h_atlas) }, TECH.HOME_TWO,
+		{ Ingredient("oinc", presetoincvalue, h_atlas) }, TECH.HOME_ONE,
 		{
 			atlas = h_atlas,
 			nounlock = true,
@@ -957,7 +958,7 @@ AddWallSectionRecipe("wallornament_black_cat", 5)
 AddWallSectionRecipe("antiquities_wallfish", 5)
 AddWallSectionRecipe("antiquities_beefalo", 10)
 AddWallSectionRecipe("wallornament_fulllength_mirror", 10)
--- AddRecipe2("reno_antiquities_beefalo", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO, {
+-- AddRecipe2("reno_antiquities_beefalo", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_ONE, {
 
 -- AddWallSectionRecipe("wallornament_chalkboard") -----这些没有制作栏贴图
 -- AddWallSectionRecipe("wallornament_whiteboard")
@@ -975,7 +976,7 @@ local function AddShelfRecipe(name, oincvalue)
 	local presetoincvalue = oincvalue or 5
 	local prefabname = ((name:find("wallornament") or name:find("antiquities")) and ("deco_" .. name)) or name
 	AddRecipe2(prefabname,
-		{ Ingredient("oinc", presetoincvalue, h_atlas) }, TECH.HOME_TWO,
+		{ Ingredient("oinc", presetoincvalue, h_atlas) }, TECH.HOME_ONE,
 		{
 			atlas = h_atlas,
 			nounlock = true,
@@ -1018,7 +1019,7 @@ local function AddLightRecipe(name, oincvalue)
 	local presetoincvalue = oincvalue or 5
 	local prefabname = "swinging_" .. name
 	AddRecipe2(prefabname,
-		{ Ingredient("oinc", presetoincvalue, h_atlas) }, TECH.HOME_TWO,
+		{ Ingredient("oinc", presetoincvalue, h_atlas) }, TECH.HOME_ONE,
 		{
 			atlas = h_atlas,
 			nounlock = true,
@@ -1044,21 +1045,21 @@ AddLightRecipe("light_derby", 10)
 
 
 
-AddRecipe2("reno_cornerbeam_wood", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("reno_cornerbeam_wood", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
-AddRecipe2("reno_cornerbeam_millinery", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO, {
+AddRecipe2("reno_cornerbeam_millinery", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_ONE, {
 	atlas = h_atlas,
 	nounlock = true
 }, { "INTERIOR" })
-AddRecipe2("reno_cornerbeam_round", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("reno_cornerbeam_round", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
-AddRecipe2("reno_cornerbeam_marble", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("reno_cornerbeam_marble", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true },
 	{ "INTERIOR" })
 
-AddRecipe2("deco_lamp_fringe", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_fringe", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1067,7 +1068,7 @@ AddRecipe2("deco_lamp_fringe", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO
 		image =
 		"reno_lamp_fringe.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_stainglass", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_stainglass", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1075,7 +1076,7 @@ AddRecipe2("deco_lamp_stainglass", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME
 		placer = "deco_lamp_stainglass_placer",
 		image = "reno_lamp_stainglass.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_downbridge", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_downbridge", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1083,7 +1084,7 @@ AddRecipe2("deco_lamp_downbridge", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME
 		placer = "deco_lamp_downbridge_placer",
 		image = "reno_lamp_downbridge.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_2embroidered", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_2embroidered", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1091,7 +1092,7 @@ AddRecipe2("deco_lamp_2embroidered", { Ingredient("oinc", 8, h_atlas) }, TECH.HO
 		placer = "deco_lamp_2embroidered_placer",
 		image = "reno_lamp_2embroidered.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_ceramic", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_ceramic", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1099,7 +1100,7 @@ AddRecipe2("deco_lamp_ceramic", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TW
 		placer = "deco_lamp_ceramic_placer",
 		image = "reno_lamp_ceramic.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_glass", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_glass", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1109,7 +1110,7 @@ AddRecipe2("deco_lamp_glass", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
 		"reno_lamp_glass.tex"
 	},
 	{ "INTERIOR" })
-AddRecipe2("deco_lamp_2fringes", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_2fringes", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1117,7 +1118,7 @@ AddRecipe2("deco_lamp_2fringes", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_T
 		placer = "deco_lamp_2fringes_placer",
 		image = "reno_lamp_2fringes.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_candelabra", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_candelabra", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1125,7 +1126,7 @@ AddRecipe2("deco_lamp_candelabra", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME
 		placer = "deco_lamp_candelabra_placer",
 		image = "reno_lamp_candelabra.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_elizabethan", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_elizabethan", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1133,7 +1134,7 @@ AddRecipe2("deco_lamp_elizabethan", { Ingredient("oinc", 8, h_atlas) }, TECH.HOM
 		placer = "deco_lamp_elizabethan_placer",
 		image = "reno_lamp_elizabethan.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_gothic", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_gothic", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1142,10 +1143,10 @@ AddRecipe2("deco_lamp_gothic", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO
 		image =
 		"reno_lamp_gothic.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_orb", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_orb", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = false, min_spacing = 1, placer = "deco_lamp_orb_placer", image = "reno_lamp_orb.tex" },
 	{ "INTERIOR" })
-AddRecipe2("deco_lamp_bellshade", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_bellshade", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1153,7 +1154,7 @@ AddRecipe2("deco_lamp_bellshade", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_
 		placer = "deco_lamp_bellshade_placer",
 		image = "reno_lamp_bellshade.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_crystals", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_crystals", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1161,7 +1162,7 @@ AddRecipe2("deco_lamp_crystals", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_T
 		placer = "deco_lamp_crystals_placer",
 		image = "reno_lamp_crystals.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_upturn", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_upturn", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1170,7 +1171,7 @@ AddRecipe2("deco_lamp_upturn", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO
 		image =
 		"reno_lamp_upturn.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_2upturns", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_2upturns", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1178,7 +1179,7 @@ AddRecipe2("deco_lamp_2upturns", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_T
 		placer = "deco_lamp_2upturns_placer",
 		image = "reno_lamp_2upturns.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_spool", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_spool", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1188,7 +1189,7 @@ AddRecipe2("deco_lamp_spool", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
 		"reno_lamp_spool.tex"
 	},
 	{ "INTERIOR" })
-AddRecipe2("deco_lamp_edison", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_edison", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1197,7 +1198,7 @@ AddRecipe2("deco_lamp_edison", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO
 		image =
 		"reno_lamp_edison.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_adjustable", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_adjustable", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1205,7 +1206,7 @@ AddRecipe2("deco_lamp_adjustable", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME
 		placer = "deco_lamp_adjustable_placer",
 		image = "reno_lamp_adjustable.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_rightangles", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_rightangles", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1213,7 +1214,7 @@ AddRecipe2("deco_lamp_rightangles", { Ingredient("oinc", 8, h_atlas) }, TECH.HOM
 		placer = "deco_lamp_rightangles_placer",
 		image = "reno_lamp_rightangles.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_lamp_hoofspa", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_lamp_hoofspa", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1222,7 +1223,7 @@ AddRecipe2("deco_lamp_hoofspa", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TW
 		image = "reno_lamp_hoofspa.tex"
 	}, { "INTERIOR" })
 
-AddRecipe2("deco_table_round", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_table_round", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1231,7 +1232,7 @@ AddRecipe2("deco_table_round", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO
 		image =
 		"reno_table_round.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_table_banker", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_table_banker", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1239,13 +1240,13 @@ AddRecipe2("deco_table_banker", { Ingredient("oinc", 4, h_atlas) }, TECH.HOME_TW
 		placer = "deco_table_banker_placer",
 		image = "reno_table_banker.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_table_diy", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_table_diy", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = false, min_spacing = 1, placer = "deco_table_diy_placer", image = "reno_table_diy.tex" },
 	{ "INTERIOR" })
-AddRecipe2("deco_table_raw", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_table_raw", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = false, min_spacing = 1, placer = "deco_table_raw_placer", image = "reno_table_raw.tex" },
 	{ "INTERIOR" })
-AddRecipe2("deco_table_crate", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_table_crate", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1254,7 +1255,7 @@ AddRecipe2("deco_table_crate", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO
 		image =
 		"reno_table_crate.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_table_chess", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_table_chess", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1264,7 +1265,7 @@ AddRecipe2("deco_table_chess", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO
 		"reno_table_chess.tex"
 	}, { "INTERIOR" })
 
-AddRecipe2("deco_plantholder_basic", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_basic", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1272,7 +1273,7 @@ AddRecipe2("deco_plantholder_basic", { Ingredient("oinc", 6, h_atlas) }, TECH.HO
 		placer = "deco_plantholder_basic_placer",
 		image = "reno_plantholder_basic.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_wip", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_wip", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1280,7 +1281,7 @@ AddRecipe2("deco_plantholder_wip", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME
 		placer = "deco_plantholder_wip_placer",
 		image = "reno_plantholder_wip.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_fancy", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_fancy", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1288,7 +1289,7 @@ AddRecipe2("deco_plantholder_fancy", { Ingredient("oinc", 6, h_atlas) }, TECH.HO
 		placer = "deco_plantholder_fancy_placer",
 		image = "reno_plantholder_fancy.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_bonsai", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_bonsai", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1296,7 +1297,7 @@ AddRecipe2("deco_plantholder_bonsai", { Ingredient("oinc", 6, h_atlas) }, TECH.H
 		placer = "deco_plantholder_bonsai_placer",
 		image = "reno_plantholder_bonsai.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_dishgarden", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_dishgarden", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1304,7 +1305,7 @@ AddRecipe2("deco_plantholder_dishgarden", { Ingredient("oinc", 6, h_atlas) }, TE
 		placer = "deco_plantholder_dishgarden_placer",
 		image = "reno_plantholder_dishgarden.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_philodendron", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_philodendron", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1312,7 +1313,7 @@ AddRecipe2("deco_plantholder_philodendron", { Ingredient("oinc", 6, h_atlas) }, 
 		placer = "deco_plantholder_philodendron_placer",
 		image = "reno_plantholder_philodendron.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_orchid", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_orchid", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1320,7 +1321,7 @@ AddRecipe2("deco_plantholder_orchid", { Ingredient("oinc", 6, h_atlas) }, TECH.H
 		placer = "deco_plantholder_orchid_placer",
 		image = "reno_plantholder_orchid.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_draceana", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_draceana", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1328,7 +1329,7 @@ AddRecipe2("deco_plantholder_draceana", { Ingredient("oinc", 6, h_atlas) }, TECH
 		placer = "deco_plantholder_draceana_placer",
 		image = "reno_plantholder_draceana.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_xerographica", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_xerographica", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1336,7 +1337,7 @@ AddRecipe2("deco_plantholder_xerographica", { Ingredient("oinc", 6, h_atlas) }, 
 		placer = "deco_plantholder_xerographica_placer",
 		image = "reno_plantholder_xerographica.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_birdcage", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_birdcage", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1344,7 +1345,7 @@ AddRecipe2("deco_plantholder_birdcage", { Ingredient("oinc", 6, h_atlas) }, TECH
 		placer = "deco_plantholder_birdcage_placer",
 		image = "reno_plantholder_birdcage.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_palm", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_palm", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1352,7 +1353,7 @@ AddRecipe2("deco_plantholder_palm", { Ingredient("oinc", 6, h_atlas) }, TECH.HOM
 		placer = "deco_plantholder_palm_placer",
 		image = "reno_plantholder_palm.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_zz", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_zz", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1360,7 +1361,7 @@ AddRecipe2("deco_plantholder_zz", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_
 		placer = "deco_plantholder_zz_placer",
 		image = "reno_plantholder_zz.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_fernstand", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_fernstand", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1368,7 +1369,7 @@ AddRecipe2("deco_plantholder_fernstand", { Ingredient("oinc", 6, h_atlas) }, TEC
 		placer = "deco_plantholder_fernstand_placer",
 		image = "reno_plantholder_fernstand.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_fern", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_fern", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1376,7 +1377,7 @@ AddRecipe2("deco_plantholder_fern", { Ingredient("oinc", 6, h_atlas) }, TECH.HOM
 		placer = "deco_plantholder_fern_placer",
 		image = "reno_plantholder_fern.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_terrarium", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_terrarium", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1384,7 +1385,7 @@ AddRecipe2("deco_plantholder_terrarium", { Ingredient("oinc", 6, h_atlas) }, TEC
 		placer = "deco_plantholder_terrarium_placer",
 		image = "reno_plantholder_terrarium.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_plantpet", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_plantpet", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1392,7 +1393,7 @@ AddRecipe2("deco_plantholder_plantpet", { Ingredient("oinc", 6, h_atlas) }, TECH
 		placer = "deco_plantholder_plantpet_placer",
 		image = "reno_plantholder_plantpet.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_traps", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_traps", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1400,7 +1401,7 @@ AddRecipe2("deco_plantholder_traps", { Ingredient("oinc", 6, h_atlas) }, TECH.HO
 		placer = "deco_plantholder_traps_placer",
 		image = "reno_plantholder_traps.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_plantholder_pitchers", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_plantholder_pitchers", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1409,7 +1410,7 @@ AddRecipe2("deco_plantholder_pitchers", { Ingredient("oinc", 6, h_atlas) }, TECH
 		image = "reno_plantholder_pitchers.tex"
 	}, { "INTERIOR" })
 
-AddRecipe2("deco_chair_classic", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_chair_classic", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1418,16 +1419,16 @@ AddRecipe2("deco_chair_classic", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_T
 		image =
 		"reno_chair_classic.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_chair_corner", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_chair_corner", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = false, min_spacing = 1, placer = "chair_corner_placer", image = "reno_chair_corner.tex" },
 	{ "INTERIOR" })
-AddRecipe2("deco_chair_bench", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_chair_bench", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = false, min_spacing = 1, placer = "chair_bench_placer", image = "reno_chair_bench.tex" },
 	{ "INTERIOR" })
-AddRecipe2("deco_chair_horned", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_chair_horned", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = false, min_spacing = 1, placer = "chair_horned_placer", image = "reno_chair_horned.tex" },
 	{ "INTERIOR" })
-AddRecipe2("deco_chair_footrest", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_chair_footrest", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1435,10 +1436,10 @@ AddRecipe2("deco_chair_footrest", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_
 		placer = "chair_footrest_placer",
 		image = "reno_chair_footrest.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_chair_lounge", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_chair_lounge", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = false, min_spacing = 1, placer = "chair_lounge_placer", image = "reno_chair_lounge.tex" },
 	{ "INTERIOR" })
-AddRecipe2("deco_chair_massager", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_chair_massager", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1446,7 +1447,7 @@ AddRecipe2("deco_chair_massager", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_
 		placer = "chair_massager_placer",
 		image = "reno_chair_massager.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_chair_stuffed", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_chair_stuffed", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1455,7 +1456,7 @@ AddRecipe2("deco_chair_stuffed", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_T
 		image =
 		"reno_chair_stuffed.tex"
 	}, { "INTERIOR" })
-AddRecipe2("deco_chair_rocking", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("deco_chair_rocking", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = false,
@@ -1467,16 +1468,16 @@ AddRecipe2("deco_chair_rocking", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_T
 
 
 
-AddRecipe2("rug_round", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_round", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_round_placer", image = "reno_rug_round.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_square", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_square", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_square_placer", image = "reno_rug_square.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_oval", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_oval", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_oval_placer", image = "reno_rug_oval.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_rectangle", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_rectangle", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = true,
@@ -1485,13 +1486,13 @@ AddRecipe2("rug_rectangle", { Ingredient("oinc", 3, h_atlas) }, TECH.HOME_TWO,
 		image =
 		"reno_rug_rectangle.tex"
 	}, { "INTERIOR" })
-AddRecipe2("rug_fur", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_fur", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_fur_placer", image = "reno_rug_fur.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_hedgehog", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_hedgehog", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_hedgehog_placer", image = "reno_rug_hedgehog.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_porcupuss", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_porcupuss", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = true,
@@ -1500,7 +1501,7 @@ AddRecipe2("rug_porcupuss", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO,
 		image =
 		"reno_rug_porcupuss.tex"
 	}, { "INTERIOR" })
-AddRecipe2("rug_hoofprint", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_hoofprint", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = true,
@@ -1509,16 +1510,16 @@ AddRecipe2("rug_hoofprint", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
 		image =
 		"reno_rug_hoofprint.tex"
 	}, { "INTERIOR" })
-AddRecipe2("rug_octagon", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_octagon", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_octagon_placer", image = "reno_rug_octagon.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_swirl", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_swirl", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_swirl_placer", image = "reno_rug_swirl.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_catcoon", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_catcoon", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_catcoon_placer", image = "reno_rug_catcoon.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_rubbermat", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_rubbermat", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{
 		atlas = h_atlas,
 		nounlock = true,
@@ -1527,93 +1528,93 @@ AddRecipe2("rug_rubbermat", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
 		image =
 		"reno_rug_rubbermat.tex"
 	}, { "INTERIOR" })
-AddRecipe2("rug_web", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_web", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_web_placer", image = "reno_rug_web.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_metal", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_metal", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_metal_placer", image = "reno_rug_metal.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_wormhole", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_wormhole", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_wormhole_placer", image = "reno_rug_wormhole.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_braid", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_braid", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_braid_placer", image = "reno_rug_braid.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_beard", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_beard", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_beard_placer", image = "reno_rug_beard.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_nailbed", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_nailbed", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_nailbed_placer", image = "reno_rug_nailbed.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_crime", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_crime", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_crime_placer", image = "reno_rug_crime.tex" },
 	{ "INTERIOR" })
-AddRecipe2("rug_tiles", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("rug_tiles", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = h_atlas, nounlock = true, min_spacing = 0, placer = "rug_tiles_placer", image = "reno_rug_tiles.tex" },
 	{ "INTERIOR" })
 
--- AddRecipe2("reno_shelves_wood", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- AddRecipe2("reno_shelves_wood", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_basic", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- AddRecipe2("reno_shelves_basic", { Ingredient("oinc", 2, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_cinderblocks", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_TWO, {
+-- AddRecipe2("reno_shelves_cinderblocks", { Ingredient("oinc", 1, h_atlas) }, TECH.HOME_ONE, {
 -- 	atlas = h_atlas,
 -- 	nounlock = true
 -- }, { "INTERIOR" })
--- AddRecipe2("reno_shelves_marble", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- AddRecipe2("reno_shelves_marble", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_glass", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- AddRecipe2("reno_shelves_glass", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_ladder", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- AddRecipe2("reno_shelves_ladder", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_hutch", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- AddRecipe2("reno_shelves_hutch", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_industrial", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_shelves_industrial", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_adjustable", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_shelves_adjustable", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_midcentury", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_shelves_midcentury", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_wallmount", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_shelves_wallmount", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_aframe", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- AddRecipe2("reno_shelves_aframe", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_crates", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- AddRecipe2("reno_shelves_crates", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_fridge", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- AddRecipe2("reno_shelves_fridge", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_floating", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_shelves_floating", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_pipe", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- AddRecipe2("reno_shelves_pipe", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_hattree", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO,
+-- AddRecipe2("reno_shelves_hattree", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE,
 -- 	{ atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
--- AddRecipe2("reno_shelves_pallet", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_TWO, { atlas = h_atlas, nounlock = true },
+-- AddRecipe2("reno_shelves_pallet", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
 
-AddRecipe2("bed0", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("bed0", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed0_placer" }, { "INTERIOR" })
-AddRecipe2("bed1", { Ingredient("oinc", 7, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("bed1", { Ingredient("oinc", 7, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed1_placer" }, { "INTERIOR" })
-AddRecipe2("bed2", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("bed2", { Ingredient("oinc", 10, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed2_placer" }, { "INTERIOR" })
-AddRecipe2("bed3", { Ingredient("oinc", 12, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("bed3", { Ingredient("oinc", 12, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed3_placer" }, { "INTERIOR" })
-AddRecipe2("bed4", { Ingredient("oinc", 14, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("bed4", { Ingredient("oinc", 14, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed4_placer" }, { "INTERIOR" })
-AddRecipe2("bed5", { Ingredient("oinc", 16, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("bed5", { Ingredient("oinc", 16, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed5_placer" }, { "INTERIOR" })
-AddRecipe2("bed6", { Ingredient("oinc", 18, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("bed6", { Ingredient("oinc", 18, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed6_placer" }, { "INTERIOR" })
-AddRecipe2("bed7", { Ingredient("oinc", 20, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("bed7", { Ingredient("oinc", 20, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed7_placer" }, { "INTERIOR" })
-AddRecipe2("bed8", { Ingredient("oinc", 22, h_atlas) }, TECH.HOME_TWO,
+AddRecipe2("bed8", { Ingredient("oinc", 22, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed8_placer" }, { "INTERIOR" })
 
 
