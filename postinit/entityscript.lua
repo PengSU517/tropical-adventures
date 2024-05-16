@@ -6,6 +6,12 @@ local PhysicsCollisionCallbacks = PhysicsCollisionCallbacks
 
 local should_pass_ground = {}
 
+
+-- local _setradius = GroundCreepEntity.SetRadius
+-- function GroundCreepEntity:SetRadius(stage)
+
+-- end
+
 -- local _SetOceanBlendParams = AnimState.SetOceanBlendParams
 -- function AnimState:SetOceanBlendParams(...)
 --     if true --[[TheWorld.has_ia_ocean]] then return end

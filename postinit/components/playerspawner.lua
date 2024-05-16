@@ -48,27 +48,3 @@ AddComponentPostInit("playerspawner", function(self)
         -- end
     end
 end)
-
--- -----------防止重新进档落水---------------需要和playerpost配合使用
--- AddComponentPostInit("playerspawner", function(self)
---     local OldSpawnAtLocation = self.SpawnAtLocation
---     function self:SpawnAtLocation(inst, player, x, y, z, isloading, ...)
---         if isloading then
---             local ship = player.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
---             if ship then
---                 if player.components.drownable ~= nil then
---                     player.components.drownable.enabled = false
---                     player.undrownable_bcz_ship = true
---                 end
---             end
---         end
---         OldSpawnAtLocation(self, inst, player, x, y, z, isloading, ...)
-
---         -- local ship = player.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
---         -- if ship then
---         --     if player.components.drownable ~= nil then
---         --         player.components.drownable.enabled = true
---         --     end
---         -- end
---     end
--- end)
