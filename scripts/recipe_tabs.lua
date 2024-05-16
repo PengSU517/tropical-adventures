@@ -5,7 +5,7 @@ local TechTree = require("techtree")
 table.insert(TechTree.AVAILABLE_TECH, "OBSIDIAN")
 table.insert(TechTree.AVAILABLE_TECH, "CITY")
 table.insert(TechTree.AVAILABLE_TECH, "HOME")
-table.insert(TechTree.AVAILABLE_TECH, "GODDESS")
+-- table.insert(TechTree.AVAILABLE_TECH, "GODDESS")
 
 TechTree.Create = function(t)
 	t = t or {}
@@ -27,9 +27,9 @@ _G.TECH.NONE.HOME = 0
 _G.TECH.HOME_ONE = { HOME = 1 }
 _G.TECH.HOME_TWO = { HOME = 2 }
 
-_G.TECH.NONE.GODDESS = 0
-_G.TECH.GODDESS_ONE = { GODDESS = 1 }
-_G.TECH.GODDESS_TWO = { GODDESS = 2 }
+-- -- _G.TECH.NONE.GODDESS = 0
+-- -- _G.TECH.GODDESS_ONE = { GODDESS = 1 }
+-- -- _G.TECH.GODDESS_TWO = { GODDESS = 2 }
 
 --------------------------------------------------------------------------
 --[[ 解锁等级中加入自己的部分 ]]
@@ -39,7 +39,7 @@ for k, v in pairs(TUNING.PROTOTYPER_TREES) do
 	v.OBSIDIAN = 0
 	v.CITY = 0
 	v.HOME = 0
-	v.GODDESS = 0
+	-- v.GODDESS = 0
 end
 
 
@@ -64,12 +64,12 @@ TUNING.PROTOTYPER_TREES.HOME_TWO = TechTree.Create({
 	HOME = 2,
 })
 
-TUNING.PROTOTYPER_TREES.GODDESS_ONE = TechTree.Create({
-	GODDESS = 1,
-})
-TUNING.PROTOTYPER_TREES.GODDESS_TWO = TechTree.Create({
-	GODDESS = 2,
-})
+-- TUNING.PROTOTYPER_TREES.GODDESS_ONE = TechTree.Create({
+-- 	GODDESS = 1,
+-- })
+-- TUNING.PROTOTYPER_TREES.GODDESS_TWO = TechTree.Create({
+-- 	GODDESS = 2,
+-- })
 
 for i, v in pairs(_G.AllRecipes) do
 	if v.level.OBSIDIAN == nil then
@@ -81,9 +81,9 @@ for i, v in pairs(_G.AllRecipes) do
 	if v.level.HOME == nil then
 		v.level.HOME = 0
 	end
-	if v.level.GODDESS == nil then
-		v.level.GODDESS = 0
-	end
+	-- if v.level.GODDESS == nil then
+	-- 	v.level.GODDESS = 0
+	-- end
 end
 
 
@@ -123,18 +123,18 @@ GLOBAL.RECIPETABS['HOME'] = {
 AddPrototyperDef("wallrenovation",
 	{ action_str = "HOME", icon_image = "tab_home_decor.tex", icon_atlas = "images/tabs.xml", is_crafting_station = false })
 
-GLOBAL.RECIPETABS['GODDESSTAB'] = {
-	str = "GODDESSTAB",
-	sort = 93,
-	icon = "windyfan1.tex",
-	icon_atlas = "images/inventoryimages/windyfan1.xml",
-	crafting_station = true
-}
-AddPrototyperDef("goddess_shrine",
-	{
-		action_str = "GODDESSTAB",
-		icon_image = "windyfan1.tex",
-		icon_atlas = "images/inventoryimages/windyfan1.xml",
-		is_crafting_station = true
-	}
-)
+-- GLOBAL.RECIPETABS['GODDESSTAB'] = {
+-- 	str = "GODDESSTAB",
+-- 	sort = 93,
+-- 	icon = "windyfan1.tex",
+-- 	icon_atlas = "images/inventoryimages/windyfan1.xml",
+-- 	crafting_station = true
+-- }
+-- AddPrototyperDef("goddess_shrine",
+-- 	{
+-- 		action_str = "GODDESSTAB",
+-- 		icon_image = "windyfan1.tex",
+-- 		icon_atlas = "images/inventoryimages/windyfan1.xml",
+-- 		is_crafting_station = true
+-- 	}
+-- )
