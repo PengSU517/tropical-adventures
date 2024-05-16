@@ -1,3 +1,5 @@
+local DEBUG_MODE = BRANCH == "dev"
+
 local assets=
 {
 	Asset("ANIM", "anim/armor_vortex_cloak.zip"),
@@ -66,7 +68,7 @@ local function onunequip(inst, owner)
 --    inst.SoundEmitter:KillSound("vortex")
 end
 
---[[local function nofuel(inst)
+local function nofuel(inst)
 
 end
 
@@ -82,7 +84,7 @@ local function ontakefuel(inst)
 	end	
 	setsoundparam(inst)
 end
-]]
+
 local function SetupEquippable(inst)
 	inst:AddComponent("equippable")
 	inst.components.equippable.equipslot = EQUIPSLOTS.BODY
@@ -96,18 +98,39 @@ end
 
 local function OnBroken(inst)
     local owner = inst.components.inventoryitem.owner
-    if owner then
-	    owner:RemoveTag("not_hit_stunned")
+    if owner ~= nil and owner:HasTag("not_hit_stunned") ~=nil then
+        owner:RemoveTag("not_hit_stunned")
     end
 end
 
 local function OnRepaired(inst)
     local owner = inst.components.inventoryitem.owner
-    if owner then
+    if owner ~= nil and owner:HasTag("not_hit_stunned") == nil then
         owner:AddTag("not_hit_stunned")
     end
 end
 
+local function _MakeForgeRepairable(inst, material, _onbroken, onrepaired)
+    local function __onbroken(inst)
+        if _onbroken ~= nil then
+            _onbroken(inst)
+        end		
+    end
+    if inst.components.armor ~= nil then
+    assert(not (DEBUG_MODE and inst.components.armor.onfinished ~= nil))
+    inst.components.armor:SetKeepOnFinished(true)
+    inst.components.armor:SetOnFinished(__onbroken)
+    elseif inst.components.finiteuses ~= nil then
+    assert(not (DEBUG_MODE and inst.components.finiteuses.onfinished ~= nil))
+    inst.components.finiteuses:SetOnFinished(__onbroken)
+    elseif inst.components.fueled ~= nil then
+    assert(not (DEBUG_MODE and inst.components.fueled.depleted ~= nil))
+    inst.components.fueled:SetDepletedFn(__onbroken)
+    end
+    inst:AddComponent("forgerepairable")
+	inst.components.forgerepairable:SetRepairMaterial(material)
+	inst.components.forgerepairable:SetOnRepaired(onrepaired)
+end
 
 local function fn()
 	local inst = CreateEntity()
@@ -153,17 +176,26 @@ local function fn()
     --armor:SetImmuneTags({"shadow"})
 --    inst.components.armor.bonussanitydamage = 0.3
 
+    local fueled = inst:AddComponent("fueled")
+    fueled:InitializeFuelLevel(4 * TUNING.LARGE_FUEL)
+    fueled.fueltype = "NIGHTMARE" -- 燃料是噩梦燃料
+    fueled.ontakefuelfn = ontakefuel
+    fueled.accepting = true
+
     local planardefense = inst:AddComponent("planardefense")
-    planardefense:SetBaseDefense(TUNING.ARMOR_VOIDCLOTH_PLANAR_DEF)
+    planardefense:SetBaseDefense(TUNING.ARMOR_VOIDCLOTH_PLANAR_DEF) --虚空长袍的位面防御
+
+    local damagetyperesist = inst:AddComponent("damagetyperesist")
+    damagetyperesist:AddResist("shadow_aligned", inst, TUNING.ARMOR_VOIDCLOTH_SHADOW_RESIST) --虚空长袍的10%暗影阵营减伤
 
     local shadowlevel = inst:AddComponent("shadowlevel")
-    shadowlevel:SetDefaultLevel(TUNING.ARMOR_VOIDCLOTH_SHADOW_LEVEL)
+    shadowlevel:SetDefaultLevel(TUNING.ARMOR_VOIDCLOTH_SHADOW_LEVEL) --虚空长袍的老麦3级暗影之力
 
     SetupEquippable(inst)
     --inst.components.equippable.dapperness = TUNING.CRAZINESS_MED
-	--采用联机版中的虚空长袍的机制
-    MakeForgeRepairable(inst, "voidcloth", OnBroken, OnRepaired)
-
+	--采用修改后的联机版中的虚空长袍的机制
+    _MakeForgeRepairable(inst, "voidcloth", OnBroken, OnRepaired)
+    
     inst.OnBlocked = function(owner, data) OnBlocked(owner, data, inst) end		
     
     return inst
