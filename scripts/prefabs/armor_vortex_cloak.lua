@@ -4,7 +4,7 @@ local assets=
     Asset("ANIM", "anim/cloak_fx.zip"),
 }
 
-local ARMORVORTEX = 150*3
+local ARMORVORTEX = 150*6 -- 联机版护甲应该翻倍
 local ARMORVORTEX_ABSORPTION = 1
 
 local function setsoundparam(inst)
@@ -66,7 +66,7 @@ local function onunequip(inst, owner)
 --    inst.SoundEmitter:KillSound("vortex")
 end
 
-local function nofuel(inst)
+--[[local function nofuel(inst)
 
 end
 
@@ -82,14 +82,42 @@ local function ontakefuel(inst)
 	end	
 	setsoundparam(inst)
 end
+]]
+local function SetupEquippable(inst)
+	inst:AddComponent("equippable")
+	inst.components.equippable.equipslot = EQUIPSLOTS.BODY
+	inst.components.equippable:SetOnEquip(onequip)
+	inst.components.equippable:SetOnUnequip(onunequip)
+
+	if inst._equippable_restrictedtag ~= nil then
+		inst.components.equippable.restrictedtag = inst._equippable_restrictedtag
+	end
+end
+
+local function OnBroken(inst)
+    local owner = inst.components.inventoryitem.owner
+    if owner then
+	    owner:RemoveTag("not_hit_stunned")
+    end
+end
+
+local function OnRepaired(inst)
+    local owner = inst.components.inventoryitem.owner
+    if owner then
+        owner:AddTag("not_hit_stunned")
+    end
+end
+
 
 local function fn()
 	local inst = CreateEntity()
+
     inst.entity:AddTransform()
     inst.entity:AddSoundEmitter()
     inst.entity:AddAnimState()
+    inst.entity:AddNetwork()	
     MakeInventoryPhysics(inst)
-	inst.entity:AddNetwork()	
+	
     
     inst.AnimState:SetBank("armor_vortex_cloak")
     inst.AnimState:SetBuild("armor_vortex_cloak")
@@ -98,13 +126,16 @@ local function fn()
     MakeInventoryFloatable(inst)  	
 	
     inst:AddTag("vortex_cloak")	
-	
-    inst.entity:SetPristine()
+	inst:AddTag("shadow_item")
+
+    --shadowlevel (from shadowlevel component) added to pristine state for optimization
+    inst:AddTag("shadowlevel")
 
     inst.entity:SetPristine()
+
 	if not TheWorld.ismastersim then	
-	inst.OnEntityReplicated = function(inst) inst.replica.container:WidgetSetup("backpack") end	
-	return inst
+	    inst.OnEntityReplicated = function(inst) inst.replica.container:WidgetSetup("backpack") end	
+	    return inst
 	end
         
     inst:AddComponent("inspectable")
@@ -114,29 +145,25 @@ local function fn()
     inst.components.inventoryitem.cangoincontainer = false
     inst.foleysound = "dontstarve_DLC003/common/crafted/vortex_armour/foley"
 
-    inst:AddComponent("container")
-	inst.components.container:WidgetSetup("backpack")
+    local container = inst:AddComponent("container")
+	container:WidgetSetup("backpack")
 
-    inst:AddComponent("fueled")
-    inst.components.fueled.fueltype = "NIGHTMARE"
-    inst.components.fueled:InitializeFuelLevel(4 * TUNING.LARGE_FUEL)
-
-    inst.components.fueled.ontakefuelfn = ontakefuel
-    inst.components.fueled.accepting = true
-
-    inst:AddComponent("armor")
-    inst.components.armor:InitCondition(ARMORVORTEX, ARMORVORTEX_ABSORPTION)
-    inst.components.armor.dontremove = true
-    inst.components.armor:SetImmuneTags({"shadow"})
+    local armor = inst:AddComponent("armor")
+    armor:InitCondition(ARMORVORTEX, ARMORVORTEX_ABSORPTION)
+    --armor:SetImmuneTags({"shadow"})
 --    inst.components.armor.bonussanitydamage = 0.3
-    
-    inst:AddComponent("equippable")
-    inst.components.equippable.equipslot = EQUIPSLOTS.BODY
-    
-    inst.components.equippable:SetOnEquip(onequip)
-    inst.components.equippable:SetOnUnequip(onunequip)
+
+    local planardefense = inst:AddComponent("planardefense")
+    planardefense:SetBaseDefense(TUNING.ARMOR_VOIDCLOTH_PLANAR_DEF)
+
+    local shadowlevel = inst:AddComponent("shadowlevel")
+    shadowlevel:SetDefaultLevel(TUNING.ARMOR_VOIDCLOTH_SHADOW_LEVEL)
+
+    SetupEquippable(inst)
     --inst.components.equippable.dapperness = TUNING.CRAZINESS_MED
-	
+	--采用联机版中的虚空长袍的机制
+    MakeForgeRepairable(inst, "voidcloth", OnBroken, OnRepaired)
+
     inst.OnBlocked = function(owner, data) OnBlocked(owner, data, inst) end		
     
     return inst
