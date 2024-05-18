@@ -329,6 +329,22 @@ AddRoom("OceanBrinepool", {
         distributepercent = 0.2,
         distributeprefabs =
         {
+
+            coralreef = 0.5,
+            ballphinhouse = .3,
+            seaweed_planted = .3,
+            jellyfish_planted = .3,
+            rainbowjellyfish_planted = 0.2,
+            spidercoralhole = 0.1,
+
+
+            -- fishinhole = .75,
+            -- rock_coral = 1,
+            -- ballphinhouse = .1,
+            -- seaweed_planted = .3,
+            -- jellyfish_planted = .3,
+            -- rainbowjellyfish_planted = 0.2,
+            -- solofish_spawner = .3,
         },
     }
 })
