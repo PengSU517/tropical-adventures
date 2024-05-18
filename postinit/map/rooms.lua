@@ -8,7 +8,7 @@ end)
 
 AddRoomPreInit("OceanCoastal", function(room)
     room.value = WORLD_TILES.OCEAN_COASTAL
-    TABLE.insert_index(room.contents.distributeprefabs,
+    tabel.insert_indexes(room.contents.distributeprefabs,
         {
             messagebottle1 = 0.1,
             seaweed_planted = 3 / 2,
@@ -25,7 +25,7 @@ end)
 
 AddRoomPreInit("OceanSwell", function(room)
     room.value = WORLD_TILES.OCEAN_SWELL
-    TABLE.insert_index(room.contents.distributeprefabs,
+    tabel.insert_indexes(room.contents.distributeprefabs,
         {
             ballphinhouse = 5,
             fishinhole = 5,
@@ -41,7 +41,7 @@ AddRoomPreInit("OceanSwell", function(room)
             bioluminescence_spawner = 5,
         })
 
-    -- TABLE.insert_index(room.contents.countstaticlayouts,
+    -- tabel.insert_indexes(room.contents.countstaticlayouts,
     --     {
     --         coralpool1 = 3,
     --         coralpool2 = 3,
@@ -58,7 +58,7 @@ end)
 
 AddRoomPreInit("OceanRough", function(room)
     room.value = WORLD_TILES.OCEAN_ROUGH
-    TABLE.insert_index(room.contents.distributeprefabs,
+    tabel.insert_indexes(room.contents.distributeprefabs,
         {
             fishinhole = 0.5,
             -- solofish_spawner = 0.2,
@@ -79,7 +79,7 @@ end)
 AddRoomPreInit("OceanHazardous", function(room)
     room.value = WORLD_TILES.OCEAN_HAZARDOUS
     room.contents.distributepercent = 0.3
-    TABLE.insert_index(room.contents.distributeprefabs,
+    tabel.insert_indexes(room.contents.distributeprefabs,
         {
             fishinhole = 3,
             waterygrave = 5,
@@ -106,7 +106,7 @@ end)
 
 AddRoomPreInit("OceanBrinepool", function(room)
     room.value = WORLD_TILES.OCEAN_BRINEPOOL
-    TABLE.insert_index(room.contents.distributeprefabs,
+    tabel.insert_indexes(room.contents.distributeprefabs,
         {
 
             coralreef = 0.5,

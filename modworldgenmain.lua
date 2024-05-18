@@ -1,6 +1,6 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 local require = GLOBAL.require
-require("tools/table") ----一些表相关的工具函数
+require("tools/table") ----一些表相关的工具函数，都在表tabel里
 
 
 GLOBAL.TA_CONFIG = {
@@ -430,7 +430,7 @@ if troadj.ocean == "tropical" then
     require("map/ocean_gen_tropical")
     AddLevelPreInitAny(function(level)
         if level.location == "forest" then
-            TABLE.insert(level.ocean_population, {
+            tabel.insert_components(level.ocean_population, {
                 "WaterShallowShore",
                 "WaterShallow",
                 "WaterMedium",
@@ -439,7 +439,7 @@ if troadj.ocean == "tropical" then
                 "WaterShipGraveyard",
             })
 
-            TABLE.remove(level.ocean_population, {
+            tabel.remove_components(level.ocean_population, {
                 "OceanCoastalShore",
                 "OceanCoastal",
                 "OceanSwell",
@@ -451,7 +451,7 @@ if troadj.ocean == "tropical" then
 elseif troadj.ocean == "default" then
     AddLevelPreInitAny(function(level)
         if level.location == "forest" then
-            TABLE.insert(level.ocean_population, {
+            tabel.insert_components(level.ocean_population, {
                 "OceanBrinepool",
             })
         end
