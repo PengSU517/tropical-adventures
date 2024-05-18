@@ -33,6 +33,7 @@ TAENV.AddPlayerPostInit(function(inst)
         inst:DoTaskInTime(2 * FRAMES, function()
             if inst.undrownable_bcz_ship and inst.components.drownable then
                 inst.components.drownable.enabled = true
+                inst.undrownable_bcz_ship = nil
             end
         end)
     end
