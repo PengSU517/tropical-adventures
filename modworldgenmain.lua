@@ -431,31 +431,38 @@ if troadj.ocean == "tropical" then
     AddLevelPreInitAny(function(level)
         if level.location == "forest" then
             tabel.insert_components(level.ocean_population, {
-                "WaterShallowShore",
-                "WaterShallow",
-                "WaterMedium",
-                "WaterDeep",
-                "WaterCoral",
-                "WaterShipGraveyard",
-            })
-
-            tabel.remove_components(level.ocean_population, {
-                "OceanCoastalShore",
-                "OceanCoastal",
-                "OceanSwell",
-                "OceanRough",
-                "OceanHazardous",
-            })
-        end
-    end)
-elseif troadj.ocean == "default" then
-    AddLevelPreInitAny(function(level)
-        if level.location == "forest" then
-            tabel.insert_components(level.ocean_population, {
                 "OceanBrinepool",
             })
         end
     end)
+    --     AddLevelPreInitAny(function(level)
+    --         if level.location == "forest" then
+    --             tabel.insert_components(level.ocean_population, {
+    --                 "WaterShallowShore",
+    --                 "WaterShallow",
+    --                 "WaterMedium",
+    --                 "WaterDeep",
+    --                 "WaterCoral",
+    --                 "WaterShipGraveyard",
+    --             })
+
+    --             tabel.remove_componets(level.ocean_population, {
+    --                 "OceanCoastalShore",
+    --                 "OceanCoastal",
+    --                 "OceanSwell",
+    --                 "OceanRough",
+    --                 "OceanHazardous",
+    --             })
+    --         end
+    --     end)
+    -- elseif troadj.ocean == "default" then
+    --     AddLevelPreInitAny(function(level)
+    --         if level.location == "forest" then
+    --             tabel.insert_components(level.ocean_population, {
+    --                 "OceanBrinepool",
+    --             })
+    --         end
+    --     end)
 end
 
 ---------------------测试模式------------
