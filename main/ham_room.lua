@@ -445,19 +445,21 @@ end
 
 
 ---------放置检查---------------------限制制作的配方-----------------------
-local banrecipe = { "playerhouse_city", "pugaliskfountain_made", "hua_player_house_recipe",
+local banrecipe = { "playerhouse_city", "pighouse_city", "city_lamp", "pig_guard_tower", "pig_guard_tower_palace",
+    "pugaliskfountain_made",
+    "hua_player_house_recipe",
     "homesign", "townportal", "telebase", "hua_player_house1_recipe",
     "hua_player_house_pvz_recipe", "hua_player_house_tardis_recipe", "infantree_carpet", "myth_house_bamboo"
 
 }
 
-local function isbanned(name, banrecipe)
-    for i, v in ipairs(banrecipe) do
-        if name == v then
-            return true
-        end
-    end
-end
+-- local function isbanned(name, banrecipe)
+--     for i, v in ipairs(banrecipe) do
+--         if name == v then
+--             return true
+--         end
+--     end
+-- end
 
 local function CheckHamRoomBeforeDeploy(self, pt, recipe, rot)
     if recipe.build_mode == "insidedoor" then
@@ -472,7 +474,7 @@ local function CheckHamRoomBeforeDeploy(self, pt, recipe, rot)
         if not iswall then
             return { false }, true
         end
-    elseif isbanned(recipe.name, banrecipe) then
+    elseif tabel.has_component(banrecipe, recipe.name) or string.find(recipe.name, "pig_shop") then
         local pt_x, pt_y, pt_z = pt:Get()
         local isroom = IsHamRoomAtPoint(pt_x, pt_y, pt_z, false)
         if isroom then
@@ -529,7 +531,7 @@ end
 require("entityscript")
 --实体是否在虚空的房间里面
 function EntityScript:IsInHamRoom()
-    return TheWorld.Map:IsHamRoomAtPoint(self:GetPosition():Get())
+    return TheWorld.Map:IsHamRoomAtPoint(self:GetPosition():Get()) --------------------似乎不太对
 end
 
 --推入事件
@@ -701,6 +703,7 @@ AddPrefabPostInit("world", function(inst)
     end
     inst:AddComponent("getposition_hamroom")
 end)
+
 AddPrefabPostInit("dirtpile", function(inst)
     if TheWorld.ismastersim then
         inst:DoTaskInTime(0, function(...)
@@ -708,6 +711,24 @@ AddPrefabPostInit("dirtpile", function(inst)
                 inst:Remove()
             end
         end)
+    end
+end)
+
+
+---------spidereggsack
+local _custom_candeploy_fn = function(inst, pt, mouseover, deployer, rot)
+    local x, y, z = pt:Get()
+    local judge = TheWorld.Map:CanDeployAtPoint(pt, inst, mouseover)
+    if judge and not inst:IsInHamRoom() then
+        return true
+    end
+    return false
+end
+
+AddPrefabPostInit("spidereggsack", function(inst)
+    if TheWorld.ismastersim then
+        inst.components.deployable:SetDeployMode(DEPLOYMODE.CUSTOM)
+        inst._custom_candeploy_fn = _custom_candeploy_fn
     end
 end)
 
