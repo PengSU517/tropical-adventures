@@ -19,8 +19,10 @@ AddTask("HomeIsland", {
     room_choices = {
         ["JungleDenseMedHome"] = 1,
         [salasjungle[math.random(1, 24)]] = 1,
+        [salasjungle[math.random(1, 24)]] = 1,
         ["BeachUnkept"] = 1,
-        ["BeachPalmCasino"] = 1,
+        -- ["BeachPalmCasino"] = 1,---抽奖机和醍醐
+        [salasbeach[math.random(1, 24)]] = 1,
         [salasbeach[math.random(1, 24)]] = 1,
     },
     room_bg = GROUND.JUNGLE,
