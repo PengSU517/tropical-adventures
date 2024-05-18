@@ -428,7 +428,8 @@ AddTask("TigerSharky", {
     room_choices = {
         -- ["JungleNoBerry"] = 1,
         ["TidalSharkHome"] = 1,
-        ["JungleNoBerry"] = 1,
+        -- ["JungleNoBerry"] = 1,
+        ["ForceDisconnectedRoom"] = 3,
     },
     entrance_room = "ForceDisconnectedRoom",
     room_bg = GROUND.JUNGLE,
