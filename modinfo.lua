@@ -41,7 +41,7 @@ end
 name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
 
 author = "Peng"
-version = "7.08"
+version = "7.09"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -64,6 +64,7 @@ Update:
 1. Prohibited indoor placement of spider dens (if the problem can't be solved, solve the spider den) while also banning indoor placement for some other Hamlet buildings.
 2. Adjusted the generation rules for tropical seas to enhance compatibility (so you can enable "Never Compromise"). Of course, players who couldn't play together before shouldn't try too hard.
 3. Fixed the issue where two slot machines and a pelican would spawn.
+4. Fixed world generation process.
 
 Last Update:
 1. Barely fixed the portal problem
@@ -109,6 +110,7 @@ local updatech = [[
 1.禁止蜘蛛巢室内摆放（解决不了问题就解决蜘蛛巢）同时禁止了一些其他哈姆雷特建筑的室内摆放
 2.调整了热带海域的生成规则，兼容性更强（可以开永不妥协）当然之前不能一起玩的玩家就不要努力了
 3.修复了会刷新两个抽奖机和鹈鹕的问题
+4.修复世界生成问题，应该不会缺失重要地形了
 
 上次更新：
 1.勉强修好了穿上退出游戏会传送至出生门的问题
