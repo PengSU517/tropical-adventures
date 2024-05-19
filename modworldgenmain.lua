@@ -73,8 +73,8 @@ require("map/ocean_gen_new") ----防止新的水面地皮被覆盖
 modimport("scripts/tools/spawnutil")
 
 
-modimport("main/node")                ------------防止清空水上内容
-modimport("main/forest_map_postinit") ----防止世界生成难产，但可能会缺失重要地形
+modimport("main/node") ------------防止清空水上内容
+-- modimport("main/forest_map_postinit") ----防止世界生成难产，但可能会缺失重要地形
 
 ----------新内容
 modimport("scripts/init_static_layouts") --add new static layouts
@@ -316,23 +316,6 @@ if troadj.hamlet then
     end)
 end
 
--- -----------------------出生地调整-----------------------------
--- if troadj.multiplayerportal == "shipwrecked" and troadj.shipwrecked then
---     AddLevelPreInitAny(function(level)
---         if level.location == "forest" then
---             table.insert(level.tasks, "HomeIsland_start")
---             level.overrides.start_location = "NewStart"
---         end
---     end)
--- elseif troadj.multiplayerportal == "hamlet" and troadj.hamlet then
---     AddLevelPreInitAny(function(level)
---         if level.location == "forest" then
---             table.insert(level.tasks, "Plains_start")
---             level.overrides.start_location = "NewStart"
---         end
---     end)
--- end
-
 -----------------------出生地调整-----------------------------
 if troadj.multiplayerportal == "shipwrecked" and troadj.shipwrecked then
     AddLevelPreInitAny(function(level)
@@ -362,8 +345,7 @@ end
 
 
 --------------------layout生成调整--------------------------------
-
-if troadj.together then
+if troadj.together and troadj.together_not_mainland then
     AddLevelPreInitAny(function(level)
         if level.location == "forest" then
             local taskrog = { "Squeltch", "Speak to the king", "Forest hunters", "Badlands", "For a nice walk",
@@ -383,7 +365,7 @@ if troadj.together then
             level.numrandom_set_pieces = 0
 
             ----------泰拉瑞亚
-            level.overrides.terrariumchest = "never"
+            -- level.overrides.terrariumchest = "never"
             local terra = {
                 [1] = "Terrarium_Forest_Spiders",
                 [2] = "Terrarium_Forest_Pigs",
@@ -392,12 +374,16 @@ if troadj.together then
             level.set_pieces[terra[math.random(1, 3)]] = { count = 1, tasks = taskrog }
 
             ---------舞台剧
-            level.overrides.stageplays = "never"
-            level.set_pieces["Charlie1"] = { count = 1, tasks = taskrog }
-            level.set_pieces["Charlie2"] = { count = 1, tasks = taskrog }
+            -- level.overrides.stageplays = "never"
+            -- level.set_pieces["Charlie1"] = { count = 1, tasks = taskrog }
+            -- level.set_pieces["Charlie2"] = { count = 1, tasks = taskrog }
+
+            tabel.insert_components(level.required_prefabs,
+                { "terrariumchest" })
         end
     end)
 end
+
 
 -----------海上布景---------------会显著加快地形生成
 if true then
@@ -435,34 +421,6 @@ if troadj.ocean == "tropical" then
             })
         end
     end)
-    --     AddLevelPreInitAny(function(level)
-    --         if level.location == "forest" then
-    --             tabel.insert_components(level.ocean_population, {
-    --                 "WaterShallowShore",
-    --                 "WaterShallow",
-    --                 "WaterMedium",
-    --                 "WaterDeep",
-    --                 "WaterCoral",
-    --                 "WaterShipGraveyard",
-    --             })
-
-    --             tabel.remove_componets(level.ocean_population, {
-    --                 "OceanCoastalShore",
-    --                 "OceanCoastal",
-    --                 "OceanSwell",
-    --                 "OceanRough",
-    --                 "OceanHazardous",
-    --             })
-    --         end
-    --     end)
-    -- elseif troadj.ocean == "default" then
-    --     AddLevelPreInitAny(function(level)
-    --         if level.location == "forest" then
-    --             tabel.insert_components(level.ocean_population, {
-    --                 "OceanBrinepool",
-    --             })
-    --         end
-    --     end)
 end
 
 ---------------------测试模式------------
