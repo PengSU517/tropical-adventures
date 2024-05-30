@@ -161,6 +161,7 @@ local function TotalCount(tags)
 end
 
 local preparedFoods = {
+	--[[
 	bread = {
 		test = function(cooker, names, tags)
 			return (tags.flour and tags.flour >= 3 and TotalCount(names) == 3) or
@@ -1537,6 +1538,7 @@ local preparedFoods = {
 		perishtime = 4800.0,
 		cooktime = 0.6666666666666666,
 	},
+	]]
 }
 
 for k,v in pairs(preparedFoods) do

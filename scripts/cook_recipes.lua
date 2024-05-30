@@ -1,4 +1,4 @@
-AddIngredientValues({ "butterfly_tropical_wings" }, { veggie = 0.5 }, true, false)
+AddIngredientValues({ "butterfly_tropical_wings" }, { decoration = 2 }, true, false)
 
 AddIngredientValues({ "limpets_cooked" }, { fish = 0.5 }, true, false)
 AddIngredientValues({ "limpets" }, { fish = 0.5 }, true, false)
@@ -100,6 +100,7 @@ AddIngredientValues({ "snake_bone" }, { bone = 1 }, true, false)
 AddIngredientValues({ "yelow_cap" }, { veggie = 0.5 }, true, false)
 AddIngredientValues({ "yelow_cooked" }, { veggie = 0.5 }, true, false)
 
+--[[
 local fruityjuice =
 {
 	name = "fruityjuice",
@@ -123,6 +124,7 @@ local fruityjuice =
 AddCookerRecipe("cookpot", fruityjuice)
 AddCookerRecipe("portablecookpot", fruityjuice)
 -------------------AddCookerRecipe("xiuyuan_cookpot", fruityjuice)
+]]
 
 
 local butterflymuffin =
@@ -380,6 +382,7 @@ AddCookerRecipe("cookpot", jellyopop)
 AddCookerRecipe("portablecookpot", jellyopop)
 -------------------AddCookerRecipe("xiuyuan_cookpot", jellyopop)
 
+--[[
 local californiaroll =
 {
 	name = "californiaroll",
@@ -403,6 +406,7 @@ local californiaroll =
 AddCookerRecipe("cookpot", californiaroll)
 AddCookerRecipe("portablecookpot", californiaroll)
 -------------------AddCookerRecipe("xiuyuan_cookpot", californiaroll)
+]]
 
 local bisque =
 {
@@ -422,6 +426,7 @@ AddCookerRecipe("cookpot", bisque)
 AddCookerRecipe("portablecookpot", bisque)
 -------------------AddCookerRecipe("xiuyuan_cookpot", bisque)
 
+--[[
 local bananapop =
 {
 	name = "bananapop",
@@ -446,6 +451,7 @@ local bananapop =
 AddCookerRecipe("cookpot", bananapop)
 AddCookerRecipe("portablecookpot", bananapop)
 -------------------AddCookerRecipe("xiuyuan_cookpot", bananapop)
+]]
 
 
 local caviar =
@@ -455,7 +461,7 @@ local caviar =
 	priority = 20,
 	weight = 1,
 	foodtype = "MEAT",
-	health = TUNING.HEALING_SMAL,
+	health = TUNING.HEALING_SMALL,
 	hunger = TUNING.CALORIES_SMALL,
 	perishtime = TUNING.PERISH_MED,
 	sanity = TUNING.SANITY_LARGE,
@@ -487,6 +493,7 @@ AddCookerRecipe("cookpot", tropicalbouillabaisse)
 AddCookerRecipe("portablecookpot", tropicalbouillabaisse)
 -------------------AddCookerRecipe("xiuyuan_cookpot", tropicalbouillabaisse)
 
+--[[
 local spicyvegstinger =
 {
 	name = "spicyvegstinger",
@@ -506,6 +513,7 @@ local spicyvegstinger =
 AddCookerRecipe("cookpot", spicyvegstinger)
 AddCookerRecipe("portablecookpot", spicyvegstinger)
 -------------------AddCookerRecipe("xiuyuan_cookpot", spicyvegstinger)
+]]
 
 local feijoada =
 {
@@ -624,6 +632,7 @@ AddCookerRecipe("cookpot", icedtea)
 AddCookerRecipe("portablecookpot", icedtea)
 -------------------AddCookerRecipe("xiuyuan_cookpot", icedtea)
 
+--[[
 local snakebonesoup =
 {
 	name = "snakebonesoup",
@@ -641,6 +650,7 @@ local snakebonesoup =
 AddCookerRecipe("cookpot", snakebonesoup)
 AddCookerRecipe("portablecookpot", snakebonesoup)
 -------------------AddCookerRecipe("xiuyuan_cookpot", snakebonesoup)
+]]
 
 local nettlelosange =
 {
