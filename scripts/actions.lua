@@ -6435,48 +6435,50 @@ UpdateCookingIngredientTags({ "red_cap", "green_cap", "blue_cap" }, { mushroom =
 UpdateCookingIngredientTags({ "smallmeat", "smallmeat_dried", "drumstick", "froglegs" }, { smallmeat = 1 })
 UpdateCookingIngredientTags({ "meat", "monstermeat" }, { bigmeat = 1 })
 
-AddCookerRecipe(
-    "pot",
-    {
-        name = "syrup",
-        test = function(cooker, names, tags)
-            return names.sap and names.sap >= 3
-        end,
-        priority = 1,
-        weight = 1,
-        foodtype = "GENERIC",
-        health = 10,
-        hunger = 5,
-        sanity = 10,
-        perishtime = TUNING.PERISH_SLOW,
-        cooktime = 2,
-        tags = {},
-    }
-)
+-- AddCookerRecipe(
+--     "pot",
+--     {
+--         name = "syrup",
+--         test = function(cooker, names, tags)
+--             return names.sap and names.sap >= 3
+--         end,
+--         priority = 1,
+--         weight = 1,
+--         foodtype = "GENERIC",
+--         health = 10,
+--         hunger = 5,
+--         sanity = 10,
+--         perishtime = TUNING.PERISH_SLOW,
+--         cooktime = 2,
+--         tags = {},
+--     }
+-- )
 
 local preparedFoods = GLOBAL.require("gorge_foods")
 
-AddCookerRecipeForCookers(
-    "wetgoop",
-    {
-        name = "wetgoop",
-        test = function(cooker, names, tags)
-            return true
-        end,
-        priority = -1,
-        weight = 1,
-        foodtype = "GENERIC",
-        perishtime = TUNING.PERISH_SLOW,
-        cooktime = 2,
-        health = 0,
-        hunger = 0,
-        sanity = 0,
-        perishtime = TUNING.PERISH_SLOW,
-        cookers = { "grill", "oven", "pot", "pot_syrup" },
-        tags = {},
-    },
-    cookers
-)
+-- AddCookerRecipeForCookers(
+--     "wetgoop",
+--     {
+--         name = "wetgoop",
+--         test = function(cooker, names, tags)
+--             return true
+--         end,
+--         priority = -1,
+--         weight = 1,
+--         foodtype = "GENERIC",
+--         perishtime = TUNING.PERISH_SLOW,
+--         cooktime = 2,
+--         health = 0,
+--         hunger = 0,
+--         sanity = 0,
+--         perishtime = TUNING.PERISH_SLOW,
+--         cookers = { "grill", "oven", "pot", "pot_syrup" },
+--         tags = {},
+--     },
+--     cookers
+-- )
+
+--这里竟然还有食谱，真nm
 
 local GNAW_REWARDS = {}
 
