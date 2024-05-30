@@ -143,7 +143,7 @@ local butterflymuffin =
 	cooktime = 2,
 	floater = { "small", 0.05, 0.7 },
 	tags = {},
-	cookbook_atlas = "images/inventoryimages/volcanoinventory.xml"
+	cookbook_atlas = "images/cookbook_" .. "butterflymuffin" .. ".xml"
 }
 
 AddCookerRecipe("cookpot", butterflymuffin)
@@ -159,7 +159,7 @@ local coffee =
 	end,
 	priority = 30,
 	weight = 1,
-	foodtype = "VEGGIE",
+	foodtype = FOODTYPE.GOODIES,
 	health = 3,
 	hunger = 75 / 8,
 	sanity = -5,
@@ -632,7 +632,7 @@ AddCookerRecipe("cookpot", icedtea)
 AddCookerRecipe("portablecookpot", icedtea)
 -------------------AddCookerRecipe("xiuyuan_cookpot", icedtea)
 
---[[
+
 local snakebonesoup =
 {
 	name = "snakebonesoup",
@@ -650,7 +650,7 @@ local snakebonesoup =
 AddCookerRecipe("cookpot", snakebonesoup)
 AddCookerRecipe("portablecookpot", snakebonesoup)
 -------------------AddCookerRecipe("xiuyuan_cookpot", snakebonesoup)
-]]
+
 
 local nettlelosange =
 {

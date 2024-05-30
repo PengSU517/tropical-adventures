@@ -44,7 +44,7 @@ end
 name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
 
 author = "Peng"
-version = "7.09"
+version = "7.10"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -63,6 +63,11 @@ QQ 群：469668062
 local updateen = [[
 
 Update:
+
+1. fix cook recipes, coffee will be goodies instead of veggies.list
+2. update logo.
+
+Last Update:
 
 1. Prohibited indoor placement of spider dens (if the problem can't be solved, solve the spider den) while also banning indoor placement for some other Hamlet buildings.
 2. Adjusted the generation rules for tropical seas to enhance compatibility (so you can enable "Never Compromise"). Of course, players who couldn't play together before shouldn't try too hard.
@@ -110,6 +115,10 @@ Last Update:
 local updatech = [[
 
 更新：
+1.修复食谱问题，咖啡不再是素食
+2.更新logo
+
+上次更新：
 1.禁止蜘蛛巢室内摆放（解决不了问题就解决蜘蛛巢）同时禁止了一些其他哈姆雷特建筑的室内摆放
 2.调整了热带海域的生成规则，兼容性更强（可以开永不妥协）当然之前不能一起玩的玩家就不要努力了
 3.修复了会刷新两个抽奖机和鹈鹕的问题
