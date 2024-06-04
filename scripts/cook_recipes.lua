@@ -140,6 +140,7 @@ local butterflymuffin =
 	health = TUNING.HEALING_MED,
 	hunger = TUNING.CALORIES_LARGE,
 	sanity = TUNING.SANITY_TINY,
+	perishtime = TUNING.PERISH_SLOW,
 	cooktime = 2,
 	floater = { "small", 0.05, 0.7 },
 	tags = {},
@@ -163,10 +164,11 @@ local coffee =
 	health = 3,
 	hunger = 75 / 8,
 	sanity = -5,
+	perishtime = TUNING.PERISH_MED,
 	cooktime = .5,
 	tags = {},
 	cookbook_atlas = "images/inventoryimages/volcanoinventory.xml",
-	oneat_desc = "Speeds the body",
+	oneat_desc = STRINGS.UI.COOKBOOK.COFFEE,
 }
 AddCookerRecipe("cookpot", coffee)
 AddCookerRecipe("portablecookpot", coffee)
@@ -308,7 +310,8 @@ local sharkfinsoup =
 	sanity = -10,
 	naughtiness = 10,
 	cooktime = 1,
-	cookbook_atlas = "images/inventoryimages/volcanoinventory.xml"
+	cookbook_atlas = "images/inventoryimages/volcanoinventory.xml",
+	oneat_desc = STRINGS.UI.COOKBOOK.SHARKFINSOUP,
 }
 AddCookerRecipe("cookpot", sharkfinsoup)
 AddCookerRecipe("portablecookpot", sharkfinsoup)
@@ -376,18 +379,19 @@ local jellyopop =
 	temperature = -40,
 	temperatureduration = 10,
 	cooktime = 0.5,
-	cookbook_atlas = "images/inventoryimages/volcanoinventory.xml"
+	cookbook_atlas = "images/inventoryimages/volcanoinventory.xml",
 }
 AddCookerRecipe("cookpot", jellyopop)
 AddCookerRecipe("portablecookpot", jellyopop)
 -------------------AddCookerRecipe("xiuyuan_cookpot", jellyopop)
 
---[[
+
 local californiaroll =
 {
 	name = "californiaroll",
 	test = function(cooker, names, tags)
-		return ((names.kelp or 0) + (names.kelp_cooked or 0) + (names.kelp_dried or 0) + (names.seaweed or 0) + (names.kelp_dried or 0)) ==
+		return ((names.kelp or 0) + (names.kelp_cooked or 0) 
+		+ (names.kelp_dried or 0) + (names.seaweed or 0)) ==
 			2 and (tags.fish and tags.fish >= 1)
 	end,
 	priority = 20,
@@ -406,7 +410,7 @@ local californiaroll =
 AddCookerRecipe("cookpot", californiaroll)
 AddCookerRecipe("portablecookpot", californiaroll)
 -------------------AddCookerRecipe("xiuyuan_cookpot", californiaroll)
-]]
+
 
 local bisque =
 {
@@ -487,7 +491,8 @@ local tropicalbouillabaisse =
 	perishtime = TUNING.PERISH_MED,
 	sanity = TUNING.SANITY_MED,
 	cooktime = 2,
-	cookbook_atlas = "images/inventoryimages/volcanoinventory.xml"
+	cookbook_atlas = "images/inventoryimages/volcanoinventory.xml",
+	oneat_desc = STRINGS.UI.COOKBOOK.TROPICALBOUILLABAISSE,
 }
 AddCookerRecipe("cookpot", tropicalbouillabaisse)
 AddCookerRecipe("portablecookpot", tropicalbouillabaisse)
@@ -602,13 +607,14 @@ local tea =
 	end,
 	priority = 25,
 	weight = 1,
-	foodtype = "VEGGIE",
+	foodtype = FOODTYPE.GOODIES,
 	health = TUNING.HEALING_SMALL,
 	hunger = TUNING.CALORIES_SMALL,
 	perishtime = TUNING.PERISH_ONE_DAY,
 	sanity = TUNING.SANITY_LARGE,
 	cooktime = 0.5,
 	cookbook_atlas = "images/inventoryimages/hamletinventory.xml",
+	oneat_desc = STRINGS.UI.COOKBOOK.TEA,
 }
 AddCookerRecipe("cookpot", tea)
 AddCookerRecipe("portablecookpot", tea)
@@ -620,13 +626,14 @@ local icedtea =
 	test = function(cooker, names, tags) return tags.filter and tags.filter >= 2 and tags.sweetener and tags.frozen end,
 	priority = 30,
 	weight = 1,
-	foodtype = "VEGGIE",
+	foodtype = FOODTYPE.GOODIES,
 	health = TUNING.HEALING_SMALL,
 	hunger = TUNING.CALORIES_SMALL,
 	perishtime = TUNING.PERISH_FAST,
 	sanity = TUNING.SANITY_LARGE,
 	cooktime = 0.5,
 	cookbook_atlas = "images/inventoryimages/hamletinventory.xml",
+	oneat_desc = STRINGS.UI.COOKBOOK.ICEDTEA,
 }
 AddCookerRecipe("cookpot", icedtea)
 AddCookerRecipe("portablecookpot", icedtea)
@@ -658,6 +665,7 @@ local nettlelosange =
 	test = function(cooker, names, tags) return tags.antihistamine and tags.antihistamine >= 3 end,
 	priority = 0,
 	weight = 1,
+	foodtype = FOODTYPE.GOODIES,
 	health = TUNING.HEALING_MED,
 	hunger = TUNING.CALORIES_MED,
 	perishtime = TUNING.PERISH_FAST,
@@ -665,6 +673,7 @@ local nettlelosange =
 	antihistamine = 720,
 	cooktime = .5,
 	cookbook_atlas = "images/inventoryimages/hamletinventory.xml",
+	oneat_desc = STRINGS.UI.COOKBOOK.NETTLELOSANGE,
 }
 AddCookerRecipe("cookpot", nettlelosange)
 AddCookerRecipe("portablecookpot", nettlelosange)
@@ -688,6 +697,7 @@ local meated_nettle =
 	antihistamine = 600,
 	cooktime = 1,
 	cookbook_atlas = "images/inventoryimages/meated_nettle.xml",
+	oneat_desc = STRINGS.UI.COOKBOOK.MEATED_NETTLE,
 }
 AddCookerRecipe("cookpot", meated_nettle)
 AddCookerRecipe("portablecookpot", meated_nettle)
