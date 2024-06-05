@@ -44,7 +44,7 @@ end
 name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
 
 author = "Peng"
-version = "7.10"
+version = "7.10.1"
 forumthread = ""
 api_version = 10
 priority = -10
