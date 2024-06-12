@@ -187,7 +187,7 @@ local function unlock(inst, key, doer)
         end
     end
     -- inst:AddTag("NOCLICK")----------加上这个就不能锤了
-    key:Remove()
+    if key then key:Remove() end
     inst.destrancado = true
 end
 
