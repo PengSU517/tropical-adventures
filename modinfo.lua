@@ -1,22 +1,27 @@
---to do list  以下为需要解决的问题
+--update test
+--to do list
 --马赛克地皮生成
 --给地皮调色
---建造栏图标未解锁--已解决
+--建造栏图标未解锁
 --单机海水联机化
 --强盗猪人
 --玻璃雨
---蜘蛛网--部分解决
+--蜘蛛网
 --中文语言包
---语言添加自动选项--已解决
+--语言添加自动选项
 --灵活调整室内摄像头
 --进出房间视角
 --限制玩家走到房间之外
 --roominterior组件
---修ROC SG --player_actions_shear.zip --player_actions_bucked.zip  被扔下来的动画
+--player_actions_shear.zip
+--player_actions_bucked.zip  被扔下来的动画
+--修ROC SG
+--载入语言包
 --猪镇的生成设计
 --蚁穴和洞穴地皮调整
---室内物品高度怎么调不了啊--部分解决
+--室内物品高度怎么调不了啊
 --海洋之椅，火山祭坛
+--洞穴的掉落物会落入水中
 --漂流瓶显示宝藏没有标记
 --雨林的小地图贴图不对
 --relic太少了
@@ -24,17 +29,9 @@
 --不要把东西给房子--已解决
 --浮木舟不掉耐久
 --大鸟地区不该加Hamlet标签 roc的SG也没写好
---waffles_plate缺少贴图 吴迪手杖贴图
+--waffles_plate缺少贴图
+--直接制作帽子戴上会报错。。
 --原MOD写的清楚积雪的效果只对主客机一体时有效
---热带生物的刷新
---城镇钥匙一元钱购买的问题
---咖啡素食属性
---小木牌贴图注册
---毁灭者不能传送
---钢铁侠机甲性能太差
---蚁穴没有清理干净
---商店猪人血量
---女王会走出屋外
 
 
 local function en_zh(en, zh) -- Other languages don't work
@@ -44,7 +41,7 @@ end
 name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
 
 author = "Peng"
-version = "7.10.2"
+version = "7.10.4"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -63,18 +60,6 @@ QQ 群：469668062
 local updateen = [[
 
 Update:
-
-1. fix cook recipes, coffee will be goodies instead of veggies.list
-2. update logo.
-
-Last Update:
-
-1. Prohibited indoor placement of spider dens (if the problem can't be solved, solve the spider den) while also banning indoor placement for some other Hamlet buildings.
-2. Adjusted the generation rules for tropical seas to enhance compatibility (so you can enable "Never Compromise"). Of course, players who couldn't play together before shouldn't try too hard.
-3. Fixed the issue where two slot machines and a pelican would spawn.
-4. Fixed world generation process.
-
-Last Update:
 1. Barely fixed the portal problem
 2. Modified deck laying range, tropical shallow sea, mangrove and lotus pond can be
 3. Hamlet: From outside the realm
@@ -115,17 +100,7 @@ Last Update:
 local updatech = [[
 
 更新：
-1.修复食谱问题，咖啡不再是素食
-2.更新logo
-
-上次更新：
-1.禁止蜘蛛巢室内摆放（解决不了问题就解决蜘蛛巢）同时禁止了一些其他哈姆雷特建筑的室内摆放
-2.调整了热带海域的生成规则，兼容性更强（可以开永不妥协）当然之前不能一起玩的玩家就不要努力了
-3.修复了会刷新两个抽奖机和鹈鹕的问题
-4.修复世界生成问题，应该不会缺失重要地形了
-
-上次更新：
-1.勉强修好了穿上退出游戏会传送至出生门的问题
+1.勉强修好了传送门的问题
 2.修改甲板的铺设范围，热带浅海、红树林和莲花池塘均可
 3.哈姆雷特：来自域外
 现在旋涡斗篷拥有了全新的能力：可用噩梦燃料修复，每次修复10%；是暗影装备；耐久掉0时不再具有无僵直效果和不再脱落可用虚空修补套件修复100%耐久；
