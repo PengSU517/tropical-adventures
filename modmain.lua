@@ -14,13 +14,9 @@ modimport("scripts/actions.lua")
 modimport("scripts/ham_fx.lua")
 -- AddMinimap()
 
-modimport("scripts/tools/waffles1") ------------------volcano-------------------
+modimport("scripts/tools/waffles1")        ------------------volcano-------------------
 modimport("scripts/recipe_tabs")
-<<<<<<< HEAD
 modimport("scripts/recipes")               --ALL RECIPES--
-=======
-modimport("scripts/recipes")        --ALL RECIPES--
->>>>>>> 10ee6abfdbe15eb8d126e704241a91152b635a43
 -- new cookrecipes
 -- modimport("scripts/cook_recipes")
 -- modimport("scripts/foodingredient")--Runar: 这是分离的食物属性
@@ -28,11 +24,7 @@ modimport("scripts/recipes")        --ALL RECIPES--
 modimport("scripts/cooking_tropical")
 
 
-<<<<<<< HEAD
 -- end
-=======
-
->>>>>>> 10ee6abfdbe15eb8d126e704241a91152b635a43
 modimport("postinit/postinit_poisonables") ----------------------posonables----and loot dropper-----------------
 modimport("postinit/prefabs/world")
 modimport("postinit/prefabs/forest")
