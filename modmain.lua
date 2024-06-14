@@ -17,7 +17,14 @@ modimport("scripts/ham_fx.lua")
 modimport("scripts/tools/waffles1")        ------------------volcano-------------------
 modimport("scripts/recipe_tabs")
 modimport("scripts/recipes")               --ALL RECIPES--
-modimport("scripts/cook_recipes")
+-- new cookrecipes
+-- modimport("scripts/cook_recipes")
+-- modimport("scripts/foodingredient")--Runar: 这是分离的食物属性
+-- modimport("scripts/preparedfoods_tropical") --Runar: 这是DST格式重写的食谱
+modimport("scripts/cooking_tropical")
+
+
+-- end
 modimport("postinit/postinit_poisonables") ----------------------posonables----and loot dropper-----------------
 modimport("postinit/prefabs/world")
 modimport("postinit/prefabs/forest")
