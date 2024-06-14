@@ -247,6 +247,7 @@ PrefabFiles =
 	"tidalpoolnew",
 	"marsh_tree_new",
 	-- "ligamundo",
+	"preparedfoods_tropical",
 }
 
 -- if GetModConfigData("whirlpools") then
@@ -1163,6 +1164,7 @@ RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "aloe_c
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "weevole_carapace.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "piko_orange.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "snake_bone.tex")
+
 
 ----------------新的图片
 -- RegisterInventoryItemAtlas("images/inventoryimages/tap_buildingimages.xml", "kyno_fountainyouth.tex")

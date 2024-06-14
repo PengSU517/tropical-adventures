@@ -44,7 +44,7 @@ end
 name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
 
 author = "Peng"
-version = "7.10.2"
+version = "7.10.4"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -63,6 +63,10 @@ QQ 群：469668062
 local updateen = [[
 
 Update:
+
+1. update cook recipes to make them compatible with spices.
+
+Last Update:
 
 1. fix cook recipes, coffee will be goodies instead of veggies.list
 2. update logo.
@@ -115,6 +119,9 @@ Last Update:
 local updatech = [[
 
 更新：
+1.更新食谱，适配香料，包括勋章
+
+上次更新：
 1.修复食谱问题，咖啡不再是素食
 2.更新logo
 
