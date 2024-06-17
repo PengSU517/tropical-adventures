@@ -972,7 +972,12 @@ end
 
 local function setupspawner(inst)
 	WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME, true)
-    inst.components.spawner:Configure( "piko", 10) --TUNING.PIKO_RESPAWN_TIME
+    -- Runar: 我真服了,运行不了不运行就行了是吧,原来的生成时间和概率也不对,一并改了
+    if math.random() < 0.25 then
+        inst.components.spawner:Configure( "piko_orange", 8) --TUNING.PIKO_RESPAWN_TIME
+    else
+        inst.components.spawner:Configure( "piko", 8) --TUNING.PIKO_RESPAWN_TIME
+    end
 --    inst.components.spawner.childfn = GetChild
 --    inst.components.spawner:SetOnSpawnedFn(OnSpawned)
     inst.components.spawner:SetOnOccupiedFn(onoccupied)

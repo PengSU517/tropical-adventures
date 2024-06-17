@@ -8744,6 +8744,10 @@ STRINGS.CITYPIGNAMES                                    =
 		"Wellington",
 		"Gulliver",
 	},
+	QUEEN = --Runar: Pig Queen is still a female, don't worry
+    {
+        "Queen Malfalfa",
+    },
 }
 
 
