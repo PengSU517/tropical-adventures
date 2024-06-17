@@ -63,7 +63,8 @@ Updates:
     1. Fixed an issue where Tea Trees could not generate Orange Picoes correctly
     2. Fixed an issue where Picoes would steal items such as backpacks and giant crops
     3. Fixed an issue where the name of the Pig Queen "Queen Malfalfa" could not be displayed correctly
-    4. Temporarily removed the option to generate a new world with tropical ocean
+    4. Fixed an issue where Mechanic Pigman would drop hammers
+	5. Temporarily removed the option to generate a new world with tropical ocean
 
 7.10.4:
     1. update cook recipes to make them compatible with spices.
@@ -122,7 +123,8 @@ local updatech = [[
     1. 修复了茶树不能正确生成橙色异食松鼠的问题
 	2. 修复了异食松鼠会偷背包、巨大作物等物件的问题
 	3. 修复了猪女王“玛法拉法女王”名称不能正确显示的问题
-	4. 暂时去除了新建地图生成热带风格海洋的选项
+	4. 修复了建筑猪人会掉落锤子的问题
+	5. 暂时去除了新建地图生成热带风格海洋的选项
 
 7.10.4：
     1. 热带冒险：食以味为先
