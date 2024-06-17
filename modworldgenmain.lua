@@ -13,7 +13,8 @@ GLOBAL.TA_CONFIG = {
     hamlet      = GetModConfigData("hamlet"),
 
 
-    ocean             = GetModConfigData("ocean"),
+    -- ocean             = GetModConfigData("ocean"),
+    ocean             = "default",
     multiplayerportal = GetModConfigData("startlocation"),
     startlocation     = GetModConfigData("startlocation"),
     worldsize         = GetModConfigData("worldsize"),

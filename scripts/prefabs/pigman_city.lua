@@ -808,19 +808,27 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
         inst:AddComponent("named")
 
         local names = {}
-        for i, name in ipairs(STRINGS.CITYPIGNAMES["UNISEX"]) do
-            table.insert(names, name)
-        end
-
-        if sex then
-            if sex == "MALE" then
-                inst.female = false
-            else
-                inst.female = true
+        if sex and sex == "QUEEN" then --Runar: 女王只随女王的名称列表,这个函数里面有很多重复代码不知道怎么删
+            inst.female = true
+            for i, name in ipairs(STRINGS.CITYPIGNAMES["QUEEN"]) do
+                table.insert(names, name)
+            end
+        
+        else
+            for i, name in ipairs(STRINGS.CITYPIGNAMES["UNISEX"]) do
+                table.insert(names, name)
             end
 
-            for i, name in ipairs(STRINGS.CITYPIGNAMES[sex]) do
-                table.insert(names, name)
+            if sex then
+                if sex == "MALE" then
+                    inst.female = false
+                else
+                    inst.female = true
+                end
+
+                for i, name in ipairs(STRINGS.CITYPIGNAMES[sex]) do
+                    table.insert(names, name)
+                end
             end
         end
 
@@ -1179,19 +1187,27 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
         inst:AddComponent("named")
 
         local names = {}
-        for i, name in ipairs(STRINGS.CITYPIGNAMES["UNISEX"]) do
-            table.insert(names, name)
-        end
-
-        if sex then
-            if sex == "MALE" then
-                inst.female = false
-            else
-                inst.female = true
+        if sex and sex == "QUEEN" then
+            inst.female = true
+            for i, name in ipairs(STRINGS.CITYPIGNAMES["QUEEN"]) do
+                table.insert(names, name)
+            end
+        
+        else
+            for i, name in ipairs(STRINGS.CITYPIGNAMES["UNISEX"]) do
+                table.insert(names, name)
             end
 
-            for i, name in ipairs(STRINGS.CITYPIGNAMES[sex]) do
-                table.insert(names, name)
+            if sex then
+                if sex == "MALE" then
+                    inst.female = false
+                else
+                    inst.female = true
+                end
+
+                for i, name in ipairs(STRINGS.CITYPIGNAMES[sex]) do
+                    table.insert(names, name)
+                end
             end
         end
 
@@ -1396,7 +1412,9 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
             inst:AddComponent("inventory")
         end
 
-        if tool then
+        if inst.components.inventory and tool then -- Runar: 根据单机的逻辑修复一下建筑猪掉锤子的问题
+            local remove_item = inst.components.inventory:RemoveItem(tool)
+            remove_item:Remove()
             inst.components.inventory:GiveItem(tool)
             inst.components.inventory:Equip(tool)
         end
@@ -1460,7 +1478,7 @@ return
     makepigman("pigman_royalguard_2", "pig_royalguard_2", nil, true, nil, nil, "MALE"),
     makepigman("pigman_farmer", "pig_farmer", nil, nil, nil, nil, "MALE"),
     makepigman("pigman_miner", "pig_miner", nil, nil, nil, nil, "MALE"),
-    makepigman("pigman_queen", "pig_queen", nil, nil, nil, { "pigqueen", "emote_nohat" }, "FEMALE"),
+    makepigman("pigman_queen", "pig_queen", nil, nil, nil, { "pigqueen", "emote_nohat" }, "QUEEN"),
     makepigman("pigman_beautician_shopkeep", "pig_beautician", nil, nil, true, nil, "FEMALE", "pigman_beautician"),
     makepigman("pigman_florist_shopkeep", "pig_florist", nil, nil, true, nil, "FEMALE", "pigman_florist"),
     makepigman("pigman_erudite_shopkeep", "pig_erudite", nil, nil, true, { "emote_nohat" }, "FEMALE", "pigman_erudite"),

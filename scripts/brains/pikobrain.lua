@@ -54,6 +54,7 @@ local function PickupAction(inst)
                 local isValidPickupItem =
                     isValidPosition and
                     item.components.inventoryitem and
+                    item.components.inventoryitem.cangoincontainer and --Runar: 不能进物品栏的物品也太鬼畜了,单机版没有背包是吧
                     not item.components.inventoryitem:IsHeld() and
                     item.components.inventoryitem.canbepickedup and
                     item:IsOnValidGround() and
