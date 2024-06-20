@@ -1,6 +1,37 @@
 local containers = GLOBAL.require "containers"
+-- local containers = require("containers")
+
 ---------------------------------------configura os slots--------------------------------------------------------------------
 --local params = getval(containers.widgetsetup, "params")
+local params = {}
+
+params.armorvortexcloak =
+{
+  widget =
+  {
+    slotpos = {},
+    animbank = "ui_krampusbag_2x5",
+    animbuild = "ui_krampusbag_2x5",
+	bgimage = nil,
+    bgatlas = nil,
+	pos = Vector3(-5, -60, 0),
+  },
+  issidewidget = true,
+  type = "pack",
+  openlimit = 1,
+}
+for y = 0, 4 do
+    for x = 0, 1 do
+        table.insert(params.armorvortexcloak.widget.slotpos, Vector3(75 * x - 162, 75 * y - 186, 0))
+    end
+end
+
+for k, v in pairs(params) do
+    containers.params[k] = v
+
+    containers.MAXITEMSLOTS = math.max(containers.MAXITEMSLOTS, v.widget.slotpos ~= nil and #v.widget.slotpos or 0)
+end
+params = nil
 
 
 local function deepval(fn, name, member, depth)

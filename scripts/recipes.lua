@@ -29,6 +29,19 @@ AddRecipe2("pugaliskfountain_made",
 	},
 	{ "STRUCTURES", "LEGACY", "SUMMER" })
 
+AddRecipe2("armorvortexcloak", {Ingredient("ancient_remnant", 5), Ingredient("armor_sanity", 1)}, TECH.LOST, {
+    atlas = "images/inventoryimages/hamletinventory.xml",
+    image = "armorvortexcloak.tex",
+	}, {"ARMOUR", "MAGIC", "CONTAINERS"})
+
+AddRecipe2("armorvoidcloak",
+    {Ingredient("armorvortexcloak", 1), Ingredient("horrorfuel", 4), Ingredient("voidcloth", 4),
+     Ingredient("shadowheart", 1)}, TECH.SHADOWFORGING_TWO, {
+        nounlock = true,
+        atlas = "images/inventoryimages/hamletinventory.xml",
+        image = "armorvoidcloak.tex",
+    }, {"CRAFTING_STATION"})
+
 
 
 -- AddRecipe2("reno_window_greenhouse", { Ingredient("oinc", 8, h_atlas) }, TECH.HOME_ONE,
