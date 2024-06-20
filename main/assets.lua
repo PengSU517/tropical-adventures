@@ -761,6 +761,8 @@ table.insert(PrefabFiles, "ancient_robots")
 table.insert(PrefabFiles, "ancient_hulk")
 table.insert(PrefabFiles, "ancient_herald")
 table.insert(PrefabFiles, "armor_vortex_cloak")
+table.insert(PrefabFiles, "armor_void_cloak")
+table.insert(PrefabFiles, "herald_tatters")
 table.insert(PrefabFiles, "living_artifact")
 table.insert(PrefabFiles, "rock_basalt")
 table.insert(PrefabFiles, "ancient_robots_assembly")
@@ -1165,6 +1167,10 @@ RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "weevol
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "piko_orange.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "snake_bone.tex")
 
+-- New inventory images for ham
+RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "armorvortexcloak.tex")
+RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "armorvoidcloak.tex")
+RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "ancient_remnant.tex")
 
 ----------------新的图片
 -- RegisterInventoryItemAtlas("images/inventoryimages/tap_buildingimages.xml", "kyno_fountainyouth.tex")
