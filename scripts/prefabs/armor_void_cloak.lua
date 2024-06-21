@@ -201,7 +201,7 @@ local function fn()
     local fueled = inst:AddComponent("fueled")
     fueled:InitializeFuelLevel(ARMORVOIDFUEL)
     fueled.fueltype = FUELTYPE.NIGHTMARE -- 燃料是噩梦燃料
-    fueled.secondaryfueltype = "ANCIENT_REMNANT"
+    fueled.secondaryfueltype = FUELTYPE.ANCIENT_REMNANT
     fueled.ontakefuelfn = ontakefuel
     fueled.accepting = true
 

@@ -41,7 +41,7 @@ end
 name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
 
 author = "Peng, 杰杰, Runar"
-version = "2.6.20"
+version = "2.6.20.2"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -67,15 +67,9 @@ Updates:
 	5. When there is no item in Vortex Cloak's inventory slots, you can add the Vortex Cloak to the inventory
 	6. New equipment "Void Cloak" :
 		Craft at the Shadowcraft Plinth
-		Durability 855
-		Protection 100%
-		Planar Defense +10
-		10% reduced damage taken from Shadow-aligned mobs
-		Shadow Magic Tier 3
- 		Decreases Sanity by 10% of total damage taken
-    	Refueled with Nightmare fuels to restore durability
-		Restore full durability with the Void Repair Kit
-		Has 12 inventory slots
+		Durability 855, Protection 100%, Planar Defense +10, 10% reduced damage taken from Shadow-aligned mobs
+		Shadow Magic Tier 3, Decreases Sanity by 10% of total damage taken,	Refueled with Nightmare fuels to restore durability
+		Restore full durability with the Void Repair Kit, Has 12 inventory slots
 	7. Adjusted the Damage of Shard Sword and Shard Beak
 	8. Date dependent version numbers are used later
 
@@ -98,15 +92,9 @@ local updatech = [[
 	5. 漩涡斗篷内没有物品时，可以将漩涡斗篷收入物品栏
 	6. 新增装备“虚空斗篷”：
 		在暗影术基座处制作
-	    耐久855
-	    物理防御 100%
-	    位面防御 +10
-	    暗影阵营物理伤害减免 10%
-	    暗影魔法 等级3
-	    受击扣除10%所承受伤害的san值
-		使用噩梦燃料类燃料恢复耐久
-		使用虚空修补套件恢复全部耐久
-		有12个格子
+	    耐久855，物理防御 100%，位面防御 +10，暗影阵营物理伤害减免 10%
+	    暗影魔法 等级3，受击扣除10%所承受伤害的san值，使用噩梦燃料类燃料恢复耐久
+		使用虚空修补套件恢复全部耐久，有12个格子
 	7. 调整了碎裂剑和碎裂喙的伤害值
 	8. 往后采用日期相关的版本号
 
