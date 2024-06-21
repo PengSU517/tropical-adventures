@@ -41,7 +41,7 @@ end
 name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
 
 author = "Peng, 杰杰, Runar"
-version = "2.6.20.2"
+version = "2.6.20.3"
 forumthread = ""
 api_version = 10
 priority = -10

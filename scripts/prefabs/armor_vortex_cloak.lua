@@ -196,6 +196,7 @@ local function fn()
 
     local armor = inst:AddComponent("armor")
     armor:InitCondition(ARMORVORTEX, ARMORVORTEX_ABSORPTION)
+    armor:SetKeepOnFinished(true)
     armor:SetImmuneTags({"shadow"})
     inst.components.armor.ontakedamage = OnTakeDamage
 
