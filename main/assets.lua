@@ -9,6 +9,116 @@ PrefabFiles =
 
 
 	-----------修改暴力覆盖
+
+	--鱼群相关
+	"tro_oceanfish", ----------------需要立即修改
+	"tro_schoolherd", ---------------需要马上修改
+
+	-- "tro_berrybush",
+	"tro_blowdart",
+	-- "tro_bullkelp_beached",
+	"tro_butterfly",
+	"tro_butterflywings",
+	-- "tro_campfire",
+	-- "tro_cane",
+	"tro_cave_entrance",
+	"tro_cave_exit",
+	-- "tro_coldfire",
+	-- "tro_coldfirepit",
+	-- "tro_cookpot",
+	-- "tro_crabking_claw",
+	"tro_feathers",
+	-- "tro_firepit",
+	-- "tro_firesuppressor",
+	-- "tro_flower", --inst:ListenForEvent("beginaporkalypse"
+	-- "tro_flower_evil",--inst:ListenForEvent("endaporkalypse"
+	-- "tro_gears", --inst:AddComponent("fuel")
+	"tro_grass",
+	-- "tro_hawaiianshirt",
+	-- "tro_heatrock",
+	-- "tro_honey",
+	-- "tro_icebox",
+	-- "tro_lavaarena_beetletaur",
+	-- "tro_lavaarena_boarlord",
+	-- "tro_lavaarena_center",
+	-- "tro_lavaarena_creature_spawn_fx",
+	-- "tro_lavaarena_floorgrate",
+	-- "tro_lavaarena_rhinodrill",
+	-- "tro_lighter", --打火机？
+	-- "tro_lightning", --少了个thunder？
+	-- "tro_madscience_lab",
+	-- "tro_magicprototyper",
+	-- "tro_minisign", ---------这个需要马上改
+	-- "tro_mushrooms",
+	-- "tro_mushtree",
+	-- "tro_mushtree_spores",
+
+	-- "tro_palmconetree",
+	-- "tro_penguin_ice",
+	-- "tro_pocketwatch",
+	-- "tro_pond",
+	"tro_poop", --猴子粪球
+	-- "tro_portablecookpot",
+	-- "tro_quagmire_altar",
+	-- "tro_quagmire_altar_statue",
+	-- "tro_quagmire_casseroledish",
+	-- "tro_quagmire_coins",
+	-- "tro_quagmire_crates",
+	-- "tro_quagmire_fern",
+	-- "tro_quagmire_flour",
+	-- "tro_quagmire_foods",
+	-- "tro_quagmire_goatkid",
+	-- "tro_quagmire_goatmilk",
+	-- "tro_quagmire_goatmum",
+	-- "tro_quagmire_grill",
+	-- "tro_quagmire_key",
+	-- "tro_quagmire_lamp_post",
+	-- "tro_quagmire_mealingstone",
+	-- "tro_quagmire_mushrooms",
+	-- "tro_quagmire_mushroomstump",
+	-- "tro_quagmire_oldstructures",
+	-- "tro_quagmire_oven",
+	-- "tro_quagmire_parkspike",
+	-- "tro_quagmire_pebblecrab",
+	-- "tro_quagmire_plates",
+	-- "tro_quagmire_portal",
+	-- "tro_quagmire_portal_key",
+	-- "tro_quagmire_pot",
+	-- "tro_quagmire_pot_hanger",
+	-- "tro_quagmire_safe",
+	-- "tro_quagmire_salt_rack",
+	-- "tro_quagmire_sap",
+	-- "tro_quagmire_sapbucket",
+	-- "tro_quagmire_seedpackets",
+	-- "tro_quagmire_slaughtertool",
+	-- "tro_quagmire_sugarwoodtree",
+	-- "tro_quagmire_swampigelder",
+	-- "tro_quagmire_syrup",
+	-- "tro_rabbit",
+	-- "tro_rainometer",
+	-- "tro_rock_ice",
+	-- "tro_rocks", guard 会检测？
+
+	-- "tro_scienceprototyper",
+	-- "tro_seafaring_prototyper",
+	-- "tro_shark",
+	-- "tro_staff", --------有和船相关的东西
+	-- "tro_statueruins", --------圆头锤相关
+	-- "tro_torch",----------技能树？
+	-- "tro_townportal", camera相关
+	-- "tro_townportaltalisman",
+	-- "tro_trophyscale_fish",--这是啥
+	"tro_tumbleweedspawner", --一堆spawner
+	"tro_umbrella",
+	"tro_veggies",        --可能需要大改
+	"tro_walls",          --需要加水上动画
+	-- "tro_walrus_camp",
+	-- "tro_warningshadow", --啥东西
+	-- "tro_winterometer",
+	"tro_wobster", --龙虾放在地上位置有问题 没有lobster
+
+
+
 	"wave_shimmer_tropical",
 	"wave_shore_tropical",
 
@@ -963,25 +1073,31 @@ Assets =
 	Asset("ANIM", "anim/seagull_build.zip"),
 	Asset("ANIM", "anim/quagmire_pigeon_build.zip"),
 	Asset("ANIM", "anim/skeletons.zip"),
-	-- Asset("ANIM", "anim/fish2.zip"),
-	-- Asset("ANIM", "anim/oceanfish_small.zip"),
-	-- Asset("ANIM", "anim/oceanfish_small_1.zip"),
-	-- Asset("ANIM", "anim/oceanfish_small_2.zip"),
-	-- Asset("ANIM", "anim/oceanfish_small_3.zip"),
-	-- Asset("ANIM", "anim/oceanfish_small_4.zip"),
-	-- Asset("ANIM", "anim/oceanfish_small_5.zip"),
-	-- Asset("ANIM", "anim/oceanfish_small_6.zip"),
-	-- Asset("ANIM", "anim/oceanfish_small_7.zip"),
-	-- Asset("ANIM", "anim/oceanfish_small_8.zip"),
-	-- Asset("ANIM", "anim/oceanfish_medium.zip"),
-	-- Asset("ANIM", "anim/oceanfish_medium_1.zip"),
-	-- Asset("ANIM", "anim/oceanfish_medium_2.zip"),
-	-- Asset("ANIM", "anim/oceanfish_medium_3.zip"),
-	-- Asset("ANIM", "anim/oceanfish_medium_4.zip"),
-	-- Asset("ANIM", "anim/oceanfish_medium_5.zip"),
-	-- Asset("ANIM", "anim/oceanfish_medium_6.zip"),
-	-- Asset("ANIM", "anim/oceanfish_medium_7.zip"),
-	-- Asset("ANIM", "anim/oceanfish_medium_8.zip"),
+	Asset("ANIM", "anim/fish2.zip"),
+	Asset("ANIM", "anim/fish3.zip"),
+	Asset("ANIM", "anim/fish4.zip"),
+	Asset("ANIM", "anim/fish5.zip"),
+	Asset("ANIM", "anim/fish6.zip"),
+	Asset("ANIM", "anim/fish7.zip"),
+
+	Asset("ANIM", "anim/oceanfish_small.zip"),
+	Asset("ANIM", "anim/oceanfish_small_1.zip"),
+	Asset("ANIM", "anim/oceanfish_small_2.zip"),
+	Asset("ANIM", "anim/oceanfish_small_3.zip"),
+	Asset("ANIM", "anim/oceanfish_small_4.zip"),
+	Asset("ANIM", "anim/oceanfish_small_5.zip"),
+	Asset("ANIM", "anim/oceanfish_small_6.zip"),
+	Asset("ANIM", "anim/oceanfish_small_7.zip"),
+	Asset("ANIM", "anim/oceanfish_small_8.zip"),
+	Asset("ANIM", "anim/oceanfish_medium.zip"),
+	Asset("ANIM", "anim/oceanfish_medium_1.zip"),
+	Asset("ANIM", "anim/oceanfish_medium_2.zip"),
+	Asset("ANIM", "anim/oceanfish_medium_3.zip"),
+	Asset("ANIM", "anim/oceanfish_medium_4.zip"),
+	Asset("ANIM", "anim/oceanfish_medium_5.zip"),
+	Asset("ANIM", "anim/oceanfish_medium_6.zip"),
+	Asset("ANIM", "anim/oceanfish_medium_7.zip"),
+	Asset("ANIM", "anim/oceanfish_medium_8.zip"),
 	Asset("IMAGE", "levels/textures/outro.tex"),
 	Asset("IMAGE", "levels/textures/ground_noise_water_deep.tex"),
 	Asset("IMAGE", "images/inventoryimages/hamletinventory.tex"),
