@@ -21,12 +21,14 @@ local calories_per_day = 75
 
 ------------GLASS BEAK--------------
 DES_GLASS_BEAK_DAMAGE = 34
-DES_GLASS_BEAK_DAMAGE_VS_STRUCTURE = 90 ---this damage is added to default one
-DES_GLASS_BEAK_DURABILITY = 100 --- it has crow in it hard to craft 
+DES_GLASS_BEAK_DAMAGE_VS_STRUCTURE = DES_GLASS_BEAK_DAMAGE * 5
+DES_GLASS_BEAK_DURABILITY = 100 --- it has crow in it hard to craft -- Runar: DST哪个版本时做的碎裂喙？难做是什么意思
 
 ------------GLASS SWORD--------------
+DES_GLASS_SWORD_THRONS = math.random(1, 5)
 DES_GLASS_SWORD_DAMAGE = 50
-DES_GLASS_SWORD_DAMAGE_VS_SHADOW = 50 ---this damage is added to default one
+DES_GLASS_SWORD_DAMAGE_MAX = 400
+DES_GLASS_SWORD_DAMAGE_VS_SHADOW = 100 -- Runar: 原本的斩杀线
 DES_GLASS_SWORD_DURABILITY = 50 
 
 
@@ -51,13 +53,20 @@ end
 
 
 local function onattack1(inst, owner, target)
-    if target:HasTag("shadow") and target.components.health then
-		if target.components.health.currenthealth > DES_GLASS_SWORD_DAMAGE_VS_SHADOW then
-			target.components.health.currenthealth = 1
-		else
-			target.components.health:DoDelta(-DES_GLASS_SWORD_DAMAGE_VS_SHADOW,false)
-		end
-	end
+    if target.components.combat and target.components.health then
+        if target:HasTag("shadow") then
+            if target.components.health.currenthealth <= DES_GLASS_SWORD_DAMAGE_MAX then
+                target.components.combat:GetAttacked(owner, math.max(DES_GLASS_SWORD_DAMAGE_VS_SHADOW, target.components.health.currenthealth - 1), inst)
+            else
+                target.components.combat:GetAttacked(owner, DES_GLASS_SWORD_DAMAGE_MAX, inst)
+                if owner and owner.components.combat and owner.components.health and not owner.components.health:IsDead() then
+                    owner.components.combat:GetAttacked(owner, DES_GLASS_SWORD_THRONS, inst)
+                end
+            end
+        else
+            target.components.combat:GetAttacked(owner, DES_GLASS_SWORD_DAMAGE, inst)
+        end
+    end
 end
 
 local function onequip(inst, owner)
@@ -72,8 +81,12 @@ local function onunequip(inst, owner)
 end
 
 local function onattack(inst, owner, target)
-    if (target:HasTag("wall") or target:HasTag("structure")) and target.components.health then
-		target.components.health:DoDelta(-DES_GLASS_BEAK_DAMAGE_VS_STRUCTURE,false)
+    if target.components.health then
+        if target:HasTag("wall") or target:HasTag("structure") or target.components.childspawner then --Runar 打墙打巢都很快
+            target.components.combat:GetAttacked(owner, DES_GLASS_BEAK_DAMAGE_VS_STRUCTURE, inst)
+        else
+            target.components.combat:GetAttacked(owner, DES_GLASS_BEAK_DAMAGE, inst)
+        end
     end
 end
 
@@ -100,7 +113,7 @@ local function fnshard_sword()
     end
 
     inst:AddComponent("weapon")
-    inst.components.weapon:SetDamage(DES_GLASS_SWORD_DAMAGE)
+    inst.components.weapon:SetDamage(0) -- Runar: 不知道怎么让它既显示攻击力又不造成伤害
     inst.components.weapon.onattack = onattack1
 
     -------
@@ -148,7 +161,7 @@ local function fnshard_beak()
     end
 
     inst:AddComponent("weapon")
-    inst.components.weapon:SetDamage(DES_GLASS_BEAK_DAMAGE)
+    inst.components.weapon:SetDamage(0) -- Runar: 放弃多段伤害
     inst.components.weapon.onattack = onattack
 
     -------

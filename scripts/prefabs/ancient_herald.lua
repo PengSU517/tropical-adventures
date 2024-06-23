@@ -68,10 +68,15 @@ local loot = {}
 
 SetSharedLootTable( 'ancientherald',
 {
+    {'ancient_remnant',            1.00},
+    {'ancient_remnant',            1.00},
+    {'ancient_remnant',            1.00},
+    {'ancient_remnant',            1.00},
+    {'ancient_remnant',            1.00},
     {'nightmarefuel',              1.00},
     {'nightmarefuel',              1.00},
     {'nightmarefuel',              0.33},
-    {'armorvortexcloak',              1.00},	
+	{'armorvortexcloak_blueprint',    1},
 })
 
 local function fn(Sim)    
