@@ -1,39 +1,3 @@
---update test
---to do list
---马赛克地皮生成
---给地皮调色
---建造栏图标未解锁
---单机海水联机化
---强盗猪人
---玻璃雨
---蜘蛛网
---中文语言包
---语言添加自动选项
---灵活调整室内摄像头
---进出房间视角
---限制玩家走到房间之外
---roominterior组件
---player_actions_shear.zip
---player_actions_bucked.zip  被扔下来的动画
---修ROC SG
---载入语言包
---猪镇的生成设计
---蚁穴和洞穴地皮调整
---室内物品高度怎么调不了啊
---海洋之椅，火山祭坛
---洞穴的掉落物会落入水中
---漂流瓶显示宝藏没有标记
---雨林的小地图贴图不对
---relic太少了
---栽种房子的时候有bug--已解决
---不要把东西给房子--已解决
---浮木舟不掉耐久
---大鸟地区不该加Hamlet标签 roc的SG也没写好
---waffles_plate缺少贴图
---直接制作帽子戴上会报错。。
---原MOD写的清楚积雪的效果只对主客机一体时有效
-
-
 local function en_zh(en, zh) -- Other languages don't work
 	return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
 end
@@ -65,7 +29,7 @@ local updateen = [[
 
 fix overrided prefabs
 
-Last Update:
+2.6.21 Update:
 
 	1. Changed the Ancient Herald's loot
 	2. Added item "Dark Tatters (Ancient Remnant)"
@@ -81,7 +45,7 @@ Last Update:
 	8. Date dependent version numbers are used later
 
 2.6.17 (7.10.5):
->>>>>>> modinfo.lua
+
     1. Fixed an issue where Tea Trees could not generate Orange Picoes correctly
     2. Fixed an issue where Picoes would steal items such as backpacks and giant crops
     3. Fixed an issue where the name of the Pig Queen "Queen Malfalfa" could not be displayed correctly
@@ -95,7 +59,7 @@ local updatech = [[
 2.6.23 更新：
     1. 修正了暴力覆盖的预制件
 
-上次更新：
+2.6.21 更新：
 
 	1. 更改了远古先驱的掉落
 	2. 新增物品“暗影碎布（先驱碎布）”
