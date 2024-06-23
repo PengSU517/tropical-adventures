@@ -40,8 +40,9 @@ end
 
 name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
 
+
 author = "Peng, 杰杰, Runar"
-version = "2.6.20.3"
+version = "2.6.23"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -59,7 +60,13 @@ QQ 群：469668062
 
 local updateen = [[
 
-Updates:
+
+2.6.23 Updates:
+
+fix overrided prefabs
+
+Last Update:
+
 	1. Changed the Ancient Herald's loot
 	2. Added item "Dark Tatters (Ancient Remnant)"
 	3. Reset the Vortex Cloak, now the Vortex Cloak properties are the same as the original Vortex Cloak
@@ -74,6 +81,7 @@ Updates:
 	8. Date dependent version numbers are used later
 
 2.6.17 (7.10.5):
+>>>>>>> modinfo.lua
     1. Fixed an issue where Tea Trees could not generate Orange Picoes correctly
     2. Fixed an issue where Picoes would steal items such as backpacks and giant crops
     3. Fixed an issue where the name of the Pig Queen "Queen Malfalfa" could not be displayed correctly
@@ -84,7 +92,11 @@ Updates:
 
 local updatech = [[
 
-更新：
+2.6.23 更新：
+    1. 修正了暴力覆盖的预制件
+
+上次更新：
+
 	1. 更改了远古先驱的掉落
 	2. 新增物品“暗影碎布（先驱碎布）”
 	3. 重置了漩涡斗篷，现在漩涡斗篷属性与原版漩涡斗篷一致
@@ -99,6 +111,7 @@ local updatech = [[
 	8. 往后采用日期相关的版本号
 
 2.6.17 (7.10.5)：
+
     1. 修复了茶树不能正确生成橙色异食松鼠的问题
 	2. 修复了异食松鼠会偷背包、巨大作物等物件的问题
 	3. 修复了猪女王“玛法拉法女王”名称不能正确显示的问题

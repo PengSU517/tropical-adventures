@@ -1,4 +1,4 @@
-local FISH_DATA = require("prefabs/oceanfishdef1")
+local FISH_DATA = require("prefabs/oceanfishdef")
 
 local function UpdateFishNetAnim(inst, data)
     -- Swap out the fish net anim depending on the number of fish caught
@@ -18,20 +18,20 @@ local OceanTrawler = Class(function(self, inst)
     self.inst = inst
     self.lowered = false
 
-    self.range = 2.5 -- Check for fish range
-    self.nearbytrawlerrange = 16 -- Nearby trawlers affect the chance to collect fish while sleeping
-    self.nearbyshoalrange = 16 -- Range to look for ocean fish shoals
-    self.checkperiod = .75 -- How often to check for fish when not sleeping
-    self.catchfishchance = 0.125 -- The chance to catch a fish when entity awake
+    self.range = 2.5                        -- Check for fish range
+    self.nearbytrawlerrange = 16            -- Nearby trawlers affect the chance to collect fish while sleeping
+    self.nearbyshoalrange = 16              -- Range to look for ocean fish shoals
+    self.checkperiod = .75                  -- How often to check for fish when not sleeping
+    self.catchfishchance = 0.125            -- The chance to catch a fish when entity awake
     self.sleepcheckperiod = TUNING.SEG_TIME -- Check once every segment time
-    self.sleepcatchfishchance = 0.0625 -- Catch on average 1 fish per day (1 / 16 segments per day)
-    self.baitcatchfishmodifier = 2 -- If bait is in the trawler, the modifer applied to the catch chance
+    self.sleepcatchfishchance = 0.0625      -- Catch on average 1 fish per day (1 / 16 segments per day)
+    self.baitcatchfishmodifier = 2          -- If bait is in the trawler, the modifer applied to the catch chance
 
     self.task = nil
     self.startsleeptime = 0
     self.elapsedsleeptime = 0
 
-    self.overflowfish = {} -- The number of extra fish caught beyond the number of slots. They will pop out of the net when raised.
+    self.overflowfish = {}           -- The number of extra fish caught beyond the number of slots. They will pop out of the net when raised.
     self.overflowescapepercent = 0.2 -- The more fish caught when full increases the chance of them all escaping.
     self.fishescaped = false
 
@@ -138,11 +138,11 @@ function OceanTrawler:GetBait(eater)
             for _, v in ipairs(fishdiet.caneat) do
                 if type(v) == "table" then
                     for _, v2 in ipairs(v.types) do
-                        if item:HasTag("edible_"..v2) then
+                        if item:HasTag("edible_" .. v2) then
                             return item
                         end
                     end
-                elseif item:HasTag("edible_"..v) then
+                elseif item:HasTag("edible_" .. v) then
                     return item
                 end
             end
@@ -230,7 +230,8 @@ end
 
 function OceanTrawler:StartUpdate()
     if self.task == nil then
-        self.task = self.inst:DoPeriodicTask(self.checkperiod, _OnUpdate, (.5 + math.random() * .5) * self.checkperiod, self)
+        self.task = self.inst:DoPeriodicTask(self.checkperiod, _OnUpdate, (.5 + math.random() * .5) * self.checkperiod,
+            self)
     end
 end
 
@@ -302,7 +303,7 @@ local function AddFish(self, fishprefab)
 
     if not container:IsFull() then
         local ent = SpawnPrefab(fishprefab .. "_inv")
-        container:GiveItem( ent )
+        container:GiveItem(ent)
     else
         table.insert(self.overflowfish, fishprefab .. "_inv")
         ProcessFishOverflow(self, container)
@@ -334,7 +335,8 @@ function OceanTrawler:SimulateCatchFish()
             local timestocheck = math.floor(self.elapsedsleeptime / self.sleepcheckperiod)
 
             local percent_ocean = TheWorld.Map:CalcPercentOceanTilesAtPoint(pt.x, pt.y, pt.z, 25)
-            local nearbytrawlers = TheSim:FindEntities(pt.x, pt.y, pt.z, self.nearbytrawlerrange, OCEANTRAWLER_MUST_TAGS, OCEANTRAWLER_CANT_TAGS) or 0
+            local nearbytrawlers = TheSim:FindEntities(pt.x, pt.y, pt.z, self.nearbytrawlerrange, OCEANTRAWLER_MUST_TAGS,
+                OCEANTRAWLER_CANT_TAGS) or 0
             local numtrawlersmodifier = #nearbytrawlers > 0 and 1 / #nearbytrawlers or 1
 
             local catchfishchance = self.sleepcatchfishchance * percent_ocean * numtrawlersmodifier
@@ -400,7 +402,6 @@ function OceanTrawler:OnUpdate(dt)
     if self.lowered and not self.fishescaped and container then
         local fish = FindEntity(self.inst, self.range, CheckTrappable, OCEAN_FISH_TAGS, TRAP_NO_TAGS)
         if fish ~= nil then
-
             local bait = self:GetBait(fish.prefab)
             local baitchance = bait ~= nil and self.baitcatchfishmodifier or 1
             if math.random() < self.catchfishchance * baitchance then
@@ -416,9 +417,9 @@ function OceanTrawler:OnUpdate(dt)
 
                 -- An ocean shoal fish was caught, send an event to notify listners
                 if fish.components.homeseeker ~= nil
-                        and fish.components.homeseeker.home ~= nil
-                        and fish.components.homeseeker.home:IsValid()
-                        and fish.components.homeseeker.home.prefab == "oceanfish_shoalspawner" then
+                    and fish.components.homeseeker.home ~= nil
+                    and fish.components.homeseeker.home:IsValid()
+                    and fish.components.homeseeker.home.prefab == "oceanfish_shoalspawner" then
                     TheWorld:PushEvent("ms_shoalfishhooked", fish.components.homeseeker.home)
                 end
 

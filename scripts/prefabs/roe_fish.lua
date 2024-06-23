@@ -172,6 +172,7 @@ ROE_FISH =
 		cooked_build = "coi",
 		cooked_state = "cooked",
 
+
 	},
 
 	salmon = { -- Neon Quattro
@@ -197,192 +198,212 @@ ROE_FISH =
 
 	},
 
-	ballphinocean = { -- Neon Quattro
-		seedweight = UNCOMMON,
-		health = TUNING.HEALING_TINY,
-		cooked_health = TUNING.HEALING_SMALL,
-		hunger = TUNING.CALORIES_SMALL,
-		cooked_hunger = TUNING.CALORIES_SMALL,
-		perishtime = TUNING.PERISH_MED,
-		cooked_perishtime = TUNING.PERISH_FAST,
-		sanity = 0,
-		cooked_sanity = 0,
-		createPrefab = false,
-		sign = "buoy_sign_5",
+	-- ballphinocean = { -- Neon Quattro
+	-- 	seedweight = UNCOMMON,
+	-- 	health = TUNING.HEALING_TINY,
+	-- 	cooked_health = TUNING.HEALING_SMALL,
+	-- 	hunger = TUNING.CALORIES_SMALL,
+	-- 	cooked_hunger = TUNING.CALORIES_SMALL,
+	-- 	perishtime = TUNING.PERISH_MED,
+	-- 	cooked_perishtime = TUNING.PERISH_FAST,
+	-- 	sanity = 0,
+	-- 	cooked_sanity = 0,
+	-- 	createPrefab = false,
+	-- 	sign = "buoy_sign_5",
 
-		anim = "ballphinocean",
-		build = "ballphinocean",
-		state = "idle",
+	-- 	anim = "ballphinocean",
+	-- 	build = "ballphinocean",
+	-- 	state = "idle",
 
-		cooked_anim = "ballphinocean",
-		cooked_build = "ballphinocean",
-		cooked_state = "cooked",
+	-- 	cooked_anim = "ballphinocean",
+	-- 	cooked_build = "ballphinocean",
+	-- 	cooked_state = "cooked",
 
-	},
+	-- },
 
-	mecfish = { -- Neon Quattro
-		seedweight = UNCOMMON,
-		health = TUNING.HEALING_TINY,
-		cooked_health = TUNING.HEALING_SMALL,
-		hunger = TUNING.CALORIES_SMALL,
-		cooked_hunger = TUNING.CALORIES_SMALL,
-		perishtime = TUNING.PERISH_MED,
-		cooked_perishtime = TUNING.PERISH_FAST,
-		sanity = 0,
-		cooked_sanity = 0,
-		createPrefab = false,
-		sign = "buoy_sign_5",
+	-- mecfish = { -- Neon Quattro
+	-- 	seedweight = UNCOMMON,
+	-- 	health = TUNING.HEALING_TINY,
+	-- 	cooked_health = TUNING.HEALING_SMALL,
+	-- 	hunger = TUNING.CALORIES_SMALL,
+	-- 	cooked_hunger = TUNING.CALORIES_SMALL,
+	-- 	perishtime = TUNING.PERISH_MED,
+	-- 	cooked_perishtime = TUNING.PERISH_FAST,
+	-- 	sanity = 0,
+	-- 	cooked_sanity = 0,
+	-- 	createPrefab = false,
+	-- 	sign = "buoy_sign_5",
 
-		anim = "mecfish",
-		build = "mecfish",
-		state = "idle",
+	-- 	anim = "mecfish",
+	-- 	build = "mecfish",
+	-- 	state = "idle",
 
-		cooked_anim = "mecfish",
-		cooked_build = "mecfish",
-		cooked_state = "cooked",
+	-- 	cooked_anim = "mecfish",
+	-- 	cooked_build = "mecfish",
+	-- 	cooked_state = "cooked",
 
-	},
+	-- },
 
-	goldfish = { -- Neon Quattro
-		seedweight = UNCOMMON,
-		health = TUNING.HEALING_TINY,
-		cooked_health = TUNING.HEALING_SMALL,
-		hunger = TUNING.CALORIES_SMALL,
-		cooked_hunger = TUNING.CALORIES_SMALL,
-		perishtime = TUNING.PERISH_MED,
-		cooked_perishtime = TUNING.PERISH_FAST,
-		sanity = 0,
-		cooked_sanity = 0,
-		createPrefab = false,
-		sign = "buoy_sign_5",
+	-- goldfish = { -- Neon Quattro
+	-- 	seedweight = UNCOMMON,
+	-- 	health = TUNING.HEALING_TINY,
+	-- 	cooked_health = TUNING.HEALING_SMALL,
+	-- 	hunger = TUNING.CALORIES_SMALL,
+	-- 	cooked_hunger = TUNING.CALORIES_SMALL,
+	-- 	perishtime = TUNING.PERISH_MED,
+	-- 	cooked_perishtime = TUNING.PERISH_FAST,
+	-- 	sanity = 0,
+	-- 	cooked_sanity = 0,
+	-- 	createPrefab = false,
+	-- 	sign = "buoy_sign_5",
 
-		anim = "goldfish",
-		build = "goldfish",
-		state = "idle",
+	-- 	anim = "goldfish",
+	-- 	build = "goldfish",
+	-- 	state = "idle",
 
-		cooked_anim = "goldfish",
-		cooked_build = "goldfish",
-		cooked_state = "cooked",
+	-- 	cooked_anim = "goldfish",
+	-- 	cooked_build = "goldfish",
+	-- 	cooked_state = "cooked",
 
-	},
+	-- },
 
-	whaleblueocean = { -- Neon Quattro
-		seedweight = UNCOMMON,
-		health = TUNING.HEALING_TINY,
-		cooked_health = TUNING.HEALING_SMALL,
-		hunger = TUNING.CALORIES_SMALL,
-		cooked_hunger = TUNING.CALORIES_SMALL,
-		perishtime = TUNING.PERISH_MED,
-		cooked_perishtime = TUNING.PERISH_FAST,
-		sanity = 0,
-		cooked_sanity = 0,
-		createPrefab = false,
-		sign = "buoy_sign_5",
+	-- whaleblueocean = { -- Neon Quattro
+	-- 	seedweight = UNCOMMON,
+	-- 	health = TUNING.HEALING_TINY,
+	-- 	cooked_health = TUNING.HEALING_SMALL,
+	-- 	hunger = TUNING.CALORIES_SMALL,
+	-- 	cooked_hunger = TUNING.CALORIES_SMALL,
+	-- 	perishtime = TUNING.PERISH_MED,
+	-- 	cooked_perishtime = TUNING.PERISH_FAST,
+	-- 	sanity = 0,
+	-- 	cooked_sanity = 0,
+	-- 	createPrefab = false,
+	-- 	sign = "buoy_sign_5",
 
-		anim = "whaleblueocean",
-		build = "whaleblueocean",
-		state = "idle",
+	-- 	anim = "whaleblueocean",
+	-- 	build = "whaleblueocean",
+	-- 	state = "idle",
 
-		cooked_anim = "whaleblueocean",
-		cooked_build = "whaleblueocean",
-		cooked_state = "cooked",
+	-- 	cooked_anim = "whaleblueocean",
+	-- 	cooked_build = "whaleblueocean",
+	-- 	cooked_state = "cooked",
 
-	},
+	-- },
 
-	dogfishocean = { -- Neon Quattro
-		seedweight = UNCOMMON,
-		health = TUNING.HEALING_TINY,
-		cooked_health = TUNING.HEALING_SMALL,
-		hunger = TUNING.CALORIES_SMALL,
-		cooked_hunger = TUNING.CALORIES_SMALL,
-		perishtime = TUNING.PERISH_MED,
-		cooked_perishtime = TUNING.PERISH_FAST,
-		sanity = 0,
-		cooked_sanity = 0,
-		createPrefab = false,
-		sign = "buoy_sign_5",
+	-- dogfishocean = { -- Neon Quattro
+	-- 	seedweight = UNCOMMON,
+	-- 	health = TUNING.HEALING_TINY,
+	-- 	cooked_health = TUNING.HEALING_SMALL,
+	-- 	hunger = TUNING.CALORIES_SMALL,
+	-- 	cooked_hunger = TUNING.CALORIES_SMALL,
+	-- 	perishtime = TUNING.PERISH_MED,
+	-- 	cooked_perishtime = TUNING.PERISH_FAST,
+	-- 	sanity = 0,
+	-- 	cooked_sanity = 0,
+	-- 	createPrefab = false,
+	-- 	sign = "buoy_sign_5",
 
-		anim = "dogfishocean",
-		build = "dogfishocean",
-		state = "idle",
+	-- 	anim = "dogfishocean",
+	-- 	build = "dogfishocean",
+	-- 	state = "idle",
 
-		cooked_anim = "dogfishocean",
-		cooked_build = "dogfishocean",
-		cooked_state = "cooked",
+	-- 	cooked_anim = "dogfishocean",
+	-- 	cooked_build = "dogfishocean",
+	-- 	cooked_state = "cooked",
 
-	},
+	-- },
 
-	swordfishjocean = { -- Neon Quattro
-		seedweight = UNCOMMON,
-		health = TUNING.HEALING_TINY,
-		cooked_health = TUNING.HEALING_SMALL,
-		hunger = TUNING.CALORIES_SMALL,
-		cooked_hunger = TUNING.CALORIES_SMALL,
-		perishtime = TUNING.PERISH_MED,
-		cooked_perishtime = TUNING.PERISH_FAST,
-		sanity = 0,
-		cooked_sanity = 0,
-		createPrefab = false,
-		sign = "buoy_sign_5",
+	-- swordfishjocean = { -- Neon Quattro
+	-- 	seedweight = UNCOMMON,
+	-- 	health = TUNING.HEALING_TINY,
+	-- 	cooked_health = TUNING.HEALING_SMALL,
+	-- 	hunger = TUNING.CALORIES_SMALL,
+	-- 	cooked_hunger = TUNING.CALORIES_SMALL,
+	-- 	perishtime = TUNING.PERISH_MED,
+	-- 	cooked_perishtime = TUNING.PERISH_FAST,
+	-- 	sanity = 0,
+	-- 	cooked_sanity = 0,
+	-- 	createPrefab = false,
+	-- 	sign = "buoy_sign_5",
 
-		anim = "swordfishjocean",
-		build = "swordfishjocean",
-		state = "idle",
+	-- 	anim = "swordfishjocean",
+	-- 	build = "swordfishjocean",
+	-- 	state = "idle",
 
-		cooked_anim = "swordfishjocean",
-		cooked_build = "swordfishjocean",
-		cooked_state = "cooked",
+	-- 	cooked_anim = "swordfishjocean",
+	-- 	cooked_build = "swordfishjocean",
+	-- 	cooked_state = "cooked",
 
-	},
+	-- },
 
-	swordfishjocean2 = { -- Neon Quattro
-		seedweight = UNCOMMON,
-		health = TUNING.HEALING_TINY,
-		cooked_health = TUNING.HEALING_SMALL,
-		hunger = TUNING.CALORIES_SMALL,
-		cooked_hunger = TUNING.CALORIES_SMALL,
-		perishtime = TUNING.PERISH_MED,
-		cooked_perishtime = TUNING.PERISH_FAST,
-		sanity = 0,
-		cooked_sanity = 0,
-		createPrefab = false,
-		sign = "buoy_sign_5",
+	-- swordfishjocean2 = { -- Neon Quattro
+	-- 	seedweight = UNCOMMON,
+	-- 	health = TUNING.HEALING_TINY,
+	-- 	cooked_health = TUNING.HEALING_SMALL,
+	-- 	hunger = TUNING.CALORIES_SMALL,
+	-- 	cooked_hunger = TUNING.CALORIES_SMALL,
+	-- 	perishtime = TUNING.PERISH_MED,
+	-- 	cooked_perishtime = TUNING.PERISH_FAST,
+	-- 	sanity = 0,
+	-- 	cooked_sanity = 0,
+	-- 	createPrefab = false,
+	-- 	sign = "buoy_sign_5",
 
-		anim = "swordfishjocean2",
-		build = "swordfishjocean2",
-		state = "idle",
+	-- 	anim = "swordfishjocean2",
+	-- 	build = "swordfishjocean2",
+	-- 	state = "idle",
 
-		cooked_anim = "swordfishjocean2",
-		cooked_build = "swordfishjocean2",
-		cooked_state = "cooked",
+	-- 	cooked_anim = "swordfishjocean2",
+	-- 	cooked_build = "swordfishjocean2",
+	-- 	cooked_state = "cooked",
 
-	},
+	-- },
 
-	sharxocean = { -- Neon Quattro
-		seedweight = UNCOMMON,
-		health = TUNING.HEALING_TINY,
-		cooked_health = TUNING.HEALING_SMALL,
-		hunger = TUNING.CALORIES_SMALL,
-		cooked_hunger = TUNING.CALORIES_SMALL,
-		perishtime = TUNING.PERISH_MED,
-		cooked_perishtime = TUNING.PERISH_FAST,
-		sanity = 0,
-		cooked_sanity = 0,
-		createPrefab = false,
-		sign = "buoy_sign_5",
+	-- sharxocean = { -- Neon Quattro
+	-- 	seedweight = UNCOMMON,
+	-- 	health = TUNING.HEALING_TINY,
+	-- 	cooked_health = TUNING.HEALING_SMALL,
+	-- 	hunger = TUNING.CALORIES_SMALL,
+	-- 	cooked_hunger = TUNING.CALORIES_SMALL,
+	-- 	perishtime = TUNING.PERISH_MED,
+	-- 	cooked_perishtime = TUNING.PERISH_FAST,
+	-- 	sanity = 0,
+	-- 	cooked_sanity = 0,
+	-- 	createPrefab = false,
+	-- 	sign = "buoy_sign_5",
 
-		anim = "sharxocean",
-		build = "sharxocean",
-		state = "idle",
+	-- 	anim = "sharxocean",
+	-- 	build = "sharxocean",
+	-- 	state = "idle",
 
-		cooked_anim = "sharxocean",
-		cooked_build = "sharxocean",
-		cooked_state = "cooked",
+	-- 	cooked_anim = "sharxocean",
+	-- 	cooked_build = "sharxocean",
+	-- 	cooked_state = "cooked",
 
-	},
+	-- },
 
 }
 
+local function stopkicking(inst)
+	if inst.floptask then
+		inst.floptask:Cancel()
+		inst.floptask = nil
+	end
+	inst.AnimState:PlayAnimation("dead")
+end
+
+local function flopsound(inst)
+	inst.floptask = inst:DoTaskInTime(10 / 30, function()
+		inst.SoundEmitter:PlaySound("dontstarve/common/fishingpole_fishland")
+		if inst.floptask then
+			inst.floptask:Cancel()
+			inst.floptask = nil
+		end
+		inst.floptask = inst:DoTaskInTime(12 / 30, function()
+			inst.SoundEmitter:PlaySound("dontstarve/common/fishingpole_fishland")
+		end)
+	end)
+end
 
 local function MakeFish(name, has_cooked, has_seeds)
 	local assets =
@@ -517,11 +538,15 @@ local function MakeFish(name, has_cooked, has_seeds)
 		local inst = CreateEntity()
 		inst.entity:AddTransform()
 		inst.entity:AddAnimState()
+		inst.entity:AddSoundEmitter()
+
 		MakeInventoryPhysics(inst)
 		inst.entity:AddNetwork()
 		inst.AnimState:SetBank(name)
 		inst.AnimState:SetBuild(name)
-		inst.AnimState:PlayAnimation("dead")
+		inst.AnimState:PlayAnimation("idle")
+		-- inst.AnimState:PushAnimation("dead")
+
 
 		-- inst.build = rodbuild --This is used within SGwilson, sent from an event in fishingrod.lua
 
@@ -585,6 +610,18 @@ local function MakeFish(name, has_cooked, has_seeds)
 
 		inst:AddComponent("cookable")
 		inst.components.cookable.product = has_cooked and name .. "_cooked" or "fishmeat_cooked"
+
+		inst:DoTaskInTime(5, stopkicking)
+		inst.components.inventoryitem:SetOnPickupFn(stopkicking)
+		inst.OnLoad = stopkicking
+
+		inst:ListenForEvent("animover", function()
+			if inst.AnimState:IsCurrentAnimation("idle") then
+				flopsound(inst)
+				inst.AnimState:PlayAnimation("idle")
+			end
+		end)
+		flopsound(inst)
 
 		return inst
 	end
