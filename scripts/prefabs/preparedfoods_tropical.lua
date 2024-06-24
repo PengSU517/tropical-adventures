@@ -121,7 +121,8 @@ local function MakePreparedFood(data)
         if spicename ~= nil then
             inst.components.inventoryitem:ChangeImageName(spicename.."_over")
         elseif data.basename ~= nil then
-            inst.components.inventoryitem.atlasname = data.cookbook_atlas
+            -- inst.components.inventoryitem.imagename = data.basename
+            inst.components.inventoryitem.atlasname = data.atlasname --暂时用的食谱大图，真大图就不合适了
             -- inst.components.inventoryitem.atlasname = "images/inventoryimages/"..data.basename..".xml" -- 独立贴图才用这个
             inst.components.inventoryitem:ChangeImageName(data.basename)
         end
@@ -156,9 +157,13 @@ end
 
 local prefs = {}
 
--- for k, v in pairs(require("preparedfoods_tropical")) do -- 移除prefab后用这个
---     table.insert(prefs, MakePreparedFood(v))
--- end
+for k, v in pairs(require("preparedfoods_ham")) do
+    table.insert(prefs, MakePreparedFood(v))
+end
+
+for k, v in pairs(require("preparedfoods_sw")) do
+    table.insert(prefs, MakePreparedFood(v))
+end
 
 for k, v in pairs(require("spicedfoods")) do
     if v.mod and v.mod == true then

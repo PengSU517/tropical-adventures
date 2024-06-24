@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Atlas>
+    <Texture filename="cookbook_ham.tex"/>
+    <Elements>
+        <Element name="bubbletea.tex" u1="0.000488281" u2="0.249512" v1="0.750488" v2="0.999512"/>
+        <Element name="feijoada.tex" u1="0.000488281" u2="0.249512" v1="0.500488" v2="0.749512"/>
+        <Element name="frenchonionsoup.tex" u1="0.000488281" u2="0.249512" v1="0.250488" v2="0.499512"/>
+        <Element name="gummy_cake.tex" u1="0.000488281" u2="0.249512" v1="0.000488281" v2="0.249512"/>
+        <Element name="hardshell_tacos.tex" u1="0.250488" u2="0.499512" v1="0.750488" v2="0.999512"/>
+        <Element name="icedtea.tex" u1="0.500488" u2="0.749512" v1="0.750488" v2="0.999512"/>
+        <Element name="lotuschips.tex" u1="0.750488" u2="0.999512" v1="0.750488" v2="0.999512"/>
+        <Element name="meated_nettle.tex" u1="0.250488" u2="0.499512" v1="0.500488" v2="0.749512"/>
+        <Element name="nettlelosange.tex" u1="0.250488" u2="0.499512" v1="0.250488" v2="0.499512"/>
+        <Element name="poi.tex" u1="0.250488" u2="0.499512" v1="0.000488281" v2="0.249512"/>
+        <Element name="slaw.tex" u1="0.500488" u2="0.749512" v1="0.500488" v2="0.749512"/>
+        <Element name="snakebonesoup.tex" u1="0.750488" u2="0.999512" v1="0.500488" v2="0.749512"/>
+        <Element name="steamedhamsandwich.tex" u1="0.500488" u2="0.749512" v1="0.250488" v2="0.499512"/>
+        <Element name="tea.tex" u1="0.500488" u2="0.749512" v1="0.000488281" v2="0.249512"/>
+    </Elements>
+    <StraightAlpha>false</StraightAlpha>
+</Atlas>
+
