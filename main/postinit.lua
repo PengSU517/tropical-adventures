@@ -120,6 +120,7 @@ local components_post = {
 local prefabs_post = {
 
     "gears",
+    "warningshadow",
     -- "allow_impassable_item",
     -- "amphibious_followers",
     -- "antliontrinket",
