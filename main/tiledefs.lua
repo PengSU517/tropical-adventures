@@ -38,11 +38,20 @@ local NoiseFunctions = require("noisetilefunctions")
 local ChangeTileRenderOrder = ChangeTileRenderOrder
 local ChangeMiniMapTileRenderOrder = ChangeMiniMapTileRenderOrder
 local AddTile = AddTile
+
 local WORLD_TILES = WORLD_TILES
 local GROUND = GROUND
 
 -- local TAENV = env
 GLOBAL.setfenv(1, GLOBAL)
+
+local AddNewTile = function(tile, range, tile_data, ground_tile_def, minimap_tile_def, turf_def)
+    if WORLD_TILES[tile] then
+        return
+    end
+
+    AddTile(tile, range, tile_data, ground_tile_def, minimap_tile_def, turf_def)
+end
 
 local is_worldgen = rawget(_G, "WORLDGEN_MAIN") ~= nil
 
@@ -989,7 +998,7 @@ for tile, def in pairs(tro_tiledefs) do
         range = TileRanges.NOISE
     end
 
-    AddTile(tile, range, def.tile_data, def.ground_tile_def, def.minimap_tile_def, def.turf_def)
+    AddNewTile(tile, range, def.tile_data, def.ground_tile_def, def.minimap_tile_def, def.turf_def)
 
     local tile_id = WORLD_TILES[tile]
     if def.tile_range == TileRanges.TRO_OCEAN then

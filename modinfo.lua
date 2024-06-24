@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.6.23"
+version = "2.6.24"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -24,10 +24,13 @@ QQ 群：469668062
 
 local updateen = [[
 
+2.6.24 Updates:
+
+1. adjust tiledef, compatible with architect pack
 
 2.6.23 Updates:
 
-fix overrided prefabs
+1. fix overrided prefabs
 
 2.6.21 Update:
 
@@ -56,7 +59,12 @@ fix overrided prefabs
 
 local updatech = [[
 
+2.6.24 更新:
+
+	1. 调整tiledef,兼容architect pack
+
 2.6.23 更新：
+
     1. 修正了暴力覆盖的预制件
 
 2.6.21 更新：
