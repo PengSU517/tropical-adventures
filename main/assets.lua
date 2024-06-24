@@ -168,7 +168,6 @@ PrefabFiles =
 	"boatrepairkit",
 	"sandbag",
 	"cutlass",
-	"cookpotfoodssw",
 	"luggarechestspawn",
 	"porto",
 	"porto2",
@@ -258,7 +257,6 @@ PrefabFiles =
 	"jungletreeguard_snake",
 	"armor_cactus",
 	"scorpionte",
-	"cookpotfoodshamlet",
 	"cork",
 	"corkbat",
 	"hats_hamlet",
@@ -508,7 +506,6 @@ table.insert(PrefabFiles, "obsidianfirefire")
 table.insert(PrefabFiles, "elephantcactus")
 table.insert(PrefabFiles, "coffeebush")
 table.insert(PrefabFiles, "coffeebeans")
-table.insert(PrefabFiles, "coffee")
 table.insert(PrefabFiles, "lavaerupt")
 table.insert(PrefabFiles, "volcano")
 table.insert(PrefabFiles, "woodlegs_cage")
@@ -1105,9 +1102,13 @@ Assets =
 	Asset("IMAGE", "images/inventoryimages/meated_nettle.tex"),
 	Asset("ATLAS", "images/inventoryimages/meated_nettle.xml"),
 
-
-
-
+	--新的食谱大图与物品栏贴图
+	Asset("IMAGE", "images/cookbook/cookbook_sw.tex"),
+	Asset("ATLAS", "images/cookbook/cookbook_sw.xml"),
+	Asset("IMAGE", "images/cookbook/cookbook_ham.tex"),
+	Asset("ATLAS", "images/cookbook/cookbook_ham.xml"),
+	Asset("IMAGE", "images/inventoryimages/cookpotfoods_sw.tex"),
+	Asset("ATLAS", "images/inventoryimages/cookpotfoods_sw.xml"),
 
 
 

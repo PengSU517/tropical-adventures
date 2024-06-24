@@ -553,15 +553,17 @@ STRINGS.NAMES.MUSSELBOUILLABAISE = "Mussel Bouillabaise"
 
 STRINGS.NAMES.MONSTERTARTARE = "Monster Tartare"
 
-STRINGS.NAMES.LOBSTERDINNER = "Wobster Dinner"
+STRINGS.NAMES.LOBSTERDINNER_SW = "Lobster Dinner"
 
-STRINGS.NAMES.LOBSTERBISQUE = "Wobster Bisque"
+STRINGS.NAMES.LOBSTERBISQUE_SW = "Lobster Bisque"
 
 STRINGS.NAMES.FRESHFRUITCREPES = "Fresh Fruit Crepes"
 
 STRINGS.NAMES.BISQUE = "Bisque"
 
-STRINGS.NAMES.CALIFORNIAROLL = "California Roll"
+STRINGS.NAMES.CALIFORNIAROLL_SW = "California Roll"
+
+STRINGS.NAMES.BUTTERFLYMUFFIN_SW = "Tropical Butter Muffin"
 
 STRINGS.NAMES.JELLYOPOP = "Jelly-O Pop"
 
@@ -1427,15 +1429,17 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.MUSSELBOUILLABAISE = "Imagine the experiment
 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.MONSTERTARTARE = "There's got to be something else to eat around here."
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOBSTERDINNER = "If I eat it in the morning is it still dinner?"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOBSTERDINNER_SW = "If I eat it in the morning is it still dinner?"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOBSTERBISQUE = "Could use more salt, but that's none of my bisque-ness."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOBSTERBISQUE_SW = "Could use more salt, but that's none of my bisque-ness."
 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.FRESHFRUITCREPES = "Sugary fruit! Part of a balanced breakfast."
 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.BISQUE = "Cooking that sure kept me bisque-y!"
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.CALIFORNIAROLL = "But I don't have chopsticks."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.CALIFORNIAROLL_SW = "But I don't have chopsticks."
+
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.BUTTERFLYMUFFIN_SW = "We threw the recipe away and just kind of winged it."
 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.JELLYOPOP = "Jelly-O pop it right in my mouth!"
 
