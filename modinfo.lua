@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.6.24.1"
+version = "2.6.25"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -23,6 +23,12 @@ QQ 群：469668062
 ]]
 
 local updateen = [[
+
+2.6.25 Updates:
+
+1. Update fish herds in mangrove, lilypond and oceans.
+Including tropical fish, clownfish, grouper, neon fish, gearfish, goldfish, red fish, hatchfish, salmon, and more.
+
 
 2.6.24 Updates:
 
@@ -58,6 +64,10 @@ local updateen = [[
 ]]
 
 local updatech = [[
+
+2.6.25 更新:
+
+1. 更新了红树林、莲花池塘和海洋中的鱼群，包括热带鱼，小丑鱼、石斑鱼、霓虹鱼、发条鱼、金鱼、红鱼、哈奇鱼、鲑鱼等。
 
 2.6.24 更新:
 
