@@ -1343,52 +1343,52 @@ local FISH_DEFS =
 		dynamic_shadow = SHADOW_MEDIUM,
 	},
 
-	oceanfish_small_12 = {
-		prefab = "oceanfish_small_12",
-		bank = "ballphinocean",
-		build = "ballphinocean",
-		oceanbuild = "oceanfish_small_5",
-		golfinho = true,
-		weight_min = 320.77,
-		weight_max = 380.10,
+	-- oceanfish_small_12 = {
+	-- 	prefab = "oceanfish_small_12",
+	-- 	bank = "ballphinocean",
+	-- 	build = "ballphinocean",
+	-- 	oceanbuild = "oceanfish_small_5",
+	-- 	golfinho = true,
+	-- 	weight_min = 320.77,
+	-- 	weight_max = 380.10,
 
-		walkspeed = 3.0,
-		runspeed = 4.0,
-		stamina =
-		{
-			drain_rate      = 0.02,
-			recover_rate    = 0.10,
-			struggle_times  = { low = 8, r_low = 2, high = 9, r_high = 2 },
-			tired_times     = { low = 1.8, r_low = 1, high = 1.7, r_high = 0 },
-			tiredout_angles = { has_tention = 45, low_tention = 90 },
-		},
+	-- 	walkspeed = 3.0,
+	-- 	runspeed = 4.0,
+	-- 	stamina =
+	-- 	{
+	-- 		drain_rate      = 0.02,
+	-- 		recover_rate    = 0.10,
+	-- 		struggle_times  = { low = 8, r_low = 2, high = 9, r_high = 2 },
+	-- 		tired_times     = { low = 1.8, r_low = 1, high = 1.7, r_high = 0 },
+	-- 		tiredout_angles = { has_tention = 45, low_tention = 90 },
+	-- 	},
 
-		schoolmin = SCHOOL_SIZE.MEDIUM.min,
-		schoolmax = SCHOOL_SIZE.MEDIUM.max,
-		schoolrange = SCHOOL_AREA.SMALL,
-		schoollifetimemin = SCHOOL_WORLD_TIME.MEDIUM.min,
-		schoollifetimemax = SCHOOL_WORLD_TIME.MEDIUM.max,
+	-- 	schoolmin = SCHOOL_SIZE.MEDIUM.min,
+	-- 	schoolmax = SCHOOL_SIZE.MEDIUM.max,
+	-- 	schoolrange = SCHOOL_AREA.SMALL,
+	-- 	schoollifetimemin = SCHOOL_WORLD_TIME.MEDIUM.min,
+	-- 	schoollifetimemax = SCHOOL_WORLD_TIME.MEDIUM.max,
 
-		herdwandermin = WANDER_DIST.MEDIUM.min,
-		herdwandermax = WANDER_DIST.MEDIUM.max,
-		herdarrivedist = ARRIVE_DIST.MEDIUM,
-		herdwanderdelaymin = WANDER_DELAY.SHORT.min,
-		herdwanderdelaymax = WANDER_DELAY.SHORT.max,
+	-- 	herdwandermin = WANDER_DIST.MEDIUM.min,
+	-- 	herdwandermax = WANDER_DIST.MEDIUM.max,
+	-- 	herdarrivedist = ARRIVE_DIST.MEDIUM,
+	-- 	herdwanderdelaymin = WANDER_DELAY.SHORT.min,
+	-- 	herdwanderdelaymax = WANDER_DELAY.SHORT.max,
 
-		set_hook_time = SET_HOOK_TIME_SHORT,
-		breach_fx = BREACH_FX_MEDIUM,
-		loot = LOOT.BALLPHIN,
-		cooking_product = COOKING_PRODUCT.MEDIUM,
-		perish_product = PERISH.SMALL,
-		fishtype = "meat",
+	-- 	set_hook_time = SET_HOOK_TIME_SHORT,
+	-- 	breach_fx = BREACH_FX_MEDIUM,
+	-- 	loot = LOOT.BALLPHIN,
+	-- 	cooking_product = COOKING_PRODUCT.MEDIUM,
+	-- 	perish_product = PERISH.SMALL,
+	-- 	fishtype = "meat",
 
-		lures = { swfish = 1.00 },
-		diet = DIET.OMNI,
-		cooker_ingredient_value = COOKER_INGREDIENT_SMALL,
-		edible_values = EDIBLE_VALUES_SMALL_MEAT,
+	-- 	lures = { swfish = 1.00 },
+	-- 	diet = DIET.OMNI,
+	-- 	cooker_ingredient_value = COOKER_INGREDIENT_SMALL,
+	-- 	edible_values = EDIBLE_VALUES_SMALL_MEAT,
 
-		dynamic_shadow = SHADOW_MEDIUM,
-	},
+	-- 	dynamic_shadow = SHADOW_MEDIUM,
+	-- },
 
 	oceanfish_small_13 = {
 		prefab = "oceanfish_small_13",
@@ -1714,9 +1714,8 @@ local FISH_DEFS =
 		edible_values = EDIBLE_VALUES_SMALL_MEAT,
 
 		dynamic_shadow = SHADOW_MEDIUM,
-	}, ]]
-
-	--[[ oceanfish_small_20 = {
+	},
+	oceanfish_small_20 = {
 		prefab = "oceanfish_small_20",
 		bank = "swordfishjocean2",
 		build = "swordfishjocean2",
@@ -1762,9 +1761,8 @@ local FISH_DEFS =
 		edible_values = EDIBLE_VALUES_SMALL_MEAT,
 
 		dynamic_shadow = SHADOW_MEDIUM,
-	}, ]]
-
-	--[[ oceanfish_small_21 = {
+	},
+	oceanfish_small_21 = {
 		prefab = "oceanfish_small_21",
 		bank = "sharxocean",
 		build = "sharxocean",
@@ -1811,228 +1809,135 @@ local FISH_DEFS =
 
 		dynamic_shadow = SHADOW_MEDIUM,
 	}, ]]
-
 }
 
 
-local SCHOOL_VERY_COMMON       = 4
-local SCHOOL_COMMON            = 2
-local SCHOOL_UNCOMMON          = 1
-local SCHOOL_RARE              = 0.25
+local SCHOOL_VERY_COMMON = 4
+local SCHOOL_COMMON      = 2
+local SCHOOL_UNCOMMON    = 1
+local SCHOOL_RARE        = 0.25
 
-local SCHOOL_WEIGHTS           = {
+local SCHOOL_WEIGHTS     = {
 	[SEASONS.AUTUMN] = {
 		[WORLD_TILES.OCEAN_COASTAL] =
 		{
-			oceanfish_small_1 = SCHOOL_UNCOMMON,
-			oceanfish_small_2 = SCHOOL_COMMON,
-			oceanfish_small_3 = SCHOOL_RARE,
-			oceanfish_small_4 = SCHOOL_VERY_COMMON,
-			oceanfish_small_5 = SCHOOL_COMMON,
-			oceanfish_medium_1 = SCHOOL_UNCOMMON,
-
 			oceanfish_small_61 = SCHOOL_COMMON,
-			oceanfish_small_71 = SCHOOL_COMMON,
-			oceanfish_small_81 = SCHOOL_RARE,
-			oceanfish_small_91 = SCHOOL_RARE,
+
 		},
 		[WORLD_TILES.OCEAN_COASTAL_SHORE] =
 		{
-			oceanfish_small_1 = SCHOOL_UNCOMMON,
-			oceanfish_small_2 = SCHOOL_COMMON,
-			oceanfish_small_3 = SCHOOL_RARE,
-			oceanfish_small_4 = SCHOOL_VERY_COMMON,
-			oceanfish_small_5 = SCHOOL_COMMON,
-			oceanfish_medium_1 = SCHOOL_UNCOMMON,
-
 			oceanfish_small_61 = SCHOOL_COMMON,
-			oceanfish_small_71 = SCHOOL_COMMON,
-			oceanfish_small_81 = SCHOOL_RARE,
-			oceanfish_small_91 = SCHOOL_RARE,
+
 		},
 		[WORLD_TILES.OCEAN_SWELL] =
 		{
-			oceanfish_small_61 = SCHOOL_RARE,
-			oceanfish_small_71 = SCHOOL_RARE,
-			oceanfish_small_81 = SCHOOL_COMMON,
-			oceanfish_small_91 = SCHOOL_COMMON,
+			oceanfish_small_61 = SCHOOL_COMMON,
 
-			oceanfish_small_1 = SCHOOL_UNCOMMON,
-			oceanfish_small_3 = SCHOOL_RARE,
-			oceanfish_medium_1 = SCHOOL_COMMON,
-			oceanfish_medium_2 = SCHOOL_UNCOMMON,
-			oceanfish_medium_4 = SCHOOL_UNCOMMON,
-			oceanfish_medium_5 = SCHOOL_COMMON,
+
 		},
-		[WORLD_TILES.OCEAN_ROUGH] =
-		{
-			oceanfish_small_10 = SCHOOL_UNCOMMON,
-			oceanfish_small_11 = SCHOOL_UNCOMMON,
+		[WORLD_TILES.OCEAN_ROUGH] = {
+			-- oceanfish_small_19 = SCHOOL_RARE,
+			-- oceanfish_small_20 = SCHOOL_RARE,
+			-- oceanfish_small_21 = SCHOOL_RARE,
 
-			oceanfish_small_3 = SCHOOL_RARE,
-			oceanfish_medium_2 = SCHOOL_COMMON,
-			oceanfish_medium_3 = SCHOOL_UNCOMMON,
-			oceanfish_medium_4 = SCHOOL_COMMON,
-			oceanfish_medium_5 = SCHOOL_UNCOMMON,
 		},
 		[WORLD_TILES.OCEAN_BRINEPOOL] =
 		{
-			oceanfish_small_13 = SCHOOL_UNCOMMON,
-			oceanfish_small_14 = SCHOOL_UNCOMMON,
+			oceanfish_small_71 = SCHOOL_UNCOMMON,
+			oceanfish_small_81 = SCHOOL_UNCOMMON,
+			oceanfish_small_91 = SCHOOL_UNCOMMON,
 		},
 		[WORLD_TILES.OCEAN_BRINEPOOL_SHORE] =
 		{
+			oceanfish_small_71 = SCHOOL_UNCOMMON,
+			oceanfish_small_81 = SCHOOL_UNCOMMON,
+			oceanfish_small_91 = SCHOOL_UNCOMMON,
 		},
 		[WORLD_TILES.OCEAN_HAZARDOUS] =
 		{
-			oceanfish_medium_3 = SCHOOL_VERY_COMMON,
-			oceanfish_small_17 = SCHOOL_UNCOMMON,
-			oceanfish_small_18 = SCHOOL_UNCOMMON,
-		},
-		[WORLD_TILES.OCEAN_WATERLOG] =
-		{
-			oceanfish_small_2 = SCHOOL_UNCOMMON,
-			oceanfish_small_4 = SCHOOL_RARE,
-			oceanfish_medium_9 = SCHOOL_COMMON,
-			oceanfish_small_17 = SCHOOL_UNCOMMON,
-			oceanfish_small_18 = SCHOOL_UNCOMMON,
+			oceanfish_small_13 = SCHOOL_UNCOMMON, -- mecfish
+			oceanfish_small_14 = SCHOOL_UNCOMMON, -- goldfish
 		},
 
-		------------------------
-		[WORLD_TILES.OCEAN_SHALLOW] =
-		{
-			oceanfish_small_1 = SCHOOL_UNCOMMON,
-			oceanfish_small_2 = SCHOOL_COMMON,
-			oceanfish_small_3 = SCHOOL_RARE,
-			oceanfish_small_4 = SCHOOL_VERY_COMMON,
-			oceanfish_small_5 = SCHOOL_COMMON,
-			oceanfish_medium_1 = SCHOOL_UNCOMMON,
-
-			oceanfish_small_61 = SCHOOL_COMMON,
-			oceanfish_small_71 = SCHOOL_COMMON,
-			oceanfish_small_81 = SCHOOL_RARE,
-			oceanfish_small_91 = SCHOOL_RARE,
-		},
-		[WORLD_TILES.OCEAN_SHALLOW_SHORE] =
-		{
-			oceanfish_small_1 = SCHOOL_UNCOMMON,
-			oceanfish_small_2 = SCHOOL_COMMON,
-			oceanfish_small_3 = SCHOOL_RARE,
-			oceanfish_small_4 = SCHOOL_VERY_COMMON,
-			oceanfish_small_5 = SCHOOL_COMMON,
-			oceanfish_medium_1 = SCHOOL_UNCOMMON,
-
-			oceanfish_small_61 = SCHOOL_COMMON,
-			oceanfish_small_71 = SCHOOL_COMMON,
-			oceanfish_small_81 = SCHOOL_RARE,
-			oceanfish_small_91 = SCHOOL_RARE,
-		},
-		[WORLD_TILES.OCEAN_MEDIUM] =
-		{
-			oceanfish_small_61 = SCHOOL_RARE,
-			oceanfish_small_71 = SCHOOL_RARE,
-			oceanfish_small_81 = SCHOOL_COMMON,
-			oceanfish_small_91 = SCHOOL_COMMON,
-
-			oceanfish_small_1 = SCHOOL_UNCOMMON,
-			oceanfish_small_3 = SCHOOL_RARE,
-			oceanfish_medium_1 = SCHOOL_COMMON,
-			oceanfish_medium_2 = SCHOOL_UNCOMMON,
-			oceanfish_medium_4 = SCHOOL_UNCOMMON,
-			oceanfish_medium_5 = SCHOOL_COMMON,
-		},
-		[WORLD_TILES.OCEAN_DEEP] =
-		{
-			oceanfish_small_10 = SCHOOL_UNCOMMON,
-			oceanfish_small_11 = SCHOOL_UNCOMMON,
-
-			oceanfish_small_3 = SCHOOL_RARE,
-			oceanfish_medium_2 = SCHOOL_COMMON,
-			oceanfish_medium_3 = SCHOOL_UNCOMMON,
-			oceanfish_medium_4 = SCHOOL_COMMON,
-			oceanfish_medium_5 = SCHOOL_UNCOMMON,
-		},
-		[WORLD_TILES.OCEAN_CORAL] =
-		{
-			oceanfish_small_13 = SCHOOL_UNCOMMON,
-			oceanfish_small_14 = SCHOOL_UNCOMMON,
-		},
-		[WORLD_TILES.OCEAN_BRINEPOOL_SHORE] =
-		{
-		},
-		[WORLD_TILES.OCEAN_SHIPGRAVEYARD] =
-		{
-			oceanfish_medium_3 = SCHOOL_VERY_COMMON,
-			oceanfish_small_17 = SCHOOL_UNCOMMON,
-			oceanfish_small_18 = SCHOOL_UNCOMMON,
-		},
 		[WORLD_TILES.MANGROVE] =
 		{
-			oceanfish_small_2 = SCHOOL_UNCOMMON,
-			oceanfish_small_4 = SCHOOL_RARE,
-			oceanfish_medium_9 = SCHOOL_COMMON,
-			oceanfish_small_17 = SCHOOL_UNCOMMON,
-			oceanfish_small_18 = SCHOOL_UNCOMMON,
+			oceanfish_small_61 = SCHOOL_COMMON,
+			oceanfish_small_18 = SCHOOL_UNCOMMON, -- red fish
 		},
 
 		[WORLD_TILES.LILYPOND] =
 		{
-			oceanfish_small_2 = SCHOOL_UNCOMMON,
-			oceanfish_small_4 = SCHOOL_RARE,
-			oceanfish_medium_9 = SCHOOL_COMMON,
-			oceanfish_small_17 = SCHOOL_UNCOMMON,
-			oceanfish_small_18 = SCHOOL_UNCOMMON,
+			oceanfish_small_10 = SCHOOL_COMMON, --coi
+			oceanfish_small_17 = SCHOOL_UNCOMMON, --hutch
+
 		},
 	},
 }
+
+
 SCHOOL_WEIGHTS[SEASONS.WINTER] = deepcopy(SCHOOL_WEIGHTS[SEASONS.AUTUMN])
 SCHOOL_WEIGHTS[SEASONS.SPRING] = deepcopy(SCHOOL_WEIGHTS[SEASONS.AUTUMN])
 SCHOOL_WEIGHTS[SEASONS.SUMMER] = deepcopy(SCHOOL_WEIGHTS[SEASONS.AUTUMN])
 
 
 -- Seasonal Fish
-SCHOOL_WEIGHTS[SEASONS.AUTUMN][WORLD_TILES.OCEAN_SWELL].oceanfish_small_6 = SCHOOL_UNCOMMON
-SCHOOL_WEIGHTS[SEASONS.WINTER][WORLD_TILES.OCEAN_SWELL].oceanfish_medium_8 = SCHOOL_UNCOMMON
-SCHOOL_WEIGHTS[SEASONS.SPRING][WORLD_TILES.OCEAN_COASTAL].oceanfish_small_7 = SCHOOL_UNCOMMON
-SCHOOL_WEIGHTS[SEASONS.AUTUMN][WORLD_TILES.OCEAN_WATERLOG].oceanfish_small_6 = SCHOOL_COMMON
-SCHOOL_WEIGHTS[SEASONS.SPRING][WORLD_TILES.OCEAN_WATERLOG].oceanfish_small_7 = SCHOOL_COMMON
-SCHOOL_WEIGHTS[SEASONS.SUMMER][WORLD_TILES.OCEAN_SWELL].oceanfish_small_8 = SCHOOL_UNCOMMON
+SCHOOL_WEIGHTS[SEASONS.SPRING][WORLD_TILES.OCEAN_COASTAL_SHORE].oceanfish_small_11 = SCHOOL_COMMON
+-- SCHOOL_WEIGHTS[SEASONS.AUTUMN][WORLD_TILES.OCEAN_SWELL].oceanfish_small_6 = SCHOOL_UNCOMMON
+-- SCHOOL_WEIGHTS[SEASONS.WINTER][WORLD_TILES.OCEAN_SWELL].oceanfish_medium_8 = SCHOOL_UNCOMMON
+-- SCHOOL_WEIGHTS[SEASONS.SPRING][WORLD_TILES.OCEAN_COASTAL].oceanfish_small_7 = SCHOOL_UNCOMMON
+-- SCHOOL_WEIGHTS[SEASONS.AUTUMN][WORLD_TILES.OCEAN_WATERLOG].oceanfish_small_6 = SCHOOL_COMMON
+-- SCHOOL_WEIGHTS[SEASONS.SPRING][WORLD_TILES.OCEAN_WATERLOG].oceanfish_small_7 = SCHOOL_COMMON
+-- SCHOOL_WEIGHTS[SEASONS.SUMMER][WORLD_TILES.OCEAN_SWELL].oceanfish_small_8 = SCHOOL_UNCOMMON
 
---------------------
-SCHOOL_WEIGHTS[SEASONS.AUTUMN][WORLD_TILES.OCEAN_MEDIUM].oceanfish_small_6 = SCHOOL_UNCOMMON
-SCHOOL_WEIGHTS[SEASONS.WINTER][WORLD_TILES.OCEAN_MEDIUM].oceanfish_medium_8 = SCHOOL_UNCOMMON
-SCHOOL_WEIGHTS[SEASONS.SPRING][WORLD_TILES.OCEAN_SHALLOW].oceanfish_small_7 = SCHOOL_UNCOMMON
-SCHOOL_WEIGHTS[SEASONS.AUTUMN][WORLD_TILES.MANGROVE].oceanfish_small_6 = SCHOOL_COMMON
-SCHOOL_WEIGHTS[SEASONS.SPRING][WORLD_TILES.MANGROVE].oceanfish_small_7 = SCHOOL_COMMON
-SCHOOL_WEIGHTS[SEASONS.SUMMER][WORLD_TILES.OCEAN_MEDIUM].oceanfish_small_8 = SCHOOL_UNCOMMON
+-- --------------------
+-- SCHOOL_WEIGHTS[SEASONS.AUTUMN][WORLD_TILES.OCEAN_MEDIUM].oceanfish_small_6 = SCHOOL_UNCOMMON
+-- SCHOOL_WEIGHTS[SEASONS.WINTER][WORLD_TILES.OCEAN_MEDIUM].oceanfish_medium_8 = SCHOOL_UNCOMMON
+-- SCHOOL_WEIGHTS[SEASONS.SPRING][WORLD_TILES.OCEAN_SHALLOW].oceanfish_small_7 = SCHOOL_UNCOMMON
+-- SCHOOL_WEIGHTS[SEASONS.AUTUMN][WORLD_TILES.MANGROVE].oceanfish_small_6 = SCHOOL_COMMON
+-- SCHOOL_WEIGHTS[SEASONS.SPRING][WORLD_TILES.MANGROVE].oceanfish_small_7 = SCHOOL_COMMON
+-- SCHOOL_WEIGHTS[SEASONS.SUMMER][WORLD_TILES.OCEAN_MEDIUM].oceanfish_small_8 = SCHOOL_UNCOMMON
 
 
 local function SpecialEventSetup()
 	if IsAny_YearOfThe_EventActive() then
-		FISH_DEFS.oceanfish_medium_6.loot = LOOT.MEDIUM_YOT
-		FISH_DEFS.oceanfish_medium_6.oncooked_fn = MEDIUM_YOT_ONCOOKED_FN
-		FISH_DEFS.oceanfish_medium_7.loot = LOOT.MEDIUM_YOT
-		FISH_DEFS.oceanfish_medium_7.oncooked_fn = MEDIUM_YOT_ONCOOKED_FN
+		-- FISH_DEFS.oceanfish_medium_6.loot = LOOT.MEDIUM_YOT
+		-- FISH_DEFS.oceanfish_medium_6.oncooked_fn = MEDIUM_YOT_ONCOOKED_FN
+		-- FISH_DEFS.oceanfish_medium_7.loot = LOOT.MEDIUM_YOT
+		-- FISH_DEFS.oceanfish_medium_7.oncooked_fn = MEDIUM_YOT_ONCOOKED_FN
 
 		for _, season in pairs(SCHOOL_WEIGHTS) do
-			season[WORLD_TILES.OCEAN_COASTAL].oceanfish_medium_6 = SCHOOL_UNCOMMON / 2
-			season[WORLD_TILES.OCEAN_SWELL].oceanfish_medium_6 = SCHOOL_UNCOMMON / 2
-			season[WORLD_TILES.OCEAN_ROUGH].oceanfish_medium_6 = SCHOOL_UNCOMMON / 2
+			-- season[WORLD_TILES.OCEAN_COASTAL].oceanfish_medium_6 = SCHOOL_UNCOMMON / 2
+			-- season[WORLD_TILES.OCEAN_SWELL].oceanfish_medium_6 = SCHOOL_UNCOMMON / 2
+			-- season[WORLD_TILES.OCEAN_ROUGH].oceanfish_medium_6 = SCHOOL_UNCOMMON / 2
 
-			season[WORLD_TILES.OCEAN_COASTAL].oceanfish_medium_7 = SCHOOL_UNCOMMON / 2
-			season[WORLD_TILES.OCEAN_SWELL].oceanfish_medium_7 = SCHOOL_UNCOMMON / 2
-			season[WORLD_TILES.OCEAN_ROUGH].oceanfish_medium_7 = SCHOOL_UNCOMMON / 2
-			-----------------------
-			season[WORLD_TILES.OCEAN_SHALLOW].oceanfish_medium_6 = SCHOOL_UNCOMMON / 2
-			season[WORLD_TILES.OCEAN_MEDIUM].oceanfish_medium_6 = SCHOOL_UNCOMMON / 2
-			season[WORLD_TILES.OCEAN_DEEP].oceanfish_medium_6 = SCHOOL_UNCOMMON / 2
+			-- season[WORLD_TILES.OCEAN_COASTAL].oceanfish_medium_7 = SCHOOL_UNCOMMON / 2
+			-- season[WORLD_TILES.OCEAN_SWELL].oceanfish_medium_7 = SCHOOL_UNCOMMON / 2
+			-- season[WORLD_TILES.OCEAN_ROUGH].oceanfish_medium_7 = SCHOOL_UNCOMMON / 2
+			-- -----------------------
+			-- season[WORLD_TILES.OCEAN_SHALLOW].oceanfish_medium_6 = SCHOOL_UNCOMMON / 2
+			-- season[WORLD_TILES.OCEAN_MEDIUM].oceanfish_medium_6 = SCHOOL_UNCOMMON / 2
+			-- season[WORLD_TILES.OCEAN_DEEP].oceanfish_medium_6 = SCHOOL_UNCOMMON / 2
 
-			season[WORLD_TILES.OCEAN_SHALLOW].oceanfish_medium_7 = SCHOOL_UNCOMMON / 2
-			season[WORLD_TILES.OCEAN_MEDIUM].oceanfish_medium_7 = SCHOOL_UNCOMMON / 2
-			season[WORLD_TILES.OCEAN_DEEP].oceanfish_medium_7 = SCHOOL_UNCOMMON / 2
+			-- season[WORLD_TILES.OCEAN_SHALLOW].oceanfish_medium_7 = SCHOOL_UNCOMMON / 2
+			-- season[WORLD_TILES.OCEAN_MEDIUM].oceanfish_medium_7 = SCHOOL_UNCOMMON / 2
+			-- season[WORLD_TILES.OCEAN_DEEP].oceanfish_medium_7 = SCHOOL_UNCOMMON / 2
 		end
 	end
 end
 
 
 return { fish = FISH_DEFS, school = SCHOOL_WEIGHTS, SpecialEventSetup = SpecialEventSetup }
+
+
+-- 			oceanfish_small_61 = SCHOOL_VERY_COMMON, --热带
+-- 			oceanfish_small_71 = SCHOOL_UNCOMMON, --紫石斑鱼
+-- 			oceanfish_small_81 = SCHOOL_UNCOMMON, --小丑鱼
+-- 			oceanfish_small_91 = SCHOOL_UNCOMMON, --霓虹鱼
+
+-- 			oceanfish_small_10 = SCHOOL_VERY_COMMON, --coi
+-- 			oceanfish_small_11 = SCHOOL_RARE, --salmon
+-- 			oceanfish_small_13 = SCHOOL_RARE, -- mecfish
+-- 			oceanfish_small_14 = SCHOOL_RARE, -- goldfish
+
+-- 			oceanfish_small_17 = SCHOOL_UNCOMMON, --hutch
+-- 			oceanfish_small_18 = SCHOOL_UNCOMMON, -- red fish
