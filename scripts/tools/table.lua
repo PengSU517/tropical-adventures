@@ -1,5 +1,20 @@
 tabel = {}
 
+function tabel.is_array(t)
+    if type(t) ~= "table" or not next(t) then
+        return false
+    end
+
+    local n = #t
+    for i, v in pairs(t) do
+        if type(i) ~= "number" or i <= 0 or i > n then
+            return false
+        end
+    end
+
+    return true
+end
+
 function tabel.has_index(tbl, index)
     for i, v in pairs(tbl) do
         if i == index then
@@ -76,6 +91,32 @@ function tabel.common_indexes(tbl, vs)
         end
     end
     return commontbl
+end
+
+function tabel.deep_merge(target, add_table, override)
+    target = target or {}
+
+    for k, v in pairs(add_table) do
+        if type(v) == "table" then
+            if not target[k] then
+                target[k] = {}
+            elseif type(target[k]) ~= "table" then
+                if override then
+                    target[k] = {}
+                else
+                    error("Can not override" .. k .. " to a table")
+                end
+            end
+
+            tabel.deep_merge(target[k], v, override)
+        else
+            if tabel.is_array(target) and not override then
+                table.insert(target, v)
+            elseif not target[k] or override then
+                target[k] = v
+            end
+        end
+    end
 end
 
 return tabel

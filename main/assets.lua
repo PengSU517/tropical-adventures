@@ -10,9 +10,11 @@ PrefabFiles =
 
 	-----------修改暴力覆盖
 
-	--鱼群相关
-	"tro_oceanfish", ----------------需要立即修改
-	"tro_schoolherd", ---------------需要马上修改
+	--鱼群相关--唯二暴力覆盖的内容
+	-- oceanfish
+	-- schoolherd,
+	-- "tro_oceanfish", --------------需要立即修改
+	-- "tro_schoolherd", ---------------需要马上修改
 
 	-- "tro_berrybush",
 	"tro_blowdart",
