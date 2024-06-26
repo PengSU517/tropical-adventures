@@ -60,7 +60,10 @@ TA_CONFIG.together = not ((not TA_CONFIG.rog) and TA_CONFIG.together_not_mainlan
 GLOBAL.TUNING.tropical = GLOBAL.TA_CONFIG -------------复制一份方便调用--------------
 
 
+
 modimport("main/tiledefs") ------------缺少行走的声音
+-- modimport("main/constants")
+modimport("main/tuning")
 
 require("constants")
 require("map/rooms")
@@ -72,10 +75,10 @@ require("map/ocean_gen_new") ----防止新的水面地皮被覆盖
 
 -- modimport("scripts/tools/util") --------很多参数还没调整
 modimport("scripts/tools/spawnutil")
-
-
 modimport("main/node") ------------防止清空水上内容
 -- modimport("main/forest_map_postinit") ----防止世界生成难产，但可能会缺失重要地形
+modimport("postinit/map/graph")
+
 
 ----------新内容
 modimport("scripts/init_static_layouts") --add new static layouts
@@ -489,6 +492,8 @@ if troadj.testmode then
         end
     end)
 end
+
+
 
 
 ---------------------------override before main-------------------
