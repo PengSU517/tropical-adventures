@@ -14,9 +14,9 @@ modimport("scripts/actions.lua")
 modimport("scripts/ham_fx.lua")
 -- AddMinimap()
 
-modimport("scripts/tools/waffles1")        ------------------volcano-------------------
+modimport("scripts/tools/waffles1") ------------------volcano-------------------
 modimport("scripts/recipe_tabs")
-modimport("scripts/recipes")               --ALL RECIPES--
+modimport("scripts/recipes")        --ALL RECIPES--
 -- new cookrecipes
 -- modimport("scripts/cook_recipes")
 -- modimport("scripts/foodingredient")--Runar: 这是分离的食物属性
@@ -39,11 +39,11 @@ modimport("postinit/prefabs/player_classified")
 modimport("postinit/prefabs/floatable_items")
 modimport("postinit/components/locomoter")
 modimport("postinit/widgets/container_widget_boat")
-modimport("main/containers")             ---new containers
+modimport("main/containers")              ---new containers
 
-modimport("postinit/components/weather") ---- disable snow effeccts
+modimport("postinit/components/snowtile") ---- disable snow effeccts
 modimport("postinit/container_woodleg_boat")
-modimport("postinit/container_boat")     ---- boat container sizing tweak by EvenMr
+modimport("postinit/container_boat")      ---- boat container sizing tweak by EvenMr
 modimport("postinit/prefabs/blueprints")
 
 -------------------------------------------------------------------------

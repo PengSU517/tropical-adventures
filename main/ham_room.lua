@@ -423,7 +423,7 @@ local function IsHamRoomAtPoint(x, y, z, checkwall)
     return false
 end
 
-local function IsOutsideWorldAtPoint(x, y, z, checkwall)
+local function IsOutsideWorldAtPoint(x, y, z)
     if type(x) ~= "number" then
         x, y, z = x.x or x, x.y or y, x.z or z
     end

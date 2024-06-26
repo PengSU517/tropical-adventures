@@ -1,5 +1,5 @@
 ---------------------------------------------------------------------tira a neve----------------------------------------------------------------------------------------
-if --[[GetModConfigData("disable_snow_effects") ==]] true then
+if --[[GetModConfigData("disable_snow_effects") ==]] false then
     AddComponentPostInit("weather",
         function(self, inst)
             inst:ListenForEvent(
@@ -15,4 +15,14 @@ if --[[GetModConfigData("disable_snow_effects") ==]] true then
             )
         end
     )
+end
+
+if true then
+    AddPrefabPostInit("world", function(world)
+        local mapfuncs = GLOBAL.getmetatable(world.Map).__index
+        local cover = mapfuncs.SetOverlayLerp
+        mapfuncs.SetOverlayLerp = function(map, level, ...)
+            return --[[ cover(map, 10, ...) ]]
+        end
+    end)
 end
