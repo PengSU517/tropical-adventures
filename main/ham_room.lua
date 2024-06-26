@@ -354,11 +354,11 @@ local function IsInHamRoom(x, z, v, checkwall)
                 return true
             end
         else
-            if (x - xx) <= -rsize.back and (x - xx) > -(rsize.back + 0.5) and math.abs(z - zz) <= (rsize.side - 2) then ---11
+            if (x - xx) < -(rsize.back - 0.5) and (x - xx) > -(rsize.back + 0.5) and math.abs(z - zz) <= (rsize.side - 2) then ---11
                 return "back"
-            elseif (z - zz) >= rsize.side and (z - zz) < (rsize.side + 0.5) and (x - xx) <= (rsize.front - 1) and (x - xx) >= -(rsize.back - 1) then
+            elseif (z - zz) > (rsize.side - 0.5) and (z - zz) < (rsize.side + 0.5) and (x - xx) <= (rsize.front - 1) and (x - xx) >= -(rsize.back - 1) then
                 return "right"
-            elseif (zz - z) >= rsize.side and (zz - z) < (rsize.side + 0.5) and (x - xx) <= (rsize.front - 1) and (x - xx) >= -(rsize.back - 1) then
+            elseif (zz - z) > (rsize.side - 0.5) and (zz - z) < (rsize.side + 0.5) and (x - xx) <= (rsize.front - 1) and (x - xx) >= -(rsize.back - 1) then
                 return "left"
             end
         end
@@ -419,6 +419,17 @@ local function IsHamRoomAtPoint(x, y, z, checkwall)
                 end
             end
         end
+    end
+    return false
+end
+
+local function IsOutsideWorldAtPoint(x, y, z, checkwall)
+    if type(x) ~= "number" then
+        x, y, z = x.x or x, x.y or y, x.z or z
+    end
+
+    if checkxz(x, z) then --判断的基础，也许光判断z就行了
+        return true
     end
     return false
 end
@@ -509,10 +520,55 @@ end
 Utils.FnDecorator(Map, "IsAboveGroundAtPoint", CheckHamRoomBefore)
 Utils.FnDecorator(Map, "IsPassableAtPoint", CheckHamRoomBefore)
 Utils.FnDecorator(Map, "IsVisualGroundAtPoint", CheckHamRoomBefore)
-Utils.FnDecorator(Map, "CanPlantAtPoint", CheckHamRoomBefore)              --允许房间里种植，不知道算不算超模
-Utils.FnDecorator(Map, "CanDeployRecipeAtPoint", CheckHamRoomBeforeDeploy) -------检查放置
-Utils.FnDecorator(Map, "GetTileCenterPoint", GetHamTileCenterPointBefore)  -------地皮中心
+Utils.FnDecorator(Map, "CanPlantAtPoint", CheckHamRoomBefore) --允许房间里种植，不知道算不算超模
+-- Utils.FnDecorator(Map, "CanDeployRecipeAtPoint", CheckHamRoomBeforeDeploy) -------检查放置
+-- Utils.FnDecorator(Map, "GetTileCenterPoint", GetHamTileCenterPointBefore)  -------地皮中心
 -- Utils.FnDecorator(Map, "GetPlatformAtPoint", GetHamHomeBefore)             -------platform
+
+--得到瓷砖中心点
+local old_GetTileCenterPoint = Map.GetTileCenterPoint
+Map.GetTileCenterPoint = function(self, x, y, z)
+    local map_width, map_height = TheWorld.Map:GetSize()
+    if (type(x) == "number" and math.abs(x) >= map_width) and (type(z) == "number" and math.abs(z) >= map_height) then
+        return math.floor((x) / 4) * 4 + 2, 0, math.floor((z) / 4) * 4 + 2
+    end
+    if z then
+        return old_GetTileCenterPoint(self, x, y, z)
+    else
+        return old_GetTileCenterPoint(self, x, y)
+    end
+end
+
+local old_CanDeployRecipeAtPoint = Map.CanDeployRecipeAtPoint
+Map.CanDeployRecipeAtPoint = function(self, pt, recipe, rot)
+    if recipe.build_mode == "insidedoor" then
+        local pt_x, pt_y, pt_z = pt:Get()
+        local isbackwall = IsHamRoomAtPoint(pt_x, pt_y, pt_z, true)
+        if isbackwall == "back" then
+            return true
+        else
+            return false
+        end
+    elseif recipe.build_mode == "wallsection" then
+        local pt_x, pt_y, pt_z = pt:Get()
+        local iswall = IsHamRoomAtPoint(pt_x, pt_y, pt_z, true)
+        if iswall then
+            return true
+        else
+            return false
+        end
+    elseif tabel.has_component(banrecipe, recipe.name) or string.find(recipe.name, "pig_shop") then
+        local pt_x, pt_y, pt_z = pt:Get()
+        local isroom = IsHamRoomAtPoint(pt_x, pt_y, pt_z, false)
+        if isroom then
+            return false
+        else
+            return old_CanDeployRecipeAtPoint(self, pt, recipe, rot)
+        end
+    else
+        return old_CanDeployRecipeAtPoint(self, pt, recipe, rot)
+    end
+end
 
 
 -----------进出房间动作--------
@@ -608,7 +664,7 @@ end
 
 --     -- 只在客机执行，这里只改本地玩家视觉效果，实际效果在其他地方修改
 --     local x, _, z = ThePlayer.Transform:GetWorldPosition()
---     if checkxz(x,z) then
+--     if checkxz(x, z) then
 --         if StopAmbientRainSound then
 --             StopAmbientRainSound()
 --         end
@@ -733,7 +789,8 @@ AddPrefabPostInit("spidereggsack", function(inst)
 end)
 
 local monster = { "hound", "firehound", "icehound", "moonhound", "mutatedhound", "warg",
-    "warglet", "lunarthrall_plant", "vampirebat", "crawlinghorror", "terrorbeak", "gestalt" }
+    "warglet", "lunarthrall_plant", "vampirebat", "crawlinghorror", "terrorbeak", "gestalt", "moonglass",
+    "moonglass_charged", "warningshadow" }
 for i, v in ipairs(monster) do --
     AddPrefabPostInit(v, function(inst)
         if TheWorld.ismastersim then
@@ -969,7 +1026,7 @@ AddPrefabPostInit("forest", function(inst)
     --青蛙雨
     local frograin = upvaluehelper.GetWorldHandle(inst, "israining", "components/frograin") --下雨
     if frograin then
-        -- print("找到了")
+        -- print("找到青蛙雨了")
         local GetSpawnPoint = upvaluehelper.Get(frograin, "GetSpawnPoint")
         if GetSpawnPoint ~= nil then
             local old = GetSpawnPoint
@@ -981,6 +1038,25 @@ AddPrefabPostInit("forest", function(inst)
                 return old(pt)
             end
             upvaluehelper.Set(frograin, "GetSpawnPoint", newGetSpawnPoint)
+        end
+    end
+
+    --玻璃雨
+    local lunarrain = upvaluehelper.GetWorldHandle(inst, "islunarhailing", "components/lunarhailmanager") --下雨
+
+    if lunarrain then
+        -- print("找到玻璃雨了")
+        local GetSpawnPoint = upvaluehelper.Get(lunarrain, "GetSpawnPoint")
+        if GetSpawnPoint ~= nil then
+            local old = GetSpawnPoint
+            local function newGetSpawnPoint(pt)
+                if TheWorld.Map:IsHamRoomAtPoint(pt:Get()) then
+                    -- print("成功玻璃雨")
+                    return nil
+                end
+                return old(pt)
+            end
+            upvaluehelper.Set(lunarrain, "GetSpawnPoint", newGetSpawnPoint)
         end
     end
 
@@ -1036,7 +1112,13 @@ local oldPostUpdate = emitters.PostUpdate or nil
 
 function emitters:PostUpdate(...)
     for inst, data in pairs(self.awakeEmitters.infiniteLifetimes) do
-        if ( --[[inst.prefab == "rain" or]] inst.prefab == "caverain" or inst.prefab == "snow") and data.updateFunc ~= nil then
+        if ( --[[inst.prefab == "rain" or]]
+                inst.prefab == "caverain" or
+                inst.prefab == "caveacidrain" or
+                inst.prefab == "snow" or
+                inst.prefab == "pollen" or
+                inst.prefab == "lunarhail") and
+            data.updateFunc ~= nil then
             if old_update[inst] == nil then
                 old_update[inst] = data.updateFunc
             end
