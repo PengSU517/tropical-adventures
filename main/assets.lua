@@ -3,9 +3,12 @@ PrefabFiles =
 
 
 
+
 	---------------新物品
 	"loot_pumper",
 	"sea2land_fork",
+
+	"bermudatriangle",
 
 
 	-----------修改暴力覆盖
@@ -976,6 +979,8 @@ Assets =
 	Asset("IMAGE", "images/sea2land_fork.tex"),
 	Asset("ATLAS", "images/sea2land_fork.xml"),
 	Asset("ANIM", "anim/swap_land_fork.zip"),
+
+
 
 	------------------从architectpack添加
 	-- Asset("IMAGE", "images/inventoryimages/tap_buildingimages.tex"),
