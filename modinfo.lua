@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.6.25"
+version = "2.6.26"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -23,6 +23,12 @@ QQ 群：469668062
 ]]
 
 local updateen = [[
+
+2.6.26 Updates:
+
+1. Fix flashing snowtiles
+2. fix windows and doors placement in room
+3. fix lunar hail in room
 
 2.6.25 Updates:
 
@@ -64,6 +70,12 @@ Including tropical fish, clownfish, grouper, neon fish, gearfish, goldfish, red 
 ]]
 
 local updatech = [[
+
+2.6.26 更新:
+
+1. 修复积雪闪屏问题
+2. 修复门窗的室内摆放问题
+3. 屏蔽室内玻璃雨
 
 2.6.25 更新:
 
