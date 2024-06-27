@@ -35,23 +35,23 @@ local foods_sw = {
         card_def = {ingredients = {{"butterfly_tropical_wings", 1}, {"carrot", 2}, {"twigs", 1}} },
     },
 
-    californiaroll_sw = {
-        test = function(cooker, names, tags)
-            return
-                (names.seaweed or 0) == 2 and (tags.fish and tags.fish >= 1)
-        end,
-        priority = 20,
-        weight = 1,
-        foodtype = FOODTYPE.MEAT,
-        health = TUNING.HEALING_MED,
-        hunger = TUNING.CALORIES_LARGE,
-        perishtime = TUNING.PERISH_MED,
-        sanity = TUNING.SANITY_SMALL,
-        cooktime = .5,
-        potlevel = "high",
-        floater = {"med", 0.05, {0.65, 0.6, 0.65}},
-        card_def = {ingredients = {{"seaweed", 2}, {"fishmeat_small", 2}} },
-    },
+    -- californiaroll_sw = {
+    --     test = function(cooker, names, tags)
+    --         return
+    --             (names.seaweed or 0) == 2 and (tags.fish and tags.fish >= 1)
+    --     end,
+    --     priority = 20,
+    --     weight = 1,
+    --     foodtype = FOODTYPE.MEAT,
+    --     health = TUNING.HEALING_MED,
+    --     hunger = TUNING.CALORIES_LARGE,
+    --     perishtime = TUNING.PERISH_MED,
+    --     sanity = TUNING.SANITY_SMALL,
+    --     cooktime = .5,
+    --     potlevel = "high",
+    --     floater = {"med", 0.05, {0.65, 0.6, 0.65}},
+    --     card_def = {ingredients = {{"seaweed", 2}, {"fishmeat_small", 2}} },
+    -- },
 
     caviar = {
         test = function(cooker, names, tags)
@@ -116,43 +116,43 @@ local foods_sw = {
         card_def = {ingredients = {{"jellyfish", 1}, {"ice", 1}, {"twigs", 2}} },
     },
 
-    lobsterbisque_sw = {
-        test = function(cooker, names, tags)
-            return
-                (names.lobster_dead or names.lobster_dead_cooked or names.lobster_land) and
-                    tags.frozen
-        end,
-        priority = 30,
-        weight = 1,
-        foodtype = FOODTYPE.MEAT,
-        health = TUNING.HEALING_HUGE,
-        hunger = TUNING.CALORIES_MED,
-        perishtime = TUNING.PERISH_MED,
-        sanity = TUNING.SANITY_SMALL,
-        cooktime = 0.5,
-        potlevel = "high",
-        floater = {"med", 0.05, {0.65, 0.6, 0.65}},
-        card_def = {ingredients = {{"lobster_land", 1}, {"ice", 3}} },
-    },
+    -- lobsterbisque_sw = {
+    --     test = function(cooker, names, tags)
+    --         return
+    --             (names.lobster_dead or names.lobster_dead_cooked or names.lobster_land) and
+    --                 tags.frozen
+    --     end,
+    --     priority = 30,
+    --     weight = 1,
+    --     foodtype = FOODTYPE.MEAT,
+    --     health = TUNING.HEALING_HUGE,
+    --     hunger = TUNING.CALORIES_MED,
+    --     perishtime = TUNING.PERISH_MED,
+    --     sanity = TUNING.SANITY_SMALL,
+    --     cooktime = 0.5,
+    --     potlevel = "high",
+    --     floater = {"med", 0.05, {0.65, 0.6, 0.65}},
+    --     card_def = {ingredients = {{"lobster_land", 1}, {"ice", 3}} },
+    -- },
 
-    lobsterdinner_sw = {
-        test = function(cooker, names, tags)
-            return
-                (names.lobster_dead or names.lobster_dead_cooked or names.lobster_land) and
-                    names.butter and (tags.meat == 1.0) and (tags.fish == 1.0) and not tags.frozen
-        end,
-        priority = 25,
-        weight = 1,
-        foodtype = FOODTYPE.MEAT,
-        health = TUNING.HEALING_HUGE,
-        hunger = TUNING.CALORIES_LARGE,
-        perishtime = TUNING.PERISH_SLOW,
-        sanity = TUNING.SANITY_HUGE,
-        cooktime = 1,
-        potlevel = "high",
-        floater = {"med", 0.05, {0.65, 0.6, 0.65}},
-        card_def = {ingredients = {{"lobster_land", 1}, {"butter", 1}, {"carrot", 2}} },
-    },
+    -- lobsterdinner_sw = {
+    --     test = function(cooker, names, tags)
+    --         return
+    --             (names.lobster_dead or names.lobster_dead_cooked or names.lobster_land) and
+    --                 names.butter and (tags.meat == 1.0) and (tags.fish == 1.0) and not tags.frozen
+    --     end,
+    --     priority = 25,
+    --     weight = 1,
+    --     foodtype = FOODTYPE.MEAT,
+    --     health = TUNING.HEALING_HUGE,
+    --     hunger = TUNING.CALORIES_LARGE,
+    --     perishtime = TUNING.PERISH_SLOW,
+    --     sanity = TUNING.SANITY_HUGE,
+    --     cooktime = 1,
+    --     potlevel = "high",
+    --     floater = {"med", 0.05, {0.65, 0.6, 0.65}},
+    --     card_def = {ingredients = {{"lobster_land", 1}, {"butter", 1}, {"carrot", 2}} },
+    -- },
 
     musselbouillabaise = {
         test = function(cooker, names, tags)

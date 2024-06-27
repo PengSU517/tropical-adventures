@@ -1,7 +1,14 @@
 -- 物品栏贴图路径
 local inventoryitems_atlas_sw = "images/inventoryimages/cookpotfoods_sw.xml"
--- local inventoryitems_atlas_sw = "images/inventoryimages/volcanoinventory.xml" -- 等补上热带蝴蝶松饼的位置信息再用
-local inventoryitems_atlas_ham = "images/inventoryimages/hamletinventory.xml"
+local inventoryitems_atlas_ham = "images/inventoryimages/cookpotfoods_ham.xml"
+
+-- 修改原版配方，贴图不同的保留
+local foods = require("preparedfoods")
+-- foods.butterflymuffin.test = function(cooker, names, tags) return (names.butterflywings or names.moonbutterflywings or names.butterfly_tropical_wings) and not tags.meat and tags.veggie and tags.veggie >= 0.5 end
+foods.californiaroll.test = function(cooker, names, tags) return ((names.kelp or 0) + (names.kelp_cooked or 0) + (names.kelp_dried or 0) + (names.seaweed or 0)) == 2 and (tags.fish and tags.fish >= 1) end
+foods.lobsterbisque.test = function(cooker, names, tags) return (names.wobster_sheller_land or names.lobster_dead or names.lobster_dead_cooked or names.lobster_land) and tags.frozen end
+foods.lobsterdinner.test = function(cooker, names, tags) return (names.wobster_sheller_land or names.lobster_dead or names.lobster_dead_cooked or names.lobster_land) and names.butter and (tags.meat and tags.meat >= 1.0) and (tags.fish and tags.fish >= 1.0) and not tags.frozen end
+
 
 local foods_sw = require("preparedfoods_sw")
 for k, v in pairs (foods_sw) do
@@ -23,9 +30,11 @@ for k, v in pairs (foods_ham) do
     if v.mod and v.mod == true then
         RegisterInventoryItemAtlas(inventoryitems_atlas_ham, v.name..".tex")
     end
-    AddCookerRecipe("cookpot", v)
+    if v.isMasterfood == nil then
+        AddCookerRecipe("cookpot", v)
+        AddCookerRecipe("archive_cookpot", v)
+    end
     AddCookerRecipe("portablecookpot", v)
-    AddCookerRecipe("archive_cookpot", v)
     if v.card_def then
         AddRecipeCard("cookpot", v)
     end
@@ -145,4 +154,16 @@ AddIngredientValues({ "snake_bone" }, { bone = 1 }, true, false)
 AddIngredientValues({ "yelow_cap" }, { veggie = 0.5 }, true, false)
 AddIngredientValues({ "yelow_cooked" }, { veggie = 0.5 }, true, false)
 
--- 食物属性，废案预留
+
+-- 食物属性，废案拓展
+AddIngredientValues({ "lotus_flower1" }, { veggie = 1 }, true, false)
+AddIngredientValues({ "fennel" }, { veggie = 0.5 }, true, false)
+AddIngredientValues({ "quagmire_smallmeat" }, { meat = 0.5, smallmeat = 1 }, true, false) -- "smallmeat" for quagmire, I think
+
+
+-- 烹饪指南中的食材贴图
+RegisterInventoryItemAtlas("images/inventoryimages/volcanoinventory.xml", "weevole_carapace.tex")
+RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "lotus_flower1.tex")
+RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "lotus_flower1_cooked.tex")
+RegisterInventoryItemAtlas("images/inventoryimages/volcanoinventory.xml", "fennel.tex")
+RegisterInventoryItemAtlas("images/inventoryimages/volcanoinventory.xml", "fennel_cooked.tex")

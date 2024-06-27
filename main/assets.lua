@@ -1116,8 +1116,8 @@ Assets =
 	Asset("ATLAS", "images/cookbook/cookbook_ham.xml"),
 	Asset("IMAGE", "images/inventoryimages/cookpotfoods_sw.tex"),
 	Asset("ATLAS", "images/inventoryimages/cookpotfoods_sw.xml"),
-
-
+	Asset("IMAGE", "images/inventoryimages/cookpotfoods_ham.tex"),
+	Asset("ATLAS", "images/inventoryimages/cookpotfoods_ham.xml"),
 
 
 
@@ -1287,7 +1287,6 @@ RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "aspara
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "asparagus_cooked.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "aloe.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "aloe_cooked.tex")
-RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "weevole_carapace.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "piko_orange.tex")
 RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "snake_bone.tex")
 
