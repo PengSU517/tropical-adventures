@@ -1,7 +1,7 @@
 -- 贴图与动画
 local overridebuild_ham = "cook_pot_food_ham"
 local cookbook_atlas_ham = "images/cookbook/cookbook_ham.xml"
-local inventoryitems_atlas_ham = "images/inventoryimages/hamletinventory.xml"
+local inventoryitems_atlas_ham = "images/inventoryimages/cookpotfoods_ham.xml"
 
 
 -- 食谱
@@ -12,7 +12,6 @@ local foods_ham = {
                        (names.jellybug and names.jellybug_cooked and names.jellybug + names.jellybug_cooked == 3)
         end,
         priority = 30,
-        weight = 1,
         foodtype = FOODTYPE.MEAT,
         health = TUNING.HEALING_MED,
         hunger = TUNING.CALORIES_HUGE,
@@ -27,7 +26,6 @@ local foods_ham = {
             return (names.meat or names.meat_cooked) and (tags.veggie and tags.veggie >= 2) and names.foliage
         end,
         priority = 5,
-        weight = 1,
         foodtype = FOODTYPE.MEAT,
         health = TUNING.HEALING_LARGE,
         hunger = TUNING.CALORIES_LARGE,
@@ -42,7 +40,6 @@ local foods_ham = {
             return (names.weevole_carapace == 2) and tags.veggie
         end,
         priority = 1,
-        weight = 1,
         foodtype = FOODTYPE.VEGGIE,
         health = TUNING.HEALING_MED,
         hunger = TUNING.CALORIES_LARGE,
@@ -57,7 +54,6 @@ local foods_ham = {
             return (names.slugbug or names.slugbug_cooked) and tags.sweetener
         end,
         priority = 1,
-        weight = 1,
         foodtype = FOODTYPE.MEAT,
         health = -TUNING.HEALING_SMALL,
         hunger = TUNING.CALORIES_SUPERHUGE,
@@ -74,7 +70,6 @@ local foods_ham = {
                        not tags.inedible
         end,
         priority = 25,
-        weight = 1,
         foodtype = FOODTYPE.GOODIES,
         health = TUNING.HEALING_SMALL,
         hunger = TUNING.CALORIES_SMALL,
@@ -111,7 +106,6 @@ local foods_ham = {
             return tags.filter and tags.filter >= 2 and tags.sweetener and tags.frozen
         end,
         priority = 30,
-        weight = 1,
         foodtype = FOODTYPE.GOODIES,
         health = TUNING.HEALING_SMALL,
         hunger = TUNING.CALORIES_SMALL,
@@ -148,7 +142,6 @@ local foods_ham = {
             return tags.bone and tags.bone >= 2 and tags.meat and tags.meat >= 2
         end,
         priority = 20,
-        weight = 1,
         foodtype = FOODTYPE.MEAT,
         health = TUNING.HEALING_LARGE,
         hunger = TUNING.CALORIES_MED,
@@ -162,8 +155,6 @@ local foods_ham = {
         test = function(cooker, names, tags)
             return tags.antihistamine and tags.antihistamine >= 3
         end,
-        priority = 0,
-        weight = 1,
         foodtype = FOODTYPE.GOODIES,
         health = TUNING.HEALING_MED,
         hunger = TUNING.CALORIES_MED,
@@ -185,7 +176,6 @@ local foods_ham = {
                        (not tags.monster or tags.monster <= 1) and not tags.inedible
         end,
         priority = 1,
-        weight = 1,
         foodtype = FOODTYPE.MEAT,
         health = TUNING.HEALING_MED,
         hunger = TUNING.CALORIES_LARGE,
@@ -193,7 +183,6 @@ local foods_ham = {
         sanity = TUNING.SANITY_TINY,
         antihistamine = 600,
         cooktime = 1,
-        atlasname = "images/inventoryimages/meated_nettle.xml",
         oneatenfn = function(inst, eater)
             if eater.components.hayfever ~= nil and eater.components.hayfever.fevervalue then
                 eater.components.hayfever.fevervalue = eater.components.hayfever.fevervalue - 16000
@@ -201,6 +190,86 @@ local foods_ham = {
         end,
         card_def = {ingredients = {{"cutnettle", 2}, {"smallmeat", 2}} },
     },
+
+    -- 废案重现
+    bubbletea = { -- 芋泥啵啵 Bubble Tea
+        test = function(cooker, names, tags)
+            return (names.seataro or names.seataro_cooked) and tags.filter and tags.dairy and tags.sweetener and
+                        not tags.meat and not tags.monster and not tags.fish
+        end,
+        priority = 1,
+        foodtype = FOODTYPE.GOODIES,
+        health = TUNING.HEALING_SMALL,
+        hunger = TUNING.CALORIES_HUGE,
+        perishtime = TUNING.PERISH_FASTISH,
+        sanity = TUNING.SANITY_HUGE,
+        temperature = -40,
+        temperatureduration = 10,
+        cooktime = .5,
+        tags = { "honeyed" },
+        card_def = {ingredients = {{"seataro", 1}, {"piko_orange", 1}, {"goatmilk", 1}, {"honey", 1}} },
+    },
+    
+    frenchonionsoup = { -- 法式洋葱汤 French Onion Soup
+        test = function(cooker, names, tags)
+            return tags.meat and (names.onion or names.onion_cooked) and (names.tomato or names.tomato_cooked) and
+                        not tags.fish and not tags.inedible
+        end,
+        priority = 35, -- 比海鲜杂烩高一点
+        foodtype = FOODTYPE.MEAT,
+        health = TUNING.HEALING_LARGE,
+        hunger = TUNING.CALORIES_HUGE + TUNING.CALORIES_SMALL,
+        perishtime = TUNING.PERISH_FASTISH,
+        sanity = TUNING.SANITY_MEDLARGE,
+        cooktime = .75,
+        isMasterfood = true,
+        tags = { "masterfood" }, -- 下次搬到TE
+        card_def = {ingredients = {{"smallmeat", 1}, {"onion", 1}, {"tomato", 1}, {"twigs", 1}} },
+    }, 
+
+    lotuschips = { -- 莲藕汤 Lotus Root Soup
+        test = function(cooker, names, tags)
+            return ((names.lotus_flower1 and names.lotus_flower1 > 1) or (names.lotus_flower1_cooked and names.lotus_flower1_cooked > 1) or (names.lotus_flower1 and names.lotus_flower1_cooked)) and
+                        not tags.fish
+        end,
+        priority = 5,
+        foodtype = FOODTYPE.VEGGIE,
+        health = TUNING.HEALING_SMALL,
+        hunger = TUNING.CALORIES_MEDSMALL,
+        perishtime = TUNING.PERISH_MED,
+        sanity = TUNING.SANITY_MEDLARGE * 2,
+        cooktime = .5,
+        card_def = {ingredients = {{"lotus_flower1", 2}, {"ice", 1}, {"twigs", 1}} },
+    },
+
+    poi = { -- 芋泥 Poi
+        test = function(cooker, names, tags)
+               return ((names.seataro or 0) + (names.seataro_cooked or 0)) >= 2 and 
+                           ((names.seataro or 0) + (names.seataro_cooked or 0) + (names.potato or 0) + (names.potato_cooked or 0) + (names.sweet_potato or 0) + (names.sweet_potato_cooked or 0)) > 2 and
+                           not tags.meat and not tags.monster and not tags.fish 
+        end,
+        priority = 1,
+        foodtype = FOODTYPE.VEGGIE,
+        health = TUNING.HEALING_MEDLARGE,
+        hunger = TUNING.CALORIES_LARGE + TUNING.CALORIES_MED,
+        perishtime = TUNING.PERISH_MED,
+        sanity = TUNING.SANITY_TINY,
+        cooktime = 2,
+        card_def = {ingredients = {{"seataro", 3}, {"ice", 1} } },
+    }, 
+
+    -- slaw = { -- 茴香沙拉 Slaw -- 游戏里获得不了茴香就先不加入
+	-- 	test = function(cooker, names, tags) return (names.fennel or names.fennel_cooked) and not tags.meat and tags.veggie and tags.veggie >= 0.5 and not tags.inedible end,
+	-- 	priority = 1,
+	-- 	foodtype = FOODTYPE.VEGGIE,
+	-- 	health = TUNING.HEALING_SMALL,
+	-- 	hunger = TUNING.CALORIES_MED,
+	-- 	perishtime = TUNING.PERISH_SLOW,
+	-- 	sanity = TUNING.SANITY_TINY,
+	-- 	cooktime = 1,
+    --     floater = {"med", nil, 0.68},
+    --     card_def = {ingredients = {{"fennel", 2}, {"carrot", 2}} },
+    -- },
 
 }
 
