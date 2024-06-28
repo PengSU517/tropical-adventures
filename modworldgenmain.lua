@@ -42,8 +42,8 @@ GLOBAL.TA_CONFIG = {
     bosslife       = 1,     --------GetModConfigData("bosslife"),
 
 
-    ocean = GetModConfigData("ocean"),
-    -- ocean = "default",
+    -- ocean = GetModConfigData("ocean"),
+    ocean = "default",
 
 
     testmode   = GetModConfigData("testmode"),
