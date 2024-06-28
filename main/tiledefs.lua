@@ -1030,11 +1030,6 @@ end
 
 
 
-
--- TileGroupManager:AddInvalidTile(TileGroups.TransparentOceanTiles, WORLD_TILES.OCEAN_COASTAL_SHORE)
--- ChangeTileRenderOrder(WORLD_TILES.OCEAN_COASTAL_SHORE, WORLD_TILES.DESERT_DIRT, true)
-
-
 --Non flooring floodproof tiles
 -- GROUND_FLOODPROOF = setmetatable({
 --     [WORLD_TILES.ROAD] = true,
@@ -1159,52 +1154,48 @@ for tile, def in pairs(tro_tiledefs) do
 end
 
 
+
 local tile_tbl = {
     OCEAN_COASTAL_SHORE = "OCEAN_SHALLOW_SHORE",
     OCEAN_COASTAL = "OCEAN_SHALLOW",
     OCEAN_SWELL = "OCEAN_MEDIUM",
     OCEAN_ROUGH = "OCEAN_DEEP",
-    OCEAN_WATERLOG = "OCEAN_SHALLOW",
+    OCEAN_WATERLOG = "MANGROVE",
     OCEAN_BRINEPOOL = "OCEAN_CORAL",
     OCEAN_BRINEPOOL_SHORE = "OCEAN_CORAL",
     OCEAN_HAZARDOUS = "OCEAN_SHIPGRAVEYARD",
 }
 
+local function tile_redirect(tbl)
+    for origin, override in pairs(tbl) do
+        if not WORLD_TILES[origin] then
+            return
+        end
 
+        if TUNING.tropical.ocean == "tropical" then
+            if not is_worldgen then
+                TileGroupManager:AddInvalidTile(TileGroups.TransparentOceanTiles, WORLD_TILES[origin])
+                TileGroupManager:AddValidTile(TileGroups.TAOceanTiles, WORLD_TILES[origin])
+            end
+            ChangeTileRenderOrder(WORLD_TILES[origin], WORLD_TILES.MONKEY_DOCK, false)
+        end
 
--- local function tile_redirect(tbl)
---     for k, v in pairs(tbl) do
---         WORLD_TILES[k] = deepcopy(WORLD_TILES[v])
---         GROUND[k] = deepcopy(WORLD_TILES[v])
---     end
--- end
+        for k, v in pairs(GroundTiles.ground) do
+            if v[1] == WORLD_TILES[origin] then
+                -- print("findit!!!!!!!!!!!!")
+                v[2] = tro_tiledefs[override].ground_tile_def
+            end
+        end
 
--- if TA_CONFIG.ocean == "tropical" then
---     tile_redirect(tile_tbl)
---     -- WORLD_TILES.OCEAN_COASTAL_SHORE = WORLD_TILES.OCEAN_SHALLOW_SHORE
---     -- GROUND.OCEAN_COASTAL_SHORE = WORLD_TILES.OCEAN_SHALLOW_SHORE
+        for k, v in pairs(GroundTiles.minimap) do
+            if v[1] == WORLD_TILES[origin] then
+                -- print("findit!!!!!!!!!!!!")
+                v[2] = tro_tiledefs[override].minimap_tile_def
+            end
+        end
+    end
+end
 
---     -- WORLD_TILES.OCEAN_COASTAL = WORLD_TILES.OCEAN_SHALLOW
---     -- GROUND.OCEAN_COASTAL = WORLD_TILES.OCEAN_SHALLOW
-
---     -- WORLD_TILES.OCEAN_SWELL = WORLD_TILES.OCEAN_MEDIUM
---     -- GROUND.OCEAN_SWELL = WORLD_TILES.OCEAN_MEDIUM
-
---     -- WORLD_TILES.OCEAN_ROUGH = WORLD_TILES.OCEAN_DEEP
---     -- GROUND.OCEAN_ROUGH = WORLD_TILES.OCEAN_DEEP
-
---     -- WORLD_TILES.OCEAN_ROUGH = WORLD_TILES.OCEAN_DEEP
---     -- GROUND.OCEAN_ROUGH = WORLD_TILES.OCEAN_DEEP
-
---     -- WORLD_TILES.OCEAN_WATERLOG = WORLD_TILES.MANGROVE
---     -- GROUND.OCEAN_WATERLOG = WORLD_TILES.MANGROVE
-
---     -- WORLD_TILES.OCEAN_BRINEPOOL = WORLD_TILES.OCEAN_CORAL
---     -- GROUND.OCEAN_BRINEPOOL = WORLD_TILES.OCEAN_CORAL
-
---     -- WORLD_TILES.OCEAN_BRINEPOOL_SHORE = WORLD_TILES.OCEAN_CORAL
---     -- GROUND.OCEAN_BRINEPOOL_SHORE = WORLD_TILES.OCEAN_CORAL
-
---     -- WORLD_TILES.OCEAN_HAZARDOUS = WORLD_TILES.OCEAN_SHIPGRAVEYARD
---     -- GROUND.OCEAN_HAZARDOUS = WORLD_TILES.OCEAN_SHIPGRAVEYARD
--- end
+if not TheNet:IsDedicated() and TUNING.tropical.ocean ~= "default" then
+    tile_redirect(tile_tbl) 
+end

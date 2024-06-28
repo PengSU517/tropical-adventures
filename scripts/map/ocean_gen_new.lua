@@ -300,7 +300,7 @@ local function do_blend(width, height, data)
 				local cmlevel = cm[y * width + x] * falloff
 				local glevel = g[y * width + x] * falloff
 				if ellevel > final_level_shallow + 0.1 then -------------减少浅海
-					if cmlevel > (final_level_mangrove + 10) and tile == WORLD_TILES.OCEAN_WATERLOG then
+					if cmlevel > (final_level_mangrove - 0.3) and tile == WORLD_TILES.OCEAN_WATERLOG then
 						world:SetTile(x, y, WORLD_TILES.OCEAN_WATERLOG)
 					elseif cmlevel > final_level_coral and tile == WORLD_TILES.OCEAN_BRINEPOOL then
 						world:SetTile(x, y, WORLD_TILES.OCEAN_BRINEPOOL)
@@ -443,11 +443,11 @@ function Ocean_ConvertImpassibleToWater(width, height, data)
 
 
 	do_squarefill(data.shallowRadius, width, height, data)
-	do_groundfill(WORLD_TILES.OCEAN_DEEP, fillOffset - 1, fillDepth + 4, nil, width, height, data)
-	do_groundfill(WORLD_TILES.OCEAN_MEDIUM, fillOffset - 1, fillDepth + 2, nil, width, height, data) ----在陆地周围生成一圈海洋 coastal
+	-- do_groundfill(WORLD_TILES.OCEAN_DEEP, fillOffset - 1, fillDepth + 4, nil, width, height, data)
+	-- do_groundfill(WORLD_TILES.OCEAN_MEDIUM, fillOffset - 1, fillDepth + 2, nil, width, height, data) ----在陆地周围生成一圈海洋 coastal
 	do_groundfill(WORLD_TILES.OCEAN_COASTAL, fillOffset - 1, fillDepth, nil, width, height, data) ---基于海洋地皮在周围生成coastal
-	do_noise(width, height, data)                                                                 ----将所有的impassable随机填充   只加这一个的话海岸线是平直的，而且随意出入，因为世界边缘位置是平直的
-	do_blend(width, height, data)                                                                 -----将随机填充变得平滑？
+	do_noise(width, height, data)                                                              ----将所有的impassable随机填充   只加这一个的话海岸线是平直的，而且随意出入，因为世界边缘位置是平直的
+	do_blend(width, height, data)                                                              -----将随机填充变得平滑？
 	AddShoreline(width, height, data)
 	do_void_outline(width, height, data)
 end

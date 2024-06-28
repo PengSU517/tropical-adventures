@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.6.26"
+version = "2.6.28"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -238,27 +238,7 @@ configuration_options =
 		default = true,
 	},
 
-	-- {
-	-- 	name = "ocean",
-	-- 	label = en_zh("Ocean", "海洋"),
-	-- 	hover = en_zh("Ocean Style", "海洋风格"),
-	-- 	options =
-	-- 	{
-	-- 		{
-	-- 			description = en_zh("Default", "默认"),
-	-- 			hover = en_zh("DST ocean", "联机海洋"),
-	-- 			data = "default"
-	-- 		},
-	-- 		{
-	-- 			description = en_zh("Shipwrecked Style", "海难风格"),
-	-- 			hover = en_zh("Shipwrecked stylized tropical ocean", "海难风格的热带海洋"),
-	-- 			data = "tropical"
-	-- 		},
 
-
-	-- 	},
-	-- 	default = "default",
-	-- },
 
 	{
 		name = "startlocation",
@@ -414,6 +394,36 @@ configuration_options =
 		hover = en_zh("Aporkalypse, but in caves", "毁灭季 但是在洞穴"),
 		options = options_enable,
 		default = true,
+	},
+
+
+	Breaker("Client Settings", "客户端调整"),
+	{
+		name = "ocean",
+		label = en_zh("Ocean", "海洋"),
+		hover = en_zh("Ocean Style", "海洋风格"),
+		options =
+		{
+			{
+				description = en_zh("Default", "默认"),
+				hover = en_zh("DST ocean", "联机海洋"),
+				data = "default"
+			},
+			{
+				description = en_zh("Shipwrecked Style", "海难风格"),
+				hover = en_zh("Shipwrecked stylized tropical ocean", "海难风格的热带海洋"),
+				data = "tropical"
+			},
+
+			-- {
+			-- 	description = en_zh("All Blue ", "碧蓝"),
+			-- 	hover = en_zh("A new style", "碧蓝的联机海洋"),
+			-- 	data = "blue"
+			-- },
+
+
+		},
+		default = "tropical",
 	},
 
 	Breaker("Developer Settings", "开发者选项"),

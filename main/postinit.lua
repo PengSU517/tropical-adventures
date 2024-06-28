@@ -224,7 +224,7 @@ local prefabs_post = {
 }
 
 if GLOBAL.TUNING.UPDATE_CHECK then
-    table.insert(prefabs_post, "storage_robot")
+    -- table.insert(prefabs_post, "storage_robot")
 end
 
 local gustable_prefabs_post = {
