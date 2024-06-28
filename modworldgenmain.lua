@@ -5,16 +5,12 @@ require("tools/table") ----一些表相关的工具函数，都在表tabel里
 
 GLOBAL.TA_CONFIG = {
 
-    language = GetModConfigData("language"),
+    language          = GetModConfigData("language"),
 
+    rog               = GetModConfigData("rog"),
+    shipwrecked       = GetModConfigData("shipwrecked"),
+    hamlet            = GetModConfigData("hamlet"),
 
-    rog         = GetModConfigData("rog"),
-    shipwrecked = GetModConfigData("shipwrecked"),
-    hamlet      = GetModConfigData("hamlet"),
-
-
-    -- ocean             = GetModConfigData("ocean"),
-    ocean             = "default",
     multiplayerportal = GetModConfigData("startlocation"),
     startlocation     = GetModConfigData("startlocation"),
     worldsize         = GetModConfigData("worldsize"),
@@ -44,6 +40,10 @@ GLOBAL.TA_CONFIG = {
     -- forge             = false, ----GetModConfigData("forge"),
     disembarkation = false, -----GetModConfigData("automatic_disembarkation"),------------自动离开船
     bosslife       = 1,     --------GetModConfigData("bosslife"),
+
+
+    ocean = GetModConfigData("ocean"),
+    -- ocean = "default",
 
 
     testmode   = GetModConfigData("testmode"),
@@ -76,7 +76,7 @@ require("map/ocean_gen_new") ----防止新的水面地皮被覆盖
 -- modimport("scripts/tools/util") --------很多参数还没调整
 modimport("scripts/tools/spawnutil")
 modimport("main/node") ------------防止清空水上内容
--- modimport("main/forest_map_postinit") ----防止世界生成难产，但可能会缺失重要地形
+
 modimport("postinit/map/graph")
 
 
@@ -400,6 +400,10 @@ if true then
             level.ocean_prefill_setpieces["MonkeyIsland"] = 1
             level.ocean_prefill_setpieces["HermitcrabIsland"] = 1
             level.ocean_prefill_setpieces["CrabKing"] = 1
+
+            tabel.insert_components(level.ocean_population, {
+                "OceanBrinepool",
+            })
         end
     end)
 
@@ -416,19 +420,21 @@ end
 
 
 ------------------------热带海域----------------------------
-if troadj.ocean == "tropical" then
-    require("map/ocean_gen_tropical")
-    AddLevelPreInitAny(function(level)
-        if level.location == "forest" then
-            tabel.insert_components(level.ocean_population, {
-                "OceanBrinepool",
-            })
-        end
-    end)
-end
+-- if troadj.ocean == "tropical" then
+--     require("map/ocean_gen_tropical")
+--     AddLevelPreInitAny(function(level)
+--         if level.location == "forest" then
+--             tabel.insert_components(level.ocean_population, {
+--                 "OceanBrinepool",
+--             })
+--         end
+--     end)
+-- end
 
 ---------------------测试模式------------
 if troadj.testmode then
+    -- modimport("main/forest_map_postinit") ----防止世界生成难产，但可能会缺失重要地形
+
     AddLevelPreInitAny(function(level)
         if level.location == "cave" then
             level.overrides.keep_disconnected_tiles = true
@@ -503,6 +509,6 @@ local tro_oceanfishdefs = require("prefabs/tro_oceanfishdef")
 
 tabel.deep_merge(oceanfishdefs, tro_oceanfishdefs, false)
 
-if oceanfishdefs.school[SEASONS.SPRING][WORLD_TILES.LILYPOND].oceanfish_small_11 then
-    print(oceanfishdefs.school[SEASONS.SPRING][WORLD_TILES.LILYPOND].oceanfish_small_11 .. "!!!!!!!!!!!!!")
-end
+-- if oceanfishdefs.school[SEASONS.SPRING][WORLD_TILES.LILYPOND].oceanfish_small_11 then
+--     print(oceanfishdefs.school[SEASONS.SPRING][WORLD_TILES.LILYPOND].oceanfish_small_11 .. "!!!!!!!!!!!!!")
+-- end

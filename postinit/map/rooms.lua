@@ -254,32 +254,32 @@ if TUNING.tropical.shipwrecked then
 end
 ----------------------------------
 
-if TUNING.tropical.ocean == "tropical" then
-    AddRoomPreInit("OceanCoastalShore", function(room)
-        room.value = WORLD_TILES.OCEAN_SHALLOW_SHORE
-    end)
+-- if TUNING.tropical.ocean == "tropical" then
+--     AddRoomPreInit("OceanCoastalShore", function(room)
+--         room.value = WORLD_TILES.OCEAN_SHALLOW_SHORE
+--     end)
 
 
-    AddRoomPreInit("OceanCoastal", function(room)
-        room.value = WORLD_TILES.OCEAN_SHALLOW
-    end)
+--     AddRoomPreInit("OceanCoastal", function(room)
+--         room.value = WORLD_TILES.OCEAN_SHALLOW
+--     end)
 
 
-    AddRoomPreInit("OceanSwell", function(room)
-        room.value = WORLD_TILES.OCEAN_MEDIUM
-    end)
+--     AddRoomPreInit("OceanSwell", function(room)
+--         room.value = WORLD_TILES.OCEAN_MEDIUM
+--     end)
 
 
-    AddRoomPreInit("OceanRough", function(room)
-        room.value = WORLD_TILES.OCEAN_DEEP
-    end)
+--     AddRoomPreInit("OceanRough", function(room)
+--         room.value = WORLD_TILES.OCEAN_DEEP
+--     end)
 
 
-    AddRoomPreInit("OceanHazardous", function(room)
-        room.value = WORLD_TILES.OCEAN_SHIPGRAVEYARD
-    end)
+--     AddRoomPreInit("OceanHazardous", function(room)
+--         room.value = WORLD_TILES.OCEAN_SHIPGRAVEYARD
+--     end)
 
-    AddRoomPreInit("OceanBrinepool", function(room)
-        room.value = WORLD_TILES.OCEAN_CORAL
-    end)
-end
+--     AddRoomPreInit("OceanBrinepool", function(room)
+--         room.value = WORLD_TILES.OCEAN_CORAL
+--     end)
+-- end

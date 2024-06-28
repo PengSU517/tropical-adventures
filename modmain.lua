@@ -100,7 +100,7 @@ modimport("postinit/entityscript") ----修改entity相关
 
 
 ------------------修正暴力覆盖的components
-modimport "main/postinit"
+modimport("main/postinit")
 -- modimport("postinit/components/playerspawner")
 -- modimport("postinit/components/wavemanager")
 modimport("postinit/components/aoespell")
