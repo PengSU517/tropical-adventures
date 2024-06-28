@@ -1,11 +1,15 @@
 local Thief = Class(function(self, inst)
     self.inst = inst
-    self.stolenitems = {}
---    self.onstolen--[[inst, victim, item]] = nil
+    self.stolenitems = {} -- DEPRECATED: this was keeping a reference to objects which would prevent there memory from being freed
+    --self.onstolen = nil
     self.canopencontainers = true
     self.dropdistance = 1.0
-	self.ablefoods = { "MEAT", "VEGGIE", "INSECT", "SEEDS", "GENERIC" }
+    self.ablefoods = { "MEAT", "VEGGIE", "INSECT", "SEEDS", "GENERIC" }
 end)
+
+local function item_is_stealable(item)
+    return not item:HasTag("nosteal")
+end
 
 function Thief:SetOnStolenFn(fn)
     self.onstolen = fn
@@ -25,7 +29,7 @@ end
 
 function Thief:AbleToEat(inst)
     if inst and inst.components.edible then
-        for k,v in pairs(self.ablefoods) do
+        for k, v in pairs(self.ablefoods) do
             if v == inst.components.edible.foodtype then
                 if self.caneattest then
                     return self.caneattest(self.inst, inst)
@@ -36,55 +40,45 @@ function Thief:AbleToEat(inst)
     end
 end
 
-function Thief:StealItem(victim, itemtosteal, attack, food, setspeed)
-    if victim.components.inventory and victim:IsValid() and not victim.components.inventory.nosteal then
-        local item = nil
-        if itemtosteal then 
-            item = itemtosteal
-        else
-            if food then
-                item = victim.components.inventory:FindItem(
-                    function(item)
-                        return self:AbleToEat(item)
-                        and not item:HasTag("nosteal")
-                        or not (item.components.inventoryitem:IsHeld() and self.inst:HasTag("cannotstealequipped"))
-                    end)               
-            else
-                item = victim.components.inventory:FindItem(
-                    function(item)
-                        return not item:HasTag("nosteal")
-                        or not (item.components.inventoryitem:IsHeld() and self.inst:HasTag("cannotstealequipped"))
-                    end)        
-            end
-        end
+function Thief:StealItem(victim, itemtosteal, attack)
+    if victim.components.inventory ~= nil and victim:IsValid() then
+        local item = itemtosteal or victim.components.inventory:FindItem(item_is_stealable)
 
         if attack then
             self.inst.components.combat:DoAttack(victim)
         end
 
         if item then
-            local direction = Vector3(self.inst.Transform:GetWorldPosition()) - Vector3(victim.Transform:GetWorldPosition() )
-            item = victim.components.inventory:DropItem(item, false, direction:GetNormalized() * self.dropdistance, nil, nil, nil, setspeed)
+            local direction = (self.inst:GetPosition() - victim:GetPosition()):GetNormalized()
+            item = victim.components.inventory:DropItem(item, false, direction)
             if self.onstolen then
                 self.onstolen(self.inst, victim, item)
             end
-            victim:PushEvent("onitemstolen", { item = item, thief = self.inst, })			
+            victim:PushEvent("onitemstolen", { item = item, thief = self.inst, })
+            return true
+        else
+            return false
         end
-    elseif victim.components.container and self.canopencontainers then
-        local item = itemtosteal or victim.components.container:FindItem(function(item) return not item:HasTag("nosteal") end)
+    elseif victim.components.container then
+        local item = itemtosteal or victim.components.container:FindItem(item_is_stealable)
 
-        if attack then
-            if victim.components.equippable and victim.components.inventoryitem and victim.components.inventoryitem.owner then 
-                self.inst.components.combat:DoAttack(victim.components.inventoryitem.owner)
-            end
+        if attack
+            and victim.components.equippable
+            and victim.components.inventoryitem
+            and victim.components.inventoryitem.owner then
+            self.inst.components.combat:DoAttack(victim.components.inventoryitem.owner)
         end
 
-        item = victim.components.container:DropItem(item)
+        victim.components.container:DropItem(item)
         if self.onstolen then
             self.onstolen(self.inst, victim, item)
         end
-        victim:PushEvent("onitemstolen", { item = item, thief = self.inst, })			
+        victim:PushEvent("onitemstolen", { item = item, thief = self.inst, })
+
+        return item ~= nil
     end
+
+    return false
 end
 
 return Thief

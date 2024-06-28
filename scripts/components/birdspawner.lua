@@ -12,23 +12,23 @@ return Class(function(self, inst)
     --Note: in winter, 'robin' is replaced with 'robin_winter' automatically
     local BIRD_TYPES =
     {
-        --[GROUND.IMPASSABLE] = { "" },
-        --[GROUND.ROAD] = { "crow" },
-        [GROUND.ROCKY] = { "crow" },
-        [GROUND.DIRT] = { "crow" },
-        [GROUND.SAVANNA] = { "robin", "crow" },
-        [GROUND.GRASS] = { "robin" },
-        [GROUND.FOREST] = { "robin", "crow" },
-        [GROUND.MARSH] = { "crow" },
+        --[WORLD_TILES.IMPASSABLE] = { "" },
+        --[WORLD_TILES.ROAD] = { "crow" },
+        [WORLD_TILES.ROCKY] = { "crow" },
+        [WORLD_TILES.DIRT] = { "crow" },
+        [WORLD_TILES.SAVANNA] = { "robin", "crow" },
+        [WORLD_TILES.GRASS] = { "robin" },
+        [WORLD_TILES.FOREST] = { "robin", "crow" },
+        [WORLD_TILES.MARSH] = { "crow" },
 
-        [GROUND.OCEAN_COASTAL] = { "puffin" },
-        [GROUND.OCEAN_COASTAL_SHORE] = { "puffin" },
-        [GROUND.OCEAN_SWELL] = { "puffin" },
-        [GROUND.OCEAN_ROUGH] = { "puffin" },
-        [GROUND.OCEAN_BRINEPOOL] = { "puffin" },
-        [GROUND.OCEAN_BRINEPOOL_SHORE] = { "puffin" },
-        [GROUND.OCEAN_HAZARDOUS] = { "puffin" },
-        [GROUND.OCEAN_WATERLOG] = {},
+        [WORLD_TILES.OCEAN_COASTAL] = { "puffin" },
+        [WORLD_TILES.OCEAN_COASTAL_SHORE] = { "puffin" },
+        [WORLD_TILES.OCEAN_SWELL] = { "puffin" },
+        [WORLD_TILES.OCEAN_ROUGH] = { "puffin" },
+        [WORLD_TILES.OCEAN_BRINEPOOL] = { "puffin" },
+        [WORLD_TILES.OCEAN_BRINEPOOL_SHORE] = { "puffin" },
+        [WORLD_TILES.OCEAN_HAZARDOUS] = { "puffin" },
+        [WORLD_TILES.OCEAN_WATERLOG] = {},
     }
 
 
@@ -70,28 +70,6 @@ return Class(function(self, inst)
     BIRD_TYPES[GROUND.MEADOW] = { "parrot", "toucan" }
     BIRD_TYPES[GROUND.BEACH] = { "toucan" }
     BIRD_TYPES[GROUND.JUNGLE] = { "parrot" }
-
-    -- BIRD_TYPES[GROUND.IMPASSABLE] = { nil }
-    -- BIRD_TYPES[GROUND.INVALID] = { nil }
-    -- BIRD_TYPES[GROUND.QUAGMIRE_PEATFOREST] = { "quagmire_pigeon" } --, "pigeon_swarm"
-    -- BIRD_TYPES[GROUND.QUAGMIRE_PARKFIELD] = { "quagmire_pigeon" }  --, "pigeon_swarm"
-    -- BIRD_TYPES[GROUND.QUAGMIRE_PARKSTONE] = { "quagmire_pigeon" }  --, "pigeon_swarm"
-    -- BIRD_TYPES[GROUND.QUAGMIRE_GATEWAY] = { "quagmire_pigeon" }    --, "pigeon_swarm"
-    -- BIRD_TYPES[GROUND.QUAGMIRE_SOIL] = { "quagmire_pigeon" }       --, "pigeon_swarm"
-    -- BIRD_TYPES[GROUND.QUAGMIRE_CITYSTONE] = { "quagmire_pigeon" }  --, "pigeon_swarm"
-    -- BIRD_TYPES[GROUND.IMPASSABLE] = { "log" }
-    -- BIRD_TYPES[GROUND.INVALID] = { "log" }
-    -- BIRD_TYPES[GROUND.WATER_MANGROVE] = { "robin_winter" }
-    -- BIRD_TYPES[GROUND.ANTFLOOR] = { "robin_winter" }
-
-    -- if KnownModIndex:IsModEnabled("workshop-1289779251") then
-    --     BIRD_TYPES[WORLD_TILES.CHERRY] = { "catbird", "crow" }
-    --     BIRD_TYPES[WORLD_TILES.CHERRY2] = { "chaffinch", "robin" }
-    --     BIRD_TYPES[WORLD_TILES.CHERRY3] = { "catbird" }
-    --     BIRD_TYPES[WORLD_TILES.CHERRY4] = { "chaffinch" }
-    -- end
-
-    -- BIRD_TYPES[GROUND.WINDY] = { "goddess_bird" }
 
     --------------------------------------------------------------------------
     --[[ Member variables ]]
@@ -341,7 +319,7 @@ return Class(function(self, inst)
                 not moonstorm
         end
 
-        local theta = math.random() * 2 * PI
+        local theta = math.random() * TWOPI
         local radius = 6 + math.random() * 6
         local resultoffset = FindValidPositionByFan(theta, radius, 12, TestSpawnPoint)
 
