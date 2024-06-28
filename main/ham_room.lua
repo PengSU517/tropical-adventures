@@ -745,7 +745,7 @@ end
 
 AddPlayerPostInit(function(inst)
     if not TheWorld.ismastersim then return end
-    -- Utils.FnDecorator(inst.components.temperature, "OnUpdate", OnTemperatureUpdateBefore)
+    Utils.FnDecorator(inst.components.temperature, "OnUpdate", OnTemperatureUpdateBefore)
     -- Utils.FnDecorator(inst.components.moisture, "OnUpdate", OnMoistureUpdateBefore)
     Utils.FnDecorator(inst, "GetCurrentTileType", GetCurrentTileTypeBefore)
 end)
