@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.6.28"
+version = "2.6.28.1"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -23,6 +23,13 @@ QQ 群：469668062
 ]]
 
 local updateen = [[
+
+Update 2.6.28:
+
+1.Fixed bugs related to the update
+2. Reintroduced tropical oceans; terrain generation still requires adjustments. Each player in the save file can configure settings individually (at least, that's the assumption; please test it yourself).
+3. Added several new cook recipes (Runar).
+4. Updated the Bermuda Triangle (needs optimization).
 
 2.6.26 Updates:
 
@@ -70,6 +77,14 @@ Including tropical fish, clownfish, grouper, neon fish, gearfish, goldfish, red 
 ]]
 
 local updatech = [[
+
+2.6.28 更新:
+
+1. 修复更新相关bug
+2. 重新上线热带海洋,地形生成仍待调整.存档内的每个玩家都可以自行设置是否开启热带海洋(应该是吧，自己测试吧)
+3. 添加了几道新的食谱(Runar)
+4. 更新了百慕大三角(需要优化)
+
 
 2.6.26 更新:
 
@@ -423,7 +438,7 @@ configuration_options =
 
 
 		},
-		default = "tropical",
+		default = "default",
 	},
 
 	Breaker("Developer Settings", "开发者选项"),

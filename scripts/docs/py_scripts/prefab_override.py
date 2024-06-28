@@ -21,12 +21,13 @@ def backup_directory(src, dst):
 #！！！假设mod仓库位于steam库下dst的mod文件夹内！！！
 current_file_path = os.path.abspath(__file__) # 获得当前fix_force_override.py所处的绝对路径
 tropical_adventrues_root_path = os.path.dirname(os.path.dirname(current_file_path)) # 获得热带冒险mod的根目录
-
+tropical_adventrues_root_path = tropical_adventrues_root_path.replace("\scripts\docs", "") 
 
 #！！！假设dst的databundles文件夹内的scripts文件夹已经解压！！！
-dst_path = os.path.dirname(os.path.dirname(tropical_adventrues_root_path)) + r"\data"
+dst_path = os.path.dirname(os.path.dirname(tropical_adventrues_root_path)) + r"\data\scripts"
 tropical_adventrues_prefabs_path = tropical_adventrues_root_path + r"\scripts\prefabs"
-dst_prefabs_path = dst_path + r"\scripts\prefabs"
+
+dst_prefabs_path = dst_path + r"\prefabs"
 backup_prefabs_path = tropical_adventrues_prefabs_path + r"_backup"
 print("热带冒险根目录：", tropical_adventrues_root_path, )
 print("饥荒联机版脚本根目录：", dst_path)
