@@ -1,4 +1,4 @@
-local easing = require("easing") --mudei as linhas 266 ate a 270 para fazer frio na terra gelada
+local easing = require("easing")
 
 local ZERO_DISTANCE = 10
 local ZERO_DISTSQ = ZERO_DISTANCE * ZERO_DISTANCE
@@ -37,7 +37,7 @@ local Temperature = Class(function(self, inst)
         self.bellytask = nil
         self.ignoreheatertags = { "INLIMBO" }
         self.usespawnlight = nil
-        self.hayfever = 0
+
         --At max moisture, the player will feel cooler than at minimum
         self.maxmoisturepenalty = TUNING.MOISTURE_TEMP_PENALTY
 
@@ -293,38 +293,7 @@ function Temperature:OnUpdate(dt, applyhealthdelta)
     local inside_pocket_container = owner ~= nil and owner:HasTag("pocketdimension_container")
 
     local ambient_temperature = inside_pocket_container and TheWorld.state.temperature or GetTemperatureAtXZ(x, z)
-    -----------------------------------------heatrock----------------------------------------------	
-    if self.inst and self.inst:HasTag("heatrock") then
-        local ex, ey, ez = self.inst.Transform:GetWorldPosition()
-        local map = TheWorld.Map
-        local posicao = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez))
-        local posicao1 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez + 5))
-        local posicao2 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez - 5))
-        local posicao3 = map:GetTile(map:GetTileCoordsAtPoint(ex + 5, ey, ez))
-        local posicao4 = map:GetTile(map:GetTileCoordsAtPoint(ex - 5, ey, ez))
 
-        if posicao == (GROUND.ANTFLOOR) or posicao1 == (GROUND.ANTFLOOR) or posicao2 == (GROUND.ANTFLOOR) or posicao3 == (GROUND.ANTFLOOR) or posicao4 == (GROUND.ANTFLOOR) or
-            posicao == (GROUND.WATER_MANGROVE) or posicao1 == (GROUND.WATER_MANGROVE) or posicao2 == (GROUND.WATER_MANGROVE) or posicao3 == (GROUND.WATER_MANGROVE) or posicao4 == (GROUND.WATER_MANGROVE) then
-            ambient_temperature = -20
-        end
-    end
-    ------------------------------caverna congelada---------------------------------------------
-    --[[	
-	if TheWorld:HasTag("cave") then
-	local ex, ey, ez = self.inst.Transform:GetWorldPosition()	
-	local map = TheWorld.Map
-	local posicao = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez))
-	local posicao1 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez+5))
-	local posicao2 = map:GetTile(map:GetTileCoordsAtPoint(ex, ey, ez-5))
-	local posicao3 = map:GetTile(map:GetTileCoordsAtPoint(ex+5, ey, ez))
-	local posicao4 = map:GetTile(map:GetTileCoordsAtPoint(ex-5, ey, ez))	
-	
-	if posicao == (GROUND.ANTFLOOR) or posicao1 == (GROUND.ANTFLOOR) or posicao2 == (GROUND.ANTFLOOR) or posicao3 == (GROUND.ANTFLOOR) or posicao4 == (GROUND.ANTFLOOR) or
-	posicao == (GROUND.WATER_MANGROVE) or posicao1 == (GROUND.WATER_MANGROVE) or posicao2 == (GROUND.WATER_MANGROVE) or posicao3 == (GROUND.WATER_MANGROVE) or posicao4 == (GROUND.WATER_MANGROVE) then
-	ambient_temperature = -20
-	end
-	end
-]]
     ----------------------------------------frost------------------------------------------------------------	
     if TheWorld.state.iswinter and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("tropical") or
         TheWorld.state.iswinter and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("hamlet") then
@@ -347,92 +316,9 @@ function Temperature:OnUpdate(dt, applyhealthdelta)
     if TheWorld.state.issummer and self.inst and self.inst.components.areaaware and self.inst.components.areaaware:CurrentlyInTag("tropical") then
         ambient_temperature = TheWorld.state.temperature - 30
     end
-    ----------------------ajusta temperatura da casa---------------------------
-    if self.inst and self.inst:HasTag("player") then
-        local interior = GetClosestInstWithTag("blows_air", self.inst, 15)
-        if interior and TheWorld.state.iswinter then
-            ambient_temperature = TheWorld.state.temperature + 40
-        elseif interior and TheWorld.state.issummer then
-            ambient_temperature = TheWorld.state.temperature - 30
-        end
-    end
-    ---------------------------hay fever-----------------------------------------
-    -- local interior = GetClosestInstWithTag("blows_air", self.inst, 15)
-    -- if (TheWorld.state.isspring and
-    --         self.inst and self.inst:HasTag("player") and
-    --         TUNING.tropical.hayfever and
-    --         (self.inst.components.areaaware and
-    --             self.inst.components.areaaware:CurrentlyInTag("hamlet") or interior)) then
-    --     local mascara = self.inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
-    --     local fan = GetClosestInstWithTag("prevents_hayfever", self.inst, 15)
-    --     if mascara and mascara.prefab == "gasmaskhat" or mascara and mascara.prefab == "gashat" or fan then
-    --         if self.hayfever > 0 then self.hayfever = self.hayfever - 5 end
-    --     else
-    --         if not self.inst:HasTag("wereplayer") and not self.inst:HasTag("plantkin") and self.hayfever < 4000 then
-    --             self.hayfever = self.hayfever + 1
-    --         end
-    --     end
-    --     -- if self.inst and self.hayfever and self.hayfever < 2000 then
-    --     --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-    --     --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-    --     --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-    --     --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-    --     -- end
-
-    --     -- if self.inst and self.hayfever and self.hayfever < 3000 and self.hayfever > 2000 then
-    --     --     if not self.inst:HasTag("hayfever1") then self.inst:AddTag("hayfever1") end
-    --     --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-    --     --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-    --     --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-    --     -- end
-
-    --     -- if self.inst and self.hayfever and self.hayfever > 3250 then
-    --     --     if not self.inst:HasTag("hayfever2") then self.inst:AddTag("hayfever2") end
-    --     --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-    --     --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-    --     --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-    --     -- end
-
-    --     -- if self.inst and self.hayfever and self.hayfever > 3300 then
-    --     --     if not self.inst:HasTag("hayfever3") then self.inst:AddTag("hayfever3") end
-    --     --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-    --     --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-    --     --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-    --     -- end
-
-    --     -- if self.inst and self.hayfever and self.hayfever > 3350 then
-    --     --     if not self.inst:HasTag("hayfever4") then self.inst:AddTag("hayfever4") end
-    --     --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-    --     --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-    --     --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-    --     -- end
 
 
-    --     if self.inst and self.hayfever and self.hayfever > 3400 then
-    --         self.hayfever = math.random(2000, 2500)
-    --         if self.inst.sg then self.inst:PushEvent("sneeze") end
-    --     end
-    -- else
-    --     if self.hayfever and self.hayfever > 0 then self.hayfever = self.hayfever - 5 end
-    -- end
 
-    -- --print(self.hayfever)
-
-    -- -- if self.hayfever and self.hayfever < 2000 then
-    -- --     if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-    -- --     if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-    -- --     if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-    -- --     if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-    -- -- end
-
-    -- if not TheWorld.state.isspring and self.hayfever > -50 then
-    --     self.hayfever = self.hayfever - 10
-    --     -- if self.inst:HasTag("hayfever1") then self.inst:RemoveTag("hayfever1") end
-    --     -- if self.inst:HasTag("hayfever2") then self.inst:RemoveTag("hayfever2") end
-    --     -- if self.inst:HasTag("hayfever3") then self.inst:RemoveTag("hayfever3") end
-    --     -- if self.inst:HasTag("hayfever4") then self.inst:RemoveTag("hayfever4") end
-    -- end
-    ------------------------------------------------------------------------------------------------------------------------------	
 
     if owner ~= nil and owner:HasTag("fridge") and not owner:HasTag("nocool") then
         -- Inside a fridge, excluding icepack ("nocool")
@@ -523,6 +409,7 @@ function Temperature:OnUpdate(dt, applyhealthdelta)
             self.delta = self.delta - (self.current - TUNING.TREE_SHADE_COOLER)
         end
 
+        local heat_factor_penalty = TUNING.WET_HEAT_FACTOR_PENALTY -- Cache.
         --print(self.delta + self.current, "after shelter")
         if not inside_pocket_container then
             for i, v in ipairs(ents) do
@@ -532,24 +419,44 @@ function Temperature:OnUpdate(dt, applyhealthdelta)
                     (v.components.heater:IsExothermic() or v.components.heater:IsEndothermic()) then
                     local heat = v.components.heater:GetHeat(self.inst)
                     if heat ~= nil then
-                        -- This produces a gentle falloff from 1 to zero.
-                        local heatfactor = 1 - self.inst:GetDistanceSqToInst(v) / ZERO_DISTSQ
-                        if self.inst:GetIsWet() then
-                            heatfactor = heatfactor * TUNING.WET_HEAT_FACTOR_PENALTY
+                        local heatfactor, dsqtoinst
+                        if v.components.heater:ShouldFalloff() then
+                            -- This produces a gentle falloff from 1 to zero.
+                            dsqtoinst = self.inst:GetDistanceSqToInst(v)
+                            heatfactor = 1 - dsqtoinst / ZERO_DISTSQ
+                        else
+                            heatfactor = 1
+                        end
+                        local radius_cutoff = v.components.heater:GetHeatRadiusCutoff()
+                        if radius_cutoff then
+                            dsqtoinst = dsqtoinst or self.inst:GetDistanceSqToInst(v)
+                            if dsqtoinst > radius_cutoff * radius_cutoff then
+                                heatfactor = 0
+                            end
                         end
 
-                        if v.components.heater:IsExothermic() then
-                            -- heating heatfactor is relative to 0 (freezing)
-                            local warmingtemp = heat * heatfactor
-                            if warmingtemp > self.current then
-                                self.delta = self.delta + warmingtemp - self.current
+                        if heatfactor > 0 then
+                            if self.inst:GetIsWet() then -- NOTES(JBK): Leave this in the loop because the entity could go out of IsWet status in this loop.
+                                if heat > 0 then
+                                    heatfactor = heatfactor * heat_factor_penalty
+                                elseif heat_factor_penalty ~= 0 then -- In case of mods setting the tuning to 0.
+                                    heatfactor = heatfactor / heat_factor_penalty
+                                end
                             end
-                            self.externalheaterpower = self.externalheaterpower + warmingtemp
-                        else --if v.components.heater:IsEndothermic() then
-                            -- cooling heatfactor is relative to overheattemp
-                            local coolingtemp = (heat - self.overheattemp) * heatfactor + self.overheattemp
-                            if coolingtemp < self.current then
-                                self.delta = self.delta + coolingtemp - self.current
+
+                            if v.components.heater:IsExothermic() then
+                                -- heating heatfactor is relative to 0 (freezing)
+                                local warmingtemp = heat * heatfactor
+                                if warmingtemp > self.current then
+                                    self.delta = self.delta + warmingtemp - self.current
+                                end
+                                self.externalheaterpower = self.externalheaterpower + heatfactor
+                            else --if v.components.heater:IsEndothermic() then
+                                -- cooling heatfactor is relative to overheattemp
+                                local coolingtemp = (heat - self.overheattemp) * heatfactor + self.overheattemp
+                                if coolingtemp < self.current then
+                                    self.delta = self.delta + coolingtemp - self.current
+                                end
                             end
                         end
                     end
