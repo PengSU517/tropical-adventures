@@ -3,47 +3,23 @@ require "mathutil"
 require "map/terrain"
 
 local obj_layout = require("map/object_layout")
+
 local PrefabSwaps = require("prefabswaps")
+
 local world = nil
 
 function Ocean_SetWorldForOceanGen(w)
 	world = w
 end
 
-local WORLD_TILES = WORLD_TILES
-
--- WORLD_TILES.OCEAN_COASTAL_SHORE = WORLD_TILES.OCEAN_SHALLOW_SHORE
--- WORLD_TILES.OCEAN_COASTAL = WORLD_TILES.OCEAN_SHALLOW
--- WORLD_TILES.OCEAN_SWELL = WORLD_TILES.OCEAN_MEDIUM
--- WORLD_TILES.OCEAN_ROUGH = WORLD_TILES.OCEAN_DEEP
-
-
-------------tool functions
-
-local function is_oceanlined(tile)
-	return IsLandTile(tile) or (tile == WORLD_TILES.MANGROVE) or (tile == WORLD_TILES.LILYPOND)
+local function is_waterlined(tile)
+	-- should this tile have a water outline around it?
+	return IsLandTile(tile) or (tile == WORLD_TILES.MANGROVE) or
+		(tile == WORLD_TILES.LILYPOND) --or tile == WORLD_TILES.OCEAN_BRINEPOOL
 end
-
-local function is_tropical_oceanlined(tile)
-	return SW_LAND_TILES[tile] or
-		(tile == WORLD_TILES.MANGROVE)
-end
-
-local function IsWaterTile(ground)
-	return (IsOceanTile(ground) and (ground ~= WORLD_TILES.MANGROVE) and (ground ~= WORLD_TILES.LILYPOND))
-end
-
-local function IsTropicalOceanTile(ground)
-	return (ground == WORLD_TILES.OCEAN_SHALLOW) or
-		(ground == WORLD_TILES.OCEAN_MEDIUM) or
-		(ground == WORLD_TILES.OCEAN_DEEP) or
-		(ground == WORLD_TILES.OCEAN_SHIPGRAVEYARD) or
-		(ground == WORLD_TILES.OCEAN_CORAL)
-end
-
 
 local function isWaterOrInvalid(ground)
-	return IsWaterTile(ground) or TileGroupManager:IsInvalidTile(ground)
+	return IsOceanTile(ground) or TileGroupManager:IsInvalidTile(ground)
 end
 
 local function IsSurroundedByWaterOrInvalid(x, y, radius)
@@ -61,20 +37,6 @@ local function IsSurroundedByWaterOrInvalid(x, y, radius)
 end
 
 local function IsCloseToWater(x, y, radius)
-	for i = -radius, radius, 1 do
-		if IsWaterTile(world:GetTile(x - radius, y + i)) or IsWaterTile(world:GetTile(x + radius, y + i)) then
-			return true
-		end
-	end
-	for i = -(radius - 1), radius - 1, 1 do
-		if IsWaterTile(world:GetTile(x + i, y - radius)) or IsWaterTile(world:GetTile(x + i, y + radius)) then
-			return true
-		end
-	end
-	return false
-end
-
-local function IsCloseToOcean(x, y, radius)
 	for i = -radius, radius, 1 do
 		if IsOceanTile(world:GetTile(x - radius, y + i)) or IsOceanTile(world:GetTile(x + radius, y + i)) then
 			return true
@@ -116,8 +78,6 @@ local function IsCloseToImpassable(x, y, radius)
 	return false
 end
 
-
--------------------------fill ocean
 local function fillGroundType(width, height, x, y, offset, depth, ground)
 	if depth <= 0 then
 		return
@@ -128,7 +88,7 @@ local function fillGroundType(width, height, x, y, offset, depth, ground)
 	end
 
 	local t = world:GetTile(x, y)
-	if is_oceanlined(t) then
+	if is_waterlined(t) then
 		return
 	end
 
@@ -141,14 +101,60 @@ local function fillGroundType(width, height, x, y, offset, depth, ground)
 	fillGroundType(width, height, x, y - offset, offset, depth, ground)
 end
 
+local function placeGroundType(width, height, x, y, offx, offy, depth, ground)
+	local i = 0;
+	while i < depth and 0 <= x and x < width and 0 < y and y < height do
+		local t = world:GetTile(x, y)
+		if not is_waterlined(t) then
+			world:SetTile(x, y, ground)
+			x = x + offx
+			y = y + offy
+			i = i + 1
+		else
+			break
+		end
+	end
+	return x, y
+end
 
+local function placeFilledGroundType(width, height, x, y, offx, offy, depth, ground, fillOffset, fillDepth)
+	local i = 0;
+	while i < depth and 0 <= x and x < width and 0 < y and y < height do
+		local t = world:GetTile(x, y)
+		if not is_waterlined(t) then --if t == ground then
+			fillGroundType(width, height, x + fillOffset, y, fillOffset, fillDepth, ground)
+			fillGroundType(width, height, x - fillOffset, y, fillOffset, fillDepth, ground)
+			fillGroundType(width, height, x, y + fillOffset, fillOffset, fillDepth, ground)
+			fillGroundType(width, height, x, y - fillOffset, fillOffset, fillDepth, ground)
+			x = x + offx
+			y = y + offy
+			i = i + 1
+		else
+			break
+		end
+	end
+	return x, y
+end
+
+local function placeWaterline(width, height, x, y, offx, offy, depthShallow, depthMed)
+	x, y = placeGroundType(width, height, x, y, offx, offy, depthShallow, WORLD_TILES.OCEAN_COASTAL)
+	x, y = placeGroundType(width, height, x, y, offx, offy, depthMed, WORLD_TILES.OCEAN_SWELL)
+end
+
+local function placeWaterlineFilled(width, height, x, y, offx, offy, depthShallow, depthMed, fillOffset, fillDepth)
+	placeWaterline(width, height, x, y, offx, offy, depthShallow, depthMed)
+	x, y = placeFilledGroundType(width, height, x, y, offx, offy, depthMed, WORLD_TILES.OCEAN_SWELL, fillOffset,
+		fillDepth)
+	x, y = placeFilledGroundType(width, height, x, y, offx, offy, depthShallow, WORLD_TILES.OCEAN_COASTAL, fillOffset,
+		fillDepth)
+end
 
 local function squareFill(width, height, x, y, radius, ground)
 	for yy = y - radius, y + radius, 1 do
 		for xx = x - radius, x + radius, 1 do
 			if 0 <= xx and xx < width and 0 <= yy and yy < height then
 				local t = world:GetTile(xx, yy)
-				if not is_oceanlined(t) then
+				if not is_waterlined(t) then
 					world:SetTile(xx, yy, ground)
 				end
 			end
@@ -180,69 +186,72 @@ local function simplexnoise2d(x, y, octaves, persistence)
 	return noise / amps
 end
 
-local function do_groundfill(fillTile, fillOffset, fillDepth, landRadius, width, height, data)
-	print("[Ocean]  Ground fill...")
-	for y = 0, height - 1, 1 do
-		for x = 0, width - 1, 1 do
-			local ground = world:GetTile(x, y)
-			if is_oceanlined(ground) then
-				fillGroundType(width, height, x + 1, y, fillOffset, fillDepth, fillTile)
-				fillGroundType(width, height, x - 1, y, fillOffset, fillDepth, fillTile)
-				fillGroundType(width, height, x, y + 1, fillOffset, fillDepth, fillTile)
-				fillGroundType(width, height, x, y - 1, fillOffset, fillDepth, fillTile)
-			end
-		end
-		--print(string.format("  Ground fill %4.2f", (y * width) / (width * height) * 100))
+function Ocean_ConvertImpassibleToWater(width, height, data)
+	print("[Ocean] Convert impassible to water...")
+
+	if data == nil then
+		data = {}
 	end
-	--print("  Ground fill done.")
-end
 
-
-local function do_squarefill(shallowRadius, width, height, data)
-	print("[Ocean]  Square fill...")
-	for y = 0, height - 1, 1 do
-		for x = 0, width - 1, 1 do
-			local ground = world:GetTile(x, y)
-			if is_tropical_oceanlined(ground) and
-				(IsCloseToImpassable(x, y, shallowRadius) or IsCloseToWater(x, y, shallowRadius)) then
-				squareFill(width, height, x, y, shallowRadius, WORLD_TILES.OCEAN_COASTAL)
-				-- WORLD_TILES.OCEAN_COASTAL
+	local function do_groundfill(fillTile, fillOffset, fillDepth, landRadius)
+		print("[Ocean]  Ground fill...")
+		for y = 0, height - 1, 1 do
+			for x = 0, width - 1, 1 do
+				local ground = world:GetTile(x, y)
+				if is_waterlined(ground) then
+					fillGroundType(width, height, x + 1, y, fillOffset, fillDepth, fillTile)
+					fillGroundType(width, height, x - 1, y, fillOffset, fillDepth, fillTile)
+					fillGroundType(width, height, x, y + 1, fillOffset, fillDepth, fillTile)
+					fillGroundType(width, height, x, y - 1, fillOffset, fillDepth, fillTile)
+				end
 			end
+			--print(string.format("  Ground fill %4.2f", (y * width) / (width * height) * 100))
 		end
-		--print(string.format("  Square fill %4.2f", (y * width) / (width * height) * 100))
+		--print("  Ground fill done.")
 	end
-	--print("  Square fill done.")
-end
 
+	local function do_squarefill(shallowRadius)
+		print("[Ocean]  Square fill...")
+		for y = 0, height - 1, 1 do
+			for x = 0, width - 1, 1 do
+				local ground = world:GetTile(x, y)
+				if is_waterlined(ground) and (IsCloseToImpassable(x, y, shallowRadius) or IsCloseToWater(x, y, shallowRadius)) then
+					squareFill(width, height, x, y, shallowRadius, WORLD_TILES.OCEAN_COASTAL)
+				end
+			end
+			--print(string.format("  Square fill %4.2f", (y * width) / (width * height) * 100))
+		end
+		--print("  Square fill done.")
+	end
 
-local function do_noise(width, height, data)
-	print("[Ocean]  Noise...")
-	local offx_water, offy_water = math.random(-width, width),
-		math.random(-height, height) --2*math.random()-1, 2*math.random()-1
-	local offx_coral, offy_coral = math.random(-width, width),
-		math.random(-height, height) --2*math.random()-1, 2*math.random()-1
-	local offx_grave, offy_grave = math.random(-width, width),
-		math.random(-height, height) --2*math.random()-1, 2*math.random()-1
-	local noise_octave_water = data.noise_octave_water or 6
-	local noise_octave_coral = data.noise_octave_coral or 4
-	local noise_octave_grave = data.noise_octave_grave or 4
-	local noise_persistence_water = data.noise_persistence_water or 0.5
-	local noise_persistence_coral = data.noise_persistence_coral or 0.5
-	local noise_persistence_grave = data.noise_persistence_grave or 0.5
-	local noise_scale_water = data.noise_scale_water or 3
-	local noise_scale_coral = data.noise_scale_coral or 6
-	local noise_scale_grave = data.noise_scale_grave or 6
-	local init_level_coral = data.init_level_coral or 0.65
-	local init_level_grave = data.init_level_grave or 0.65
-	local init_level_medium = data.init_level_medium or 0.5
-	for y = 0, height - 1, 1 do
-		for x = 0, width - 1, 1 do
-			local ground = world:GetTile(x, y)
-			if ground == WORLD_TILES.IMPASSABLE then
-				local nx, ny = x / width - 0.5, y / height - 0.5
-				if simplexnoise2d(noise_scale_coral * (nx + offx_coral), noise_scale_coral * (ny + offy_coral), noise_octave_coral, noise_persistence_coral) > init_level_coral then
-					world:SetTile(x, y, WORLD_TILES.OCEAN_BRINEPOOL)
-				else
+	local function do_noise()
+		print("[Ocean]  Noise...")
+		local offx_water, offy_water = math.random(-width, width),
+			math.random(-height, height) --2*math.random()-1, 2*math.random()-1
+		local offx_coral, offy_coral = math.random(-width, width),
+			math.random(-height, height) --2*math.random()-1, 2*math.random()-1
+		local offx_grave, offy_grave = math.random(-width, width),
+			math.random(-height, height) --2*math.random()-1, 2*math.random()-1
+		local noise_octave_water = data.noise_octave_water or 6
+		local noise_octave_coral = data.noise_octave_coral or 4
+		local noise_octave_grave = data.noise_octave_grave or 4
+		local noise_persistence_water = data.noise_persistence_water or 0.5
+		local noise_persistence_coral = data.noise_persistence_coral or 0.5
+		local noise_persistence_grave = data.noise_persistence_grave or 0.5
+		local noise_scale_water = data.noise_scale_water or 3
+		local noise_scale_coral = data.noise_scale_coral or 6
+		local noise_scale_grave = data.noise_scale_grave or 6
+		local init_level_coral = data.init_level_coral or 0.65
+		local init_level_grave = data.init_level_grave or 0.65
+		local init_level_medium = data.init_level_medium or 0.5
+		for y = 0, height - 1, 1 do
+			for x = 0, width - 1, 1 do
+				local ground = world:GetTile(x, y)
+				if ground == WORLD_TILES.IMPASSABLE then
+					local nx, ny = x / width - 0.5, y / height - 0.5
+					--if simplexnoise2d(noise_scale_coral * (nx + offx_coral), noise_scale_coral * (ny + offy_coral), noise_octave_coral, noise_persistence_coral) > init_level_coral then
+					--	world:SetTile(x, y, WORLD_TILES.OCEAN_BRINEPOOL)
+					--else
 					if simplexnoise2d(noise_scale_water * (nx + offx_water), noise_scale_water * (ny + offy_water), noise_octave_water, noise_persistence_water) > init_level_medium then
 						world:SetTile(x, y, WORLD_TILES.OCEAN_SWELL)
 					else
@@ -252,209 +261,178 @@ local function do_noise(width, height, data)
 							world:SetTile(x, y, WORLD_TILES.OCEAN_ROUGH)
 						end
 					end
+					--end
 				end
 			end
 		end
 	end
-end
 
+	local function do_blend()
+		print("[Ocean]  Blend...")
+		local kernelSize = data.kernelSize or 15 --don't recommend increasing this
+		local sigma = data.sigma or 2.0    --used for blending
 
+		local cmlevels =
+		{
+			{ WORLD_TILES.OCEAN_BRINEPOOL, 1.0 }
+		}
+		local cm, cmw, cmh = world:GenerateBlendedMap(kernelSize, sigma, cmlevels, 0.0)
+		--print(width, height, cmw, cmh)
+		--assert(width == cmw)
+		--assert(height == cmh)
 
-local function do_blend(width, height, data)
-	print("[Ocean]  Blend...")
-	local kernelSize = data.kernelSize or 15 --don't recommend increasing this
-	local sigma = data.sigma or 2.0       --used for blending
+		local glevels =
+		{
+			{ WORLD_TILES.OCEAN_HAZARDOUS, 1.0 }
+		}
+		local g, gw, gh = world:GenerateBlendedMap(kernelSize, sigma, glevels, 0.0)
 
-	local cmlevels =
-	{
-		{ WORLD_TILES.OCEAN_BRINEPOOL, 1.0 }
-	}
-	local cm, cmw, cmh = world:GenerateBlendedMap(kernelSize, sigma, cmlevels, 0.0)
-	--print(width, height, cmw, cmh)
-	--assert(width == cmw)
-	--assert(height == cmh)
+		local el, elw, elh = world:GenerateBlendedMap(kernelSize, sigma, data.ellevels, 1.0)
+		--print(width, height, elw, elh)
+		--assert(width == elw)
+		--assert(height == elh)
 
-	local glevels =
-	{
-		{ WORLD_TILES.OCEAN_HAZARDOUS, 1.0 }
-	}
-	local g, gw, gh = world:GenerateBlendedMap(kernelSize, sigma, glevels, 0.0)
-
-	local el, elw, elh = world:GenerateBlendedMap(kernelSize, sigma, data.ellevels, 1.0)
-	--print(width, height, elw, elh)
-	--assert(width == elw)
-	--assert(height == elh)
-
-	local final_level_shallow = data.final_level_shallow or 0.7
-	local final_level_medium = data.final_level_medium or 0.004
-	local final_level_coral = data.final_level_coral or 0.2
-	local final_level_mangrove = data.final_level_mangrove or 0.2
-	local final_level_grave = data.final_level_grave or 0.3
-	for y = 0, height - 1, 1 do
-		for x = 0, width - 1, 1 do
-			local tile = world:GetTile(x, y)
-			if IsWaterTile(tile) or tile == WORLD_TILES.IMPASSABLE then
-				local falloff = getEdgeFalloff(x, y, width, height, OCEAN_MAPWRAPPER_WARN_RANGE + 1,
-					OCEAN_MAPWRAPPER_WARN_RANGE + 5, 0.0, 1.0)
-				local ellevel = el[y * width + x]
-				local cmlevel = cm[y * width + x] * falloff
-				local glevel = g[y * width + x] * falloff
-				if ellevel > final_level_shallow + 0.1 then -------------减少浅海
-					if cmlevel > (final_level_mangrove - 0.3) and tile == WORLD_TILES.OCEAN_WATERLOG then
-						world:SetTile(x, y, WORLD_TILES.OCEAN_WATERLOG)
-					elseif cmlevel > final_level_coral and tile == WORLD_TILES.OCEAN_BRINEPOOL then
-						world:SetTile(x, y, WORLD_TILES.OCEAN_BRINEPOOL)
+		local final_level_shallow = data.final_level_shallow or 0.7
+		local final_level_medium = data.final_level_medium or 0.004
+		local final_level_coral = data.final_level_coral or 0.2
+		local final_level_mangrove = data.final_level_mangrove or 0.2
+		local final_level_grave = data.final_level_grave or 0.3
+		for y = 0, height - 1, 1 do
+			for x = 0, width - 1, 1 do
+				local tile = world:GetTile(x, y)
+				if (IsOceanTile(tile) and tile ~= WORLD_TILES.MANGROVE and tile ~= WORLD_TILES.LILYPOND) or tile == WORLD_TILES.IMPASSABLE then
+					local falloff = getEdgeFalloff(x, y, width, height, OCEAN_MAPWRAPPER_WARN_RANGE + 1,
+						OCEAN_MAPWRAPPER_WARN_RANGE + 5, 0.0, 1.0)
+					local ellevel = el[y * width + x]
+					local cmlevel = cm[y * width + x] * falloff
+					local glevel = g[y * width + x] * falloff
+					if ellevel > final_level_shallow then
+						if tile == WORLD_TILES.OCEAN_WATERLOG then
+							world:SetTile(x, y, WORLD_TILES.OCEAN_WATERLOG)
+						elseif cmlevel > final_level_coral and tile == WORLD_TILES.OCEAN_BRINEPOOL then
+							world:SetTile(x, y, WORLD_TILES.OCEAN_BRINEPOOL)
+						else
+							world:SetTile(x, y, WORLD_TILES.OCEAN_COASTAL)
+						end
+					elseif ellevel > final_level_medium then
+						world:SetTile(x, y, WORLD_TILES.OCEAN_SWELL)
 					else
-						world:SetTile(x, y, WORLD_TILES.OCEAN_COASTAL)
-					end
-				elseif ellevel > final_level_medium then --------------增大深海面积
-					world:SetTile(x, y, WORLD_TILES.OCEAN_SWELL)
-				else
-					if glevel > final_level_grave then
-						world:SetTile(x, y, WORLD_TILES.OCEAN_HAZARDOUS)
-					else
-						world:SetTile(x, y, WORLD_TILES.OCEAN_ROUGH)
+						if glevel > final_level_grave then
+							world:SetTile(x, y, WORLD_TILES.OCEAN_HAZARDOUS)
+						else
+							world:SetTile(x, y, WORLD_TILES.OCEAN_ROUGH)
+						end
 					end
 				end
 			end
 		end
 	end
-end
 
+	local function do_void_outline()
+		print("[Ocean] Void Outline...")
 
+		local function calc_next(s, tunings)
+			local r = math.random()
+			s[1] = math.max((s[1] < tunings.max and r <= tunings.deeper_chance) and (s[1] + 1)
+				or r > 1.0 - tunings.shallower_chance and (s[1] - 1)
+				or s[1],
+				1)
 
+			if s[1] == s[3] and s[1] ~= s[2] then -- simple noise filter so we dont get zig-zags
+				s[1] = s[2]
+			end
+			s[3] = s[2]
+			s[2] = s[1]
 
-local function AddShoreline(width, height, data)
-	print("[Ocean]  Adding shoreline...")
+			return s[1]
+		end
 
-	for y = 0, height - 1, 1 do
-		for x = 0, width - 1, 1 do
-			local ground = world:GetTile(x, y)
-			if IsWaterTile(ground) and not IsSurroundedByWaterOrInvalid(x, y, 1) then
-				if ground ~= WORLD_TILES.OCEAN_BRINEPOOL then
-					world:SetTile(x, y, WORLD_TILES.OCEAN_COASTAL_SHORE) --WORLD_TILES.OCEAN_COASTAL_SHORE
-				end
+		local function add_boarder(x, y)
+			if world:GetTile(x, y) ~= WORLD_TILES.IMPASSABLE then
+				world:SetTile(x, y, WORLD_TILES.OCEAN_ROUGH)
 			end
 		end
-	end
-end
 
-local function do_void_outline(width, height, data)
-	print("[Ocean] Void Outline...")
+		local offset = OCEAN_WATERFALL_MAX_DIST
+		local init_d = OCEAN_WATERFALL_MAX_DIST
+		local state = { init_d, init_d, init_d }
 
-	local function calc_next(s, tunings)
-		local r = math.random()
-		s[1] = math.max((s[1] < tunings.max and r <= tunings.deeper_chance) and (s[1] + 1)
-			or r > 1.0 - tunings.shallower_chance and (s[1] - 1)
-			or s[1],
-			1)
+		local tunings = {
+			middle = { max = math.floor(OCEAN_WATERFALL_MAX_DIST * .7), deeper_chance = 0.25, shallower_chance = 0.25 },
+			corner = { max = init_d, deeper_chance = 0.75, shallower_chance = 0.1 },
+		}
 
-		if s[1] == s[3] and s[1] ~= s[2] then -- simple noise filter so we dont get zig-zags
-			s[1] = s[2]
+		for i = 0, height, 1 do
+			local d = calc_next(state,
+				(i <= offset or i >= height - offset - offset) and tunings.corner or tunings.middle)
+			for ii = 0, d do
+				world:SetTile(ii, i, WORLD_TILES.IMPASSABLE)
+			end
+			add_boarder(d + 1, i)
+			add_boarder(d + 2, i)
 		end
-		s[3] = s[2]
-		s[2] = s[1]
+		state = { init_d, init_d, init_d }
+		for i = 0, height, 1 do
+			local d = calc_next(state,
+				(i <= offset or i >= height - offset - offset) and tunings.corner or tunings.middle)
+			for ii = 0, d do
+				world:SetTile(width - ii, i, WORLD_TILES.IMPASSABLE)
+			end
+			add_boarder(width - d - 1, i)
+			add_boarder(width - d - 2, i)
+		end
 
-		return s[1]
-	end
-
-	local function add_boarder(x, y)
-		if world:GetTile(x, y) ~= WORLD_TILES.IMPASSABLE then
-			world:SetTile(x, y, WORLD_TILES.OCEAN_ROUGH)
+		state = { init_d, init_d, init_d }
+		for i = 0, width, 1 do
+			local d = calc_next(state, (i <= offset or i >= width - offset - offset) and tunings.corner or tunings
+				.middle)
+			for ii = 0, d do
+				world:SetTile(i, ii, WORLD_TILES.IMPASSABLE)
+			end
+			add_boarder(i, d + 1)
+			add_boarder(i, d + 2)
+		end
+		state = { init_d, init_d, init_d }
+		for i = 0, width, 1 do
+			local d = calc_next(state, (i <= offset or i >= width - offset - offset) and tunings.corner or tunings
+				.middle)
+			for ii = 0, d do
+				world:SetTile(i, height - ii, WORLD_TILES.IMPASSABLE)
+			end
+			add_boarder(i, height - d - 1)
+			add_boarder(i, height - d - 2)
 		end
 	end
-
-	local offset = OCEAN_WATERFALL_MAX_DIST
-	local init_d = OCEAN_WATERFALL_MAX_DIST
-	local state = { init_d, init_d, init_d }
-
-	local tunings = {
-		middle = { max = math.floor(OCEAN_WATERFALL_MAX_DIST * .7), deeper_chance = 0.25, shallower_chance = 0.25 },
-		corner = { max = init_d, deeper_chance = 0.75, shallower_chance = 0.1 },
-	}
-
-	for i = 0, height, 1 do
-		local d = calc_next(state,
-			(i <= offset or i >= height - offset - offset) and tunings.corner or tunings.middle)
-		for ii = 0, d do
-			world:SetTile(ii, i, WORLD_TILES.IMPASSABLE)
-		end
-		add_boarder(d + 1, i)
-		add_boarder(d + 2, i)
-	end
-	state = { init_d, init_d, init_d }
-	for i = 0, height, 1 do
-		local d = calc_next(state,
-			(i <= offset or i >= height - offset - offset) and tunings.corner or tunings.middle)
-		for ii = 0, d do
-			world:SetTile(width - ii, i, WORLD_TILES.IMPASSABLE)
-		end
-		add_boarder(width - d - 1, i)
-		add_boarder(width - d - 2, i)
-	end
-
-	state = { init_d, init_d, init_d }
-	for i = 0, width, 1 do
-		local d = calc_next(state, (i <= offset or i >= width - offset - offset) and tunings.corner or tunings
-			.middle)
-		for ii = 0, d do
-			world:SetTile(i, ii, WORLD_TILES.IMPASSABLE)
-		end
-		add_boarder(i, d + 1)
-		add_boarder(i, d + 2)
-	end
-	state = { init_d, init_d, init_d }
-	for i = 0, width, 1 do
-		local d = calc_next(state, (i <= offset or i >= width - offset - offset) and tunings.corner or tunings
-			.middle)
-		for ii = 0, d do
-			world:SetTile(i, height - ii, WORLD_TILES.IMPASSABLE)
-		end
-		add_boarder(i, height - d - 1)
-		add_boarder(i, height - d - 2)
-	end
-end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function Ocean_ConvertImpassibleToWater(width, height, data)
-	print("[Ocean] Convert impassible to water...")
-
-	if data == nil then
-		data = {}
-	end
-
 
 	local depthShallow = data.depthShallow or 10
 	local depthMed = data.depthMed or 20
 	local fillDepth = data.fillDepth or 5
 	local fillOffset = data.fillOffset or 4
 
+	do_squarefill(data.shallowRadius)
+	do_groundfill(WORLD_TILES.OCEAN_COASTAL, fillOffset, fillDepth, data.shallowRadius or 5)
+	do_noise()
+	do_blend()
 
-	do_squarefill(data.shallowRadius, width, height, data)
-	-- do_groundfill(WORLD_TILES.OCEAN_DEEP, fillOffset - 1, fillDepth + 4, nil, width, height, data)
-	-- do_groundfill(WORLD_TILES.OCEAN_MEDIUM, fillOffset - 1, fillDepth + 2, nil, width, height, data) ----在陆地周围生成一圈海洋 coastal
-	do_groundfill(WORLD_TILES.OCEAN_COASTAL, fillOffset - 1, fillDepth, nil, width, height, data) ---基于海洋地皮在周围生成coastal
-	do_noise(width, height, data)                                                              ----将所有的impassable随机填充   只加这一个的话海岸线是平直的，而且随意出入，因为世界边缘位置是平直的
-	do_blend(width, height, data)                                                              -----将随机填充变得平滑？
-	AddShoreline(width, height, data)
-	do_void_outline(width, height, data)
+	AddShoreline(width, height)
+
+	do_void_outline()
 end
 
----------------------------------------
+function AddShoreline(width, height)
+	print("[Ocean]  Adding shoreline...")
 
-
+	for y = 0, height - 1, 1 do
+		for x = 0, width - 1, 1 do
+			local ground = world:GetTile(x, y)
+			if (IsOceanTile(ground) and ground ~= WORLD_TILES.MANGROVE and ground ~= WORLD_TILES.LILYPOND) and not IsSurroundedByWaterOrInvalid(x, y, 1) then
+				if ground ~= WORLD_TILES.OCEAN_BRINEPOOL then
+					world:SetTile(x, y, WORLD_TILES.OCEAN_COASTAL_SHORE)
+				end
+			end
+		end
+	end
+end
 
 local function checkTile(x, y, populating_tile, ignore_reserverd)
 	return (ignore_reserverd or not world:IsTileReserved(x, y)) and world:GetTile(x, y) == populating_tile
@@ -781,31 +759,17 @@ local function PopulateWaterType(populating_tile, spawnFn, entitiesOut, width, h
 		local points_x, points_y = GetRandomWaterPoints(populating_tile, width, height, edge_dist, 2 * pos_needed + 10)
 
 		local pos_cur = 1
-		-- for prefab, count in pairs(generate_these) do
-		-- 	local added = 0
-		-- 	while added < count and pos_cur <= #points_x do
-		-- 		if terrain.filter[prefab] == nil or not table.contains(terrain.filter[prefab], populating_tile) then
-		-- 			local prefab_data = {}
-		-- 			prefab_data.data = water_contents.prefabdata and water_contents.prefabdata[prefab] or nil
-		-- 			PopulateWorld_AddEntity(prefab, points_x[pos_cur], points_y[pos_cur], populating_tile, entitiesOut,
-		-- 				width, height, prefab_list, prefab_data)
-		-- 			added = added + 1
-		-- 		end
-
-		-- 		pos_cur = pos_cur + 1
-		-- 	end
-		-- end
-
 		for prefab, count in pairs(generate_these) do
 			local added = 0
 			while added < count and pos_cur <= #points_x do
-				if SpawnUtil.AddEntityCheck(prefab, points_x[pos_cur], points_y[pos_cur], entitiesOut, water_contents.prefabspawnfn) then
+				if terrain.filter[prefab] == nil or not table.contains(terrain.filter[prefab], populating_tile) then
 					local prefab_data = {}
 					prefab_data.data = water_contents.prefabdata and water_contents.prefabdata[prefab] or nil
-					SpawnUtil.AddEntity(prefab, points_x[pos_cur], points_y[pos_cur], entitiesOut, width, height,
-						prefab_list, prefab_data)
+					PopulateWorld_AddEntity(prefab, points_x[pos_cur], points_y[pos_cur], populating_tile, entitiesOut,
+						width, height, prefab_list, prefab_data)
 					added = added + 1
 				end
+
 				pos_cur = pos_cur + 1
 			end
 		end
