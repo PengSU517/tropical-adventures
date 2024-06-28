@@ -12,11 +12,11 @@ local should_pass_ground = {}
 
 -- end
 
--- local _SetOceanBlendParams = AnimState.SetOceanBlendParams
--- function AnimState:SetOceanBlendParams(...)
---     if true --[[TheWorld.has_ia_ocean]] then return end
---     return _SetOceanBlendParams(self, ...)
--- end
+local _SetOceanBlendParams = AnimState.SetOceanBlendParams
+function AnimState:SetOceanBlendParams(...)
+    if TUNING.tropical.ocean == "tropical" --[[TheWorld.has_ia_ocean]] then return end
+    return _SetOceanBlendParams(self, ...)
+end
 
 local _SetLayer = AnimState.SetLayer
 function AnimState:SetLayer(layer, ...)

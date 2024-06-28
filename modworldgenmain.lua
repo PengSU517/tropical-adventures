@@ -69,7 +69,7 @@ require("constants")
 require("map/rooms")
 require("map/tasks")
 require("map/tro_lockandkey")
-require("map/ocean_gen_new") ----防止新的水面地皮被覆盖
+require("map/ocean_gen_new") ----防止新的水面地皮被覆盖 ---但是暴力覆盖似乎太严重
 
 
 

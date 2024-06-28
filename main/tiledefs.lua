@@ -1196,6 +1196,6 @@ local function tile_redirect(tbl)
     end
 end
 
-if not TheNet:IsDedicated() and TUNING.tropical.ocean ~= "default" then
-    tile_redirect(tile_tbl) 
+if TUNING.tropical.ocean ~= "default" then
+    tile_redirect(tile_tbl)
 end
