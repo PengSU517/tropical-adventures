@@ -35,6 +35,7 @@ local Moisture = Class(function(self, inst)
         self.minDryingRate = 0
 
         self.maxPlayerTempDrying = 5
+        self.optimalPlayerTempDrying = 2
         self.minPlayerTempDrying = 0
 
         self.maxMoistureRate = .75
@@ -44,6 +45,7 @@ local Moisture = Class(function(self, inst)
 
         self.inherentWaterproofness = 0 -- DEPRECATED, USE THE SourceModifierList BELOW
         self.waterproofnessmodifiers = SourceModifierList(inst, 0, SourceModifierList.additive)
+        self.externalbonuses = SourceModifierList(inst, 0, SourceModifierList.additive)
 
         --self.waterproofinventory = false --DEPRECATED, USE forcedrysources BELOW
         --self.forcedrysources = nil
@@ -57,7 +59,7 @@ local Moisture = Class(function(self, inst)
 
         self.optimalDryingTemp = 50
 
-        self.rate = 0                   --rate at which moisture is trying to change
+        self.rate = 0                       --rate at which moisture is trying to change
         self.ratescale = RATE_SCALE.NEUTRAL --based on actual delta, limited by min/max bounds
         self.wet = false
 
@@ -282,10 +284,11 @@ function Moisture:GetDryingRate(moisturerate)
     end
 
     local heaterPower = self.inst.components.temperature ~= nil and
-    math.clamp(self.inst.components.temperature.externalheaterpower, 0, 1) or 0
+        math.clamp(self.inst.components.temperature.externalheaterpower, 0, 1) or 0
+    local playerTempDrying = self:GetSegs() < 3 and self.optimalPlayerTempDrying or self.maxPlayerTempDrying
 
     local rate = self.baseDryingRate
-        + easing.linear(heaterPower, self.minPlayerTempDrying, self:GetSegs() < 3 and 2 or 5, 1)
+        + easing.linear(heaterPower, self.minPlayerTempDrying, playerTempDrying, 1)
         + easing.linear(GetLocalTemperature(self.inst), self.minDryingRate, self.maxDryingRate, self.optimalDryingTemp)
         + easing.inExpo(self:GetMoisture(), 0, 1, self.maxmoisture)
 
@@ -294,7 +297,7 @@ end
 
 function Moisture:GetSleepingBagDryingRate()
     local rate = self.inst.sleepingbag ~= nil and self.inst.sleepingbag.components.sleepingbag ~= nil and
-    self.inst.sleepingbag.components.sleepingbag.dryingrate or nil
+        self.inst.sleepingbag.components.sleepingbag.dryingrate or nil
     return rate ~= nil and math.max(0, rate) or nil
 end
 
@@ -304,6 +307,18 @@ end
 
 function Moisture:GetRateScale()
     return self.ratescale
+end
+
+function Moisture:AddRateBonus(src, bonus, key)
+    self.externalbonuses:SetModifier(src, bonus, key)
+end
+
+function Moisture:RemoveRateBonus(src, key)
+    self.externalbonuses:RemoveModifier(src, key)
+end
+
+function Moisture:GetRateBonus()
+    return self.externalbonuses:Get()
 end
 
 function Moisture:OnUpdate(dt)
@@ -320,16 +335,13 @@ function Moisture:OnUpdate(dt)
         local moisturerate = self:GetMoistureRate()
         local dryingrate = self:GetDryingRate(moisturerate)
         local equippedmoisturerate = self:GetEquippedMoistureRate(dryingrate)
+        local externalbonuses = self:GetRateBonus()
 
-        local protecao = self.inst.components.inventory ~= nil and self.inst.components.inventory:GetWaterproofness() or
-        0
-        local lago = 0
-        local alagamento = GetClosestInstWithTag("mare", self.inst, 10)
-        if alagamento then lago = 0.5 - 0.5 * protecao / 2 end
-
-        self.rate = moisturerate + equippedmoisturerate - dryingrate + lago
-        if self.inst:HasTag("hamfog") then self.rate = easing.inSine(TheWorld.state.precipitationrate,
-                self.minMoistureRate, self.maxMoistureRate, 1) * 2 end
+        self.rate = moisturerate + equippedmoisturerate - dryingrate + externalbonuses
+        if self.inst:HasTag("hamfog") then
+            self.rate = easing.inSine(TheWorld.state.precipitationrate,
+                self.minMoistureRate, self.maxMoistureRate, 1) * 2
+        end
     end
 
     self.ratescale =

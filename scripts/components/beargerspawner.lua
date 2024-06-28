@@ -13,7 +13,7 @@ return Class(function(self, inst)
 	--[[ Private constants ]]
 	--------------------------------------------------------------------------
 
-	local HASSLER_SPAWN_DIST = 40
+	local HASSLER_SPAWN_DIST = PLAYER_CAMERA_SEE_DISTANCE
 	local BEARGER_TIMERNAME = "bearger_timetospawn"
 
 	--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ return Class(function(self, inst)
 		if not TheWorld.Map:IsAboveGroundAtPoint(pt:Get()) then
 			pt = FindNearbyLand(pt, 1) or pt
 		end
-		local offset = FindWalkableOffset(pt, math.random() * 2 * PI, HASSLER_SPAWN_DIST, 12, true)
+		local offset = FindWalkableOffset(pt, math.random() * TWOPI, HASSLER_SPAWN_DIST, 12, true)
 		if offset ~= nil then
 			offset.x = offset.x + pt.x
 			offset.z = offset.z + pt.z
@@ -108,7 +108,7 @@ return Class(function(self, inst)
 
 	local function SpawnBearger()
 		local spawndelay = _numToSpawn > 0 and
-		(.25 * TheWorld.state.remainingdaysinseason * TUNING.TOTAL_DAY_TIME / _numToSpawn) or 0
+			(.25 * TheWorld.state.remainingdaysinseason * TUNING.TOTAL_DAY_TIME / _numToSpawn) or 0
 		local spawnrandom = .25 * spawndelay
 		local timetospawn = TheWorld.components.worldsettingstimer:GetTimeLeft(BEARGER_TIMERNAME)
 		if timetospawn == nil then
@@ -413,8 +413,9 @@ return Class(function(self, inst)
 			s = s .. "DORMANT " .. timetospawn
 		elseif timetospawn > 0 then
 			s = s ..
-			string.format("%s Bearger is coming in %2.2f (next warning in %2.2f), target number: %d, current number: %d",
-				_warning and "WARNING" or "WAITING", timetospawn, _timetonextwarningsound, _numToSpawn, _numSpawned)
+				string.format(
+					"%s Bearger is coming in %2.2f (next warning in %2.2f), target number: %d, current number: %d",
+					_warning and "WARNING" or "WAITING", timetospawn, _timetonextwarningsound, _numToSpawn, _numSpawned)
 		else
 			s = s .. string.format("SPAWNING!!!")
 		end

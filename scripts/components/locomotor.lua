@@ -315,8 +315,9 @@ function ServerIsFasterOnGroundTile(self, ground_tile)
         local mount = rider ~= nil and rider:IsRiding() and rider:GetMount() or nil
         if mount ~= nil then
             return mount.components.locomotor ~= nil and mount.components.locomotor.faster_on_tiles[ground_tile]
+        else
+            return self.faster_on_tiles[ground_tile] == true
         end
-        return self.faster_on_tiles[ground_tile] == true
     end
 
     return false
@@ -328,8 +329,9 @@ function ClientIsFasterOnGroundTile(self, ground_tile)
         local mount = rider ~= nil and rider:IsRiding() and rider:GetMount() or nil
         if mount ~= nil then
             return mount:HasTag("turfrunner_" .. tostring(ground_tile))
+        else
+            return self.inst:HasTag("turfrunner_" .. tostring(ground_tile))
         end
-        return self.inst:HasTag("turfrunner_" .. tostring(ground_tile))
     end
 
     return false
@@ -618,11 +620,7 @@ end
 function LocoMotor:SetFasterOnGroundTile(ground_tile, is_faster)
     if self.ismastersim then
         self.faster_on_tiles[ground_tile] = is_faster
-        if is_faster then
-            self.inst:AddTag("turfrunner_" .. tostring(ground_tile))
-        else
-            self.inst:RemoveTag("turfrunner_" .. tostring(ground_tile))
-        end
+        self.inst:AddOrRemoveTag("turfrunner_" .. tostring(ground_tile), is_faster)
     end
 end
 
@@ -833,18 +831,38 @@ function LocoMotor:PreviewAction(bufferedaction, run, try_instant)
         if self.inst.sg:HasStateTag("overridelocomote") then
             self.inst:PreviewBufferedAction(bufferedaction)
         else
-            self:Stop()
-            if bufferedaction.target ~= nil then
-                self:FaceMovePoint(bufferedaction.target.Transform:GetWorldPosition())
-            end
-            if not self.inst.sg:HasStateTag("idle") then
-                local idle_anim = self.inst:HasTag("playerghost") and "idle" or "idle_loop"
-                if not self.inst.AnimState:IsCurrentAnimation(idle_anim) then
-                    self.inst.AnimState:PlayAnimation(idle_anim, true)
+            local closeinspect = false
+            if bufferedaction.target then
+                if CLOSEINSPECTORUTIL.CanCloseInspect(self.inst, bufferedaction.target) then
+                    closeinspect = true
+                    self:GoToEntity(bufferedaction.target, bufferedaction, run)
+                end
+            elseif action_pos then
+                if CLOSEINSPECTORUTIL.CanCloseInspect(self.inst, action_pos) then
+                    closeinspect = true
+                    self:GoToPoint(nil, bufferedaction, run)
                 end
             end
-            self.inst:PreviewBufferedAction(bufferedaction)
-            self.inst.sg:GoToState("idle", "noanim")
+            if not closeinspect then
+                self:Stop()
+
+                --V2C: since LOOKAT now has an action handler for closeinspect support,
+                --     we can use options.instant to bypass it during preview.
+                --     see EntityScript:PreviewBufferedAction
+                bufferedaction.options.instant = true
+
+                if bufferedaction.target ~= nil then
+                    self:FaceMovePoint(bufferedaction.target.Transform:GetWorldPosition())
+                end
+                if not self.inst.sg:HasStateTag("idle") then
+                    local idle_anim = self.inst:HasTag("playerghost") and "idle" or "idle_loop"
+                    if not self.inst.AnimState:IsCurrentAnimation(idle_anim) then
+                        self.inst.AnimState:PlayAnimation(idle_anim, true)
+                    end
+                end
+                self.inst:PreviewBufferedAction(bufferedaction)
+                self.inst.sg:GoToState("idle", "noanim")
+            end
         end
     elseif bufferedaction.forced then
         if action_pos ~= nil then
@@ -922,11 +940,25 @@ function LocoMotor:PushAction(bufferedaction, run, try_instant)
         end
     elseif bufferedaction.action == ACTIONS.LOOKAT and
         self.inst.components.playercontroller ~= nil then
-        local pos = self.inst.components.playercontroller:GetRemotePredictPosition()
-        if pos ~= nil and not self.inst.components.playercontroller.directwalking then
-            self:GoToPoint(pos, bufferedaction, run)
-        else
-            self.inst:PushBufferedAction(bufferedaction)
+        local closeinspect = false
+        if bufferedaction.target then
+            if CLOSEINSPECTORUTIL.CanCloseInspect(self.inst, bufferedaction.target) then
+                closeinspect = true
+                self:GoToEntity(bufferedaction.target, bufferedaction, run)
+            end
+        elseif action_pos then
+            if CLOSEINSPECTORUTIL.CanCloseInspect(self.inst, action_pos) then
+                closeinspect = true
+                self:GoToPoint(nil, bufferedaction, run)
+            end
+        end
+        if not closeinspect then
+            local pos = self.inst.components.playercontroller:GetRemotePredictPosition()
+            if pos and not self.inst.components.playercontroller.directwalking then
+                self:GoToPoint(pos, bufferedaction, run)
+            else
+                self.inst:PushBufferedAction(bufferedaction)
+            end
         end
     elseif bufferedaction.forced then
         if bufferedaction.action.rangecheckfn ~= nil and
@@ -990,11 +1022,12 @@ function LocoMotor:GoToEntity(target, bufferedaction, run)
     elseif bufferedaction ~= nil and bufferedaction.distance ~= nil then
         --NOTE: use actual physics (ignoring physicsradiusoverride)
         --      as fallback if bufferedaction.distance is too small
-        arrive_dist = ARRIVE_STEP + (target.Physics ~= nil and target.Physics:GetRadius() or 0) +
-            (self.inst.Physics ~= nil and self.inst.Physics:GetRadius() or 0)
+        local owner = target.components.inventoryitem and target.components.inventoryitem:GetGrandOwner() or target
+        arrive_dist = ARRIVE_STEP + (owner.Physics and owner.Physics:GetRadius() or 0) + self.inst.Physics:GetRadius()
         arrive_dist = math.max(arrive_dist, bufferedaction.distance)
     else
-        arrive_dist = ARRIVE_STEP + target:GetPhysicsRadius(0) + self.inst:GetPhysicsRadius(0)
+        local owner = target.components.inventoryitem and target.components.inventoryitem:GetGrandOwner() or target
+        arrive_dist = ARRIVE_STEP + owner:GetPhysicsRadius(0) + self.inst:GetPhysicsRadius(0)
 
         local extra_arrive_dist = (bufferedaction ~= nil and bufferedaction.action ~= nil and bufferedaction.action.extra_arrive_dist) or
             nil
@@ -1362,8 +1395,7 @@ function LocoMotor:ScanForPlatform(my_platform, target_x, target_z, hop_distance
             can_hop = false
             blocked = true
         end
-        ]]
-        --
+        ]] --
     end
 
     return can_hop, px, pz, found_platform, blocked

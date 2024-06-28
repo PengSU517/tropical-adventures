@@ -14,7 +14,7 @@ return Class(function(self, inst)
     --------------------------------------------------------------------------
 
     local STRUCTURE_DIST = 20
-    local HASSLER_SPAWN_DIST = 40
+    local HASSLER_SPAWN_DIST = PLAYER_CAMERA_SEE_DISTANCE
     local HASSLER_KILLED_DELAY_MULT = 6
     local STRUCTURES_PER_SPAWN = 4
     local DEERCLOPS_TIMERNAME = "deerclops_timetoattack"
@@ -115,8 +115,10 @@ return Class(function(self, inst)
     end
 
     local function TryStartAttacks(killed)
-        if _attackdelay == nil then _attackdelay = (TheWorld.state.winterlength - 1) * TUNING.TOTAL_DAY_TIME /
-            (TUNING.DEERCLOPS_ATTACKS_PER_SEASON + 1) end
+        if _attackdelay == nil then
+            _attackdelay = (TheWorld.state.winterlength - 1) * TUNING.TOTAL_DAY_TIME /
+                (TUNING.DEERCLOPS_ATTACKS_PER_SEASON + 1)
+        end
 
 
 
@@ -159,7 +161,7 @@ return Class(function(self, inst)
         if not TheWorld.Map:IsAboveGroundAtPoint(pt:Get()) then
             pt = FindNearbyLand(pt, 1) or pt
         end
-        local offset = FindWalkableOffset(pt, math.random() * 2 * PI, HASSLER_SPAWN_DIST, 12, true)
+        local offset = FindWalkableOffset(pt, math.random() * TWOPI, HASSLER_SPAWN_DIST, 12, true)
         if offset ~= nil then
             offset.x = offset.x + pt.x
             offset.z = offset.z + pt.z
