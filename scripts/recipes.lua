@@ -8,6 +8,35 @@ local safe_atlas = "images/tabs.xml"
 
 local TECH = GLOBAL.TECH
 
+local function SortRecipe(a, b, filter_name, offset)
+	local filter = CRAFTING_FILTERS[filter_name]
+	if filter and filter.recipes then
+		for sortvalue, product in ipairs(filter.recipes) do
+			if product == a then
+				table.remove(filter.recipes, sortvalue)
+				break
+			end
+		end
+
+		local target_position = #filter.recipes + 1
+		for sortvalue, product in ipairs(filter.recipes) do
+			if product == b then
+				target_position = sortvalue + offset
+				break
+			end
+		end
+		table.insert(filter.recipes, target_position, a)
+	end
+end
+
+local function SortBefore(a, b, filter_name)
+	SortRecipe(a, b, filter_name, 0)
+end
+
+local function SortAfter(a, b, filter_name)
+	SortRecipe(a, b, filter_name, 1)
+end
+
 AddRecipeFilter({ name = "NAUTICAL", atlas = safe_atlas, image = "nauticaltab.png" })
 AddRecipeFilter({ name = "HAMLET", atlas = safe_atlas, image = "tab_city.tex" })
 AddRecipeFilter({ name = "INTERIOR", atlas = safe_atlas, image = "tab_home_decor.tex" })
@@ -29,18 +58,18 @@ AddRecipe2("pugaliskfountain_made",
 	},
 	{ "STRUCTURES", "LEGACY", "SUMMER" })
 
-AddRecipe2("armorvortexcloak", {Ingredient("ancient_remnant", 5), Ingredient("armor_sanity", 1)}, TECH.LOST, {
-    atlas = "images/inventoryimages/hamletinventory.xml",
-    image = "armorvortexcloak.tex",
-	}, {"ARMOUR", "MAGIC", "CONTAINERS"})
+AddRecipe2("armorvortexcloak", { Ingredient("ancient_remnant", 5), Ingredient("armor_sanity", 1) }, TECH.LOST, {
+	atlas = "images/inventoryimages/hamletinventory.xml",
+	image = "armorvortexcloak.tex",
+}, { "ARMOUR", "MAGIC", "CONTAINERS" })
 
 AddRecipe2("armorvoidcloak",
-    {Ingredient("armorvortexcloak", 1), Ingredient("horrorfuel", 4), Ingredient("voidcloth", 4),
-     Ingredient("shadowheart", 1)}, TECH.SHADOWFORGING_TWO, {
-        nounlock = true,
-        atlas = "images/inventoryimages/hamletinventory.xml",
-        image = "armorvoidcloak.tex",
-    }, {"CRAFTING_STATION"})
+	{ Ingredient("armorvortexcloak", 1), Ingredient("horrorfuel", 4), Ingredient("voidcloth", 4),
+		Ingredient("shadowheart", 1) }, TECH.SHADOWFORGING_TWO, {
+		nounlock = true,
+		atlas = "images/inventoryimages/hamletinventory.xml",
+		image = "armorvoidcloak.tex",
+	}, { "CRAFTING_STATION" })
 
 
 
@@ -487,19 +516,31 @@ AddRecipe2("corkboatitem", { Ingredient("rope", 1), Ingredient("cork", 4, h_atla
 -- 	TECH.SCIENCE_TWO, { atlas = h_atlas }, { "TOOLS" })
 
 
-if TUNING.tropical.startlocation == "hamlet" and TUNING.tropical.hamlet then
-	AddRecipe2("researchlab4",
-		{ Ingredient("pigskin", 4), Ingredient("boards", 4), Ingredient("feather_robin_winter", 2) },
-		TECH.SCIENCE_TWO, { placer = "researchlab4_placer" }, { "MAGIC" })
-end
+-- if TUNING.tropical.startlocation == "hamlet" and TUNING.tropical.hamlet then
+-- 	AddRecipe2("researchlab4",
+-- 		{ Ingredient("pigskin", 4), Ingredient("boards", 4), Ingredient("feather_robin_winter", 2) },
+-- 		TECH.SCIENCE_TWO, { placer = "researchlab4_placer" }, { "MAGIC" })
+-- end
 
-if TUNING.tropical.startlocation == "shipwrecked" and TUNING.tropical.shipwrecked then
-	AddRecipe2("researchlab4",
-		{ Ingredient("piratehat", 1, v_atlas), Ingredient("boards", 4), Ingredient("parrot_pirate", 1, v_atlas) },
-		TECH.SCIENCE_TWO, { placer = "researchlab4_placer" }, { "MAGIC" })
-end
+-- if TUNING.tropical.startlocation == "shipwrecked" and TUNING.tropical.shipwrecked then
+-- 	AddRecipe2("researchlab4",
+-- 		{ Ingredient("piratehat", 1, v_atlas), Ingredient("boards", 4), Ingredient("parrot_pirate", 1, v_atlas) },
+-- 		TECH.SCIENCE_TWO, { placer = "researchlab4_placer" }, { "MAGIC" })
+-- end
 
+AddRecipe2("piratihatitator",
+	{ Ingredient("parrot", 1, v_atlas), Ingredient("boards", 4), Ingredient("piratehat", 1, v_atlas) }, TECH.SCIENCE_ONE,
+	{ atlas = v_atlas, placer = "piratihatitator_placer" }, { "PROTOTYPERS", "MAGIC", "STRUCTURES" })
+SortAfter("piratihatitator", "researchlab4", "PROTOTYPERS")
+SortAfter("piratihatitator", "researchlab4", "MAGIC")
+SortAfter("piratihatitator", "researchlab4", "STRUCTURES")
 
+AddRecipe2("hogusporkusator",
+	{ Ingredient("pigskin", 4), Ingredient("boards", 4), Ingredient("feather_robin_winter", 4) },
+	TECH.SCIENCE_ONE, { atlas = h_atlas, placer = "hogusporkusator_placer" }, { "PROTOTYPERS", "MAGIC", "STRUCTURES" })
+SortAfter("hogusporkusator", "researchlab4", "PROTOTYPERS")
+SortAfter("hogusporkusator", "researchlab4", "MAGIC")
+SortAfter("hogusporkusator", "researchlab4", "STRUCTURES")
 
 --CITY----------------------------
 

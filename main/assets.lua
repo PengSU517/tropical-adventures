@@ -9,6 +9,8 @@ PrefabFiles =
 	"sea2land_fork",
 
 	"bermudatriangle",
+	"piratihatitator",
+	"hogusporkusator",
 
 
 	-----------修改暴力覆盖
