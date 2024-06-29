@@ -78,6 +78,13 @@ Including tropical fish, clownfish, grouper, neon fish, gearfish, goldfish, red 
 
 local updatech = [[
 
+2.6.29 更新:
+
+1. 修复地皮中心点不准的问题
+2. 修复室内/洞穴骑牛崩档的问题
+3. 修复制作头部装备直接佩戴时会报错的问题
+
+
 2.6.28 更新:
 
 1. 修复更新相关bug
