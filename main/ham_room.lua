@@ -577,7 +577,7 @@ require("entityscript")
 function EntityScript:IsInHamRoom()
     return TheWorld.Map:IsHamRoomAtPoint(self:GetPosition():Get()) --------------------似乎不太对
 end
-
+--[[ 
 --推入事件
 local _PushEvent = EntityScript.PushEvent
 function EntityScript:PushEvent(event, data)
@@ -607,7 +607,7 @@ function EntityScript:SetEventShare(event, shared)
         self.eventlistening_shared = {}
     end
     self.eventlistening_shared[event] = shared and true or nil
-end
+end ]]
 
 --------------------------------------------------------------------------------------------
 ----------------------------------[[ 相关物品hook ]]-----------------------------------------
