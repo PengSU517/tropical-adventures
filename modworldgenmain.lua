@@ -351,45 +351,6 @@ elseif troadj.multiplayerportal == "hamlet" and troadj.hamlet then
 end
 
 
---------------------layout生成调整--------------------------------
-if troadj.together and troadj.together_not_mainland then
-    AddLevelPreInitAny(function(level)
-        if level.location == "forest" then
-            local taskrog = { "Squeltch", "Speak to the king", "Forest hunters", "Badlands", "For a nice walk",
-                "Dig that rock", "Great Plains" }
-            -----调整三基佬位置，只刷新在主大陆
-            ------------"Sculptures_1" "Maxwell5" 是通过这个实现的 -----------------雕像零件似乎是生成好世界之后再生成的
-            level.required_setpieces = {}
-            level.set_pieces["Sculptures_1"] = { count = 1, tasks = taskrog }
-            level.set_pieces["Sculptures_" .. math.random(2, 5)] = { count = 1, tasks = taskrog }
-            level.set_pieces["Maxwell5"] = { count = 1, tasks = taskrog }
-            level.set_pieces["Maxwell" .. math.random(1, 4)] = { count = 1, tasks = taskrog }
-
-
-
-            level.random_set_pieces = {}
-            level.ordered_story_setpieces = {}
-            level.numrandom_set_pieces = 0
-
-            ----------泰拉瑞亚
-            -- level.overrides.terrariumchest = "never"
-            local terra = {
-                [1] = "Terrarium_Forest_Spiders",
-                [2] = "Terrarium_Forest_Pigs",
-                [3] = "Terrarium_Forest_Fire"
-            }
-            level.set_pieces[terra[math.random(1, 3)]] = { count = 1, tasks = taskrog }
-
-            ---------舞台剧
-            -- level.overrides.stageplays = "never"
-            -- level.set_pieces["Charlie1"] = { count = 1, tasks = taskrog }
-            -- level.set_pieces["Charlie2"] = { count = 1, tasks = taskrog }
-
-            tabel.insert_components(level.required_prefabs,
-                { "terrariumchest" })
-        end
-    end)
-end
 
 
 -----------海上布景---------------会显著加快地形生成
