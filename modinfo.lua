@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.6.29"
+version = "2.6.29.1"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -28,7 +28,7 @@ Update 2.6.28:
 
 1.Fixed bugs related to the update
 2. update researchlab 3
-3. Added several new cook recipes (Runar).
+3. Added several new cook recipes.
 4. Updated the Bermuda Triangle (needs optimization).
 
 2.6.26 Updates:
@@ -89,7 +89,7 @@ local updatech = [[
 
 1. 修复更新相关bug
 2. 更新了海难和哈姆的魔法一本
-3. 添加了几道新的食谱(Runar)
+3. 添加了几道新的食谱
 4. 更新了百慕大三角(需要优化)
 
 
