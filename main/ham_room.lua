@@ -520,24 +520,12 @@ end
 Utils.FnDecorator(Map, "IsAboveGroundAtPoint", CheckHamRoomBefore)
 Utils.FnDecorator(Map, "IsPassableAtPoint", CheckHamRoomBefore)
 Utils.FnDecorator(Map, "IsVisualGroundAtPoint", CheckHamRoomBefore)
-Utils.FnDecorator(Map, "CanPlantAtPoint", CheckHamRoomBefore) --允许房间里种植，不知道算不算超模
+Utils.FnDecorator(Map, "CanPlantAtPoint", CheckHamRoomBefore)             --允许房间里种植，不知道算不算超模
 -- Utils.FnDecorator(Map, "CanDeployRecipeAtPoint", CheckHamRoomBeforeDeploy) -------检查放置
--- Utils.FnDecorator(Map, "GetTileCenterPoint", GetHamTileCenterPointBefore)  -------地皮中心
+Utils.FnDecorator(Map, "GetTileCenterPoint", GetHamTileCenterPointBefore) -------地皮中心
 -- Utils.FnDecorator(Map, "GetPlatformAtPoint", GetHamHomeBefore)             -------platform
 
---得到瓷砖中心点
-local old_GetTileCenterPoint = Map.GetTileCenterPoint
-Map.GetTileCenterPoint = function(self, x, y, z)
-    local map_width, map_height = TheWorld.Map:GetSize()
-    if (type(x) == "number" and math.abs(x) >= map_width) and (type(z) == "number" and math.abs(z) >= map_height) then
-        return math.floor((x) / 4) * 4 + 2, 0, math.floor((z) / 4) * 4 + 2
-    end
-    if z then
-        return old_GetTileCenterPoint(self, x, y, z)
-    else
-        return old_GetTileCenterPoint(self, x, y)
-    end
-end
+
 
 local old_CanDeployRecipeAtPoint = Map.CanDeployRecipeAtPoint
 Map.CanDeployRecipeAtPoint = function(self, pt, recipe, rot)
