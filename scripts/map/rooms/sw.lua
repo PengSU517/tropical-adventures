@@ -1,5 +1,9 @@
 -------------------------------------start room to portal room-------------------------------------------------------------
 --彩蛋和参数 ----这些参数该怎么放在一个独立的文件里呢
+local GROUND = GROUND
+local AddRoom = AddRoom
+
+
 local meadow_fairy_rings =
 {
     ["MushroomRingLarge"] = function()
@@ -18,8 +22,6 @@ local meadow_fairy_rings =
 
 local SIZE_VARIATION = 3 --GLOBAL.SIZE_VARIATION
 local LIVINGJUNGLETREE_CHANCE = 0.9
-
-
 salasvolcano =
 {
     [1] = "VolcanoRock",
@@ -3676,3 +3678,36 @@ AddRoom("PigVillagesw", {
         },
     }
 })
+
+
+-------------add map tags --------
+for i, room in ipairs(salasjungle) do
+    AddRoomPreInit(room, function(room)
+        table.insert(room.tags, "Terrarium_Spawner")
+        table.insert(room.tags, "StatueHarp_HedgeSpawner")
+    end)
+end
+
+for i, room in ipairs(salasbeach) do
+    AddRoomPreInit(room, function(room)
+        table.insert(room.tags, "CharlieStage_Spawner")
+        
+    end)
+end
+
+for i, room in ipairs(salasmagma) do
+    AddRoomPreInit(room, function(room)
+        table.insert(room.tags, "Junkyard_Spawner")
+    end)
+end
+for i, room in ipairs(salasvolcano) do
+    AddRoomPreInit(room, function(room)
+        table.insert(room.tags, "Junkyard_Spawner")
+    end)
+end
+
+for i, room in ipairs(salasmeadow) do
+    AddRoomPreInit(room, function(room)
+        table.insert(room.tags, "StagehandGarden")
+    end)
+end

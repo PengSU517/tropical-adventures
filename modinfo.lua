@@ -24,9 +24,16 @@ QQ 群：469668062
 
 local updateen = [[
 
+Update 2.6.29:
+
+1. Fixed an issue with inaccurate plot center points.
+2. Fixed a crash issue when riding a bull inside buildings/caves.
+3. Fixed an error that occurred when equipping headgear (e.g., Ant-Man helmet) directly after crafting.
+4. Optimized terrain generation: now Terraria, marble statues, stages, junkyards, and similar terrains will (almost) always spawn in the starting area.
+
 Update 2.6.28:
 
-1.Fixed bugs related to the update
+1. Fixed bugs related to the update
 2. update researchlab 3
 3. Added several new cook recipes.
 4. Updated the Bermuda Triangle (needs optimization).
@@ -82,14 +89,15 @@ local updatech = [[
 
 1. 修复地皮中心点不准的问题
 2. 修复室内/洞穴骑牛崩档的问题
-3. 修复制作头部装备直接佩戴时会报错的问题
+3. 修复制作头部装备(蚁人头盔等)直接佩戴时会报错的问题
+4. 优化地形生成、现在泰拉瑞亚，大理石雕像、舞台、垃圾场等地形(几乎)都会刷新在出生点所在区域
 
 
 2.6.28 更新:
 
 1. 修复更新相关bug
 2. 更新了海难和哈姆的魔法一本
-3. 添加了几道新的食谱
+3. 添加了新的食谱芋泥波波
 4. 更新了百慕大三角(需要优化)
 
 
