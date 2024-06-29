@@ -236,22 +236,22 @@ local gustable_prefabs_post = {
 }
 
 local stategraphs_post = {
-    "bird",
-    "commonstates",
-    "shadowwaxwell",
-    "tornado",
+    -- "bird",
+    -- "commonstates",
+    -- "shadowwaxwell",
+    -- "tornado",
     "merm",
-    "shadowcreature",
-    "shadowwaxwell",
-    "wilson",
-    "wilson_client",
+    -- "shadowcreature",
+    -- "shadowwaxwell",
+    -- "wilson",
+    -- "wilson_client",
 }
 
 local brains_post = {
-    "mermbrain",
-    "oceanshadowcreaturebrain",
-    "shadowcreaturebrain",
-    "shadowwaxwellbrain",
+    -- "mermbrain",
+    -- "oceanshadowcreaturebrain",
+    -- "shadowcreaturebrain",
+    -- "shadowwaxwellbrain",
     -- "wobsterbrain",
 }
 
