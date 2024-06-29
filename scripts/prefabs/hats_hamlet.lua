@@ -29,13 +29,11 @@ local function MakeHat(name)
 
     local function onequip(inst, owner, symbol_override)
         local skin_build = inst:GetSkinBuild()
-        local symbol_override = symbol_override and "swap_hat" or "swap_hat"
         if skin_build ~= nil then
             owner:PushEvent("equipskinneditem", inst:GetSkinName())
-            owner.AnimState:OverrideItemSkinSymbol("swap_hat", skin_build, symbol_override, inst.GUID,
-                fname)
+            owner.AnimState:OverrideItemSkinSymbol("swap_hat", skin_build, "swap_hat", inst.GUID, fname)
         else
-            owner.AnimState:OverrideSymbol("swap_hat", fname, symbol_override)
+            owner.AnimState:OverrideSymbol("swap_hat", fname, "swap_hat")
         end
         owner.AnimState:Show("HAT")
         owner.AnimState:Show("HAIR_HAT")
@@ -733,7 +731,7 @@ local function MakeHat(name)
 
     local function stopusingbush(inst, data)
         local hat = inst.components.inventory ~= nil and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD) or
-            nil
+        nil
         if hat ~= nil and data.statename ~= "hide" then
             hat.components.useableitem:StopUsingItem()
         end
@@ -842,7 +840,7 @@ local function MakeHat(name)
         -- check for the armor_snurtleshell pairing achievement
         if owner:HasTag("player") then
             local equipped_body = owner.components.inventory ~= nil and
-                owner.components.inventory:GetEquippedItem(EQUIPSLOTS.BODY) or nil
+            owner.components.inventory:GetEquippedItem(EQUIPSLOTS.BODY) or nil
             if equipped_body ~= nil and equipped_body.prefab == "armorsnurtleshell" then
                 AwardPlayerAchievement("snail_armour_set", owner)
             end
@@ -1519,7 +1517,7 @@ local function MakeHat(name)
     end
 
     local function onequipantmask(inst, owner, symbol_override)
-        owner.AnimState:OverrideSymbol("swap_hat", fname, symbol_override or "swap_hat")
+        owner.AnimState:OverrideSymbol("swap_hat", fname, "swap_hat")
         owner.AnimState:Show("HAT")
         owner.AnimState:Show("HAIR_HAT")
         owner.AnimState:Hide("HAIR_NOHAT")
