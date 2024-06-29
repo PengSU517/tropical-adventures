@@ -95,6 +95,9 @@ modimport("postinit/map/storygen")
 modimport("postinit/map/rooms")
 modimport("postinit/map/tasks")
 
+modimport("main/preinit") ------------修改一些prefab的表
+
+
 
 
 local troadj = TA_CONFIG
@@ -498,17 +501,3 @@ if troadj.testmode then
         end
     end)
 end
-
-
-
-
----------------------------override before main-------------------
-
-local oceanfishdefs = require("prefabs/oceanfishdef")
-local tro_oceanfishdefs = require("prefabs/tro_oceanfishdef")
-
-tabel.deep_merge(oceanfishdefs, tro_oceanfishdefs, false)
-
--- if oceanfishdefs.school[SEASONS.SPRING][WORLD_TILES.LILYPOND].oceanfish_small_11 then
---     print(oceanfishdefs.school[SEASONS.SPRING][WORLD_TILES.LILYPOND].oceanfish_small_11 .. "!!!!!!!!!!!!!")
--- end
