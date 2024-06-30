@@ -2,7 +2,7 @@
 
 if TUNING.tropical.shipwrecked then
     AddRoomPreInit("OceanCoastalShore", function(room)
-        room.contents.distributeprefabs.lobsterhole = 1
+        -- room.contents.distributeprefabs.lobsterhole = 1
     end)
 
 
