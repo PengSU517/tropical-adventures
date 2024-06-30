@@ -1,5 +1,6 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
-local require = GLOBAL.require
+local require = require
+local modimport = modimport
 require("tools/table") ----一些表相关的工具函数，都在表tabel里
 
 
@@ -77,7 +78,7 @@ require("map/ocean_gen_new") ----防止新的水面地皮被覆盖 ---但是暴�
 modimport("scripts/tools/spawnutil")
 modimport("main/node") ------------防止清空水上内容
 
-modimport("postinit/map/graph")
+
 
 
 ----------新内容
@@ -91,6 +92,7 @@ modimport("scripts/map/tasks/sw")
 modimport("scripts/map/newstartlocation")
 
 -------------修改之前内容
+modimport("postinit/map/graph")
 modimport("postinit/map/storygen")
 modimport("postinit/map/rooms")
 modimport("postinit/map/tasks")
@@ -397,68 +399,69 @@ end
 
 ---------------------测试模式------------
 if troadj.testmode then
-    -- modimport("main/forest_map_postinit") ----防止世界生成难产，但可能会缺失重要地形
+    modimport("main/forest_map_postinit") ----防止世界生成难产，但可能会缺失重要地形
+    if true then
+        AddLevelPreInitAny(function(level)
+            if level.location == "cave" then
+                level.overrides.keep_disconnected_tiles = true
 
-    AddLevelPreInitAny(function(level)
-        if level.location == "cave" then
-            level.overrides.keep_disconnected_tiles = true
+                level.tasks = { "MudWorld", "CaveExitTask1" }
+                table.insert(level.tasks, "HamArchiveMaze")
+                level.numoptionaltasks = 0
+                level.optionaltasks = {}
 
-            level.tasks = { "MudWorld", "CaveExitTask1" }
-            table.insert(level.tasks, "HamArchiveMaze")
-            level.numoptionaltasks = 0
-            level.optionaltasks = {}
-
-            level.set_pieces = {}
-        end
-
-
-        if level.location == "forest" then
-            level.tasks = { "Make a NewPick" }
-            -- table.insert(level.tasks, "Kill the spiders")
-            table.insert(level.tasks, "Pincale")
-            -- table.insert(level.tasks, "Verdent")
-            -- table.insert(level.tasks, "Plains_start")
-            table.insert(level.tasks, "Plains") --island3 高草地形，类似牛场
-            -- table.insert(level.tasks, "Rainforest_ruins")
-            -- table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
-            -- table.insert(level.tasks, "Edge_of_the_unknown")
-            table.insert(level.tasks, "Pigcity2")
-            -- table.insert(level.tasks, "HamArchiveMaze")
-            level.numoptionaltasks = 0
-
-            --[[optionaltasks = {
-                "Befriend the pigs",
-                "Kill the spiders",---蜘蛛矿区
-                "Killer bees!",
-                "Make a Beehat", ---蜜蜂矿场？
-                "The hunters",
-                "Magic meadow", ----有池塘
-                "Frogs and bugs", --青蛙和蜜蜂？
-                "Mole Colony Deciduous",---第二桦树林
-                "Mole Colony Rocks",---大矿区
-                "MooseBreedingTask",
-            }]]
+                level.set_pieces = {}
+            end
 
 
+            if level.location == "forest" then
+                level.tasks = { "Make a NewPick" }
+                -- table.insert(level.tasks, "Kill the spiders")
+                table.insert(level.tasks, "Pincale")
+                -- table.insert(level.tasks, "Verdent")
+                -- table.insert(level.tasks, "Plains_start")
+                table.insert(level.tasks, "Plains") --island3 高草地形，类似牛场
+                -- table.insert(level.tasks, "Rainforest_ruins")
+                -- table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
+                -- table.insert(level.tasks, "Edge_of_the_unknown")
+                table.insert(level.tasks, "Pigcity2")
+                -- table.insert(level.tasks, "HamArchiveMaze")
+                level.numoptionaltasks = 0
 
-            level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋
-            level.set_pieces["CaveEntrance"] = { count = 1, tasks = { "Make a NewPick" } }
-            level.overrides = {}
-            level.overrides.layout_mode = "LinkNodesByKeys"
-            level.required_setpieces = {}
+                --[[optionaltasks = {
+                    "Befriend the pigs",
+                    "Kill the spiders",---蜘蛛矿区
+                    "Killer bees!",
+                    "Make a Beehat", ---蜜蜂矿场？
+                    "The hunters",
+                    "Magic meadow", ----有池塘
+                    "Frogs and bugs", --青蛙和蜜蜂？
+                    "Mole Colony Deciduous",---第二桦树林
+                    "Mole Colony Rocks",---大矿区
+                    "MooseBreedingTask",
+                }]]
 
-            level.random_set_pieces = {}
-            level.ordered_story_setpieces = {}
-            level.numrandom_set_pieces = 0
 
-            -- level.ocean_population = nil       --海洋生态 礁石 海带之类的 还有奶奶岛,帝王蟹和猴岛
-            -- level.ocean_prefill_setpieces = {} -- 巨树和盐矿的layout
 
-            level.overrides.keep_disconnected_tiles = true
-            level.overrides.roads = "never"
-            level.overrides.birds = "never"  --没鸟
-            level.overrides.has_ocean = true --没海  ----如果设置了有海的话会清除所有非地面地皮然后根据规则重新生成
-            level.required_prefabs = {}      -----这个是为了检测是否有必要的prefabs
-        end
-    end)
+                level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋
+                level.set_pieces["CaveEntrance"] = { count = 1, tasks = { "Make a NewPick" } }
+                level.overrides = {}
+                level.overrides.layout_mode = "LinkNodesByKeys"
+                level.required_setpieces = {}
+
+                level.random_set_pieces = {}
+                level.ordered_story_setpieces = {}
+                level.numrandom_set_pieces = 0
+
+                -- level.ocean_population = nil       --海洋生态 礁石 海带之类的 还有奶奶岛,帝王蟹和猴岛
+                -- level.ocean_prefill_setpieces = {} -- 巨树和盐矿的layout
+
+                level.overrides.keep_disconnected_tiles = true
+                level.overrides.roads = "never"
+                level.overrides.birds = "never"  --没鸟
+                level.overrides.has_ocean = true --没海  ----如果设置了有海的话会清除所有非地面地皮然后根据规则重新生成
+                level.required_prefabs = {}      -----这个是为了检测是否有必要的prefabs
+            end
+        end)
+    end
 end
