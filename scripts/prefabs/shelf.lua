@@ -89,7 +89,6 @@ local function SetImage(inst, ent, slot)
 
     if image ~= nil then
         local texname = image .. ".tex"
-
         local atlas = src.replica.inventoryitem:GetAtlas()
         if not inst:HasTag("playercrafted") then
             if ent.components.perishable then ent.components.perishable:StopPerishing() end
@@ -97,17 +96,25 @@ local function SetImage(inst, ent, slot)
         --	print(inst.prefab)
         --print(ent)
         --fazer para o prefab minising
-        if ent.caminho then
-            atlas = ent.caminho
-        elseif atlas and atlas == "images/inventoryimages1.xml" then
-            atlas = "images/inventoryimages1.xml"
-        elseif atlas and atlas == "images/inventoryimages2.xml" then
-            atlas = "images/inventoryimages2.xml"
-        elseif atlas and atlas == "images/inventoryimages3.xml" then
-            atlas = "images/inventoryimages3.xml"
-        else
-            atlas = "images/inventoryimages/hamletinventory.xml"
-        end
+        atlas = ent.caminho or GetInventoryItemAtlas(texname)
+    -- if ent.caminho then
+    --     atlas = ent.caminho
+    -- elseif atlas then
+    --     if atlas == "images/inventoryimages1.xml" or atlas == "images/inventoryimages2.xml" or atlas ==
+    --         "images/inventoryimages3.xml" or atlas == "images/inventoryimages/hamletinventory.xml" 
+    --         or atlas == "images/inventoryimages/cookpotfoods_sw.xml" or atlas == "images/inventoryimages/cookpotfoods_ham.xml" then
+            -- elseif atlas and atlas == "images/inventoryimages1.xml" then
+            --     atlas = "images/inventoryimages1.xml"
+            -- elseif atlas and atlas == "images/inventoryimages2.xml" then
+            --     atlas = "images/inventoryimages2.xml"
+            -- elseif atlas and atlas == "images/inventoryimages3.xml" then
+            --     atlas = "images/inventoryimages3.xml"
+            -- elseif atlas and atlas == "images/inventoryimages/hamletinventory.xml" then
+            --     atlas = "images/inventoryimages/hamletinventory.xml"
+    --     else
+    --         atlas = GetInventoryItemAtlas(texname)
+    --     end
+    -- end
 
         inst.AnimState:OverrideSymbol(slot, resolvefilepath(atlas), texname)
 

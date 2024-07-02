@@ -178,8 +178,10 @@ local function fn()
     local minimap = inst.entity:AddMiniMapEntity()
 	minimap:SetIcon( "armor_vortex_cloak.png" )	
 
-	if not TheWorld.ismastersim then	
-	    inst.OnEntityReplicated = function(inst) inst.replica.container:WidgetSetup("armorvortexcloak") end	
+	if not TheWorld.ismastersim then
+        if inst.replica.container then
+	        inst.OnEntityReplicated = function(inst) inst.replica.container:WidgetSetup("armorvortexcloak") end	
+        end	
 	    return inst
 	end
         
