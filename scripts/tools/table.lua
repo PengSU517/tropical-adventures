@@ -93,6 +93,18 @@ function tabel.common_indexes(tbl, vs)
     return commontbl
 end
 
+function tabel.count_components(tbl)
+    local lst = {}
+    for _, v in pairs(tbl) do
+        if not lst[v] then
+            lst[v] = 1
+        else
+            lst[v] = lst[v] + 1
+        end
+    end
+    return lst
+end
+
 function tabel.deep_merge(target, add_table, override)
     target = target or {}
 
