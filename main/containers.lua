@@ -7,18 +7,18 @@ local params = {}
 
 params.armorvortexcloak =
 {
-  widget =
-  {
-    slotpos = {},
-    animbank = "ui_krampusbag_2x5",
-    animbuild = "ui_krampusbag_2x5",
-	bgimage = nil,
-    bgatlas = nil,
-	pos = Vector3(-5, -60, 0),
-  },
-  issidewidget = true,
-  type = "pack",
-  openlimit = 1,
+    widget =
+    {
+        slotpos = {},
+        animbank = "ui_krampusbag_2x5",
+        animbuild = "ui_krampusbag_2x5",
+        bgimage = nil,
+        bgatlas = nil,
+        pos = Vector3(-5, -60, 0),
+    },
+    issidewidget = true,
+    type = "pack",
+    openlimit = 1,
 }
 for y = 0, 4 do
     for x = 0, 1 do
@@ -381,17 +381,18 @@ function params.corkchest.itemtestfn(container, item, slot)
 end
 
 function params.smelter.itemtestfn(container, item, slot)
-    if slot == 1 and (item:HasTag("iron") or item.prefab == "iron" or item.prefab == "goldnugget" or item.prefab == "gold_dust" or item.prefab == "flint" or item.prefab == "nitre" or item.prefab == "dubloon" or item.prefab == "obsidian" or item.prefab == "magnifying_glass" or item.prefab == "goldpan" or item.prefab == "ballpein_hammer" or item.prefab == "shears" or item.prefab == "candlehat") then
-        return true
-    elseif slot == 2 and (item:HasTag("iron") or item.prefab == "iron" or item.prefab == "goldnugget" or item.prefab == "gold_dust" or item.prefab == "flint" or item.prefab == "nitre" or item.prefab == "dubloon" or item.prefab == "obsidian" or item.prefab == "magnifying_glass" or item.prefab == "goldpan" or item.prefab == "ballpein_hammer" or item.prefab == "shears" or item.prefab == "candlehat") then
-        return true
-    elseif slot == 3 and (item:HasTag("iron") or item.prefab == "iron" or item.prefab == "goldnugget" or item.prefab == "gold_dust" or item.prefab == "flint" or item.prefab == "nitre" or item.prefab == "dubloon" or item.prefab == "obsidian" or item.prefab == "magnifying_glass" or item.prefab == "goldpan" or item.prefab == "ballpein_hammer" or item.prefab == "shears" or item.prefab == "candlehat") then
-        return true
-    elseif slot == 4 and (item:HasTag("iron") or item.prefab == "iron" or item.prefab == "goldnugget" or item.prefab == "gold_dust" or item.prefab == "flint" or item.prefab == "nitre" or item.prefab == "dubloon" or item.prefab == "obsidian" or item.prefab == "magnifying_glass" or item.prefab == "goldpan" or item.prefab == "ballpein_hammer" or item.prefab == "shears" or item.prefab == "candlehat") then
-        return true
-    else
-        return false
-    end
+    -- if slot == 1 and (item:HasTag("iron") or item.prefab == "iron" or item.prefab == "goldnugget" or item.prefab == "gold_dust" or item.prefab == "flint" or item.prefab == "nitre" or item.prefab == "dubloon" or item.prefab == "obsidian" or item.prefab == "magnifying_glass" or item.prefab == "goldpan" or item.prefab == "ballpein_hammer" or item.prefab == "shears" or item.prefab == "candlehat") then
+    --     return true
+    -- elseif slot == 2 and (item:HasTag("iron") or item.prefab == "iron" or item.prefab == "goldnugget" or item.prefab == "gold_dust" or item.prefab == "flint" or item.prefab == "nitre" or item.prefab == "dubloon" or item.prefab == "obsidian" or item.prefab == "magnifying_glass" or item.prefab == "goldpan" or item.prefab == "ballpein_hammer" or item.prefab == "shears" or item.prefab == "candlehat") then
+    --     return true
+    -- elseif slot == 3 and (item:HasTag("iron") or item.prefab == "iron" or item.prefab == "goldnugget" or item.prefab == "gold_dust" or item.prefab == "flint" or item.prefab == "nitre" or item.prefab == "dubloon" or item.prefab == "obsidian" or item.prefab == "magnifying_glass" or item.prefab == "goldpan" or item.prefab == "ballpein_hammer" or item.prefab == "shears" or item.prefab == "candlehat") then
+    --     return true
+    -- elseif slot == 4 and (item:HasTag("iron") or item.prefab == "iron" or item.prefab == "goldnugget" or item.prefab == "gold_dust" or item.prefab == "flint" or item.prefab == "nitre" or item.prefab == "dubloon" or item.prefab == "obsidian" or item.prefab == "magnifying_glass" or item.prefab == "goldpan" or item.prefab == "ballpein_hammer" or item.prefab == "shears" or item.prefab == "candlehat") then
+    --     return true
+    -- else
+    --     return false
+    -- end
+    return true
 end
 
 function params.cargoboat.itemtestfn(container, item, slot)
