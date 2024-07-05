@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.6.29.2"
+version = "2.7.5"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -23,6 +23,20 @@ QQ 群：469668062
 ]]
 
 local updateen = [[
+
+Version 2.7.5 Update:
+
+1. Fixed the animation display issue for otters.
+2. Updated the blast furnace recipe: two green, one red, and one purple gems can now be used to forge a Rainbow Gem;
+5*goldnugget + 2*dubblons + golddusts >=10 get a goldbar.
+
+
+Version 2.7.2 Update:
+
+1. Fixed the bug with the Whirlwind Cloak.
+2. Fixed the display issue with the shelf textures.
+3. Corrected the behavior of the Fishmen.
+4. Completely removed the Goldfish Plant.
 
 Update 2.6.29:
 
@@ -84,6 +98,20 @@ Including tropical fish, clownfish, grouper, neon fish, gearfish, goldfish, red 
 ]]
 
 local updatech = [[
+
+2.7.5 更新:
+
+1. 修正了水獭的动画显示问题
+2. 更新了炼钢炉配方，两绿一红一紫可炼制彩虹宝石，金块*5 + 金币*2 +金沙>10 则可炼制金条
+
+
+
+2.7.2 更新
+
+1. 修复旋涡斗篷的bug
+2. 修复置物架贴图显示的问题
+3. 修正了鱼人的行为
+4. 完全删除了金鱼草
 
 2.6.29 更新:
 
