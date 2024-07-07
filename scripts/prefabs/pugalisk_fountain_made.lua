@@ -5,6 +5,10 @@ local assets =
     Asset("ANIM", "anim/python_fountain.zip"),
 }
 
+local prefabs =
+{
+
+}
 
 
 local function onhammered(inst, worker)
@@ -89,6 +93,7 @@ local function fn()
 
     inst:AddTag("structure")
     inst:AddTag("pugalisk_fountain")
+    inst:AddTag("shadecanopysmall") --防止自然、过热和玻璃雨的标签
 
 
 
