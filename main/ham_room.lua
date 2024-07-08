@@ -577,7 +577,8 @@ require("entityscript")
 function EntityScript:IsInHamRoom()
     return TheWorld.Map:IsHamRoomAtPoint(self:GetPosition():Get()) --------------------似乎不太对
 end
---[[ 
+
+--[[
 --推入事件
 local _PushEvent = EntityScript.PushEvent
 function EntityScript:PushEvent(event, data)
@@ -734,7 +735,7 @@ end
 AddPlayerPostInit(function(inst)
     if not TheWorld.ismastersim then return end
     Utils.FnDecorator(inst.components.temperature, "OnUpdate", OnTemperatureUpdateBefore)
-    -- Utils.FnDecorator(inst.components.moisture, "OnUpdate", OnMoistureUpdateBefore)
+    Utils.FnDecorator(inst.components.moisture, "OnUpdate", OnMoistureUpdateBefore)
     Utils.FnDecorator(inst, "GetCurrentTileType", GetCurrentTileTypeBefore)
 end)
 
@@ -915,15 +916,15 @@ end)
 
 --潮湿度--干燥
 -- if TUNING.WATER_BM then
-AddComponentPostInit("moisture", function(self) --房子里面不会降雨
-    local old = self.GetMoistureRate
-    function self:GetMoistureRate()
-        if self.inst:IsInHamRoom() then
-            return 0
-        end
-        return old(self)
-    end
-end)
+-- AddComponentPostInit("moisture", function(self) --房子里面不会降雨
+--     local old = self.GetMoistureRate
+--     function self:GetMoistureRate()
+--         if self.inst:IsInHamRoom() then
+--             return 0
+--         end
+--         return old(self)
+--     end
+-- end)
 -- end
 
 
