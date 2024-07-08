@@ -11,7 +11,7 @@ local behaviours_post = {
 }
 
 local components_post = {
-    "aoespell",
+    -- "aoespell",
     "armor",
 
     -- "actionqueuer",
