@@ -3,7 +3,7 @@ local assets =
 	Asset("ANIM", "anim/armor_cactus.zip"),
 }
 
-local ARMORCACTUS = 34*3
+local ARMORCACTUS = 450
 local ARMORCACTUS_ABSORPTION = .8
 local ARMORCACTUS_DMG = 34/2
 
