@@ -1056,36 +1056,36 @@ AddAction(FERTILIZE)
 
 
 
-local FERTILIZECOFFEE = GLOBAL.Action({ priority = 1, distance = 2, mount_valid = true })
-FERTILIZECOFFEE.str = (GLOBAL.STRINGS.ACTIONS.FERTILIZE)
-FERTILIZECOFFEE.id = "FERTILIZECOFFEE"
-FERTILIZECOFFEE.fn = function(act)
-    if act.invobject ~= nil and act.invobject.components.fertilizecoffee ~= nil and act.target ~= nil and act.target:HasTag("cofeebush") then
-        if act.target ~= nil and not (act.doer ~= nil and act.doer.components.rider ~= nil and act.doer.components.rider:IsRiding()) then
-            if act.target.components.pickable ~= nil and act.target.components.pickable:CanBeFertilized() then
-                act.target.components.pickable:Fertilize(act.invobject, act.doer)
-                if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then
-                    nut = act.invobject.components.stackable:Get()
-                    nut:Remove()
-                else
-                    act.invobject:Remove()
-                end
-                -- print("check fertilized coffee aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-                TheWorld:PushEvent("CHEVO_fertilized", { target = act.target, doer = act.doer })
-                return true
-            end
-        end
-    end
-end
-AddAction(FERTILIZECOFFEE)
+-- local FERTILIZECOFFEE = GLOBAL.Action({ priority = 1, distance = 2, mount_valid = true })
+-- FERTILIZECOFFEE.str = (GLOBAL.STRINGS.ACTIONS.FERTILIZE)
+-- FERTILIZECOFFEE.id = "FERTILIZECOFFEE"
+-- FERTILIZECOFFEE.fn = function(act)
+--     if act.invobject ~= nil and act.invobject.components.fertilizecoffee ~= nil and act.target ~= nil and act.target:HasTag("cofeebush") then
+--         if act.target ~= nil and not (act.doer ~= nil and act.doer.components.rider ~= nil and act.doer.components.rider:IsRiding()) then
+--             if act.target.components.pickable ~= nil and act.target.components.pickable:CanBeFertilized() then
+--                 act.target.components.pickable:Fertilize(act.invobject, act.doer)
+--                 if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then
+--                     nut = act.invobject.components.stackable:Get()
+--                     nut:Remove()
+--                 else
+--                     act.invobject:Remove()
+--                 end
+--                 -- print("check fertilized coffee aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+--                 TheWorld:PushEvent("CHEVO_fertilized", { target = act.target, doer = act.doer })
+--                 return true
+--             end
+--         end
+--     end
+-- end
+-- AddAction(FERTILIZECOFFEE)
 
-AddComponentAction("USEITEM", "fertilizecoffee", function(inst, doer, target, actions, right)
-    if not right then
-        if not (doer.replica.rider ~= nil and doer.replica.rider:IsRiding()) and target:HasTag("barren") and target:HasTag("cofeebush") then
-            table.insert(actions, ACTIONS.FERTILIZECOFFEE)
-        end
-    end
-end)
+-- AddComponentAction("USEITEM", "fertilizecoffee", function(inst, doer, target, actions, right)
+--     if not right then
+--         if not (doer.replica.rider ~= nil and doer.replica.rider:IsRiding()) and target:HasTag("barren") and target:HasTag("cofeebush") then
+--             table.insert(actions, ACTIONS.FERTILIZECOFFEE)
+--         end
+--     end
+-- end)
 
 local function ExtraPickupRange(doer, dest)
     if dest ~= nil then
@@ -2463,8 +2463,8 @@ AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.
 AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.INVESTIGATEGLASS, "investigate_start"))
 AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.INVESTIGATEGLASS, "investigate_start"))
 
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.FERTILIZECOFFEE, "doshortaction"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.FERTILIZECOFFEE, "doshortaction"))
+-- AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.FERTILIZECOFFEE, "doshortaction"))
+-- AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.FERTILIZECOFFEE, "doshortaction"))
 
 AddStategraphActionHandler(
     "wilson",
