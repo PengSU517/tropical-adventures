@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.7.5"
+version = "2.7.9"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -24,151 +24,13 @@ QQ 群：469668062
 
 local updateen = [[
 
-Version 2.7.5 Update:
-
-1. Fixed the animation display issue for otters.
-2. Updated the blast furnace recipe: two green, one red, and one purple gems can now be used to forge a Rainbow Gem;
-5*goldnugget + 2*dubblons + golddusts >=10 get a goldbar.
-
-
-Version 2.7.2 Update:
-
-1. Fixed the bug with the Whirlwind Cloak.
-2. Fixed the display issue with the shelf textures.
-3. Corrected the behavior of the Fishmen.
-4. Completely removed the Goldfish Plant.
-
-Update 2.6.29:
-
-1. Fixed an issue with inaccurate plot center points.
-2. Fixed a crash issue when riding a bull inside buildings/caves.
-3. Fixed an error that occurred when equipping headgear (e.g., Ant-Man helmet) directly after crafting.
-4. Optimized terrain generation: now Terraria, marble statues, stages, junkyards, and similar terrains will (almost) always spawn in the starting area.
-
-Update 2.6.28:
-
-1. Fixed bugs related to the update
-2. update researchlab 3
-3. Added several new cook recipes.
-4. Updated the Bermuda Triangle (needs optimization).
-
-2.6.26 Updates:
-
-1. Fix flashing snowtiles
-2. fix windows and doors placement in room
-3. fix lunar hail in room
-
-2.6.25 Updates:
-
-1. Update fish herds in mangrove, lilypond and oceans.
-Including tropical fish, clownfish, grouper, neon fish, gearfish, goldfish, red fish, hatchfish, salmon, and more.
-
-
-2.6.24 Updates:
-
-1. adjust tiledef, compatible with architect pack
-
-2.6.23 Updates:
-
-1. fix overrided prefabs
-
-2.6.21 Update:
-
-	1. Changed the Ancient Herald's loot
-	2. Added item "Dark Tatters (Ancient Remnant)"
-	3. Reset the Vortex Cloak, now the Vortex Cloak properties are the same as the original Vortex Cloak
-	4. Vortex Cloak now has Shadow Magic Tier 2
-	5. When there is no item in Vortex Cloak's inventory slots, you can add the Vortex Cloak to the inventory
-	6. New equipment "Void Cloak" :
-		Craft at the Shadowcraft Plinth
-		Durability 855, Protection 100%, Planar Defense +10, 10% reduced damage taken from Shadow-aligned mobs
-		Shadow Magic Tier 3, Decreases Sanity by 10% of total damage taken,	Refueled with Nightmare fuels to restore durability
-		Restore full durability with the Void Repair Kit, Has 12 inventory slots
-	7. Adjusted the Damage of Shard Sword and Shard Beak
-	8. Date dependent version numbers are used later
-
-2.6.17 (7.10.5):
-
-    1. Fixed an issue where Tea Trees could not generate Orange Picoes correctly
-    2. Fixed an issue where Picoes would steal items such as backpacks and giant crops
-    3. Fixed an issue where the name of the Pig Queen "Queen Malfalfa" could not be displayed correctly
-    4. Fixed an issue where Mechanic Pigman would drop hammers
-	5. Temporarily removed the option to generate a new world with tropical ocean
+Nobody cares
 
 ]]
 
 local updatech = [[
 
-2.7.5 更新:
-
-1. 修正了水獭的动画显示问题
-2. 更新了炼钢炉配方，两绿一红一紫可炼制彩虹宝石，金块*5 + 金币*2 +金沙>10 则可炼制金条
-
-
-
-2.7.2 更新
-
-1. 修复旋涡斗篷的bug
-2. 修复置物架贴图显示的问题
-3. 修正了鱼人的行为
-4. 完全删除了金鱼草
-
-2.6.29 更新:
-
-1. 修复地皮中心点不准的问题
-2. 修复室内/洞穴骑牛崩档的问题
-3. 修复制作头部装备(蚁人头盔等)直接佩戴时会报错的问题
-4. 优化地形生成、现在泰拉瑞亚，大理石雕像、舞台、垃圾场等地形(几乎)都会刷新在出生点所在区域
-
-
-2.6.28 更新:
-
-1. 修复更新相关bug
-2. 更新了海难和哈姆的魔法一本
-3. 添加了新的食谱芋泥波波
-4. 更新了百慕大三角(需要优化)
-
-
-2.6.26 更新:
-
-1. 完全屏蔽了地面积雪，修复积雪闪屏问题
-2. 修复门窗的室内摆放问题
-3. 屏蔽室内玻璃雨
-
-2.6.25 更新:
-
-1. 更新了红树林、莲花池塘和海洋中的鱼群，包括热带鱼，小丑鱼、石斑鱼、霓虹鱼、发条鱼、金鱼、红鱼、哈奇鱼、鲑鱼等。
-
-2.6.24 更新:
-
-	1. 调整tiledef,兼容architect pack
-
-2.6.23 更新：
-
-    1. 修正了暴力覆盖的预制件
-
-2.6.21 更新：
-
-	1. 更改了远古先驱的掉落
-	2. 新增物品“暗影碎布（先驱碎布）”
-	3. 重置了漩涡斗篷，现在漩涡斗篷属性与原版漩涡斗篷一致
-	4. 漩涡斗篷现在具有2级暗影魔法等级
-	5. 漩涡斗篷内没有物品时，可以将漩涡斗篷收入物品栏
-	6. 新增装备“虚空斗篷”：
-		在暗影术基座处制作
-	    耐久855，物理防御 100%，位面防御 +10，暗影阵营物理伤害减免 10%
-	    暗影魔法 等级3，受击扣除10%所承受伤害的san值，使用噩梦燃料类燃料恢复耐久
-		使用虚空修补套件恢复全部耐久，有12个格子
-	7. 调整了碎裂剑和碎裂喙的伤害值
-	8. 往后采用日期相关的版本号
-
-2.6.17 (7.10.5)：
-
-    1. 修复了茶树不能正确生成橙色异食松鼠的问题
-	2. 修复了异食松鼠会偷背包、巨大作物等物件的问题
-	3. 修复了猪女王“玛法拉法女王”名称不能正确显示的问题
-	4. 修复了建筑猪人会掉落锤子的问题
-	5. 暂时去除了新建地图生成热带风格海洋的选项
+反正没人看这里
 
 ]]
 
