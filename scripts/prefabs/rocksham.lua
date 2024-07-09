@@ -47,13 +47,13 @@ local prefabs =
 
 SetSharedLootTable('rock1',
 	{
-		{ 'rocks',      1.00 },
-		{ 'rocks',      1.00 },
-		{ 'rocks',      1.00 },
-		{ 'nitre',      1.00 },
-		{ 'flint',      1.00 },
-		{ 'nitre',      0.25 },
-		{ 'flint',      0.60 },
+		{ 'rocks', 1.00 },
+		{ 'rocks', 1.00 },
+		{ 'rocks', 1.00 },
+		{ 'nitre', 1.00 },
+		{ 'flint', 1.00 },
+		{ 'nitre', 0.25 },
+		{ 'flint', 0.60 },
 		-- { 'goldnugget', 1.00 }, ---------
 	})
 
@@ -71,66 +71,66 @@ SetSharedLootTable('rock2',
 
 SetSharedLootTable('rock_flintless',
 	{
-		{ 'rocks',      1.0 },
-		{ 'rocks',      1.0 },
-		{ 'rocks',      1.0 },
-		{ 'rocks',      1.0 },
-		{ 'rocks',      0.6 },
+		{ 'rocks', 1.0 },
+		{ 'rocks', 1.0 },
+		{ 'rocks', 1.0 },
+		{ 'rocks', 1.0 },
+		{ 'rocks', 0.6 },
 		-- { 'goldnugget', 1.00 }, ----------------
 	})
 
 SetSharedLootTable('rock_flintless_med',
 	{
-		{ 'rocks',      1.0 },
-		{ 'rocks',      1.0 },
-		{ 'rocks',      1.0 },
-		{ 'rocks',      0.4 },
+		{ 'rocks', 1.0 },
+		{ 'rocks', 1.0 },
+		{ 'rocks', 1.0 },
+		{ 'rocks', 0.4 },
 		-- { 'goldnugget', 1.00 }, ------------------
 	})
 
 
 SetSharedLootTable('rock_flintless_low',
 	{
-		{ 'rocks',      1.0 },
-		{ 'rocks',      1.0 },
-		{ 'rocks',      0.2 },
+		{ 'rocks', 1.0 },
+		{ 'rocks', 1.0 },
+		{ 'rocks', 0.2 },
 		-- { 'goldnugget', 0.5 }, -----------------
 	})
 
 SetSharedLootTable('ruins_artichoke',
 	{
-		{ 'rocks',      1.0 },
-		{ 'rocks',      1.0 },
-		{ 'nitre',      0.25 },
-		{ 'nitre',      0.25 },
-		{ 'flint',      0.60 },
-		{ 'flint',      0.60 },
-		{ 'gold_dust',  0.60 },
+		{ 'rocks',     1.0 },
+		{ 'rocks',     1.0 },
+		{ 'nitre',     0.25 },
+		{ 'nitre',     0.25 },
+		{ 'flint',     0.60 },
+		{ 'flint',     0.60 },
+		{ 'gold_dust', 0.60 },
 		-- { 'goldnugget', 1.00 }, -----------------
 	})
 
 SetSharedLootTable('ruins_pig',
 	{
-		{ 'rocks',      1.0 },
-		{ 'rocks',      1.0 },
-		{ 'nitre',      0.25 },
-		{ 'flint',      0.60 },
-		{ 'gold_dust',  0.60 },
-		{ 'ghost',      0.2 },
+		{ 'rocks',     1.0 },
+		{ 'rocks',     1.0 },
+		{ 'nitre',     0.25 },
+		{ 'flint',     0.60 },
+		{ 'gold_dust', 0.60 },
+		{ 'ghost',     0.2 },
 		-- { 'goldnugget', 1.00 }, --------------
 	})
 
 SetSharedLootTable('ruins_gianthead',
 	{
-		{ 'gold_dust',  0.2 },
-		{ 'gold_dust',  0.2 },
-		{ 'rocks',      1.0 },
-		{ 'rocks',      1.0 },
-		{ 'nitre',      0.25 },
-		{ 'nitre',      0.25 },
-		{ 'flint',      0.60 },
-		{ 'flint',      0.60 },
-		{ 'ghost',      0.2 },
+		{ 'gold_dust', 0.2 },
+		{ 'gold_dust', 0.2 },
+		{ 'rocks',     1.0 },
+		{ 'rocks',     1.0 },
+		{ 'nitre',     0.25 },
+		{ 'nitre',     0.25 },
+		{ 'flint',     0.60 },
+		{ 'flint',     0.60 },
+		{ 'ghost',     0.2 },
 		-- { 'goldnugget', 1.00 }, ------------
 		-- { 'goldnugget', 1.00 }, ---------
 	})
@@ -172,7 +172,7 @@ SetSharedLootTable('antqueen_throne',
 
 
 local function triggerdarts(inst)
-	print("TRIGGER DARTS!")
+	--print("TRIGGER DARTS!")
 	local pt = Vector3(inst.Transform:GetWorldPosition())
 	local ents = TheSim:FindEntities(pt.x, pt.y, pt.z, 50, { "dartthrower" }, { "INTERIOR_LIMBO" })
 	for i, ent in ipairs(ents) do
@@ -189,7 +189,7 @@ local function setdislodged(inst)
 end
 
 local function ondislodged(inst)
-	print("ondislodged????????????????")
+	--print("ondislodged????????????????")
 	if inst:HasTag("trggerdarttraps") then
 		triggerdarts(inst)
 	end
@@ -325,7 +325,7 @@ local function pig_ruins_head()
 		return inst
 	end
 
-	print("initialize????????????????")
+	----print("initialize????????????????")
 
 	inst:AddComponent("lootdropper")
 
@@ -341,7 +341,7 @@ local function pig_ruins_head()
 					triggerdarts(inst)
 				end
 
-				print("START????????????????")
+				----print("START????????????????")
 
 				inst.SoundEmitter:PlaySound("dontstarve/wilson/rock_break")
 				inst.components.lootdropper:DropLoot(pt)
@@ -378,7 +378,7 @@ local function pig_ruins_head()
 		if inst.components.workable and inst.components.workable.workleft < TUNING.ROCKS_MINE * (2 / 3) then
 			return false
 		end
-		print("tested????????????????")
+		--print("tested????????????????")
 		return true
 	end
 
