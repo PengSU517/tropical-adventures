@@ -10,18 +10,18 @@ AddCreatureScanDataDefinition("pangolden", "movespeed2", 1)
 AddCreatureScanDataDefinition("wildbore", "movespeed2", 1)
 
 AddCreatureScanDataDefinition("butterfly_tropical", "maxsanity1", 1)
-AddCreatureScanDataDefinition("glowfly", "maxsanity1", 1)
+-- AddCreatureScanDataDefinition("glowfly", "maxsanity1", 1)
 
 AddCreatureScanDataDefinition("ancient_herald", "maxsanity", 6)
 
 AddCreatureScanDataDefinition("crocodog", "maxhunger1", 2)
 AddCreatureScanDataDefinition("pog", "maxhunger1", 2)
 
-AddCreatureScanDataDefinition("tigershark", "maxhunger", 6)
+AddCreatureScanDataDefinition("tigershark", "maxhunger_sw", 6)
 AddCreatureScanDataDefinition("spider_monkey", "maxhunger", 3)
 
 AddCreatureScanDataDefinition("glowfly", "light", 1)
--- AddCreatureScanDataDefinition("bioluminescenc", "light", 1)
+-- AddCreatureScanDataDefinition("bioluminescence", "light", 1)
 
 AddCreatureScanDataDefinition("dragoon", "heat", 2)
 AddCreatureScanDataDefinition("scorpion", "heat", 1)
@@ -39,4 +39,4 @@ AddCreatureScanDataDefinition("whale_blue", "music", 4)
 AddCreatureScanDataDefinition("whale_white", "music", 8)
 
 -- AddCreatureScanDataDefinition("jellyfish_planted", "taser", 1)
-AddCreatureScanDataDefinition("thunderbird", "taser", 2)
+AddCreatureScanDataDefinition("thunderbird", "taser_ham", 2)
