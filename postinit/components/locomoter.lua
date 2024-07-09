@@ -20,7 +20,7 @@ local sail_bonus = {
     ironwind = 1.5,
     woodlegssail = 1.01,
     trawlnet = 0.8,
-    malbatrossail = 2,
+    malbatrossail = 1.5,
     -- more entries here
 }
 
@@ -28,51 +28,7 @@ local heavybonus = 0.35
 local driftspeed = 2
 
 local function getspeedbonus(inst)
-    local equipamentos = 1
-
-    if 1 == 1 then
-        local body = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
-        local head = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
-        local hands = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-        if head and head.prefab == "aerodynamichat" then equipamentos = equipamentos + 0.25 end
-        if head and head.prefab == "icehat" then equipamentos = equipamentos - 0.10 end
-        if head and head.prefab == "metalplatehat" then equipamentos = equipamentos - 0.20 end
-        if hands and hands.prefab == "cane" then equipamentos = equipamentos + 0.25 end
-        if hands and hands.prefab == "ruins_bat" then equipamentos = equipamentos + 0.10 end
-        if hands and hands.prefab == "walkingstick" then equipamentos = equipamentos + 0.30 end
-        if body and body.prefab == "piggyback" then equipamentos = equipamentos - 0.20 end
-        if body and body.prefab == "armorlimestone" then equipamentos = equipamentos - 0.10 end
-        if body and body.prefab == "yellowamulet" then equipamentos = equipamentos + 0.20 end
-        if body and body.prefab == "armor_metalplate" then equipamentos = equipamentos - 0.20 end
-    end
-
-
-
-
-
-    local wind_speed = 1
-    local vento = GLOBAL.GetClosestInstWithTag("vento", inst, 10)
-    if vento then
-        local wind = vento.Transform:GetRotation() + 180
-        local windangle = inst.Transform:GetRotation() - wind
-        local windproofness = 1.0
-        local velocidadedovento = 1.5
-
-        if inst.replica.inventory then
-            local corpo = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
-            local cabeca = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
-            if cabeca and cabeca.prefab == "aerodynamichat" then
-                windproofness = 0.5
-            end
-            if corpo and corpo.prefab == "armor_windbreaker" then
-                windproofness = 0
-            end
-        end
-        local windfactor = 0.4 * windproofness * velocidadedovento * math.cos(windangle * GLOBAL.DEGREES) + 1.0
-        wind_speed = math.max(0.1, windfactor)
-    end
-
-    local val = 1 * wind_speed * equipamentos
+    local val = 1
     if inst.replica.inventory then
         local item = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
         if item then
@@ -80,9 +36,9 @@ local function getspeedbonus(inst)
             if item.replica.container then
                 local sail = item.replica.container:GetItemInSlot(1)
                 local sailbonus = sail and sail_bonus[sail.prefab] or 1
-                val = bonus * sailbonus * wind_speed * equipamentos
+                val = bonus * sailbonus
             else
-                val = bonus * wind_speed * equipamentos
+                val = bonus
             end
         end
         if inst.replica.inventory:IsHeavyLifting() then
@@ -95,7 +51,7 @@ local function getspeedbonus(inst)
             end
         end
     end
-    return val
+    return math.min(val, 1.8)
 end
 
 --------------------这里控制水上的速度-------------------------
@@ -103,15 +59,15 @@ end
 AddComponentPostInit("locomotor", function(self)
     local OldGetSpeedMultiplier = self.GetSpeedMultiplier
     function self:GetSpeedMultiplier()
-        return (self.inst:HasTag("aquatic") and self.inst:HasTag("player")) and getspeedbonus(self.inst) or
-            OldGetSpeedMultiplier(self)
+        if (self.inst and self.inst:HasTag("aquatic") and self.inst:HasTag("player")) then
+            return getspeedbonus(self.inst) * OldGetSpeedMultiplier(self)
+        end
+        return OldGetSpeedMultiplier(self)
     end
 
     local OldUpdate = self.OnUpdate
     function self:OnUpdate(dt)
         OldUpdate(self, dt)
-        local math = GLOBAL.math
-
         if self.inst:HasTag("aquatic") and self.inst:HasTag("player") and self.inst.replica.inventory
             and self.inst.replica.inventory:IsHeavyLifting() and not self.driftangle then
             local item = self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
