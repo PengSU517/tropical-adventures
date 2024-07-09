@@ -101,8 +101,8 @@ modimport("postinit/entityscript") ----修改entity相关
 modimport("main/postinit")
 -- modimport("postinit/components/playerspawner")
 -- modimport("postinit/components/wavemanager")
-modimport("postinit/components/aoespell")
-modimport("postinit/components/armor")
+-- modimport("postinit/components/aoespell")
+-- modimport("postinit/components/armor")
 
 
 

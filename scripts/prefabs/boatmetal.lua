@@ -28,7 +28,7 @@ local prefabs =
     "walkingplank",
 }
 
-local sounds ={
+local sounds = {
     place = "turnoftides/common/together/boat/place",
     creak = "turnoftides/common/together/boat/creak",
     damage = "turnoftides/common/together/boat/damage",
@@ -42,6 +42,9 @@ local item_prefabs =
 {
     "boatmetal",
 }
+
+local BOAT_COLLISION_SEGMENT_COUNT = 20
+
 
 local BOATBUMPER_MUST_TAGS = { "boatbumper" }
 local BOATCANNON_MUST_TAGS = { "boatcannon" }
@@ -80,13 +83,12 @@ end
 
 local function speed(inst)
     if not inst.startpos then
-
         inst.startpos = Vector3(inst.Transform:GetWorldPosition())
         inst.starttime = GetTime()
         inst.speedtask = inst:DoPeriodicTask(FRAMES, function()
             local pt = Vector3(inst.Transform:GetWorldPosition())
-            local dif = distsq(pt.x,pt.z,inst.startpos.x,inst.startpos.z)
-            print("DIST",dif,GetTime() - inst.starttime)
+            local dif = distsq(pt.x, pt.z, inst.startpos.x, inst.startpos.z)
+            print("DIST", dif, GetTime() - inst.starttime)
         end)
     else
         inst.startpos = nil
@@ -96,33 +98,33 @@ local function speed(inst)
     end
 end
 
-local function OnRepaired(inst)    
+local function OnRepaired(inst)
     --inst.SoundEmitter:PlaySound("dontstarve/creatures/together/fossil/repair")
 end
 
 local function OnSpawnNewBoatLeak(inst, data)
-	if data ~= nil and data.pt ~= nil then
-		local leak = SpawnPrefab("boat_leak")
-		leak.Transform:SetPosition(data.pt:Get())
-		leak.components.boatleak.isdynamic = true
-		leak.components.boatleak:SetBoat(inst)
-		leak.components.boatleak:SetState(data.leak_size)
+    if data ~= nil and data.pt ~= nil then
+        local leak = SpawnPrefab("boat_leak")
+        leak.Transform:SetPosition(data.pt:Get())
+        leak.components.boatleak.isdynamic = true
+        leak.components.boatleak:SetBoat(inst)
+        leak.components.boatleak:SetState(data.leak_size)
 
-		table.insert(inst.components.hullhealth.leak_indicators_dynamic, leak)
+        table.insert(inst.components.hullhealth.leak_indicators_dynamic, leak)
 
-		if inst.components.walkableplatform ~= nil then
+        if inst.components.walkableplatform ~= nil then
             inst.components.walkableplatform:AddEntityToPlatform(leak)
             for k in pairs(inst.components.walkableplatform:GetPlayersOnPlatform()) do
-	            if k:IsValid() then
-	                k:PushEvent("on_standing_on_new_leak")
-	            end
+                if k:IsValid() then
+                    k:PushEvent("on_standing_on_new_leak")
+                end
             end
-		end
+        end
 
-		if data.playsoundfx then
-			inst.SoundEmitter:PlaySoundWithParams("turnoftides/common/together/boat/damage", { intensity = 0.8 })
-		end
-	end
+        if data.playsoundfx then
+            inst.SoundEmitter:PlaySoundWithParams("turnoftides/common/together/boat/damage", { intensity = 0.8 })
+        end
+    end
 end
 
 local function RemoveConstrainedPhysicsObj(physics_obj)
@@ -133,60 +135,59 @@ local function RemoveConstrainedPhysicsObj(physics_obj)
 end
 
 local function AddConstrainedPhysicsObj(boat, physics_obj)
-	physics_obj:ListenForEvent("onremove", function() RemoveConstrainedPhysicsObj(physics_obj) end, boat)
+    physics_obj:ListenForEvent("onremove", function() RemoveConstrainedPhysicsObj(physics_obj) end, boat)
 
     physics_obj:DoTaskInTime(0, function()
-		if boat:IsValid() then
-			physics_obj.Transform:SetPosition(boat.Transform:GetWorldPosition())
-   			physics_obj.Physics:ConstrainTo(boat.entity)
-		end
-	end)
+        if boat:IsValid() then
+            physics_obj.Transform:SetPosition(boat.Transform:GetWorldPosition())
+            physics_obj.Physics:ConstrainTo(boat.entity)
+        end
+    end)
 end
 
 local function on_start_steering(inst)
     if ThePlayer and ThePlayer.components.playercontroller ~= nil and ThePlayer.components.playercontroller.isclientcontrollerattached then
-        inst.components.reticule:CreateReticule()    
+        inst.components.reticule:CreateReticule()
     end
 end
 
-local function on_stop_steering(inst)    
+local function on_stop_steering(inst)
     if ThePlayer and ThePlayer.components.playercontroller ~= nil and ThePlayer.components.playercontroller.isclientcontrollerattached then
         inst.lastreticuleangle = nil
-        inst.components.reticule:DestroyReticule()        
+        inst.components.reticule:DestroyReticule()
     end
 end
 
 local function ReticuleTargetFn(inst)
-
     local range = 7
-    local pos = Vector3(inst.Transform:GetWorldPosition())   
+    local pos = Vector3(inst.Transform:GetWorldPosition())
 
     local dir = Vector3()
     dir.x = TheInput:GetAnalogControlValue(CONTROL_MOVE_RIGHT) - TheInput:GetAnalogControlValue(CONTROL_MOVE_LEFT)
     dir.y = 0
     dir.z = TheInput:GetAnalogControlValue(CONTROL_MOVE_UP) - TheInput:GetAnalogControlValue(CONTROL_MOVE_DOWN)
-    local deadzone = .3    
+    local deadzone = .3
 
-    if math.abs(dir.x) >= deadzone or math.abs(dir.z) >= deadzone then    
-        dir = dir:GetNormalized()             
+    if math.abs(dir.x) >= deadzone or math.abs(dir.z) >= deadzone then
+        dir = dir:GetNormalized()
 
         inst.lastreticuleangle = dir
     else
         if inst.lastreticuleangle then
             dir = inst.lastreticuleangle
-        else 
+        else
             return nil
         end
     end
 
-    local Camangle = TheCamera:GetHeading()/180        
-    local theta = -PI *(0.5 - Camangle)
+    local Camangle = TheCamera:GetHeading() / 180
+    local theta = -PI * (0.5 - Camangle)
 
-    local newx = dir.x * math.cos(theta) - dir.z *math.sin(theta)
-    local newz = dir.x * math.sin(theta) + dir.z *math.cos(theta)
+    local newx = dir.x * math.cos(theta) - dir.z * math.sin(theta)
+    local newz = dir.x * math.sin(theta) + dir.z * math.cos(theta)
 
-    pos.x = pos.x - (newx * range) 
-    pos.z = pos.z - (newz * range) 
+    pos.x = pos.x - (newx * range)
+    pos.z = pos.z - (newz * range)
 
     return pos
 end
@@ -245,6 +246,62 @@ local function SpawnFragment(lp, prefix, offset_x, offset_y, offset_z, ignite)
     return fragment
 end
 
+local function InstantlyBreakBoat(inst)
+    -- This is not for SGboat but is for safety on physics.
+    if inst.components.boatphysics then
+        inst.components.boatphysics:SetHalting(true)
+    end
+    --Keep this in sync with SGboat.
+    for entity_on_platform in pairs(inst.components.walkableplatform:GetEntitiesOnPlatform()) do
+        entity_on_platform:PushEvent("abandon_ship")
+    end
+    for player_on_platform in pairs(inst.components.walkableplatform:GetPlayersOnPlatform()) do
+        player_on_platform:PushEvent("onpresink")
+    end
+    inst:sinkloot()
+    if inst.postsinkfn then
+        inst:postsinkfn()
+    end
+    inst:Remove()
+end
+
+local function GetSafePhysicsRadius(inst)
+    return (inst.components.hull ~= nil and inst.components.hull:GetRadius() or TUNING.BOAT.RADIUS) +
+        0.18 -- Add a small offset for item overhangs.
+end
+
+local function IsBoatEdgeOverLand(inst, override_position_pt)
+    local map = TheWorld.Map
+    local radius = inst:GetSafePhysicsRadius()
+    local segment_count = BOAT_COLLISION_SEGMENT_COUNT * 2
+    local segment_span = TWOPI / segment_count
+    local x, y, z
+    if override_position_pt then
+        x, y, z = override_position_pt:Get()
+    else
+        x, y, z = inst.Transform:GetWorldPosition()
+    end
+    for segement_idx = 0, segment_count do
+        local angle = segement_idx * segment_span
+
+        local angle0 = angle - segment_span / 2
+        local x0 = math.cos(angle0) * radius
+        local z0 = math.sin(angle0) * radius
+        if not map:IsOceanTileAtPoint(x + x0, 0, z + z0) or map:IsVisualGroundAtPoint(x + x0, 0, z + z0) then
+            return true
+        end
+
+        local angle1 = angle + segment_span / 2
+        local x1 = math.cos(angle1) * radius
+        local z1 = math.sin(angle1) * radius
+        if not map:IsOceanTileAtPoint(x + x1, 0, z + z1) or map:IsVisualGroundAtPoint(x + x1, 0, z + z1) then
+            return true
+        end
+    end
+
+    return false
+end
+
 local function fn()
     local inst = CreateEntity()
 
@@ -256,92 +313,94 @@ local function fn()
     inst.entity:AddNetwork()
 
     inst:AddTag("ignorewalkableplatforms")
-	inst:AddTag("antlion_sinkhole_blocker")	
-	inst:AddTag("boat")	
-	inst.sounds = sounds
-	inst.walksound = "wood"
-	
-	inst:ListenForEvent("spawnnewboatleak", OnSpawnNewBoatLeak)
+    inst:AddTag("antlion_sinkhole_blocker")
+    inst:AddTag("boat")
+    inst.sounds = sounds
+    inst.walksound = "wood"
+
+    inst:ListenForEvent("spawnnewboatleak", OnSpawnNewBoatLeak)
     inst.boat_crackle = "fx_boat_crackle"
 
     inst.sinkloot = function()
-            local ignitefragments = inst.activefires > 0
-            local locus_point = Vector3(inst.Transform:GetWorldPosition())
-            local num_loot = 3
-            for i = 1, num_loot do
-                local r = math.sqrt(math.random())*(TUNING.BOAT.RADIUS-2) + 1.5
-                local t = i * PI2/num_loot + math.random() * (PI2/(num_loot * .5))
-                SpawnFragment(locus_point, "alloy",  math.cos(t) * r,  0, math.sin(t) * r, ignitefragments)
-            end
+        local ignitefragments = inst.activefires > 0
+        local locus_point = Vector3(inst.Transform:GetWorldPosition())
+        local num_loot = 3
+        for i = 1, num_loot do
+            local r = math.sqrt(math.random()) * (TUNING.BOAT.RADIUS - 2) + 1.5
+            local t = i * PI2 / num_loot + math.random() * (PI2 / (num_loot * .5))
+            SpawnFragment(locus_point, "alloy", math.cos(t) * r, 0, math.sin(t) * r, ignitefragments)
         end
+    end
 
     inst.postsinkfn = function()
-            local fx_boat_crackle = SpawnPrefab("fx_boat_pop")
-            fx_boat_crackle.Transform:SetPosition(inst.Transform:GetWorldPosition())
-            inst.SoundEmitter:PlaySoundWithParams(inst.sounds.damage, {intensity= 1})
-            inst.SoundEmitter:PlaySoundWithParams(inst.sounds.sink)
-        end	
+        local fx_boat_crackle = SpawnPrefab("fx_boat_pop")
+        fx_boat_crackle.Transform:SetPosition(inst.Transform:GetWorldPosition())
+        inst.SoundEmitter:PlaySoundWithParams(inst.sounds.damage, { intensity = 1 })
+        inst.SoundEmitter:PlaySoundWithParams(inst.sounds.sink)
+    end
 
     local radius = 4
-    local max_health = TUNING.BOAT.HEALTH  + 1000
+    local max_health = TUNING.BOAT.HEALTH + 1000
 
     local phys = inst.entity:AddPhysics()
-    phys:SetMass(TUNING.BOAT.MASS*4)
+    phys:SetMass(TUNING.BOAT.MASS * 4)
     phys:SetFriction(0)
-    phys:SetDamping(5)    
+    phys:SetDamping(5)
     phys:SetCollisionGroup(COLLISION.OBSTACLES)
     phys:ClearCollisionMask()
-    phys:CollidesWith(COLLISION.WORLD)    
-    phys:CollidesWith(COLLISION.OBSTACLES)   
-    phys:SetCylinder(radius, 3) 
+    phys:CollidesWith(COLLISION.WORLD)
+    phys:CollidesWith(COLLISION.OBSTACLES)
+    phys:SetCylinder(radius, 3)
 
     inst.AnimState:SetBank("boat_01")
     inst.AnimState:SetBuild("boat_iron")
     inst.AnimState:SetSortOrder(ANIM_SORT_ORDER.OCEAN_BOAT)
-	inst.AnimState:SetFinalOffset(1)
+    inst.AnimState:SetFinalOffset(1)
     inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
     inst.AnimState:SetLayer(LAYER_BACKGROUND)
 
     inst:AddComponent("walkableplatform")
     inst.components.walkableplatform.radius = radius
-    inst.components.walkableplatform.player_collision_prefab = "boat_player_collision"	
+    inst.components.walkableplatform.player_collision_prefab = "boat_player_collision"
 
     inst:AddComponent("healthsyncer")
     inst.components.healthsyncer.max_health = max_health
 
     inst:AddComponent("waterphysics")
-    inst.components.waterphysics.restitution = 0.75    
+    inst.components.waterphysics.restitution = 0.75
 
     inst:AddComponent("reticule")
     inst.components.reticule.targetfn = ReticuleTargetFn
     inst.components.reticule.ispassableatallpoints = true
     inst.on_start_steering = on_start_steering
     inst.on_stop_steering = on_stop_steering
-	
-    inst.doplatformcamerazoom = net_bool(inst.GUID, "doplatformcamerazoom", "doplatformcamerazoomdirty")	
 
-	if not TheNet:IsDedicated() then
-        inst:ListenForEvent("endsteeringreticule", function(inst,data)  if ThePlayer and ThePlayer == data.player then inst:on_stop_steering() end end)
-        inst:ListenForEvent("starsteeringreticule", function(inst,data) if ThePlayer and ThePlayer == data.player then inst:on_start_steering() end end)
+    inst.doplatformcamerazoom = net_bool(inst.GUID, "doplatformcamerazoom", "doplatformcamerazoomdirty")
+
+    if not TheNet:IsDedicated() then
+        inst:ListenForEvent("endsteeringreticule",
+            function(inst, data) if ThePlayer and ThePlayer == data.player then inst:on_stop_steering() end end)
+        inst:ListenForEvent("starsteeringreticule",
+            function(inst, data) if ThePlayer and ThePlayer == data.player then inst:on_start_steering() end end)
 
         inst:AddComponent("boattrail")
-	end
-	
+    end
+
     inst:AddComponent("boatringdata")
     inst.components.boatringdata:SetRadius(radius)
-    inst.components.boatringdata:SetNumSegments(8)	
+    inst.components.boatringdata:SetNumSegments(8)
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
-	
+
     inst.Physics:SetDontRemoveOnSleep(true)
     EnableBoatItemCollision(inst)
 
     inst.entity:AddPhysicsWaker() --server only component
-    inst.PhysicsWaker:SetTimeBetweenWakeTests(TUNING.BOAT.WAKE_TEST_TIME)	
+    inst.PhysicsWaker:SetTimeBetweenWakeTests(TUNING.BOAT.WAKE_TEST_TIME)
 
     inst:AddComponent("hull")
     inst.components.hull:SetRadius(radius)
@@ -360,15 +419,15 @@ local function fn()
     inst:AddComponent("boatphysics")
     inst:AddComponent("boatdrifter")
     inst:AddComponent("savedrotation")
-	
-    inst:AddComponent("boatring")	
-	
+
+    inst:AddComponent("boatring")
+
     inst:AddComponent("health")
     inst.components.health:SetMaxHealth(max_health)
     inst.components.health.nofadeout = true
-	
-	inst.activefires = 0
---[[
+
+    inst.activefires = 0
+    --[[
 	local burnable_locator = SpawnPrefab('burnable_locator_medium')
 	burnable_locator.boat = inst
 	inst.components.hull:AttachEntityToBoat(burnable_locator, 0, 0, true)
@@ -388,20 +447,23 @@ local function fn()
 	burnable_locator = SpawnPrefab('burnable_locator_medium')
 	burnable_locator.boat = inst
 	inst.components.hull:AttachEntityToBoat(burnable_locator, 0, -2.5, true)
-]]	
+]]
     inst:SetStateGraph("SGboat")
 
-	inst:ListenForEvent("spawnnewboatleak", OnSpawnNewBoatLeak)
+    inst:ListenForEvent("spawnnewboatleak", OnSpawnNewBoatLeak)
 
     inst.StopBoatPhysics = StopBoatPhysics
     inst.StartBoatPhysics = StartBoatPhysics
 
     inst.OnPhysicsWake = OnPhysicsWake
     inst.OnPhysicsSleep = OnPhysicsSleep
-	
+
     inst.speed = speed
 
-    inst.OnLoadPostPass = OnLoadPostPass	
+    inst.InstantlyBreakBoat = InstantlyBreakBoat
+    inst.GetSafePhysicsRadius = GetSafePhysicsRadius
+    inst.IsBoatEdgeOverLand = IsBoatEdgeOverLand
+    inst.OnLoadPostPass = OnLoadPostPass
 
     return inst
 end
@@ -415,7 +477,6 @@ local function build_boat_collision_mesh(radius, height)
     local y1 = height
 
     for segement_idx = 0, segment_count do
-
         local angle = segement_idx * segment_span
         local angle0 = angle - segment_span / 2
         local angle1 = angle + segment_span / 2
@@ -425,7 +486,7 @@ local function build_boat_collision_mesh(radius, height)
 
         local x1 = math.cos(angle1) * radius
         local z1 = math.sin(angle1) * radius
-        
+
         table.insert(triangles, x0)
         table.insert(triangles, y0)
         table.insert(triangles, z0)
@@ -451,7 +512,7 @@ local function build_boat_collision_mesh(radius, height)
         table.insert(triangles, z1)
     end
 
-	return triangles
+    return triangles
 end
 
 local PLAYER_COLLISION_MESH = build_boat_collision_mesh(4.1, 3)
@@ -473,18 +534,18 @@ local function boat_player_collision_fn()
     phys:ClearCollisionMask()
     phys:CollidesWith(COLLISION.CHARACTERS)
     phys:CollidesWith(COLLISION.WORLD)
-    phys:SetTriangleMesh(PLAYER_COLLISION_MESH)    
+    phys:SetTriangleMesh(PLAYER_COLLISION_MESH)
 
     inst:AddTag("NOBLOCK")
     inst:AddTag("NOCLICK")
-	
+
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
 
-	inst.persists = false
+    inst.persists = false
 
     return inst
 end
@@ -534,8 +595,8 @@ local function ondeploy(inst, pt, deployer)
         boat.Physics:SetCollides(true)
 
         boat.sg:GoToState("place")
-		
-		boat.components.hull:OnDeployed()
+
+        boat.components.hull:OnDeployed()
 
         inst:Remove()
     end
@@ -549,7 +610,7 @@ local function item_fn()
     inst.entity:AddNetwork()
 
     inst:AddTag("boatbuilder")
-	inst:AddTag("usedeployspacingasoffset")
+    inst:AddTag("usedeployspacingasoffset")
 
     MakeInventoryPhysics(inst)
 
@@ -572,21 +633,21 @@ local function item_fn()
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
 
---    MakeLargeBurnable(inst)
---    MakeLargePropagator(inst)
+    --    MakeLargeBurnable(inst)
+    --    MakeLargePropagator(inst)
     MakeHauntableLaunch(inst)
 
     return inst
 end
 
 return Prefab("boatmetal", fn, assets, prefabs),
---       Prefab("boat_player_collision", boat_player_collision_fn),
---       Prefab("boat_item_collision", boat_item_collision_fn),
-       Prefab("boatmetal_item", item_fn, item_assets, item_prefabs),
-       MakePlacer("boatmetal_item_placer", "boat_01", "boat_iron", "idle_full", true)
+    --       Prefab("boat_player_collision", boat_player_collision_fn),
+    --       Prefab("boat_item_collision", boat_item_collision_fn),
+    Prefab("boatmetal_item", item_fn, item_assets, item_prefabs),
+    MakePlacer("boatmetal_item_placer", "boat_01", "boat_iron", "idle_full", true)

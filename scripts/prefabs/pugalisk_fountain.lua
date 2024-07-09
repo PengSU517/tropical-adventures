@@ -94,8 +94,10 @@ local function fn(Sim)
     anim:PlayAnimation("flow_loop", true)
     inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/pugalisk/fountain_LP", "burble")
 
+
     inst:AddTag("pugalisk_fountain")
     inst:AddTag("pugalisk_avoids")
+    inst:AddTag("shadecanopysmall") --防止自然、过热和玻璃雨的标签
 
     MakeObstaclePhysics(inst, 2)
 
