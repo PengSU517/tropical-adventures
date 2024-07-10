@@ -1,6 +1,7 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 
-
+require("tools/simutil")
+-- print("modmain loaded" .. type(env))
 
 
 modimport("scripts/tuning")

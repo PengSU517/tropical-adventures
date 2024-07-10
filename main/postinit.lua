@@ -119,6 +119,7 @@ local components_post = {
 
 local prefabs_post = {
 
+    "image_minisign",
     "gears",
     "warningshadow",
     -- "allow_impassable_item",
