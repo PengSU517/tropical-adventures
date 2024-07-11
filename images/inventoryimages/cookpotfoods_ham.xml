@@ -2,20 +2,20 @@
 <Atlas>
     <Texture filename="cookpotfoods_ham.tex"/>
     <Elements>
-        <Element name="bubbletea.tex" u1="0.000488281" u2="0.249512" v1="0.750488" v2="0.999512"/>
-        <Element name="feijoada.tex" u1="0.000488281" u2="0.249512" v1="0.500488" v2="0.749512"/>
-        <Element name="frenchonionsoup.tex" u1="0.000488281" u2="0.249512" v1="0.250488" v2="0.499512"/>
-        <Element name="gummy_cake.tex" u1="0.000488281" u2="0.249512" v1="0.000488281" v2="0.249512"/>
-        <Element name="hardshell_tacos.tex" u1="0.250488" u2="0.499512" v1="0.750488" v2="0.999512"/>
-        <Element name="icedtea.tex" u1="0.500488" u2="0.749512" v1="0.750488" v2="0.999512"/>
-        <Element name="lotuschips.tex" u1="0.750488" u2="0.999512" v1="0.750488" v2="0.999512"/>
-        <Element name="meated_nettle.tex" u1="0.250488" u2="0.499512" v1="0.500488" v2="0.749512"/>
-        <Element name="nettlelosange.tex" u1="0.250488" u2="0.499512" v1="0.250488" v2="0.499512"/>
-        <Element name="poi.tex" u1="0.250488" u2="0.499512" v1="0.000488281" v2="0.249512"/>
-        <Element name="slaw.tex" u1="0.500488" u2="0.749512" v1="0.500488" v2="0.749512"/>
-        <Element name="snakebonesoup.tex" u1="0.750488" u2="0.999512" v1="0.500488" v2="0.749512"/>
-        <Element name="steamedhamsandwich.tex" u1="0.500488" u2="0.749512" v1="0.250488" v2="0.499512"/>
-        <Element name="tea.tex" u1="0.500488" u2="0.749512" v1="0.000488281" v2="0.249512"/>
+        <Element name="bubbletea.tex" u1="0.00195313" u2="0.244141" v1="0.755859" v2="0.998047"/>
+        <Element name="feijoada.tex" u1="0.740234" u2="0.978516" v1="0.759766" v2="0.998047"/>
+        <Element name="frenchonionsoup.tex" u1="0.00195313" u2="0.244141" v1="0.509766" v2="0.751953"/>
+        <Element name="gummy_cake.tex" u1="0.740234" u2="0.978516" v1="0.517578" v2="0.755859"/>
+        <Element name="hardshell_tacos.tex" u1="0.248047" u2="0.486328" v1="0.513672" v2="0.751953"/>
+        <Element name="icedtea.tex" u1="0.490234" u2="0.728516" v1="0.513672" v2="0.751953"/>
+        <Element name="lotuschips.tex" u1="0.00195313" u2="0.244141" v1="0.263672" v2="0.505859"/>
+        <Element name="meated_nettle.tex" u1="0.00195313" u2="0.244141" v1="0.0175781" v2="0.259766"/>
+        <Element name="nettlelosange.tex" u1="0.732422" u2="0.970703" v1="0.275391" v2="0.513672"/>
+        <Element name="poi.tex" u1="0.248047" u2="0.490234" v1="0.755859" v2="0.998047"/>
+        <Element name="slaw.tex" u1="0.494141" u2="0.736328" v1="0.755859" v2="0.998047"/>
+        <Element name="snakebonesoup.tex" u1="0.248047" u2="0.486328" v1="0.0332031" v2="0.271484"/>
+        <Element name="steamedhamsandwich.tex" u1="0.490234" u2="0.728516" v1="0.271484" v2="0.509766"/>
+        <Element name="tea.tex" u1="0.490234" u2="0.728516" v1="0.0292969" v2="0.267578"/>
     </Elements>
     <StraightAlpha>false</StraightAlpha>
 </Atlas>

@@ -2,18 +2,18 @@
 <Atlas>
     <Texture filename="cookpotfoods_sw.tex"/>
     <Elements>
-        <Element name="bisque.tex" u1="0.000488281" u2="0.249512" v1="0.750488" v2="0.999512"/>
-        <Element name="butterflymuffin_sw.tex" u1="0.000488281" u2="0.249512" v1="0.500488" v2="0.749512"/>
-        <Element name="californiaroll_sw.tex" u1="0.000488281" u2="0.249512" v1="0.250488" v2="0.499512"/>
-        <Element name="caviar.tex" u1="0.000488281" u2="0.249512" v1="0.000488281" v2="0.249512"/>
-        <Element name="coffee.tex" u1="0.250488" u2="0.499512" v1="0.750488" v2="0.999512"/>
-        <Element name="jellyopop.tex" u1="0.500488" u2="0.749512" v1="0.750488" v2="0.999512"/>
-        <Element name="lobsterbisque_sw.tex" u1="0.750488" u2="0.999512" v1="0.750488" v2="0.999512"/>
-        <Element name="lobsterdinner_sw.tex" u1="0.250488" u2="0.499512" v1="0.500488" v2="0.749512"/>
-        <Element name="musselbouillabaise.tex" u1="0.250488" u2="0.499512" v1="0.250488" v2="0.499512"/>
-        <Element name="sharkfinsoup.tex" u1="0.250488" u2="0.499512" v1="0.000488281" v2="0.249512"/>
-        <Element name="sweetpotatosouffle.tex" u1="0.500488" u2="0.749512" v1="0.500488" v2="0.749512"/>
-        <Element name="tropicalbouillabaisse.tex" u1="0.750488" u2="0.999512" v1="0.500488" v2="0.749512"/>
+        <Element name="bisque.tex" u1="0.248047" u2="0.486328" v1="0.759766" v2="0.998047"/>
+        <Element name="butterflymuffin_sw.tex" u1="0.490234" u2="0.728516" v1="0.759766" v2="0.998047"/>
+        <Element name="californiaroll_sw.tex" u1="0.00195313" u2="0.244141" v1="0.755859" v2="0.998047"/>
+        <Element name="caviar.tex" u1="0.732422" u2="0.970703" v1="0.759766" v2="0.998047"/>
+        <Element name="coffee.tex" u1="0.248047" u2="0.486328" v1="0.517578" v2="0.755859"/>
+        <Element name="jellyopop.tex" u1="0.490234" u2="0.728516" v1="0.517578" v2="0.755859"/>
+        <Element name="lobsterbisque_sw.tex" u1="0.00195313" u2="0.244141" v1="0.509766" v2="0.751953"/>
+        <Element name="lobsterdinner_sw.tex" u1="0.00195313" u2="0.244141" v1="0.263672" v2="0.505859"/>
+        <Element name="musselbouillabaise.tex" u1="0.732422" u2="0.970703" v1="0.517578" v2="0.755859"/>
+        <Element name="sharkfinsoup.tex" u1="0.248047" u2="0.486328" v1="0.275391" v2="0.513672"/>
+        <Element name="sweetpotatosouffle.tex" u1="0.248047" u2="0.486328" v1="0.0332031" v2="0.271484"/>
+        <Element name="tropicalbouillabaisse.tex" u1="0.00195313" u2="0.244141" v1="0.0175781" v2="0.259766"/>
     </Elements>
     <StraightAlpha>false</StraightAlpha>
 </Atlas>
