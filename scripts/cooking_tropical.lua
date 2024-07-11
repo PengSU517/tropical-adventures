@@ -1,6 +1,6 @@
 -- 物品栏贴图路径
-local inventoryitems_atlas_sw = "images/inventoryimages/cookpotfoods_sw.xml"
-local inventoryitems_atlas_ham = "images/inventoryimages/cookpotfoods_ham.xml"
+-- local inventoryitems_atlas_sw = resolvefilepath("images/inventoryimages/cookpotfoods_sw.xml")
+-- local inventoryitems_atlas_ham = resolvefilepath("images/inventoryimages/cookpotfoods_ham.xml")
 
 -- 修改原版配方，贴图不同的保留
 local foods = require("preparedfoods")
@@ -13,7 +13,7 @@ foods.lobsterdinner.test = function(cooker, names, tags) return (names.wobster_s
 local foods_sw = require("preparedfoods_sw")
 for k, v in pairs (foods_sw) do
     if v.mod and v.mod == true then
-        RegisterInventoryItemAtlas(inventoryitems_atlas_sw, v.name..".tex")
+        -- RegisterInventoryItemAtlas(inventoryitems_atlas_sw, v.name..".tex")
     end
     if v.isMasterfood == nil then -- 不是大厨料理才加入到烹饪锅
         AddCookerRecipe("cookpot", v)
@@ -28,7 +28,7 @@ end
 local foods_ham = require("preparedfoods_ham")
 for k, v in pairs (foods_ham) do
     if v.mod and v.mod == true then
-        RegisterInventoryItemAtlas(inventoryitems_atlas_ham, v.name..".tex")
+        -- RegisterInventoryItemAtlas(inventoryitems_atlas_ham, v.name..".tex")
     end
     if v.isMasterfood == nil then
         AddCookerRecipe("cookpot", v)

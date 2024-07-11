@@ -1,7 +1,7 @@
 -- 贴图与动画
 local overridebuild_ham = "cook_pot_food_ham"
 local cookbook_atlas_ham = "images/cookbook/cookbook_ham.xml"
-local inventoryitems_atlas_ham = "images/inventoryimages/cookpotfoods_ham.xml"
+local inventoryitems_atlas_ham = resolvefilepath("images/inventoryimages/cookpotfoods_ham.xml")
 
 
 -- 食谱

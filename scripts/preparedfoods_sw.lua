@@ -1,7 +1,7 @@
 -- 贴图与动画
 local overridebuild_sw = "cook_pot_food_sw" -- 动画
 local cookbook_atlas_sw = "images/cookbook/cookbook_sw.xml" -- 物品栏贴图路径
-local inventoryitems_atlas_sw = "images/inventoryimages/cookpotfoods_sw.xml" -- 物品栏贴图路径
+local inventoryitems_atlas_sw = resolvefilepath("images/inventoryimages/cookpotfoods_sw.xml") -- 物品栏贴图路径
 
 -- 食谱
 local foods_sw = {

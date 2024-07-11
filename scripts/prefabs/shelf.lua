@@ -9,6 +9,8 @@ local assets =
     Asset("ATLAS_BUILD", "images/inventoryimages3.xml", 256),
     Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
     Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),
+    Asset("ATLAS_BUILD", "images/inventoryimages/cookpotfoods_ham.xml", 256),
+    Asset("ATLAS_BUILD", "images/inventoryimages/cookpotfoods_sw.xml", 256),
     Asset("ATLAS_BUILD", "images/inventoryimages/gw_bonestaff.xml", 256),
     Asset("ATLAS_BUILD", "images/inventoryimages/pig_figure.xml", 256),
 
@@ -82,7 +84,9 @@ local function SetImage(inst, ent, slot)
     local image = nil
 
     if src ~= nil and src.components.inventoryitem ~= nil then
-        image = #(ent.components.inventoryitem.imagename or "") > 0 and
+        image = ent.inv_image_bg and
+            ent.inv_image_bg.image:sub(1, -5) or
+            #(ent.components.inventoryitem.imagename or "") > 0 and
             ent.components.inventoryitem.imagename or
             ent.prefab
     end
@@ -115,7 +119,6 @@ local function SetImage(inst, ent, slot)
     --         atlas = GetInventoryItemAtlas(texname)
     --     end
     -- end
-
         inst.AnimState:OverrideSymbol(slot, resolvefilepath(atlas), texname)
 
         --print(slot)
