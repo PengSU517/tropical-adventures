@@ -66,7 +66,7 @@ local function MakePreparedFood(data)
 
         inst.AnimState:PlayAnimation("idle")
         inst.AnimState:OverrideSymbol("swap_food", data.overridebuild or "cook_pot_food", data.basename or data.name)
-        inst.scrapbook_overridedata = { "swap_food", data.overridebuild or "cook_pot_food", data.basename or data.name }
+        -- inst.scrapbook_overridedata = {"swap_food", data.overridebuild or "cook_pot_food", data.basename or data.name}
 
         inst:AddTag("preparedfood")
 
@@ -118,11 +118,11 @@ local function MakePreparedFood(data)
             inst:ListenForEvent("onputininventory", data.OnPutInInventory)
         end
 
+        inst.components.inventoryitem.imagename = data.basename
         if spicename ~= nil then
             print("SPICEDFOOD", spicename, data.basename, data.atlasname)
             inst.components.inventoryitem:ChangeImageName(spicename .. "_over")
         elseif data.basename ~= nil then
-            -- inst.components.inventoryitem.imagename = data.basename
             inst.components.inventoryitem.atlasname = data.atlasname
             inst.components.inventoryitem:ChangeImageName(data.basename)
         end

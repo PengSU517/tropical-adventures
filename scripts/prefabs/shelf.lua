@@ -9,8 +9,8 @@ local assets =
     Asset("ATLAS_BUILD", "images/inventoryimages3.xml", 256),
     Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
     Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages/cookpotfoods_sw.xml", 256),
     Asset("ATLAS_BUILD", "images/inventoryimages/cookpotfoods_ham.xml", 256),
+    Asset("ATLAS_BUILD", "images/inventoryimages/cookpotfoods_sw.xml", 256),
     Asset("ATLAS_BUILD", "images/inventoryimages/gw_bonestaff.xml", 256),
     Asset("ATLAS_BUILD", "images/inventoryimages/pig_figure.xml", 256),
 
@@ -101,24 +101,24 @@ local function SetImage(inst, ent, slot)
         --print(ent)
         --fazer para o prefab minising
         atlas = ent.caminho or GetInventoryItemAtlas(texname)
-        -- if ent.caminho then
-        --     atlas = ent.caminho
-        -- elseif atlas then
-        --     if atlas == "images/inventoryimages1.xml" or atlas == "images/inventoryimages2.xml" or atlas ==
-        --         "images/inventoryimages3.xml" or atlas == "images/inventoryimages/hamletinventory.xml"
-        --         or atlas == "images/inventoryimages/cookpotfoods_sw.xml" or atlas == "images/inventoryimages/cookpotfoods_ham.xml" then
-        -- elseif atlas and atlas == "images/inventoryimages1.xml" then
-        --     atlas = "images/inventoryimages1.xml"
-        -- elseif atlas and atlas == "images/inventoryimages2.xml" then
-        --     atlas = "images/inventoryimages2.xml"
-        -- elseif atlas and atlas == "images/inventoryimages3.xml" then
-        --     atlas = "images/inventoryimages3.xml"
-        -- elseif atlas and atlas == "images/inventoryimages/hamletinventory.xml" then
-        --     atlas = "images/inventoryimages/hamletinventory.xml"
-        --     else
-        --         atlas = GetInventoryItemAtlas(texname)
-        --     end
-        -- end
+    -- if ent.caminho then
+    --     atlas = ent.caminho
+    -- elseif atlas then
+    --     if atlas == "images/inventoryimages1.xml" or atlas == "images/inventoryimages2.xml" or atlas ==
+    --         "images/inventoryimages3.xml" or atlas == "images/inventoryimages/hamletinventory.xml" 
+    --         or atlas == "images/inventoryimages/cookpotfoods_sw.xml" or atlas == "images/inventoryimages/cookpotfoods_ham.xml" then
+            -- elseif atlas and atlas == "images/inventoryimages1.xml" then
+            --     atlas = "images/inventoryimages1.xml"
+            -- elseif atlas and atlas == "images/inventoryimages2.xml" then
+            --     atlas = "images/inventoryimages2.xml"
+            -- elseif atlas and atlas == "images/inventoryimages3.xml" then
+            --     atlas = "images/inventoryimages3.xml"
+            -- elseif atlas and atlas == "images/inventoryimages/hamletinventory.xml" then
+            --     atlas = "images/inventoryimages/hamletinventory.xml"
+    --     else
+    --         atlas = GetInventoryItemAtlas(texname)
+    --     end
+    -- end
         inst.AnimState:OverrideSymbol(slot, resolvefilepath(atlas), texname)
 
         --print(slot)
