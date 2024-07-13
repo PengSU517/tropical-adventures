@@ -425,6 +425,7 @@ if troadj.testmode then
                 -- table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
                 -- table.insert(level.tasks, "Edge_of_the_unknown")
                 table.insert(level.tasks, "Pigcity2")
+                table.insert(level.tasks, "BeachMarshy") --纯随机 沙滩和沼泽
                 -- table.insert(level.tasks, "HamArchiveMaze")
                 level.numoptionaltasks = 0
 

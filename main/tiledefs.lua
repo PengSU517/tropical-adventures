@@ -434,7 +434,7 @@ local tro_tiledefs = {
             flashpoint_modifier = 0,
             flooring = false,
             -- hard = true,
-            cannotbedug = true,
+            -- cannotbedug = true,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -498,7 +498,7 @@ local tro_tiledefs = {
     MEADOW = {
         tile_range       = TileRanges.SW_LAND,
         tile_data        = {
-            ground_name = "Beach",
+            ground_name = "Meadow",
             old_static_id = 33,
         },
         ground_tile_def  = {
@@ -554,8 +554,8 @@ local tro_tiledefs = {
             runsound = "dontstarve/movement/ia_run_sand",
             walksound = "dontstarve/movement/ia_walk_sand",
             flashpoint_modifier = 0,
-            bank_build = "turf_ia",
-            cannotbedug = true,
+            -- bank_build = "turf_ia",
+            -- cannotbedug = true, ----------------------------原来是这个吗
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -1094,9 +1094,9 @@ ChangeTileRenderOrder(WORLD_TILES.FOUNDATION, WORLD_TILES.WOODFLOOR, true)
 -- ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.OCEAN_COASTAL, false)
 -- ChangeTileRenderOrder(WORLD_TILES.OCEAN_COASTAL, WORLD_TILES.OCEAN_COASTAL, false)---这种海洋地皮不可能在陆地地皮上面
 
-ChangeTileRenderOrder(WORLD_TILES.LILYPOND, WORLD_TILES.MONKEY_DOCK, false)
-ChangeTileRenderOrder(WORLD_TILES.OCEAN_CORAL, WORLD_TILES.MONKEY_DOCK, false)
-ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.MONKEY_DOCK, false)
+ChangeTileRenderOrder(WORLD_TILES.LILYPOND, WORLD_TILES.DESERT_DIRT, false)
+ChangeTileRenderOrder(WORLD_TILES.OCEAN_CORAL, WORLD_TILES.DESERT_DIRT, false)
+ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.DESERT_DIRT, false)
 -- ChangeTileRenderOrder(WORLD_TILES.OCEAN_COASTAL, WORLD_TILES.CARPET2, true)---这种海洋地皮不可能在陆地地皮上面
 ChangeTileRenderOrder(WORLD_TILES.OCEAN_SHALLOW, WORLD_TILES.MONKEY_DOCK, false)
 ChangeTileRenderOrder(WORLD_TILES.OCEAN_SHALLOW_SHORE, WORLD_TILES.MONKEY_DOCK, false)
