@@ -983,6 +983,10 @@ Assets =
 	Asset("ANIM", "anim/swap_land_fork.zip"),
 
 
+	---------------minisign------------------
+	Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),
+
 
 	------------------从architectpack添加
 	-- Asset("IMAGE", "images/inventoryimages/tap_buildingimages.tex"),
