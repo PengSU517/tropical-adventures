@@ -101,24 +101,24 @@ local function SetImage(inst, ent, slot)
         --print(ent)
         --fazer para o prefab minising
         atlas = ent.caminho or GetInventoryItemAtlas(texname)
-    -- if ent.caminho then
-    --     atlas = ent.caminho
-    -- elseif atlas then
-    --     if atlas == "images/inventoryimages1.xml" or atlas == "images/inventoryimages2.xml" or atlas ==
-    --         "images/inventoryimages3.xml" or atlas == "images/inventoryimages/hamletinventory.xml" 
-    --         or atlas == "images/inventoryimages/cookpotfoods_sw.xml" or atlas == "images/inventoryimages/cookpotfoods_ham.xml" then
-            -- elseif atlas and atlas == "images/inventoryimages1.xml" then
-            --     atlas = "images/inventoryimages1.xml"
-            -- elseif atlas and atlas == "images/inventoryimages2.xml" then
-            --     atlas = "images/inventoryimages2.xml"
-            -- elseif atlas and atlas == "images/inventoryimages3.xml" then
-            --     atlas = "images/inventoryimages3.xml"
-            -- elseif atlas and atlas == "images/inventoryimages/hamletinventory.xml" then
-            --     atlas = "images/inventoryimages/hamletinventory.xml"
-    --     else
-    --         atlas = GetInventoryItemAtlas(texname)
-    --     end
-    -- end
+        -- if ent.caminho then
+        --     atlas = ent.caminho
+        -- elseif atlas then
+        --     if atlas == "images/inventoryimages1.xml" or atlas == "images/inventoryimages2.xml" or atlas ==
+        --         "images/inventoryimages3.xml" or atlas == "images/inventoryimages/hamletinventory.xml"
+        --         or atlas == "images/inventoryimages/cookpotfoods_sw.xml" or atlas == "images/inventoryimages/cookpotfoods_ham.xml" then
+        -- elseif atlas and atlas == "images/inventoryimages1.xml" then
+        --     atlas = "images/inventoryimages1.xml"
+        -- elseif atlas and atlas == "images/inventoryimages2.xml" then
+        --     atlas = "images/inventoryimages2.xml"
+        -- elseif atlas and atlas == "images/inventoryimages3.xml" then
+        --     atlas = "images/inventoryimages3.xml"
+        -- elseif atlas and atlas == "images/inventoryimages/hamletinventory.xml" then
+        --     atlas = "images/inventoryimages/hamletinventory.xml"
+        --     else
+        --         atlas = GetInventoryItemAtlas(texname)
+        --     end
+        -- end
         inst.AnimState:OverrideSymbol(slot, resolvefilepath(atlas), texname)
 
         --print(slot)
@@ -300,7 +300,7 @@ local function common(setsize, swp_img_list, locked, physics_round)
     inst.entity:AddPhysics()
 
     -- if physics_round then
-    MakeObstaclePhysics(inst, .5)
+    MakeObstaclePhysics(inst, .25)
     -- else
     --        MakeInteriorPhysics(inst, 1.6, 1, 0.2)
     -- MakeInventoryPhysics(inst, 1.6, 1, 0.2)
@@ -720,7 +720,7 @@ local function ruins()
     inst.entity:AddSoundEmitter()
     inst.entity:AddPhysics()
 
-    MakeObstaclePhysics(inst, .5)
+    MakeObstaclePhysics(inst, .25)
 
     --    inst.AnimState:SetOrientation(ANIM_ORIENTATION.RotatingBillboard)
     inst.Transform:SetTwoFaced()
@@ -796,7 +796,7 @@ local function bonestaff()
     inst.entity:AddSoundEmitter()
     inst.entity:AddPhysics()
 
-    MakeObstaclePhysics(inst, .5)
+    MakeObstaclePhysics(inst, .25)
 
     inst.Transform:SetTwoFaced()
 
@@ -870,7 +870,7 @@ local function bossboar()
     inst.entity:AddSoundEmitter()
     inst.entity:AddPhysics()
 
-    MakeObstaclePhysics(inst, .5)
+    MakeObstaclePhysics(inst, .25)
 
     inst.Transform:SetTwoFaced()
 
