@@ -302,6 +302,7 @@ local function IsBoatEdgeOverLand(inst, override_position_pt)
     return false
 end
 
+
 local function fn()
     local inst = CreateEntity()
 
@@ -309,7 +310,7 @@ local function fn()
     inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
-    inst.MiniMapEntity:SetIcon("boat.png")
+    inst.MiniMapEntity:SetIcon("boat_iron.png")
     inst.entity:AddNetwork()
 
     inst:AddTag("ignorewalkableplatforms")
@@ -318,7 +319,7 @@ local function fn()
     inst.sounds = sounds
     inst.walksound = "wood"
 
-    inst:ListenForEvent("spawnnewboatleak", OnSpawnNewBoatLeak)
+    --inst:ListenForEvent("spawnnewboatleak", OnSpawnNewBoatLeak)
     inst.boat_crackle = "fx_boat_crackle"
 
     inst.sinkloot = function()
@@ -416,6 +417,8 @@ local function fn()
     inst.components.repairable.onrepaired = OnRepaired
 
     inst:AddComponent("hullhealth")
+    inst.components.hullhealth.leakproof = true
+
     inst:AddComponent("boatphysics")
     inst:AddComponent("boatdrifter")
     inst:AddComponent("savedrotation")
@@ -450,7 +453,7 @@ local function fn()
 ]]
     inst:SetStateGraph("SGboat")
 
-    inst:ListenForEvent("spawnnewboatleak", OnSpawnNewBoatLeak)
+    --inst:ListenForEvent("spawnnewboatleak", OnSpawnNewBoatLeak)
 
     inst.StopBoatPhysics = StopBoatPhysics
     inst.StartBoatPhysics = StartBoatPhysics
@@ -636,8 +639,8 @@ local function item_fn()
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
-    inst:AddComponent("fuel")
-    inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
+    --inst:AddComponent("fuel")
+    --inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
 
     --    MakeLargeBurnable(inst)
     --    MakeLargePropagator(inst)
