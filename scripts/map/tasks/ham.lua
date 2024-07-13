@@ -1,3 +1,55 @@
+-------------add tags
+local forest_rooms = {
+    [1] = "BG_rainforest_base",
+    [2] = "BG_deeprainforest_base"
+}
+
+local plains_rooms = {
+    [1] = "BG_plains_base"
+}
+
+local rock_rooms = {
+    [1] = "BG_painted_base"
+}
+
+local field_rooms = {
+    [1] = "BG_cultivated_base"
+}
+
+
+for i, room in ipairs(forest_rooms) do
+    AddRoomPreInit(room, function(room)
+        table.insert(room.tags, "Terrarium_Spawner")
+        table.insert(room.tags, "StatueHarp_HedgeSpawner")
+    end)
+end
+
+for i, room in ipairs(plains_rooms) do
+    AddRoomPreInit(room, function(room)
+        table.insert(room.tags, "CharlieStage_Spawner")
+    end)
+end
+
+for i, room in ipairs(rock_rooms) do
+    AddRoomPreInit(room, function(room)
+        table.insert(room.tags, "Junkyard_Spawner")
+    end)
+end
+
+for i, room in ipairs(field_rooms) do
+    AddRoomPreInit(room, function(room)
+        table.insert(room.tags, "StagehandGarden")
+    end)
+end
+
+
+
+
+
+
+
+
+
 AddTask("Pincale", {
     locks = { LOCKS.ROCKS },
     -- keys_given = { KEYS.TRINKETS, KEYS.STONE, KEYS.WOOD, KEYS.TIER1 },
