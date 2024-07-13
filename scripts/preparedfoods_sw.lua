@@ -17,7 +17,7 @@ local foods_sw = {
         perishtime = TUNING.PERISH_MED,
         sanity = TUNING.SANITY_TINY,
         cooktime = 1,
-        card_def = {ingredients = {{"limpets", 3}, {"ice", 1}} },
+        card_def = { ingredients = { { "limpets", 3 }, { "ice", 1 } } },
     },
 
     butterflymuffin_sw = {
@@ -32,7 +32,7 @@ local foods_sw = {
         perishtime = TUNING.PERISH_SLOW,
         sanity = TUNING.SANITY_TINY,
         cooktime = 2,
-        card_def = {ingredients = {{"butterfly_tropical_wings", 1}, {"carrot", 2}, {"twigs", 1}} },
+        card_def = { ingredients = { { "butterfly_tropical_wings", 1 }, { "carrot", 2 }, { "twigs", 1 } } },
     },
 
     -- californiaroll_sw = {
@@ -65,14 +65,14 @@ local foods_sw = {
         perishtime = TUNING.PERISH_MED,
         sanity = TUNING.SANITY_LARGE,
         cooktime = 2,
-        card_def = {ingredients = {{"roe", 3}, {"carrot", 1}} },
+        card_def = { ingredients = { { "roe", 3 }, { "carrot", 1 } } },
     },
 
     coffee = {
         test = function(cooker, names, tags)
             return names.coffeebeans_cooked and
-                       (names.coffeebeans_cooked == 4 or
-                           (names.coffeebeans_cooked == 3 and (tags.dairy or tags.sweetener)))
+                (names.coffeebeans_cooked == 4 or
+                    (names.coffeebeans_cooked == 3 and (tags.dairy or tags.sweetener)))
         end,
         priority = 30,
         weight = 1,
@@ -96,7 +96,7 @@ local foods_sw = {
                 eater.components.locomotor:SetExternalSpeedMultiplier(eater, debuffkey, 11 / 6)
             end
         end,
-        card_def = {ingredients = {{"coffeebeans_cooked", 4}} },
+        card_def = { ingredients = { { "coffeebeans_cooked", 4 } } },
     },
 
     jellyopop = {
@@ -113,7 +113,7 @@ local foods_sw = {
         temperature = -40,
         temperatureduration = 10,
         cooktime = 0.5,
-        card_def = {ingredients = {{"jellyfish", 1}, {"ice", 1}, {"twigs", 2}} },
+        card_def = { ingredients = { { "jellyfish", 1 }, { "ice", 1 }, { "twigs", 2 } } },
     },
 
     -- lobsterbisque_sw = {
@@ -166,7 +166,7 @@ local foods_sw = {
         perishtime = TUNING.PERISH_MED,
         sanity = TUNING.SANITY_MED,
         cooktime = 2,
-        tags = {"masterfood"},
+        tags = { "masterfood" },
         -- card_def = {ingredients = {{"mussel", 2}, {"carrot", 2}} }, -- Runar: 大厨也读不出专属食谱卡
         isMasterfood = true -- Runar:热带大厨料理标记
     },
@@ -184,7 +184,7 @@ local foods_sw = {
         sanity = -TUNING.SANITY_SMALL,
         -- naughtiness = 10, -- 失效 -- Runar: 让我想起了某个处心积虑的营销，遂放弃还原这个效果
         cooktime = 1,
-        card_def = {ingredients = {{"shark_fin", 1}, {"ice", 2}, {"twigs", 1}} },
+        card_def = { ingredients = { { "shark_fin", 1 }, { "ice", 2 }, { "twigs", 1 } } },
     },
 
     sweetpotatosouffle = {
@@ -199,7 +199,7 @@ local foods_sw = {
         perishtime = TUNING.PERISH_MED,
         sanity = TUNING.SANITY_MED,
         cooktime = 2,
-        tags = {"masterfood"},
+        tags = { "masterfood" },
         -- card_def = {ingredients = {{"sweet_potato", 2}, {"bird_egg", 2}} },
         isMasterfood = true,
     },
@@ -207,7 +207,7 @@ local foods_sw = {
     tropicalbouillabaisse = {
         test = function(cooker, names, tags)
             return (names.fish3 or names.fish3_cooked) and (names.fish4 or names.fish4_cooked) and
-                       (names.fish5 or names.fish5_cooked) and tags.veggie
+                (names.fish5 or names.fish5_cooked) and tags.veggie
         end,
         priority = 35,
         weight = 1,
@@ -219,7 +219,7 @@ local foods_sw = {
         cooktime = 2,
         oneatenfn = function(inst, eater)
             eater:AddDebuff("buff_moistureimmunity", "buff_moistureimmunity") --免疫潮湿
-            if eater and eater.components.temperature then --瞬时降温（不确定sw是不是这个逻辑）
+            if eater and eater.components.temperature then                    --瞬时降温（不确定sw是不是这个逻辑）
                 local current_temp = eater.components.temperature:GetCurrent()
                 local new_temp = math.max(current_temp - 8, TUNING.STARTING_TEMP)
                 eater.components.temperature:SetTemperature(new_temp)
@@ -237,7 +237,7 @@ local foods_sw = {
                 eater.components.locomotor:SetExternalSpeedMultiplier(eater, debuffkey, 1.5)
             end
         end,
-        card_def = {ingredients = {{"fish3", 1}, {"fish4", 1}, {"fish5", 1}, {"carrot", 1}} },
+        card_def = { ingredients = { { "fish3", 1 }, { "fish4", 1 }, { "fish5", 1 }, { "carrot", 1 } } },
     },
 
 }
@@ -248,7 +248,7 @@ for k, v in pairs(foods_sw) do
     v.weight = v.weight or 1
     v.priority = v.priority or 0
     v.overridebuild = overridebuild_sw
-    v.floater = v.floater or {"small", 0.05, 0.7}
+    v.floater = v.floater or { "small", 0.05, 0.7 }
     v.mod = true
     -- v.cookbook_tex = k..".tex" --独立贴图用这个
     v.cookbook_atlas = cookbook_atlas_sw
