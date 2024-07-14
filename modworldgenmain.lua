@@ -365,7 +365,7 @@ if true then
 
             level.ocean_prefill_setpieces["MonkeyIsland"] = 1
             level.ocean_prefill_setpieces["HermitcrabIsland"] = 1
-            level.ocean_prefill_setpieces["CrabKing"] = 1
+            -- level.ocean_prefill_setpieces["CrabKing"] = 1
 
             tabel.insert_components(level.ocean_population, {
                 "OceanBrinepool",
@@ -379,8 +379,8 @@ if true then
     end)
 
     AddRoomPreInit("OceanSwell", function(room)
-        room.required_prefabs = {}
-        room.contents.countstaticlayouts = {} ---- delete ["CrabKing"] = 1
+        -- room.required_prefabs = {}
+        -- room.contents.countstaticlayouts = {} ---- delete ["CrabKing"] = 1
     end)
 end
 
