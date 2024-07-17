@@ -778,8 +778,7 @@ AddPrefabPostInit("spidereggsack", function(inst)
 end)
 
 local monster = { "hound", "firehound", "icehound", "moonhound", "mutatedhound", "warg",
-    "warglet", "lunarthrall_plant", "vampirebat", "crawlinghorror", "terrorbeak", "gestalt", "moonglass",
-    "moonglass_charged", "warningshadow" }
+    "warglet", "lunarthrall_plant", "vampirebat", "crawlinghorror", "terrorbeak", "gestalt", "warningshadow" }
 for i, v in ipairs(monster) do --
     AddPrefabPostInit(v, function(inst)
         if TheWorld.ismastersim then
