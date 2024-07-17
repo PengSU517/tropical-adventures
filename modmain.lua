@@ -6,7 +6,7 @@ require("tools/simutil")
 
 modimport("scripts/tuning")
 modimport("main/assets") -----材质包， prefabs
-
+modimport("main/standardcomponents")
 
 
 modimport("scripts/languages/language_setting.lua")
