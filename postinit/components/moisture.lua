@@ -24,7 +24,7 @@ function Moisture:GetMoistureRate(...)
 		return 1 - waterproofmult_basic
 	end
 
-	if IsInIAClimate(self.inst) then
+	if IsInTropicalClimate(self.inst) then
 		if TheWorld.state.islandisraining then
 			--Klei should've made that a separate function at this point...
 			local waterproofmult =
@@ -38,7 +38,7 @@ function Moisture:GetMoistureRate(...)
 			end
 
 			local rate = easing.inSine(TheWorld.state.islandprecipitationrate, self.minMoistureRate, self
-			.maxMoistureRate, 1)
+				.maxMoistureRate, 1)
 			return rate * (1 - waterproofmult)
 		end
 		return 0
@@ -56,17 +56,17 @@ function Moisture:GetDryingRate(moisturerate, ...)
 	end
 
 	--need to entirely recalculate to exclude mainland rain from this
-	if IsInIAClimate(self.inst) then
+	if IsInTropicalClimate(self.inst) then
 		-- Don't dry if it's raining
 		if (moisturerate or self:GetMoistureRate()) <= 0 then
 			local heaterPower = self.inst.components.temperature ~= nil and
-			math.clamp(self.inst.components.temperature.externalheaterpower, 0, 1) or 0
+				math.clamp(self.inst.components.temperature.externalheaterpower, 0, 1) or 0
 
 			rate = self.baseDryingRate
 				+ easing.linear(heaterPower, self.minPlayerTempDrying, self:GetSegs() < 3 and 2 or 5, 1)
 				+
 				easing.linear(TheWorld.state.islandtemperature, self.minDryingRate, self.maxDryingRate,
-					self.optimalDryingTemp)                                                                           --THIS is the ONE line we needed to change for temperature
+					self.optimalDryingTemp) --THIS is the ONE line we needed to change for temperature
 				+ easing.inExpo(self:GetMoisture(), 0, 1, self.maxmoisture)
 
 			rate = math.clamp(rate, 0, self.maxDryingRate + self.maxPlayerTempDrying)

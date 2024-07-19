@@ -154,7 +154,7 @@ local function notclosetowater(x, y, ents)
 end
 
 local waterprefabs = {
-    "rock_coral", "seaweed_planted", "mussel_farm", "lobsterhole", "ia_messagebottle", "ia_messagebottleempty",
+    "rock_coral", "seaweed_planted", "mussel_farm", "lobsterhole", "messagebottle", "messagebottleempty",
     "shipwreck", "ballphinhouse"
 }
 

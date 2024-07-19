@@ -1,4 +1,4 @@
-local function en_zh(en, zh) -- Other languages don't work
+local function en_zh(en, zh)
 	return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
 end
 
@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.7.13"
+version = "2.7.19.1"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -49,13 +49,6 @@ icon = "modicon.tex"
 
 
 
--- mod_dependencies = {
--- 	{ --GEMCORE
--- 		-- workshop = "workshop-1378549454",
--- 		-- ["GemCore"] = false,
--- 		-- ["[API] Gem Core - GitLab Version"] = true,
--- 	},
--- }
 
 local options_enable = {
 	{ description = en_zh("Disabled", "关闭"), data = false },
@@ -75,8 +68,8 @@ local options_count = {
 	{ description = "5", data = "5" },
 }
 
--- Thanks to the Gorge Extender by CunningFox for making me aware of this being possible -M
-local function Breaker(title_en, title_zh) --hover does not work, as this item cannot be hovered
+
+local function Breaker(title_en, title_zh)
 	return { name = en_zh(title_en, title_zh), options = { { description = "", data = false } }, default = false }
 end
 

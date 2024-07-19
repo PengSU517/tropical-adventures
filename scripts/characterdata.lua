@@ -1,12 +1,7 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
-_G = GLOBAL
 
 
-AddMinimapAtlas("map_icons/hamleticon.xml")
---configurar idioma
-
---Desabilitar personagens
--- if not GetModConfigData("disablecharacters") then
+AddMinimapAtlas("images/map_icons/hamleticon.xml")
 
 AddModCharacter("walani", "FEMALE")
 AddModCharacter("wilbur", "NEUTRAL")
@@ -62,7 +57,7 @@ GLOBAL.STRINGS.CHARACTER_TITLES.woodlegs = "The Pirate Captain"
 GLOBAL.STRINGS.CHARACTER_NAMES.woodlegs = "Woodlegs"
 GLOBAL.STRINGS.CHARACTER_DESCRIPTIONS.woodlegs = "*Has his lucky hat\n*Has his lucky cutlass\n*Pirate"
 GLOBAL.STRINGS.CHARACTER_QUOTES.woodlegs = "\"Don't ye mind th'scurvy. Yarr-harr-harr!\""
-GLOBAL.STRINGS.CHARACTERS.WOODLEGS = require "speech_woodlegs"
+GLOBAL.STRINGS.CHARACTERS.WOODLEGS = require "languages/speech_woodlegs"
 GLOBAL.STRINGS.NAMES.WOODLEGS = "Woodlegs"
 GLOBAL.STRINGS.CHARACTER_ABOUTME.woodlegs = "Don't ye mind th'scurvy. Yarr-harr-harr!"
 GLOBAL.STRINGS.CHARACTER_SURVIVABILITY.woodlegs = "Grim"
@@ -89,7 +84,7 @@ GLOBAL.STRINGS.CHARACTER_TITLES.walani = "The Unperturbable"
 GLOBAL.STRINGS.CHARACTER_NAMES.walani = "Walani"
 GLOBAL.STRINGS.CHARACTER_DESCRIPTIONS.walani = "*Loves surfing\n*Dries off quickly\n*Is a pretty chill gal"
 GLOBAL.STRINGS.CHARACTER_QUOTES.walani = "\"Forgive me if I don't get up. I don't want to.\""
-GLOBAL.STRINGS.CHARACTERS.WALANI = require "speech_walani"
+GLOBAL.STRINGS.CHARACTERS.WALANI = require "languages/speech_walani"
 GLOBAL.STRINGS.NAMES.WALANI = "Walani"
 GLOBAL.STRINGS.CHARACTER_ABOUTME.walani = "Forgive me if I don't get up. I don't want to."
 GLOBAL.STRINGS.CHARACTER_SURVIVABILITY.walani = "Slim"
@@ -102,48 +97,3 @@ TUNING.STARTING_ITEM_IMAGE_OVERRIDE["surfboarditem"] = {
     atlas = "images/inventoryimages/volcanoinventory.xml",
     image = "surfboarditem.tex",
 }
-
-
--- end
-
-
-
---if GetModConfigData("musica") == true then
---RemapSoundEvent( "dontstarve/music/music_work", "tropical/music/music_work")
---RemapSoundEvent( "dontstarve/music/music_work_winter", "tropical/music/music_work_winter")
---RemapSoundEvent( "dontstarve_DLC001/music/music_work_spring", "tropical/music/music_work_spring")
---RemapSoundEvent( "dontstarve_DLC001/music/music_work_summer", "tropical/music/music_work_summer")
---RemapSoundEvent( "dontstarve/music/music_epicfight", "tropical/music/music_epicfight")
---RemapSoundEvent( "dontstarve/music/music_epicfight_winter",  "tropical/music/music_epicfight_winter")
---RemapSoundEvent( "dontstarve_DLC001/music/music_epicfight_spring", "tropical/music/music_epicfight_spring")
---RemapSoundEvent( "dontstarve_DLC001/music/music_epicfight_summer", "tropical/music/music_epicfight_summer")
---RemapSoundEvent( "dontstarve/music/music_danger", "tropical/music/music_danger")
---RemapSoundEvent( "dontstarve/music/music_danger_winter", "tropical/music/music_danger_winter")
---RemapSoundEvent( "dontstarve_DLC001/music/music_danger_spring", "tropical/music/music_danger_spring")
---RemapSoundEvent( "dontstarve_DLC001/music/music_danger_summer", "tropical/music/music_danger_summer")
---end
-
-
-AddModRPCHandler("volcanomod", "quest1", function(inst)
-    local portalinvoca1 = GLOBAL.SpawnPrefab("log")
-    local a, b, c = inst.Transform:GetWorldPosition()
-    portalinvoca1.Transform:SetPosition(a + 4, b, c - 4)
-
-    GLOBAL.TheFrontEnd:PopScreen()
-    GLOBAL.SetPause(false)
-    --inst:Remove()
-end)
-AddModRPCHandler("volcanomod", "quest2", function(inst)
-    GLOBAL.TheFrontEnd:PopScreen()
-    GLOBAL.SetPause(false)
-    --inst:Remove()
-end)
-
-GLOBAL.CHERRY = false
-if GLOBAL.KnownModIndex:IsModEnabled("workshop-1289779251") then GLOBAL.CHERRY = true end
-
---------------store---------
-
-modimport("scripts/MagicStore.lua")
-modimport("scripts/DataProvider.lua")
---------------------------------------

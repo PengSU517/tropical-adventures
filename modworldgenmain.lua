@@ -58,31 +58,19 @@ TA_CONFIG.together_not_mainland = (TA_CONFIG.sw_start or TA_CONFIG.ham_start)
 TA_CONFIG.together = not ((not TA_CONFIG.rog) and TA_CONFIG.together_not_mainland)
 
 
-GLOBAL.TUNING.tropical = GLOBAL.TA_CONFIG -------------复制一份方便调用--------------
+GLOBAL.TUNING.tropical = GLOBAL.TA_CONFIG 
 
 
 
 modimport("main/tiledefs") ------------缺少行走的声音
--- modimport("main/constants")
-modimport("main/tuning")
+modimport("scripts/tools/spawnutil")
 
-require("constants")
-require("map/rooms")
-require("map/tasks")
 require("map/tro_lockandkey")
 require("map/ocean_gen_new") ----防止新的水面地皮被覆盖 ---但是暴力覆盖似乎太严重
 
 
-
--- modimport("scripts/tools/util") --------很多参数还没调整
-modimport("scripts/tools/spawnutil")
-modimport("main/node") ------------防止清空水上内容
-
-
-
-
 ----------新内容
-modimport("scripts/init_static_layouts") --add new static layouts
+modimport("scripts/map/init_static_layouts") --add new static layouts
 modimport("scripts/map/rooms/ham")
 modimport("scripts/map/rooms/sw")
 modimport("scripts/map/rooms/ocean")
@@ -96,8 +84,9 @@ modimport("postinit/map/graph")
 modimport("postinit/map/storygen")
 modimport("postinit/map/rooms")
 modimport("postinit/map/tasks")
+modimport("postinit/map/node") ------------防止清空水上内容
 
-modimport("main/preinit") ------------修改一些prefab的表
+modimport("main/preinit")      ------------修改一些prefab的表
 
 
 
@@ -399,7 +388,7 @@ end
 
 ---------------------测试模式------------
 if troadj.testmode then
-    modimport("main/forest_map_postinit") ----防止世界生成难产，但可能会缺失重要地形
+    modimport("postinit/map/forest_map_notcheck") ----防止世界生成难产，但可能会缺失重要地形
     if true then
         AddLevelPreInitAny(function(level)
             if level.location == "cave" then

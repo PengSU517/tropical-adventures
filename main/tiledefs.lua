@@ -1,37 +1,4 @@
---[[
-tile_name - the name of the tile, this is how you'll refer to your tile in the WORLD_TILES table.
-tile_range - the string defining the range of possible ids for the tile.
-the following ranges exist: "LAND", "NOISE", "OCEAN", "IMPASSABLE"
-tile_data {
-    [ground_name]
-    [old_static_id] - optional, the static tile id that this tile had before migrating to this API, if you aren't migrating your tiles from an old API to this one, omit this.
-}
-ground_tile_def {
-    [name] - this is the texture for the ground, it will first attempt to load the texture at "levels/texture/<name>.tex", if that fails it will then treat <name> as the whole file path for the texture.
-    [atlas] - optional, if missing it will load the same path as name, but ending in .xml instead of .tex,  otherwise behaves the same as <name> but with .xml instead of .tex.
-    [noise_texture] -  this is the noise texture for the ground, it will first attempt to load the texture at "levels/texture/<noise_texture>.tex", if that fails it will then treat <noise_texture> as the whole file path for the texture.
-    [runsound] - soundpath for the run sound, if omitted will default to "dontstarve/movement/run_dirt"
-    [walksound] - soundpath for the walk sound, if omitted will default to "dontstarve/movement/walk_dirt"
-    [snowsound] - soundpath for the snow sound, if omitted will default to "dontstarve/movement/run_snow"
-    [mudsound] - soundpath for the mud sound, if omitted will default to "dontstarve/movement/run_mud"
-    [flashpoint_modifier] - the flashpoint modifier for the tile, defaults to 0 if missing
-    [colors] - the colors of the tile when for blending of the ocean colours, will use DEFAULT_COLOUR(see tilemanager.lua for the exact values of this table) if missing.
-    [flooring] - if true, inserts this tile into the GROUND_FLOORING table.
-    [hard] - if true, inserts this tile into the GROUND_HARD table.
-    [cannotbedug] - if true, inserts this tile into the TERRAFORM_IMMUNE table.
-    other values can also be stored in this table, and can tested for via the GetTileInfo function.
-}
-minimap_tile_def {
-    [name] - this is the texture for the minimap, it will first attempt to load the texture at "levels/texture/<name>.tex", if that fails it will then treat <name> as the whole file path for the texture.
-    [atlas] - optional, if missing it will load the same path as name, but ending in .xml instead of .tex,  otherwise behaves the same as <name> but with .xml instead of .tex.
-    [noise_texture] -  this is the noise texture for the minimap, it will first attempt to load the texture at "levels/texture/<noise_texture>.tex", if that fails it will then treat <noise_texture> as the whole file path for the texture.
-}
-turf_def {
-    [name] - the postfix for the prefabname of the turf item
-    [anim] - the name of the animation to play for the turf item, if undefined it will use name instead
-    [bank_build] - the bank and build containing the animation, if undefined bank_build will use the value "turf"
-}
--]]
+
 
 local GroundTiles = require("worldtiledefs")
 local NoiseFunctions = require("noisetilefunctions")
@@ -43,7 +10,7 @@ local WORLD_TILES = WORLD_TILES
 local GROUND = GROUND
 
 -- local TAENV = env
-GLOBAL.setfenv(1, GLOBAL)
+GLOBAL.setfenv(1, GLOBAL) --这个是让所有的全局变量挂在global上
 
 local AddNewTile = function(tile, range, tile_data, ground_tile_def, minimap_tile_def, turf_def)
     if WORLD_TILES[tile] then
@@ -538,7 +505,7 @@ local tro_tiledefs = {
         },
         turf_def         = {
             name = "snakeskinfloor",
-            bank_build = "turf_ia",
+            bank_build = "turf",
         },
     },
 
@@ -551,10 +518,10 @@ local tro_tiledefs = {
         ground_tile_def  = {
             name = "beach",
             noise_texture = "noise_beach",
-            runsound = "dontstarve/movement/ia_run_sand",
-            walksound = "dontstarve/movement/ia_walk_sand",
+            runsound = "dontstarve/movement/run_sand",
+            walksound = "dontstarve/movement/walk_sand",
             flashpoint_modifier = 0,
-            -- bank_build = "turf_ia",
+            -- bank_build = "turf",
             -- cannotbedug = true, ----------------------------原来是这个吗
         },
         minimap_tile_def = {
@@ -751,7 +718,7 @@ local tro_tiledefs = {
         },
         -- turf_def = {
         --     name = "swamp",
-        --     bank_build = "turf_ia",
+        --     bank_build = "turf",
         -- },
     },
 
@@ -953,7 +920,7 @@ local tro_tiledefs = {
     --     },
     --     -- turf_def = {
     --     --     name = "jungle",
-    --     --     bank_build = "turf_ia",
+    --     --     bank_build = "turf",
     --     -- },
     -- },
 

@@ -1,7 +1,7 @@
 local v_atlas = "images/inventoryimages/volcanoinventory.xml"
 local h_atlas = "images/inventoryimages/hamletinventory.xml"
-local hm_atlas = "map_icons/hamleticon.xml"
--- local cm_atlas = "map_icons/creepindedeepicon.xml"
+local hm_atlas = "images/map_icons/hamleticon.xml"
+-- local cm_atlas = "images/map_icons/creepindedeepicon.xml"
 -- local g_atlas = "images/quagmire_food_common_inv_images.xml"
 local safe_atlas = "images/tabs.xml"
 -- local hnew_atlas = "images/inventoryimages/tap_buildingimages.xml"
@@ -77,29 +77,30 @@ SortAfter("armorvoidcloak", "voidclothhat", "CRAFTING_STATION")
 
 -- WX78 Items for Tropical
 AddRecipe2("wx78module_movespeed_sw",
-	{Ingredient("scandata", 2), Ingredient("crab" , 1, h_atlas)}, TECH.ROBOTMODULECRAFT_ONE, {
-		builder_tag="upgrademoduleowner",
+	{ Ingredient("scandata", 2), Ingredient("crab", 1, h_atlas) }, TECH.ROBOTMODULECRAFT_ONE, {
+		builder_tag = "upgrademoduleowner",
 		product = "wx78module_movespeed",
 	}, { "CHARACTER" })
 SortAfter("wx78module_movespeed_sw", "wx78module_movespeed", "CHARACTER")
 
 AddRecipe2("wx78module_movespeed_ham",
-	{Ingredient("scandata", 2), Ingredient("piko" , 1, h_atlas)}, TECH.ROBOTMODULECRAFT_ONE, {
-		builder_tag="upgrademoduleowner",
+	{ Ingredient("scandata", 2), Ingredient("piko", 1, h_atlas) }, TECH.ROBOTMODULECRAFT_ONE, {
+		builder_tag = "upgrademoduleowner",
 		product = "wx78module_movespeed",
 	}, { "CHARACTER" })
 SortAfter("wx78module_movespeed_ham", "wx78module_movespeed_sw", "CHARACTER")
 
 AddRecipe2("wx78module_maxhunger_sw",
-	{Ingredient("scandata", 3), Ingredient("shark_gills", 1, h_atlas), Ingredient("wx78module_maxhunger1", 1)}, TECH.ROBOTMODULECRAFT_ONE, {
-		builder_tag="upgrademoduleowner",
+	{ Ingredient("scandata", 3), Ingredient("shark_gills", 1, h_atlas), Ingredient("wx78module_maxhunger1", 1) },
+	TECH.ROBOTMODULECRAFT_ONE, {
+		builder_tag = "upgrademoduleowner",
 		product = "wx78module_maxhunger",
 	}, { "CHARACTER" })
 SortAfter("wx78module_maxhunger_sw", "wx78module_maxhunger", "CHARACTER")
 
 AddRecipe2("wx78module_taser_ham",
-	{Ingredient("scandata", 5), Ingredient("feather_thunder", 1, h_atlas)}, TECH.ROBOTMODULECRAFT_ONE, {
-		builder_tag="upgrademoduleowner",
+	{ Ingredient("scandata", 5), Ingredient("feather_thunder", 1, h_atlas) }, TECH.ROBOTMODULECRAFT_ONE, {
+		builder_tag = "upgrademoduleowner",
 		product = "wx78module_taser",
 	}, { "CHARACTER" })
 SortAfter("wx78module_taser_ham", "wx78module_taser", "CHARACTER")

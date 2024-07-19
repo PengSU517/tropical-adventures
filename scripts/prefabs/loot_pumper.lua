@@ -5,8 +5,6 @@ local assets =
 {
 
     Asset("ANIM", "anim/loot_pump.zip"),
-    Asset("IMAGE", "minimap/loot_pump.tex"),
-    Asset("ATLAS", "minimap/loot_pump.xml"),
 }
 
 

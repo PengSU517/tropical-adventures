@@ -20,7 +20,7 @@ local SEARCH_RADIUS2 = SEARCH_RADIUS * SEARCH_RADIUS
 local FindLandNextToWater
 
 local function FindSpawnLocationForPlayer(player)
-    if IsInIAClimate(player) then return end --no penguins in tropical lands!
+    if IsInTropicalClimate(player) then return end --no penguins in tropical lands!
     local playerPos = Vector3(player.Transform:GetWorldPosition())
 
     local radius = LAND_CHECK_RADIUS
@@ -144,7 +144,7 @@ TAENV.AddComponentPostInit("penguinspawner", function(cmp)
                 return false
             end
 
-            if IsInIAClimate(run_point) then
+            if IsInTropicalClimate(run_point) then
                 return false
             end
 
