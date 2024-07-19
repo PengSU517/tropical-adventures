@@ -5,7 +5,7 @@ local assets =
     Asset("ANIM", "anim/spider_mutator_new.zip"),
 }
 
-local mutator_targets = 
+local mutator_targets =
 {
     "tropical",
     "frost",
@@ -37,9 +37,9 @@ local function MakeMutatorFn(mutator_target)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "map_icons/creepindedeepicon.xml"
-	inst.caminho = "map_icons/creepindedeepicon.xml"	
-	
+    inst.components.inventoryitem.atlasname = "images/map_icons/creepindedeepicon.xml"
+    inst.caminho = "images/map_icons/creepindedeepicon.xml"
+
     inst:AddComponent("stackable")
 
     inst:AddComponent("edible")
@@ -50,11 +50,11 @@ local function MakeMutatorFn(mutator_target)
     inst.components.edible.sanityvalue = -TUNING.SANITY_SMALL
 
     inst:AddComponent("spidermutator")
-    inst.components.spidermutator:SetMutationTarget("spider_" .. mutator_target)	
-	
-	if mutator_target and mutator_target == "frost" then 
-    inst.components.spidermutator:SetMutationTarget("spider_snow2")	
-	end
+    inst.components.spidermutator:SetMutationTarget("spider_" .. mutator_target)
+
+    if mutator_target and mutator_target == "frost" then
+        inst.components.spidermutator:SetMutationTarget("spider_snow2")
+    end
 
     MakeHauntableLaunch(inst)
 
@@ -72,7 +72,8 @@ end
 
 local mutator_prefabs = {}
 for i, mutator_target in ipairs(mutator_targets) do
-    table.insert(mutator_prefabs, Prefab("mutator_" .. mutator_target, function() return MakeMutatorFn(mutator_target) end, assets, prefabs))
+    table.insert(mutator_prefabs,
+        Prefab("mutator_" .. mutator_target, function() return MakeMutatorFn(mutator_target) end, assets, prefabs))
 end
 
 return unpack(mutator_prefabs)

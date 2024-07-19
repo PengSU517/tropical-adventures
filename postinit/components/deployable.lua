@@ -26,7 +26,7 @@ function Deployable:CanDeploy(pt, ...)
         end
     end
 
-    return _map:RunWithoutIACorners(_CanDeploy, self, pt, ...)
+    return _map:RunWithoutTropicalCorners(_CanDeploy, self, pt, ...)
 end
 
 function Deployable:ForceDeploy(...)

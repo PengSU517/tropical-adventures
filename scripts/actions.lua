@@ -6423,24 +6423,7 @@ function UpdateCookingIngredientTags(names, newtags)
     end
 end
 
-local preparedFoods = GLOBAL.require("gorge_foods")
 
-local GNAW_REWARDS = {}
-
-for k, v in pairs(preparedFoods) do
-    GNAW_REWARDS[k] = v.reward
-    if v.cookers then
-        for i, cookertype in ipairs(v.cookers) do
-            for i, cookerprefab in ipairs(cookers[cookertype] or {}) do
-                AddCookerRecipe(cookerprefab, v)
-            end
-        end
-    else
-        AddCookerRecipe("cookpot", v)
-    end
-end
-
-_G.GNAW_REWARDS = GNAW_REWARDS
 
 AddAction(
     "INSTALL",

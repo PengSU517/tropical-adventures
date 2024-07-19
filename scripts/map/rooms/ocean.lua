@@ -68,19 +68,6 @@ AddRoom("WaterMangrove", {
 })
 
 
-AddRoom("WaterAll", {
-    colour = { r = .5, g = 0.6, b = .080, a = .10 },
-    value = WORLD_TILES.OCEAN_SHALLOW_SHORE,
-    contents = {
-        distributepercent = 0.009,
-        distributeprefabs = {},
-
-        countprefabs = {
-            ia_messagebottleempty = 15
-        },
-    }
-})
-
 AddRoom("WaterShallowShore", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = WORLD_TILES.OCEAN_SHALLOW,

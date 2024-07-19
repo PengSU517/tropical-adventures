@@ -158,7 +158,7 @@ local tro_shimmer = {
 	[WORLD_TILES.OCEAN_DEEP] = { per_sec = 70, spawn_rate = 0, tryspawn = TrySpawnWaveShimmerDeep },
 	[WORLD_TILES.OCEAN_SHIPGRAVEYARD] = { per_sec = 80, spawn_rate = 0, tryspawn = TrySpawnWaveShimmerDeep },
 
-	-- FLOOD = {per_sec = 80, spawn_rate = 0, checkfn = CheckFlood, spawnfn = SpawnIAWaveFlood},
+	-- FLOOD = {per_sec = 80, spawn_rate = 0, checkfn = CheckFlood, spawnfn = SpawnTropicalWaveFlood},
 }
 
 -- local function SetWaveSettings(self, shimmer)

@@ -36,7 +36,7 @@ local _OnUpdate = Temperature.OnUpdate
 function Temperature:OnUpdate(dt, ...)
     local _temperature = rawget(TheWorld.state, "temperature")
     local climate = GetClimate(self.inst)
-    if IsIAClimate(climate) then
+    if IsTropicalClimate(climate) then
         TheWorld.state.temperature = TheWorld.state.islandtemperature
         local vm = TheWorld.components.volcanomanager
         if IsClimate(climate, "volcano") and TheWorld.Map.GetClosestTileDist and vm then

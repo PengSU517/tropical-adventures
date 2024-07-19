@@ -1,8 +1,8 @@
-local IAENV = env
 GLOBAL.setfenv(1, GLOBAL)
 
 TUNING.MAPWRAPPER_WARN_RANGE = 14
 TUNING.MAPEDGE_PADDING = TUNING.MAPWRAPPER_WARN_RANGE + 10
+TUNING.BERMUDA_AMOUNT = 12 --12 triangles make 6 pairs
 
 require("map/network")
 
@@ -82,7 +82,7 @@ local function GenerateBermudaTriangles(root, entities, width, height)
                 end
             end
 
-            if pair > 6 --[[ IAENV.max_pairs and pair >= IAENV.max_pairs ]] then
+            if pair > 6 then
                 break
             end
         end
@@ -94,76 +94,13 @@ local function GenerateBermudaTriangles(root, entities, width, height)
     entities.bermudatriangle_MARKER = nil
 end
 
-local function GenerateTreasure(root, entities, width, height)
-    print("GenerateTreasure")
 
-    if entities.buriedtreasure == nil then
-        entities.buriedtreasure = {}
-    end
-    if entities.ia_messagebottle == nil then
-        entities.ia_messagebottle = {}
-    end
-
-    local minPaddingTreasure = 4
-
-    local numTreasures = 18 + math.random(0, 2)
-    local numBottles = numTreasures +
-        #entities
-        .buriedtreasure --some might already exist (e.g. DeadmansChest/RockSkull setpiece)
-
-    local function checkLand(tile, x, y)
-        if not IsLandTile(tile) then return false end
-        local halfw, halfh = width / 2, height / 2
-        for prefab, ents in pairs(entities) do
-            for i, spawn in ipairs(ents) do
-                local dx, dy = (x - halfw) * TILE_SCALE - spawn.x, (y - halfh) * TILE_SCALE - spawn.z
-                if math.abs(dx) < minPaddingTreasure and math.abs(dy) < minPaddingTreasure then --This way, it accurately simulates the setpiece dimensions -M
-                    -- print("FAILED POINT", dx, dy)
-                    return false
-                end
-            end
-        end
-        return true
-    end
-    local function checkWater(tile)
-        return IsOceanTile(tile)
-    end
-
-    --Yes, using SpawnUtil.FindRandomWaterPoints to get explicitly non-water points. -M
-    local pointsX_g, pointsY_g = SpawnUtil.FindRandomWaterPoints(checkLand, width, height, TUNING.MAPEDGE_PADDING,
-        numTreasures)
-    local pointsX_w, pointsY_w = SpawnUtil.FindRandomWaterPoints(checkWater, width, height, TUNING.MAPEDGE_PADDING,
-        numBottles)
-
-    for i = 1, #pointsX_g, 1 do
-        local entData = {}
-        entData.x = (pointsX_g[i] - width / 2.0) * TILE_SCALE
-        entData.z = (pointsY_g[i] - height / 2.0) * TILE_SCALE
-        table.insert(entities.buriedtreasure, entData)
-    end
-    for i = 1, #pointsX_w, 1 do
-        local entData = {}
-        entData.x = (pointsX_w[i] - width / 2.0) * TILE_SCALE
-        entData.z = (pointsY_w[i] - height / 2.0) * TILE_SCALE
-        -- entData.data = {treasureguid = 1234}
-        table.insert(entities.ia_messagebottle, entData)
-    end
-
-    print("GenerateTreasure done")
-end
 
 local _PostPopulate = Graph.GlobalPostPopulate
 Graph.GlobalPostPopulate = function(self, entities, width, height, ...)
     _PostPopulate(self, entities, width, height, ...)
-    if true --[[ IA_worldtype ~= "default" and self.isshipwrecked ]] then
+    if true then
         GenerateBermudaTriangles(self, entities, width, height)
         -- GenerateTreasure(self, entities, width, height)
     end
 end
-
--- function Graph:ShipwreckedConvertGround(map, spawnFN, entities, check_col)
--- 	local nodes = self:GetNodes(true)
--- 	for k, node in pairs(nodes) do
--- 		node:ShipwreckedConvertGround(map, spawnFN, entities, check_col)
--- 	end
--- end
