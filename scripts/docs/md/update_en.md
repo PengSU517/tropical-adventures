@@ -1,5 +1,12 @@
 ## En
 
+### 2.7.20 更新:
+
+1. Fixed the climate system in tropical regions. these areas will no longer get too cold due to weather conditions  including Mangrove swamps and lotus ponds, resulting in smoother temperature transitions.
+2. Elephant footprints and pitfalls will no longer spawn in tropical regions. no more wildfire, freezing, frograin and snow
+3. Appears to have fixed the conflict issue with the Dehydrated mod.
+
+
 ### 2.7.13 Update:
 
 1. Optimized terrain generation: underground volcanoes will no longer spawn junkyards.

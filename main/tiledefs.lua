@@ -1,5 +1,3 @@
-
-
 local GroundTiles = require("worldtiledefs")
 local NoiseFunctions = require("noisetilefunctions")
 local ChangeTileRenderOrder = ChangeTileRenderOrder
@@ -1061,9 +1059,9 @@ ChangeTileRenderOrder(WORLD_TILES.FOUNDATION, WORLD_TILES.WOODFLOOR, true)
 -- ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.OCEAN_COASTAL, false)
 -- ChangeTileRenderOrder(WORLD_TILES.OCEAN_COASTAL, WORLD_TILES.OCEAN_COASTAL, false)---这种海洋地皮不可能在陆地地皮上面
 
-ChangeTileRenderOrder(WORLD_TILES.LILYPOND, WORLD_TILES.DESERT_DIRT, false)
-ChangeTileRenderOrder(WORLD_TILES.OCEAN_CORAL, WORLD_TILES.DESERT_DIRT, false)
-ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.DESERT_DIRT, false)
+ChangeTileRenderOrder(WORLD_TILES.LILYPOND, WORLD_TILES.DIRT, false)
+ChangeTileRenderOrder(WORLD_TILES.OCEAN_CORAL, WORLD_TILES.DIRT, false)
+ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.DIRT, false)
 -- ChangeTileRenderOrder(WORLD_TILES.OCEAN_COASTAL, WORLD_TILES.CARPET2, true)---这种海洋地皮不可能在陆地地皮上面
 ChangeTileRenderOrder(WORLD_TILES.OCEAN_SHALLOW, WORLD_TILES.MONKEY_DOCK, false)
 ChangeTileRenderOrder(WORLD_TILES.OCEAN_SHALLOW_SHORE, WORLD_TILES.MONKEY_DOCK, false)
