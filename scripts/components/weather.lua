@@ -1004,15 +1004,8 @@ return Class(function(self, inst)
         local chuvatropical = 0
         local map = TheWorld.Map
         if _snowfx then
-            if _activatedplayer and _activatedplayer.components.areaaware and
-                _activatedplayer.components.areaaware:CurrentlyInTag("frost") then
-                nevenailha = 10
-            end
-
             if (_activatedplayer and _activatedplayer.components.areaaware and
-                    (_activatedplayer.components.areaaware:CurrentlyInTag("tropical") or
-                        _activatedplayer.components.areaaware:CurrentlyInTag("hamlet") or
-                        _activatedplayer.components.areaaware:CurrentlyInTag("ForceDisconnected"))) then
+                    (_activatedplayer.components.areaaware:CurrentlyInTag("tropical"))) then
                 nevetropical = 0
                 chuvatropical = 20 * preciprate
             end
@@ -1075,9 +1068,7 @@ return Class(function(self, inst)
         SetWithPeriodicSync(_snowlevel, snowlevel, SNOW_LEVEL_SYNC_PERIOD, _ismastersim)
         if _snowlevel:value() > 0 and (_temperature < 0 or _wetness:value() < 5) then
             if _activatedplayer and _activatedplayer.components.areaaware and
-                (_activatedplayer.components.areaaware:CurrentlyInTag("tropical") or
-                    _activatedplayer.components.areaaware:CurrentlyInTag("hamlet") or
-                    _activatedplayer.components.areaaware:CurrentlyInTag("ForceDisconnected")) then
+                (_activatedplayer.components.areaaware:CurrentlyInTag("tropical")) then
                 SetGroundOverlay(GROUND_OVERLAYS.puddles, _wetness:value() * 3 / 100) -- wetness goes from 0-100	
             else
                 SetGroundOverlay(GROUND_OVERLAYS.snow, _snowlevel:value() * 3)        -- snowlevel goes from 0-1

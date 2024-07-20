@@ -1,9 +1,10 @@
 local modimport = modimport
 
 
-modimport("main/ham_room")       -----------------新的room
-modimport("main/tropical_ocean") ----------------新的海洋属性
-modimport("main/tropical_boat")  ----------------单人船相关修改
+modimport("main/ham_room")         -----------------新的room
+modimport("main/tropical_ocean")   ----------------新的海洋属性
+modimport("main/tropical_boat")    ----------------单人船相关修改
+modimport("main/tropical_weather") ----------------热带气候
 modimport("main/seafork")
 
 -- do not know how to sort
@@ -55,6 +56,6 @@ modimport("postinit/widgets/uiclock_bloodmoon")
 modimport("postinit/widgets/statusdisplays_speed")
 modimport("postinit/widgets/container_widget_boat")
 modimport("postinit/widgets/container_woodleg_boat")
-modimport("postinit/widgets/container_boat") ---- boat container sizing tweak by EvenMr
-modimport("postinit/widgets/containers")     ---new containers
+modimport("postinit/widgets/container_boat")     ---- boat container sizing tweak by EvenMr
+modimport("postinit/widgets/containers")         ---new containers
 modimport("postinit/widgets/seasonsdisplay.lua") --------------雾和花粉症,还有树荫
