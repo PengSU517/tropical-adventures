@@ -75,7 +75,15 @@ AddRecipe2("armorvoidcloak",
 	}, { "CRAFTING_STATION" })
 SortAfter("armorvoidcloak", "voidclothhat", "CRAFTING_STATION")
 
--- WX78 Items for Tropical
+AddRecipe2("honeychest", 
+	{ Ingredient("chitin", 6, h_atlas), Ingredient("beeswax", 1), Ingredient("honey", 3)}, TECH.LOST,
+    {
+        atlas = h_atlas,
+        min_spacing = 1,
+        placer = "honeychest_placer"
+    }, {"STRUCTURES", "CONTAINERS", "COOKING", "GARDENING"})
+
+	-- WX78 Items for Tropical
 AddRecipe2("wx78module_movespeed_sw",
 	{ Ingredient("scandata", 2), Ingredient("crab", 1, h_atlas) }, TECH.ROBOTMODULECRAFT_ONE, {
 		builder_tag = "upgrademoduleowner",
@@ -392,7 +400,7 @@ AddRecipe2("seasack",
 	{ Ingredient("seaweed", 5, v_atlas), Ingredient("vine", 2, v_atlas), Ingredient("shark_gills", 1, v_atlas) },
 	TECH.SCIENCE_TWO, { atlas = v_atlas }, { "CONTAINERS" })
 AddRecipe2("porto_waterchest1", { Ingredient("boards", 4), Ingredient("tar", 1, v_atlas) }, TECH.SCIENCE_ONE,
-	{ atlas = v_atlas, image = "waterchest1.png" }, { "CONTAINERS" })
+	{ atlas = v_atlas }, { "CONTAINERS" })
 AddRecipe2("mussel_stick",
 	{ Ingredient("bamboo", 2, v_atlas), Ingredient("vine", 1, v_atlas), Ingredient("seaweed", 1, v_atlas) },
 	TECH.SCIENCE_ONE, { atlas = v_atlas }, { "GARDENING" })
@@ -1683,6 +1691,8 @@ AddRecipe2("rug_tiles", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 -- 	{ "INTERIOR" })
 -- AddRecipe2("reno_shelves_pallet", { Ingredient("oinc", 6, h_atlas) }, TECH.HOME_ONE, { atlas = h_atlas, nounlock = true },
 -- 	{ "INTERIOR" })
+
+GLOBAL.CONSTRUCTION_PLANS["collapsed_honeychest"] =	{ Ingredient("chitin", 3), Ingredient("beeswax",1), Ingredient("honey",1), Ingredient("alterguardianhatshard", 1) }
 
 AddRecipe2("bed0", { Ingredient("oinc", 5, h_atlas) }, TECH.HOME_ONE,
 	{ atlas = v_atlas, nounlock = true, min_spacing = 1, placer = "bed0_placer" }, { "INTERIOR" })
