@@ -364,6 +364,11 @@ PrefabFiles =
 	"marsh_tree_new",
 	-- "ligamundo",
 	"preparedfoods_tro",
+
+	-- ## Hamlet Plus
+	-- ### Honey Chest Updated
+	"collapsedchest_tro",
+	"corkchest",
 }
 
 -- if GetModConfigData("whirlpools") then
@@ -1171,6 +1176,11 @@ Assets =
 
 	Asset("ANIM", "anim/mushroom_tree_yelow.zip"),
 	Asset("ANIM", "anim/speedicon.zip"),
+
+	-- ## Hamlet Plus
+	-- ### Honey Chest UI
+	Asset("IMAGE", "images/ui/honeychest.tex"),
+	Asset("ATLAS", "images/ui/honeychest.xml"),
 }
 
 AddMinimapAtlas("images/map_icons/creepindedeepicon.xml")
