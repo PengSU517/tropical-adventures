@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Atlas>
+    <Texture filename="honeychest.tex"/>
+    <Elements>
+        <Element name="honeychest.tex" u1="0.000976563" u2="0.706055" v1="0.293945" v2="0.999023"/>
+        <Element name="honeychest_slot.tex" u1="0.000976563" u2="0.174805" v1="0.118164" v2="0.291992"/>
+    </Elements>
+    <StraightAlpha>false</StraightAlpha>
+</Atlas>
+
