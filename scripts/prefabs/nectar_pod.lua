@@ -9,30 +9,26 @@ local prefabs =
 }
 
 local function TransformToHoney(inst, antchest)
-    antchest.components.container:RemoveItem(inst)
-    local numNectarPods = 1
-
-    if inst.components.stackable and inst.components.stackable:IsStack() and inst.components.stackable:StackSize() > 1 then
-        numNectarPods = inst.components.stackable:StackSize() + 1
-    end
-
-    inst:Remove()
-
-    print("NUM NECTAR PODS = "..numNectarPods)
-    for index = 1, numNectarPods, 1 do
-        local honey = SpawnPrefab("honey")
-        local position = Vector3(antchest.Transform:GetWorldPosition())
-        honey.Transform:SetPosition(position.x, position.y, position.z)
-        antchest.components.container:GiveItem(honey, nil, Vector3(inst.Transform:GetWorldPosition()))
+    if inst.components.inventoryitem and inst.components.inventoryitem.owner == antchest then
+        antchest.components.container:RemoveItem(inst)
+        local numNectarPods = 1
+        if inst.components.stackable and inst.components.stackable:IsStack() and inst.components.stackable:StackSize() >
+            1 then
+            numNectarPods = inst.components.stackable:StackSize() + 1
+        end
+        inst:Remove()
+        for index = 1, numNectarPods, 1 do
+            local honey = SpawnPrefab("honey")
+            local position = Vector3(antchest.Transform:GetWorldPosition())
+            honey.Transform:SetPosition(position.x, position.y, position.z)
+            antchest.components.container:GiveItem(honey, nil, Vector3(inst.Transform:GetWorldPosition()))
+        end
     end
 end
 
 local function OnPutInInventory(inst, owner)
-    if owner.prefab == "antchest" then
-    inst:DoTaskInTime(1, function() TransformToHoney(inst, owner) end)
-        inst.components.perishable:StopPerishing()
-    else
-        inst.components.perishable:StartPerishing()	
+    if owner.prefab == "antchest" or owner.prefab == "honeychest" then
+    inst:DoTaskInTime(48, function() TransformToHoney(inst, owner) end)
 	end
 end
 
