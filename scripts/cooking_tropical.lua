@@ -1,7 +1,3 @@
--- 物品栏贴图路径
--- local inventoryitems_atlas_sw = resolvefilepath("images/inventoryimages/cookpotfoods_sw.xml")
--- local inventoryitems_atlas_ham = resolvefilepath("images/inventoryimages/cookpotfoods_ham.xml")
-
 -- 修改原版配方，贴图不同的保留
 local foods = require("preparedfoods")
 -- foods.butterflymuffin.test = function(cooker, names, tags) return (names.butterflywings or names.moonbutterflywings or names.butterfly_tropical_wings) and not tags.meat and tags.veggie and tags.veggie >= 0.5 end
@@ -9,40 +5,54 @@ foods.californiaroll.test = function(cooker, names, tags) return ((names.kelp or
 foods.lobsterbisque.test = function(cooker, names, tags) return (names.wobster_sheller_land or names.lobster_dead or names.lobster_dead_cooked or names.lobster_land) and tags.frozen end
 foods.lobsterdinner.test = function(cooker, names, tags) return (names.wobster_sheller_land or names.lobster_dead or names.lobster_dead_cooked or names.lobster_land) and names.butter and (tags.meat and tags.meat >= 1.0) and (tags.fish and tags.fish >= 1.0) and not tags.frozen end
 
-
-local foods_sw = require("preparedfoods_sw")
-for k, v in pairs (foods_sw) do
-    if v.mod and v.mod == true then
-        -- RegisterInventoryItemAtlas(inventoryitems_atlas_sw, v.name..".tex")
+local foodsGrandDef = require("preparedfoods_tro")
+for tabIdx, foodTab in pairs(foodsGrandDef) do
+    for _, foodDef in pairs(foodTab) do
+        if foodDef.isMasterfood == nil then
+            AddCookerRecipe("cookpot", foodDef)
+            AddCookerRecipe("archive_cookpot", foodDef)
+        end
+        AddCookerRecipe("portablecookpot", foodDef)
+        if foodDef.card_def then
+            AddRecipeCard("cookpot", foodDef)
+        end
     end
-    if v.isMasterfood == nil then -- 不是大厨料理才加入到烹饪锅
-        AddCookerRecipe("cookpot", v)
-        AddCookerRecipe("archive_cookpot", v)
-    end
-    AddCookerRecipe("portablecookpot", v)
-    if v.card_def then
-        AddRecipeCard("cookpot", v)
-    end
+    GenerateSpicedFoods(foodTab)
 end
 
-local foods_ham = require("preparedfoods_ham")
-for k, v in pairs (foods_ham) do
-    if v.mod and v.mod == true then
-        -- RegisterInventoryItemAtlas(inventoryitems_atlas_ham, v.name..".tex")
-    end
-    if v.isMasterfood == nil then
-        AddCookerRecipe("cookpot", v)
-        AddCookerRecipe("archive_cookpot", v)
-    end
-    AddCookerRecipe("portablecookpot", v)
-    if v.card_def then
-        AddRecipeCard("cookpot", v)
-    end
-end
+-- local foods_sw = require("preparedfoods_sw")
+-- for k, v in pairs (foods_sw) do
+--     if v.mod and v.mod == true then
+--         -- RegisterInventoryItemAtlas(inventoryitems_atlas_sw, v.name..".tex")
+--     end
+--     if v.isMasterfood == nil then -- 不是大厨料理才加入到烹饪锅
+--         AddCookerRecipe("cookpot", v)
+--         AddCookerRecipe("archive_cookpot", v)
+--     end
+--     AddCookerRecipe("portablecookpot", v)
+--     if v.card_def then
+--         AddRecipeCard("cookpot", v)
+--     end
+-- end
+
+-- local foods_ham = require("preparedfoods_ham")
+-- for k, v in pairs (foods_ham) do
+--     if v.mod and v.mod == true then
+--         -- RegisterInventoryItemAtlas(inventoryitems_atlas_ham, v.name..".tex")
+--     end
+--     if v.isMasterfood == nil then
+--         AddCookerRecipe("cookpot", v)
+--         AddCookerRecipe("archive_cookpot", v)
+--     end
+--     AddCookerRecipe("portablecookpot", v)
+--     if v.card_def then
+--         AddRecipeCard("cookpot", v)
+--     end
+-- end
 
 
-GenerateSpicedFoods(foods_sw)
-GenerateSpicedFoods(foods_ham)
+-- GenerateSpicedFoods(foods_sw)
+-- GenerateSpicedFoods(foods_ham)
 local spicedfoods = require("spicedfoods")
 for k, recipe in pairs(spicedfoods) do
     if recipe.mod and recipe.mod == true then
