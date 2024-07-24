@@ -1,4 +1,4 @@
-local FISH_DATA = require("prefabs/oceanfishdef")
+local FISH_DATA = require("prefabs/tro_oceanfishdef")
 
 local function AddMember(inst, member)
     inst:ListenForEvent("entitysleep", function() inst.checkforremoval(inst) end, member)
@@ -174,7 +174,9 @@ local function makeschool(data)
 end
 
 for _, school_def in pairs(FISH_DATA.fish) do
-    makeschool(school_def)
+    if school_def.istropicalfish then
+        makeschool(school_def)
+    end
 end
 
 return unpack(school_prefabs)
