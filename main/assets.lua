@@ -135,7 +135,7 @@ PrefabFiles =
 	"house_wall",
 	"sparkle_fx",
 	"fx",
-	"Axes",
+	"axeobsidian",
 	"armor_obsidian",
 	"meteor_impact",
 	"dug_cofeecactus",
