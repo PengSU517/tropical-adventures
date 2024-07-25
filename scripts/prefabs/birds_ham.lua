@@ -6,7 +6,7 @@ To make a new bird add it at the bottom of the file as a 'makebird(name)' call
 
 This assumes the bird already has a build, inventory icon, sounds and a feather_name prefab exists
 
-]]--
+]] --
 require "brains/birdbrain"
 require "stategraphs/SGbird"
 
@@ -29,22 +29,22 @@ local function ShouldSleep(inst)
 end
 
 local function ondrop(inst)
-		inst.sg:GoToState("stunned")
+	inst.sg:GoToState("stunned")
 end
 
 local function inspect_bird(inst)
-    if inst:HasTag("cormorant") then
-        return "CORMORANT"
-    end
+	if inst:HasTag("cormorant") then
+		return "CORMORANT"
+	end
 end
 
 local function OnAttacked(inst, data)
-	local x,y,z = inst.Transform:GetWorldPosition()
-	local ents = TheSim:FindEntities(x,y,z, 30, {'bird'})
+	local x, y, z = inst.Transform:GetWorldPosition()
+	local ents = TheSim:FindEntities(x, y, z, 30, { 'bird' })
 
 	local num_friends = 0
 	local maxnum = 5
-	for k,v in pairs(ents) do
+	for k, v in pairs(ents) do
 		if v ~= inst then
 			v:PushEvent("gohome")
 			num_friends = num_friends + 1
@@ -53,7 +53,6 @@ local function OnAttacked(inst, data)
 		if num_friends > maxnum then
 			break
 		end
-
 	end
 end
 
@@ -69,7 +68,6 @@ local function seedspawntest(inst)
 end
 
 local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname, land_sound, takeoff2_soundname)
-
 	local featherpostfix = feathername or name
 
 	local assets
@@ -80,7 +78,7 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 			Asset("ANIM", "anim/parrot_blue_build.zip"),
 			Asset("SOUND", "sound/birds.fsb"),
 			Asset("INV_IMAGE", "parrot_pirate"),
-		}		
+		}
 	elseif name == "kingfisher" then
 		assets =
 		{
@@ -88,13 +86,13 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 			Asset("ANIM", "anim/kingfisher_build.zip"),
 			Asset("SOUND", "sound/birds.fsb"),
 			Asset("INV_IMAGE", "parrot_pirate"),
-		}			
+		}
 	else
 		assets =
 		{
 			Asset("ANIM", "anim/crow.zip"),
-			Asset("ANIM", "anim/"..name.."_build.zip"),
-			Asset("ANIM", "anim/"..name.."_build.zip"),
+			Asset("ANIM", "anim/" .. name .. "_build.zip"),
+			Asset("ANIM", "anim/" .. name .. "_build.zip"),
 			Asset("SOUND", "sound/birds.fsb"),
 		}
 	end
@@ -104,7 +102,7 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 		"seeds",
 		"smallmeat",
 		"cookedsmallmeat",
-		"feather_"..featherpostfix,
+		"feather_" .. featherpostfix,
 		"feather_crow",
 	}
 
@@ -127,7 +125,7 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 
 	local function OnTrapped(inst, data)
 		if data and data.trapper and data.trapper.settrapsymbols then
-			data.trapper.settrapsymbols(name.."_build")
+			data.trapper.settrapsymbols(name .. "_build")
 		end
 	end
 
@@ -136,63 +134,62 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 		return not inst.sg:HasStateTag("flying")
 	end
 
-	local function setSeaBird(inst,birdtype)
+	local function setSeaBird(inst, birdtype)
+		local featherloot = "feather_robin_winter"
 
-		local featherloot = "feather_robin_winter"	
-
-		if birdtype == "cormorant" then			
+		if birdtype == "cormorant" then
 			inst.AnimState:SetBank("cormorant_water")
 			inst.AnimState:SetBuild("cormorant_build")
-			
+
 			inst:AddTag("cormorant")
 			inst.cormorant = true
-			inst.seagull = nil			
+			inst.seagull = nil
 			inst.sounds = cormorantsounds
-			inst:SetPrefabNameOverride("cormorant")		
-			inst.Transform:SetScale(0.85, 0.85, 0.85)	
-			featherloot = "feather_crow"					
+			inst:SetPrefabNameOverride("cormorant")
+			inst.Transform:SetScale(0.85, 0.85, 0.85)
+			featherloot = "feather_crow"
 			inst.trappedbuild = "cormorant_build"
 			inst.components.inventoryitem:ChangeImageName("cormorant")
 		elseif birdtype == "seagull" then
 			inst.AnimState:SetBank("seagull_water")
-			inst.AnimState:SetBuild("seagull_build")	
-			
+			inst.AnimState:SetBuild("seagull_build")
+
 			inst:RemoveTag("cormorant")
 			inst.cormorant = nil
 			inst.seagull = true
 			inst.sounds = sounds
-			inst:SetPrefabNameOverride("seagull")		
-			inst.Transform:SetScale(1,1,1)	
-			featherloot = "feather_robin_winter"					
-			inst.trappedbuild = "seagull_build"			
-			inst.components.inventoryitem:ChangeImageName("seagull")		
+			inst:SetPrefabNameOverride("seagull")
+			inst.Transform:SetScale(1, 1, 1)
+			featherloot = "feather_robin_winter"
+			inst.trappedbuild = "seagull_build"
+			inst.components.inventoryitem:ChangeImageName("seagull")
 		end
 		inst.components.lootdropper.randomloot = {}
 		inst.components.lootdropper.totalrandomweight = 0
 		inst.components.lootdropper:AddRandomLoot(featherloot, 1)
 		inst.components.lootdropper:AddRandomLoot("smallmeat", 1)
-		inst.components.lootdropper.numrandomloot = 1		
+		inst.components.lootdropper.numrandomloot = 1
 
 		return featherloot
 	end
 
-	local function OnLoad(inst,data)
-	    if not data then
-	        return
-	    end
-	    
-		if data.cormorant then
-			setSeaBird(inst,"cormorant")
+	local function OnLoad(inst, data)
+		if not data then
+			return
 		end
-	    
+
+		if data.cormorant then
+			setSeaBird(inst, "cormorant")
+		end
+
 		if data.seagull then
-			setSeaBird(inst,"seagull")
-		end		
+			setSeaBird(inst, "seagull")
+		end
 	end
 
-	local function OnSave(inst,data)
-	    data.cormorant = inst.cormorant 
-	    data.seagull = inst.seagull 
+	local function OnSave(inst, data)
+		data.cormorant = inst.cormorant
+		data.seagull = inst.seagull
 	end
 
 
@@ -209,13 +206,13 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 		inst.entity:AddPhysics()
 		inst.Transform:SetTwoFaced()
 		local shadow = inst.entity:AddDynamicShadow()
-		shadow:SetSize( 1, .75 )
+		shadow:SetSize(1, .75)
 		shadow:Enable(false)
 
-        --Initialize physics
-        inst.Physics:SetCollisionGroup(COLLISION.CHARACTERS)
-        inst.Physics:ClearCollisionMask()
-        inst.Physics:CollidesWith(COLLISION.GROUND)
+		--Initialize physics
+		inst.Physics:SetCollisionGroup(COLLISION.CHARACTERS)
+		inst.Physics:ClearCollisionMask()
+		inst.Physics:CollidesWith(COLLISION.GROUND)
 		inst.Physics:SetSphere(1)
 		inst.Physics:SetMass(1)
 
@@ -233,7 +230,7 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 		inst:AddComponent("inspectable")
 		inst.components.inspectable.getstatus = inspect_bird
 
-		local featherloot = "feather_"..featherpostfix
+		local featherloot = "feather_" .. featherpostfix
 
 		if string.find(name, "seagull") then
 			anim:SetBuild("seagull_build")
@@ -242,7 +239,7 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 
 			if name == "seagull_water" then
 				-- alternate seagull_water skin
-				if math.random() < 0.4 then			
+				if math.random() < 0.4 then
 					inst.cormorant = true
 					inst.trappedbuild = "cormorant_build"
 				else
@@ -250,18 +247,18 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 					inst.trappedbuild = "seagull_build"
 				end
 			else
-				inst.trappedbuild = name.."_build"
+				inst.trappedbuild = name .. "_build"
 			end
 		else
 			anim:SetBank("crow")
 			if namedParrot then
 				anim:SetBuild("parrot_pirate_build")
 			else
-				anim:SetBuild(name.."_build")
+				anim:SetBuild(name .. "_build")
 			end
-			inst.trappedbuild = name.."_build"
+			inst.trappedbuild = name .. "_build"
 		end
-		
+
 
 		anim:PlayAnimation("idle")
 
@@ -269,8 +266,8 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 
 		if not TheWorld.ismastersim then
 			return inst
-		end		
-		
+		end
+
 		inst:AddComponent("locomotor") -- locomotor must be constructed before the stategraph
 		inst.components.locomotor:EnableGroundSpeedMultiplier(false)
 		inst.components.locomotor:SetTriggersCreep(false)
@@ -284,16 +281,16 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 		inst:AddComponent("occupier")
 
 		inst:AddComponent("eater")
-		if string.find(name, "seagull") then			
-		inst.components.eater:SetDiet({ FOODGROUP.OMNI }, { FOODGROUP.OMNI })
-		inst.components.eater:SetCanEatTestFn(function(inst)
+		if string.find(name, "seagull") then
+			inst.components.eater:SetDiet({ FOODGROUP.OMNI }, { FOODGROUP.OMNI })
+			inst.components.eater:SetCanEatTestFn(function(inst)
 				-- seagulls shall not eat hydrofarm objects				
 				return (inst:HasTag("hydrofarm") == false)
 			end)
-    	elseif name == "kingfisher" then
-		inst.components.eater:SetDiet({ FOODTYPE.SEEDS }, { FOODTYPE.MEAT })
-    	else
-		inst.components.eater:SetDiet({ FOODTYPE.SEEDS }, { FOODTYPE.SEEDS })
+		elseif name == "kingfisher" then
+			inst.components.eater:SetDiet({ FOODTYPE.SEEDS }, { FOODTYPE.MEAT })
+		else
+			inst.components.eater:SetDiet({ FOODTYPE.SEEDS }, { FOODTYPE.SEEDS })
 		end
 
 		inst:AddComponent("sleeper")
@@ -301,7 +298,7 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 
 		inst:AddComponent("inventoryitem")
 		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"		
+		inst.caminho = "images/inventoryimages/hamletinventory.xml"
 		inst.components.inventoryitem.nobounce = true
 		inst.components.inventoryitem.canbepickedup = false
 		--inst.components.inventoryitem:SetOnDroppedFn(ondrop) -- done in MakeFeedablePet
@@ -309,8 +306,8 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 		inst:AddComponent("cookable")
 		inst.components.cookable.product = "cookedsmallmeat"
 
---	  	inst:AddComponent("appeasement")
---    	inst.components.appeasement.appeasementvalue = TUNING.APPEASEMENT_MEDIUM
+		--	  	inst:AddComponent("appeasement")
+		--    	inst.components.appeasement.appeasementvalue = TUNING.APPEASEMENT_MEDIUM
 
 
 		inst:AddComponent("combat")
@@ -329,14 +326,14 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 
 			inst:AddComponent("talker")
 			inst.components.talker.fontsize = 28
-		    inst.components.talker.font = TALKINGFONT
-		    inst.components.talker.colour = Vector3(.9, .4, .4, 1)
-		    inst:ListenForEvent("donetalking", function() inst.SoundEmitter:KillSound("talk") end)
-		    inst:ListenForEvent("ontalk", function()
-		    	inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/parrot/chirp", "talk")
+			inst.components.talker.font = TALKINGFONT
+			inst.components.talker.colour = Vector3(.9, .4, .4, 1)
+			inst:ListenForEvent("donetalking", function() inst.SoundEmitter:KillSound("talk") end)
+			inst:ListenForEvent("ontalk", function()
+				inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/parrot/chirp", "talk")
 			end)
 
---			inst:AddComponent("talkingbird")
+			--			inst:AddComponent("talkingbird")
 
 			inst:AddComponent("sanityaura")
 			inst.components.sanityaura.aura = TUNING.SANITYAURA_SMALL
@@ -351,13 +348,12 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 
 		inst:AddComponent("periodicspawner")
 		if namedParrot then
-			inst.components.periodicspawner:SetPrefab("oinc") --("dubloon")
-		elseif inst.cormorant then --name == "seagull_water" or name == "seagull" and			
-			inst.components.periodicspawner:SetPrefab("seeds")--("roe")	
+			inst.components.periodicspawner:SetPrefab("dubloon") --("oinc")
+		elseif inst.cormorant then                      --name == "seagull_water" or name == "seagull" and			
+			inst.components.periodicspawner:SetPrefab("roe") --("seeds")	
 			inst.components.periodicspawner.onlanding = true
-
-		elseif name == "kingfisher" and math.random() < 0.1 then
-			inst.components.periodicspawner:SetPrefab("fish")
+		elseif name == "kingfisher" and math.random() < 0.2 then
+			inst.components.periodicspawner:SetPrefab("coi")
 			inst.components.periodicspawner.onlanding = true
 		else
 			inst.components.periodicspawner:SetPrefab("seeds")
@@ -373,30 +369,34 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 		inst:ListenForEvent("enterlimbo", StopTrackingInSpawner)
 		inst:ListenForEvent("attacked", OnAttacked)
 
-		MakeFeedablePet(inst, TUNING.TOTAL_DAY_TIME*2, nil, ondrop)
+		MakeFeedablePet(inst, TUNING.TOTAL_DAY_TIME * 2, nil, ondrop)
 
 		if inst.seagull then
-			setSeaBird(inst,"seagull")
+			setSeaBird(inst, "seagull")
 		end
 
 		if inst.cormorant then
-			setSeaBird(inst,"cormorant")
+			setSeaBird(inst, "cormorant")
 		end
-		
 
-        inst.OnSave = OnSave
-        inst.OnLoad = OnLoad
+
+		inst.OnSave = OnSave
+		inst.OnLoad = OnLoad
 
 		return inst
 	end
 
-	return Prefab("forest/animals/"..name, fn, assets, prefabs)
+	return Prefab("forest/animals/" .. name, fn, assets, prefabs)
 end
 
 local function makebird(name, soundname, feathername)
-	return makebirdex(name, feathername, "dontstarve/birds/takeoff_"..soundname, "dontstarve/birds/chirp_"..soundname)
+	return makebirdex(name, feathername, "dontstarve/birds/takeoff_" .. soundname, "dontstarve/birds/chirp_" .. soundname)
 end
 
-return makebirdex("toucan_hamlet", "robin", "dontstarve_DLC002/creatures/toucan/takeoff", "dontstarve_DLC002/creatures/toucan/chirp"),
-	   makebirdex("parrot_blue", "robin_winter", "dontstarve_DLC002/creatures/parrot/takeoff", "dontstarve_DLC002/creatures/parrot/chirp"),
-	   makebirdex("kingfisher", "robin_winter", "dontstarve_DLC002/creatures/parrot/takeoff", "dontstarve_DLC003/creatures/king_fisher/chirp",nil,"dontstarve_DLC003/creatures/king_fisher/take_off")
+return
+	makebirdex("toucan_hamlet", "robin", "dontstarve_DLC002/creatures/toucan/takeoff",
+		"dontstarve_DLC002/creatures/toucan/chirp"),
+	makebirdex("parrot_blue", "robin_winter", "dontstarve_DLC002/creatures/parrot/takeoff",
+		"dontstarve_DLC002/creatures/parrot/chirp"),
+	makebirdex("kingfisher", "robin_winter", "dontstarve_DLC002/creatures/parrot/takeoff",
+		"dontstarve_DLC003/creatures/king_fisher/chirp", nil, "dontstarve_DLC003/creatures/king_fisher/take_off")

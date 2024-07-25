@@ -1,14 +1,14 @@
 require "prefabutil"
 
-local assets = {Asset("ANIM", "anim/ant_chest.zip"), Asset("ANIM", "anim/ant_chest_honey_build.zip"),
-                Asset("ANIM", "anim/ant_chest_nectar_build.zip"), Asset("ANIM", "anim/ant_chest_pollen_build.zip"),
-                Asset("ANIM", "anim/ant_chest_royal_build.zip"), Asset("ANIM", "anim/honey_chest.zip"),
-                Asset("ANIM", "anim/honey_chest_honey_build.zip"), Asset("ANIM", "anim/honey_chest_nectar_build.zip"),
-                Asset("ANIM", "anim/honey_chest_pollen_build.zip"), Asset("ANIM", "anim/honey_chest_royal_build.zip")}
+local assets = { Asset("ANIM", "anim/ant_chest.zip"), Asset("ANIM", "anim/ant_chest_honey_build.zip"),
+    Asset("ANIM", "anim/ant_chest_nectar_build.zip"), Asset("ANIM", "anim/ant_chest_pollen_build.zip"),
+    Asset("ANIM", "anim/ant_chest_royal_build.zip"), Asset("ANIM", "anim/honey_chest.zip"),
+    Asset("ANIM", "anim/honey_chest_honey_build.zip"), Asset("ANIM", "anim/honey_chest_nectar_build.zip"),
+    Asset("ANIM", "anim/honey_chest_pollen_build.zip"), Asset("ANIM", "anim/honey_chest_royal_build.zip") }
 
-local prefabs = {"collapse_small", "lavaarena_creature_teleport_small_fx"}
+local prefabs = { "collapse_small", "lavaarena_creature_teleport_small_fx" }
 
-local loot = {"chitin", "chitin", "chitin", "beeswax", "honey", "honey", "rocks" -- "flint",
+local loot = { "chitin", "chitin", "chitin", "beeswax", "honey", "honey", "rocks" -- "flint",
 }
 
 local function UpdateNameFn(inst)
@@ -20,7 +20,7 @@ end
 local function onopen(inst)
     if not inst:HasTag("burnt") then
         inst.AnimState:PushAnimation("open", false)
-		inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/honey_chest/open")
+        inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/honey_chest/open")
     end
 end
 
@@ -28,8 +28,7 @@ local function onclose(inst)
     if not inst:HasTag("burnt") then
         inst.AnimState:PlayAnimation("close", true)
         inst.AnimState:PushAnimation("closed", true)
-		inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/honey_chest/close")
-
+        inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/honey_chest/close")
     end
 end
 
@@ -50,7 +49,7 @@ local function onhit(inst, worker)
     if not inst:HasTag("burnt") then
         inst.AnimState:PlayAnimation("hit")
         inst.AnimState:PushAnimation("closed", true)
-		inst.SoundEmitter:PlaySound("waterlogged1/common/use_figjam")
+        inst.SoundEmitter:PlaySound("waterlogged1/common/use_figjam")
         if inst.components.container then
             inst.components.container:DropEverything()
             inst.components.container:Close()
@@ -84,81 +83,81 @@ local function onbuilt(inst)
     --	inst.AnimState:PlayAnimation("place")
     inst.AnimState:PushAnimation("close")
     inst.AnimState:PushAnimation("closed")
-	inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/cork_chest/place")
+    inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/cork_chest/place")
     -- if inst.prefab == "honeychest" then
     -- 	inst.honeyWasLoaded = true
     -- end
 end
 
 local function converttocollapsed(inst, droploot, burnt)
+    local x, y, z = inst.Transform:GetWorldPosition()
+    if droploot then
+        local fx = SpawnPrefab("collapse_small")
+        fx.Transform:SetPosition(x, y, z)
+        fx:SetMaterial("wood")
+        inst.components.lootdropper.min_speed = 2.25
+        inst.components.lootdropper.max_speed = 2.75
+        inst.components.lootdropper:DropLoot()
+        inst.components.lootdropper.min_speed = nil
+        inst.components.lootdropper.max_speed = nil
+    end
 
-	local x, y, z = inst.Transform:GetWorldPosition()
-	if droploot then
-		local fx = SpawnPrefab("collapse_small")
-		fx.Transform:SetPosition(x, y, z)
-		fx:SetMaterial("wood")
-		inst.components.lootdropper.min_speed = 2.25
-		inst.components.lootdropper.max_speed = 2.75
-		inst.components.lootdropper:DropLoot()
-		inst.components.lootdropper.min_speed = nil
-		inst.components.lootdropper.max_speed = nil
-	end
+    inst.components.container:Close()
+    inst.components.workable:SetWorkLeft(2)
 
-	inst.components.container:Close()
-	inst.components.workable:SetWorkLeft(2)
-
-	local pile = SpawnPrefab("collapsed_honeychest")
-	pile.Transform:SetPosition(x, y, z)
-	pile:SetChest(inst, burnt)
+    local pile = SpawnPrefab("collapsed_honeychest")
+    pile.Transform:SetPosition(x, y, z)
+    pile:SetChest(inst, burnt)
 end
 
 local function Upgrade_onhit(inst, worker)
-	if not inst:HasTag("burnt") then
-		if inst.components.container then
-			inst.components.container:DropEverything(nil, true)
-			inst.components.container:Close()
-		end
-		inst.AnimState:PlayAnimation("hit")
-		inst.AnimState:PushAnimation("closed", false)
-	end
+    if not inst:HasTag("burnt") then
+        if inst.components.container then
+            inst.components.container:DropEverything(nil, true)
+            inst.components.container:Close()
+        end
+        inst.AnimState:PlayAnimation("hit")
+        inst.AnimState:PushAnimation("closed", false)
+    end
 end
 
 local function shouldcollapse(inst)
-	if inst.components.container and inst.components.container.infinitestacksize then
-		--NOTE: should already have called DropEverything(nil, true) (worked or burnt or deconstructed)
-		--      so everything remaining counts as an "overstack"
-		local overstacks = 0
-		for k, v in pairs(inst.components.container.slots) do
-			local stackable = v.components.stackable
-			if stackable then
-				overstacks = overstacks + math.ceil(stackable:StackSize() / (stackable.originalmaxsize or stackable.maxsize))
-				if overstacks >= TUNING.COLLAPSED_CHEST_EXCESS_STACKS_THRESHOLD then
-					return true
-				end
-			end
-		end
-	end
-	return false
+    if inst.components.container and inst.components.container.infinitestacksize then
+        --NOTE: should already have called DropEverything(nil, true) (worked or burnt or deconstructed)
+        --      so everything remaining counts as an "overstack"
+        local overstacks = 0
+        for k, v in pairs(inst.components.container.slots) do
+            local stackable = v.components.stackable
+            if stackable then
+                overstacks = overstacks +
+                    math.ceil(stackable:StackSize() / (stackable.originalmaxsize or stackable.maxsize))
+                if overstacks >= TUNING.COLLAPSED_CHEST_EXCESS_STACKS_THRESHOLD then
+                    return true
+                end
+            end
+        end
+    end
+    return false
 end
 
 local function Upgrade_onhammered(inst, worker)
-	if shouldcollapse(inst) then
-		if TheWorld.Map:IsPassableAtPoint(inst.Transform:GetWorldPosition()) then
-			inst.components.container:DropEverythingUpToMaxStacks(TUNING.COLLAPSED_CHEST_MAX_EXCESS_STACKS_DROPS)
-			if not inst.components.container:IsEmpty() then
-				converttocollapsed(inst, true, false)
-				return
-			end
-		else
-			--sunk, drops more, but will lose the remainder
-			inst.components.lootdropper:DropLoot()
-			inst.components.container:DropEverythingUpToMaxStacks(TUNING.COLLAPSED_CHEST_EXCESS_STACKS_THRESHOLD)
-			local fx = SpawnPrefab("collapse_small")
-			fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
-			fx:SetMaterial("wood")
-			inst:Remove()
-			return
-		end
+    if shouldcollapse(inst) then
+        if TheWorld.Map:IsPassableAtPoint(inst.Transform:GetWorldPosition()) then
+            inst.components.container:DropEverythingUpToMaxStacks(TUNING.COLLAPSED_CHEST_MAX_EXCESS_STACKS_DROPS)
+            if not inst.components.container:IsEmpty() then
+                converttocollapsed(inst, true, false)
+                return
+            end
+        else
+            --sunk, drops more, but will lose the remainder
+            inst.components.lootdropper:DropLoot()
+            inst.components.container:DropEverythingUpToMaxStacks(TUNING.COLLAPSED_CHEST_EXCESS_STACKS_THRESHOLD)
+            local fx = SpawnPrefab("collapse_small")
+            fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
+            fx:SetMaterial("wood")
+            inst:Remove()
+            return
+        end
     end
     onhammered(inst, worker)
 end
@@ -166,11 +165,11 @@ end
 local function Upgrade_onrestoredfromcollapsed(inst)
     -- inst.AnimState:PlayAnimation("rebuild")
     inst.AnimState:PushAnimation("closed", false)
-	-- if inst.skin_place_sound then
-	-- 	inst.SoundEmitter:PlaySound(inst.skin_place_sound)
-	-- else
-	-- 	inst.SoundEmitter:PlaySound(inst.sounds.built)
-	-- end
+    -- if inst.skin_place_sound then
+    -- 	inst.SoundEmitter:PlaySound(inst.skin_place_sound)
+    -- else
+    -- 	inst.SoundEmitter:PlaySound(inst.sounds.built)
+    -- end
 end
 
 local function OnUpgrade(inst, performer, upgraded_from_item)
@@ -186,7 +185,7 @@ local function OnUpgrade(inst, performer, upgraded_from_item)
     inst.components.upgradeable.upgradetype = nil
     inst.displaynamefn = UpdateNameFn
     if inst.components.lootdropper ~= nil then
-        inst.components.lootdropper:SetLoot({"alterguardianhatshard"})
+        inst.components.lootdropper:SetLoot({ "alterguardianhatshard" })
     end
     inst.components.workable:SetOnWorkCallback(Upgrade_onhit)
     inst.components.workable:SetOnFinishCallback(Upgrade_onhammered)
@@ -231,8 +230,8 @@ local function RefreshAntChestBuild(inst)
     local prefix = inst.prefab:sub(1, -6) .. "_" .. inst.prefab:sub(-5)
     -- local prefix = inst.prefab == "antchest" and "ant_chest" or "honey_chest"
     local buildIdx = 0
-    local itemPrefab = {"nectar_pod", "pollen_item", "honey", "royal_jelly", "medal_withered_royaljelly"} -- Priority: Low -> High
-    local buildName = {"nectar", "pollen", "honey", "royal", "royal"}
+    local itemPrefab = { "nectar_pod", "pollen_item", "honey", "royal_jelly", "medal_withered_royaljelly" } -- Priority: Low -> High
+    local buildName = { "nectar", "pollen", "honey", "royal", "royal" }
     for _, item in pairs(container.slots) do
         for idx, prf in ipairs(itemPrefab) do
             if item.prefab == prf then
@@ -253,7 +252,8 @@ local function fn(Sim)
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
-    MakeInventoryPhysics(inst)
+
+    MakeObstaclePhysics(inst, 0.5)
 
     inst.MiniMapEntity:SetIcon("ant_chest.png")
 
@@ -313,7 +313,8 @@ local function fn1(Sim)
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
-    MakeInventoryPhysics(inst)
+
+    MakeObstaclePhysics(inst, 0.5)
 
     inst.MiniMapEntity:SetIcon("honey_chest.png")
 
@@ -369,5 +370,4 @@ local function fn1(Sim)
 end
 
 return Prefab("common/antchest", fn, assets), Prefab("common/honeychest", fn1, assets),
-
     MakePlacer("common/honeychest_placer", "honey_chest", "honey_chest", "closed")

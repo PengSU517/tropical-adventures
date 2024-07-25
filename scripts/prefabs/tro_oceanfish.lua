@@ -1,4 +1,4 @@
-local FISH_DATA                 = require("prefabs/oceanfishdef") --check
+local FISH_DATA                 = require("prefabs/tro_oceanfishdef") --check
 
 local easing                    = require("easing")
 
@@ -916,7 +916,9 @@ local function MakeFish(data)
 end
 
 for _, fish_def in pairs(FISH_DATA.fish) do
-	MakeFish(fish_def)
+	if fish_def.istropicalfish then
+		MakeFish(fish_def)
+	end
 end
 
 return unpack(fish_prefabs)
