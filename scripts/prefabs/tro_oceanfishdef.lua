@@ -1068,6 +1068,7 @@ local FISH_DEFS =
 ]]
 
 	oceanfish_small_61 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_61",
 		bank = "fish2",
 		build = "fish2",
@@ -1114,6 +1115,7 @@ local FISH_DEFS =
 	},
 
 	oceanfish_small_71 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_71",
 		bank = "fish3",
 		build = "fish3",
@@ -1160,6 +1162,7 @@ local FISH_DEFS =
 	},
 
 	oceanfish_small_81 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_81",
 		bank = "fish4",
 		build = "fish4",
@@ -1206,6 +1209,7 @@ local FISH_DEFS =
 	},
 
 	oceanfish_small_91 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_91",
 		bank = "fish5",
 		build = "fish5",
@@ -1252,6 +1256,7 @@ local FISH_DEFS =
 	},
 
 	oceanfish_small_10 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_10",
 		bank = "coi",
 		build = "coi",
@@ -1298,6 +1303,7 @@ local FISH_DEFS =
 	},
 
 	oceanfish_small_11 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_11",
 		bank = "salmon",
 		build = "salmon",
@@ -1344,6 +1350,7 @@ local FISH_DEFS =
 	},
 
 	-- oceanfish_small_12 = {
+	-- istropicalfish = true,
 	-- 	prefab = "oceanfish_small_12",
 	-- 	bank = "ballphinocean",
 	-- 	build = "ballphinocean",
@@ -1391,6 +1398,7 @@ local FISH_DEFS =
 	-- },
 
 	oceanfish_small_13 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_13",
 		bank = "mecfish",
 		build = "mecfish",
@@ -1437,6 +1445,7 @@ local FISH_DEFS =
 	},
 
 	oceanfish_small_14 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_14",
 		bank = "goldfish",
 		build = "goldfish",
@@ -1483,6 +1492,7 @@ local FISH_DEFS =
 	},
 
 	--[[ oceanfish_small_15 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_15",
 		bank = "whaleblueocean",
 		build = "whaleblueocean",
@@ -1530,6 +1540,7 @@ local FISH_DEFS =
 	}, ]]
 
 	--[[ oceanfish_small_16 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_16",
 		bank = "dogfishocean",
 		build = "dogfishocean",
@@ -1577,6 +1588,7 @@ local FISH_DEFS =
 	}, ]]
 
 	oceanfish_small_17 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_17",
 		bank = "fish7",
 		build = "fish7",
@@ -1623,6 +1635,7 @@ local FISH_DEFS =
 	},
 
 	oceanfish_small_18 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_18",
 		bank = "fish6",
 		build = "fish6",
@@ -1669,6 +1682,7 @@ local FISH_DEFS =
 	},
 
 	--[[ oceanfish_small_19 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_19",
 		bank = "swordfishjocean",
 		build = "swordfishjocean",
@@ -1716,6 +1730,7 @@ local FISH_DEFS =
 		dynamic_shadow = SHADOW_MEDIUM,
 	},
 	oceanfish_small_20 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_20",
 		bank = "swordfishjocean2",
 		build = "swordfishjocean2",
@@ -1763,6 +1778,7 @@ local FISH_DEFS =
 		dynamic_shadow = SHADOW_MEDIUM,
 	},
 	oceanfish_small_21 = {
+		istropicalfish = true,
 		prefab = "oceanfish_small_21",
 		bank = "sharxocean",
 		build = "sharxocean",
