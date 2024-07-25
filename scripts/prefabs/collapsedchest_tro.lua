@@ -132,6 +132,7 @@ local function MakeCollapsedChest(name, build, bank)
 		inst.AnimState:SetBank(bank)
 		inst.AnimState:SetBuild(build)
 		inst.AnimState:PlayAnimation("collapsed_idle")
+		inst.AnimState:SetScale(0.75, 0.75)
 
 		inst:AddTag("pickable_rummage_str")
 
