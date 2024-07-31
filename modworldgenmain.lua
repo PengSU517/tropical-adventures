@@ -50,7 +50,11 @@ GLOBAL.TA_CONFIG = {
     testmode   = GetModConfigData("testmode"),
     prefabname = GetModConfigData("prefabname"),
     seafork    = GetModConfigData("seafork"),
+
+
+    ndnr = GLOBAL.KnownModIndex:IsModEnabled("workshop-2823458540"),
 }
+
 
 TA_CONFIG.sw_start = TA_CONFIG.shipwrecked and (TA_CONFIG.multiplayerportal == "shipwrecked")
 TA_CONFIG.ham_start = TA_CONFIG.hamlet and (TA_CONFIG.multiplayerportal == "hamlet")
@@ -58,7 +62,7 @@ TA_CONFIG.together_not_mainland = (TA_CONFIG.sw_start or TA_CONFIG.ham_start)
 TA_CONFIG.together = not ((not TA_CONFIG.rog) and TA_CONFIG.together_not_mainland)
 
 
-GLOBAL.TUNING.tropical = GLOBAL.TA_CONFIG 
+GLOBAL.TUNING.tropical = GLOBAL.TA_CONFIG
 
 
 
