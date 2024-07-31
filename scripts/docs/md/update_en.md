@@ -1,6 +1,25 @@
 ## En
 
-### 2.7.20 更新:
+### Version 2.7.31 Update:
+
+1. Modified the mechanism of the steelmaking furnace, adding a complete gem synthesis path. Gems now have varying gem degrees based on their value, influencing synthesis results according to the gem degree in the recipe. Similarly, ingots and gold blocks follow this principle. The synthesis of gunpowder and saltpeter also follows this principle. Materials that cannot be refined will be ejected.
+
+2. Rewrote containers; currently, most containers support quick insertion (some ship slots still do not support this).
+
+3. Added buildable and upgradable honey boxes, blueprints dropped by the Queen Ant.
+
+4. Fixed root box toggle sound effects and collision volumes.
+
+5. Corrected the satiety bonus of red carrots.
+
+6. Adjusted the Fisherbird's drops to carp.
+
+7. Increased the health and attack power of dolphins.
+
+8. Adjusted fish school-related content to be compatible with Rich and Dangerous.
+
+
+### 2.7.20 Update:
 
 1. Fixed the climate system in tropical regions. these areas will no longer get too cold due to weather conditions  including Mangrove swamps and lotus ponds, resulting in smoother temperature transitions.
 2. Elephant footprints and pitfalls will no longer spawn in tropical regions. no more wildfire, freezing, frograin and snow
