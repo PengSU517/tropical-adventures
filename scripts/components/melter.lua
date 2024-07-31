@@ -1,6 +1,7 @@
 --local cooking = require("smelting")
 local night_time = 60
 local BASE_COOK_TIME = night_time * .3333
+local melting = require("melting")
 
 local Melter = Class(function(self, inst)
 	self.inst = inst
@@ -80,70 +81,81 @@ function Melter:CanCook()
 end
 
 function Melter:StartCooking()
-	if not self.done and not self.cooking then
-		if self.inst.components.container then
-			self.done = nil
-			self.cooking = true
-
-			if self.onstartcooking then
-				self.onstartcooking(self.inst)
-			end
-
-
-
-			local spoilage_total = 0
-			local spoilage_n = 0
-			local ings = {}
-
-			self.product = "ash"
-
-			if self.inst.replica.container then
-				local item1 = self.inst.replica.container:GetItemInSlot(1) and
-					self.inst.replica.container:GetItemInSlot(1).prefab
-				local item2 = self.inst.replica.container:GetItemInSlot(2) and
-					self.inst.replica.container:GetItemInSlot(2).prefab
-				local item3 = self.inst.replica.container:GetItemInSlot(3) and
-					self.inst.replica.container:GetItemInSlot(3).prefab
-				local item4 = self.inst.replica.container:GetItemInSlot(4) and
-					self.inst.replica.container:GetItemInSlot(4).prefab
-
-				local items = tabel.count_components({ item1, item2, item3, item4 })
-
-
-				local function getcount(item)
-					return items[item] and items[item] or 0
-				end
-
-
-				if getcount("iron") >= 4 then
-					self.product = "alloy"
-				elseif getcount("flint") >= 4 then
-					self.product = "nitre"
-				elseif (getcount("nitre") + getcount("obsidian")) >= 4 then
-					self.product = "gunpowder"
-				elseif (getcount("greengem") >= 2) and getcount("redgem") + getcount("bluegem") then
-					self.product = "opalpreciousgem"
-				elseif getcount("goldnugget") * 5 + getcount("dubloon") * 2 + getcount("gold_dust") >= 10 then
-					self.product = "goldenbar"
-				elseif getcount("gold_dust") >= 4 then
-					self.product = "goldnugget"
-				elseif getcount("stome") >= 4 then
-					self.product = "stonebar"
+    if not self.done and not self.cooking then
+		local container = self.inst.components.container
+        if container then
+			local _refuzetomelt = false
+			for k, v in ipairs(container:GetAllItems()) do
+				if not melting.isAttribute(v.prefab) then
+					container:DropItemBySlot(k)
+					_refuzetomelt = true
 				end
 			end
+			if _refuzetomelt then
+				return false
+			end
 
-			local cooktime = 0.2
-			self.productcooker = self.inst.prefab
+            self.done = nil
+            self.cooking = true
 
-			local grow_time = BASE_COOK_TIME * cooktime
-			self.targettime = GetTime() + grow_time
-			self.task = self.inst:DoTaskInTime(grow_time, dostew, "stew")
+            if self.onstartcooking then
+                self.onstartcooking(self.inst)
+            end
 
-			self.inst.components.container:Close()
-			self.inst.components.container:DestroyContents()
-			self.inst.components.container.canbeopened = false
-		end
-	end
+            local spoilage_total = 0
+            local spoilage_n = 0
+            local ings = {}
+
+            self.product = "ash"
+
+            if self.inst.replica.container then
+                local item1 = self.inst.replica.container:GetItemInSlot(1) and
+                                  self.inst.replica.container:GetItemInSlot(1).prefab
+                local item2 = self.inst.replica.container:GetItemInSlot(2) and
+                                  self.inst.replica.container:GetItemInSlot(2).prefab
+                local item3 = self.inst.replica.container:GetItemInSlot(3) and
+                                  self.inst.replica.container:GetItemInSlot(3).prefab
+                local item4 = self.inst.replica.container:GetItemInSlot(4) and
+                                  self.inst.replica.container:GetItemInSlot(4).prefab
+
+                local items = tabel.count_components({item1, item2, item3, item4})
+
+                local function getcount(item)
+                    return items[item] and items[item] or 0
+                end
+
+                -- if getcount("iron") >= 4 then
+                --     self.product = "alloy"
+                -- elseif getcount("flint") >= 4 then
+                --     self.product = "nitre"
+                -- elseif (getcount("nitre") + getcount("obsidian")) >= 4 then
+                --     self.product = "gunpowder"
+                -- elseif (getcount("greengem") >= 2) and getcount("redgem") + getcount("bluegem") then
+                --     self.product = "opalpreciousgem"
+                -- elseif getcount("goldnugget") * 5 + getcount("dubloon") * 2 + getcount("gold_dust") >= 10 then
+                --     self.product = "goldenbar"
+                -- elseif getcount("gold_dust") >= 4 then
+                --     self.product = "goldnugget"
+                -- elseif getcount("stome") >= 4 then
+                --     self.product = "stonebar"
+                -- end
+
+				self.product = melting.getMeltProd(items) or self.product
+
+            end
+
+            local cooktime = 0.2
+            self.productcooker = self.inst.prefab
+
+            local grow_time = BASE_COOK_TIME * cooktime
+            self.targettime = GetTime() + grow_time
+            self.task = self.inst:DoTaskInTime(grow_time, dostew, "stew")
+
+            self.inst.components.container:Close()
+            self.inst.components.container:DestroyContents()
+            self.inst.components.container.canbeopened = false
+        end
+    end
 end
 
 function Melter:OnSave()
