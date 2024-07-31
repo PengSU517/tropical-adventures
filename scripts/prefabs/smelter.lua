@@ -49,36 +49,28 @@ end
 local function ShowProduct(inst)
 	if not inst:HasTag("burnt") then
 		local product = inst.components.melter.product
-		if product == "dust" then
-			inst.AnimState:OverrideSymbol("swap_item", "ash", "ashes01")
-		end
-
 		if product == "alloy" then
 			inst.AnimState:OverrideSymbol("swap_item", "alloy", "alloy01")
-		end
-
-		if product == "goldenbar" then
+		elseif product == "goldenbar" then
 			inst.AnimState:OverrideSymbol("swap_item", "alloygold", "alloy01")
-		end
-
-		if product == "stonebar" then
+		elseif product == "stonebar" then
 			inst.AnimState:OverrideSymbol("swap_item", "alloystone", "alloy01")
-		end
-
-		if product == "gunpowder" then
+		elseif product == "gunpowder" then
 			inst.AnimState:OverrideSymbol("swap_item", "gunpowder", "gunpowder01")
-		end
-
-		if product == "nitre" then
+		elseif product == "nitre" then
 			inst.AnimState:OverrideSymbol("swap_item", "nitre", "nitre01")
-		end
-
-		if product == "goldnugget" then
+		elseif product == "goldnugget" then
 			inst.AnimState:OverrideSymbol("swap_item", "gold_dust", "gold_dust01")
-		end
-
-		if product == "opalpreciousgem" then
+		elseif product == "orangegem" then
+			inst.AnimState:OverrideSymbol("swap_item", "gems", "orangegem")
+		elseif product == "yellowgem" then
+			inst.AnimState:OverrideSymbol("swap_item", "gems", "yellowgem")
+		elseif product == "greengem" then
+			inst.AnimState:OverrideSymbol("swap_item", "gems", "greengem")
+		elseif product == "opalpreciousgem" then
 			inst.AnimState:OverrideSymbol("swap_item", "gems", "opalgem")
+		else
+			inst.AnimState:OverrideSymbol("swap_item", "ash", "ashes01")
 		end
 	end
 end
