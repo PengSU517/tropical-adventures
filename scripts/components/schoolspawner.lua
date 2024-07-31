@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------
 --[[ SchoolSpawner class definition ]]
 --------------------------------------------------------------------------
-local FISH_DATA = require("prefabs/tro_oceanfishdef")
+local FISH_DATA = require("prefabs/oceanfishdef")
 
 return Class(function(self, inst)
     assert(TheWorld.ismastersim, "SchoolSpawner should not exist on client")

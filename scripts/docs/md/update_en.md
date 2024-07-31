@@ -2,7 +2,7 @@
 
 ### Version 2.7.31 Update:
 
-1. Modified the mechanism of the steelmaking furnace, adding a complete gem synthesis path. Gems now have varying gem degrees based on their value, influencing synthesis results according to the gem degree in the recipe. Similarly, ingots and gold blocks follow this principle. The synthesis of gunpowder and saltpeter also follows this principle. Materials that cannot be refined will be ejected.
+1. Modified the mechanism of the steelmaking furnace, adding a complete gem synthesis path. Gems now have varying gem degrees based on their value, influencing synthesis results according to the gem degree in the recipe. Similarly, ingots and gold blocks follow this principle. The synthesis of gunpowder and saltpeter also follows this principle. 
 
 2. Rewrote containers; currently, most containers support quick insertion (some ship slots still do not support this).
 

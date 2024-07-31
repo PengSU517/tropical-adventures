@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.7.31"
+version = "2.7.31.1"
 forumthread = ""
 api_version = 10
 priority = -10
