@@ -84,16 +84,16 @@ function Melter:StartCooking()
     if not self.done and not self.cooking then
 		local container = self.inst.components.container
         if container then
-			local _refuzetomelt = false
-			for k, v in ipairs(container:GetAllItems()) do
-				if not melting.isAttribute(v.prefab) then
-					container:DropItemBySlot(k)
-					_refuzetomelt = true
-				end
-			end
-			if _refuzetomelt then
-				return false
-			end
+			-- local _refuzetomelt = false
+			-- for k, v in ipairs(container:GetAllItems()) do
+			-- 	if not melting.isAttribute(v.prefab) then
+			-- 		container:DropItemBySlot(k)
+			-- 		_refuzetomelt = true
+			-- 	end
+			-- end
+			-- if _refuzetomelt then
+			-- 	return false
+			-- end
 
             self.done = nil
             self.cooking = true

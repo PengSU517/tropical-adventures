@@ -82,6 +82,10 @@ end
 
 params.smelter = deepcopy(params.corkchest)
 params.smelter.acceptsstacks = false
+local melting = require("melting")
+function params.smelter.itemtestfn(container, item, slot)
+    return melting.isAttribute(item.prefab)
+end
 
 params.thatchpack = deepcopy(params.corkchest)
 params.thatchpack.issidewidget = true
