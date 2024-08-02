@@ -22,16 +22,14 @@ modimport("postinit/entity")       ----不知道这个是干啥的
 modimport("postinit/components/armor")
 modimport("postinit/components/builder") ----------试试看这个有没有问题
 modimport("postinit/components/healthtrigger")
+modimport("postinit/components/embarker")
 modimport("postinit/components/inventory_prevent_pick")
 modimport("postinit/components/inventoryitem")
 modimport("postinit/components/locomoter")
+modimport("postinit/components/playercontroller")
 modimport("postinit/components/playerspawner")
 modimport("postinit/components/snowtile") ---- disable snow effeccts
 modimport("postinit/components/wavemanager")
-
-
-modimport("postinit/components/playercontroller")
-modimport("postinit/components/embarker")
 
 
 --prefabs
