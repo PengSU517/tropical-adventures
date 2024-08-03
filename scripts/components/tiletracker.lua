@@ -22,33 +22,33 @@ function TileTracker:Stop()
 end
 
 local function IsWater(tile, inst)
-local x, y, z = inst.Transform:GetWorldPosition()
+	local x, y, z = inst.Transform:GetWorldPosition()
 	return TheWorld.Map:IsOceanTileAtPoint(x, y, z) and TheWorld.Map:GetPlatformAtPoint(x, z) == nil
 end
 
 function TileTracker:OnUpdate(dt)
-local map = TheWorld.Map
+	local map = TheWorld.Map
 
 
-local ex, ey, ez = self.inst.Transform:GetWorldPosition()
-if TheWorld.Map:IsOceanTileAtPoint(ex, ey, ez)  and TheWorld.Map:GetPlatformAtPoint(ex, ez) == nil then
-if self.barreira == nil then
-self.inst.Physics:ClearCollidesWith(COLLISION.LIMITS)
-self.barreira = true
-end 
-end
+	local ex, ey, ez = self.inst.Transform:GetWorldPosition()
+	if TheWorld.Map:IsOceanTileAtPoint(ex, ey, ez) and TheWorld.Map:GetPlatformAtPoint(ex, ez) == nil then
+		if self.barreira == nil then
+			self.inst.Physics:ClearCollidesWith(COLLISION.LIMITS)
+			self.barreira = true
+		end
+	end
 
 
-if not TheWorld.Map:IsOceanTileAtPoint(ex, ey, ez)  and TheWorld.Map:GetPlatformAtPoint(ex, ez) == nil then
-if self.barreira ~= nil then
-self.inst.Physics:CollidesWith(COLLISION.LIMITS)
-self.barreira = nil
-end 
-end
+	if not TheWorld.Map:IsOceanTileAtPoint(ex, ey, ez) and TheWorld.Map:GetPlatformAtPoint(ex, ez) == nil then
+		if self.barreira ~= nil then
+			self.inst.Physics:CollidesWith(COLLISION.LIMITS)
+			self.barreira = nil
+		end
+	end
 
 
 
-local tile, tileinfo = self.inst:GetCurrentTileType()
+	local tile, tileinfo = self.inst:GetCurrentTileType()
 
 	if tile then --and tile ~= self.tile then
 		self.tile = tile
@@ -58,23 +58,23 @@ local tile, tileinfo = self.inst:GetCurrentTileType()
 
 		if self.onwaterchangefn or self.inst:HasTag("amphibious") then
 			-- local onwater = GetWorld().Map:IsWater(tile)
-local onwater = IsWater(tile , self.inst)
-			
-if onwater ~= self.onwater then
-				if self.onwaterchangefn then 
+			local onwater = IsWater(tile, self.inst)
+
+			if onwater ~= self.onwater then
+				if self.onwaterchangefn then
 					self.onwaterchangefn(self.inst, onwater)
-				end 
---				if self.inst:HasTag("amphibious") then 
---					if onwater then 
---						self.inst:AddTag("aquatic")
---					else
---						self.inst:RemoveTag("aquatic")
---					end 
---				end 
+				end
+				--				if self.inst:HasTag("amphibious") then
+				--					if onwater then
+				--						self.inst:AddTag("aquatic")
+				--					else
+				--						self.inst:RemoveTag("aquatic")
+				--					end
+				--				end
 			end
-self.onwater = onwater
-end
-end
+			self.onwater = onwater
+		end
+	end
 end
 
 function TileTracker:SetOnTileChangeFn(fn)

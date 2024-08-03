@@ -139,34 +139,7 @@ for _, prefab in pairs({ "sewing_tape" }) do
 end
 
 
-for _, prefab in pairs({ "spider_warrior" }) do
-    AddPrefabPostInit(prefab, function(inst)
-        if not TheWorld.ismastersim then
-            return
-        end
 
-        inst:DoTaskInTime(0.5, function(inst)
-            local map = GLOBAL.TheWorld.Map
-            local x, y, z = inst.Transform:GetWorldPosition()
-            if x and y and z then
-                local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-                if ground == GROUND.MAGMAFIELD
-                    or ground == GROUND.JUNGLE
-                    or ground == GROUND.ASH
-                    or ground == GROUND.VOLCANO
-                    or ground == GROUND.TIDALMARSH
-                    or ground == GROUND.MEADOW
-                    or ground == GROUND.BEAH then
-                    local bolha = SpawnPrefab("spider_tropical")
-                    if bolha then
-                        bolha.Transform:SetPosition(x, y, z)
-                    end
-                    inst:Remove()
-                end
-            end
-        end)
-    end)
-end
 
 
 for _, prefab in pairs(

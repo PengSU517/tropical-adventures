@@ -1,5 +1,5 @@
-local GenericOnUpdate = Class(function(self, inst)	
-    self.inst = inst
+local GenericOnUpdate = Class(function(self, inst)
+  self.inst = inst
 end)
 
 function GenericOnUpdate:Setup(fn)

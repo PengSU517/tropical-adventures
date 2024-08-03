@@ -625,8 +625,7 @@ return Class(function(self, inst)
         for _, v in pairs(ents) do
             -- Track any blockers we find, since we redirect the strike position later,
             -- and might redirect it into their block range.
-            local interior = v:HasTag("blows_air")
-            if interior then return end
+
             local is_blocker = v.components.lightningblocker ~= nil
             if is_blocker then
                 if blockers == nil then

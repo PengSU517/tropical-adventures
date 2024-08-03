@@ -1,18 +1,17 @@
 local Disarmable = Class(function(self, inst)
-    self.inst = inst
-    self.armed = true
+	self.inst = inst
+	self.armed = true
 end)
 
 
 function Disarmable:disarm(doer, item)
-    if self.armed then	
-		
+	if self.armed then
 		self.armed = false
 
 		if self.disarmfn then
 			self.disarmfn(self.inst, doer)
 		end
-		
+
 		return true
 	end
 end
@@ -22,15 +21,15 @@ function Disarmable:DoRearming(inst, doer)
 		self.armed = true
 		if self.rearmfn then
 			self.rearmfn(self.inst, doer)
-		end	
+		end
 		return true
 	end
 end
 
 function Disarmable:CollectSceneActions(doer, actions)
-    if not self.armed and self.rearmable then
-        table.insert(actions, ACTIONS.REARM)
-    end    
+	if not self.armed and self.rearmable then
+		table.insert(actions, ACTIONS.REARM)
+	end
 end
 
 return Disarmable

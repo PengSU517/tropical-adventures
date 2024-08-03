@@ -33,12 +33,12 @@ end
 
 function BigFooter:GetDebugString()
 	local str = ""
-	str = str..string.format("Step Num: %2.2f, Step Timer: %2.2f", self.stepNum, self.stepTimer)
+	str = str .. string.format("Step Num: %2.2f, Step Timer: %2.2f", self.stepNum, self.stepTimer)
 	return str
 end
 
 function BigFooter:SetTravelDirection()
-	self.travelDirection = self.directions[math.random(#self.directions)] 
+	self.travelDirection = self.directions[math.random(#self.directions)]
 end
 
 function BigFooter:IsOnScreen(pos)
@@ -83,10 +83,10 @@ function BigFooter:FootStep(pos)
 	if inWater then
 		local offset = self:FindNearbyLand(pos)
 		if offset then inWater = false end
-		pos = pos + (offset or Vector3(0, 0, 0))	
+		pos = pos + (offset or Vector3(0, 0, 0))
 	end
 
-	local foot = SpawnPrefab("bigfoot")	
+	local foot = SpawnPrefab("bigfoot")
 	foot.Transform:SetRotation(self:SetFootRotation())
 	foot.Transform:SetPosition(pos:Get())
 	if not inWater then
@@ -103,12 +103,12 @@ end
 
 function BigFooter:GetCameraAngle()
 	local roundToNearest = function(numToRound, multiple)
-		local half = multiple/2
-		return numToRound+half - (numToRound+half) % multiple
+		local half = multiple / 2
+		return numToRound + half - (numToRound + half) % multiple
 	end
 
 	local cameraVec = TheCamera:GetDownVec()
-	local cameraAngle =  math.atan2(cameraVec.z, cameraVec.x)
+	local cameraAngle = math.atan2(cameraVec.z, cameraVec.x)
 	cameraAngle = cameraAngle * (180 / math.pi)
 	return roundToNearest(cameraAngle, 45)
 end
@@ -119,7 +119,8 @@ function BigFooter:GetFootPos()
 
 	local stepOffset = Vector3(0, 0, 0)
 	if not IsNumberEven(self.stepNum) then --Apply step offset
-		stepOffset = Vector3(self.footOffset * math.cos(angle + (PI * 0.5)), 0, -self.footOffset * math.sin(angle + (PI * 0.5)))
+		stepOffset = Vector3(self.footOffset * math.cos(angle + (PI * 0.5)), 0,
+			-self.footOffset * math.sin(angle + (PI * 0.5)))
 	end
 
 	local dist = self.stepDistance * self.stepNum

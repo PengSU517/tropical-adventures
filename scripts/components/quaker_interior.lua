@@ -1,24 +1,24 @@
 local quakelevels =
 {
-	pillarshake=
-    { -- quake during tentacle pillar death throes
-		prequake = -3,                                                           --the warning before the quake
-		quaketime = function() return GetRandomWithVariance(1,.5) end, 	        --how long the quake lasts
-		debrispersecond = function() return math.random(5, 6) end, 	--how much debris falls every second
+	pillarshake =
+	{                                                             -- quake during tentacle pillar death throes
+		prequake = -3,                                            --the warning before the quake
+		quaketime = function() return GetRandomWithVariance(1, .5) end, --how long the quake lasts
+		debrispersecond = function() return math.random(5, 6) end, --how much debris falls every second
 		debrisbreakchance = 0.75,
 		quakeintensiy = 0.6,
-		nextquake = function() return TUNING.TOTAL_DAY_TIME * 100 end, 	        --how long until the next quake
+		nextquake = function() return TUNING.TOTAL_DAY_TIME * 100 end, --how long until the next quake
 		mammals = 0,
-	},	
+	},
 
-	cavein=
+	cavein =
 	{
-		prequake = 3, 
+		prequake = 3,
 		quaketime = function() return math.random(5, 8) + 5 end,
-		debrispersecond = function() return math.random(9,10) end,
+		debrispersecond = function() return math.random(9, 10) end,
 		debrisbreakchance = 0.95,
 		quakeintensiy = 0.8,
-		nextquake =  function() return TUNING.TOTAL_DAY_TIME * 0.5 + math.random() * TUNING.TOTAL_DAY_TIME end,
+		nextquake = function() return TUNING.TOTAL_DAY_TIME * 0.5 + math.random() * TUNING.TOTAL_DAY_TIME end,
 		mammals = 4,
 	},
 
@@ -29,13 +29,13 @@ local quakelevels =
 		debrispersecond = function() return math.random(15, 20) end,
 		debrisbreakchance = 0.99,
 		quakeintensiy = 0.1,
-		nextquake =  function() return TUNING.TOTAL_DAY_TIME * 1000 end,
+		nextquake = function() return TUNING.TOTAL_DAY_TIME * 1000 end,
 		mammals = 1,
-		mammal_spawn_offset = {x = 2.5},
+		mammal_spawn_offset = { x = 2.5 },
 	},
 }
 
-local Quaker_Interior = Class(function(self,inst)
+local Quaker_Interior = Class(function(self, inst)
 	self.inst = inst
 	self.timetospawn = 0
 	self.spawntime = 0.5
@@ -62,17 +62,17 @@ local Quaker_Interior = Class(function(self,inst)
 				self.nextquake = self.prequake + 1
 			end
 		end
-	 end)
+	end)
 end)
 
 local debris =
 {
-	common = 
+	common =
 	{
 		"rocks",
 		"flint",
 	},
-	rare = 
+	rare =
 	{
 		"mole",
 		"nitre",
@@ -89,7 +89,7 @@ local debris =
 		"bluegem",
 		"bluegem",
 		"bluegem",
-	},	
+	},
 }
 
 
@@ -109,7 +109,6 @@ function Quaker_Interior:OnSave()
 end
 
 function Quaker_Interior:OnLoad(data)
-	
 	self.quaketime = data.quaketime or self.quakelevel.quaketime()
 	self.debrispersecond = data.debrispersecond or self.quakelevel.debrispersecond()
 	self.debrisbreakchance = data.debrisbreakchance or self.quakelevel.debrisbreakchance
@@ -125,53 +124,53 @@ end
 function Quaker_Interior:GetDebugString()
 	if self.nextquake > 0 then
 		return string.format("%2.2f debris will drop every second. It will last for %2.2f seconds",
-		 self.debrispersecond, self.quaketime)
+			self.debrispersecond, self.quaketime)
 	else
 		return string.format("QUAKING")
 	end
 end
 
 function Quaker_Interior:GetTimeForNextDebris()
-	return 1/self.debrispersecond
+	return 1 / self.debrispersecond
 end
 
 function Quaker_Interior:GetMammalSpawnPoint()
-local player = GetClosestInstWithTag("player", self.alvo, 30)
-local basept = self.alvo:GetPosition() or (player and player:GetPosition())
-local piso1 = GetClosestInstWithTag("terremoto", self.alvo, 30)
-if piso1 then
-local ex, ey, ez = piso1.Transform:GetWorldPosition()
-basept=Vector3(ex +4, ey, ez) 
-end
-    local depth = 16
-    local width = 24
-	
+	local player = GetClosestInstWithTag("player", self.alvo, 30)
+	local basept = self.alvo:GetPosition() or (player and player:GetPosition())
+	local piso1 = GetClosestInstWithTag("terremoto", self.alvo, 30)
+	if piso1 then
+		local ex, ey, ez = piso1.Transform:GetWorldPosition()
+		basept = Vector3(ex + 4, ey, ez)
+	end
+	local depth = 16
+	local width = 24
+
 	if self.mammal_spawn_offset and self.mammal_spawn_offset.x then
-		basept.x = basept.x + (self.mammal_spawn_offset.x + math.random() * ( (depth - self.mammal_spawn_offset.x)  /2))
+		basept.x = basept.x + (self.mammal_spawn_offset.x + math.random() * ((depth - self.mammal_spawn_offset.x) / 2))
 	else
-		basept.x = basept.x + (math.random()*depth - depth/2)
+		basept.x = basept.x + (math.random() * depth - depth / 2)
 	end
 
 	if self.mammal_spawn_offset and self.mammal_spawn_offset.z then
-		basept.z = basept.z + (self.mammal_spawn_offset.z + math.random() * ( (width - self.mammal_spawn_offset.z)/2))
+		basept.z = basept.z + (self.mammal_spawn_offset.z + math.random() * ((width - self.mammal_spawn_offset.z) / 2))
 	else
-		basept.z = basept.z + (math.random()*width - width/2)
+		basept.z = basept.z + (math.random() * width - width / 2)
 	end
 
-	return basept	
+	return basept
 end
 
 function Quaker_Interior:GetSpawnPoint(pt, rad)
-local basept = self.alvo:GetPosition()
-local piso1 = GetClosestInstWithTag("terremoto", self.alvo, 30)
-if piso1 then
-local ex, ey, ez = piso1.Transform:GetWorldPosition()
-basept=Vector3(ex +4, ey, ez) 
-end
-    local depth = 16
-    local width = 24
-	basept.x = basept.x + (math.random()*depth - depth/2)
-	basept.z = basept.z + (math.random()*width - width/2)
+	local basept = self.alvo:GetPosition()
+	local piso1 = GetClosestInstWithTag("terremoto", self.alvo, 30)
+	if piso1 then
+		local ex, ey, ez = piso1.Transform:GetWorldPosition()
+		basept = Vector3(ex + 4, ey, ez)
+	end
+	local depth = 16
+	local width = 24
+	basept.x = basept.x + (math.random() * depth - depth / 2)
+	basept.z = basept.z + (math.random() * width - width / 2)
 
 	return basept
 end
@@ -200,7 +199,7 @@ end
 function Quaker_Interior:ForceQuake(level, inst)
 	--print("FORCE QUAKE")
 	self.alvo = inst
-	--if self.quake then return false end  
+	--if self.quake then return false end
 	local templevel = quakelevels[level]
 	local quaketime = self.quaketime
 	local testquaketime = templevel.quaketime()
@@ -226,26 +225,25 @@ function Quaker_Interior:ForceQuake(level, inst)
 		quakeintensiy = testquakeintensiy
 	end
 
-    if level and quakelevels[level] then
- 	    self.quakelevel = quakelevels[level]
-        self.quaketime = quaketime
-        self.debrispersecond = debrispersecond
-        self.debrisbreakchance = debrisbreakchance
-        self.quakeintensiy = quakeintensiy
-        self.nextquake = self.quakelevel.nextquake()
-        self.mammals_per_quake  = self.quakelevel.mammals
-        self.mammal_spawn_offset = self.quakelevel.mammal_spawn_offset
-    end
+	if level and quakelevels[level] then
+		self.quakelevel          = quakelevels[level]
+		self.quaketime           = quaketime
+		self.debrispersecond     = debrispersecond
+		self.debrisbreakchance   = debrisbreakchance
+		self.quakeintensiy       = quakeintensiy
+		self.nextquake           = self.quakelevel.nextquake()
+		self.mammals_per_quake   = self.quakelevel.mammals
+		self.mammal_spawn_offset = self.quakelevel.mammal_spawn_offset
+	end
 
 	self:StartQuake()
 
-    return true
+	return true
 end
 
 local function UpdateShadowSize(inst, height)
-
 	if inst and inst.shadow and inst.shadow:IsValid() then
-		local scaleFactor = Lerp(0.5, 1.5, height/35)
+		local scaleFactor = Lerp(0.5, 1.5, height / 35)
 		inst.shadow.Transform:SetScale(scaleFactor, scaleFactor, scaleFactor)
 	end
 end
@@ -263,7 +261,7 @@ function Quaker_Interior:GetDebris()
 	if rng < 0.75 then
 		todrop = debris.common[math.random(1, #debris.common)]
 	elseif rng >= 0.75 and rng < 0.95 then
---		if self.mammals_per_quake > 0 and GetWorld():IsRuins() then self.mammals_per_quake = 0 end -- Don't allow mammals to spawn from quakes in the ruins
+		--		if self.mammals_per_quake > 0 and GetWorld():IsRuins() then self.mammals_per_quake = 0 end -- Don't allow mammals to spawn from quakes in the ruins
 		if self.mammals_per_quake > 0 then self.mammals_per_quake = 0 end
 		todrop = debris.rare[math.random(1, #debris.rare)]
 		-- Make sure we don't spawn a ton of mammals per quake
@@ -282,45 +280,44 @@ function Quaker_Interior:GetDebris()
 end
 
 function Quaker_Interior:SpawnDebris(spawn_point)
-
-    local prefab = self:GetDebris()
+	local prefab = self:GetDebris()
 	if prefab then
-	    local db = SpawnPrefab(prefab)
-	    if db and (prefab == "rabbit" or prefab == "mole" or prefab == "scorpion" or prefab == "rabid_beetle") and db.sg then
-	    	self.mammals_per_quake = self.mammals_per_quake - 1
-	    	spawn_point = self:GetMammalSpawnPoint()
-	    	db.sg:GoToState("fall")
-	    end
-	    
-	    if math.random() < .5 then
-		    db.Transform:SetRotation(180)
-	    end
+		local db = SpawnPrefab(prefab)
+		if db and (prefab == "rabbit" or prefab == "mole" or prefab == "scorpion" or prefab == "rabid_beetle") and db.sg then
+			self.mammals_per_quake = self.mammals_per_quake - 1
+			spawn_point = self:GetMammalSpawnPoint()
+			db.sg:GoToState("fall")
+		end
+
+		if math.random() < .5 then
+			db.Transform:SetRotation(180)
+		end
 
 		spawn_point.y = 35
-	    db.Physics:Teleport(spawn_point.x,spawn_point.y,spawn_point.z)
+		db.Physics:Teleport(spawn_point.x, spawn_point.y, spawn_point.z)
 
-	    return db
+		return db
 	end
 end
 
 function PlayFallingSound(inst, volume)
 	volume = volume or 1
-    local sound = inst.SoundEmitter
-    if sound then
-        local tile, tileinfo = inst:GetCurrentTileType()
-        if tile and tileinfo then
+	local sound = inst.SoundEmitter
+	if sound then
+		local tile, tileinfo = inst:GetCurrentTileType()
+		if tile and tileinfo then
 			local x, y, z = inst.Transform:GetWorldPosition()
 			local size_affix = "_small"
 			sound:PlaySound(tileinfo.walksound .. size_affix, nil, volume)
-        end
-    end
+		end
+	end
 end
 
 local function grounddetection_update(inst)
 	--print ("CALLING THE DETECTION")
 
 	local pt = Point(inst.Transform:GetWorldPosition())
-	
+
 	if not inst.shadow then
 		GiveDebrisShadow(inst)
 	else
@@ -329,8 +326,8 @@ local function grounddetection_update(inst)
 
 	if pt.y < 2 then
 		inst.fell = true
-		inst.Physics:SetMotorVel(0,0,0)
-    end
+		inst.Physics:SetMotorVel(0, 0, 0)
+	end
 
 	if pt.y <= .2 then
 		PlayFallingSound(inst)
@@ -339,18 +336,18 @@ local function grounddetection_update(inst)
 			inst.shadow = nil
 		end
 
-		local ents = TheSim:FindEntities(pt.x, 0, pt.z, 2, nil, {'INLIMBO','smashable'})
-	    for k,v in pairs(ents) do
-	    	if v and v.components.combat and not v.components.combat.debris_immune and v ~= inst then  -- quakes shouldn't break the set dressing
-	    		v.components.combat:GetAttacked(inst, 20, nil)
-	    	end
-	   	end
-	   	--play hit ground sound
+		local ents = TheSim:FindEntities(pt.x, 0, pt.z, 2, nil, { 'INLIMBO', 'smashable' })
+		for k, v in pairs(ents) do
+			if v and v.components.combat and not v.components.combat.debris_immune and v ~= inst then -- quakes shouldn't break the set dressing
+				v.components.combat:GetAttacked(inst, 20, nil)
+			end
+		end
+		--play hit ground sound
 
 
-	   	inst.Physics:SetDamping(0.9)
+		inst.Physics:SetDamping(0.9)
 
-	    if inst.updatetask then
+		if inst.updatetask then
 			inst.updatetask:Cancel()
 			inst.updatetask = nil
 		end
@@ -371,7 +368,7 @@ local function grounddetection_update(inst)
 	end
 
 	-- Failsafe: if the entity has been alive for at least 1 second, hasn't changed height significantly since last tick, and isn't near the ground, remove it and its shadow
-	if inst.last_y and pt.y > 2 and inst.last_y > 2 and (inst.last_y - pt.y  < 1) and inst:GetTimeAlive() > 1 and not inst.fell then
+	if inst.last_y and pt.y > 2 and inst.last_y > 2 and (inst.last_y - pt.y < 1) and inst:GetTimeAlive() > 1 and not inst.fell then
 		if inst.shadow then
 			inst.shadow:Remove()
 			inst.shadow = nil
@@ -387,14 +384,12 @@ end
 
 
 function Quaker_Interior:MiniQuake(rad, num, duration, target)
-
 	self.inst.SoundEmitter:PlaySound("dontstarve/cave/earthquake", "miniearthquake")
 	self.inst.SoundEmitter:SetParameter("miniearthquake", "intensity", 1)
 
-    local time = 0
-    for i=1,num do
-
-    	self.inst:DoTaskInTime(time, function()
+	local time = 0
+	for i = 1, num do
+		self.inst:DoTaskInTime(time, function()
 			local char_pos = Vector3(target.Transform:GetWorldPosition())
 			local spawn_point = self:GetSpawnPoint(char_pos, rad)
 			if spawn_point then
@@ -403,18 +398,18 @@ function Quaker_Interior:MiniQuake(rad, num, duration, target)
 			end
 		end)
 
-		time = time + duration/num
-    end
+		time = time + duration / num
+	end
 
-    self.inst:DoTaskInTime(duration, function() self.inst.SoundEmitter:KillSound("miniearthquake") end)
+	self.inst:DoTaskInTime(duration, function() self.inst.SoundEmitter:KillSound("miniearthquake") end)
 end
 
-function Quaker_Interior:SetNextQuakes( setting ) -- turn off the periodic quaking.
+function Quaker_Interior:SetNextQuakes(setting) -- turn off the periodic quaking.
 	self.doNextQuakes = setting
 end
 
-function Quaker_Interior:OnUpdate( dt )
---[[
+function Quaker_Interior:OnUpdate(dt)
+	--[[
 	if self.doNextQuakes then
 		if self.nextquake > 0 then
 			self.nextquake = self.nextquake - dt
@@ -432,26 +427,26 @@ function Quaker_Interior:OnUpdate( dt )
 	if self.quake then
 		if self.quaketime > 0 then
 			self.quaketime = self.quaketime - dt
-				if self.timetospawn > 0 then
-					self.timetospawn = self.timetospawn - dt
-				end
+			if self.timetospawn > 0 then
+				self.timetospawn = self.timetospawn - dt
+			end
 
-				if self.timetospawn <= 0 then
-					local spawn_point = self:GetSpawnPoint()
-					if spawn_point then
-						local db = self:SpawnDebris(spawn_point)
-						ShakeAllCameras(CAMERASHAKE.FULL, .7, .02, 1, self.alvo, 40)
-				    	TheCamera:Shake("FULL", 0.7, 0.02, self.quakeintensiy, 40)
-						start_grounddetection(db)
-						if self.spawntime then
-							self.timetospawn = self:GetTimeForNextDebris()
-						end
+			if self.timetospawn <= 0 then
+				local spawn_point = self:GetSpawnPoint()
+				if spawn_point then
+					local db = self:SpawnDebris(spawn_point)
+					ShakeAllCameras(CAMERASHAKE.FULL, .7, .02, 1, self.alvo, 40)
+					TheCamera:Shake("FULL", 0.7, 0.02, self.quakeintensiy, 40)
+					start_grounddetection(db)
+					if self.spawntime then
+						self.timetospawn = self:GetTimeForNextDebris()
 					end
 				end
+			end
 		else
 			self:EndQuake()
 		end
-	end    
+	end
 end
 
 return Quaker_Interior

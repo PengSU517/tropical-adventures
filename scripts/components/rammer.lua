@@ -1,5 +1,3 @@
-
-
 local Rammer = Class(function(self, inst)
     self.inst = inst
     self.minSpeed = 2.0
@@ -27,7 +25,6 @@ function Rammer:StartCooldown()
 end
 
 function Rammer:CheckRamHit()
-
     if self.inst == nil or self.inst:IsValid() == false then
         print("Component instance is invalid!")
         return
@@ -46,8 +43,8 @@ function Rammer:CheckRamHit()
 
     local driverVelocity = Vector3(driver.Physics:GetVelocity())
 
-	local function isInHitCone(item)
-		local origin = Vector3(self.inst.Transform:GetWorldPosition())
+    local function isInHitCone(item)
+        local origin = Vector3(self.inst.Transform:GetWorldPosition())
         local point = Vector3(item.Transform:GetWorldPosition())
 
         local d = (point - origin)
@@ -67,15 +64,16 @@ function Rammer:CheckRamHit()
             local dot = v:Dot(d)
             return dot > 0.75
         end
-	end
+    end
 
     local yestags = {}
-    local notags = {"falling", "FX", "NOCLICK", "DECOR", "INLIMBO","unramable"}
+    local notags = { "falling", "FX", "NOCLICK", "DECOR", "INLIMBO", "unramable" }
 
     local pos = Vector3(self.inst.Transform:GetWorldPosition())
-    local ents = TheSim:FindEntities(pos.x, pos.y, pos.z, driver.Physics:GetRadius() + self.hitRadius * 2, yestags, notags)
+    local ents = TheSim:FindEntities(pos.x, pos.y, pos.z, driver.Physics:GetRadius() + self.hitRadius * 2, yestags,
+        notags)
 
-    for i=#ents, 1, -1 do
+    for i = #ents, 1, -1 do
         local item = ents[i]
         local remove = false
 
@@ -84,29 +82,27 @@ function Rammer:CheckRamHit()
         end
 
         local driver = self:FindDriver()
-        
+
         if not remove and item:HasTag("shadow") and driver.components.sanity and not driver.components.sanity:IsCrazy() then
             remove = true
         end
 
         if remove then
-            table.remove(ents,i)
+            table.remove(ents, i)
         end
     end
 
     -- foreach entity, notify callback
     for k, v in pairs(ents) do
         if v ~= driver then -- avoid self-ramming
-            if isInHitCone(v) then           
+            if isInHitCone(v) then
                 self.onRamTarget(self.inst, v)
             end
         end
     end
 end
 
-
 function Rammer:OnUpdate(dt)
-
     local isActive = self:IsActive()
 
     -- toggle on/off callbacks
@@ -140,9 +136,9 @@ function Rammer:FindDriver()
         return nil
     end
     if self.inst.navio1 ~= nil then
-driver = self.inst.navio1
---print(""..self.inst.navio.prefab.."")
-	end
+        driver = self.inst.navio1
+        --print(""..self.inst.navio.prefab.."")
+    end
 
 
     return driver
@@ -161,7 +157,6 @@ function Rammer:IsActive()
 
     return (v:LengthSq() >= minSpeedSq) and (self.cooldown <= 0.0)
 end
-
 
 function Rammer:DebugRender()
     if TheSim:GetDebugRenderEnabled() then

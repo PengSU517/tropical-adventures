@@ -4,23 +4,22 @@ local Vineable = Class(function(self, inst)
 end)
 
 function Vineable:SetUpVine()
-if not self.inst:HasTag("novine") then
-if not self.inst:HasTag("vineadded") then
+	if not self.inst:HasTag("novine") then
+		if not self.inst:HasTag("vineadded") then
+			self.vined = true
+			self.vines = SpawnPrefab("pig_ruins_creeping_vines")
+			self.inst:AddChild(self.vines)
+			self.vines.Transform:SetPosition(0, 0, 0)
+			self.vines.door = self.inst
+			self.vines.setup(self.vines)
+			self.vines_open = false
+			self.inst:AddTag("vineadded")
+		end
+	end
+	--    self.inst:ListenForEvent("exitedruins", function() self:SetDoorDissabled(true) end, GetPlayer() )
+end
 
-	self.vined = true
-	self.vines = SpawnPrefab("pig_ruins_creeping_vines")
-	self.inst:AddChild(self.vines)
-    self.vines.Transform:SetPosition(0,0,0)
-    self.vines.door = self.inst
-    self.vines.setup(self.vines)    
-	self.vines_open = false
-	self.inst:AddTag("vineadded")
-end
-end
---    self.inst:ListenForEvent("exitedruins", function() self:SetDoorDissabled(true) end, GetPlayer() )
-end
-
-function Vineable:dissabledoorvis()	
+function Vineable:dissabledoorvis()
 	if self.vined then
 		self.inst:AddTag("NOCLICK")
 		self.vines_open = false
@@ -40,28 +39,27 @@ function Vineable:enabledoorvis()
 end
 
 function Vineable:SetDoorDissabled(setting)
---	self.inst.disableDoor(self.inst, setting, "vines")
-	if setting then 
-	    if self.inst.regrowtask then
-	        self.inst.regrowtask:Cancel()
-	        self.inst.regrowtask = nil
-	    end		
+	--	self.inst.disableDoor(self.inst, setting, "vines")
+	if setting then
+		if self.inst.regrowtask then
+			self.inst.regrowtask:Cancel()
+			self.inst.regrowtask = nil
+		end
 		self:dissabledoorvis()
 	else
 		self:enabledoorvis()
 	end
 end
 
-
 function Vineable:SetGrowTask(time)
-	 self.inst.regrowtask, self.inst.regrowtaskinfo = self.inst:ResumeTask( time ,function() 
-            self:SetDoorDissabled(true)                    
-        end) 
+	self.inst.regrowtask, self.inst.regrowtaskinfo = self.inst:ResumeTask(time, function()
+		self:SetDoorDissabled(true)
+	end)
 end
 
 function Vineable:BeginRegrow()
-	print("BEGIN REGROW TASK", self.inst.GUID)  
-	self:SetGrowTask( 20 + (math.random() * 20 ))
+	print("BEGIN REGROW TASK", self.inst.GUID)
+	self:SetGrowTask(20 + (math.random() * 20))
 end
 
 function Vineable:updatevinevis()
@@ -72,40 +70,38 @@ function Vineable:updatevinevis()
 		else
 			self.vines.regrow(self.vines)
 		end
-	end		
+	end
 end
 
 function Vineable:InitInteriorPrefab()
+	--	if self.inst.components.door and self.inst.components.door.disabledcauses and self.inst.components.door.disabledcauses["vines"] == true then
+	if self.vined then
+		self:SetDoorDissabled(true)
+		--self:dissabledoorvis()
+	end
+	--	else
+	--		if self.vined then
+	--			self:SetDoorDissabled(false)
+	--self:enabledoor()
+	--		end
+	--	end
 
---	if self.inst.components.door and self.inst.components.door.disabledcauses and self.inst.components.door.disabledcauses["vines"] == true then
-		if self.vined then
-			self:SetDoorDissabled(true)
-			--self:dissabledoorvis()
-		end
---	else
---		if self.vined then
---			self:SetDoorDissabled(false)
-			--self:enabledoor()
---		end
---	end
-	
 	--self:updatevinevis()
 end
 
 function Vineable:testevent(data)
---	local interior_spawner = GetWorld().components.interiorspawner
---	local door = data.door.components.door
---	if interior_spawner.doors[door.door_id] then
---		if interior_spawner.doors[door.door_id] == interior_spawner.doors[self.inst.components.door.door_id] or 
---		   interior_spawner.doors[door.target_door_id] == interior_spawner.doors[self.inst.components.door.door_id] then
---
---		end
---	end
-
+	--	local interior_spawner = GetWorld().components.interiorspawner
+	--	local door = data.door.components.door
+	--	if interior_spawner.doors[door.door_id] then
+	--		if interior_spawner.doors[door.door_id] == interior_spawner.doors[self.inst.components.door.door_id] or
+	--		   interior_spawner.doors[door.target_door_id] == interior_spawner.doors[self.inst.components.door.door_id] then
+	--
+	--		end
+	--	end
 end
 
 function Vineable:OnSave()
-	local data = { 
+	local data = {
 		vined = self.vined,
 	}
 	if self.inst.regrowtask then
@@ -122,7 +118,7 @@ function Vineable:OnSave()
 		data.vines = self.vines.GUID
 	end
 
-    if next(data) then
+	if next(data) then
 		return data
 	end
 end
@@ -138,18 +134,19 @@ function Vineable:LoadPostPass(ents, data)
 		self.vines = ents[data.vines].entity
 	end
 	if data.vined then
-		self:SetUpVine()	
+		self:SetUpVine()
 
 		if data.vines_open then
 			self:SetDoorDissabled(false)
 		else
 			self:SetDoorDissabled(true)
-		end			
-	end	
+		end
+	end
 
 	if data.regrowtimeleft then
-		print("RELOADING TASK TIME",data.regrowtimeleft)
-		self:SetGrowTask( data.regrowtimeleft )
-	end	
+		print("RELOADING TASK TIME", data.regrowtimeleft)
+		self:SetGrowTask(data.regrowtimeleft)
+	end
 end
+
 return Vineable
