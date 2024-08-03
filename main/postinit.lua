@@ -47,6 +47,7 @@ modimport("postinit/prefabs/blueprints")
 modimport("postinit/prefabs/lots_of_things")
 modimport("postinit/prefabs/player") ----shopper, drownable, infestable
 modimport("postinit/prefabs/player_hayfever")
+modimport("postinit/prefabs/tea")
 
 --widgets
 modimport("postinit/widgets/hoverer_info") ---- show name and anim, for debugging
