@@ -95,9 +95,9 @@ function Reticule:PingReticuleAt(pos)
             if self.updatepositionfn ~= nil then
                 self.updatepositionfn(self.inst, pos, ping)
             else
-			if pos and pos.x and pos.z then
-                ping.Transform:SetPosition(pos.x, 0, pos.z)
-			end	
+                if pos and pos.x and pos.z then
+                    ping.Transform:SetPosition(pos.x, 0, pos.z)
+                end
             end
         end
     end
@@ -112,7 +112,6 @@ function Reticule:Blip()
 end
 
 function Reticule:OnUpdate(dt)
-
     self.blipalpha = self.blipalpha + dt * 5
     if self.blipalpha >= 1 then
         self.blipalpha = 1
@@ -121,20 +120,20 @@ function Reticule:OnUpdate(dt)
     if self.reticule then
         self:UpdateColour()
     end
-
 end
 
 function Reticule:UpdateColour()
     local a = self.targetpos ~= nil and self.fadealpha * self.blipalpha or self.blipalpha
-    self.reticule.AnimState:SetMultColour(self.currentcolour[1], self.currentcolour[2], self.currentcolour[3], self.currentcolour[4] * a)
+    self.reticule.AnimState:SetMultColour(self.currentcolour[1], self.currentcolour[2], self.currentcolour[3],
+        self.currentcolour[4] * a)
 end
 
 function Reticule:UpdatePosition(dt)
     if self.targetpos ~= nil then
         local x, y, z = self.targetpos:Get()
-        if  self.ispassableatallpoints or
-            ( self.inst.components.aoetargeting ~= nil and self.inst.components.aoetargeting.alwaysvalid or
-            (TheWorld.Map:IsPassableAtPoint(x, y, z) and not TheWorld.Map:IsGroundTargetBlocked(self.targetpos)) ) then
+        if self.ispassableatallpoints or
+            (self.inst.components.aoetargeting ~= nil and self.inst.components.aoetargeting.alwaysvalid or
+                (TheWorld.Map:IsPassableAtPoint(x, y, z) and not TheWorld.Map:IsGroundTargetBlocked(self.targetpos))) then
             self.currentcolour = self.validcolour
             self.reticule.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
         else
@@ -158,7 +157,8 @@ end
 
 function Reticule:OnCameraUpdate(dt)
     if self.followhandler ~= nil then
-        self.fadealpha = TheInput:GetHUDEntityUnderMouse() ~= nil and math.max(.3, self.fadealpha - .2) or math.min(1, self.fadealpha + .2)
+        self.fadealpha = TheInput:GetHUDEntityUnderMouse() ~= nil and math.max(.3, self.fadealpha - .2) or
+            math.min(1, self.fadealpha + .2)
         local pos = TheInput:GetWorldPosition()
         if self.mousetargetfn ~= nil then
             self.targetpos = self.mousetargetfn(self.inst, pos)
@@ -173,7 +173,7 @@ function Reticule:OnCameraUpdate(dt)
 end
 
 function Reticule:ShouldHide()
-	return self.shouldhidefn ~= nil and self.shouldhidefn(self.inst) or false
+    return self.shouldhidefn ~= nil and self.shouldhidefn(self.inst) or false
 end
 
 Reticule.OnRemoveFromEntity = Reticule.DestroyReticule

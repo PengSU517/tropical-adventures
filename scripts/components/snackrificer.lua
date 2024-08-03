@@ -18,25 +18,25 @@ end
 local function OnCheckCoinDropped(inst)
     local pt = Point(inst.Transform:GetWorldPosition())
 
-	if pt.y < 2 then
-		inst.fell = true
-		inst.Physics:SetMotorVel(0,0,0)
+    if pt.y < 2 then
+        inst.fell = true
+        inst.Physics:SetMotorVel(0, 0, 0)
     end
 
-	if pt.y <= 0.2 then
-		if inst.shadow then
-			inst.shadow:Remove()
-		end
+    if pt.y <= 0.2 then
+        if inst.shadow then
+            inst.shadow:Remove()
+        end
 
-	   	inst.Physics:SetDamping(0.9)
+        inst.Physics:SetDamping(0.9)
 
-	    if inst.updatetask then
-			inst.updatetask:Cancel()
-			inst.updatetask = nil
-		end
-	end
+        if inst.updatetask then
+            inst.updatetask:Cancel()
+            inst.updatetask = nil
+        end
+    end
 
-	inst.last_y = pt.y
+    inst.last_y = pt.y
 end
 
 local function OnCoinDrop(inst, doer, coin)
@@ -45,8 +45,8 @@ local function OnCoinDrop(inst, doer, coin)
     local vec = Vector3(math.cos(theta) - math.sin(theta), 0, math.cos(theta) + math.sin(theta))
     local offset = Vector3(vec.x * rad, 20, vec.z * rad)
 
-	coin.Transform:SetPosition((inst:GetPosition() + offset):Get())
-	coin.updatetask = coin:DoPeriodicTask(0.1, OnCheckCoinDropped, 0.05)
+    coin.Transform:SetPosition((inst:GetPosition() + offset):Get())
+    coin.updatetask = coin:DoPeriodicTask(0.1, OnCheckCoinDropped, 0.05)
 end
 
 local function GiveReward(inst, self, doer)
@@ -74,7 +74,7 @@ function Snackrificer:ComputeValue(item)
         return 0
     end
     local basevalue = snackrificable:GetValue()
-local cravingbonus = 0 -- adicionei 
+    local cravingbonus = 0 -- adicionei
     local saltbonus = 0
     if item.components.saltable and item.components.saltable.saltlevel >= 0.75 then
         saltbonus = 1
@@ -99,13 +99,13 @@ function Snackrificer:ComputeReward(item, value, satisfaction)
         local reward = rewardTable[item.components.replatable.material or "generic"]
         if reward then
             reward = copytable(reward)
-                if item.components.saltable and item.components.saltable:IsSalted() then
-                    reward["coin1"] = reward["coin1"] + 1
-                end
+            if item.components.saltable and item.components.saltable:IsSalted() then
+                reward["coin1"] = reward["coin1"] + 1
+            end
             self.reward = {}
             for coinprefab, amount in pairs(reward) do
-                for i=1,amount do
-                    local coin = SpawnPrefab("quagmire_"..coinprefab.."")
+                for i = 1, amount do
+                    local coin = SpawnPrefab("quagmire_" .. coinprefab .. "")
                     table.insert(self.reward, coin)
                 end
             end

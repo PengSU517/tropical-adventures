@@ -11,5 +11,4 @@ function Sticker:CollectUseActions(doer, target, actions)
 	end
 end
 
-
 return Sticker

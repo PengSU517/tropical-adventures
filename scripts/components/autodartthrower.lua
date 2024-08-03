@@ -27,18 +27,18 @@ function Autodartthrower:TurnOff()
 	self.inst:StopUpdatingComponent(self)
 	if self.turnofffn then
 		self.turnofffn(self.inst)
-	end	
+	end
 end
 
 function Autodartthrower:OnUpdate(dt)
 	if self.updatefn then
-		self.updatefn(self.inst,dt)
+		self.updatefn(self.inst, dt)
 	end
 end
 
 function Autodartthrower:OnSave()
-	local data = {}	
-		data.on = self.on
+	local data = {}
+	data.on = self.on
 	return data
 end
 
@@ -49,6 +49,5 @@ function Autodartthrower:OnLoad(data)
 		end
 	end
 end
-
 
 return Autodartthrower

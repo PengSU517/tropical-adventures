@@ -316,3 +316,122 @@ AddComponentPostInit("sinkholespawner", function(self, inst)
         end
     end
 end) --farming_manager
+
+
+-- 用于控制熊大和巨鹿刷新条件，组件没有可以hook的方法，只好通过该方式来阻止生成
+local function AreaAwareCurrentlyInTagBefore(self, tag)
+    if tag == "nohasslers" and (
+            self:CurrentlyInTag("tropical")
+            or self:CurrentlyInTag("hamlet")
+            or self:CurrentlyInTag("frost")
+        )
+    then
+        return { true }, true
+    end
+end
+
+AddComponentPostInit("areaaware", function(self)
+    Utils.FnDecorator(self, "CurrentlyInTag", AreaAwareCurrentlyInTagBefore)
+end)
+
+
+----毒蜘蛛刷新
+for _, prefab in pairs({ "spider_warrior" }) do
+    AddPrefabPostInit(prefab, function(inst)
+        if not TheWorld.ismastersim then
+            return
+        end
+
+        inst:DoTaskInTime(0.5, function(inst)
+            local map = GLOBAL.TheWorld.Map
+            local x, y, z = inst.Transform:GetWorldPosition()
+            if x and y and z then
+                local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
+                if ground == GROUND.MAGMAFIELD
+                    or ground == GROUND.JUNGLE
+                    or ground == GROUND.ASH
+                    or ground == GROUND.VOLCANO
+                    or ground == GROUND.TIDALMARSH
+                    or ground == GROUND.MEADOW
+                    or ground == GROUND.BEAH then
+                    local bolha = SpawnPrefab("spider_tropical")
+                    if bolha then
+                        bolha.Transform:SetPosition(x, y, z)
+                    end
+                    inst:Remove()
+                end
+            end
+        end)
+    end)
+end
+
+
+----热带蝴蝶刷新
+for _, prefab in pairs({ "butterfly" }) do
+    AddPrefabPostInit(prefab, function(inst)
+        if not TheWorld.ismastersim then
+            return
+        end
+
+        inst:DoTaskInTime(0, function(inst)
+            local map = GLOBAL.TheWorld.Map
+            local x, y, z = inst.Transform:GetWorldPosition()
+            if x and y and z then
+                local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
+                if ground == GROUND.MAGMAFIELD
+                    or ground == GROUND.JUNGLE
+                    or ground == GROUND.ASH
+                    or ground == GROUND.VOLCANO
+                    or ground == GROUND.TIDALMARSH
+                    or ground == GROUND.MEADOW
+                    or ground == GROUND.BEAH then
+                    local bolha = SpawnPrefab("butterfly_tropical")
+                    if bolha then
+                        bolha.Transform:SetPosition(x, y, z)
+                    end
+                    inst:Remove()
+                end
+            end
+        end)
+    end)
+end
+
+
+--[[ ----毒蜘蛛刷新
+for _, prefab in pairs({ "spider_warrior" }) do
+    AddPrefabPostInit(prefab, function(inst)
+        if not TheWorld.ismastersim then
+            return
+        end
+
+        inst:DoTaskInTime(0.5, function(inst)
+            if inst:IsInTropicalArea() then
+                local bolha = SpawnPrefab("spider_tropical")
+                if bolha then
+                    bolha.Transform:SetPosition(inst.Transform:GetWorldPosition())
+                    inst:Remove()
+                end
+            end
+        end)
+    end)
+end
+
+
+----热带蝴蝶刷新
+for _, prefab in pairs({ "butterfly" }) do
+    AddPrefabPostInit(prefab, function(inst)
+        if not TheWorld.ismastersim then
+            return
+        end
+
+        inst:DoTaskInTime(0, function(inst)
+            if inst:IsInTropicalArea() then
+                local bolha = SpawnPrefab("butterfly_tropical")
+                if bolha then
+                    bolha.Transform:SetPosition(inst.Transform:GetWorldPosition())
+                    inst:Remove()
+                end
+            end
+        end)
+    end)
+end ]]

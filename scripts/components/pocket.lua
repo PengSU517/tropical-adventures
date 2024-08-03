@@ -50,7 +50,7 @@ function Pocket:GiveItem(key, item)
 	self.items[key] = item
 	self.inst:AddChild(item)
 	item:RemoveFromScene()
-    item.Transform:SetPosition(0,0,0)
+	item.Transform:SetPosition(0, 0, 0)
 	item.Transform:UpdateTransform()
 
 	if self.ontakeitemfn then
@@ -74,10 +74,10 @@ function Pocket:RemoveItem(key)
 		end
 
 		self.inst:RemoveChild(item)
-	    item:ReturnToScene()	    
-        local pos = self.inst:GetPosition()
-	    item.Transform:SetPosition(pos:Get())
-	    item.Transform:UpdateTransform()
+		item:ReturnToScene()
+		local pos = self.inst:GetPosition()
+		item.Transform:SetPosition(pos:Get())
+		item.Transform:UpdateTransform()
 	end
 
 	self.items[key] = nil
@@ -85,9 +85,9 @@ function Pocket:RemoveItem(key)
 end
 
 function Pocket:OnSave(inst)
-	local data = {items = {}}
+	local data = { items = {} }
 
-	for k,v in pairs(self.items) do
+	for k, v in pairs(self.items) do
 		if v.persists then
 			data.items[k] = v:GetSaveRecord()
 		end
@@ -98,7 +98,7 @@ end
 
 function Pocket:OnLoad(data, newents)
 	if data.items then
-		for k,v in pairs(data.items) do
+		for k, v in pairs(data.items) do
 			local inst = SpawnSaveRecord(v, newents)
 			if inst then
 				self:GiveItem(k, inst)
@@ -110,12 +110,12 @@ end
 function Pocket:GetDebugString()
 	local s = "--- Items ---\n"
 	local count = 0
-    for k,item in pairs(self.items) do
-    	s = s..string.format("--- '%s' - %s x %2.0f \n", k, item.prefab, (item.components.stackable and item.components.stackable:StackSize()) or 1)
+	for k, item in pairs(self.items) do
+		s = s ..
+			string.format("--- '%s' - %s x %2.0f \n", k, item.prefab,
+				(item.components.stackable and item.components.stackable:StackSize()) or 1)
 	end
 	return s
 end
-
-
 
 return Pocket

@@ -19,11 +19,11 @@ function Thrower:GetThrowPoint()
 	local owner = self.inst.components.inventoryitem.owner
 	if not owner then return end
 	local pt = nil
-	local rotation = owner.Transform:GetRotation()*DEGREES
+	local rotation = owner.Transform:GetRotation() * DEGREES
 	local pos = owner:GetPosition()
 
 	for r = self.range, 1, -1 do
-        local numtries = 2*PI*r
+		local numtries = 2 * PI * r
 		pt = FindValidPositionByFan(rotation, r, numtries, function() return true end) --TODO: #BDOIG Might not need to be walkable?
 		if pt then
 			return pt + pos
@@ -32,10 +32,10 @@ function Thrower:GetThrowPoint()
 end
 
 function Thrower:CollectPointActions(doer, pos, actions, right)
-    if right then
-    	if self.target_position then
-    		pos = self.target_position
-    	end
+	if right then
+		if self.target_position then
+			pos = self.target_position
+		end
 		if self:CanThrowAtPoint(pos) then
 			table.insert(actions, ACTIONS.LAUNCH_THROWABLE)
 		end
