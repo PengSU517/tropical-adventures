@@ -4,6 +4,6 @@ modimport("scripts/languages/stringscreeps.lua") ---有些没删干净的东西�
 
 if GLOBAL.TUNING.tropical.language == "stringsCH" then
     modimport("scripts/languages/stringsCH.lua")
-else
-    modimport("scripts/languages/stringsCharacters.lua")
+elseif GLOBAL.TUNING.tropical.language == "stringsEN" then
+    -- modimport("scripts/languages/stringsCharacters.lua")
 end

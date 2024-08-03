@@ -45,10 +45,11 @@ function tabel.insert_components(tbl, vs)
     end
 end
 
-function tabel.remove_components(tbl, vs)
-    for i, v in pairs(tbl) do
+function table.remove_components(tbl, vs)
+    -- 从后向前遍历 tbl
+    for i = #tbl, 1, -1 do
         for k, w in pairs(vs) do
-            if v == w then
+            if tbl[i] == w then
                 table.remove(tbl, i)
                 break
             end
