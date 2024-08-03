@@ -1,6 +1,6 @@
 -- @author: Runar
 -- cooking style
-local Path = "/mods/workshop-2896126381/scripts/melting.lua"
+local Path = "@../mods/workshop-2896126381/scripts/melting.lua:"
 
 local Attributes = {
     greengem = { gem = 27, }, -- gem
@@ -25,16 +25,17 @@ local Attributes = {
 }
 
 local Products = {
-    opalpreciousgem = { priority = 20, test = { gem = 42 } }, -- gem
-    greengem = { priority = 10, test = { gem = 28 } },
-    yellowgem = { priority = 5, test = { gem = 10 } },
-    orangegem = { priority = 3, test = { gem = 4 } },
-    alloy = { priority = 5, test = { iron = 4} }, -- iron
-    gunpowder = { priority = 3, test = { nitro = 4 } }, -- nitro
-    nitre = { priority = 1, test = { nitro = 1 } },
-    goldenbar = { priority = 10, test = { gold = 2 } }, -- gold
-    goldnugget = { priority = 5, test = { gold = 1 } },
-    stonebar = { priority = 1, test = { mineral = 1 } }, -- mineral
+    ash = { priority = -1, test = {}, overridebuild = "ash", overridesymbolname = "ashes01" },
+    opalpreciousgem = { priority = 20, test = { gem = 42 }, overridebuild = "gems", overridesymbolname = "opalgem" }, -- gem
+    greengem = { priority = 10, test = { gem = 28 }, overridebuild = "gems", overridesymbolname = "greengem" },
+    yellowgem = { priority = 5, test = { gem = 10 }, overridebuild = "gems", overridesymbolname = "yellowgem" },
+    orangegem = { priority = 3, test = { gem = 4 }, overridebuild = "gems", overridesymbolname = "orangegem" },
+    alloy = { priority = 5, test = { iron = 4 }, overridebuild = "alloy", overridesymbolname = "alloy01" }, -- iron
+    gunpowder = { priority = 3, test = { nitro = 4 }, overridebuild = "gunpowder", overridesymbolname = "gunpowder01" }, -- nitro
+    nitre = { priority = 1, test = { nitro = 1 }, overridebuild = "nitre", overridesymbolname = "nitre01" },
+    goldenbar = { priority = 10, test = { gold = 2 }, overridebuild = "alloygold", overridesymbolname = "alloy01" }, -- gold
+    goldnugget = { priority = 5, test = { gold = 1 }, overridebuild = "gold_dust", overridesymbolname = "gold_dust01" },
+    stonebar = { priority = 1, test = { mineral = 1 }, overridebuild = "alloystone", overridesymbolname = "alloy01" }, -- mineral
 }
 
 -- AddMeltAttributeValue({ "iron" }, { iron = 1 })
@@ -44,7 +45,7 @@ function AddMeltAttributeValue(names, tags)
             Attributes[name] = {}
         end
         for tagname, tagval in pairs(tags) do
-            assert(not Attributes[name][tagname], Path .. " : Attribute tag \"" .. name .. "-" .. tagname .. "\" already existed")
+            assert(not Attributes[name][tagname], Path .. "49: attempt to add existed melt tag \"" .. tagname .. "\" to melt attribute \"" .. name .. "\"")
             Attributes[name][tagname] = tagval
         end
     end
@@ -53,13 +54,12 @@ end
 -- AddMeltProduct({ alloy = { priority = 5, test = { iron = 4 } } })
 function AddMeltProduct(recipes)
     for name, recipe in pairs(recipes) do
-        assert(not Products[name], Path .. " : Melt recipe \"" .. name .. "\" already existed")
-        -- assert(recipe.priority, Path .. " : \"" .. name .. "\" has no priority.")
-        assert(recipe.test, Path .. " : \"" .. name .. "\" has no recipe")
-        Products[name] = { priority = recipe.priority or 0, test = {} }
+        assert(not Products[name], Path .. "59: attempt to add existed melt recipe \"" .. name .. "\"")
+        assert(type(recipe.test) == "table", Path .. "59: attempt to add non recipe for \"" .. name .. "\"")
+        Products[name] = { priority = recipe.priority or 0, test = {}, overridebuild = recipe.overridebuild or name, overridesymbolname = recipe.overridesymbolname or name }
         for attrtag, attrval in pairs(recipe.test) do
-            assert(type(attrtag) == "string", Path .. " : \"" .. name .. "\" has non-string attribute tag")
-            assert(type(attrval) == "number", Path .. " : \"" .. name .. "\" has non-number attribute value")
+            assert(type(attrtag) == "string", Path .. "63: attempt to add non attribute tag to \"" .. name .. "\"")
+            assert(type(attrval) == "number", Path .. "63: attempt to add non attribute value to \"" .. name .. "\"")
             Products[name].test[attrtag] = attrval
         end
     end
@@ -96,8 +96,12 @@ local function getProd(items)
     return prod.name
 end
 
+local function getOverrideSymbol(item)
+    return Products[item].overridebuild, Products[item].overridesymbolname
+end
+
 local function isAttribute(item)
-    assert(type(item) == "string", Path .. " : function isAttribute(item) : item is not a string" )
+    assert(type(item) == "string", Path .. "105: \"" .. item .. "\" is not a prefab name" )
     return Attributes[item] and true or false
 end
 
@@ -106,5 +110,6 @@ return {
     -- recipes = Products,
     -- getMeltAttr = getAttr,
     getMeltProd = getProd,
+    getOverrideSymbol = getOverrideSymbol,
     isAttribute = isAttribute,
 }
