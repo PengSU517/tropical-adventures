@@ -160,7 +160,7 @@ end
 
 local function MateAction(inst)
 	--渡渡鸟总数量限制
-	if seabeach_amount.doydoy > tonumber(doydoy_total_limit) then
+	if seabeach_amount.doydoy > doydoy_total_limit then
 		return
 	end
 
@@ -175,8 +175,8 @@ local function MateAction(inst)
 		for k, item in pairs(ents) do
 			if CanMate(item) then
 				inst.sg:GoToState("mate")
-				inst.day_to_spawn = tonumber(doydoy_mate_time)
-				item.day_to_spawn = tonumber(doydoy_mate_time)
+				inst.day_to_spawn = doydoy_mate_time
+				item.day_to_spawn = doydoy_mate_time
 			end
 		end
 	end
