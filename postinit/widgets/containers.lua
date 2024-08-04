@@ -91,10 +91,28 @@ params.thatchpack = deepcopy(params.corkchest)
 params.thatchpack.issidewidget = true
 
 local function boatitemtestfn(container, item, slot)
-    return (slot == 1 and (item:HasTag("sail") or item.prefab == "trawlnet")) or (slot == 2 and
-               (item.prefab == "tarlamp" or item.prefab == "boat_lantern" or item.prefab == "boat_torch" or item.prefab ==
-                   "quackeringram" or item.prefab == "boatcannon" or item.prefab == "woodlegs_boatcannon")) or
-               (slot ~= 1 and slot ~= 2)
+    if slot then
+        if slot == 1 and not container:GetItemInSlot(slot) then
+            return (item:HasTag("sail") or item.prefab == "trawlnet") or false
+        elseif slot == 2 and not container:GetItemInSlot(slot) then
+            return (item.prefab == "tarlamp" or item.prefab == "boat_lantern" or item.prefab == "boat_torch" or
+                       item.prefab == "quackeringram" or item.prefab == "boatcannon" or item.prefab ==
+                       "woodlegs_boatcannon") or false
+        else
+            local slotitem = container:GetItemInSlot(slot)
+            if slotitem then
+                if slotitem.prefab == item.prefab then
+                    return slotitem.components.stackable and not slotitem.components.stackable:IsFull() or false
+                else
+                    return false
+                end
+            else
+                return true
+            end
+        end
+    else
+        return true
+    end
 end
 params.cargoboat = {
     widget = {

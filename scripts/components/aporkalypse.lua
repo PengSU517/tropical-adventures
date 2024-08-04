@@ -233,6 +233,10 @@ function Aporkalypse:ScheduleHeraldCheck()
 	-- self:CancelHeraldCheck()
 	self.herald_check_task = self.inst:DoTaskInTime(math.random(TUNING.TOTAL_DAY_TIME / 32, TUNING.TOTAL_DAY_TIME / 16),
 		function()
+			if self.aporkalypse_active == false then
+				self.herald_check_task:Cancel()
+				self.herald_check_task = nil
+			end
 			for i, player in ipairs(AllPlayers) do
 				if player and player.components.health and not player.components.health:IsDead() then
 					local herald = GetClosestInstWithTag("ancient", player, 30)
