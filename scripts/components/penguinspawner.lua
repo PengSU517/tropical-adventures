@@ -20,7 +20,7 @@ return Class(function(self, inst)
     self.inst = inst
 
     --Private
-    local _colonies = {} -- existing colonies
+    local _colonies = {}  -- existing colonies
     local _maxColonySize = 12
     local _totalBirds = 0 -- current number of birds alive
     local _flockSize = TUNING.PENGUINS_FLOCK_SIZE
@@ -30,7 +30,7 @@ return Class(function(self, inst)
 
     local _maxColonies = TUNING.PENGUINS_MAX_COLONIES
     local _maxPenguins = _flockSize *
-    (TUNING.PENGUINS_MAX_COLONIES + TUNING.PENGUINS_MAX_COLONIES_BUFFER)                               -- max simultaneous penguins
+        (TUNING.PENGUINS_MAX_COLONIES + TUNING.PENGUINS_MAX_COLONIES_BUFFER) -- max simultaneous penguins
     local _spawnInterval = TUNING.PENGUINS_SPAWN_INTERVAL
 
     local _numBoulders = TUNING.PENGUINS_DEFAULT_NUM_BOULDERS
@@ -255,7 +255,7 @@ end
         if newFlock.rookery then
             newFlock.rookery = newFlock.rookery + loc
             newFlock.is_mutated = TheWorld.Map:IsInLunacyArea(newFlock.rookery.x, 0, newFlock.rookery.z) and
-            TUNING.SPAWN_MOON_PENGULLS
+                TUNING.SPAWN_MOON_PENGULLS
             newFlock.ice = SpawnPrefab("penguin_ice")
             newFlock.ice.Transform:SetPosition(newFlock.rookery:Get())
             newFlock.ice.spawner = self
@@ -307,12 +307,6 @@ end
 
         if playerdata.player and playerdata.player.components.areaaware and playerdata.player.components.areaaware:CurrentlyInTag("ForceDisconnected") then
             return
-        end
-
-        if frostisland == false then
-            if not TheWorld.state.iswinter or TheWorld.state.remainingdaysinseason <= 3 then
-                return
-            end
         end
 
         --print("Totalbirds=",_totalBirds,_maxPenguins)
