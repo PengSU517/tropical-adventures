@@ -8,7 +8,7 @@ local Stickable = Class(function(self, inst)
 end)
 
 function Stickable:CanBeSticked()
-    return self.canbesticked
+	return self.canbesticked
 end
 
 function Stickable:SetOnPokeCallback(onpoked)
@@ -37,7 +37,7 @@ function Stickable:OnSave()
 
 	data.canbesticked = self.canbesticked
 	data.hasbeensticked = self.hasbeensticked
-	
+
 	if next(data) then
 		return data
 	end

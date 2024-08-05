@@ -8,14 +8,13 @@ end)
 
 
 function Seedable:CollectUseActions(doer, target, actions)
---    if target.components.breeder and target.components.breeder:IsEmpty() and not target.components.breeder.seeded then
---		if target:HasTag("fishfarm") then
---			if self.inst:HasTag("roe") then
---				table.insert(actions, ACTIONS.PLANT)
---			end
---		end		
---	end
+    --    if target.components.breeder and target.components.breeder:IsEmpty() and not target.components.breeder.seeded then
+    --		if target:HasTag("fishfarm") then
+    --			if self.inst:HasTag("roe") then
+    --				table.insert(actions, ACTIONS.PLANT)
+    --			end
+    --		end		
+    --	end
 end
-
 
 return Seedable

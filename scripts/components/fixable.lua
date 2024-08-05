@@ -1,4 +1,3 @@
-
 local Fixable = Class(function(self, inst)
     self.inst = inst
     self.reconstruction_stages = {}
@@ -6,40 +5,42 @@ end)
 
 function Fixable:OnRemoveEntity()
     local fixer = SpawnPrefab("reconstruction_project")
-	if fixer == nil then return end
+    if fixer == nil then return end
     fixer.Transform:SetPosition(self.inst.Transform:GetWorldPosition())
     fixer.construction_prefab = self.inst.prefab
 
     if self.inst.components.spawner then
         fixer.spawnerdata = {
-                childname = self.inst.components.spawner.childname,
-                child = self.inst.components.spawner.child or nil,     
-                delay = self.inst.components.spawner.delay        
-            } 
+            childname = self.inst.components.spawner.childname,
+            child = self.inst.components.spawner.child or nil,
+            delay = self.inst.components.spawner.delay
+        }
     end
-    
+
     if self.reconstruction_stages[1] then
         fixer.AnimState:SetBank(self.reconstruction_stages[1].bank)
         fixer.AnimState:SetBuild(self.reconstruction_stages[1].build)
-        fixer.AnimState:PlayAnimation(self.reconstruction_stages[1].anim,true)
+        fixer.AnimState:PlayAnimation(self.reconstruction_stages[1].anim, true)
         fixer.saveartdata = {
             bank = self.reconstruction_stages[1].bank,
             build = self.reconstruction_stages[1].build,
             anim = self.reconstruction_stages[1].anim,
-        }        
+        }
         if self.reconstruction_stages[1].scale then
-            fixer.AnimState:SetScale(self.reconstruction_stages[1].scale[1],self.reconstruction_stages[1].scale[2],self.reconstruction_stages[1].scale[3])
-            fixer.saveartdata.scale = {self.reconstruction_stages[1].scale[1],self.reconstruction_stages[1].scale[2],self.reconstruction_stages[1].scale[3]}
+            fixer.AnimState:SetScale(self.reconstruction_stages[1].scale[1], self.reconstruction_stages[1].scale[2],
+                self.reconstruction_stages[1].scale[3])
+            fixer.saveartdata.scale = { self.reconstruction_stages[1].scale[1], self.reconstruction_stages[1].scale[2],
+                self.reconstruction_stages[1].scale[3] }
         else
-            fixer.AnimState:SetScale(1,1,1)
-        end                            
-        fixer:Show()        
+            fixer.AnimState:SetScale(1, 1, 1)
+        end
+        fixer:Show()
 
         if self.inst.components.citypossession then
             fixer.cityID = self.inst.components.citypossession.cityID
         end
         if self.inst.interiorID then
-            fixer.interiorID = self.inst.interiorID 
+            fixer.interiorID = self.inst.interiorID
         end
     end
 
@@ -55,7 +56,7 @@ function Fixable:SetPrefabName(name)
     self.prefabname = name
 end
 
-function Fixable:AddRecinstructionStageData(anim,bank,build,stage,scale)
+function Fixable:AddRecinstructionStageData(anim, bank, build, stage, scale)
     if not stage then
         stage = #self.reconstruction_stages + 1
     end
@@ -70,7 +71,7 @@ function Fixable:AddRecinstructionStageData(anim,bank,build,stage,scale)
     end
     if anim then
         self.reconstruction_stages[stage].anim = anim
-    end    
+    end
     if scale then
         self.reconstruction_stages[stage].scale = scale
     end

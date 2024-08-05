@@ -3,16 +3,16 @@ require("constants")
 local easing = require("easing")
 
 local function spawnCloudPuff(x, y, z)
-	local cloudpuff = SpawnPrefab( "cloudpuff" )
-	cloudpuff.Transform:SetPosition( x, y, z )
+	local cloudpuff = SpawnPrefab("cloudpuff")
+	cloudpuff.Transform:SetPosition(x, y, z)
 end
 
 local function isSky(map, x, y, z)
 	return (GROUND.IMPASSABLE == map:GetTileAtPoint(x, y, z)) and
-           (GROUND.IMPASSABLE == map:GetTileAtPoint(x + 1.0, y, z)) and
-           (GROUND.IMPASSABLE == map:GetTileAtPoint(x - 1.0, y, z)) and
-           (GROUND.IMPASSABLE == map:GetTileAtPoint(x, y, z + 1.0)) and
-           (GROUND.IMPASSABLE == map:GetTileAtPoint(x, y, z - 1.0))
+		(GROUND.IMPASSABLE == map:GetTileAtPoint(x + 1.0, y, z)) and
+		(GROUND.IMPASSABLE == map:GetTileAtPoint(x - 1.0, y, z)) and
+		(GROUND.IMPASSABLE == map:GetTileAtPoint(x, y, z + 1.0)) and
+		(GROUND.IMPASSABLE == map:GetTileAtPoint(x, y, z - 1.0))
 end
 
 local CloudPuffManager = Class(function(self, inst)
@@ -38,27 +38,26 @@ function CloudPuffManager:OnUpdate(dt)
 	if map == nil then
 		return
 	end
-	
-	
-for i, v in ipairs(AllPlayers) do
-	local px, py, pz = v.Transform:GetWorldPosition()
 
-	self.cloudpuff_spawn_rate = self.cloudpuff_spawn_rate + self.cloudpuff_per_sec * dt
 
-	local radius = getCloudPuffRadius()
+	for i, v in ipairs(AllPlayers) do
+		local px, py, pz = v.Transform:GetWorldPosition()
 
-	while self.cloudpuff_spawn_rate > 10.0 do
-		local dx, dz = radius * UnitRand(), radius * UnitRand()
-		local x, y, z = px + dx, py, pz + dz
+		self.cloudpuff_spawn_rate = self.cloudpuff_spawn_rate + self.cloudpuff_per_sec * dt
 
-		if isSky(map, x, y, z) then
-			spawnCloudPuff(x, y, z)
+		local radius = getCloudPuffRadius()
+
+		while self.cloudpuff_spawn_rate > 10.0 do
+			local dx, dz = radius * UnitRand(), radius * UnitRand()
+			local x, y, z = px + dx, py, pz + dz
+
+			if isSky(map, x, y, z) then
+				spawnCloudPuff(x, y, z)
+			end
+
+			self.cloudpuff_spawn_rate = self.cloudpuff_spawn_rate - 1.0
 		end
-
-		self.cloudpuff_spawn_rate = self.cloudpuff_spawn_rate - 1.0
 	end
-end	
-
 end
 
 return CloudPuffManager

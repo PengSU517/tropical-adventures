@@ -1,6 +1,6 @@
 local Appeasement = Class(function(self, inst)
     self.inst = inst
-    self.appeasementvalue = 0 
+    self.appeasementvalue = 0
 end)
 
 function Appeasement:CollectUseActions(doer, target, actions)
@@ -8,6 +8,5 @@ function Appeasement:CollectUseActions(doer, target, actions)
         table.insert(actions, ACTIONS.GIVE)
     end
 end
-
 
 return Appeasement

@@ -15,11 +15,11 @@ function Throwable:GetThrowPoint()
 	local owner = self.inst.components.inventoryitem.owner
 	if not owner then return end
 	local pt = nil
-	local rotation = owner.Transform:GetRotation()*DEGREES
+	local rotation = owner.Transform:GetRotation() * DEGREES
 	local pos = owner:GetPosition()
 
 	for r = self.throwdistance_controller, 1, -1 do
-        local numtries = 2*PI*r
+		local numtries = 2 * PI * r
 		pt = FindValidPositionByFan(rotation, r, numtries, function() return true end) --TODO: #BDOIG Might not need to be walkable?
 		if pt then
 			return pt + pos
@@ -32,10 +32,10 @@ function Throwable:CanThrowAtPoint(pt)
 end
 
 function Throwable:CollectPointActions(doer, pos, actions, right)
-    if right then
-    	if self.target_position then
-    		pos = self.target_position
-    	end
+	if right then
+		if self.target_position then
+			pos = self.target_position
+		end
 		if self:CanThrowAtPoint(pos) then
 			table.insert(actions, ACTIONS.THROW)
 		end
@@ -65,19 +65,21 @@ function Throwable:Throw(pt, thrower)
 	local offset = Vector3(0, yOffset, 0)
 	local distance = pos:Dist(pt)
 	local totarget = pt - pos
-    local angle = math.atan2(totarget.z, totarget.x) + (math.random()*self.random_angle - (self.random_angle * 0.5))*DEGREES
-    local time_to_target = distance/self.speed
+	local angle = math.atan2(totarget.z, totarget.x) +
+		(math.random() * self.random_angle - (self.random_angle * 0.5)) * DEGREES
+	local time_to_target = distance / self.speed
 
-    local Viy = ((grav*0.5*(time_to_target^2))+yOffset)/time_to_target
+	local Viy = ((grav * 0.5 * (time_to_target ^ 2)) + yOffset) / time_to_target
 
 	tothrow.Transform:SetPosition((pos + offset):Get())
 	if tothrow.Physics then
-    tothrow.Physics:SetVel(self.speed*math.cos(angle), Viy, self.speed*math.sin(angle))
+		tothrow.Physics:SetVel(self.speed * math.cos(angle), Viy, self.speed * math.sin(angle))
 	end
 
-    local dir = Vector3((time_to_target*self.speed)*math.cos(angle), 0, (time_to_target*self.speed)*math.sin(angle))
+	local dir = Vector3((time_to_target * self.speed) * math.cos(angle), 0, (time_to_target * self.speed) *
+		math.sin(angle))
 
-    local thrownpt = thrower:GetPosition() + dir
+	local thrownpt = thrower:GetPosition() + dir
 
 	if self.onthrown then
 		self.onthrown(tothrow, thrower, thrownpt, time_to_target)

@@ -1,6 +1,13 @@
 local modimport = modimport
 
 
+---目前仍然有暴力覆盖的组件(都是闭包函数，似乎不太好hook)
+--ambientlighting
+--hounded
+--penguinspawner
+--weather
+
+
 modimport("main/ham_room")         -----------------新的room
 modimport("main/tropical_ocean")   ----------------新的海洋属性
 modimport("main/tropical_boat")    ----------------单人船相关修改
@@ -17,19 +24,36 @@ modimport("postinit/wx78_module")
 modimport("postinit/sim_ham")      ---------ham cloud
 modimport("postinit/entityscript") ----修改entity相关
 modimport("postinit/entity")       ----不知道这个是干啥的
+modimport("postinit/naughty")      ----淘气值？
+
 
 --components
 modimport("postinit/components/armor")
-modimport("postinit/components/builder") ----------试试看这个有没有问题
+modimport("postinit/components/builder")
+modimport("postinit/components/birdspawner")
+modimport("postinit/components/curseditem")
+
 modimport("postinit/components/healthtrigger")
 modimport("postinit/components/embarker")
+modimport("postinit/components/groundpounder") ----这个组件拍地板的？
 modimport("postinit/components/inventory_prevent_pick")
 modimport("postinit/components/inventoryitem")
+modimport("postinit/components/locomotor") -----这两个内容需要整合一下
 modimport("postinit/components/locomoter")
 modimport("postinit/components/playercontroller")
 modimport("postinit/components/playerspawner")
+modimport("postinit/components/playervision")
+-- modimport("postinit/components/plantgrowth")  --黄蘑菇生长速度，之后或许可以加进来
+-- modimport("postinit/components/spooked")  --黄蘑菇孢子
 modimport("postinit/components/snowtile") ---- disable snow effeccts
+modimport("postinit/components/trap")
+modimport("postinit/components/thief")
 modimport("postinit/components/wavemanager")
+
+
+
+
+
 
 
 --prefabs

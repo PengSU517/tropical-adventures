@@ -1,25 +1,24 @@
 local Shopped = Class(function(self, inst)
-    self.inst = inst
-    self.shop = nil 
+	self.inst = inst
+	self.shop = nil
 end)
 
-function Shopped:GetWanted()	
+function Shopped:GetWanted()
 	return self.shop.components.shopinterior:GetWanted()
-end 
+end
 
 function Shopped:SetShop(shop, shoptype)
-	self.shop = shop 
+	self.shop = shop
 	self.shoptype = shoptype
-end 
-
+end
 
 function Shopped:OnSave()
 	local data = {}
 	local refs = {}
---	assert(self.shop,"no SHOP on "..self.inst.prefab)	
-	if self.shop then		
+	--	assert(self.shop,"no SHOP on "..self.inst.prefab)	
+	if self.shop then
 		data.shop = self.shop.GUID
-		table.insert(refs,self.shop.GUID)	
+		table.insert(refs, self.shop.GUID)
 	end
 
 	if self.shoptype then
@@ -44,9 +43,9 @@ function Shopped:LoadPostPass(ents, data)
 end
 
 function Shopped:CollectSceneActions(doer, actions)
-    if doer.components.shopper and self.inst.components.shopdispenser.item_served then
-        table.insert(actions, ACTIONS.SHOP)
-    end
+	if doer.components.shopper and self.inst.components.shopdispenser.item_served then
+		table.insert(actions, ACTIONS.SHOP)
+	end
 end
 
-return Shopped 
+return Shopped

@@ -4,16 +4,14 @@ local ShockAura = Class(function(self, inst)
     self.tickperiod = 1
     self.active = false
     self.applying = false
-
 end)
 
 function ShockAura:GetDebugString()
-    
-    local str = string.format("radius:%2.2f, enabled:%s", self.radius, tostring(self.active) )
+    local str = string.format("radius:%2.2f, enabled:%s", self.radius, tostring(self.active))
     if self.active then
         str = str .. string.format(" %2.2fs applying:%s", self.tickperiod, tostring(self.applying))
     end
-    
+
     return str
 end
 
@@ -31,7 +29,6 @@ function ShockAura:Enable(val)
                 self.inst:PushEvent("stopaura")
                 self.applying = false
             end
-
         end
     end
 end
@@ -40,8 +37,8 @@ function ShockAura:OnTick()
     local applied = false
 
     if self.inst.components.combat then
-        local hits = self.inst.components.combat:DoAreaAttack(self.inst, self.radius, nil, 
-            function(target) 
+        local hits = self.inst.components.combat:DoAreaAttack(self.inst, self.radius, nil,
+            function(target)
                 if target:HasTag("noauradamage") then return false end
 
                 if self.auratestfn then
@@ -63,7 +60,7 @@ function ShockAura:OnTick()
         else
             self.inst:PushEvent("stopaura")
         end
-    
+
         self.applying = applied
     end
 end

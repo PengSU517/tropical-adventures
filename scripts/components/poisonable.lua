@@ -32,7 +32,7 @@ function Poisonable:SetPoison(dmg, interval, duration)
 			self.inst.components.lootdropper:SetLootPostInit("poisoned", SpoilLoot)
 		end
 	end
-	
+
 	if self.inst.player_classified then
 		self.inst.player_classified.poisonover:set_local(true)
 		self.inst.player_classified.poisonover:set(true)
@@ -82,7 +82,7 @@ function Poisonable:OnUpdate(dt)
 			self.inst.player_classified.poisonover:set(true)
 		end
 	end
-	
+
 	-- poison bubbles fx, fixed by EvenMr
 	if not self.poisonfx and self.dmg < 0 then
 		self.poisonfx = SpawnPrefab("poisonbubble_level1_loop")
@@ -90,12 +90,12 @@ function Poisonable:OnUpdate(dt)
 		if cmp.burnable and #cmp.burnable.fxdata > 0 then
 			local symbol = cmp.burnable.fxdata[1].follow
 			if symbol then
-				self.poisonfx.Follower:FollowSymbol(self.inst.GUID,symbol,0,0,0)
+				self.poisonfx.Follower:FollowSymbol(self.inst.GUID, symbol, 0, 0, 0)
 			end
 		end
 	end
-	
-	if self.duration <= 0 or self.inst:HasTag("weremoose")  or self.inst:HasTag("weregoose")  or self.inst:HasTag("beaver")  or self.inst:HasTag("playerghost") then
+
+	if self.duration <= 0 or self.inst:HasTag("weremoose") or self.inst:HasTag("weregoose") or self.inst:HasTag("beaver") or self.inst:HasTag("playerghost") then
 		self:WearOff()
 	end
 end

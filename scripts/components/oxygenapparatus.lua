@@ -1,7 +1,7 @@
 local OxygenApparatus = Class(function(self, inst)
-    self.inst = inst
-    self.percentage = 1
-	
+	self.inst = inst
+	self.percentage = 1
+
 	self.inst.entity:AddTag("oxygen_apparatus")
 end)
 

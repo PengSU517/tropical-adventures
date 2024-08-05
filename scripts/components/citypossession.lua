@@ -38,6 +38,6 @@ function Citypossession:OnLoad(data)
     if not self.enabled then
         self:Disable()
     end
-end 
+end
 
 return Citypossession
