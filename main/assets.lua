@@ -368,6 +368,9 @@ PrefabFiles =
 	-- ### Honey Chest Updated
 	"collapsedchest_tro",
 	"corkchest",
+
+	-- ## (Food) Buffs
+	"buffs_tro",
 }
 
 -- if GetModConfigData("whirlpools") then

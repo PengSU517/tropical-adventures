@@ -96,22 +96,11 @@ local foods_tro = {
             cooktime = 0.5,
             tags = {"honeyed"},
             oneatenfn = function(inst, eater)
+			    eater:AddDebuff("speedup_tro", "buff_speedup_tro", { debuffkey = "tea" }, true)
                 if eater and eater.components.temperature then
                     local current_temp = eater.components.temperature:GetCurrent()
                     local new_temp = math.max(current_temp + 15, TUNING.STARTING_TEMP)
                     eater.components.temperature:SetTemperature(new_temp)
-                end
-                if eater ~= nil and eater:IsValid() and eater.components.locomotor ~= nil then
-                    if eater._tropicalbouillabaisse_speedmulttask ~= nil then
-                        eater._tropicalbouillabaisse_speedmulttask:Cancel()
-                    end
-                    local debuffkey = "tropicalbouillabaisse"
-                    eater._tropicalbouillabaisse_speedmulttask =
-                        eater:DoTaskInTime(120, function(i)
-                            i.components.locomotor:RemoveExternalSpeedMultiplier(i, debuffkey)
-                            i._tropicalbouillabaisse_speedmulttask = nil
-                        end)
-                    eater.components.locomotor:SetExternalSpeedMultiplier(eater, debuffkey, 17 / 12)
                 end
             end,
             card_def = {
@@ -134,22 +123,11 @@ local foods_tro = {
             cooktime = 0.5,
             tags = {"honeyed"},
             oneatenfn = function(inst, eater)
+			    eater:AddDebuff("speedup_tro", "buff_speedup_tro", { debuffkey = "icedtea" }, true)
                 if eater and eater.components.temperature then
                     local current_temp = eater.components.temperature:GetCurrent()
                     local new_temp = math.max(current_temp - 10, TUNING.STARTING_TEMP)
                     eater.components.temperature:SetTemperature(new_temp)
-                end
-                if eater ~= nil and eater:IsValid() and eater.components.locomotor ~= nil then
-                    if eater._tropicalbouillabaisse_speedmulttask ~= nil then
-                        eater._tropicalbouillabaisse_speedmulttask:Cancel()
-                    end
-                    local debuffkey = "tropicalbouillabaisse"
-                    eater._tropicalbouillabaisse_speedmulttask =
-                        eater:DoTaskInTime(80, function(i)
-                            i.components.locomotor:RemoveExternalSpeedMultiplier(i, debuffkey)
-                            i._tropicalbouillabaisse_speedmulttask = nil
-                        end)
-                    eater.components.locomotor:SetExternalSpeedMultiplier(eater, debuffkey, 23 / 18)
                 end
             end,
             card_def = {
@@ -394,17 +372,7 @@ local foods_tro = {
             cooktime = .5,
             tags = {},
             oneatenfn = function(inst, eater)
-                if eater ~= nil and eater:IsValid() and eater.components.locomotor ~= nil then
-                    if eater._coffee_speedmulttask ~= nil then
-                        eater._coffee_speedmulttask:Cancel()
-                    end
-                    local debuffkey = "coffee"
-                    eater._coffee_speedmulttask = eater:DoTaskInTime(240, function(i)
-                        i.components.locomotor:RemoveExternalSpeedMultiplier(i, debuffkey)
-                        i._coffee_speedmulttask = nil
-                    end)
-                    eater.components.locomotor:SetExternalSpeedMultiplier(eater, debuffkey, 11 / 6)
-                end
+			    eater:AddDebuff("speedup_tro", "buff_speedup_tro", { debuffkey = "coffee" }, true)
             end,
             card_def = {
                 ingredients = {{"coffeebeans_cooked", 4}}
@@ -536,22 +504,11 @@ local foods_tro = {
             cooktime = 2,
             oneatenfn = function(inst, eater)
                 eater:AddDebuff("buff_moistureimmunity", "buff_moistureimmunity") -- 免疫潮湿
+			    eater:AddDebuff("speedup_tro", "buff_speedup_tro", { debuffkey = "tropicalbouillabaisse" }, true)
                 if eater and eater.components.temperature then -- 瞬时降温（不确定sw是不是这个逻辑）
                     local current_temp = eater.components.temperature:GetCurrent()
                     local new_temp = math.max(current_temp - 8, TUNING.STARTING_TEMP)
                     eater.components.temperature:SetTemperature(new_temp)
-                end
-                if eater ~= nil and eater:IsValid() and eater.components.locomotor ~= nil then -- 基础移速+3（设计上），不确定跟咖啡是否独立，但原本就是这么写的，以后想办法把加速搞到一个函数里面免得叠到起飞
-                    if eater._tropicalbouillabaisse_speedmulttask ~= nil then
-                        eater._tropicalbouillabaisse_speedmulttask:Cancel()
-                    end
-                    local debuffkey = "tropicalbouillabaisse"
-                    eater._tropicalbouillabaisse_speedmulttask =
-                        eater:DoTaskInTime(60, function(i)
-                            i.components.locomotor:RemoveExternalSpeedMultiplier(i, debuffkey)
-                            i._tropicalbouillabaisse_speedmulttask = nil
-                        end)
-                    eater.components.locomotor:SetExternalSpeedMultiplier(eater, debuffkey, 1.5)
                 end
             end,
             card_def = {
