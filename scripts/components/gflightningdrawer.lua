@@ -1,14 +1,14 @@
 --Green Framework. Please, don't copy any files or functions from this mod, because it can break other mods based on the GF.
 
 local colors = {
-    {42/255, 209/255, 235/255}, --light blue
-    {124/255, 252/255, 0}, -- green
-    {218/255, 165/255, 32/255}, -- yellow
-    {147/255, 112/255, 219/255}, -- purple
-    {1, 1, 1}, --white
-    {205/255, 0, 0}, -- red
-    {0.3, 0.3, 0.3}, --gray
-    {0, 0, 0}, --black
+    { 42 / 255,  209 / 255, 235 / 255 }, --light blue
+    { 124 / 255, 252 / 255, 0 },         -- green
+    { 218 / 255, 165 / 255, 32 / 255 },  -- yellow
+    { 147 / 255, 112 / 255, 219 / 255 }, -- purple
+    { 1,         1,         1 },         --white
+    { 205 / 255, 0,         0 },         -- red
+    { 0.3,       0.3,       0.3 },       --gray
+    { 0,         0,         0 },         --black
 }
 
 local function FloorToFirstDecimal(val)
@@ -31,7 +31,7 @@ local function OnLightningDirty(inst)
                 finish = { x = tonumber(finish[1]), z = tonumber(finish[2]) }
             })
     end
-    
+
     inst.components.gflightningdrawer:DrowLightning(points)
 end
 
@@ -90,7 +90,7 @@ function GFLightningDrawer:DrowLightning(points)
         --print("dist", dist)
         --local sourceAngle = math.atan2(dx, dz) - 1.57
 
-        local pointsToDraw = {{x = lgtn.start.x, z = lgtn.start.z}, {x = lgtn.finish.x, z = lgtn.finish.z}}
+        local pointsToDraw = { { x = lgtn.start.x, z = lgtn.start.z }, { x = lgtn.finish.x, z = lgtn.finish.z } }
         local needPoints = dist * 1.5
 
         while #pointsToDraw <= needPoints do
@@ -103,13 +103,14 @@ function GFLightningDrawer:DrowLightning(points)
                     local vstart = pointsToDraw[j]
                     local vend = pointsToDraw[j + 1]
                     --print(string.format("start %i (%.2f, %.2f), end %i (%.2f, %.2f)", j, pointsToDraw[j].x, pointsToDraw[j].z,
-                        --j + 1, pointsToDraw[j + 1].x, pointsToDraw[j + 1].z))
+                    --j + 1, pointsToDraw[j + 1].x, pointsToDraw[j + 1].z))
                     local dx, dz = vend.x - vstart.x, vend.z - vstart.z
                     local angle = math.atan2(dx, dz) + (math.random(80) - 40) * DEGREES - 1.57
                     local lenght = math.sqrt(dx * dx + dz * dz) / 2
                     --print("angle, lenght", angle / DEGREES, lenght)
                     --print("inserting pt in pos", j + 1)
-                    table.insert(pointsToDraw, j + 1, {x = vstart.x + math.cos(angle) * lenght, z = vstart.z - math.sin(angle) * lenght})
+                    table.insert(pointsToDraw, j + 1,
+                        { x = vstart.x + math.cos(angle) * lenght, z = vstart.z - math.sin(angle) * lenght })
                 else
                     --print(string.format("%i (%.2f, %.2f) is last element", j, pointsToDraw[j].x, pointsToDraw[j].z))
                 end
@@ -129,22 +130,22 @@ function GFLightningDrawer:DrowLightning(points)
             local obj = SpawnPrefab("gf_lightningfx")
             obj.AnimState:SetMultColour(colors[type + 1][1], colors[type + 1][2], colors[type + 1][3], 0.5)
             obj:Hide()
-            local scale = math.sqrt(dx * dx + dz * dz)--+ 0.45
-            scale = FloorToFirstDecimal(scale *  (1.9 - scale))
+            local scale = math.sqrt(dx * dx + dz * dz) --+ 0.45
+            scale = FloorToFirstDecimal(scale * (1.9 - scale))
             obj.Transform:SetScale(scale, obj.scaley, scale)
-            obj.Transform:SetRotation(angle/DEGREES)
+            obj.Transform:SetRotation(angle / DEGREES)
             obj.Transform:SetPosition(pointsToDraw[i].x, offset, pointsToDraw[i].z)
             table.insert(self.fxs, obj)
         end
     end
 
-    self.inst:DoTaskInTime(0, function(inst) 
+    self.inst:DoTaskInTime(0, function(inst)
         for k, v in pairs(inst.components.gflightningdrawer.fxs) do
             v:Show()
         end
     end)
 
-    self.inst:DoTaskInTime(0.3, function(inst) 
+    self.inst:DoTaskInTime(0.3, function(inst)
         for k, v in pairs(inst.components.gflightningdrawer.fxs) do
             v:Remove()
         end

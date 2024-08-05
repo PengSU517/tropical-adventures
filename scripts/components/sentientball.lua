@@ -1,4 +1,3 @@
-
 local CHAT_TIME_MIN = 60
 local CHAT_TIME_MAX = 120
 
@@ -14,7 +13,6 @@ local SentientBall = Class(function(self, inst)
 	local dt = 5
 	self.inst:DoPeriodicTask(dt, function() self:OnUpdate(dt) end)
 	self.warnlevel = 0
-
 end)
 
 
@@ -38,7 +36,6 @@ function SentientBall:OnExtinguish()
 	self:Say(STRINGS.RAWLINGon_extinguish)
 end
 
-
 function SentientBall:OnUpdate(dt)
 	self.time_to_convo = self.time_to_convo - dt
 	if self.time_to_convo <= 0 then
@@ -47,7 +44,6 @@ function SentientBall:OnUpdate(dt)
 end
 
 function SentientBall:Say(list, sound_override)
-
 	if GetTime() > self.last_say_time + self.min_say_time then
 		self.sound_override = sound_override
 		if list == nil then list = ":-)" end
@@ -58,9 +54,7 @@ function SentientBall:Say(list, sound_override)
 	end
 end
 
-
 function SentientBall:MakeConversation()
-	
 	local grand_owner = self.inst.components.inventoryitem:GetGrandOwner()
 	local owner = self.inst.components.inventoryitem.owner
 
@@ -93,11 +87,11 @@ function SentientBall:MakeConversation()
 end
 
 function SentientBall:CollectSceneActions(doer, actions)
-    if self.inst.components.burnable and self.inst.components.burnable:IsBurning() then
-    	table.insert(actions, ACTIONS.MANUALEXTINGUISH)
-    elseif self.inst.components.burnable and self.inst.components.burnable:IsSmoldering() then
-        table.insert(actions, ACTIONS.SMOTHER)
-    end
+	if self.inst.components.burnable and self.inst.components.burnable:IsBurning() then
+		table.insert(actions, ACTIONS.MANUALEXTINGUISH)
+	elseif self.inst.components.burnable and self.inst.components.burnable:IsSmoldering() then
+		table.insert(actions, ACTIONS.SMOTHER)
+	end
 end
 
 return SentientBall

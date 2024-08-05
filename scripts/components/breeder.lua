@@ -1,20 +1,20 @@
 --scripts/components/breeder.lua
 local Breeder =
     Class(
-    function(self, inst)
-        self.inst = inst
-        self.crops = {}
-        self.volume = 0
-        self.max_volume = 4
-        self.seeded = false
-        self.harvestable = false
-        self.level = 1
-        self.croppoints = {}
-        self.growrate = 1
+        function(self, inst)
+            self.inst = inst
+            self.crops = {}
+            self.volume = 0
+            self.max_volume = 4
+            self.seeded = false
+            self.harvestable = false
+            self.level = 1
+            self.croppoints = {}
+            self.growrate = 1
 
-        self.inst:AddTag("breeder")
-    end
-)
+            self.inst:AddTag("breeder")
+        end
+    )
 
 local FISH_FARM_CYCLE_TIME_MIN = 30 * 8
 local FISH_FARM_CYCLE_TIME_MAX = 30 * 12
@@ -55,21 +55,21 @@ function Breeder:OnLoad(data, newents)
     if data.breedtasktime then
         self.breedTask =
             self.inst:DoTaskInTime(
-            data.breedtasktime,
-            function()
-                self:checkVolume()
-            end
-        )
+                data.breedtasktime,
+                function()
+                    self:checkVolume()
+                end
+            )
     end
 
     if data.luretasktime then
         self.lureTask =
             self.inst:DoTaskInTime(
-            data.luretask,
-            function()
-                self:checkLure()
-            end
-        )
+                data.luretask,
+                function()
+                    self:checkLure()
+                end
+            )
     end
 
     self.inst:DoTaskInTime(
@@ -106,7 +106,7 @@ local function SpawnPredatorPrefab(inst)
     end
 
     local pt = Vector3(inst.Transform:GetWorldPosition())
-    local predators = TheSim:FindEntities(pt.x, pt.y, pt.z, 10, {"crocodog", "swordfish"}, nil)
+    local predators = TheSim:FindEntities(pt.x, pt.y, pt.z, 10, { "crocodog", "swordfish" }, nil)
 
     if #predators > 2 then
         return nil
@@ -158,17 +158,17 @@ function Breeder:checkLure()
     end
     self.lureTask =
         self.inst:DoTaskInTime(
-        FISH_FARM_LURE_TEST_TIME,
-        function()
-            self:checkLure()
-        end
-    )
+            FISH_FARM_LURE_TEST_TIME,
+            function()
+                self:checkLure()
+            end
+        )
 end
 
 function Breeder:checkVolume()
     if self.seeded then
         --[[   if self.volume > 0 and not self.harvestable then
-            self.harvestable = true    
+            self.harvestable = true
         else]]
         self:updatevolume(1)
         --end
@@ -177,11 +177,11 @@ function Breeder:checkVolume()
 
         self.breedTask =
             self.inst:DoTaskInTime(
-            time,
-            function()
-                self:checkVolume()
-            end
-        )
+                time,
+                function()
+                    self:checkVolume()
+                end
+            )
     end
 end
 
@@ -199,25 +199,25 @@ function Breeder:Seed(item)
         prefab = item.components.seedable.product or item.prefab
     end
     self.product = prefab
-	
-	local tipo_de_eixe = math.random(1,8)
-	if tipo_de_eixe < 5 then
-    self.product = "fish2"	
-	end
-	
-	if tipo_de_eixe == 6 then
-    self.product = "fish3"
-	end
 
-	if tipo_de_eixe == 7 then
-    self.product = "fish4"	
-	end
+    local tipo_de_eixe = math.random(1, 8)
+    if tipo_de_eixe < 5 then
+        self.product = "fish2"
+    end
 
-	if tipo_de_eixe == 8 then
-    self.product = "fish5"	
-	end	
-	
-	print(self.product)
+    if tipo_de_eixe == 6 then
+        self.product = "fish3"
+    end
+
+    if tipo_de_eixe == 7 then
+        self.product = "fish4"
+    end
+
+    if tipo_de_eixe == 8 then
+        self.product = "fish5"
+    end
+
+    print(self.product)
 
     self.seeded = true
 
@@ -225,19 +225,19 @@ function Breeder:Seed(item)
 
     self.breedTask =
         self.inst:DoTaskInTime(
-        time,
-        function()
-            self:checkVolume()
-        end
-    )
+            time,
+            function()
+                self:checkVolume()
+            end
+        )
 
     self.lureTask =
         self.inst:DoTaskInTime(
-        FISH_FARM_LURE_TEST_TIME,
-        function()
-            self:checkLure()
-        end
-    )
+            FISH_FARM_LURE_TEST_TIME,
+            function()
+                self:checkLure()
+            end
+        )
 
     if self.onseedfn then
         self.onseedfn(item)

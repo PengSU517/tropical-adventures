@@ -84,9 +84,9 @@ return Class(function(self, inst)
         lerptocolour = Point(),
         currentcolourset = NORMAL_COLOURS,
         currentcolour = _iscave and Point(NORMAL_COLOURS.CAVE_COLOUR.colour:Get()) or
-        Point(NORMAL_COLOURS.PHASE_COLOURS.default.day.colour:Get()),
+            Point(NORMAL_COLOURS.PHASE_COLOURS.default.day.colour:Get()),
         currentoverridecolour = _iscave and Point(NORMAL_COLOURS.CAVE_COLOUR.colour:Get()) or
-        Point(NORMAL_COLOURS.PHASE_COLOURS.default.day.colour:Get()),
+            Point(NORMAL_COLOURS.PHASE_COLOURS.default.day.colour:Get()),
         lightpercent = 1,
     }
     local _overridecolour = {
@@ -96,9 +96,9 @@ return Class(function(self, inst)
         lerptocolour = Point(),
         currentcolourset = NORMAL_COLOURS,
         currentcolour = _iscave and Point(NORMAL_COLOURS.CAVE_COLOUR.colour:Get()) or
-        Point(NORMAL_COLOURS.PHASE_COLOURS.default.day.colour:Get()),
+            Point(NORMAL_COLOURS.PHASE_COLOURS.default.day.colour:Get()),
         currentoverridecolour = _iscave and Point(NORMAL_COLOURS.CAVE_COLOUR.colour:Get()) or
-        Point(NORMAL_COLOURS.PHASE_COLOURS.default.day.colour:Get()),
+            Point(NORMAL_COLOURS.PHASE_COLOURS.default.day.colour:Get()),
         lightpercent = 1,
     }
     local _flashstate = 0
@@ -106,7 +106,7 @@ return Class(function(self, inst)
     local _flashintensity = 1
     local _flashcolour = 0
     local _activatedplayer = nil --cached for activation/deactivation only, NOT for logic use
-    local _nightvision = false -- This is whether or not the active player is wearing a mole hat
+    local _nightvision = false   -- This is whether or not the active player is wearing a mole hat
     local _overridefixedcolour = nil
 
     --------------------------------------------------------------------------
@@ -164,7 +164,7 @@ return Class(function(self, inst)
         end
 
         targetsettings.remainingtimeinlerp = col ~= _overridefixedcolour and col.colour ~= targetsettings.currentcolour and
-        timeoverride or col.time or 0
+            timeoverride or col.time or 0
         targetsettings.totaltimeinlerp = targetsettings.remainingtimeinlerp
         SetColour(targetsettings.lerpfromcolour, targetsettings.currentcolour)
         SetColour(targetsettings.lerptocolour, col.colour)
@@ -345,11 +345,11 @@ return Class(function(self, inst)
                 local frompercent = targetsettings.remainingtimeinlerp / targetsettings.totaltimeinlerp
                 local topercent = 1 - frompercent
                 targetsettings.currentcolour.x = targetsettings.lerpfromcolour.x * frompercent +
-                targetsettings.lerptocolour.x * topercent
+                    targetsettings.lerptocolour.x * topercent
                 targetsettings.currentcolour.y = targetsettings.lerpfromcolour.y * frompercent +
-                targetsettings.lerptocolour.y * topercent
+                    targetsettings.lerptocolour.y * topercent
                 targetsettings.currentcolour.z = targetsettings.lerpfromcolour.z * frompercent +
-                targetsettings.lerptocolour.z * topercent
+                    targetsettings.lerptocolour.z * topercent
                 return true
             else
                 SetColour(targetsettings.currentcolour, targetsettings.lerptocolour)

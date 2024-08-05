@@ -1,19 +1,19 @@
 local NUM_RELICS = 5
 
 local Mystery = Class(function(self, inst)
-    self.inst = inst
+	self.inst = inst
 
-    self:RollForMystery()                   
+	self:RollForMystery()
 end)
 
 function Mystery:GenerateReward()
-	local mid_tier = {"flint", "goldnugget", "oinc", "oinc10"}
-	for i=1,NUM_TRINKETS do
+	local mid_tier = { "flint", "goldnugget", "oinc", "oinc10" }
+	for i = 1, NUM_TRINKETS do
 		table.insert(mid_tier, "trinket_" .. tostring(i))
 	end
 
 	local high_tier = {}
-	for i=1,NUM_RELICS do
+	for i = 1, NUM_RELICS do
 		table.insert(high_tier, "relic_" .. tostring(i))
 	end
 
@@ -28,7 +28,7 @@ end
 
 function Mystery:AddReward()
 	local color = 0.5 + math.random() * 0.5
-    self.inst.AnimState:SetMultColour(color-0.15, color-0.15, color, 1)
+	self.inst.AnimState:SetMultColour(color - 0.15, color - 0.15, color, 1)
 
 	self.inst:AddTag("mystery")
 	self.reward = self:GenerateReward()
@@ -56,7 +56,7 @@ function Mystery:OnSave()
 end
 
 function Mystery:IsActionValid(action, right)
-    return self.inst:HasTag("mystery") and action == ACTIONS.INVESTIGATE
+	return self.inst:HasTag("mystery") and action == ACTIONS.INVESTIGATE
 end
 
 function Mystery:Investigate(doer)

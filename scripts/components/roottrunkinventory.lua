@@ -1,15 +1,15 @@
 local RootTrunkInventory = Class(function(self, inst)
 	self.inst = inst
-	self.inst:DoTaskInTime(0,function() self:SpawnTrunk() end)
+	self.inst:DoTaskInTime(0, function() self:SpawnTrunk() end)
 end)
 
 
 function RootTrunkInventory:OnSave()
-	local data = {}	
+	local data = {}
 	local refs = {}
 	if self.trunk then
 		data.trunk = self.trunk.GUID
-		table.insert(refs,data.trunk)
+		table.insert(refs, data.trunk)
 	end
 	return data, refs
 end
@@ -30,32 +30,32 @@ function RootTrunkInventory:LongUpdate(dt)
 
 end
 
-function RootTrunkInventory:OnUpdate( dt )
+function RootTrunkInventory:OnUpdate(dt)
 
 end
 
-function RootTrunkInventory:empty( target )
+function RootTrunkInventory:empty(target)
 	local t_cont = target.components.container
 	local cont = self.trunk.components.container
-	if t_cont and cont then		
-		for i,slot in pairs(cont.slots) do
+	if t_cont and cont then
+		for i, slot in pairs(cont.slots) do
 			local item = cont:RemoveItemBySlot(i)
 			print(item.prefab)
 			t_cont:GiveItem(item, i, nil, nil, true)
 		end
-	end	
+	end
 end
 
-function RootTrunkInventory:fill( source )
+function RootTrunkInventory:fill(source)
 	local s_cont = source.components.container
 	local cont = self.trunk.components.container
-	if s_cont and cont then		
-		for i,slot in pairs(s_cont.slots) do
+	if s_cont and cont then
+		for i, slot in pairs(s_cont.slots) do
 			local item = s_cont:RemoveItemBySlot(i)
 			print(item.prefab)
 			cont:GiveItem(item, i, nil, nil, true)
 		end
-	end	
+	end
 end
 
 function RootTrunkInventory:SpawnTrunk()
