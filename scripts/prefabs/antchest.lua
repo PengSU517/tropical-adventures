@@ -1,11 +1,16 @@
 require "prefabutil"
 
-local assets = { Asset("ANIM", "anim/ant_chest.zip"), Asset("ANIM", "anim/ant_chest_honey_build.zip"),
+local assets = { Asset("ANIM", "anim/ant_chest.zip"), Asset("ANIM", "anim/ant_chest_override_symbols.zip"),
+    -- 不知道怎么正确把symbols打包到原anim，但是包试过的，以后再看怎么解决
+    -- 改好后再改一下249行的build名
+    --[[
+    Asset("ANIM", "anim/ant_chest_honey_build.zip"),
     Asset("ANIM", "anim/ant_chest_nectar_build.zip"), Asset("ANIM", "anim/ant_chest_pollen_build.zip"),
     Asset("ANIM", "anim/ant_chest_royal_build.zip"), Asset("ANIM", "anim/honey_chest.zip"),
     Asset("ANIM", "anim/honey_chest_honey_build.zip"), Asset("ANIM", "anim/honey_chest_nectar_build.zip"),
-    Asset("ANIM", "anim/honey_chest_pollen_build.zip"), Asset("ANIM", "anim/honey_chest_royal_build.zip") }
-
+    Asset("ANIM", "anim/honey_chest_pollen_build.zip"), Asset("ANIM", "anim/honey_chest_royal_build.zip"),
+    ]]
+}
 local prefabs = { "collapse_small", "lavaarena_creature_teleport_small_fx" }
 
 local loot = { "chitin", "chitin", "chitin", "beeswax", "honey", "honey", "rocks" -- "flint",
@@ -230,8 +235,8 @@ local function RefreshAntChestBuild(inst)
     local prefix = inst.prefab:sub(1, -6) .. "_" .. inst.prefab:sub(-5)
     -- local prefix = inst.prefab == "antchest" and "ant_chest" or "honey_chest"
     local buildIdx = 0
-    local itemPrefab = { "nectar_pod", "pollen_item", "honey", "royal_jelly", "medal_withered_royaljelly" } -- Priority: Low -> High
-    local buildName = { "nectar", "pollen", "honey", "royal", "royal" }
+    local itemPrefab = { "nectar_pod", "pollen_item", "honey", "royal_jelly" } -- Priority: Low -> High
+    -- local buildName = { "nectar", "pollen", "honey", "royal" }
     for _, item in pairs(container.slots) do
         for idx, prf in ipairs(itemPrefab) do
             if item.prefab == prf then
@@ -240,8 +245,18 @@ local function RefreshAntChestBuild(inst)
             end
         end
     end
-    inst.AnimState:SetBuild(prefix .. (buildIdx > 0 and "_" .. buildName[buildIdx] .. "_build" or "")) -- "ant_chest_honey_build" etc.
+    if buildIdx > 0 then -- 只需要更换通道symbol
+	    inst.AnimState:OverrideSymbol("box01", "honeychest", "box_" .. itemPrefab[buildIdx])
+        -- build "honeychest" 实际在 "anim/ant_chest_override_sybols.zip" 里，只是用文件名打包不起来，打包时叫 "honeychest.zip" ，玄学ktools
+    else
+        inst.AnimState:ClearOverrideSymbol("box01")
+    end
+    -- inst.AnimState:SetBuild(prefix .. (buildIdx > 0 and "_" .. buildName[buildIdx] .. "_build" or "")) -- "ant_chest_honey_build" etc.
     -- inst.MiniMapEntity:SetIcon(prefix .. (buildIdx > 0 and "_" .. buildName[buildIdx] or "") .. ".png") -- "antchest_honey.png" etc.
+end
+
+local function hide_ground(inst)
+    inst.AnimState:HideSymbol("ground01")
 end
 
 local function fn(Sim)
@@ -318,8 +333,9 @@ local function fn1(Sim)
 
     inst.MiniMapEntity:SetIcon("honey_chest.png")
 
-    inst.AnimState:SetBank("honey_chest")
-    inst.AnimState:SetBuild("honey_chest")
+    inst.AnimState:SetBank("ant_chest")
+    inst.AnimState:SetBuild("ant_chest")
+    inst.AnimState:HideSymbol("ground01") -- 隐藏岩石通道
     inst.AnimState:PlayAnimation("closed", true)
 
     inst:AddTag("structure")
@@ -370,4 +386,6 @@ local function fn1(Sim)
 end
 
 return Prefab("common/antchest", fn, assets), Prefab("common/honeychest", fn1, assets),
-    MakePlacer("common/honeychest_placer", "honey_chest", "honey_chest", "closed")
+    -- 代码层面区分野生建造蜜箱并实现不同掉落都是做得到的，维护三合一不要走vagner的穷举老路
+    -- 加个prefab好加，但是想删回去就难了，想想更新后地图上建筑突然消失的玩家
+    MakePlacer("common/honeychest_placer", "ant_chest", "ant_chest", "closed", nil, nil, nil, nil, nil, nil, hide_ground) -- 隐藏岩石通道
