@@ -21,7 +21,7 @@ for y = 0, 4 do
     end
 end
 
-local antchest_preservation = {"honey", "royal_jelly", "nectar_pod", "pollen_item", "medal_withered_royaljelly"}
+local antchest_preservation = {"honey", "royal_jelly", "nectar_pod", "pollen_item"}
 local function antchestitemtestfn(container, item, slot)
     for _, v in ipairs(antchest_preservation) do
         if item.prefab == v then
