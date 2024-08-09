@@ -1356,14 +1356,11 @@ end
 AddAction(GAS)
 
 AddComponentAction("SCENE", "melter", function(inst, doer, actions, right)
-    if right then
-        if not inst:HasTag("burnt") then
-            if inst:HasTag("alloydone") then
-                table.insert(actions, ACTIONS.HARVEST1)
-            elseif inst.replica.container ~= nil and
-                inst.replica.container:IsFull() then
-                table.insert(actions, ACTIONS.SMELT)
-            end
+    if not inst:HasTag("burnt") then
+        if right and not inst:HasTag("alloydone") and inst.replica.container ~= nil and inst.replica.container:IsFull() then
+            table.insert(actions, ACTIONS.SMELT)
+        elseif not right and inst:HasTag("alloydone") then
+            table.insert(actions, ACTIONS.HARVEST1)
         end
     end
 end)

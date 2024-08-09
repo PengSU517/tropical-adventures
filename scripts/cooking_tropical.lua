@@ -20,39 +20,6 @@ for tabIdx, foodTab in pairs(foodsGrandDef) do
     GenerateSpicedFoods(foodTab)
 end
 
--- local foods_sw = require("preparedfoods_sw")
--- for k, v in pairs (foods_sw) do
---     if v.mod and v.mod == true then
---         -- RegisterInventoryItemAtlas(inventoryitems_atlas_sw, v.name..".tex")
---     end
---     if v.isMasterfood == nil then -- 不是大厨料理才加入到烹饪锅
---         AddCookerRecipe("cookpot", v)
---         AddCookerRecipe("archive_cookpot", v)
---     end
---     AddCookerRecipe("portablecookpot", v)
---     if v.card_def then
---         AddRecipeCard("cookpot", v)
---     end
--- end
-
--- local foods_ham = require("preparedfoods_ham")
--- for k, v in pairs (foods_ham) do
---     if v.mod and v.mod == true then
---         -- RegisterInventoryItemAtlas(inventoryitems_atlas_ham, v.name..".tex")
---     end
---     if v.isMasterfood == nil then
---         AddCookerRecipe("cookpot", v)
---         AddCookerRecipe("archive_cookpot", v)
---     end
---     AddCookerRecipe("portablecookpot", v)
---     if v.card_def then
---         AddRecipeCard("cookpot", v)
---     end
--- end
-
-
--- GenerateSpicedFoods(foods_sw)
--- GenerateSpicedFoods(foods_ham)
 local spicedfoods = require("spicedfoods")
 for k, recipe in pairs(spicedfoods) do
     if recipe.mod and recipe.mod == true then
@@ -169,11 +136,3 @@ AddIngredientValues({ "yelow_cooked" }, { veggie = 0.5 }, true, false)
 AddIngredientValues({ "lotus_flower1" }, { veggie = 1 }, true, false)
 AddIngredientValues({ "fennel" }, { veggie = 0.5 }, true, false)
 AddIngredientValues({ "quagmire_smallmeat" }, { meat = 0.5, smallmeat = 1 }, true, false) -- "smallmeat" for quagmire, I think
-
-
--- 烹饪指南中的食材贴图
-RegisterInventoryItemAtlas("images/inventoryimages/volcanoinventory.xml", "weevole_carapace.tex")
-RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "lotus_flower1.tex")
-RegisterInventoryItemAtlas("images/inventoryimages/hamletinventory.xml", "lotus_flower1_cooked.tex")
-RegisterInventoryItemAtlas("images/inventoryimages/volcanoinventory.xml", "fennel.tex")
-RegisterInventoryItemAtlas("images/inventoryimages/volcanoinventory.xml", "fennel_cooked.tex")
