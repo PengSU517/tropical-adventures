@@ -30,6 +30,9 @@ local function speedup_attach(inst, target, followsymbol, followoffset, data)
 end
 
 local function speedup_extend(inst, target, followsymbol, followoffset, data)
+    if not inst._debuffkey_tro then
+        speedup_attach(inst, target, followsymbol, followoffset, data)
+    end
     if not data then
         return
     end
