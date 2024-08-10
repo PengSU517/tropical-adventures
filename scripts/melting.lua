@@ -24,21 +24,11 @@ local Attributes = {
     rocks = { mineral = .25, }, -- mineral
 }
 
-local Products = {
-    ash = { priority = -1, test = {}, overridebuild = "ash", overridesymbolname = "ashes01" },
-    opalpreciousgem = { priority = 20, test = { gem = 42 }, overridebuild = "gems", overridesymbolname = "opalgem" }, -- gem
-    greengem = { priority = 10, test = { gem = 28 }, overridebuild = "gems", overridesymbolname = "greengem" },
-    yellowgem = { priority = 5, test = { gem = 10 }, overridebuild = "gems", overridesymbolname = "yellowgem" },
-    orangegem = { priority = 3, test = { gem = 4 }, overridebuild = "gems", overridesymbolname = "orangegem" },
-    alloy = { priority = 5, test = { iron = 4 }, overridebuild = "alloy", overridesymbolname = "alloy01" }, -- iron
-    gunpowder = { priority = 3, test = { nitro = 4 }, overridebuild = "gunpowder", overridesymbolname = "gunpowder01" }, -- nitro
-    nitre = { priority = 1, test = { nitro = 1 }, overridebuild = "nitre", overridesymbolname = "nitre01" },
-    goldenbar = { priority = 10, test = { gold = 2 }, overridebuild = "alloygold", overridesymbolname = "alloy01" }, -- gold
-    goldnugget = { priority = 5, test = { gold = 1 }, overridebuild = "gold_dust", overridesymbolname = "gold_dust01" },
-    stonebar = { priority = 1, test = { mineral = 1 }, overridebuild = "alloystone", overridesymbolname = "alloy01" }, -- mineral
-}
+local Products = require("meltrecipes")
 
--- AddMeltAttributeValue({ "iron" }, { iron = 1 })
+--- AddMeltAttributeValue({ "iron" }, { iron = 1 })
+---@param names table 添加到炼钢炉的物品名表，如 "{ "iron" }"
+---@param tags table 炼钢物品的属性键值表，如 "{ iron = 1 }"
 function AddMeltAttributeValue(names, tags)
     for _, name in pairs(names) do
         if not Attributes[name] then
@@ -52,7 +42,8 @@ function AddMeltAttributeValue(names, tags)
 end
 
 -- AddMeltProduct({ alloy = { priority = 5, test = { iron = 4 } } })
-function AddMeltProduct(recipes)
+---@param recipes table 添加到炼钢炉配方的表，需要有优先级 "priority" 以及测试函数 "test"
+local function AddMeltProduct(recipes)
     for name, recipe in pairs(recipes) do
         assert(not Products[name], Path .. "59: attempt to add existed melt recipe \"" .. name .. "\"")
         assert(type(recipe.test) == "table", Path .. "59: attempt to add non recipe for \"" .. name .. "\"")
@@ -65,7 +56,10 @@ function AddMeltProduct(recipes)
     end
 end
 
-local function getAttr(items)
+-- local function getNames(items)
+-- end
+
+local function getAttrs(items)
     local attrs = {}
     for item, val in pairs(items) do
         if Attributes[item] then
@@ -77,18 +71,13 @@ local function getAttr(items)
     return attrs
 end
 
--- getProd({iron = 2, gem = 2})
-local function getProd(items)
-    local prod = { name = nil, prior = 0, attrs = getAttr(items)}
+--- getProd({iron = 2, gem = 2}, Player)
+---@param items table 物品数量表
+---@param worker table 操作者预制物
+local function getProd(items, worker)
+    local prod = { name = nil, prior = 0, attrs = getAttrs(items)}
     for testprod, recipe in pairs(Products) do
-        local replace = true
-        for attrtag, attrval in pairs(recipe.test) do
-            if not prod.attrs[attrtag] or prod.attrs[attrtag] < attrval then
-                replace = false
-                break
-            end
-        end
-        if replace == true and prod.prior < recipe.priority then
+        if prod.prior <= recipe.priority and recipe.test(worker, items, prod.attrs) then
             prod.name = testprod
             prod.prior = recipe.priority
         end
@@ -107,7 +96,8 @@ end
 
 return {
     -- attributes = Attributes,
-    -- recipes = Products,
+    recipes = Products,
+    AddMeltProduct = AddMeltProduct,
     -- getMeltAttr = getAttr,
     getMeltProd = getProd,
     getOverrideSymbol = getOverrideSymbol,
