@@ -46,7 +46,7 @@ modimport("postinit/components/playervision")
 -- modimport("postinit/components/plantgrowth")  --黄蘑菇生长速度，之后或许可以加进来
 -- modimport("postinit/components/spooked")  --黄蘑菇孢子
 modimport("postinit/components/snowtile") ---- disable snow effeccts
-modimport("postinit/components/trap")
+-- modimport("postinit/components/trap")
 modimport("postinit/components/thief")
 modimport("postinit/components/wavemanager")
 
