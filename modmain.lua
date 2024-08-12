@@ -1,12 +1,14 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 
-require("tools/simutil")
 
 modimport("scripts/tuning")
+modimport("scripts/languages/language_setting.lua")
+
+require("tools/simutil")
+
 modimport("main/assets")
 modimport("main/standardcomponents")
 modimport("main/postinit") --postinit相关全都在这里
-modimport("scripts/languages/language_setting.lua")
 modimport("scripts/actions.lua")
 
 

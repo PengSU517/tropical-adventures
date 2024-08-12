@@ -1,7 +1,7 @@
 --local cooking = require("smelting")
 local night_time = 60
 local BASE_COOK_TIME = night_time * .3333
-local melting = require("melting")
+local smelting = require("smelting")
 
 local Melter = Class(function(self, inst)
 	self.inst = inst
@@ -46,20 +46,6 @@ local function dostew(inst)
 	if stewercmp.ondonecooking then
 		stewercmp.ondonecooking(inst)
 	end
-	--[[
-	if stewercmp.product ~= nil then
-		local cooker = stewercmp.productcooker or (stewercmp.cookername or stewercmp.inst.prefab)
-		local prep_perishtime = (cooking.recipes and cooking.recipes[cooker] and cooking.recipes[cooker][stewercmp.product] and cooking.recipes[cooker][stewercmp.product].perishtime) and cooking.recipes[cooker][stewercmp.product].perishtime or TUNING.PERISH_SUPERFAST
-		local prod_spoil = stewercmp.product_spoilage or 1
-		stewercmp.spoiltime = prep_perishtime * prod_spoil
-		stewercmp.spoiltargettime =  GetTime() + stewercmp.spoiltime
-		stewercmp.spoiltask = stewercmp.inst:DoTaskInTime(stewercmp.spoiltime, function(inst)
-			if inst.components.melter and inst.components.melter.onspoil then
-				inst.components.melter.onspoil(inst)
-			end
-		end)
-	end
-	]]
 	stewercmp.done = true
 	inst:AddTag("alloydone")
 	stewercmp.cooking = nil
@@ -84,16 +70,6 @@ function Melter:StartCooking()
 	if not self.done and not self.cooking then
 		local container = self.inst.components.container
 		if container then
-			-- local _refuzetomelt = false
-			-- for k, v in ipairs(container:GetAllItems()) do
-			-- 	if not melting.isAttribute(v.prefab) then
-			-- 		container:DropItemBySlot(k)
-			-- 		_refuzetomelt = true
-			-- 	end
-			-- end
-			-- if _refuzetomelt then
-			-- 	return false
-			-- end
 
 			self.done = nil
 			self.cooking = true
@@ -124,23 +100,7 @@ function Melter:StartCooking()
 					return items[item] and items[item] or 0
 				end
 
-				-- if getcount("iron") >= 4 then
-				--     self.product = "alloy"
-				-- elseif getcount("flint") >= 4 then
-				--     self.product = "nitre"
-				-- elseif (getcount("nitre") + getcount("obsidian")) >= 4 then
-				--     self.product = "gunpowder"
-				-- elseif (getcount("greengem") >= 2) and getcount("redgem") + getcount("bluegem") then
-				--     self.product = "opalpreciousgem"
-				-- elseif getcount("goldnugget") * 5 + getcount("dubloon") * 2 + getcount("gold_dust") >= 10 then
-				--     self.product = "goldenbar"
-				-- elseif getcount("gold_dust") >= 4 then
-				--     self.product = "goldnugget"
-				-- elseif getcount("stome") >= 4 then
-				--     self.product = "stonebar"
-				-- end
-
-				self.product = melting.getMeltProd(items) or self.product
+				self.product = smelting.getMeltProd(items) or self.product
 			end
 
 			local cooktime = 0.2

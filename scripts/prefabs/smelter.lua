@@ -10,12 +10,6 @@ local assets =
 }
 
 local prefabs = { "collapse_small" }
---[[
-for k,v in pairs(cooking.recipes.cookpot) do
-	table.insert(prefabs, v.name)
-end
-]]
-
 
 local function onhammered(inst, worker)
 	if inst:HasTag("fire") and inst.components.burnable then
@@ -49,8 +43,8 @@ end
 local function ShowProduct(inst)
 	if not inst:HasTag("burnt") then
 		local product = inst.components.melter.product
-		local melting = require("melting")
-		local build, symbol = melting.getOverrideSymbol(product)
+		local smelting = require("smelting")
+		local build, symbol = smelting.getOverrideSymbol(product)
 		inst.AnimState:OverrideSymbol("swap_item", build or GetInventoryItemAtlas(product .. ".tex"), symbol or product .. ".tex")
 	end
 end

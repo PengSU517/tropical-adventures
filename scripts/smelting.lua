@@ -1,6 +1,6 @@
 -- @author: Runar
 -- cooking style
-local Path = "@../mods/workshop-2896126381/scripts/melting.lua:"
+local Path = "@../mods/workshop-2896126381/scripts/smelting.lua:"
 
 local Attributes = {
     greengem = { gem = 27, }, -- gem
@@ -24,7 +24,7 @@ local Attributes = {
     rocks = { mineral = .25, }, -- mineral
 }
 
-local Products = require("meltrecipes")
+local Products = require("smeltrecipes")
 
 --- AddMeltAttributeValue({ "iron" }, { iron = 1 })
 ---@param names table 添加到炼钢炉的物品名表，如 "{ "iron" }"
