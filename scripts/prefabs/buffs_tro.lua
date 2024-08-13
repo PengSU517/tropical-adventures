@@ -87,8 +87,10 @@ local function MakeBuff(name, onattachedfn, onextendedfn, ondetachedfn, duration
     end
 
     local function OnExtended(inst, target, ...)
-        inst.components.timer:StopTimer("buffover")
-        inst.components.timer:StartTimer("buffover", duration)
+        if duration and duration > 0 then
+            inst.components.timer:StopTimer("buffover")
+            inst.components.timer:StartTimer("buffover", duration)
+        end
 
         target:PushEvent("foodbuffattached", ATTACH_BUFF_DATA)
         if onextendedfn ~= nil then
@@ -139,4 +141,4 @@ local function MakeBuff(name, onattachedfn, onextendedfn, ondetachedfn, duration
     return Prefab("buff_" .. name, fn, nil, prefabs)
 end
 
-return MakeBuff("speedup_tro", speedup_attach, speedup_extend, speedup_detach, 10, 2)
+return MakeBuff("speedup_tro", speedup_attach, speedup_extend, speedup_detach, 0, 2)
