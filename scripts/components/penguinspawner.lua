@@ -1,4 +1,4 @@
-local MIN_SPAWN_DIST = 40
+local MIN_SPAWN_DIST = PLAYER_CAMERA_SEE_DISTANCE
 local LAND_CHECK_RADIUS = 6
 local WATER_CHECK_RADIUS = 2
 
@@ -248,7 +248,7 @@ end
         -- Find good spot far enough away from the other colonies
         radius = SEARCH_RADIUS
         while not newFlock.rookery and radius > 30 do
-            newFlock.rookery = FindValidPositionByFan(math.random() * PI * 2.0, radius, 32, testfn)
+            newFlock.rookery = FindValidPositionByFan(math.random() * PI2, radius, 32, testfn)
             radius = radius - 10
         end
 
@@ -301,11 +301,12 @@ end
     end
 
     local function TryToSpawnFlockForPlayer(playerdata)
-        if playerdata.player and playerdata.player.components.areaaware and playerdata.player.components.areaaware:CurrentlyInTag("tropical") then
+        if playerdata.player and playerdata.player:AwareInTropicalArea() then
             return
         end
 
-        if playerdata.player and playerdata.player.components.areaaware and playerdata.player.components.areaaware:CurrentlyInTag("ForceDisconnected") then
+        --print("---------:", TheWorld.state.season, TheWorld.state.remainingdaysinseason)
+        if not TheWorld.state.iswinter or TheWorld.state.remainingdaysinseason <= 3 then
             return
         end
 
@@ -407,10 +408,6 @@ end
         end
     end
 
-    local function iniciodaneve(inst)
-        TheSim:ShowAnimOnEntitiesWithTag("mostraneve", "snow")
-    end
-
     local function OnSeasonTick(inst, data)
         if data.season ~= SEASONS.WINTER then
             if #_colonies > 0 then
@@ -446,7 +443,6 @@ end
 
     if _spawnInterval > 0 then
         self.inst:DoTaskInTime(_checktime / math.max(#_activeplayers, 1), function() TryToSpawnFlock() end)
-        self.inst:DoTaskInTime(1, iniciodaneve)
     end
 
     --------------------------------------------------------------------------
