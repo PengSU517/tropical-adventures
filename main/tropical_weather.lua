@@ -2,8 +2,8 @@ GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL,
 
 local Utils = require("tools/utils")
 local upvaluehelper = require("tools/upvaluehelper")
-
-require "components/map"
+require("tools/tile_util")
+require("components/map")
 
 local oldfindvisualnodeatpoint = Map.FindVisualNodeAtPoint
 
@@ -366,7 +366,7 @@ for _, prefab in pairs({ "spider_warrior" }) do
 end
 
 
-----热带蝴蝶刷新
+----热带蝴蝶和发光飞虫刷新
 for _, prefab in pairs({ "butterfly" }) do
     AddPrefabPostInit(prefab, function(inst)
         if not TheWorld.ismastersim then
@@ -374,21 +374,25 @@ for _, prefab in pairs({ "butterfly" }) do
         end
 
         inst:DoTaskInTime(0, function(inst)
-            local map = GLOBAL.TheWorld.Map
+            local map = TheWorld.Map
             local x, y, z = inst.Transform:GetWorldPosition()
             if x and y and z then
+                local butterfly
                 local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-                if ground == GROUND.MAGMAFIELD
-                    or ground == GROUND.JUNGLE
-                    or ground == GROUND.ASH
-                    or ground == GROUND.VOLCANO
-                    or ground == GROUND.TIDALMARSH
-                    or ground == GROUND.MEADOW
-                    or ground == GROUND.BEAH then
-                    local bolha = SpawnPrefab("butterfly_tropical")
-                    if bolha then
-                        bolha.Transform:SetPosition(x, y, z)
-                    end
+                if IsSwLandTile(ground) then
+                    butterfly = SpawnPrefab("butterfly_tropical")
+                elseif IsHamLandTile(ground) then
+                    butterfly = SpawnPrefab("glowfly")
+                end
+
+                if butterfly then
+                    -- if butterfly.components.pollinator ~= nil then
+                    --     butterfly.components.pollinator:Pollinate(spawnflower)
+                    -- end
+                    -- if butterfly.components.homeseeker ~= nil then
+                    --     butterfly.components.homeseeker:SetHome(spawnflower)
+                    -- end
+                    butterfly.Transform:SetPosition(x, y, z)
                     inst:Remove()
                 end
             end
