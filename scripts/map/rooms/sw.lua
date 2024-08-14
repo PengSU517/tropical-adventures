@@ -24,12 +24,20 @@ local SIZE_VARIATION = 3 --GLOBAL.SIZE_VARIATION
 local LIVINGJUNGLETREE_CHANCE = 0.9
 
 
+AddRoom("ForceDisconnectedRoomSW", {
+    colour = { r = .45, g = .75, b = .45, a = .50 },
+    type = "blank",
+    tags = { "ForceDisconnected", "RoadPoison", "tropical", "shipwrecked" },
+    value = WORLD_TILES.IMPASSABLE,
+    contents = {},
+})
+
 
 
 AddRoom("Shipwrecked start", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.BEACH,
-    tags = { "RoadPoison", "Chester_Eyebone" },
+    tags = { "RoadPoison", "tropical", "shipwrecked" },
     contents = {
         -- countstaticlayouts={["shipwrecked_start"]=1},
         distributepercent = .25,
@@ -1248,7 +1256,7 @@ AddRoom("ToxicTidalMarsh", {
             mermfishhouse = 0.05,
             poisonhole = 1,  --was 2
             --seaweed_planted = 0.5,
-            fishinhole = .1,
+            -- fishinhole = .1,
             flupspawner_dense = 1,
             flup = 2,
         },

@@ -220,11 +220,11 @@ AddTask("Ham_blank1", {
     room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices =
     {
-        ["ForceDisconnectedRoom"] = 10,
+        ["ForceDisconnectedRoomHAM"] = 10,
     },
-    entrance_room = "ForceDisconnectedRoom",
+    entrance_room = "ForceDisconnectedRoomHAM",
     room_bg = GROUND.IMPASSABLE,
-    background_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoomHAM",
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -235,11 +235,11 @@ AddTask("Ham_blank2", {
     room_tags = { "hamlet", "nohasslers", "not_mainland" },
     room_choices =
     {
-        ["ForceDisconnectedRoom"] = 10,
+        ["ForceDisconnectedRoomHAM"] = 10,
     },
-    entrance_room = "ForceDisconnectedRoom",
+    entrance_room = "ForceDisconnectedRoomHAM",
     room_bg = GROUND.IMPASSABLE,
-    background_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoomHAM",
     colour = { r = 0.6, g = 0.6, b = 0.0, a = 1 },
 })
 
@@ -370,11 +370,11 @@ AddTask("separahamcave", {
     locks = { LOCKS.SACRED, },
     keys_given = KEYS.LAND_DIVIDE_5,
     room_choices = {
-        ["ForceDisconnectedRoom"] = 10,
+        ["ForceDisconnectedRoomHAM"] = 10,
     },
-    entrance_room = "ForceDisconnectedRoom",
+    entrance_room = "ForceDisconnectedRoomHAM",
     room_bg = GROUND.VOLCANO,
-    background_room = "ForceDisconnectedRoom",
+    background_room = "ForceDisconnectedRoomHAM",
     colour = { r = 1, g = 1, b = 1, a = 0.3 }
 })
 

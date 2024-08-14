@@ -272,12 +272,14 @@ Layouts["cidade1"] = StaticLayout.Get("map/static_layouts/cidade1",
 		layout_position = GLOBAL.LAYOUT_POSITION.CENTER,
 		start_mask = GLOBAL.PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED,
 		fill_mask = GLOBAL.PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED,
+		add_topology = { room_id = "StaticLayoutRegion:cidade1", tags = { "RoadPoison", "nohunt", "nohasslers", "not_mainland", "tropical", "hamlet" } },
 	})
 Layouts["cidade2"] = StaticLayout.Get("map/static_layouts/cidade2",
 	{
 		layout_position = GLOBAL.LAYOUT_POSITION.CENTER,
 		start_mask = GLOBAL.PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED,
 		fill_mask = GLOBAL.PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED,
+		add_topology = { room_id = "StaticLayoutRegion:cidade1", tags = { "RoadPoison", "nohunt", "nohasslers", "not_mainland", "tropical", "hamlet" } },
 	})
 Layouts["mandraketown"] = StaticLayout.Get("map/static_layouts/mandraketown",
 	{

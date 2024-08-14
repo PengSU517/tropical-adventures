@@ -3,6 +3,14 @@ local AddRoom = AddRoom
 
 
 
+AddRoom("ForceDisconnectedRoomHAM", {
+    colour = { r = .45, g = .75, b = .45, a = .50 },
+    type = "blank",
+    tags = { "ForceDisconnected", "RoadPoison", "tropical", "hamlet" },
+    value = WORLD_TILES.IMPASSABLE,
+    contents = {},
+})
+
 AddRoom("Hamlet start", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.PLAINS,
