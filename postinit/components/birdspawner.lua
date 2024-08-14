@@ -33,8 +33,11 @@ local function IsDangerNearby(x, y, z)
 end
 
 local function RelevantSpawnBird(self, bird_prefab, spawnpoint, ignorebait)
-    local bird = SpawnPrefab(bird_prefab)
+    if not bird_prefab then
+        return
+    end
 
+    local bird = SpawnPrefab(bird_prefab)
 
     if not bird then
         return
