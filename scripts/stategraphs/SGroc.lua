@@ -10,45 +10,11 @@ local events =
 {
     EventHandler("fly", function(inst) inst.sg:GoToState("fly") end),
     EventHandler("land", function(inst) inst.sg:GoToState("land") end),
+    EventHandler("liftoff", function(inst) inst.sg:GoToState("liftoff") end),
     EventHandler("takeoff", function(inst) inst.sg:GoToState("takeoff") end),
-    --[[
-    EventHandler("attacked", function(inst) if inst.components.health:GetPercent() > 0 then inst.sg:GoToState("hit") end end),
-    EventHandler("doattack", function(inst, data) if not inst.components.health:IsDead() and (inst.sg:HasStateTag("hit") or not inst.sg:HasStateTag("busy")) then inst.sg:GoToState("attack", data.target) end end),
-    EventHandler("death", function(inst) inst.sg:GoToState("death") end),
-    EventHandler("locomote",
-        function(inst)
-            if not inst.sg:HasStateTag("idle") and not inst.sg:HasStateTag("moving") then return end
 
-            if not inst.components.locomotor:WantsToMoveForward() then
-                if not inst.sg:HasStateTag("idle") then
-                    if not inst.sg:HasStateTag("running") then
-                        inst.sg:GoToState("idle")
-                    end
-
-                    inst.sg:GoToState("idle")
-                end
-            elseif inst.components.locomotor:WantsToRun() then
-                if not inst.sg:HasStateTag("running") then
-                    inst.sg:GoToState("run")
-                end
-            else
-                if not inst.sg:HasStateTag("hopping") then
-                    inst.sg:GoToState("hop")
-                end
-            end
-        end),
-        ]]
 }
 
-local function DoStep(inst)
-    --local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
-    --if player then
-    --player:ShakeCamera(CAMERASHAKE.SIDE, 2, .06, .25)
-    --end
-    inst.components.groundpounder:GroundPound()
-    inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/glommer/foot_ground")
-    TheWorld:PushEvent("bigfootstep")
-end
 
 local states =
 {
@@ -80,7 +46,9 @@ local states =
 
         timeline =
         {
-            TimeEvent(30 * FRAMES, function(inst) inst.components.roccontroller:Spawnbodyparts() end),
+            TimeEvent(30 * FRAMES, function(inst)
+                inst.components.roccontroller:Spawnbodyparts()
+            end),
             TimeEvent(5 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/flap", "flaps")
                 inst.SoundEmitter:SetParameter("flaps", "intensity", inst.sounddistance)
@@ -99,6 +67,28 @@ local states =
         }
     },
 
+    State {
+        name = "liftoff",
+        tags = {},
+
+        onenter = function(inst)
+            local controller = inst.components.roccontroller
+            local head = controller.head
+            if head then
+                head:DoTaskInTime(1, function() head:PushEvent("taunt") end)
+                head:ListenForEvent("animover", function()
+                    if head.AnimState:IsCurrentAnimation("taunt") then
+                        controller:doliftoff()
+                    end
+                end)
+            end
+        end,
+
+        ontimeout = function(inst)
+            -- inst.sg:GoToState("idle")
+        end,
+    },
+
 
     State {
         name = "takeoff",
@@ -106,19 +96,29 @@ local states =
 
         onenter = function(inst)
             inst.Physics:Stop()
-            inst.AnimState:PlayAnimation("ground_pst")
         end,
 
         timeline =
         {
-            TimeEvent(15 * FRAMES, function(inst) inst.components.locomotor:RunForward() end),
+            TimeEvent(15 * FRAMES, function(inst)
+                inst.AnimState:PlayAnimation("ground_pst")
+            end),
+
+            TimeEvent(15 * FRAMES, function(inst)
+                inst.components.locomotor.runspeed = 5
+                inst.components.locomotor:RunForward()
+            end),
+
         },
 
 
         events =
         {
             EventHandler("animover", function(inst, data)
-                inst.sg:GoToState("fly")
+                if inst.AnimState:IsCurrentAnimation("ground_pst") then
+                    inst.sg:GoToState("fly")
+                    inst.components.roccontroller.stage = inst.components.roccontroller.stage + 1
+                end
             end),
         }
     },
