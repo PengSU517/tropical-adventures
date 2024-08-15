@@ -1,19 +1,13 @@
 local assets =
 {
     Asset("ANIM", "anim/roc_egg.zip"),
-    Asset("INV_IMAGE", "roc_egg_hot"),
-    Asset("INV_IMAGE", "roc_egg_cold"),
-    Asset("INV_IMAGE", "roc_egg"),
 }
 
-local ROBIN_HATCH_TIME = 48 --0 * 3
+TUNING.ROBIN_HATCH_TIME = TUNING.TOTAL_DAY_TIME * 2
 
 local prefabs =
 {
-    "ro_bin",
-    "tallbirdegg_cracked",
-    "tallbirdegg_cooked",
-    "spoiled_food",
+
 }
 
 local loot_hot =
@@ -27,34 +21,45 @@ local loot_cold =
 }
 
 local function Hatch(inst)
-    if inst:IsValid() then
-        inst.components.inventoryitem.canbepickedup = false
-        inst.AnimState:PlayAnimation("hatch")
-        inst:ListenForEvent("animover", function(inst, data)
-            local stone = SpawnPrefab("ro_bin_gizzard_stone")
-            local pt = Point(inst.Transform:GetWorldPosition())
-            stone.Transform:SetPosition(pt.x, pt.y, pt.z)
-
-            local down = TheCamera:GetDownVec()
-            local angle = math.atan2(down.z, down.x) + (math.random() * 60 - 30) * DEGREES
-            local speed = 3
-            stone.Physics:SetVel(speed * math.cos(angle), GetRandomWithVariance(8, 4), speed * math.sin(angle))
-
-            inst:Remove()
-        end)
+    if not TheWorld.Map:IsLandTileAtPoint(inst.Transform:GetWorldPosition()) then
+        return
     end
+
+    if inst.already_hatched == true then --保证函数只执行一次
+        return
+    end
+
+    inst.already_hatched = true
+
+    inst.components.inventoryitem.canbepickedup = false
+    inst.AnimState:PlayAnimation("hatch")
+
+    -- inst:ListenForEvent("animover", inst.Remove)
+    -- inst:ListenForEvent("entitysleep", inst.Remove)
+
+    inst:DoTaskInTime(50 / 30, function()
+        local stone = SpawnPrefab("ro_bin_gizzard_stone")
+        local pt = Point(inst.Transform:GetWorldPosition())
+        stone.Transform:SetPosition(pt.x, pt.y, pt.z)
+
+        local down = TheCamera:GetDownVec() --需要更改
+        local angle = math.atan2(down.z, down.x) + (math.random() * 60 - 30) * DEGREES
+        local speed = 3
+        stone.Physics:SetVel(speed * math.cos(angle), GetRandomWithVariance(8, 4), speed * math.sin(angle))
+
+        inst:Remove()
+    end)
 end
 
 local function CheckHatch(inst)
-    --print("tallbirdegg - CheckHatch")
-    if inst.components.playerprox ~= nil and
-        inst.components.playerprox:IsPlayerClose() and
+    if inst.playernear and
         inst.components.hatchable.state == "hatch" and
-        not inst.components.inventoryitem:IsHeld() then
-        local posx, _, posz = inst.Transform:GetWorldPosition()
-        if TheWorld.Map:IsVisualGroundAtPoint(posx, 0, posz) then
-            Hatch(inst)
-        end
+        not inst:HasTag("INLIMBO")
+    --[[and not inst:HasTag("falling")]] --没有throwable组件似乎也不需要这个东西
+    then
+        Hatch(inst)
+    else
+        inst.components.hatchable:StartUpdating()
     end
 end
 
@@ -77,7 +82,7 @@ local function OnFar(inst)
 end
 
 local function OnPutInInventory(inst)
-    --inst.components.hatchable:StopUpdating()
+    -- inst.components.hatchable:StopUpdating()--在身上会回退孵化进度
     inst.SoundEmitter:KillSound("uncomfy")
 
     if inst.components.hatchable.state == "unhatched" then
@@ -105,35 +110,68 @@ local function OnHatchState(inst, state)
 
     if state == "uncomfy" then
         if inst.components.hatchable.toohot then
+            inst.components.inventoryitem:ChangeImageName("roc_egg_hot")
             inst.AnimState:PlayAnimation("idle_hot_smoulder", true)
-            --            inst.components.floatable:UpdateAnimations("idle_water", "idle_hot_smoulder")
+            -- inst.components.floater:UpdateAnimations("idle_water", "idle_hot_smoulder")
         elseif inst.components.hatchable.toocold then
             inst.AnimState:PlayAnimation("idle_cold_frost", true)
-            --            inst.components.floatable:UpdateAnimations("idle_water", "idle_cold_frost")
+            inst.components.inventoryitem:ChangeImageName("roc_egg_cold")
+            -- inst.components.floater:UpdateAnimations("idle_water", "idle_cold_frost")
         end
         PlayUncomfySound(inst)
     elseif state == "comfy" then
         inst.AnimState:PlayAnimation("idle", true)
-        --        inst.components.floatable:UpdateAnimations("idle_water", "idle")
+        inst.components.inventoryitem:ChangeImageName("roc_egg")
+        -- inst.components.floater:UpdateAnimations("idle_water", "idle")
     elseif state == "hatch" then
+        inst.components.inventoryitem:ChangeImageName("roc_egg")
         CheckHatch(inst)
     end
 end
 
 local function OnDropped(inst)
+    -- inst.components.hatchable:StartUpdating()
+    CheckHatch(inst)
+    if inst.components.hatchable.state ~= "unhatched" then
+        PlayUncomfySound(inst)
+    end
     -- CheckHatch(inst)
     -- PlayUncomfySound(inst)
-    -- OnHatchState(inst, inst.components.hatchable.state)
+    OnHatchState(inst, inst.components.hatchable.state)
 end
 
 
-local function OnUpdateFn(inst, dt)
-    if inst.components.hatchable.state == "uncomfy" then
-        inst.components.hatchable.progress = math.max(inst.components.hatchable.progress - (3 * dt), 0)
-    else
-        inst.components.hatchable.discomfort = 0
+
+
+local function OnLoadPostPass(inst)
+    --V2C: in case of load order of hatchable and inventoryitem components
+    if inst.components.inventoryitem:IsHeld() then
+        OnPutInInventory(inst)
     end
-    local percent = inst.components.hatchable.progress / inst.components.hatchable.hatchtime
+end
+
+local function OnUpdateFn(inst, dt)
+    local self = inst.components.hatchable
+
+    if self.state == "dead" then --一个必要的调整
+        self.discomfort = self.hatchfailtime
+        self:StartUpdating()
+        self:OnState("uncomfy")
+    end
+
+    if inst.components.inventoryitem:IsHeld() then --这个就看情况吧
+        self:OnState("uncomfy")
+    end
+
+    if self.state == "uncomfy" then
+        self.progress = math.max(self.progress - (3 * dt), 0)
+    else
+        self.discomfort = 0
+    end
+    local percent = self.progress / self.hatchtime
+
+
+
 
     local scale = 1 + (1.5 * percent)
     inst.Transform:SetScale(scale, scale, scale)
@@ -153,7 +191,13 @@ local function commonfn()
     inst.AnimState:PlayAnimation("idle")
 
     inst:AddTag("ro_bin_egg")
-    inst:AddTag("aquatic")
+    -- inst:AddTag("aquatic")
+
+
+    MakeInventoryFloatable(inst, "small", 0.15)
+    -- AddDefaultRippleSymbols(inst, true, false) --怎么隐藏water_shadow动画呢
+    --    MakeInventoryFloatable(inst, "idle_water", "idle")
+    -- inst.components.floater:UpdateAnimations("idle_water", "idle")
 
     inst.entity:SetPristine()
 
@@ -169,9 +213,11 @@ local function commonfn()
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
     inst.components.inventoryitem:SetOnPutInInventoryFn(OnPutInInventory)
 
+    -- inst:AddTag("nonpotatable")
     inst:AddTag("irreplaceable")
+    -- inst:AddTag("dropontravel")
 
-    --    MakeInventoryFloatable(inst, "idle_water", "idle")
+
 
     inst:AddComponent("playerprox")
     inst.components.playerprox:SetDist(4, 6)
@@ -180,20 +226,25 @@ local function commonfn()
 
     inst:AddComponent("hatchable")
     inst.components.hatchable:SetOnState(OnHatchState)
+    inst.components.hatchable:SetUpdateFn(OnUpdateFn)
     inst.components.hatchable:SetCrackTime(10)
-    inst.components.hatchable:SetHatchTime(ROBIN_HATCH_TIME)
+    inst.components.hatchable:SetHatchTime(TUNING.ROBIN_HATCH_TIME)
     inst.components.hatchable:SetHatchFailTime(60)
     inst.components.hatchable:SetHeaterPrefs(false, nil, true)
     inst.components.hatchable:StartUpdating()
 
-
-
+    inst.components.inventoryitem:SetOnDroppedFn(OnDropped)
+    inst.components.inventoryitem:SetOnPutInInventoryFn(OnPutInInventory)
 
     inst.components.inspectable.getstatus = GetStatus
 
+
     inst.hatch = Hatch
+    inst.OnLoadPostPass = OnLoadPostPass
 
     inst.playernear = false
+    -- inst.components.floater:SetVerticalOffset(0.1)
+    -- inst.components.floater:SetScale(0.75)
 
     return inst
 end

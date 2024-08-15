@@ -5242,6 +5242,10 @@ STRINGS.NAMES.ANTLER                                 = "鸟笛"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANTLER           = "做的太大了吗？"
 STRINGS.RECIPE_DESC.ANTLER                           = "用来叫鸟。"
 
+STRINGS.NAMES.ANTLER_CORRUPTED                       = "暗影鸟笛"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANTLER_CORRUPTED = "这可以吓走大鸟了吧"
+STRINGS.RECIPE_DESC.ANTLER_CORRUPTED                 = "用来吓退大鸟。"
+
 STRINGS.NAMES.BLUNDERBUSS                            = "喇叭前膛枪"
 STRINGS.RECIPE_DESC.BLUNDERBUSS                      = "声音很大很吵但能完成任务。"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.BLUNDERBUSS      = "很好，这个迟早派的上用场。"

@@ -1052,6 +1052,12 @@ Assets =
 	Asset("ANIM", "anim/player_actions_machete.zip"),
 	Asset("ANIM", "anim/player_actions_shear.zip"),
 	Asset("ANIM", "anim/player_actions_cropdust.zip"),
+
+	--bfb
+	Asset("ANIM", "anim/player_actions_bucked.zip"),
+	Asset("ANIM", "anim/player_teleport_bfb.zip"),
+	Asset("ANIM", "anim/player_teleport_bfb2.zip"),
+
 	Asset("ANIM", "anim/ripple_build.zip"),
 
 	Asset("ANIM", "anim/boat_health.zip"),
