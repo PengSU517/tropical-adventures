@@ -25,7 +25,7 @@ local function speedup_attach(inst, target, followsymbol, followoffset, data)
     inst.components.timer:StopTimer("buffover")
     inst.components.timer:StartTimer("buffover", speedupattr[data.debuffkey].duration)
     if target.components.locomotor then
-        target.components.locomotor:SetExternalSpeedMultiplier(target, "speedup_tro", speedupattr[data.debuffkey].mult)
+        target.components.locomotor:SetExternalSpeedMultiplier(inst, "speedup_tro", speedupattr[data.debuffkey].mult)
     end
 end
 
@@ -40,8 +40,8 @@ local function speedup_extend(inst, target, followsymbol, followoffset, data)
         inst.components.timer:StopTimer("buffover")
         inst.components.timer:StartTimer("buffover", speedupattr[data.debuffkey].duration)
         if target.components.locomotor then
-            target.components.locomotor:RemoveExternalSpeedMultiplier(target, "speedup_tro")
-            target.components.locomotor:SetExternalSpeedMultiplier(target, "speedup_tro", speedupattr[data.debuffkey].mult)
+            target.components.locomotor:RemoveExternalSpeedMultiplier(inst, "speedup_tro")
+            target.components.locomotor:SetExternalSpeedMultiplier(inst, "speedup_tro", speedupattr[data.debuffkey].mult)
         end
         inst._debuffkey_tro = data.debuffkey    
     elseif data.debuffkey == inst._debuffkey_tro then
@@ -52,7 +52,7 @@ end
 
 local function speedup_detach(inst, target)
     if target.components.locomotor then
-        target.components.locomotor:RemoveExternalSpeedMultiplier(target, "speedup_tro")
+        target.components.locomotor:RemoveExternalSpeedMultiplier(inst, "speedup_tro")
     end
     inst._debuffkey_tro = nil
 end
