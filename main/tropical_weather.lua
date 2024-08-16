@@ -2,8 +2,8 @@ GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL,
 
 local Utils = require("tools/utils")
 local upvaluehelper = require("tools/upvaluehelper")
-
-require "components/map"
+require("tools/tile_util")
+require("components/map")
 
 local oldfindvisualnodeatpoint = Map.FindVisualNodeAtPoint
 
@@ -104,17 +104,32 @@ local function OnTemperatureUpdateBefore(self)
     return nil, false
 end
 
+-- local function GetMoistureRateBefore(self)
+--     if TheWorld.state.issnowing and self.inst:AwareInTropicalArea() then
+--         return { self:_GetMoistureRateAssumingRain() }, false
+--     end
+--     return nil, false
+-- end
+
+
+
 AddPlayerPostInit(function(inst)
     if not TheWorld.ismastersim then return end
     Utils.FnDecorator(inst.components.temperature, "OnUpdate", OnTemperatureUpdateBefore)
     -- Utils.FnDecorator(inst.components.weather, "OnUpdate", OnWeatherUpdateAfter)
+    -- Utils.FnDecorator(inst.components.moisture, "GetMoistureRate", GetMoistureRateBefore)
 end)
 
 
 
+local Moisture = require("components/moisture")
+function Moisture:GetMoistureRate()
+    if not TheWorld.state.israining and not (TheWorld.state.issnowing and self.inst:AwareInTropicalArea()) then
+        return -0.005 ---没搞懂为什么冬天不会自然干燥
+    end
 
-
-
+    return self:_GetMoistureRateAssumingRain()
+end
 
 --如果在区域内就更新滤镜  ------------滤镜似乎没有效果
 -- AddComponentPostInit("areaaware", function(self)
@@ -198,97 +213,6 @@ AddPrefabPostInit("forest", function(inst)
 end)
 
 
-AddPrefabPostInit("player_classified", function(inst)
-    -- if not TheWorld.ismastersim then
-    -- 	return
-    -- end
-    inst:DoTaskInTime(0.1, function()
-        local play_theme_music = upvaluehelper.GetEventHandle(inst, "play_theme_music")
-        if play_theme_music ~= nil then
-            inst:RemoveEventCallback("play_theme_music", play_theme_music)
-            -- inst.entity:GetParent():RemoveEventCallback("play_theme_music",play_theme_music)
-            local function new_play_theme_music(parent, data)
-                if parent and parent:IsInTropicalArea() then
-                    return
-                end
-                if parent and TheWorld.Map:IsTropicalAreaAtPoint(parent.Transform:GetWorldPosition()) then
-                    return
-                end
-                -- print("没有屏蔽")
-                play_theme_music(parent, data)
-            end
-            inst:ListenForEvent("play_theme_music", new_play_theme_music, inst.entity:GetParent())
-            -- inst.entity:GetParent()
-        end
-    end)
-end)
-
-
---消除雨雪------------------还是有问题
--- local old_update = { rain = nil, caverain = nil, snow = nil }
--- local emitters = GLOBAL.EmitterManager --发射器
--- local oldPostUpdate = emitters.PostUpdate or nil
-
--- function emitters:PostUpdate(...)
---     for inst, data in pairs(self.awakeEmitters.infiniteLifetimes) do
---         if (inst.prefab == "snow" --[[or
---                 inst.prefab == "pollen" or
---                 inst.prefab == "lunarhail"]]) and
---             data.updateFunc ~= nil then
---             if old_update[inst] == nil then
---                 old_update[inst] = data.updateFunc
---             end
-
---             if inst:IsInTropicalArea() then -----------似乎函数不起效
---                 data.updateFunc = function(...) end
---             else
---                 data.updateFunc = old_update[inst]
---             end
---         end
---     end
---     if oldPostUpdate ~= nil then
---         oldPostUpdate(emitters, ...)
---     end
--- end
-
----------以下来自猪人部落-------------
-
--- if GLOBAL.ThePlayer then
---     print "getplayer1111!!!!!!!"
--- else
---     print "no player1111!!!!!!!"
--- end
-
--- --这里怎么取到玩家的位置呢，搞不清楚
--- AddClassPostConstruct("components/weather", function(self)
---     local _rainfx = Utils.ChainFindUpvalue(self.OnPostInit, "_rainfx")
---     local _snowfx = Utils.ChainFindUpvalue(self.OnPostInit, "_snowfx")
---     local _lunarhailfx = Utils.ChainFindUpvalue(self.OnPostInit, "_lunarhailfx")
---     local _pollenfx = Utils.ChainFindUpvalue(self.OnPostInit, "_pollenfx") --应该不用管这个特效
-
---     local oldupdate = self.OnUpdate
-
-
-
---     self.OnUpdate = function(self, dt)
---         oldupdate(self, dt)
-
---         if _snowfx then
---             print "issnowhere!!!!!!!!!"
---             if true --[[self.inst:IsInTropicalArea()]] then
---                 print "areasnowhere!!!!!!!!!"
---                 if _rainfx then
---                     print "israinhere!!!!!!!!!"
---                     _rainfx.particles_per_tick = _snowfx.particles_per_tick
---                     _rainfx.splashes_per_tick = _snowfx.particles_per_tick
---                 end
---                 _snowfx.particles_per_tick = 0
---             end
---         end
---     end
---     self.LongUpdate = self.OnUpdate
--- end)
-
 
 ----prefabs 相关修改--
 
@@ -366,7 +290,7 @@ for _, prefab in pairs({ "spider_warrior" }) do
 end
 
 
-----热带蝴蝶刷新
+----热带蝴蝶和发光飞虫刷新
 for _, prefab in pairs({ "butterfly" }) do
     AddPrefabPostInit(prefab, function(inst)
         if not TheWorld.ismastersim then
@@ -374,64 +298,28 @@ for _, prefab in pairs({ "butterfly" }) do
         end
 
         inst:DoTaskInTime(0, function(inst)
-            local map = GLOBAL.TheWorld.Map
+            local map = TheWorld.Map
             local x, y, z = inst.Transform:GetWorldPosition()
             if x and y and z then
+                local butterfly
                 local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-                if ground == GROUND.MAGMAFIELD
-                    or ground == GROUND.JUNGLE
-                    or ground == GROUND.ASH
-                    or ground == GROUND.VOLCANO
-                    or ground == GROUND.TIDALMARSH
-                    or ground == GROUND.MEADOW
-                    or ground == GROUND.BEAH then
-                    local bolha = SpawnPrefab("butterfly_tropical")
-                    if bolha then
-                        bolha.Transform:SetPosition(x, y, z)
-                    end
+                if IsSwLandTile(ground) then
+                    butterfly = SpawnPrefab("butterfly_tropical")
+                elseif IsHamLandTile(ground) then
+                    butterfly = SpawnPrefab("glowfly")
+                end
+
+                if butterfly then
+                    -- if butterfly.components.pollinator ~= nil then
+                    --     butterfly.components.pollinator:Pollinate(spawnflower)
+                    -- end
+                    -- if butterfly.components.homeseeker ~= nil then
+                    --     butterfly.components.homeseeker:SetHome(spawnflower)
+                    -- end
+                    butterfly.Transform:SetPosition(x, y, z)
                     inst:Remove()
                 end
             end
         end)
     end)
 end
-
-
---[[ ----毒蜘蛛刷新
-for _, prefab in pairs({ "spider_warrior" }) do
-    AddPrefabPostInit(prefab, function(inst)
-        if not TheWorld.ismastersim then
-            return
-        end
-
-        inst:DoTaskInTime(0.5, function(inst)
-            if inst:IsInTropicalArea() then
-                local bolha = SpawnPrefab("spider_tropical")
-                if bolha then
-                    bolha.Transform:SetPosition(inst.Transform:GetWorldPosition())
-                    inst:Remove()
-                end
-            end
-        end)
-    end)
-end
-
-
-----热带蝴蝶刷新
-for _, prefab in pairs({ "butterfly" }) do
-    AddPrefabPostInit(prefab, function(inst)
-        if not TheWorld.ismastersim then
-            return
-        end
-
-        inst:DoTaskInTime(0, function(inst)
-            if inst:IsInTropicalArea() then
-                local bolha = SpawnPrefab("butterfly_tropical")
-                if bolha then
-                    bolha.Transform:SetPosition(inst.Transform:GetWorldPosition())
-                    inst:Remove()
-                end
-            end
-        end)
-    end)
-end ]]

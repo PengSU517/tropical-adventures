@@ -1,24 +1,24 @@
 require("stategraphs/commonstates")
 
-local actionhandlers = 
+local actionhandlers =
 {
 
-   -- ActionHandler(ACTIONS.GOHOME, "action"),
+    -- ActionHandler(ACTIONS.GOHOME, "action"),
 }
 
 local events =
 {
 
     EventHandler("enter", function(inst) inst.sg:GoToState("enter") end),
-    EventHandler("exit", function(inst) inst.sg:GoToState("exit") end),    
+    EventHandler("exit", function(inst) inst.sg:GoToState("exit") end),
     --[[
     EventHandler("attacked", function(inst) if inst.components.health:GetPercent() > 0 then inst.sg:GoToState("hit") end end),
     EventHandler("doattack", function(inst, data) if not inst.components.health:IsDead() and (inst.sg:HasStateTag("hit") or not inst.sg:HasStateTag("busy")) then inst.sg:GoToState("attack", data.target) end end),
     EventHandler("death", function(inst) inst.sg:GoToState("death") end),
-    EventHandler("locomote", 
-        function(inst) 
+    EventHandler("locomote",
+        function(inst)
             if not inst.sg:HasStateTag("idle") and not inst.sg:HasStateTag("moving") then return end
-            
+
             if not inst.components.locomotor:WantsToMoveForward() then
                 if not inst.sg:HasStateTag("idle") then
                     if not inst.sg:HasStateTag("running") then
@@ -41,26 +41,25 @@ local events =
 }
 
 local function DoStep(inst)
---local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
---if player then
---player:ShakeCamera(CAMERASHAKE.SIDE, 2, .06, .25)
---end
-inst.components.groundpounder:GroundPound()
-inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/glommer/foot_ground")
-TheWorld:PushEvent("bigfootstep")
+    --local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
+    --if player then
+    --player:ShakeCamera(CAMERASHAKE.SIDE, 2, .06, .25)
+    --end
+    inst.components.groundpounder:GroundPound()
+    inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/glommer/foot_ground")
+    TheWorld:PushEvent("bigfootstep")
 end
 
 local states =
 {
-    State
-    {
+    State {
         name = "idle",
-        tags = {"idle" },
+        tags = { "idle" },
 
         onenter = function(inst)
-            inst.AnimState:PlayAnimation("tail_loop")           
+            inst.AnimState:PlayAnimation("tail_loop")
         end,
-        
+
         events =
         {
             EventHandler("animover", function(inst, data)
@@ -69,41 +68,39 @@ local states =
         }
     },
 
-    State
-    {
+    State {
         name = "enter",
-        tags = {"idle","canrotate"},
+        tags = { "idle", "canrotate" },
 
-        onenter = function(inst)    
+        onenter = function(inst)
             inst.AnimState:PlayAnimation("tail_pre")
         end,
-    
+
         events =
         {
             EventHandler("animover", function(inst, data)
-                print("test")
+                -- print("test")
                 inst.sg:GoToState("idle")
             end),
         }
-    },  
+    },
 
-    State
-    {
+    State {
         name = "exit",
-        tags = {"idle","canrotate"},
+        tags = { "idle", "canrotate" },
 
-        onenter = function(inst)    
+        onenter = function(inst)
             inst.AnimState:PlayAnimation("tail_pst")
         end,
 
         events =
         {
-            EventHandler("animover", function(inst, data)            
+            EventHandler("animover", function(inst, data)
+                -- print("REMOVING ROCK TAIL")
                 inst:Remove()
             end),
         }
-    },     
+    },
 }
 
 return StateGraph("roc_tail", states, events, "idle", actionhandlers)
-

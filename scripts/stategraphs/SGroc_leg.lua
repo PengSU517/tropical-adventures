@@ -8,6 +8,18 @@ local actionhandlers =
 
 local ROC_LEGDSIT = 6
 
+local function ShakeIfClose(inst)
+    ShakeAllCameras(CAMERASHAKE.FULL, .7, .02, 1, inst, 40)
+end
+
+local function ShakeIfClose_Pound(inst)
+    ShakeAllCameras(CAMERASHAKE.VERTICAL, .7, .025, 1.25, inst, 40)
+end
+
+local function ShakeIfClose_Footstep(inst)
+    ShakeAllCameras(CAMERASHAKE.FULL, .35, .02, 1, inst, 40)
+end
+
 local events =
 {
 
@@ -45,13 +57,11 @@ local events =
 }
 
 local function DoStep(inst)
-    --local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
-    --if player then
-    --player:ShakeCamera(CAMERASHAKE.SIDE, 2, .06, .25)
-    --end
     inst.components.groundpounder:GroundPound()
+    ShakeIfClose_Footstep(inst)
+
     inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/glommer/foot_ground")
-    TheWorld:PushEvent("bigfootstep")
+    -- TheWorld:PushEvent("bigfootstep") --需要修改sleeper组件或者写个局部函数
 end
 
 local states =
@@ -127,17 +137,17 @@ local states =
         onenter = function(inst)
             local angle = inst.body.Transform:GetRotation() * DEGREES
             local newpos = Vector3(inst.body.Transform:GetWorldPosition()) +
-            Vector3(ROC_LEGDSIT * math.cos(angle + inst.legoffsetdir), 0,
-                -ROC_LEGDSIT * math.sin(angle + inst.legoffsetdir))
+                Vector3(ROC_LEGDSIT * math.cos(angle + inst.legoffsetdir), 0,
+                    -ROC_LEGDSIT * math.sin(angle + inst.legoffsetdir))
 
 
 
             local ground = TheWorld
             local tile = ground.Map:GetTileAtPoint(newpos.x, newpos.y, newpos.z)
 
-            if tile < 2 or tile == 255 then
+            if not IsLandTile(tile) then
                 -- NEEDS TO PUSH TO BODY!
-                inst.body:PushEvent("liftoff")
+                -- inst.body:PushEvent("liftoff")--需要修改
             end
 
             inst.Transform:SetPosition(newpos.x, 0, newpos.z)
@@ -186,8 +196,8 @@ local states =
         onenter = function(inst)
             local angle = inst.body.Transform:GetRotation() * DEGREES
             local newpos = Vector3(inst.body.Transform:GetWorldPosition()) +
-            Vector3(ROC_LEGDSIT * math.cos(angle + inst.legoffsetdir), 0,
-                -ROC_LEGDSIT * math.sin(angle + inst.legoffsetdir))
+                Vector3(ROC_LEGDSIT * math.cos(angle + inst.legoffsetdir), 0,
+                    -ROC_LEGDSIT * math.sin(angle + inst.legoffsetdir))
 
 
 
@@ -225,6 +235,7 @@ local states =
         tags = { "idle", "canrotate" },
 
         onenter = function(inst)
+            -- inst.AnimState:SetMultColour(1, 1, 1, 1)
             inst.AnimState:PlayAnimation("stomp_pre")
         end,
 
@@ -250,11 +261,14 @@ local states =
 
         onenter = function(inst)
             inst.AnimState:PlayAnimation("stomp_pst")
+            -- inst.AnimState:SetMultColour(0, 0, 0, 0)
         end,
 
         events =
         {
             EventHandler("animover", function(inst, data)
+                -- inst.AnimState:SetMultColour(0, 0, 0, 0)
+                -- print("REMOVING ROCK LEG")
                 inst:Remove()
             end),
         }

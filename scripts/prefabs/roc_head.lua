@@ -1,9 +1,8 @@
-
 require "stategraphs/SGroc_head"
 
 local trace = function() end
 
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/roc_head_build.zip"),
 	Asset("ANIM", "anim/roc_head_basic.zip"),
@@ -22,7 +21,7 @@ local function fn(Sim)
 	local anim = inst.entity:AddAnimState()
 	local physics = inst.entity:AddPhysics()
 	local sound = inst.entity:AddSoundEmitter()
-    inst.entity:AddNetwork()
+	inst.entity:AddNetwork()
 	--local shadow = inst.entity:AddDynamicShadow()
 	--shadow:SetSize( 2.5, 1.5 )
 	inst.Transform:SetEightFaced()
@@ -30,12 +29,12 @@ local function fn(Sim)
 	inst:AddTag("scarytoprey")
 	inst:AddTag("monster")
 	inst:AddTag("hostile")
-	inst:AddTag("roc")
+	-- inst:AddTag("roc")
 	inst:AddTag("roc_head")
 	inst:AddTag("noteleport")
 
-   -- MakeObstaclePhysics(inst, 2)
-   inst.Transform:SetScale(.8,.8,.8)
+	-- MakeObstaclePhysics(inst, 2)
+	inst.Transform:SetScale(.8, .8, .8)
 
 	anim:SetBank("head")
 	anim:SetBuild("roc_head_build")
@@ -47,21 +46,21 @@ local function fn(Sim)
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 	inst:AddComponent("knownlocations")
 
 	--inst:AddComponent("locomotor") -- locomotor must be constructed before the stategraph
 	--inst.components.locomotor.runspeed = TUNING.SNAKE_SPEED
 
---	inst:AddComponent("health")
---	inst.components.health:SetMaxHealth(TUNING.SNAKE_HEALTH)
+	--	inst:AddComponent("health")
+	--	inst.components.health:SetMaxHealth(TUNING.SNAKE_HEALTH)
 	--inst.components.health.poison_damage_scale = 0 -- immune to poison
 
-	inst:AddComponent("groundpounder")	
-    inst.components.groundpounder.destroyer = true
-    inst.components.groundpounder.damageRings = 2
-    inst.components.groundpounder.destructionRings = 1
-    inst.components.groundpounder.numRings = 3
+	inst:AddComponent("groundpounder")
+	inst.components.groundpounder.destroyer = true
+	inst.components.groundpounder.damageRings = 2
+	inst.components.groundpounder.destructionRings = 1
+	inst.components.groundpounder.numRings = 3
 
 
 	inst:AddComponent("combat")
@@ -71,7 +70,7 @@ local function fn(Sim)
 	inst:AddComponent("sanityaura")
 	inst.components.sanityaura.aurafn = function() return -TUNING.SANITYAURA_LARGE end
 
-	inst:SetStateGraph("SGroc_head")	
+	inst:SetStateGraph("SGroc_head")
 	--inst:ListenForEvent("attacked", OnAttacked)
 	--inst:ListenForEvent("onattackother", OnAttackOther)
 
@@ -79,4 +78,3 @@ local function fn(Sim)
 end
 
 return Prefab("monsters/roc_head", fn, assets, prefabs)
-

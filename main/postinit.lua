@@ -32,7 +32,7 @@ modimport("postinit/components/armor")
 modimport("postinit/components/builder")
 modimport("postinit/components/birdspawner")
 modimport("postinit/components/curseditem")
-
+modimport("postinit/components/hatchable")
 modimport("postinit/components/healthtrigger")
 modimport("postinit/components/embarker")
 modimport("postinit/components/groundpounder") ----这个组件拍地板的？
@@ -83,3 +83,9 @@ modimport("postinit/widgets/container_woodleg_boat")
 modimport("postinit/widgets/container_boat")     ---- boat container sizing tweak by EvenMr
 modimport("postinit/widgets/containers")         ---new containers
 modimport("postinit/widgets/seasonsdisplay.lua") --------------雾和花粉症,还有树荫
+
+
+
+--stagegraph
+modimport("postinit/stategraphs/SGwilson")
+modimport("postinit/stategraphs/SGwilson_client")
