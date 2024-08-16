@@ -1,5 +1,5 @@
 require "prefabutil"
-local brain = require "brains/chesterbrain"
+local brain = require "brains/packimbrain"
 require "stategraphs/SGRo_Bin"
 
 local WAKE_TO_FOLLOW_DISTANCE = 14
@@ -12,8 +12,7 @@ local assets =
     Asset("ANIM", "anim/ro_bin_build.zip"),
 
     Asset("SOUND", "sound/chester.fsb"),
-    Asset("INV_IMAGE", "chester_eyebone"),
-    Asset("INV_IMAGE", "chester_eyebone_closed"),
+
 }
 
 local prefabs =
@@ -30,9 +29,9 @@ end
 
 local function ShouldSleep(inst)
     --print(inst, "ShouldSleep", DefaultSleepTest(inst), not inst.sg:HasStateTag("open"), inst.components.follower:IsNearLeader(SLEEP_NEAR_LEADER_DISTANCE))
-    return DefaultSleepTest(inst) and not inst.sg:HasStateTag("open") 
-    and inst.components.follower:IsNearLeader(SLEEP_NEAR_LEADER_DISTANCE) 
-    and TheWorld.state.moonphase ~= "full"
+    return DefaultSleepTest(inst) and not inst.sg:HasStateTag("open")
+        and inst.components.follower:IsNearLeader(SLEEP_NEAR_LEADER_DISTANCE)
+        and TheWorld.state.moonphase ~= "full"
 end
 
 
@@ -45,21 +44,21 @@ local function OnOpen(inst)
     if not inst.components.health:IsDead() then
         inst.sg:GoToState("open")
     end
-end 
+end
 
-local function OnClose(inst) 
+local function OnClose(inst)
     if not inst.components.health:IsDead() then
         inst.sg:GoToState("close")
     end
-end 
-
--- eye bone was killed/destroyed
-local function OnStopFollowing(inst) 
-    inst:RemoveTag("companion") 
 end
 
-local function OnStartFollowing(inst) 
-    inst:AddTag("companion") 
+-- eye bone was killed/destroyed
+local function OnStopFollowing(inst)
+    inst:RemoveTag("companion")
+end
+
+local function OnStartFollowing(inst)
+    inst:AddTag("companion")
 end
 
 local function OnSave(inst, data)
@@ -70,20 +69,20 @@ local function OnPreLoad(inst, data)
     if not data then return end
 end
 
-local function OnWaterChange ( inst, onwater )
+local function OnWaterChange(inst, onwater)
     if onwater then
         inst.onwater = true
-        inst.altstep = nil    
+        inst.altstep = nil
         inst.sg:GoToState("takeoff")
         print("ROBIN ON WATER")
-    else        
-        inst.onwater = false    
+    else
+        inst.onwater = false
         inst.sg:GoToState("land")
-        print("ROBIN ON LAND")        
-    end 
+        print("ROBIN ON LAND")
+    end
 end
 
-local function OnEntityWake(inst)   
+local function OnEntityWake(inst)
     if inst.components.tiletracker then
         inst.components.tiletracker:Start()
     end
@@ -95,13 +94,31 @@ local function OnEntitySleep(inst)
     end
 end
 
+local function MakeFlyerPhysics(inst, mass, rad)
+    local physics = inst.entity:AddPhysics()
+    physics:SetMass(mass)
+    physics:SetCapsule(rad, 1)
+    inst.Physics:SetFriction(0)
+    inst.Physics:SetDamping(5)
+    inst.Physics:SetCollisionGroup(COLLISION.CHARACTERS) -------CHARACTERS
+    inst.Physics:ClearCollisionMask()
+
+    inst.Physics:CollidesWith(COLLISION.GROUND)
+    inst.Physics:CollidesWith(COLLISION.OBSTACLES)
+    inst.Physics:CollidesWith(COLLISION.SMALLOBSTACLES)
+    inst.Physics:CollidesWith(COLLISION.CHARACTERS) --最好避免与玩家碰撞
+    inst.Physics:CollidesWith(COLLISION.GIANTS)
+    -- inst.Physics:ClearCollidesWith(COLLISION.VOID_LIMITS) --是否可以跨越云海
+    inst.Physics:ClearCollidesWith(COLLISION.LAND_OCEAN_LIMITS)
+end
+
 local function create_ro_bin()
     local inst = CreateEntity()
-    inst.entity:AddNetwork()       
+    inst.entity:AddNetwork()
     inst:AddTag("companion")
     inst:AddTag("character")
     inst:AddTag("scarytoprey")
---    inst:AddTag("chester")
+    --    inst:AddTag("chester")
     inst:AddTag("ro_bin")
     inst:AddTag("notraptrigger")
     inst:AddTag("cattoy")
@@ -109,7 +126,7 @@ local function create_ro_bin()
     inst.entity:AddTransform()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon( "ro_bin.png" )
+    minimap:SetIcon("ro_bin.png")
 
     inst.entity:AddAnimState()
     inst.AnimState:SetBank("ro_bin")
@@ -118,20 +135,20 @@ local function create_ro_bin()
     inst.entity:AddSoundEmitter()
 
     inst.entity:AddDynamicShadow()
-    inst.DynamicShadow:SetSize( 2, 1.5 )
+    inst.DynamicShadow:SetSize(2, 1.5)
 
---    MakePoisonableCharacter(inst)
-    
-    MakeCharacterPhysics(inst, 75, .5)
-    
+    --    MakePoisonableCharacter(inst)
+    MakeFlyerPhysics(inst, 75, .5)
+    -- MakeFlyingCharacterPhysics(inst, 75, .5)
+
     inst.Transform:SetFourFaced()
 
     if not TheWorld.ismastersim then
-		inst.OnEntityReplicated = function(inst) 
-			inst.replica.container:WidgetSetup("chester") 
-		end
-		return inst
-	end
+        inst.OnEntityReplicated = function(inst)
+            inst.replica.container:WidgetSetup("chester")
+        end
+        return inst
+    end
 
     inst:AddComponent("combat")
     inst.components.combat.hiteffectsymbol = "chester_body"
@@ -144,7 +161,7 @@ local function create_ro_bin()
 
 
     inst:AddComponent("inspectable")
-	inst.components.inspectable:RecordViews()
+    inst.components.inspectable:RecordViews()
 
     inst:AddComponent("locomotor")
     inst.components.locomotor.walkspeed = 5
@@ -157,9 +174,9 @@ local function create_ro_bin()
     inst:AddComponent("knownlocations")
 
     MakeMediumBurnableCharacter(inst, "hound_body")
-    
+
     inst:AddComponent("container")
-	inst.components.container:WidgetSetup("chester")  
+    inst.components.container:WidgetSetup("chester")
     inst.components.container.onopenfn = OnOpen
     inst.components.container.onclosefn = OnClose
 
@@ -178,23 +195,20 @@ local function create_ro_bin()
     inst.OnSave = OnSave
     inst.OnPreLoad = OnPreLoad
 
-    inst:DoTaskInTime(1.5, function(inst)
-        -- We somehow got a ro bin without a gizzard stone. Kill it! Kill it with fire!
-        if not TheSim:FindFirstEntityWithTag("ro_bin_gizzard_stone") then
-            inst:Remove()
-        end
-    end)
-
     inst.OnEntityWake = OnEntityWake
     inst.OnEntitySleep = OnEntitySleep
 
     inst:AddTag("amphibious")
---    MakeAmphibiousCharacterPhysics(inst, 1, .5)
+    --    MakeAmphibiousCharacterPhysics(inst, 1, .5)
 
     inst:AddComponent("tiletracker")
     inst.components.tiletracker:SetOnWaterChangeFn(OnWaterChange)
 
+    inst.CanOnWater = function() return true end
+    inst.CanOnLand = function() return true end
+    inst.CanOnImpassable = function() return true end
+
     return inst
 end
 
-return Prefab( "common/ro_bin", create_ro_bin, assets, prefabs) 
+return Prefab("common/ro_bin", create_ro_bin, assets, prefabs)

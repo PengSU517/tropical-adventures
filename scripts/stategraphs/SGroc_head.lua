@@ -7,67 +7,28 @@ local actionhandlers =
 
 SHAKE_DIST = 40
 
+local function ShakeIfClose(inst)
+    ShakeAllCameras(CAMERASHAKE.FULL, .7, .02, 1, inst, 40)
+end
+
+local function ShakeIfClose_Pound(inst)
+    ShakeAllCameras(CAMERASHAKE.VERTICAL, .7, .025, 1.25, inst, 40)
+end
+
+local function ShakeIfClose_Footstep(inst)
+    ShakeAllCameras(CAMERASHAKE.FULL, .35, .02, 1, inst, 40)
+end
+
 local events =
 {
     EventHandler("enter", function(inst) inst.sg:GoToState("enter") end),
     EventHandler("exit", function(inst) inst.sg:GoToState("exit") end),
     EventHandler("bash", function(inst) inst.sg:GoToState("bash") end),
+    EventHandler("eat", function(inst) inst.sg:GoToState("eat") end), --添加吃食物的单独event
     EventHandler("gobble", function(inst) inst.sg:GoToState("grab") end),
     EventHandler("taunt", function(inst) inst.sg:GoToState("taunt") end),
 }
 
-local function DoStep(inst)
-    --local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
-    --if player then
-    --player:ShakeCamera(CAMERASHAKE.SIDE, 2, .06, .25)
-    --end
-    inst.components.groundpounder:GroundPound()
-    inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/glommer/foot_ground")
-    TheWorld:PushEvent("bigfootstep")
-end
-
-local function oncameraarrive(inst, doer)
-    if doer:IsValid() then
-        doer:SnapCamera()
-        doer:ScreenFade(true, 2)
-    end
-    doer.sg:GoToState("wakeup")
-end
-
-local function DoGrab(inst)
-    local controller = inst.controller
-
-    if controller.target and controller.target:HasTag("isinventoryitem") then
-        controller:EatSomething(controller.target)
-    elseif controller.target:HasTag("player") then
-        local dist = inst:GetDistanceSqToInst(controller.target)
-        if dist < 2 then
-            -- controller.target.components.combat:GetAttacked(inst, 50, nil, nil)
-
-
-
-            for k, v in pairs(Ents) do
-                if v.prefab == "roc_nest" then
-                    local target_x, target_y, target_z = v.Transform:GetWorldPosition()
-
-
-                    if controller.target.Physics ~= nil then
-                        controller.target.Physics:Teleport(target_x, target_y, target_z)
-                    elseif controller.target.Transform ~= nil then
-                        controller.target.Transform:SetPosition(target_x, target_y, target_z)
-                    end
-
-                    controller.target:ScreenFade(false)
-                    inst:DoTaskInTime(3, oncameraarrive, controller.target)
-                end
-            end
-
-            --            controller:playergrabbed()
-            --            inst.triggerliftoff = true
-        end
-    end
-    controller.target = nil
-end
 
 local states =
 {
@@ -107,12 +68,13 @@ local states =
         {
             TimeEvent(37 * FRAMES, function(inst)
                 inst.components.groundpounder:GroundPound()
+                ShakeIfClose_Pound(inst)
 
-                local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
-                if player then
-                    --					player:ShakeCamera(CAMERASHAKE.SIDE, 2, .06, .25)
-                    --player.components.playercontroller:ShakeCamera(inst, "VERTICAL", 0.5, 0.03, 2, SHAKE_DIST)
-                end
+                -- local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
+                -- if player then
+                --     --					player:ShakeCamera(CAMERASHAKE.SIDE, 2, .06, .25)
+                --     --player.components.playercontroller:ShakeCamera(inst, "VERTICAL", 0.5, 0.03, 2, SHAKE_DIST)
+                -- end
             end)
         },
 
@@ -120,6 +82,38 @@ local states =
         {
             EventHandler("animqueueover", function(inst, data)
                 inst.sg:GoToState("idle")
+            end),
+        }
+    },
+
+    State {
+        name = "eat",
+        tags = { "busy" },
+
+        onenter = function(inst)
+            inst.AnimState:PlayAnimation("grab_pre")
+            inst.AnimState:PushAnimation("grab_loop", false)
+            inst.AnimState:PushAnimation("grab_pst", false)
+        end,
+
+        timeline =
+        {
+            TimeEvent(14 * FRAMES,
+                function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/attack_3") end),
+            TimeEvent(25 * FRAMES,
+                function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/attack_2") end),
+            TimeEvent(29 * FRAMES,
+                function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/attack_1") end),
+            TimeEvent(31 * FRAMES, function(inst)
+                inst.controller:DoGrab_food()
+                -- DoGrab(inst)
+            end)
+        },
+
+        events =
+        {
+            EventHandler("animqueueover", function(inst, data)
+                inst.sg:GoToState("idle") ----------------------更改为exit但现在有bug
             end),
         }
     },
@@ -144,7 +138,8 @@ local states =
             TimeEvent(29 * FRAMES,
                 function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/attack_1") end),
             TimeEvent(31 * FRAMES, function(inst)
-                DoGrab(inst)
+                inst.controller:DoGrab_player()
+                -- DoGrab(inst)
             end)
         },
 
@@ -219,7 +214,7 @@ local states =
         events =
         {
             EventHandler("animover", function(inst, data)
-                print("REMOVING ROCK HEAD")
+                -- print("REMOVING ROCK HEAD")
                 inst:Remove()
             end),
         }

@@ -30,7 +30,7 @@ STRINGS.NAMES.PUGALISKFOUNTAIN_MADE                       = "Fountain of Youth"
 STRINGS.RECIPE_DESC.PUGALISKFOUNTAIN_MADE                 = "Live forever."
 
 --------------------action------------
-STRINGS.ACTIONS.JUMPIN                             = {
+STRINGS.ACTIONS.JUMPIN                                    = {
 	HAMLET = "Enter",
 	GENERIC = "Jump In",
 }
@@ -3338,7 +3338,7 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.KINGFISHER                 =
 }
 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.BURR                       = "Something's inside, I just know it!"
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.BURR_SAPLING               =                --"It looks tenacious."
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.BURR_SAPLING               = --"It looks tenacious."
 {
 	BURNING = "It's burning!",
 	WITHERED = "Not doing so good.",
@@ -3346,7 +3346,8 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.BURR_SAPLING               =                
 	PICKED = "It'll grow back.",
 }
 
-STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_LATIN_1                = "It says \"Ightlay iresfay\""                -- light fires in pig latin
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_LATIN_1                =
+"It says \"Ightlay iresfay\""                                                                  -- light fires in pig latin
 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_RUINS_BEAM_ROOM       = "It's holding up the roof."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CAVE_BEAM_ROOM        = "It's holding up the roof."
@@ -6522,6 +6523,10 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.SNOWGOAT = "Frost Goat."
 STRINGS.NAMES.ANTLER = "Bird Whistle"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANTLER = "This ought to be of some use."
 STRINGS.RECIPE_DESC.ANTLER = "For calling birds. Did you make it too big?"
+
+STRINGS.NAMES.ANTLER_CORRUPTED = "Dark Bird Whistle"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.ANTLER_CORRUPTED = "This ought to be of some awful use."
+STRINGS.RECIPE_DESC.ANTLER_CORRUPTED = "For driving birds away. Did you make it too big?"
 
 STRINGS.NAMES.BILL_QUILL = "Platapine Quill"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.BILL_QUILL = "it's boring."

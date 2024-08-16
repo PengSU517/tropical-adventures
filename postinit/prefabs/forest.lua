@@ -12,8 +12,11 @@ AddPrefabPostInit("forest", function(inst)
         inst:AddComponent("whalehunter")
         inst:AddComponent("rainbowjellymigration")
         -- inst:AddComponent("shadowmanager")
-        -- inst:AddComponent("rocmanager")
         inst:AddComponent("quaker_interior") ------------这是啥
+
+        if TUNING.tropical.hamlet then
+            inst:AddComponent("rocmanager")
+        end
     end
 end)
 
