@@ -66,16 +66,16 @@ PLANT_DEFS.turnip.moisture                   = {
     min_percent = TUNING.FARM_PLANT_DROUGHT_TOLERANCE
 }
 
-PLANT_DEFS.sweet_potato.good_seasons         = { autumn = true, winter = true, spring = true }
-PLANT_DEFS.aloe.good_seasons                 = { autumn = true, winter = true, spring = true }
-PLANT_DEFS.radish.good_seasons               = { autumn = true, winter = true, spring = true }
-PLANT_DEFS.wheat.good_seasons                = { autumn = true, winter = true, spring = true }
-PLANT_DEFS.turnip.good_seasons               = { autumn = true, winter = true, spring = true }
+PLANT_DEFS.sweet_potato.good_seasons         = { autumn = true,                spring = true, summer = true }
+PLANT_DEFS.aloe.good_seasons                 = { autumn = true,                spring = true, summer = true }
+PLANT_DEFS.radish.good_seasons               = { autumn = true,                spring = true                }
+PLANT_DEFS.wheat.good_seasons                = {                winter = true, spring = true                }
+PLANT_DEFS.turnip.good_seasons               = { autumn = true,                               summer = true }
 
-PLANT_DEFS.sweet_potato.nutrient_consumption = { M, 0, 0 }
-PLANT_DEFS.aloe.nutrient_consumption         = { M, 0, 0 }
+PLANT_DEFS.sweet_potato.nutrient_consumption = { 0, 0, M }
+PLANT_DEFS.aloe.nutrient_consumption         = { 0, M, 0 }
 PLANT_DEFS.radish.nutrient_consumption       = { M, 0, 0 }
-PLANT_DEFS.wheat.nutrient_consumption        = { M, 0, 0 }
+PLANT_DEFS.wheat.nutrient_consumption        = { 0, M, 0 }
 PLANT_DEFS.turnip.nutrient_consumption       = { M, 0, 0 }
 
 
