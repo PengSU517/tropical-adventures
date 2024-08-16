@@ -22,19 +22,12 @@ GLOBAL.TA_CONFIG = {
     fog              = GetModConfigData("fog"),
     hayfever         = GetModConfigData("hayfever"),
     aporkalypse      = GetModConfigData("aporkalypse"),
-    -- tropicalshards    = false, ----GetModConfigData("tropicalshards"),  ------------删掉所有用到的地方
-    -- removedark        = false, ----GetModConfigData("removedark"),-----------只在underwater用到
-    -- hamworld          = false, ----GetModConfigData("kindofworld"),  没用上
     -- bramble           = false, ----GetModConfigData("bramble"), ----荆棘藤蔓，但似乎实现不怎么样   没用上
-    -- roc               = true, ----GetModConfigData("roc"),   没用上
-    -- sealnado          = true, ----GetModConfigData("sealnado"),--------------parrotspawner里很多东西很奇怪
-    -- greenmod                     = GLOBAL.KnownModIndex:IsModEnabled("workshop-1418878027"),
+    roc              = GetModConfigData("roc"),      -----没用上
+    sealnado         = GetModConfigData("sealnado"), --------------parrotspawner里很多东西很奇怪
 
-
-    -- kindofworld       = 15,    ------GetModConfigData("kindofworld"),
-    -- forge             = false, ----GetModConfigData("forge"),
-    disembarkation = false, -----GetModConfigData("automatic_disembarkation"),------------自动离开船
-    bosslife       = 1,     --------GetModConfigData("bosslife"),
+    disembarkation   = false,                        -----GetModConfigData("automatic_disembarkation"),------------自动离开船
+    bosslife         = 1,                            --------GetModConfigData("bosslife"),
 
 
     -- ocean = GetModConfigData("ocean"),
@@ -54,6 +47,16 @@ TA_CONFIG.sw_start = TA_CONFIG.shipwrecked and (TA_CONFIG.multiplayerportal == "
 TA_CONFIG.ham_start = TA_CONFIG.hamlet and (TA_CONFIG.multiplayerportal == "hamlet")
 TA_CONFIG.together_not_mainland = (TA_CONFIG.sw_start or TA_CONFIG.ham_start)
 TA_CONFIG.together = not ((not TA_CONFIG.rog) and TA_CONFIG.together_not_mainland)
+
+
+
+
+
+TA_CONFIG.sealnado = TA_CONFIG.shipwrecked and TA_CONFIG.sealnado or false
+TA_CONFIG.fog = TA_CONFIG.hamlet and TA_CONFIG.fog or false
+TA_CONFIG.hayfever = TA_CONFIG.hamlet and TA_CONFIG.hayfever or false
+TA_CONFIG.aporkalypse = TA_CONFIG.hamlet and TA_CONFIG.aporkalypse or false
+TA_CONFIG.roc = TA_CONFIG.hamlet and TA_CONFIG.roc or false
 
 
 GLOBAL.TUNING.tropical = GLOBAL.TA_CONFIG

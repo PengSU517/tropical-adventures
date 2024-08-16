@@ -1,5 +1,27 @@
 ## En
 
+### Update 2.8.16:
+
+1. Added and optimized content related to Dapeng ROC (can toggle  roc and sealnado in mod settings), including interactions with the buildings and plants on Bird Island. possibly many bugs here.
+
+2. Optimized and restored the hatching mechanism for robins.
+
+3. Fixed issues with tropical region winter rain lacking sound effects and moisture. Corrected tropical region labels and fixed some related bugs, though penguins may still occasionally appear in tropical regions (mainly due to certain fixed terrains, like the two Pig Towns, being too large).
+
+4. In winter, if tropical terrain is not in a tropical region, only crows will spawn, not tropical birds.
+
+5. Fixed animation display layer issues, such as the disappearance of the sundial in Fangsui Mountain in the Mythos after activating this mod.
+
+6. Fixed the issue where certain ingredients (like dried kelp) could not be added to pots, and organized some ingredient attributes.
+
+7. Changed the coffee buff; now coffee, black tea, and three-color fish soup share the same speed buff, though with some attribute differences.
+
+8. Adjusted the steel furnace and added a smelting button. You can now smelt various gems, gold bars, gold blocks, gunpowder, saltpeter, iron ingots, etc.
+
+9. Potentially fixed the issue where ancient pioneers continued to spawn after the end of the destruction season.
+
+10. Potentially fixed the dodo breeding limit issue.
+
 ### Version 2.7.31 Update:
 
 1. Modified the mechanism of the steelmaking furnace, adding a complete gem synthesis path. Gems now have varying gem degrees based on their value, influencing synthesis results according to the gem degree in the recipe. Similarly, ingots and gold blocks follow this principle. The synthesis of gunpowder and saltpeter also follows this principle. 
