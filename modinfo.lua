@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.8.15"
+version = "2.8.16"
 forumthread = ""
 api_version = 10
 priority = -10
@@ -286,6 +286,14 @@ configuration_options =
 	},
 
 	{
+		name = "sealnado",
+		label = en_zh("sealnado", "豹卷风"),
+		hover = en_zh("Twister", "豹卷风"),
+		options = options_enable,
+		default = true,
+	},
+
+	{
 		name = "fog",
 		label = en_zh("Fog", "雾"),
 		hover = en_zh("Fog", "雾"),
@@ -305,6 +313,14 @@ configuration_options =
 		name = "aporkalypse",
 		label = en_zh("Aporkalypse", "毁灭季"),
 		hover = en_zh("Aporkalypse, but in caves", "毁灭季 但是在洞穴"),
+		options = options_enable,
+		default = true,
+	},
+
+	{
+		name = "roc",
+		label = en_zh("ROC", "大鹏"),
+		hover = en_zh("Big Friendly Bird", "友好大鸟"),
 		options = options_enable,
 		default = true,
 	},

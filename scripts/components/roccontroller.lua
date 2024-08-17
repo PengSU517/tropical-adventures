@@ -16,7 +16,7 @@
 local SCREEN_DIST = 50
 local HEAD_ATTACK_DIST = 1.5
 local HEAD_EAT_DIST = 0.5
-local SCALERATE = 1 / (30 * 1) -- 2 seconds to go from 0 to 1
+local SCALERATE = 1 / (30 * 2) -- 2 seconds to go from 0 to 1
 
 local HEADDIST = 17
 local HEADDIST_TARGET = 15
