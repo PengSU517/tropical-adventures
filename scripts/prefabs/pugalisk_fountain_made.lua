@@ -81,7 +81,7 @@ local function fn()
     inst.AnimState:SetScale(0.90, 0.90, 0.90)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("pig_ruins_well.png") ----------"kyno_pigruins_well.tex"
+    minimap:SetIcon("pugalisk_fountain.png") ----------"kyno_pigruins_well.tex"
 
     inst.AnimState:SetBank("fountain")
     inst.AnimState:SetBuild("python_fountain")

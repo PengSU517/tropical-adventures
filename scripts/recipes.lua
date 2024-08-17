@@ -50,7 +50,7 @@ AddRecipe2("pugaliskfountain_made",
 		-- nounlock = true,
 		min_spacing = 3.2,
 		placer = "pugaliskfountain_made_placer",
-		image = "pig_ruins_well.png" ----  "pig_ruins_well.png"
+		image = "pugalisk_fountain.png" ----  "pig_ruins_well.png"
 		--"pighouse_city.tex"     --"kyno_fountainyouth.tex" ---- ---"pig_ruins_well.tex"---------------这个图在哪儿
 	},
 	{ "STRUCTURES", "LEGACY", "SUMMER" })
