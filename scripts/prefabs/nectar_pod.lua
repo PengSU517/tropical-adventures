@@ -1,41 +1,6 @@
-local assets =
-{
-	Asset("ANIM", "anim/nectar_pod.zip"),
-}
+local assets = { Asset("ANIM", "anim/nectar_pod.zip") }
 
-local prefabs =
-{
-	"spoiled_food",
-}
-
-local function TransformToHoney(inst, antchest)
-    if inst.components.inventoryitem and inst.components.inventoryitem.owner == antchest then
-        antchest.components.container:RemoveItem(inst)
-        local numNectarPods = 1
-        if inst.components.stackable and inst.components.stackable:IsStack() and inst.components.stackable:StackSize() >
-            1 then
-            numNectarPods = inst.components.stackable:StackSize() + 1
-        end
-        inst:Remove()
-        for index = 1, numNectarPods, 1 do
-            local honey = SpawnPrefab("honey")
-            local position = Vector3(antchest.Transform:GetWorldPosition())
-            honey.Transform:SetPosition(position.x, position.y, position.z)
-            antchest.components.container:GiveItem(honey, nil, Vector3(inst.Transform:GetWorldPosition()))
-        end
-    end
-end
-
-local function OnPutInInventory(inst, owner)
-    if owner.prefab == "antchest" or owner.prefab == "honeychest" then
-    inst:DoTaskInTime(48, function() TransformToHoney(inst, owner) end)
-	end
-end
-
-local function OnRemoved(inst, owner)
-inst.components.perishable:StartPerishing()
-end
-
+local prefabs = { "spoiled_food" }
 
 local function fn(Sim)
 	local inst = CreateEntity()
@@ -77,9 +42,7 @@ local function fn(Sim)
     
     
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem:SetOnPutInInventoryFn(OnPutInInventory)
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.components.inventoryitem:OnPickup(OnRemoved)
     
     return inst
 end
