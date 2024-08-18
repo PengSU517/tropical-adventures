@@ -240,8 +240,6 @@ local function ArtificialPostInit(inst) -- 建造后装配
 
         inst.components.container:WidgetSetup("honeychest")
 
-        hide_ground(inst)
-
         inst:AddComponent("upgradeable")
         inst.components.upgradeable.upgradetype = UPGRADETYPES.CHEST
         inst.components.upgradeable:SetOnUpgradeFn(OnUpgrade)
@@ -296,7 +294,6 @@ local function Common(name)
 
     inst:ListenForEvent("itemget", itemget)
     inst:ListenForEvent("itemlose", ChangeAntChestSymbol)
-    inst:ListenForEvent("onbuilt", ArtificialPostInit)
 
     inst.OnSave = onsave
     inst.OnLoad = onload
@@ -323,8 +320,9 @@ local function fn1()
     if not TheWorld.ismastersim then
         return inst
     end
-
-    ArtificialPostInit(inst)
+    
+    inst:ListenForEvent("onbuilt", ArtificialPostInit)
+    hide_ground(inst)
 
     return inst
 end
