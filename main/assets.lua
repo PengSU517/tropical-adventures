@@ -368,6 +368,7 @@ PrefabFiles =
 	-- ### Honey Chest Updated
 	"collapsedchest_tro",
 	"corkchest",
+	"smeltingrecipecard",
 
 	-- ## (Food) Buffs
 	"buffs_tro",
