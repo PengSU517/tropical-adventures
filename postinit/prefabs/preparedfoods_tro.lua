@@ -15,13 +15,15 @@ AddPrefabPostInitAny(function(inst)
 end)
 
 -- 海难特色料理转化
-local function changeName(inst, ...)
-    inst.prefab = inst.prefab:sub(1, -4)
-    inst:RemoveEventCallback("onputininventory", changeName)
-end
 for _, v in ipairs({ "butterflymuffin_sw", "lobsterbisque_sw", "lobsterdinner_sw", }) do
     AddPrefabPostInit(v, function(inst)
-        inst._old_prefab = inst.prefab
+        if inst.prefab == v then
+            inst._old_prefab = inst.prefab
+            inst.prefab = inst.prefab:sub(1, -4)
+        end
+        if not TheWorld.ismastersim then
+            return inst
+        end
         local old_oneat = inst.components.edible.oneaten
         inst.components.edible:SetOnEatenFn(function(inst, eater, ...)
             eater:PushEvent("learncookbookstats", inst._old_prefab or inst.prefab)
@@ -30,6 +32,5 @@ for _, v in ipairs({ "butterflymuffin_sw", "lobsterbisque_sw", "lobsterdinner_sw
                 old_oneat(inst, eater, ...)
             end
         end)
-        inst:ListenForEvent("onputininventory", changeName)
     end)
 end
