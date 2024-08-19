@@ -44,8 +44,12 @@ local function ShowProduct(inst)
 	if not inst:HasTag("burnt") then
 		local product = inst.components.melter.product
 		local smelting = require("smelting")
-		local build, symbol = smelting.getOverrideSymbol(product)
-		inst.AnimState:OverrideSymbol("swap_item", build or GetInventoryItemAtlas(product .. ".tex"), symbol or product .. ".tex")
+		if product ~= "smeltingrecipecard" then
+			local build, symbol = smelting.getOverrideSymbol(product)
+			inst.AnimState:OverrideSymbol("swap_item", build or GetInventoryItemAtlas(product .. ".tex"), symbol or product .. ".tex")
+		else
+			inst.AnimState:OverrideSymbol("swap_item", "cookingrecipecard", "cookingrecipecard_01")
+		end
 	end
 end
 

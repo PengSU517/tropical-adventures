@@ -26,6 +26,16 @@ local Attributes = {
 
 local Products = require("smeltrecipes")
 
+local smelt_cards = {}
+local function AddSmeltCard(recipename)
+    table.insert(smelt_cards, recipename)
+end
+for k, v in pairs(Products) do
+    if v.card_def then
+        AddSmeltCard(k)
+    end
+end
+
 --- AddMeltAttributeValue({ "iron" }, { iron = 1 })
 ---@param names table 添加到炼钢炉的物品名表，如 "{ "iron" }"
 ---@param tags table 炼钢物品的属性键值表，如 "{ iron = 1 }"
@@ -97,6 +107,7 @@ end
 return {
     -- attributes = Attributes,
     recipes = Products,
+    cards = smelt_cards,
     AddMeltProduct = AddMeltProduct,
     -- getMeltAttr = getAttr,
     getMeltProd = getProd,
