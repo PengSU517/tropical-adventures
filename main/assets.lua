@@ -1188,6 +1188,7 @@ Assets =
 
 	-- ## Hamlet Plus
 	-- ### Honey Chest UI
+	Asset("ANIM", "anim/ui_honeychest_7x.zip"),
 	Asset("IMAGE", "images/ui/honeychest.tex"),
 	Asset("ATLAS", "images/ui/honeychest.xml"),
 }
