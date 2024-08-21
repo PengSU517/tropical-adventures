@@ -307,7 +307,8 @@ AddAction(
 local SHOP = GLOBAL.Action({ priority = 9, rmb = true, distance = 1, mount_valid = false })
 SHOP.stroverridefn = function(act)
     if act.target.imagename and act.target.cost then
-        return "Buy " .. act.target.imagename .. " for " .. act.target.cost .. " oincs"
+        return subfmt(STRINGS.ACTIONS.CHECKSHOP, { item = STRINGS.NAMES[act.target.imagename:upper()] or
+            STRINGS.NAMES[act.target.imagename:upper() .. "_CRAFT"], cost = act.target.cost })
     else
         return "Shop"
     end
