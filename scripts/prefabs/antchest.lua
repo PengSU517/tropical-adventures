@@ -134,6 +134,7 @@ local function OnUpgrade(inst, performer, upgraded_from_item)
     end
     inst.components.upgradeable.upgradetype = nil
     inst.displaynamefn = UpdateNameFn
+    inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
     if inst.components.lootdropper ~= nil then
         inst.components.lootdropper:SetLoot({ "alterguardianhatshard" })
     end
@@ -240,6 +241,8 @@ local function ArtificialPostInit(inst) -- 建造后装配
 
         inst.components.container:WidgetSetup("honeychest")
 
+        hide_ground(inst)
+
         inst:AddComponent("upgradeable")
         inst.components.upgradeable.upgradetype = UPGRADETYPES.CHEST
         inst.components.upgradeable:SetOnUpgradeFn(OnUpgrade)
@@ -321,8 +324,7 @@ local function fn1()
         return inst
     end
     
-    inst:ListenForEvent("onbuilt", ArtificialPostInit)
-    hide_ground(inst)
+    ArtificialPostInit(inst)
 
     return inst
 end
