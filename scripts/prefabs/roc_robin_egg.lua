@@ -3,7 +3,7 @@ local assets =
     Asset("ANIM", "anim/roc_egg.zip"),
 }
 
-TUNING.ROBIN_HATCH_TIME = TUNING.TOTAL_DAY_TIME * 2
+TUNING.ROBIN_HATCH_TIME = TUNING.TOTAL_DAY_TIME * 1
 
 local prefabs =
 {
