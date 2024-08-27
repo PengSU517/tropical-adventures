@@ -5,6 +5,11 @@ local safe_atlas = "images/tabs.xml"
 
 local TECH = GLOBAL.TECH
 
+---将a配方参照b配方位置重排
+---@param a string 被排配方名
+---@param b string 参照配方名
+---@param filter_name string 配方分类名
+---@param offset number 偏移量
 local function SortRecipe(a, b, filter_name, offset)
 	local filter = CRAFTING_FILTERS[filter_name]
 	if filter and filter.recipes then
@@ -26,10 +31,18 @@ local function SortRecipe(a, b, filter_name, offset)
 	end
 end
 
+---将a配方重排到b配方之后
+---@param a string 被排配方名
+---@param b string 参照配方名
+---@param filter_name string 配方分类名
 local function SortBefore(a, b, filter_name)
 	SortRecipe(a, b, filter_name, 0)
 end
 
+---将a配方重排到b配方之前
+---@param a string 被排配方名
+---@param b string 参照配方名
+---@param filter_name string 配方分类名
 local function SortAfter(a, b, filter_name)
 	SortRecipe(a, b, filter_name, 1)
 end
@@ -80,6 +93,7 @@ AddRecipe2("honeychest",
 		placer = "honeychest_placer"
 	}, { "STRUCTURES", "CONTAINERS", "COOKING", "GARDENING" })
 
+-- Character recipe with tag
 -- WX78 Items for Tropical
 AddRecipe2("wx78module_movespeed_sw",
 	{ Ingredient("scandata", 2), Ingredient("crab", 1, h_atlas) }, TECH.ROBOTMODULECRAFT_ONE, {
@@ -1807,3 +1821,22 @@ SortAfter("armor_weevole", "armor_windbreaker", "RAIN")
 SortAfter("seafaring_prototyper", "researchlab3", "PROTOTYPERS")
 SortAfter("tacklestation", "seafaring_prototyper", "PROTOTYPERS")
 SortAfter("cartographydesk", "tacklestation", "PROTOTYPERS")
+
+-- Extend recipes
+-- CHARACTER with skill
+-- WILSON
+AddCharacterRecipe("transmute_bamboo", { Ingredient("cutgrass", 2) }, TECH.NONE, { product = "bamboo", builder_skill = "wilson_alchemy_1", description = "transmute_bamboo" })
+SortAfter("transmute_bamboo", "transmute_twigs", "CHARACTER")
+AddCharacterRecipe("transmute_cutgrass_tro", { Ingredient("bamboo", 1) }, TECH.NONE, { product = "cutgrass", builder_skill = "wilson_alchemy_1", description = "transmute_cutgrass_tro" })
+SortAfter("transmute_cutgrass_tro", "transmute_bamboo", "CHARACTER")
+AddCharacterRecipe("transmute_vine", { Ingredient("twigs", 2) }, TECH.NONE, { product = "vine", builder_skill = "wilson_alchemy_1", description = "transmute_vine" })
+SortAfter("transmute_vine", "transmute_cutgrass_tro", "CHARACTER")
+AddCharacterRecipe("transmute_twigs_tro", { Ingredient("vine", 1) }, TECH.NONE, { product = "twigs", builder_skill = "wilson_alchemy_1", description = "transmute_twings_tro" })
+SortAfter("transmute_twigs_tro", "transmute_vine", "CHARACTER")
+AddCharacterRecipe("transmute_cork", { Ingredient("driftwood_log", 2) }, TECH.NONE, { product = "cork", builder_skill = "wilson_alchemy_1", description = "transmute_cork" })
+SortAfter("transmute_cork", "transmute_twigs_tro", "CHARACTER")
+AddCharacterRecipe("transmute_driftwood_log_tro", { Ingredient("cork", 2) }, TECH.NONE, { product = "driftwood_log", builder_skill = "wilson_alchemy_1", description = "transmute_driftwood_log_tro" })
+SortAfter("transmute_driftwood_log_tro", "transmute_cork", "CHARACTER")
+-- WORNWOOD
+AddCharacterRecipe("wormwood_seaweed_stalk", { Ingredient(CHARACTER_INGREDIENT.HEALTH, 10), Ingredient("spoiled_food", 3), Ingredient("kelp", 8) }, TECH.NONE, { builder_skill = "wormwood_juicyberrybushcrafting", product="seaweed_stalk", sg_state="form_log",  actionstr="GROW", allowautopick = true, no_deconstruction=true, description="wormwood_seaweed_stalk"})
+SortAfter("wormwood_seaweed_stalk", "wormwood_juicyberrybush", "CHARACTER")
