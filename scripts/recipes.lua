@@ -89,7 +89,7 @@ AddRecipe2("honeychest",
 	{ Ingredient("chitin", 6, h_atlas), Ingredient("beeswax", 1), Ingredient("honey", 3) }, TECH.LOST,
 	{
 		atlas = h_atlas,
-		min_spacing = 1,
+		min_spacing = 2,
 		placer = "honeychest_placer"
 	}, { "STRUCTURES", "CONTAINERS", "COOKING", "GARDENING" })
 
