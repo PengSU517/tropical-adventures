@@ -4607,6 +4607,17 @@ STRINGS.RECIPE_DESC.PLAYERHOUSE_CITY                    = "Home Sweet Home."
 STRINGS.RECIPE_DESC.PIG_SHOP_BANK_ENTRANCE              = "A Bank."
 STRINGS.RECIPE_DESC.PIG_SHOP_TINKER_ENTRANCE            = "The Tinkerer's Tower."
 
+-- Character skill recipes extension
+-- WILSON
+STRINGS.RECIPE_DESC.TRANSMUTE_BAMBOO 					= "Transmute Cutgrass into a Bamboo."
+STRINGS.RECIPE_DESC.TRANSMUTE_CUTGRASS_TRO				= "Transmute Bamboo into a Cutgrass."
+STRINGS.RECIPE_DESC.TRANSMUTE_VINE 						= "Transmute Twigs into a Vine."
+STRINGS.RECIPE_DESC.TRANSMUTE_TWINGS_TRO 				= "Transmute Vine into a Twig."
+STRINGS.RECIPE_DESC.TRANSMUTE_CORK 						= "Transmute Driftwood Pieces into a Cork."
+STRINGS.RECIPE_DESC.TRANSMUTE_DRIFTWOOD_LOG_TRO 		= "Transmute Corks into a Driftwood Piece."
+-- WORNWOOD
+STRINGS.RECIPE_DESC.WORMWOOD_SEAWEED_STALK 				= "Delicious and nutritious."
+
 STRINGS.NAMES.PIG_SHOP_FLORIST_ENTRANCE                 = "Miss Sow's\nFloral Arrangements"
 STRINGS.NAMES.PIG_SHOP_GENERAL_ENTRANCE                 = "Pigg and Pigglet's\nGeneral Store"
 STRINGS.NAMES.PIG_SHOP_HOOFSPA_ENTRANCE                 = "Curly Tails\nMud Spa"
