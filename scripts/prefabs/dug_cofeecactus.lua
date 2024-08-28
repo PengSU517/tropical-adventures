@@ -41,19 +41,6 @@ local function make_plantable(data)
         end
     end
 
-    local function test_coffee(self, pt, mouseover, deployer)
-        if not self:IsDeployable(deployer) then return false end
-        local tile = TheWorld.Map:GetTileAtPoint(pt:Get())
-        return (tile == WORLD_TILES.MAGMAFIELD or tile == WORLD_TILES.ASH or tile == WORLD_TILES.VOLCANO) and
-                   TheWorld.Map:CanDeployPlantAtPoint(pt, self.inst)
-    end
-
-    local function test_jungle(self, pt, mouseover, deployer)
-        if not self:IsDeployable(deployer) then return false end
-        local tile = TheWorld.Map:GetTileAtPoint(pt:Get())
-        return tile == WORLD_TILES.JUNGLE and TheWorld.Map:CanDeployPlantAtPoint(pt, self.inst)
-    end
-
     local function fn()
         local inst = CreateEntity()
 
@@ -107,13 +94,6 @@ local function make_plantable(data)
         inst.components.deployable.ondeploy = ondeploy
         inst.components.deployable:SetDeployMode(DEPLOYMODE.PLANT)
         inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.DEFAULT)
-        if data.name == "elephantcactus" or data.name == "coffeebush" then
-            inst.components.deployable.CanDeploy = test_coffee
-            inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.MEDIUM)
-        elseif data.name == "bush_vine" or data.name == "bambootree" then
-            inst.components.deployable.CanDeploy = test_jungle
-            inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.MEDIUM)
-        end
 
         if data.halloweenmoonmutable_settings ~= nil then
             inst:AddComponent("halloweenmoonmutable")
