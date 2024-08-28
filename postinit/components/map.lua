@@ -22,8 +22,8 @@ end
 
 Utils.FnDecorator(Map, "CanDeployPlantAtPoint", function(self, pt, inst, ...)
     if inst.prefab == "dug_elephantcactus" or inst.prefab == "dug_coffeebush" then
-        return self:CanVolcanoPlantAtPoint(pt:Get()) and self:IsDeployPointClear(pt, inst, inst.replica.inventoryitem ~= nil and inst.replica.inventoryitem:DeploySpacingRadius() or DEPLOYSPACING_RADIUS[DEPLOYSPACING.DEFAULT])
+        return { self:CanVolcanoPlantAtPoint(pt:Get()) and self:IsDeployPointClear(pt, inst, inst.replica.inventoryitem ~= nil and inst.replica.inventoryitem:DeploySpacingRadius() or DEPLOYSPACING_RADIUS[DEPLOYSPACING.DEFAULT]) }, true
     elseif inst.prefab == "dug_bush_vine" or inst.prefab == "dug_bambootree" then
-        return self:CanJunglePlantAtPoint(pt:Get()) and self:IsDeployPointClear(pt, inst, inst.replica.inventoryitem ~= nil and inst.replica.inventoryitem:DeploySpacingRadius() or DEPLOYSPACING_RADIUS[DEPLOYSPACING.DEFAULT])
+        return { self:CanJunglePlantAtPoint(pt:Get()) and self:IsDeployPointClear(pt, inst, inst.replica.inventoryitem ~= nil and inst.replica.inventoryitem:DeploySpacingRadius() or DEPLOYSPACING_RADIUS[DEPLOYSPACING.DEFAULT]) }, true
     end
 end)
