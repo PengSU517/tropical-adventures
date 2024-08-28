@@ -55,7 +55,6 @@ local function MakePreparedFood(data)
             inst:AddTag("spicedfood")
 
             inst.inv_image_bg = { image = (data.basename or data.name) .. ".tex" }
-            -- inst.inv_image_bg.atlas = resolvefilepath(data.atlasname)
             inst.inv_image_bg.atlas = data.atlasname or GetInventoryItemAtlas(inst.inv_image_bg.image)
 
             food_symbol_build = data.overridebuild or "cook_pot_food"
@@ -120,7 +119,6 @@ local function MakePreparedFood(data)
 
         inst.components.inventoryitem.imagename = data.basename
         if spicename ~= nil then
-            print("SPICEDFOOD", spicename, data.basename, data.atlasname)
             inst.components.inventoryitem:ChangeImageName(spicename .. "_over")
         elseif data.basename ~= nil then
             inst.components.inventoryitem.atlasname = data.atlasname
@@ -128,13 +126,16 @@ local function MakePreparedFood(data)
         end
 
         inst:AddComponent("stackable")
-        inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
+        inst.components.stackable.maxsize = data.maxstacksize or TUNING.STACK_SIZE_SMALLITEM
 
         if data.perishtime ~= nil and data.perishtime > 0 then
             inst:AddComponent("perishable")
             inst.components.perishable:SetPerishTime(data.perishtime)
             inst.components.perishable:StartPerishing()
-            inst.components.perishable.onperishreplacement = "spoiled_food"
+            inst.components.perishable.onperishreplacement = data.onperishreplacement or "spoiled_food"
+            if data.perishfn then
+                inst.components.perishable:SetOnPerishFn(data.perishfn)
+            end
         end
 
         MakeSmallBurnable(inst)
@@ -162,14 +163,6 @@ for tabIdx, foodTab in pairs(require("preparedfoods_tro")) do
         table.insert(prefs, MakePreparedFood(foodDef))
     end
 end
-
--- for k, v in pairs(require("preparedfoods_ham")) do
---     table.insert(prefs, MakePreparedFood(v))
--- end
-
--- for k, v in pairs(require("preparedfoods_sw")) do
---     table.insert(prefs, MakePreparedFood(v))
--- end
 
 for k, v in pairs(require("spicedfoods")) do
     if v.mod and v.mod == true then

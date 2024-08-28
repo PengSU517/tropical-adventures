@@ -1,8 +1,31 @@
 local foods = require("preparedfoods")
--- foods.butterflymuffin.test = function(cooker, names, tags) return (names.butterflywings or names.moonbutterflywings or names.butterfly_tropical_wings) and not tags.meat and tags.veggie and tags.veggie >= 0.5 end
-foods.californiaroll.test = function(cooker, names, tags) return ((names.kelp or 0) + (names.kelp_cooked or 0) + (names.kelp_dried or 0) + (names.seaweed or 0)) == 2 and (tags.fish and tags.fish >= 1) end
--- foods.lobsterbisque.test = function(cooker, names, tags) return (names.wobster_sheller_land or names.lobster_land) and tags.frozen end
--- foods.lobsterdinner.test = function(cooker, names, tags) return names.butter and not tags.frozen and (names.wobster_sheller_land and (tags.meat and tags.meat >= 1.0) and (tags.fish and tags.fish >= 1.0) or names.lobster_land and (tags.meat and tags.meat <= 1.0) and (tags.fish and tags.fish <= 1.0))end
+-- if foods.butterflymuffin then
+--     local posttest = foods.butterflymuffin.test
+--     foods.butterflymuffin.test = function(cooker, names, tags)
+--         return names.butterfly_tropical_wings and not tags.meat and tags.veggie or posttest(cooker, names, tags)
+--     end
+-- end
+if foods.californiaroll then
+    local posttest = foods.californiaroll.test
+    foods.californiaroll.test = function(cooker, names, tags)
+        return ((names.kelp or 0) + (names.kelp_cooked or 0) + (names.kelp_dried or 0) + (names.seaweed or 0)) == 2 and
+                   (tags.fish and tags.fish >= 1) or posttest(cooker, names, tags)
+    end
+end
+if foods.lobsterbisque then
+    local posttest = foods.lobsterbisque.test
+    foods.lobsterbisque.test = function(cooker, names, tags)
+        return names.lobster_land and tags.frozen or posttest(cooker, names, tags)
+    end
+end
+if foods.lobsterdinner then
+    local posttest = foods.lobsterdinner.test
+    foods.lobsterdinner.test = function(cooker, names, tags)
+        return
+            names.lobster_land and names.butter and (tags.meat and tags.meat <= 1) and (tags.fish and tags.fish <= 1) and
+                not tags.frozen or posttest(cooker, names, tags)
+    end
+end
 
 local foodsGrandDef = require("preparedfoods_tro")
 for tabIdx, foodTab in pairs(foodsGrandDef) do

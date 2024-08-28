@@ -1,7 +1,7 @@
-local tabName = { "ham", "sw", }
+local tabName = {"ham", "sw"}
 local overridebuild = {
     [tabName[1]] = "cook_pot_food_ham",
-    [tabName[2]] = "cook_pot_food_sw"
+    [tabName[2]] = "cook_pot_food_sw",
 }
 local cookbook_atlas = {
     [tabName[1]] = "images/cookbook/cookbook_ham.xml",
@@ -27,8 +27,8 @@ local foods_tro = {
             sanity = TUNING.SANITY_MED,
             cooktime = 3.5,
             card_def = {
-                ingredients = {{"jellybug", 3}, {"carrot", 1}}
-            }
+                ingredients = {{"jellybug", 3}, {"carrot", 1}},
+            },
         },
 
         steamedhamsandwich = {
@@ -43,14 +43,12 @@ local foods_tro = {
             sanity = TUNING.SANITY_MED,
             cooktime = 2,
             card_def = {
-                ingredients = {{"meat", 1}, {"carrot", 2}, {"foliage", 1}}
-            }
+                ingredients = {{"meat", 1}, {"carrot", 2}, {"foliage", 1}},
+            },
         },
 
         hardshell_tacos = {
-            test = function(cooker, names, tags)
-                return (names.weevole_carapace == 2) and tags.veggie
-            end,
+            test = function(cooker, names, tags) return (names.weevole_carapace == 2) and tags.veggie end,
             priority = 1,
             foodtype = FOODTYPE.VEGGIE,
             health = TUNING.HEALING_MED,
@@ -59,8 +57,8 @@ local foods_tro = {
             sanity = TUNING.SANITY_TINY,
             cooktime = 1,
             card_def = {
-                ingredients = {{"weevole_carapace", 2}, {"carrot", 2}}
-            }
+                ingredients = {{"weevole_carapace", 2}, {"carrot", 2}},
+            },
         },
 
         gummy_cake = {
@@ -76,8 +74,8 @@ local foods_tro = {
             cooktime = 2,
             tags = {"honeyed"},
             card_def = {
-                ingredients = {{"slugbug", 1}, {"honey", 1}, {"twigs", 2}}
-            }
+                ingredients = {{"slugbug", 1}, {"honey", 1}, {"twigs", 2}},
+            },
         },
 
         tea = {
@@ -96,16 +94,23 @@ local foods_tro = {
             cooktime = 0.5,
             tags = {"honeyed"},
             oneatenfn = function(inst, eater)
-			    eater:AddDebuff("speedup_tro", "buff_speedup_tro", { debuffkey = "tea" }, true)
+                eater:AddDebuff("speedup_tro", "buff_speedup_tro", {
+                    debuffkey = "tea",
+                }, true)
                 if eater and eater.components.temperature then
                     local current_temp = eater.components.temperature:GetCurrent()
                     local new_temp = math.max(current_temp + 15, TUNING.STARTING_TEMP)
                     eater.components.temperature:SetTemperature(new_temp)
                 end
             end,
+            perishfn = function(inst)
+                local owner = inst.components.inventoryitem:GetContainer()
+                inst.components.perishable.onperishreplacement =
+                    owner and owner.inst.prefab == "icebox" and "iced" .. inst.prefab or "spoiled_food"
+            end,
             card_def = {
-                ingredients = {{"piko_orange", 2}, {"honey", 2}}
-            }
+                ingredients = {{"piko_orange", 2}, {"honey", 2}},
+            },
         },
 
         icedtea = {
@@ -123,7 +128,9 @@ local foods_tro = {
             cooktime = 0.5,
             tags = {"honeyed"},
             oneatenfn = function(inst, eater)
-			    eater:AddDebuff("speedup_tro", "buff_speedup_tro", { debuffkey = "icedtea" }, true)
+                eater:AddDebuff("speedup_tro", "buff_speedup_tro", {
+                    debuffkey = "icedtea",
+                }, true)
                 if eater and eater.components.temperature then
                     local current_temp = eater.components.temperature:GetCurrent()
                     local new_temp = math.max(current_temp - 10, TUNING.STARTING_TEMP)
@@ -131,8 +138,8 @@ local foods_tro = {
                 end
             end,
             card_def = {
-                ingredients = {{"piko_orange", 2}, {"honey", 1}, {"ice", 1}}
-            }
+                ingredients = {{"piko_orange", 2}, {"honey", 1}, {"ice", 1}},
+            },
         },
 
         snakebonesoup = {
@@ -147,14 +154,12 @@ local foods_tro = {
             sanity = TUNING.SANITY_SMALL,
             cooktime = 1,
             card_def = {
-                ingredients = {{"snake_bone", 2}, {"meat", 2}}
-            }
+                ingredients = {{"snake_bone", 2}, {"meat", 2}},
+            },
         },
 
         nettlelosange = {
-            test = function(cooker, names, tags)
-                return tags.antihistamine and tags.antihistamine >= 3
-            end,
+            test = function(cooker, names, tags) return tags.antihistamine and tags.antihistamine >= 3 end,
             foodtype = FOODTYPE.GOODIES,
             health = TUNING.HEALING_MED,
             hunger = TUNING.CALORIES_MED,
@@ -168,8 +173,8 @@ local foods_tro = {
                 end
             end,
             card_def = {
-                ingredients = {{"cutnettle", 3}, {"twigs", 1}}
-            }
+                ingredients = {{"cutnettle", 3}, {"twigs", 1}},
+            },
         },
 
         meated_nettle = {
@@ -191,8 +196,8 @@ local foods_tro = {
                 end
             end,
             card_def = {
-                ingredients = {{"cutnettle", 2}, {"smallmeat", 2}}
-            }
+                ingredients = {{"cutnettle", 2}, {"smallmeat", 2}},
+            },
         },
 
         -- 废案重现
@@ -212,8 +217,8 @@ local foods_tro = {
             cooktime = .5,
             tags = {"honeyed"},
             card_def = {
-                ingredients = {{"seataro", 1}, {"piko_orange", 1}, {"goatmilk", 1}, {"honey", 1}}
-            }
+                ingredients = {{"seataro", 1}, {"piko_orange", 1}, {"goatmilk", 1}, {"honey", 1}},
+            },
         },
 
         frenchonionsoup = { -- 法式洋葱汤 French Onion Soup
@@ -230,8 +235,8 @@ local foods_tro = {
             cooktime = .75,
             isMasterfood = true,
             card_def = {
-                ingredients = {{"smallmeat", 1}, {"onion", 1}, {"tomato", 1}, {"twigs", 1}}
-            }
+                ingredients = {{"smallmeat", 1}, {"onion", 1}, {"tomato", 1}, {"twigs", 1}},
+            },
         },
 
         lotuschips = { -- 莲藕汤 Lotus Root Soup
@@ -248,8 +253,8 @@ local foods_tro = {
             sanity = TUNING.SANITY_MEDLARGE * 2,
             cooktime = .5,
             card_def = {
-                ingredients = {{"lotus_flower1", 2}, {"ice", 1}, {"twigs", 1}}
-            }
+                ingredients = {{"lotus_flower1", 2}, {"ice", 1}, {"twigs", 1}},
+            },
         },
 
         poi = { -- 芋泥 Poi
@@ -267,30 +272,33 @@ local foods_tro = {
             sanity = TUNING.SANITY_TINY,
             cooktime = 2,
             card_def = {
-                ingredients = {{"seataro", 3}, {"ice", 1}}
-            }
-        }
+                ingredients = {{"seataro", 3}, {"ice", 1}},
+            },
+        },
 
         -- slaw = { -- 茴香沙拉 Slaw -- 游戏里获得不了茴香就先不加入
-        -- 	test = function(cooker, names, tags) return (names.fennel or names.fennel_cooked) and not tags.meat and tags.veggie and tags.veggie >= 0.5 and not tags.inedible end,
-        -- 	priority = 1,
-        -- 	foodtype = FOODTYPE.VEGGIE,
-        -- 	health = TUNING.HEALING_SMALL,
-        -- 	hunger = TUNING.CALORIES_MED,
-        -- 	perishtime = TUNING.PERISH_SLOW,
-        -- 	sanity = TUNING.SANITY_TINY,
-        -- 	cooktime = 1,
-        --     floater = {"med", nil, 0.68},
-        --     card_def = {ingredients = {{"fennel", 2}, {"carrot", 2}} },
+        --     test = function(cooker, names, tags)
+        --         return
+        --             (names.fennel or names.fennel_cooked) and not tags.meat and tags.veggie and tags.veggie >= 0.5 and
+        --                 not tags.inedible
+        --     end,
+        --     priority = 1,
+        --     foodtype = FOODTYPE.VEGGIE,
+        --     health = TUNING.HEALING_SMALL,
+        --     hunger = TUNING.CALORIES_MED,
+        --     perishtime = TUNING.PERISH_SLOW,
+        --     sanity = TUNING.SANITY_TINY,
+        --     cooktime = 1,
+        --     card_def = {
+        --         ingredients = {{"fennel", 2}, {"carrot", 2}},
+        --     },
         -- },
 
     },
 
     [tabName[2]] = {
         bisque = {
-            test = function(cooker, names, tags)
-                return names.limpets and names.limpets == 3 and tags.frozen
-            end,
+            test = function(cooker, names, tags) return names.limpets and names.limpets == 3 and tags.frozen end,
             priority = 30,
             weight = 1,
             foodtype = FOODTYPE.MEAT,
@@ -300,8 +308,8 @@ local foods_tro = {
             sanity = TUNING.SANITY_TINY,
             cooktime = 1,
             card_def = {
-                ingredients = {{"limpets", 3}, {"ice", 1}}
-            }
+                ingredients = {{"limpets", 3}, {"ice", 1}},
+            },
         },
 
         butterflymuffin_sw = {
@@ -317,32 +325,14 @@ local foods_tro = {
             sanity = TUNING.SANITY_TINY,
             cooktime = 2,
             card_def = {
-                ingredients = {{"butterfly_tropical_wings", 1}, {"carrot", 2}, {"twigs", 1}}
-            }
+                ingredients = {{"butterfly_tropical_wings", 1}, {"carrot", 2}, {"twigs", 1}},
+            },
         },
 
-        -- californiaroll_sw = {
-        --     test = function(cooker, names, tags)
-        --         return
-        --             (names.seaweed or 0) == 2 and (tags.fish and tags.fish >= 1)
-        --     end,
-        --     priority = 20,
-        --     weight = 1,
-        --     foodtype = FOODTYPE.MEAT,
-        --     health = TUNING.HEALING_MED,
-        --     hunger = TUNING.CALORIES_LARGE,
-        --     perishtime = TUNING.PERISH_MED,
-        --     sanity = TUNING.SANITY_SMALL,
-        --     cooktime = .5,
-        --     potlevel = "high",
-        --     floater = {"med", 0.05, {0.65, 0.6, 0.65}},
-        --     card_def = {ingredients = {{"seaweed", 2}, {"fishmeat_small", 2}} },
-        -- },
+        -- californiaroll_sw = {}
 
         caviar = {
-            test = function(cooker, names, tags)
-                return (names.roe or names.roe_cooked == 3) and tags.veggie
-            end,
+            test = function(cooker, names, tags) return (names.roe or names.roe_cooked == 3) and tags.veggie end,
             priority = 20,
             weight = 1,
             foodtype = FOODTYPE.MEAT,
@@ -352,8 +342,8 @@ local foods_tro = {
             sanity = TUNING.SANITY_LARGE,
             cooktime = 2,
             card_def = {
-                ingredients = {{"roe", 3}, {"carrot", 1}}
-            }
+                ingredients = {{"roe", 3}, {"carrot", 1}},
+            },
         },
 
         coffee = {
@@ -372,17 +362,17 @@ local foods_tro = {
             cooktime = .5,
             tags = {},
             oneatenfn = function(inst, eater)
-			    eater:AddDebuff("speedup_tro", "buff_speedup_tro", { debuffkey = "coffee" }, true)
+                eater:AddDebuff("speedup_tro", "buff_speedup_tro", {
+                    debuffkey = "coffee",
+                }, true)
             end,
             card_def = {
-                ingredients = {{"coffeebeans_cooked", 4}}
-            }
+                ingredients = {{"coffeebeans_cooked", 4}},
+            },
         },
 
         jellyopop = {
-            test = function(cooker, names, tags)
-                return tags.jellyfish and tags.frozen and tags.inedible
-            end,
+            test = function(cooker, names, tags) return tags.jellyfish and tags.frozen and tags.inedible end,
             priority = 20,
             weight = 1,
             foodtype = FOODTYPE.MEAT,
@@ -394,44 +384,42 @@ local foods_tro = {
             temperatureduration = 10,
             cooktime = 0.5,
             card_def = {
-                ingredients = {{"jellyfish", 1}, {"ice", 1}, {"twigs", 2}}
-            }
+                ingredients = {{"jellyfish", 1}, {"ice", 1}, {"twigs", 2}},
+            },
         },
 
-        lobsterbisque_sw = {
-            test = function(cooker, names, tags)
-                return names.lobster_land and tags.frozen
-            end,
-            priority = 30,
-            weight = 1,
-            foodtype = FOODTYPE.MEAT,
-            health = TUNING.HEALING_HUGE,
-            hunger = TUNING.CALORIES_MED,
-            perishtime = TUNING.PERISH_MED,
-            sanity = TUNING.SANITY_SMALL,
-            cooktime = 0.5,
-            card_def = {
-                ingredients = {{"lobster_land", 1}, {"ice", 3}}
-            }
-        },
+        -- lobsterbisque_sw = {
+        --     test = function(cooker, names, tags) return names.lobster_land and tags.frozen end,
+        --     priority = 30,
+        --     weight = 1,
+        --     foodtype = FOODTYPE.MEAT,
+        --     health = TUNING.HEALING_HUGE,
+        --     hunger = TUNING.CALORIES_MED,
+        --     perishtime = TUNING.PERISH_MED,
+        --     sanity = TUNING.SANITY_SMALL,
+        --     cooktime = 0.5,
+        --     card_def = {
+        --         ingredients = {{"lobster_land", 1}, {"ice", 3}},
+        --     },
+        -- },
 
-        lobsterdinner_sw = {
-            test = function(cooker, names, tags)
-                return names.lobster_land and names.butter and (tags.meat and tags.meat <= 1) and
-                            (tags.fish and tags.fish <= 1) and not tags.frozen
-            end,
-            priority = 25,
-            weight = 1,
-            foodtype = FOODTYPE.MEAT,
-            health = TUNING.HEALING_HUGE,
-            hunger = TUNING.CALORIES_LARGE,
-            perishtime = TUNING.PERISH_SLOW,
-            sanity = TUNING.SANITY_HUGE,
-            cooktime = 1,
-            card_def = {
-                ingredients = {{"lobster_land", 1}, {"butter", 1}, {"carrot", 2}}
-            }
-        },
+        -- lobsterdinner_sw = {
+        --     test = function(cooker, names, tags)
+        --         return names.lobster_land and names.butter and (tags.meat and tags.meat <= 1) and
+        --                    (tags.fish and tags.fish <= 1) and not tags.frozen
+        --     end,
+        --     priority = 25,
+        --     weight = 1,
+        --     foodtype = FOODTYPE.MEAT,
+        --     health = TUNING.HEALING_HUGE,
+        --     hunger = TUNING.CALORIES_LARGE,
+        --     perishtime = TUNING.PERISH_SLOW,
+        --     sanity = TUNING.SANITY_HUGE,
+        --     cooktime = 1,
+        --     card_def = {
+        --         ingredients = {{"lobster_land", 1}, {"butter", 1}, {"carrot", 2}},
+        --     },
+        -- },
 
         musselbouillabaise = {
             test = function(cooker, names, tags)
@@ -447,13 +435,11 @@ local foods_tro = {
             cooktime = 2,
             tags = {"masterfood"},
             -- card_def = {ingredients = {{"mussel", 2}, {"carrot", 2}} }, -- Runar: 大厨也读不出专属食谱卡
-            isMasterfood = true -- Runar:热带大厨料理标记
+            isMasterfood = true, -- Runar:热带大厨料理标记
         },
 
         sharkfinsoup = {
-            test = function(cooker, names, tags)
-                return names.shark_fin
-            end,
+            test = function(cooker, names, tags) return names.shark_fin end,
             priority = 20,
             weight = 1,
             foodtype = FOODTYPE.MEAT,
@@ -464,8 +450,8 @@ local foods_tro = {
             -- naughtiness = 10, -- 失效 -- Runar: 让我想起了某个处心积虑的营销，遂放弃还原这个效果
             cooktime = 1,
             card_def = {
-                ingredients = {{"shark_fin", 1}, {"ice", 2}, {"twigs", 1}}
-            }
+                ingredients = {{"shark_fin", 1}, {"ice", 2}, {"twigs", 1}},
+            },
         },
 
         sweetpotatosouffle = {
@@ -482,7 +468,7 @@ local foods_tro = {
             cooktime = 2,
             tags = {"masterfood"},
             -- card_def = {ingredients = {{"sweet_potato", 2}, {"bird_egg", 2}} },
-            isMasterfood = true
+            isMasterfood = true,
         },
 
         tropicalbouillabaisse = {
@@ -500,7 +486,9 @@ local foods_tro = {
             cooktime = 2,
             oneatenfn = function(inst, eater)
                 eater:AddDebuff("buff_moistureimmunity", "buff_moistureimmunity") -- 免疫潮湿
-			    eater:AddDebuff("speedup_tro", "buff_speedup_tro", { debuffkey = "tropicalbouillabaisse" }, true)
+                eater:AddDebuff("speedup_tro", "buff_speedup_tro", {
+                    debuffkey = "tropicalbouillabaisse",
+                }, true)
                 if eater and eater.components.temperature then -- 瞬时降温（不确定sw是不是这个逻辑）
                     local current_temp = eater.components.temperature:GetCurrent()
                     local new_temp = math.max(current_temp - 8, TUNING.STARTING_TEMP)
@@ -508,9 +496,9 @@ local foods_tro = {
                 end
             end,
             card_def = {
-                ingredients = {{"fish3", 1}, {"fish4", 1}, {"fish5", 1}, {"carrot", 1}}
-            }
-        }
+                ingredients = {{"fish3", 1}, {"fish4", 1}, {"fish5", 1}, {"carrot", 1}},
+            },
+        },
 
     },
 }
@@ -527,9 +515,7 @@ for tabIdx, foodTab in pairs(foods_tro) do
         -- foodDef.cookbook_tex = foodName..".tex"
         foodDef.cookbook_atlas = cookbook_atlas[tabIdx]
         foodDef.atlasname = foodDef.atlasname or inventoryitem_atlas[tabIdx]
-        if foodDef.oneatenfn then
-            foodDef.oneat_desc = STRINGS.UI.COOKBOOK[string.upper(foodName)]
-        end
+        if foodDef.oneatenfn then foodDef.oneat_desc = STRINGS.UI.COOKBOOK[string.upper(foodName)] end
     end
 end
 
