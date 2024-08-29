@@ -183,14 +183,9 @@ local function MakeVeggie(name, has_seeds)
 
 
 local function OnEaten(inst, eater)
-if eater ~= nil and eater:IsValid() and eater.components.locomotor ~= nil then
-if eater._coffee_speedmulttask ~= nil then
-eater._coffee_speedmulttask:Cancel()
-end
-local debuffkey = "coffee"
-eater._coffee_speedmulttask = eater:DoTaskInTime(30, function(i) i.components.locomotor:RemoveExternalSpeedMultiplier(i, debuffkey) i._coffee_speedmulttask = nil end)
-eater.components.locomotor:SetExternalSpeedMultiplier(eater, debuffkey, 1.8)
-end
+    eater:AddDebuff("speedup_tro", "buff_speedup_tro", {
+        debuffkey = "coffeebean",
+    }, true)
 end
 
 

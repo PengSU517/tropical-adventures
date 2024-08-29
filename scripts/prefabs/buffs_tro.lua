@@ -1,20 +1,9 @@
-local speedupattr = {
-    coffee = {
-        mult = 11 / 6, -- 基础速度+5
-        duration = 240,
-    },
-    tropicalbouillabaisse = {
-        mult = 1.5, -- 基础速度+3
-        duration = 60,
-    },
-    tea = {
-        mult = 17 / 12, -- 咖啡的一半
-        duration = 120, -- 咖啡的一半
-    },
-    icedtea = {
-        mult = 23 / 18, -- 咖啡的1/3
-        duration = 80, -- 咖啡的1/3
-    },
+local speedupattr =  {
+    coffee                = { priority = 5, mult = TUNING.COFFEE_SPEED_INCREASE + 1,     duration = TUNING.BUFF_COFFEE_DURATION        },
+    coffeebean            = { priority = 4, mult = TUNING.COFFEE_SPEED_INCREASE + 1,     duration = TUNING.BUFF_COFFEE_DURATION / 8    },
+    tropicalbouillabaisse = { priority = 3, mult = TUNING.BOUILLABAISSE_SPEED_MODIFIER,  duration = TUNING.BUFF_BOUILLABAISSE_DURATION },
+    tea                   = { priority = 2, mult = TUNING.COFFEE_SPEED_INCREASE / 2 + 1, duration = TUNING.BUFF_COFFEE_DURATION / 2    },
+    icedtea               = { priority = 1, mult = TUNING.COFFEE_SPEED_INCREASE / 3 + 1, duration = TUNING.BUFF_COFFEE_DURATION / 3    },
 }
 
 local function speedup_attach(inst, target, followsymbol, followoffset, data)
@@ -36,7 +25,7 @@ local function speedup_extend(inst, target, followsymbol, followoffset, data)
     if not data then
         return
     end
-    if speedupattr[data.debuffkey].mult > speedupattr[inst._debuffkey_tro].mult then
+    if speedupattr[data.debuffkey].priority > speedupattr[inst._debuffkey_tro].priority then
         inst.components.timer:StopTimer("buffover")
         inst.components.timer:StartTimer("buffover", speedupattr[data.debuffkey].duration)
         if target.components.locomotor then
