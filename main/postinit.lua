@@ -31,6 +31,7 @@ modimport("postinit/naughty")      ----淘气值？
 modimport("postinit/components/armor")
 modimport("postinit/components/builder")
 modimport("postinit/components/birdspawner")
+modimport("postinit/components/combat")
 modimport("postinit/components/curseditem")
 modimport("postinit/components/hatchable")
 modimport("postinit/components/healthtrigger")
