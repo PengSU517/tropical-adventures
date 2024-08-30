@@ -37,7 +37,7 @@ local function OnLoad(inst, data)
 end
 
 local function fn()
-    local inst = SpawnPrefab("cookingrecipecard")
+    local inst = Prefabs.cookingrecipecard.fn()
 
     if not TheWorld.ismastersim then
         return inst
@@ -45,7 +45,7 @@ local function fn()
 
 	inst:RemoveComponent("erasablepaper")
 
-    inst.prefab = "smeltingrecipecard"
+    inst:SetPrefabName("smeltingrecipecard")
     inst.components.inventoryitem.imagename = "cookingrecipecard"
 	inst.components.inspectable.getspecialdescription = getdesc
 
