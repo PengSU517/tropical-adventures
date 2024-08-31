@@ -1,4 +1,4 @@
-local MapTags = { "frost", "hamlet", "tropical", "shipwrecked", "underwater", "folha" }
+local MapTags = { "frost", "tropical", "hamlet", "shipwrecked", "underwater" }
 
 AddGlobalClassPostConstruct("map/storygen", "Story", function(self)
     for k, v in pairs(MapTags) do

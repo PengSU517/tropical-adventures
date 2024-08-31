@@ -9,7 +9,7 @@ author = "Peng, 杰杰, Runar"
 version = "2.9.11"
 forumthread = ""
 api_version = 10
-priority = -10
+priority = -100
 
 
 local desen = [[

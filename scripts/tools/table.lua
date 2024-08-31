@@ -38,6 +38,9 @@ function tabel.insert_indexes(tbl, vs)
 end
 
 function tabel.insert_components(tbl, vs)
+    if type(vs) ~= "table" then
+        vs = { vs }
+    end
     for _, v in pairs(vs) do
         if not tabel.has_component(tbl, v) then
             table.insert(tbl, v)

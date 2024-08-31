@@ -134,7 +134,7 @@ return Class(function(self, inst)
             if TheWorld.state.issummer and math.fmod(TheWorld.state.remainingdaysinseason, 3) ~= 0 and diadoterremoto ~= 0 then
                 diadoterremoto = 0
             end
-            if (TheWorld.state.issummer and math.fmod(TheWorld.state.remainingdaysinseason, 3) == 0 and TheWorld.state.seasonprogress > 0.1 and (player.components.areaaware:CurrentlyInTag("tropical") or TheWorld.Map:IsOceanTileAtPoint(vx, vy, vz))) or
+            if (TheWorld.state.issummer and math.fmod(TheWorld.state.remainingdaysinseason, 3) == 0 and TheWorld.state.seasonprogress > 0.1 and (player.components.areaaware:CurrentlyInTag("shipwrecked") or TheWorld.Map:IsOceanTileAtPoint(vx, vy, vz))) or
                 (TheWorld.state.issummer and math.fmod(TheWorld.state.remainingdaysinseason, 3) == 0 and TheWorld.state.seasonprogress > 0.1 and (TUNING.tropical.volcaniceruption == 20)) then
                 --print(diadoterremoto)
 
@@ -167,7 +167,7 @@ return Class(function(self, inst)
                     end)
                 end
                 -------------------------------chuva de fogo-----------------
-                if (diadoterremoto > 200 and diadoterremoto < (600 - (TheWorld.state.remainingdaysinseason * 20)) and player.components.areaaware and player.components.areaaware:CurrentlyInTag("tropical") or diadoterremoto > 200 and diadoterremoto < (600 - (TheWorld.state.remainingdaysinseason * 20)) and TheWorld.Map:IsOceanTileAtPoint(vx, vy, vz)) or
+                if (diadoterremoto > 200 and diadoterremoto < (600 - (TheWorld.state.remainingdaysinseason * 20)) and player.components.areaaware and player.components.areaaware:CurrentlyInTag("shipwrecked") or diadoterremoto > 200 and diadoterremoto < (600 - (TheWorld.state.remainingdaysinseason * 20)) and TheWorld.Map:IsOceanTileAtPoint(vx, vy, vz)) or
                     diadoterremoto > 200 and diadoterremoto < (600 - (TheWorld.state.remainingdaysinseason * 20)) and TUNING.tropical.volcaniceruption == 20 then
                     --if not cinzas then
                     player:AddTag("cinzas")
@@ -207,7 +207,7 @@ return Class(function(self, inst)
         end
         ----------------------------adiciona hail----------------------------------------
         if (TUNING.tropical.hail) then
-            if player.components.areaaware and player.components.areaaware:CurrentlyInTag("tropical") then
+            if player.components.areaaware and player.components.areaaware:CurrentlyInTag("shipwrecked") then
                 if TheWorld.components.worldstate.data.israining and TheWorld.state.isspring and math.random() < 0.07 then
                     tempodohail = tempodohail - 3
                 end
@@ -230,8 +230,8 @@ return Class(function(self, inst)
 
         ---------------------------------------------ventania -------------------------------------------------------------
         if not TUNING.tropical.wind then
-            if posicao == GROUND.OCEAN_COASTAL or posicao == GROUND.OCEAN_WATERLOG or posicao == GROUND.OCEAN_COASTAL_SHORE or posicao == GROUND.OCEAN_SWELL or posicao == GROUND.OCEAN_ROUGH or posicao == GROUND.OCEAN_BRINEPOOL or posicao == GROUND.OCEAN_BRINEPOOL_SHORE or posicao == GROUND.OCEAN_HAZARDOUS or player.components.areaaware and player.components.areaaware:CurrentlyInTag("tropical") or player.components.areaaware and player.components.areaaware:CurrentlyInTag("hamlet") then
-                --print("tropical")
+            if posicao == GROUND.OCEAN_COASTAL or posicao == GROUND.OCEAN_WATERLOG or posicao == GROUND.OCEAN_COASTAL_SHORE or posicao == GROUND.OCEAN_SWELL or posicao == GROUND.OCEAN_ROUGH or posicao == GROUND.OCEAN_BRINEPOOL or posicao == GROUND.OCEAN_BRINEPOOL_SHORE or posicao == GROUND.OCEAN_HAZARDOUS or player.components.areaaware and player.components.areaaware:CurrentlyInTag("shipwrecked") or player.components.areaaware and player.components.areaaware:CurrentlyInTag("hamlet") then
+                --print("shipwrecked")
                 if TheWorld.components.worldstate.data.israining and TheWorld.state.isautumn and math.random() < 0.07 then
                     tempodovento = tempodovento - 1
                 end
@@ -512,7 +512,7 @@ return Class(function(self, inst)
         local prefab = PickBird(spawnpoint)
         ----------------------------flood--------------------------------------
         if TUNING.tropical.springflood then
-            if (TheWorld.state.isspring and TheWorld.state.iswet and TheWorld.state.israining and math.random() > 0.80 and player and player.components.areaaware and player.components.areaaware:CurrentlyInTag("tropical")) then
+            if (TheWorld.state.isspring and TheWorld.state.iswet and TheWorld.state.israining and math.random() > 0.80 and player and player.components.areaaware and player.components.areaaware:CurrentlyInTag("shipwrecked")) then
                 if TheWorld.Map:IsOceanTileAtPoint(spawnpoint.x, spawnpoint.y, spawnpoint.z) then return end
                 if TheWorld.Map:IsOceanTileAtPoint(spawnpoint.x, spawnpoint.y, spawnpoint.z + 6) then return end
                 if TheWorld.Map:IsOceanTileAtPoint(spawnpoint.x, spawnpoint.y, spawnpoint.z - 6) then return end
