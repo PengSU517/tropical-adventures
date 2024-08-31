@@ -22,3 +22,7 @@ function IsOnOcean(x, y, z, onflood, ignoreboat)
 
     return onflood and IsOnFlood(x, y, z) or _map:IsOceanAtPoint(x, y, z, ignoreboat)
 end
+
+function IsValidNodeTile(tile)
+    return (IsLandTile(tile) or tile == WORLD_TILES.MANGROVE or tile == WORLD_TILES.LILYPOND) and true or false
+end
