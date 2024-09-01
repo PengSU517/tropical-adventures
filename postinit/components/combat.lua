@@ -5,10 +5,11 @@ local function shardDMGRedirect(self, attacker, damage, weapon, ...) -- 碎裂�
         if weapon.prefab == "shard_sword" and self.inst:HasTag("shadow") then -- 碎裂剑对梦魇生物
             local health = self.inst.components.health
             if health then
-                if health.currenthealth <= TUNING.SWP_SHARD_DMG.SWORD_MAX then
-                    return nil, false, {self, attacker,
-                                        math.max(TUNING.SWP_SHARD_DMG.SWORD2SHADOW, health.currenthealth - 1), weapon,
-                                        ...}
+                if health.currenthealth <= damage * TUNING.SWP_SHARD_DMG.SHADOW_MODIFIER_MAXIMUM then
+                    return nil, false,
+                           {self, attacker,
+                            math.max(damage * TUNING.SWP_SHARD_DMG.SHADOW_MODIFIER_MINIMUM, health.currenthealth - 1),
+                            weapon, ...}
                 else
                     if attacker and attacker.components.combat then
                         attacker:DoTaskInTime(0, function()
@@ -16,12 +17,13 @@ local function shardDMGRedirect(self, attacker, damage, weapon, ...) -- 碎裂�
                             attacker:PushEvent("thorns")
                         end)
                     end
-                    return nil, false, {self, attacker, TUNING.SWP_SHARD_DMG.SWORD_MAX, weapon, ...}
+                    return nil, false,
+                           {self, attacker, damage * TUNING.SWP_SHARD_DMG.SHADOW_MODIFIER_MAXIMUM, weapon, ...}
                 end
             end
         elseif weapon.prefab == "shard_beak" and -- 碎裂喙对建筑和巢
             (self.inst:HasTag("wall") or self.inst:HasTag("structure") or self.inst.components.childspawner) then
-            return nil, false, {self, attacker, TUNING.SWP_SHARD_DMG.BEAK2STRUTURE, weapon, ...}
+            return nil, false, {self, attacker, damage * TUNING.SWP_SHARD_DMG.STRUCTURE_MODIFIER, weapon, ...}
         end
     end
 end
