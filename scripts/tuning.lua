@@ -1,5 +1,5 @@
-local TUNING = GLOBAL.TUNING
-
+--tuning--------------------------
+----------------------------------
 TUNING.TFWP_SPEAR_GUNG =
 {
     USES = 200,
@@ -220,6 +220,8 @@ TUNING.SWP_SHARD_DMG = {
     STRUCTURE_MODIFIER = 5,
 }
 
+--constants-----------------------
+----------------------------------
 GLOBAL.EQUIPSLOTS.BARCO = "barco"
 GLOBAL.FUELTYPE.TAR = "TAR"
 GLOBAL.FUELTYPE.REPARODEBARCO = "REPARODEBARCO"
@@ -235,3 +237,18 @@ GLOBAL.FUELTYPE.CORK = "CORK"
 
 GLOBAL.MATERIALS.LIMESTONE = "limestone"
 GLOBAL.MATERIALS.ENFORCEDLIMESTONE = "enforcedlimestone"
+
+GLOBAL.SWP_WAVEBREAK_EFFICIENCY = { -- 破浪效率：var * 100%
+    BUMPER = {
+        kelp = .6, -- prefab = "boat_bumper_" .. k
+        shell = .8,
+        yotd = .8,
+        crabking = 1,
+    },
+    BOAT = {
+        boat = .3, -- prefab = k
+        boat_pirate = .3,
+        boat_ancient = .4,
+        boatmetal = .9,
+    }
+}

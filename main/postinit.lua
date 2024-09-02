@@ -51,6 +51,7 @@ modimport("postinit/components/snowtile") ---- disable snow effeccts
 modimport("postinit/components/thief")
 modimport("postinit/components/wavemanager")
 modimport("postinit/components/map")
+modimport("postinit/components/boatphysics")
 
 
 
