@@ -8,9 +8,7 @@ local assets=
     -- Asset("IMAGE", "armor_void_cloak.tex"),
 }
 
-local ARMORVOID = 855
-local ARMORVOIDFUEL = ARMORVOID / 45 * TUNING.LARGE_FUEL
-local ARMORVOID_ABSORPTION = 1
+local equipslot = EQUIPSLOTS.BACK or EQUIPSLOTS.BODY -- 四格中设定为背包
 
 local function setsoundparam(inst)
     local param = Remap(inst.components.armor.condition, 0, inst.components.armor.maxcondition,0, 1 ) 
@@ -25,7 +23,7 @@ if owner then
     wisp.Transform:SetPosition(x+math.random()*0.25 -0.25/2,y,z+math.random()*0.25 -0.25/2)
 	end
 
-local armadura = owner.components.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
+local armadura = owner.components.inventory:GetEquippedItem(equipslot)
 if armadura and armadura:HasTag("void_cloak") and armadura.components.armor.condition <= 0 then armadura.components.armor:SetAbsorption(0) end
 if armadura and armadura:HasTag("void_cloak") and armadura.components.armor.condition > 0 then armadura.components.armor:SetAbsorption(1) end
 end
@@ -93,7 +91,7 @@ end
 
 local function SetupEquippable(inst)
 	inst:AddComponent("equippable")
-	inst.components.equippable.equipslot = EQUIPSLOTS.BODY
+	inst.components.equippable.equipslot = equipslot
 	inst.components.equippable:SetOnEquip(onequip)
 	inst.components.equippable:SetOnUnequip(onunequip)
 
@@ -194,12 +192,11 @@ local function fn()
 	container:WidgetSetup("piggyback")
 
     local armor = inst:AddComponent("armor")
-    armor:InitCondition(ARMORVOID, ARMORVOID_ABSORPTION)
-    --armor:SetImmuneTags({"shadow"})
+    armor:InitCondition(TUNING.ARMORVOID, TUNING.ARMORVOID_ABSORPTION)
     inst.components.armor.ontakedamage = OnTakeDamage
 
     local fueled = inst:AddComponent("fueled")
-    fueled:InitializeFuelLevel(ARMORVOIDFUEL)
+    fueled:InitializeFuelLevel(TUNING.ARMORVOIDFUEL)
     fueled.fueltype = FUELTYPE.NIGHTMARE -- 燃料是噩梦燃料
     fueled.secondaryfueltype = FUELTYPE.ANCIENT_REMNANT
     fueled.ontakefuelfn = ontakefuel
