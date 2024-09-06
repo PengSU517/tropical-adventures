@@ -2,9 +2,7 @@ local DEBUG_MODE = BRANCH == "dev"
 
 local assets = {Asset("ANIM", "anim/armor_vortex_cloak.zip"), Asset("ANIM", "anim/cloak_fx.zip")}
 
-local ARMORVORTEX = 450
-local ARMORVORTEXFUEL = ARMORVORTEX / 45 * TUNING.LARGE_FUEL
-local ARMORVORTEX_ABSORPTION = 1
+local equipslot = EQUIPSLOTS.BACK or EQUIPSLOTS.BODY -- 四格中设定为背包
 
 local function setsoundparam(inst)
     local param = Remap(inst.components.armor.condition, 0, inst.components.armor.maxcondition, 0, 1)
@@ -19,7 +17,7 @@ local function spawnwisp(owner)
             wisp.Transform:SetPosition(x + math.random() * 0.25 - 0.25 / 2, y, z + math.random() * 0.25 - 0.25 / 2)
         end
 
-        local armadura = owner.components.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
+        local armadura = owner.components.inventory:GetEquippedItem(equipslot)
         if armadura and armadura:HasTag("vortex_cloak") and armadura.components.armor.condition <= 0 then
             armadura.components.armor:SetAbsorption(0)
         end
@@ -81,10 +79,6 @@ local function ondrop(inst, owner)
     inst.components.container.canbeopened = true
 end
 
-local function nofuel(inst)
-
-end
-
 local function ontakefuel(inst)
     if inst.components.armor.condition and inst.components.armor.condition < 0 then
         inst.components.armor:SetCondition(0)
@@ -100,7 +94,7 @@ end
 
 local function SetupEquippable(inst)
     inst:AddComponent("equippable")
-    inst.components.equippable.equipslot = EQUIPSLOTS.BODY
+    inst.components.equippable.equipslot = equipslot
     inst.components.equippable:SetOnEquip(onequip)
     inst.components.equippable:SetOnUnequip(onunequip)
 
@@ -150,7 +144,7 @@ local function fn()
 
     MakeInventoryFloatable(inst)
 
-    inst:AddTag("backpack")
+    inst:AddTag("backpack") -- 六格
     inst:AddTag("vortex_cloak")
     inst:AddTag("shadow_item")
 
@@ -169,7 +163,6 @@ local function fn()
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
     inst.components.inventoryitem.cangoincontainer = false
     inst.components.inventoryitem.canonlygoinpocket = true
     inst.components.inventoryitem:SetOnDroppedFn(ondrop)
@@ -179,13 +172,13 @@ local function fn()
     container:WidgetSetup("armorvortexcloak")
 
     local armor = inst:AddComponent("armor")
-    armor:InitCondition(ARMORVORTEX, ARMORVORTEX_ABSORPTION)
+    armor:InitCondition(TUNING.ARMORVORTEX, TUNING.ARMORVORTEX_ABSORPTION)
     armor:SetKeepOnFinished(true)
     armor:SetImmuneTags({"shadow"})
     inst.components.armor.ontakedamage = OnTakeDamage
 
     local fueled = inst:AddComponent("fueled")
-    fueled:InitializeFuelLevel(ARMORVORTEXFUEL) -- Runar: 原来的燃值是充场面的，现在是等效燃值
+    fueled:InitializeFuelLevel(TUNING.ARMORVORTEXFUEL) -- Runar: 原来的燃值是充场面的，现在是等效燃值
     fueled.fueltype = FUELTYPE.NIGHTMARE -- 燃料是噩梦燃料
     fueled.secondaryfueltype = FUELTYPE.ANCIENT_REMNANT
     fueled.ontakefuelfn = ontakefuel
