@@ -93,7 +93,10 @@ function params.smelter.widget.buttoninfo.fn(inst, doer)
 end
 
 params.thatchpack = deepcopy(params.corkchest)
+params.thatchpack.widget.pos = Vector3(-60, -60, 0)
 params.thatchpack.issidewidget = true
+params.thatchpack.type = "pack"
+params.thatchpack.openlimit = 1
 
 local function boatitemtestfn(container, item, slot)
     if slot then
