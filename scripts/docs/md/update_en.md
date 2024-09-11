@@ -1,5 +1,31 @@
 ## En
 
+
+### Version 2.9.11 - "Ride the Wave!" Updated:
+
+1. New wave breaking mechanism: the online version of the ship and bumper now have the ability to resist the impact of waves;
+	Float Platform: Boat/Pirate Sloop/Archaic Boat/Metal Boat can reduce the impact of waves by 30%/30%/40%/90% respectively;
+	Bumpers: Kelp/Shell/Dragonfly/Crab King bumpers can reduce the impact of the installation direction by 60%/80%/80%/100% respectively.
+
+2. Added Wilson & Wormwood exclusive crafting recipes
+
+3. Fixed an issue where cooking Tropical Butterfly Muffins and Lobster soup would crash
+
+4. Fixed an issue where the Thatch Pack displayed abnormally in the separate layout
+
+5. Fix the problem of no planting interval for coffee and other transplanted crops
+
+6. Fixed an issue where the acceleration effects of Coffee, Tea, Iced Tea, and Tropical Bouillabaisse were lost after re-entering the game
+
+7. Fixed bug in Stalking Stick animation
+
+8. Modified the Fountain of Youth minimap and crafting bar icon
+
+9. Adjusted Robin's incubation mechanism to make it easier to hatch
+
+10. Modified the Shard series equipment to adapt to the character attack rate
+
+
 ### Update 2.8.16:
 
 1. Added and optimized content related to Dapeng ROC (can toggle  roc and sealnado in mod settings), including interactions with the buildings and plants on Bird Island. possibly many bugs here.
