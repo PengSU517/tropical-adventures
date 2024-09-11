@@ -2,7 +2,7 @@ local DEBUG_MODE = BRANCH == "dev"
 
 local assets = {Asset("ANIM", "anim/armor_vortex_cloak.zip"), Asset("ANIM", "anim/cloak_fx.zip")}
 
-local equipslot = EQUIPSLOTS.BACK or EQUIPSLOTS.BODY -- 四格中设定为背包
+local equipslot = --[[ EQUIPSLOTS.BACK or ]] EQUIPSLOTS.BODY -- 四格中设定为背包
 
 local function setsoundparam(inst)
     local param = Remap(inst.components.armor.condition, 0, inst.components.armor.maxcondition, 0, 1)

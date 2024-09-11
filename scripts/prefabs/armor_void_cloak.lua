@@ -8,7 +8,7 @@ local assets=
     -- Asset("IMAGE", "armor_void_cloak.tex"),
 }
 
-local equipslot = EQUIPSLOTS.BACK or EQUIPSLOTS.BODY -- 四格中设定为背包
+local equipslot = --[[ EQUIPSLOTS.BACK or ]] EQUIPSLOTS.BODY -- 四格中设定为背包
 
 local function setsoundparam(inst)
     local param = Remap(inst.components.armor.condition, 0, inst.components.armor.maxcondition,0, 1 ) 
