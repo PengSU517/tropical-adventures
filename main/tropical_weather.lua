@@ -3,40 +3,65 @@ GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL,
 local Utils = require("tools/utils")
 local upvaluehelper = require("tools/upvaluehelper")
 require("tools/tile_util")
+
+
+-----------map related--------------------------
 require("components/map")
 
-local oldfindvisualnodeatpoint = Map.FindVisualNodeAtPoint
+local function FindVisualNodeAtPoint_TestArea(map, pt_x, pt_z, r)
+    local best = { tile_type = WORLD_TILES.INVALID, render_layer = -1 }
+    for _z = -1, 1 do
+        for _x = -1, 1 do
+            local x, z = pt_x + _x * r, pt_z + _z * r
 
-Map.FindVisualNodeAtPoint = function(self, x, y, z, has_tag)
-    local node, node_index = oldfindvisualnodeatpoint(self, x, y, z, has_tag)
-    if node ~= nil then
-        return node, node_index
-    else
-        local tile_type = self:GetTileAtPoint(x, y, z) --水面似乎检测不到tag
-        if tile_type == WORLD_TILES.MANGROVE or tile_type == WORLD_TILES.LILYPOND
-        then
-            local tile_info = GetTileInfo(tile_type)
-            local render_layer = tile_info ~= nil and tile_info._render_layer or 0
-            local best = {}
-            best.tile_type = tile_type
-            best.render_layer = render_layer
-            best.x = x
-            best.z = z
-
-            local node_index = (best ~= nil) and self:GetNodeIdAtPoint(best.x, 0, best.z) or 0
-            if has_tag == nil then
-                return TheWorld.topology.nodes[node_index], node_index
-            else
-                local node = TheWorld.topology.nodes[node_index]
-                return ((node ~= nil and table.contains(node.tags, has_tag)) and node or nil), node_index
+            local tile_type = map:GetTileAtPoint(x, 0, z) -----这里判断地皮总有点不太合适，判断初始地皮会好一些
+            if IsValidNodeTile(tile_type) then
+                local tile_info = GetTileInfo(tile_type)
+                local render_layer = tile_info ~= nil and tile_info._render_layer or 0
+                if render_layer > best.render_layer then
+                    best.tile_type = tile_type
+                    best.render_layer = render_layer
+                    best.x = x
+                    best.z = z
+                end
             end
         end
+    end
+
+    return best.tile_type ~= WORLD_TILES.INVALID and best or nil
+end
+
+Map.FindVisualNodeAtPoint = function(self, x, y, z, has_tag)
+    local node_index
+
+    local nodeid = self:GetNodeIdAtPoint(x, 0, z)
+    local in_node = nodeid and nodeid ~= 0
+
+    local tile_type = self:GetTileAtPoint(x, 0, z)
+    local is_valid_tile = IsValidNodeTile(tile_type)
+    if in_node and is_valid_tile then
+        node_index = nodeid
+    else
+        local best = FindVisualNodeAtPoint_TestArea(self, x, z, 4)
+            or FindVisualNodeAtPoint_TestArea(self, x, z, 16)
+            or FindVisualNodeAtPoint_TestArea(self, x, z, 64)
+
+        node_index = (best ~= nil) and self:GetNodeIdAtPoint(best.x, 0, best.z) or 0
+    end
+
+
+    if has_tag == nil then
+        return TheWorld.topology.nodes[node_index], node_index
+    else
+        local node = TheWorld.topology.nodes[node_index]
+        return ((node ~= nil and table.contains(node.tags, has_tag)) and node or nil), node_index
     end
 end
 
 
 Map.IsTropicalAreaAtPoint = function(self, x, y, z)
     local node = self:FindVisualNodeAtPoint(x, y, z, "tropical")
+        or self:FindVisualNodeAtPoint(x, y, z, "ForceDisconnected")
 
     if node ~= nil then
         return true
@@ -63,31 +88,69 @@ Map.IsHamletAreaAtPoint = function(self, x, y, z)
     end
 end
 
-require("entityscript") --实体是否在
+
+-----area aware related -------------
+--[[ AddComponentPostInit("areaaware", function(self)
+    self.current_nearby_area = -1
+    self.current_nearby_area_data = nil
+
+
+    local old = self.UpdatePosition
+    function self:UpdatePosition(x, y, z, ...)
+        local node, node_index = TheWorld.Map:FindVisualNodeAtPoint(x, y, z)
+        if node_index ~= self.current_nearby_area then
+            self.current_nearby_area = node_index or 0
+
+            self.current_nearby_area_data = node and {
+                    id = TheWorld.topology.ids[node_index],
+                    type = node.type,
+                    center = node.cent,
+                    poly = node.poly,
+                    tags = node.tags,
+                }
+                or nil
+
+            -- self.inst:PushEvent("changearea", self.current_nearby_area_data)
+        end
+
+        old(self, x, y, z, ...)
+    end
+
+    function self:CurrentlyInTag(tag)
+        return self.current_nearby_area_data and self.current_nearby_area_data.tags and
+            table.contains(self.current_nearby_area_data.tags, tag)
+    end
+end) ]]
+
+------entity related--------------------------
+require("entityscript")
 
 function EntityScript:IsInTropicalArea()
     return TheWorld.Map:IsTropicalAreaAtPoint(self:GetPosition():Get())
-end
-
-function EntityScript:AwareInTropicalArea() ----减少计算量
-    local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("tropical") and true or false
-    return aware
 end
 
 function EntityScript:IsInShipwreckedArea()
     return TheWorld.Map:IsShipwreckedAreaAtPoint(self:GetPosition():Get())
 end
 
-function EntityScript:AwareInShipwreckedArea() ----减少计算量
-    local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("shipwrecked") and true
-    return aware or false
-end
-
 function EntityScript:IsInHamletArea()
     return TheWorld.Map:IsHamletAreaAtPoint(self:GetPosition():Get())
 end
 
-function EntityScript:AwareInHamletArea() ----减少计算量
+----area aware related--------------------
+function EntityScript:AwareInTropicalArea() ----减少计算量
+    return self.components.areaaware and
+        (self.components.areaaware:CurrentlyInTag("tropical")
+            or self.components.areaaware:CurrentlyInTag("ForceDisconnected")) and
+        true or false
+end
+
+function EntityScript:AwareInShipwreckedArea()
+    local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("shipwrecked") and true
+    return aware or false
+end
+
+function EntityScript:AwareInHamletArea()
     local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("hamlet") and true
     return aware or false
 end
@@ -244,11 +307,7 @@ end) --farming_manager
 
 -- 用于控制熊大和巨鹿刷新条件，组件没有可以hook的方法，只好通过该方式来阻止生成
 local function AreaAwareCurrentlyInTagBefore(self, tag)
-    if tag == "nohasslers" and (
-            self:CurrentlyInTag("tropical")
-            or self:CurrentlyInTag("hamlet")
-            or self:CurrentlyInTag("frost")
-        )
+    if tag == "nohasslers" and (self:CurrentlyInTag("tropical"))
     then
         return { true }, true
     end
@@ -266,18 +325,12 @@ for _, prefab in pairs({ "spider_warrior" }) do
             return
         end
 
-        inst:DoTaskInTime(0.5, function(inst)
+        inst:DoTaskInTime(0, function(inst)
             local map = GLOBAL.TheWorld.Map
             local x, y, z = inst.Transform:GetWorldPosition()
             if x and y and z then
                 local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-                if ground == GROUND.MAGMAFIELD
-                    or ground == GROUND.JUNGLE
-                    or ground == GROUND.ASH
-                    or ground == GROUND.VOLCANO
-                    or ground == GROUND.TIDALMARSH
-                    or ground == GROUND.MEADOW
-                    or ground == GROUND.BEAH then
+                if IsSwLandTile(ground) then
                     local bolha = SpawnPrefab("spider_tropical")
                     if bolha then
                         bolha.Transform:SetPosition(x, y, z)
