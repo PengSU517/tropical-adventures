@@ -1,6 +1,5 @@
 --------------------------------------------------------------------------
 --[[ Hounded class definition ]]
---地图poly相关组件
 --------------------------------------------------------------------------
 
 return Class(function(self, inst)
@@ -69,6 +68,7 @@ return Class(function(self, inst)
 		},
 
 		warning_speech = "ANNOUNCE_HOUNDS",
+
 		warning_sound_thresholds =
 		{ --Key = time, Value = sound prefab
 			{ time = 30,  sound = "LVL4" },
@@ -76,12 +76,28 @@ return Class(function(self, inst)
 			{ time = 90,  sound = "LVL2" },
 			{ time = 500, sound = "LVL1" },
 		},
+
+		ShouldUpgrade = function(amount, wave_pre_upgraded)
+			if amount >= 8 then
+				return math.random() < 0.7
+			elseif amount == 7 then
+				return math.random() < 0.3
+			elseif amount == 6 then
+				return math.random() < 0.15
+			elseif amount == 5 then
+				return math.random() < 0.05
+			end
+			return false
+		end,
 	}
 
 	local _attackdelayfn = _spawndata.attack_delays.med
 	local _warndurationfn = _spawndata.attack_levels.light.warnduration
 	local _spawnmode = "escalating"
 	local _spawninfo = nil
+	local _wave_pre_upgraded = nil -- You can trigger a wave upgrade when the sounds are chosen. Used for the Worm Boss.
+	local _wave_override_chance = 0 -- used for special custom wave overide like worm_boss.
+	local _wave_override_settings = {}
 	--for players who leave during the warning when spawns are queued
 	local _delayedplayerspawninfo = {}
 	local _missingplayerspawninfo = {}
@@ -156,6 +172,7 @@ return Class(function(self, inst)
 			_timetoattack = timetoattackbase + timetoattackvariance
 			_warnduration = _warndurationfn()
 			_attackplanned = true
+			_wave_pre_upgraded = nil
 		else
 			_attackplanned = false
 		end
@@ -326,10 +343,6 @@ return Class(function(self, inst)
 						_spawndata.base_prefab = "circlingbat"
 						_spawndata.winter_prefab = "circlingbat"
 						_spawndata.summer_prefab = "circlingbat"
-					elseif node.tags ~= nil and table.contains(node.tags, "frost") then
-						_spawndata.base_prefab = "icehound"
-						_spawndata.winter_prefab = "icehound"
-						_spawndata.summer_prefab = "icehound"
 					elseif node.tags ~= nil and table.contains(node.tags, "tropical") then
 						_spawndata.base_prefab = "crocodog"
 						_spawndata.winter_prefab = "watercrocodog"
@@ -354,7 +367,7 @@ return Class(function(self, inst)
 				return TheWorld.Map:IsAboveGroundAtPoint(x, y, z, true) and NoHoles(pt)
 			end
 
-			local offset = FindValidPositionByFan(math.random() * 2 * PI, radius_override, 12, OceanSpawnPoint)
+			local offset = FindValidPositionByFan(math.random() * TWOPI, radius_override, 12, OceanSpawnPoint)
 			if offset ~= nil then
 				offset.x = offset.x + pt.x
 				offset.z = offset.z + pt.z
@@ -364,7 +377,7 @@ return Class(function(self, inst)
 			if not TheWorld.Map:IsAboveGroundAtPoint(pt:Get()) then
 				pt = FindNearbyLand(pt, 1) or pt
 			end
-			local offset = FindWalkableOffset(pt, math.random() * 2 * PI, radius_override, 12, true, true, NoHoles)
+			local offset = FindWalkableOffset(pt, math.random() * TWOPI, radius_override, 12, true, true, NoHoles)
 			if offset ~= nil then
 				offset.x = offset.x + pt.x
 				offset.z = offset.z + pt.z
@@ -410,7 +423,18 @@ return Class(function(self, inst)
 		if spawn_pt ~= nil then
 			local spawn = SpawnPrefab(GetSpawnPrefab(upgrade))
 			if spawn ~= nil then
-				spawn.Physics:Teleport(spawn_pt:Get())
+				if spawn.hounded_overridelocation then
+					local new_spawn_pt = spawn:hounded_overridelocation(pt)
+					if new_spawn_pt then
+						spawn_pt = new_spawn_pt
+					end
+				end
+
+				if spawn.Physics then
+					spawn.Physics:Teleport(spawn_pt:Get())
+				else
+					spawn.Transform:SetPosition(spawn_pt:Get())
+				end
 				spawn:FacePoint(pt)
 				if spawn.components.spawnfader ~= nil then
 					spawn.components.spawnfader:FadeIn()
@@ -606,6 +630,20 @@ return Class(function(self, inst)
 		end
 	end
 
+	local function SetWormBossDifficulty(src, difficulty)
+		if difficulty == "never" then
+			self:SetWaveOverrideSettings({ wavetype = "worm_boss", setting = 0 })
+		elseif difficulty == "rare" then
+			self:SetWaveOverrideSettings({ wavetype = "worm_boss", setting = 0.5 })
+		elseif difficulty == "default" then
+			self:SetWaveOverrideSettings({ wavetype = "worm_boss", setting = 1 })
+		elseif difficulty == "often" then
+			self:SetWaveOverrideSettings({ wavetype = "worm_boss", setting = 2 })
+		elseif difficulty == "always" then
+			self:SetWaveOverrideSettings({ wavetype = "worm_boss", setting = 9999 })
+		end
+	end
+
 	local function SetSummerVariant(src, enabled)
 		if enabled == "never" then
 			self:SetSummerVariant(false)
@@ -641,6 +679,8 @@ return Class(function(self, inst)
 	inst:ListenForEvent("hounded_setdifficulty", SetDifficulty)
 	inst:ListenForEvent("hounded_setsummervariant", SetSummerVariant)
 	inst:ListenForEvent("hounded_setwintervariant", SetWinterVariant)
+	inst:ListenForEvent("hounds_worm_boss_setdifficulty", SetWormBossDifficulty)
+
 
 	self.inst:StartUpdatingComponent(self)
 	PlanNextAttack()
@@ -675,6 +715,10 @@ return Class(function(self, inst)
 
 	function self:SetWinterVariant(enabled)
 		_spawnwintervariant = enabled
+	end
+
+	function self:SetWaveOverrideSettings(data)
+		_wave_override_settings[data.wavetype] = data.setting
 	end
 
 	function self:SpawnModeNever()
@@ -731,7 +775,15 @@ return Class(function(self, inst)
 	end
 
 	local function _DoWarningSpeech(player)
-		player.components.talker:Say(GetString(player, _spawndata.warning_speech))
+		local speech = ""
+
+		if type(_spawndata.warning_speech) == "function" then
+			speech, _wave_pre_upgraded = _spawndata.warning_speech(_wave_pre_upgraded)
+		else
+			speech = _spawndata.warning_speech
+		end
+
+		player.components.talker:Say(GetString(player, speech))
 	end
 
 	function self:DoWarningSpeech()
@@ -743,8 +795,20 @@ return Class(function(self, inst)
 		end
 	end
 
+	function self:GetWarningSoundList()
+		local warning_sound_thresholds = {}
+
+		if type(_spawndata.warning_sound_thresholds) == "function" then
+			warning_sound_thresholds, _wave_pre_upgraded = _spawndata.warning_sound_thresholds(_wave_pre_upgraded)
+		else
+			warning_sound_thresholds = _spawndata.warning_sound_thresholds
+		end
+
+		return warning_sound_thresholds
+	end
+
 	function self:DoWarningSound()
-		for k, v in pairs(_spawndata.warning_sound_thresholds) do
+		for k, v in pairs(self:GetWarningSoundList()) do
 			if _timetoattack <= v.time or _timetoattack == nil then
 				for GUID, data in pairs(_targetableplayers) do
 					local player = Ents[GUID]
@@ -764,7 +828,7 @@ return Class(function(self, inst)
 	end
 
 	function self:DoDelayedWarningSound(player, data)
-		for k, v in pairs(_spawndata.warning_sound_thresholds) do
+		for k, v in pairs(self:GetWarningSoundList()) do
 			if data._timetoattack <= v.time or data._timetoattack == nil then
 				if _targetableplayers[player.GUID] == "land" then
 					player:PushEvent("houndwarning", HOUNDWARNINGTYPE[v.sound])
@@ -772,19 +836,6 @@ return Class(function(self, inst)
 				break
 			end
 		end
-	end
-
-	local function ShouldUpgrade(amount)
-		if amount >= 8 then
-			return math.random() < 0.7
-		elseif amount == 7 then
-			return math.random() < 0.3
-		elseif amount == 6 then
-			return math.random() < 0.15
-		elseif amount == 5 then
-			return math.random() < 0.05
-		end
-		return false
 	end
 
 	local function HandleSpawnInfoRec(dt, i, spawninforec, groupsdone)
@@ -801,10 +852,15 @@ return Class(function(self, inst)
 			end
 
 			-- TEST IF GROUPS IF HOUNDS SHOULD BE TURNED INTO A VARG (or other)
-			local upgrade = _spawndata.upgrade_spawn and ShouldUpgrade(spawninforec.players[target])
+			local upgrade, houndcount = nil, nil
+
+			if _spawndata.upgrade_spawn and _spawndata.ShouldUpgrade then
+				upgrade, houndcount, _wave_pre_upgraded = _spawndata.ShouldUpgrade(spawninforec.players[target],
+					_wave_pre_upgraded)
+			end
 
 			if upgrade then
-				spawninforec.players[target] = spawninforec.players[target] - 5
+				spawninforec.players[target] = spawninforec.players[target] - (houndcount or 5)
 			else
 				spawninforec.players[target] = spawninforec.players[target] - 1
 			end
@@ -902,6 +958,11 @@ return Class(function(self, inst)
 		end
 
 		if _timetoattack < 0 then
+			if _spawndata.specialupgradecheck then
+				_wave_pre_upgraded, _wave_override_chance = _spawndata.specialupgradecheck(_wave_pre_upgraded,
+					_wave_override_chance, _wave_override_settings)
+			end
+
 			_warning = false
 
 			-- Okay, it's hound-day, get number of dogs for each player
@@ -970,6 +1031,7 @@ return Class(function(self, inst)
 			warnduration = _warnduration,
 			attackplanned = _attackplanned,
 			missingplayerspawninfo = missingspawninfo,
+			wave_override_chance = _wave_override_chance,
 		}
 	end
 
@@ -979,6 +1041,7 @@ return Class(function(self, inst)
 		_timetoattack = data.timetoattack or 0
 		_attackplanned = data.attackplanned or false
 		_missingplayerspawninfo = data.missingplayerspawninfo or {}
+		_wave_override_chance = data.wave_override_chance or 0
 
 		if _timetoattack > _warnduration then
 			-- in case everything went out of sync
