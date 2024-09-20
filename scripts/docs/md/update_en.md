@@ -1,5 +1,27 @@
 ## En
 
+###Update 2.9.20:
+
+
+
+1. Very important: modifications have been made to the traditional terrain determination mechanism
+	1.1 The climate and ecology within the same region remain relatively consistent. For example, the waters near Moon Island will also sense Moon Island and replace spiritual values with enlightenment values.
+	1.2 Add tropical labels to all islands outside of the default online terrain (this supports higher priority mods such as Sakura Grove)
+
+2. Optimized the behavior mechanism of the big bird
+
+3. Fixed the interactive animation of the weathered tree
+
+4. The attack power of the active mecha has been increased to 101
+
+5. Revised the stacking quantity of tropical land
+
+6. Adjust the acceleration effect of the stone pavement
+
+7. Fix bugs caused by recent famine updates (related to hunting dogs and worm attacks)
+
+ 翻译效果如何，点
+
 
 ### Version 2.9.11 - "Ride the Wave!" Updated:
 
