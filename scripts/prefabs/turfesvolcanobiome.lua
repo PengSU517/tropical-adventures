@@ -1,6 +1,6 @@
 local assets =
 {
-	Asset("ANIM", "anim/turf2.zip"),
+    Asset("ANIM", "anim/turf2.zip"),
 }
 
 local prefabs =
@@ -38,12 +38,12 @@ local function make_turf(tile, data)
         inst.entity:AddNetwork()
 
         MakeInventoryPhysics(inst)
-	    MakeInventoryFloatable(inst)	
+        MakeInventoryFloatable(inst)
 
-		inst.AnimState:SetBank("turf")
-		inst.AnimState:SetBuild("turf2")
+        inst.AnimState:SetBank("turf")
+        inst.AnimState:SetBuild("turf2")
         inst.AnimState:PlayAnimation(data.anim)
-		
+
         inst.tile = tile
 
         inst:AddTag("groundtile")
@@ -56,16 +56,22 @@ local function make_turf(tile, data)
         end
 
         inst:AddComponent("stackable")
-        inst.components.stackable.maxsize = TUNING.STACK_SIZE_LARGEITEM
+        inst.components.stackable.maxsize = TUNING.STACK_SIZE_MEDITEM
 
         inst:AddComponent("inspectable")
-		inst:AddComponent("inventoryitem")
-		--inst.components.inventoryitem.imagename = data.name
-			
-    	inst.components.inventoryitem.atlasname = data.invent
-		if data.invent and data.invent == "images/inventoryimages/volcanoinventory.xml" then inst.caminho = "images/inventoryimages/volcanoinventory.xml" end
-		if data.invent and data.invent == "images/inventoryimages/novositens.xml" then inst.caminho = "images/inventoryimages/novositens.xml" end
-		
+        inst:AddComponent("inventoryitem")
+        --inst.components.inventoryitem.imagename = data.name
+
+        inst.components.inventoryitem.atlasname = data.invent
+        if data.invent and data.invent == "images/inventoryimages/volcanoinventory.xml" then
+            inst.caminho =
+            "images/inventoryimages/volcanoinventory.xml"
+        end
+        if data.invent and data.invent == "images/inventoryimages/novositens.xml" then
+            inst.caminho =
+            "images/inventoryimages/novositens.xml"
+        end
+
         inst:AddComponent("bait")
 
         inst:AddComponent("fuel")
@@ -83,24 +89,33 @@ local function make_turf(tile, data)
         return inst
     end
 
-    return Prefab("turf_"..data.name, fn, assets, prefabs)
+    return Prefab("turf_" .. data.name, fn, assets, prefabs)
 end
 
 local ret = {}
-table.insert(ret, make_turf(GROUND.MAGMAFIELD or GROUND.MARSH, 					{name = "magmafield", 			anim = "magmafield", 	invent = "images/inventoryimages/volcanoinventory.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.ASH or GROUND.MARSH, 						{name = "ash", 					anim = "ash", 			invent = "images/inventoryimages/volcanoinventory.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.JUNGLE or GROUND.MARSH, 						{name = "jungle", 				anim = "jungle", 		invent = "images/inventoryimages/volcanoinventory.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.VOLCANO or GROUND.MARSH, 					{name = "volcano", 				anim = "volcanonoise", 	invent = "images/inventoryimages/volcanoinventory.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.TIDALMARSH or GROUND.MARSH, 					{name = "tidalmarsh", 			anim = "tidalmarsh", 	invent = "images/inventoryimages/volcanoinventory.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.MEADOW or GROUND.MARSH, 						{name = "meadow", 				anim = "meadow", 		invent = "images/inventoryimages/volcanoinventory.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.SNAKESKINFLOOR or GROUND.MARSH, 				{name = "snakeskinfloor", 		anim = "snakeskin", 	invent = "images/inventoryimages/volcanoinventory.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.BEACH or GROUND.MARSH, 						{name = "beach", 				anim = "beach", 		invent = "images/inventoryimages/volcanoinventory.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.QUAGMIRE_GATEWAY or GROUND.MARSH, 			{name = "quagmire_gateway", 	anim = "forest", 		invent = "images/inventoryimages/novositens.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.QUAGMIRE_CITYSTONE or GROUND.MARSH, 			{name = "quagmire_citystone", 	anim = "cave", 			invent = "images/inventoryimages/novositens.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.QUAGMIRE_PARKFIELD or GROUND.MARSH, 			{name = "quagmire_parkfield", 	anim = "savanna", 		invent = "images/inventoryimages/novositens.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.QUAGMIRE_PARKSTONE or GROUND.MARSH, 			{name = "quagmire_parkstone", 	anim = "rocky", 		invent = "images/inventoryimages/novositens.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.QUAGMIRE_PEATFOREST or GROUND.MARSH, 		{name = "quagmire_peatforest", 	anim = "marsh", 		invent = "images/inventoryimages/novositens.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.WINDY or GROUND.MARSH, 						{name = "windy", 				anim = "meadow", 		invent = "images/inventoryimages/volcanoinventory.xml"})) --place a marsh tile, if the swamp generation is disabled
-table.insert(ret, make_turf(GROUND.MARSH_SW or GROUND.MARSH, 					{name = "marsh_sw", 			anim = "meadow", 		invent = "images/inventoryimages/volcanoinventory.xml"})) --place a marsh tile, if the swamp generation is disabled
+table.insert(ret,
+    make_turf(GROUND.MAGMAFIELD or GROUND.MARSH,
+        { name = "magmafield", anim = "magmafield", invent = "images/inventoryimages/volcanoinventory.xml" })) --place a marsh tile, if the swamp generation is disabled
+table.insert(ret,
+    make_turf(GROUND.ASH or GROUND.MARSH,
+        { name = "ash", anim = "ash", invent = "images/inventoryimages/volcanoinventory.xml" })) --place a marsh tile, if the swamp generation is disabled
+table.insert(ret,
+    make_turf(GROUND.JUNGLE or GROUND.MARSH,
+        { name = "jungle", anim = "jungle", invent = "images/inventoryimages/volcanoinventory.xml" })) --place a marsh tile, if the swamp generation is disabled
+table.insert(ret,
+    make_turf(GROUND.VOLCANO or GROUND.MARSH,
+        { name = "volcano", anim = "volcanonoise", invent = "images/inventoryimages/volcanoinventory.xml" })) --place a marsh tile, if the swamp generation is disabled
+table.insert(ret,
+    make_turf(GROUND.TIDALMARSH or GROUND.MARSH,
+        { name = "tidalmarsh", anim = "tidalmarsh", invent = "images/inventoryimages/volcanoinventory.xml" })) --place a marsh tile, if the swamp generation is disabled
+table.insert(ret,
+    make_turf(GROUND.MEADOW or GROUND.MARSH,
+        { name = "meadow", anim = "meadow", invent = "images/inventoryimages/volcanoinventory.xml" })) --place a marsh tile, if the swamp generation is disabled
+table.insert(ret,
+    make_turf(GROUND.SNAKESKINFLOOR or GROUND.MARSH,
+        { name = "snakeskinfloor", anim = "snakeskin", invent = "images/inventoryimages/volcanoinventory.xml" })) --place a marsh tile, if the swamp generation is disabled
+table.insert(ret,
+    make_turf(GROUND.BEACH or GROUND.MARSH,
+        { name = "beach", anim = "beach", invent = "images/inventoryimages/volcanoinventory.xml" })) --place a marsh tile, if the swamp generation is disabled
 
 return unpack(ret)
