@@ -152,7 +152,7 @@ local preset_data = {
         },
         lootmax = 2,
 
-        has_second_stage = true,
+        has_second_stage = false,
         second_action = "dig",
         second_loot = {
             { "log", 1 } --没搞懂为什么会出树枝
@@ -178,7 +178,7 @@ local preset_data = {
         },
         lootmax = 1,
 
-        has_second_stage = true,
+        has_second_stage = false,
         second_action = "dig",
         second_loot = {
             { "log", 1 }
