@@ -6,29 +6,17 @@ local function UpdateGroundSpeedMultiplierAfter(retTab, self)
 
     if oncreep and self.triggerscreep then return retTab end
 
-    -- 重新修改groundspeedmultiplier的值
+    -- 修改石板路的加速
     local current_ground_tile = TheWorld.Map:GetTileAtPoint(x, 0, z)
-    local isCave = TheWorld:HasTag("cave")
-    if current_ground_tile == GROUND.UNDERWATER_SANDY or
-        current_ground_tile == GROUND.UNDERWATER_ROCKY or
-        (current_ground_tile == GROUND.BEACH and isCave) or
-        (current_ground_tile == GROUND.MAGMAFIELD and isCave) or
-        (current_ground_tile == GROUND.PAINTED and isCave) or
-        (current_ground_tile == GROUND.BATTLEGROUND and isCave) or
-        (current_ground_tile == GROUND.PEBBLEBEACH and isCave) then
-        if self.inst.prefab ~= "wurt" then
-            self.groundspeedmultiplier = 0.5
-        end
-        if self.inst:HasTag("nadador") then
-            self.groundspeedmultiplier = 0.8
-        end
+    if current_ground_tile == GROUND.COBBLEROAD then
+        self.groundspeedmultiplier = 1.3
     end
 
     return retTab
 end
 
 local function ExternalSpeedMultiplierBefore(self)
-    ----------------------efeito dos ventos----------------------------------
+    ----------------------efeito dos ventos风效应----------------------------------
     local wind_speed = 1
     local vento = GetClosestInstWithTag("vento", self.inst, 10)
     if vento then
@@ -51,7 +39,7 @@ local function ExternalSpeedMultiplierBefore(self)
         local windfactor = 0.4 * windproofness * velocidadedovento * math.cos(windangle * DEGREES) + 1.0
         wind_speed = math.max(0.1, windfactor)
     end
-    ----------------------efeito das correntes marinhas----------------------------------
+    ----------------------efeito das correntes marinhas海流的影响----------------------------------
     local wave_speed = 1
     local ondamarinha = GetClosestInstWithTag("ondamarinha", self.inst, 6)
     if ondamarinha then
@@ -64,7 +52,7 @@ local function ExternalSpeedMultiplierBefore(self)
         local wavefactor = 0.4 * waveproofness * velocidadedoondamarinha * math.cos(waveangle * DEGREES) + 1.0
         wave_speed = math.max(0.1, wavefactor)
     end
-    ----------------------efeito da inundação----------------------------------
+    ----------------------efeito da inundação洪水效应----------------------------------
     local flood_speed = 1
     local alagamento = GetClosestInstWithTag("mare", self.inst, 8)
     if alagamento and not self.inst:HasTag("ghost") then
@@ -107,7 +95,7 @@ local function StartHoppingBefore(self, x, z, target_platform)
                 consumo.Transform:SetPosition(xd + destino.xd, yd + destino.yd, zd + destino.zd)
             end
         end
-        -------------------------transfere o conteudo do barco inventario para o barco do criado---------------------------------
+        -------------------------将库存船上的物品转移到服务船上---------------------------------
         if barcoinv.components.container then
             local sailslot = barcoinv.components.container:GetItemInSlot(1)
             if sailslot then
