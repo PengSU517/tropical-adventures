@@ -383,7 +383,7 @@ function RocController:Movebodyparts(dt)
 	local target = self:GetTarget() --[[or self.inst]]
 
 	if not target then
-		self.inst:PushEvent("takeoff")
+		self.inst:PushEvent("liftoff")
 		self.stage = _stages.taking_off
 		return
 	end
@@ -654,7 +654,7 @@ function RocController:OnUpdate(dt)
 	if self.stage == _stages.navigating then
 		local player = FindClosestValidPlayerToInst(self.inst, 80, true) --[[or self.inst]]
 		if not player or TheWorld.state.isnight then
-			-- self.stage = _stages.flying_away
+			self.stage = _stages.flying_away
 			return
 		end
 		local px, py, pz = player.Transform:GetWorldPosition()
@@ -665,11 +665,6 @@ function RocController:OnUpdate(dt)
 		if disttoplayer > SCREEN_DIST * SCREEN_DIST then
 			self.inst.Transform:SetRotation(self.inst:GetAngleToPoint(px, py, pz))
 		end
-
-		-- if not onvalidtiles or TheWorld.state.isnight then
-		-- 	self.stage = _stages.flying_away
-		-- 	return
-		-- end
 
 		if self.scaleup then
 			local currentscale = self.inst.Transform:GetScale()
@@ -715,30 +710,20 @@ function RocController:OnUpdate(dt)
 	end
 
 	if self.stage == _stages.finding_object then
-		local player = FindClosestValidPlayerToInst(self.inst, 80, true) or self.inst --加上self.inst防止重载世界时直接飞走？
-		--[[ if not player then
-			self.inst:PushEvent("liftoff")
-			self.stage = _stages.taking_off_away
-			return
-		end ]]
-		local px, py, pz = player.Transform:GetWorldPosition()
-		local onvalidtiles = IsCloseToValidTileAtPoint(px, py, pz, 8)
+		local player = FindClosestValidPlayerToInst(self.inst, 60, true)
 
-		if onvalidtiles and not TheWorld.state.isnight then
-			-- self.target = self:GetTarget() or player --gettarget函数太迷幻了
+		if player then
+			local px, py, pz = player.Transform:GetWorldPosition()
+			local onvalidtiles = IsCloseToValidTileAtPoint(px, py, pz, 8)
 
-			-- if self.target then
-			self:Movebodyparts(dt)
-			if self.target then
-				--print("target!!!!!!!!!!", self.target.prefab)
+			if onvalidtiles and not TheWorld.state.isnight then
+				self:Movebodyparts(dt)
+				return
 			end
-			-- end
-		else
-			self.inst:PushEvent("liftoff")
-			self.stage = _stages.taking_off
 		end
 
-		return
+		self.inst:PushEvent("liftoff")
+		self.stage = _stages.taking_off
 	end
 
 	if self.stage == _stages.grabbing_player then
@@ -758,7 +743,7 @@ function RocController:OnUpdate(dt)
 		self.inst.Transform:SetScale(scale, scale, scale)
 
 
-		local player = FindClosestPlayerToInst(self.inst, SCREEN_DIST, true)
+		local player = FindClosestPlayerToInst(self.inst, SCREEN_DIST * 1.5, true)
 		if not player then
 			self.inst:Remove()
 		end
