@@ -281,17 +281,25 @@ if true then
 end
 
 
-------------------------热带海域----------------------------
--- if troadj.ocean == "tropical" then
---     require("map/ocean_gen_tropical")
---     AddLevelPreInitAny(function(level)
---         if level.location == "forest" then
---             tabel.insert_components(level.ocean_population, {
---                 "OceanBrinepool",
---             })
---         end
---     end)
--- end
+------------------------热带气候调整---------------------------
+AddLevelPreInitAny(function(level)
+    if level.location == "forest" then
+        for i, taskname in ipairs(level.tasks) do
+            AddTaskPreInit(taskname, function(task)
+                if task.region_id and (task.region_id ~= "mainland" and task.region_id ~= "island1") then
+                    -- print(taskname .. "taskname!!!!!!")
+                    -- print(task.room_tags)
+                    -- print("task.room_tags")
+                    if not task.room_tags then
+                        task.room_tags = {}
+                    end
+                    tabel.insert_components(task.room_tags, "tropical")
+                end
+            end)
+        end
+    end
+end)
+
 
 ---------------------测试模式------------
 if troadj.testmode then
