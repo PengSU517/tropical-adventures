@@ -173,6 +173,11 @@ return Class(function(self, inst)
 			_warnduration = _warndurationfn()
 			_attackplanned = true
 			_wave_pre_upgraded = nil
+
+			if _spawndata.specialupgradecheck then
+				_wave_pre_upgraded, _wave_override_chance = _spawndata.specialupgradecheck(_wave_pre_upgraded,
+					_wave_override_chance, _wave_override_settings)
+			end
 		else
 			_attackplanned = false
 		end
@@ -326,35 +331,30 @@ return Class(function(self, inst)
 	end
 
 	local function GetSpawnPoint(pt, radius_override)
-		if TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.aporkalypse_active == true then
-			_spawndata.base_prefab = "mutatedhound"
-			_spawndata.winter_prefab = "mutatedhound"
-			_spawndata.summer_prefab = "mutatedhound"
-		else
-			local map = TheWorld.Map
-			local x, y, z = pt:Get()
-			for i, node in ipairs(TheWorld.topology.nodes) do
-				if TheSim:WorldPointInPoly(x, z, node.poly) then
-					if TheWorld:HasTag("cave") then
-						_spawndata.base_prefab = "worm"
-						_spawndata.winter_prefab = "worm"
-						_spawndata.summer_prefab = "worm"
-					elseif node.tags ~= nil and table.contains(node.tags, "hamlet") then
-						_spawndata.base_prefab = "circlingbat"
-						_spawndata.winter_prefab = "circlingbat"
-						_spawndata.summer_prefab = "circlingbat"
-					elseif node.tags ~= nil and table.contains(node.tags, "shipwrecked") then
-						_spawndata.base_prefab = "crocodog"
-						_spawndata.winter_prefab = "watercrocodog"
-						_spawndata.summer_prefab = "poisoncrocodog"
-					else
-						_spawndata.base_prefab = "hound"
-						_spawndata.winter_prefab = "icehound"
-						_spawndata.summer_prefab = "firehound"
-					end
+		local map = TheWorld.Map
+		local x, y, z = pt:Get()
+		for i, node in ipairs(TheWorld.topology.nodes) do
+			if TheSim:WorldPointInPoly(x, z, node.poly) then
+				if TheWorld:HasTag("cave") then
+					_spawndata.base_prefab = "worm"
+					_spawndata.winter_prefab = "worm"
+					_spawndata.summer_prefab = "worm"
+				elseif node.tags ~= nil and table.contains(node.tags, "hamlet") then
+					_spawndata.base_prefab = "circlingbat"
+					_spawndata.winter_prefab = "circlingbat"
+					_spawndata.summer_prefab = "circlingbat"
+				elseif node.tags ~= nil and table.contains(node.tags, "shipwrecked") then
+					_spawndata.base_prefab = "crocodog"
+					_spawndata.winter_prefab = "watercrocodog"
+					_spawndata.summer_prefab = "poisoncrocodog"
+				else
+					_spawndata.base_prefab = "hound"
+					_spawndata.winter_prefab = "icehound"
+					_spawndata.summer_prefab = "firehound"
 				end
 			end
 		end
+
 		if _spawndata.base_prefab == "circlingbat" then SPAWN_DIST = 4 else SPAWN_DIST = 30 end
 		if radius_override == nil then
 			radius_override = SPAWN_DIST
@@ -958,11 +958,6 @@ return Class(function(self, inst)
 		end
 
 		if _timetoattack < 0 then
-			if _spawndata.specialupgradecheck then
-				_wave_pre_upgraded, _wave_override_chance = _spawndata.specialupgradecheck(_wave_pre_upgraded,
-					_wave_override_chance, _wave_override_settings)
-			end
-
 			_warning = false
 
 			-- Okay, it's hound-day, get number of dogs for each player
