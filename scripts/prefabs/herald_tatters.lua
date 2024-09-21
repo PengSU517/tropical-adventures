@@ -44,7 +44,7 @@ local function fn()
 
     inst:AddComponent("fuel")
     inst.components.fuel.fueltype = FUELTYPE.ANCIENT_REMNANT
-    inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL * 4 -- Runar: 小小强化一下碎布
+    inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL * 10 -- Runar: 科雷改成一个修满了
 
 
     return inst
