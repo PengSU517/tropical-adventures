@@ -247,6 +247,13 @@ GLOBAL.FUELTYPE.CORK = "CORK"
 GLOBAL.MATERIALS.LIMESTONE = "limestone"
 GLOBAL.MATERIALS.ENFORCEDLIMESTONE = "enforcedlimestone"
 
+GLOBAL.ANTCHEST_PRESERVATION = {
+    honey = true,
+    royal_jelly = true,
+    nectar_pod = true,
+    pollen_item = true,
+}
+
 GLOBAL.SWP_WAVEBREAK_EFFICIENCY = { -- 破浪效率：var * 100%
     BUMPER = {
         kelp = .6, -- prefab = "boat_bumper_" .. k

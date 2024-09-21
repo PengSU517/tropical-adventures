@@ -249,6 +249,10 @@ local function ArtificialPostInit(inst) -- 建造后装配
     end
 end
 
+local function perishratemult(inst, item)
+    return ANTCHEST_PRESERVATION[item.prefab] and 0 or 1
+end
+
 local function Common(name)
     local inst = CreateEntity()
 
@@ -289,7 +293,7 @@ local function Common(name)
     inst.components.workable:SetOnWorkCallback(onhit)
 
     inst:AddComponent("preserver")
-    inst.components.preserver:SetPerishRateMultiplier(0)
+    inst.components.preserver:SetPerishRateMultiplier(perishratemult)
 
     MakeSnowCovered(inst, .01)
 

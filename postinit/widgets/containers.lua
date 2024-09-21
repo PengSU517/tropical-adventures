@@ -21,14 +21,8 @@ for y = 0, 4 do
     end
 end
 
-local antchest_preservation = {"honey", "royal_jelly", "nectar_pod", "pollen_item"}
 local function antchestitemtestfn(container, item, slot)
-    for _, v in ipairs(antchest_preservation) do
-        if item.prefab == v then
-            return true
-        end
-    end
-    return false
+    return ANTCHEST_PRESERVATION[item.prefab]
 end
 params.antchest = deepcopy(params.icebox)
 params.antchest.itemtestfn = antchestitemtestfn
