@@ -10,7 +10,7 @@ AddRoom("Lilypond", {
         distributeprefabs =
         {
             watercress_planted = .05,
-            -- grasswater = .05,
+            grasswater = .05,
             lotus = 0.05,
             reeds_water = .05,
             bioluminescence = 0.05,
@@ -42,7 +42,7 @@ AddRoom("WaterMangrove", {
             tree_mangrove = 1,
             tree_mangrovebee = 0.5,
             fishinhole = 0.5,
-            grass_water = 1,
+            grasswater = 1,
             seataro_planted = 0.5,
             seacucumber_planted = 0.5,
             watertree_root = 0.5,
@@ -72,16 +72,16 @@ AddRoom("OceanBrinepool", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = WORLD_TILES.OCEAN_BRINEPOOL,
     contents = {
-        distributepercent = 0.2,
+        distributepercent = 0.4,
         distributeprefabs =
         {
 
-            coralreef = 0.5,
-            ballphinhouse = .3,
-            seaweed_planted = .3,
-            jellyfish_planted = .3,
-            rainbowjellyfish_planted = 0.2,
-            spidercoralhole = 0.1,
+            -- coralreef = 0.5,
+            -- ballphinhouse = .3,
+            -- seaweed_planted = .3,
+            -- jellyfish_planted = .3,
+            -- rainbowjellyfish_planted = 0.2,
+            -- spidercoralhole = 0.1,
 
 
             -- fishinhole = .75,

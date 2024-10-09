@@ -659,9 +659,9 @@ table.insert(PrefabFiles, "slipstor_spawner")
 -- 	table.insert(PrefabFiles, "summerwalrus")
 -- 	table.insert(PrefabFiles, "summerigloo")
 
--- 	table.insert(PrefabFiles, "octoatt")
--- 	table.insert(PrefabFiles, "octopus")
--- 	table.insert(PrefabFiles, "octohouse")
+	table.insert(PrefabFiles, "octoatt")
+	table.insert(PrefabFiles, "octopus")
+	table.insert(PrefabFiles, "octohouse")
 -- end
 
 ----- prefabs marinhos---------------
