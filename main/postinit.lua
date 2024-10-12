@@ -40,7 +40,7 @@ modimport("postinit/components/groundpounder") ----这个组件拍地板的？
 modimport("postinit/components/inventory_prevent_pick")
 modimport("postinit/components/inventoryitem")
 modimport("postinit/components/locomotor") -----这两个内容需要整合一下
-modimport("postinit/components/locomoter")
+modimport("postinit/components/locomotor_boat")
 modimport("postinit/components/playercontroller")
 modimport("postinit/components/playerspawner")
 modimport("postinit/components/playervision")
