@@ -22,7 +22,7 @@ end
 
 local function ondeploywall(inst, pt, deployer)
     --inst.SoundEmitter:PlaySound("dontstarve/creatures/spider/spider_egg_sack")
-    local wall = SpawnPrefab("wall_" .. data.name, inst.linked_skinname, inst.skin_id)
+    local wall = SpawnPrefab("wall_" .. self.name, inst.linked_skinname, inst.skin_id)
     if wall ~= nil then
         local x = math.floor(pt.x) + .5
         local z = math.floor(pt.z) + .5
@@ -31,12 +31,12 @@ local function ondeploywall(inst, pt, deployer)
         wall.Physics:SetCollides(true)
         inst.components.stackable:Get():Remove()
 
-        if data.name == "enforcedlimestone" then
+        if self.name == "enforcedlimestone" then
             wall.AnimState:PlayAnimation("water_half", true)
         end
 
-        if data.buildsound ~= nil then
-            wall.SoundEmitter:PlaySound(data.buildsound)
+        if self.buildsound ~= nil then
+            wall.SoundEmitter:PlaySound(self.buildsound)
         end
     end
 end
@@ -85,12 +85,12 @@ local function onhackedfn(inst, hacker, hacksleft)
     fx.Transform:SetPosition(x, y, z)
 
     if (hacksleft <= 0) then
-        inst.AnimState:PlayAnimation("growth2to1")
+        inst.AnimState:PlayAnimation("hit")
         inst.AnimState:PushAnimation("growth1")
         inst.SoundEmitter:PlaySound("dontstarve/forest/treefall")
     else
-        inst.AnimState:PlayAnimation("growth2to3")
-        inst.AnimState:PushAnimation("growth3")
+        inst.AnimState:PlayAnimation("hit")
+        inst.AnimState:PushAnimation("growth2")
     end
 
     inst.SoundEmitter:PlaySound("dontstarve/wilson/use_axe_tree")
@@ -150,7 +150,6 @@ local function fn()
 
     inst.AnimState:SetTime(math.random() * 2)
 
-    inst:AddComponent("interactions")
     inst:AddComponent("inspectable")
     inst:AddComponent("lootdropper")
 
@@ -189,7 +188,7 @@ local function fn1()
     inst.AnimState:SetRayTestOnBB(true)
     inst.AnimState:SetBank("hedge")
     inst.AnimState:SetBuild("hedge2_build")
-    inst.AnimState:PlayAnimation("growth3", true)
+    inst.AnimState:PlayAnimation("growth2", true)
     MakeObstaclePhysics(inst, .35)
 
     inst:AddTag("machetecut")
@@ -203,7 +202,6 @@ local function fn1()
 
     inst.AnimState:SetTime(math.random() * 2)
 
-    inst:AddComponent("interactions")
     inst:AddComponent("inspectable")
     inst:AddComponent("lootdropper")
 
@@ -226,8 +224,6 @@ local function fn1()
 
     inst.setobstical = setobstical  -----加上墙的寻路特性
     inst:AddComponent("gridnudger") ------------加上这个就只能放在墙点,这两个必须同时使用
-
-
 
     return inst
 end
@@ -244,7 +240,7 @@ local function fn2()
     inst.AnimState:SetRayTestOnBB(true)
     inst.AnimState:SetBank("hedge")
     inst.AnimState:SetBuild("hedge3_build")
-    inst.AnimState:PlayAnimation("growth3", true)
+    inst.AnimState:PlayAnimation("growth2", true)
     MakeObstaclePhysics(inst, .35)
 
     inst:AddTag("machetecut")
@@ -258,7 +254,6 @@ local function fn2()
 
     inst.AnimState:SetTime(math.random() * 2)
 
-    inst:AddComponent("interactions")
     inst:AddComponent("inspectable")
     inst:AddComponent("lootdropper")
 
@@ -281,9 +276,6 @@ local function fn2()
 
     inst.setobstical = setobstical  -----加上墙的寻路特性
     inst:AddComponent("gridnudger") ------------加上这个就只能放在墙点,这两个必须同时使用
-
-
-
 
     return inst
 end
