@@ -60,7 +60,7 @@ AddComponentPostInit("locomotor", function(self)
     local OldGetSpeedMultiplier = self.GetSpeedMultiplier
     function self:GetSpeedMultiplier()
         if (self.inst and self.inst:HasTag("aquatic") and self.inst:HasTag("player")) then
-            return getspeedbonus(self.inst) * OldGetSpeedMultiplier(self)
+            return (getspeedbonus(self.inst) - 1) + OldGetSpeedMultiplier(self) ------乘算改为加算
         end
         return OldGetSpeedMultiplier(self)
     end
