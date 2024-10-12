@@ -172,46 +172,106 @@ AddTask("Painted_sands", {
 -----------------------------------------
 
 -------------------------
+-- AddTask("Edge_of_civilization", {
+--     -- locks = { LOCKS.EDGE },
+--     -- keys_given = { KEYS.CITY_1, --[[KEYS.HAM_BLANK]] },
+--     locks = { LOCKS.JUNGLE_DEPTH_1 },
+--     keys_given = { KEYS.CITY_1 },
+--     region_id = "hamlet",
+--     room_tags = { "hamlet", "nohasslers", "not_mainland" },
+--     room_choices = {
+--         ["cultivated_base_1"] = 1,
+--         ["cultivated_base_2"] = 1,
+--         --			["cultivated_base_3"] = 1,
+--         ["cultivated_base_4"] = 1,
+--         ["cultivated_base_5"] = 1,
+--         ["piko_land"] = 1,
+--     },
+--     room_bg = GROUND.FIELDS,
+--     background_room = "BG_cultivated_base",
+--     crosslink_factor = 3,
+--     colour = { r = 1, g = 1, b = 1, a = 0.3 }
+-- })
+
+-- AddTask("Pigcity", {
+--     locks = { LOCKS.CITY_1 },
+--     keys_given = {},
+--     region_id = "hamlet",
+--     room_tags = { "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
+--     room_choices = {
+--         ["city_base_1_set"] = 1,
+--         ["city_base"] = 2,
+--     },
+--     room_bg = GROUND.SUBURB,
+--     -- entrance_room = "city_base",
+--     background_room = "BG_suburb_base",
+--     cove_room_name = "city_base",
+--     make_loop = true,
+--     crosslink_factor = 10, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
+--     cove_room_chance = 1,  --加边界房间把中心房间围起来 但是coveroom的个数不能多于room个数
+--     cove_room_max_edges = 10,
+--     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 }
+-- })
+
+
 AddTask("Edge_of_civilization", {
-    -- locks = { LOCKS.EDGE },
-    -- keys_given = { KEYS.CITY_1, --[[KEYS.HAM_BLANK]] },
-    locks = { LOCKS.JUNGLE_DEPTH_1 },
-    keys_given = { KEYS.CITY_1 },
+    locks = LOCKS.JUNGLE_DEPTH_1,
+    keys_given = KEYS.CIVILIZATION_1,
     region_id = "hamlet",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "City1", "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
-        ["cultivated_base_1"] = 1,
-        ["cultivated_base_2"] = 1,
-        --			["cultivated_base_3"] = 1,
-        ["cultivated_base_4"] = 1,
-        ["cultivated_base_5"] = 1,
-        ["piko_land"] = 1,
+        ["cultivated_base_1"] = math.random(3, 5),
+        ["piko_land"] = math.random(2, 3),
     },
-    room_bg = GROUND.FIELDS,
-    background_room = "BG_cultivated_base",
-    crosslink_factor = 3,
+    room_bg = WORLD_TILES.FIELDS,
+    background_room = "cultivated_base_1",
+    cove_room_name = "cultivated_base_1",
+    make_loop = true,
+    crosslink_factor = 10,
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
     colour = { r = 1, g = 1, b = 1, a = 0.3 }
 })
 
-AddTask("Pigcity", {
-    locks = { LOCKS.CITY_1 },
-    keys_given = {},
+
+AddTask("Pigtopia", {
+    locks = LOCKS.CIVILIZATION_1,
+    keys_given = KEYS.CIVILIZATION_2,
     region_id = "hamlet",
-    room_tags = { "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "City1", "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
-        ["city_base_1_set"] = 1,
-        ["city_base"] = 2,
+        ["city_base_1"] = math.random(5, 7),
+        -- ["suburb_base_1"] = math.random(2, 3),
     },
-    room_bg = GROUND.SUBURB,
-    -- entrance_room = "city_base",
-    background_room = "BG_suburb_base",
-    cove_room_name = "city_base",
+    room_bg = WORLD_TILES.SUBURB,
+    background_room = "suburb_base_1",
+    cove_room_name = "suburb_base_1",
     make_loop = true,
-    crosslink_factor = 10, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
-    cove_room_chance = 1,  --加边界房间把中心房间围起来 但是coveroom的个数不能多于room个数
+    crosslink_factor = 10,
+    cove_room_chance = 1,
     cove_room_max_edges = 10,
-    colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 }
+    colour = { r = 1, g = 1, b = 1, a = 0.3 }
 })
+
+AddTask("Pigtopia_capital", {
+    locks = LOCKS.CIVILIZATION_2,
+    keys_given = KEYS.ISLAND_2,
+    region_id = "hamlet",
+    room_tags = { "City1", "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
+    room_choices = {
+        ["city_base_1"] = math.random(3, 4),
+    },
+    room_bg = WORLD_TILES.SUBURB,
+    background_room = "suburb_base_1",
+    cove_room_name = "suburb_base_1",
+    make_loop = true,
+    crosslink_factor = 10,
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    colour = { r = 1, g = 1, b = 1, a = 0.3 }
+})
+
+
 
 AddTask("Ham_blank1", {
     locks = { LOCKS.HAM_BLANK },
@@ -244,24 +304,80 @@ AddTask("Ham_blank2", {
 })
 
 
-AddTask("Pigcity2", {
-    locks = { LOCKS.CITY_2 },
-    keys_given = { KEYS.DEEPRAINFOREST_CITY2 },
+-- AddTask("Pigcity2", {
+--     locks = { LOCKS.CITY_2 },
+--     keys_given = { KEYS.DEEPRAINFOREST_CITY2 },
+--     region_id = "hamlet_palace",
+--     room_tags = { "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
+--     room_choices = {
+--         ["city_base_2_set"] = 1,
+--         ["city_base"] = 2,
+--     },
+--     room_bg = GROUND.SUBURB,
+--     entrance_room = "city_base",
+--     background_room = "BG_suburb_base",
+--     cove_room_name = "city_base",
+--     make_loop = true,
+--     crosslink_factor = 10, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
+--     cove_room_chance = 1,  --加边界房间把中心房间围起来 但是coveroom的个数不能多于room个数
+--     cove_room_max_edges = 10,
+--     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 }
+-- })
+
+AddTask("Other_edge_of_civilization", {
+    locks = LOCKS.OTHER_JUNGLE_DEPTH_1,
+    keys_given = KEYS.OTHER_CIVILIZATION_1,
     region_id = "hamlet_palace",
-    room_tags = { "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "City1", "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
     room_choices = {
-        ["city_base_2_set"] = 1,
-        ["city_base"] = 2,
+        ["cultivated_base_2"] = math.random(2, 3),
+        ["piko_land"] = math.random(1, 2),
     },
-    room_bg = GROUND.SUBURB,
-    entrance_room = "city_base",
-    background_room = "BG_suburb_base",
-    cove_room_name = "city_base",
+    room_bg = WORLD_TILES.FIELDS,
+    background_room = "cultivated_base_2",
+    cove_room_name = "cultivated_base_2",
     make_loop = true,
-    crosslink_factor = 10, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
-    cove_room_chance = 1,  --加边界房间把中心房间围起来 但是coveroom的个数不能多于room个数
+    crosslink_factor = 10,
+    cove_room_chance = 1,
     cove_room_max_edges = 10,
-    colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 }
+    colour = { r = 1, g = 1, b = 1, a = 0.3 }
+})
+
+AddTask("Other_pigtopia", {
+    locks = LOCKS.OTHER_CIVILIZATION_1,
+    keys_given = KEYS.OTHER_CIVILIZATION_2,
+    region_id = "hamlet_palace",
+    room_tags = { "City2", "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
+    room_choices = {
+        ["city_base_2"] = math.random(5, 7),
+        -- ["suburb_base_2"] = math.random(2, 3),
+    },
+    room_bg = WORLD_TILES.SUBURB,
+    background_room = "suburb_base_2",
+    cove_room_name = "suburb_base_2",
+    make_loop = true,
+    crosslink_factor = 10,
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    colour = { r = 1, g = 1, b = 1, a = 0.3 }
+})
+
+AddTask("Other_pigtopia_capital", {
+    locks = LOCKS.OTHER_CIVILIZATION_2,
+    keys_given = KEYS.ISLAND_3,
+    region_id = "hamlet_palace",
+    room_tags = { "City2", "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
+    room_choices = {
+        ["city_base_2"] = math.random(3, 4),
+    },
+    room_bg = WORLD_TILES.SUBURB,
+    background_room = "suburb_base_2",
+    cove_room_name = "suburb_base_2",
+    make_loop = true,
+    crosslink_factor = 10,
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    colour = { r = 1, g = 1, b = 1, a = 0.3 }
 })
 
 

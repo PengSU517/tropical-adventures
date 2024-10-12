@@ -2,17 +2,17 @@ require "prefabutil"
 
 local assets =
 {
-	Asset("ANIM", "anim/galinheiro.zip"),
+    Asset("ANIM", "anim/galinheiro.zip"),
 }
 
 local prefabs =
 {
-	"chicken",
+    "chicken",
 }
 
 local function onbuilt(inst)
-	inst.AnimState:PlayAnimation("place")
-	inst.AnimState:PushAnimation("idle")
+    inst.AnimState:PlayAnimation("place")
+    inst.AnimState:PushAnimation("idle")
 end
 
 local function onhammered(inst, worker)
@@ -54,7 +54,7 @@ end
 
 local function OnSpawned(inst, child)
     if not inst:HasTag("burnt") then
-	    inst.AnimState:PlayAnimation("hit")
+        inst.AnimState:PlayAnimation("hit")
         inst.AnimState:PushAnimation("idle")
         if TheWorld.state.isday and
             inst.components.childspawner ~= nil and
@@ -67,7 +67,7 @@ end
 
 local function OnGoHome(inst, child)
     if not inst:HasTag("burnt") then
-	    inst.AnimState:PlayAnimation("hit")
+        inst.AnimState:PlayAnimation("hit")
         inst.AnimState:PushAnimation("idle")
         if inst.components.childspawner ~= nil and
             inst.components.childspawner:CountChildrenOutside() < 1 then
@@ -100,7 +100,7 @@ end
 
 local function OnIsDay(inst, isday)
     if isday and not inst:HasTag("burnt") then
-		StartSpawning(inst)
+        StartSpawning(inst)
     else
         StopSpawning(inst)
     end
@@ -108,39 +108,39 @@ end
 
 
 local function fn()
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
-	inst.entity:AddNetwork()
-	inst.entity:AddSoundEmitter()
-	MakeObstaclePhysics(inst, 1)
-	inst.Transform:SetScale(3, 3, 3)
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
+    inst.entity:AddNetwork()
+    inst.entity:AddSoundEmitter()
+    MakeObstaclePhysics(inst, 1)
+    inst.Transform:SetScale(3, 3, 3)
 
-	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("galinheiro.png")
+    local minimap = inst.entity:AddMiniMapEntity()
+    minimap:SetIcon("galinheiro.png")
 
-	anim:SetBank("galinheiro")
-	anim:SetBuild("galinheiro")
-	anim:PlayAnimation("idle", true)
+    anim:SetBank("galinheiro")
+    anim:SetBuild("galinheiro")
+    anim:PlayAnimation("idle", true)
 
-	inst:AddTag("structure")
+    inst:AddTag("structure")
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
-        inst:AddComponent("lootdropper")
+    inst:AddComponent("lootdropper")
     inst.components.lootdropper:SetLoot({})
     inst.components.lootdropper:AddRandomLoot("boards", 4)
     inst.components.lootdropper:AddRandomLoot("cutgrass", 10)
-    inst.components.lootdropper.numrandomloot = 5		
+    inst.components.lootdropper.numrandomloot = 5
 
-        inst:AddComponent("workable")
-        inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
-        inst.components.workable:SetWorkLeft(5)
-        inst.components.workable:SetOnFinishCallback(onhammered)
-        inst.components.workable:SetOnWorkCallback(onhit)
+    inst:AddComponent("workable")
+    inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
+    inst.components.workable:SetWorkLeft(5)
+    inst.components.workable:SetOnFinishCallback(onhammered)
+    inst.components.workable:SetOnWorkCallback(onhit)
 
     inst:AddComponent("childspawner")
     inst.components.childspawner.childname = "chicken"
@@ -154,62 +154,63 @@ local function fn()
     inst.components.childspawner:SetMaxEmergencyChildren(1)
 
 
-        inst:WatchWorldState("isday", OnIsDay)
+    inst:WatchWorldState("isday", OnIsDay)
 
-        StartSpawning(inst)
+    StartSpawning(inst)
 
-		MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
-		
+    MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
 
 
-local function DefaultBurntFn(inst)
-    if inst.components.growable ~= nil then
-        inst:RemoveComponent("growable")
+
+    local function DefaultBurntFn(inst)
+        if inst.components.growable ~= nil then
+            inst:RemoveComponent("growable")
+        end
+
+        if inst.inventoryitemdata ~= nil then
+            inst.inventoryitemdata = nil
+        end
+
+        if inst.components.workable ~= nil and inst.components.workable.action ~= ACTIONS.HAMMER then
+            inst.components.workable:SetWorkLeft(0)
+        end
+
+        local my_x, my_y, my_z = inst.Transform:GetWorldPosition()
+
+        -- Spawn ash everywhere except on the ocean
+        if not TheWorld.Map:IsOceanAtPoint(my_x, my_y, my_z, false) then
+            local ash = SpawnPrefab("ash")
+            ash.Transform:SetPosition(inst.Transform:GetWorldPosition())
+
+            if inst.components.stackable ~= nil then
+                ash.components.stackable.stacksize = math.min(ash.components.stackable.maxsize,
+                    inst.components.stackable.stacksize)
+            end
+        end
+
+        inst:Remove()
     end
 
-    if inst.inventoryitemdata ~= nil then
-        inst.inventoryitemdata = nil
-    end
-
-    if inst.components.workable ~= nil and inst.components.workable.action ~= ACTIONS.HAMMER then
-        inst.components.workable:SetWorkLeft(0)
-    end
-
-    local my_x, my_y, my_z = inst.Transform:GetWorldPosition()
-
-    -- Spawn ash everywhere except on the ocean
-    if not TheWorld.Map:IsOceanAtPoint(my_x, my_y, my_z, false) then
-        local ash = SpawnPrefab("ash")
-        ash.Transform:SetPosition(inst.Transform:GetWorldPosition())
-
-        if inst.components.stackable ~= nil then
-            ash.components.stackable.stacksize = math.min(ash.components.stackable.maxsize, inst.components.stackable.stacksize)
+    local function DefaultBurnFn(inst)
+        if not (inst:HasTag("tree") or inst:HasTag("structure")) then
+            inst.persists = false
         end
     end
 
-    inst:Remove()
-end
-		
-local function DefaultBurnFn(inst)
-    if not (inst:HasTag("tree") or inst:HasTag("structure")) then
-        inst.persists = false
+    local function DefaultExtinguishFn(inst)
+        if not (inst:HasTag("tree") or inst:HasTag("structure")) then
+            inst.persists = true
+        end
     end
-end		
 
-local function DefaultExtinguishFn(inst)
-    if not (inst:HasTag("tree") or inst:HasTag("structure")) then
-        inst.persists = true
-    end
-end
-		
     inst:AddComponent("burnable")
     inst.components.burnable:SetFXLevel(3)
     inst.components.burnable:SetBurnTime(20)
-    inst.components.burnable:AddBurnFX("fire", Vector3(0, 0, 0), nil, nil, 0.2 )
+    inst.components.burnable:AddBurnFX("fire", Vector3(0, 0, 0), nil, nil, 0.2)
     inst.components.burnable:SetOnIgniteFn(DefaultBurnFn)
     inst.components.burnable:SetOnExtinguishFn(DefaultExtinguishFn)
     inst.components.burnable:SetOnBurntFn(DefaultBurntFn)
-		
+
     MakeLargePropagator(inst)
     inst:ListenForEvent("onignite", onignite)
     inst:ListenForEvent("burntup", onburntup)
@@ -221,10 +222,10 @@ end
     inst.OnSave = onsave
     inst.OnLoad = onload
 
-	inst:ListenForEvent("onbuilt", onbuilt)
-	
-	return inst
+    inst:ListenForEvent("onbuilt", onbuilt)
+
+    return inst
 end
 
-return Prefab("galinheiro", fn, assets, prefabs),
-		MakePlacer("galinheiro_placer", "galinheiro", "galinheiro", "idle", nil, nil, nil, 3)  
+return Prefab("chickenhouse", fn, assets, prefabs),
+    MakePlacer("chickenhouse_placer", "galinheiro", "galinheiro", "idle", nil, nil, nil, 3)

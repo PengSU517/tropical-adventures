@@ -203,9 +203,12 @@ if troadj.hamlet then
             table.insert(level.tasks, "Deep_rainforest")      ----有蚁穴
 
             table.insert(level.tasks, "Edge_of_civilization") --城郊地区
-            table.insert(level.tasks, "Pigcity")
+            table.insert(level.tasks, "Pigtopia")
+            -- table.insert(level.tasks, "Pigtopia_capital")
 
-            table.insert(level.tasks, "Pigcity2")
+            table.insert(level.tasks, "Other_edge_of_civilization")
+            table.insert(level.tasks, "Other_pigtopia")
+            -- table.insert(level.tasks, "Other_pigtopia_capital")
             table.insert(level.tasks, "Deep_rainforest_2")   ----有荨麻，遗迹入口  entrance_5  --并入曼达拉
 
             table.insert(level.tasks, "Edge_of_the_unknown") --pugalisk_fountain 蛇岛 ---大鸟岛入口？vampirebatcave_entrance_roc
@@ -281,24 +284,24 @@ if true then
 end
 
 
-------------------------热带气候调整---------------------------
-AddLevelPreInitAny(function(level)
-    if level.location == "forest" then
-        for i, taskname in ipairs(level.tasks) do
-            AddTaskPreInit(taskname, function(task)
-                if task.region_id and (task.region_id ~= "mainland" and task.region_id ~= "island1") then
-                    -- print(taskname .. "taskname!!!!!!")
-                    -- print(task.room_tags)
-                    -- print("task.room_tags")
-                    if not task.room_tags then
-                        task.room_tags = {}
-                    end
-                    tabel.insert_components(task.room_tags, "tropical")
-                end
-            end)
-        end
-    end
-end)
+-- ------------------------热带气候调整---------------------------
+-- AddLevelPreInitAny(function(level)
+--     if level.location == "forest" then
+--         for i, taskname in ipairs(level.tasks) do
+--             AddTaskPreInit(taskname, function(task)
+--                 if task.region_id and (task.region_id ~= "mainland" and task.region_id ~= "island1") then
+--                     -- print(taskname .. "taskname!!!!!!")
+--                     -- print(task.room_tags)
+--                     -- print("task.room_tags")
+--                     if not task.room_tags then
+--                         task.room_tags = {}
+--                     end
+--                     tabel.insert_components(task.room_tags, "tropical")
+--                 end
+--             end)
+--         end
+--     end
+-- end)
 
 
 ---------------------测试模式------------

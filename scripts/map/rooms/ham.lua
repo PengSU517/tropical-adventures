@@ -66,75 +66,7 @@ AddRoom("Rockyham", {
     }
 })
 
-AddRoom("city_base_1_set", {
-    colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
-    value = GROUND.FOUNDATION,
-    tags = { "RoadPoison", "tropical", "hamlet" },
-    contents = {
-        countstaticlayouts = {
-            ["cidade1"] = 1,
-        },
-        distributepercent = 0.8,
-        distributeprefabs =
-        {
-            rocks = 0.2,
-            grass = 0.2,
-            spoiled_food = 0.2,
-            twigs = 0.2,
-        },
-    }
-})
 
-AddRoom("city_base_2_set", {
-    colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
-    value = GROUND.SUBURB,
-    tags = { "RoadPoison", "tropical", "hamlet" },
-    contents = {
-        countstaticlayouts = {
-            ["cidade2"] = 1,
-        },
-        distributepercent = 0.3,
-        distributeprefabs =
-        {
-            rocks = 0.2,
-            grass = 0.2,
-            spoiled_food = 0.2,
-            twigs = 0.2,
-        },
-    }
-})
-
-AddRoom("city_base", {
-    colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
-    value = GROUND.SUBURB,
-    tags = { "RoadPoison", "tropical", "hamlet" },
-    contents = {
-        distributepercent = 0.3,
-        distributeprefabs =
-        {
-            rocks = 0.2,
-            grass = 0.2,
-            spoiled_food = 0.2,
-            twigs = 0.2,
-        },
-    }
-})
-
-AddRoom("BG_suburb_base", {
-    colour = { r = .3, g = 0.3, b = 0.3, a = 0.3 },
-    value = GROUND.SUBURB,
-    tags = { "RoadPoison", "tropical", "hamlet" },
-    contents = {
-        distributepercent = 0.3,
-        distributeprefabs =
-        {
-            rocks = 1,
-            grass = 1,
-            spoiled_food = 1,
-            twigs = 1,
-        },
-    }
-})
 
 -------------------------------pinacle----------------------------------
 AddRoom("BG_pinacle_base_set", {
@@ -201,154 +133,125 @@ AddRoom("BG_pinacle_base", {
 })
 
 
---if GetModConfigData("kindofworld") == 15 then
---[[ROOMS]]
----------------------------novo oceano --------------------------------------
+---------------------------------------------------------------city --------------------------------------
 
 
-AddRoom("BG_cultivated_base", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece", "tropical", "hamlet" },
-    contents = {
-        distributepercent = 0.06, ---0.1
-        distributeprefabs =
-        {
-            -- 			grass = 0.05,
-            --			flower = 0.3,
-            rock1 = 0.01,
-            teatree = 0.1,
-            --			peekhenspawner = 0.003,
-        },
-    }
+
+local cityContents = {
+    distributepercent = 0.1,
+    distributeprefabs = {
+        rocks = 1,
+        grass = 1,
+        spoiled_food = 1,
+        twigs = 1,
+    },
+}
+
+AddRoom("BG_city_base", {
+    colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
+    value = WORLD_TILES.SUBURB,
+    tags = { "ExitPiece", "City_Foundation" },
+    contents = cityContents
+})
+
+AddRoom("city_base_1", {
+    colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
+    value = WORLD_TILES.SUBURB,
+    tags = { "ExitPiece", "City_Foundation" },
+    contents = cityContents
 })
 
 
+AddRoom("city_base_2", {
+    colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
+    value = WORLD_TILES.SUBURB,
+    tags = { "ExitPiece", "City_Foundation" },
+    contents = cityContents
+})
+
+
+local suburb_contents = {
+    distributepercent = 0.1,
+    distributeprefabs = {
+        rocks = 1,
+        grass = 1,
+        spoiled_food = 1,
+        twigs = 1,
+    },
+}
+
+
+AddRoom("BG_suburb_base", {
+    colour = { r = .3, g = 0.3, b = 0.3, a = 0.3 },
+    value = WORLD_TILES.SUBURB,
+    tags = { "ExitPiece", "City_Foundation", "Suburb" },
+    contents = suburb_contents
+})
+
+AddRoom("suburb_base_1", {
+    colour = { r = .3, g = 0.3, b = 0.3, a = 0.3 },
+    value = WORLD_TILES.SUBURB,
+    tags = { "ExitPiece", "City_Foundation", "Suburb" },
+    contents = suburb_contents
+})
+
+AddRoom("suburb_base_2", {
+    colour = { r = .3, g = 0.3, b = 0.3, a = 0.3 },
+    value = WORLD_TILES.SUBURB,
+    tags = { "ExitPiece", "City_Foundation", "Suburb" },
+    contents = suburb_contents
+})
+
+---------------------------------------------------------------cultivated--------------------------------------
+local cultivated_contnets = {
+    distributepercent = 0.06, -- 0.1
+    distributeprefabs = {
+        rock1 = 0.01,
+        teatree = 0.1,
+        chicken = 0.02,
+        chickenhouse = 0.002,
+    },
+}
+
+AddRoom("BG_cultivated_base", {
+    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
+    value = WORLD_TILES.FIELDS,
+    tags = { "ExitPiece", "Cultivated" },
+    contents = cultivated_contnets
+})
+
 AddRoom("cultivated_base_1", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece", "tropical", "hamlet" },
-    contents = {
-        distributepercent = 0.06, ---0.1
-        distributeprefabs =
-        {
-            -- 			grass = 0.05,
-            --			flower = 0.3,
-            rock1 = 0.01,
-            teatree = 0.1,
-            --			peekhenspawner = 0.003,
-        },
-
-        countprefabs =
-        {
-            crabapple_tree = 4,
-
-        },
-        countstaticlayouts = { ["farm_1"] = 1, },
-    }
+    value = WORLD_TILES.FIELDS,
+    tags = { "ExitPiece", "Cultivated" },
+    contents = cultivated_contnets
 })
 
 AddRoom("cultivated_base_2", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece", "tropical", "hamlet" },
-    contents = {
-        distributepercent = 0.06, ---0.1
-        distributeprefabs =
-        {
-            -- 			grass = 0.05,
-            --			flower = 0.3,
-            rock1 = 0.01,
-            teatree = 0.1,
-            --			peekhenspawner = 0.003,
-        },
-
-        countprefabs =
-        {
-            crabapple_tree = 4,
-        },
-
-        countstaticlayouts = { ["farm_2"] = 1, },
-    }
-})
-
-
-AddRoom("cultivated_base_3", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece", "tropical", "hamlet" },
-    contents = {
-        distributepercent = 0.06, ---0.1
-        distributeprefabs =
-        {
-            -- 			grass = 0.05,
-            --			flower = 0.3,
-            rock1 = 0.01,
-            teatree = 0.1,
-            --			peekhenspawner = 0.003,
-        },
-        countstaticlayouts = { ["farm_3"] = 1, },
-    }
-})
-
-AddRoom("cultivated_base_4", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece", "tropical", "hamlet" },
-    contents = {
-        distributepercent = 0.06, ---0.1
-        distributeprefabs =
-        {
-            -- 			grass = 0.05,
-            --			flower = 0.3,
-            rock1 = 0.01,
-            teatree = 0.1,
-            --			peekhenspawner = 0.003,
-        },
-        countstaticlayouts = { ["farm_4"] = 1, },
-
-    }
-})
-
-AddRoom("cultivated_base_5", {
-    colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece", "tropical", "hamlet" },
-    contents = {
-        distributepercent = 0.06, ---0.1
-        distributeprefabs =
-        {
-            -- 			grass = 0.05,
-            --			flower = 0.3,
-            rock1 = 0.01,
-            teatree = 0.1,
-            --			peekhenspawner = 0.003,
-        },
-        countstaticlayouts = { ["farm_5"] = 1, },
-
-    }
+    value = WORLD_TILES.FIELDS,
+    tags = { "ExitPiece", "Cultivated" },
+    contents = cultivated_contnets
 })
 
 AddRoom("piko_land", {
     colour = { r = 1.0, g = 0.0, b = 1.0, a = 0.3 },
-    value = GROUND.FIELDS,
-    tags = { "ExitPiece", "tropical", "hamlet" },
+    value = WORLD_TILES.FIELDS,
+    tags = { "ExitPiece", "Cultivated" },
     contents = {
-        distributepercent = 0.06, --0.1
-        distributeprefabs =
-        {
-            --	grass = 0.05,
-            --	flower = 0.3,
+        distributepercent = 0.06, -- 0.1
+        distributeprefabs = {
             rock1 = 0.01,
+            chicken = 0.5,
+            chickenhouse = 0.02,
             teatree = 2.0,
         },
-        countprefabs =
-        {
+        countprefabs = {
             teatree_piko_nest_patch = 1
         },
     }
-
 })
+
 
 ----------------------------------------------------------- painted room--------------------------------------------------------------------------------------------------
 ----------------------------------------------------------- battlegrounds room--------------------------------------------------------------------------------------------------
@@ -2598,7 +2501,7 @@ AddRoom("HamBlueMushForest", {
             grass_tall = 3,
             ox = 0.5,
             teatree = 0.8,
-            teatree_piko_nest_patch = 0.5,
+            teatree_piko_nest = 0.5, --teatree_piko_nest_patch
         },
     }
 })
@@ -2622,7 +2525,7 @@ AddRoom("HamBlueMushMeadow", {
             grass_tall = 3,
             ox = 0.5,
             teatree = 0.8,
-            teatree_piko_nest_patch = 0.5,
+            teatree_piko_nest = 0.5, --teatree_piko_nest_patch
         },
     }
 })
@@ -2651,7 +2554,7 @@ AddRoom("HamBlueSpiderForest", {
             grass_tall = 3,
             ox = 0.5,
             teatree = 0.8,
-            teatree_piko_nest_patch = 0.5,
+            teatree_piko_nest = 0.5, --teatree_piko_nest_patch
         },
         countprefabs =
         {
@@ -2681,7 +2584,7 @@ AddRoom("HamDropperDesolation", {
             grass_tall = 3,
             ox = 0.5,
             teatree = 0.8,
-            teatree_piko_nest_patch = 0.5,
+            teatree_piko_nest = 0.5, --teatree_piko_nest_patch
         },
     }
 })
@@ -2705,7 +2608,7 @@ AddRoom("HamBGBlueMush", {
             grass_tall = 3,
             ox = 0.5,
             teatree = 0.8,
-            teatree_piko_nest_patch = 0.5,
+            teatree_piko_nest = 0.5, --teatree_piko_nest_patch
         },
     }
 })

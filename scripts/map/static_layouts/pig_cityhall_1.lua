@@ -66,7 +66,7 @@ return {
       objects = {
         {
           name = "",
-          type = "pig_shop_cityhall",
+          type = "pig_shop_cityhall_entrance",
           shape = "rectangle",
           x = 127,
           y = 192,
