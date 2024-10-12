@@ -340,7 +340,7 @@ PrefabFiles =
 	-- "lavaarena_armor",
 	-- "lavarenainside",
 	"teleportato2",
-	"galinheiro",
+
 	"invisiblepondfish",
 	"spider_mutators_new",
 	"anthillcave",
@@ -659,9 +659,9 @@ table.insert(PrefabFiles, "slipstor_spawner")
 -- 	table.insert(PrefabFiles, "summerwalrus")
 -- 	table.insert(PrefabFiles, "summerigloo")
 
-	table.insert(PrefabFiles, "octoatt")
-	table.insert(PrefabFiles, "octopus")
-	table.insert(PrefabFiles, "octohouse")
+table.insert(PrefabFiles, "octoatt")
+table.insert(PrefabFiles, "octopus")
+table.insert(PrefabFiles, "octohouse")
 -- end
 
 ----- prefabs marinhos---------------
@@ -859,6 +859,8 @@ end
 ]]
 
 table.insert(PrefabFiles, "chicken")
+table.insert(PrefabFiles, "chickenhouse")
+
 table.insert(PrefabFiles, "peekhen")
 table.insert(PrefabFiles, "peekhenspawner")
 -- table.insert(PrefabFiles, "snapdragon")

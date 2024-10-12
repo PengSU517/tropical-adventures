@@ -19,5 +19,5 @@ modimport("scripts/cooking_tropical")
 
 
 
-modimport("scripts/characterdata.lua")           -------------这似乎是个大杂烩，需要整理
+modimport("scripts/characterdata.lua")
 modimport("scripts/tropical_fx.lua")

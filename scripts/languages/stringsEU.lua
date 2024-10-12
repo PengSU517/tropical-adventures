@@ -3347,7 +3347,7 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.BURR_SAPLING               = --"It looks ten
 }
 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_LATIN_1                =
-"It says \"Ightlay iresfay\""                                                                  -- light fires in pig latin
+"It says \"Ightlay iresfay\"" -- light fires in pig latin
 
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_RUINS_BEAM_ROOM       = "It's holding up the roof."
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.DECO_CAVE_BEAM_ROOM        = "It's holding up the roof."
@@ -4609,14 +4609,14 @@ STRINGS.RECIPE_DESC.PIG_SHOP_TINKER_ENTRANCE            = "The Tinkerer's Tower.
 
 -- Character skill recipes extension
 -- WILSON
-STRINGS.RECIPE_DESC.TRANSMUTE_BAMBOO 					= "Transmute Cutgrass into a Bamboo."
-STRINGS.RECIPE_DESC.TRANSMUTE_CUTGRASS_TRO				= "Transmute Bamboo into a Cutgrass."
-STRINGS.RECIPE_DESC.TRANSMUTE_VINE 						= "Transmute Twigs into a Vine."
-STRINGS.RECIPE_DESC.TRANSMUTE_TWINGS_TRO 				= "Transmute Vine into a Twig."
-STRINGS.RECIPE_DESC.TRANSMUTE_CORK 						= "Transmute Driftwood Pieces into a Cork."
-STRINGS.RECIPE_DESC.TRANSMUTE_DRIFTWOOD_LOG_TRO 		= "Transmute Corks into a Driftwood Piece."
+STRINGS.RECIPE_DESC.TRANSMUTE_BAMBOO                    = "Transmute Cutgrass into a Bamboo."
+STRINGS.RECIPE_DESC.TRANSMUTE_CUTGRASS_TRO              = "Transmute Bamboo into a Cutgrass."
+STRINGS.RECIPE_DESC.TRANSMUTE_VINE                      = "Transmute Twigs into a Vine."
+STRINGS.RECIPE_DESC.TRANSMUTE_TWINGS_TRO                = "Transmute Vine into a Twig."
+STRINGS.RECIPE_DESC.TRANSMUTE_CORK                      = "Transmute Driftwood Pieces into a Cork."
+STRINGS.RECIPE_DESC.TRANSMUTE_DRIFTWOOD_LOG_TRO         = "Transmute Corks into a Driftwood Piece."
 -- WORNWOOD
-STRINGS.RECIPE_DESC.WORMWOOD_SEAWEED_STALK 				= "Delicious and nutritious."
+STRINGS.RECIPE_DESC.WORMWOOD_SEAWEED_STALK              = "Delicious and nutritious."
 
 STRINGS.NAMES.PIG_SHOP_FLORIST_ENTRANCE                 = "Miss Sow's\nFloral Arrangements"
 STRINGS.NAMES.PIG_SHOP_GENERAL_ENTRANCE                 = "Pigg and Pigglet's\nGeneral Store"
@@ -6556,6 +6556,10 @@ STRINGS.CHARACTERS.GENERIC.DESCRIBE.LAVARENAESCADA2 = "Lavarena Portal."
 
 STRINGS.NAMES.GALINHEIRO = "Chicken House"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.GALINHEIRO = "Chicken House."
+
+STRINGS.NAMES.CHICKENHOUSE = "Chicken House"
+STRINGS.CHARACTERS.GENERIC.DESCRIBE.CHICKENHOUSE = "Chicken House."
+
 ----não esta nos quotes----
 CITY_PIG_ESKIMO_TRADE = "FISHES"
 STRINGS.NAMES.PIG_ESKIMO = "Pig Ekimo"
@@ -6650,6 +6654,7 @@ STRINGS.NAMES.FEATHER_CHICKEN = "feather chicken"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.FEATHER_CHICKEN = "feather chicken."
 
 STRINGS.RECIPE_DESC.GALINHEIRO = "Chicken House."
+STRINGS.RECIPE_DESC.CHICKENHOUSE = "Chicken House."
 
 STRINGS.NAMES.TURNIP_PLANTED = "Turnip Plant"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURNIP_PLANTED = "Turnip Plant."
