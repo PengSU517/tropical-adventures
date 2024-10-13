@@ -1,4 +1,4 @@
-local MapTags = { "frost", "tropical", "hamlet", "shipwrecked", "underwater" }
+local MapTags = { "frost", "tropical", "hamlet", "shipwrecked", "volcano", "underwater" }
 local GlobalMapTags = { "City1", "City2", "City_Foundation", "Suburb", "Cultivated" }
 
 AddGlobalClassPostConstruct("map/storygen", "Story", function(self)
