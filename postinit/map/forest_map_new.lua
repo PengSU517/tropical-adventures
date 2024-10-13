@@ -21,8 +21,9 @@ local old_generatemap = forest_map.Generate
 forest_map.Generate = function(prefab, map_width, map_height, tasks, level, level_type, ...)
     local save = old_generatemap(prefab, map_width, map_height, tasks, level, level_type, ...)
 
-    if save == nil then return nil end
-    if level.location ~= "forest" then return end
+    if save == nil then return save end
+    if level.location ~= "forest" then return save end
+    if not TA_CONFIG.hamlet then return save end
 
 
     -- require "map/monkeyisland_worldgen"

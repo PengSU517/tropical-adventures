@@ -1058,7 +1058,7 @@ local function Generate(prefab, map_width, map_height, tasks, level, level_type)
     print("Done " .. prefab .. " map gen!")
 
     --------------------building porkland cities---------------------------------------------------------------------
-    if level.location ~= "forest" then return end
+    if level.location ~= "forest" then return save end
 
     local make_cities = require("map/city_builder")
     local build_porkland = function(entities, topology_save, map_width, map_height, current_gen_params)

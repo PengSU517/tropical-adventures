@@ -73,10 +73,7 @@ end
 if (troadj.together == true) and (troadj.rog == "fixed") then
     AddLevelPreInitAny(function(level)
         if level.location == "cave" then
-            -- level.overrides.keep_disconnected_tiles = true
-            level.numoptionaltasks = 0
-            level.optionaltasks = {}
-            ------------caveexit也要减少
+
         end
 
         if level.location == "forest" then
@@ -100,22 +97,6 @@ if (troadj.together == true) and (troadj.rog == "fixed") then
                 -- "Mole Colony Deciduous",---第二桦树林
                 -- "Mole Colony Rocks",---大矿区
                 -- "MooseBreedingTask",
-
-                -- level.set_pieces["CaveEntrance"] = {
-                --     count = 10,
-                --     tasks = { "Make a pick",
-                --         "Dig that rock",
-                --         "Great Plains",
-                --         "Squeltch",
-                --         "Beeeees!",
-                --         "Speak to the king",
-                --         "Forest hunters",
-                --         "Badlands",
-                --         "For a nice walk",
-                --         "Lightning Bluff",
-                --         "Killer bees!",
-                --         "The hunters" }
-                -- }
             end
         end
     end)
