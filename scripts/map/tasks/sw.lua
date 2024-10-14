@@ -337,7 +337,7 @@ AddTask("Volcano ground", {
     locks = { LOCKS.MEDIUM },
     keys_given = { KEYS.MEDIUM },
     region_id = "volcano",
-    room_tags = { "RoadPoison", "shipwrecked", "volcano", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "volcano", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
         [salasvolcano[math.random(1, 5)]] = 1,
         [salasvolcano[math.random(1, 5)]] = 1,
@@ -352,7 +352,11 @@ AddTask("Volcano ground", {
     },
     room_bg = GROUND.VOLCANO,
     background_room = "VolcanoNoise",
-    crosslink_factor = 5,
+    cove_room_name = "VolcanoNoise",
+    make_loop = true,
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    crosslink_factor = 10,
     colour = { 1, .5, .5, .2 },
 })
 

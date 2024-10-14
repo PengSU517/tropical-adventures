@@ -912,7 +912,7 @@ AddRoom("VolcanoObsidian", {
             volcano_shrub = .2,
             charcoal = 0.04,
             skeleton = 0.1,
-            dragoonden = .05,
+            dragoonden = .1,
             elephantcactus = 0.1,
             --coffeebush = 1,
         },
@@ -945,9 +945,9 @@ AddRoom("VolcanoStart", {
         countprefabs =
         {
             volcanofog = math.random(1, 2),
-            cavelight = 3,
-            cavelight_small = 3,
-            cavelight_tiny = 3,
+            --  cavelight = 3,
+            --  cavelight_small = 3,
+            --  cavelight_tiny = 3,
         },
     }
 })
@@ -969,7 +969,7 @@ AddRoom("VolcanoNoise", {
             volcano_shrub = .5,
             charcoal = 0.04,
             skeleton = 0.1,
-            dragoonden = .05,
+            dragoonden = .2,
             elephantcactus = 1,
             coffeebush = 1,
         },
@@ -999,8 +999,8 @@ AddRoom("VolcanoObsidianBench", {
         countprefabs =
         {
             volcanofog = math.random(1, 2),
-            cavelight = 2,
-            cavelight_small = 2,
+            --  cavelight = 2,
+            --  cavelight_small = 2,
             firetwister = 1,
         },
     }
@@ -1023,8 +1023,8 @@ AddRoom("VolcanoAltar", {
         countprefabs =
         {
             volcanofog = math.random(1, 2),
-            cavelight = 2,
-            cavelight_small = 2,
+            --  cavelight = 2,
+            --  cavelight_small = 2,
         },
 
     }
@@ -1072,8 +1072,8 @@ AddRoom("VolcanoCage", {
         countprefabs =
         {
             volcanofog = 1,
-            cavelight = 2,
-            cavelight_small = 2,
+            --  cavelight = 2,
+            --  cavelight_small = 2,
         },
     }
 })

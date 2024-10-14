@@ -159,9 +159,9 @@ if troadj.shipwrecked then
             -- level.ocean_prefill_setpieces["wreck2"] = 1
             -- level.ocean_prefill_setpieces["kraken"] = 1
         elseif level.location == "cave" then
-            table.insert(level.tasks, "Volcano entrance")
-            table.insert(level.tasks, "Volcano")
-            table.insert(level.tasks, "Volcano inner")
+            -- table.insert(level.tasks, "Volcano entrance")
+            -- table.insert(level.tasks, "Volcano")
+            -- table.insert(level.tasks, "Volcano inner")
         end
     end)
 end
