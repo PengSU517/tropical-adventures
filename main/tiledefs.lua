@@ -1,13 +1,13 @@
 local GroundTiles = require("worldtiledefs")
 local NoiseFunctions = require("noisetilefunctions")
 local ChangeTileRenderOrder = ChangeTileRenderOrder
-local ChangeMiniMapTileRenderOrder = ChangeMiniMapTileRenderOrder
 local AddTile = AddTile
 
 local WORLD_TILES = WORLD_TILES
 local GROUND = GROUND
 
--- local TAENV = env
+
+
 GLOBAL.setfenv(1, GLOBAL) --这个是让所有的全局变量挂在global上
 
 local AddNewTile = function(tile, range, tile_data, ground_tile_def, minimap_tile_def, turf_def)
@@ -36,100 +36,11 @@ local TileRanges =
     IMPASSABLE = "IMPASSABLE",
 }
 
-local function volcano_noisefn(noise)
-    return WORLD_TILES.VOLCANO_NOISE
-end
-
-
-local OCEAN_COLOR =
-{
-    primary_color = { 40, 80, 60, 200 },
-    secondary_color = { 21, 96, 110, 140 },
-    secondary_color_dusk = { 0, 0, 0, 50 },
-    minimap_color = { 23, 51, 62, 102 },
-}
-
-local SHALLOW_SHORE_OCEAN_COLOR =
-{
-    primary_color = { 220, 240, 255, 60 },
-    secondary_color = { 21, 96, 110, 140 },
-    secondary_color_dusk = { 0, 0, 0, 50 },
-    minimap_color = { 23, 51, 62, 102 },
-}
-
-local SHALLOW_OCEAN_COLOR =
-{
-    primary_color = { 0, 255, 255, 100 }, --{ 20, 255, 150, 255 },--255是全白   透明度调成0就是完全透明（基底颜色且没有纹理）
-    secondary_color = { 25, 123, 167, 100 },
-    secondary_color_dusk = { 10, 120, 125, 120 },
-    minimap_color = { 23, 51, 62, 102 },
-}
-
-local MEDIUM_OCEAN_COLOR =
-{
-    primary_color = { 150, 255, 255, 18 },
-    secondary_color = { 0, 45, 80, 220 },
-    secondary_color_dusk = { 9, 52, 57, 150 },
-    minimap_color = { 14, 34, 61, 204 },
-}
-
-local DEEP_OCEAN_COLOR =
-{
-    primary_color = { 10, 200, 220, 30 },
-    secondary_color = { 1, 20, 45, 230 },
-    secondary_color_dusk = { 5, 20, 25, 230 },
-    minimap_color = { 19, 20, 40, 230 },
-}
-
-local SHIPGRAVEYARD_OCEAN_COLOR =
-{
-    primary_color = { 255, 255, 255, 25 },
-    secondary_color = { 0, 8, 18, 51 },
-    secondary_color_dusk = { 0, 0, 0, 150 },
-    minimap_color = { 8, 8, 14, 51 },
-}
-
-local MANGROVE_OCEAN_COLOR =
-{
-    primary_color = { 5, 185, 220, 60 },
-    secondary_color = { 5, 20, 45, 200 },
-    secondary_color_dusk = { 5, 15, 20, 200 },
-    minimap_color = { 40, 87, 93, 51 },
-}
-
-local CORAL_OCEAN_COLOR =
-{
-    primary_color = { 220, 255, 255, 28 },
-    secondary_color = { 25, 123, 167, 100 },
-    secondary_color_dusk = { 10, 120, 125, 120 },
-    minimap_color = { 40, 87, 93, 51 },
-}
-
-local LILYPOND_SHORE_OCEAN_COLOR =
-{
-    primary_color = { 255, 255, 255, 25 },
-    secondary_color = { 255, 0, 0, 255 },
-    secondary_color_dusk = { 255, 0, 0, 255 },
-    minimap_color = { 255, 0, 0, 255 },
-}
-
-local WAVETINTS =
-{
-    shallow = { 0.8, 0.9, 1 },
-    rough = { 0.65, 0.84, 0.94 },
-    swell = { 0.65, 0.84, 0.94 },
-    brinepool = { 0.65, 0.92, 0.94 },
-    hazardous = { 0.40, 0.50, 0.62 },
-    waterlog = { 1, 1, 1 },
-    lilypond = { 1, 1, 1 },
-}
 
 local tro_tiledefs = {
-    -------------------------------
-    -- OCEAN/SEA/LAKE
-    -- (after Land in order to keep render order consistent)
-    -------------------------------
 
+
+    -------------------以下为水体地皮---------------------
     MANGROVE = {
         tile_range       = TileRanges.TRO_OCEAN,
         tile_data        = {
@@ -137,14 +48,14 @@ local tro_tiledefs = {
             old_static_id = 106,
         },
         ground_tile_def  = {
-            name = "water_medium",
-            noise_texture = "ground_water_mangrove",
+            name = "sw/water_medium",
+            noise_texture = "sw/water_mangrove",
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_water_mangrove",
+            noise_texture = "sw/mini_water_mangrove",
         },
     },
 
@@ -156,8 +67,8 @@ local tro_tiledefs = {
             old_static_id = 107,
         },
         ground_tile_def  = {
-            name = "water_medium", ----- "water_medium"
-            noise_texture = "ground_water_lilypond",
+            name = "sw/water_medium", ----- "water_medium"
+            noise_texture = "ham/water_lilypond2",
             -- is_shoreline = true,   -------------加上
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
@@ -167,33 +78,9 @@ local tro_tiledefs = {
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_water_lilypond",
+            noise_texture = "ham/mini_water_lilypond",
         },
     },
-    -- LILYPOND = {
-
-    --     tile_range       = TileRanges.OCEAN,
-    --     tile_data        = {
-    --         ground_name = "Lilypond",
-    --         old_static_id = GROUND.OCEAN_BRINEPOOL_SHORE,
-    --     },
-    --     ground_tile_def  = {
-    --         name = "cave",                 ----- "water_medium"
-    --         noise_texture = "ocean_noise", --"ground_water_lilypond",
-    --         is_shoreline = true,           -------------加上
-    --         -- flashpoint_modifier = 250,
-    --         ocean_depth = "SHALLOW",
-    --         colors = SHALLOW_OCEAN_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
-    --         wavetint = WAVETINTS.swell,
-
-    --     },
-    --     minimap_tile_def = {
-    --         name = "map_edge",
-    --         noise_texture = "mini_water_lilypond",
-    --     },
-    -- },
-
-
 
     OCEAN_CORAL = {
         tile_range       = TileRanges.TRO_OCEAN,
@@ -202,36 +89,33 @@ local tro_tiledefs = {
             old_static_id = 104,
         },
         ground_tile_def  = {
-            name = "water_medium",
-            noise_texture = "ground_water_coral", --   "ground_water_coral",
+            name = "sw/water_medium",
+            noise_texture = "sw/water_coral", --   "ground_water_coral",
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
-            -- colors = OCEAN_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
-            -- wavetint = WAVETINTS.waterlog,
-            -- is_shoreline = true,
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_water_coral",
+            noise_texture = "sw/mini_water_coral",
         },
     },
 
     OCEAN_SHALLOW_SHORE = { --was called OCEAN_SHORE in sw, kept for ambientsound
         tile_range       = TileRanges.TRO_OCEAN,
         tile_data        = {
-            ground_name = "Shallow",
+            ground_name = "Shallow Shore",
             old_static_id = 101,
         },
         ground_tile_def  = {
-            name = "water_medium",
-            noise_texture = "ground_noise_water_shallow",
+            name = "sw/water_shallow",
+            noise_texture = "sw/water_shallow",
             flashpoint_modifier = 250,
             -- is_shoreline = true,
             ocean_depth = "SHALLOW",
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_watershallow_noise",
+            noise_texture = "sw/mini_water_shallow",
         },
     },
     OCEAN_SHALLOW = {
@@ -241,19 +125,16 @@ local tro_tiledefs = {
             old_static_id = 101,
         },
         ground_tile_def  = {
-            name = "water_medium",
-            noise_texture = "ground_noise_water_shallow",
+            name = "sw/water_shallow",
+            noise_texture = "sw/water_shallow",
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_watershallow_noise",
+            noise_texture = "sw/mini_water_shallow",
         },
     },
-
-
-
 
 
     OCEAN_MEDIUM = {
@@ -263,14 +144,14 @@ local tro_tiledefs = {
             old_static_id = 102,
         },
         ground_tile_def  = {
-            name = "water_medium",
-            noise_texture = "ground_noise_water_medium",
+            name = "sw/water_medium",
+            noise_texture = "sw/water_medium",
             flashpoint_modifier = 250,
             ocean_depth = "DEEP",
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_watermedium_noise",
+            noise_texture = "sw/mini_water_medium",
         },
     },
     OCEAN_DEEP = {
@@ -280,14 +161,14 @@ local tro_tiledefs = {
             old_static_id = 103,
         },
         ground_tile_def  = {
-            name = "water_medium",
-            noise_texture = "ground_noise_water_deep",
+            name = "sw/water_deep",
+            noise_texture = "sw/water_deep",
             flashpoint_modifier = 250,
             ocean_depth = "VERY_DEEP",
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_waterdeep_noise",
+            noise_texture = "sw/mini_water_deep",
         },
     },
     OCEAN_SHIPGRAVEYARD = {
@@ -297,15 +178,40 @@ local tro_tiledefs = {
             old_static_id = 105,
         },
         ground_tile_def  = {
-            name = "water_medium",
-            noise_texture = "ground_water_graveyard",
+            name = "sw/water_deep",
+            noise_texture = "sw/water_graveyard",
             flashpoint_modifier = 250,
             ocean_depth = "BASIC",
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_water_graveyard",
+            noise_texture = "sw/mini_water_graveyard",
         },
+    },
+
+    ---------------------以下为海难陆地地皮------------------------------
+    BEACH = { ------------物品栏贴图不对
+        tile_range       = TileRanges.SW_LAND,
+        tile_data        = {
+            ground_name = "Beach",
+            old_static_id = 33,
+        },
+        ground_tile_def  = {
+            name = "sw/beach",
+            noise_texture = "sw/ground_beach",
+            runsound = "dontstarve/movement/run_sand",
+            walksound = "dontstarve/movement/walk_sand",
+            flashpoint_modifier = 0,
+            -- cannotbedug = true,
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "sw/mini_ground_beach",
+        },
+        turf_def         = {
+            name = "beach",
+            bank_build = "turf_sw",
+        }, --------------应该没有turf
     },
 
     JUNGLE = {
@@ -315,8 +221,8 @@ local tro_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def  = {
-            name = "jungle",
-            noise_texture = "ground_noise_jungle",
+            name = "sw/jungle",
+            noise_texture = "sw/ground_jungle",
             runsound = "dontstarve/movement/run_dirt",
             walksound = "dontstarve/movement/walk_dirt",
             -- snowsound = "dontstarve/movement/run_ice",
@@ -325,13 +231,34 @@ local tro_tiledefs = {
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_jungle_noise",
+            noise_texture = "sw/mini_ground_jungle",
         },
         turf_def         = {
             name = "jungle",
-            bank_build = "turf",
+            bank_build = "turf_sw",
         },
     },
+
+    -- SWAMP = {
+    --     tile_range = TileRanges.SW_LAND,
+    --     tile_data = {
+    --         ground_name = "Swamp",
+    --         old_static_id = 33,
+    --     },
+    --     ground_tile_def  = {
+    --         name = "swamp",
+    --         noise_texture = "ground_noise_swamp",
+    --         runsound = "dontstarve/movement/run_marsh",
+    --         walksound = "dontstarve/movement/walk_marsh",
+    --     },
+    --     minimap_tile_def = {
+    --         name = "map_edge",
+    --         noise_texture = "mini_swamp_noise",
+    --     },
+    --     turf_def = {
+    --         name = "swamp",
+    --     },
+    -- },
 
     MAGMAFIELD = {
         tile_range       = TileRanges.SW_LAND,
@@ -341,99 +268,22 @@ local tro_tiledefs = {
         },
         ground_tile_def  = {
             name = "cave",
-            noise_texture = "noise_magmafield",
+            noise_texture = "sw/ground_magmafield",
             runsound = "dontstarve/movement/run_rock",
             walksound = "dontstarve/movement/walk_rock",
             -- runsound = "dontstarve/movement/run_slate",
             -- walksound = "dontstarve/movement/walk_slate",
             snowsound = "dontstarve/movement/run_ice",
             flashpoint_modifier = 0,
-            -- hard = true,
+            hard = true,
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_magmafield",
+            noise_texture = "sw/mini_ground_magmafield",
         },
         turf_def         = {
             name = "magmafield",
-            bank_build = "turf",
-        },
-    },
-
-    ASH = {
-        tile_range       = TileRanges.SW_LAND,
-        tile_data        = {
-            ground_name = "Ash",
-            old_static_id = 33,
-        },
-        ground_tile_def  = {
-            name = "cave",
-            noise_texture = "noise_ash",
-            runsound = "dontstarve/movement/run_dirt",
-            walksound = "dontstarve/movement/walk_dirt",
-            snowsound = "dontstarve/movement/run_ice",
-            flashpoint_modifier = 0,
-            -- hard = true,
-        },
-        minimap_tile_def = {
-            name = "map_edge",
-            noise_texture = "mini_noise_ash",
-        },
-        turf_def         = {
-            name = "ash",
-            bank_build = "turf",
-        },
-    },
-
-    VOLCANO_ROCK = { --------------------但这似乎是岩浆地皮
-        tile_range       = TileRanges.SW_LAND,
-        tile_data        = {
-            ground_name = "Beard Rug",
-            old_static_id = 33,
-        },
-        ground_tile_def  = {
-            name = "cave",
-            noise_texture = "noise_beardrug",
-            runsound = "dontstarve/movement/run_rock",
-            walksound = "dontstarve/movement/walk_rock",
-            flashpoint_modifier = 0,
-            flooring = false,
-            -- hard = true,
-            -- cannotbedug = true,
-        },
-        minimap_tile_def = {
-            name = "map_edge",
-            noise_texture = "mini_noise_beardrug",
-        },
-        -- turf_def         = {
-        --     name = "beardrug",
-        --     bank_build = "turf",
-        -- },
-
-    },
-
-    VOLCANO = {
-        tile_range       = TileRanges.SW_LAND,
-        tile_data        = {
-            ground_name = "Lava Rock",
-            old_static_id = 33,
-        },
-        ground_tile_def  = {
-            name = "cave",
-            noise_texture = "noise_volcano",
-            runsound = "dontstarve/movement/run_rock",
-            walksound = "dontstarve/movement/walk_rock",
-            snowsound = "dontstarve/movement/run_ice",
-            flashpoint_modifier = 0,
-            -- hard = true,
-        },
-        minimap_tile_def = {
-            name = "map_edge",
-            noise_texture = "mini_noise_volcano",
-        },
-        turf_def         = {
-            name = "volcano",
-            bank_build = "turf",
+            bank_build = "turf_sw",
         },
     },
 
@@ -444,19 +294,19 @@ local tro_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def  = {
-            name = "tidalmarsh",
-            noise_texture = "noise_tidalmarsh",
+            name = "sw/tidalmarsh",
+            noise_texture = "sw/ground_tidalmarsh",
             runsound = "dontstarve/movement/run_marsh",
             walksound = "dontstarve/movement/walk_marsh",
             flashpoint_modifier = 0,
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_tidalmarsh",
+            noise_texture = "sw/mini_ground_tidalmarsh",
         },
         turf_def         = {
             name = "tidalmarsh",
-            bank_build = "turf",
+            bank_build = "turf_sw",
         },
     },
 
@@ -467,20 +317,101 @@ local tro_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def  = {
-            name = "jungle",
-            noise_texture = "noise_meadow",
+            name = "sw/jungle",
+            noise_texture = "sw/ground_meadow",
             runsound = "dontstarve/movement/run_tallgrass",
             walksound = "dontstarve/movement/walk_tallgrass",
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_meadow",
+            noise_texture = "sw/mini_ground_meadow",
         },
         turf_def         = {
             name = "meadow",
-            bank_build = "turf",
+            bank_build = "turf_sw",
         },
     },
+
+    VOLCANO = {
+        tile_range       = TileRanges.SW_LAND,
+        tile_data        = {
+            ground_name = "Lava Rock",
+            old_static_id = 33,
+        },
+        ground_tile_def  = {
+            name = "cave",
+            noise_texture = "sw/ground_volcano",
+            runsound = "dontstarve/movement/run_rock",
+            walksound = "dontstarve/movement/walk_rock",
+            snowsound = "dontstarve/movement/run_ice",
+            flashpoint_modifier = 0,
+            hard = true,
+            cannotbedug = true, ----不能挖
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "sw/mini_ground_volcano",
+        },
+        turf_def         = {
+            name = "volcano",
+            bank_build = "turf_sw",
+        },
+    },
+
+
+    ASH = {
+        tile_range       = TileRanges.SW_LAND,
+        tile_data        = {
+            ground_name = "Ash",
+            old_static_id = 33,
+        },
+        ground_tile_def  = {
+            name = "cave",
+            noise_texture = "sw/ground_ash",
+            runsound = "dontstarve/movement/run_dirt",
+            walksound = "dontstarve/movement/walk_dirt",
+            snowsound = "dontstarve/movement/run_ice",
+            flashpoint_modifier = 0,
+            hard = true,
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "sw/mini_ground_ash",
+        },
+        turf_def         = {
+            name = "ash",
+            bank_build = "turf_sw",
+        },
+    },
+
+    VOLCANO_ROCK = { -------------有地皮动画但是没贴图
+        tile_range       = TileRanges.SW_LAND,
+        tile_data        = {
+            ground_name = "Volcano Rock",
+            old_static_id = 33,
+        },
+        ground_tile_def  = {
+            name = "rocky",
+            noise_texture = "sw/ground_volcano_rock",
+            runsound = "dontstarve/movement/run_rock",
+            walksound = "dontstarve/movement/walk_rock",
+            flashpoint_modifier = 0,
+            hard = true, ----不可种植
+            cannotbedug = true,
+
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "sw/mini_ground_volcano_rock",
+        },
+
+        turf_def         = {
+            name = "volcano_rock",
+            bank_build = "turf_sw",
+        },
+    },
+
+
 
     SNAKESKINFLOOR = {
         tile_range       = TileRanges.SW_LAND,
@@ -490,48 +421,22 @@ local tro_tiledefs = {
         },
         ground_tile_def  = {
             name = "carpet",
-            noise_texture = "noise_snakeskinfloor",
+            noise_texture = "sw/ground_snakeskinfloor",
             runsound = "dontstarve/movement/run_carpet",
             walksound = "dontstarve/movement/walk_carpet",
             flashpoint_modifier = 0,
             flooring = true,
-            hard = true, -- NO PLANTING ON SNAKESKIN!!! (what a dumb oversight)
+            hard = true,
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_snakeskinfloor",
+            noise_texture = "sw/mini_ground_snakeskinfloor",
         },
         turf_def         = {
             name = "snakeskinfloor",
-            bank_build = "turf",
+            bank_build = "turf_sw",
         },
     },
-
-    BEACH = {
-        tile_range       = TileRanges.SW_LAND,
-        tile_data        = {
-            ground_name = "Beach",
-            old_static_id = 33,
-        },
-        ground_tile_def  = {
-            name = "beach",
-            noise_texture = "noise_beach",
-            runsound = "dontstarve/movement/run_sand",
-            walksound = "dontstarve/movement/walk_sand",
-            flashpoint_modifier = 0,
-            -- bank_build = "turf",
-            -- cannotbedug = true, ----------------------------原来是这个吗
-        },
-        minimap_tile_def = {
-            name = "map_edge",
-            noise_texture = "mini_noise_beach",
-        },
-        turf_def         = {
-            name = "beach",
-            bank_build = "turf",
-        }, --------------应该没有turf
-    },
-
 
     -------------------------------
     -- IMPASSABLE
@@ -559,6 +464,7 @@ local tro_tiledefs = {
     -- },
 
 
+    --------------------------以下为哈姆陆地地皮---------------------
     PLAINS = {
         tile_range = TileRanges.HAM_LAND,
         tile_data = {
@@ -566,18 +472,18 @@ local tro_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def = {
-            name = "jungle",
-            noise_texture = "noise_plains",
+            name = "ham/jungle",
+            noise_texture = "ham/ground_plains",
             runsound = "dontstarve/movement/run_tallgrass",
             walksound = "dontstarve/movement/walk_tallgrass",
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_plains",
+            noise_texture = "ham/mini_ground_plains",
         },
         turf_def = {
             name = "plains",
-            bank_build = "turf",
+            bank_build = "turf_ham",
         },
     },
 
@@ -589,19 +495,44 @@ local tro_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def  = {
-            name = "deeprainforest",
-            noise_texture = "noise_deeprainforest",
+            name = "ham/jungle_deep",
+            noise_texture = "ham/ground_deeprainforest",
             runsound = "dontstarve/movement/run_woods",
             walksound = "dontstarve/movement/walk_woods",
             flashpoint_modifier = 0,
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_deeprainforest",
+            noise_texture = "ham/mini_ground_deeprainforest",
+        },
+        turf_def         = {
+            name = "deeprainforest",
+            bank_build = "turf_ham",
+        },
+    },
+
+    DEEPRAINFOREST_NOCANOPY = {
+        tile_range       = TileRanges.HAM_LAND,
+        tile_data        = {
+            ground_name = "Jungle Deep Nocanopy",
+            old_static_id = 33,
+        },
+        ground_tile_def  = {
+            name = "ham/jungle_deep",
+            noise_texture = "ham/ground_deeprainforest_nocanopy",
+            runsound = "dontstarve/movement/run_woods",
+            walksound = "dontstarve/movement/walk_woods",
+            flashpoint_modifier = 0,
+            cannotbedug = true, ----不能挖
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "ham/mini_ground_deeprainforest_nocanopy",
         },
         -- turf_def         = {
-        --     name = "deeprainforest",
-        --     bank_build = "turf",
+        --     name = "deeprainforest_nocanopy",
+        --     anim = "deeprainforest",
+        --     bank_build = "turf_ham",
         -- },
     },
 
@@ -612,20 +543,20 @@ local tro_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def = {
-            name = "rainforest",
-            noise_texture = "noise_rainforest",
+            name = "ham/rain_forest",
+            noise_texture = "ham/ground_rainforest",
             runsound = "dontstarve/movement/run_woods",
             walksound = "dontstarve/movement/walk_woods",
             flashpoint_modifier = 0,
-            floor = true,
+
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_rainforest",
+            noise_texture = "ham/mini_ground_rainforest",
         },
         turf_def = {
             name = "rainforest",
-            bank_build = "turf",
+            bank_build = "turf_ham",
         },
     },
 
@@ -636,91 +567,117 @@ local tro_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def = {
-            name = "cave",
-            noise_texture = "noise_painted",
+            name = "ham/swamp",
+            noise_texture = "ham/ground_painted",
             runsound = "dontstarve/movement/run_sand",
             walksound = "dontstarve/movement/walk_sand",
             mudsound = "run_sand"
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_painted",
+            noise_texture = "ham/mini_ground_painted",
         },
         turf_def = {
             name = "painted",
-            bank_build = "turf",
+            bank_build = "turf_ham",
         },
     },
 
-    -- BATTLEGROUND = { --------BATTLEGROUND
-    --     tile_range = TileRanges.HAM_LAND,
-    --     tile_data = {
-    --         ground_name = "Battleground",
-    --         old_static_id = 33,
-    --     },
-    --     ground_tile_def = {
-    --         name = "cave",
-    --         noise_texture = "noise_pigruins",
-    --         runsound = "dontstarve/movement/run_dirt",
-    --         walksound = "dontstarve/movement/walk_dirt",
-    --         snowsound = "run_ice",
-    --     },
-    --     minimap_tile_def = {
-    --         name = "map_edge",
-    --         noise_texture = "mini_noise_pigruins"
-    --     },
-    --     turf_def = {
-    --         name = "battleground",
-    --         bank_build = "turf",
-    --     },
-    -- },
-
-    PIGRUINS = { --------BATTLEGROUND
+    BATTLEGROUND = { --------BATTLEGROUND
         tile_range = TileRanges.HAM_LAND,
         tile_data = {
-            ground_name = "Pigruins",
+            ground_name = "Battleground",
             old_static_id = 33,
         },
         ground_tile_def = {
-            name = "cave",
-            noise_texture = "noise_pigruins",
+            name = "ham/jungle_deep",
+            noise_texture = "ham/ground_battlegrounds",
             runsound = "dontstarve/movement/run_dirt",
             walksound = "dontstarve/movement/walk_dirt",
             snowsound = "run_ice",
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_pigruins"
+            noise_texture = "ham/mini_ground_battlegrounds"
         },
         turf_def = {
-            name = "pigruins",
-            bank_build = "turf",
+            name = "battleground",
+            anim = "battlegrounds",
+            bank_build = "turf_ham",
         },
     },
 
-    GASJUNGLE = { --note this majestic creature is unused
+    PIGRUINS = {
+        tile_range = TileRanges.HAM_LAND,
+        tile_data = {
+            ground_name = "Pigruins",
+            old_static_id = 33,
+        },
+        ground_tile_def = {
+            name = "ham/blocky",
+            noise_texture = "ham/ground_pigruins",
+            runsound = "dontstarve/movement/run_dirt",
+            walksound = "dontstarve/movement/walk_dirt",
+            snowsound = "run_ice",
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "ham/mini_ground_pigruins"
+        },
+        turf_def = {
+            name = "pigruins",
+            bank_build = "turf_ham",
+        },
+    },
+
+    PIGRUINS_NOCANOPY = {
+        tile_range = TileRanges.HAM_LAND,
+        tile_data = {
+            ground_name = "Pigruins Nocanopy",
+            old_static_id = 33,
+        },
+        ground_tile_def = {
+            name = "ham/blocky",
+            noise_texture = "ham/ground_pigruins",
+            runsound = "dontstarve/movement/run_dirt",
+            walksound = "dontstarve/movement/walk_dirt",
+            snowsound = "run_ice",
+            cannotbedug = true
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "ham/mini_ground_pigruins"
+        },
+        -- turf_def = {
+        --     name = "pig_ruins_nocanopy",
+        --     name = "pigruins",
+        --     bank_build = "turf_ham",
+        -- },
+    },
+
+    GASJUNGLE = {
         tile_range = TileRanges.HAM_LAND,
         tile_data = {
             ground_name = "Gas Jungle",
             old_static_id = 33,
         },
         ground_tile_def = {
-            name = "deeprainforest",
-            noise_texture = "noise_gasjungle",
+            name = "ham/jungle_deep",
+            noise_texture = "ham/ground_gasrainforest",
             runsound = "dontstarve/movement/run_moss",
             walksound = "dontstarve/movement/walk_moss",
+            cannotbedug = true,
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_gasjungle",
+            noise_texture = "ham/mini_ground_gasrainforest",
         },
-        -- turf_def = {
-        --     name = "swamp",
-        --     bank_build = "turf",
-        -- },
+        turf_def = {
+            name = "gasjungle",
+            anim = "gasrainforest",
+            bank_build = "turf_ham",
+        },
     },
-
-
 
 
     FIELDS = {
@@ -730,18 +687,18 @@ local tro_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def = {
-            name = "jungle",
-            noise_texture = "noise_fields",
+            name = "ham/jungle",
+            noise_texture = "ham/ground_fields",
             runsound = "dontstarve/movement/run_woods",
             walksound = "dontstarve/movement/walk_woods",
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_fields",
+            noise_texture = "ham/mini_ground_fields",
         },
         turf_def = {
             name = "fields",
-            bank_build = "turf",
+            bank_build = "turf_ham",
         },
     },
 
@@ -752,8 +709,8 @@ local tro_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def = {
-            name = "cobbleroad",
-            noise_texture = "noise_checkeredlawn",
+            name = "ham/pebble",
+            noise_texture = "ham/ground_lawn",
             runsound = "dontstarve/movement/run_grass",
             walksound = "dontstarve/movement/walk_grass",
             -- runsound = "run_grass",
@@ -764,12 +721,13 @@ local tro_tiledefs = {
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_checkeredlawn",
+            noise_texture = "ham/mini_ground_lawn",
         },
 
         turf_def = {
             name = "checkeredlawn",
-            bank_build = "turf",
+            anim = "lawn",
+            bank_build = "turf_ham",
         },
     },
 
@@ -782,47 +740,22 @@ local tro_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def = {
-            name = "deciduous",
-            noise_texture = "noise_suburb",
+            name = "ham/deciduous",
+            noise_texture = "ham/ground_moss",
             runsound = "dontstarve/movement/run_dirt",
             walksound = "dontstarve/movement/walk_dirt",
             snowsound = "run_ice",
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_suburb",
+            noise_texture = "ham/mini_ground_moss",
         },
         turf_def = {
             name = "suburb",
-            bank_build = "turf",
+            anim = "moss",
+            bank_build = "turf_ham",
         },
     },
-
-    -- BEARDRUG = { --------------------但这似乎是岩浆地皮
-    --     tile_range       = TileRanges.HAM_LAND,
-    --     tile_data        = {
-    --         ground_name = "Beard Rug",
-    --         old_static_id = 33,
-    --     },
-    --     ground_tile_def  = {
-    --         name = "cave",
-    --         noise_texture = "noise_beardrug",
-    --         runsound = "dontstarve/movement/run_dirt",
-    --         walksound = "dontstarve/movement/walk_dirt",
-    --         flashpoint_modifier = 0,
-    --         flooring = false,
-    --         hard = true,
-    --     },
-    --     minimap_tile_def = {
-    --         name = "map_edge",
-    --         noise_texture = "mini_noise_beardrug",
-    --     },
-    --     turf_def         = {
-    --         name = "beardrug",
-    --         bank_build = "turf",
-    --     },
-
-    -- },
 
     FOUNDATION = {
         tile_range = TileRanges.HAM_LAND,
@@ -831,12 +764,10 @@ local tro_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def = {
-            name = "blocky",
-            noise_texture = "noise_foundation",
+            name = "ham/blocky",
+            noise_texture = "ham/ground_foundation",
             runsound = "dontstarve/movement/run_marble",
             walksound = "dontstarve/movement/walk_marble",
-            -- runsound = "dontstarve/movement/run_slate",
-            -- walksound = "dontstarve/movement/walk_slate",
             snowsound = "run_ice",
             flashpoint_modifier = 0,
             flooring = true,
@@ -844,11 +775,11 @@ local tro_tiledefs = {
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_foundation",
+            noise_texture = "ham/mini_ground_foundation",
         },
         turf_def = {
             name = "foundation",
-            bank_build = "turf",
+            bank_build = "turf_ham",
         },
     },
 
@@ -860,12 +791,10 @@ local tro_tiledefs = {
             old_static_id = 33,
         },
         ground_tile_def = {
-            name = "cobbleroad",
-            noise_texture = "noise_cobbleroad",
+            name = "ham/stoneroad",
+            noise_texture = "ham/ground_cobbleroad",
             runsound = "dontstarve/movement/run_marble",
             walksound = "dontstarve/movement/walk_marble",
-            -- runsound = "dontstarve/movement/run_rock",
-            -- walksound = "dontstarve/movement/walk_rock",
             snowsound = "run_ice",
             flashpoint_modifier = 0,
             flooring = true,
@@ -873,80 +802,69 @@ local tro_tiledefs = {
         },
         minimap_tile_def = {
             name = "map_edge",
-            noise_texture = "mini_noise_cobbleroad",
+            noise_texture = "ham/mini_ground_cobbleroad",
         },
         turf_def = {
             name = "cobbleroad",
-            bank_build = "turf",
+            bank_build = "turf_ham",
         },
     },
 
 
-    -- PIGRUINS_NOCANOPY = {
-    --     tile_range = TileRanges.HAM_LAND,
-    --     tile_data = {
-    --         ground_name = "Pigruins",
-    --     },
-    --     ground_tile_def = {
-    --         name = "blocky",
-    --         noise_texture = "ground_ruins_slab",
-    --         runsound = "run_dirt",
-    --         walksound = "walk_dirt",
-    --         snowsound = "run_ice",
-    --     },
-    --     minimap_tile_def = {
-    --         name = "map_edge",
-    --         noise_texture = "mini_ruins_slab"
-    --     }
-    -- },
+    ANTFLOOR = {
+        tile_range = TileRanges.HAM_LAND,
+        tile_data = {
+            ground_name = "Antcave",
+            old_static_id = 33,
+        },
+        ground_tile_def = {
+            name = "cave",
+            noise_texture = "ham/ground_antcave",
+            runsound = "dontstarve/movement/run_dirt",
+            walksound = "dontstarve/movement/walk_dirt",
+            snowsound = "run_ice",
+            cannotbedug = true
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "ham/mini_ground_antcave"
+        },
+        turf_def = {
+            name = "antfloor",
+            anim = "antcave",
+            bank_build = "turf_ham",
+        },
+    },
 
-    -- DEEPRAINFOREST_NOCANOPY = {
-    --     tile_range       = TileRanges.HAM_LAND,
-    --     tile_data        = {
-    --         ground_name = "Jungle Deep",
-    --     },
-    --     ground_tile_def  = {
-    --         name = "deeprainforest",
-    --         noise_texture = "Ground_noise_jungle_deep",
-    --         runsound = "dontstarve/movement/run_woods",
-    --         walksound = "dontstarve/movement/walk_woods",
-    --         flashpoint_modifier = 0,
-    --     },
-    --     minimap_tile_def = {
-    --         name = "map_edge",
-    --         noise_texture = "mini_noise_jungle_deep",
-    --     },
-    --     -- turf_def = {
-    --     --     name = "jungle",
-    --     --     bank_build = "turf",
-    --     -- },
-    -- },
+    BATFLOOR = {
+        tile_range = TileRanges.HAM_LAND,
+        tile_data = {
+            ground_name = "Batcave",
+            old_static_id = 33,
+        },
+        ground_tile_def = {
+            name = "cave",
+            noise_texture = "ham/ground_batcave",
+            runsound = "dontstarve/movement/run_dirt",
+            walksound = "dontstarve/movement/walk_dirt",
+            snowsound = "run_ice",
+            cannotbedug = true
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "ham/mini_ground_batcave"
+        },
+        turf_def = {
+            name = "batfloor",
+            anim = "batcave",
+            bank_build = "turf_ham",
+        },
+    },
 
 
 
 }
 
--- AddTile(
---     "LILYPOND",
---     TileRanges.OCEAN,
---     { ground_name = "Lilypond", old_static_id = GROUND.OCEAN_COASTAL_SHORE },
---     {
---         name = "cave",
---         noise_texture = "ocean_noise",
---         runsound = "dontstarve/movement/run_marsh",
---         walksound = "dontstarve/movement/walk_marsh",
---         snowsound = "dontstarve/movement/run_ice",
---         mudsound = "dontstarve/movement/run_mud",
---         is_shoreline = true,
---         ocean_depth = "SHALLOW",
---         colors = OCEAN_COLOR,
---         wavetint = WAVETINTS.shallow,
---     },
---     {
---         name = "map_edge",
---         noise_texture = "mini_water_shallow",
---     }
--- )
 
 TRO_OCEAN_TILES = {}
 SW_LAND_TILES = {}
@@ -992,36 +910,6 @@ for tile, def in pairs(tro_tiledefs) do
 end
 
 
-
-
-
---Non flooring floodproof tiles
--- GROUND_FLOODPROOF = setmetatable({
---     [WORLD_TILES.ROAD] = true,
---     [WORLD_TILES.ARCHIVE] = true,
---     [WORLD_TILES.BRICK_GLOW] = true,
---     [WORLD_TILES.BRICK] = true,
---     [WORLD_TILES.TILES_GLOW] = true,
---     [WORLD_TILES.TILES] = true,
---     [WORLD_TILES.TRIM_GLOW] = true,
---     [WORLD_TILES.TRIM] = true,
---     [WORLD_TILES.COTL_BRICK] = true,
--- }, { __index = GROUND_FLOORING })
-
-for prefab, filter in pairs(terrain.filter) do
-    if type(filter) == "table" then
-        -- table.insert(filter, WORLD_TILES.MANGROVE)
-        -- table.insert(filter, WORLD_TILES.LILYPOND)
-        -- table.insert(filter, WORLD_TILES.OCEAN_CORAL)
-        -- table.insert(filter, WORLD_TILES.OCEAN_SHALLOW)
-        -- table.insert(filter, WORLD_TILES.OCEAN_MEDIUM)
-        -- table.insert(filter, WORLD_TILES.OCEAN_DEEP)
-        -- table.insert(filter, WORLD_TILES.OCEAN_SHIPGRAVEYARD)
-        -- if table.contains(filter, WORLD_TILES.CARPET) then
-        --     table.insert(filter, WORLD_TILES.SNAKESKIN)
-        -- end
-    end
-end
 
 -- ID 1 is for impassable
 -- in ds, tile priority after the desert tile
@@ -1070,97 +958,11 @@ ChangeTileRenderOrder(WORLD_TILES.OCEAN_DEEP, WORLD_TILES.MONKEY_DOCK, false)
 ChangeTileRenderOrder(WORLD_TILES.OCEAN_CORAL, WORLD_TILES.MONKEY_DOCK, false)
 ChangeTileRenderOrder(WORLD_TILES.OCEAN_SHIPGRAVEYARD, WORLD_TILES.MONKEY_DOCK, false)
 
--- local _Initialize = GroundTiles.Initialize
--- local function Initialize(...)
---     local minimap_table = GroundTiles.minimap
---     local ground_table = GroundTiles.ground
-
---     --Minimap
---     local minimap_first
---     for i, ground in pairs(minimap_table) do
---         if ground[1] ~= nil then
---             minimap_first = ground[1]
---             break
---         end
---     end
---     -- if minimap_first and minimap_first ~= WORLD_TILES.VOLCANO_LAVA then
---     --     ChangeMiniMapTileRenderOrder(WORLD_TILES.VOLCANO_LAVA, minimap_first)
---     --     minimap_first = WORLD_TILES.VOLCANO_LAVA
---     -- end
-
---     --Ground
---     local ground_last
---     for i = #ground_table, 1, -1 do
---         local ground = ground_table[i]
---         if ground[1] ~= nil then
---             ground_last = ground[1]
---             break
---         end
---     end
---     for i = #TRO_OCEAN_TILES, 1, -1 do
---         local tile = TRO_OCEAN_TILES[i]
---         if tile ~= ground_last then
---             ChangeTileRenderOrder(tile, ground_last, true)
---             ground_last = tile
---         end
---     end
---     return _Initialize(...)
--- end
-
--- GroundTiles.Initialize = Initialize
 
 
--- GROUND = WORLD_TILES
 
 for tile, def in pairs(tro_tiledefs) do
     if GROUND[tile] == nil then
         GROUND[tile] = WORLD_TILES[tile]
     end
-end
-
-
-
-local tile_tbl = {
-    OCEAN_COASTAL_SHORE = "OCEAN_SHALLOW_SHORE",
-    OCEAN_COASTAL = "OCEAN_SHALLOW",
-    OCEAN_SWELL = "OCEAN_MEDIUM",
-    OCEAN_ROUGH = "OCEAN_DEEP",
-    OCEAN_WATERLOG = "MANGROVE",
-    OCEAN_BRINEPOOL = "OCEAN_CORAL",
-    OCEAN_BRINEPOOL_SHORE = "OCEAN_CORAL",
-    OCEAN_HAZARDOUS = "OCEAN_SHIPGRAVEYARD",
-}
-
-local function tile_redirect(tbl)
-    for origin, override in pairs(tbl) do
-        if not WORLD_TILES[origin] then
-            return
-        end
-
-        if TUNING.tropical.ocean == "tropical" then
-            if not is_worldgen then
-                TileGroupManager:AddInvalidTile(TileGroups.TransparentOceanTiles, WORLD_TILES[origin])
-                TileGroupManager:AddValidTile(TileGroups.TAOceanTiles, WORLD_TILES[origin])
-            end
-            ChangeTileRenderOrder(WORLD_TILES[origin], WORLD_TILES.MONKEY_DOCK, false)
-        end
-
-        for k, v in pairs(GroundTiles.ground) do
-            if v[1] == WORLD_TILES[origin] then
-                -- print("findit!!!!!!!!!!!!")
-                v[2] = tro_tiledefs[override].ground_tile_def
-            end
-        end
-
-        for k, v in pairs(GroundTiles.minimap) do
-            if v[1] == WORLD_TILES[origin] then
-                -- print("findit!!!!!!!!!!!!")
-                v[2] = tro_tiledefs[override].minimap_tile_def
-            end
-        end
-    end
-end
-
-if TUNING.tropical.ocean ~= "default" then
-    tile_redirect(tile_tbl)
 end

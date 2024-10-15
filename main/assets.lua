@@ -139,7 +139,7 @@ PrefabFiles =
 	"armor_obsidian",
 	"meteor_impact",
 	"dug_cofeecactus",
-	"turfesvolcanobiome",
+	-- "turfesvolcanobiome",
 	"snake",
 	"snake_hole",
 	"snakeskin",
@@ -279,7 +279,7 @@ PrefabFiles =
 	"pinkman",
 	"oincpile",
 	"piggolem",
-	"turfshamlet",
+	-- "turfshamlet",
 	"krakenchest",
 	"lavaarena_hound",
 	"lavaarena_knight",
@@ -1125,12 +1125,22 @@ Assets =
 	Asset("ANIM", "anim/oceanfish_medium_6.zip"),
 	Asset("ANIM", "anim/oceanfish_medium_7.zip"),
 	Asset("ANIM", "anim/oceanfish_medium_8.zip"),
-	Asset("IMAGE", "levels/textures/outro.tex"),
-	Asset("IMAGE", "levels/textures/ground_noise_water_deep.tex"),
+
 	Asset("IMAGE", "images/inventoryimages/hamletinventory.tex"),
 	Asset("ATLAS", "images/inventoryimages/hamletinventory.xml"),
 	Asset("IMAGE", "images/inventoryimages/meated_nettle.tex"),
 	Asset("ATLAS", "images/inventoryimages/meated_nettle.xml"),
+
+	Asset("IMAGE", "images/inventoryimages/inventory_rog.tex"),
+	Asset("ATLAS", "images/inventoryimages/inventory_rog.xml"),
+
+	Asset("IMAGE", "images/inventoryimages/inventory_shipwrecked.tex"),
+	Asset("ATLAS", "images/inventoryimages/inventory_shipwrecked.xml"),
+
+	Asset("IMAGE", "images/inventoryimages/inventory_hamlet.tex"),
+	Asset("ATLAS", "images/inventoryimages/inventory_hamlet.xml"),
+
+
 
 	--新的食谱大图与物品栏贴图
 	Asset("IMAGE", "images/cookbook/cookbook_sw.tex"),
@@ -1182,6 +1192,10 @@ Assets =
 
 	Asset("IMAGE", "images/turfs/turf01-14.tex"),
 	Asset("ATLAS", "images/turfs/turf01-14.xml"),
+
+
+
+
 	Asset("ANIM", "anim/vagner_over.zip"),
 	Asset("ANIM", "anim/leaves_canopy2.zip"),
 
@@ -1398,4 +1412,9 @@ for atlas, imageTab in pairs(dictInventoryItems) do
 	end
 end
 
+RegisterInventoryItemAtlas(resolvefilepath("images/turfs/turf01-9.xml"), "turf_painted.tex")
+RegisterInventoryItemAtlas(resolvefilepath("images/turfs/turf01-10.xml"), "turf_plains.tex")
+RegisterInventoryItemAtlas(resolvefilepath("images/turfs/turf01-11.xml"), "turf_battleground.tex")
+RegisterInventoryItemAtlas(resolvefilepath("images/turfs/turf01-12.xml"), "turf_batfloor.tex")
+RegisterInventoryItemAtlas(resolvefilepath("images/turfs/turf01-13.xml"), "turf_antfloor.tex")
 -- RegisterInventoryItemAtlas("images/inventoryimages/tap_buildingimages.xml", "kyno_fountainyouth.tex")
