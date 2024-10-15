@@ -176,7 +176,7 @@ end
 --温度变化更加丝滑
 local function OnTemperatureUpdateBefore(self)
     if self.inst:AwareInVolcanoArea() then
-        local volcano_tem = 60
+        local volcano_tem = 40
         self:SetModifier("volcanoregion", volcano_tem)
 
         return nil, false
