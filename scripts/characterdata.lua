@@ -1,8 +1,6 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 
 
-AddMinimapAtlas("images/map_icons/hamleticon.xml")
-
 AddModCharacter("walani", "FEMALE")
 AddModCharacter("wilbur", "NEUTRAL")
 AddModCharacter("woodlegs", "MALE")

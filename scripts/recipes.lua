@@ -1,6 +1,6 @@
 local v_atlas = "images/inventoryimages/volcanoinventory.xml"
 local h_atlas = "images/inventoryimages/hamletinventory.xml"
-local hm_atlas = "images/map_icons/hamleticon.xml"
+local hm_atlas = "images/minimap/hamleticon.xml"
 local safe_atlas = "images/tabs.xml"
 
 local TECH = GLOBAL.TECH
@@ -798,16 +798,7 @@ AddRecipe2("turf_meadow", { Ingredient("cutgrass", 2) }, TECH.TURFCRAFTING_ONE, 
 	{ "DECOR" })
 AddRecipe2("turf_beach", { Ingredient("sand", 2, v_atlas) }, TECH.TURFCRAFTING_ONE, { numtogive = 4, atlas = v_atlas },
 	{ "DECOR" })
-AddRecipe2("turf_quagmire_gateway", { Ingredient("cutgrass", 2), Ingredient("nitre", 1) }, TECH.TURFCRAFTING_ONE,
-	{ numtogive = 4, atlas = "images/inventoryimages/novositens.xml" }, { "DECOR" })
-AddRecipe2("turf_quagmire_citystone", { Ingredient("cutgrass", 2), Ingredient("nitre", 1) }, TECH.TURFCRAFTING_ONE,
-	{ numtogive = 4, atlas = "images/inventoryimages/novositens.xml" }, { "DECOR" })
-AddRecipe2("turf_quagmire_parkfield", { Ingredient("cutgrass", 2), Ingredient("nitre", 1) }, TECH.TURFCRAFTING_ONE,
-	{ numtogive = 4, atlas = "images/inventoryimages/novositens.xml" }, { "DECOR" })
-AddRecipe2("turf_quagmire_parkstone", { Ingredient("cutgrass", 2), Ingredient("nitre", 1) }, TECH.TURFCRAFTING_ONE,
-	{ numtogive = 4, atlas = "images/inventoryimages/novositens.xml" }, { "DECOR" })
-AddRecipe2("turf_quagmire_peatforest", { Ingredient("cutgrass", 2), Ingredient("nitre", 1) }, TECH.TURFCRAFTING_ONE,
-	{ numtogive = 4, atlas = "images/inventoryimages/novositens.xml" }, { "DECOR" })
+
 --[[
 AddRecipe2("turf_fields", 				{Ingredient("oinc", 1, h_atlas)},			 					TECH.TURFCRAFTING_ONE,  {numtogive=4, atlas=h_atlas}, {"DECOR"})
 AddRecipe2("turf_suburb", 				{Ingredient("oinc", 1, h_atlas)}, 						        TECH.TURFCRAFTING_ONE,  {numtogive=4, atlas=h_atlas}, {"DECOR"})
@@ -1825,18 +1816,27 @@ SortAfter("cartographydesk", "tacklestation", "PROTOTYPERS")
 -- Extend recipes
 -- CHARACTER with skill
 -- WILSON
-AddCharacterRecipe("transmute_bamboo", { Ingredient("cutgrass", 2) }, TECH.NONE, { product = "bamboo", builder_skill = "wilson_alchemy_1", description = "transmute_bamboo" })
+AddCharacterRecipe("transmute_bamboo", { Ingredient("cutgrass", 2) }, TECH.NONE,
+	{ product = "bamboo", builder_skill = "wilson_alchemy_1", description = "transmute_bamboo" })
 SortAfter("transmute_bamboo", "transmute_twigs", "CHARACTER")
-AddCharacterRecipe("transmute_cutgrass_tro", { Ingredient("bamboo", 1) }, TECH.NONE, { product = "cutgrass", builder_skill = "wilson_alchemy_1", description = "transmute_cutgrass_tro" })
+AddCharacterRecipe("transmute_cutgrass_tro", { Ingredient("bamboo", 1) }, TECH.NONE,
+	{ product = "cutgrass", builder_skill = "wilson_alchemy_1", description = "transmute_cutgrass_tro" })
 SortAfter("transmute_cutgrass_tro", "transmute_bamboo", "CHARACTER")
-AddCharacterRecipe("transmute_vine", { Ingredient("twigs", 2) }, TECH.NONE, { product = "vine", builder_skill = "wilson_alchemy_1", description = "transmute_vine" })
+AddCharacterRecipe("transmute_vine", { Ingredient("twigs", 2) }, TECH.NONE,
+	{ product = "vine", builder_skill = "wilson_alchemy_1", description = "transmute_vine" })
 SortAfter("transmute_vine", "transmute_cutgrass_tro", "CHARACTER")
-AddCharacterRecipe("transmute_twigs_tro", { Ingredient("vine", 1) }, TECH.NONE, { product = "twigs", builder_skill = "wilson_alchemy_1", description = "transmute_twings_tro" })
+AddCharacterRecipe("transmute_twigs_tro", { Ingredient("vine", 1) }, TECH.NONE,
+	{ product = "twigs", builder_skill = "wilson_alchemy_1", description = "transmute_twings_tro" })
 SortAfter("transmute_twigs_tro", "transmute_vine", "CHARACTER")
-AddCharacterRecipe("transmute_cork", { Ingredient("driftwood_log", 2) }, TECH.NONE, { product = "cork", builder_skill = "wilson_alchemy_1", description = "transmute_cork" })
+AddCharacterRecipe("transmute_cork", { Ingredient("driftwood_log", 2) }, TECH.NONE,
+	{ product = "cork", builder_skill = "wilson_alchemy_1", description = "transmute_cork" })
 SortAfter("transmute_cork", "transmute_twigs_tro", "CHARACTER")
-AddCharacterRecipe("transmute_driftwood_log_tro", { Ingredient("cork", 2) }, TECH.NONE, { product = "driftwood_log", builder_skill = "wilson_alchemy_1", description = "transmute_driftwood_log_tro" })
+AddCharacterRecipe("transmute_driftwood_log_tro", { Ingredient("cork", 2) }, TECH.NONE,
+	{ product = "driftwood_log", builder_skill = "wilson_alchemy_1", description = "transmute_driftwood_log_tro" })
 SortAfter("transmute_driftwood_log_tro", "transmute_cork", "CHARACTER")
 -- WORNWOOD
-AddCharacterRecipe("wormwood_seaweed_stalk", { Ingredient(CHARACTER_INGREDIENT.HEALTH, 10), Ingredient("spoiled_food", 3), Ingredient("kelp", 8) }, TECH.NONE, { builder_skill = "wormwood_juicyberrybushcrafting", product="seaweed_stalk", sg_state="form_log",  actionstr="GROW", allowautopick = true, no_deconstruction=true, description="wormwood_seaweed_stalk"})
+AddCharacterRecipe("wormwood_seaweed_stalk",
+	{ Ingredient(CHARACTER_INGREDIENT.HEALTH, 10), Ingredient("spoiled_food", 3), Ingredient("kelp", 8) }, TECH.NONE,
+	{ builder_skill = "wormwood_juicyberrybushcrafting", product = "seaweed_stalk", sg_state = "form_log", actionstr =
+	"GROW", allowautopick = true, no_deconstruction = true, description = "wormwood_seaweed_stalk" })
 SortAfter("wormwood_seaweed_stalk", "wormwood_juicyberrybush", "CHARACTER")
