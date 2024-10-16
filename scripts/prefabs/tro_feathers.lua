@@ -50,8 +50,8 @@ local function makefeather(name)
             inst.caminho = "images/inventoryimages/hamletinventory.xml"
         end
         if name == "chicken" then
-            inst.components.inventoryitem.atlasname = "images/map_icons/creepindedeepicon.xml"
-            inst.caminho = "images/map_icons/creepindedeepicon.xml"
+            inst.components.inventoryitem.atlasname = "images/minimap/creepindedeepicon.xml"
+            inst.caminho = "images/minimap/creepindedeepicon.xml"
         end
 
         inst.components.inventoryitem.nobounce = true
