@@ -31,6 +31,23 @@ function tabel.has_component(tbl, component)
     end
 end
 
+function tabel.has_one_of_component(tbl, components)
+    for _, v in pairs(components) do
+        if tabel.has_component(tbl, v) then
+            return true
+        end
+    end
+end
+
+function tabel.has_all_of_component(tbl, components)
+    for _, v in pairs(components) do
+        if not tabel.has_component(tbl, v) then
+            return false
+        end
+    end
+    return true
+end
+
 function tabel.insert_indexes(tbl, vs)
     for i, v in pairs(vs) do
         tbl[i] = v
