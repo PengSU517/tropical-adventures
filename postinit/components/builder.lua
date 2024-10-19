@@ -344,7 +344,7 @@ AddComponentPostInit("builder", function(self)
 		if recipe == nil then
 			return false
 		end
-		if self.freebuildmode or self.inst:HasTag("brainjelly") then
+		if self.freebuildmode or (self.inst:HasTag("brainjelly") and not recipe.nounlock) then
 			return true
 		elseif recipe.builder_tag ~= nil and not self.inst:HasTag(recipe.builder_tag) then -- builder_tag cehck is require due to character swapping
 			return false
@@ -429,7 +429,7 @@ AddClassPostConstruct("components/builder_replica", function(self)
 			return self.inst.components.builder:KnowsRecipe(recipe)
 		elseif self.classified ~= nil then
 			if recipe ~= nil then
-				if self.classified.isfreebuildmode:value() or self.inst:HasTag("brainjelly") then
+				if self.classified.isfreebuildmode:value() or (self.inst:HasTag("brainjelly") and not recipe.nounlock) then
 					return true
 				elseif recipe.builder_tag ~= nil and not self.inst:HasTag(recipe.builder_tag) then -- builder_tag check is require due to character swapping
 					return false
