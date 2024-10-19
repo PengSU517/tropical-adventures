@@ -14,8 +14,9 @@ require("map/ocean_gen_new")         ----防止新的水面地皮被覆盖 ---�
 
 ----------新内容
 modimport("scripts/map/tro_lockandkey")      ----地形锁钥
-modimport("scripts/map/init_static_layouts") --add new static layouts
-modimport("scripts/map/city_layouts")        --add new static layouts
+modimport("scripts/map/init_static_layouts") --新的 static layouts
+modimport("scripts/map/city_layouts")        --新的城镇 layouts
+modimport("scripts/map/ruin_maze_layouts")   --新的地下遗迹layouts
 modimport("scripts/map/rooms/ham")
 modimport("scripts/map/rooms/sw")
 modimport("scripts/map/rooms/ocean")

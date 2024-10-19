@@ -174,41 +174,15 @@ local function GetSpecialLayoutsForType(layout_dir, name, sub_dir, areas)
 	return layouts
 end
 
+local maze_rooms = require("map/maze_layouts")
+local alllayouts = maze_rooms.AllLayouts
 
-return {
-	Layouts = GetLayoutsForType("room"),
-	AllLayouts = {
-		["default"] = GetLayoutsForType("room"),
-		["hallway"] = GetLayoutsForType("hallway"),
-		["hallway_armoury"] = GetLayoutsForType("hallway_armoury"),
-		["hallway_residential"] = GetLayoutsForType("hallway_residential"),
-		["hallway_residential_two"] = GetLayoutsForType("hallway_residential_two"),
-		--["hallway_shop"] = GetLayoutsForType("hallway_shop"),
-		-- ["default"] = GetLayoutsForType("room_shop"),
-		["room_armoury"] = GetLayoutsForType("room_armoury", nil, nil, ruins_areas),
-		["room_armoury_two"] = GetLayoutsForType("room_armoury_two", nil, nil, ruins_areas),
-		["room_residential"] = GetLayoutsForType("room_residential", nil, nil, ruins_areas),
-		["room_residential_two"] = GetLayoutsForType("room_residential_two", nil, nil, ruins_areas),
-		["room_open"] = GetLayoutsForType("room_open", nil, nil, ruins_areas),
-		["pit_hallway_armoury"] = GetLayoutsForType("pit_hallway_armoury", nil, nil, ruins_areas),
-		["pit_room_armoury"] = GetLayoutsForType("pit_room_armoury", nil, nil, ruins_areas),
-		["pit_room_armoury_two"] = GetLayoutsForType("pit_room_armoury_two", nil, nil, ruins_areas),
-		["atrium_hallway"] = GetLayoutsForType("atrium_hallway", nil, nil, ruins_areas),
-		["atrium_hallway_two"] = GetLayoutsForType("atrium_hallway_two", nil, nil, ruins_areas),
-		["atrium_hallway_three"] = GetLayoutsForType("atrium_hallway_three", nil, nil, ruins_areas),
-		["atrium_end"] = GetSpecialLayoutsForType("atrium_end", "atrium_end", nil, nil, ruins_areas),
-		["atrium_start"] = GetSpecialLayoutsForType("atrium_start", "atrium_start", nil, nil, ruins_areas),
-
-		["archive_hallway"] = GetLayoutsForType("archive_hallway", nil, nil, archive_areas),
-		["archive_hallway_two"] = GetLayoutsForType("archive_hallway_two", nil, nil, archive_areas),
-		["archive_keyroom"] = GetSpecialLayoutsForType("archive_keyroom", "keyroom_1", nil, nil, archive_areas),
-		["archive_end"] = GetSpecialLayoutsForType("archive_end", "archive_end", nil, nil, archive_areas),
-		["archive_start"] = GetSpecialLayoutsForType("archive_start", "archive_start", nil, nil, archive_areas),
-
-		["hamlet_start"] = GetSpecialLayoutsForType("hamlet_start", "hamlet_start", nil, nil, archive_areas),
-		["hamlet_hallway"] = GetLayoutsForType("hamlet_hallway", nil, nil, archive_areas),
-		["hamlet_hallway_two"] = GetLayoutsForType("hamlet_hallway_two", nil, nil, archive_areas),
-		["hamlet_keyroom"] = GetSpecialLayoutsForType("hamlet_keyroom", "hamlet_keyroom_1", nil, nil, archive_areas),
-		["hamlet_end"] = GetSpecialLayoutsForType("hamlet_end", "hamlet_end", nil, nil, archive_areas),
-	},
+local ruinlayouts = {
+	["hamlet_start"] = GetSpecialLayoutsForType("hamlet_start", "hamlet_start", nil, nil, archive_areas),
+	["hamlet_hallway"] = GetLayoutsForType("hamlet_hallway", nil, nil, archive_areas),
+	["hamlet_hallway_two"] = GetLayoutsForType("hamlet_hallway_two", nil, nil, archive_areas),
+	["hamlet_keyroom"] = GetSpecialLayoutsForType("hamlet_keyroom", "hamlet_keyroom_1", nil, nil, archive_areas),
+	["hamlet_end"] = GetSpecialLayoutsForType("hamlet_end", "hamlet_end", nil, nil, archive_areas),
 }
+
+tabel.deep_merge(alllayouts, ruinlayouts, false)
