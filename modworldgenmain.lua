@@ -26,14 +26,14 @@ modimport("scripts/map/tasks/sw")
 modimport("scripts/map/newstartlocation")
 
 -------------修改之前内容
-modimport("postinit/map/graph")
-modimport("postinit/map/storygen")
--- modimport("postinit/map/forest_map_override")
-modimport("postinit/map/forest_map_new") -----在这里添加哈姆雷特城镇
 modimport("postinit/map/rooms")
 modimport("postinit/map/tasks")
-modimport("postinit/map/node")   ------------防止清空水上内容
 modimport("postinit/map/levels") -----------[[几乎所有地形修改都在这里]]
+modimport("postinit/map/graph")
+modimport("postinit/map/storygen")
+modimport("postinit/map/forest_map_new") -----在这里添加哈姆雷特城镇
+modimport("postinit/map/node")           ------------防止清空水上内容
+
 
 
 
