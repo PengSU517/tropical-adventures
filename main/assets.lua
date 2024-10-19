@@ -7,7 +7,7 @@ PrefabFiles =
 	---------------新物品
 
 	"loot_pumper",
-	"sea2land_fork",
+	"sea2land_fork_tro",
 
 	"bermudatriangle",
 	"piratihatitator",

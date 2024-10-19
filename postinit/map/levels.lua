@@ -4,12 +4,12 @@ local troadj = TA_CONFIG
 if GLOBAL.rawget(GLOBAL, "WorldSim") then
     local idx = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
 
-    if (troadj.worldsize ~= "default") or troadj.testmode then
+    if (troadj.worldsize ~= "default") or troadj.testmap then
         local size = (troadj.worldsize == "huge" and 450) or (troadj.worldsize == "large" and 400) or 350
         --450是默认边长 --地图太小可能生成不了世界
         local multi = (troadj.together and 1 or 0) + (troadj.shipwrecked and 0.5 or 0) + (troadj.hamlet and 0.5 or 0)
         size = math.max(math.ceil(math.sqrt((size ^ 2) * multi)), 400)
-        if troadj.testmode then size = 250 end
+        if troadj.testmap then size = 100 end
 
         TUNING.WORLD_SIZE_ADJ = size
 
@@ -286,15 +286,16 @@ end
 
 
 ---------------------测试模式------------
-if troadj.testmode then
+if troadj.testmap then
     modimport("postinit/map/forest_map_notcheck") ----防止世界生成难产，但可能会缺失重要地形
+    ------------这个需要在hook forestmap之前执行，否则upvalue就找不到了
     if true then
         AddLevelPreInitAny(function(level)
             if level.location == "cave" then
                 level.overrides.keep_disconnected_tiles = true
 
                 level.tasks = { "MudWorld", "CaveExitTask1" }
-                table.insert(level.tasks, "HamArchiveMaze")
+                -- table.insert(level.tasks, "HamArchiveMaze")
                 level.numoptionaltasks = 0
                 level.optionaltasks = {}
 
@@ -305,15 +306,15 @@ if troadj.testmode then
             if level.location == "forest" then
                 level.tasks = { "Make a NewPick" }
                 -- table.insert(level.tasks, "Kill the spiders")
-                table.insert(level.tasks, "Pincale")
+                -- table.insert(level.tasks, "Pincale")
                 -- table.insert(level.tasks, "Verdent")
                 -- table.insert(level.tasks, "Plains_start")
-                table.insert(level.tasks, "Plains") --island3 高草地形，类似牛场
+                -- table.insert(level.tasks, "Plains") --island3 高草地形，类似牛场
                 -- table.insert(level.tasks, "Rainforest_ruins")
                 -- table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
                 -- table.insert(level.tasks, "Edge_of_the_unknown")
-                table.insert(level.tasks, "Pigcity2")
-                table.insert(level.tasks, "BeachMarshy") --纯随机 沙滩和沼泽
+                -- table.insert(level.tasks, "Pigcity2")
+                -- table.insert(level.tasks, "BeachMarshy") --纯随机 沙滩和沼泽
                 -- table.insert(level.tasks, "HamArchiveMaze")
                 level.numoptionaltasks = 0
 
