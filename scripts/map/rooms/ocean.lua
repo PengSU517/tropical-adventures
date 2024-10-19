@@ -72,7 +72,7 @@ AddRoom("OceanBrinepool", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = WORLD_TILES.OCEAN_BRINEPOOL,
     contents = {
-        distributepercent = 0.4,
+        distributepercent = 0.2,
         distributeprefabs =
         {
 

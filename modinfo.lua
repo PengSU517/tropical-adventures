@@ -356,17 +356,25 @@ configuration_options =
 	},
  ]]
 
-	Breaker("Developer Settings", "开发者选项"),
+	Breaker("Developer Settings(only works in the test version)", "开发者选项(仅在测试版中有效)"),
+
+	{
+		name = "testmap",
+		label = en_zh("Test Map", "测试地图"),
+		hover = en_zh("a small map for testing", "用于测试用的小型地图"),
+		options = options_enable,
+		default = true,
+	},
 
 	{
 		name = "testmode",
 		label = en_zh("Test Mode", "测试模式"),
-		hover = en_zh("A very small world only for debugging", "仅生成一块很小的地形用于测试内容"),
+		hover = en_zh("seafork, autoskin, prefabname", "填海叉，开礼物，显示代码名"),
 		options = options_enable,
-		default = false,
+		default = true,
 	},
 
-	{
+	--[[ {
 		name = "prefabname",
 		label = en_zh("Show Prefab Name", "显示物品代码"),
 		hover = en_zh("Show Prefab Name on Cursor", "显示物品代码"),
@@ -380,7 +388,7 @@ configuration_options =
 		hover = en_zh("Sea to Land", "填海造陆"),
 		options = options_enable,
 		default = false,
-	},
+	}, ]]
 
 
 }

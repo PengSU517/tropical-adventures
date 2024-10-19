@@ -7,7 +7,7 @@ PrefabFiles =
 	---------------新物品
 
 	"loot_pumper",
-	"sea2land_fork",
+	"sea2land_fork_tro",
 
 	"bermudatriangle",
 	"piratihatitator",
@@ -139,7 +139,7 @@ PrefabFiles =
 	"armor_obsidian",
 	"meteor_impact",
 	"dug_cofeecactus",
-	"turfesvolcanobiome",
+	-- "turfesvolcanobiome",
 	"snake",
 	"snake_hole",
 	"snakeskin",
@@ -279,7 +279,7 @@ PrefabFiles =
 	"pinkman",
 	"oincpile",
 	"piggolem",
-	"turfshamlet",
+	-- "turfshamlet",
 	"krakenchest",
 	"lavaarena_hound",
 	"lavaarena_knight",
@@ -340,7 +340,7 @@ PrefabFiles =
 	-- "lavaarena_armor",
 	-- "lavarenainside",
 	"teleportato2",
-	"galinheiro",
+
 	"invisiblepondfish",
 	"spider_mutators_new",
 	"anthillcave",
@@ -592,31 +592,7 @@ table.insert(PrefabFiles, "packim")
 table.insert(PrefabFiles, "packim_fishbone")
 -- end
 
--------- pprefabs gorge -----------
 
--- table.insert(PrefabFiles, "quagmire_portal_key")
--- table.insert(PrefabFiles, "q_swampig")
--- table.insert(PrefabFiles, "q_swampig_house")
--- table.insert(PrefabFiles, "q_pond")
--- table.insert(PrefabFiles, "q_beefalo")
--- table.insert(PrefabFiles, "q_sugarwoodtree")
--- table.insert(PrefabFiles, "q_sap")
--- table.insert(PrefabFiles, "q_sugarwoodtree_sapling")
--- table.insert(PrefabFiles, "quagmiregoat")
--- table.insert(PrefabFiles, "quagmiregoatherd")
--- table.insert(PrefabFiles, "q_sugarwoodtree_cone")
--- table.insert(PrefabFiles, "q_pigeon")
--- table.insert(PrefabFiles, "q_spiceshrub")
--- table.insert(PrefabFiles, "maxwellendgame")
--- table.insert(PrefabFiles, "maxwelllight")
--- table.insert(PrefabFiles, "maxwelllight_flame")
--- table.insert(PrefabFiles, "maxwellminions")
--- table.insert(PrefabFiles, "maxwellboss")
--- table.insert(PrefabFiles, "maxwelllock")
--- table.insert(PrefabFiles, "maxwellshadowmeteor")
--- table.insert(PrefabFiles, "maxwellphonograph")
--- table.insert(PrefabFiles, "maxwellestatua")
--- table.insert(PrefabFiles, "maxwellshadowheart")
 
 table.insert(PrefabFiles, "tree_forest")
 table.insert(PrefabFiles, "tree_forest_deep")
@@ -641,7 +617,7 @@ table.insert(PrefabFiles, "slipstor")
 table.insert(PrefabFiles, "slip")
 table.insert(PrefabFiles, "slipstor_spawner")
 
--- if GetModConfigData("Shipwrecked_plus") == true or GetModConfigData("enableallprefabs") == true or GetModConfigData("Shipwreckedworld_plus") == true then
+-- if GetModConfigData("Shipwrecked_plus") == true
 -- 	table.insert(PrefabFiles, "goldbishop")
 -- 	table.insert(PrefabFiles, "goldentomb")
 -- 	table.insert(PrefabFiles, "goldmonkey")
@@ -659,9 +635,9 @@ table.insert(PrefabFiles, "slipstor_spawner")
 -- 	table.insert(PrefabFiles, "summerwalrus")
 -- 	table.insert(PrefabFiles, "summerigloo")
 
-	table.insert(PrefabFiles, "octoatt")
-	table.insert(PrefabFiles, "octopus")
-	table.insert(PrefabFiles, "octohouse")
+table.insert(PrefabFiles, "octoatt")
+table.insert(PrefabFiles, "octopus")
+table.insert(PrefabFiles, "octohouse")
 -- end
 
 ----- prefabs marinhos---------------
@@ -736,7 +712,6 @@ table.insert(PrefabFiles, "deco_swinging_light")
 table.insert(PrefabFiles, "deco_lightglow")
 table.insert(PrefabFiles, "pig_shop_spears")
 
--- if GetModConfigData("pigcity1") ~= 5 or GetModConfigData("pigcity2") ~= 5 or GetModConfigData("kindofworld") == 5 or GetModConfigData("frost_island") ~= 5 or GetModConfigData("enableallprefabs") == true or GetModConfigData("hamletcaves_shipwreckedworld") == 1 then
 table.insert(PrefabFiles, "topiary")
 table.insert(PrefabFiles, "lawnornaments")
 table.insert(PrefabFiles, "hedge")
@@ -797,7 +772,7 @@ table.insert(PrefabFiles, "oinc10")
 table.insert(PrefabFiles, "oinc100")
 -- end
 
--- if GetModConfigData("startlocation") == 15 or GetModConfigData("kindofworld") == 5 or GetModConfigData("enableallprefabs") == true then
+-- if GetModConfigData("startlocation") == 15
 table.insert(PrefabFiles, "porklandintro")
 -- end
 
@@ -810,55 +785,9 @@ table.insert(PrefabFiles, "twister_tornado")
 -- end
 
 
-
--- if GetModConfigData("frost_island") ~= 5 and GetModConfigData("kindofworld") ~= 5 or GetModConfigData("enableallprefabs") == true then
--- table.insert(PrefabFiles, "billsnow")
--- table.insert(PrefabFiles, "giantsnow")
--- table.insert(PrefabFiles, "snowman")
--- table.insert(PrefabFiles, "bear")
--- table.insert(PrefabFiles, "ice_deer")
--- table.insert(PrefabFiles, "mammoth")
--- table.insert(PrefabFiles, "bearden")
--- table.insert(PrefabFiles, "snowitem")
--- table.insert(PrefabFiles, "snow_dune")
--- table.insert(PrefabFiles, "snow_castle")
--- table.insert(PrefabFiles, "cratesnow")
--- table.insert(PrefabFiles, "snowpile1")
--- table.insert(PrefabFiles, "snowbigball")
--- table.insert(PrefabFiles, "snowbeetle")
--- table.insert(PrefabFiles, "snowspider_spike")
--- table.insert(PrefabFiles, "snowspiderden")
--- table.insert(PrefabFiles, "snowberrybush")
--- table.insert(PrefabFiles, "snowspider")
--- table.insert(PrefabFiles, "snowspider2")
--- table.insert(PrefabFiles, "snowspider_spike2")
--- table.insert(PrefabFiles, "snowspiderden2")
--- table.insert(PrefabFiles, "rock_ice_frost")
--- table.insert(PrefabFiles, "icepillar")
--- table.insert(PrefabFiles, "snowgoat")
--- table.insert(PrefabFiles, "snowgoatherd")
--- table.insert(PrefabFiles, "snowwarg")
--- table.insert(PrefabFiles, "snowperd")
--- table.insert(PrefabFiles, "snowdeciduoustrees")
--- table.insert(PrefabFiles, "rock_ice_frost_spawner")
--- table.insert(PrefabFiles, "snowwarg_spawner")
--- end
---[[
-if (GetModConfigData("frost_island") == 15 or GetModConfigData("frost_island") == 25) and GetModConfigData("kindofworld") ~= 5 then
-table.insert(PrefabFiles,"lavarenainside")
-table.insert(PrefabFiles,"teleportato2")
-table.insert(PrefabFiles,"telebase")
-
-
-table.insert(PrefabFiles,"quest")
-table.insert(PrefabFiles,"maxwellinside")	
-table.insert(PrefabFiles,"maxwellportal")
-table.insert(PrefabFiles,"maxwellthrone")
-
-end
-]]
-
 table.insert(PrefabFiles, "chicken")
+table.insert(PrefabFiles, "chickenhouse")
+
 table.insert(PrefabFiles, "peekhen")
 table.insert(PrefabFiles, "peekhenspawner")
 -- table.insert(PrefabFiles, "snapdragon")
@@ -871,7 +800,7 @@ table.insert(PrefabFiles, "wildborekingstaff")
 table.insert(PrefabFiles, "wildboreking_spawner")
 
 
--- if GetModConfigData("Hamlet") ~= 5 or GetModConfigData("startlocation") == 15 or GetModConfigData("kindofworld") == 5 or GetModConfigData("enableallprefabs") == true or GetModConfigData("hamletcaves_shipwreckedworld") == 1 then --GetModConfigData("Plains_Hamlet")
+-- if GetModConfigData("Hamlet") ~= 5 or GetModConfigData("startlocation") == 15
 table.insert(PrefabFiles, "rainforesttrees")
 table.insert(PrefabFiles, "rainforesttree_sapling")
 table.insert(PrefabFiles, "meteor_impact")
@@ -982,37 +911,6 @@ table.insert(PrefabFiles, "cloudpuff")
 
 Assets =
 {
-
-	----------------------新的材质包-------
-	Asset("ATLAS", "images/inventoryimages/loot_pump.xml"),
-	Asset("ATLAS", "images/minimap/loot_pump.xml"),
-
-	Asset("IMAGE", "images/sea2land_fork.tex"),
-	Asset("ATLAS", "images/sea2land_fork.xml"),
-	Asset("ANIM", "anim/swap_land_fork.zip"),
-
-
-	---------------minisign------------------
-	Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
-	Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),
-
-
-	------------------从architectpack添加
-	-- Asset("IMAGE", "images/inventoryimages/tap_buildingimages.tex"),
-	-- Asset("ATLAS", "images/inventoryimages/tap_buildingimages.xml"),
-
-	-- Asset("IMAGE", "images/inventoryimages/tap_buildingimages2.tex"),
-	-- Asset("ATLAS", "images/inventoryimages/tap_buildingimages2.xml"),
-
-	-- Asset("IMAGE", "images/minimapimages/tap_minimapicons.tex"),
-	-- Asset("ATLAS", "images/minimapimages/tap_minimapicons.xml"),
-
-	--Asset("SOUNDPACKAGE", "sound/volcano.fev"),
-	--Asset("SOUND", "sound/volcano.fsb"),
-	--Asset("SOUND", "sound/boats.fsb"),
-	--Asset("SOUND", "sound/creatures.fsb"),
-	--Asset("SOUND", "sound/slot_machine.fsb"),
-	--Asset("SOUND", "sound/waves.fsb"),
 	--LOD SOUND FILE
 	Asset("SOUNDPACKAGE", "sound/dontstarve_DLC002.fev"),
 	Asset("SOUNDPACKAGE", "sound/sw_character.fev"),
@@ -1021,24 +919,10 @@ Assets =
 	Asset("SOUNDPACKAGE", "sound/dontstarve_DLC003.fev"),
 	Asset("SOUND", "sound/DLC003_sfx.fsb"),
 	Asset("IMAGE", "images/fog_cloud.tex"),
-	--Asset("SOUND", "sound/amb_stream_SW.fsb"),
-	--NEW SOUND FILE
-	--Asset("SOUNDPACKAGE", "sound/volcano_new.fev"),
-	--Asset("SOUND", "sound/volcano_new.fsb"),
-	--Asset("SOUNDPACKAGE", "sound/tropical.fev"),
-	--Asset("SOUND", "sound/tropical.fsb"),
 
-	Asset("IMAGE", "images/barco.tex"),
-	Asset("ATLAS", "images/barco.xml"),
 
-	Asset("ATLAS", "images/inventoryimages/volcanoinventory.xml"),
-	Asset("IMAGE", "images/inventoryimages/volcanoinventory.tex"),
-	Asset("ATLAS", "images/inventoryimages/novositens.xml"),
-	Asset("IMAGE", "images/inventoryimages/novositens.tex"),
-
-	Asset("ATLAS", "images/fx4te.xml"),
-	Asset("IMAGE", "images/fx4te.tex"),
-
+	-------------------animation----------------
+	Asset("ANIM", "anim/swap_land_fork.zip"),
 	Asset("ANIM", "anim/player_actions_paddle.zip"),
 	Asset("ANIM", "anim/player_actions_speargun.zip"),
 	Asset("ANIM", "anim/player_actions_tap.zip"),
@@ -1071,13 +955,6 @@ Assets =
 
 	Asset("ANIM", "anim/pig_house_sale.zip"),
 
-
-	Asset("ANIM", "anim/fish2.zip"),
-	Asset("ANIM", "anim/fish3.zip"),
-	Asset("ANIM", "anim/fish4.zip"),
-	Asset("ANIM", "anim/fish5.zip"),
-	Asset("ANIM", "anim/fish6.zip"),
-	Asset("ANIM", "anim/fish7.zip"),
 	Asset("ANIM", "anim/coi.zip"),
 	Asset("ANIM", "anim/ballphinocean.zip"),
 	Asset("ANIM", "anim/dogfishocean.zip"),
@@ -1098,37 +975,46 @@ Assets =
 	Asset("ANIM", "anim/seagull_build.zip"),
 	Asset("ANIM", "anim/quagmire_pigeon_build.zip"),
 	Asset("ANIM", "anim/skeletons.zip"),
-	Asset("ANIM", "anim/fish2.zip"),
-	Asset("ANIM", "anim/fish3.zip"),
-	Asset("ANIM", "anim/fish4.zip"),
-	Asset("ANIM", "anim/fish5.zip"),
-	Asset("ANIM", "anim/fish6.zip"),
-	Asset("ANIM", "anim/fish7.zip"),
+	Asset("ANIM", "anim/vagner_over.zip"),
+	Asset("ANIM", "anim/leaves_canopy2.zip"),
 
-	Asset("ANIM", "anim/oceanfish_small.zip"),
-	Asset("ANIM", "anim/oceanfish_small_1.zip"),
-	Asset("ANIM", "anim/oceanfish_small_2.zip"),
-	Asset("ANIM", "anim/oceanfish_small_3.zip"),
-	Asset("ANIM", "anim/oceanfish_small_4.zip"),
-	Asset("ANIM", "anim/oceanfish_small_5.zip"),
-	Asset("ANIM", "anim/oceanfish_small_6.zip"),
-	Asset("ANIM", "anim/oceanfish_small_7.zip"),
-	Asset("ANIM", "anim/oceanfish_small_8.zip"),
-	Asset("ANIM", "anim/oceanfish_medium.zip"),
-	Asset("ANIM", "anim/oceanfish_medium_1.zip"),
-	Asset("ANIM", "anim/oceanfish_medium_2.zip"),
-	Asset("ANIM", "anim/oceanfish_medium_3.zip"),
-	Asset("ANIM", "anim/oceanfish_medium_4.zip"),
-	Asset("ANIM", "anim/oceanfish_medium_5.zip"),
-	Asset("ANIM", "anim/oceanfish_medium_6.zip"),
-	Asset("ANIM", "anim/oceanfish_medium_7.zip"),
-	Asset("ANIM", "anim/oceanfish_medium_8.zip"),
-	Asset("IMAGE", "levels/textures/outro.tex"),
-	Asset("IMAGE", "levels/textures/ground_noise_water_deep.tex"),
-	Asset("IMAGE", "images/inventoryimages/hamletinventory.tex"),
-	Asset("ATLAS", "images/inventoryimages/hamletinventory.xml"),
+	Asset("ANIM", "anim/mushroom_tree_yelow.zip"),
+	Asset("ANIM", "anim/speedicon.zip"),
+
+	Asset("ANIM", "anim/ui_honeychest_7x.zip"), -- ## Hamlet Plus
+
+
+
+	---------------minisign------------------
+	Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_shipwrecked.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_hamlet.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_rog.xml", 256),
+
+
+
+	---------inventory-------------------
+	Asset("ATLAS", "images/inventoryimages/loot_pump.xml"),
+	Asset("IMAGE", "images/sea2land_fork.tex"),
+	Asset("ATLAS", "images/sea2land_fork.xml"),
+	Asset("ATLAS", "images/inventoryimages/novositens.xml"),
+	Asset("IMAGE", "images/inventoryimages/novositens.tex"),
 	Asset("IMAGE", "images/inventoryimages/meated_nettle.tex"),
 	Asset("ATLAS", "images/inventoryimages/meated_nettle.xml"),
+
+	Asset("ATLAS", "images/inventoryimages/volcanoinventory.xml"),
+	Asset("IMAGE", "images/inventoryimages/volcanoinventory.tex"),
+	Asset("IMAGE", "images/inventoryimages/hamletinventory.tex"),
+	Asset("ATLAS", "images/inventoryimages/hamletinventory.xml"),
+	Asset("IMAGE", "images/inventoryimages/inventory_rog.tex"),
+	Asset("ATLAS", "images/inventoryimages/inventory_rog.xml"),
+	Asset("IMAGE", "images/inventoryimages/inventory_shipwrecked.tex"),
+	Asset("ATLAS", "images/inventoryimages/inventory_shipwrecked.xml"),
+	Asset("IMAGE", "images/inventoryimages/inventory_hamlet.tex"),
+	Asset("ATLAS", "images/inventoryimages/inventory_hamlet.xml"),
+
+
 
 	--新的食谱大图与物品栏贴图
 	Asset("IMAGE", "images/cookbook/cookbook_sw.tex"),
@@ -1142,17 +1028,16 @@ Assets =
 
 
 
-	Asset("ATLAS", "images/map_icons/hamleticon.xml"),
-	Asset("IMAGE", "images/map_icons/hamleticon.tex"),
-	Asset("ATLAS", "images/map_icons/creepindedeepicon.xml"),
-	Asset("IMAGE", "images/map_icons/creepindedeepicon.tex"),
-	-- Asset("ANIM", "anim/butterflymuffin.zip"),
-	-- Asset("IMAGE", "images/tfwp_inventoryimgs.tex"),
-	-- Asset("ATLAS", "images/tfwp_inventoryimgs.xml"),
-	--Asset("SOUNDPACKAGE", "sound/Hamlet.fev"),
-	--Asset("SOUND", "sound/Hamlet.fsb"),
+	---------minimap-------------------
+	Asset("ATLAS", "images/minimap/loot_pump.xml"),
+	Asset("ATLAS", "images/minimap/hamleticon.xml"),
+	Asset("IMAGE", "images/minimap/hamleticon.tex"),
+	Asset("ATLAS", "images/minimap/creepindedeepicon.xml"),
+	Asset("IMAGE", "images/minimap/creepindedeepicon.tex"),
 
 
+
+	-----------character-------------------
 	Asset("IMAGE", "images/names_wilbur.tex"),
 	Asset("ATLAS", "images/names_wilbur.xml"),
 	Asset("IMAGE", "images/names_woodlegs.tex"),
@@ -1161,239 +1046,17 @@ Assets =
 	Asset("ATLAS", "images/names_walani.xml"),
 
 
+	----------ui-------------------
+	Asset("IMAGE", "images/barco.tex"),
+	Asset("ATLAS", "images/barco.xml"),
+	Asset("ATLAS", "images/fx4te.xml"),
+	Asset("IMAGE", "images/fx4te.tex"),
 	Asset("ATLAS", "images/tabs.xml"),
 	Asset("IMAGE", "images/tabs.tex"),
-	Asset("IMAGE", "images/turfs/turf01-9.tex"),
-	Asset("ATLAS", "images/turfs/turf01-9.xml"),
-
-	Asset("IMAGE", "images/turfs/turf01-10.tex"),
-	Asset("ATLAS", "images/turfs/turf01-10.xml"),
-
-	Asset("IMAGE", "images/turfs/turf01-11.tex"),
-	Asset("ATLAS", "images/turfs/turf01-11.xml"),
-
-	Asset("IMAGE", "images/turfs/turf01-12.tex"),
-	Asset("ATLAS", "images/turfs/turf01-12.xml"),
-
-	Asset("IMAGE", "images/turfs/turf01-13.tex"),
-	Asset("ATLAS", "images/turfs/turf01-13.xml"),
-
-	Asset("IMAGE", "images/turfs/turf01-14.tex"),
-	Asset("ATLAS", "images/turfs/turf01-14.xml"),
-	Asset("ANIM", "anim/vagner_over.zip"),
-	Asset("ANIM", "anim/leaves_canopy2.zip"),
-
-	Asset("ANIM", "anim/mushroom_tree_yelow.zip"),
-	Asset("ANIM", "anim/speedicon.zip"),
-
-	-- ## Hamlet Plus
-	-- ### Honey Chest UI
-	Asset("ANIM", "anim/ui_honeychest_7x.zip"),
-	Asset("IMAGE", "images/ui/honeychest.tex"),
+	Asset("IMAGE", "images/ui/honeychest.tex"), -- ### Honey Chest UI
 	Asset("ATLAS", "images/ui/honeychest.xml"),
 }
 
-AddMinimapAtlas("images/map_icons/creepindedeepicon.xml")
-AddMinimapAtlas("images/map_icons/hamleticon.xml")
+AddMinimapAtlas("images/minimap/creepindedeepicon.xml")
+AddMinimapAtlas("images/minimap/hamleticon.xml")
 AddMinimapAtlas("images/minimap/loot_pump.xml")
-
--- if GetModConfigData("gorgeisland") and GetModConfigData("kindofworld") == 15 or GetModConfigData("enableallprefabs") == true then
--- table.insert(PrefabFiles, "quagmire_mealingstone")
--- table.insert(PrefabFiles, "quagmire_flour")
--- table.insert(PrefabFiles, "quagmire_foods")
--- table.insert(PrefabFiles, "quagmire_goatmilk")
--- table.insert(PrefabFiles, "quagmire_sap")
--- table.insert(PrefabFiles, "quagmire_syrup")
-
--- table.insert(PrefabFiles, "quagmire_casseroledish")
--- table.insert(PrefabFiles, "quagmire_crates")
--- table.insert(PrefabFiles, "quagmire_grill")
--- table.insert(PrefabFiles, "quagmire_oven")
--- table.insert(PrefabFiles, "quagmire_plates")
--- table.insert(PrefabFiles, "quagmire_pot")
--- table.insert(PrefabFiles, "quagmire_pot_hanger")
--- table.insert(PrefabFiles, "quagmire_salt_rack")
--- table.insert(PrefabFiles, "quagmire_sapbucket")
--- table.insert(PrefabFiles, "quagmire_slaughtertool")
--- table.insert(PrefabFiles, "quagmire_altar")
--- table.insert(PrefabFiles, "quagmire_seedpackets")
-
--- table.insert(PrefabFiles, "quagmire_sugarwoodtree")
--- table.insert(PrefabFiles, "quagmire_sugarwood_sapling")
-
--- table.insert(PrefabFiles, "quagmire_goatmum")
--- table.insert(PrefabFiles, "quagmire_swampigelder")
-
--- table.insert(PrefabFiles, "quagmire_oldstructures")
--- table.insert(PrefabFiles, "quagmire_lamp_post")
--- table.insert(PrefabFiles, "quagmire_altar_statue")
--- table.insert(PrefabFiles, "quagmire_portal")
-
--- table.insert(Assets, Asset("ATLAS", "images/inventoryimages/quagmirefoods.xml"))
--- table.insert(Assets, Asset("IMAGE", "images/inventoryimages/quagmirefoods.tex"))
--- end
-
--- # Inventory item atlas register
-local dictInventoryItems = {
-	hamletinventory = {
-		"accomplishment_shrine", "aerodynamichat", "algae", "alloy", "aloe", "aloe_cooked", "aloe_seeds",
-		"ancient_remnant", "antchest", "antivenom", "antler", "antmaskhat", "antsuit", "armor_lifeJacket",
-		"armor_metalplate", "armor_snakeskin", "armor_snakeskin_scaly", "armor_weevole", "armor_windbreaker",
-		"armorcactus", "armorlimestone", "armorobsidian", "armorseashell", "armorvoidcloak", "armorvortexcloak",
-		"armouredboat", "asparagussoup_yotp", "bag", "ballpein_hammer", "ballphinhouse", "bamboo", "bananas",
-		"bananas_cooked", "bandithat", "banditmap", "basefan", "bat_leather", "bathat", "bell1", "bill_quill",
-		"bioluminescence", "bisque", "blowdart_flup", "blowdart_poison", "blubber", "blubbersuit", "blunderbuss",
-		"blunderbuss_loaded", "boat_lantern", "boat_lantern_off", "boat_torch", "boat_torch_off", "boatcannon",
-		"boatrepairkit", "bonestaff", "book_meteor", "bottlelantern", "bottlelantern_off", "brainjellyhat",
-		"bramble_bulb", "bucket", "bugrepellent", "buoy", "burr", "butterfly_tropical", "butterflymuffin_sw",
-		"butterflywings_tropical", "candlehat", "captainhat", "cargoboat", "caviar", "chiminea", "chitin", "city_hammer",
-		"city_lamp", "clawpalmtree_sapling", "clippings", "clothes", "clothsail", "coconade", "coconut", "coconut_cooked",
-		"coconut_halved", "coffee", "coffeebeans", "coffeebeans_cooked", "coi", "coi_cooked", "conch",
-		"construction_permit", "coral", "coral_brain", "corallarve", "cork", "cork_bat", "corkboatitem", "corkchest",
-		"cormorant", "cost-1", "cost-10", "cost-100", "cost-2", "cost-20", "cost-200", "cost-3", "cost-30", "cost-300",
-		"cost-4", "cost-40", "cost-400", "cost-5", "cost-50", "cost-500", "cost-nil", "crab", "crabbit_beardling",
-		"curtain_door", "cutgrass_green", "cutlass", "cutnettle", "dead_swordfish", "deed", "demolition_permit",
-		"disarming_kit", "disguisehat", "dorsalfin", "double_umbrellahat", "doydoy", "doydoy_baby", "doydoy_teen",
-		"doydoyegg", "doydoyegg_cooked", "doydoyfeather", "doydoynest", "dragonpie_yotp", "dragoonden", "dragoonheart",
-		"dubloon", "dug_bambooTree", "dug_bush_vine", "dug_cactus", "dug_coffeebush", "dug_elephantcactus",
-		"dug_grass_green", "dug_nettle", "earring", "encrustedboat", "eyebrella", "fabric", "feather_thunder",
-		"feathersail", "feijoada", "feijoada_yotp", "fish3", "fish3_cooked", "fish4", "fish4_cooked", "fish5",
-		"fish5_cooked", "fish_dogfish", "fish_farm", "fish_med_cooked", "fish_raw", "fish_raw_small",
-		"fishtropical_cooked", "frogglebunwich_yotp", "froglegs_poison", "froglegs_poison_cooked", "gashat", "gasmaskhat",
-		"glowfly", "gogglesarmorhat", "gogglesheathat", "gogglesnormalhat", "gogglesshoothat", "gold_dust",
-		"goldenmachete", "goldpan", "gummy_cake", "gummy_cake_yotp", "hail_ice", "halberd", "hardshell_tacos",
-		"hardshell_tacos_yotp", "harpoon", "hayfeverhat", "health_down", "health_max", "hippo_antler", "hogusporkusator",
-		"honeyham_yotp", "honeynuggets_yotp", "icedtea", "icedtea_yotp", "icegem", "icemaker", "infused_iron",
-		"interior_floor_check", "interior_floor_gardenstone", "interior_floor_geometrictiles",
-		"interior_floor_herringbone", "interior_floor_hexagon", "interior_floor_hoof_curvy", "interior_floor_marble",
-		"interior_floor_octagon", "interior_floor_plaid_tile", "interior_floor_shag_carpet", "interior_floor_sheet_metal",
-		"interior_floor_transitional", "interior_floor_wood", "interior_floor_woodpanels",
-		"interior_wall_checkered_metal", "interior_wall_circles", "interior_wall_floral",
-		"interior_wall_fullwall_moulding", "interior_wall_harlequin", "interior_wall_marble",
-		"interior_wall_mayorsoffice", "interior_wall_peagawk", "interior_wall_plain_rog", "interior_wall_rope",
-		"interior_wall_sunflower", "interior_wall_upholstered", "interior_wall_wood", "iron", "iron_door", "ironwind",
-		"jellyJerky", "jellybug", "jellybug_cooked", "jellyfish", "jellyfish_cooked", "jellyfish_dead", "jellyopop",
-		"jungleTreeSeed", "key_to_city", "kingfisher", "limestone", "limpets", "limpets_cooked", "living_artifact",
-		"lobster", "lobster_dead", "lobster_dead_cooked", "log_rainforest", "log_tropical", "lograft", "lotus_flower1",
-		"lotus_flower1_cooked", "machete", "magic_seal", "magnifying_glass", "meatballs_yotp", "metalplatehat",
-		"monkeyball", "monsterlasagna_yotp", "mosquito_yellow", "mosquitosack_yellow", "mussel", "mussel_bed",
-		"mussel_cooked", "mussel_stick", "musselbouillabaise", "mysterymeat", "nectar_pod", "needlespear",
-		"nettlelosange", "nettlelosange_yotp", "nubbin", "obsidian", "obsidianaxe", "obsidiancoconade", "obsidianfirepit",
-		"obsidianmachete", "oinc", "oinc10", "oinc100", "organic_door", "ox_flute", "ox_horn", "oxhat", "packim_fishbone",
-		"packim_fishbone_dead", "palmleaf", "palmleaf_hut", "palmleaf_umbrella", "parrot", "parrot_blue", "parrot_pirate",
-		"peagawkfeather", "peagawkfeatherhat", "pedestal_key", "peg_leg", "perogies_yotp", "pheromonestone",
-		"pig_guard_tower", "pig_scepter", "pig_shop_antiquities", "pig_shop_arcane", "pig_shop_bank",
-		"pig_shop_cityhall_player", "pig_shop_deli", "pig_shop_florist", "pig_shop_general", "pig_shop_hatshop",
-		"pig_shop_hoofspa", "pig_shop_produce", "pig_shop_tinker", "pig_shop_weapons", "pigcrownhat", "pigeon",
-		"pighouse_city", "piko", "piko_orange", "pillar_door", "piratehat", "piratepack", "piratihatitator", "pithhat",
-		"plate_door", "player_house_brick", "player_house_brick_craft", "player_house_cottage",
-		"player_house_cottage_craft", "player_house_gothic", "player_house_gothic_craft", "player_house_manor",
-		"player_house_manor_craft", "player_house_tudor", "player_house_tudor_craft", "player_house_turret",
-		"player_house_turret_craft", "player_house_villa", "player_house_villa_craft", "playerhouse_city", "poisonbalm",
-		"pollen", "porkland_entrance", "primeapebarrel", "pugalisk_skull", "pumpkincookie_yotp", "quackenbeak",
-		"quackendrill", "quackeringram", "rabid_beetle", "radish", "radish_cooked", "radish_seeds", "raft",
-		"rainbowjellyfish", "rainbowjellyfish_cooked", "rainbowjellyfish_dead", "ratatouille_yotp", "rawling",
-		"record_01", "record_02", "record_03", "relic_1", "relic_2", "relic_3", "relic_4", "relic_5",
-		"reno_antiquities_beefalo", "reno_antiquities_wallfish", "reno_chair_bench", "reno_chair_chaise",
-		"reno_chair_classic", "reno_chair_corner", "reno_chair_footrest", "reno_chair_horned", "reno_chair_lounge",
-		"reno_chair_massager", "reno_chair_ottoman", "reno_chair_rocking", "reno_chair_stuffed", "reno_cornerbeam_marble",
-		"reno_cornerbeam_millinery", "reno_cornerbeam_round", "reno_cornerbeam_wood", "reno_doors_plate",
-		"reno_lamp_2embroidered", "reno_lamp_2fringes", "reno_lamp_2upturns", "reno_lamp_adjustable",
-		"reno_lamp_bellshade", "reno_lamp_candelabra", "reno_lamp_ceramic", "reno_lamp_crystals", "reno_lamp_downbridge",
-		"reno_lamp_edison", "reno_lamp_elizabethan", "reno_lamp_festivetree", "reno_lamp_fringe", "reno_lamp_glass",
-		"reno_lamp_gothic", "reno_lamp_hoofspa", "reno_lamp_orb", "reno_lamp_rightangles", "reno_lamp_spool",
-		"reno_lamp_stainglass", "reno_lamp_upturn", "reno_light_basic_bulb", "reno_light_basic_metal",
-		"reno_light_chandalier_candles", "reno_light_derby", "reno_light_floral_bloomer", "reno_light_floral_bulb",
-		"reno_light_floral_scallop", "reno_light_pendant_cherries", "reno_light_rope_1", "reno_light_rope_2",
-		"reno_light_tophat", "reno_plantholder_basic", "reno_plantholder_birdcage", "reno_plantholder_bonsai",
-		"reno_plantholder_dishgarden", "reno_plantholder_draceana", "reno_plantholder_fancy", "reno_plantholder_fern",
-		"reno_plantholder_fernstand", "reno_plantholder_marble", "reno_plantholder_orchid", "reno_plantholder_palm",
-		"reno_plantholder_philodendron", "reno_plantholder_pitchers", "reno_plantholder_plantpet",
-		"reno_plantholder_terrarium", "reno_plantholder_traps", "reno_plantholder_winterfeasttreeofsadness",
-		"reno_plantholder_wip", "reno_plantholder_xerographica", "reno_plantholder_zz", "reno_rug_beard",
-		"reno_rug_braid", "reno_rug_catcoon", "reno_rug_crime", "reno_rug_fur", "reno_rug_hedgehog", "reno_rug_hoofprint",
-		"reno_rug_metal", "reno_rug_nailbed", "reno_rug_octagon", "reno_rug_oval", "reno_rug_porcupuss",
-		"reno_rug_rectangle", "reno_rug_round", "reno_rug_rubbermat", "reno_rug_square", "reno_rug_swirl",
-		"reno_rug_tiles", "reno_rug_web", "reno_rug_wormhole", "reno_shelves_adjustable", "reno_shelves_aframe",
-		"reno_shelves_basic", "reno_shelves_cinderblocks", "reno_shelves_crates", "reno_shelves_floating",
-		"reno_shelves_fridge", "reno_shelves_glass", "reno_shelves_hattree", "reno_shelves_hutch",
-		"reno_shelves_industrial", "reno_shelves_ladder", "reno_shelves_marble", "reno_shelves_midcentury",
-		"reno_shelves_pallet", "reno_shelves_pipe", "reno_shelves_wallmount", "reno_shelves_wood", "reno_tab_chairs",
-		"reno_tab_columns", "reno_tab_doors", "reno_tab_floors", "reno_tab_hanginglamps", "reno_tab_homekits",
-		"reno_tab_lamps", "reno_tab_ornaments", "reno_tab_plantholders", "reno_tab_rugs", "reno_tab_shelves",
-		"reno_tab_tables", "reno_tab_wallpaper", "reno_tab_windows", "reno_table_banker", "reno_table_chess",
-		"reno_table_crate", "reno_table_diy", "reno_table_raw", "reno_table_round", "reno_wallornament_axe",
-		"reno_wallornament_black_cat", "reno_wallornament_cape", "reno_wallornament_embroidery_hoop",
-		"reno_wallornament_fulllength_mirror", "reno_wallornament_gears_art", "reno_wallornament_hunt",
-		"reno_wallornament_mosaic", "reno_wallornament_no_smoking", "reno_wallornament_periodic_table",
-		"reno_wallornament_photo", "reno_wallornament_wreath", "reno_window_greenhouse", "reno_window_large_square",
-		"reno_window_large_square_curtain", "reno_window_round_burlap", "reno_window_small_peaked",
-		"reno_window_small_peaked_curtain", "reno_window_tall", "reno_window_tall_curtain", "researchlab5", "ro_bin_gem",
-		"ro_bin_gem_closed", "roc_egg", "roc_egg_cold", "roc_egg_hot", "rockwall", "roe", "roe_cooked", "roottrunk",
-		"roottrunk_child", "round_door", "rowboat", "sail", "sail_stick", "sand", "sand_castle", "sandbag_item",
-		"sandbagsmall_item", "sanity_down", "sanity_max", "sea_chiminea", "sea_yard", "seagull", "seasack", "seashell",
-		"seatrap", "seaweed", "seaweed_cooked", "seaweed_dried", "seaweed_stalk", "securitycontract", "shark_fin",
-		"shark_gills", "shark_teethhat", "shark_tooth", "sharkfinsoup", "shears", "shipwrecked_entrance", "shop_trinket",
-		"silvernecklace", "skull_wallace", "skull_waverly", "skull_wilbur", "skull_wilton", "skull_winnie", "slugbug",
-		"slugbug_cooked", "smelter", "snake", "snake_bone", "snake_scaly", "snakebonesoup", "snakebonesoup_yotp",
-		"snakeoil", "snakeskin", "snakeskin_scaly", "snakeskinhat", "snakeskinhat_scaly", "snakeskinsail",
-		"snakeskinsail_scaly", "spear_launcher", "spear_launcher_obsidian", "spear_launcher_poison",
-		"spear_launcher_spear", "spear_launcher_wathgrithr", "spear_obsidian", "spear_poison", "spicyvegstinger",
-		"spicyvegstinger_yotp", "sprinkler1", "steamedhamsandwich", "steamedhamsandwich_yotp", "stone_door", "stopwatch",
-		"stuffedeggplant_yotp", "stunrod", "sunken_boat_trinket_1", "sunken_boat_trinket_2", "sunken_boat_trinket_3",
-		"sunken_boat_trinket_4", "sunken_boat_trinket_5", "supertelescope", "surfboard_item", "sweet_potato",
-		"sweet_potato_cooked", "sweet_potato_seeds", "sweetpotatosouffle", "tar", "tar_extractor", "tarlamp", "tarsuit",
-		"tea", "tea_yotp", "teatree_nut", "teatree_nut_cooked", "telebrella", "teleportato_hamlet_base",
-		"teleportato_hamlet_box", "teleportato_hamlet_crank", "teleportato_hamlet_potato", "teleportato_hamlet_ring",
-		"teleportato_sw_base", "teleportato_sw_box", "teleportato_sw_crank", "teleportato_sw_potato",
-		"teleportato_sw_ring", "telescope", "telipad", "thatchpack", "thorns_marsh", "thumper", "thunderhat", "tigereye",
-		"toucan", "toucan_hamlet", "tracker", "tracker_open", "trawlnet", "waterdrop",
-	},
-	volcanoinventory = {
-		"aloe_oversized", "aloe_oversized_waxed", "antidote", "armor_seashell", "axeobsidian", "ballphinocean",
-		"beaverskin", "bed0", "bed1", "bed2", "bed3", "bed4", "bed5", "bed6", "bed7", "bed8", "blueberries",
-		"blueberries_cooked", "boarbattle", "boatmetal_item", "book_meteor1", "bossboarbattle", "bundled_structure",
-		"butterfly_tropical_wings", "cottontree_cone", "dogfishocean", "doydoyfan", "fennel", "fennel_cooked", "fish2",
-		"fish2_cooked", "fish6", "fish6_cooked", "fish7", "fish7_cooked", "fish_med", "fruityjuice", "glass_shards",
-		"goldenbar", "goldfish", "gooseberry", "gooseberry_cooked", "hedge_block", "hedge_cone", "hedge_layered",
-		"houndbattle", "knightbattle", "lizardbattle", "lobster_land", "lobsterunderwater", "lograft_old", "luckyhat",
-		"malbatrossail", "maxwellphonograph", "maxwellstatuebracod", "maxwellstatuebracoe", "maxwellstatuecabeca",
-		"maxwellstatuecorpo", "mecfish", "mermbattle", "messagebottle1", "messagebottleempty1", "mosquitopoison",
-		"obsidianbomb", "oceanfish_small_10_inv", "oceanfish_small_11_inv", "oceanfish_small_12_inv",
-		"oceanfish_small_13_inv", "oceanfish_small_14_inv", "oceanfish_small_15_inv", "oceanfish_small_16_inv",
-		"oceanfish_small_17_inv", "oceanfish_small_18_inv", "oceanfish_small_19_inv", "oceanfish_small_20_inv",
-		"oceanfish_small_21_inv", "oceanfish_small_61_inv", "oceanfish_small_71_inv", "oceanfish_small_81_inv",
-		"oceanfish_small_91_inv", "ox_wool", "pandahouse", "pandaskin", "peagawkfeather_prism", "poop2", "porto",
-		"porto_armouredboat", "porto_ballphinhouse", "porto_buoy", "porto_cargoboat", "porto_encrustedboat",
-		"porto_fish_farm", "porto_lograft", "porto_lograft_old", "porto_raft", "porto_raft_old", "porto_researchlab5",
-		"porto_rowboat", "porto_sea_chiminea", "porto_sea_yard", "porto_surfboard", "porto_tar_extractor",
-		"porto_waterchest1", "porto_woodlegsboat", "radish_oversized", "radish_oversized_waxed", "raft_old",
-		"rhinocebrosbattle", "salmon", "salmon_cooked", "sap", "sap_spoiled", "sapbucket", "seacucumber",
-		"seacucumber_cooked", "seagullwater", "seataro", "seataro_cooked", "shadowmower_builder", "shard_beak",
-		"shard_sword", "sharxocean", "snowitem", "spiderbattle", "spore_yellow", "stonebar", "surfboard", "surfboarditem",
-		"swbait", "sweet_potato_oversized", "sweet_potato_oversized_waxed", "swineclopsbattle", "swordfishjocean",
-		"swordfishjocean2", "tfwp_crystal_crown_hat", "tfwp_dragon_dart", "tfwp_fire_bomb", "tfwp_flower_headband_hat",
-		"tfwp_healing_staff", "tfwp_lava_dart", "tfwp_lava_hammer", "tfwp_luxury_nox_helm_hat", "tfwp_spear_gung",
-		"tfwp_spear_lance", "tfwp_summon_book", "tfwp_wizard_crown_hat", "tfwp_woven_garland_hat",
-		"tree_forest_deep_seed", "tree_forest_rot_seed", "tree_forestseed", "trinket_giftshop_1", "trinket_giftshop_3",
-		"trinket_giftshop_4", "tropical_fish", "tropicalbouillabaisse", "tuber_bloom_crop", "tuber_bloom_crop_cooked",
-		"tuber_crop", "tuber_crop_cooked", "tunacan", "turbine_blades", "turf_ash", "turf_beach", "turf_checkeredlawn",
-		"turf_cobbleroad", "turf_deeprainforest", "turf_fields", "turf_foundation", "turf_gasjungle", "turf_jungle",
-		"turf_magmafield", "turf_meadow", "turf_pigruins", "turf_quagmire_parkfield", "turf_rainforest",
-		"turf_snakeskinfloor", "turf_suburb", "turf_tidalmarsh", "turf_volcano", "turf_windy", "venomgland",
-		"venus_stalk", "vine", "volcanostaff", "walkingstick", "wall_enforcedlimestone_item", "wall_limestone_item",
-		"waterchest1", "watercress", "watercress_cooked", "weevole_carapace", "whaleblueocean", "wildbeaver_house",
-		"wildborehouse", "wind_conch", "woodlegs_boatcannon", "woodlegs_key1", "woodlegs_key2", "woodlegs_key3",
-		"woodlegsboat", "woodlegssail", "yelow_cap", "yelow_cap_cooked",
-	},
-	cookpotfoods_ham = {
-		"bubbletea", "frenchonionsoup", "lotuschips", "meated_nettle", "poi", "slaw",
-	},
-}
-for atlas, imageTab in pairs(dictInventoryItems) do
-	for _, image in ipairs(imageTab) do
-		RegisterInventoryItemAtlas(resolvefilepath("images/inventoryimages/" .. atlas .. ".xml"), image .. ".tex")
-	end
-end
-
--- RegisterInventoryItemAtlas("images/inventoryimages/tap_buildingimages.xml", "kyno_fountainyouth.tex")

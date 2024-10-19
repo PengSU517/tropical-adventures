@@ -71,7 +71,7 @@ AddTask("Plains_start", {
     locks = { LOCKS.JUNGLE_DEPTH_1 },
     keys_given = {},
     region_id = "hamlet",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
         ["BG_plains_base"] = 1,
         ["Hamlet start"] = 1,
@@ -88,7 +88,7 @@ AddTask("Plains", {
     locks = { LOCKS.JUNGLE_DEPTH_1 },
     keys_given = { --[[KEYS.HAM_BLANK]] --[[ KEYS.JUNGLE_DEPTH_1 KEYS.RAINFOREST, KEYS.EDGE, KEYS.PAINTED, KEYS.DEEPRAINFOREST]] },
     region_id = "hamlet",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     -- room_tags = { "RoadPoison", "moonhunt", "nohasslers", "lunacyarea", "not_mainland" },
     room_choices = {
         ["BG_plains_base"] = 1,
@@ -111,7 +111,7 @@ AddTask("Plains_ruins", {
     locks = { LOCKS.JUNGLE_DEPTH_2 },
     keys_given = { KEYS.JUNGLE_DEPTH_2, --[[KEYS.HAM_BLANK]] },
     region_id = "hamlet",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
         ["plains_ruins"] = 1,
         ["plains_ruins_set"] = 1,
@@ -128,7 +128,7 @@ AddTask("Rainforest_ruins", {
     locks = { LOCKS.JUNGLE_DEPTH_1 },
     keys_given = { KEYS.JUNGLE_DEPTH_1, --[[KEYS.HAM_BLANK]] },
     region_id = "hamlet",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     -- room_tags = { "RoadPoison", "moonhunt", "nohasslers", "lunacyarea", "not_mainland" },
     room_choices = {
         ["rainforest_ruins"] = 2,
@@ -153,7 +153,7 @@ AddTask("Painted_sands", {
     locks = { LOCKS.JUNGLE_DEPTH_1 },
     keys_given = { KEYS.JUNGLE_DEPTH_1, --[[KEYS.HAM_BLANK]] },
     region_id = "hamlet",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
         ["BG_battleground_base"] = 1,
         ["battleground_ribs"] = 1,
@@ -172,52 +172,112 @@ AddTask("Painted_sands", {
 -----------------------------------------
 
 -------------------------
+-- AddTask("Edge_of_civilization", {
+--     -- locks = { LOCKS.EDGE },
+--     -- keys_given = { KEYS.CITY_1, --[[KEYS.HAM_BLANK]] },
+--     locks = { LOCKS.JUNGLE_DEPTH_1 },
+--     keys_given = { KEYS.CITY_1 },
+--     region_id = "hamlet",
+--     room_tags = { "RoadPoison","hamlet", "tropical", "nohasslers", "not_mainland" },
+--     room_choices = {
+--         ["cultivated_base_1"] = 1,
+--         ["cultivated_base_2"] = 1,
+--         --			["cultivated_base_3"] = 1,
+--         ["cultivated_base_4"] = 1,
+--         ["cultivated_base_5"] = 1,
+--         ["piko_land"] = 1,
+--     },
+--     room_bg = GROUND.FIELDS,
+--     background_room = "BG_cultivated_base",
+--     crosslink_factor = 3,
+--     colour = { r = 1, g = 1, b = 1, a = 0.3 }
+-- })
+
+-- AddTask("Pigcity", {
+--     locks = { LOCKS.CITY_1 },
+--     keys_given = {},
+--     region_id = "hamlet",
+--     room_tags = { "RoadPoison", "RoadPoison","hamlet", "tropical", "nohasslers", "not_mainland" },
+--     room_choices = {
+--         ["city_base_1_set"] = 1,
+--         ["city_base"] = 2,
+--     },
+--     room_bg = GROUND.SUBURB,
+--     -- entrance_room = "city_base",
+--     background_room = "BG_suburb_base",
+--     cove_room_name = "city_base",
+--     make_loop = true,
+--     crosslink_factor = 10, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
+--     cove_room_chance = 1,  --加边界房间把中心房间围起来 但是coveroom的个数不能多于room个数
+--     cove_room_max_edges = 10,
+--     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 }
+-- })
+
+
 AddTask("Edge_of_civilization", {
-    -- locks = { LOCKS.EDGE },
-    -- keys_given = { KEYS.CITY_1, --[[KEYS.HAM_BLANK]] },
-    locks = { LOCKS.JUNGLE_DEPTH_1 },
-    keys_given = { KEYS.CITY_1 },
+    locks = LOCKS.JUNGLE_DEPTH_1,
+    keys_given = KEYS.CIVILIZATION_1,
     region_id = "hamlet",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "City1", "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
-        ["cultivated_base_1"] = 1,
-        ["cultivated_base_2"] = 1,
-        --			["cultivated_base_3"] = 1,
-        ["cultivated_base_4"] = 1,
-        ["cultivated_base_5"] = 1,
-        ["piko_land"] = 1,
+        ["cultivated_base_1"] = math.random(3, 5),
+        ["piko_land"] = math.random(2, 3),
     },
-    room_bg = GROUND.FIELDS,
-    background_room = "BG_cultivated_base",
-    crosslink_factor = 3,
+    room_bg = WORLD_TILES.FIELDS,
+    background_room = "cultivated_base_1",
+    cove_room_name = "cultivated_base_1",
+    make_loop = true,
+    crosslink_factor = 10,
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
     colour = { r = 1, g = 1, b = 1, a = 0.3 }
 })
 
-AddTask("Pigcity", {
-    locks = { LOCKS.CITY_1 },
-    keys_given = {},
+
+AddTask("Pigtopia", {
+    locks = LOCKS.CIVILIZATION_1,
+    keys_given = KEYS.CIVILIZATION_2,
     region_id = "hamlet",
-    room_tags = { "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "City1", "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
-        ["city_base_1_set"] = 1,
-        ["city_base"] = 2,
+        ["city_base_1"] = math.random(5, 7),
+        -- ["suburb_base_1"] = math.random(2, 3),
     },
-    room_bg = GROUND.SUBURB,
-    -- entrance_room = "city_base",
-    background_room = "BG_suburb_base",
-    cove_room_name = "city_base",
+    room_bg = WORLD_TILES.SUBURB,
+    background_room = "suburb_base_1",
+    cove_room_name = "suburb_base_1",
     make_loop = true,
-    crosslink_factor = 10, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
-    cove_room_chance = 1,  --加边界房间把中心房间围起来 但是coveroom的个数不能多于room个数
+    crosslink_factor = 10,
+    cove_room_chance = 1,
     cove_room_max_edges = 10,
-    colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 }
+    colour = { r = 1, g = 1, b = 1, a = 0.3 }
 })
+
+AddTask("Pigtopia_capital", {
+    locks = LOCKS.CIVILIZATION_2,
+    keys_given = KEYS.ISLAND_2,
+    region_id = "hamlet",
+    room_tags = { "City1", "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
+    room_choices = {
+        ["city_base_1"] = math.random(3, 4),
+    },
+    room_bg = WORLD_TILES.SUBURB,
+    background_room = "suburb_base_1",
+    cove_room_name = "suburb_base_1",
+    make_loop = true,
+    crosslink_factor = 10,
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    colour = { r = 1, g = 1, b = 1, a = 0.3 }
+})
+
+
 
 AddTask("Ham_blank1", {
     locks = { LOCKS.HAM_BLANK },
     keys_given = { KEYS.CITY_2 },
     region_id = "hamlet",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomHAM"] = 10,
@@ -232,7 +292,7 @@ AddTask("Ham_blank2", {
     locks = { LOCKS.HAM_BLANK },
     keys_given = { KEYS.SNAKE },
     region_id = "hamlet",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomHAM"] = 10,
@@ -244,24 +304,80 @@ AddTask("Ham_blank2", {
 })
 
 
-AddTask("Pigcity2", {
-    locks = { LOCKS.CITY_2 },
-    keys_given = { KEYS.DEEPRAINFOREST_CITY2 },
+-- AddTask("Pigcity2", {
+--     locks = { LOCKS.CITY_2 },
+--     keys_given = { KEYS.DEEPRAINFOREST_CITY2 },
+--     region_id = "hamlet_palace",
+--     room_tags = { "RoadPoison", "RoadPoison","hamlet", "tropical", "nohasslers", "not_mainland" },
+--     room_choices = {
+--         ["city_base_2_set"] = 1,
+--         ["city_base"] = 2,
+--     },
+--     room_bg = GROUND.SUBURB,
+--     entrance_room = "city_base",
+--     background_room = "BG_suburb_base",
+--     cove_room_name = "city_base",
+--     make_loop = true,
+--     crosslink_factor = 10, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
+--     cove_room_chance = 1,  --加边界房间把中心房间围起来 但是coveroom的个数不能多于room个数
+--     cove_room_max_edges = 10,
+--     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 }
+-- })
+
+AddTask("Other_edge_of_civilization", {
+    locks = LOCKS.OTHER_JUNGLE_DEPTH_1,
+    keys_given = KEYS.OTHER_CIVILIZATION_1,
     region_id = "hamlet_palace",
-    room_tags = { "RoadPoison", "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "City1", "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
-        ["city_base_2_set"] = 1,
-        ["city_base"] = 2,
+        ["cultivated_base_2"] = math.random(2, 3),
+        ["piko_land"] = math.random(1, 2),
     },
-    room_bg = GROUND.SUBURB,
-    entrance_room = "city_base",
-    background_room = "BG_suburb_base",
-    cove_room_name = "city_base",
+    room_bg = WORLD_TILES.FIELDS,
+    background_room = "cultivated_base_2",
+    cove_room_name = "cultivated_base_2",
     make_loop = true,
-    crosslink_factor = 10, --大概是跨过空room的连接数 交联级数？穿过某个node的次数？
-    cove_room_chance = 1,  --加边界房间把中心房间围起来 但是coveroom的个数不能多于room个数
+    crosslink_factor = 10,
+    cove_room_chance = 1,
     cove_room_max_edges = 10,
-    colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 }
+    colour = { r = 1, g = 1, b = 1, a = 0.3 }
+})
+
+AddTask("Other_pigtopia", {
+    locks = LOCKS.OTHER_CIVILIZATION_1,
+    keys_given = KEYS.OTHER_CIVILIZATION_2,
+    region_id = "hamlet_palace",
+    room_tags = { "City2", "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
+    room_choices = {
+        ["city_base_2"] = math.random(5, 7),
+        -- ["suburb_base_2"] = math.random(2, 3),
+    },
+    room_bg = WORLD_TILES.SUBURB,
+    background_room = "suburb_base_2",
+    cove_room_name = "suburb_base_2",
+    make_loop = true,
+    crosslink_factor = 10,
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    colour = { r = 1, g = 1, b = 1, a = 0.3 }
+})
+
+AddTask("Other_pigtopia_capital", {
+    locks = LOCKS.OTHER_CIVILIZATION_2,
+    keys_given = KEYS.ISLAND_3,
+    region_id = "hamlet_palace",
+    room_tags = { "City2", "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
+    room_choices = {
+        ["city_base_2"] = math.random(3, 4),
+    },
+    room_bg = WORLD_TILES.SUBURB,
+    background_room = "suburb_base_2",
+    cove_room_name = "suburb_base_2",
+    make_loop = true,
+    crosslink_factor = 10,
+    cove_room_chance = 1,
+    cove_room_max_edges = 10,
+    colour = { r = 1, g = 1, b = 1, a = 0.3 }
 })
 
 
@@ -271,6 +387,7 @@ AddTask("Edge_of_the_unknown", {
     locks = { LOCKS.SNAKE },
     keys_given = { KEYS.LOST_JUNGLE, KEYS.DEEPRAINFOREST_SNAKE },
     region_id = "hamlet_snake",
+    room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
         ["BG_plains_base"] = 2,
         ["BG_plains_base_nocanopy1"] = 1,
@@ -287,7 +404,7 @@ AddTask("Deep_lost_ruins_gas", {
     locks = { LOCKS.LOST_JUNGLE },
     keys_given = {},
     region_id = "hamlet_snake",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
         ["deeprainforest_gas"] = math.random(2, 3),
         ["deeprainforest_gas_flytrap_grove"] = math.random(2),
@@ -307,7 +424,7 @@ AddTask("Deep_rainforest", {
     locks = { LOCKS.JUNGLE_DEPTH_1 },
     keys_given = { --[[KEYS.HAM_BLANK]] },
     region_id = "hamlet",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
         ["BG_rainforest_base"] = math.random(2, 3),
         ["BG_deeprainforest_base"] = 1,
@@ -327,7 +444,7 @@ AddTask("Deep_rainforest_2", {
     -- keys_given = { --[[KEYS.HAM_BLANK]] },
     locks = { LOCKS.DEEPRAINFOREST_CITY2 },
     region_id = "hamlet_palace",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
         ["BG_deeprainforest_base"] = 1,
         ["deeprainforest_spider_monkey_nest"] = 1,
@@ -348,7 +465,7 @@ AddTask("Deep_rainforest_3", {
     locks = { LOCKS.DEEPRAINFOREST_SNAKE },
     -- keys_given = { KEYS.JUNGLE_DEPTH_1, --[[KEYS.HAM_BLANK]] },
     region_id = "hamlet_snake",
-    room_tags = { "hamlet", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
         ["BG_deeprainforest_base"] = 2,
         ["deeprainforest_fireflygrove"] = 1,

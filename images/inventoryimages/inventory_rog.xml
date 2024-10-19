@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Atlas>
+    <Texture filename="inventory_rog.tex"/>
+    <Elements>
+        <Element name="bag.tex" u1="0.000976563" u2="0.124023" v1="0.875977" v2="0.999023"/>
+        <Element name="bell.tex" u1="0.000976563" u2="0.124023" v1="0.750977" v2="0.874023"/>
+        <Element name="cave_regenerator.tex" u1="0.000976563" u2="0.124023" v1="0.625977" v2="0.749023"/>
+        <Element name="dug_cactus.tex" u1="0.000976563" u2="0.124023" v1="0.500977" v2="0.624023"/>
+        <Element name="dug_marsh_bush.tex" u1="0.000976563" u2="0.124023" v1="0.375977" v2="0.499023"/>
+        <Element name="eyebrella.tex" u1="0.000976563" u2="0.124023" v1="0.250977" v2="0.374023"/>
+        <Element name="oceanfish_small_10_inv.tex" u1="0.000976563" u2="0.124023" v1="0.125977" v2="0.249023"/>
+        <Element name="oceanfish_small_11_inv.tex" u1="0.000976563" u2="0.124023" v1="0.000976563" v2="0.124023"/>
+        <Element name="oceanfish_small_12_inv.tex" u1="0.125977" u2="0.249023" v1="0.875977" v2="0.999023"/>
+        <Element name="oceanfish_small_13_inv.tex" u1="0.250977" u2="0.374023" v1="0.875977" v2="0.999023"/>
+        <Element name="oceanfish_small_14_inv.tex" u1="0.375977" u2="0.499023" v1="0.875977" v2="0.999023"/>
+        <Element name="oceanfish_small_15_inv.tex" u1="0.500977" u2="0.624023" v1="0.875977" v2="0.999023"/>
+        <Element name="oceanfish_small_16_inv.tex" u1="0.625977" u2="0.749023" v1="0.875977" v2="0.999023"/>
+        <Element name="oceanfish_small_17_inv.tex" u1="0.750977" u2="0.874023" v1="0.875977" v2="0.999023"/>
+        <Element name="oceanfish_small_18_inv.tex" u1="0.875977" u2="0.999023" v1="0.875977" v2="0.999023"/>
+        <Element name="oceanfish_small_19_inv.tex" u1="0.125977" u2="0.249023" v1="0.750977" v2="0.874023"/>
+        <Element name="oceanfish_small_20_inv.tex" u1="0.125977" u2="0.249023" v1="0.625977" v2="0.749023"/>
+        <Element name="oceanfish_small_21_inv.tex" u1="0.125977" u2="0.249023" v1="0.500977" v2="0.624023"/>
+        <Element name="oceanfish_small_61_inv.tex" u1="0.125977" u2="0.249023" v1="0.375977" v2="0.499023"/>
+        <Element name="oceanfish_small_71_inv.tex" u1="0.125977" u2="0.249023" v1="0.250977" v2="0.374023"/>
+        <Element name="oceanfish_small_81_inv.tex" u1="0.125977" u2="0.249023" v1="0.125977" v2="0.249023"/>
+        <Element name="oceanfish_small_91_inv.tex" u1="0.125977" u2="0.249023" v1="0.000976563" v2="0.124023"/>
+        <Element name="scarecrow.tex" u1="0.250977" u2="0.374023" v1="0.750977" v2="0.874023"/>
+        <Element name="skull_wallace.tex" u1="0.375977" u2="0.499023" v1="0.750977" v2="0.874023"/>
+        <Element name="skull_waverly.tex" u1="0.500977" u2="0.624023" v1="0.750977" v2="0.874023"/>
+        <Element name="skull_webber.tex" u1="0.625977" u2="0.749023" v1="0.750977" v2="0.874023"/>
+        <Element name="skull_wendy.tex" u1="0.750977" u2="0.874023" v1="0.750977" v2="0.874023"/>
+        <Element name="skull_wes.tex" u1="0.875977" u2="0.999023" v1="0.750977" v2="0.874023"/>
+        <Element name="skull_wickerbottom.tex" u1="0.250977" u2="0.374023" v1="0.625977" v2="0.749023"/>
+        <Element name="skull_willow.tex" u1="0.250977" u2="0.374023" v1="0.500977" v2="0.624023"/>
+        <Element name="skull_wilson.tex" u1="0.250977" u2="0.374023" v1="0.375977" v2="0.499023"/>
+        <Element name="skull_wilton.tex" u1="0.250977" u2="0.374023" v1="0.250977" v2="0.374023"/>
+        <Element name="skull_winnie.tex" u1="0.250977" u2="0.374023" v1="0.125977" v2="0.249023"/>
+        <Element name="skull_wolfgang.tex" u1="0.250977" u2="0.374023" v1="0.000976563" v2="0.124023"/>
+        <Element name="skull_woodie.tex" u1="0.375977" u2="0.499023" v1="0.625977" v2="0.749023"/>
+        <Element name="skull_wortox.tex" u1="0.500977" u2="0.624023" v1="0.625977" v2="0.749023"/>
+        <Element name="skull_wx78.tex" u1="0.625977" u2="0.749023" v1="0.625977" v2="0.749023"/>
+        <Element name="snowball.tex" u1="0.750977" u2="0.874023" v1="0.625977" v2="0.749023"/>
+        <Element name="sunken_boat_trinket_1.tex" u1="0.875977" u2="0.999023" v1="0.625977" v2="0.749023"/>
+        <Element name="sunken_boat_trinket_2.tex" u1="0.375977" u2="0.499023" v1="0.500977" v2="0.624023"/>
+        <Element name="sunken_boat_trinket_3.tex" u1="0.375977" u2="0.499023" v1="0.375977" v2="0.499023"/>
+        <Element name="sunken_boat_trinket_4.tex" u1="0.375977" u2="0.499023" v1="0.250977" v2="0.374023"/>
+        <Element name="sunken_boat_trinket_5.tex" u1="0.375977" u2="0.499023" v1="0.125977" v2="0.249023"/>
+        <Element name="thorns_marsh.tex" u1="0.375977" u2="0.499023" v1="0.000976563" v2="0.124023"/>
+        <Element name="turf_webbing.tex" u1="0.500977" u2="0.624023" v1="0.500977" v2="0.624023"/>
+    </Elements>
+    <StraightAlpha>false</StraightAlpha>
+</Atlas>
+
