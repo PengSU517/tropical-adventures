@@ -1370,7 +1370,7 @@ local function SpawnPiso1(inst)
 	inst:AddTag("vulcano_part")
 	inst:AddTag("pisointeriorpalace")
 	inst:AddTag("terremoto")
-	inst:AddTag("blows_air")
+	inst:AddTag("interior_center")
 
 	return inst
 end
@@ -1396,7 +1396,7 @@ local function SpawnPiso2(inst)
 	inst:AddTag("pisogalleryinteriorpalace")
 	inst:AddTag("caveinterior")
 	inst:AddTag("terremoto")
-	inst:AddTag("blows_air")
+	inst:AddTag("interior_center")
 
 	return inst
 end
@@ -1419,7 +1419,7 @@ local function SpawnPiso3(inst)
 	inst:AddTag("alt_tile")
 	inst:AddTag("vulcano_part")
 	inst:AddTag("shopinterior")
-	inst:AddTag("blows_air")
+	inst:AddTag("interior_center")
 
 	return inst
 end

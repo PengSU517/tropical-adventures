@@ -442,7 +442,7 @@ local function SpawnPiso1(inst)
 	inst:AddTag("alt_tile")
 	inst:AddTag("vulcano_part")
 	inst:AddTag("shopinterior")
-	inst:AddTag("blows_air")
+	inst:AddTag("interior_center")
 
 	return inst
 end

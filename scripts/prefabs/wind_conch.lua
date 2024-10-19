@@ -1,7 +1,7 @@
-local assets=
+local assets =
 {
     Asset("ANIM", "anim/wind_conch.zip"),
-	Asset("ANIM", "anim/swap_wind_conch.zip"),
+    Asset("ANIM", "anim/swap_wind_conch.zip"),
 }
 
 local function onfinished(inst)
@@ -9,23 +9,23 @@ local function onfinished(inst)
 end
 
 local function OnPlayed(inst, musician)
-if musician then
-local a, b, c = musician.Transform:GetWorldPosition()
-local casa = GetClosestInstWithTag("blows_air", musician, 30)
-if not casa then
-local vento = SpawnPrefab("ventania")
-vento.Transform:SetPosition(a, b, c)
-end
-end
+    if musician then
+        local a, b, c = musician.Transform:GetWorldPosition()
+        local casa = GetClosestInstWithTag("interior_center", musician, 30)
+        if not casa then
+            local vento = SpawnPrefab("ventania")
+            vento.Transform:SetPosition(a, b, c)
+        end
+    end
 end
 
 local function fn(Sim)
-	local inst = CreateEntity()
-    inst.entity:AddNetwork()		
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    inst.entity:AddNetwork()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
 
-	inst:AddTag("horn2")
+    inst:AddTag("horn2")
 
     inst.AnimState:SetBank("wind_conch")
     inst.AnimState:SetBuild("wind_conch")
@@ -33,12 +33,12 @@ local function fn(Sim)
 
     MakeInventoryPhysics(inst)
     MakeInventoryFloatable(inst)
-	
+
     inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end		
+    if not TheWorld.ismastersim then
+        return inst
+    end
 
     inst:AddComponent("inspectable")
     inst:AddComponent("instrument")
@@ -55,12 +55,12 @@ local function fn(Sim)
 
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
     inst.hornbuild = "swap_wind_conch"
-    inst.hornsymbol = "swap_horn"	
+    inst.hornsymbol = "swap_horn"
 
     return inst
 end
 
-return Prefab("wind_conch", fn, assets) 
+return Prefab("wind_conch", fn, assets)

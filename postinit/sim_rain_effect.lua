@@ -9,7 +9,7 @@ AddSimPostInit(function()
                     self.old_updatefuncs[inst.prefab] = data.updateFunc
                 end
                 local pt = inst:GetPosition()
-                local ents = GLOBAL.TheSim:FindEntities(pt.x, pt.y, pt.z, 40, { "blows_air" })
+                local ents = GLOBAL.TheSim:FindEntities(pt.x, pt.y, pt.z, 40, { "interior_center" })
                 if #ents > 0 then
                     data.updateFunc = function() end -- empty function
                 else

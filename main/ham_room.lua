@@ -1,3 +1,5 @@
+--Author: Peng
+
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end }) --GLOBAL 相关照抄
 
 local Utils = require("tools/utils")
@@ -46,33 +48,49 @@ local roomsize = {
 
 ---------------------调整摄像头----------------------------
 ---------在室内切换角色会黑屏------------
+local function BindKey(key, func)
+    if type(key) == "string" then
+        TheInput:AddKeyDownHandler(key:lower():byte(), func)
+    elseif key > 0 then
+        TheInput:AddKeyDownHandler(key, func)
+    end
+end
+
 local extra_distance = 0
+local fov_keys = GetModConfigData("roomview")
+BindKey(fov_keys[2], function() extra_distance = math.min(math.max(extra_distance + 0.1, -5), 5) end)
+BindKey(fov_keys[1], function() extra_distance = math.min(math.max(extra_distance - 0.1, -5), 5) end)
+
+
+
+
 
 AddClassPostConstruct("cameras/followcamera", function(self)
     local Old_Apply = self.Apply
     function self:Apply()
         if self.inhamroom == true and self.hamroompos ~= nil then
             ----视角调整
-            if TheInput:IsKeyDown(KEY_EQUALS) then
-                extra_distance = extra_distance + 0.05
-            elseif TheInput:IsKeyDown(KEY_MINUS) then
-                extra_distance = extra_distance - 0.05
+            -- if TheInput:IsKeyDown(KEY_EQUALS) then
+            --     extra_distance = extra_distance + 0.05
+            -- elseif TheInput:IsKeyDown(KEY_MINUS) then
+            --     extra_distance = extra_distance - 0.05
+            -- end
+
+            -- extra_distance = math.min(math.max(extra_distance, -5), 5)
+
+            if not self.originalheading then
+                self.originalheading = self.headingtarget
             end
 
-            extra_distance = math.min(math.max(extra_distance, -5), 5)
+            self.headingtarget = 0 ----此项记录原始视角,也和方向控制有关
 
-            self.headingtarget = 0
             local cameraset = roomcamera[self.roomtype or "small"]
             local pitch = cameraset.pitch * DEGREES
             local heading = 0
             local distance = cameraset.distance
 
-
-            distance = distance + extra_distance
-
-
             local currentpos = Vector3(self.hamroompos:Get()) + Vector3(cameraset.pos, 0, 0)
-            local fov = 35
+            local fov = 35 + extra_distance ----直接修改fov视角就不会乱
             local currentscreenxoffset = 0
             local cos_pitch = math.cos(pitch)
             local cos_heading = math.cos(heading)
@@ -127,6 +145,11 @@ AddClassPostConstruct("cameras/followcamera", function(self)
                 ux, uy, uz
             )
         else
+            if self.originalheading then
+                self.headingtarget = self.originalheading
+                self.originalheading = nil
+            end
+
             Old_Apply(self)
         end
     end
@@ -158,7 +181,7 @@ local function OnFocusCamera(inst)
     if inst.spawnanddelete_hamroom then ---------------------------额个东西是啥
         return
     end
-    local ent = FindEntity(inst, 30, nil, { "blows_air" })
+    local ent = FindEntity(inst, 30, nil, { "interior_center" })
     if ent then
         if inst._inhamroomcamea:value() ~= ent then
             inst._inhamroomcamea:set(ent)
@@ -224,7 +247,7 @@ end)
 --         x, y, z = x.x or x, x.y or y, x.z or z
 --     end
 --     if checkxz(x, z) then -----判断一下以减少运算
---         local entities = TheSim:FindEntities(x, y, z, 20, { "blows_air" })
+--         local entities = TheSim:FindEntities(x, y, z, 20, { "interior_center" })
 --         if entities then
 --             for i, v in ipairs(entities) do
 --                 if v then
@@ -247,7 +270,7 @@ end)
 --     end
 
 --     if checkxz(x, z) then
---         local entities = TheSim:FindEntities(x, y, z, 20, { "blows_air" })
+--         local entities = TheSim:FindEntities(x, y, z, 20, { "interior_center" })
 --         if entities then
 --             for i, v in ipairs(entities) do
 --                 if v --[[and v.prefab == "playerhouse_city_floor" ]] then
@@ -404,7 +427,7 @@ local function IsHamRoomAtPoint(x, y, z, checkwall)
         end
 
         -- 查找
-        local ents = TheSim:FindEntities(x, 0, z, DIS, { "blows_air" }) --查找地板
+        local ents = TheSim:FindEntities(x, 0, z, DIS, { "interior_center" }) --查找地板
         if #ents > 0 then
             for _, ent in ipairs(ents) do
                 if ent:IsValid() then

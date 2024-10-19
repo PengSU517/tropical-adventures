@@ -99,7 +99,7 @@ function Rocmanager:Spawn(summoner)
 		-- self.nexttime = self:GetNextSpawnTime()
 
 		if summoner then
-			local room = GetClosestInstWithTag("blows_air", summoner, 40) --判断室内，或者直接判断位置
+			local room = GetClosestInstWithTag("interior_center", summoner, 40) --判断室内，或者直接判断位置
 			local nest = GetClosestInstWithTag("roc_nest", summoner, 40)
 			if not (room or nest) then
 				local pt = Vector3(summoner.Transform:GetWorldPosition())
@@ -116,7 +116,7 @@ function Rocmanager:Spawn(summoner)
 		for i, v in ipairs(AllPlayers --[[self._activeplayers]]) do
 			if v ~= nil then
 				-- local px, py, pz = v.Transform:GetWorldPosition()
-				local room = GetClosestInstWithTag("blows_air", v, 40) --判断室内，或者直接判断位置
+				local room = GetClosestInstWithTag("interior_center", v, 40) --判断室内，或者直接判断位置
 				local nest = GetClosestInstWithTag("roc_nest", v, 40)
 				-- local ground = TheWorld                --GetWorld()
 				-- local tile = ground.Map:GetTileAtPoint(px, py, pz) --是否判断室内呢

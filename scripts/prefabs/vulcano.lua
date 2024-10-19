@@ -741,7 +741,7 @@ local function SpawnPiso(inst)
 	inst:AddTag("NOCLICK")
 	inst:AddTag("alt_tile")
 	inst:AddTag("canbuild")
-	inst:AddTag("blows_air")
+	inst:AddTag("interior_center")
 	inst:AddTag("vulcano_part")
 
 	return inst

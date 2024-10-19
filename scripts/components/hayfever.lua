@@ -25,7 +25,7 @@ function Hayfever:OnLoad(data)
 end
 
 function Hayfever:OnUpdate()
-    -- local interior = GetClosestInstWithTag("blows_air", self.inst, 15)
+    -- local interior = GetClosestInstWithTag("interior_center", self.inst, 15)
     -- print("check hayfevervalue !!!!!!!!")
     -- print(self.fevervalue)
     -- print(self.inst.prefab)

@@ -46,7 +46,7 @@ local NIGHTMARE_PHASEFN =
 ----------------------------------------------------------------------------------------------------
 
 local function UpdateCCTableBefore(self)
-    if not GetClosestInstWithTag("blows_air", self.inst, 30) then
+    if not GetClosestInstWithTag("interior_center", self.inst, 30) then
         return
     end
 

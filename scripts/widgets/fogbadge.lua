@@ -27,7 +27,7 @@ function HayfeverBadge:OnUpdate(dt)
     local fan = GetClosestInstWithTag("prevents_hayfever", player, 20)
     local isinhamlet = player.components.areaaware and player.components.areaaware:CurrentlyInTag("hamlet")
 
-    local isinterior = GetClosestInstWithTag("blows_air", player, 15)
+    local isinterior = GetClosestInstWithTag("interior_center", player, 15)
 
     local corpo = (player.replica and player.replica.inventory) and
         player.replica.inventory:GetEquippedItem(EQUIPSLOTS.BODY) or nil
