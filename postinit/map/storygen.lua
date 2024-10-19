@@ -1,16 +1,38 @@
-local MapTags = { "frost", "tropical", "hamlet", "shipwrecked", "underwater" }
+local MapTags = { "frost", "tropical", "hamlet", "shipwrecked", "volcano", "underwater" }
+local GlobalMapTags = { "City1", "City2", "City_Foundation", "Suburb", "Cultivated" }
 
 AddGlobalClassPostConstruct("map/storygen", "Story", function(self)
     for k, v in pairs(MapTags) do
         self.map_tags.Tag[v] = function(tagdata) return "TAG", v end
     end
+
+    for k, v in pairs(GlobalMapTags) do
+        self.map_tags.Tag[v] = function(tagdata) return "GLOBALTAG", v end
+    end
 end)
 
 require("map/storygen")
 
+
+
+GLOBAL.setfenv(1, GLOBAL) ----为什么要这么声明变量，不是很理解
+TOPOLOGY_SAVE = nil
+STORYGEN = nil
+
+local old_buildstory = BuildStory
+BuildStory = function(tasks, story_gen_params, level)
+    TOPOLOGY_SAVE, STORYGEN = old_buildstory(tasks, story_gen_params, level)
+    print("BuildStory data has been saved!")
+    return TOPOLOGY_SAVE, STORYGEN
+end
+
+
+
+
+
 local troadv = TA_CONFIG
 -------------以下代码可以直接改变主大陆但是 background room都不会生成
-if (troadv.together_not_mainland) and (not troadv.testmode) then
+if (troadv.together_not_mainland) and (not troadv.testmap) then
     local land = troadv.startlocation
 
     function Story:AddRegionsToMainland(on_region_added_fn)

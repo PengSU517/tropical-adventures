@@ -34,13 +34,18 @@ GLOBAL.TA_CONFIG = {
     ocean = "default",
 
 
-    testmode   = GetModConfigData("testmode"),
-    prefabname = GetModConfigData("prefabname"),
-    seafork    = GetModConfigData("seafork"),
+    testmap = GLOBAL.KnownModIndex:IsModEnabled("tropical-adventures") and GetModConfigData("testmap") or false,
+    testmode = GLOBAL.KnownModIndex:IsModEnabled("tropical-adventures") and GetModConfigData("testmode") or false,
+
+    -- prefabname = true,
+    -- seafork    = true,
 
 
     ndnr = GLOBAL.KnownModIndex:IsModEnabled("workshop-2823458540"),
+
 }
+
+
 
 
 TA_CONFIG.sw_start = TA_CONFIG.shipwrecked and (TA_CONFIG.multiplayerportal == "shipwrecked")

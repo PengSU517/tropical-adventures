@@ -1,6 +1,14 @@
 local modimport = modimport
 
 
+if TA_CONFIG.testmode then ---------开发人员测试时才可以使用,mod文件夹名称为tropical-adventures
+    modimport("postinit/seafork")
+    modimport("postinit/opengift")
+    modimport("postinit/widgets/hoverer_info")
+end
+
+
+
 ---目前仍然有暴力覆盖的组件(都是闭包函数，似乎不太好hook)
 --ambientlighting
 --hounded
@@ -12,7 +20,7 @@ modimport("main/ham_room")         -----------------新的room
 modimport("main/tropical_ocean")   ----------------新的海洋属性
 modimport("main/tropical_boat")    ----------------单人船相关修改
 modimport("main/tropical_weather") ----------------热带气候
-modimport("main/seafork")
+
 
 -- do not know how to sort
 modimport("postinit/postinit_poisonables") ---posonables----and loot dropper----------
@@ -40,7 +48,7 @@ modimport("postinit/components/groundpounder") ----这个组件拍地板的？
 modimport("postinit/components/inventory_prevent_pick")
 modimport("postinit/components/inventoryitem")
 modimport("postinit/components/locomotor") -----这两个内容需要整合一下
-modimport("postinit/components/locomoter")
+modimport("postinit/components/locomotor_boat")
 modimport("postinit/components/playercontroller")
 modimport("postinit/components/playerspawner")
 modimport("postinit/components/playervision")
@@ -75,7 +83,7 @@ modimport("postinit/prefabs/player_hayfever")
 modimport("postinit/prefabs/farm_plants")
 
 --widgets
-modimport("postinit/widgets/hoverer_info") ---- show name and anim, for debugging
+
 modimport("postinit/widgets/crafttabs")
 modimport("postinit/widgets/healthbadge")
 modimport("postinit/widgets/uiclock_bloodmoon")

@@ -88,6 +88,15 @@ Map.IsHamletAreaAtPoint = function(self, x, y, z)
     end
 end
 
+Map.IsVolcanoAreaAtPoint = function(self, x, y, z)
+    local node = self:FindVisualNodeAtPoint(x, y, z, "volcano")
+    if node ~= nil then
+        return true
+    else
+        return false
+    end
+end
+
 
 -----area aware related -------------
 --[[ AddComponentPostInit("areaaware", function(self)
@@ -137,6 +146,10 @@ function EntityScript:IsInHamletArea()
     return TheWorld.Map:IsHamletAreaAtPoint(self:GetPosition():Get())
 end
 
+function EntityScript:IsInVolcanoArea()
+    return TheWorld.Map:IsVolcanoAreaAtPoint(self:GetPosition():Get())
+end
+
 ----area aware related--------------------
 function EntityScript:AwareInTropicalArea() ----减少计算量
     return self.components.areaaware and
@@ -155,14 +168,31 @@ function EntityScript:AwareInHamletArea()
     return aware or false
 end
 
+function EntityScript:AwareInVolcanoArea()
+    local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("volcano") and true
+    return aware or false
+end
+
 --温度变化更加丝滑
 local function OnTemperatureUpdateBefore(self)
+    if self.inst:AwareInVolcanoArea() then
+        local volcano_tem = 40
+        self:SetModifier("volcanoregion", volcano_tem)
+
+        return nil, false
+    else
+        self:RemoveModifier("volcanoregion")
+    end
+
+
     if self.inst:AwareInTropicalArea() then
         local tro_tem = math.max(10 - TheWorld.state.temperature, 0) + 5
         self:SetModifier("tropicalregion", tro_tem)
     else
         self:RemoveModifier("tropicalregion")
     end
+
+
 
     return nil, false
 end
