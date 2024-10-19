@@ -2044,7 +2044,7 @@ AddStategraphActionHandler(
         GLOBAL.ACTIONS.BLINK,
         function(inst, action)
             --		if inst:HasTag("aquatic") and inst:HasTag("soulstealer") then return false end
-            local interior = GLOBAL.GetClosestInstWithTag("blows_air", inst, 30)
+            local interior = GLOBAL.GetClosestInstWithTag("interior_center", inst, 30)
             if interior then return false end
             if GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
                 GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
@@ -2067,7 +2067,7 @@ AddStategraphActionHandler(
         GLOBAL.ACTIONS.BLINK,
         function(inst, action)
             --		if inst:HasTag("aquatic") and inst:HasTag("soulstealer") then return false end
-            local interior = GLOBAL.GetClosestInstWithTag("blows_air", inst, 30)
+            local interior = GLOBAL.GetClosestInstWithTag("interior_center", inst, 30)
             if interior then return false end
             if GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
                 GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and

@@ -19,7 +19,7 @@ local function OnPlayedNormal(inst, musician)
     end
     -- if musician then
     --     local a, b, c = musician.Transform:GetWorldPosition()
-    --     local casa = GetClosestInstWithTag("blows_air", musician, 40) --判断室内，或者直接判断位置
+    --     local casa = GetClosestInstWithTag("interior_center", musician, 40) --判断室内，或者直接判断位置
     --     local nest = GetClosestInstWithTag("roc_nest", musician, 40)
     --     local roc_entity = TheSim:FindFirstEntityWithTag("roc")       ------------------如果想改成boss的话还得改
     --     if (not casa) and (not nest) and (not roc_entity) then

@@ -24,7 +24,7 @@ end
 
 local function smash(inst, worker)
     if inst.components.lootdropper then
-        -- local inroom = GetClosestInstWithTag("blows_air", inst, 20)----------------似乎没用啊-----------需要修改组件
+        -- local inroom = GetClosestInstWithTag("interior_center", inst, 20)----------------似乎没用啊-----------需要修改组件
         -- if inroom then
         --     local originpt = inroom:GetPosition()
         --     local x, y, z = inst.Transform:GetWorldPosition()

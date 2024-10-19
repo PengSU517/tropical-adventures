@@ -185,7 +185,7 @@ end
 
 function Aporkalypse:SpawnBats()
 	for i, player in ipairs(AllPlayers) do
-		-- local interior = GetClosestInstWithTag("blows_air", player, 30)
+		-- local interior = GetClosestInstWithTag("interior_center", player, 30)
 		-- local bat = GetClosestInstWithTag("circlingbat", player, 10)
 		-- if (not interior) and (not bat) then
 		-- 	local x, y, z = player.Transform:GetWorldPosition()
@@ -240,7 +240,7 @@ function Aporkalypse:ScheduleHeraldCheck()
 			for i, player in ipairs(AllPlayers) do
 				if player and player.components.health and not player.components.health:IsDead() then
 					local herald = GetClosestInstWithTag("ancient", player, 30)
-					local interior = GetClosestInstWithTag("blows_air", player, 30)
+					local interior = GetClosestInstWithTag("interior_center", player, 30)
 					if not interior then
 						if herald == nil then
 							local map = TheWorld.Map

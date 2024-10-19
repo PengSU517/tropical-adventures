@@ -3799,7 +3799,7 @@ local function SpawnPiso1(inst)
 	inst:AddTag("pisodaruina")
 	inst:AddTag("terremoto")
 	inst:AddTag("canbuild")
-	inst:AddTag("blows_air")
+	inst:AddTag("interior_center")
 
 	return inst
 end
@@ -3826,7 +3826,7 @@ local function SpawnPiso2(inst)
 	inst:AddTag("pisodaruina")
 	inst:AddTag("terremoto")
 	inst:AddTag("canbuild")
-	inst:AddTag("blows_air")
+	inst:AddTag("interior_center")
 
 	return inst
 end

@@ -68,6 +68,72 @@ local options_count = {
 	{ description = "5", data = "5" },
 }
 
+local options_key = {
+	{ description = en_zh("Disabled", "关闭"), data = -1 },
+	{ description = "F1", data = 282 },
+	{ description = "F2", data = 283 },
+	{ description = "F3", data = 284 },
+	{ description = "F4", data = 285 },
+	{ description = "F5", data = 286 },
+	{ description = "F6", data = 287 },
+	{ description = "F7", data = 288 },
+	{ description = "F8", data = 289 },
+	{ description = "F9", data = 290 },
+	{ description = "F10", data = 291 },
+	{ description = "F11", data = 292 },
+	{ description = "F12", data = 293 },
+	{ description = "0", data = 48 },
+	{ description = "1", data = 49 },
+	{ description = "2", data = 50 },
+	{ description = "3", data = 51 },
+	{ description = "4", data = 52 },
+	{ description = "5", data = 53 },
+	{ description = "6", data = 54 },
+	{ description = "7", data = 55 },
+	{ description = "8", data = 56 },
+	{ description = "9", data = 57 },
+	{ description = "A", data = 97 },
+	{ description = "B", data = 98 },
+	{ description = "C", data = 99 },
+	{ description = "D", data = 100 },
+	{ description = "E", data = 101 },
+	{ description = "F", data = 102 },
+	{ description = "G", data = 103 },
+	{ description = "H", data = 104 },
+	{ description = "I", data = 105 },
+	{ description = "J", data = 106 },
+	{ description = "K", data = 107 },
+	{ description = "L", data = 108 },
+	{ description = "M", data = 109 },
+	{ description = "N", data = 110 },
+	{ description = "O", data = 111 },
+	{ description = "P", data = 112 },
+	{ description = "Q", data = 113 },
+	{ description = "R", data = 114 },
+	{ description = "S", data = 115 },
+	{ description = "T", data = 116 },
+	{ description = "U", data = 117 },
+	{ description = "V", data = 118 },
+	{ description = "W", data = 119 },
+	{ description = "X", data = 120 },
+	{ description = "Y", data = 121 },
+	{ description = "Z", data = 122 },
+	{ description = "↑", data = 273 },
+	{ description = "↓", data = 274 },
+	{ description = "←", data = 276 },
+	{ description = "→", data = 275 },
+}
+
+local options_pairedkey = {
+	{ description = en_zh("Disabled", "关闭"), data = false },
+	{ description = "Q/E", data = { 113, 101 } },
+	{ description = "↓/↑", data = { 274, 273 } },
+	{ description = "←/→", data = { 276, 275 } },
+	{ description = "-/+", data = { 45, 61 } },
+	{ description = "pagedown/pageup", data = { 281, 280 } },
+	{ description = "home/end", data = { 278, 279 } },
+}
+
 
 local function Breaker(title_en, title_zh)
 	return { name = en_zh(title_en, title_zh), options = { { description = "", data = false } }, default = false }
@@ -355,6 +421,18 @@ configuration_options =
 		default = "default",
 	},
  ]]
+	Breaker("Client Adjustments", "客户端调整"),
+
+	{
+		name = "roomview",
+		label = en_zh("Room view", "房间视角"),
+		hover = en_zh("lower or higher view", "拉低/拉高视角"),
+		options = options_pairedkey,
+		default = { 45, 61 }, ----  -/+
+	},
+
+
+
 
 	Breaker("Developer Settings(only works in the test version)", "开发者选项(仅在测试版中有效)"),
 

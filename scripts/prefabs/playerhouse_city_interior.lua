@@ -53,7 +53,7 @@ local function FloorFn(inst)
 	inst:AddTag("casadojogador")
 	inst:AddTag("canbuild")
 	inst:AddTag("pisohousehamlet")
-	inst:AddTag("blows_air")
+	inst:AddTag("interior_center")
 	inst:AddTag("NOBLOCK")
 	inst:AddTag("NOCLICK")
 
@@ -322,7 +322,7 @@ local function RoomCenterFn(inst)
 
 	inst:AddTag("NOBLOCK")
 	inst:AddTag("NOCLICK")
-	inst:AddTag("blows_air") -----判断地皮
+	inst:AddTag("interior_center") -----判断地皮
 	-- inst:AddTag("shopinterior") ----控制视角
 
 	inst:AddTag("alt_tile")
