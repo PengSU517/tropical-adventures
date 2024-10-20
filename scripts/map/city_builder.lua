@@ -55,9 +55,12 @@ local BUILDING_QUOTAS = {
     { prefab = "pig_shop_hoofspa_entrance", num = 1 },
     { prefab = "pig_shop_produce_entrance", num = 1 },
     { prefab = "pig_shop_bank_entrance",    num = 1 },
+
+    { prefab = "pig_academy_entrance",      num = 1 },
+
     { prefab = "pig_guard_tower",           num = 15 },
     { prefab = "pighouse_city",             num = 50 },
-    { prefab = "pig_academy_entrance",      num = 1 },
+
 }
 
 local BUILDING_QUOTAS_2 = {
@@ -66,10 +69,13 @@ local BUILDING_QUOTAS_2 = {
     { prefab = "pig_shop_weapons_entrance", num = 1 },
     { prefab = "pig_shop_arcane_entrance",  num = 1 },
     { prefab = "pig_shop_tinker_entrance",  num = 1 },
-    { prefab = "pig_guard_tower2",          num = 15 },
-    { prefab = "pighouse_city",             num = 50 },
+
     { prefab = "pig_antiquities_entrance",  num = 2 },
     { prefab = "hatshop_entrance",          num = 1 },
+
+    { prefab = "pig_guard_tower2",          num = 15 },
+    { prefab = "pighouse_city",             num = 50 },
+
 }
 
 local VALID_TILES = { WORLD_TILES.SUBURB, WORLD_TILES.FOUNDATION }

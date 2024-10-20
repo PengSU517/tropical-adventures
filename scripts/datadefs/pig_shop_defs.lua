@@ -1,0 +1,252 @@
+-- The price cannot be random, as it determines the SWAP_SIGN override symbol in shop_pedestals.lua, SetCost function.
+-- Available prices: [1, 2, 3, 4, 5, 10, 20, 30, 40, 50, 100, 200, 300, 400, 500]
+
+local SHOPTYPES = {
+
+    default = { "rocks", "oinc", 1 },
+
+    pig_shop_deli =
+    {
+        { "ratatouille",     "oinc", 3 },
+        { "monsterlasagna",  "oinc", 2 },
+        { "pumpkincookie",   "oinc", 3 },
+        { "stuffedeggplant", "oinc", 4 },
+        { "frogglebunwich",  "oinc", 5 },
+        { "honeynuggets",    "oinc", 5 },
+        { "perogies",        "oinc", 10 },
+        { "waffles",         "oinc", 10 },
+        { "meatballs",       "oinc", 10 },
+        { "honeyham",        "oinc", 20 },
+        { "turkeydinner",    "oinc", 10 },
+        { "dragonpie",       "oinc", 30 },
+    },
+
+    pig_shop_florist = {
+        { "carrot_seeds",        "oinc", 1 },
+        { "pumpkin_seeds",       "oinc", 1 },
+        { "pomegranate_seeds",   "oinc", 1 },
+        { "eggplant_seeds",      "oinc", 1 },
+        { "durian_seeds",        "oinc", 1 },
+        { "corn_seeds",          "oinc", 1 },
+        { "dragonfruit_seeds",   "oinc", 10 },
+        { "watermelon_seeds",    "oinc", 1 },
+        { "radish_seeds",        "oinc", 1 },
+        { "flowerhat",           "oinc", 2 },
+        { "acorn",               "oinc", 1 },
+        { "pinecone",            "oinc", 1 },
+        { "dug_berrybush2",      "oinc", 2 },
+        { "dug_berrybush",       "oinc", 2 },
+        { "dug_berrybush_juicy", "oinc", 5 },
+    },
+
+    pig_shop_general = {
+        { "pitchfork",  "oinc", 5 },
+        { "shovel",     "oinc", 5 },
+        { "pickaxe",    "oinc", 5 },
+        { "axe",        "oinc", 5 },
+        { "flint",      "oinc", 1 },
+        { "machete",    "oinc", 5 },
+        { "minerhat",   "oinc", 20 },
+        { "razor",      "oinc", 3 },
+        { "backpack",   "oinc", 5 },
+        { "umbrella",   "oinc", 10 },
+        { "hammer",     "oinc", 10 },
+        { "fabric",     "oinc", 5 },
+        { "bugnet",     "oinc", 20 },
+        { "fishingrod", "oinc", 10 },
+    },
+    pig_shop_general_fiesta = {
+        { "firecrackers", "oinc", 1 },
+        { "firecrackers", "oinc", 1 },
+        { "firecrackers", "oinc", 1 },
+        { "firecrackers", "oinc", 1 },
+        { "flint",        "oinc", 1 },
+        { "minerhat",     "oinc", 20 },
+        { "backpack",     "oinc", 5 },
+        { "fabric",       "oinc", 5 },
+        { "umbrella",     "oinc", 10 },
+        { "bugnet",       "oinc", 20 },
+    },
+
+    pig_shop_hoofspa = {
+        { "blue_cap",     "oinc", 3 },
+        { "green_cap",    "oinc", 2 },
+        { "bandage",      "oinc", 5 },
+        { "healingsalve", "oinc", 4 },
+        { "antidote",     "oinc", 5 },
+        { "coffeebeans",  "oinc", 2 },
+        { "lifeinjector", "oinc", 20 },
+    },
+
+    pig_shop_produce = {
+        { "berries",       "oinc", 1 },
+        { "radish",        "oinc", 1 },
+        { "sweet_potato",  "oinc", 1 },
+        { "carrot",        "oinc", 1 },
+        { "drumstick",     "oinc", 2 },
+        { "eggplant",      "oinc", 2 },
+        { "corn",          "oinc", 2 },
+        { "pumpkin",       "oinc", 3 },
+        { "meat",          "oinc", 5 },
+        { "pomegranate",   "oinc", 1 },
+        { "cave_banana",   "oinc", 1 },
+        { "coconut",       "oinc", 3 },
+        { "froglegs",      "oinc", 2 },
+        { "watermelon",    "oinc", 2 },
+        { "berries_juicy", "oinc", 1 },
+        { "garlic",        "oinc", 2 },
+        { "onion",         "oinc", 2 },
+        { "pepper",        "oinc", 2 },
+        { "potato",        "oinc", 2 },
+        { "tomato",        "oinc", 2 },
+
+    },
+
+    pig_shop_antiquities = {
+        { "silk",              "oinc", 5 },
+        { "gears",             "oinc", 20 },
+        { "mandrake",          "oinc", 50 },
+        { "wormlight",         "oinc", 5 },
+        { "deerclops_eyeball", "oinc", 50 },
+        { "walrus_tusk",       "oinc", 50 },
+        { "bearger_fur",       "oinc", 40 },
+        { "goose_feather",     "oinc", 10 },
+        { "dragon_scales",     "oinc", 30 },
+        { "houndstooth",       "oinc", 5 },
+        { "bamboo",            "oinc", 3 },
+        { "horn",              "oinc", 5 },
+        { "coontail",          "oinc", 4 },
+        { "lightninggoathorn", "oinc", 5 },
+        { "ox_horn",           "oinc", 5 },
+    },
+
+    pig_shop_cityhall = {
+        { "deed",             "oinc", 50 },
+        { "securitycontract", "oinc", 10 },
+    },
+
+    pig_shop_arcane = {
+        { "icestaff",     "oinc", 30 },
+        { "firestaff",    "oinc", 30 },
+        { "amulet",       "oinc", 50 },
+        { "blueamulet",   "oinc", 30 },
+        { "purpleamulet", "oinc", 50 },
+        { "livinglog",    "oinc", 5 },
+        { "armorslurper", "oinc", 20 },
+        { "nightsword",   "oinc", 50 },
+        { "armor_sanity", "oinc", 20 },
+        { "onemanband",   "oinc", 40 },
+    },
+    pig_shop_weapons = {
+        { "spear",          "oinc", 3 },
+        { "halberd",        "oinc", 10 },
+        { "cutlass",        "oinc", 50 },
+        { "trap_teeth",     "oinc", 10 },
+        { "birdtrap",       "oinc", 20 },
+        { "trap",           "oinc", 2 },
+        { "coconade",       "oinc", 20 },
+        { "blowdart_pipe",  "oinc", 10 },
+        { "blowdart_sleep", "oinc", 10 },
+        { "boomerang",      "oinc", 10 },
+    },
+
+    pig_shop_spears = {
+        { "dragon_scales",      "oinc", 30 },
+        { "townportaltalisman", "oinc", 30 },
+        { "malbatross_feather", "oinc", 30 },
+        { "trunk_summer",       "oinc", 20 },
+        { "goose_feather",      "oinc", 20 },
+        { "bearger_fur",        "oinc", 20 },
+        { "walrus_tusk",        "oinc", 10 },
+        { "deerclops_eyeball",  "oinc", 30 },
+        { "deer_antler",        "oinc", 30 },
+        { "horn",               "oinc", 30 },
+        { "shark_gills",        "oinc", 30 },
+        { "gnarwail_horn",      "oinc", 20 },
+        { "shark_fin",          "oinc", 20 },
+        { "beaverskin",         "oinc", 10 },
+        { "steelwool",          "oinc", 30 },
+    },
+
+
+    pig_shop_hatshop = {
+        { "winterhat",         "oinc", 10 },
+        { "tophat",            "oinc", 10 },
+        { "earmuffshat",       "oinc", 5 },
+        { "walrushat",         "oinc", 50 },
+        { "peagawkfeatherhat", "oinc", 10 },
+        { "molehat",           "oinc", 20 },
+        { "catcoonhat",        "oinc", 10 },
+        { "captainhat",        "oinc", 20 },
+        { "antmaskhat",        "oinc", 20 },
+        { "featherhat",        "oinc", 5 },
+        { "strawhat",          "oinc", 3 },
+        { "beefalohat",        "oinc", 10 },
+        { "pithhat",           "oinc", 10 },
+        { "thunderhat",        "oinc", 10 },
+        { "metalplatehat",     "oinc", 10 },
+        { "sewing_kit",        "oinc", 50 },
+    },
+
+    pig_shop_bank = {
+        { "goldnugget", "oinc", 10 },
+        { "oinc10",     "oinc", 10 },
+        { "oinc100",    "oinc", 100 },
+    },
+
+    pig_shop_tinker = {
+
+        { "dragonflyfurnace_blueprint",      "oinc", 200 },
+        { "pugaliskfountain_made_blueprint", "oinc", 300 },
+        -- { "blue_musnroomhat_blueprint",      "oinc", 100 },
+        -- { "red_musnroomhat_blueprint",       "oinc", 100 },
+        -- { "green_musnroomhat_blueprint",     "oinc", 100 },
+        { "bundlewrap_blueprint",            "oinc", 300 },
+        { "trident_blueprint",               "oinc", 200 },
+
+
+        -- { "player_house_cottage_craft", "oinc", 20 },
+        -- { "player_house_villa_craft",   "oinc", 30 },
+        -- { "player_house_manor_craft",   "oinc", 30 },
+        -- { "player_house_tudor_craft",   "oinc", 20 },
+        -- { "player_house_gothic_craft",  "oinc", 20 },
+        -- { "player_house_brick_craft",   "oinc", 20 },
+        -- { "player_house_turret_craft",  "oinc", 20 },
+    },
+
+
+    pig_shop_academy = {
+        { "townportaltalisman", "oinc", 30 },
+        { "malbatross_feather", "oinc", 30 },
+        { "trunk_summer",       "oinc", 20 },
+        { "deer_antler",        "oinc", 30 },
+        { "shark_gills",        "oinc", 30 },
+        { "gnarwail_horn",      "oinc", 20 },
+        { "shark_fin",          "oinc", 20 },
+        { "steelwool",          "oinc", 30 },
+
+
+
+    },
+
+    pig_shop_fishing = {
+
+        { "oceanfishinglure_spoon_red",      "oinc", 5 },
+        { "oceanfishinglure_spinner_red",    "oinc", 5 },
+        { "oceanfishinglure_spoon_green",    "oinc", 5 },
+        { "oceanfishinglure_spinner_green",  "oinc", 5 },
+        { "oceanfishinglure_spoon_blue",     "oinc", 5 },
+        { "oceanfishinglure_spinner_blue",   "oinc", 5 },
+        { "oceanfishingbobber_ball",         "oinc", 20 },
+        { "oceanfishingbobber_oval",         "oinc", 30 },
+        { "oceanfishingbobber_crow",         "oinc", 40 },
+        { "oceanfishingbobber_robin",        "oinc", 40 },
+        { "oceanfishingbobber_robin_winter", "oinc", 40 },
+        { "oceanfishingbobber_canary",       "oinc", 40 },
+        { "oceanfishingbobber_goose",        "oinc", 100 },
+        { "oceanfishingbobber_malbatross",   "oinc", 100 },
+        { "trinket_8",                       "oinc", 100 },
+    },
+}
+
+return { SHOPTYPES = SHOPTYPES }
