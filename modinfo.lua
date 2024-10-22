@@ -42,7 +42,7 @@ dont_starve_compatible = false
 all_clients_require_mod = true
 client_only_mod = false
 reign_of_giants_compatible = false
-server_filter_tags = { "Shipwrecked", "Hamlet", "Economy", "House", "Home", "Boats", "Ruins" }
+server_filter_tags = { "Shipwrecked", "Hamlet", "海难", "哈姆雷特", "猪镇", "三合一" }
 
 icon_atlas = "images/modicon/modicon.xml"
 icon = "modicon.tex"
