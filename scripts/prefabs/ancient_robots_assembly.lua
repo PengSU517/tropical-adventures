@@ -1,9 +1,9 @@
 local UPDATETIME = 5
 
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/metal_hulk_merge.zip"),
-    Asset("MINIMAP_IMAGE", "metal_spider"),
+    Asset("ANIM", "anim/metal_hulk_merge.zip"),
+
 }
 
 local prefabs =
@@ -14,40 +14,36 @@ local prefabs =
     "laser_ring",
 }
 
-local function spawnpart(inst, prefab, x,y,z,rotation)
-   
+local function spawnpart(inst, prefab, x, y, z, rotation)
     local part = SpawnPrefab(prefab)
-    part.Transform:SetPosition(x,y,z)
+    part.Transform:SetPosition(x, y, z)
     part.spawned = true
-    part.Transform:SetRotation(rotation)     
-    part:DoTaskInTime(math.random()*0.6,function()
+    part.Transform:SetRotation(rotation)
+    part:DoTaskInTime(math.random() * 0.6, function()
         part:PushEvent("shock")
-        part.lifetime = 20 + (math.random()*20)  --120 
+        part.lifetime = 20 + (math.random() * 20) --120
         if not part.updatetask then
             part.updatetask = part:DoPeriodicTask(part.UPDATETIME, part.periodicupdate)
-        end  
+        end
     end)
-    
-    part.sg:GoToState("separate")
 
+    part.sg:GoToState("separate")
 end
 
 local function breakapart(inst)
-    local x,y,z = inst.Transform:GetWorldPosition()
-    local down = TheCamera:GetDownVec()             
+    local x, y, z = inst.Transform:GetWorldPosition()
+    local down = TheCamera:GetDownVec()
     local angle = math.atan2(down.z, down.x) / DEGREES
 
     if inst.head == 1 then
-        spawnpart(inst, "ancient_robot_head",x+down.x,y,z+down.z, math.random()*360)
-         
+        spawnpart(inst, "ancient_robot_head", x + down.x, y, z + down.z, math.random() * 360)
     end
     if inst.spine == 1 then
-        spawnpart(inst, "ancient_robot_ribs",x-down.x,y,z-down.z, math.random()*360)
-        
-    end  
+        spawnpart(inst, "ancient_robot_ribs", x - down.x, y, z - down.z, math.random() * 360)
+    end
 
     if inst.arms > 0 then
-        for i=1, inst.arms do
+        for i = 1, inst.arms do
             print("spawning arm")
 
             local sx = x - down.x
@@ -55,46 +51,45 @@ local function breakapart(inst)
             local sy = y
             local rotation = angle + 90
 
-            if i==2 then
+            if i == 2 then
                 sx = x + down.x
-                sz = z - down.z      
-                rotation = angle - 90                  
+                sz = z - down.z
+                rotation = angle - 90
             end
 
-            spawnpart(inst, "ancient_robot_claw",sx,sy,sz, rotation)
-        end        
-    end     
+            spawnpart(inst, "ancient_robot_claw", sx, sy, sz, rotation)
+        end
+    end
     if inst.legs > 0 then
-        for i=1,inst.legs do
-
-            local sx = x - (2*down.x)
+        for i = 1, inst.legs do
+            local sx = x - (2 * down.x)
             local sz = z + down.z
             local sy = y
             local rotation = angle + 90
 
-            if i==2 then
+            if i == 2 then
                 sx = x + down.x
-                sz = z - (2*down.z)
+                sz = z - (2 * down.z)
                 rotation = angle - 90
             end
 
-            spawnpart(inst, "ancient_robot_leg",sx,sy,sz, rotation)            
+            spawnpart(inst, "ancient_robot_leg", sx, sy, sz, rotation)
         end
-    end 
-end 
+    end
+end
 
 local function onmerge(inst)
     inst.refreshart(inst)
     inst.AnimState:PlayAnimation("merge")
-    inst.AnimState:PushAnimation("idle",true)  
+    inst.AnimState:PushAnimation("idle", true)
     local pos = Vector3(inst.Transform:GetWorldPosition())
-    TheWorld:PushEvent("ms_sendlightningstrike", pos)            
+    TheWorld:PushEvent("ms_sendlightningstrike", pos)
     SpawnPrefab("laserhit"):SetTarget(inst)
 
     if inst.head == 1 and inst.arms > 1 and inst.legs > 1 and inst.spine == 1 then
         local hulk = SpawnPrefab("ancient_hulk")
-        local x,y,z = inst.Transform:GetWorldPosition()
-        hulk.Transform:SetPosition(x,y,z)
+        local x, y, z = inst.Transform:GetWorldPosition()
+        hulk.Transform:SetPosition(x, y, z)
         hulk:PushEvent("activate")
         inst:Remove()
     end
@@ -135,7 +130,7 @@ local function refreshart(inst)
         anim:Hide("spine")
     else
         anim:Show("spine")
-    end   
+    end
     if inst.spine == 1 and inst.head == 1 then
         anim:Show("spine_head")
     else
@@ -144,36 +139,34 @@ local function refreshart(inst)
 end
 
 local function OnAttacked(inst, data)
-    inst.hits = inst.hits+ 1           
+    inst.hits = inst.hits + 1
 
-    if inst.hits > 2 then                
-        if math.random()*inst.hits >= 2 then
-            local x, y, z= inst.Transform:GetWorldPosition()
-            inst.components.lootdropper:SpawnLootPrefab("iron", Vector3(x,y,z))
+    if inst.hits > 2 then
+        if math.random() * inst.hits >= 2 then
+            local x, y, z = inst.Transform:GetWorldPosition()
+            inst.components.lootdropper:SpawnLootPrefab("iron", Vector3(x, y, z))
             inst.hits = 0
 
             if math.random() < 0.6 then
-                inst.breakapart(inst)                                                                        
+                inst.breakapart(inst)
                 inst:Remove()
-            end    
+            end
         end
     end
 
     inst.AnimState:PlayAnimation("merge")
-    inst.AnimState:PushAnimation("idle",true)
+    inst.AnimState:PushAnimation("idle", true)
 
     local fx = SpawnPrefab("sparks_green_fx")
-    local x, y, z= inst.Transform:GetWorldPosition()
-    fx.Transform:SetPosition(x,y+1,z)
-
-    
+    local x, y, z = inst.Transform:GetWorldPosition()
+    fx.Transform:SetPosition(x, y + 1, z)
 end
 
 local function GetStatus(inst)
 
 end
 
-local function OnSave(inst,data)
+local function OnSave(inst, data)
     local refs = {}
 
     if inst.hits then
@@ -186,9 +179,8 @@ local function OnSave(inst,data)
     data.legs = inst.legs
 end
 
-local function OnLoad(inst,data)
+local function OnLoad(inst, data)
     if data then
-
         if data.hits then
             inst.hits = data.hits
         end
@@ -202,7 +194,7 @@ local function OnLoad(inst,data)
     end
 end
 
-local function OnLoadPostPass(inst,data)
+local function OnLoadPostPass(inst, data)
     if inst.spawned then
         if inst.spawntask then
             inst.spawntask:Cancel()
@@ -212,11 +204,11 @@ local function OnLoadPostPass(inst,data)
 end
 
 local function commonfn(Sim)
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
-	local sound = inst.entity:AddSoundEmitter()
-    inst.entity:AddNetwork()	
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
+    local sound = inst.entity:AddSoundEmitter()
+    inst.entity:AddNetwork()
 
     inst.Transform:SetFourFaced()
 
@@ -236,35 +228,35 @@ local function commonfn(Sim)
     anim:SetBank("metal_hulk_merge")
     anim:SetBuild("metal_hulk_merge")
     anim:PlayAnimation("idle", true)
-	
+
     inst.entity:AddLight()
     inst.Light:SetIntensity(.6)
     inst.Light:SetRadius(5)
     inst.Light:SetFalloff(3)
     inst.Light:SetColour(1, 0, 0)
-    inst.Light:Enable(false)	
+    inst.Light:Enable(false)
 
-    inst.entity:SetPristine()	
-	
-	if not TheWorld.ismastersim then
-		return inst
-	end	
-	
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("timer")
-     
+
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.MINE)
     inst.components.workable:SetWorkLeft(1)
     inst.components.workable:SetOnWorkCallback(
         function(inst, worker, workleft)
-            OnAttacked(inst, {attacker=worker})
+            OnAttacked(inst, { attacker = worker })
             inst.components.workable:SetWorkLeft(1)
             inst:PushEvent("attacked")
         end)
 
     inst:AddComponent("inspectable")
     inst.components.inspectable.getstatus = GetStatus
-    
+
     inst:AddComponent("knownlocations")
 
     inst:AddComponent("lootdropper")
@@ -272,7 +264,7 @@ local function commonfn(Sim)
     inst.lightningpriority = 1
     inst:ListenForEvent("lightningstrike", OnLightning)
     inst:ListenForEvent("merge", onmerge)
-    
+
     inst.UPDATETIME = UPDATETIME
     inst.hits = 0
 
@@ -284,15 +276,14 @@ local function commonfn(Sim)
     inst.breakapart = breakapart
 
     refreshart(inst)
-    
+
     inst.OnSave = OnSave
     inst.OnLoad = OnLoad
     inst.OnLoadPostPass = OnLoadPostPass
-    
---  inst:ListenForEvent("beginaporkalypse", function(world) OnLightning(inst) end, GetWorld())
+
+    --  inst:ListenForEvent("beginaporkalypse", function(world) OnLightning(inst) end, GetWorld())
 
     return inst
 end
 
-return Prefab( "forest/animals/ancient_robots_assembly", commonfn, assets, prefabs)
-       
+return Prefab("forest/animals/ancient_robots_assembly", commonfn, assets, prefabs)
