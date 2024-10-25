@@ -61,8 +61,8 @@ local function fn()
     inst.components.edible.foodtype = "BONE"
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 
     --inst:AddComponent("appeasement")
     --inst.components.appeasement.appeasementvalue = TUNING.APPEASEMENT_TINY

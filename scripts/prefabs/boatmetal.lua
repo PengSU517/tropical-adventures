@@ -636,7 +636,7 @@ local function item_fn()
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
     --inst:AddComponent("fuel")

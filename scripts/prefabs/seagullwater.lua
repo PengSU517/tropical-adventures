@@ -140,8 +140,8 @@ local function makebird(name, soundname, loottable, psprefab, foodtype, scale)
         inst.components.inventoryitem.nobounce = true
         inst.components.inventoryitem.canbepickedup = false
         inst.components.inventoryitem.canbepickedupalive = true
-        inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-        inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
         inst:AddComponent("cookable")
         inst.components.cookable.product = "cookedsmallmeat"

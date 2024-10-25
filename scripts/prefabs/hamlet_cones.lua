@@ -100,7 +100,7 @@ local function addcone(name, spawn_prefab, bank, build, anim, winter_tree)
         MakeSmallPropagator(inst)
 
         inst:AddComponent("inventoryitem")
-        inst.components.inventoryitem.atlasname = "images/inventoryimages/" .. name .. ".xml"
+
         --inst.components.inventoryitem:ChangeImageName("pinecone")
 
         MakeHauntableLaunchAndIgnite(inst)

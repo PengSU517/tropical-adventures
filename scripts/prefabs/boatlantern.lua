@@ -14,7 +14,7 @@ local prefabs =
 local function DoTurnOffSound(inst, owner)
     inst._soundtask = nil
     (owner ~= nil and owner:IsValid() and owner.SoundEmitter or inst.SoundEmitter):PlaySound(
-    "dontstarve/wilson/lantern_off")
+        "dontstarve/wilson/lantern_off")
 end
 
 local function PlayTurnOffSound(inst)
@@ -177,8 +177,8 @@ local function fn()
     inst:AddComponent("interactions")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst:AddComponent("fueled")
 

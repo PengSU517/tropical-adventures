@@ -416,7 +416,7 @@ end
 local function gettrawlbuild(inst)
     if inst and inst.apaga == 1 then inst:Remove() end
     local fullness = (inst.raso + inst.medio + inst.fundo + inst.seawed + inst.jellyfish + inst.lobster + inst.rainbowjellyfish + inst.mussel) /
-    9
+        9
     if fullness <= 0.33 then
         inst.build = "swap_trawlnet"
     elseif fullness <= 0.66 then
@@ -425,7 +425,8 @@ local function gettrawlbuild(inst)
         inst.build = "swap_trawlnet_full"
     end
     if (inst.raso + inst.medio + inst.fundo + inst.seawed + inst.jellyfish + inst.lobster + inst.rainbowjellyfish + inst.mussel) > 9.9 then
-        droploot(inst) end
+        droploot(inst)
+    end
 end
 
 local function OnSave(inst, data)
@@ -499,8 +500,8 @@ local function net(Sim)
     inst.components.inventory.show_invspace = true
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst:ListenForEvent("onpickup", droploot)
     inst.rowsound = "dontstarve_DLC002/common/trawl_net/move_LP"

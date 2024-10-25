@@ -111,7 +111,7 @@ local function Retarget(inst)
 
 	return FindEntity(inst, dist, function(guy)
 		return not guy:HasTag("piko") and inst.components.combat:CanTarget(guy) and guy.components.inventory and
-		(guy.components.inventory:NumItems() > 0)
+			(guy.components.inventory:NumItems() > 0)
 	end)
 end
 
@@ -259,8 +259,8 @@ local function fn()
 	inst:AddComponent("inventory")
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 	inst.components.inventoryitem.nobounce = true
 	inst.components.inventoryitem.canbepickedup = false
 	inst.force_onwenthome_message = true
@@ -414,8 +414,8 @@ local function orangefn()
 	inst:AddComponent("inventory")
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 	inst.components.inventoryitem.nobounce = true
 	inst.components.inventoryitem.canbepickedup = false
 	-- inst.components.inventoryitem:SetOnDroppedFn(OnDrop) Done in MakeFeedablePet

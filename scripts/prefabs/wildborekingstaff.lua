@@ -184,7 +184,7 @@ local function init()
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/pigkingstaff.xml"
+
     inst.components.inventoryitem.imagename = "pigkingstaff"
 
     inst:AddComponent("equippable")

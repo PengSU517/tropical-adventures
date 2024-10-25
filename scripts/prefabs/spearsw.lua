@@ -156,8 +156,8 @@ local function poisonfn(Sim)
 	inst.components.equippable:SetOnUnequip(onunequip)
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 	inst.components.weapon:SetOnAttack(poisonattack)
 	inst.components.equippable:SetOnEquip(onequippoison)
@@ -286,8 +286,8 @@ local function obsidianfn(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 	inst:AddComponent("equippable")
 	inst.components.equippable:SetOnEquip(onequipobsidian)
@@ -368,14 +368,12 @@ local function needlefn(Sim)
 	inst.components.equippable:SetOnUnequip(onunequip)
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 	inst.components.weapon:SetDamage(NEEDLESPEAR_DAMAGE)
 	inst.components.finiteuses:SetMaxUses(NEEDLESPEAR_USES)
 	inst.components.finiteuses:SetUses(NEEDLESPEAR_USES)
-
-	inst.components.inventoryitem.imagename = "needlespear"
 
 	inst.components.equippable:SetOnEquip(onequipneedle)
 
@@ -436,8 +434,8 @@ local function peglegfn(Sim)
 
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 	inst.components.equippable:SetOnEquip(onequippegleg)
 

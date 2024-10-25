@@ -55,8 +55,8 @@ local function fn()
     --    inst.components.burnable:MakeDragonflyBait(3)
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     --    inst.OnSave = OnSave
     --    inst.OnLoad = OnLoad
