@@ -179,7 +179,7 @@ local function onhackedfn(inst, target, hacksleft, from_shears)
 end
 
 local function makegrass(inst)
-	inst.MiniMapEntity:SetIcon("grass.tex")
+	inst.MiniMapEntity:SetIcon("grass_tall.tex")
 	inst.AnimState:SetBank("grass_tall")
 	inst.AnimState:SetBuild("grass_tall")
 end
