@@ -143,7 +143,7 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("gold_puddle.png")
+    inst.MiniMapEntity:SetIcon("gold_puddle.tex")
 
     inst:AddTag("NOCLICK")
     inst:AddTag("alagamentopraremovergrande")

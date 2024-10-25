@@ -125,7 +125,7 @@ local function fn(Sim)
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("ant_house.png")
+    minimap:SetIcon("ant_house.tex")
     light:SetFalloff(1)
     light:SetIntensity(.5)
     light:SetRadius(1)

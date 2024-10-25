@@ -218,7 +218,7 @@ local function fn(Sim)
     anim:SetLayer(LAYER_BACKGROUND)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("fish_farm.png")
+    minimap:SetIcon("fish_farm.tex")
 
     inst.entity:SetPristine()
 

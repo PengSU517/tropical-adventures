@@ -47,8 +47,8 @@ local JUNGLETREESEED_GROWTIME = { base = 4.5 * day_time, random = 0.75 * day_tim
 local JUNGLETREE_GROW_TIME =
 {
 	{ base = 4.5 * day_time, random = 0.5 * day_time }, --tall to short
-	{ base = 8 * day_time, random = 5 * day_time }, --short to normal
-	{ base = 8 * day_time, random = 5 * day_time }, --normal to tall
+	{ base = 8 * day_time,   random = 5 * day_time }, --short to normal
+	{ base = 8 * day_time,   random = 5 * day_time }, --normal to tall
 }
 
 local SNAKE_JUNGLETREE_AMOUNT_TALL = 2 -- num of times to try and spawn a snake from a tall tree
@@ -86,7 +86,7 @@ local builds =
 	blooming = {
 		file = "tree_rainforest_bloom_build",
 		prefab_name = "rainforesttree",
-		normal_loot = { "log", "log", "rainforesttree_cone" },                     -- "jungletreeseed"
+		normal_loot = { "log", "log", "rainforesttree_cone" },                       -- "jungletreeseed"
 		short_loot = { "log" },
 		tall_loot = { "log", "log", "log", "rainforesttree_cone", "rainforesttree_cone" }, -- "jungletreeseed", "jungletreeseed"
 	}
@@ -410,18 +410,54 @@ end
 
 local growth_stages =
 {
-	{ name = "short", time = function(inst) return GetRandomWithVariance(JUNGLETREE_GROW_TIME[1].base,
-			JUNGLETREE_GROW_TIME[1].random) end,                                                                                            fn = function(
-		inst) SetShort(inst) end,                                                                                                                                                    growfn = function(
-		inst) GrowShort(inst) end,                                                                                                                                                                                                 leifscale = .7 },
-	{ name = "normal", time = function(inst) return GetRandomWithVariance(JUNGLETREE_GROW_TIME[2].base,
-			JUNGLETREE_GROW_TIME[2].random) end,                                                                                            fn = function(
-		inst) SetNormal(inst) end,                                                                                                                                                   growfn = function(
-		inst) GrowNormal(inst) end,                                                                                                                                                                                                leifscale = 1 },
-	{ name = "tall", time = function(inst) return GetRandomWithVariance(JUNGLETREE_GROW_TIME[3].base,
-			JUNGLETREE_GROW_TIME[3].random) end,                                                                                            fn = function(
-		inst) SetTall(inst) end,                                                                                                                                                     growfn = function(
-		inst) GrowTall(inst) end,                                                                                                                                                                                                  leifscale = 1.25 },
+	{
+		name = "short",
+		time = function(inst)
+			return GetRandomWithVariance(JUNGLETREE_GROW_TIME[1].base,
+				JUNGLETREE_GROW_TIME[1].random)
+		end,
+		fn = function(
+			inst)
+			SetShort(inst)
+		end,
+		growfn = function(
+			inst)
+			GrowShort(inst)
+		end,
+		leifscale = .7
+	},
+	{
+		name = "normal",
+		time = function(inst)
+			return GetRandomWithVariance(JUNGLETREE_GROW_TIME[2].base,
+				JUNGLETREE_GROW_TIME[2].random)
+		end,
+		fn = function(
+			inst)
+			SetNormal(inst)
+		end,
+		growfn = function(
+			inst)
+			GrowNormal(inst)
+		end,
+		leifscale = 1
+	},
+	{
+		name = "tall",
+		time = function(inst)
+			return GetRandomWithVariance(JUNGLETREE_GROW_TIME[3].base,
+				JUNGLETREE_GROW_TIME[3].random)
+		end,
+		fn = function(
+			inst)
+			SetTall(inst)
+		end,
+		growfn = function(
+			inst)
+			GrowTall(inst)
+		end,
+		leifscale = 1.25
+	},
 	--{name="old", time = function(inst) return GetRandomWithVariance(EVERGREEN_GROW_TIME[4].base, EVERGREEN_GROW_TIME[4].random) end, fn = function(inst) SetOld(inst) end, growfn = function(inst) GrowOld(inst) end },
 }
 
@@ -806,7 +842,7 @@ local function makefn(build, stage, data)
 		MakeObstaclePhysics(inst, .25)
 
 		local minimap = inst.entity:AddMiniMapEntity()
-		minimap:SetIcon("tree_rainforest.png")
+		minimap:SetIcon("tree_rainforest.tex")
 
 		minimap:SetPriority(-1)
 

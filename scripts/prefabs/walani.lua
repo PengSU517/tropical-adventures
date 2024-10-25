@@ -55,7 +55,7 @@ local function onload(inst)
 end
 
 local common_postinit = function(inst)
-	inst.MiniMapEntity:SetIcon("walani.png")
+	inst.MiniMapEntity:SetIcon("walani.tex")
 	inst:AddTag("walani")
 	inst.soundsname = "walani"
 end

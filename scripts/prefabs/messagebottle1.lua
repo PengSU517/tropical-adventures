@@ -135,7 +135,7 @@ local function messagebottlefn(Sim)
 	inst.no_wet_prefix = true
 	--local minimap = inst.entity:AddMiniMapEntity() --temp
 
-	--minimap:SetIcon("messageBottle.png")
+	--minimap:SetIcon("messageBottle.tex")
 
 	inst:AddComponent("unwrappable")
 	inst.components.unwrappable:SetOnUnwrappedFn(onunwrapped)

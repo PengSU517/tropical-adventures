@@ -77,7 +77,7 @@ local function fn(Sim)
     MakeObstaclePhysics(inst, .5)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("vamp_bat_cave.png")
+    minimap:SetIcon("vamp_bat_cave.tex")
 
     anim:SetBank("vampbat_den")
     anim:SetBuild("vamp_bat_entrance")

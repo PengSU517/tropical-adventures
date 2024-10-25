@@ -34,9 +34,9 @@ local day_time = 300
 local DECIDUOUS_GROW_TIME =
 {
     { base = 1.5 * day_time, random = 0.5 * day_time }, --short
-    { base = 5 * day_time, random = 2 * day_time }, --normal
-    { base = 5 * day_time, random = 2 * day_time }, --tall
-    { base = 1 * day_time, random = 0.5 * day_time } --old
+    { base = 5 * day_time,   random = 2 * day_time },   --normal
+    { base = 5 * day_time,   random = 2 * day_time },   --tall
+    { base = 1 * day_time,   random = 0.5 * day_time }  --old
 }
 
 local DECIDUOUS_CHOPS_SMALL = 5
@@ -129,11 +129,11 @@ local function SpawnLeafFX(inst, waittime, chop)
     if fx then
         local x, y, z = inst.Transform:GetWorldPosition()
         if inst.components.growable and inst.components.growable.stage == 1 then
-            y = y + 0                              --Short FX height
+            y = y + 0                                --Short FX height
         elseif inst.components.growable and inst.components.growable.stage == 2 then
-            y = y - .3                             --Normal FX height
+            y = y - .3                               --Normal FX height
         elseif inst.components.growable and inst.components.growable.stage == 3 then
-            y = y + 0                              --Tall FX height
+            y = y + 0                                --Tall FX height
         end
         if chop then y = y + (math.random() * 2) end --Randomize height a bit for chop FX
         fx.Transform:SetPosition(x, y, z)
@@ -343,18 +343,51 @@ end
 
 local growth_stages =
 {
-    { name = "short", time = function(inst) return GetRandomWithVariance(DECIDUOUS_GROW_TIME[1].base,
-            DECIDUOUS_GROW_TIME[1].random) end,                                                                                           fn = function(
-        inst) SetShort(inst) end,                                                                                                                                                  growfn = function(
-        inst) GrowShort(inst) end },
-    { name = "normal", time = function(inst) return GetRandomWithVariance(DECIDUOUS_GROW_TIME[2].base,
-            DECIDUOUS_GROW_TIME[2].random) end,                                                                                           fn = function(
-        inst) SetNormal(inst) end,                                                                                                                                                 growfn = function(
-        inst) GrowNormal(inst) end },
-    { name = "tall", time = function(inst) return GetRandomWithVariance(DECIDUOUS_GROW_TIME[3].base,
-            DECIDUOUS_GROW_TIME[3].random) end,                                                                                           fn = function(
-        inst) SetTall(inst) end,                                                                                                                                                   growfn = function(
-        inst) GrowTall(inst) end },
+    {
+        name = "short",
+        time = function(inst)
+            return GetRandomWithVariance(DECIDUOUS_GROW_TIME[1].base,
+                DECIDUOUS_GROW_TIME[1].random)
+        end,
+        fn = function(
+            inst)
+            SetShort(inst)
+        end,
+        growfn = function(
+            inst)
+            GrowShort(inst)
+        end
+    },
+    {
+        name = "normal",
+        time = function(inst)
+            return GetRandomWithVariance(DECIDUOUS_GROW_TIME[2].base,
+                DECIDUOUS_GROW_TIME[2].random)
+        end,
+        fn = function(
+            inst)
+            SetNormal(inst)
+        end,
+        growfn = function(
+            inst)
+            GrowNormal(inst)
+        end
+    },
+    {
+        name = "tall",
+        time = function(inst)
+            return GetRandomWithVariance(DECIDUOUS_GROW_TIME[3].base,
+                DECIDUOUS_GROW_TIME[3].random)
+        end,
+        fn = function(
+            inst)
+            SetTall(inst)
+        end,
+        growfn = function(
+            inst)
+            GrowTall(inst)
+        end
+    },
 }
 
 local function detachchild(inst)
@@ -972,9 +1005,9 @@ local function setupspawner(inst)
     WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME, true)
     -- Runar: 我真服了,运行不了不运行就行了是吧,原来的生成时间和概率也不对,一并改了
     if math.random() < 0.25 then
-        inst.components.spawner:Configure("piko_orange", 8)  --TUNING.PIKO_RESPAWN_TIME
+        inst.components.spawner:Configure("piko_orange", 8) --TUNING.PIKO_RESPAWN_TIME
     else
-        inst.components.spawner:Configure("piko", 8)         --TUNING.PIKO_RESPAWN_TIME
+        inst.components.spawner:Configure("piko", 8)        --TUNING.PIKO_RESPAWN_TIME
     end
     --    inst.components.spawner.childfn = GetChild
     --    inst.components.spawner:SetOnSpawnedFn(OnSpawned)
@@ -1016,7 +1049,7 @@ local function makefn(build, stage, data)
         MakeObstaclePhysics(inst, .25)
 
         local minimap = inst.entity:AddMiniMapEntity()
-        minimap:SetIcon("teatree.png")
+        minimap:SetIcon("teatree.tex")
         minimap:SetPriority(-1)
 
         inst:AddTag("tree")
@@ -1173,7 +1206,7 @@ local function makefn1(build, stage, data)
         MakeObstaclePhysics(inst, .25)
 
         local minimap = inst.entity:AddMiniMapEntity()
-        minimap:SetIcon("teatree.png")
+        minimap:SetIcon("teatree.tex")
         minimap:SetPriority(-1)
 
         inst:AddTag("tree")

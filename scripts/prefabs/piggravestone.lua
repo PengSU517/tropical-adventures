@@ -109,7 +109,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, .25)
 
-    inst.MiniMapEntity:SetIcon("piggravestones.png")
+    inst.MiniMapEntity:SetIcon("piggravestones.tex")
 
     inst:AddTag("grave")
 
@@ -154,7 +154,7 @@ local function fn1()
 
     MakeObstaclePhysics(inst, .25)
 
-    inst.MiniMapEntity:SetIcon("piggravestones.png")
+    inst.MiniMapEntity:SetIcon("piggravestones.tex")
 
     inst:AddTag("grave")
 

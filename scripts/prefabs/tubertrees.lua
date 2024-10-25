@@ -54,7 +54,7 @@ local function set_stump(inst)
     end
     RemovePhysicsColliders(inst)
     inst:AddTag("stump")
-    inst.MiniMapEntity:SetIcon("tuber_trees.png")
+    inst.MiniMapEntity:SetIcon("tuber_trees.tex")
 end
 
 local function dig_up_stump(inst, chopper)
@@ -107,7 +107,7 @@ local function OnBurnt(inst)
     inst.components.workable:SetOnFinishCallback(chop_down_burnt_tree)
     inst.AnimState:PlayAnimation("burnt_tall", true)
     inst:AddTag("burnt")
-    inst.MiniMapEntity:SetIcon("tuber_trees.png")
+    inst.MiniMapEntity:SetIcon("tuber_trees.tex")
 end
 
 local function inspect_tree(inst)
@@ -176,7 +176,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, .25)
 
-    inst.MiniMapEntity:SetIcon("tuber_trees.png")
+    inst.MiniMapEntity:SetIcon("tuber_trees.tex")
     inst.MiniMapEntity:SetPriority(-1)
 
     inst:AddTag("tree")

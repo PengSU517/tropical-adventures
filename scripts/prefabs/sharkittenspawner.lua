@@ -134,7 +134,7 @@ local function fn()
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    inst.MiniMapEntity:SetIcon("sharkitten_den.png")
+    inst.MiniMapEntity:SetIcon("sharkitten_den.tex")
 
     inst.AnimState:SetBuild("sharkitten_den")
     inst.AnimState:SetBank("sharkittenden")

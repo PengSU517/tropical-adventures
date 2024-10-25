@@ -47,7 +47,7 @@ local function fn()
     inst.entity:AddSoundEmitter()
     local minimap = inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
-    minimap:SetIcon("firewater_pit.png")
+    minimap:SetIcon("firewater_pit.tex")
     minimap:SetPriority(1)
 
     anim:SetBank("fire_water_pit")

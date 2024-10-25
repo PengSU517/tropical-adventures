@@ -213,7 +213,7 @@ local function commonfn(Sim)
     inst.Transform:SetFourFaced()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("metal_spider.png")
+    minimap:SetIcon("metal_spider.tex")
 
     MakeObstaclePhysics(inst, 2)
 

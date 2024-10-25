@@ -208,7 +208,7 @@ local function OnCollide(inst, data)
     local boat_physics = data.other.components.boatphysics
     if boat_physics ~= nil then
         local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) /
-        boat_physics.max_velocity + 0.5)
+            boat_physics.max_velocity + 0.5)
 
         if hit_velocity > 0.8 then
             inst:DoTaskInTime(0, function()
@@ -251,9 +251,9 @@ local function fn(Sim)
     inst:AddTag("tree_pillar")
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("pillar_tree.png")
+    minimap:SetIcon("pillar_tree.tex")
 
-    anim:SetBank("pillar_tree") -- flash animation .fla
+    anim:SetBank("pillar_tree")  -- flash animation .fla
     anim:SetBuild("pillar_tree") -- art files
 
     anim:PlayAnimation("idle", true)

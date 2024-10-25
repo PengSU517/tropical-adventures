@@ -64,7 +64,7 @@ local function makeitem(name, build, frame)
         MakeObstaclePhysics(inst, .25)
 
         local minimap = inst.entity:AddMiniMapEntity()
-        minimap:SetIcon("topiary_" .. frame .. ".png")
+        minimap:SetIcon("topiary_" .. frame .. ".tex")
 
         inst.entity:AddSoundEmitter()
         inst:AddTag("structure")

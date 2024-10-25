@@ -89,7 +89,7 @@ local function fn()
     MakeObstaclePhysics(inst, 1.5)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("dragoon_den.png")
+    minimap:SetIcon("dragoon_den.tex")
 
     anim:SetBank("dragoon_den")
     anim:SetBuild("dragoon_den")

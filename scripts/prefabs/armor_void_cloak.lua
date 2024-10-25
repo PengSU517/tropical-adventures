@@ -179,7 +179,7 @@ local function fn()
     inst.entity:SetPristine()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("armor_void_cloak.png")
+    minimap:SetIcon("armor_void_cloak.tex")
 
     if not TheWorld.ismastersim then
         inst.OnEntityReplicated = function(inst) inst.replica.container:WidgetSetup("piggyback") end

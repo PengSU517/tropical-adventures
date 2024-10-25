@@ -43,7 +43,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("volcano.png")
+    inst.MiniMapEntity:SetIcon("volcano.tex")
 
     inst.AnimState:SetBank("volcano")
     inst.AnimState:SetBuild("volcano")
@@ -106,7 +106,7 @@ local function fn2()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("vamp_bat_cave.png")
+    inst.MiniMapEntity:SetIcon("vamp_bat_cave.tex")
 
     inst.AnimState:SetBuild("vamp_bat_entrance")
     inst.AnimState:SetBank("vampbat_den")
@@ -201,7 +201,7 @@ local function fn3()
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("vamp_bat_cave.png")
+    minimap:SetIcon("vamp_bat_cave.tex")
 
     inst.AnimState:SetBuild("vamp_bat_entrance")
     inst.AnimState:SetBank("vampbat_den")

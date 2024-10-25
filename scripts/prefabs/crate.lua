@@ -55,7 +55,7 @@ local function fn(Sim)
 	anim:SetBuild("crates")
 	setanim(inst, math.random(1, 10))
 
-	minimap:SetIcon("crate.png")
+	minimap:SetIcon("crate.tex")
 
 	inst.entity:SetPristine()
 

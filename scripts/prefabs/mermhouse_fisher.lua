@@ -139,7 +139,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("mermhouse_tropical.png")
+    inst.MiniMapEntity:SetIcon("mermhouse_tropical.tex")
 
     inst.AnimState:SetBank("merm_fisherman_house")
     inst.AnimState:SetBuild("merm_fisherman_house")

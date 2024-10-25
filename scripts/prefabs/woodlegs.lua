@@ -61,7 +61,7 @@ local function CanShaveTest(inst)
 end
 
 local common_postinit = function(inst)
-	inst.MiniMapEntity:SetIcon("woodlegs.png")
+	inst.MiniMapEntity:SetIcon("woodlegs.tex")
 	inst:AddTag("woodlegs")
 	inst.soundsname = "woodlegs"
 	inst:AddTag("bearded")

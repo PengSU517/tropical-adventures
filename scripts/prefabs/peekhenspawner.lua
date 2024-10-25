@@ -89,7 +89,7 @@ end
 
 local function CanBeHunted(food)
     return food.peekhenHunted == nil and food:IsOnValidGround() and
-    FindEntity(food, 3, nil, { "peekhen" }, NO_TAGS) == nil
+        FindEntity(food, 3, nil, { "peekhen" }, NO_TAGS) == nil
 end
 
 local function LookForFood(inst)
@@ -208,7 +208,7 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("peekhen.png")
+    inst.MiniMapEntity:SetIcon("peekhen.tex")
 
     inst:AddTag("peekhenspawner")
     inst:AddTag("CLASSIFIED")
@@ -225,7 +225,7 @@ local function fn()
     inst.components.childspawner:SetOnAddChildFn(OnAddChild)
     inst.components.childspawner:SetMaxChildren(2)
     inst.components.childspawner:SetSpawnPeriod(TUNING.BUZZARD_SPAWN_PERIOD +
-    math.random(-TUNING.BUZZARD_SPAWN_VARIANCE, TUNING.BUZZARD_SPAWN_VARIANCE))
+        math.random(-TUNING.BUZZARD_SPAWN_VARIANCE, TUNING.BUZZARD_SPAWN_VARIANCE))
     inst.components.childspawner:SetRegenPeriod(TUNING.BUZZARD_REGEN_PERIOD)
     inst.components.childspawner:StopRegen()
 

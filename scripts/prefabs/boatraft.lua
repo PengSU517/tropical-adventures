@@ -264,7 +264,7 @@ local function MakeBoat(name, radius)
         inst.entity:AddAnimState()
         inst.entity:AddSoundEmitter()
         inst.entity:AddMiniMapEntity()
-        inst.MiniMapEntity:SetIcon("boat.png")
+        inst.MiniMapEntity:SetIcon("boat.tex")
         inst.entity:AddNetwork()
 
         inst:AddTag("ignorewalkableplatforms")

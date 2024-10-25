@@ -149,9 +149,9 @@ local function fn(Sim)
     inst:AddTag("tree_pillar")
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("pillar_tree.png")
+    minimap:SetIcon("pillar_tree.tex")
 
-    anim:SetBank("pillar_tree") -- flash animation .fla
+    anim:SetBank("pillar_tree")  -- flash animation .fla
     anim:SetBuild("pillar_tree") -- art files
 
     anim:PlayAnimation("idle", true)

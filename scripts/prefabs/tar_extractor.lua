@@ -277,7 +277,7 @@ local function fn(Sim)
 
 	local minimap = inst.entity:AddMiniMapEntity()
 	minimap:SetPriority(5)
-	minimap:SetIcon("tar_extractor.png")
+	minimap:SetIcon("tar_extractor.tex")
 
 	anim:SetBank("tar_extractor")
 	anim:SetBuild("tar_extractor")

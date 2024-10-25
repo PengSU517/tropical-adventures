@@ -262,7 +262,7 @@ local function fn(Sim)
 	inst.entity:AddNetwork()
 	inst.entity:AddSoundEmitter()
 	minimap:SetPriority(5)
-	minimap:SetIcon("sea_yard.png")
+	minimap:SetIcon("sea_yard.tex")
 
 	inst:SetPhysicsRadiusOverride(1.5)
 	MakeWaterObstaclePhysics(inst, 0.4, 2, 1.25)

@@ -127,7 +127,7 @@ local function fn(Sim)
 	inst.entity:AddNetwork()
 	MakeObstaclePhysics(inst, .25)
 
-	inst.MiniMapEntity:SetIcon("kraken_chest.png")
+	inst.MiniMapEntity:SetIcon("kraken_chest.tex")
 
 	inst.AnimState:SetBank("kraken_chest")
 	inst.AnimState:SetBuild("kraken_chest")
@@ -240,7 +240,7 @@ local function fn2(Sim)
 	inst.entity:AddNetwork()
 	MakeObstaclePhysics(inst, .25)
 
-	inst.MiniMapEntity:SetIcon("luggage_chest.png")
+	inst.MiniMapEntity:SetIcon("luggage_chest.tex")
 
 	inst.AnimState:SetBank("luggage")
 	inst.AnimState:SetBuild("luggage")
@@ -299,7 +299,7 @@ local function fn3(Sim)
 	inst.entity:AddNetwork()
 	MakeObstaclePhysics(inst, .25)
 
-	inst.MiniMapEntity:SetIcon("luggage_chest.png")
+	inst.MiniMapEntity:SetIcon("luggage_chest.tex")
 
 	inst.AnimState:SetBank("chest")
 	inst.AnimState:SetBuild("treasure_chest")
@@ -376,7 +376,7 @@ local function fn4(Sim)
 	inst.entity:AddNetwork()
 	MakeObstaclePhysics(inst, .25)
 
-	inst.MiniMapEntity:SetIcon("roottrunk.png")
+	inst.MiniMapEntity:SetIcon("roottrunk.tex")
 
 	--	inst.AnimState:SetBank("roottrunk")
 	--	inst.AnimState:SetBuild("treasure_chest_roottrunk")
@@ -426,7 +426,7 @@ local function fn5(Sim)
 	inst.entity:AddNetwork()
 	MakeObstaclePhysics(inst, .25)
 
-	inst.MiniMapEntity:SetIcon("root_chest_child.png")
+	inst.MiniMapEntity:SetIcon("root_chest_child.tex")
 
 	inst.AnimState:SetBank("roottrunk")
 	inst.AnimState:SetBuild("treasure_chest_roottrunk")

@@ -506,7 +506,7 @@ local function fn()
 
 	local minimap = inst.entity:AddMiniMapEntity()
 	minimap:SetPriority(5)
-	minimap:SetIcon("sprinkler.png")
+	minimap:SetIcon("sprinkler.tex")
 
 	MakeObstaclePhysics(inst, 1)
 

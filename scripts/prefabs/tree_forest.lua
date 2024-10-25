@@ -279,18 +279,54 @@ end
 
 local growth_stages =
 {
-	{ name = "short", time = function(inst) return GetRandomWithVariance(TUNING.EVERGREEN_GROW_TIME[1].base,
-			TUNING.EVERGREEN_GROW_TIME[1].random) end,                                                                                                  fn = function(
-		inst) SetShort(inst) end,                                                                                                                                                                growfn = function(
-		inst) GrowShort(inst) end,                                                                                                                                                                                                             leifscale = .7 },
-	{ name = "normal", time = function(inst) return GetRandomWithVariance(TUNING.EVERGREEN_GROW_TIME[2].base,
-			TUNING.EVERGREEN_GROW_TIME[2].random) end,                                                                                                  fn = function(
-		inst) SetNormal(inst) end,                                                                                                                                                               growfn = function(
-		inst) GrowNormal(inst) end,                                                                                                                                                                                                            leifscale = 1 },
-	{ name = "tall", time = function(inst) return GetRandomWithVariance(TUNING.EVERGREEN_GROW_TIME[3].base,
-			TUNING.EVERGREEN_GROW_TIME[3].random) end,                                                                                                  fn = function(
-		inst) SetTall(inst) end,                                                                                                                                                                 growfn = function(
-		inst) GrowTall(inst) end,                                                                                                                                                                                                              leifscale = 1.25 },
+	{
+		name = "short",
+		time = function(inst)
+			return GetRandomWithVariance(TUNING.EVERGREEN_GROW_TIME[1].base,
+				TUNING.EVERGREEN_GROW_TIME[1].random)
+		end,
+		fn = function(
+			inst)
+			SetShort(inst)
+		end,
+		growfn = function(
+			inst)
+			GrowShort(inst)
+		end,
+		leifscale = .7
+	},
+	{
+		name = "normal",
+		time = function(inst)
+			return GetRandomWithVariance(TUNING.EVERGREEN_GROW_TIME[2].base,
+				TUNING.EVERGREEN_GROW_TIME[2].random)
+		end,
+		fn = function(
+			inst)
+			SetNormal(inst)
+		end,
+		growfn = function(
+			inst)
+			GrowNormal(inst)
+		end,
+		leifscale = 1
+	},
+	{
+		name = "tall",
+		time = function(inst)
+			return GetRandomWithVariance(TUNING.EVERGREEN_GROW_TIME[3].base,
+				TUNING.EVERGREEN_GROW_TIME[3].random)
+		end,
+		fn = function(
+			inst)
+			SetTall(inst)
+		end,
+		growfn = function(
+			inst)
+			GrowTall(inst)
+		end,
+		leifscale = 1.25
+	},
 	--{name="old", time = function(inst) return GetRandomWithVariance(TUNING.EVERGREEN_GROW_TIME[4].base, TUNING.EVERGREEN_GROW_TIME[4].random) end, fn = function(inst) SetOld(inst) end, growfn = function(inst) GrowOld(inst) end },
 }
 
@@ -567,7 +603,7 @@ local function makefn(build, stage, data)
 		MakeObstaclePhysics(inst, .25)
 
 		local minimap = inst.entity:AddMiniMapEntity()
-		minimap:SetIcon("jungleTree.png")
+		minimap:SetIcon("jungleTree.tex")
 
 		minimap:SetPriority(-1)
 

@@ -124,7 +124,7 @@ local function tree_fn()
 
     MakeObstaclePhysics(inst, .25)
 
-    --    inst.MiniMapEntity:SetIcon("cave_banana_tree.png")
+    --    inst.MiniMapEntity:SetIcon("cave_banana_tree.tex")
 
     inst:AddTag("plant")
 
@@ -208,7 +208,7 @@ local function stump_fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("crabapple_stump.png")
+    inst.MiniMapEntity:SetIcon("crabapple_stump.tex")
 
     inst:AddTag("plant")
 
@@ -274,7 +274,7 @@ local function burnt_fn()
 
     MakeObstaclePhysics(inst, .25)
 
-    --    inst.MiniMapEntity:SetIcon("cave_banana_tree_burnt.png")
+    --    inst.MiniMapEntity:SetIcon("cave_banana_tree_burnt.tex")
 
     inst:AddTag("plant")
 

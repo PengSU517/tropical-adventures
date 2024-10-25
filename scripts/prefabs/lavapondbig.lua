@@ -138,7 +138,7 @@ local function fn()
     inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
     inst.AnimState:SetSortOrder(3)
 
-    inst.MiniMapEntity:SetIcon("lava_pond.png")
+    inst.MiniMapEntity:SetIcon("lava_pond.tex")
 
     inst:AddTag("lava")
     inst:AddTag("antlion_sinkhole_blocker")
@@ -219,7 +219,7 @@ local function fn1()
     inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
     inst.AnimState:SetSortOrder(3)
 
-    inst.MiniMapEntity:SetIcon("lava_pond.png")
+    inst.MiniMapEntity:SetIcon("lava_pond.tex")
 
     inst:AddTag("lava")
     inst:AddTag("antlion_sinkhole_blocker")

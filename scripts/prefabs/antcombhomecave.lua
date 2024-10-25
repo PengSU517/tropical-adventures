@@ -74,7 +74,7 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("ant_house.png")
+    inst.MiniMapEntity:SetIcon("ant_house.tex")
 
     inst.AnimState:SetBuild("ant_house")
     inst.AnimState:SetBank("ant_house")
@@ -119,7 +119,7 @@ local function fn1()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("ant_house.png")
+    inst.MiniMapEntity:SetIcon("ant_house.tex")
 
     inst.AnimState:SetBuild("ant_house")
     inst.AnimState:SetBank("ant_house")

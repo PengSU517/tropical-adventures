@@ -46,7 +46,7 @@ local function Open(inst)
 	inst.open = true
 	inst.components.teleporter.enabled = true
 	inst:RemoveComponent("lootdropper")
-	inst.MiniMapEntity:SetIcon("cave_open.png")
+	inst.MiniMapEntity:SetIcon("cave_open.tex")
 
 	--	inst.components.door:checkDisableDoor(false, "plug")
 end
@@ -57,7 +57,7 @@ local function Openexit(inst)
 	inst.open = true
 	inst.components.teleporter.enabled = true
 	inst:RemoveComponent("lootdropper")
-	inst.MiniMapEntity:SetIcon("cave_open.png")
+	inst.MiniMapEntity:SetIcon("cave_open.tex")
 
 	inst.AnimState:SetBank("doorway_cave")
 	inst.AnimState:SetBuild("bat_cave_door")
@@ -244,7 +244,7 @@ local function fn(Sim)
 	inst.entity:AddNetwork()
 	MakeObstaclePhysics(inst, 1)
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("cave_closed.png")
+	minimap:SetIcon("cave_closed.tex")
 	anim:SetBank("cave_entrance")
 	anim:SetBuild("cave_entrance")
 
@@ -290,7 +290,7 @@ local function exitfn(Sim)
 	inst.AnimState:PlayAnimation("full")
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("rock_batcave.png")
+	minimap:SetIcon("rock_batcave.tex")
 	inst:AddTag("hamletteleport")
 
 	inst.entity:SetPristine()

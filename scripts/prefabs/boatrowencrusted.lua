@@ -86,7 +86,7 @@ local function fn()
 	inst.AnimState:PlayAnimation("run_loop", true)
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("encrustedboat.png")
+	minimap:SetIcon("encrustedboat.tex")
 
 	inst:AddTag("boatsw")
 	inst:AddTag("barcoapto")

@@ -260,7 +260,7 @@ local function waterfn(data)
 	inst.entity:AddPhysics()
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("fish2.png")
+	minimap:SetIcon("fish2.tex")
 
 	inst.Physics:SetMass(1)
 	inst.Physics:SetFriction(0)
@@ -318,7 +318,7 @@ local function waterfn2(data)
 	inst.entity:AddPhysics()
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("coi.png")
+	minimap:SetIcon("coi.tex")
 
 	inst.Physics:SetMass(1)
 	inst.Physics:SetFriction(0)

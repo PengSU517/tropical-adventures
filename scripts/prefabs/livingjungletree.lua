@@ -46,7 +46,7 @@ local function OnBurnt(inst)
     inst.AnimState:PlayAnimation("burnt_tall", true)
     inst.AnimState:SetRayTestOnBB(true)
     inst:AddTag("burnt")
-    inst.MiniMapEntity:SetIcon("livingtree_burnt.png")
+    inst.MiniMapEntity:SetIcon("livingtree_burnt.tex")
 end
 
 local function ondug(inst)
@@ -149,7 +149,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, .75)
 
-    inst.MiniMapEntity:SetIcon("livingjungletree.png")
+    inst.MiniMapEntity:SetIcon("livingjungletree.tex")
 
     inst:AddTag("tree")
 

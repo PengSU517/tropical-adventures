@@ -54,7 +54,7 @@ local function baserock1_fn()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("rock_charcoal.png")
+    inst.MiniMapEntity:SetIcon("rock_charcoal.tex")
 
     inst.AnimState:SetBank("rock_charcoal")
     inst.AnimState:SetBuild("rock_charcoal")
@@ -122,7 +122,7 @@ local function baserock_fn()
     MakeObstaclePhysics(inst, 1)
 
 
-    inst.MiniMapEntity:SetIcon("rock_obsidian.png")
+    inst.MiniMapEntity:SetIcon("rock_obsidian.tex")
 
     inst.AnimState:SetBank("rock_obsidian")
     inst.AnimState:SetBuild("rock_obsidian")

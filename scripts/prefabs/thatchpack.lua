@@ -36,7 +36,7 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("thatchpack.png")
+    inst.MiniMapEntity:SetIcon("thatchpack.tex")
 
     MakeInventoryPhysics(inst)
 

@@ -103,7 +103,7 @@ local function fn()
 
 
 	inst:AddTag("bush")
-	minimap:SetIcon("limpetrock.png")
+	minimap:SetIcon("limpetrock.tex")
 
 	MakeObstaclePhysics(inst, 1)
 

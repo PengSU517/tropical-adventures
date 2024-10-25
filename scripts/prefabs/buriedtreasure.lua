@@ -205,7 +205,7 @@ local function fn(Sim)
 
 	inst:AddTag("buriedtreasure")
 
-	minimap:SetIcon("xspot.png")
+	minimap:SetIcon("xspot.tex")
 	--	minimap:SetEnabled(false)
 
 	anim:SetBank("x_marks_spotsw")
@@ -279,7 +279,7 @@ local function fn2(Sim)
 
 	inst:AddTag("buriedtreasure")
 
-	minimap:SetIcon("xspot.png")
+	minimap:SetIcon("xspot.tex")
 	--	minimap:SetEnabled(false)
 
 	anim:SetBank("x_marks_spotsw")

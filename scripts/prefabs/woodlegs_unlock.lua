@@ -47,7 +47,7 @@ local function fn()
 	inst.entity:AddSoundEmitter()
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("woodlegs.png")
+	minimap:SetIcon("woodlegs.tex")
 
 	MakeObstaclePhysics(inst, 1.5)
 

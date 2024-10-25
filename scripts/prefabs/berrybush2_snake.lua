@@ -136,7 +136,7 @@ local function makefullfn(inst)
     if inst.components.pickable ~= nil then
         if inst.components.pickable:CanBePicked() then
             berries = inst.components.pickable.cycles_left ~= nil and
-            inst.components.pickable.cycles_left / inst.components.pickable.max_cycles or 1
+                inst.components.pickable.cycles_left / inst.components.pickable.max_cycles or 1
         elseif inst.components.pickable:IsBarren() then
             anim = "dead"
         end
@@ -266,7 +266,7 @@ local function createbush(name, inspectname, berryname, master_postinit)
             inst:AddTag("quagmire_wildplant")
         end
 
-        inst.MiniMapEntity:SetIcon("berrybush2.png")
+        inst.MiniMapEntity:SetIcon("berrybush2.tex")
 
         inst.AnimState:SetBank("berrybush2")
         inst.AnimState:SetBuild("berrybush2")

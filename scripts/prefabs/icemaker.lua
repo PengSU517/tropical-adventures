@@ -151,7 +151,7 @@ local function fn(Sim)
 	inst.entity:AddAnimState()
 	inst.entity:AddSoundEmitter()
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("icemachine.png")
+	minimap:SetIcon("icemachine.tex")
 
 	inst.AnimState:SetBank("icemachine")
 	inst.AnimState:SetBuild("icemachine")

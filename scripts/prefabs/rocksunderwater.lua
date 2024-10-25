@@ -232,7 +232,7 @@ local function OnCollide(inst, data)
     local boat_physics = data.other.components.boatphysics
     if boat_physics ~= nil then
         local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) * DAMAGE_SCALE /
-        boat_physics.max_velocity + 0.5)
+            boat_physics.max_velocity + 0.5)
         inst.components.workable:WorkedBy(data.other, hit_velocity * TUNING.SEASTACK_MINE)
     end
 end
@@ -336,7 +336,7 @@ local function rock1_fn()
         inst.components.floater:OnLandedServer()
     end)
 
-    inst.MiniMapEntity:SetIcon("rock.png")
+    inst.MiniMapEntity:SetIcon("rock.tex")
 
     inst.AnimState:SetBank("rock")
     inst.AnimState:SetBuild("rock")
@@ -375,7 +375,7 @@ local function rock1_fn()
 end
 
 local function rock2_fn()
-    local inst = baserock_fn("rock2", "rock2", "full", "rock_gold.png")
+    local inst = baserock_fn("rock2", "rock2", "full", "rock_gold.tex")
 
     inst:SetPrefabNameOverride("rock2")
 
@@ -389,7 +389,7 @@ local function rock2_fn()
 end
 
 local function rock_flintless_fn()
-    local inst = baserock_fn("rock_flintless", "rock_flintless", "full", "rock_flintless.png")
+    local inst = baserock_fn("rock_flintless", "rock_flintless", "full", "rock_flintless.tex")
 
     inst:SetPrefabNameOverride("rock_flintless")
 
@@ -403,7 +403,7 @@ local function rock_flintless_fn()
 end
 
 local function rock_flintless_med()
-    local inst = baserock_fn("rock_flintless", "rock_flintless", "med", "rock_flintless.png")
+    local inst = baserock_fn("rock_flintless", "rock_flintless", "med", "rock_flintless.tex")
 
     inst:SetPrefabNameOverride("rock_flintless")
 
@@ -419,7 +419,7 @@ local function rock_flintless_med()
 end
 
 local function rock_flintless_low()
-    local inst = baserock_fn("rock_flintless", "rock_flintless", "low", "rock_flintless.png")
+    local inst = baserock_fn("rock_flintless", "rock_flintless", "low", "rock_flintless.tex")
 
     inst:SetPrefabNameOverride("rock_flintless")
 
@@ -434,7 +434,7 @@ local function rock_flintless_low()
 end
 
 local function rock_moon()
-    local inst = baserock_fn("rock5", "rock7", "full", "rock_moon.png")
+    local inst = baserock_fn("rock5", "rock7", "full", "rock_moon.tex")
 
     inst:SetPrefabNameOverride("rock_moon")
 

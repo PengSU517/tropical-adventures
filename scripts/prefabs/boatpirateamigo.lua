@@ -80,7 +80,7 @@ local function fn()
 	--	inst.AnimState:SetSortOrder(0)
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("woodlegsboat.png")
+	minimap:SetIcon("woodlegsboat.tex")
 
 	inst:AddTag("boatsw")
 	inst:AddTag("aquatic")

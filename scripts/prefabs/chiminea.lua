@@ -49,7 +49,7 @@ local function fn()
     inst.entity:AddSoundEmitter()
     local minimap = inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
-    minimap:SetIcon("chiminea.png")
+    minimap:SetIcon("chiminea.tex")
     minimap:SetPriority(1)
 
     anim:SetBank("chiminea")

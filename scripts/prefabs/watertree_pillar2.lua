@@ -189,7 +189,7 @@ local function OnCollide(inst, data)
     local boat_physics = data.other.components.boatphysics
     if boat_physics ~= nil then
         local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) /
-        boat_physics.max_velocity + 0.5)
+            boat_physics.max_velocity + 0.5)
 
         if hit_velocity > 0.8 then
             inst:DoTaskInTime(0, function()
@@ -362,7 +362,7 @@ local function fn()
     inst:AddTag("cocoon_home")
     inst:AddTag("shadecanopy")
 
-    inst.MiniMapEntity:SetIcon("oceantree_pillar.png")
+    inst.MiniMapEntity:SetIcon("oceantree_pillar.tex")
 
     inst.AnimState:SetBank("oceantree_pillar")
     inst.AnimState:SetBuild("oceantree_pillar_build1")

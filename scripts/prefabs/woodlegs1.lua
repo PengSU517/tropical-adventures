@@ -80,7 +80,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
                 giver:PushEvent("makefriend")
                 giver.components.leader:AddFollower(inst)
                 inst.components.follower:AddLoyaltyTime(item.components.edible:GetHunger() *
-                TUNING.PIG_LOYALTY_PER_HUNGER)
+                    TUNING.PIG_LOYALTY_PER_HUNGER)
                 inst.components.follower.maxfollowtime =
                     giver:HasTag("polite")
                     and TUNING.PIG_LOYALTY_MAXTIME + TUNING.PIG_LOYALTY_POLITENESS_MAXTIME_BONUS
@@ -170,7 +170,7 @@ local function fn()
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("woodlegs.png")
+    minimap:SetIcon("woodlegs.tex")
 
     --print("   AnimState")
     inst.entity:AddAnimState()

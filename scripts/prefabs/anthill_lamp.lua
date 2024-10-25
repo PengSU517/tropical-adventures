@@ -29,7 +29,7 @@ local function fn(Sim)
     light:Enable(true)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("ant_cave_lantern.png")
+    minimap:SetIcon("ant_cave_lantern.tex")
 
     anim:SetBank("ant_cave_lantern")
     anim:SetBuild("ant_cave_lantern")

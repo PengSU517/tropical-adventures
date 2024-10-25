@@ -101,7 +101,7 @@ local function fn(Sim)
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("elderdrake_house.png")
+    minimap:SetIcon("elderdrake_house.tex")
     --{anim="level1", sound="dontstarve/common/campfire", radius=2, intensity=.75, falloff=.33, colour = {197/255,197/255,170/255}},
     light:SetFalloff(1)
     light:SetIntensity(.5)

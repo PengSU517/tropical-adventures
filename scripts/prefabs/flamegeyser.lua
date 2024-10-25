@@ -84,7 +84,7 @@ end
 
 local heats = { 70, 85, 100, 115 }
 local function GetHeatFn(inst)
-    return 100  --heats[inst.components.geyserfx.level] or 20
+    return 100 --heats[inst.components.geyserfx.level] or 20
 end
 
 local function TakeLightSteps(light, value)
@@ -139,7 +139,7 @@ local function fn(Sim)
     MakeObstaclePhysics(inst, 2.05)
     inst.Physics:SetCollides(false)
 
-    minimap:SetIcon("geyser.png")
+    minimap:SetIcon("geyser.tex")
     anim:SetBank("geyser")
     anim:SetBuild("geyser")
     anim:PlayAnimation("idle_dormant", true)

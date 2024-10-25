@@ -74,7 +74,7 @@ local function MakeChest(name, bank, build, indestructible, custom_postinit, pre
         inst.entity:AddMiniMapEntity()
         inst.entity:AddNetwork()
 
-        inst.MiniMapEntity:SetIcon("water_chest.png")
+        inst.MiniMapEntity:SetIcon("water_chest.tex")
 
         inst:AddTag("structure")
         inst:AddTag("chest")

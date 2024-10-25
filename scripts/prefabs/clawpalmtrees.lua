@@ -39,7 +39,7 @@ local JUNGLETREE_CHOPS_NORMAL = 10
 local JUNGLETREE_CHOPS_TALL = 15
 local CLAWPALMTREE_GROW_TIME =
 {
-	{ base = 8 * day_time, random = 0.5 * day_time }, --tall to short
+	{ base = 8 * day_time,  random = 0.5 * day_time }, --tall to short
 	{ base = 12 * day_time, random = 5 * day_time }, --short to normal
 	{ base = 12 * day_time, random = 5 * day_time }, --normal to tall
 }
@@ -49,7 +49,7 @@ local builds =
 	normal = {
 		file = "claw_tree_build",
 		prefab_name = "clawpalmtree",
-		normal_loot = { "cork", "cork", "clawpalmtree_cone" },                    -- "jungletreeseed"
+		normal_loot = { "cork", "cork", "clawpalmtree_cone" },                      -- "jungletreeseed"
 		short_loot = { "cork" },
 		tall_loot = { "cork", "cork", "cork", "clawpalmtree_cone", "clawpalmtree_cone" }, -- "jungletreeseed", "jungletreeseed"
 	},
@@ -259,18 +259,54 @@ end
 
 local growth_stages =
 {
-	{ name = "short", time = function(inst) return GetRandomWithVariance(CLAWPALMTREE_GROW_TIME[1].base,
-			CLAWPALMTREE_GROW_TIME[1].random) end,                                                                                              fn = function(
-		inst) SetShort(inst) end,                                                                                                                                                        growfn = function(
-		inst) GrowShort(inst) end,                                                                                                                                                                                                     leifscale = .7 },
-	{ name = "normal", time = function(inst) return GetRandomWithVariance(CLAWPALMTREE_GROW_TIME[2].base,
-			CLAWPALMTREE_GROW_TIME[2].random) end,                                                                                              fn = function(
-		inst) SetNormal(inst) end,                                                                                                                                                       growfn = function(
-		inst) GrowNormal(inst) end,                                                                                                                                                                                                    leifscale = 1 },
-	{ name = "tall", time = function(inst) return GetRandomWithVariance(CLAWPALMTREE_GROW_TIME[3].base,
-			CLAWPALMTREE_GROW_TIME[3].random) end,                                                                                              fn = function(
-		inst) SetTall(inst) end,                                                                                                                                                         growfn = function(
-		inst) GrowTall(inst) end,                                                                                                                                                                                                      leifscale = 1.25 },
+	{
+		name = "short",
+		time = function(inst)
+			return GetRandomWithVariance(CLAWPALMTREE_GROW_TIME[1].base,
+				CLAWPALMTREE_GROW_TIME[1].random)
+		end,
+		fn = function(
+			inst)
+			SetShort(inst)
+		end,
+		growfn = function(
+			inst)
+			GrowShort(inst)
+		end,
+		leifscale = .7
+	},
+	{
+		name = "normal",
+		time = function(inst)
+			return GetRandomWithVariance(CLAWPALMTREE_GROW_TIME[2].base,
+				CLAWPALMTREE_GROW_TIME[2].random)
+		end,
+		fn = function(
+			inst)
+			SetNormal(inst)
+		end,
+		growfn = function(
+			inst)
+			GrowNormal(inst)
+		end,
+		leifscale = 1
+	},
+	{
+		name = "tall",
+		time = function(inst)
+			return GetRandomWithVariance(CLAWPALMTREE_GROW_TIME[3].base,
+				CLAWPALMTREE_GROW_TIME[3].random)
+		end,
+		fn = function(
+			inst)
+			SetTall(inst)
+		end,
+		growfn = function(
+			inst)
+			GrowTall(inst)
+		end,
+		leifscale = 1.25
+	},
 }
 
 
@@ -707,7 +743,7 @@ local function makefn(build, stage, data)
 		MakeObstaclePhysics(inst, .25)
 
 		local minimap = inst.entity:AddMiniMapEntity()
-		minimap:SetIcon("claw_tree.png")
+		minimap:SetIcon("claw_tree.tex")
 
 		minimap:SetPriority(-1)
 

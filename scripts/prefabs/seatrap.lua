@@ -63,7 +63,7 @@ local function seafn(Sim)
 	MakeInventoryPhysics(inst)
 	inst.entity:AddNetwork()
 	inst.entity:AddMiniMapEntity()
-	inst.MiniMapEntity:SetIcon("rabbittrap.png")
+	inst.MiniMapEntity:SetIcon("rabbittrap.tex")
 
 	inst.AnimState:SetBank("trap_sea")
 	inst.AnimState:SetBuild("trap_sea")

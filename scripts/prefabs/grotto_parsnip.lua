@@ -167,7 +167,7 @@ local function fn3()
 	inst.entity:AddNetwork()
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("grotto_parsnip_giant.png")
+	minimap:SetIcon("grotto_parsnip_giant.tex")
 
 	inst.AnimState:SetBank("grotto_parsnip_giant")
 	inst.AnimState:SetBuild("grotto_parsnip_giant")
