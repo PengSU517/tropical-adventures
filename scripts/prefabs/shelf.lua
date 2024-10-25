@@ -4,15 +4,6 @@ local assets =
     --Asset("ANIM", "anim/store_items.zip"),
     Asset("ANIM", "anim/room_shelves.zip"),
     Asset("ANIM", "anim/pedestal_key.zip"),
-    Asset("ATLAS_BUILD", "images/inventoryimages1.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages2.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages3.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages/cookpotfoods_ham.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages/cookpotfoods_sw.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages/gw_bonestaff.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages/pig_figure.xml", 256),
 
 }
 
@@ -97,34 +88,11 @@ local function SetImage(inst, ent, slot)
         if not inst:HasTag("playercrafted") then
             if ent.components.perishable then ent.components.perishable:StopPerishing() end
         end
-        --	print(inst.prefab)
-        --print(ent)
-        --fazer para o prefab minising
-        atlas = ent.caminho or GetInventoryItemAtlas(texname)
-        -- if ent.caminho then
-        --     atlas = ent.caminho
-        -- elseif atlas then
-        --     if atlas == "images/inventoryimages1.xml" or atlas == "images/inventoryimages2.xml" or atlas ==
-        --         "images/inventoryimages3.xml" or atlas == "images/inventoryimages/hamletinventory.xml"
-        --         or atlas == "images/inventoryimages/cookpotfoods_sw.xml" or atlas == "images/inventoryimages/cookpotfoods_ham.xml" then
-        -- elseif atlas and atlas == "images/inventoryimages1.xml" then
-        --     atlas = "images/inventoryimages1.xml"
-        -- elseif atlas and atlas == "images/inventoryimages2.xml" then
-        --     atlas = "images/inventoryimages2.xml"
-        -- elseif atlas and atlas == "images/inventoryimages3.xml" then
-        --     atlas = "images/inventoryimages3.xml"
-        -- elseif atlas and atlas == "images/inventoryimages/hamletinventory.xml" then
-        --     atlas = "images/inventoryimages/hamletinventory.xml"
-        --     else
-        --         atlas = GetInventoryItemAtlas(texname)
-        --     end
-        -- end
-        inst.AnimState:OverrideSymbol(slot, resolvefilepath(atlas), texname)
 
-        --print(slot)
-        --print(texname)		
-        --print(atlas)	
-        --inst.AnimState:OverrideSymbol("SWAP_SIGN", "store_items", image)
+        atlas = ent.caminho or GetInventoryItemAtlas(texname)
+
+        inst.AnimState:OverrideSymbol(slot, atlas and resolvefilepath(atlas), texname)
+
         inst.imagename = src ~= nil or ""
     else
         inst.imagename = ""
@@ -137,12 +105,8 @@ local function SetImageFromName(inst, name, slot)
 
     if image ~= nil then
         local texname = image .. ".tex"
-
-        --	print(name)	
-
-
-        inst.AnimState:OverrideSymbol(slot, resolvefilepath("images/inventoryimages/hamletinventory.xml"), texname)
-        --inst.AnimState:OverrideSymbol("SWAP_SIGN", "store_items", image)
+        local atlas = GetInventoryItemAtlas(texname)
+        inst.AnimState:OverrideSymbol(slot, atlas and resolvefilepath(atlas), texname)
         inst.imagename = image
     else
         inst.imagename = ""

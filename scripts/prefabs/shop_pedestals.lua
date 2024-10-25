@@ -3,11 +3,6 @@ local assets =
 {
     --Asset("ANIM", "anim/store_items.zip"),
     Asset("ANIM", "anim/pedestal_crate.zip"),
-    Asset("ATLAS_BUILD", "images/inventoryimages1.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages2.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages3.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
-    Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),
 }
 
 
@@ -36,28 +31,8 @@ local function SetImage(inst, ent)
 
     if image ~= nil then
         local texname = image .. ".tex"
-
-
         local atlas = src.replica.inventoryitem:GetAtlas()
-
-        if ent.caminho then
-            atlas = ent.caminho
-        elseif atlas and atlas == "images/inventoryimages1.xml" then
-            atlas = "images/inventoryimages1.xml"
-        elseif atlas and atlas == "images/inventoryimages2.xml" then
-            atlas = "images/inventoryimages2.xml"
-        elseif atlas and atlas == "images/inventoryimages3.xml" then
-            atlas = "images/inventoryimages3.xml"
-        else
-            atlas = "images/inventoryimages/hamletinventory.xml"
-        end
-
-        if (image == "waffles_plate_generic") then
-            inst.AnimState:OverrideSymbol("SWAP_SIGN", "images/inventoryimages2.xml", "waffles.tex")
-        else
-            inst.AnimState:OverrideSymbol("SWAP_SIGN", resolvefilepath(atlas), texname)
-        end
-        --inst.AnimState:OverrideSymbol("SWAP_SIGN", "store_items", image)
+        inst.AnimState:OverrideSymbol("SWAP_SIGN", resolvefilepath(atlas), texname)
         inst.imagename = image
     else
         inst.imagename = ""
@@ -70,9 +45,8 @@ local function SetImageFromName(inst, name)
 
     if image ~= nil then
         local texname = image .. ".tex"
-        inst.AnimState:OverrideSymbol("SWAP_SIGN", resolvefilepath("images/inventoryimages/hamletinventory.xml"), texname)
-        --inst.AnimState:OverrideSymbol("SWAP_SIGN", "store_items", image)		
-
+        local atlas = GetInventoryItemAtlas(texname)
+        inst.AnimState:OverrideSymbol("SWAP_SIGN", atlas, texname)
         inst.imagename = image
     else
         inst.imagename = ""
@@ -81,39 +55,20 @@ local function SetImageFromName(inst, name)
 end
 
 local function SetCost(inst, costprefab, cost)
-    local image = nil
+    local image = costprefab or nil
 
-    if costprefab then
-        image = costprefab
-    end
     if costprefab == "oinc" and cost then
         image = "cost-" .. cost
     end
 
-    if costprefab == "goldenbar" or costprefab == "stonebar" or costprefab == "lucky_goldnugget" then
-        if image ~= nil then
-            local texname = image .. ".tex"
-            inst.AnimState:OverrideSymbol("SWAP_COST", resolvefilepath("images/inventoryimages/volcanoinventory.xml"),
-                texname)
-            --inst.AnimState:OverrideSymbol("SWAP_SIGN", "store_items", image)		
-
-            inst.costimagename = image
-        else
-            inst.costimagename = ""
-            inst.AnimState:ClearOverrideSymbol("SWAP_COST")
-        end
+    if image ~= nil then
+        local texname = image .. ".tex"
+        local atlas = GetInventoryItemAtlas(texname)
+        inst.AnimState:OverrideSymbol("SWAP_COST", atlas, texname)
+        inst.costimagename = image
     else
-        if image ~= nil then
-            local texname = image .. ".tex"
-            inst.AnimState:OverrideSymbol("SWAP_COST", resolvefilepath("images/inventoryimages/hamletinventory.xml"),
-                texname)
-            --inst.AnimState:OverrideSymbol("SWAP_SIGN", "store_items", image)		
-
-            inst.costimagename = image
-        else
-            inst.costimagename = ""
-            inst.AnimState:ClearOverrideSymbol("SWAP_COST")
-        end
+        inst.costimagename = ""
+        inst.AnimState:ClearOverrideSymbol("SWAP_COST")
     end
 end
 
@@ -304,347 +259,5 @@ local function buyer()
     return inst
 end
 
-local function buyer_deli()
-    local inst = common()
-    inst.shoptype = "pig_shop_deli"
-    inst.startAnim = "idle_cakestand_dome"
-    inst.restock = restock
 
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_florist()
-    local inst = common()
-    inst.shoptype = "pig_shop_florist"
-    inst.startAnim = "idle_cart"
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_general()
-    local inst = common()
-    inst.shoptype = "pig_shop_general"
-    inst.startAnim = "idle_barrel"
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_hoofspa()
-    local inst = common()
-    inst.shoptype = "pig_shop_hoofspa"
-    inst.startAnim = "idle_cakestand"
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_produce()
-    local inst = common()
-    inst.shoptype = "pig_shop_produce"
-    inst.startAnim = "idle_ice_box"
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_antiquities()
-    local inst = common()
-    inst.shoptype = "pig_shop_antiquities"
-    inst.startAnim = "idle_barrel_dome"
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_cityhall()
-    local inst = common()
-    inst.shoptype = "pig_shop_cityhall"
-    inst.startAnim = "idle_globe_bar"
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_arcane()
-    local inst = common()
-    inst.shoptype = "pig_shop_arcane"
-    inst.startAnim = "idle_marble"
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_weapons()
-    local inst = common()
-    inst.shoptype = "pig_shop_weapons"
-    inst.startAnim = "idle_cablespool"
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_spears()
-    local inst = common()
-    inst.shoptype = "pig_shop_spears"
-    inst.startAnim = "idle_cablespool"
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_hatshop()
-    local inst = common()
-    inst.shoptype = "pig_shop_hatshop"
-    inst.startAnim = "idle_hatbox2" --idle_hatbox1 idle_hatbox3 idle_hatbox4
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_bank()
-    local inst = common()
-    inst.shoptype = "pig_shop_bank"
-    inst.startAnim = "idle_marble_dome"
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_tinker()
-    local inst = common()
-    inst.shoptype = "pig_shop_tinker"
-    inst.startAnim = "idle_metal"
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-local function buyer_academy()
-    local inst = common()
-    inst.shoptype = "pig_shop_academy"
-    inst.startAnim = "idle_stoneslab"
-
-    inst.AnimState:PlayAnimation(inst.startAnim)
-    inst.restock = restock
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("shopdispenser")
-    inst:AddComponent("shopped")
-
-    inst:WatchWorldState("isday", restock)
-    inst:DoTaskInTime(1, restock)
-    return inst
-end
-
-
-
-
-local function seller()
-    local inst = common()
-    return inst
-end
-
-return Prefab("shop_buyer", buyer, assets, prefabs),
-    Prefab("shop_seller", seller, assets, prefabs),
-
-    Prefab("shop_buyer_deli", buyer_deli, assets, prefabs),
-    Prefab("shop_buyer_florist", buyer_florist, assets, prefabs),
-    Prefab("shop_buyer_general", buyer_general, assets, prefabs),
-    Prefab("shop_buyer_hoofspa", buyer_hoofspa, assets, prefabs),
-    Prefab("shop_buyer_produce", buyer_produce, assets, prefabs),
-    Prefab("shop_buyer_antiquities", buyer_antiquities, assets, prefabs),
-    Prefab("shop_buyer_cityhall", buyer_cityhall, assets, prefabs),
-    Prefab("shop_buyer_arcane", buyer_arcane, assets, prefabs),
-    Prefab("shop_buyer_weapons", buyer_weapons, assets, prefabs),
-    Prefab("shop_buyer_spears", buyer_spears, assets, prefabs),
-    Prefab("shop_buyer_hatshop", buyer_hatshop, assets, prefabs),
-    Prefab("shop_buyer_bank", buyer_bank, assets, prefabs),
-    Prefab("shop_buyer_tinker", buyer_tinker, assets, prefabs),
-    Prefab("shop_buyer_academy", buyer_academy, assets, prefabs)
+return Prefab("shop_buyer", buyer, assets, prefabs)

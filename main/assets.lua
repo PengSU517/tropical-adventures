@@ -988,6 +988,8 @@ Assets =
 	---------------minisign------------------
 	Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
 	Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/cookpotfoods_ham.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/cookpotfoods_sw.xml", 256),
 	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_shipwrecked.xml", 256),
 	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_hamlet.xml", 256),
 	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_rog.xml", 256),
