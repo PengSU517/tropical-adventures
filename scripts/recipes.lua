@@ -1,6 +1,6 @@
-local v_atlas = "images/inventoryimages/volcanoinventory.xml"
-local h_atlas = "images/inventoryimages/hamletinventory.xml"
-local hm_atlas = "images/minimap/hamleticon.xml"
+local v_atlas = "images/inventoryimages/inventory_shipwrecked.xml"
+local h_atlas = "images/inventoryimages/inventory_hamlet.xml"
+local hm_atlas = "images/minimap/minimap_hamlet.xml"
 local safe_atlas = "images/tabs.xml"
 
 local TECH = GLOBAL.TECH
@@ -47,7 +47,7 @@ local function SortAfter(a, b, filter_name)
 	SortRecipe(a, b, filter_name, 1)
 end
 
-AddRecipeFilter({ name = "NAUTICAL", atlas = safe_atlas, image = "nauticaltab.png" })
+AddRecipeFilter({ name = "NAUTICAL", atlas = safe_atlas, image = "tab_nautical.tex" })
 AddRecipeFilter({ name = "HAMLET", atlas = safe_atlas, image = "tab_city.tex" })
 AddRecipeFilter({ name = "INTERIOR", atlas = safe_atlas, image = "tab_home_decor.tex" })
 AddRecipeFilter({ name = "LEGACY", atlas = safe_atlas, image = "tab_archaeology.tex" })
@@ -63,13 +63,13 @@ AddRecipe2("pugaliskfountain_made",
 		-- nounlock = true,
 		min_spacing = 3.2,
 		placer = "pugaliskfountain_made_placer",
-		image = "pugalisk_fountain.png" ----  "pig_ruins_well.png"
+		image = "pugalisk_fountain.tex" ----  "pig_ruins_well.tex"
 		--"pighouse_city.tex"     --"kyno_fountainyouth.tex" ---- ---"pig_ruins_well.tex"---------------这个图在哪儿
 	},
 	{ "STRUCTURES", "LEGACY", "SUMMER" })
 
 AddRecipe2("armorvortexcloak", { Ingredient("ancient_remnant", 5), Ingredient("armor_sanity", 1) }, TECH.LOST, {
-	atlas = "images/inventoryimages/hamletinventory.xml",
+	atlas = h_atlas,
 	image = "armorvortexcloak.tex",
 }, { "ARMOUR", "MAGIC", "CONTAINERS" })
 SortAfter("armorvortexcloak", "dreadstonehat", "ARMOUR")
@@ -80,7 +80,7 @@ AddRecipe2("armorvoidcloak",
 	{ Ingredient("armorvortexcloak", 1), Ingredient("horrorfuel", 4), Ingredient("voidcloth", 4),
 		Ingredient("shadowheart", 1) }, TECH.SHADOWFORGING_TWO, {
 		nounlock = true,
-		atlas = "images/inventoryimages/hamletinventory.xml",
+		atlas = h_atlas,
 		image = "armorvoidcloak.tex",
 	}, { "CRAFTING_STATION" })
 SortAfter("armorvoidcloak", "voidclothhat", "CRAFTING_STATION")
@@ -132,20 +132,20 @@ SortAfter("wx78module_taser_ham", "wx78module_taser", "CHARACTER")
 -- 	{ atlas = v_atlas, placer = "wildborehouse_placer" }, { "STRUCTURES" })
 -----------------这个为什么不需要图片
 
-AddRecipe2("loot_pumper",
-	{
-		Ingredient("gears", 1),
-		Ingredient("alloy", 2, h_atlas),
-		Ingredient("transistor", 2)
-	},
-	TECH.SCIENCE_TWO,
-	{
-		atlas = "images/inventoryimages/loot_pump.xml",
-		min_spacing = 3.2,
-		placer = "loot_pumper_placer",
-		image = "loot_pump.tex"
-	},
-	{ "PROTOTYPERS", "STRUCTURES" })
+-- AddRecipe2("loot_pumper",
+-- 	{
+-- 		Ingredient("gears", 1),
+-- 		Ingredient("alloy", 2, h_atlas),
+-- 		Ingredient("transistor", 2)
+-- 	},
+-- 	TECH.SCIENCE_TWO,
+-- 	{
+-- 		atlas = "images/inventoryimages/loot_pump.xml",
+-- 		min_spacing = 3.2,
+-- 		placer = "loot_pumper_placer",
+-- 		image = "loot_pump.tex"
+-- 	},
+-- 	{ "PROTOTYPERS", "STRUCTURES" })
 
 
 
@@ -192,7 +192,7 @@ AddRecipe2("mermfishhouse", { Ingredient("boards", 5), Ingredient("cutreeds", 3)
 		builder_tag = "merm_builder",
 		atlas = hm_atlas,
 		placer = "mermfishhouse_placer",
-		image = "mermhouse_tropical.png",
+		image = "mermhouse_tropical.tex",
 		testfn = function(pt, rot)
 			local ground_tile = GLOBAL.TheWorld.Map:GetTileAtPoint(pt.x, pt.y, pt.z)
 			return ground_tile and (ground_tile == GROUND.MARSH or ground_tile == GROUND.TIDALMARSH)
@@ -606,7 +606,7 @@ AddRecipe2("playerhouse_city",
 		nounlock = false,
 		min_spacing = 3.2,
 		placer = "playerhouse_city_placer",
-		image = "pig_house_sale.png",
+		image = "pig_house_sale.tex",
 		--[[build_mode = BUILDMODE.WATER]]
 	},
 	{ "HAMLET" })
@@ -616,7 +616,7 @@ AddRecipe2("pighouse_city", { Ingredient("boards", 4), Ingredient("cutstone", 3)
 	{ "HAMLET" })
 AddRecipe2("pig_shop_deli_entrance", { Ingredient("boards", 4), Ingredient("honeyham", 1), Ingredient("pigskin", 4) },
 	TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 3.2, placer = "pig_shop_deli_placer", image = "pig_shop_deli.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 3.2, placer = "pig_shop_deli_placer", image = "pig_shop_deli.tex" },
 	{ "HAMLET" })
 AddRecipe2("pig_shop_general_entrance", { Ingredient("boards", 4), Ingredient("axe", 3), Ingredient("pigskin", 4) },
 	TECH.CITY_ONE,
@@ -625,7 +625,7 @@ AddRecipe2("pig_shop_general_entrance", { Ingredient("boards", 4), Ingredient("a
 		nounlock = false,
 		min_spacing = 1,
 		placer = "pig_shop_general_placer",
-		image = "pig_shop_general.png"
+		image = "pig_shop_general.tex"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_hoofspa_entrance", { Ingredient("boards", 4), Ingredient("bandage", 3), Ingredient("pigskin", 4) },
 	TECH.CITY_ONE,
@@ -634,7 +634,7 @@ AddRecipe2("pig_shop_hoofspa_entrance", { Ingredient("boards", 4), Ingredient("b
 		nounlock = false,
 		min_spacing = 3.2,
 		placer = "pig_shop_hoofspa_placer",
-		image = "pig_shop_hoofspa.png"
+		image = "pig_shop_hoofspa.tex"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_produce_entrance", { Ingredient("boards", 4), Ingredient("eggplant", 3), Ingredient("pigskin", 4) },
 	TECH.CITY_ONE,
@@ -643,7 +643,7 @@ AddRecipe2("pig_shop_produce_entrance", { Ingredient("boards", 4), Ingredient("e
 		nounlock = false,
 		min_spacing = 3.2,
 		placer = "pig_shop_produce_placer",
-		image = "pig_shop_produce.png"
+		image = "pig_shop_produce.tex"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_florist_entrance", { Ingredient("boards", 4), Ingredient("petals", 12), Ingredient("pigskin", 4) },
 	TECH.CITY_ONE,
@@ -652,7 +652,7 @@ AddRecipe2("pig_shop_florist_entrance", { Ingredient("boards", 4), Ingredient("p
 		nounlock = false,
 		min_spacing = 3.2,
 		placer = "pig_shop_florist_placer",
-		image = "pig_shop_florist.png"
+		image = "pig_shop_florist.tex"
 	}, { "HAMLET" })
 AddRecipe2("pig_antiquities_entrance",
 	{ Ingredient("boards", 4), Ingredient("ballpein_hammer", 3, h_atlas), Ingredient("pigskin", 4) }, TECH.CITY_ONE,
@@ -661,7 +661,7 @@ AddRecipe2("pig_antiquities_entrance",
 		nounlock = false,
 		min_spacing = 3.2,
 		placer = "pig_shop_antiquities_placer",
-		image = "pig_shop_antiquities.png"
+		image = "pig_shop_antiquities.tex"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_arcane_entrance",
 	{ Ingredient("boards", 4), Ingredient("nightmarefuel", 1), Ingredient("pigskin", 4) }, TECH.CITY_ONE,
@@ -671,7 +671,7 @@ AddRecipe2("pig_shop_arcane_entrance",
 		min_spacing = 3.2,
 		placer = "pig_shop_arcane_placer",
 		image =
-		"pig_shop_arcane.png"
+		"pig_shop_arcane.tex"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_weapons_entrance", { Ingredient("boards", 4), Ingredient("spear", 3), Ingredient("pigskin", 4) },
 	TECH.CITY_ONE,
@@ -680,7 +680,7 @@ AddRecipe2("pig_shop_weapons_entrance", { Ingredient("boards", 4), Ingredient("s
 		nounlock = false,
 		min_spacing = 3.2,
 		placer = "pig_shop_weapons_placer",
-		image = "pig_shop_weapons.png"
+		image = "pig_shop_weapons.tex"
 	}, { "HAMLET" })
 AddRecipe2("pig_academy_entrance", { Ingredient("boards", 4), Ingredient("cutstone", 3), Ingredient("pigskin", 4) },
 	TECH.CITY_ONE,
@@ -689,7 +689,7 @@ AddRecipe2("pig_academy_entrance", { Ingredient("boards", 4), Ingredient("cutsto
 		nounlock = false,
 		min_spacing = 3.2,
 		placer = "pig_shop_academy_placer",
-		image = "pig_shop_academy.png"
+		image = "pig_shop_academy.tex"
 	}, { "HAMLET" })
 AddRecipe2("hatshop_entrance", { Ingredient("boards", 4), Ingredient("tophat", 2), Ingredient("pigskin", 4) },
 	TECH.CITY_ONE,
@@ -698,11 +698,11 @@ AddRecipe2("hatshop_entrance", { Ingredient("boards", 4), Ingredient("tophat", 2
 		nounlock = false,
 		min_spacing = 1,
 		placer = "pig_shop_hatshop_placer",
-		image = "pig_shop_hatshop.png"
+		image = "pig_shop_hatshop.tex"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_bank_entrance",
 	{ Ingredient("cutstone", 4), Ingredient("oinc", 100, h_atlas), Ingredient("pigskin", 4) }, TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 3.2, placer = "pig_shop_bank_placer", image = "pig_shop_bank.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 3.2, placer = "pig_shop_bank_placer", image = "pig_shop_bank.tex" },
 	{ "HAMLET" })
 AddRecipe2("pig_shop_tinker_entrance", { Ingredient("magnifying_glass", 2, h_atlas), Ingredient("pigskin", 4) },
 	TECH.CITY_ONE,
@@ -712,7 +712,7 @@ AddRecipe2("pig_shop_tinker_entrance", { Ingredient("magnifying_glass", 2, h_atl
 		min_spacing = 1,
 		placer = "pig_shop_tinker_placer",
 		image =
-		"pig_shop_tinker.png"
+		"pig_shop_tinker.tex"
 	}, { "HAMLET" })
 AddRecipe2("pig_shop_cityhall_player_entrance",
 	{ Ingredient("boards", 4), Ingredient("goldnugget", 4), Ingredient("pigskin", 4) }, TECH.CITY_ONE,
@@ -721,7 +721,7 @@ AddRecipe2("pig_shop_cityhall_player_entrance",
 		nounlock = false,
 		min_spacing = 3.2,
 		placer = "pig_shop_cityhall_placer",
-		image = "pig_shop_cityhall.png"
+		image = "pig_shop_cityhall.tex"
 	}, { "HAMLET" })
 AddRecipe2("pig_guard_tower", { Ingredient("cutstone", 3), Ingredient("halberd", 1, h_atlas), Ingredient("pigskin", 4) },
 	TECH.CITY_ONE, { atlas = h_atlas, nounlock = false, min_spacing = 3.2, placer = "pig_guard_tower_placer" },
@@ -739,40 +739,40 @@ AddRecipe2("pig_guard_tower_palace",
 		nounlock = false,
 		min_spacing = 1,
 		placer = "pig_guard_tower_palace_placer",
-		image = "pig_royal_tower.png"
+		image = "pig_royal_tower.tex"
 	}, { "HAMLET" })
 AddRecipe2("lawnornament_1", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_1_placer", image = "lawnornament_1.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_1_placer", image = "lawnornament_1.tex" },
 	{ "HAMLET" })
 AddRecipe2("lawnornament_2", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_2_placer", image = "lawnornament_2.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_2_placer", image = "lawnornament_2.tex" },
 	{ "HAMLET" })
 AddRecipe2("lawnornament_3", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_3_placer", image = "lawnornament_3.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_3_placer", image = "lawnornament_3.tex" },
 	{ "HAMLET" })
 AddRecipe2("lawnornament_4", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_4_placer", image = "lawnornament_4.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_4_placer", image = "lawnornament_4.tex" },
 	{ "HAMLET" })
 AddRecipe2("lawnornament_5", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_5_placer", image = "lawnornament_5.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_5_placer", image = "lawnornament_5.tex" },
 	{ "HAMLET" })
 AddRecipe2("lawnornament_6", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_6_placer", image = "lawnornament_6.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_6_placer", image = "lawnornament_6.tex" },
 	{ "HAMLET" })
 AddRecipe2("lawnornament_7", { Ingredient("cutstone", 2), Ingredient("oinc", 7, h_atlas) }, TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_7_placer", image = "lawnornament_7.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "lawnornament_7_placer", image = "lawnornament_7.tex" },
 	{ "HAMLET" })
 AddRecipe2("topiary_1", { Ingredient("cutstone", 2), Ingredient("oinc", 9, h_atlas) }, TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "topiary_1_placer", image = "topiary_1.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "topiary_1_placer", image = "topiary_1.tex" },
 	{ "HAMLET" })
 AddRecipe2("topiary_2", { Ingredient("cutstone", 2), Ingredient("oinc", 9, h_atlas) }, TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "topiary_2_placer", image = "topiary_2.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "topiary_2_placer", image = "topiary_2.tex" },
 	{ "HAMLET" })
 AddRecipe2("topiary_3", { Ingredient("cutstone", 2), Ingredient("oinc", 9, h_atlas) }, TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "topiary_3_placer", image = "topiary_3.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "topiary_3_placer", image = "topiary_3.tex" },
 	{ "HAMLET" })
 AddRecipe2("topiary_4", { Ingredient("cutstone", 2), Ingredient("oinc", 9, h_atlas) }, TECH.CITY_ONE,
-	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "topiary_4_placer", image = "topiary_4.png" },
+	{ atlas = hm_atlas, nounlock = false, min_spacing = 1, placer = "topiary_4_placer", image = "topiary_4.tex" },
 	{ "HAMLET" })
 AddRecipe2("turf_foundation", { Ingredient("cutstone", 1) }, TECH.CITY_ONE, {
 	atlas = v_atlas,
@@ -1837,6 +1837,14 @@ SortAfter("transmute_driftwood_log_tro", "transmute_cork", "CHARACTER")
 -- WORNWOOD
 AddCharacterRecipe("wormwood_seaweed_stalk",
 	{ Ingredient(CHARACTER_INGREDIENT.HEALTH, 10), Ingredient("spoiled_food", 3), Ingredient("kelp", 8) }, TECH.NONE,
-	{ builder_skill = "wormwood_juicyberrybushcrafting", product = "seaweed_stalk", sg_state = "form_log", actionstr =
-	"GROW", allowautopick = true, no_deconstruction = true, description = "wormwood_seaweed_stalk" })
+	{
+		builder_skill = "wormwood_juicyberrybushcrafting",
+		product = "seaweed_stalk",
+		sg_state = "form_log",
+		actionstr =
+		"GROW",
+		allowautopick = true,
+		no_deconstruction = true,
+		description = "wormwood_seaweed_stalk"
+	})
 SortAfter("wormwood_seaweed_stalk", "wormwood_juicyberrybush", "CHARACTER")
