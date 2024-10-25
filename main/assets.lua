@@ -991,6 +991,8 @@ Assets =
 	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_shipwrecked.xml", 256),
 	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_hamlet.xml", 256),
 	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_rog.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
 
 
 
@@ -1003,6 +1005,10 @@ Assets =
 	Asset("ATLAS", "images/inventoryimages/inventory_shipwrecked.xml"),
 	Asset("IMAGE", "images/inventoryimages/inventory_hamlet.tex"),
 	Asset("ATLAS", "images/inventoryimages/inventory_hamlet.xml"),
+	Asset("IMAGE", "images/inventoryimages/hamletinventory.tex"),
+	Asset("ATLAS", "images/inventoryimages/hamletinventory.xml"),
+	Asset("IMAGE", "images/inventoryimages/volcanoinventory.tex"),
+	Asset("ATLAS", "images/inventoryimages/volcanoinventory.xml"),
 
 
 
