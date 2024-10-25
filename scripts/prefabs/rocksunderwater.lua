@@ -59,108 +59,108 @@ local prefabs =
     "collapse_small",
 }
 
-SetSharedLootTable( 'rock1',
-{
-    {'rocks',  1.00},
-    {'rocks',  1.00},
-    {'rocks',  1.00},
-    {'nitre',  1.00},
-    {'flint',  1.00},
-    {'nitre',  0.25},
-    {'flint',  0.60},
-})
+SetSharedLootTable('rock1',
+    {
+        { 'rocks', 1.00 },
+        { 'rocks', 1.00 },
+        { 'rocks', 1.00 },
+        { 'nitre', 1.00 },
+        { 'flint', 1.00 },
+        { 'nitre', 0.25 },
+        { 'flint', 0.60 },
+    })
 
-SetSharedLootTable( 'rock2',
-{
-    {'rocks',       1.00},
-    {'rocks',       1.00},
-    {'rocks',       1.00},
-    {'goldnugget',  1.00},
-    {'flint',       1.00},
-    {'goldnugget',  0.25},
-    {'flint',       0.60},
-})
+SetSharedLootTable('rock2',
+    {
+        { 'rocks',      1.00 },
+        { 'rocks',      1.00 },
+        { 'rocks',      1.00 },
+        { 'goldnugget', 1.00 },
+        { 'flint',      1.00 },
+        { 'goldnugget', 0.25 },
+        { 'flint',      0.60 },
+    })
 
-SetSharedLootTable( 'rock_flintless',
-{
-    {'rocks',   1.0},
-    {'rocks',   1.0},
-    {'rocks',   1.0},
-    {'rocks',   1.0},
-    {'rocks',   0.6},
-})
+SetSharedLootTable('rock_flintless',
+    {
+        { 'rocks', 1.0 },
+        { 'rocks', 1.0 },
+        { 'rocks', 1.0 },
+        { 'rocks', 1.0 },
+        { 'rocks', 0.6 },
+    })
 
-SetSharedLootTable( 'rock_flintless_med',
-{
-    {'rocks', 1.0},
-    {'rocks', 1.0},
-    {'rocks', 1.0},
-    {'rocks', 0.4},
-})
+SetSharedLootTable('rock_flintless_med',
+    {
+        { 'rocks', 1.0 },
+        { 'rocks', 1.0 },
+        { 'rocks', 1.0 },
+        { 'rocks', 0.4 },
+    })
 
-SetSharedLootTable( 'rock_flintless_low',
-{
-    {'rocks', 1.0},
-    {'rocks', 1.0},
-    {'rocks', 0.2},
-})
+SetSharedLootTable('rock_flintless_low',
+    {
+        { 'rocks', 1.0 },
+        { 'rocks', 1.0 },
+        { 'rocks', 0.2 },
+    })
 
-SetSharedLootTable( 'rock_moon',
-{
-    {'rocks',           1.00},
-    {'flint',           1.00},
-    {'moonrocknugget',  1.00},
-    {'moonrocknugget',  1.00},
-    {'moonrocknugget',  0.6},
-    {'moonrocknugget',  0.3},
-})
+SetSharedLootTable('rock_moon',
+    {
+        { 'rocks',          1.00 },
+        { 'flint',          1.00 },
+        { 'moonrocknugget', 1.00 },
+        { 'moonrocknugget', 1.00 },
+        { 'moonrocknugget', 0.6 },
+        { 'moonrocknugget', 0.3 },
+    })
 
-SetSharedLootTable( 'rock_moon_shell',
-{
-    {'rocks',           1.00},
-    {'flint',           1.00},
-    {'moonrocknugget',  1.00},
-    {'moonrocknugget',  1.00},
-    {'moonrocknugget',  1.00},
-    {'moonrocknugget',  0.3},
-})
+SetSharedLootTable('rock_moon_shell',
+    {
+        { 'rocks',          1.00 },
+        { 'flint',          1.00 },
+        { 'moonrocknugget', 1.00 },
+        { 'moonrocknugget', 1.00 },
+        { 'moonrocknugget', 1.00 },
+        { 'moonrocknugget', 0.3 },
+    })
 
-SetSharedLootTable( 'rock_moon_glass',
-{
-    {'moonglass',       1.00},
-    {'moonglass',       1.00},
-    {'moonglass',       0.25},
-})
+SetSharedLootTable('rock_moon_glass',
+    {
+        { 'moonglass', 1.00 },
+        { 'moonglass', 1.00 },
+        { 'moonglass', 0.25 },
+    })
 
-SetSharedLootTable( 'rock_petrified_tree',
-{
-    {'rocks',  1.00},
-    {'rocks',  0.75},
-    {'nitre',  0.4},
-    {'flint',  0.25},
-})
-SetSharedLootTable( 'rock_petrified_tree_tall',
-{
-    {'rocks',  1.00},
-    {'rocks',  1.00},
-    {'rocks',  0.35},
-    {'nitre',  0.65},
-    {'flint',  0.75},
-})
-SetSharedLootTable( 'rock_petrified_tree_short',
-{
-    {'rocks',  1.00},
-    {'rocks',  0.35},
-    {'nitre',  0.25},
-    {'flint',  0.25},
-})
-SetSharedLootTable( 'rock_petrified_tree_old',
-{
-    {'rocks',  0.50},
-    {'rocks',  0.50},
-    {'nitre',  0.25},
-    {'flint',  0.75},
-})
+SetSharedLootTable('rock_petrified_tree',
+    {
+        { 'rocks', 1.00 },
+        { 'rocks', 0.75 },
+        { 'nitre', 0.4 },
+        { 'flint', 0.25 },
+    })
+SetSharedLootTable('rock_petrified_tree_tall',
+    {
+        { 'rocks', 1.00 },
+        { 'rocks', 1.00 },
+        { 'rocks', 0.35 },
+        { 'nitre', 0.65 },
+        { 'flint', 0.75 },
+    })
+SetSharedLootTable('rock_petrified_tree_short',
+    {
+        { 'rocks', 1.00 },
+        { 'rocks', 0.35 },
+        { 'nitre', 0.25 },
+        { 'flint', 0.25 },
+    })
+SetSharedLootTable('rock_petrified_tree_old',
+    {
+        { 'rocks', 0.50 },
+        { 'rocks', 0.50 },
+        { 'nitre', 0.25 },
+        { 'flint', 0.75 },
+    })
 
 
 local function OnWork(inst, worker, workleft)
@@ -174,9 +174,9 @@ local function OnWork(inst, worker, workleft)
             fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
         end
 
-		if not inst.doNotRemoveOnWorkDone then
-	        inst:Remove()
-		end
+        if not inst.doNotRemoveOnWorkDone then
+            inst:Remove()
+        end
     else
         inst.AnimState:PlayAnimation(
             (workleft < TUNING.ROCKS_MINE / 3 and "low") or
@@ -231,7 +231,8 @@ local DAMAGE_SCALE = 0.5
 local function OnCollide(inst, data)
     local boat_physics = data.other.components.boatphysics
     if boat_physics ~= nil then
-        local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) * DAMAGE_SCALE / boat_physics.max_velocity + 0.5)
+        local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) * DAMAGE_SCALE /
+        boat_physics.max_velocity + 0.5)
         inst.components.workable:WorkedBy(data.other, hit_velocity * TUNING.SEASTACK_MINE)
     end
 end
@@ -248,10 +249,10 @@ local function baserock_fn(bank, build, anim, icon, tag, multcolour)
     MakeWaterObstaclePhysics(inst, 0.80, 2, 1.25)
     inst:SetPhysicsRadiusOverride(2.35)
 
-    MakeInventoryFloatable(inst, "large", 0.1, {1.1, 0.9, 1.1})
+    MakeInventoryFloatable(inst, "large", 0.1, { 1.1, 0.9, 1.1 })
     inst.components.floater.bob_percent = 0
 
-    local land_time = (POPULATING and math.random()*5*FRAMES) or 0
+    local land_time = (POPULATING and math.random() * 5 * FRAMES) or 0
     inst:DoTaskInTime(land_time, function(inst)
         inst.components.floater:OnLandedServer()
     end)
@@ -309,8 +310,8 @@ local function baserock_fn(bank, build, anim, icon, tag, multcolour)
     MakeSnowCovered(inst)
 
     MakeHauntableWork(inst)
-	
-	inst:ListenForEvent("on_collide", OnCollide)
+
+    inst:ListenForEvent("on_collide", OnCollide)
 
     return inst
 end
@@ -327,10 +328,10 @@ local function rock1_fn()
     MakeWaterObstaclePhysics(inst, 0.80, 2, 1.25)
     inst:SetPhysicsRadiusOverride(2.35)
 
-    MakeInventoryFloatable(inst, "large", 0, {1, 0.8, 1})
+    MakeInventoryFloatable(inst, "large", 0, { 1, 0.8, 1 })
     inst.components.floater.bob_percent = 0
 
-    local land_time = (POPULATING and math.random()*5*FRAMES) or 0
+    local land_time = (POPULATING and math.random() * 5 * FRAMES) or 0
     inst:DoTaskInTime(land_time, function(inst)
         inst.components.floater:OnLandedServer()
     end)
@@ -345,8 +346,8 @@ local function rock1_fn()
     MakeSnowCoveredPristine(inst)
 
     inst:AddTag("boulder")
-	
-	inst:SetPrefabNameOverride("rock1")		
+
+    inst:SetPrefabNameOverride("rock1")
 
     inst.entity:SetPristine()
 
@@ -356,7 +357,7 @@ local function rock1_fn()
 
     inst:AddComponent("lootdropper")
     inst.components.lootdropper:SetChanceLootTable('rock1')
-	
+
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.MINE)
     inst.components.workable:SetWorkLeft(TUNING.ROCKS_MINE)
@@ -367,16 +368,16 @@ local function rock1_fn()
     MakeSnowCovered(inst)
 
     MakeHauntableWork(inst)
-	
-	inst:ListenForEvent("on_collide", OnCollide)
+
+    inst:ListenForEvent("on_collide", OnCollide)
 
     return inst
 end
 
 local function rock2_fn()
     local inst = baserock_fn("rock2", "rock2", "full", "rock_gold.png")
-	
-	inst:SetPrefabNameOverride("rock2")
+
+    inst:SetPrefabNameOverride("rock2")
 
     if not TheWorld.ismastersim then
         return inst
@@ -390,7 +391,7 @@ end
 local function rock_flintless_fn()
     local inst = baserock_fn("rock_flintless", "rock_flintless", "full", "rock_flintless.png")
 
-	inst:SetPrefabNameOverride("rock_flintless")
+    inst:SetPrefabNameOverride("rock_flintless")
 
     if not TheWorld.ismastersim then
         return inst
@@ -404,7 +405,7 @@ end
 local function rock_flintless_med()
     local inst = baserock_fn("rock_flintless", "rock_flintless", "med", "rock_flintless.png")
 
-	inst:SetPrefabNameOverride("rock_flintless")
+    inst:SetPrefabNameOverride("rock_flintless")
 
     if not TheWorld.ismastersim then
         return inst
@@ -420,7 +421,7 @@ end
 local function rock_flintless_low()
     local inst = baserock_fn("rock_flintless", "rock_flintless", "low", "rock_flintless.png")
 
-	inst:SetPrefabNameOverride("rock_flintless")
+    inst:SetPrefabNameOverride("rock_flintless")
 
     if not TheWorld.ismastersim then
         return inst
@@ -434,8 +435,8 @@ end
 
 local function rock_moon()
     local inst = baserock_fn("rock5", "rock7", "full", "rock_moon.png")
-	
-	inst:SetPrefabNameOverride("rock_moon")	
+
+    inst:SetPrefabNameOverride("rock_moon")
 
     if not TheWorld.ismastersim then
         return inst
@@ -450,23 +451,23 @@ end
 local function OnRockMoonCapsuleWorkFinished(inst)
     RemovePhysicsColliders(inst)
 
-	local seed = SpawnPrefab("moonrockseed")
-	seed.Transform:SetPosition(inst.Transform:GetWorldPosition())
+    local seed = SpawnPrefab("moonrockseed")
+    seed.Transform:SetPosition(inst.Transform:GetWorldPosition())
     if seed.OnSpawned ~= nil then
         seed:OnSpawned()
     end
 
-	inst.persists = false
+    inst.persists = false
     inst:AddTag("NOCLICK")
 
-	inst.AnimState:PlayAnimation("break")
-	inst:DoTaskInTime(2, ErodeAway)
+    inst.AnimState:PlayAnimation("break")
+    inst:DoTaskInTime(2, ErodeAway)
 end
 
 local function rock_moon_shell()
     local inst = baserock_fn("moonrock_shell", "moonrock_shell", "full", "rock_moon.png", "meteor_protection")
 
-	inst:SetPrefabNameOverride("rock_moon_shell")
+    inst:SetPrefabNameOverride("rock_moon_shell")
 
     if not TheWorld.ismastersim then
         return inst
@@ -475,8 +476,8 @@ local function rock_moon_shell()
     inst.components.inspectable.nameoverride = "ROCK_MOON"
     inst.components.lootdropper:SetChanceLootTable('rock_moon_shell')
 
-	inst.doNotRemoveOnWorkDone = true
-	inst:ListenForEvent("workfinished", OnRockMoonCapsuleWorkFinished)
+    inst.doNotRemoveOnWorkDone = true
+    inst:ListenForEvent("workfinished", OnRockMoonCapsuleWorkFinished)
 
     return inst
 end
@@ -487,7 +488,7 @@ end
 
 local function set_moonglass_type(inst, new_type)
     inst.rock_type = new_type
-    local anim_name = (inst.rock_type == 1 and "moonglass_rock") or ("moonglass_rock"..tostring(new_type))
+    local anim_name = (inst.rock_type == 1 and "moonglass_rock") or ("moonglass_rock" .. tostring(new_type))
     inst.AnimState:SetBuild(anim_name)
     inst.AnimState:SetBank(anim_name)
 end
@@ -501,7 +502,7 @@ end
 local function rock_moon_glass()
     local inst = baserock_fn("moonglass_rock", "moonglass_rock", "full", "rock_moonglass.png", nil, 1.0)
 
-	inst:SetPrefabNameOverride("moonglass_rock")	
+    inst:SetPrefabNameOverride("moonglass_rock")
 
     if not TheWorld.ismastersim then
         return inst

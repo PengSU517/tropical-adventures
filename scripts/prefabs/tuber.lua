@@ -1,46 +1,46 @@
 local assets =
 {
-	Asset("ANIM", "anim/tuber_crop.zip"),
-    Asset("ANIM", "anim/tuber_bloom_crop.zip"),       
+    Asset("ANIM", "anim/tuber_crop.zip"),
+    Asset("ANIM", "anim/tuber_bloom_crop.zip"),
 }
 
 local function oneaten(inst, eater)
     if eater.components.poisonable then
-	eater.components.poisonable:SetPoison(-2, 3, 60)
-    end 
+        eater.components.poisonable:SetPoison(-2, 3, 60)
+    end
 end
 
 local function fn(Sim)
-	local inst = CreateEntity()
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
     MakeInventoryPhysics(inst)
     inst.entity:AddNetwork()
 
---    MakeInventoryFloatable(inst, "idle_water", "idle")
+    --    MakeInventoryFloatable(inst, "idle_water", "idle")
 
     inst.AnimState:SetBank("tuber_crop")
     inst.AnimState:SetBuild("tuber_crop")
     inst.AnimState:PlayAnimation("idle")
-    
+
     inst:AddTag("poisonous")
-	MakeInventoryFloatable(inst)
+    MakeInventoryFloatable(inst)
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end	
-	
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("stackable")
-	inst.components.stackable.maxsize = TUNING.STACK_SIZE_LARGEITEM
+    inst.components.stackable.maxsize = TUNING.STACK_SIZE_LARGEITEM
 
     inst:AddComponent("edible")
     inst.components.edible.foodtype = "VEGGIE"
     inst.components.edible:SetOnEatenFn(oneaten)
     inst.components.edible.hungervalue = TUNING.CALORIES_SMALL
 
-    inst:AddComponent("perishable")    
+    inst:AddComponent("perishable")
     inst.components.perishable:SetPerishTime(TUNING.PERISH_PRESERVED)
     inst.components.perishable:StartPerishing()
     inst.components.perishable.onperishreplacement = "spoiled_food"
@@ -52,13 +52,13 @@ local function fn(Sim)
 
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.SMALL_FUEL
-    
-	MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
+
+    MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
-        
+
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
     return inst
 end
@@ -70,21 +70,21 @@ local function cookedfn(Sim)
     MakeInventoryPhysics(inst)
     inst.entity:AddNetwork()
 
---    MakeInventoryFloatable(inst, "cooked_water", "cooked")
+    --    MakeInventoryFloatable(inst, "cooked_water", "cooked")
 
     inst.AnimState:SetBank("tuber_crop")
     inst.AnimState:SetBuild("tuber_crop")
     inst.AnimState:PlayAnimation("cooked")
-    
+
     inst:AddTag("poisonous")
-	MakeInventoryFloatable(inst)
+    MakeInventoryFloatable(inst)
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end	
-	
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("stackable")
     inst.components.stackable.maxsize = TUNING.STACK_SIZE_LARGEITEM
 
@@ -103,13 +103,13 @@ local function cookedfn(Sim)
 
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.SMALL_FUEL
-    
+
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
-        
+
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
     return inst
 end
@@ -121,28 +121,28 @@ local function bloomfn(Sim)
     MakeInventoryPhysics(inst)
     inst.entity:AddNetwork()
 
---    MakeInventoryFloatable(inst, "idle_water", "idle")
+    --    MakeInventoryFloatable(inst, "idle_water", "idle")
 
     inst.AnimState:SetBank("tuber_bloom_crop")
     inst.AnimState:SetBuild("tuber_bloom_crop")
     inst.AnimState:PlayAnimation("idle")
-	
-	MakeInventoryFloatable(inst)
 
-	inst.entity:SetPristine()
+    MakeInventoryFloatable(inst)
 
-	if not TheWorld.ismastersim then
-		return inst
-	end	
-    
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("stackable")
     inst.components.stackable.maxsize = TUNING.STACK_SIZE_LARGEITEM
 
     inst:AddComponent("edible")
     inst.components.edible.foodtype = "VEGGIE"
     inst.components.edible.hungervalue = TUNING.CALORIES_SMALL
-  
-    inst:AddComponent("perishable")    
+
+    inst:AddComponent("perishable")
     inst.components.perishable:SetPerishTime(TUNING.PERISH_PRESERVED)
     inst.components.perishable:StartPerishing()
     inst.components.perishable.onperishreplacement = "spoiled_food"
@@ -154,13 +154,13 @@ local function bloomfn(Sim)
 
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.SMALL_FUEL
-    
+
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
-        
+
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
     return inst
 end
@@ -173,19 +173,19 @@ local function cookedbloomfn(Sim)
     MakeInventoryPhysics(inst)
     inst.entity:AddNetwork()
 
---    MakeInventoryFloatable(inst, "cooked_water", "cooked")
+    --    MakeInventoryFloatable(inst, "cooked_water", "cooked")
 
     inst.AnimState:SetBank("tuber_bloom_crop")
     inst.AnimState:SetBuild("tuber_bloom_crop")
     inst.AnimState:PlayAnimation("cooked")
-	
-	MakeInventoryFloatable(inst)
 
-	inst.entity:SetPristine()
+    MakeInventoryFloatable(inst)
 
-	if not TheWorld.ismastersim then
-		return inst
-	end	    
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
 
     inst:AddComponent("stackable")
     inst.components.stackable.maxsize = TUNING.STACK_SIZE_LARGEITEM
@@ -203,22 +203,21 @@ local function cookedbloomfn(Sim)
     inst.components.perishable.onperishreplacement = "spoiled_food"
 
     inst:AddComponent("inspectable")
- 
+
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.SMALL_FUEL
-    
+
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
-        
+
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
     return inst
 end
 
-return Prefab( "common/inventory/tuber_crop", fn, assets),
-       Prefab( "common/inventory/tuber_crop_cooked", cookedfn, assets),
-       Prefab( "common/inventory/tuber_bloom_crop", bloomfn, assets),
-       Prefab( "common/inventory/tuber_bloom_crop_cooked", cookedbloomfn, assets)
-
+return Prefab("common/inventory/tuber_crop", fn, assets),
+    Prefab("common/inventory/tuber_crop_cooked", cookedfn, assets),
+    Prefab("common/inventory/tuber_bloom_crop", bloomfn, assets),
+    Prefab("common/inventory/tuber_bloom_crop_cooked", cookedbloomfn, assets)

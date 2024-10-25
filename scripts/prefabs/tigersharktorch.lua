@@ -1,6 +1,6 @@
 local assets =
 {
---    Asset("ANIM", "anim/beaver_torch.zip"),
+    --    Asset("ANIM", "anim/beaver_torch.zip"),
 }
 
 local prefabs =
@@ -9,17 +9,18 @@ local prefabs =
     "collapse_small",
 }
 
-local respawndays = 30  --revive em no maximo 20 dias mas pode reviver antes
+local respawndays = 30 --revive em no maximo 20 dias mas pode reviver antes
 
 local function OnTimerDone(inst, data)
     if data.name == "spawndelay" then
-	local invader = GetClosestInstWithTag("tigershark", inst, 200)
-	if not invader then
-    local slipstor = SpawnPrefab("tigershark")
-    slipstor.Transform:SetPosition(inst.Transform:GetWorldPosition())
-	slipstor.entrada = 1
-    end end
-	inst.components.timer:StartTimer("spawndelay", 60*8*respawndays)
+        local invader = GetClosestInstWithTag("tigershark", inst, 200)
+        if not invader then
+            local slipstor = SpawnPrefab("tigershark")
+            slipstor.Transform:SetPosition(inst.Transform:GetWorldPosition())
+            slipstor.entrada = 1
+        end
+    end
+    inst.components.timer:StartTimer("spawndelay", 60 * 8 * respawndays)
 end
 
 local function OnVacate(inst)
@@ -34,14 +35,14 @@ local function fn()
     inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
 
- --   MakeObstaclePhysics(inst, 0.33)
+    --   MakeObstaclePhysics(inst, 0.33)
 
---    inst.AnimState:SetBank("pigtorch")
---    inst.AnimState:SetBuild("bea_torch")
---    inst.AnimState:PlayAnimation("idle", true)
+    --    inst.AnimState:SetBank("pigtorch")
+    --    inst.AnimState:SetBuild("bea_torch")
+    --    inst.AnimState:PlayAnimation("idle", true)
 
     inst:AddTag("tigersharkhome")
-	inst:AddTag("aquatic")
+    inst:AddTag("aquatic")
 
     inst.entity:SetPristine()
 
@@ -51,13 +52,13 @@ local function fn()
 
     inst:AddComponent("timer")
     inst:ListenForEvent("timerdone", OnTimerDone)
-	inst.components.timer:StartTimer("spawndelay", 60*8*respawndays)
+    inst.components.timer:StartTimer("spawndelay", 60 * 8 * respawndays)
 
     inst:AddComponent("health")
     inst.components.health:SetMaxHealth(1)
-	inst.components.health:SetInvincible(true)
+    inst.components.health:SetInvincible(true)
 
-	inst:AddComponent("combat")
+    inst:AddComponent("combat")
 
     return inst
 end

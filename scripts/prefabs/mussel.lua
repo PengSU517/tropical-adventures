@@ -1,4 +1,4 @@
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/mussel.zip"),
 }
@@ -15,21 +15,21 @@ local function raw()
 	local inst = CreateEntity()
 	inst.entity:AddTransform()
 	inst.entity:AddAnimState()
-    inst.entity:AddNetwork()
+	inst.entity:AddNetwork()
 	MakeInventoryPhysics(inst)
 
 	inst.AnimState:SetBank("mussel")
 	inst.AnimState:SetBuild("mussel")
 	inst.AnimState:PlayAnimation("idle")
 	inst.AnimState:SetRayTestOnBB(true)
-	
+
 	MakeInventoryFloatable(inst)
 
-    inst.entity:SetPristine()
+	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "MEAT"
@@ -39,20 +39,20 @@ local function raw()
 
 	inst:AddComponent("tradable")
 	inst.components.tradable.goldvalue = TUNING.GOLD_VALUES.MEAT
- --   inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
-    
+	--   inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
+
 	inst:AddComponent("inspectable")
 	inst:AddComponent("inventoryitem")
 	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 	inst:AddComponent("perishable")
 	inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERFAST)
 	inst.components.perishable:StartPerishing()
 	inst.components.perishable.onperishreplacement = "spoiled_food"
 
 	inst:AddTag("packimfood")
-	
-	
+
+
 	inst.no_wet_prefix = true
 
 	inst.components.edible.healthvalue = 0
@@ -71,21 +71,21 @@ local function cooked()
 	local inst = CreateEntity()
 	inst.entity:AddTransform()
 	inst.entity:AddAnimState()
-    inst.entity:AddNetwork()
+	inst.entity:AddNetwork()
 	MakeInventoryPhysics(inst)
 
 	inst.AnimState:SetBank("mussel")
 	inst.AnimState:SetBuild("mussel")
 	inst.AnimState:SetRayTestOnBB(true)
-	
+
 	MakeInventoryFloatable(inst)
 	inst:AddTag("packimfood")
 
-    inst.entity:SetPristine()
+	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	inst:AddComponent("edible")
 	inst.components.edible.foodtype = "MEAT"
@@ -95,12 +95,12 @@ local function cooked()
 
 	inst:AddComponent("tradable")
 	inst.components.tradable.goldvalue = TUNING.GOLD_VALUES.MEAT
---    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
-    
+	--    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
+
 	inst:AddComponent("inspectable")
 	inst:AddComponent("inventoryitem")
 	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 	inst:AddComponent("perishable")
 	inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERFAST)
 	inst.components.perishable:StartPerishing()
@@ -115,5 +115,5 @@ local function cooked()
 	return inst
 end
 
-return Prefab( "common/inventory/mussel", raw, assets, prefabs),
-	   Prefab("common/inventory/mussel_cooked", cooked, assets)
+return Prefab("common/inventory/mussel", raw, assets, prefabs),
+	Prefab("common/inventory/mussel_cooked", cooked, assets)

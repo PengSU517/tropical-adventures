@@ -2,7 +2,7 @@ local bluebrain = require "brains/bluewhalebrain"
 local whitebrain = require "brains/whitewhalebrain"
 require "stategraphs/SGwhale"
 
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/whale.zip"),
 	Asset("ANIM", "anim/whale_blue_build.zip"),
@@ -16,11 +16,11 @@ local prefabs =
 	"boneshard",
 	"whale_carcass_blue",
 	"whale_carcass_white",
---	"whale_bubbles",
---	"whale_track",
+	--	"whale_bubbles",
+	--	"whale_track",
 }
 
-local bluesounds = 
+local bluesounds =
 {
 	death = "dontstarve_DLC002/creatures/blue_whale/death",
 	hit = "dontstarve_DLC002/creatures/blue_whale/hit",
@@ -33,7 +33,7 @@ local bluesounds =
 	bite = "dontstarve_DLC002/creatures/blue_whale/bite",
 }
 
-local whitesounds = 
+local whitesounds =
 {
 	death = "dontstarve_DLC002/creatures/white_whale/death",
 	hit = "dontstarve_DLC002/creatures/white_whale/hit",
@@ -46,27 +46,29 @@ local whitesounds =
 	bite = "dontstarve_DLC002/creatures/white_whale/bite",
 }
 
-local	    WHALE_BLUE_HEALTH = 1000
-local	    WHALE_BLUE_DAMAGE = 50
-local	    WHALE_BLUE_TARGET_DIST = 10
-local	    WHALE_BLUE_CHASE_DIST = 30
-local	    WHALE_BLUE_FOLLOW_TIME = 60
-local	    WHALE_BLUE_SPEED = 4
-local	    WHALE_BLUE_EXPLOSION_HACKS = 3
-local	    WHALE_BLUE_EXPLOSION_DAMAGE = 25
+local WHALE_BLUE_HEALTH = 1000
+local WHALE_BLUE_DAMAGE = 50
+local WHALE_BLUE_TARGET_DIST = 10
+local WHALE_BLUE_CHASE_DIST = 30
+local WHALE_BLUE_FOLLOW_TIME = 60
+local WHALE_BLUE_SPEED = 4
+local WHALE_BLUE_EXPLOSION_HACKS = 3
+local WHALE_BLUE_EXPLOSION_DAMAGE = 25
 
-local	    WHALE_WHITE_HEALTH = 1200
-local	    WHALE_WHITE_DAMAGE = 75
-local	    WHALE_WHITE_TARGET_DIST = 15
-local	    WHALE_WHITE_CHASE_DIST = 40
-local	    WHALE_WHITE_FOLLOW_TIME = 90
-local	    WHALE_WHITE_SPEED = 5
-local	    WHALE_WHITE_EXPLOSION_HACKS = 3
-local	    WHALE_WHITE_EXPLOSION_DAMAGE = 50
+local WHALE_WHITE_HEALTH = 1200
+local WHALE_WHITE_DAMAGE = 75
+local WHALE_WHITE_TARGET_DIST = 15
+local WHALE_WHITE_CHASE_DIST = 40
+local WHALE_WHITE_FOLLOW_TIME = 90
+local WHALE_WHITE_SPEED = 5
+local WHALE_WHITE_EXPLOSION_HACKS = 3
+local WHALE_WHITE_EXPLOSION_DAMAGE = 50
 
 
-local loot_blue = {"fish_med_cooked","fish_med_cooked","fish_med_cooked","fish_med_cooked","fish_med_cooked","fish_med_cooked","boneshard","boneshard","boneshard","boneshard"}
-local loot_white = {"fish_med_cooked","fish_med_cooked","fish_med_cooked","fish_med_cooked","fish_med_cooked","fish_med_cooked","boneshard","boneshard","boneshard","boneshard"}
+local loot_blue = { "fish_med_cooked", "fish_med_cooked", "fish_med_cooked", "fish_med_cooked", "fish_med_cooked",
+	"fish_med_cooked", "boneshard", "boneshard", "boneshard", "boneshard" }
+local loot_white = { "fish_med_cooked", "fish_med_cooked", "fish_med_cooked", "fish_med_cooked", "fish_med_cooked",
+	"fish_med_cooked", "boneshard", "boneshard", "boneshard", "boneshard" }
 
 
 local WAKE_TO_RUN_DISTANCE = 10
@@ -84,7 +86,7 @@ end
 
 local function OnAttacked(inst, data)
 	inst.components.combat:SetTarget(data.attacker)
-	inst.components.combat:ShareTarget(data.attacker, 30,function(dude)
+	inst.components.combat:ShareTarget(data.attacker, 30, function(dude)
 		return dude:HasTag("whale") and not dude:HasTag("player") and not dude.components.health:IsDead()
 	end, 5)
 end
@@ -93,7 +95,7 @@ local function OnLoad(inst, data)
 	if not data then
 		return
 	end
-	
+
 	inst.hitshallow = data.hitshallow
 end
 
@@ -102,30 +104,32 @@ local function OnSave(inst, data)
 end
 
 local function KeepTargetBlue(inst, target)
-	return distsq(Vector3(target.Transform:GetWorldPosition() ), Vector3(inst.Transform:GetWorldPosition() ) ) < WHALE_BLUE_CHASE_DIST * WHALE_BLUE_CHASE_DIST
+	return distsq(Vector3(target.Transform:GetWorldPosition()), Vector3(inst.Transform:GetWorldPosition())) <
+	WHALE_BLUE_CHASE_DIST * WHALE_BLUE_CHASE_DIST
 end
 
 local function KeepTargetWhite(inst, target)
-	return distsq(Vector3(target.Transform:GetWorldPosition() ), Vector3(inst.Transform:GetWorldPosition() ) ) < WHALE_WHITE_CHASE_DIST * WHALE_WHITE_CHASE_DIST
+	return distsq(Vector3(target.Transform:GetWorldPosition()), Vector3(inst.Transform:GetWorldPosition())) <
+	WHALE_WHITE_CHASE_DIST * WHALE_WHITE_CHASE_DIST
 end
 
 local function RetargetWhite(inst)
 	--White Whale is aggressive. Look for targets.
-	local notags = {"FX", "NOCLICK","INLIMBO"}
-    return FindEntity(inst, WHALE_WHITE_TARGET_DIST, function(guy) 
-        return inst.components.combat:CanTarget(guy) and guy:HasTag("aquatic")
-    end, nil, notags)
+	local notags = { "FX", "NOCLICK", "INLIMBO" }
+	return FindEntity(inst, WHALE_WHITE_TARGET_DIST, function(guy)
+		return inst.components.combat:CanTarget(guy) and guy:HasTag("aquatic")
+	end, nil, notags)
 end
 
 local function OnTimerDone(inst, data)
-    if data.name == "vaiembora" then
-	local invader = GetClosestInstWithTag("player", inst, 25)
-	if not invader then
-	inst:Remove()
-	else
-	inst.components.timer:StartTimer("vaiembora", 10)	
+	if data.name == "vaiembora" then
+		local invader = GetClosestInstWithTag("player", inst, 25)
+		if not invader then
+			inst:Remove()
+		else
+			inst.components.timer:StartTimer("vaiembora", 10)
+		end
 	end
-    end
 end
 
 local function create_white(sim)
@@ -136,7 +140,7 @@ local function create_white(sim)
 	inst.Transform:SetFourFaced()
 	inst.entity:AddNetwork()
 
----	MakePoisonableCharacter(inst)
+	---	MakePoisonableCharacter(inst)
 	MakeCharacterPhysics(inst, 100, .75)
 
 	inst:AddTag("mudacamada")
@@ -148,14 +152,14 @@ local function create_white(sim)
 	inst:AddTag("animal")
 	inst:AddTag("largecreature")
 	inst:AddTag("aquatic")
-	inst:AddTag("tropicalspawner")	
-	inst:AddTag("baleiabranca")	
-	
+	inst:AddTag("tropicalspawner")
+	inst:AddTag("baleiabranca")
+
 	inst.entity:SetPristine()
 
-        if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	inst:AddComponent("combat")
 
@@ -171,14 +175,14 @@ local function create_white(sim)
 	inst:AddComponent("locomotor")
 
 	inst:AddComponent("sleeper")
-	inst.components.sleeper.onlysleepsfromitems = true 
+	inst.components.sleeper.onlysleepsfromitems = true
 	inst.components.sleeper:SetSleepTest(ShouldSleep)
 	inst.components.sleeper:SetWakeTest(ShouldWakeUp)
 
 	inst:SetStateGraph("SGwhale")
-	
+
 	local s = 1.25
-	inst.Transform:SetScale(s,s,s)
+	inst.Transform:SetScale(s, s, s)
 
 	inst.carcass = "whale_carcass_white"
 
@@ -201,10 +205,10 @@ local function create_white(sim)
 
 	inst.OnLoad = OnLoad
 	inst.OnSave = OnSave
-	
-    inst:AddComponent("timer")
-    inst:ListenForEvent("timerdone", OnTimerDone)
-    inst.components.timer:StartTimer("vaiembora", 480 + math.random()*240)		
+
+	inst:AddComponent("timer")
+	inst:ListenForEvent("timerdone", OnTimerDone)
+	inst.components.timer:StartTimer("vaiembora", 480 + math.random() * 240)
 
 	return inst
 end
@@ -217,12 +221,12 @@ local function create_blue(sim)
 	local sound = inst.entity:AddSoundEmitter()
 	inst.Transform:SetFourFaced()
 	inst.entity:AddNetwork()
---inst.AnimState:SetLayer(LAYER_WORLD)
---inst.AnimState:SetSortOrder(2)
+	--inst.AnimState:SetLayer(LAYER_WORLD)
+	--inst.AnimState:SetSortOrder(2)
 
----	MakePoisonableCharacter(inst)
+	---	MakePoisonableCharacter(inst)
 	MakeCharacterPhysics(inst, 100, .75)
-	
+
 	inst:AddTag("mudacamada")
 	inst:AddTag("whale")
 	anim:SetBank("whale")
@@ -233,13 +237,13 @@ local function create_blue(sim)
 	inst:AddTag("largecreature")
 	inst:AddTag("aquatic")
 	inst:AddTag("mudacamada")
-	inst:AddTag("tropicalspawner")	
-	
+	inst:AddTag("tropicalspawner")
+
 	inst.entity:SetPristine()
 
-        if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	inst:AddComponent("combat")
 
@@ -255,11 +259,11 @@ local function create_blue(sim)
 	inst:AddComponent("locomotor")
 
 	inst:AddComponent("sleeper")
-	inst.components.sleeper.onlysleepsfromitems = true 
+	inst.components.sleeper.onlysleepsfromitems = true
 	inst.components.sleeper:SetSleepTest(ShouldSleep)
 	inst.components.sleeper:SetWakeTest(ShouldWakeUp)
 	inst:SetStateGraph("SGwhale")
-	
+
 	inst.carcass = "whale_carcass_blue"
 
 	inst.sounds = bluesounds
@@ -279,10 +283,10 @@ local function create_blue(sim)
 
 	inst.OnLoad = OnLoad
 	inst.OnSave = OnSave
-	
-    inst:AddComponent("timer")
-    inst:ListenForEvent("timerdone", OnTimerDone)
-    inst.components.timer:StartTimer("vaiembora", 480 + math.random()*240)		
+
+	inst:AddComponent("timer")
+	inst:ListenForEvent("timerdone", OnTimerDone)
+	inst.components.timer:StartTimer("vaiembora", 480 + math.random() * 240)
 
 	return inst
 end
@@ -295,7 +299,7 @@ local function create_bluefinal(sim)
 	inst.Transform:SetFourFaced()
 	inst.entity:AddNetwork()
 	MakeCharacterPhysics(inst, 100, .75)
-	
+
 	inst:AddTag("mudacamada")
 	inst:AddTag("whale")
 	anim:SetBank("whale")
@@ -306,13 +310,13 @@ local function create_bluefinal(sim)
 	inst:AddTag("largecreature")
 	inst:AddTag("aquatic")
 
-    inst:SetPrefabNameOverride("whale_blue")	
-	
+	inst:SetPrefabNameOverride("whale_blue")
+
 	inst.entity:SetPristine()
 
-        if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	inst:AddComponent("combat")
 
@@ -328,11 +332,11 @@ local function create_bluefinal(sim)
 	inst:AddComponent("locomotor")
 
 	inst:AddComponent("sleeper")
-	inst.components.sleeper.onlysleepsfromitems = true 
+	inst.components.sleeper.onlysleepsfromitems = true
 	inst.components.sleeper:SetSleepTest(ShouldSleep)
 	inst.components.sleeper:SetWakeTest(ShouldWakeUp)
 	inst:SetStateGraph("SGwhale")
-	
+
 	inst.carcass = "whale_carcass_blue"
 
 	inst.sounds = bluesounds
@@ -351,11 +355,11 @@ local function create_bluefinal(sim)
 	inst:SetBrain(bluebrain)
 
 	inst.OnLoad = OnLoad
-	inst.OnSave = OnSave		
+	inst.OnSave = OnSave
 
 	return inst
 end
 
-return Prefab( "forest/animals/whale_blue", create_blue, assets, prefabs),
-	   Prefab( "forest/animals/whale_white", create_white, assets, prefabs),
-	   Prefab( "forest/animals/whale_bluefinal", create_bluefinal, assets, prefabs)
+return Prefab("forest/animals/whale_blue", create_blue, assets, prefabs),
+	Prefab("forest/animals/whale_white", create_white, assets, prefabs),
+	Prefab("forest/animals/whale_bluefinal", create_bluefinal, assets, prefabs)

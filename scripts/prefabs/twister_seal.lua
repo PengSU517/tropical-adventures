@@ -1,36 +1,36 @@
 local assets =
 {
-    Asset("ANIM", "anim/twister_seal.zip"),
+	Asset("ANIM", "anim/twister_seal.zip"),
 }
 
 local prefabs = {}
 
 SetSharedLootTable('twister_seal',
-{
-	{'meat', 1.00},	
-	{'meat', 1.00},	
-	{'meat', 1.00},	
-	{'meat', 1.00},
---	{'twister_spawner', 1.00},
-	{'magic_seal', 1.00},
-	--Drop an item here too?
-})
+	{
+		{ 'meat',       1.00 },
+		{ 'meat',       1.00 },
+		{ 'meat',       1.00 },
+		{ 'meat',       1.00 },
+		--	{'twister_spawner', 1.00},
+		{ 'magic_seal', 1.00 },
+		--Drop an item here too?
+	})
 
 local function OnEntitySleep(inst)
 	--This means the player let the seal live.
 	--Let the seal escape & leave a gift of some sort behind.
---	print("seal left")
+	--	print("seal left")
 	--local seal = SpawnPrefab("magic_seal")
 	--seal.Transform:SetPosition(inst:GetPosition():Get())
---	inst:Remove()
+	--	inst:Remove()
 end
 
 local function SummonKrampus(inst, attacker)
---	TheWorld:PushEvent("ms_forcenaughtiness", { player = attacker, numspawns = 3})
+	--	TheWorld:PushEvent("ms_forcenaughtiness", { player = attacker, numspawns = 3})
 end
 
 local function fn()
-    local inst = CreateEntity()
+	local inst = CreateEntity()
 	inst.entity:AddTransform()
 	inst.entity:AddAnimState()
 	inst.entity:AddSoundEmitter()
@@ -66,17 +66,17 @@ local function fn()
 	inst:AddComponent("locomotor")
 	inst.components.locomotor.walkspeed = 0
 	inst.components.locomotor.runspeed = 0
-	
+
 	inst:AddComponent("combat")
 	inst.components.combat:SetOnHit(SummonKrampus)
 
 	inst:SetStateGraph("SGtwister_seal")
-    local brain = require("brains/twistersealbrain")
-    inst:SetBrain(brain)
+	local brain = require("brains/twistersealbrain")
+	inst:SetBrain(brain)
 
-    inst:DoTaskInTime(1*FRAMES, function()
-    	inst:ListenForEvent("entitysleep", OnEntitySleep)
-    end)
+	inst:DoTaskInTime(1 * FRAMES, function()
+		inst:ListenForEvent("entitysleep", OnEntitySleep)
+	end)
 
 	return inst
 end

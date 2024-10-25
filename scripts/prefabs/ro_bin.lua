@@ -36,7 +36,7 @@ end
 
 
 local function ShouldKeepTarget(ifnst, target)
-    return false -- chester can't attack, dand won't sleep if he has a target
+    return false  -- chester can't attack, dand won't sleep if he has a target
 end
 
 

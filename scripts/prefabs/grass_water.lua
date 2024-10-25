@@ -1,7 +1,7 @@
 local assets =
 {
-	Asset("ANIM", "anim/grass_inwater.zip"),
-	Asset("ANIM", "anim/grassgreen_build.zip"),
+    Asset("ANIM", "anim/grass_inwater.zip"),
+    Asset("ANIM", "anim/grassgreen_build.zip"),
 }
 
 local prefabs =
@@ -33,7 +33,6 @@ local function triggernearbymorph(inst, quick, range)
             not (v.components.worldsettingstimer:ActiveTimerExists("morphdelay") or
                 v.components.worldsettingstimer:ActiveTimerExists("morphing") or
                 v.components.worldsettingstimer:ActiveTimerExists("morphrelay")) then
-
             count = count + 1
 
             if canmorph(v) and math.random() < .75 then
@@ -55,7 +54,6 @@ end
 
 local function dig_up(inst, worker)
     if inst.components.pickable ~= nil and inst.components.lootdropper ~= nil then
-
         if not TheWorld.state.iswinter
             and worker ~= nil
             and worker:HasTag("player")
@@ -78,7 +76,7 @@ local function onregenfn(inst)
 end
 
 local function makeemptyfn(inst)
-inst.AnimState:PushAnimation("picked", true)
+    inst.AnimState:PushAnimation("picked", true)
 end
 
 local function makebarrenfn(inst, wasempty)
@@ -100,8 +98,8 @@ local function onpickedfn(inst, picker)
         inst.AnimState:PushAnimation("empty_to_dead")
         inst.AnimState:PushAnimation("idle_dead", false)
     else
- inst.AnimState:PushAnimation("picked", false)
- if inst.prefab == "grasswater" then  inst.AnimState:PushAnimation("picked", true) end      
+        inst.AnimState:PushAnimation("picked", false)
+        if inst.prefab == "grasswater" then inst.AnimState:PushAnimation("picked", true) end
     end
 end
 
@@ -126,7 +124,8 @@ local function onmorphtimer(inst, data)
                 return
             end
         end
-        inst.components.worldsettingstimer:StartTimer("morphdelay", GetRandomWithVariance(TUNING.GRASSGEKKO_MORPH_DELAY, TUNING.GRASSGEKKO_MORPH_DELAY_VARIANCE))
+        inst.components.worldsettingstimer:StartTimer("morphdelay",
+            GetRandomWithVariance(TUNING.GRASSGEKKO_MORPH_DELAY, TUNING.GRASSGEKKO_MORPH_DELAY_VARIANCE))
         triggernearbymorph(inst, false)
     end
 end
@@ -134,7 +133,8 @@ end
 local function makemorphable(inst)
     if inst.components.worldsettingstimer == nil then
         inst:AddComponent("worldsettingstimer")
-        inst.components.worldsettingstimer:AddTimer("morphdelay", TUNING.GRASSGEKKO_MORPH_DELAY, TUNING.GRASSGEKKO_MORPH_ENABLED)
+        inst.components.worldsettingstimer:AddTimer("morphdelay", TUNING.GRASSGEKKO_MORPH_DELAY,
+            TUNING.GRASSGEKKO_MORPH_ENABLED)
         inst.components.worldsettingstimer:AddTimer("morphing", 1, TUNING.GRASSGEKKO_MORPH_ENABLED)
         inst.components.worldsettingstimer:AddTimer("morphrelay", FRAMES, TUNING.GRASSGEKKO_MORPH_ENABLED)
         inst:ListenForEvent("timerdone", onmorphtimer)
@@ -144,11 +144,13 @@ end
 local function ontransplantfn(inst)
     inst.components.pickable:MakeBarren()
     makemorphable(inst)
-    inst.components.worldsettingstimer:StartTimer("morphdelay", GetRandomWithVariance(TUNING.GRASSGEKKO_MORPH_DELAY, TUNING.GRASSGEKKO_MORPH_DELAY_VARIANCE))
+    inst.components.worldsettingstimer:StartTimer("morphdelay",
+        GetRandomWithVariance(TUNING.GRASSGEKKO_MORPH_DELAY, TUNING.GRASSGEKKO_MORPH_DELAY_VARIANCE))
 end
 
 local function OnPreLoad(inst, data)
-    WorldSettings_Timer_PreLoad(inst, data, "morphdelay", TUNING.GRASSGEKKO_MORPH_DELAY + TUNING.GRASSGEKKO_MORPH_DELAY_VARIANCE)
+    WorldSettings_Timer_PreLoad(inst, data, "morphdelay",
+        TUNING.GRASSGEKKO_MORPH_DELAY + TUNING.GRASSGEKKO_MORPH_DELAY_VARIANCE)
     WorldSettings_Timer_PreLoad_Fix(inst, data, "morphdelay", 1)
     WorldSettings_Timer_PreLoad(inst, data, "morphing")
     WorldSettings_Timer_PreLoad_Fix(inst, data, "morphing", 1)
@@ -177,17 +179,17 @@ local function grass(name, stage)
 
         inst.MiniMapEntity:SetIcon("grass.png")
 
-		inst.AnimState:SetBank("grass_inwater")
-		inst.AnimState:SetBuild("grass_inwater")
+        inst.AnimState:SetBank("grass_inwater")
+        inst.AnimState:SetBuild("grass_inwater")
         inst.AnimState:PlayAnimation("idle", true)
 
         inst:AddTag("plant")
         inst:AddTag("renewable")
-		inst:AddTag("silviculture") -- for silviculture book
-		inst:AddTag("grasss")
-		inst:AddTag("mudacamada")
-		MakeInventoryPhysics(inst, nil, 0.7)
-				
+        inst:AddTag("silviculture") -- for silviculture book
+        inst:AddTag("grasss")
+        inst:AddTag("mudacamada")
+        MakeInventoryPhysics(inst, nil, 0.7)
+
         inst.entity:SetPristine()
 
         if not TheWorld.ismastersim then

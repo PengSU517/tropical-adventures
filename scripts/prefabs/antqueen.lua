@@ -103,8 +103,10 @@ local function OnAttacked(inst, data)
     local eles = TheSim:FindEntities(x, y, z, 30, { "ant" })
     if attacker then
         for k, guardas in pairs(eles) do
-            if guardas.components.combat and guardas.components.combat.target == nil then guardas.components.combat
-                    :SetTarget(attacker) end
+            if guardas.components.combat and guardas.components.combat.target == nil then
+                guardas.components.combat
+                    :SetTarget(attacker)
+            end
         end
     end
 end

@@ -17,14 +17,14 @@ local prefabs =
 }
 
 local function onhammered(inst)
-	inst.components.lootdropper:DropLoot(Vector3(inst.Transform:GetWorldPosition()))
+    inst.components.lootdropper:DropLoot(Vector3(inst.Transform:GetWorldPosition()))
     local fx = SpawnPrefab("collapse_small")
     fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
     fx:SetMaterial("wood")
     inst:Remove()
 end
 
-local function onhit(inst,worker)
+local function onhit(inst, worker)
     if inst.components.spawner.child ~= nil and inst.components.spawner.child.components.combat ~= nil then
         inst.components.spawner.child.components.combat:SuggestTarget(worker)
     end
@@ -119,12 +119,12 @@ local function fn()
     inst:WatchWorldState("israining", onisraining)
     onisraining(inst, TheWorld.state.israining)
 
-	inst:AddComponent("lootdropper")
-	inst.components.lootdropper:SetLoot({"log","poop", "log","log"})
-	
-	
-	
-	
+    inst:AddComponent("lootdropper")
+    inst.components.lootdropper:SetLoot({ "log", "poop", "log", "log" })
+
+
+
+
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
     inst.components.workable:SetWorkLeft(4)
@@ -132,7 +132,7 @@ local function fn()
     inst.components.workable:SetOnWorkCallback(onhit)
 
     inst:AddComponent("spawner")
-	WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME * 4, true)	
+    WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME * 4, true)
     inst.components.spawner:Configure("wildbeaverguard", TUNING.TOTAL_DAY_TIME * 4)
     inst.components.spawner:SetOnlySpawnOffscreen(true)
     inst.components.spawner:SetOnVacateFn(OnVacate)

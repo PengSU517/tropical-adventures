@@ -1,6 +1,6 @@
 local assets =
 {
-	Asset("ANIM", "anim/thunderbird_nest.zip"),
+    Asset("ANIM", "anim/thunderbird_nest.zip"),
     Asset("MINIMAP_IMAGE", "thunderbirdnest"),
 }
 
@@ -11,18 +11,18 @@ local prefabs =
 }
 
 local function onpicked(inst, picker)
-	inst.thief = picker
-	inst.AnimState:PlayAnimation("nest")
-	inst.components.childspawner.noregen = true
+    inst.thief = picker
+    inst.AnimState:PlayAnimation("nest")
+    inst.components.childspawner.noregen = true
 end
 
 local function onmakeempty(inst)
-	inst.AnimState:PlayAnimation("nest")
-	inst.components.childspawner.noregen = true
+    inst.AnimState:PlayAnimation("nest")
+    inst.components.childspawner.noregen = true
 end
 
 local function onregrow(inst)
-	inst.AnimState:PlayAnimation("orenest")
+    inst.AnimState:PlayAnimation("orenest")
 end
 
 local function onspawned(inst, child)
@@ -50,7 +50,7 @@ local function fn(Sim)
     inst.AnimState:SetBuild("thunderbird_nest")
     inst.AnimState:SetBank("thunderbird_nest")
     inst.AnimState:PlayAnimation("orenest", false)
-	
+
     inst:AddTag("antlion_sinkhole_blocker")
 
     inst.entity:SetPristine()
@@ -66,16 +66,16 @@ local function fn(Sim)
     inst.components.pickable.onregenfn = onregrow
     inst.components.pickable.makeemptyfn = onmakeempty
 
---    MakeMediumBurnable(inst)
---    MakeSmallPropagator(inst)
+    --    MakeMediumBurnable(inst)
+    --    MakeSmallPropagator(inst)
 
     -------------------
     inst:AddComponent("childspawner")
     inst.components.childspawner.childname = "thunderbird"
     inst.components.childspawner.spawnoffscreen = true
-    inst.components.childspawner:SetRegenPeriod(5*16*TUNING.SEG_TIME)
+    inst.components.childspawner:SetRegenPeriod(5 * 16 * TUNING.SEG_TIME)
     inst.components.childspawner:SetSpawnPeriod(0)
-	inst.components.childspawner:SetSpawnedFn(onspawned)
+    inst.components.childspawner:SetSpawnedFn(onspawned)
     inst.components.childspawner:SetMaxChildren(1)
     inst.components.childspawner:StartSpawning()
     -------------------
@@ -83,8 +83,8 @@ local function fn(Sim)
     inst:AddComponent("inspectable")
     inst:AddComponent("hauntable")
     inst.components.hauntable:SetHauntValue(TUNING.HAUNT_TINY)
-	
+
     return inst
 end
 
-return Prefab( "common/objects/thunderbirdnest", fn, assets, prefabs)
+return Prefab("common/objects/thunderbirdnest", fn, assets, prefabs)

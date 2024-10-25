@@ -1,7 +1,6 @@
-
 local assets =
 {
-	Asset("ANIM", "anim/fabric.zip"),
+    Asset("ANIM", "anim/fabric.zip"),
 }
 
 local function fn()
@@ -18,8 +17,8 @@ local function fn()
     inst.AnimState:PlayAnimation("idle")
 
     inst:AddTag("cattoy")
-	MakeInventoryFloatable(inst)
-	
+    MakeInventoryFloatable(inst)
+
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
@@ -27,8 +26,8 @@ local function fn()
     end
 
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
     inst:AddComponent("inspectable")
     inst:AddComponent("stackable")
 

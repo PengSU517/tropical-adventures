@@ -1,4 +1,3 @@
-
 local function create_light(eater, lightprefab)
     if eater.wormlight ~= nil then
         if eater.wormlight.prefab == lightprefab then
@@ -26,9 +25,9 @@ local function item_oneaten(inst, eater)
     create_light(eater, "wormlight_light")
 end
 
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/dragoon_heart.zip"),
+    Asset("ANIM", "anim/dragoon_heart.zip"),
 }
 
 local prefabs =
@@ -54,12 +53,12 @@ local function item_commonfn(bank, build, masterfn)
     inst.Light:SetFalloff(0.7)
     inst.Light:SetIntensity(.5)
     inst.Light:SetRadius(0.5)
-    inst.Light:SetColour(169/255, 231/255, 245/255)
+    inst.Light:SetColour(169 / 255, 231 / 255, 245 / 255)
     inst.Light:Enable(true)
 
     inst:AddTag("lightbattery")
     inst:AddTag("vasedecoration")
-	MakeInventoryFloatable(inst)	
+    MakeInventoryFloatable(inst)
 
     inst.entity:SetPristine()
 
@@ -69,10 +68,10 @@ local function item_commonfn(bank, build, masterfn)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.imagename = "dragoonheart"
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"	
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
-	
+    inst.components.inventoryitem.imagename = "dragoonheart"
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
     inst:AddComponent("tradable")
     inst:AddComponent("vasedecoration")
     inst:AddComponent("edible")
@@ -111,4 +110,4 @@ local function itemfn()
     )
 end
 
-return  Prefab("dragoonheart", itemfn, assets, prefabs)
+return Prefab("dragoonheart", itemfn, assets, prefabs)

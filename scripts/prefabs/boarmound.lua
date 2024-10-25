@@ -2,7 +2,7 @@ local assets =
 {
     Asset("ANIM", "anim/hound_base.zip"),
     Asset("SOUND", "sound/hound.fsb"),
-	Asset("MINIMAP_IMAGE", "hound_mound"),
+    Asset("MINIMAP_IMAGE", "hound_mound"),
 }
 
 local prefabs =
@@ -12,15 +12,15 @@ local prefabs =
 }
 
 SetSharedLootTable('hound_mound_outro',
-{
-    {'houndstooth', 1.00},
-    {'houndstooth', 1.00},
-    {'houndstooth', 1.00},
-    {'boneshard',   1.00},
-    {'boneshard',   1.00},
-    {'redgem',      0.01},
-    {'bluegem',     0.01},
-})
+    {
+        { 'houndstooth', 1.00 },
+        { 'houndstooth', 1.00 },
+        { 'houndstooth', 1.00 },
+        { 'boneshard',   1.00 },
+        { 'boneshard',   1.00 },
+        { 'redgem',      0.01 },
+        { 'bluegem',     0.01 },
+    })
 
 local function GetSpecialHoundChance()
     local day = TheWorld.state.cycles

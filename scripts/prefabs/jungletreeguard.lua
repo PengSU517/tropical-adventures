@@ -12,38 +12,38 @@ local assets =
 
 local prefabs =
 {
-	"meat",
-	"log",
-	"character_fire",
+    "meat",
+    "log",
+    "character_fire",
     "livinglog",
     "treeguard_coconut",
 }
 
-SetSharedLootTable( 'treeguard',
-{
-    {"livinglog",   1.0},
-    {"livinglog",   1.0},
-    {"livinglog",   1.0},
-    {"livinglog",   0.5},
-    {"livinglog",   0.5},
-    {"livinglog",   0.5},
-    {"monstermeat", 1.0},
-	{"monstermeat", 0.5},
-    {"bird_egg",    1.0},
-    {"bird_egg",    0.5},
-	{"log",    		1.0},
-    {"log",    		0.5},
-})
+SetSharedLootTable('treeguard',
+    {
+        { "livinglog",   1.0 },
+        { "livinglog",   1.0 },
+        { "livinglog",   1.0 },
+        { "livinglog",   0.5 },
+        { "livinglog",   0.5 },
+        { "livinglog",   0.5 },
+        { "monstermeat", 1.0 },
+        { "monstermeat", 0.5 },
+        { "bird_egg",    1.0 },
+        { "bird_egg",    0.5 },
+        { "log",         1.0 },
+        { "log",         0.5 },
+    })
 
 local function OnLoad(inst, data)
     if data and data.hibernate then
         inst.components.sleeper.hibernate = true
     end
     if data and data.sleep_time then
-         inst.components.sleeper.testtime = data.sleep_time
+        inst.components.sleeper.testtime = data.sleep_time
     end
     if data and data.sleeping then
-         inst.components.sleeper:GoToSleep()
+        inst.components.sleeper:GoToSleep()
     end
 end
 
@@ -59,14 +59,13 @@ local function OnSave(inst, data)
 end
 
 local function CalcSanityAura(inst, observer)
+    if inst.components.combat.target then
+        return -TUNING.SANITYAURA_LARGE
+    else
+        return 0.1
+    end
 
-	if inst.components.combat.target then
-		return -TUNING.SANITYAURA_LARGE
-	else
-		return 0.1
-	end
-
-	return 0
+    return 0
 end
 
 local function OnBurnt(inst)
@@ -81,8 +80,8 @@ end
 
 local function OnAttack(inst, data)
     if data.target then
-    local offset = Vector3(math.random(-2, 2), math.random(-2, 2), math.random(-2, 2))
-    inst.components.thrower:Throw(data.target:GetPosition() + offset)
+        local offset = Vector3(math.random(-2, 2), math.random(-2, 2), math.random(-2, 2))
+        inst.components.thrower:Throw(data.target:GetPosition() + offset)
     end
 end
 
@@ -111,14 +110,14 @@ local function SetMeleeMode(inst)
 end
 
 local function fn(Sim)
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
-	local sound = inst.entity:AddSoundEmitter()
-	local shadow = inst.entity:AddDynamicShadow()
-	inst.entity:AddNetwork()
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
+    local sound = inst.entity:AddSoundEmitter()
+    local shadow = inst.entity:AddDynamicShadow()
+    inst.entity:AddNetwork()
 
-	shadow:SetSize( 4, 1.5 )
+    shadow:SetSize(4, 1.5)
     inst.Transform:SetFourFaced()
 
     MakeCharacterPhysics(inst, 1000, .5)
@@ -128,18 +127,18 @@ local function fn(Sim)
     inst:AddTag("leif")
     inst:AddTag("tree")
     inst:AddTag("largecreature")
-	inst:AddTag("epic")
-	inst:AddTag("snake")
+    inst:AddTag("epic")
+    inst:AddTag("snake")
 
     inst.AnimState:SetBank("jungletreeguard")
     inst.AnimState:SetBuild("jungleTreeGuard_build")
     inst.AnimState:PlayAnimation("idle_loop", true)
-	
-	inst.entity:SetPristine()
+
+    inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
-       	return inst
-   	end
+        return inst
+    end
 
     inst:AddComponent("locomotor") -- locomotor must be constructed before the stategraph
     inst.components.locomotor.walkspeed = 3
@@ -190,4 +189,4 @@ local function fn(Sim)
     return inst
 end
 
-return Prefab( "common/jungletreeguard", fn, assets, prefabs)
+return Prefab("common/jungletreeguard", fn, assets, prefabs)

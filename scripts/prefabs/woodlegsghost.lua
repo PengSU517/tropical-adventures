@@ -12,19 +12,19 @@ local function OnGetItem(inst, giver, item)
     if item ~= nil and item.prefab == "reviver" then
         item:PushEvent("usereviver", { user = giver })
         item:Remove()
-		
-		SpawnPrefab("die_fx").Transform:SetPosition(inst:GetPosition():Get())
-		inst.SoundEmitter:PlaySound("dontstarve/ghost/ghost_get_bloodpump")
-		
-		inst:DoTaskInTime(40 * FRAMES, function()
-			inst.SoundEmitter:PlaySound("dontstarve/ghost/ghost_use_bloodpump")
-			
-			TheWorld:PushEvent("ms_sendlightningstrike", inst:GetPosition())
 
-local woodlegres = SpawnPrefab("woodlegs1").Transform:SetPosition(inst:GetPosition():Get())
-			
-			inst:Remove()
-		end)
+        SpawnPrefab("die_fx").Transform:SetPosition(inst:GetPosition():Get())
+        inst.SoundEmitter:PlaySound("dontstarve/ghost/ghost_get_bloodpump")
+
+        inst:DoTaskInTime(40 * FRAMES, function()
+            inst.SoundEmitter:PlaySound("dontstarve/ghost/ghost_use_bloodpump")
+
+            TheWorld:PushEvent("ms_sendlightningstrike", inst:GetPosition())
+
+            local woodlegres = SpawnPrefab("woodlegs1").Transform:SetPosition(inst:GetPosition():Get())
+
+            inst:Remove()
+        end)
     end
 end
 
@@ -52,18 +52,18 @@ local function fn()
     end
 
     inst:AddComponent("inspectable")
-	
 
-	inst:AddComponent("trader")
-	inst.components.trader:SetAcceptTest(ShouldAcceptItem)
-	inst.components.trader.onaccept = OnGetItem
-	inst.components.trader.deleteitemonaccept = false
+
+    inst:AddComponent("trader")
+    inst.components.trader:SetAcceptTest(ShouldAcceptItem)
+    inst.components.trader.onaccept = OnGetItem
+    inst.components.trader.deleteitemonaccept = false
 
     MakeHauntableWork(inst)
     MakeSnowCovered(inst)
-	
 
-	
+
+
     return inst
 end
 

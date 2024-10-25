@@ -1,11 +1,11 @@
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/doydoy_nest_2.zip"),
 }
 
-local prefabs = 
+local prefabs =
 {
---	"doydoyegg_cracked",
+	--	"doydoyegg_cracked",
 	"doydoyegg_cooked",
 	"spoiled_food",
 }
@@ -15,25 +15,25 @@ local function defaultfn()
 	inst.entity:AddTransform()
 	inst.entity:AddAnimState()
 	inst.entity:AddNetwork()
-	
+
 	MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst)	
-	
+	MakeInventoryFloatable(inst)
+
 	inst.AnimState:SetBuild("doydoy_nest_2")
 	inst.AnimState:SetBank("doydoy_nest_2")
 	inst.AnimState:PlayAnimation("idle_egg")
 
 	inst:AddTag("doydoyegg")
 	inst:AddTag("cattoy")
-	
+
 	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	inst:AddComponent("inspectable")
-	
+
 	inst:AddComponent("inventoryitem")
 
 	inst:AddComponent("edible")
@@ -63,24 +63,24 @@ local function cookedfn()
 	inst.entity:AddTransform()
 	inst.entity:AddAnimState()
 	inst.entity:AddNetwork()
-	
+
 	MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst)	
-	
+	MakeInventoryFloatable(inst)
+
 	inst.AnimState:SetBuild("doydoy_nest_2")
 	inst.AnimState:SetBank("doydoy_nest_2")
 	inst.AnimState:PlayAnimation("cooked")
 
 	inst:AddTag("cattoy")
-	
+
 	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	inst:AddComponent("inspectable")
-	
+
 	inst:AddComponent("inventoryitem")
 	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
 
@@ -91,7 +91,7 @@ local function cookedfn()
 	inst.components.perishable.onperishreplacement = "spoiled_food"
 
 	inst:AddComponent("tradable")
-	
+
 	inst:AddComponent("stackable")
 
 	inst.components.edible.foodstate = "COOKED"
@@ -100,11 +100,11 @@ local function cookedfn()
 
 	inst.components.perishable:SetPerishTime(TUNING.PERISH_FAST)
 	inst.components.perishable:StartPerishing()
-	
+
 	return inst
 end
 
 -- doydoyegg_cracked is really just here so old saves don't blow up
-return Prefab( "common/inventory/doydoyegg", defaultfn, assets, prefabs),
---		Prefab( "common/inventory/doydoyegg_cracked", defaultfn, assets, prefabs),
-		Prefab( "common/inventory/doydoyegg_cooked", cookedfn, assets, prefabs) 
+return Prefab("common/inventory/doydoyegg", defaultfn, assets, prefabs),
+	--		Prefab( "common/inventory/doydoyegg_cracked", defaultfn, assets, prefabs),
+	Prefab("common/inventory/doydoyegg_cooked", cookedfn, assets, prefabs)

@@ -1,7 +1,7 @@
 local assets =
 {
-	Asset("ANIM", "anim/blunderbuss.zip"),
-	Asset("ANIM", "anim/swap_blunderbuss.zip"),
+    Asset("ANIM", "anim/blunderbuss.zip"),
+    Asset("ANIM", "anim/swap_blunderbuss.zip"),
     Asset("ANIM", "anim/swap_blunderbuss_loaded.zip"),
     Asset("ANIM", "anim/blunderbuss_ammo.zip"),
 }
@@ -12,10 +12,10 @@ local BLUNDERBUSS_HIT_RANGE = 11
 local function onequip(inst, owner, force)
     owner.AnimState:OverrideSymbol("swap_object", inst.override_bank, "swap_blunderbuss")
     owner.AnimState:Show("ARM_carry")
-    owner.AnimState:Hide("ARM_normal") 
+    owner.AnimState:Hide("ARM_normal")
 end
 
-local function onunequip(inst,owner) 
+local function onunequip(inst, owner)
     owner.AnimState:ClearOverrideSymbol("swap_object")
     owner.AnimState:Hide("ARM_carry")
     owner.AnimState:Show("ARM_normal")
@@ -40,7 +40,7 @@ local function OnTakeAmmo(inst, data)
     inst.components.weapon:SetRange(BLUNDERBUSS_ATTACK_RANGE, BLUNDERBUSS_HIT_RANGE)
     local damage = TUNING.GUNPOWDER_DAMAGE
     inst.components.weapon:SetDamage(damage)
-	
+
     inst.override_bank = "swap_blunderbuss_loaded"
 
     --If equipped, change current equip overrides
@@ -48,7 +48,7 @@ local function OnTakeAmmo(inst, data)
         local owner = inst.components.inventoryitem.owner
         owner.AnimState:OverrideSymbol("swap_object", inst.override_bank, "swap_blunderbuss")
     end
-	
+
     --Change invo image.
     inst.components.inventoryitem:ChangeImageName("blunderbuss_loaded")
 end
@@ -66,7 +66,7 @@ local function OnLoseAmmo(inst, data)
 
     --Change equip overrides
     inst.override_bank = "swap_blunderbuss"
-	
+
     --If equipped, change current equip overrides
     if inst.components.equippable and inst.components.equippable:IsEquipped() then
         local owner = inst.components.inventoryitem.owner
@@ -77,33 +77,33 @@ local function OnLoseAmmo(inst, data)
 end
 
 local function OnAttack(inst, attacker, target)
-	local removed_item = inst.components.inventory:GetItemInSlot(1)	
+    local removed_item = inst.components.inventory:GetItemInSlot(1)
     if removed_item then
         removed_item:Remove()
     end
 end
 
 local function fn()
-	local inst = CreateEntity()
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
-	inst.entity:AddNetwork()
-	inst.entity:AddSoundEmitter()
+    local inst = CreateEntity()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
+    inst.entity:AddNetwork()
+    inst.entity:AddSoundEmitter()
 
     MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst, "med", 0.05, {0.8, 0.4, 0.8})		
+    MakeInventoryFloatable(inst, "med", 0.05, { 0.8, 0.4, 0.8 })
 
-	inst.AnimState:SetBank("blunderbuss")
-	inst.AnimState:SetBuild("blunderbuss")
-	inst.AnimState:PlayAnimation("idle")
+    inst.AnimState:SetBank("blunderbuss")
+    inst.AnimState:SetBuild("blunderbuss")
+    inst.AnimState:PlayAnimation("idle")
     inst:AddTag("blunderbus")
-    inst:AddTag("rangedweapon")	
-	inst.entity:SetPristine()
+    inst:AddTag("rangedweapon")
+    inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end	
-	
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("inspectable")
 
     inst:AddComponent("weapon")
@@ -111,8 +111,8 @@ local function fn()
 
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"
-	
+    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
     inst:AddComponent("inventory")
     inst.components.inventory.maxslots = 1
     inst:ListenForEvent("itemlose", OnLoseAmmo)
@@ -122,14 +122,14 @@ local function fn()
     inst.components.trader.deleteitemonaccept = false
     inst.components.trader:SetAcceptTest(CanTakeAmmo)
     inst.components.trader.enabled = true
-    inst.components.trader.acceptnontradable = true	
+    inst.components.trader.acceptnontradable = true
 
 
     inst.override_bank = "swap_blunderbuss"
-	
+
     inst:AddComponent("equippable")
     inst.components.equippable:SetOnEquip(onequip)
-    inst.components.equippable:SetOnUnequip(onunequip)	
+    inst.components.equippable:SetOnUnequip(onunequip)
 
     return inst
 end
@@ -149,8 +149,8 @@ local function projectile_fn()
     local inst = CreateEntity()
     local trans = inst.entity:AddTransform()
     local anim = inst.entity:AddAnimState()
-    inst.entity:AddNetwork()	
-	
+    inst.entity:AddNetwork()
+
     MakeInventoryPhysics(inst)
 
     anim:SetBank("amo01")
@@ -160,12 +160,12 @@ local function projectile_fn()
     inst:AddTag("projectile")
     --inst:AddTag("sharp")
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end	
-	
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("projectile")
     inst.components.projectile:SetSpeed(50)
     inst.components.projectile:SetOnHitFn(OnHit)
@@ -175,5 +175,5 @@ local function projectile_fn()
     return inst
 end
 
-return Prefab( "common/blunderbuss", fn, assets),
-       Prefab( "common/gunpowder_projectile", projectile_fn, assets) 
+return Prefab("common/blunderbuss", fn, assets),
+    Prefab("common/gunpowder_projectile", projectile_fn, assets)

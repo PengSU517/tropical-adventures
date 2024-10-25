@@ -9,10 +9,10 @@ local assets =
     Asset("SOUND", "sound/chess.fsb"),
     Asset("SCRIPT", "scripts/prefabs/clockwork_common.lua"),
     Asset("SCRIPT", "scripts/prefabs/ruinsrespawner.lua"),
-	
+
     Asset("ANIM", "anim/bishopboat.zip"),
     Asset("ANIM", "anim/bishopboat_build.zip"),
-    Asset("ANIM", "anim/bishopboat_death.zip"),		
+    Asset("ANIM", "anim/bishopboat_death.zip"),
 }
 
 local prefabs =
@@ -35,11 +35,11 @@ local prefabs_nightmare =
 local brain = require "brains/bishopbrain"
 
 SetSharedLootTable('bishopwater',
-{
-    {'gears',       1.0},
-    {'gears',       1.0},
-    {'purplegem',   1.0},
-})
+    {
+        { 'gears',     1.0 },
+        { 'gears',     1.0 },
+        { 'purplegem', 1.0 },
+    })
 
 local function ShouldSleep(inst)
     return clockwork_common.ShouldSleep(inst)
@@ -68,13 +68,13 @@ local function EquipWeapon(inst)
         weapon.entity:AddTransform()
         weapon:AddComponent("weapon")
         weapon.components.weapon:SetDamage(inst.components.combat.defaultdamage)
-        weapon.components.weapon:SetRange(inst.components.combat.attackrange, inst.components.combat.attackrange+4)
+        weapon.components.weapon:SetRange(inst.components.combat.attackrange, inst.components.combat.attackrange + 4)
         weapon.components.weapon:SetProjectile("bishop_charge")
         weapon:AddComponent("inventoryitem")
         weapon.persists = false
         weapon.components.inventoryitem:SetOnDroppedFn(inst.Remove)
         weapon:AddComponent("equippable")
-        
+
         inst.components.inventory:Equip(weapon)
     end
 end
@@ -85,12 +85,12 @@ end
 
 local function OnTimerDone(inst, data)
     if data.name == "vaiembora" then
-	local invader = GetClosestInstWithTag("player", inst, 25)
-	if not invader then
-	inst:Remove()
-	else
-	inst.components.timer:StartTimer("vaiembora", 10)	
-	end
+        local invader = GetClosestInstWithTag("player", inst, 25)
+        if not invader then
+            inst:Remove()
+        else
+            inst.components.timer:StartTimer("vaiembora", 10)
+        end
     end
 end
 
@@ -108,14 +108,14 @@ local function common_fn(build, tag)
     inst.DynamicShadow:SetSize(1.5, .75)
     inst.Transform:SetFourFaced()
 
-	inst.AnimState:SetBank("bishopboat")
+    inst.AnimState:SetBank("bishopboat")
     inst.AnimState:SetBuild("bishopboat_build")
 
     inst:AddTag("monster")
     inst:AddTag("hostile")
     inst:AddTag("chess")
     inst:AddTag("bishop")
-	inst:AddTag("tropicalspawner")	
+    inst:AddTag("tropicalspawner")
 
     if tag ~= nil then
         inst:AddTag(tag)
@@ -169,10 +169,10 @@ local function common_fn(build, tag)
     inst:ListenForEvent("attacked", OnAttacked)
 
     EquipWeapon(inst)
-	
+
     inst:AddComponent("timer")
     inst:ListenForEvent("timerdone", OnTimerDone)
-    inst.components.timer:StartTimer("vaiembora", 480 + math.random()*240)		
+    inst.components.timer:StartTimer("vaiembora", 480 + math.random() * 240)
 
     return inst
 end
@@ -207,20 +207,20 @@ local function common_fn2(build, tag)
     inst.DynamicShadow:SetSize(1.5, .75)
     inst.Transform:SetFourFaced()
 
-	inst.AnimState:SetBank("bishopboat")
+    inst.AnimState:SetBank("bishopboat")
     inst.AnimState:SetBuild("bishopboat_build")
 
     inst:AddTag("monster")
     inst:AddTag("hostile")
     inst:AddTag("chess")
     inst:AddTag("bishop")
-	inst:AddTag("tropicalspawner")	
+    inst:AddTag("tropicalspawner")
 
     if tag ~= nil then
         inst:AddTag(tag)
     end
 
-	inst:SetPrefabNameOverride("bishopwater")
+    inst:SetPrefabNameOverride("bishopwater")
 
     inst.entity:SetPristine()
 
@@ -269,7 +269,7 @@ local function common_fn2(build, tag)
 
     inst:ListenForEvent("attacked", OnAttacked)
 
-    EquipWeapon(inst)	
+    EquipWeapon(inst)
 
     return inst
 end
@@ -291,10 +291,10 @@ end
 
 
 local function onruinsrespawn(inst, respawner)
-	if not respawner:IsAsleep() then
-		inst.sg:GoToState("ruinsrespawn")
-	end
+    if not respawner:IsAsleep() then
+        inst.sg:GoToState("ruinsrespawn")
+    end
 end
 
 return Prefab("bishopwater", bishop_fn, assets, prefabs),
-	   Prefab("bishopwaterfixo", bishop_fn2, assets, prefabs)
+    Prefab("bishopwaterfixo", bishop_fn2, assets, prefabs)

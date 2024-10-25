@@ -14,9 +14,9 @@ end
 
 local function ontornadolifetime(inst)
     inst.task = nil
-	inst.Physics:Stop()
+    inst.Physics:Stop()
     inst.AnimState:PlayAnimation("tornado_pst")
-	inst:DoTaskInTime(1, inst:Remove())		
+    inst:DoTaskInTime(1, inst:Remove())
 end
 
 local function SetDuration(inst, duration)
@@ -27,12 +27,12 @@ local function SetDuration(inst, duration)
 end
 
 local function causadano(inst)
-local player = GetClosestInstWithTag("player", inst, 3)
-if player and player.components.health then
-inst.components.combat.target = player
---inst.components.combat:DoAttack()
-player.components.health:DoDelta(-2)
-end
+    local player = GetClosestInstWithTag("player", inst, 3)
+    if player and player.components.health then
+        inst.components.combat.target = player
+        --inst.components.combat:DoAttack()
+        player.components.health:DoDelta(-2)
+    end
 end
 
 local function tornado_fn()
@@ -48,14 +48,14 @@ local function tornado_fn()
     inst.AnimState:SetFinalOffset(2)
     inst.AnimState:SetBank("twister")
     inst.AnimState:SetBuild("twister_build")
-	inst.AnimState:OverrideSymbol("paw", "twister_build", "")	
-	inst.AnimState:OverrideSymbol("tail", "twister_build", "")	
-	inst.AnimState:OverrideSymbol("body", "twister_build", "")	
-	inst.AnimState:Hide("twister_water_fx")	
+    inst.AnimState:OverrideSymbol("paw", "twister_build", "")
+    inst.AnimState:OverrideSymbol("tail", "twister_build", "")
+    inst.AnimState:OverrideSymbol("body", "twister_build", "")
+    inst.AnimState:Hide("twister_water_fx")
     inst.AnimState:PlayAnimation("idle_loop", true)
 
     inst.SoundEmitter:PlaySound("dontstarve_DLC001/common/tornado", "spinLoop")
-	--inst:AddTag("fire")
+    --inst:AddTag("fire")
     MakeInventoryPhysics(inst)
     RemovePhysicsColliders(inst)
 
@@ -66,25 +66,25 @@ local function tornado_fn()
     end
 
     inst:AddComponent("knownlocations")
-	
-	--inst:AddComponent("propagator")
+
+    --inst:AddComponent("propagator")
     --inst.components.propagator.damagerange = 3
     --inst.components.propagator.damages = true
 
     inst:AddComponent("locomotor")
     inst.components.locomotor.walkspeed = TUNING.TORNADO_WALK_SPEED * 0.2
     inst.components.locomotor.runspeed = TUNING.TORNADO_WALK_SPEED * 0.7
-	
+
     inst:AddComponent("combat")
-	inst.components.combat:SetDefaultDamage(7)
+    inst.components.combat:SetDefaultDamage(7)
 
     inst.WINDSTAFF_CASTER = nil
     inst.persists = false
 
     inst.SetDuration = SetDuration
     inst:SetDuration(TUNING.TORNADO_LIFETIME)
-	
-	inst:DoPeriodicTask(0.5, causadano)
+
+    inst:DoPeriodicTask(0.5, causadano)
 
     return inst
 end

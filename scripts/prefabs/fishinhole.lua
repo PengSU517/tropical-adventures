@@ -1,31 +1,31 @@
-local assets =
+local assets                    =
 {
 	Asset("ANIM", "anim/flotsam.zip"),
 	Asset("ANIM", "anim/fishschool.zip"),
 	Asset("ANIM", "anim/fish2.zip"),
-	Asset("ANIM", "anim/coi.zip"),	
+	Asset("ANIM", "anim/coi.zip"),
 }
 
-local water_prefabs =
+local water_prefabs             =
 {
 	"splash",
 	"oceanfishableflotsam",
 }
 
 local SWIMMING_COLLISION_MASK   = COLLISION.GROUND
-								+ COLLISION.LAND_OCEAN_LIMITS
-								+ COLLISION.OBSTACLES
-								+ COLLISION.SMALLOBSTACLES
+	+ COLLISION.LAND_OCEAN_LIMITS
+	+ COLLISION.OBSTACLES
+	+ COLLISION.SMALLOBSTACLES
 local PROJECTILE_COLLISION_MASK = COLLISION.GROUND
 
-local NUM_LOOTS = 2
+local NUM_LOOTS                 = 2
 
-local MAX_CATCH_RADIUS = 1.4
+local MAX_CATCH_RADIUS          = 1.4
 
-local REEL_SPEED_LOW = 0.5
-local REEL_SPEED_HIGH = 2.25
+local REEL_SPEED_LOW            = 0.5
+local REEL_SPEED_HIGH           = 2.25
 
-local UNREEL_RATE = .5
+local UNREEL_RATE               = .5
 
 
 local HOOK_CANT_TAGS = { "INLIMBO" }
@@ -50,7 +50,8 @@ local function OnUpdate(inst)
 		local tension = rod.components.oceanfishingrod ~= nil and rod.components.oceanfishingrod:GetTensionRating() or 0
 
 		if tension > TUNING.OCEAN_FISHING.LINE_TENSION_HIGH then
-			cur_speed = Lerp(REEL_SPEED_LOW, REEL_SPEED_HIGH, math.sin(Remap(tension, TUNING.OCEAN_FISHING.LINE_TENSION_HIGH, 1, 0, 1) * math.pi * .5))
+			cur_speed = Lerp(REEL_SPEED_LOW, REEL_SPEED_HIGH,
+				math.sin(Remap(tension, TUNING.OCEAN_FISHING.LINE_TENSION_HIGH, 1, 0, 1) * math.pi * .5))
 			inst.Physics:SetVel(math.cos(angle) * cur_speed, 0, math.sin(angle) * cur_speed)
 		end
 	end
@@ -99,17 +100,17 @@ local function OnLand(inst)
 	if land_in_water then
 		StartUpdating(inst)
 
---	    inst:RemoveComponent("complexprojectile")
+		--	    inst:RemoveComponent("complexprojectile")
 		inst.Physics:SetCollisionMask(SWIMMING_COLLISION_MASK)
 		inst.AnimState:SetSortOrder(ANIM_SORT_ORDER_BELOW_GROUND.UNDERWATER)
 		inst.AnimState:SetLayer(LAYER_WIP_BELOW_OCEAN)
 		inst.AnimState:SetBuild("fishschool")
 		inst.AnimState:SetBank("fishschool")
 		inst.AnimState:PlayAnimation("idle_loop_gone", true)
-		inst.Transform:SetScale(0.7, 0.7, 0.7)	
-	    SpawnPrefab("splash").Transform:SetPosition(x, y, z)
+		inst.Transform:SetScale(0.7, 0.7, 0.7)
+		SpawnPrefab("splash").Transform:SetPosition(x, y, z)
 		inst:DoTaskInTime(120, renova)
-		
+
 		local item = SpawnPrefab("oceanfish_small_61")
 		item.Transform:SetPosition(x, y, z)
 		item.Transform:SetRotation(inst.Transform:GetRotation())
@@ -117,18 +118,17 @@ local function OnLand(inst)
 		local item = SpawnPrefab("oceanfish_small_61_inv")
 		item.Transform:SetPosition(x, y, z)
 		item.Transform:SetRotation(inst.Transform:GetRotation())
-		item:DoTaskInTime(2*FRAMES, playlandfx)
-		
---	    inst:RemoveComponent("complexprojectile")
+		item:DoTaskInTime(2 * FRAMES, playlandfx)
+
+		--	    inst:RemoveComponent("complexprojectile")
 		inst.Physics:SetCollisionMask(SWIMMING_COLLISION_MASK)
 		inst.AnimState:SetSortOrder(ANIM_SORT_ORDER_BELOW_GROUND.UNDERWATER)
 		inst.AnimState:SetLayer(LAYER_WIP_BELOW_OCEAN)
 		inst.AnimState:SetBuild("fishschool")
 		inst.AnimState:SetBank("fishschool")
 		inst.AnimState:PlayAnimation("idle_loop_gone", true)
-		inst.Transform:SetScale(0.7, 0.7, 0.7)	
+		inst.Transform:SetScale(0.7, 0.7, 0.7)
 		inst:DoTaskInTime(120, renova)
-
 	end
 end
 
@@ -139,17 +139,17 @@ local function OnLand2(inst)
 	if land_in_water then
 		StartUpdating(inst)
 
---	    inst:RemoveComponent("complexprojectile")
+		--	    inst:RemoveComponent("complexprojectile")
 		inst.Physics:SetCollisionMask(SWIMMING_COLLISION_MASK)
 		inst.AnimState:SetSortOrder(ANIM_SORT_ORDER_BELOW_GROUND.UNDERWATER)
 		inst.AnimState:SetLayer(LAYER_WIP_BELOW_OCEAN)
 		inst.AnimState:SetBuild("fishschool")
 		inst.AnimState:SetBank("fishschool")
 		inst.AnimState:PlayAnimation("idle_loop_gone", true)
-		inst.Transform:SetScale(0.7, 0.7, 0.7)	
-	    SpawnPrefab("splash").Transform:SetPosition(x, y, z)
+		inst.Transform:SetScale(0.7, 0.7, 0.7)
+		SpawnPrefab("splash").Transform:SetPosition(x, y, z)
 		inst:DoTaskInTime(120, renova2)
-		
+
 		local item = SpawnPrefab("oceanfish_small_10")
 		item.Transform:SetPosition(x, y, z)
 		item.Transform:SetRotation(inst.Transform:GetRotation())
@@ -157,37 +157,36 @@ local function OnLand2(inst)
 		local item = SpawnPrefab("oceanfish_small_10_inv")
 		item.Transform:SetPosition(x, y, z)
 		item.Transform:SetRotation(inst.Transform:GetRotation())
-		item:DoTaskInTime(2*FRAMES, playlandfx)
-		
---	    inst:RemoveComponent("complexprojectile")
+		item:DoTaskInTime(2 * FRAMES, playlandfx)
+
+		--	    inst:RemoveComponent("complexprojectile")
 		inst.Physics:SetCollisionMask(SWIMMING_COLLISION_MASK)
 		inst.AnimState:SetSortOrder(ANIM_SORT_ORDER_BELOW_GROUND.UNDERWATER)
 		inst.AnimState:SetLayer(LAYER_WIP_BELOW_OCEAN)
 		inst.AnimState:SetBuild("fishschool")
 		inst.AnimState:SetBank("fishschool")
 		inst.AnimState:PlayAnimation("idle_loop_gone", true)
-		inst.Transform:SetScale(0.7, 0.7, 0.7)	
+		inst.Transform:SetScale(0.7, 0.7, 0.7)
 		inst:DoTaskInTime(120, renova2)
-
 	end
 end
 
 local function OnMakeProjectile(inst)
 	StopUpdating(inst)
 
-    inst:AddComponent("complexprojectile")
-    inst.components.complexprojectile:SetOnHit(OnLand)
+	inst:AddComponent("complexprojectile")
+	inst.components.complexprojectile:SetOnHit(OnLand)
 
 	inst.Physics:SetCollisionMask(PROJECTILE_COLLISION_MASK)
 
-    inst.AnimState:SetSortOrder(0)
-    inst.AnimState:SetLayer(LAYER_WORLD)
-    inst.AnimState:SetBuild("fish2")
-    inst.AnimState:SetBank("fish2")	
-	inst.Transform:SetScale(1, 1, 1)	
+	inst.AnimState:SetSortOrder(0)
+	inst.AnimState:SetLayer(LAYER_WORLD)
+	inst.AnimState:SetBuild("fish2")
+	inst.AnimState:SetBank("fish2")
+	inst.Transform:SetScale(1, 1, 1)
 	inst.AnimState:PlayAnimation("catching_loop", true)
 
-    SpawnPrefab("splash").Transform:SetPosition(inst.Transform:GetWorldPosition())
+	SpawnPrefab("splash").Transform:SetPosition(inst.Transform:GetWorldPosition())
 
 	return inst
 end
@@ -195,19 +194,19 @@ end
 local function OnMakeProjectile2(inst)
 	StopUpdating(inst)
 
-    inst:AddComponent("complexprojectile")
-    inst.components.complexprojectile:SetOnHit(OnLand2)
+	inst:AddComponent("complexprojectile")
+	inst.components.complexprojectile:SetOnHit(OnLand2)
 
 	inst.Physics:SetCollisionMask(PROJECTILE_COLLISION_MASK)
 
-    inst.AnimState:SetSortOrder(0)
-    inst.AnimState:SetLayer(LAYER_WORLD)
-    inst.AnimState:SetBuild("coi")
-    inst.AnimState:SetBank("coi")	
-	inst.Transform:SetScale(1, 1, 1)	
+	inst.AnimState:SetSortOrder(0)
+	inst.AnimState:SetLayer(LAYER_WORLD)
+	inst.AnimState:SetBuild("coi")
+	inst.AnimState:SetBank("coi")
+	inst.Transform:SetScale(1, 1, 1)
 	inst.AnimState:PlayAnimation("catching_loop", true)
 
-    SpawnPrefab("splash").Transform:SetPosition(inst.Transform:GetWorldPosition())
+	SpawnPrefab("splash").Transform:SetPosition(inst.Transform:GetWorldPosition())
 
 	return inst
 end
@@ -219,9 +218,9 @@ end
 local function OnReelingInPst(inst, doer)
 	local rod = inst.components.oceanfishable:GetRod()
 	if rod == nil or (rod.components.oceanfishingrod ~= nil and not rod.components.oceanfishingrod:IsLineTensionHigh()) then
-    inst.AnimState:SetBuild("oceanfish_small_2")
-    inst.AnimState:SetBank("oceanfish_small")	
-	inst.Transform:SetScale(1, 1, 1)	
+		inst.AnimState:SetBuild("oceanfish_small_2")
+		inst.AnimState:SetBank("oceanfish_small")
+		inst.Transform:SetScale(1, 1, 1)
 		inst.AnimState:PlayAnimation("struggle_pre")
 		inst.AnimState:PushAnimation("struggle_loop")
 		inst.AnimState:PushAnimation("struggle_pst")
@@ -252,46 +251,46 @@ local function OnEntitySleep(inst)
 end
 
 local function waterfn(data)
-   local inst = CreateEntity()
+	local inst = CreateEntity()
 
-    inst.entity:AddTransform()
-    inst.entity:AddAnimState()
-    inst.entity:AddSoundEmitter()
-    inst.entity:AddNetwork()
+	inst.entity:AddTransform()
+	inst.entity:AddAnimState()
+	inst.entity:AddSoundEmitter()
+	inst.entity:AddNetwork()
 	inst.entity:AddPhysics()
-	
+
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon( "fish2.png" )	
+	minimap:SetIcon("fish2.png")
 
-    inst.Physics:SetMass(1)
-    inst.Physics:SetFriction(0)
-    inst.Physics:SetDamping(0.16)
-    inst.Physics:SetCollisionGroup(COLLISION.CHARACTERS)
+	inst.Physics:SetMass(1)
+	inst.Physics:SetFriction(0)
+	inst.Physics:SetDamping(0.16)
+	inst.Physics:SetCollisionGroup(COLLISION.CHARACTERS)
 	inst.Physics:SetCollisionMask(SWIMMING_COLLISION_MASK)
-    inst.Physics:SetCapsule(0.5, 1)
+	inst.Physics:SetCapsule(0.5, 1)
 
-    inst:AddTag("ignorewalkableplatforms")
+	inst:AddTag("ignorewalkableplatforms")
 	inst:AddTag("notarget")
 	inst:AddTag("NOCLICK")
-	inst:AddTag("NOBLOCK")-- it's fine to build things on top of them
+	inst:AddTag("NOBLOCK") -- it's fine to build things on top of them
 	inst:AddTag("oceanfishable")
 	inst:AddTag("oceanfishinghookable")
 	inst:AddTag("swimming")
-	inst:AddTag("winchtarget")--from winchtarget component
+	inst:AddTag("winchtarget") --from winchtarget component
 
-    inst.AnimState:SetBuild("fishschool")
-    inst.AnimState:SetBank("fishschool")
-    inst.AnimState:PlayAnimation("idle_loop_full", true)
-	inst.Transform:SetScale(0.7, 0.7, 0.7)	
+	inst.AnimState:SetBuild("fishschool")
+	inst.AnimState:SetBank("fishschool")
+	inst.AnimState:PlayAnimation("idle_loop_full", true)
+	inst.Transform:SetScale(0.7, 0.7, 0.7)
 
-    inst.AnimState:SetSortOrder(ANIM_SORT_ORDER_BELOW_GROUND.UNDERWATER)
-    inst.AnimState:SetLayer(LAYER_WIP_BELOW_OCEAN)
+	inst.AnimState:SetSortOrder(ANIM_SORT_ORDER_BELOW_GROUND.UNDERWATER)
+	inst.AnimState:SetLayer(LAYER_WIP_BELOW_OCEAN)
 
-    inst.entity:SetPristine()
+	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	inst:AddComponent("oceanfishable")
 	inst.components.oceanfishable.makeprojectilefn = OnMakeProjectile
@@ -302,56 +301,56 @@ local function waterfn(data)
 	inst.components.oceanfishable.catch_distance = TUNING.OCEAN_FISHING.MUDBALL_CATCH_DIST
 
 	inst.OnEntityWake = OnEntityWake
-    inst.OnEntitySleep = OnEntitySleep
+	inst.OnEntitySleep = OnEntitySleep
 
 	StartUpdating(inst)
 
-    return inst
+	return inst
 end
 
 local function waterfn2(data)
-   local inst = CreateEntity()
+	local inst = CreateEntity()
 
-    inst.entity:AddTransform()
-    inst.entity:AddAnimState()
-    inst.entity:AddSoundEmitter()
-    inst.entity:AddNetwork()
+	inst.entity:AddTransform()
+	inst.entity:AddAnimState()
+	inst.entity:AddSoundEmitter()
+	inst.entity:AddNetwork()
 	inst.entity:AddPhysics()
-	
+
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon( "coi.png" )	
+	minimap:SetIcon("coi.png")
 
-    inst.Physics:SetMass(1)
-    inst.Physics:SetFriction(0)
-    inst.Physics:SetDamping(0.16)
-    inst.Physics:SetCollisionGroup(COLLISION.CHARACTERS)
+	inst.Physics:SetMass(1)
+	inst.Physics:SetFriction(0)
+	inst.Physics:SetDamping(0.16)
+	inst.Physics:SetCollisionGroup(COLLISION.CHARACTERS)
 	inst.Physics:SetCollisionMask(SWIMMING_COLLISION_MASK)
-    inst.Physics:SetCapsule(0.5, 1)
+	inst.Physics:SetCapsule(0.5, 1)
 
-    inst:AddTag("ignorewalkableplatforms")
+	inst:AddTag("ignorewalkableplatforms")
 	inst:AddTag("notarget")
 	inst:AddTag("NOCLICK")
-	inst:AddTag("NOBLOCK")-- it's fine to build things on top of them
+	inst:AddTag("NOBLOCK") -- it's fine to build things on top of them
 	inst:AddTag("oceanfishable")
 	inst:AddTag("oceanfishinghookable")
 	inst:AddTag("swimming")
-	inst:AddTag("winchtarget")--from winchtarget component
+	inst:AddTag("winchtarget") --from winchtarget component
 
-    inst.AnimState:SetBuild("fishschool")
-    inst.AnimState:SetBank("fishschool")
-    inst.AnimState:PlayAnimation("idle_loop_full", true)
-	inst.Transform:SetScale(0.7, 0.7, 0.7)	
+	inst.AnimState:SetBuild("fishschool")
+	inst.AnimState:SetBank("fishschool")
+	inst.AnimState:PlayAnimation("idle_loop_full", true)
+	inst.Transform:SetScale(0.7, 0.7, 0.7)
 
-    inst.AnimState:SetSortOrder(ANIM_SORT_ORDER_BELOW_GROUND.UNDERWATER)
-    inst.AnimState:SetLayer(LAYER_WIP_BELOW_OCEAN)
-	
-	inst:SetPrefabNameOverride("fishinhole")	
+	inst.AnimState:SetSortOrder(ANIM_SORT_ORDER_BELOW_GROUND.UNDERWATER)
+	inst.AnimState:SetLayer(LAYER_WIP_BELOW_OCEAN)
 
-    inst.entity:SetPristine()
+	inst:SetPrefabNameOverride("fishinhole")
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
+	inst.entity:SetPristine()
+
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	inst:AddComponent("oceanfishable")
 	inst.components.oceanfishable.makeprojectilefn = OnMakeProjectile2
@@ -362,12 +361,12 @@ local function waterfn2(data)
 	inst.components.oceanfishable.catch_distance = TUNING.OCEAN_FISHING.MUDBALL_CATCH_DIST
 
 	inst.OnEntityWake = OnEntityWake
-    inst.OnEntitySleep = OnEntitySleep
+	inst.OnEntitySleep = OnEntitySleep
 
 	StartUpdating(inst)
 
-    return inst
+	return inst
 end
 
 return Prefab("fishinhole", waterfn, assets, water_prefabs),
-	   Prefab("fishinholeham", waterfn2, assets, water_prefabs)
+	Prefab("fishinholeham", waterfn2, assets, water_prefabs)

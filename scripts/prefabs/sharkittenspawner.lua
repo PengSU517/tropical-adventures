@@ -10,7 +10,7 @@ local prefabs =
 }
 
 local function ReturnChildren(inst)
-    for k,child in pairs(inst.components.childspawner.childrenoutside) do
+    for k, child in pairs(inst.components.childspawner.childrenoutside) do
         if child.components.homeseeker then
             child.components.homeseeker:GoHome()
         end
@@ -54,8 +54,8 @@ end
 local function ActivateSpawner(inst, isload)
     if not inst.spawneractive then
         inst.spawneractive = true
-            --inst.components.named:SetName(STRINGS.NAMES["SHARKITTENSPAWNER_ACTIVE"])
-            --Queue up an animation change for next time this is off screen
+        --inst.components.named:SetName(STRINGS.NAMES["SHARKITTENSPAWNER_ACTIVE"])
+        --Queue up an animation change for next time this is off screen
 
         inst.activatefn = function()
             inst.AnimState:PlayAnimation("idle_active")
@@ -66,7 +66,7 @@ local function ActivateSpawner(inst, isload)
                     inst.AnimState:PushAnimation("idle_active")
                 end
             end)
-    
+
             --inst:WatchWorldState("dusktime", inst.dusktime_fn, GetWorld())
             inst:WatchWorldState("iscaveday", OnIsDay)
         end
@@ -110,7 +110,7 @@ end
 -- end
 
 local function getstatus(inst)
-    if not inst.spawneractive then 
+    if not inst.spawneractive then
         return "INACTIVE"
     end
 end
@@ -128,8 +128,8 @@ local function OnLoad(inst, data)
 end
 
 local function fn()
-	local inst = CreateEntity()
-	inst.entity:AddTransform()
+    local inst = CreateEntity()
+    inst.entity:AddTransform()
     inst.entity:AddAnimState()
     inst.entity:AddNetwork()
 
@@ -152,15 +152,15 @@ local function fn()
 
     inst:AddComponent("childspawner")
     inst.components.childspawner.childname = "sharkitten"
-    inst.components.childspawner:SetRegenPeriod(60 * 4)--TUNING.SHARKITTEN_REGEN_PERIOD)
-    inst.components.childspawner:SetSpawnPeriod(60 * 4)--TUNING.SHARKITTEN_SPAWN_PERIOD)
+    inst.components.childspawner:SetRegenPeriod(60 * 4) --TUNING.SHARKITTEN_REGEN_PERIOD)
+    inst.components.childspawner:SetSpawnPeriod(60 * 4) --TUNING.SHARKITTEN_SPAWN_PERIOD)
     inst.components.childspawner:SetMaxChildren(4)
     inst.components.childspawner:StartRegen()
 
---    inst:AddComponent("playerprox")
---    inst.components.playerprox:SetOnPlayerNear(SummonShark)
---    inst.components.playerprox:SetDist(7.5, 10)
---    inst.components.playerprox.period = 1
+    --    inst:AddComponent("playerprox")
+    --    inst.components.playerprox:SetOnPlayerNear(SummonShark)
+    --    inst.components.playerprox:SetDist(7.5, 10)
+    --    inst.components.playerprox.period = 1
 
     inst:AddComponent("inspectable")
     inst.components.inspectable.getstatus = getstatus
@@ -177,7 +177,7 @@ local function fn()
     ActivateSpawner(inst, true)
     inst.components.childspawner:StartSpawning()
 
-	return inst
+    return inst
 end
 
 return Prefab("sharkittenspawner", fn, assets, prefabs)

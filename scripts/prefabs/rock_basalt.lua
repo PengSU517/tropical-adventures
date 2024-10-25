@@ -7,16 +7,16 @@ local basalt_assets =
 local prefabs =
 {
 
-}    
+}
 
-SetSharedLootTable( 'basalt',
-{
-    {'rocks',  1.00},
-    {'rocks',  1.00},
-    {'rocks',  0.50},
-    {'flint',  1.00},
-    {'flint',  0.30},
-})
+SetSharedLootTable('basalt',
+	{
+		{ 'rocks', 1.00 },
+		{ 'rocks', 1.00 },
+		{ 'rocks', 0.50 },
+		{ 'flint', 1.00 },
+		{ 'flint', 0.30 },
+	})
 
 local function basalt_fn(Sim)
 	local inst = CreateEntity()
@@ -24,32 +24,31 @@ local function basalt_fn(Sim)
 	local anim = inst.entity:AddAnimState()
 	inst.entity:AddSoundEmitter()
 	inst.entity:AddNetwork()
-	
+
 	MakeObstaclePhysics(inst, 1)
 
 	inst.AnimState:SetBank("rock_basalt")
 	inst.AnimState:SetBuild("rock_basalt")
 	inst.AnimState:PlayAnimation("full")
-	
-	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon( "rock.png" )
 
-    inst.entity:SetPristine()	
-	
+	local minimap = inst.entity:AddMiniMapEntity()
+	minimap:SetIcon("rock.png")
+
+	inst.entity:SetPristine()
+
 	if not TheWorld.ismastersim then
 		return inst
-	end			
-	
-	inst:AddComponent("lootdropper") 
-	inst.components.lootdropper:SetChanceLootTable('basalt')	
-	
+	end
+
+	inst:AddComponent("lootdropper")
+	inst.components.lootdropper:SetChanceLootTable('basalt')
+
 	inst:AddComponent("workable")
 	inst.components.workable:SetWorkAction(ACTIONS.MINE)
 	inst.components.workable:SetWorkLeft(TUNING.ROCKS_MINE)
-	
+
 	inst.components.workable:SetOnWorkCallback(
 		function(inst, worker, workleft)
-
 			local pt = Point(inst.Transform:GetWorldPosition())
 			if workleft <= 0 then
 				if inst:HasTag("trggerdarttraps") then
@@ -61,9 +60,9 @@ local function basalt_fn(Sim)
 
 				inst:Remove()
 			else
-				if workleft < TUNING.ROCKS_MINE*(1/3) then
+				if workleft < TUNING.ROCKS_MINE * (1 / 3) then
 					inst.AnimState:PlayAnimation("low")
-				elseif workleft < TUNING.ROCKS_MINE*(2/3) then
+				elseif workleft < TUNING.ROCKS_MINE * (2 / 3) then
 					inst.AnimState:PlayAnimation("med")
 				else
 					if not inst.components.dislodgeable or inst.components.dislodgeable:CanBeDislodged() then
@@ -75,8 +74,8 @@ local function basalt_fn(Sim)
 			end
 		end)
 
-    local color = 0.5 + math.random() * 0.5
-    anim:SetMultColour(color, color, color, 1)    
+	local color = 0.5 + math.random() * 0.5
+	anim:SetMultColour(color, color, color, 1)
 
 	inst:AddComponent("inspectable")
 	inst.components.inspectable.nameoverride = "ROCK"
@@ -85,4 +84,4 @@ local function basalt_fn(Sim)
 	return inst
 end
 
-return   Prefab("forest/objects/rocks/rock_basalt", basalt_fn, basalt_assets, prefabs)
+return Prefab("forest/objects/rocks/rock_basalt", basalt_fn, basalt_assets, prefabs)

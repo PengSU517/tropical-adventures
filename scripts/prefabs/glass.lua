@@ -1,6 +1,6 @@
-local assets = {Asset("ANIM", "anim/des_shard_sword_ground.zip"), Asset("ANIM", "anim/swap_des_shard_sword.zip"),
-                Asset("ANIM", "anim/des_shard_beak_ground.zip"), Asset("ANIM", "anim/swap_des_shard_beak.zip"),
-                Asset("ANIM", "anim/des_glass_shards.zip")}
+local assets = { Asset("ANIM", "anim/des_shard_sword_ground.zip"), Asset("ANIM", "anim/swap_des_shard_sword.zip"),
+    Asset("ANIM", "anim/des_shard_beak_ground.zip"), Asset("ANIM", "anim/swap_des_shard_beak.zip"),
+    Asset("ANIM", "anim/des_glass_shards.zip") }
 
 local BEAK_DURABILITY = 100
 local SWORD_DURABILITY = BEAK_DURABILITY / 2
@@ -64,7 +64,7 @@ local function swordfn()
     if not TheWorld.ismastersim then return inst end
 
     inst:AddComponent("weapon")
-    inst.components.weapon:SetDamage(TUNING.SWP_SHARD_DMG.SWORD) 
+    inst.components.weapon:SetDamage(TUNING.SWP_SHARD_DMG.SWORD)
 
     inst:AddComponent("finiteuses")
     inst.components.finiteuses:SetMaxUses(SWORD_DURABILITY)
@@ -92,7 +92,7 @@ local function beakfn()
     if not TheWorld.ismastersim then return inst end
 
     inst:AddComponent("weapon")
-    inst.components.weapon:SetDamage(TUNING.SWP_SHARD_DMG.BEAK) 
+    inst.components.weapon:SetDamage(TUNING.SWP_SHARD_DMG.BEAK)
 
     inst:AddComponent("finiteuses")
     inst.components.finiteuses:SetMaxUses(BEAK_DURABILITY)

@@ -17,18 +17,19 @@ local function ontransplantfn(inst)
 end
 
 local function dig_up(inst, worker)
-local pt = inst:GetPosition()
-local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
-if tiletype == GROUND.SUBURB or tiletype == GROUND.FOUNDATION or tiletype == GROUND.COBBLEROAD or tiletype == GROUND.LAWN or tiletype == GROUND.FIELDS  or tiletype == GROUND.CHECKEREDLAWN then
-if worker and worker:HasTag("player") and not worker:HasTag("sneaky") then
-local x, y, z = inst.Transform:GetWorldPosition()
-local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
-local eles = TheSim:FindEntities(x,y,z, 40,{"guard"})
-for k,guardas in pairs(eles) do 
-if guardas.components.combat and guardas.components.combat.target == nil then guardas.components.combat:SetTarget(worker) end
-end 
-end
-end
+    local pt = inst:GetPosition()
+    local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
+    if tiletype == GROUND.SUBURB or tiletype == GROUND.FOUNDATION or tiletype == GROUND.COBBLEROAD or tiletype == GROUND.LAWN or tiletype == GROUND.FIELDS or tiletype == GROUND.CHECKEREDLAWN then
+        if worker and worker:HasTag("player") and not worker:HasTag("sneaky") then
+            local x, y, z = inst.Transform:GetWorldPosition()
+            local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
+            local eles = TheSim:FindEntities(x, y, z, 40, { "guard" })
+            for k, guardas in pairs(eles) do
+                if guardas.components.combat and guardas.components.combat.target == nil then guardas.components.combat
+                        :SetTarget(worker) end
+            end
+        end
+    end
     if inst.components.pickable ~= nil and inst.components.lootdropper ~= nil then
         local withered = inst.components.witherable ~= nil and inst.components.witherable:IsWithered()
 
@@ -45,18 +46,19 @@ end
 end
 
 local function onpickedfn(inst, picker)
-local pt = inst:GetPosition()
-local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
-if tiletype == GROUND.SUBURB or tiletype == GROUND.FOUNDATION or tiletype == GROUND.COBBLEROAD or tiletype == GROUND.LAWN or tiletype == GROUND.FIELDS then
-if  picker and  picker:HasTag("player") and not picker:HasTag("sneaky") then
-local x, y, z = inst.Transform:GetWorldPosition()
-local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
-local eles = TheSim:FindEntities(x,y,z, 40,{"guard"})
-for k,guardas in pairs(eles) do 
-if guardas.components.combat and guardas.components.combat.target == nil then guardas.components.combat:SetTarget( picker) end
-end 
-end
-end
+    local pt = inst:GetPosition()
+    local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
+    if tiletype == GROUND.SUBURB or tiletype == GROUND.FOUNDATION or tiletype == GROUND.COBBLEROAD or tiletype == GROUND.LAWN or tiletype == GROUND.FIELDS then
+        if picker and picker:HasTag("player") and not picker:HasTag("sneaky") then
+            local x, y, z = inst.Transform:GetWorldPosition()
+            local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
+            local eles = TheSim:FindEntities(x, y, z, 40, { "guard" })
+            for k, guardas in pairs(eles) do
+                if guardas.components.combat and guardas.components.combat.target == nil then guardas.components.combat
+                        :SetTarget(picker) end
+            end
+        end
+    end
     inst.AnimState:PlayAnimation("rustle")
     inst.AnimState:PushAnimation("picked", false)
 end
@@ -68,7 +70,7 @@ end
 
 local function makeemptyfn(inst)
     if not POPULATING and
-        (   inst.components.witherable ~= nil and
+        (inst.components.witherable ~= nil and
             inst.components.witherable:IsWithered() or
             inst.AnimState:IsCurrentAnimation("idle_dead")
         ) then
@@ -81,7 +83,7 @@ end
 
 local function makebarrenfn(inst, wasempty)
     if not POPULATING and
-        (   inst.components.witherable ~= nil and
+        (inst.components.witherable ~= nil and
             inst.components.witherable:IsWithered()
         ) then
         inst.AnimState:PlayAnimation(wasempty and "empty_to_dead" or "full_to_dead")
@@ -98,7 +100,7 @@ local function fn()
     inst.entity:AddAnimState()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
-	inst.entity:AddSoundEmitter()
+    inst.entity:AddSoundEmitter()
 
     inst.MiniMapEntity:SetIcon("sapling.png")
 
@@ -108,9 +110,9 @@ local function fn()
     inst.AnimState:PlayAnimation("sway", true)
 
     inst:AddTag("renewable")
-	inst:AddTag("silviculture") -- for silviculture book	
-    inst:AddTag("saplingsw")	
-	inst:AddTag("plant")	
+    inst:AddTag("silviculture") -- for silviculture book	
+    inst:AddTag("saplingsw")
+    inst:AddTag("plant")
 
     --witherable (from witherable component) added to pristine state for optimization
     inst:AddTag("witherable")
@@ -163,7 +165,8 @@ local DAMAGE_SCALE = 0.5
 local function OnCollide(inst, data)
     local boat_physics = data.other.components.boatphysics
     if boat_physics ~= nil then
-        local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) * DAMAGE_SCALE / boat_physics.max_velocity + 0.5)
+        local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) * DAMAGE_SCALE /
+        boat_physics.max_velocity + 0.5)
         inst.components.workable:WorkedBy(data.other, hit_velocity * TUNING.SEASTACK_MINE)
     end
 end
@@ -175,7 +178,7 @@ local function fn1()
     inst.entity:AddAnimState()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
-	inst.entity:AddSoundEmitter()
+    inst.entity:AddSoundEmitter()
 
     inst.MiniMapEntity:SetIcon("sapling.png")
 
@@ -185,25 +188,25 @@ local function fn1()
     inst.AnimState:PlayAnimation("sway", true)
 
     inst:AddTag("renewable")
-	inst:AddTag("silviculture") -- for silviculture book	
-    inst:AddTag("saplingsw")	
-	inst:AddTag("plant")	
+    inst:AddTag("silviculture") -- for silviculture book	
+    inst:AddTag("saplingsw")
+    inst:AddTag("plant")
 
     --witherable (from witherable component) added to pristine state for optimization
     inst:AddTag("witherable")
-    inst:AddTag("ignorewalkableplatforms")	
-	
+    inst:AddTag("ignorewalkableplatforms")
+
     inst:SetPhysicsRadiusOverride(1.8)
     MakeWaterObstaclePhysics(inst, 0.35, 2, 1.25)
-	inst:SetPrefabNameOverride("sapling")
-	
-    MakeInventoryFloatable(inst, "med",  0, {1.1, 0.6, 1.1})
+    inst:SetPrefabNameOverride("sapling")
+
+    MakeInventoryFloatable(inst, "med", 0, { 1.1, 0.6, 1.1 })
     inst.components.floater.bob_percent = 0
 
-    local land_time = (POPULATING and math.random()*5*FRAMES) or 0
+    local land_time = (POPULATING and math.random() * 5 * FRAMES) or 0
     inst:DoTaskInTime(land_time, function(inst)
         inst.components.floater:OnLandedServer()
-    end)		
+    end)
 
     inst.entity:SetPristine()
 
@@ -244,4 +247,4 @@ local function fn1()
 end
 
 return Prefab("saplingnova", fn, assets, prefabs),
-	   Prefab("oceansapling", fn1, assets, prefabs)
+    Prefab("oceansapling", fn1, assets, prefabs)

@@ -25,15 +25,15 @@ local prefabs =
 
 local normal_sounds =
 {
-	step = "dontstarve/creatures/deerclops/step",
-	taunt_grrr = "dontstarve/creatures/deerclops/taunt_grrr",
-	taunt_howl = "dontstarve/creatures/deerclops/taunt_howl",
-	hurt = "dontstarve/creatures/deerclops/hurt",
-	death = "dontstarve/creatures/deerclops/death",
-	attack = "dontstarve/creatures/deerclops/attack",
-	swipe = "dontstarve/creatures/deerclops/swipe",
-	charge = "dontstarve/creatures/deerclops/charge",
-	walk = nil,
+    step = "dontstarve/creatures/deerclops/step",
+    taunt_grrr = "dontstarve/creatures/deerclops/taunt_grrr",
+    taunt_howl = "dontstarve/creatures/deerclops/taunt_howl",
+    hurt = "dontstarve/creatures/deerclops/hurt",
+    death = "dontstarve/creatures/deerclops/death",
+    attack = "dontstarve/creatures/deerclops/attack",
+    swipe = "dontstarve/creatures/deerclops/swipe",
+    charge = "dontstarve/creatures/deerclops/charge",
+    walk = nil,
 }
 
 local TARGET_DIST = 16
@@ -58,17 +58,17 @@ end
 local function RetargetFn(inst)
     local range = inst:GetPhysicsRadius(0) + 8
     return FindEntity(
-            inst,
-            TARGET_DIST,
-            function(guy)
-                return inst.components.combat:CanTarget(guy)
-                    and (   guy.components.combat:TargetIs(inst) or
-                            guy:IsNear(inst, range)
-                        )
-            end,
-            { "_combat" },
-            { "prey", "smallcreature", "INLIMBO" }
-        )
+        inst,
+        TARGET_DIST,
+        function(guy)
+            return inst.components.combat:CanTarget(guy)
+                and (guy.components.combat:TargetIs(inst) or
+                    guy:IsNear(inst, range)
+                )
+        end,
+        { "_combat" },
+        { "prey", "smallcreature", "INLIMBO" }
+    )
 end
 
 local function KeepTargetFn(inst, target)
@@ -82,7 +82,7 @@ local function AfterWorking(inst, data)
             inst.structuresDestroyed = inst.structuresDestroyed + 1
             if inst:IsSated() then
                 inst.components.knownlocations:ForgetLocation("targetbase")
-                inst.AnimState:OverrideSymbol("deerclops_head", "deerclops_yule" , "deerclops_head_neutral")
+                inst.AnimState:OverrideSymbol("deerclops_head", "deerclops_yule", "deerclops_head_neutral")
             end
         end
     end
@@ -107,29 +107,29 @@ local function OnLoad(inst, data)
 end
 
 local function OnRemove(inst)
-	if inst.spikefire ~= nil then
-		inst.spikefire:Remove()
-		inst.spikefire = nil
-	end
-	if inst.sg.mem.circle ~= nil then
-		inst.sg.mem.circle:KillFX()
-		inst.sg.mem.circle = nil
-	end
-	if inst.icespike_pool ~= nil then
-		for i, v in ipairs(inst.icespike_pool) do
-			v:Remove()
-		end
-		inst.icespike_pool = nil
-	end
+    if inst.spikefire ~= nil then
+        inst.spikefire:Remove()
+        inst.spikefire = nil
+    end
+    if inst.sg.mem.circle ~= nil then
+        inst.sg.mem.circle:KillFX()
+        inst.sg.mem.circle = nil
+    end
+    if inst.icespike_pool ~= nil then
+        for i, v in ipairs(inst.icespike_pool) do
+            v:Remove()
+        end
+        inst.icespike_pool = nil
+    end
     TheWorld:PushEvent("hasslerremoved", inst)
 end
 
 local function OnDead(inst)
-	--V2C: make sure we're still burning by the time we actually reach death in stategraph
-	if inst.components.burnable:IsBurning() then
-		inst.components.burnable:SetBurnTime(nil)
-		inst.components.burnable:ExtendBurning()
-	end
+    --V2C: make sure we're still burning by the time we actually reach death in stategraph
+    if inst.components.burnable:IsBurning() then
+        inst.components.burnable:SetBurnTime(nil)
+        inst.components.burnable:ExtendBurning()
+    end
     AwardRadialAchievement("deerclops_killed", inst:GetPosition(), TUNING.ACHIEVEMENT_RADIUS_FOR_GIANT_KILL)
     TheWorld:PushEvent("hasslerkilled", inst)
 end
@@ -195,24 +195,25 @@ local function OnNewState(inst, data)
     end
 end
 
-local loot = {"meat", "meat", "meat", "meat", "meat", "meat", "meat", "meat", "deerclops_eyeball", "chesspiece_deerclops_sketch"}
+local loot = { "meat", "meat", "meat", "meat", "meat", "meat", "meat", "meat", "deerclops_eyeball",
+    "chesspiece_deerclops_sketch" }
 
 local function WantsToLeave(inst)
     return false
 end
 
 local function SwitchToEightFaced(inst)
-	if not inst._temp8faced then
-		inst._temp8faced = true
-		inst.Transform:SetEightFaced()
-	end
+    if not inst._temp8faced then
+        inst._temp8faced = true
+        inst.Transform:SetEightFaced()
+    end
 end
 
 local function SwitchToFourFaced(inst)
-	if inst._temp8faced then
-		inst._temp8faced = false
-		inst.Transform:SetFourFaced()
-	end
+    if inst._temp8faced then
+        inst._temp8faced = false
+        inst.Transform:SetFourFaced()
+    end
 end
 
 local function fn()
@@ -223,12 +224,12 @@ local function fn()
     inst.entity:AddSoundEmitter()
     inst.entity:AddDynamicShadow()
     inst.entity:AddNetwork()
-	
-    inst.sounds = normal_sounds	
+
+    inst.sounds = normal_sounds
 
     MakeGiantCharacterPhysics(inst, 1000, .5)
 
-    local s  = 1.65
+    local s = 1.65
     inst.Transform:SetScale(s, s, s)
     inst.DynamicShadow:SetSize(6, 3.5)
     inst.Transform:SetFourFaced()
@@ -236,19 +237,19 @@ local function fn()
     inst:AddTag("epic")
     inst:AddTag("monster")
     inst:AddTag("hostile")
---    inst:AddTag("deerclops")
+    --    inst:AddTag("deerclops")
     inst:AddTag("scarytoprey")
     inst:AddTag("largecreature")
 
     inst.AnimState:SetBank("deerclops")
 
-        inst.AnimState:SetBuild("deerclops_yule")
+    inst.AnimState:SetBuild("deerclops_yule")
 
-        inst.entity:AddLight()
-        inst.Light:SetIntensity(.6)
-        inst.Light:SetRadius(8)
-        inst.Light:SetFalloff(3)
-        inst.Light:SetColour(1, 0, 0)
+    inst.entity:AddLight()
+    inst.Light:SetIntensity(.6)
+    inst.Light:SetRadius(8)
+    inst.Light:SetFalloff(3)
+    inst.Light:SetColour(1, 0, 0)
 
     inst.AnimState:PlayAnimation("idle_loop", true)
 
@@ -261,12 +262,12 @@ local function fn()
     inst.Physics:SetCollisionCallback(oncollide)
 
     inst.structuresDestroyed = 0
-	inst.icespike_pool = {}	
+    inst.icespike_pool = {}
 
     ------------------------------------------
 
     inst:AddComponent("locomotor") -- locomotor must be constructed before the stategraph
-    inst.components.locomotor.walkspeed = 3  
+    inst.components.locomotor.walkspeed = 3
 
     ------------------------------------------
     inst:SetStateGraph("SGdeerclops")
@@ -321,19 +322,19 @@ local function fn()
     inst:ListenForEvent("working", AfterWorking)
     inst:ListenForEvent("attacked", OnAttacked)
     inst:ListenForEvent("death", OnDead)
-    inst:ListenForEvent("onremove", OnRemove)	
+    inst:ListenForEvent("onremove", OnRemove)
     inst:ListenForEvent("onhitother", OnHitOther)
     inst:ListenForEvent("newcombattarget", OnNewTarget)
 
     inst.OnSave = OnSave
     inst.OnLoad = OnLoad
     inst.IsSated = IsSated
-	inst.WantsToLeave = WantsToLeave
-	inst.SwitchToEightFaced = SwitchToEightFaced
-	inst.SwitchToFourFaced = SwitchToFourFaced	
+    inst.WantsToLeave = WantsToLeave
+    inst.SwitchToEightFaced = SwitchToEightFaced
+    inst.SwitchToFourFaced = SwitchToFourFaced
 
     inst:AddComponent("timer")
-	inst:ListenForEvent("newstate", OnNewState)
+    inst:ListenForEvent("newstate", OnNewState)
 
     return inst
 end

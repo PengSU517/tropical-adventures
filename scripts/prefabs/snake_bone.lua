@@ -1,6 +1,6 @@
-local assets = 
+local assets =
 {
-	Asset("ANIM", "anim/snake_bone.zip")
+    Asset("ANIM", "anim/snake_bone.zip")
 }
 
 local function onspoiledhammered(inst, worker)
@@ -18,37 +18,37 @@ local function onspoiledhammered(inst, worker)
     to_hammer.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
 
     inst.components.workable:SetWorkLeft(1)
-    
+
     to_hammer:Remove()
 end
 
 local function fn()
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
-	local sound = inst.entity:AddSoundEmitter()
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
+    local sound = inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
-	
+
     MakeInventoryPhysics(inst)
 
     anim:SetBank("snake_bone")
     anim:SetBuild("snake_bone")
-    anim:PlayAnimation("idle",false)
+    anim:PlayAnimation("idle", false)
 
-	inst:AddTag("aquatic")	
-	
-	MakeInventoryFloatable(inst)
+    inst:AddTag("aquatic")
 
-	inst.entity:SetPristine()
+    MakeInventoryFloatable(inst)
 
-	if not TheWorld.ismastersim then
-		return inst
-	end	
-	
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("inspectable")
 
     inst:AddComponent("lootdropper")
-    inst.components.lootdropper:SetLoot({"boneshard", "boneshard"})
+    inst.components.lootdropper:SetLoot({ "boneshard", "boneshard" })
 
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
@@ -57,21 +57,21 @@ local function fn()
 
     inst:AddComponent("stackable")
 
-    inst:AddComponent("edible")   
+    inst:AddComponent("edible")
     inst.components.edible.foodtype = "BONE"
 
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"
-	
+    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
     --inst:AddComponent("appeasement")
     --inst.components.appeasement.appeasementvalue = TUNING.APPEASEMENT_TINY
 
-  -- inst:AddComponent("floatable")
-  -- inst.components.floatable:SetOnHitWaterFn(function(inst) inst.AnimState:PlayAnimation("idle_water", true) end)
-  --  inst.components.floatable:SetOnHitLandFn(function(inst) inst.AnimState:PlayAnimation("idle", true) end)
+    -- inst:AddComponent("floatable")
+    -- inst.components.floatable:SetOnHitWaterFn(function(inst) inst.AnimState:PlayAnimation("idle_water", true) end)
+    --  inst.components.floatable:SetOnHitLandFn(function(inst) inst.AnimState:PlayAnimation("idle", true) end)
 
-	return inst
+    return inst
 end
 
 return Prefab("common/inventory/snake_bone", fn, assets)

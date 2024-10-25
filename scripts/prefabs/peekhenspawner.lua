@@ -1,7 +1,7 @@
 local assets =
 {
-	Asset("ANIM", "anim/peekhen_shadow.zip"),
-	Asset("ANIM", "anim/peekhen_build.zip"),	
+    Asset("ANIM", "anim/peekhen_shadow.zip"),
+    Asset("ANIM", "anim/peekhen_build.zip"),
 }
 
 local spawner_assets =
@@ -15,7 +15,7 @@ local prefabs =
     "circlingpeekhen",
 }
 
-local FOOD_TAGS = { "edible_"..FOODTYPE.MEAT, "prey" }
+local FOOD_TAGS = { "edible_" .. FOODTYPE.MEAT, "prey" }
 local NO_TAGS = { "FX", "NOCLICK", "DECOR", "INLIMBO" }
 
 local function RemovepeekhenShadow(inst, shadow)
@@ -88,7 +88,8 @@ local function stophuntingfood(inst)
 end
 
 local function CanBeHunted(food)
-    return food.peekhenHunted == nil and food:IsOnValidGround() and FindEntity(food, 3, nil, { "peekhen" }, NO_TAGS) == nil
+    return food.peekhenHunted == nil and food:IsOnValidGround() and
+    FindEntity(food, 3, nil, { "peekhen" }, NO_TAGS) == nil
 end
 
 local function LookForFood(inst)
@@ -99,23 +100,23 @@ local function LookForFood(inst)
     local food = FindEntity(inst, 25, CanBeHunted, nil, NO_TAGS, FOOD_TAGS)
     if food ~= nil then
         local peekhen = inst.components.childspawner:SpawnChild()
-		if peekhen ~= nil then
-			local x, y, z = food.Transform:GetWorldPosition()
-			peekhen.Transform:SetPosition(x + math.random() * 3 - 1.5, 30, z + math.random() * 3 - 1.5)
-			peekhen:FacePoint(x, y, z)
+        if peekhen ~= nil then
+            local x, y, z = food.Transform:GetWorldPosition()
+            peekhen.Transform:SetPosition(x + math.random() * 3 - 1.5, 30, z + math.random() * 3 - 1.5)
+            peekhen:FacePoint(x, y, z)
 
-			if food:HasTag("prey") then
-				peekhen.sg.statemem.target = food
-			end
+            if food:HasTag("prey") then
+                peekhen.sg.statemem.target = food
+            end
 
-			food.peekhenHunted = peekhen
-			peekhen.foodHunted = food
-			food:ListenForEvent("onpickup", stophuntingfood)
-			food:ListenForEvent("onremove", stophuntingfood)
-			peekhen:ListenForEvent("onremove", stophuntingfood)
+            food.peekhenHunted = peekhen
+            peekhen.foodHunted = food
+            food:ListenForEvent("onpickup", stophuntingfood)
+            food:ListenForEvent("onremove", stophuntingfood)
+            peekhen:ListenForEvent("onremove", stophuntingfood)
 
-			inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/peekhen/distant")
-		end
+            inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/peekhen/distant")
+        end
     end
 end
 
@@ -223,7 +224,8 @@ local function fn()
     inst.components.childspawner:SetSpawnedFn(OnSpawn)
     inst.components.childspawner:SetOnAddChildFn(OnAddChild)
     inst.components.childspawner:SetMaxChildren(2)
-    inst.components.childspawner:SetSpawnPeriod(TUNING.BUZZARD_SPAWN_PERIOD + math.random(-TUNING.BUZZARD_SPAWN_VARIANCE, TUNING.BUZZARD_SPAWN_VARIANCE))
+    inst.components.childspawner:SetSpawnPeriod(TUNING.BUZZARD_SPAWN_PERIOD +
+    math.random(-TUNING.BUZZARD_SPAWN_VARIANCE, TUNING.BUZZARD_SPAWN_VARIANCE))
     inst.components.childspawner:SetRegenPeriod(TUNING.BUZZARD_REGEN_PERIOD)
     inst.components.childspawner:StopRegen()
 
@@ -302,12 +304,12 @@ local function CircleOnInit(inst)
 end
 
 local function DoFlap(inst)
-    if math.random() > 0.66 then 
-        inst.AnimState:PlayAnimation("shadow_flap_loop") 
+    if math.random() > 0.66 then
+        inst.AnimState:PlayAnimation("shadow_flap_loop")
         for i = 2, math.random(3, 6) do
-            inst.AnimState:PushAnimation("shadow_flap_loop") 
+            inst.AnimState:PushAnimation("shadow_flap_loop")
         end
-        inst.AnimState:PushAnimation("shadow") 
+        inst.AnimState:PushAnimation("shadow")
     end
 end
 

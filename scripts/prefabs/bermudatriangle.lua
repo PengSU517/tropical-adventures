@@ -95,7 +95,7 @@ local CHECK_FOR_BOATS_PERIOD = 0.5
 
 local BOAT_INTERACT_DISTANCE = 6.0
 local BOAT_INTERACT_DISTANCE_LEAVE_SQ = (BOAT_INTERACT_DISTANCE + MAX_PHYSICS_RADIUS) *
-(BOAT_INTERACT_DISTANCE + MAX_PHYSICS_RADIUS)
+    (BOAT_INTERACT_DISTANCE + MAX_PHYSICS_RADIUS)
 
 local BOAT_WAKE_COUNT = 3
 local BOAT_WAKE_TIME_PER = 1.5
@@ -118,7 +118,7 @@ local function DoBoatWake(boat, isfirst)
     end
 
     local boatradius = boat:GetSafePhysicsRadius() +
-    3                                                  -- Add a small offset so the wave does not hit the boat it came from.
+        3 -- Add a small offset so the wave does not hit the boat it came from.
 
     local x, y, z = boat.Transform:GetWorldPosition()
     local velx_n, velz_n = boat.components.boatphysics:GetNormalizedVelocities()

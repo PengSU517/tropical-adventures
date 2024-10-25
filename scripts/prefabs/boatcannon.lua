@@ -1,9 +1,9 @@
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/swap_cannon.zip"),
+    Asset("ANIM", "anim/swap_cannon.zip"),
 }
 
-local prefabs = 
+local prefabs =
 {
     "cannonshot",
     "collapse_small",
@@ -26,54 +26,53 @@ local function canshootfn(inst, pt)
 end
 
 local function retirado(inst)
-if inst.navio then inst.navio.AnimState:ClearOverrideSymbol(inst.symboltooverride, inst.build, inst.symbol) end
-inst.navio = nil
+    if inst.navio then inst.navio.AnimState:ClearOverrideSymbol(inst.symboltooverride, inst.build, inst.symbol) end
+    inst.navio = nil
 end
 
 local function onfinished(inst)
-inst:Remove()
+    inst:Remove()
 end
 
 local function fn(Sim)
-
     --NOTE!! Most of the logic for this happens in cannonshot.lua
 
-	local inst = CreateEntity()
+    local inst = CreateEntity()
     inst.entity:AddTransform()
-	inst.entity:AddAnimState()
-	inst.entity:AddNetwork()
-	
+    inst.entity:AddAnimState()
+    inst.entity:AddNetwork()
+
     inst.AnimState:SetBank("cannon")
     inst.AnimState:SetBuild("swap_cannon")
     inst.AnimState:PlayAnimation("idle")
 
     MakeInventoryPhysics(inst)
---    MakeInventoryFloatable(inst, "idle_water", "idle")
+    --    MakeInventoryFloatable(inst, "idle_water", "idle")
     inst.build = "swap_cannon"
     inst.symbol = "swap_cannon"
     inst.symboltooverride = "swap_lantern" --swap_lantern_off
-	inst.navio = nil
-	
+    inst.navio = nil
+
     inst:AddTag("cannon")
     inst:AddTag("boatcannon")
-	MakeInventoryFloatable(inst)
-	
-	inst.entity:SetPristine()
+    MakeInventoryFloatable(inst)
 
-     if not TheWorld.ismastersim then
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
         return inst
-    end		
-	
+    end
+
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
---    inst:AddComponent("equippable")
---    inst.components.equippable.boatequipslot = BOATEQUIPSLOTS.BOAT_LAMP
---    inst.components.equippable.equipslot = nil
---    inst.components.equippable:SetOnEquip( onequip )
---    inst.components.equippable:SetOnUnequip( onunequip )
+    --    inst:AddComponent("equippable")
+    --    inst.components.equippable.boatequipslot = BOATEQUIPSLOTS.BOAT_LAMP
+    --    inst.components.equippable.equipslot = nil
+    --    inst.components.equippable:SetOnEquip( onequip )
+    --    inst.components.equippable:SetOnUnequip( onunequip )
 
     inst:AddComponent("finiteuses")
     inst.components.finiteuses:SetMaxUses(BOATCANNON_AMMO_COUNT)
@@ -82,7 +81,7 @@ local function fn(Sim)
 
 
     inst:AddComponent("reticule")
-    inst.components.reticule.targetfn = function() 
+    inst.components.reticule.targetfn = function()
         return inst.components.thrower:GetThrowPoint()
     end
     inst.components.reticule.ease = true
@@ -91,9 +90,9 @@ local function fn(Sim)
     inst.components.thrower.throwable_prefab = "cannonshot"
     inst.components.thrower.onthrowfn = onthrowfn
     inst.components.thrower.canthrowatpointfn = canshootfn
-	inst:ListenForEvent("onpickup", retirado)	
+    inst:ListenForEvent("onpickup", retirado)
 
     return inst
 end
 
-return Prefab( "common/inventory/boatcannon", fn, assets, prefabs)
+return Prefab("common/inventory/boatcannon", fn, assets, prefabs)

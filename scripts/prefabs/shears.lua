@@ -1,4 +1,4 @@
-local assets=
+local assets =
 {
     Asset("ANIM", "anim/shears.zip"),
     Asset("ANIM", "anim/swap_shears.zip"),
@@ -12,7 +12,7 @@ local function onfinished(inst)
     inst:Remove()
 end
 
-local function onequip(inst, owner) 
+local function onequip(inst, owner)
     owner.AnimState:OverrideSymbol("swap_object", "swap_shears", "swap_shears")
     owner.AnimState:Show("ARM_carry")
     owner.AnimState:Hide("ARM_normal")
@@ -31,20 +31,20 @@ local function fn(Sim)
     inst.entity:AddNetwork()
 
     MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst)
-    
+    MakeInventoryFloatable(inst)
+
     anim:SetBank("shears")
     anim:SetBuild("shears")
     anim:PlayAnimation("idle")
-	
-    inst:AddTag("shears")	
+
+    inst:AddTag("shears")
 
     inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end	
-	
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("weapon")
     inst.components.weapon:SetDamage(SHEARS_DAMAGE)
     ---------------------------------------------------------------
@@ -54,22 +54,22 @@ local function fn(Sim)
     inst:AddComponent("finiteuses")
     inst.components.finiteuses:SetMaxUses(SHEARS_USES)
     inst.components.finiteuses:SetUses(SHEARS_USES)
-    
-    inst.components.finiteuses:SetOnFinished( onfinished )
+
+    inst.components.finiteuses:SetOnFinished(onfinished)
     inst.components.finiteuses:SetConsumption(ACTIONS.HACK, 1)
     ---------------------------------------------------------------
     inst:AddComponent("equippable")
-	
+
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"
-	
-    inst.components.equippable:SetOnEquip( onequip )
-    inst.components.equippable:SetOnUnequip( onunequip )
+    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+    inst.components.equippable:SetOnEquip(onequip)
+    inst.components.equippable:SetOnUnequip(onunequip)
 
     return inst
 end
 
 
-return Prefab( "common/inventory/shears", fn, assets) 
+return Prefab("common/inventory/shears", fn, assets)

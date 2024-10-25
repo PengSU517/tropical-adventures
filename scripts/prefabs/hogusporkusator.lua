@@ -52,10 +52,9 @@ local function doonact(inst, soundprefix, onact)
 end
 
 local function createmachine(level, name, soundprefix, sounddelay, techtree, mergeanims, onact)
-    
-	local assets =
+    local assets =
     {
-		Asset("ANIM", "anim/"..name..".zip"),
+        Asset("ANIM", "anim/" .. name .. ".zip"),
     }
 
     local prefabs =
@@ -85,7 +84,7 @@ local function createmachine(level, name, soundprefix, sounddelay, techtree, mer
                 inst.AnimState:PlayAnimation("proximity_loop", true)
             end
             if not inst.SoundEmitter:PlayingSound("idlesound") then
-                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/hogusporkusator/idle_LP","idlesound")
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/hogusporkusator/idle_LP", "idlesound")
             end
         end
     end
@@ -145,7 +144,7 @@ local function createmachine(level, name, soundprefix, sounddelay, techtree, mer
         MakeObstaclePhysics(inst, .4)
 
         inst.MiniMapEntity:SetPriority(5)
-        inst.MiniMapEntity:SetIcon(name..".png")
+        inst.MiniMapEntity:SetIcon(name .. ".png")
 
         inst.AnimState:SetBank(name)
         inst.AnimState:SetBuild(name)
@@ -153,13 +152,13 @@ local function createmachine(level, name, soundprefix, sounddelay, techtree, mer
 
         inst:AddTag("hogusporkusator")
         inst:AddTag("structure")
-        inst:AddTag("level"..level)
+        inst:AddTag("level" .. level)
 
         --prototyper (from prototyper component) added to pristine state for optimization
         inst:AddTag("prototyper")
-		
+
         --inst.scrapbook_specialinfo = "SCIENCEPROTOTYPER"
-		
+
         MakeSnowCoveredPristine(inst)
 
         inst.entity:SetPristine()
@@ -203,5 +202,4 @@ local function createmachine(level, name, soundprefix, sounddelay, techtree, mer
 end
 
 return createmachine(4, "hogusporkusator", "lvl4", 0, TUNING.PROTOTYPER_TREES.PRESTIHATITATOR, false, spawnpigs),
-    MakePlacer( "common/hogusporkusator_placer", "hogusporkusator", "hogusporkusator", "idle" )
-	
+    MakePlacer("common/hogusporkusator_placer", "hogusporkusator", "hogusporkusator", "idle")

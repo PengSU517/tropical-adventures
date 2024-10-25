@@ -1,4 +1,4 @@
-local assets=
+local assets =
 {
     Asset("ANIM", "anim/armor_blubbersuit.zip"),
 }
@@ -28,7 +28,7 @@ local function fn()
 
     --waterproofer (from waterproofer component) added to pristine state for optimization
     inst:AddTag("waterproofer")
-	MakeInventoryFloatable(inst)
+    MakeInventoryFloatable(inst)
 
     inst.entity:SetPristine()
 
@@ -39,8 +39,8 @@ local function fn()
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
     inst:AddComponent("equippable")
     inst.components.equippable.equipslot = EQUIPSLOTS.BODY
@@ -52,7 +52,7 @@ local function fn()
 
     inst:AddComponent("fueled")
     inst.components.fueled.fueltype = FUELTYPE.USAGE
-    inst.components.fueled:InitializeFuelLevel(480*8)
+    inst.components.fueled:InitializeFuelLevel(480 * 8)
     inst.components.fueled:SetDepletedFn(inst.Remove)
 
     MakeHauntableLaunch(inst)
@@ -63,4 +63,4 @@ local function fn()
     return inst
 end
 
-return Prefab( "blubbersuit", fn, assets)
+return Prefab("blubbersuit", fn, assets)

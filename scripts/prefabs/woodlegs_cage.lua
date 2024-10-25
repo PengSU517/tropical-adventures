@@ -1,10 +1,9 @@
-
-local assets = 
+local assets =
 {
 	Asset("ANIM", "anim/woodlegs_cage.zip"),
 }
 
-local prefabs = 
+local prefabs =
 {
 	"collapse_big",
 	"log",
@@ -13,7 +12,7 @@ local prefabs =
 	"woodlegs_unlock",
 }
 
-local loot = 
+local loot =
 {
 	"log",
 	"log",
@@ -31,7 +30,7 @@ local function GetStatus(inst)
 		end
 	end
 
-	return "KEYS"..tostring(keysCount)
+	return "KEYS" .. tostring(keysCount)
 end
 
 local function ItemTradeTest(inst, item)
@@ -43,14 +42,14 @@ local function Unlock(inst)
 	inst.AnimState:PlayAnimation("unlocked", false)
 
 	-- unlock woodlegs
---	local player = GetPlayer()
---	player.profile:UnlockCharacter("woodlegs")
---	player.profile.dirty = true
---	player.profile:Save()
+	--	local player = GetPlayer()
+	--	player.profile:UnlockCharacter("woodlegs")
+	--	player.profile.dirty = true
+	--	player.profile:Save()
 
 	inst.SoundEmitter:PlaySound("dontstarve_DLC002/characters/woodlegs/unlock")
 	inst.SoundEmitter:PlaySound("dontstarve/forest/treeCrumble")
-	
+
 	inst:DoTaskInTime(0.5, function(inst)
 		SpawnPrefab("collapse_big").Transform:SetPosition(inst.Transform:GetWorldPosition())
 
@@ -59,17 +58,17 @@ local function Unlock(inst)
 
 	inst:ListenForEvent("animover", function(inst)
 		inst.AnimState:ClearOverrideBuild("woodlegs")
-	
+
 		local unlock = SpawnPrefab("woodlegs_unlock")
 		unlock.Transform:SetPosition(inst:GetPosition():Get())
-		
+
 		local time_to_erode = 1
 		local tick_time = TheSim:GetTickTime()
-		inst:StartThread( function()
+		inst:StartThread(function()
 			local ticks = 0
 			while ticks * tick_time < time_to_erode do
 				local erode_amount = ticks * tick_time / time_to_erode
-				inst.AnimState:SetErosionParams( erode_amount, 0.1, 1.0 )
+				inst.AnimState:SetErosionParams(erode_amount, 0.1, 1.0)
 				ticks = ticks + 1
 				Yield()
 			end
@@ -91,7 +90,7 @@ local function TestForUnlock(inst)
 		end
 	end
 
-	if allKeys == true then		
+	if allKeys == true then
 		inst.components.trader:Disable()
 		inst:DoTaskInTime(0.5, Unlock)
 	end
@@ -113,7 +112,7 @@ end
 
 local function MakeComplete(inst)
 	print("Made Complete")
-	inst.collectedKeys = {woodlegs_key1 = true, woodlegs_key2 = true, woodlegs_key3 = true}
+	inst.collectedKeys = { woodlegs_key1 = true, woodlegs_key2 = true, woodlegs_key3 = true }
 end
 
 local function OnLoad(inst, data)
@@ -150,28 +149,28 @@ local function fn(Sim)
 
 	anim:SetBank("woodlegs_cage")
 	anim:SetBuild("woodlegs_cage")
-	
+
 	anim:PlayAnimation("idle_swing", true)
 
 	MakeObstaclePhysics(inst, 1.1)
 
 	local minimap = inst.entity:AddMiniMapEntity()
 	minimap:SetIcon("woodlegs_cage.png")
-	
+
 	inst.entity:AddSoundEmitter()
 
 
 	inst.entity:AddNetwork()
-	
+
 	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 
-	
-	inst:AddComponent("inspectable")	
+
+	inst:AddComponent("inspectable")
 	inst.components.inspectable.getstatus = GetStatus
 	inst.components.inspectable:RecordViews()
 
@@ -184,7 +183,7 @@ local function fn(Sim)
 
 	inst.AnimState:AddOverrideBuild("woodleg1")
 
-	inst.collectedKeys = {woodlegs_key1 = false, woodlegs_key2 = false, woodlegs_key3 = false}
+	inst.collectedKeys = { woodlegs_key1 = false, woodlegs_key2 = false, woodlegs_key3 = false }
 	for key, symbol in pairs(keySymbols) do
 		inst.AnimState:Hide(symbol)
 	end
@@ -192,8 +191,8 @@ local function fn(Sim)
 	inst.OnSave = OnSave
 	inst.OnLoad = OnLoad
 
-	
+
 	return inst
 end
 
-return Prefab( "common/objects/woodlegs_cage", fn, assets, prefabs )
+return Prefab("common/objects/woodlegs_cage", fn, assets, prefabs)

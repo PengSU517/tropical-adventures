@@ -110,11 +110,12 @@ end
 local function fixfn(inst, user)
 	if user and user.components.driver and user.components.driver.vehicle and user.components.driver.vehicle.components.finiteuses then
 		if user.components.driver.vehicle.components.finiteuses.current >= user.components.driver.vehicle.components.finiteuses.total - 0.4 then
-			stopFixingFn(inst, user) end
+			stopFixingFn(inst, user)
+		end
 		if user.components.driver and user.components.driver.vehicle and user.components.driver.vehicle.components.finiteuses ~= nil then
 			local boat = user.components.driver.vehicle
 			boat.components.finiteuses.current = boat.components.finiteuses.current + 0.7
-			local gastabarco = user.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)         ---------armadura
+			local gastabarco = user.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)           ---------armadura
 			if gastabarco then gastabarco.components.armor.condition = boat.components.finiteuses.current end ---------armadura		
 		end
 

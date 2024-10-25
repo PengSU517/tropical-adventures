@@ -5,24 +5,24 @@ local assets =
 {
 
     Asset("ANIM", "anim/pig_shop.zip"),
-    
+
     Asset("ANIM", "anim/flag_post_duster_build.zip"),
     Asset("ANIM", "anim/flag_post_perdy_build.zip"),
     Asset("ANIM", "anim/flag_post_royal_build.zip"),
-    Asset("ANIM", "anim/flag_post_wilson_build.zip"), 
+    Asset("ANIM", "anim/flag_post_wilson_build.zip"),
     Asset("ANIM", "anim/pig_tower_build.zip"),
     Asset("SOUND", "sound/pig.fsb"),
-    Asset("MINIMAP_IMAGE", "pig_guard_tower"),    
-    Asset("MINIMAP_IMAGE", "pig_palace"),        
+    Asset("MINIMAP_IMAGE", "pig_guard_tower"),
+    Asset("MINIMAP_IMAGE", "pig_palace"),
     Asset("ANIM", "anim/pig_tower_royal_build.zip"),
-    Asset("INV_IMAGE", "pighouse_city"),       
+    Asset("INV_IMAGE", "pighouse_city"),
 
 }
 
 
-local GUARDTOWER_CITY_RESPAWNTIME = 480*3
+local GUARDTOWER_CITY_RESPAWNTIME = 480 * 3
 
-local prefabs = 
+local prefabs =
 {
     "pig_royalguard_rich",
     "pig_royalguard_rich_2",
@@ -46,7 +46,7 @@ local function LightsOff(inst)
     end
 end
 
-local function onfar(inst) 
+local function onfar(inst)
     if not inst:HasTag("burnt") then
         if inst.components.spawner and inst.components.spawner:IsOccupied() then
             LightsOn(inst)
@@ -66,7 +66,7 @@ local function getstatus(inst)
     end
 end
 
-local function onnear(inst) 
+local function onnear(inst)
     if not inst:HasTag("burnt") then
         if inst.components.spawner and inst.components.spawner:IsOccupied() then
             LightsOff(inst)
@@ -90,19 +90,19 @@ end
 
 local function onoccupied(inst, child)
     if not inst:HasTag("burnt") then
-    	inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/city_pig/pig_in_house_LP", "pigsound")
+        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/city_pig/pig_in_house_LP", "pigsound")
         inst.SoundEmitter:PlaySound("dontstarve/common/pighouse_door")
-    	
+
         if inst.doortask then
             inst.doortask:Cancel()
             inst.doortask = nil
         end
-    	--inst.doortask = inst:DoTaskInTime(1, function() if not inst.components.playerprox:IsPlayerClose() then LightsOn(inst) end end)
+        --inst.doortask = inst:DoTaskInTime(1, function() if not inst.components.playerprox:IsPlayerClose() then LightsOn(inst) end end)
         inst.doortask = inst:DoTaskInTime(1, function() LightsOn(inst) end)
-    	if child then
-    	    inst:ListenForEvent("transformwere", onwere, child)
-    	    inst:ListenForEvent("transformnormal", onnormal, child)
-    	end
+        if child then
+            inst:ListenForEvent("transformwere", onwere, child)
+            inst:ListenForEvent("transformnormal", onnormal, child)
+        end
     end
 end
 
@@ -114,34 +114,34 @@ local function onvacate(inst, child)
         end
         inst.SoundEmitter:PlaySound("dontstarve/common/pighouse_door")
         inst.SoundEmitter:KillSound("pigsound")
-    	
-    	if child then
-    	    inst:RemoveEventCallback("transformwere", onwere, child)
-    	    inst:RemoveEventCallback("transformnormal", onnormal, child)
+
+        if child then
+            inst:RemoveEventCallback("transformwere", onwere, child)
+            inst:RemoveEventCallback("transformnormal", onnormal, child)
             if child.components.werebeast then
-    		    child.components.werebeast:ResetTriggers()
-    		end
-    		if child.components.health then
-    		    child.components.health:SetPercent(1)
-    		end
-    	end    
+                child.components.werebeast:ResetTriggers()
+            end
+            if child.components.health then
+                child.components.health:SetPercent(1)
+            end
+        end
     end
 end
-        
-local function onhammered(inst, worker)
 
-local pt = inst:GetPosition()
-local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
-if tiletype == GROUND.SUBURB or tiletype == GROUND.FOUNDATION or tiletype == GROUND.COBBLEROAD or tiletype == GROUND.LAWN or tiletype == GROUND.FIELDS or tiletype == GROUND.CHECKEREDLAWN then
-if worker and worker:HasTag("player") and not worker:HasTag("sneaky") then
-local x, y, z = inst.Transform:GetWorldPosition()
-local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
-local eles = TheSim:FindEntities(x,y,z, 40,{"guard"})
-for k,guardas in pairs(eles) do 
-if guardas.components.combat and guardas.components.combat.target == nil then guardas.components.combat:SetTarget(worker) end
-end 
-end
-end
+local function onhammered(inst, worker)
+    local pt = inst:GetPosition()
+    local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
+    if tiletype == GROUND.SUBURB or tiletype == GROUND.FOUNDATION or tiletype == GROUND.COBBLEROAD or tiletype == GROUND.LAWN or tiletype == GROUND.FIELDS or tiletype == GROUND.CHECKEREDLAWN then
+        if worker and worker:HasTag("player") and not worker:HasTag("sneaky") then
+            local x, y, z = inst.Transform:GetWorldPosition()
+            local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
+            local eles = TheSim:FindEntities(x, y, z, 40, { "guard" })
+            for k, guardas in pairs(eles) do
+                if guardas.components.combat and guardas.components.combat.target == nil then guardas.components.combat
+                        :SetTarget(worker) end
+            end
+        end
+    end
 
 
     if inst:HasTag("fire") and inst.components.burnable then
@@ -158,11 +158,11 @@ end
         inst.doortask:Cancel()
         inst.doortask = nil
     end
-	if inst.components.spawner then inst.components.spawner:ReleaseChild() end
-	--inst.components.lootdropper:DropLoot()
-	SpawnPrefab("collapse_big").Transform:SetPosition(inst.Transform:GetWorldPosition())
-	inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
-	inst:Remove()
+    if inst.components.spawner then inst.components.spawner:ReleaseChild() end
+    --inst.components.lootdropper:DropLoot()
+    SpawnPrefab("collapse_big").Transform:SetPosition(inst.Transform:GetWorldPosition())
+    inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
+    inst:Remove()
 end
 
 local function ongusthammerfn(inst)
@@ -171,8 +171,8 @@ end
 
 local function onhit(inst, worker)
     if not inst:HasTag("burnt") then
-    	inst.AnimState:PlayAnimation("hit")
-    	inst.AnimState:PushAnimation("idle")
+        inst.AnimState:PlayAnimation("hit")
+        inst.AnimState:PushAnimation("idle")
     end
 end
 
@@ -185,49 +185,50 @@ local function OnDay(inst)
                 inst.doortask:Cancel()
                 inst.doortask = nil
             end
-            inst.doortask = inst:DoTaskInTime(1 + math.random()*2, function() inst.components.spawner:ReleaseChild() end)
+            inst.doortask = inst:DoTaskInTime(1 + math.random() * 2,
+                function() inst.components.spawner:ReleaseChild() end)
         end
     end
 end
 
 local function citypossessionfn(inst)
-        if inst:HasTag("palacetower") then
-            inst.AnimState:AddOverrideBuild("flag_post_royal_build")
-            local spawned = {"pig_royalguard_rich_2"}
-            inst.components.spawner:Configure( "pig_royalguard_rich_2", GUARDTOWER_CITY_RESPAWNTIME,1)            
-        else
-            inst.AnimState:AddOverrideBuild("flag_post_duster_build")
-            local spawned = {"pigman_royalguard_2"}
-            inst.components.spawner:Configure( "pigman_royalguard_2", GUARDTOWER_CITY_RESPAWNTIME,1)            
-        end    
+    if inst:HasTag("palacetower") then
+        inst.AnimState:AddOverrideBuild("flag_post_royal_build")
+        local spawned = { "pig_royalguard_rich_2" }
+        inst.components.spawner:Configure("pig_royalguard_rich_2", GUARDTOWER_CITY_RESPAWNTIME, 1)
+    else
+        inst.AnimState:AddOverrideBuild("flag_post_duster_build")
+        local spawned = { "pigman_royalguard_2" }
+        inst.components.spawner:Configure("pigman_royalguard_2", GUARDTOWER_CITY_RESPAWNTIME, 1)
+    end
 end
 
-local function citypossessionfn2(inst)    
-    if inst.components.citypossession then    
-            inst.AnimState:AddOverrideBuild("flag_post_royal_build")
-            local spawned = {"pig_royalguard_rich_2"}
-            inst.components.spawner:Configure( "pig_royalguard_rich_2", GUARDTOWER_CITY_RESPAWNTIME,1)                    
+local function citypossessionfn2(inst)
+    if inst.components.citypossession then
+        inst.AnimState:AddOverrideBuild("flag_post_royal_build")
+        local spawned = { "pig_royalguard_rich_2" }
+        inst.components.spawner:Configure("pig_royalguard_rich_2", GUARDTOWER_CITY_RESPAWNTIME, 1)
     end
 end
 
 local function reconstructed(inst)
-    citypossessionfn(inst)    
+    citypossessionfn(inst)
 end
 
 local function reconstructed2(inst)
-    citypossessionfn2(inst)    
+    citypossessionfn2(inst)
 end
 
 local function onbuilt(inst)
-	inst.AnimState:PlayAnimation("place")
-	inst.AnimState:PushAnimation("idle")
-    citypossessionfn( inst )
+    inst.AnimState:PlayAnimation("place")
+    inst.AnimState:PushAnimation("idle")
+    citypossessionfn(inst)
 end
 
 local function onbuilt2(inst)
-	inst.AnimState:PlayAnimation("place")
-	inst.AnimState:PushAnimation("idle")
-    citypossessionfn2( inst )
+    inst.AnimState:PlayAnimation("place")
+    inst.AnimState:PushAnimation("idle")
+    citypossessionfn2(inst)
 end
 
 local function onsave(inst, data)
@@ -238,7 +239,7 @@ local function onload(inst, data)
 
 end
 
-local function callguards(inst,threat)
+local function callguards(inst, threat)
     print("CALLING GUARD AT TOWER")
     if inst.components.spawner then
         if inst.components.spawner:IsOccupied() then
@@ -246,11 +247,11 @@ local function callguards(inst,threat)
             inst.components.spawner:ReleaseChild()
         end
         if inst.components.spawner.child then
-            local pig = inst.components.spawner.child            
+            local pig = inst.components.spawner.child
             if pig.components.combat.target == nil then
                 print("ALERTING PIG GUARD")
-                pig:DoTaskInTime(math.random()*1,function()                 
-                    pig:PushEvent("atacked", {attacker = threat, damage = 0, weapon = nil})
+                pig:DoTaskInTime(math.random() * 1, function()
+                    pig:PushEvent("atacked", { attacker = threat, damage = 0, weapon = nil })
                 end)
             end
         end
@@ -258,22 +259,22 @@ local function callguards(inst,threat)
 end
 
 local function fn(Sim)
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
     local light = inst.entity:AddLight()
     inst.entity:AddNetwork()
     inst.entity:AddSoundEmitter()
 
-	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon( "pig_guard_tower.png" )
+    local minimap = inst.entity:AddMiniMapEntity()
+    minimap:SetIcon("pig_guard_tower.png")
 
     light:SetFalloff(1)
     light:SetIntensity(.5)
     light:SetRadius(1)
     light:Enable(false)
-    light:SetColour(180/255, 195/255, 50/255)
-    
+    light:SetColour(180 / 255, 195 / 255, 50 / 255)
+
     MakeObstaclePhysics(inst, 1)
 
     anim:SetBank("pig_shop")
@@ -283,44 +284,44 @@ local function fn(Sim)
     inst:AddTag("guard_tower")
     inst:AddTag("structure")
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end	
-	
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     --inst:AddComponent("lootdropper")
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
     inst.components.workable:SetWorkLeft(4)
-	inst.components.workable:SetOnFinishCallback(onhammered)
-	inst.components.workable:SetOnWorkCallback(onhit)
-	
+    inst.components.workable:SetOnFinishCallback(onhammered)
+    inst.components.workable:SetOnWorkCallback(onhit)
+
 
     inst.onvacate = onvacate
 
-	inst:AddComponent("spawner")
-	WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME*3, true)
-	inst.components.spawner:Configure( "pigman_royalguard_2", GUARDTOWER_CITY_RESPAWNTIME,1) 
+    inst:AddComponent("spawner")
+    WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME * 3, true)
+    inst.components.spawner:Configure("pigman_royalguard_2", GUARDTOWER_CITY_RESPAWNTIME, 1)
     inst.components.spawner.onoccupied = onoccupied
     inst.components.spawner.onvacate = onvacate
-	inst:WatchWorldState("isday", OnDay)
+    inst:WatchWorldState("isday", OnDay)
 
     inst.citypossessionfn = citypossessionfn2
     inst.OnLoadPostPass = citypossessionfn2
 
     inst:AddComponent("inspectable")
-    
+
     inst.components.inspectable.getstatus = getstatus
-	
-	MakeSnowCovered(inst, .01)
+
+    MakeSnowCovered(inst, .01)
 
     inst:AddComponent("fixable")
-    inst.components.fixable:AddRecinstructionStageData("rubble","pig_shop","pig_guard_tower_palace2")
-    inst.components.fixable:AddRecinstructionStageData("unbuilt","pig_shop","pig_guard_tower_palace2") 
+    inst.components.fixable:AddRecinstructionStageData("rubble", "pig_shop", "pig_guard_tower_palace2")
+    inst.components.fixable:AddRecinstructionStageData("unbuilt", "pig_shop", "pig_guard_tower_palace2")
 
     inst:ListenForEvent("burntup", function(inst)
-        inst.components.fixable:AddRecinstructionStageData("burnt","pig_shop","pig_guard_tower_palace2",1)       
+        inst.components.fixable:AddRecinstructionStageData("burnt", "pig_shop", "pig_guard_tower_palace2", 1)
         if inst.doortask then
             inst.doortask:Cancel()
             inst.doortask = nil
@@ -332,17 +333,17 @@ local function fn(Sim)
         end
     end)
 
-    inst.OnSave = onsave 
+    inst.OnSave = onsave
     inst.OnLoad = onload
     inst.callguards = callguards
     inst.reconstructed = reconstructed
 
-	inst:ListenForEvent( "onbuilt", onbuilt)
-    inst:DoTaskInTime(math.random(), function() 
+    inst:ListenForEvent("onbuilt", onbuilt)
+    inst:DoTaskInTime(math.random(), function()
         --print(inst, "spawn check day")
-        if TheWorld.state.isday then 
+        if TheWorld.state.isday then
             OnDay(inst)
-        end 
+        end
     end)
 
     inst:AddComponent("gridnudger")
@@ -351,22 +352,22 @@ local function fn(Sim)
 end
 
 local function palacefn(Sim)
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
     local light = inst.entity:AddLight()
     inst.entity:AddNetwork()
     inst.entity:AddSoundEmitter()
 
-	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon( "pig_royal_tower.png" )
+    local minimap = inst.entity:AddMiniMapEntity()
+    minimap:SetIcon("pig_royal_tower.png")
 
     light:SetFalloff(1)
     light:SetIntensity(.5)
     light:SetRadius(1)
     light:Enable(false)
-    light:SetColour(180/255, 195/255, 50/255)
-    
+    light:SetColour(180 / 255, 195 / 255, 50 / 255)
+
     MakeObstaclePhysics(inst, 1)
 
     anim:SetBank("pig_shop")
@@ -375,46 +376,46 @@ local function palacefn(Sim)
 
     inst:AddTag("guard_tower")
     inst:AddTag("structure")
-	inst:AddTag("palacetower")
+    inst:AddTag("palacetower")
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end	
-	
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     --inst:AddComponent("lootdropper")
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
     inst.components.workable:SetWorkLeft(4)
-	inst.components.workable:SetOnFinishCallback(onhammered)
-	inst.components.workable:SetOnWorkCallback(onhit)
-	
+    inst.components.workable:SetOnFinishCallback(onhammered)
+    inst.components.workable:SetOnWorkCallback(onhit)
+
 
     inst.onvacate = onvacate
 
-	inst:AddComponent("spawner")
-	WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME*3, true)
-	inst.components.spawner:Configure( "pig_royalguard_rich_2", GUARDTOWER_CITY_RESPAWNTIME,1) 
+    inst:AddComponent("spawner")
+    WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME * 3, true)
+    inst.components.spawner:Configure("pig_royalguard_rich_2", GUARDTOWER_CITY_RESPAWNTIME, 1)
     inst.components.spawner.onoccupied = onoccupied
     inst.components.spawner.onvacate = onvacate
-	inst:WatchWorldState("isday", OnDay)
+    inst:WatchWorldState("isday", OnDay)
 
-    inst.citypossessionfn = citypossessionfn 
+    inst.citypossessionfn = citypossessionfn
     inst.OnLoadPostPass = citypossessionfn
 
     inst:AddComponent("inspectable")
-    
+
     inst.components.inspectable.getstatus = getstatus
-	
-	MakeSnowCovered(inst, .01)
+
+    MakeSnowCovered(inst, .01)
 
     inst:AddComponent("fixable")
-    inst.components.fixable:AddRecinstructionStageData("rubble","pig_shop","pig_guard_tower_palace2")
-    inst.components.fixable:AddRecinstructionStageData("unbuilt","pig_shop","pig_guard_tower_palace2") 
+    inst.components.fixable:AddRecinstructionStageData("rubble", "pig_shop", "pig_guard_tower_palace2")
+    inst.components.fixable:AddRecinstructionStageData("unbuilt", "pig_shop", "pig_guard_tower_palace2")
 
     inst:ListenForEvent("burntup", function(inst)
-        inst.components.fixable:AddRecinstructionStageData("burnt","pig_shop","pig_guard_tower_palace2",1)       
+        inst.components.fixable:AddRecinstructionStageData("burnt", "pig_shop", "pig_guard_tower_palace2", 1)
         if inst.doortask then
             inst.doortask:Cancel()
             inst.doortask = nil
@@ -426,17 +427,17 @@ local function palacefn(Sim)
         end
     end)
 
-    inst.OnSave = onsave 
+    inst.OnSave = onsave
     inst.OnLoad = onload
     inst.callguards = callguards
     inst.reconstructed = reconstructed2
 
-	inst:ListenForEvent( "onbuilt", onbuilt2)
-    inst:DoTaskInTime(math.random(), function() 
+    inst:ListenForEvent("onbuilt", onbuilt2)
+    inst:DoTaskInTime(math.random(), function()
         --print(inst, "spawn check day")
-        if TheWorld.state.isday then 
+        if TheWorld.state.isday then
             OnDay(inst)
-        end 
+        end
     end)
 
     inst:AddComponent("gridnudger")
@@ -444,8 +445,7 @@ local function palacefn(Sim)
     return inst
 end
 
-return Prefab( "common/objects/pig_guard_tower2", fn, assets, prefabs),
-       Prefab( "common/objects/pig_guard_tower_palace2", palacefn, assets, prefabs),
-	   MakePlacer("common/pig_guard_tower_placer2", "pig_shop", "pig_guard_tower_palace2", "idle"),  
-	   MakePlacer("common/pig_guard_tower_palace_placer2", "pig_shop", "pig_tower_royal_build", "idle") 
-	   
+return Prefab("common/objects/pig_guard_tower2", fn, assets, prefabs),
+    Prefab("common/objects/pig_guard_tower_palace2", palacefn, assets, prefabs),
+    MakePlacer("common/pig_guard_tower_placer2", "pig_shop", "pig_guard_tower_palace2", "idle"),
+    MakePlacer("common/pig_guard_tower_palace_placer2", "pig_shop", "pig_tower_royal_build", "idle")

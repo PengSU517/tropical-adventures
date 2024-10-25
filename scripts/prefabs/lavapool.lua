@@ -1,9 +1,9 @@
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/lava_pool.zip"),
+    Asset("ANIM", "anim/lava_pool.zip"),
 }
 
-local prefabs=
+local prefabs =
 {
     "ash",
     "rocks",
@@ -13,8 +13,8 @@ local prefabs=
     "obsidian",
 }
 
-local	    LAVAPOOL_FUEL_MAX = (60+120)
-local	    LAVAPOOL_FUEL_START = (60+120)*.75
+local LAVAPOOL_FUEL_MAX = (60 + 120)
+local LAVAPOOL_FUEL_START = (60 + 120) * .75
 
 local function CollectUseActions(inst, useitem, actions, right)
     if useitem.prefab == "ice" then
@@ -40,7 +40,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
 end
 
 local function OnRefuseItem(inst, giver, item)
-    print("Lavapool refuses "..tostring(item.prefab))
+    print("Lavapool refuses " .. tostring(item.prefab))
 end
 
 local function OnIgnite(inst)
@@ -48,24 +48,19 @@ end
 
 local function OnExtinguish(inst)
     local x, y, z = inst.Transform:GetWorldPosition()
-	
-	if inst.components.fueled and inst.components.fueled.currentfuel > 0 then
-	
-	
-    local obsidian = SpawnPrefab("obsidian")
-	if obsidian then obsidian.Transform:SetPosition(x, y, z) end
-	
-	else
-	
-    --spawn some things
-    local radius = 1
-    local things = {"rocks", "rocks", "ash", "ash", "charcoal"}
-    for i = 1, #things, 1 do
-        local thing = SpawnPrefab(things[i])
-        thing.Transform:SetPosition(x + radius * UnitRand(), y, z + radius * UnitRand())
-    end
 
-	end
+    if inst.components.fueled and inst.components.fueled.currentfuel > 0 then
+        local obsidian = SpawnPrefab("obsidian")
+        if obsidian then obsidian.Transform:SetPosition(x, y, z) end
+    else
+        --spawn some things
+        local radius = 1
+        local things = { "rocks", "rocks", "ash", "ash", "charcoal" }
+        for i = 1, #things, 1 do
+            local thing = SpawnPrefab(things[i])
+            thing.Transform:SetPosition(x + radius * UnitRand(), y, z + radius * UnitRand())
+        end
+    end
 
     inst.AnimState:ClearBloomEffectHandle()
     inst:Remove()
@@ -89,7 +84,7 @@ local function fn(Sim)
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
     inst.entity:AddLight()
-	inst.entity:AddNetwork()
+    inst.entity:AddNetwork()
 
     inst.AnimState:SetBank("lava_pool")
     inst.AnimState:SetBuild("lava_pool")
@@ -97,27 +92,27 @@ local function fn(Sim)
 
     inst:AddTag("fire")
 
-	if not TheWorld.ismastersim then
+    if not TheWorld.ismastersim then
         return inst
     end
-	
+
     inst.AnimState:PlayAnimation("dump")
     inst.AnimState:PushAnimation("idle_loop")
-    inst.AnimState:SetBloomEffectHandle( "shaders/anim.ksh" )
+    inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
 
 
     MakeObstaclePhysics(inst, .6)
     inst.Physics:SetCollides(false)
 
-    --[[inst.cooltask = inst:DoTaskInTime(30, function(inst) 
+    --[[inst.cooltask = inst:DoTaskInTime(30, function(inst)
         --inst.AnimState:PushAnimation("cool", false)
         fade_out(inst)
         inst:DoTaskInTime(4*FRAMES, function(inst)
             inst.AnimState:ClearBloomEffectHandle()
         end)
-        if inst.components.propagator then 
+        if inst.components.propagator then
             inst.components.propagator:StopSpreading()
-            inst:RemoveComponent("propagator") 
+            inst:RemoveComponent("propagator")
         end
 
         local x, y, z = inst.Transform:GetWorldPosition()
@@ -139,9 +134,9 @@ local function fn(Sim)
     end)]]
 
     inst:AddComponent("burnable")
-    inst.components.burnable:AddBurnFX("campfirefire", Vector3(0,0,0) )
- --   inst.components.burnable:MakeNotWildfireStarter()
-	
+    inst.components.burnable:AddBurnFX("campfirefire", Vector3(0, 0, 0))
+    --   inst.components.burnable:MakeNotWildfireStarter()
+
     inst:ListenForEvent("onextinguish", OnExtinguish)
     inst:ListenForEvent("onignite", OnIgnite)
 
@@ -156,33 +151,33 @@ local function fn(Sim)
     inst.components.fueled:SetSections(4)
     inst.components.fueled.rate = 1
 
-    inst.components.fueled:SetUpdateFn( function()
+    inst.components.fueled:SetUpdateFn(function()
         if inst.components.burnable and inst.components.fueled then
-            inst.components.burnable:SetFXLevel(inst.components.fueled:GetCurrentSection(), inst.components.fueled:GetSectionPercent())
+            inst.components.burnable:SetFXLevel(inst.components.fueled:GetCurrentSection(),
+                inst.components.fueled:GetSectionPercent())
         end
     end)
-        
-    inst.components.fueled:SetSectionCallback( function(section)
-        if section == 0 then
-            inst.components.burnable:Extinguish() 
 
+    inst.components.fueled:SetSectionCallback(function(section)
+        if section == 0 then
+            inst.components.burnable:Extinguish()
         else
             if not inst.components.burnable:IsBurning() then
                 inst.components.burnable:Ignite()
             end
-            
+
             inst.components.burnable:SetFXLevel(section, inst.components.fueled:GetSectionPercent())
-            local ranges = {1,1,1,1}
-            local output = {2,5,5,10}
+            local ranges = { 1, 1, 1, 1 }
+            local output = { 2, 5, 5, 10 }
             inst.components.propagator.propagaterange = ranges[section]
             inst.components.propagator.heatoutput = output[section]
         end
     end)
-        
+
     inst.components.fueled:InitializeFuelLevel(LAVAPOOL_FUEL_START)
 
 
-      
+
     inst:AddComponent("inspectable")
 
     inst:AddComponent("cooker")
@@ -196,4 +191,4 @@ local function fn(Sim)
     return inst
 end
 
-return Prefab( "lavapool", fn, assets, prefabs)
+return Prefab("lavapool", fn, assets, prefabs)

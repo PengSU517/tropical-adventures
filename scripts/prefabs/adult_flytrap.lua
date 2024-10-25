@@ -73,7 +73,7 @@ local function retargetfn(inst)
     return FindEntity(inst, ADULT_FLYTRAP_ATTACK_DIST, function(guy)
         if guy.components.combat and guy.components.health and not guy.components.health:IsDead() then
             return (guy.components.combat.target == inst or guy:HasTag("character") or guy:HasTag("monster") or guy:HasTag("animal")) and
-            not guy:HasTag("flytrap") and not (guy.prefab == inst.prefab) and not guy:HasTag("plantkin")
+                not guy:HasTag("flytrap") and not (guy.prefab == inst.prefab) and not guy:HasTag("plantkin")
         end
     end)
 end

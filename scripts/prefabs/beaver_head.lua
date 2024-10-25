@@ -1,7 +1,7 @@
 local beaver_assets =
 {
     Asset("ANIM", "anim/beaver_head.zip"),
-	Asset("ANIM", "anim/pig_head.zip"),
+    Asset("ANIM", "anim/pig_head.zip"),
 }
 
 local beaver_prefabs =
@@ -22,26 +22,26 @@ local function OnFinish(inst)
     if TheWorld.state.isfullmoon then
         inst.components.lootdropper:SpawnLootPrefab("nightmarefuel")
     end
-	
-    if not inst:HasTag("burnt") then
-	inst.components.lootdropper:SpawnLootPrefab("Twigs")
-	inst.components.lootdropper:SpawnLootPrefab("log")
-	inst.components.lootdropper:SpawnLootPrefab("beaverskin")
-	end 
-	
-	if inst:HasTag("burnt") then
-	inst.components.lootdropper:SpawnLootPrefab("Twigs")
-	inst.components.lootdropper:SpawnLootPrefab("Charcoal")
-	end
 
-	
-	
---    inst.components.lootdropper:DropLoot()
+    if not inst:HasTag("burnt") then
+        inst.components.lootdropper:SpawnLootPrefab("Twigs")
+        inst.components.lootdropper:SpawnLootPrefab("log")
+        inst.components.lootdropper:SpawnLootPrefab("beaverskin")
+    end
+
+    if inst:HasTag("burnt") then
+        inst.components.lootdropper:SpawnLootPrefab("Twigs")
+        inst.components.lootdropper:SpawnLootPrefab("Charcoal")
+    end
+
+
+
+    --    inst.components.lootdropper:DropLoot()
     inst:Remove()
 end
 
-local function OnWorked(inst) 
-    if not inst:HasTag("burnt") then 
+local function OnWorked(inst)
+    if not inst:HasTag("burnt") then
         inst.AnimState:PlayAnimation("hit")
         inst.AnimState:PushAnimation(inst.awake and "idle_awake" or "idle_asleep")
     end
@@ -87,11 +87,11 @@ end
 local function OnHaunt(inst, haunter)
     --#HAUNTFIX
     --if math.random() <= TUNING.HAUNT_CHANCE_OCCASIONAL and
-        --inst.components.workable ~= nil and
-        --inst.components.workable:CanBeWorked() then
-        --inst.components.workable:WorkedBy(haunter, 1)
-        --inst.components.hauntable.hauntvalue = TUNING.HAUNT_SMALL
-        --return true
+    --inst.components.workable ~= nil and
+    --inst.components.workable:CanBeWorked() then
+    --inst.components.workable:WorkedBy(haunter, 1)
+    --inst.components.hauntable.hauntvalue = TUNING.HAUNT_SMALL
+    --return true
     --else
     if not (inst.awake or inst:HasTag("burnt")) then
         inst.awake = true
@@ -111,10 +111,10 @@ local function fn()
     inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
-	inst.Transform:SetScale(1.3, 1.3, 1.3)
+    inst.Transform:SetScale(1.3, 1.3, 1.3)
 
     inst:AddTag("structure")
-    inst:AddTag("chewable")  -- for werebeaver
+    inst:AddTag("chewable") -- for werebeaver
 
     inst.AnimState:SetBank("pig_head")
     inst.AnimState:SetBuild("bea_head")
@@ -138,9 +138,9 @@ local function fn()
     inst.components.workable:SetWorkLeft(3)
     inst.components.workable:SetOnWorkCallback(OnWorked)
     inst.components.workable.onfinish = OnFinish
-		
-	
-	
+
+
+
 
     MakeSmallBurnable(inst, nil, nil, true)
     MakeSmallPropagator(inst)

@@ -22,16 +22,16 @@ local prefabs =
     "rock_break_fx",
 }
 
-SetSharedLootTable( 'spidercoralhole',
-{
-    {'rocks',       1.00},
-    {'rocks',       1.00},
-    {'silk',        1.00},
-    {'fossil_piece',1.00},
-    {'fossil_piece',0.50},
-    {'spidergland', 0.25},
-    {'silk',        0.50},
-})
+SetSharedLootTable('spidercoralhole',
+    {
+        { 'rocks',        1.00 },
+        { 'rocks',        1.00 },
+        { 'silk',         1.00 },
+        { 'fossil_piece', 1.00 },
+        { 'fossil_piece', 0.50 },
+        { 'spidergland',  0.25 },
+        { 'silk',         0.50 },
+    })
 
 local function updateart(inst)
     local workleft = inst.components.workable.workleft
@@ -42,14 +42,14 @@ local function updateart(inst)
 end
 
 local function OnWork(inst, worker, workleft)
-local workleft = inst.components.workable.workleft
-if workleft == 7 or workleft == 4 or workleft == 1 then
-local aranha = SpawnPrefab("spider_water")
-if aranha then
-aranha.Transform:SetPosition(inst.Transform:GetWorldPosition())
-aranha.components.combat:SetTarget(worker)
-end
-end 
+    local workleft = inst.components.workable.workleft
+    if workleft == 7 or workleft == 4 or workleft == 1 then
+        local aranha = SpawnPrefab("spider_water")
+        if aranha then
+            aranha.Transform:SetPosition(inst.Transform:GetWorldPosition())
+            aranha.components.combat:SetTarget(worker)
+        end
+    end
 
 
     if workleft <= 0 then
@@ -72,7 +72,8 @@ local DAMAGE_SCALE = 0.5
 local function OnCollide(inst, data)
     local boat_physics = data.other.components.boatphysics
     if boat_physics ~= nil then
-        local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) * DAMAGE_SCALE / boat_physics.max_velocity + 0.5)
+        local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) * DAMAGE_SCALE /
+        boat_physics.max_velocity + 0.5)
         inst.components.workable:WorkedBy(data.other, hit_velocity * TUNING.SEASTACK_MINE)
     end
 end
@@ -103,21 +104,21 @@ local function fn()
     MakeWaterObstaclePhysics(inst, 0.80, 2, 1.25)
 
     inst:AddTag("ignorewalkableplatforms")
---    inst:AddTag("seastack")
+    --    inst:AddTag("seastack")
 
     inst.AnimState:SetBank("spider_mound")
     inst.AnimState:SetBuild("uderwater_spider_mound")
-    inst.AnimState:PlayAnimation("full")	
+    inst.AnimState:PlayAnimation("full")
 
-    MakeInventoryFloatable(inst, "large", 0.1, {1.2, 0.9, 1.2})
+    MakeInventoryFloatable(inst, "large", 0.1, { 1.2, 0.9, 1.2 })
     inst.components.floater.bob_percent = 0
 
-    local land_time = (POPULATING and math.random()*5*FRAMES) or 0
+    local land_time = (POPULATING and math.random() * 5 * FRAMES) or 0
     inst:DoTaskInTime(land_time, function(inst)
         inst.components.floater:OnLandedServer()
     end)
-	
-	inst:SetPrefabNameOverride("spiderden")	
+
+    inst:SetPrefabNameOverride("spiderden")
 
     inst.entity:SetPristine()
 

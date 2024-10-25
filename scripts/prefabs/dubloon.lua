@@ -1,6 +1,6 @@
 local assets =
 {
-	Asset("ANIM", "anim/dubloon.zip"),
+    Asset("ANIM", "anim/dubloon.zip"),
 }
 
 local function shine(inst)
@@ -25,11 +25,11 @@ local function fn()
     inst.AnimState:SetBank("dubloon")
     inst.AnimState:SetBuild("dubloon")
     inst.AnimState:PlayAnimation("idle")
-	
-	MakeInventoryFloatable(inst)
+
+    MakeInventoryFloatable(inst)
     inst:AddTag("molebait")
     inst:AddTag("quakedebris")
-	inst:AddTag("dubloon")
+    inst:AddTag("dubloon")
 
     inst.entity:SetPristine()
 
@@ -45,11 +45,11 @@ local function fn()
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"	
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
-	
-	
-	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
+
     inst:AddComponent("stackable")
     inst:AddComponent("bait")
 

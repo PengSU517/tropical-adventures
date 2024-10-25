@@ -50,7 +50,7 @@ local function OnAttack(inst, attacker, target)
 		inst.components.inventory:DropItem(spear, true, false, target:GetPosition())
 		local pos = spear:GetPosition()
 		local vel = (pos - target:GetPosition()):Normalize()
-		spear.Transform:SetPosition(pos.x + vel.x, pos.y, pos.z + vel.z) --move the position a bit so it doesn't clip through the player 
+		spear.Transform:SetPosition(pos.x + vel.x, pos.y, pos.z + vel.z) --move the position a bit so it doesn't clip through the player
 		spear.Physics:SetVel(vel.x * 4, 5, vel.z * 4)
 	end
 end
@@ -64,7 +64,7 @@ local function OnTakeAmmo(inst, data)
 	if not ammo then return end
 	local speartype = _spears[ammo.prefab] or "spear"
 
-    inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/weapon/speargun_load")
+	inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/weapon/speargun_load")
 
 	inst.components.trader.enabled = false
 	--Set up as projectile thrower instead of crummy bat
@@ -77,16 +77,16 @@ local function OnTakeAmmo(inst, data)
 	inst.components.weapon:SetDamage(damage)
 
 	--Change equip overrides
-	inst.override_bank = "swap_speargun_".. speartype
+	inst.override_bank = "swap_speargun_" .. speartype
 
 	--If equipped, change current equip overrides
 	if inst.components.equippable and inst.components.equippable:IsEquipped() then
 		local owner = inst.components.inventoryitem.owner
 		owner.AnimState:OverrideSymbol("swap_object", inst.override_bank, "swap_speargun")
 	end
-	
+
 	--Change invo image.
-	inst.components.inventoryitem:ChangeImageName("spear_launcher_".. speartype)
+	inst.components.inventoryitem:ChangeImageName("spear_launcher_" .. speartype)
 end
 
 local function OnLoseAmmo(inst, data)
@@ -123,25 +123,25 @@ local function fn()
 	inst.entity:AddSoundEmitter()
 
 	MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst, "med", 0.05, {0.8, 0.4, 0.8})	
+	MakeInventoryFloatable(inst, "med", 0.05, { 0.8, 0.4, 0.8 })
 
 	inst.AnimState:SetBank("speargun")
 	inst.AnimState:SetBuild("speargun_empty")
 	inst.AnimState:PlayAnimation("idle")
-	inst:AddTag("rangedweapon")	
+	inst:AddTag("rangedweapon")
 
 	inst.entity:SetPristine()
-	
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
-	
+
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("weapon")
 	inst.components.weapon.onattack = OnAttack
 
-    inst:AddComponent("inventoryitem")
+	inst:AddComponent("inventoryitem")
 	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
 	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 	inst.components.inventoryitem:SetOnDroppedFn(OnDropped)
@@ -155,7 +155,7 @@ local function fn()
 	inst.components.trader.deleteitemonaccept = false
 	inst.components.trader:SetAcceptTest(CanTakeAmmo)
 	inst.components.trader.enabled = true
-    inst.components.trader.acceptnontradable = true
+	inst.components.trader.acceptnontradable = true
 
 	inst:AddComponent("finiteuses")
 	inst.components.finiteuses:SetMaxUses(SPEAR_LAUNCHER_USES)
@@ -163,7 +163,7 @@ local function fn()
 	inst.components.finiteuses:SetOnFinished(inst.Remove)
 
 	inst.override_bank = "swap_speargun_empty"
-	
+
 	inst:AddComponent("equippable")
 	inst.components.equippable:SetOnEquip(OnEquip)
 	inst.components.equippable:SetOnUnequip(OnUnequip)
@@ -182,13 +182,13 @@ local function OnHit(inst, attacker, target, weapon)
 end
 
 local function OnThrown(inst, owner, target)
-	inst.AnimState:SetOrientation( ANIM_ORIENTATION.OnGround)
+	inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
 	inst:ForceFacePoint(target:GetPosition():Get())
 
 	--Change projectile art to match spear type.
 	local spear = owner.components.inventory:GetItemInSlot(1)
 	if spear then
-		inst.AnimState:PlayAnimation("spear_".. ( _spears[spear.prefab] or "spear") )
+		inst.AnimState:PlayAnimation("spear_" .. (_spears[spear.prefab] or "spear"))
 	end
 end
 
@@ -206,9 +206,9 @@ local function projectile_fn()
 
 	inst:AddTag("projectile")
 	inst:AddTag("sharp")
-	
+
 	inst.entity:SetPristine()
-	
+
 	if not TheWorld.ismastersim then
 		return inst
 	end
@@ -224,4 +224,4 @@ local function projectile_fn()
 end
 
 return Prefab("spear_launcher", fn, assets, prefabs),
-Prefab("spear_projectile", projectile_fn, assets)
+	Prefab("spear_projectile", projectile_fn, assets)

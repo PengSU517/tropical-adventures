@@ -34,13 +34,14 @@ end
 local function onbuilt(inst)
 	inst.AnimState:PlayAnimation("place")
 	inst.AnimState:PushAnimation("idle", true)
-	
+
 	if inst.shadow then
 		inst.shadow.AnimState:PlayAnimation("place")
 		inst.shadow.AnimState:PushAnimation("idle", true)
 	end
 	inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/palmleafhut_jumpup")
-	inst:DoTaskInTime(23*FRAMES, function() inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/palmleafhut_land") end)
+	inst:DoTaskInTime(23 * FRAMES,
+		function() inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/palmleafhut_land") end)
 end
 
 local function onsave(inst, data)
@@ -62,23 +63,23 @@ local function onremove(inst)
 end
 
 local function OnBurnt(inst, imm)
-    local ash = SpawnPrefab("ash")
-    ash.Transform:SetPosition(inst.Transform:GetWorldPosition())
-    inst:Remove()	
+	local ash = SpawnPrefab("ash")
+	ash.Transform:SetPosition(inst.Transform:GetWorldPosition())
+	inst:Remove()
 end
 
-local function onnear(inst, player) 
-inst.jogador = player
-if inst.jogador and inst.jogador.components.moisture ~= nil then
-inst.jogador.components.moisture:SetInherentWaterproofness(1)
-end
+local function onnear(inst, player)
+	inst.jogador = player
+	if inst.jogador and inst.jogador.components.moisture ~= nil then
+		inst.jogador.components.moisture:SetInherentWaterproofness(1)
+	end
 end
 
-local function onfar(inst) 
-if inst.jogador and inst.jogador.components.moisture ~= nil then
-inst.jogador.components.moisture:SetInherentWaterproofness(0)
-end
-inst.jogador = nil
+local function onfar(inst)
+	if inst.jogador and inst.jogador.components.moisture ~= nil then
+		inst.jogador.components.moisture:SetInherentWaterproofness(0)
+	end
+	inst.jogador = nil
 end
 
 local function fn(Sim)
@@ -95,16 +96,16 @@ local function fn(Sim)
 	anim:SetBank("hut")
 	anim:SetBuild("palmleaf_hut")
 	anim:PlayAnimation("idle", true)
-	
+
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("palmleaf_hut.tex" )
+	minimap:SetIcon("palmleaf_hut.tex")
 
 	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
-	
+	if not TheWorld.ismastersim then
+		return inst
+	end
+
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("lootdropper")
@@ -114,11 +115,11 @@ local function fn(Sim)
 	inst.components.workable:SetWorkLeft(4)
 	inst.components.workable:SetOnFinishCallback(onhammered)
 	inst.components.workable:SetOnWorkCallback(onhit)
-	
-	inst:AddComponent( "playerprox" )
-    inst.components.playerprox:SetDist(2,3)
-    inst.components.playerprox:SetOnPlayerNear(onnear)
-    inst.components.playerprox:SetOnPlayerFar(onfar)
+
+	inst:AddComponent("playerprox")
+	inst.components.playerprox:SetDist(2, 3)
+	inst.components.playerprox:SetOnPlayerNear(onnear)
+	inst.components.playerprox:SetOnPlayerFar(onfar)
 	inst.jogador = nil
 
 	inst.shadow = SpawnPrefab("palmleaf_hut_shadow")
@@ -127,14 +128,14 @@ local function fn(Sim)
 	end)
 
 	MakeSnowCovered(inst, .01)
-	inst:ListenForEvent( "onbuilt", onbuilt)
+	inst:ListenForEvent("onbuilt", onbuilt)
 
 	MakeLargeBurnable(inst, nil, nil, true)
-	inst.components.burnable:SetOnBurntFn(OnBurnt)	
-	
+	inst.components.burnable:SetOnBurntFn(OnBurnt)
+
 	MakeLargePropagator(inst)
-	
-	inst.OnSave = onsave 
+
+	inst.OnSave = onsave
 	inst.OnLoad = onload
 
 	inst.OnRemoveEntity = onremove
@@ -162,6 +163,6 @@ local function shadowfn()
 	return inst
 end
 
-return Prefab( "palmleaf_hut", fn, assets, prefabs),
-MakePlacer( "palmleaf_hut_placer", "hut", "palmleaf_hut", "idle" ),
-Prefab("palmleaf_hut_shadow", shadowfn, assets)
+return Prefab("palmleaf_hut", fn, assets, prefabs),
+	MakePlacer("palmleaf_hut_placer", "hut", "palmleaf_hut", "idle"),
+	Prefab("palmleaf_hut_shadow", shadowfn, assets)

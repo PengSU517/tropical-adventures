@@ -1,4 +1,4 @@
-local assets=
+local assets =
 {
     Asset("ANIM", "anim/bugrepellent.zip"),
     Asset("ANIM", "anim/swap_bugrepellent.zip"),
@@ -27,15 +27,15 @@ end
 local function onhit(inst, attacker, target)
     local impactfx = SpawnPrefab("impact")
     if impactfx and attacker then
-	    local follower = impactfx.entity:AddFollower()
-	    follower:FollowSymbol(target.GUID, target.components.combat.hiteffectsymbol, 0, 0, 0 )
+        local follower = impactfx.entity:AddFollower()
+        follower:FollowSymbol(target.GUID, target.components.combat.hiteffectsymbol, 0, 0, 0)
         impactfx:FacePoint(attacker.Transform:GetWorldPosition())
     end
     inst:Remove()
 end
 
 local function onthrown(inst, data)
-    inst.AnimState:SetOrientation( ANIM_ORIENTATION.OnGround )
+    inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
     inst.AnimState:PlayAnimation("speargun")
 end
 
@@ -57,30 +57,28 @@ end
 
 
 local function commonfn()
-
-
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
     inst.entity:AddNetwork()
-	
+
     MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst)	
+    MakeInventoryFloatable(inst)
     --inst.Transform:SetFourFaced()
     anim:SetBank("bugrepellent")
     anim:SetBuild("bugrepellent")
     inst.AnimState:PlayAnimation("idle")
 
     inst:AddTag("bugrepellent")
-	inst:AddTag("aquatic") 
-  
-	inst.entity:SetPristine()
+    inst:AddTag("aquatic")
 
-	if not TheWorld.ismastersim then
-		return inst
-	end
+    inst.entity:SetPristine()
 
-    inst:AddComponent("gasser")    
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
+    inst:AddComponent("gasser")
 
     inst:AddComponent("inspectable")
 
@@ -92,15 +90,14 @@ local function commonfn()
     inst:AddComponent("finiteuses")
     inst.components.finiteuses:SetMaxUses(BUGREPELLENT_USES)
     inst.components.finiteuses:SetUses(BUGREPELLENT_USES)
-    inst.components.finiteuses:SetOnFinished( onfinished )    
+    inst.components.finiteuses:SetOnFinished(onfinished)
     inst.components.finiteuses:SetConsumption(ACTIONS.GAS, 1)
 
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"
-	
+    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
     return inst
 end
 
-return Prefab( "common/inventory/bugrepellent", commonfn, assets, prefabs)
-
+return Prefab("common/inventory/bugrepellent", commonfn, assets, prefabs)

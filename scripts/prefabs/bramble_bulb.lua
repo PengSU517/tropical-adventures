@@ -1,34 +1,34 @@
 require "prefabutil"
 local assets =
 {
-Asset("ANIM", "anim/bramble_bulb.zip"),
+    Asset("ANIM", "anim/bramble_bulb.zip"),
 }
 
-local prefabs = 
+local prefabs =
 {
-  --  "acorn_cooked",    
+    --  "acorn_cooked",
 }
 
 local function fn()
-	local inst = CreateEntity()
-    inst.entity:AddNetwork()	
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
-	inst.entity:AddSoundEmitter()
+    local inst = CreateEntity()
+    inst.entity:AddNetwork()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
+    inst.entity:AddSoundEmitter()
     MakeInventoryPhysics(inst)
- --   MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.MEDIUM, TUNING.WINDBLOWN_SCALE_MAX.MEDIUM)
+    --   MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.MEDIUM, TUNING.WINDBLOWN_SCALE_MAX.MEDIUM)
 
     inst.AnimState:SetBank("bramble_bulb")
     inst.AnimState:SetBuild("bramble_bulb")
     inst.AnimState:PlayAnimation("idle")
 
     MakeInventoryFloatable(inst)
-	
-	inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end		
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
 
     inst:AddTag("cattoy")
     inst:AddComponent("tradable")
@@ -48,22 +48,20 @@ local function fn()
     inst:AddComponent("bait")
 
     inst:AddComponent("inspectable")
-   -- inst.components.inspectable.getstatus = describe
-    
-	MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)    
+    -- inst.components.inspectable.getstatus = describe
+
+    MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
---    inst.components.burnable:MakeDragonflyBait(3)
-    
+    --    inst.components.burnable:MakeDragonflyBait(3)
+
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"	
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
-      
---    inst.OnSave = OnSave
---    inst.OnLoad = OnLoad
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+    --    inst.OnSave = OnSave
+    --    inst.OnLoad = OnLoad
 
     return inst
 end
 
-return Prefab( "common/inventory/bramble_bulb", fn, assets, prefabs)
-
-
+return Prefab("common/inventory/bramble_bulb", fn, assets, prefabs)

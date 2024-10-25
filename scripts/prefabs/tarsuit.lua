@@ -1,8 +1,8 @@
-local assets=
+local assets =
 {
     Asset("ANIM", "anim/armor_tarsuit.zip"),
 }
-	
+
 local function onequip(inst, owner)
     owner.AnimState:OverrideSymbol("swap_body", "armor_tarsuit", "swap_body")
     inst.components.fueled:StartConsuming()
@@ -22,15 +22,15 @@ local function fn()
 
     MakeInventoryPhysics(inst)
     MakeInventoryFloatable(inst)
-	
+
     inst.AnimState:SetBank("armor_tarsuit")
     inst.AnimState:SetBuild("armor_tarsuit")
     inst.AnimState:PlayAnimation("anim")
 
     --waterproofer (from waterproofer component) added to pristine state for optimization
     inst:AddTag("waterproofer")
-	inst:AddTag("aquatic")
-    inst:AddTag("tarsuit")	
+    inst:AddTag("aquatic")
+    inst:AddTag("tarsuit")
 
     inst.entity:SetPristine()
 
@@ -41,10 +41,10 @@ local function fn()
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-	inst.foleysound = "dontstarve_DLC002/common/foley/blubber_suit"
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
-	
+    inst.foleysound = "dontstarve_DLC002/common/foley/blubber_suit"
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
     inst:AddComponent("equippable")
     inst.components.equippable.equipslot = EQUIPSLOTS.BODY
     inst.components.equippable.insulated = true
@@ -52,12 +52,12 @@ local function fn()
     inst.components.equippable:SetOnUnequip(onunequip)
 
     inst:AddComponent("waterproofer")
-	inst.components.waterproofer.effectiveness = 1
+    inst.components.waterproofer.effectiveness = 1
 
     inst:AddComponent("fueled")
     inst.components.fueled.fueltype = "TAR"
-    inst.components.fueled.accepting = true	
-    inst.components.fueled.bonusmult = 2	
+    inst.components.fueled.accepting = true
+    inst.components.fueled.bonusmult = 2
     inst.components.fueled:InitializeFuelLevel(1440)
     inst.components.fueled:SetDepletedFn(inst.Remove)
 
@@ -66,4 +66,4 @@ local function fn()
     return inst
 end
 
-return Prefab( "tarsuit", fn, assets)
+return Prefab("tarsuit", fn, assets)

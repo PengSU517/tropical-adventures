@@ -15,28 +15,29 @@ local function ShouldSleep(inst)
 end
 
 local function gosleep(inst)
-	inst:PushEvent("gotosleep")
+    inst:PushEvent("gotosleep")
 end
 
 local function wakeup(inst)
-	inst:PushEvent("onwakeup")
+    inst:PushEvent("onwakeup")
 end
 
 local function OnIsDay(inst)
     if not TheWorld.state.isday then
-		inst:DoTaskInTime(2.5 + 2 * math.random(), gosleep)
-	--	inst:PushEvent("gotosleep")
-	else
-		inst:DoTaskInTime(0, wakeup)
-	--	inst:PushEvent("onwakeup")
-	end
+        inst:DoTaskInTime(2.5 + 2 * math.random(), gosleep)
+        --	inst:PushEvent("gotosleep")
+    else
+        inst:DoTaskInTime(0, wakeup)
+        --	inst:PushEvent("onwakeup")
+    end
 end
 
 local function NormalRetargetFn(inst)
     return FindEntity(inst, TUNING.PIG_TARGET_DIST,
         function(guy)
             if guy.components.health and not guy.components.health:IsDead() and inst.components.combat:CanTarget(guy) then
-                if guy:HasTag("player") and guy.components.inventory and guy:GetDistanceSqToInst(inst) < 25 then return guy end
+                if guy:HasTag("player") and guy.components.inventory and guy:GetDistanceSqToInst(inst) < 25 then return
+                    guy end
             end
         end)
 end
@@ -50,7 +51,7 @@ local function OnAttacked(inst, data)
     local attacker = data.attacker
     inst:ClearBufferedAction()
 
-    if attacker.prefab == "deciduous_root" and attacker.owner then 
+    if attacker.prefab == "deciduous_root" and attacker.owner then
         OnAttackedByDecidRoot(inst, attacker.owner)
     elseif attacker.prefab ~= "deciduous_root" then
         inst.components.combat:SetTarget(attacker)
@@ -68,11 +69,11 @@ local function crab()
     inst.entity:AddNetwork()
 
     MakeCharacterPhysics(inst, 1, .25)
-	inst.Transform:SetScale(1.5, 1.5, 1.5)
---    inst.DynamicShadow:SetSize(1, .75)
---	inst.Transform:SetNoFaced()
---    inst.Transform:SetSixFaced()
-	inst.Transform:SetFourFaced()
+    inst.Transform:SetScale(1.5, 1.5, 1.5)
+    --    inst.DynamicShadow:SetSize(1, .75)
+    --	inst.Transform:SetNoFaced()
+    --    inst.Transform:SetSixFaced()
+    inst.Transform:SetFourFaced()
 
     inst.AnimState:SetBank("grub")
     inst.AnimState:SetBuild("grotto_grub")
@@ -83,7 +84,7 @@ local function crab()
     inst:AddTag("smallcreature")
     inst:AddTag("canbetrapped")
     inst:AddTag("cattoy")
-    inst:AddTag("crab") 	
+    inst:AddTag("crab")
 
     inst.entity:SetPristine()
 
@@ -92,46 +93,46 @@ local function crab()
     end
 
     inst:AddComponent("health")
-    inst.components.health:SetMaxHealth(250)	
-	
+    inst.components.health:SetMaxHealth(250)
+
     inst:AddComponent("eater")
-    inst.components.eater:SetDiet({ FOODTYPE.VEGGIE }, { FOODTYPE.VEGGIE })	
-	
-	inst:AddComponent("locomotor")
+    inst.components.eater:SetDiet({ FOODTYPE.VEGGIE }, { FOODTYPE.VEGGIE })
+
+    inst:AddComponent("locomotor")
     inst.components.locomotor.runspeed = 1
     inst.components.locomotor.walkspeed = 1
-	
-	inst:AddComponent("knownlocations")
-	
+
+    inst:AddComponent("knownlocations")
+
     inst:AddComponent("sleeper")
     inst.components.sleeper:SetSleepTest(DefaultSleepTest)
     inst.components.sleeper:SetWakeTest(DefaultWakeTest)
-	
+
     inst:AddComponent("combat")
---    inst.components.combat.hiteffectsymbol = "antman_torso"	
-    inst.components.combat:SetDefaultDamage(34 * 2/3)
+    --    inst.components.combat.hiteffectsymbol = "antman_torso"	
+    inst.components.combat:SetDefaultDamage(34 * 2 / 3)
     inst.components.combat:SetAttackPeriod(3)
     inst.components.combat:SetKeepTargetFunction(NormalKeepTargetFn)
     inst.components.combat:SetRetargetFunction(3, NormalRetargetFn)
-    inst.components.combat:SetTarget(nil)	
-	
-	inst:AddComponent("homeseeker")
-	
+    inst.components.combat:SetTarget(nil)
+
+    inst:AddComponent("homeseeker")
+
     inst:AddComponent("lootdropper")
-	inst.components.lootdropper:SetLoot({"quagmire_crabmeat"})
-	
---	inst:WatchWorldState("isday", OnIsDay)
+    inst.components.lootdropper:SetLoot({ "quagmire_crabmeat" })
 
---	inst:DoTaskInTime(0, OnIsDay)
+    --	inst:WatchWorldState("isday", OnIsDay)
 
-	inst:SetStateGraph("SGgrotogrub")
-	
+    --	inst:DoTaskInTime(0, OnIsDay)
+
+    inst:SetStateGraph("SGgrotogrub")
+
     inst:SetBrain(brain)
 
-	inst:AddComponent("inspectable")
-	
-    inst:ListenForEvent("attacked", OnAttacked)	
-	
+    inst:AddComponent("inspectable")
+
+    inst:ListenForEvent("attacked", OnAttacked)
+
     return inst
 end
 

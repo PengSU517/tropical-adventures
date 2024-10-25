@@ -1,7 +1,7 @@
 local assets =
 {
     Asset("ANIM", "anim/gravespigs1.zip"),
-    Asset("ANIM", "anim/gravespigs2.zip"),	
+    Asset("ANIM", "anim/gravespigs2.zip"),
     Asset("MINIMAP_IMAGE", "gravestones"),
 }
 
@@ -18,14 +18,14 @@ local function onload(inst, data, newents)
     if data then
         if inst.mound and data.mounddata then
             if newents and data.mounddata.id then
-                newents[data.mounddata.id] = {entity=inst.mound, data=data.mounddata} 
+                newents[data.mounddata.id] = { entity = inst.mound, data = data.mounddata }
             end
             inst.mound:SetPersistData(data.mounddata.data, newents)
         end
 
         if data.setepitaph then
             --this handles custom epitaphs set in the tile editor
-            inst.components.inspectable:SetDescription("'"..data.setepitaph.."'")
+            inst.components.inspectable:SetDescription("'" .. data.setepitaph .. "'")
             inst.setepitaph = data.setepitaph
         end
     end
@@ -47,8 +47,8 @@ local function onsave(inst, data)
 end
 
 -- Ghosts on a quest (following someone) shouldn't block other ghost spawns!
-local CANTHAVE_GHOST_TAGS = {"questing"}
-local MUSTHAVE_GHOST_TAGS = {"ghostkid"}
+local CANTHAVE_GHOST_TAGS = { "questing" }
+local MUSTHAVE_GHOST_TAGS = { "ghostkid" }
 local function on_day_change(inst)
     if inst.ghost == nil or not inst.ghost:IsValid() and #AllPlayers > 0 then
         local ghost_spawn_chance = 0
@@ -61,7 +61,8 @@ local function on_day_change(inst)
 
         if math.random() < ghost_spawn_chance then
             local gx, gy, gz = inst.Transform:GetWorldPosition()
-            local nearby_ghosts = TheSim:FindEntities(gx, gy, gz, TUNING.UNIQUE_SMALLGHOST_DISTANCE, MUSTHAVE_GHOST_TAGS, CANTHAVE_GHOST_TAGS)
+            local nearby_ghosts = TheSim:FindEntities(gx, gy, gz, TUNING.UNIQUE_SMALLGHOST_DISTANCE, MUSTHAVE_GHOST_TAGS,
+                CANTHAVE_GHOST_TAGS)
             if #nearby_ghosts == 0 then
                 inst.ghost = SpawnPrefab("smallghost")
                 inst.ghost.Transform:SetPosition(gx + 0.3, gy, gz + 0.3)
@@ -76,7 +77,7 @@ local function onloadpostpass(inst, newents, savedata)
     if savedata ~= nil then
         if savedata.ghost_id ~= nil and newents[savedata.ghost_id] ~= nil then
             inst.ghost = newents[savedata.ghost_id].entity
-			inst.ghost:LinkToHome(inst)
+            inst.ghost:LinkToHome(inst)
         end
     end
 end
@@ -121,7 +122,7 @@ local function fn()
         return inst
     end
 
-    inst.AnimState:PlayAnimation("grave"..tostring(math.random(4)))
+    inst.AnimState:PlayAnimation("grave" .. tostring(math.random(4)))
 
     inst:AddComponent("inspectable")
     inst.components.inspectable:SetDescription(STRINGS.EPITAPHS[math.random(#STRINGS.EPITAPHS)])
@@ -129,7 +130,7 @@ local function fn()
     inst.mound = inst:SpawnChild("mound")
     inst.mound.ghost_of_a_chance = 0.0
     inst:ListenForEvent("worked", on_child_mound_dug, inst.mound)
-    inst.mound.Transform:SetPosition((TheCamera:GetDownVec()*.5):Get())
+    inst.mound.Transform:SetPosition((TheCamera:GetDownVec() * .5):Get())
 
     inst:AddComponent("hauntable")
     inst.components.hauntable:SetOnHauntFn(OnHaunt)
@@ -138,7 +139,7 @@ local function fn()
 
     inst.OnLoad = onload
     inst.OnSave = onsave
-    inst.OnLoadPostPass = onloadpostpass	
+    inst.OnLoadPostPass = onloadpostpass
 
     return inst
 end
@@ -166,7 +167,7 @@ local function fn1()
         return inst
     end
 
-    inst.AnimState:PlayAnimation("grave"..tostring(math.random(4)))
+    inst.AnimState:PlayAnimation("grave" .. tostring(math.random(4)))
 
     inst:AddComponent("inspectable")
     inst.components.inspectable:SetDescription(STRINGS.EPITAPHS[math.random(#STRINGS.EPITAPHS)])
@@ -174,7 +175,7 @@ local function fn1()
     inst.mound = inst:SpawnChild("mound")
     inst.mound.ghost_of_a_chance = 0.0
     inst:ListenForEvent("worked", on_child_mound_dug, inst.mound)
-    inst.mound.Transform:SetPosition((TheCamera:GetDownVec()*.5):Get())
+    inst.mound.Transform:SetPosition((TheCamera:GetDownVec() * .5):Get())
 
     inst:AddComponent("hauntable")
     inst.components.hauntable:SetOnHauntFn(OnHaunt)
@@ -189,4 +190,4 @@ local function fn1()
 end
 
 return Prefab("piggravestone1", fn, assets, prefabs),
-	   Prefab("piggravestone2", fn1, assets, prefabs)
+    Prefab("piggravestone2", fn1, assets, prefabs)

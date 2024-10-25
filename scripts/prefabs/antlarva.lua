@@ -1,11 +1,11 @@
 require "stategraphs/SGantlarva"
 
-local assets = 
+local assets =
 {
 	Asset("ANIM", "anim/ant_larva.zip"),
 }
 
-local prefabs = 
+local prefabs =
 {
 }
 
@@ -23,26 +23,26 @@ end
 
 local function larava_fn()
 	local inst = CreateEntity()
-    inst.entity:AddNetwork()
+	inst.entity:AddNetwork()
 	local trans = inst.entity:AddTransform()
 	local anim = inst.entity:AddAnimState()
 	local sound = inst.entity:AddSoundEmitter()
 
-    local physics = inst.entity:AddPhysics()
-    physics:SetMass(1)
-    physics:SetCapsule(0.2, 0.2)
-    inst.Physics:SetFriction(10)
-    inst.Physics:SetDamping(5)
-    inst.Physics:SetCollisionGroup(COLLISION.CHARACTERS)
+	local physics = inst.entity:AddPhysics()
+	physics:SetMass(1)
+	physics:SetCapsule(0.2, 0.2)
+	inst.Physics:SetFriction(10)
+	inst.Physics:SetDamping(5)
+	inst.Physics:SetCollisionGroup(COLLISION.CHARACTERS)
 	inst.Physics:ClearCollisionMask()
-    inst.Physics:CollidesWith(COLLISION.WORLD)
-    inst.Physics:CollidesWith(COLLISION.OBSTACLES)
-    inst.Physics:CollidesWith(COLLISION.SMALLOBSTACLES)
-    inst.Physics:CollidesWith(COLLISION.CHARACTERS)
-    inst.Physics:CollidesWith(COLLISION.GIANTS)	
-	
-	
-	
+	inst.Physics:CollidesWith(COLLISION.WORLD)
+	inst.Physics:CollidesWith(COLLISION.OBSTACLES)
+	inst.Physics:CollidesWith(COLLISION.SMALLOBSTACLES)
+	inst.Physics:CollidesWith(COLLISION.CHARACTERS)
+	inst.Physics:CollidesWith(COLLISION.GIANTS)
+
+
+
 
 	anim:SetBank("ant_larva")
 	anim:SetBuild("ant_larva")
@@ -51,9 +51,9 @@ local function larava_fn()
 
 	if not TheWorld.ismastersim then
 		return inst
-	end	
-	
-    inst.persists = false
+	end
+
+	inst.persists = false
 
 	inst:AddComponent("locomotor")
 	inst:AddComponent("complexprojectile")

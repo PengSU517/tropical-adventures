@@ -3,35 +3,35 @@ local prefabs = { "rocks" }
 local assets = { Asset("ANIM", "anim/rock_antcave.zip") }
 
 local function fn(Sim)
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, .5)
 
-	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("rock_antcave.png")
+    local minimap = inst.entity:AddMiniMapEntity()
+    minimap:SetIcon("rock_antcave.png")
 
-	anim:SetBank("rock")
-	anim:SetBuild("rock_antcave")
-	anim:PlayAnimation("full", true)
+    anim:SetBank("rock")
+    anim:SetBuild("rock_antcave")
+    anim:PlayAnimation("full", true)
 
     inst:AddTag("structure")
 
     ---------------------
     inst:AddComponent("inspectable")
 
-	
-	inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end		
-    ---------------------  
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+    ---------------------
     inst:AddComponent("lootdropper")
-    inst.components.lootdropper:SetLoot({"rocks", "rocks", "rocks"})
+    inst.components.lootdropper:SetLoot({ "rocks", "rocks", "rocks" })
 
     ---------------------
     inst:AddComponent("workable")
@@ -46,9 +46,9 @@ local function fn(Sim)
                 inst.components.lootdropper:DropLoot(pt)
                 inst:Remove()
             else
-                if workleft < TUNING.ROCKS_MINE*(1/3) then
+                if workleft < TUNING.ROCKS_MINE * (1 / 3) then
                     inst.AnimState:PlayAnimation("low")
-                elseif workleft < TUNING.ROCKS_MINE*(2/3) then
+                elseif workleft < TUNING.ROCKS_MINE * (2 / 3) then
                     inst.AnimState:PlayAnimation("med")
                 else
                     inst.AnimState:PlayAnimation("full")
@@ -56,8 +56,7 @@ local function fn(Sim)
             end
         end)
 
-	return inst
+    return inst
 end
 
-return Prefab("anthill/items/rock_antcave", fn, assets, prefabs) 
-
+return Prefab("anthill/items/rock_antcave", fn, assets, prefabs)

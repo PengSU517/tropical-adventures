@@ -4,7 +4,7 @@ require "prefabutil"
 local assets =
 {
     Asset("ANIM", "anim/swfishbait.zip"),
-	Asset("ANIM", "anim/oceanfishing_lure_mis.zip"),
+    Asset("ANIM", "anim/oceanfishing_lure_mis.zip"),
 }
 
 local prefabs =
@@ -27,8 +27,8 @@ local function raw()
     inst.AnimState:PlayAnimation("idle")
     inst.AnimState:SetRayTestOnBB(true)
 
-	inst:AddTag("oceanfishing_lure")
-	inst:AddTag("swfishbait")		
+    inst:AddTag("oceanfishing_lure")
+    inst:AddTag("swfishbait")
 
     MakeInventoryFloatable(inst)
 
@@ -39,8 +39,8 @@ local function raw()
     end
 
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"		
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
     inst:AddComponent("stackable")
     inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
@@ -55,10 +55,10 @@ local function raw()
     inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERSLOW)
     inst.components.perishable:StartPerishing()
     inst.components.perishable.onperishreplacement = "spoiled_food"
-	
-	inst:AddComponent("oceanfishingtackle")
-	inst.components.oceanfishingtackle:SetupLure({build = "oceanfishing_lure_mis", symbol = "hook_seeds", single_use = true, lure_data = { charm = 0.2, reel_charm = -0.3, radius = 3.0, style = "swfish", timeofday = {day = 1, dusk = 1, night = 1}, dist_max = 1 }})
-	
+
+    inst:AddComponent("oceanfishingtackle")
+    inst.components.oceanfishingtackle:SetupLure({ build = "oceanfishing_lure_mis", symbol = "hook_seeds", single_use = true, lure_data = { charm = 0.2, reel_charm = -0.3, radius = 3.0, style = "swfish", timeofday = { day = 1, dusk = 1, night = 1 }, dist_max = 1 } })
+
 
     return inst
 end

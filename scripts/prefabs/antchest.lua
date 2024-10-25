@@ -327,7 +327,7 @@ local function fn1()
     if not TheWorld.ismastersim then
         return inst
     end
-    
+
     ArtificialPostInit(inst)
 
     return inst

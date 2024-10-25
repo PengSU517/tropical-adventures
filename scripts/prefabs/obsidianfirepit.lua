@@ -3,7 +3,7 @@ require "prefabutil"
 local assets =
 {
     Asset("ANIM", "anim/firepit.zip"),
-	Asset("ANIM", "anim/firepit_obsidian.zip"),
+    Asset("ANIM", "anim/firepit_obsidian.zip"),
 }
 
 local prefabs =
@@ -36,20 +36,22 @@ end
 
 local function ontakefuel(inst)
     inst.SoundEmitter:PlaySound("dontstarve/common/fireAddFuel")
-local alagado = GetClosestInstWithTag("mare", inst, 10)
-if alagado then
-inst.components.burnable:Extinguish()
-end		
+    local alagado = GetClosestInstWithTag("mare", inst, 10)
+    if alagado then
+        inst.components.burnable:Extinguish()
+    end
 end
 
 local function updatefuelrate(inst)
-    inst.components.fueled.rate = TheWorld.state.israining and 1 + TUNING.FIREPIT_RAIN_RATE * TheWorld.state.precipitationrate or 1
+    inst.components.fueled.rate = TheWorld.state.israining and
+    1 + TUNING.FIREPIT_RAIN_RATE * TheWorld.state.precipitationrate or 1
 end
 
 local function onupdatefueled(inst)
     if inst.components.burnable ~= nil and inst.components.fueled ~= nil then
         updatefuelrate(inst)
-        inst.components.burnable:SetFXLevel(inst.components.fueled:GetCurrentSection(), inst.components.fueled:GetSectionPercent())
+        inst.components.burnable:SetFXLevel(inst.components.fueled:GetCurrentSection(),
+            inst.components.fueled:GetSectionPercent())
     end
 end
 
@@ -81,10 +83,10 @@ local function onbuilt(inst)
     inst.AnimState:PlayAnimation("place")
     inst.AnimState:PushAnimation("idle", false)
     inst.SoundEmitter:PlaySound("dontstarve/common/fireAddFuel")
-local alagado = GetClosestInstWithTag("mare", inst, 10)
-if alagado then
-inst.components.burnable:Extinguish()
-end		
+    local alagado = GetClosestInstWithTag("mare", inst, 10)
+    if alagado then
+        inst.components.burnable:Extinguish()
+    end
 end
 
 local function OnHaunt(inst, haunter)
@@ -94,8 +96,8 @@ local function OnHaunt(inst, haunter)
         inst.components.fueled:DoDelta(TUNING.MED_FUEL)
         inst.components.hauntable.hauntvalue = TUNING.HAUNT_SMALL
         return true
-    --#HAUNTFIX
-    --elseif math.random() <= TUNING.HAUNT_CHANCE_HALF and
+        --#HAUNTFIX
+        --elseif math.random() <= TUNING.HAUNT_CHANCE_HALF and
         --inst.components.workable ~= nil and
         --inst.components.workable:CanBeWorked() then
         --inst.components.workable:WorkedBy(haunter, 1)
@@ -144,7 +146,7 @@ local function fn()
 
     -----------------------
     inst:AddComponent("burnable")
---    inst.components.burnable:SetFXLevel(2)
+    --    inst.components.burnable:SetFXLevel(2)
     inst.components.burnable:AddBurnFX("obsidianfirefire", Vector3(0, 0.55, 0))
     inst:ListenForEvent("onextinguish", onextinguish)
 
@@ -160,11 +162,11 @@ local function fn()
     inst:AddComponent("cooker")
     -------------------------
     inst:AddComponent("fueled")
-    inst.components.fueled.maxfuel = TUNING.FIREPIT_FUEL_MAX*2
+    inst.components.fueled.maxfuel = TUNING.FIREPIT_FUEL_MAX * 2
     inst.components.fueled.accepting = true
 
     inst.components.fueled:SetSections(4)
-    inst.components.fueled.bonusmult = TUNING.FIREPIT_BONUS_MULT*3
+    inst.components.fueled.bonusmult = TUNING.FIREPIT_BONUS_MULT * 3
     inst.components.fueled:SetTakeFuelFn(ontakefuel)
     inst.components.fueled:SetUpdateFn(onupdatefueled)
     inst.components.fueled:SetSectionCallback(onfuelchange)

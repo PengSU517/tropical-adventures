@@ -1,37 +1,37 @@
 local assets =
 {
-	Asset("ANIM", "anim/swap_pirate_booty_bag.zip"),
+    Asset("ANIM", "anim/swap_pirate_booty_bag.zip"),
 }
 local TEMPODAMOEDA = 480
 
 local function SpawnDubloon(inst)
     local dubloon = SpawnPrefab("dubloon")
-    local pt = Vector3(inst.Transform:GetWorldPosition()) + Vector3(0,2,0)
+    local pt = Vector3(inst.Transform:GetWorldPosition()) + Vector3(0, 2, 0)
 
     dubloon.Transform:SetPosition(pt:Get())
---    local angle = inst.Transform:GetRotation()*(PI/180)
---    local sp = (math.random()+1) * -1
---    dubloon.Physics:SetVel(sp*math.cos(angle), math.random()*2+8, -sp*math.sin(angle))
---  dubloon.components.inventoryitem:OnStartFalling()
-	inst.components.fueled.currentfuel = TEMPODAMOEDA
+    --    local angle = inst.Transform:GetRotation()*(PI/180)
+    --    local sp = (math.random()+1) * -1
+    --    dubloon.Physics:SetVel(sp*math.cos(angle), math.random()*2+8, -sp*math.sin(angle))
+    --  dubloon.components.inventoryitem:OnStartFalling()
+    inst.components.fueled.currentfuel = TEMPODAMOEDA
 end
 
 local function onequip(inst, owner)
     owner.AnimState:OverrideSymbol("swap_body", "swap_pirate_booty_bag", "backpack")
-	owner.AnimState:OverrideSymbol("swap_body", "swap_pirate_booty_bag", "swap_body")
+    owner.AnimState:OverrideSymbol("swap_body", "swap_pirate_booty_bag", "swap_body")
     inst.components.container:Open(owner)
-	if inst.components.fueled then
-       inst.components.fueled:StartConsuming()        
+    if inst.components.fueled then
+        inst.components.fueled:StartConsuming()
     end
 end
 
 local function onunequip(inst, owner)
     owner.AnimState:ClearOverrideSymbol("swap_body")
-	owner.AnimState:ClearOverrideSymbol("backpack")
+    owner.AnimState:ClearOverrideSymbol("backpack")
     inst.components.container:Close(owner)
-	
-	if inst.components.fueled then
-       inst.components.fueled:StopConsuming()        
+
+    if inst.components.fueled then
+        inst.components.fueled:StopConsuming()
     end
 end
 
@@ -64,30 +64,30 @@ local function fn()
     inst.AnimState:PlayAnimation("anim")
 
     inst:AddTag("backpack")
-	MakeInventoryFloatable(inst)
+    MakeInventoryFloatable(inst)
 
     inst.foleysound = "dontstarve/movement/foley/backpack"
 
     inst.entity:SetPristine()
 
-	 if not TheWorld.ismastersim then
-		inst.OnEntityReplicated = function(inst) 
-			inst.replica.container:WidgetSetup("backpack") 
-		end
-		return inst
-	end
-	
+    if not TheWorld.ismastersim then
+        inst.OnEntityReplicated = function(inst)
+            inst.replica.container:WidgetSetup("backpack")
+        end
+        return inst
+    end
 
-	inst:AddComponent("fueled") 
+
+    inst:AddComponent("fueled")
     inst.components.fueled.fueltype = FUELTYPE.USAGE
     inst.components.fueled:InitializeFuelLevel(TEMPODAMOEDA)
     inst.components.fueled:SetDepletedFn(SpawnDubloon)
 
-	
+
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
     inst.components.inventoryitem.cangoincontainer = false
 
     inst:AddComponent("equippable")

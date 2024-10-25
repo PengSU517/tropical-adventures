@@ -1,6 +1,6 @@
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/ox_horn.zip"),
+    Asset("ANIM", "anim/ox_horn.zip"),
 }
 
 local function onfinished(inst)
@@ -8,35 +8,35 @@ local function onfinished(inst)
 end
 
 local function HearPanFlute(inst, musician, instrument)
-	TheWorld:PushEvent("ms_forceprecipitation")
+    TheWorld:PushEvent("ms_forceprecipitation")
     -- GetWorld().components.seasonmanager:ForcePrecip()
 end
 
 local function fn()
-	local inst = CreateEntity()
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
     inst.entity:AddNetwork()
 
     inst.AnimState:SetBank("ox_horn")
     inst.AnimState:SetBuild("ox_horn")
     inst.AnimState:PlayAnimation("idle")
-	
+
 
     MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst)
+    MakeInventoryFloatable(inst)
 
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
-    
+
     inst:AddComponent("inspectable")
-        
+
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
     inst:AddComponent("stackable")
     inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -44,4 +44,4 @@ local function fn()
     return inst
 end
 
-return Prefab( "ox_horn", fn, assets) 
+return Prefab("ox_horn", fn, assets)
