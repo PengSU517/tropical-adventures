@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Atlas>
+    <Texture filename="minimap_rog.tex"/>
+    <Elements>
+        <Element name="Wilton.tex" u1="0.00195313" u2="0.248047" v1="0.503906" v2="0.996094"/>
+        <Element name="accomplishment_shrine.tex" u1="0.00195313" u2="0.248047" v1="0.00390625" v2="0.496094"/>
+        <Element name="cave_regenerator.tex" u1="0.251953" u2="0.498047" v1="0.503906" v2="0.996094"/>
+        <Element name="portal.tex" u1="0.251953" u2="0.498047" v1="0.00390625" v2="0.496094"/>
+        <Element name="teethmine.tex" u1="0.501953" u2="0.748047" v1="0.503906" v2="0.996094"/>
+        <Element name="teleportato.tex" u1="0.501953" u2="0.748047" v1="0.00390625" v2="0.496094"/>
+    </Elements>
+    <StraightAlpha>false</StraightAlpha>
+</Atlas>
+

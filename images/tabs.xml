@@ -1,10 +1,15 @@
-<Atlas><Texture filename="tabs.tex" /><Elements>
-<Element name="tab_archaeology.tex" u1="0.0" u2="0.1" v1="0" v2="1" />
-<Element name="nauticaltab.png" 	u1="0.1" u2="0.2" v1="0" v2="1" />
-<Element name="tab_home_decor.tex" 	u1="0.2" u2="0.3" v1="0" v2="1" />
-<Element name="tab_city.tex" 		u1="0.3" u2="0.4" v1="0" v2="1" />
-<Element name="tab_volcano.tex" 	u1="0.4" u2="0.5" v1="0" v2="1" />
-<Element name="tab_portal_key.tex" 	u1="0.5" u2="0.6" v1="0" v2="1" />
-<Element name="quagmire_safe.tex" 	u1="0.6" u2="0.7" v1="0" v2="1" />
-</Elements>
+<?xml version="1.0" encoding="UTF-8"?>
+<Atlas>
+    <Texture filename="tabs.tex"/>
+    <Elements>
+        <Element name="tab_archaeology.tex" u1="0.000976563" u2="0.249023" v1="0.501953" v2="0.998047"/>
+        <Element name="tab_city.tex" u1="0.000976563" u2="0.249023" v1="0.00195313" v2="0.498047"/>
+        <Element name="tab_forge.tex" u1="0.250977" u2="0.499023" v1="0.501953" v2="0.998047"/>
+        <Element name="tab_gorge.tex" u1="0.250977" u2="0.499023" v1="0.00195313" v2="0.498047"/>
+        <Element name="tab_home_decor.tex" u1="0.500977" u2="0.749023" v1="0.501953" v2="0.998047"/>
+        <Element name="tab_nautical.tex" u1="0.500977" u2="0.749023" v1="0.00195313" v2="0.498047"/>
+        <Element name="tab_volcano.tex" u1="0.750977" u2="0.999023" v1="0.501953" v2="0.998047"/>
+    </Elements>
+    <StraightAlpha>false</StraightAlpha>
 </Atlas>
+
