@@ -106,7 +106,7 @@ local function fn()
     inst.entity:AddNetwork()
     inst.entity:AddSoundEmitter()
 
-    inst.MiniMapEntity:SetIcon("sapling.tex")
+    inst.MiniMapEntity:SetIcon("sapling.png")
 
     inst.AnimState:SetRayTestOnBB(true)
     inst.AnimState:SetBank("sapling")
@@ -184,7 +184,7 @@ local function fn1()
     inst.entity:AddNetwork()
     inst.entity:AddSoundEmitter()
 
-    inst.MiniMapEntity:SetIcon("sapling.tex")
+    inst.MiniMapEntity:SetIcon("sapling.png")
 
     inst.AnimState:SetRayTestOnBB(true)
     inst.AnimState:SetBank("sapling")
