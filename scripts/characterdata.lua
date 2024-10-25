@@ -65,15 +65,12 @@ TUNING.WOODLEGS_HUNGER = 150
 TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.WOODLEGS = { "luckyhat", "boatcannon", "boards", "boards", "boards", "boards",
     "dubloon", "dubloon", "dubloon", "dubloon" }
 TUNING.STARTING_ITEM_IMAGE_OVERRIDE["luckyhat"] = {
-    atlas = "images/inventoryimages/inventory_shipwrecked.xml",
     image = "luckyhat.tex",
 }
 TUNING.STARTING_ITEM_IMAGE_OVERRIDE["boatcannon"] = {
-    atlas = "images/inventoryimages/inventory_shipwrecked.xml",
     image = "boatcannon.tex",
 }
 TUNING.STARTING_ITEM_IMAGE_OVERRIDE["dubloon"] = {
-    atlas = "images/inventoryimages/inventory_shipwrecked.xml",
     image = "dubloon.tex",
 }
 
@@ -92,6 +89,5 @@ TUNING.WALANI_HUNGER = 200
 
 TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.WALANI = { "surfboarditem" }
 TUNING.STARTING_ITEM_IMAGE_OVERRIDE["surfboarditem"] = {
-    atlas = "images/inventoryimages/inventory_shipwrecked.xml",
     image = "surfboarditem.tex",
 }
