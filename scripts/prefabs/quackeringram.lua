@@ -136,7 +136,7 @@ local function onPotentialRamHit(inst, target)
 	local hitTarget = false
 	local inpocket = target.components.inventoryitem and target.components.inventoryitem:IsHeld()
 	local isfriend = (target:HasTag("player")) or target:HasTag("companion") or target:HasTag("boatsw") or
-	target:HasTag("ventania") or target:HasTag("lobster") or target:HasTag("ondamedia") or target:HasTag("FX")
+		target:HasTag("ventania") or target:HasTag("lobster") or target:HasTag("ondamedia") or target:HasTag("FX")
 
 	if not inpocket and not isfriend then
 		if target.components.combat then
@@ -232,8 +232,8 @@ local function fn(Sim)
 
 	inst:AddComponent("inspectable")
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 	inst:AddComponent("finiteuses")
 	inst.components.finiteuses:SetMaxUses(QUACKERINGRAM_USE_COUNT)

@@ -224,8 +224,8 @@ local function sail_fn(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst:AddComponent("fueled")
     inst.components.fueled.fueltype = "USAGE"
@@ -269,8 +269,8 @@ local function clothsail_fn(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst:AddComponent("fueled")
     inst.components.fueled.fueltype = "USAGE"
@@ -314,8 +314,8 @@ local function snakeskinsail_fn(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst:AddComponent("fueled")
     inst.components.fueled.fueltype = "USAGE"
@@ -359,8 +359,8 @@ local function feathersail_fn(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst:AddComponent("fueled")
     inst.components.fueled.fueltype = "USAGE"
@@ -405,8 +405,8 @@ local function ironwind_fn(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst:AddComponent("fueled")
     inst.components.fueled:SetDepletedFn(sail_perish)
@@ -452,8 +452,8 @@ local function woodlegssail_fn(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
@@ -492,8 +492,8 @@ local function albatros_fn(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst:AddComponent("fueled")
     inst.components.fueled.fueltype = "USAGE"

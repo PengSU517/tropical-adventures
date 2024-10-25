@@ -142,8 +142,8 @@ local function fn()
 	inst.components.weapon.onattack = OnAttack
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 	inst.components.inventoryitem:SetOnDroppedFn(OnDropped)
 
 	inst:AddComponent("inventory")

@@ -248,14 +248,6 @@ function MakeWallType(data)
 
         inst:AddComponent("inspectable")
         inst:AddComponent("inventoryitem")
-        if data.name == "enforcedlimestone" then
-            inst.components.inventoryitem.atlasname =
-            "images/inventoryimages/volcanoinventory.xml"
-        end
-        if data.name == "limestone" then
-            inst.components.inventoryitem.atlasname =
-            "images/inventoryimages/volcanoinventory.xml"
-        end
 
         if not item_floats then
             inst.components.inventoryitem:SetSinks(true)

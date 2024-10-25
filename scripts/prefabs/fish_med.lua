@@ -102,8 +102,8 @@ local function makefish_med(bank, build, inventoryimage, dryablesymbol)
 
 		inst:AddComponent("appeasement")
 		inst.components.appeasement.appeasementvalue = APPEASEMENT_SMALL
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-		inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 		return inst
 	end
@@ -153,8 +153,8 @@ local function makefish_med(bank, build, inventoryimage, dryablesymbol)
 
 		inst:AddComponent("appeasement")
 		inst.components.appeasement.appeasementvalue = APPEASEMENT_SMALL
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-		inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 		--		MakeInventoryFloatable(inst, "idle_water", "dead")
 		inst.AnimState:PlayAnimation("dead")
@@ -221,8 +221,8 @@ local function makefish_med1(bank, build, inventoryimage, dryablesymbol)
 
 		inst:AddComponent("appeasement")
 		inst.components.appeasement.appeasementvalue = APPEASEMENT_SMALL
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-		inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 		return inst
 	end
@@ -271,8 +271,8 @@ local function makefish_med1(bank, build, inventoryimage, dryablesymbol)
 
 		inst:AddComponent("appeasement")
 		inst.components.appeasement.appeasementvalue = APPEASEMENT_SMALL
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-		inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 		--		MakeInventoryFloatable(inst, "idle_water", "dead")
 		inst.AnimState:PlayAnimation("dead")
@@ -357,8 +357,8 @@ local function spoiledfn()
 	--	inst.components.floatable:SetOnHitLandFn(function(inst) inst.AnimState:PlayAnimation("idle", true) end)
 
 	inst:RemoveComponent("appeasement")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 	return inst
 end
@@ -410,8 +410,8 @@ local function cookedfn()
 	--    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
 	inst.data = {}
 	inst:AddComponent("bait")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 	return inst
 end
@@ -474,8 +474,8 @@ local function fish_raw_fn()
 	--	inst.components.dryable:SetOverrideSymbol("fishraw")
 
 	inst:AddComponent("bait")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 	return inst
 end
@@ -538,8 +538,8 @@ local function quagmire_crabmeat_fn()
 	--	inst.components.dryable:SetOverrideSymbol("fishraw_small")
 
 	inst:AddComponent("bait")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 	return inst
 end
@@ -592,8 +592,8 @@ local function quagmire_crabmeat_cooked_fn()
 	--    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
 	inst.data = {}
 	inst:AddComponent("bait")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 	return inst
 end
@@ -644,8 +644,8 @@ local function lobster_dead_fn()
 	inst:AddComponent("tradable")
 	inst.components.tradable.goldvalue = TUNING.GOLD_VALUES.MEAT
 	--   inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 	return inst
 end
@@ -695,8 +695,8 @@ local function lobster_dead_cooked_fn()
 	inst:AddComponent("tradable")
 	inst.components.tradable.goldvalue = TUNING.GOLD_VALUES.MEAT
 	--   inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 	return inst
 end

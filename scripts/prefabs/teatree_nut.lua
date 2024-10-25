@@ -176,8 +176,8 @@ local function fn()
     --    inst.components.burnable:MakeDragonflyBait(3)
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 
     inst:AddComponent("deployable")
     inst.components.deployable.CanDeploy = test_ground
@@ -233,8 +233,8 @@ local function cooked()
     MakeSmallPropagator(inst)
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 
     return inst
 end

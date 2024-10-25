@@ -61,7 +61,7 @@ local function makebird(name, soundname, loottable, psprefab, foodtype, scale)
 
     prefabs[2] = psprefab or "seeds" -- add the periodspawnprefab to "prefabs" list
 
-    if loottable ~= nil then      -- -- add all loot to "prefabs" list
+    if loottable ~= nil then         -- -- add all loot to "prefabs" list
         for key, loot in pairs(loottable) do
             key = tonumber(key)
             prefabs[key + 2] = loot[1] --key+2 is due to the fact that "prefabs" list already has 2 values in it
@@ -154,8 +154,8 @@ local function makebird(name, soundname, loottable, psprefab, foodtype, scale)
         inst.components.inventoryitem.nobounce = true
         inst.components.inventoryitem.canbepickedup = false
         inst.components.inventoryitem.canbepickedupalive = true
-        inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-        inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
         inst:AddComponent("cookable")
         inst.components.cookable.product = "cookedsmallmeat"

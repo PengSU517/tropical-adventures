@@ -94,8 +94,8 @@ local function commonfn()
     inst.components.finiteuses:SetConsumption(ACTIONS.GAS, 1)
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 
     return inst
 end

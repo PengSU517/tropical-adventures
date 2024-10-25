@@ -170,8 +170,8 @@ local function fn()
     inst.isOpenEye = nil
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
     inst.components.inventoryitem:SetOnPutInInventoryFn(OnPutInInventory)
     inst.components.inventoryitem:ChangeImageName(inst.closedEye)
     inst.components.inventoryitem:SetSinks(true)

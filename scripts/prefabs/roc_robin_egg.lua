@@ -210,7 +210,7 @@ local function commonfn()
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem:ChangeImageName("roc_egg")
     inst.components.inventoryitem:SetOnDroppedFn(OnDropped)
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+
     inst.components.inventoryitem:SetOnPutInInventoryFn(OnPutInInventory)
 
     -- inst:AddTag("nonpotatable")

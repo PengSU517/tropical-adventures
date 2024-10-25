@@ -140,8 +140,8 @@ local function hailfn(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
     inst.components.inventoryitem:SetOnPickupFn(onstopfiremelt)
 
     inst:DoTaskInTime(0.4, onhitground_hail)

@@ -42,8 +42,8 @@ local function fn(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
     inst.components.inventoryitem:ChangeImageName("player_house_cottage")
 
     return inst
@@ -84,8 +84,8 @@ local function fn1(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
     inst.components.inventoryitem:ChangeImageName("player_house_villa")
 
     return inst
@@ -126,8 +126,8 @@ local function fn2(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
     inst.components.inventoryitem:ChangeImageName("player_house_manor")
 
     return inst
@@ -168,8 +168,8 @@ local function fn3(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
     inst.components.inventoryitem:ChangeImageName("player_house_tudor")
 
     return inst
@@ -210,8 +210,8 @@ local function fn4(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
     inst.components.inventoryitem:ChangeImageName("player_house_gothic")
 
     return inst
@@ -252,8 +252,8 @@ local function fn5(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
     inst.components.inventoryitem:ChangeImageName("player_house_brick")
 
     return inst
@@ -294,8 +294,8 @@ local function fn6(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
     inst.components.inventoryitem:ChangeImageName("player_house_turret")
 
     return inst

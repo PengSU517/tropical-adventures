@@ -21,7 +21,7 @@ local function OnUse(inst, target)
         if v.components.temperature ~= nil then
             -- cool off yourself and any other nearby players
             v.components.temperature:DoDelta(math.clamp(
-            TUNING.FEATHERFAN_MINIMUM_TEMP - v.components.temperature:GetCurrent(), TUNING.FEATHERFAN_COOLING, 0))
+                TUNING.FEATHERFAN_MINIMUM_TEMP - v.components.temperature:GetCurrent(), TUNING.FEATHERFAN_COOLING, 0))
         end
     end
 end
@@ -53,7 +53,7 @@ local function OnChanneling(inst, target)
                 tornado:SetDuration(TUNING.PERDFAN_TORNADO_LIFETIME)
                 tornado.WINDSTAFF_CASTER = inst.components.inventoryitem.owner
                 tornado.WINDSTAFF_CASTER_ISPLAYER = tornado.WINDSTAFF_CASTER ~= nil and
-                tornado.WINDSTAFF_CASTER:HasTag("player")
+                    tornado.WINDSTAFF_CASTER:HasTag("player")
                 tornado.Transform:SetPosition(pos.x + offset.x * .5, 0, pos.z + offset.z * .5)
                 pos.x = pos.x + offset.x
                 pos.y = 0
@@ -96,8 +96,8 @@ local function doydoyfan()
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst:AddComponent("fan")
     inst.components.fan:SetOnUseFn(OnUse)

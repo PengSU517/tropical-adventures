@@ -623,8 +623,8 @@ local function create_tropical()
 
     inst.components.lootdropper:AddRandomLoot("venomgland", 2)
 
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/novositens.xml"
-    inst.caminho = "images/inventoryimages/novositens.xml"
+
+
 
     inst:AddComponent("halloweenmoonmutable")
     inst.components.halloweenmoonmutable:SetPrefabMutated("spider_moon")

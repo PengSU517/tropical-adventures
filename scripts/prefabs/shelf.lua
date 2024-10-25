@@ -1013,7 +1013,7 @@ local function key()
     -- inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+
     inst:AddComponent("tradable")
 
     return inst

@@ -67,8 +67,8 @@ local function fn(Sim)
 
     inst:AddComponent("tradable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 
     return inst
 end

@@ -68,8 +68,8 @@ local function MakeRelic(num)
         inst.components.inspectable.getstatus = getstatus
 
         inst:AddComponent("inventoryitem")
-        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 
         --        inst:AddComponent("sinkable")
         --        inst.components.sinkable.swapbuild = "relics"

@@ -46,12 +46,10 @@ local function makefeather(name)
 
         inst:AddComponent("inventoryitem")
         if name == "thunder" then
-            inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-            inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
         end
         if name == "chicken" then
-            inst.components.inventoryitem.atlasname = "images/minimap/creepindedeepicon.xml"
-            inst.caminho = "images/minimap/creepindedeepicon.xml"
+
         end
 
         inst.components.inventoryitem.nobounce = true

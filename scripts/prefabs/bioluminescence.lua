@@ -211,8 +211,8 @@ local function fn()
     inst.components.stackable.forcedropsingle = true
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
     inst.components.inventoryitem:SetOnDroppedFn(ondropped)
     inst.components.inventoryitem:SetOnPickupFn(onpickup)
     inst.components.inventoryitem.canbepickedup = false

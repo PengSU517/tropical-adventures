@@ -22,7 +22,7 @@ local function onequip(inst, owner)
 
     if owner.components.health then
         owner.components.health.fire_damage_scale = owner.components.health.fire_damage_scale -
-        TUNING.ARMORDRAGONFLY_FIRE_RESIST
+            TUNING.ARMORDRAGONFLY_FIRE_RESIST
     end
 end
 
@@ -33,7 +33,7 @@ local function onunequip(inst, owner)
 
     if owner.components.health then
         owner.components.health.fire_damage_scale = owner.components.health.fire_damage_scale +
-        TUNING.ARMORDRAGONFLY_FIRE_RESIST
+            TUNING.ARMORDRAGONFLY_FIRE_RESIST
     end
 end
 
@@ -62,8 +62,8 @@ local function fn()
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     --   inst:AddComponent("waterproofer")
     --   inst.components.waterproofer:SetEffectiveness(0)

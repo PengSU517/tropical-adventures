@@ -122,8 +122,8 @@ local function obsidianfn(Sim)
     inst:AddComponent("waterproofer")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst:AddComponent("equippable")
     inst.components.equippable:SetOnEquip(onequipobsidian)

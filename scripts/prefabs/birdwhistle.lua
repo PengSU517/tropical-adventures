@@ -131,7 +131,7 @@ local function CorruptedFn()
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+
     inst.components.inventoryitem:ChangeImageName("antler") --物品栏贴图缺失，物品栏贴图名字
 
     inst:AddComponent("instrument")

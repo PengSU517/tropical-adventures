@@ -47,8 +47,8 @@ local function fn(Sim)
 
     inst:AddComponent("stackable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 
     inst:AddComponent("bait")
     inst:AddTag("molebait")
@@ -96,8 +96,8 @@ local function fn2(Sim)
 
     inst:AddComponent("stackable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst:AddComponent("bait")
     inst:AddTag("molebait")
@@ -138,8 +138,8 @@ local function fn3(Sim)
 
     inst:AddComponent("stackable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst:AddComponent("bait")
     inst:AddTag("molebait")

@@ -37,8 +37,8 @@ local function MakeMutatorFn(mutator_target)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/minimap/creepindedeepicon.xml"
-    inst.caminho = "images/minimap/creepindedeepicon.xml"
+
+
 
     inst:AddComponent("stackable")
 

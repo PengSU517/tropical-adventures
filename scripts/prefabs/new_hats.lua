@@ -127,8 +127,8 @@ local function MakeHat(name, bankparam, prefabnameparam)
         end
 
         inst:AddComponent("inventoryitem")
-        inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-        inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
         inst:AddComponent("inspectable")
 
@@ -348,8 +348,8 @@ local function MakeHat(name, bankparam, prefabnameparam)
         end
 
         inst:AddComponent("inventoryitem")
-        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 
         inst:AddComponent("inspectable")
 
@@ -506,8 +506,8 @@ local function MakeHat(name, bankparam, prefabnameparam)
         inst:AddComponent("inspectable")
 
         inst:AddComponent("inventoryitem")
-        inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-        inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
         inst:AddComponent("tradable")
 
         inst:AddComponent("equippable")

@@ -68,8 +68,8 @@ local function defaultfn()
     inst.components.perishable:SetPerishTime(TUNING.PERISH_FAST)
     inst.components.edible.sanityvalue = -TUNING.SANITY_SMALL
 
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 
     inst:AddComponent("cookable")
     inst.components.cookable.product = "limpets_cooked"
@@ -94,8 +94,8 @@ local function cookedfn()
     inst.components.edible.hungervalue = TUNING.CALORIES_SMALL
     inst.components.perishable:SetPerishTime(TUNING.PERISH_MED)
 
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 
     return inst
 end
