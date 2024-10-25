@@ -1,7 +1,7 @@
 local assets =
 {
     Asset("ANIM", "anim/beaverskin.zip"),
-	Asset("ANIM", "anim/pigskin.zip"),
+    Asset("ANIM", "anim/pigskin.zip"),
 }
 
 local function fn()
@@ -27,10 +27,10 @@ local function fn()
     inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
     inst:AddComponent("inspectable")
-	
-	inst:AddComponent("inventoryitem")
+
+    inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
     MakeSmallBurnable(inst)
     MakeSmallPropagator(inst)

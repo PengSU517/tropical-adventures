@@ -22,9 +22,9 @@ local function fn()
     inst.AnimState:SetBank("poison_antidote")
     inst.AnimState:SetBuild("poison_antidote")
     inst.AnimState:PlayAnimation("idle")
-	
-	inst:AddTag("aquatic")
-	inst:AddTag("preparedfood")	
+
+    inst:AddTag("aquatic")
+    inst:AddTag("preparedfood")
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
@@ -41,8 +41,8 @@ local function fn()
 
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
-	
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
     inst:AddComponent("stackable")
     inst:AddComponent("tradable")
 

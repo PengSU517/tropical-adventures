@@ -1,7 +1,7 @@
 local assets =
 {
     Asset("ANIM", "anim/player_ghost_withhat.zip"),
- --   Asset("ANIM", "anim/ghost.zip"),
+    --   Asset("ANIM", "anim/ghost.zip"),
     Asset("ANIM", "anim/ghost_pirate_build.zip"),
     Asset("ANIM", "anim/ghost_pig_build.zip"),
 }
@@ -34,7 +34,7 @@ local function fn()
     inst.Light:SetRadius(.5)
     inst.Light:SetFalloff(.6)
     inst.Light:Enable(true)
-    inst.Light:SetColour(180/255, 195/255, 225/255)
+    inst.Light:SetColour(180 / 255, 195 / 255, 225 / 255)
 
     inst.AnimState:SetBank("ghost")
     inst.AnimState:SetBuild("ghost_pirate_build")
@@ -86,8 +86,8 @@ local function fn()
     inst.components.trader:SetAbleToAcceptTest(AbleToAcceptTest)
 
     inst:ListenForEvent("death", OnDeath)
-	
-	  inst:SetBrain(brain)
+
+    inst:SetBrain(brain)
     ------------------
 
     return inst
@@ -111,7 +111,7 @@ local function fn1()
     inst.Light:SetRadius(.5)
     inst.Light:SetFalloff(.6)
     inst.Light:Enable(true)
-    inst.Light:SetColour(180/255, 195/255, 225/255)
+    inst.Light:SetColour(180 / 255, 195 / 255, 225 / 255)
 
     inst.AnimState:SetBank("ghost")
     inst.AnimState:SetBuild("ghost_pig_build")
@@ -163,12 +163,12 @@ local function fn1()
     inst.components.trader:SetAbleToAcceptTest(AbleToAcceptTest)
 
     inst:ListenForEvent("death", OnDeath)
-	
-	  inst:SetBrain(brain)
+
+    inst:SetBrain(brain)
     ------------------
 
     return inst
 end
 
 return Prefab("pirateghost", fn, assets),
-	   Prefab("pigghost", fn1, assets)
+    Prefab("pigghost", fn1, assets)

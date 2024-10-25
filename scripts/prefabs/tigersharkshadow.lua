@@ -15,7 +15,7 @@ end
 local function SetUpScale(inst, start_scale, end_scale, scale_time, fade_type, ease_type)
 	ease_type = ease_type or easing.inExpo
 	local start_time = GetTime()
-	inst.Transform:SetScale(start_scale,start_scale,start_scale)
+	inst.Transform:SetScale(start_scale, start_scale, start_scale)
 
 	if inst.sizeTask then
 		inst.sizeTask:Cancel()
@@ -28,11 +28,11 @@ local function SetUpScale(inst, start_scale, end_scale, scale_time, fade_type, e
 	end)
 
 	if fade_type == "OUT" then
-		inst.AnimState:SetMultColour(0,0,0,0.6)
-		inst.components.colourtweener:StartTween({0,0,0,0}, scale_time)
+		inst.AnimState:SetMultColour(0, 0, 0, 0.6)
+		inst.components.colourtweener:StartTween({ 0, 0, 0, 0 }, scale_time)
 	else
-		inst.AnimState:SetMultColour(0,0,0,0)
-		inst.components.colourtweener:StartTween({0,0,0,0.6}, scale_time)
+		inst.AnimState:SetMultColour(0, 0, 0, 0)
+		inst.components.colourtweener:StartTween({ 0, 0, 0, 0.6 }, scale_time)
 	end
 end
 local MAX_SCALE = 1.5
@@ -47,7 +47,8 @@ local function Water_Jump(inst)
 	--Small -> Big
 	SetUpScale(inst, MIN_SCALE, MAX_SCALE, 91 * FRAMES)
 	--Big -> Small
-	inst:DoTaskInTime(91 * FRAMES, function() SetUpScale(inst, MAX_SCALE, MIN_SCALE, FRAMES * 15, "OUT", easing.outExpo) end)
+	inst:DoTaskInTime(91 * FRAMES,
+		function() SetUpScale(inst, MAX_SCALE, MIN_SCALE, FRAMES * 15, "OUT", easing.outExpo) end)
 	inst:DoTaskInTime(106 * FRAMES, inst.Remove)
 end
 

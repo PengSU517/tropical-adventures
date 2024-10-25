@@ -7,20 +7,18 @@ local MAX_VENOM_GLAND_DAMAGE = 80
 local MIN_VENOM_GLAND_LEFTOVER = 5
 
 local function oneat(inst, eater)
-	
     if eater.components.poisonable then
         eater.components.poisonable:WearOff()
-	end
-    
-	local dmg = MAX_VENOM_GLAND_DAMAGE
-    if eater.components.health and eater.components.health.currenthealth <= MAX_VENOM_GLAND_DAMAGE then
-    dmg = eater.components.health.currenthealth - MIN_VENOM_GLAND_LEFTOVER
     end
-	
-	if eater.components.health then
-	eater.components.health:DoDelta(-dmg, nil, "venom_gland")	
-	end
-	
+
+    local dmg = MAX_VENOM_GLAND_DAMAGE
+    if eater.components.health and eater.components.health.currenthealth <= MAX_VENOM_GLAND_DAMAGE then
+        dmg = eater.components.health.currenthealth - MIN_VENOM_GLAND_LEFTOVER
+    end
+
+    if eater.components.health then
+        eater.components.health:DoDelta(-dmg, nil, "venom_gland")
+    end
 end
 
 local function fn()
@@ -55,7 +53,7 @@ local function fn()
 
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
     inst:AddComponent("stackable")
     inst:AddComponent("tradable")
 

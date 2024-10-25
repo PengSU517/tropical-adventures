@@ -31,7 +31,7 @@ local function fn()
 	inst.entity:AddNetwork()
 
 	MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst)	
+	MakeInventoryFloatable(inst)
 
 	inst.AnimState:SetBank("bell")
 	inst.AnimState:SetBuild("bell")
@@ -40,7 +40,7 @@ local function fn()
 	inst:AddTag("bell")
 	inst:AddTag("molebait")
 	inst:AddTag("aquatic")
-			
+
 	inst.entity:SetPristine()
 
 	if not TheWorld.ismastersim then
@@ -61,15 +61,15 @@ local function fn()
 	inst:AddComponent("inventoryitem")
 	inst.components.inventoryitem:SetOnPutInInventoryFn(OnPutInInv)
 	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
 	inst:AddComponent("tool")
 	inst.components.tool:SetAction(ACTIONS.PLAY)
 
-	inst:ListenForEvent("onstolen", function(inst, data) 
+	inst:ListenForEvent("onstolen", function(inst, data)
 		if data.thief.components.inventory then
 			data.thief.components.inventory:GiveItem(inst)
-		end 
+		end
 	end)
 
 	shine(inst)

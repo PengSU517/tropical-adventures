@@ -1,6 +1,6 @@
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/vine.zip"),
+    Asset("ANIM", "anim/vine.zip"),
 }
 
 local function fn()
@@ -8,7 +8,7 @@ local function fn()
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
     inst.entity:AddNetwork()
-    
+
     MakeInventoryPhysics(inst)
     MakeInventoryFloatable(inst)
 
@@ -17,17 +17,17 @@ local function fn()
     inst.AnimState:SetBank("vine")
     inst.AnimState:SetBuild("vine")
     inst.AnimState:PlayAnimation("idle")
-	inst:AddTag("aquatic")
-	
+    inst:AddTag("aquatic")
+
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
-    
+
     inst:AddComponent("stackable")
     inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
-    
+
     --inst:AddComponent("edible")
     --inst.components.edible.foodtype = "WOOD"
     --inst.components.edible.woodiness = 10
@@ -37,15 +37,15 @@ local function fn()
 
     -- inst:AddComponent("appeasement")
     -- inst.components.appeasement.appeasementvalue = TUNING.WRATH_SMALL
-        
+
     MakeSmallBurnable(inst, TUNING.MED_BURNTIME)
     MakeSmallPropagator(inst)
-    
+
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
- 	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
-	
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
     return inst
 end
 

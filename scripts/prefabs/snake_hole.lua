@@ -129,7 +129,8 @@ local function OnIsSpring(inst, isspring)
     elseif inst.springmode then
         --It is no long spring, and we're in spring mode,
         --so start normal mode transition timer
-        inst.springtask = inst:DoTaskInTime(math.random(TUNING.MIN_RABBIT_HOLE_TRANSITION_TIME, TUNING.MAX_RABBIT_HOLE_TRANSITION_TIME), SetNormalMode)
+        inst.springtask = inst:DoTaskInTime(
+        math.random(TUNING.MIN_RABBIT_HOLE_TRANSITION_TIME, TUNING.MAX_RABBIT_HOLE_TRANSITION_TIME), SetNormalMode)
     end
 
     if watchrain then
@@ -214,7 +215,7 @@ local function fn()
     end
 
     inst:AddComponent("spawner")
-	WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME, true)	
+    WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME, true)
     inst.components.spawner:Configure("snake", TUNING.RABBIT_RESPAWN_TIME)
     inst.components.spawner.childfn = function()
         if math.random() <= 0.25 then

@@ -1,7 +1,7 @@
 local assets =
 {
     Asset("ANIM", "anim/book_meteor.zip"),
-    Asset("ANIM", "anim/obsidian.zip"),	
+    Asset("ANIM", "anim/obsidian.zip"),
 }
 
 local prefabs = -- this should really be broken up per book...
@@ -25,29 +25,31 @@ local GARDENING_CANT_TAGS = { "pickable", "stump", "withered", "barren", "INLIMB
 local SILVICULTURE_ONEOF_TAGS = { "silviculture", "tree", "winter_tree" }
 local SILVICULTURE_CANT_TAGS = { "pickable", "stump", "withered", "barren", "INLIMBO" }
 
-local HORTICULTURE_CANT_TAGS = { "pickable", "stump", "withered", "barren", "INLIMBO", "silviculture", "tree", "winter_tree" }
+local HORTICULTURE_CANT_TAGS = { "pickable", "stump", "withered", "barren", "INLIMBO", "silviculture", "tree",
+    "winter_tree" }
 
 local book_defs =
 {
-	  {
+    {
         name = "book_meteor1",
         uses = 5,
-		
-	  fn = function (inst, reader)
-			local delay = 0.0
-			for i = 1, VOLCANOBOOK_FIRERAIN_COUNT, 1 do
-			local pos = Vector3(reader.Transform:GetWorldPosition())
-			local x, y, z = VOLCANOBOOK_FIRERAIN_RADIUS * UnitRand() + pos.x, pos.y, VOLCANOBOOK_FIRERAIN_RADIUS * UnitRand() + pos.z
-			reader:DoTaskInTime(delay, function(inst)
-            local firerain = SpawnPrefab("firerain")
-            firerain.Transform:SetPosition(x, y, z)
-            firerain:StartStep()
-			end)
-			delay = delay + VOLCANOBOOK_FIRERAIN_DELAY
-			end
-			return true 
-			end,
-    },	
+
+        fn = function(inst, reader)
+            local delay = 0.0
+            for i = 1, VOLCANOBOOK_FIRERAIN_COUNT, 1 do
+                local pos = Vector3(reader.Transform:GetWorldPosition())
+                local x, y, z = VOLCANOBOOK_FIRERAIN_RADIUS * UnitRand() + pos.x, pos.y,
+                    VOLCANOBOOK_FIRERAIN_RADIUS * UnitRand() + pos.z
+                reader:DoTaskInTime(delay, function(inst)
+                    local firerain = SpawnPrefab("firerain")
+                    firerain.Transform:SetPosition(x, y, z)
+                    firerain:StartStep()
+                end)
+                delay = delay + VOLCANOBOOK_FIRERAIN_DELAY
+            end
+            return true
+        end,
+    },
 }
 
 local function MakeBook(def)
@@ -84,7 +86,10 @@ local function MakeBook(def)
         inst.components.book.onperuse = def.perusefn
 
         inst:AddComponent("inventoryitem")
-if def.name == "book_meteor1" then inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml" 	inst.caminho = "images/inventoryimages/volcanoinventory.xml" end
+        if def.name == "book_meteor1" then
+            inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+            inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+        end
         inst:AddComponent("finiteuses")
         inst.components.finiteuses:SetMaxUses(def.uses)
         inst.components.finiteuses:SetUses(def.uses)
@@ -105,7 +110,7 @@ if def.name == "book_meteor1" then inst.components.inventoryitem.atlasname = "im
     return Prefab(def.name, fn, assets, prefabs)
 end
 
-local books = { }
+local books = {}
 for i, v in ipairs(book_defs) do
     table.insert(books, MakeBook(v))
 end
@@ -114,13 +119,13 @@ book_defs = nil
 
 
 local function fnobsidian(Sim)
-	local inst = CreateEntity()
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     MakeInventoryPhysics(inst)
-	inst.entity:AddNetwork()
-	
+    inst.entity:AddNetwork()
+
     MakeInventoryPhysics(inst)
 
 
@@ -129,17 +134,17 @@ local function fnobsidian(Sim)
     inst.AnimState:SetBuild("obsidian")
     inst.AnimState:PlayAnimation("idle")
 
-    inst:AddTag("molebait")	
-	MakeInventoryFloatable(inst)
-	
-	inst.entity:SetPristine()
+    inst:AddTag("molebait")
+    MakeInventoryFloatable(inst)
+
+    inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
-	
+
     inst:AddComponent("edible")
-	inst.components.edible.foodtype = FOODTYPE.ELEMENTAL
+    inst.components.edible.foodtype = FOODTYPE.ELEMENTAL
     inst.components.edible.hungervalue = 3
 
     inst:AddComponent("stackable")
@@ -147,8 +152,8 @@ local function fnobsidian(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
 
     inst:AddComponent("bait")
@@ -156,7 +161,4 @@ local function fnobsidian(Sim)
     return inst
 end
 
-return Prefab( "obsidian", fnobsidian, assets), unpack(books)
-
-
-
+return Prefab("obsidian", fnobsidian, assets), unpack(books)

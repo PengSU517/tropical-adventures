@@ -359,7 +359,7 @@ local function obsidian(Sim)
 	end
 
 	inst:AddComponent("temperature")
-    MakeObsidianTool(inst)
+	MakeObsidianTool(inst)
 
 	inst:ListenForEvent("floater_startfloating", ObsidianToolHitWater)
 	inst:ListenForEvent("percentusedchange", PercentChanged)

@@ -1,8 +1,8 @@
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/bramble.zip"),
-	Asset("ANIM", "anim/bramble1_build.zip"),
-	Asset("ANIM","anim/bramble_core.zip"),
+    Asset("ANIM", "anim/bramble.zip"),
+    Asset("ANIM", "anim/bramble1_build.zip"),
+    Asset("ANIM", "anim/bramble_core.zip"),
 }
 
 local prefabs =
@@ -43,11 +43,11 @@ local function fn()
     inst.entity:AddAnimState()
     inst.entity:AddNetwork()
     inst.entity:AddMiniMapEntity()
-	inst.Transform:SetScale(0.7, 0.7, 0.7)
-	
-    inst.AnimState:SetBank("bramble_"..math.random(1,3))
-    inst.AnimState:SetBuild("bramble1_build")	
-	
+    inst.Transform:SetScale(0.7, 0.7, 0.7)
+
+    inst.AnimState:SetBank("bramble_" .. math.random(1, 3))
+    inst.AnimState:SetBuild("bramble1_build")
+
     inst.AnimState:PlayAnimation("idle", true)
 
     inst.MiniMapEntity:SetIcon("marsh_bush.png")
@@ -55,7 +55,7 @@ local function fn()
 
     inst:AddTag("plant")
     inst:AddTag("thorny")
-	inst:AddTag("silviculture") -- for silviculture book
+    inst:AddTag("silviculture") -- for silviculture book
 
     inst.entity:SetPristine()
 
@@ -63,7 +63,7 @@ local function fn()
         return inst
     end
 
-	inst.AnimState:SetFrame(math.random(inst.AnimState:GetCurrentAnimationNumFrames()) - 1)
+    inst.AnimState:SetFrame(math.random(inst.AnimState:GetCurrentAnimationNumFrames()) - 1)
 
     local color = 0.5 + math.random() * 0.5
     inst.AnimState:SetMultColour(color, color, color, 1)

@@ -1,6 +1,6 @@
 local DEBUG_MODE = BRANCH == "dev"
 
-local assets = {Asset("ANIM", "anim/armor_vortex_cloak.zip"), Asset("ANIM", "anim/cloak_fx.zip")}
+local assets = { Asset("ANIM", "anim/armor_vortex_cloak.zip"), Asset("ANIM", "anim/cloak_fx.zip") }
 
 local equipslot = --[[ EQUIPSLOTS.BACK or ]] EQUIPSLOTS.BODY -- 四格中设定为背包
 
@@ -174,12 +174,12 @@ local function fn()
     local armor = inst:AddComponent("armor")
     armor:InitCondition(TUNING.ARMORVORTEX, TUNING.ARMORVORTEX_ABSORPTION)
     armor:SetKeepOnFinished(true)
-    armor:SetImmuneTags({"shadow"})
+    armor:SetImmuneTags({ "shadow" })
     inst.components.armor.ontakedamage = OnTakeDamage
 
     local fueled = inst:AddComponent("fueled")
     fueled:InitializeFuelLevel(TUNING.ARMORVORTEXFUEL) -- Runar: 原来的燃值是充场面的，现在是等效燃值
-    fueled.fueltype = FUELTYPE.NIGHTMARE -- 燃料是噩梦燃料
+    fueled.fueltype = FUELTYPE.NIGHTMARE               -- 燃料是噩梦燃料
     fueled.secondaryfueltype = FUELTYPE.ANCIENT_REMNANT
     fueled.ontakefuelfn = ontakefuel
     fueled.accepting = true

@@ -12,13 +12,13 @@ local function fn()
 	local trans = inst.entity:AddTransform()
 	local anim = inst.entity:AddAnimState()
 	local sound = inst.entity:AddSoundEmitter()
-    inst.entity:AddNetwork()
+	inst.entity:AddNetwork()
 
 	anim:SetBank("sprinkler_fx")
 	anim:SetBuild("sprinkler_fx")
-	anim:PlayAnimation("spray_loop", true)	
+	anim:PlayAnimation("spray_loop", true)
 	inst.persists = false
-	
+
 	return inst
 end
 

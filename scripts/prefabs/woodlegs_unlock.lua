@@ -17,13 +17,13 @@ local function UnlockWoodlegs(inst)
 		local celebratefn = nil
 		celebratefn = function()
 			inst:RemoveEventCallback("animqueueover", celebratefn)
-			inst.AnimState:PlayAnimation("research")			
+			inst.AnimState:PlayAnimation("research")
 			--inst:DoTaskInTime(13*FRAMES, function(inst) --inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/heelclick") end)
 			--inst:DoTaskInTime(21*FRAMES, function(inst)	--inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/heelclick") end)
-			inst:DoTaskInTime(32*FRAMES, function(inst)
+			inst:DoTaskInTime(32 * FRAMES, function(inst)
 				local smoke = SpawnPrefab("small_puff")
 				smoke.Transform:SetPosition(inst:GetPosition():Get())
-				smoke.Transform:SetScale(2,2,2)
+				smoke.Transform:SetScale(2, 2, 2)
 				inst:Remove()
 				SpawnPrefab("woodlegs1").Transform:SetPosition(inst.Transform:GetWorldPosition())
 			end)
@@ -34,9 +34,9 @@ local function UnlockWoodlegs(inst)
 
 	inst:DoPeriodicTask(FRAMES, function()
 		--Look @ the camera
- 		local down = TheCamera:GetDownVec()
-        local angle = math.atan2(down.z, down.x)*RADIANS
-        inst.Transform:SetRotation(-angle)
+		local down = TheCamera:GetDownVec()
+		local angle = math.atan2(down.z, down.x) * RADIANS
+		inst.Transform:SetRotation(-angle)
 	end)
 end
 
@@ -61,17 +61,17 @@ local function fn()
 	inst.AnimState:Hide("hat")
 	inst.AnimState:Hide("hat_hair")
 	inst.AnimState:Hide("PROPDROP")
-	
+
 	inst.entity:AddNetwork()
-	
+
 	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	UnlockWoodlegs(inst)
-	
+
 	return inst
 end
 

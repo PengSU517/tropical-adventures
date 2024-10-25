@@ -5,7 +5,7 @@ local assets =
     Asset("ANIM", "anim/oceantree_pillar_build1.zip"),
     Asset("ANIM", "anim/oceantree_pillar_build2.zip"),
     Asset("ANIM", "anim/oceantree_pillar.zip"),
-   -- Asset("ANIM", "anim/oceantree_pillar_leaves.zip"),
+    -- Asset("ANIM", "anim/oceantree_pillar_leaves.zip"),
     Asset("SOUND", "sound/tentacle.fsb"),
     Asset("MINIMAP_IMAGE", "oceantree_pillar"),
     Asset("SCRIPT", "scripts/prefabs/canopyshadows.lua")
@@ -14,7 +14,7 @@ local assets =
 local grassgator_regen_time = TUNING.GRASSGATOR_REGEN_TIME
 local grassgator_release_time = TUNING.GRASSGATOR_RELEASE_TIME
 
-local prefabs = 
+local prefabs =
 {
     "oceantreenut",
     "oceanvine_cocoon",
@@ -83,24 +83,24 @@ local function OnFar(inst, player)
     if inst.players then
         local x, y, z = inst.Transform:GetWorldPosition()
         local testset = {}
-        for player,i in pairs(inst.players)do
-            testset[player] = true        
+        for player, i in pairs(inst.players) do
+            testset[player] = true
         end
 
-        for i,player in ipairs(FindPlayersInRangeSq(x, y, z, MAX*MAX))do
+        for i, player in ipairs(FindPlayersInRangeSq(x, y, z, MAX * MAX)) do
             if testset[player] then
                 testset[player] = false
             end
         end
 
-        for player,i in pairs(testset)do
+        for player, i in pairs(testset) do
             if i == true then
                 if player.mangrovepillar then
-                   player.mangrovepillar = player.mangrovepillar - 1
-                   if player.mangrovepillar == 0 then
-                       player:PushEvent("onchangecanopyzone", false)
---					   player:RemoveTag("mostraselva") 
-                   end
+                    player.mangrovepillar = player.mangrovepillar - 1
+                    if player.mangrovepillar == 0 then
+                        player:PushEvent("onchangecanopyzone", false)
+                        --					   player:RemoveTag("mostraselva")
+                    end
                 end
                 inst.players[player] = nil
             end
@@ -108,7 +108,7 @@ local function OnFar(inst, player)
     end
 end
 
-local function OnNear(inst,player)
+local function OnNear(inst, player)
     if not inst.players then
         inst.players = {}
     end
@@ -121,7 +121,7 @@ local function OnNear(inst,player)
     player.mangrovepillar = player.mangrovepillar + 1
     if player.mangrovepillar == 1 then
         player:PushEvent("onchangecanopyzone", true)
---		player:AddTag("mostraselva") 
+        --		player:AddTag("mostraselva")
     end
 end
 
@@ -140,8 +140,8 @@ local function DropItems(inst)
 
     local spawn_x, spawn_z
 
-        spawn_x, spawn_z = x + math.cos(theta) * dist, z + math.sin(theta) * dist
-    
+    spawn_x, spawn_z = x + math.cos(theta) * dist, z + math.sin(theta) * dist
+
     item.Transform:SetPosition(spawn_x, DROPPED_ITEMS_SPAWN_HEIGHT, spawn_z)
 
     if #inst.items_to_drop <= 1 then
@@ -171,12 +171,11 @@ local function SpawnMissingVines(inst)
     local num_existing_vines = ents ~= nil and #ents or 0
 
     print("FOUND VINES", num_existing_vines)
-    if num_existing_vines < TUNING.OCEANTREE_VINE_DROP_MAX+ math.random(1,2)-1  then 
-
-        local num_new_vines = math.random(1,2)
+    if num_existing_vines < TUNING.OCEANTREE_VINE_DROP_MAX + math.random(1, 2) - 1 then
+        local num_new_vines = math.random(1, 2)
         local radius_variance = MAX - NEW_VINES_SPAWN_RADIUS_MIN
 
-        for i=1,num_new_vines do
+        for i = 1, num_new_vines do
             local vine = SpawnPrefab("oceanvine")
             local theta = math.random() * PI * 2
             local offset = NEW_VINES_SPAWN_RADIUS_MIN + radius_variance * math.random()
@@ -189,7 +188,8 @@ end
 local function OnCollide(inst, data)
     local boat_physics = data.other.components.boatphysics
     if boat_physics ~= nil then
-        local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) / boat_physics.max_velocity + 0.5)
+        local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) /
+        boat_physics.max_velocity + 0.5)
 
         if hit_velocity > 0.8 then
             inst:DoTaskInTime(0, function()
@@ -198,12 +198,11 @@ local function OnCollide(inst, data)
             end)
 
             if inst.drop_items_task == nil or next(inst.items_to_drop) == nil then
-
                 local time = TheWorld.state.cycles + TheWorld.state.time
                 if inst.last_ram_time == nil or time - inst.last_ram_time >= TUNING.WATERTREE_PILLAR_RAM_RECHARGE_TIME then
                     inst.last_ram_time = time
 
---                    inst:DoTaskInTime(0.65, SpawnMissingVines)
+                    --                    inst:DoTaskInTime(0.65, SpawnMissingVines)
 
                     generate_items_to_drop(inst)
                     inst:DoTaskInTime(0.5, DropItems)
@@ -228,7 +227,7 @@ local function DropLightningItems(inst, items)
             if i == num_items then
                 inst._lightning_drop_task:Cancel()
                 inst._lightning_drop_task = nil
-            end 
+            end
         end)
     end
 end
@@ -245,7 +244,7 @@ local function OnLightningStrike(inst)
         table.insert(items_to_drop, small_ram_products[math.random(1, #small_ram_products)])
     end
 
-    inst._lightning_drop_task = inst:DoTaskInTime(20*FRAMES, DropLightningItems, items_to_drop)
+    inst._lightning_drop_task = inst:DoTaskInTime(20 * FRAMES, DropLightningItems, items_to_drop)
 end
 
 local function OnSave(inst, data)
@@ -298,38 +297,37 @@ end
 local function OnRemove(inst)
     removecanopy(inst)
 end
-local FIREFLY_MUST = {"flying"}
-local FIREFLY_MUST = {"flying"}
+local FIREFLY_MUST = { "flying" }
+local FIREFLY_MUST = { "flying" }
 local function OnPhaseChanged(inst, phase)
-   if phase == "day" then
-
+    if phase == "day" then
         local x, y, z = inst.Transform:GetWorldPosition()
 
-        local ents = TheSim:FindEntities(x,y,z, TUNING.SHADE_CANOPY_RANGE, FIREFLY_MUST)
+        local ents = TheSim:FindEntities(x, y, z, TUNING.SHADE_CANOPY_RANGE, FIREFLY_MUST)
 
         if #ents > 0 then
-            for i=#ents,1,-1 do
+            for i = #ents, 1, -1 do
                 local ent = ents[i]
                 if ent.prefab ~= "bioluminescence" then
-                    table.remove(ents,i)
+                    table.remove(ents, i)
                 end
             end
         end
 
         if #ents < 10 then
-            if math.random()<0.7 then
+            if math.random() < 0.7 then
                 local pos = nil
                 local offset = nil
                 local count = 0
                 while offset == nil and count < 10 do
-                    local angle = 2*PI*math.random()
-                    local radius = math.random() * (TUNING.SHADE_CANOPY_RANGE -4)
-                    offset = {x= math.cos(angle) * radius, y=0, z=math.sin(angle) * radius}   
+                    local angle = 2 * PI * math.random()
+                    local radius = math.random() * (TUNING.SHADE_CANOPY_RANGE - 4)
+                    offset = { x = math.cos(angle) * radius, y = 0, z = math.sin(angle) * radius }
                     count = count + 1
 
-                    local pos = {x=x+offset.x,y=0,z=z+offset.z}
+                    local pos = { x = x + offset.x, y = 0, z = z + offset.z }
 
-                    local things = TheSim:FindEntities(pos.x,pos.y,pos.z, 5)
+                    local things = TheSim:FindEntities(pos.x, pos.y, pos.z, 5)
                     if #things > 0 then
                         offset = nil
                     end
@@ -337,11 +335,11 @@ local function OnPhaseChanged(inst, phase)
 
                 if offset then
                     local firefly = SpawnPrefab("bioluminescence")
-                    firefly.Transform:SetPosition(x+offset.x,0,z+offset.z)                   
+                    firefly.Transform:SetPosition(x + offset.x, 0, z + offset.z)
                 end
             end
         end
-   end
+    end
 end
 
 local function fn()
@@ -369,24 +367,24 @@ local function fn()
     inst.AnimState:SetBank("oceantree_pillar")
     inst.AnimState:SetBuild("oceantree_pillar_build1")
     inst.AnimState:PlayAnimation("idle", true)
-	inst.Transform:SetScale(0.6, 1, 0.6)
---    inst.AnimState:AddOverrideBuild("oceantree_pillar_build2")
-	inst:SetPrefabNameOverride("watertree_pillar")
+    inst.Transform:SetScale(0.6, 1, 0.6)
+    --    inst.AnimState:AddOverrideBuild("oceantree_pillar_build2")
+    inst:SetPrefabNameOverride("watertree_pillar")
     if not TheNet:IsDedicated() then
         inst:AddComponent("distancefade")
-        inst.components.distancefade:Setup(15,25)
+        inst.components.distancefade:Setup(15, 25)
     end
 
     inst._hascanopy = net_bool(inst.GUID, "oceantree_pillar._hascanopy", "hascanopydirty")
-    inst._hascanopy:set(true)  
+    inst._hascanopy:set(true)
     inst:ListenForEvent("hascanopydirty", function()
-                if not inst._hascanopy:value() then 
-                    removecanopyshadow(inst) 
-                end
-        end)
+        if not inst._hascanopy:value() then
+            removecanopyshadow(inst)
+        end
+    end)
 
-    inst:DoTaskInTime(0,function()
-        inst.canopy_data = CANOPY_SHADOW_DATA.spawnshadow(inst, math.floor(TUNING.SHADE_CANOPY_RANGE/4), true)
+    inst:DoTaskInTime(0, function()
+        inst.canopy_data = CANOPY_SHADOW_DATA.spawnshadow(inst, math.floor(TUNING.SHADE_CANOPY_RANGE / 4), true)
     end)
 
     inst.entity:SetPristine()
@@ -405,7 +403,7 @@ local function fn()
     -------------------
 
     inst.players = {}
-   
+
     inst:AddComponent("playerprox")
     inst.components.playerprox:SetTargetMode(inst.components.playerprox.TargetModes.AllPlayers)
     inst.components.playerprox:SetDist(MIN, MAX)
@@ -415,19 +413,19 @@ local function fn()
     --------------------
     inst:AddComponent("inspectable")
 
---    inst:AddComponent("childspawner")
---    inst.components.childspawner.childname = "grassgator"
---    inst.components.childspawner:SetRegenPeriod(grassgator_regen_time)  
---    inst.components.childspawner:SetSpawnPeriod(grassgator_release_time)
---    inst.components.childspawner:SetMaxChildren(TUNING.GRASSGATOR_MAXCHILDREN)
---    inst.components.childspawner.overridespawnlocation = spawnoverride
+    --    inst:AddComponent("childspawner")
+    --    inst.components.childspawner.childname = "grassgator"
+    --    inst.components.childspawner:SetRegenPeriod(grassgator_regen_time)
+    --    inst.components.childspawner:SetSpawnPeriod(grassgator_release_time)
+    --    inst.components.childspawner:SetMaxChildren(TUNING.GRASSGATOR_MAXCHILDREN)
+    --    inst.components.childspawner.overridespawnlocation = spawnoverride
 
---    WorldSettings_ChildSpawner_SpawnPeriod(inst, grassgator_release_time, TUNING.GRASSGATOR_ENABLED)
---    WorldSettings_ChildSpawner_RegenPeriod(inst, grassgator_regen_time, TUNING.GRASSGATOR_ENABLED)
+    --    WorldSettings_ChildSpawner_SpawnPeriod(inst, grassgator_release_time, TUNING.GRASSGATOR_ENABLED)
+    --    WorldSettings_ChildSpawner_RegenPeriod(inst, grassgator_regen_time, TUNING.GRASSGATOR_ENABLED)
 
---    if not TUNING.GRASSGATOR_ENABLED then
---        inst.components.childspawner.childreninside = 0
---    end
+    --    if not TUNING.GRASSGATOR_ENABLED then
+    --        inst.components.childspawner.childreninside = 0
+    --    end
 
     --------------------
     inst:AddComponent("timer")
@@ -439,7 +437,7 @@ local function fn()
 
     inst:ListenForEvent("on_collide", OnCollide)
     inst:ListenForEvent("onremove", OnRemove)
-    inst:ListenForEvent("phasechanged", function(src, phase) OnPhaseChanged(inst,phase) end, TheWorld)
+    inst:ListenForEvent("phasechanged", function(src, phase) OnPhaseChanged(inst, phase) end, TheWorld)
 
     inst._ripples = SpawnPrefab("watertree_pillar_ripples")
     inst._ripples.entity:SetParent(inst.entity)

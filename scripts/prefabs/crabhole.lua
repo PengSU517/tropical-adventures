@@ -5,8 +5,8 @@ local assets =
 
 local prefabs =
 {
-	"crab",
-	"smallmeat",
+    "crab",
+    "smallmeat",
 }
 
 local function OnIsCollapsedDirty(inst)
@@ -135,7 +135,8 @@ local function OnIsSpring(inst, isspring)
     elseif inst.springmode then
         --It is no long spring, and we're in spring mode,
         --so start normal mode transition timer
-        inst.springtask = inst:DoTaskInTime(math.random(TUNING.MIN_RABBIT_HOLE_TRANSITION_TIME, TUNING.MAX_RABBIT_HOLE_TRANSITION_TIME), SetNormalMode)
+        inst.springtask = inst:DoTaskInTime(
+        math.random(TUNING.MIN_RABBIT_HOLE_TRANSITION_TIME, TUNING.MAX_RABBIT_HOLE_TRANSITION_TIME), SetNormalMode)
     end
 
     if watchrain then
@@ -155,27 +156,26 @@ end
 
 local function OnInit(inst, springmode)
     inst.inittask = nil
-	if TheWorld:HasTag("cave") then
-	inst:WatchWorldState("iscaveday", oncaveday)
-    oncaveday(inst, TheWorld.state.iscaveday)
-    inst.AnimState:PlayAnimation("idle")
-    inst.iscollapsed:set(false)
-    OnIsCollapsedDirty(inst)
-	else
-
-    --Set initial mode immediately
-    if not TheWorld.state.isspring then
-        SetNormalMode(inst)
-    elseif springmode then
-        SetSpringMode(inst)
+    if TheWorld:HasTag("cave") then
+        inst:WatchWorldState("iscaveday", oncaveday)
+        oncaveday(inst, TheWorld.state.iscaveday)
+        inst.AnimState:PlayAnimation("idle")
+        inst.iscollapsed:set(false)
+        OnIsCollapsedDirty(inst)
     else
-        SetNormalMode(inst)
-        OnIsSpring(inst, true)
-    end
+        --Set initial mode immediately
+        if not TheWorld.state.isspring then
+            SetNormalMode(inst)
+        elseif springmode then
+            SetSpringMode(inst)
+        else
+            SetNormalMode(inst)
+            OnIsSpring(inst, true)
+        end
 
-    --Start watching for spring changes
-    inst:WatchWorldState("isspring", OnIsSpring)
-end
+        --Start watching for spring changes
+        inst:WatchWorldState("isspring", OnIsSpring)
+    end
 end
 
 local function OnSave(inst, data)
@@ -228,7 +228,7 @@ local function fn()
     end
 
     inst:AddComponent("spawner")
-	WorldSettings_Spawner_SpawnDelay(inst, TUNING.RABBIT_RESPAWN_TIME, true)	
+    WorldSettings_Spawner_SpawnDelay(inst, TUNING.RABBIT_RESPAWN_TIME, true)
     inst.components.spawner:Configure("crab", TUNING.RABBIT_RESPAWN_TIME)
 
     inst.components.spawner:SetOnOccupiedFn(onoccupied)
@@ -258,4 +258,4 @@ local function fn()
     return inst
 end
 
-return Prefab( "crabhole", fn, assets, prefabs ) 
+return Prefab("crabhole", fn, assets, prefabs)

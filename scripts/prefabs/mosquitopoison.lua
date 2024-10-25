@@ -1,12 +1,12 @@
 local assets =
 {
-	Asset("ANIM", "anim/mosquito_yellow_build.zip"),
+    Asset("ANIM", "anim/mosquito_yellow_build.zip"),
 }
 
 local prefabs =
 {
     "mosquitosack",
-	"venomgland",
+    "venomgland",
 }
 
 local brain = require("brains/mosquitobrain")
@@ -22,10 +22,10 @@ local sounds =
 }
 
 SetSharedLootTable('mosquito',
-{
-    {'mosquitosack', .5},
-	{'venomgland', .25},
-})
+    {
+        { 'mosquitosack', .5 },
+        { 'venomgland',   .25 },
+    })
 
 local SHARE_TARGET_DIST = 30
 local MAX_TARGET_SHARES = 10
@@ -63,7 +63,7 @@ local function OnDropped(inst)
     end
     if inst.components.stackable ~= nil and inst.components.stackable:IsStack() then
         local x, y, z = inst.Transform:GetWorldPosition()
-        while inst.components.stackable:IsStack()do
+        while inst.components.stackable:IsStack() do
             local item = inst.components.stackable:Get()
             if item ~= nil then
                 if item.components.inventoryitem ~= nil then
@@ -92,9 +92,9 @@ end
 local function SwapBelly(inst, size)
     for i = 1, 4 do
         if i == size then
-            inst.AnimState:Show("body_"..tostring(i))
+            inst.AnimState:Show("body_" .. tostring(i))
         else
-            inst.AnimState:Hide("body_"..tostring(i))
+            inst.AnimState:Hide("body_" .. tostring(i))
         end
     end
 end
@@ -115,7 +115,8 @@ end
 
 local function OnAttacked(inst, data)
     inst.components.combat:SetTarget(data.attacker)
-    inst.components.combat:ShareTarget(data.attacker, SpringCombatMod(SHARE_TARGET_DIST), ShareTargetFn, MAX_TARGET_SHARES)
+    inst.components.combat:ShareTarget(data.attacker, SpringCombatMod(SHARE_TARGET_DIST), ShareTargetFn,
+        MAX_TARGET_SHARES)
 end
 
 local function mosquito()
@@ -141,11 +142,11 @@ local function mosquito()
     inst:AddTag("cattoyairborne")
 
     inst.AnimState:SetBank("mosquito")
-	inst.AnimState:SetBuild("mosquito_yellow_build")
+    inst.AnimState:SetBuild("mosquito_yellow_build")
     inst.AnimState:PlayAnimation("idle")
     inst.AnimState:SetRayTestOnBB(true)
-	
-    MakeInventoryFloatable(inst)	
+
+    MakeInventoryFloatable(inst)
 
     MakeFeedableSmallLivestockPristine(inst)
 
@@ -164,7 +165,7 @@ local function mosquito()
     inst.components.locomotor:SetTriggersCreep(false)
     inst.components.locomotor.walkspeed = TUNING.MOSQUITO_WALKSPEED
     inst.components.locomotor.runspeed = TUNING.MOSQUITO_RUNSPEED
-    inst.components.locomotor.pathcaps = { allowocean = true }	
+    inst.components.locomotor.pathcaps = { allowocean = true }
     inst:SetStateGraph("SGmosquito")
 
     inst.sounds = sounds
@@ -176,7 +177,7 @@ local function mosquito()
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.canbepickedup = false
     inst.components.inventoryitem.canbepickedupalive = true
-    inst.components.inventoryitem.pushlandedevents = false	
+    inst.components.inventoryitem.pushlandedevents = false
 
     ---------------------
 
@@ -185,7 +186,7 @@ local function mosquito()
 
     inst:AddComponent("tradable")
 
-     ------------------
+    ------------------
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.NET)
     inst.components.workable:SetWorkLeft(1)
@@ -197,7 +198,7 @@ local function mosquito()
     ------------------
     inst:AddComponent("health")
     inst.components.health:SetMaxHealth(TUNING.MOSQUITO_HEALTH)
-	inst:AddComponent("poisonous")
+    inst:AddComponent("poisonous")
     ------------------
     inst:AddComponent("combat")
     inst.components.combat.hiteffectsymbol = "body"

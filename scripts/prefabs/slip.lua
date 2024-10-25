@@ -1,6 +1,6 @@
 local trace = function() end
 
-local assets=
+local assets =
 {
     Asset("ANIM", "anim/slips_build.zip"),
     Asset("ANIM", "anim/slips_basic.zip"),
@@ -22,11 +22,11 @@ end
 
 function GetOtherSpiders(inst)
     local x, y, z = inst.Transform:GetWorldPosition()
-    return TheSim:FindEntities(x, y, z, 15,  { "slip" }, { "FX", "NOCLICK", "DECOR", "INLIMBO" })
+    return TheSim:FindEntities(x, y, z, 15, { "slip" }, { "FX", "NOCLICK", "DECOR", "INLIMBO" })
 end
 
 local function OnGetItemFromPlayer(inst, giver, item)
-    if inst.components.eater:CanEat(item) then  
+    if inst.components.eater:CanEat(item) then
         inst.sg:GoToState("eat", true)
 
         local playedfriendsfx = false
@@ -37,7 +37,8 @@ local function OnGetItemFromPlayer(inst, giver, item)
             giver:PushEvent("makefriend")
             playedfriendsfx = true
             giver.components.leader:AddFollower(inst)
-            inst.components.follower:AddLoyaltyTime(item.components.edible:GetHunger() * TUNING.SPIDER_LOYALTY_PER_HUNGER)
+            inst.components.follower:AddLoyaltyTime(item.components.edible:GetHunger() * TUNING
+            .SPIDER_LOYALTY_PER_HUNGER)
         end
 
         if giver.components.leader ~= nil then
@@ -59,7 +60,8 @@ local function OnGetItemFromPlayer(inst, giver, item)
                         playedfriendsfx = true
                     end
                     giver.components.leader:AddFollower(v)
-                    v.components.follower:AddLoyaltyTime(item.components.edible:GetHunger() * TUNING.SPIDER_LOYALTY_PER_HUNGER)
+                    v.components.follower:AddLoyaltyTime(item.components.edible:GetHunger() *
+                    TUNING.SPIDER_LOYALTY_PER_HUNGER)
                 end
                 maxSpiders = maxSpiders - 1
 
@@ -92,7 +94,9 @@ local function FindTarget(inst, radius)
 end
 
 local function NormalRetarget(inst)
-    return FindTarget(inst, inst.components.knownlocations:GetLocation("investigate") ~= nil and TUNING.SPIDER_INVESTIGATETARGET_DIST or TUNING.SPIDER_TARGET_DIST)
+    return FindTarget(inst,
+        inst.components.knownlocations:GetLocation("investigate") ~= nil and TUNING.SPIDER_INVESTIGATETARGET_DIST or
+        TUNING.SPIDER_TARGET_DIST)
 end
 
 local function WarriorRetarget(inst)
@@ -100,12 +104,12 @@ local function WarriorRetarget(inst)
 end
 
 local function keeptargetfn(inst, target)
-   return target ~= nil
+    return target ~= nil
         and target.components.combat ~= nil
         and target.components.health ~= nil
         and not target.components.health:IsDead()
         and not (inst.components.follower ~= nil and
-                (inst.components.follower.leader == target or inst.components.follower:IsLeaderSame(target)))
+            (inst.components.follower.leader == target or inst.components.follower:IsLeaderSame(target)))
 end
 
 local function BasicWakeCheck(inst)
@@ -175,7 +179,7 @@ end
 
 local function commonfn()
     local inst = CreateEntity()
-    
+
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
@@ -215,7 +219,7 @@ local function commonfn()
 
     -- locomotor must be constructed before the stategraph!
     inst:AddComponent("locomotor")
-    inst.components.locomotor:SetSlowMultiplier( 1 )
+    inst.components.locomotor:SetSlowMultiplier(1)
     inst.components.locomotor:SetTriggersCreep(false)
     inst.components.locomotor.pathcaps = { ignorecreep = true }
 
@@ -223,16 +227,16 @@ local function commonfn()
 
     inst:AddComponent("lootdropper")
     inst.components.lootdropper:AddRandomLoot("monstermeat", 1)
---    inst.components.lootdropper:AddRandomLoot("silk", .5)
---    inst.components.lootdropper:AddRandomLoot("spidergland", .5)
---    inst.components.lootdropper:AddRandomHauntedLoot("spidergland", 1)
+    --    inst.components.lootdropper:AddRandomLoot("silk", .5)
+    --    inst.components.lootdropper:AddRandomLoot("spidergland", .5)
+    --    inst.components.lootdropper:AddRandomHauntedLoot("spidergland", 1)
     inst.components.lootdropper.numrandomloot = 1
 
-    ---------------------        
+    ---------------------
     MakeMediumBurnableCharacter(inst, "body")
     MakeMediumFreezableCharacter(inst, "body")
     inst.components.burnable.flammability = TUNING.SPIDER_FLAMMABILITY
-    ---------------------       
+    ---------------------
 
     inst:AddComponent("health")
     inst:AddComponent("combat")
@@ -275,8 +279,8 @@ local function commonfn()
 
     inst:AddComponent("sanityaura")
     inst.components.sanityaura.aurafn = CalcSanityAura
-	
-	inst.components.health:SetMaxHealth(TUNING.SPIDER_HEALTH)
+
+    inst.components.health:SetMaxHealth(TUNING.SPIDER_HEALTH)
 
     inst.components.combat:SetDefaultDamage(TUNING.SPIDER_DAMAGE)
     inst.components.combat:SetAttackPeriod(TUNING.SPIDER_ATTACK_PERIOD)

@@ -1,11 +1,11 @@
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/octopus.zip"),
 	Asset("MINIMAP_IMAGE", "octopus"),
 }
 
 
-local prefabs = 
+local prefabs =
 {
 	"dubloon",
 	"octopuschest",
@@ -24,7 +24,7 @@ local prefabs =
 	"boatcannon",
 }
 
-local randomchestloot = 
+local randomchestloot =
 {
 	"seaweed",
 	"seaweed",
@@ -58,74 +58,73 @@ local chestloot =
 -- only accept 1 seafood crockpot meal per day and pull up a chest that has 1 dubloon + items (that we set per dish)
 
 local function StartTrading(inst)
-		if not inst.components.trader.enabled then
+	if not inst.components.trader.enabled then
 		inst.components.trader:Enable()
 		inst.AnimState:PlayAnimation("sleep_pst")
 		inst.AnimState:PushAnimation("idle", true)
-		else
+	else
 		inst.AnimState:PlayAnimation("idle", true)
-		end
+	end
 end
 
 local function FinishedTrading(inst)
-		if inst.components.trader.enabled then
+	if inst.components.trader.enabled then
 		inst.components.trader:Disable()
 		inst.AnimState:PlayAnimation("sleep_pre")
 		inst.AnimState:PushAnimation("sleep_loop", true)
-		else
+	else
 		inst.AnimState:PushAnimation("sleep_loop", true)
-		end
-		inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/octopus_king/sleep")		
+	end
+	inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/octopus_king/sleep")
 end
 
 local function OnIsNight(inst, isnight)
+	if TheWorld.state.isday or TheWorld.state.isdusk then
+		StartTrading(inst)
+	end
 
-if TheWorld.state.isday or TheWorld.state.isdusk then
-StartTrading(inst)
+	if TheWorld.state.isnight then
+		FinishedTrading(inst)
+	end
 end
 
-if TheWorld.state.isnight then
-FinishedTrading(inst)
-end
-
-
-end
-	
 
 
 -- chest style
 local function OnGetItemFromPlayer(inst, giver, item)
-	
 	local istrinket = item:HasTag("trinket") -- cache this, the item is destroyed by the time the reward is created.
 	inst.components.trader:Disable()
 
 	inst.AnimState:PlayAnimation("happy")
 	inst.AnimState:PushAnimation("grabchest")
 	inst.AnimState:PushAnimation("idle", true)
-	inst:DoTaskInTime(13*FRAMES, function(inst)	inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/octopus_king/happy") end)
-	inst:DoTaskInTime(53*FRAMES, function(inst)	inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/octopus_king/tenticle_out_water") end)
-	inst:DoTaskInTime(71*FRAMES, function(inst)	inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/octopus_king/tenticle_in_water") end)
---	inst:DoTaskInTime(78*FRAMES, function(inst)	inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/seacreature_movement/splash_small") end)
-	inst:DoTaskInTime(109*FRAMES, function(inst)
-
+	inst:DoTaskInTime(13 * FRAMES,
+		function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/octopus_king/happy") end)
+	inst:DoTaskInTime(53 * FRAMES,
+		function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/octopus_king/tenticle_out_water") end)
+	inst:DoTaskInTime(71 * FRAMES,
+		function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/octopus_king/tenticle_in_water") end)
+	--	inst:DoTaskInTime(78*FRAMES, function(inst)	inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/seacreature_movement/splash_small") end)
+	inst:DoTaskInTime(109 * FRAMES, function(inst)
 		inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/octopus_king/tenticle_out_water")
-		
+
 		-- put things in a chest and throw that
 		local down = TheCamera:GetDownVec()
-		local spawnangle = math.atan2(down.z, down.x) + -50*DEGREES
-		local angle = math.atan2(down.z, down.x) + (math.random()*60-30)*DEGREES
-		local sp = math.random()*3+2
-		
+		local spawnangle = math.atan2(down.z, down.x) + -50 * DEGREES
+		local angle = math.atan2(down.z, down.x) + (math.random() * 60 - 30) * DEGREES
+		local sp = math.random() * 3 + 2
+
 		local chest = SpawnPrefab("octopuschest")
-		local pt = Vector3(inst.Transform:GetWorldPosition()) + Vector3(2*math.cos(spawnangle), 2, 2*math.sin(spawnangle))
+		local pt = Vector3(inst.Transform:GetWorldPosition()) +
+		Vector3(2 * math.cos(spawnangle), 2, 2 * math.sin(spawnangle))
 		chest.Transform:SetPosition(pt:Get())
-		chest.Physics:SetVel(sp*math.cos(angle), math.random()*2+9, sp*math.sin(angle))
---		chest.components.inventoryitem:OnStartFalling()
+		chest.Physics:SetVel(sp * math.cos(angle), math.random() * 2 + 9, sp * math.sin(angle))
+		--		chest.components.inventoryitem:OnStartFalling()
 		chest.AnimState:PlayAnimation("air_loop", true)
---		chest.components.floatable:SetOnHitWaterFn(function()
---			chest.AnimState:PlayAnimation("land")
-			chest.AnimState:PushAnimation("closed", true)
---		end)
+		--		chest.components.floatable:SetOnHitWaterFn(function()
+		--			chest.AnimState:PlayAnimation("land")
+		chest.AnimState:PushAnimation("closed", true)
+		--		end)
 
 		if not istrinket then
 			local single = SpawnPrefab("dubloon")
@@ -151,15 +150,14 @@ local function OnGetItemFromPlayer(inst, giver, item)
 
 		--Give Woodlegs Key 2 if player needs it!
 
---		if not TheSim:FindFirstEntityWithTag("woodlegs_key2") and not Profile:IsCharacterUnlocked("woodlegs") then
---			if math.random() < 0.1 then
---	        	local loot = SpawnPrefab("woodlegs_key2")
---	        	chest.components.container:GiveItem(loot, nil, nil, true, false)
---	        end
---        end
-
+		--		if not TheSim:FindFirstEntityWithTag("woodlegs_key2") and not Profile:IsCharacterUnlocked("woodlegs") then
+		--			if math.random() < 0.1 then
+		--	        	local loot = SpawnPrefab("woodlegs_key2")
+		--	        	chest.components.container:GiveItem(loot, nil, nil, true, false)
+		--	        end
+		--        end
 	end)
-	
+
 	inst.happy = true
 	if inst.endhappytask then
 		inst.endhappytask:Cancel()
@@ -179,7 +177,7 @@ local function OnRefuseItem(inst, giver, item)
 	inst.happy = false
 end
 
-local function OnLoad(inst,data)
+local function OnLoad(inst, data)
 	if not inst.components.trader.enabled then
 		FinishedTrading(inst)
 	end
@@ -190,66 +188,66 @@ local function OnSave(inst, data)
 end
 
 local function OnLoad(inst, data)
-	if data and data.revelado then	
-	inst.revelado = data.revelado
+	if data and data.revelado then
+		inst.revelado = data.revelado
 	end
 end
 
 local function fn(Sim)
-	
 	local inst = CreateEntity()
 	inst.entity:AddNetwork()
 
 	inst.OnLoad = OnLoad
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetPriority( 5 )
-	minimap:SetIcon( "octopus.png" )
-	minimap:SetPriority( 1 )
+	minimap:SetPriority(5)
+	minimap:SetIcon("octopus.png")
+	minimap:SetPriority(1)
 
 	inst.entity:AddTransform()
 	inst.entity:AddAnimState()
 	inst.entity:AddSoundEmitter()
 	inst.entity:AddDynamicShadow()
-	inst.DynamicShadow:SetSize( 10, 5 )
-	
-	MakeWaterObstaclePhysics(inst, 2, 2, 1.25)	
-	
+	inst.DynamicShadow:SetSize(10, 5)
+
+	MakeWaterObstaclePhysics(inst, 2, 2, 1.25)
+
 	inst:AddTag("king")
-	inst:AddTag("reidomar")	
+	inst:AddTag("reidomar")
 	inst.AnimState:SetBank("octopus")
 	inst.AnimState:SetBuild("octopus")
 	inst.AnimState:PlayAnimation("idle", true)
-	
+
 	inst:AddTag("antlion_sinkhole_blocker")
-	inst:AddTag("ignorewalkableplatforms")		
-	inst:AddTag("trader")		
+	inst:AddTag("ignorewalkableplatforms")
+	inst:AddTag("trader")
 
-    inst.entity:SetPristine()
+	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end	
-	
+	if not TheWorld.ismastersim then
+		return inst
+	end
+
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("trader")
 
 	inst.components.trader:SetAcceptTest(
 		function(inst, item)
-			return (item.components.tradable.goldvalue and item.components.tradable.goldvalue > 0) or chestloot[item.prefab] ~= nil
+			return (item.components.tradable.goldvalue and item.components.tradable.goldvalue > 0) or
+			chestloot[item.prefab] ~= nil
 		end)
 
 	inst.components.trader.onaccept = OnGetItemFromPlayer
 	inst.components.trader.onrefuse = OnRefuseItem
-	
-    inst:WatchWorldState("isday", OnIsNight)
+
+	inst:WatchWorldState("isday", OnIsNight)
 	inst:WatchWorldState("isnight", OnIsNight)
-	
-    inst.OnSave = OnSave
-    inst.OnLoad = OnLoad	
+
+	inst.OnSave = OnSave
+	inst.OnLoad = OnLoad
 
 	return inst
 end
 
-return Prefab( "common/objects/octopusking", fn, assets, prefabs) 
+return Prefab("common/objects/octopusking", fn, assets, prefabs)

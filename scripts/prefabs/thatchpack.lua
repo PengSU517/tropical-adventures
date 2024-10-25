@@ -1,18 +1,18 @@
 local assets =
 {
-	Asset("ANIM", "anim/swap_thatchpack.zip"),
+    Asset("ANIM", "anim/swap_thatchpack.zip"),
     Asset("ANIM", "anim/ui_icepack_2x3.zip"),
 }
 
 local function onequip(inst, owner)
     owner.AnimState:OverrideSymbol("swap_body", "swap_thatchpack", "backpack")
-	owner.AnimState:OverrideSymbol("swap_body", "swap_thatchpack", "swap_body")
+    owner.AnimState:OverrideSymbol("swap_body", "swap_thatchpack", "swap_body")
     inst.components.container:Open(owner)
 end
 
 local function onunequip(inst, owner)
     owner.AnimState:ClearOverrideSymbol("swap_body")
-	owner.AnimState:ClearOverrideSymbol("backpack")
+    owner.AnimState:ClearOverrideSymbol("backpack")
     inst.components.container:Close(owner)
 end
 
@@ -50,19 +50,19 @@ local function fn()
 
     inst.entity:SetPristine()
 
-	 if not TheWorld.ismastersim then
-		inst.OnEntityReplicated = function(inst) 
-			inst.replica.container:WidgetSetup("thatchpack") 
-		end
-		return inst
-	end
-	
+    if not TheWorld.ismastersim then
+        inst.OnEntityReplicated = function(inst)
+            inst.replica.container:WidgetSetup("thatchpack")
+        end
+        return inst
+    end
+
 
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
     inst.components.inventoryitem.cangoincontainer = false
 
     inst:AddComponent("equippable")

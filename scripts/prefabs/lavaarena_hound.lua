@@ -27,7 +27,7 @@ local prefabs_clay =
     "eyeflame",
 }
 
-local gargoyles = 
+local gargoyles =
 {
     "gargoyle_houndatk",
     "gargoyle_hounddeath",
@@ -68,46 +68,46 @@ local sounds_clay =
 }
 
 SetSharedLootTable('hound',
-{
-    {'monstermeat', 1.000},
-    {'houndstooth', 0.125},
-})
+    {
+        { 'monstermeat', 1.000 },
+        { 'houndstooth', 0.125 },
+    })
 
 SetSharedLootTable('hound_fire',
-{
-    {'monstermeat', 1.0},
-    {'houndstooth', 1.0},
-    {'houndfire',   1.0},
-    {'houndfire',   1.0},
-    {'houndfire',   1.0},
-    {'redgem',      0.2},
-})
+    {
+        { 'monstermeat', 1.0 },
+        { 'houndstooth', 1.0 },
+        { 'houndfire',   1.0 },
+        { 'houndfire',   1.0 },
+        { 'houndfire',   1.0 },
+        { 'redgem',      0.2 },
+    })
 
 SetSharedLootTable('hound_cold',
-{
-    {'monstermeat', 1.0},
-    {'houndstooth', 1.0},
-    {'houndstooth', 1.0},
-    {'bluegem',     0.2},
-})
+    {
+        { 'monstermeat', 1.0 },
+        { 'houndstooth', 1.0 },
+        { 'houndstooth', 1.0 },
+        { 'bluegem',     0.2 },
+    })
 
 SetSharedLootTable('clayhound',
-{
-    {'redpouch',    0.2},
-    {'houndstooth', 0.1},
-})
+    {
+        { 'redpouch',    0.2 },
+        { 'houndstooth', 0.1 },
+    })
 
 SetSharedLootTable('arena',
-{
+    {
 
-})
+    })
 
 SetSharedLootTable('arenafire',
-{
-    {'houndfire',   1.0},
-    {'houndfire',   1.0},
-    {'houndfire',   1.0},
-})
+    {
+        { 'houndfire', 1.0 },
+        { 'houndfire', 1.0 },
+        { 'houndfire', 1.0 },
+    })
 
 local WAKE_TO_FOLLOW_DISTANCE = 8
 local SLEEP_NEAR_HOME_DISTANCE = 10
@@ -117,7 +117,8 @@ local HOME_TELEPORT_DIST = 30
 local NO_TAGS = { "FX", "NOCLICK", "DECOR", "INLIMBO" }
 
 local function ShouldWakeUp(inst)
-    return DefaultWakeTest(inst) or (inst.components.follower and inst.components.follower.leader and not inst.components.follower:IsNearLeader(WAKE_TO_FOLLOW_DISTANCE))
+    return DefaultWakeTest(inst) or
+    (inst.components.follower and inst.components.follower.leader and not inst.components.follower:IsNearLeader(WAKE_TO_FOLLOW_DISTANCE))
 end
 
 local function ShouldSleep(inst)
@@ -135,8 +136,8 @@ local function OnNewTarget(inst, data)
 end
 
 local function retargetfn(inst)
-local player = GetClosestInstWithTag("player", inst, 70)
-if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(player) end
+    local player = GetClosestInstWithTag("player", inst, 70)
+    if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(player) end
     if inst.sg:HasStateTag("statue") then
         return
     end
@@ -150,20 +151,20 @@ if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(
             (ispet and not playerleader) or
             inst:IsNear(leader, TUNING.HOUND_FOLLOWER_AGGRO_DIST))
         and FindEntity(
-                inst,
-                (ispet or leader ~= nil) and TUNING.HOUND_FOLLOWER_TARGET_DIST or TUNING.HOUND_TARGET_DIST,
-                function(guy)
-                    return guy ~= leader and inst.components.combat:CanTarget(guy)
-                end,
-                nil,
-                { "wall", "houndmound", "hound", "houndfriend" }
-            )
+            inst,
+            (ispet or leader ~= nil) and TUNING.HOUND_FOLLOWER_TARGET_DIST or TUNING.HOUND_TARGET_DIST,
+            function(guy)
+                return guy ~= leader and inst.components.combat:CanTarget(guy)
+            end,
+            nil,
+            { "wall", "houndmound", "hound", "houndfriend" }
+        )
         or nil
 end
 
 local function KeepTarget(inst, target)
-local player = GetClosestInstWithTag("player", inst, 70)
-if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(player) end
+    local player = GetClosestInstWithTag("player", inst, 70)
+    if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(player) end
     if inst.sg:HasStateTag("statue") then
         return false
     end
@@ -186,14 +187,14 @@ end
 local function moon_retargetfn(inst)
     return IsNearMoonBase(inst, TUNING.MOONHOUND_AGGRO_DIST)
         and FindEntity(
-                inst,
-                TUNING.HOUND_FOLLOWER_TARGET_DIST,
-                function(guy)
-                    return inst.components.combat:CanTarget(guy)
-                end,
-                nil,
-                { "wall", "houndmound", "hound", "houndfriend", "moonbeast" }
-            )
+            inst,
+            TUNING.HOUND_FOLLOWER_TARGET_DIST,
+            function(guy)
+                return inst.components.combat:CanTarget(guy)
+            end,
+            nil,
+            { "wall", "houndmound", "hound", "houndfriend", "moonbeast" }
+        )
         or nil
 end
 
@@ -610,7 +611,7 @@ local function OnClaySave(inst, data)
     data.reanimated = not inst.sg:HasStateTag("statue") or nil
 end
 
-local function OnClayPreLoad(inst, data)--, newents)
+local function OnClayPreLoad(inst, data) --, newents)
     if data ~= nil and data.reanimated then
         inst.sg:GoToState("idle")
     end
@@ -666,26 +667,26 @@ end
 
 local function fndefaultb()
     local inst = fncommon("hound", "hound", { "firehound", "icehound" })
-	inst:AddTag("Arena")
-	inst:AddTag("hound")
-	
+    inst:AddTag("Arena")
+    inst:AddTag("hound")
+
     if not TheWorld.ismastersim then
         return inst
     end
 
     MakeMediumFreezableCharacter(inst, "hound_body")
     MakeMediumBurnableCharacter(inst, "hound_body")
-	
-	inst.components.lootdropper:SetChanceLootTable('arena')
+
+    inst.components.lootdropper:SetChanceLootTable('arena')
 
     return inst
 end
 
 local function fnfireb()
     local inst = fncommon("hound", "hound_red", { "hound", "icehound" })
-	inst:AddTag("Arena")
-	inst:AddTag("hound")
-	
+    inst:AddTag("Arena")
+    inst:AddTag("hound")
+
     if not TheWorld.ismastersim then
         return inst
     end
@@ -697,18 +698,18 @@ local function fnfireb()
     inst.components.combat:SetAttackPeriod(TUNING.FIREHOUND_ATTACK_PERIOD)
     inst.components.locomotor.runspeed = TUNING.FIREHOUND_SPEED
     inst.components.health:SetMaxHealth(TUNING.FIREHOUND_HEALTH)
-	inst.components.lootdropper:SetChanceLootTable('arenafire')
+    inst.components.lootdropper:SetChanceLootTable('arenafire')
 
     inst:ListenForEvent("death", PlayFireExplosionSound)
-	
+
     return inst
 end
 
 local function fncoldb()
     local inst = fncommon("hound", "hound_ice", { "firehound", "hound" })
-	inst:AddTag("Arena")
-	inst:AddTag("hound")
-	
+    inst:AddTag("Arena")
+    inst:AddTag("hound")
+
     if not TheWorld.ismastersim then
         return inst
     end
@@ -719,7 +720,7 @@ local function fncoldb()
     inst.components.combat:SetAttackPeriod(TUNING.ICEHOUND_ATTACK_PERIOD)
     inst.components.locomotor.runspeed = TUNING.ICEHOUND_SPEED
     inst.components.health:SetMaxHealth(TUNING.ICEHOUND_HEALTH)
-	inst.components.lootdropper:SetChanceLootTable('arena')
+    inst.components.lootdropper:SetChanceLootTable('arena')
 
     inst:ListenForEvent("death", DoIceExplosion)
 
@@ -728,28 +729,28 @@ end
 
 local function fnclayb()
     local inst = fncommon("clayhound", "clayhound", nil, nil, "clay")
-	inst:AddTag("Arena")
-	inst:AddTag("hound")
-	
+    inst:AddTag("Arena")
+    inst:AddTag("hound")
+
     if not TheWorld.ismastersim then
         return inst
     end
 
     MakeMediumFreezableCharacter(inst, "hound_body")
 
-	inst.components.lootdropper:SetChanceLootTable('arena')
+    inst.components.lootdropper:SetChanceLootTable('arena')
 
     inst.OnSave = OnClaySave
     inst.OnLoad = nil
     inst.OnPreLoad = OnClayPreLoad
     inst.OnUpdateOffset = OnClayUpdateOffset
-	
-	inst:DoTaskInTime(1, function(inst) inst.sg:GoToState("idle") end)
+
+    inst:DoTaskInTime(1, function(inst) inst.sg:GoToState("idle") end)
 
     return inst
 end
 
-return 	Prefab("houndb", fndefaultb, assets, prefabs),
-		Prefab("firehoundb", fnfireb, assets, prefabs),
-		Prefab("icehoundb", fncoldb, assets, prefabs),
-		Prefab("clayhoundb", fnclayb, assets_clay, prefabs)
+return Prefab("houndb", fndefaultb, assets, prefabs),
+    Prefab("firehoundb", fnfireb, assets, prefabs),
+    Prefab("icehoundb", fncoldb, assets, prefabs),
+    Prefab("clayhoundb", fnclayb, assets_clay, prefabs)

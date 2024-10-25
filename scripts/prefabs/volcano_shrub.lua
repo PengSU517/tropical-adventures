@@ -3,8 +3,8 @@ local assets =
 	Asset("ANIM", "anim/volcano_shrub.zip"),
 }
 
-local TOTAL_DAY_TIME = 30*16
-local TEMPORENASCER = math.random(5,15)
+local TOTAL_DAY_TIME = 30 * 16
+local TEMPORENASCER = math.random(5, 15)
 
 local prefabs =
 {
@@ -42,8 +42,8 @@ end
 
 local grow_stages =
 {
-	{name="empty", fn=SetEmpty},
-	{name="full", fn=SetFull},
+	{ name = "empty", fn = SetEmpty },
+	{ name = "full", fn = SetFull },
 }
 
 local function fn(Sim)
@@ -66,12 +66,12 @@ local function fn(Sim)
 	minimap:SetIcon("volcano_shrub.tex")
 
 	inst.entity:SetPristine()
-	  
-    if not TheWorld.ismastersim then
-        return inst
-    end
-	
-	
+
+	if not TheWorld.ismastersim then
+		return inst
+	end
+
+
 	inst:AddComponent("workable")
 	inst.components.workable:SetWorkAction(ACTIONS.CHOP)
 	inst.components.workable:SetWorkLeft(1)
@@ -91,4 +91,4 @@ local function fn(Sim)
 	return inst
 end
 
-return Prefab( "volcano_shrub", fn, assets, prefabs)
+return Prefab("volcano_shrub", fn, assets, prefabs)

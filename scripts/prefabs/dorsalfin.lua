@@ -1,44 +1,44 @@
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/dorsalfin.zip"),
+    Asset("ANIM", "anim/dorsalfin.zip"),
 }
 
 local function fn(Sim)
-	local inst = CreateEntity()
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
-	inst.entity:AddNetwork()
+    local inst = CreateEntity()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
+    inst.entity:AddNetwork()
 
     inst.AnimState:SetBank("dorsalfin")
     inst.AnimState:SetBuild("dorsalfin")
     inst.AnimState:PlayAnimation("idle")
 
     MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst)
+    MakeInventoryFloatable(inst)
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
+    if not TheWorld.ismastersim then
         return inst
     end
 
     inst:AddComponent("stackable")
-	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
+    inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
     inst:AddComponent("inspectable")
-	inst:AddComponent("waterproofer")
+    inst:AddComponent("waterproofer")
 
-	MakeSmallBurnable(inst)
+    MakeSmallBurnable(inst)
     MakeSmallPropagator(inst)
 
 
-	inst:AddComponent("tradable")
---	inst.components.tradable.goldvalue = TUNING.GOLD_VALUES.MEAT
+    inst:AddComponent("tradable")
+    --	inst.components.tradable.goldvalue = TUNING.GOLD_VALUES.MEAT
 
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
-	
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
     inst:AddComponent("edible")
     inst.components.edible.foodtype = "HORRIBLE"
 
@@ -46,4 +46,4 @@ local function fn(Sim)
     return inst
 end
 
-return Prefab( "common/inventory/dorsalfin", fn, assets)
+return Prefab("common/inventory/dorsalfin", fn, assets)

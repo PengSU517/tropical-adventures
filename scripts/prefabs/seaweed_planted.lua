@@ -1,8 +1,8 @@
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/seaweed.zip"),
-	Asset("ANIM", "anim/meat_rack_food.zip"),
-}		
+    Asset("ANIM", "anim/seaweed.zip"),
+    Asset("ANIM", "anim/meat_rack_food.zip"),
+}
 local prefabs =
 {
     "seaweed_planted",
@@ -60,19 +60,19 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("seaweed.png" )
-	inst.AnimState:SetLayer(LAYER_BACKGROUND)
---	inst.AnimState:SetSortOrder(0)
+    inst.MiniMapEntity:SetIcon("seaweed.png")
+    inst.AnimState:SetLayer(LAYER_BACKGROUND)
+    --	inst.AnimState:SetSortOrder(0)
     inst.AnimState:SetRayTestOnBB(true)
     inst.AnimState:SetBank("seaweed")
     inst.AnimState:SetBuild("seaweed")
     inst.AnimState:PlayAnimation("idle_plant", true)
 
     inst:AddTag("renewable")
-	inst:AddTag("seaweednarede")
+    inst:AddTag("seaweednarede")
     inst:AddTag("witherable")
-	inst:AddTag("ignorewalkableplatforms")
-	inst:AddTag("plant")	
+    inst:AddTag("ignorewalkableplatforms")
+    inst:AddTag("plant")
 
     inst.entity:SetPristine()
 
@@ -90,7 +90,7 @@ local function fn()
     inst.components.pickable.onpickedfn = onpickedfn
     inst.components.pickable.makeemptyfn = makeemptyfn
     inst.components.pickable.makebarrenfn = makebarrenfn
-	inst.components.pickable.makefullfn = makefullfn
+    inst.components.pickable.makefullfn = makefullfn
 
     inst:AddComponent("witherable")
 

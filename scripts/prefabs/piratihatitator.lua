@@ -12,17 +12,17 @@ local function onhammered(inst, worker)
 end
 
 local function spawnparrots(inst)
-	if not inst:HasTag("burnt") then
-		if math.random() <= 0.1 then
-			local pt = inst:GetPosition()
-			local parrot = SpawnPrefab("parrot_pirate")
-			parrot.Transform:SetPosition(pt.x, pt.y, pt.z)
-			-- this doesn't work right because parrots fly off since you're so close, so just drop a dubloon aswell
-			--parrot.components.periodicspawner:SetPrefab("dubloon")
-			local dubloon = SpawnPrefab("dubloon")
-			dubloon.Transform:SetPosition(pt.x+1, pt.y, pt.z)
-		end
-	end
+    if not inst:HasTag("burnt") then
+        if math.random() <= 0.1 then
+            local pt = inst:GetPosition()
+            local parrot = SpawnPrefab("parrot_pirate")
+            parrot.Transform:SetPosition(pt.x, pt.y, pt.z)
+            -- this doesn't work right because parrots fly off since you're so close, so just drop a dubloon aswell
+            --parrot.components.periodicspawner:SetPrefab("dubloon")
+            local dubloon = SpawnPrefab("dubloon")
+            dubloon.Transform:SetPosition(pt.x + 1, pt.y, pt.z)
+        end
+    end
 end
 
 local function onhit(inst, worker)
@@ -52,7 +52,7 @@ local function doonact(inst, soundprefix, onact)
     --[[if onact ~= nil then
         onact(inst)
     end]]
-	spawnparrots(inst)
+    spawnparrots(inst)
     if inst._activecount > 1 then
         inst._activecount = inst._activecount - 1
     else
@@ -63,10 +63,9 @@ local function doonact(inst, soundprefix, onact)
 end
 
 local function createmachine(level, name, soundprefix, sounddelay, techtree, mergeanims, onact)
-    
-	local assets =
+    local assets =
     {
-		Asset("ANIM", "anim/"..name..".zip"),
+        Asset("ANIM", "anim/" .. name .. ".zip"),
     }
 
     local prefabs =
@@ -156,7 +155,7 @@ local function createmachine(level, name, soundprefix, sounddelay, techtree, mer
         MakeObstaclePhysics(inst, .4)
 
         inst.MiniMapEntity:SetPriority(5)
-        inst.MiniMapEntity:SetIcon(name..".png")
+        inst.MiniMapEntity:SetIcon(name .. ".png")
 
         inst.AnimState:SetBank(name)
         inst.AnimState:SetBuild(name)
@@ -164,13 +163,13 @@ local function createmachine(level, name, soundprefix, sounddelay, techtree, mer
 
         inst:AddTag("piratihatitator")
         inst:AddTag("structure")
-        inst:AddTag("level"..level)
+        inst:AddTag("level" .. level)
 
         --prototyper (from prototyper component) added to pristine state for optimization
         inst:AddTag("prototyper")
-		
+
         --inst.scrapbook_specialinfo = "SCIENCEPROTOTYPER"
-		
+
         MakeSnowCoveredPristine(inst)
 
         inst.entity:SetPristine()
@@ -213,6 +212,5 @@ local function createmachine(level, name, soundprefix, sounddelay, techtree, mer
     return Prefab(name, fn, assets, prefabs)
 end
 
-return createmachine(4, "piratihatitator", "lvl4", 0, TUNING.PROTOTYPER_TREES.PRESTIHATITATOR, false, spawnparrots ),
-    MakePlacer( "common/piratihatitator_placer", "piratihatitator", "piratihatitator", "idle" )
-	
+return createmachine(4, "piratihatitator", "lvl4", 0, TUNING.PROTOTYPER_TREES.PRESTIHATITATOR, false, spawnparrots),
+    MakePlacer("common/piratihatitator_placer", "piratihatitator", "piratihatitator", "idle")

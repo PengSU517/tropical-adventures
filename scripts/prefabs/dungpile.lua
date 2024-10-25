@@ -1,12 +1,12 @@
 local assets =
 {
     Asset("ANIM", "anim/dung_pile.zip"),
-    Asset("MINIMAP_IMAGE", "dung_pile"),    
+    Asset("MINIMAP_IMAGE", "dung_pile"),
 }
 
 local prefabs =
 {
-	"dungbeetle",
+    "dungbeetle",
     "cutgrass",
     "flint",
     "twigs",
@@ -18,12 +18,12 @@ local prefabs =
 
 local loots =
 {
-    {'poop', 1.00},
-    {'rocks',   1.00},
-    {'cutgrass',    0.05},
-    {'boneshard', 0.2},
-    {'flint', 0.05},
-    {'twigs', 0.05},
+    { 'poop',      1.00 },
+    { 'rocks',     1.00 },
+    { 'cutgrass',  0.05 },
+    { 'boneshard', 0.2 },
+    { 'flint',     0.05 },
+    { 'twigs',     0.05 },
 }
 
 local RESETTIME = 480 * 3
@@ -41,19 +41,19 @@ end
 
 local function ondug(inst, worker)
     inst.SoundEmitter:PlaySound("dontstarve/common/food_rot")
-    local pt = Point(inst.Transform:GetWorldPosition())    
-    
+    local pt = Point(inst.Transform:GetWorldPosition())
+
 
     if worker:HasTag("player") then
-        for i=1, inst.components.pickable.cycles_left do   
+        for i = 1, inst.components.pickable.cycles_left do
             local loots = inst.components.lootdropper:GenerateLoot()
-            inst.components.lootdropper:DropLoot(pt, loots)        
+            inst.components.lootdropper:DropLoot(pt, loots)
         end
     else
         spawndungball(inst)
     end
 
-    inst.components.pickable:MakeBarren()    
+    inst.components.pickable:MakeBarren()
 end
 
 local function onhit(inst)
@@ -84,11 +84,11 @@ local function onpickedfn(inst, picker)
     inst.components.lootdropper:DropLoot(pt, loots)
 
     if picker and picker.components.sanity then
-    if picker:HasTag("plantkin") then
-        picker.components.sanity:DoDelta(10)
-	else
-	    picker.components.sanity:DoDelta(-10)
-	end
+        if picker:HasTag("plantkin") then
+            picker.components.sanity:DoDelta(10)
+        else
+            picker.components.sanity:DoDelta(-10)
+        end
     end
 
     if inst.components.pickable.cycles_left <= 0 then
@@ -124,11 +124,11 @@ local function destroy(inst)
         inst.DynamicShadow:Enable(false)
     end
 
-    inst:StartThread( function()
+    inst:StartThread(function()
         local ticks = 0
         while ticks * tick_time < time_to_erode do
             local erode_amount = ticks * tick_time / time_to_erode
-            inst.AnimState:SetErosionParams( erode_amount, 0.1, 1.0 )
+            inst.AnimState:SetErosionParams(erode_amount, 0.1, 1.0)
             ticks = ticks + 1
             Yield()
         end
@@ -142,7 +142,7 @@ local function makebarrenfn(inst)
     inst.SoundEmitter:PlaySound("dontstarve/common/food_rot")
     inst:RemoveTag("dungpile")
 
-    inst.task, inst.taskinfo = inst:ResumeTask(RESETTIME + (math.random()*RANDTIME), function() reset(inst) end)
+    inst.task, inst.taskinfo = inst:ResumeTask(RESETTIME + (math.random() * RANDTIME), function() reset(inst) end)
 end
 
 local function getregentimefn(inst)
@@ -155,15 +155,15 @@ local function onsave(inst, data)
     end
     if inst.taskinfo then
         data.timeleft = inst:TimeRemainingInTask(inst.taskinfo)
-    end    
+    end
 end
 
 local function OnBurn(inst)
---    DefaultBurnFn(inst)
+    --    DefaultBurnFn(inst)
     if inst.flies then
         inst.flies:Remove()
         inst.flies = nil
-    end   
+    end
 end
 
 local function onload(inst, data)
@@ -176,51 +176,54 @@ local function onload(inst, data)
             inst.AnimState:PlayAnimation("dead")
         end
         if data.timeleft then
-            if inst.task then inst.task:Cancel() inst.task = nil end
+            if inst.task then
+                inst.task:Cancel()
+                inst.task = nil
+            end
             inst.taskinfo = nil
             inst.task, inst.taskinfo = inst:ResumeTask(data.timeleft, function() reset(inst) end)
-        end        
+        end
     end
 end
 
-local function land(inst)    
+local function land(inst)
     inst.AnimState:PlayAnimation("idle")
 end
 
 local function fall(inst)
     inst.AnimState:PlayAnimation("fall")
-    inst:DoTaskInTime(15/30,function()  TheCamera:Shake("VERTICAL", 0.3, 0.02, 0.5)  end)    
+    inst:DoTaskInTime(15 / 30, function() TheCamera:Shake("VERTICAL", 0.3, 0.02, 0.5) end)
 end
 
 local function fn(Sim)
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
     inst.entity:AddNetwork()
 
     inst.entity:AddSoundEmitter()
 
-	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon( "dung_pile.png" )
+    local minimap = inst.entity:AddMiniMapEntity()
+    minimap:SetIcon("dung_pile.png")
 
-	anim:SetBank("dung_pile")
-	anim:SetBuild("dung_pile")
-	anim:PlayAnimation("idle")
+    anim:SetBank("dung_pile")
+    anim:SetBuild("dung_pile")
+    anim:PlayAnimation("idle")
 
     inst:AddTag("dungpile")
     inst:AddTag("pick_digin")
 
-     inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end	
+    if not TheWorld.ismastersim then
+        return inst
+    end
     -------------------
-	inst:AddComponent("workable")
+    inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.DIG)
     inst.components.workable:SetWorkLeft(1)
     inst.components.workable:SetOnFinishCallback(ondug)
-    inst.components.workable:SetOnWorkCallback(onhit)    
+    inst.components.workable:SetOnWorkCallback(onhit)
     ---------------------
     inst:AddComponent("pickable")
     inst.components.pickable.picksound = "dontstarve/wilson/harvest_berries"
@@ -231,21 +234,21 @@ local function fn(Sim)
     inst.components.pickable.makefullfn = makefullfn
     inst.components.pickable.max_cycles = 3
     inst.components.pickable.cycles_left = inst.components.pickable.max_cycles
-    inst.components.pickable:SetUp(nil,0)
+    inst.components.pickable:SetUp(nil, 0)
     inst.components.pickable.transplanted = true
     -------------------
-	inst:AddComponent("childspawner")
-	inst.components.childspawner.childname = "dungbeetle"
-	inst.components.childspawner:SetRegenPeriod(CATCOONDEN_REGEN_TIME)
-	inst.components.childspawner:SetSpawnPeriod(CATCOONDEN_RELEASE_TIME)
-	inst.components.childspawner:SetMaxChildren(1)
-   -- inst.components.childspawner.canspawnfn = function(inst)
-        
-   -- end
- 
+    inst:AddComponent("childspawner")
+    inst.components.childspawner.childname = "dungbeetle"
+    inst.components.childspawner:SetRegenPeriod(CATCOONDEN_REGEN_TIME)
+    inst.components.childspawner:SetSpawnPeriod(CATCOONDEN_RELEASE_TIME)
+    inst.components.childspawner:SetMaxChildren(1)
+    -- inst.components.childspawner.canspawnfn = function(inst)
+
+    -- end
+
     ---------------------
     inst:AddComponent("lootdropper")
-    for i,v in pairs(loots) do
+    for i, v in pairs(loots) do
         inst.components.lootdropper:AddRandomLoot(v[1], v[2])
     end
     inst.components.lootdropper.numrandomloot = 1
@@ -253,7 +256,7 @@ local function fn(Sim)
     inst.components.lootdropper.alwaysinfront = true
 
     MakeMediumBurnable(inst)
-    inst.components.burnable:SetOnIgniteFn(OnBurn)    
+    inst.components.burnable:SetOnIgniteFn(OnBurn)
     MakeSmallPropagator(inst)
 
     ---------------------
@@ -269,24 +272,23 @@ local function fn(Sim)
             destroy(inst)
         end
         if anim:IsCurrentAnimation("fall") then
-            land(inst)        
+            land(inst)
         end
     end)
 
     inst.flies = inst:SpawnChild("flies")
-    inst.flies.Transform:SetScale(1.2,1.2,1.2)
+    inst.flies.Transform:SetScale(1.2, 1.2, 1.2)
 
     MakeSnowCovered(inst)
 
-	inst.OnEntitySleep = OnEntitySleep
-	inst.OnEntityWake = OnEntityWake
-    
+    inst.OnEntitySleep = OnEntitySleep
+    inst.OnEntityWake = OnEntityWake
+
     inst.OnSave = onsave
     inst.OnLoad = onload
     inst.fall = fall
 
-	return inst
+    return inst
 end
 
-return Prefab( "forest/monsters/dungpile", fn, assets, prefabs ) 
-
+return Prefab("forest/monsters/dungpile", fn, assets, prefabs)

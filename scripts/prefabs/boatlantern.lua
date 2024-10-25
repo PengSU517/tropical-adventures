@@ -1,10 +1,10 @@
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/swap_lantern_boat.zip"),
+    Asset("ANIM", "anim/swap_lantern_boat.zip"),
     Asset("INV_IMAGE", "boat_lantern_off"),
 }
 
-local BOAT_LANTERN_LIGHTTIME = (60+120)*2.6
+local BOAT_LANTERN_LIGHTTIME = (60 + 120) * 2.6
 
 local prefabs =
 {
@@ -13,7 +13,8 @@ local prefabs =
 
 local function DoTurnOffSound(inst, owner)
     inst._soundtask = nil
-    (owner ~= nil and owner:IsValid() and owner.SoundEmitter or inst.SoundEmitter):PlaySound("dontstarve/wilson/lantern_off")
+    (owner ~= nil and owner:IsValid() and owner.SoundEmitter or inst.SoundEmitter):PlaySound(
+    "dontstarve/wilson/lantern_off")
 end
 
 local function PlayTurnOffSound(inst)
@@ -45,22 +46,22 @@ local function onremovelight(light)
 end
 
 local function liga(inst)
-if not inst.components.fueled:IsEmpty() then
-inst.components.fueled:StartConsuming()
+    if not inst.components.fueled:IsEmpty() then
+        inst.components.fueled:StartConsuming()
 
-local owner = inst.components.inventoryitem.owner
+        local owner = inst.components.inventoryitem.owner
 
- if inst._light == nil then
-    inst._light = SpawnPrefab("lanternlight")
-     inst._light._lantern = inst
-     inst:ListenForEvent("onremove", onremovelight, inst._light)
-     fuelupdate(inst)
-     PlayTurnOnSound(inst)
-end
-    inst._light.entity:SetParent((owner or inst).entity)
-	inst.AnimState:OverrideSymbol("swap_lantern", "swap_lantern_boat","swap_lantern")
-	inst.components.inventoryitem:ChangeImageName("boat_lantern")
-	if inst.navio then inst.navio.AnimState:OverrideSymbol(inst.symboltooverride, inst.build, inst.symbol) end
+        if inst._light == nil then
+            inst._light = SpawnPrefab("lanternlight")
+            inst._light._lantern = inst
+            inst:ListenForEvent("onremove", onremovelight, inst._light)
+            fuelupdate(inst)
+            PlayTurnOnSound(inst)
+        end
+        inst._light.entity:SetParent((owner or inst).entity)
+        inst.AnimState:OverrideSymbol("swap_lantern", "swap_lantern_boat", "swap_lantern")
+        inst.components.inventoryitem:ChangeImageName("boat_lantern")
+        if inst.navio then inst.navio.AnimState:OverrideSymbol(inst.symboltooverride, inst.build, inst.symbol) end
     end
 end
 
@@ -71,9 +72,9 @@ local function desliga(inst)
         inst._light:Remove()
         PlayTurnOffSound(inst)
     end
-inst.components.inventoryitem:ChangeImageName("boat_lantern_off")
-inst.AnimState:OverrideSymbol("swap_lantern", "swap_lantern_boat","swap_lantern_off")
-if inst.navio then inst.navio.AnimState:OverrideSymbol(inst.symboltooverride, inst.build, inst.symbol) end
+    inst.components.inventoryitem:ChangeImageName("boat_lantern_off")
+    inst.AnimState:OverrideSymbol("swap_lantern", "swap_lantern_boat", "swap_lantern_off")
+    if inst.navio then inst.navio.AnimState:OverrideSymbol(inst.symboltooverride, inst.build, inst.symbol) end
 end
 
 
@@ -87,10 +88,10 @@ local function OnRemove(inst)
 end
 
 local function nofuel(inst)
-if inst.navio then inst.navio.AnimState:ClearOverrideSymbol(inst.symboltooverride, inst.build, inst.symbol) end
-inst.navio = nil
-inst:RemoveTag("ligado")
-desliga(inst)
+    if inst.navio then inst.navio.AnimState:ClearOverrideSymbol(inst.symboltooverride, inst.build, inst.symbol) end
+    inst.navio = nil
+    inst:RemoveTag("ligado")
+    desliga(inst)
 end
 --------------------------------------------------------------------------
 
@@ -107,35 +108,40 @@ end
 --------------------------------------------------------------------------
 
 local function OnSave(inst, data)
-if inst:HasTag("ligado") then data.luz = 1 end
+    if inst:HasTag("ligado") then data.luz = 1 end
 end
 
 local function OnLoad(inst, data)
-if data and data.luz ~= nil then inst:AddTag("ligado") liga(inst) end
+    if data and data.luz ~= nil then
+        inst:AddTag("ligado")
+        liga(inst)
+    end
 end
 
 local function mudasimbolo(inst)
----------verifica se ta dentro do navio--------------
-local barco = GetClosestInstWithTag("boatsw", inst, 0.5)
-local player = GetClosestInstWithTag("player", inst, 0.5)
-if not barco then 
-if inst:HasTag("nonavio") then inst:RemoveTag("nonavio") end
-return end
-if barco and player and inst.components.inventoryitem:IsHeldBy(player) then
-if inst:HasTag("nonavio") then inst:RemoveTag("nonavio") end
-return end
-if barco then
-if not inst:HasTag("nonavio") then inst:AddTag("nonavio") end
-end
+    ---------verifica se ta dentro do navio--------------
+    local barco = GetClosestInstWithTag("boatsw", inst, 0.5)
+    local player = GetClosestInstWithTag("player", inst, 0.5)
+    if not barco then
+        if inst:HasTag("nonavio") then inst:RemoveTag("nonavio") end
+        return
+    end
+    if barco and player and inst.components.inventoryitem:IsHeldBy(player) then
+        if inst:HasTag("nonavio") then inst:RemoveTag("nonavio") end
+        return
+    end
+    if barco then
+        if not inst:HasTag("nonavio") then inst:AddTag("nonavio") end
+    end
 
 
-if inst:HasTag("ligado") then
-inst.symbol = "swap_lantern"
-liga(inst)
-else
-inst.symbol = "swap_lantern_off"
-desliga(inst)
-end
+    if inst:HasTag("ligado") then
+        inst.symbol = "swap_lantern"
+        liga(inst)
+    else
+        inst.symbol = "swap_lantern_off"
+        desliga(inst)
+    end
 end
 
 local function fn()
@@ -145,12 +151,12 @@ local function fn()
     inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
---  MakeInventoryFloatable(inst, "idle_water", "idle")
+    --  MakeInventoryFloatable(inst, "idle_water", "idle")
     inst.build = "swap_lantern_boat"
     inst.symbol = "swap_lantern_off"
     inst.symboltooverride = "swap_lantern"
-	inst.navio = nil
-	
+    inst.navio = nil
+
     MakeInventoryPhysics(inst)
 
     inst.AnimState:SetBank("lantern_boat")
@@ -159,7 +165,7 @@ local function fn()
 
     inst:AddTag("light")
     inst:AddTag("boatlight")
-	MakeInventoryFloatable(inst)
+    MakeInventoryFloatable(inst)
 
     inst.entity:SetPristine()
 
@@ -171,9 +177,9 @@ local function fn()
     inst:AddComponent("interactions")
 
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
-	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
     inst:AddComponent("fueled")
 
     inst.components.fueled.fueltype = FUELTYPE.CAVE
@@ -182,19 +188,19 @@ local function fn()
     inst.components.fueled:SetUpdateFn(fuelupdate)
     inst.components.fueled:SetFirstPeriod(TUNING.TURNON_FUELED_CONSUMPTION, TUNING.TURNON_FULL_FUELED_CONSUMPTION)
     inst.components.fueled.accepting = true
-	
+
     inst._light = nil
 
     MakeHauntableLaunch(inst)
 
     inst.OnRemoveEntity = OnRemove
-	inst:ListenForEvent("onpickup", nofuel)
-	inst:DoPeriodicTask(0.5, mudasimbolo)
-	
-	inst.OnLoad = OnLoad
-	inst.OnSave = OnSave
+    inst:ListenForEvent("onpickup", nofuel)
+    inst:DoPeriodicTask(0.5, mudasimbolo)
+
+    inst.OnLoad = OnLoad
+    inst.OnSave = OnSave
 
     return inst
 end
 
-return Prefab( "common/inventory/boat_lantern", fn, assets)
+return Prefab("common/inventory/boat_lantern", fn, assets)

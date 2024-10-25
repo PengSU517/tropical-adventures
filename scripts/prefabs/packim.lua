@@ -55,11 +55,11 @@ end
 local function ShouldSleep(inst)
     --print(inst, "ShouldSleep", DefaultSleepTest(inst), not inst.sg:HasStateTag("open"), inst.components.follower:IsNearLeader(SLEEP_NEAR_LEADER_DISTANCE))
     return DefaultSleepTest(inst) and not inst.sg:HasStateTag("open") and
-    inst.components.follower:IsNearLeader(SLEEP_NEAR_LEADER_DISTANCE) and not TheWorld.state.isfullmoon
+        inst.components.follower:IsNearLeader(SLEEP_NEAR_LEADER_DISTANCE) and not TheWorld.state.isfullmoon
 end
 
 local function ShouldKeepTarget()
-    return false -- chester can't attack, and won't sleep if he has a target
+    return false  -- chester can't attack, and won't sleep if he has a target
 end
 
 local function OnOpen(inst)
@@ -361,7 +361,7 @@ local function RetargetFn(inst)
         function(guy)
             if not guy.LightWatcher or guy.LightWatcher:IsInLight() then
                 return guy.components.health and not guy.components.health:IsDead() and
-                inst.components.combat:CanTarget(guy)
+                    inst.components.combat:CanTarget(guy)
             end
         end, yestags, notags)
 end

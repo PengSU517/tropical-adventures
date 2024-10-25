@@ -1,10 +1,9 @@
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/rowboat_wake_quack.zip")
 }
 
 local function fn(Sim)
-
 	local inst = CreateEntity()
 	inst.persists = false
 	inst.entity:AddNetwork()
@@ -12,19 +11,18 @@ local function fn(Sim)
 	inst:AddTag("FX")
 	inst:AddTag("NOCLICK")
 
-    inst.entity:AddTransform()
+	inst.entity:AddTransform()
 	inst.entity:AddAnimState()
 	--inst.AnimState:SetOrientation( ANIM_ORIENTATION.OnGround )
-	inst.AnimState:SetLayer(LAYER_BACKGROUND )
-	inst.AnimState:SetSortOrder( 3 )
-    inst.AnimState:SetBuild("rowboat_wake_quack")
-    inst.AnimState:SetBank("wakeTrail")
-    inst.AnimState:PlayAnimation("quack_dn", true)
+	inst.AnimState:SetLayer(LAYER_BACKGROUND)
+	inst.AnimState:SetSortOrder(3)
+	inst.AnimState:SetBuild("rowboat_wake_quack")
+	inst.AnimState:SetBank("wakeTrail")
+	inst.AnimState:PlayAnimation("quack_dn", true)
 
 	inst.lastDirection = -1
 
 	inst.ChangeDirection = function(self, newDirection)
-
 		-- starting up
 		if newDirection ~= self.lastDirection then
 			if newDirection == 0 then
@@ -54,11 +52,11 @@ local function fn(Sim)
 
 	inst.entity:SetPristine()
 
-     if not TheWorld.ismastersim then
-        return inst
-    end
-	
-    return inst
+	if not TheWorld.ismastersim then
+		return inst
+	end
+
+	return inst
 end
 
-return Prefab( "common/fx/quackering_wave", fn, assets, prefabs)
+return Prefab("common/fx/quackering_wave", fn, assets, prefabs)

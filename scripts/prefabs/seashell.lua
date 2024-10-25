@@ -1,18 +1,18 @@
 local assets =
 {
-	Asset("ANIM", "anim/seashell.zip"),
+    Asset("ANIM", "anim/seashell.zip"),
 }
 
 local function fn()
-	local inst = CreateEntity()
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
     inst.entity:AddNetwork()
 
     MakeInventoryPhysics(inst)
     -- MakeInventoryFloatable(inst, "idle_water", "idle")
     -- MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
-    
+
     inst.AnimState:SetBank("seashell")
     inst.AnimState:SetBuild("seashell")
     inst.AnimState:PlayAnimation("idle")
@@ -23,19 +23,19 @@ local function fn()
     if not TheWorld.ismastersim then
         return inst
     end
-    
+
     inst:AddComponent("stackable")
-	inst.components.stackable.maxsize = TUNING.STACK_SIZE_MEDITEM
+    inst.components.stackable.maxsize = TUNING.STACK_SIZE_MEDITEM
 
     inst:AddComponent("tradable")
- 
+
     inst:AddComponent("inspectable")
-      
-    
+
+
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"    
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
     return inst
 end
 
-return Prefab( "seashell", fn, assets) 
+return Prefab("seashell", fn, assets)

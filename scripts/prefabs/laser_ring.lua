@@ -1,7 +1,7 @@
 local assets =
 {
     Asset("ANIM", "anim/laser_ring_fx.zip"),
-    Asset("ANIM", "anim/laser_explosion.zip"),	
+    Asset("ANIM", "anim/laser_explosion.zip"),
 }
 
 local prefabs =
@@ -45,25 +45,25 @@ end
 
 local function scorchfn()
     local inst = CreateEntity()
-	
+
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
     inst.entity:AddNetwork()
-	
+
     inst.AnimState:SetBuild("laser_ring_fx")
     inst.AnimState:SetBank("laser_ring_fx")
     inst.AnimState:PlayAnimation("idle")
     inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
     inst.AnimState:SetLayer(LAYER_BACKGROUND)
     inst.AnimState:SetSortOrder(3)
-    inst.Transform:SetScale(0.85,0.85,0.85)
+    inst.Transform:SetScale(0.85, 0.85, 0.85)
     inst:AddTag("NOCLICK")
     inst:AddTag("FX")
     inst:AddTag("laser")
     inst._fade = net_byte(inst.GUID, "deerclops_laserscorch._fade", "fadedirty")
     inst._fade:set(SCORCH_RED_FRAMES + SCORCH_DELAY_FRAMES + SCORCH_FADE_FRAMES)
     inst.alpha = 1
-	
+
     inst:DoPeriodicTask(0, Scorch_OnUpdateFade)
     Scorch_OnFadeDirty(inst)
 
@@ -73,7 +73,7 @@ local function scorchfn()
         inst:ListenForEvent("fadedirty", Scorch_OnFadeDirty)
 
         return inst
-    end	 
+    end
 
     inst.Transform:SetRotation(math.random() * 360)
     inst.persists = false
@@ -94,7 +94,7 @@ local function explosionfn()
     inst:AddTag("FX")
     inst:AddTag("laser")
 
-    inst.Transform:SetScale(0.85,0.85,0.85)
+    inst.Transform:SetScale(0.85, 0.85, 0.85)
 
     inst:ListenForEvent("animover", function(inst) inst:Remove() end)
 
@@ -103,7 +103,7 @@ end
 
 local function metal_hulk_ring_fx()
     local inst = CreateEntity()
-	inst.entity:AddNetwork()
+    inst.entity:AddNetwork()
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
 
@@ -120,5 +120,5 @@ local function metal_hulk_ring_fx()
 end
 
 return Prefab("laser_ring", scorchfn, assets, prefabs),
-       Prefab("laser_explosion", explosionfn, assets, prefabs),
-       Prefab("metal_hulk_ring_fx", metal_hulk_ring_fx, assets, prefabs)
+    Prefab("laser_explosion", explosionfn, assets, prefabs),
+    Prefab("metal_hulk_ring_fx", metal_hulk_ring_fx, assets, prefabs)

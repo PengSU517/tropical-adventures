@@ -27,24 +27,24 @@ local prefabs_nightmare =
 local brain = require "brains/knightbrain"
 
 SetSharedLootTable('knight',
-{
-    {'gears',  1.0},
-    {'gears',  1.0},
-})
+    {
+        { 'gears', 1.0 },
+        { 'gears', 1.0 },
+    })
 
 SetSharedLootTable('knightb',
-{
-})
+    {
+    })
 
 SetSharedLootTable('knight_nightmare',
-{
-    {'gears',             1.0},
-    {'nightmarefuel',     0.6},
-    {'thulecite_pieces',  0.5},
-})
+    {
+        { 'gears',            1.0 },
+        { 'nightmarefuel',    0.6 },
+        { 'thulecite_pieces', 0.5 },
+    })
 
 local function ShouldSleep(inst)
-if inst:HasTag("Arena") then return false end
+    if inst:HasTag("Arena") then return false end
     return clockwork_common.ShouldSleep(inst)
 end
 
@@ -53,8 +53,8 @@ local function ShouldWake(inst)
 end
 
 local function Retarget(inst)
-local player = GetClosestInstWithTag("player", inst, 70)
-if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(player) end
+    local player = GetClosestInstWithTag("player", inst, 70)
+    if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(player) end
     return clockwork_common.Retarget(inst, TUNING.KNIGHT_TARGET_DIST)
 end
 
@@ -174,15 +174,15 @@ local function nightmarefn()
 end
 
 local function onruinsrespawn(inst, respawner)
-	if not respawner:IsAsleep() then
-		inst.sg:GoToState("ruinsrespawn")
-	end
+    if not respawner:IsAsleep() then
+        inst.sg:GoToState("ruinsrespawn")
+    end
 end
 
 local function fnb()
-    local inst = fn_common("knight_build")	
+    local inst = fn_common("knight_build")
     inst:AddTag("Arena")
-	
+
     if not TheWorld.ismastersim then
         return inst
     end
@@ -195,7 +195,7 @@ end
 
 local function nightmarefnb()
     local inst = fn_common("knight_nightmare", "cavedweller")
-	inst:AddTag("Arena")
+    inst:AddTag("Arena")
 
     if not TheWorld.ismastersim then
         return inst
@@ -207,4 +207,4 @@ local function nightmarefnb()
 end
 
 return Prefab("knightb", fnb, assets, prefabs),
-	   Prefab("knight_nightmareb", nightmarefnb, assets, prefabs_nightmare)
+    Prefab("knight_nightmareb", nightmarefnb, assets, prefabs_nightmare)

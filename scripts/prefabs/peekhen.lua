@@ -12,20 +12,20 @@ local assets =
 
 local prefabs =
 {
-    
+
 }
 
-SetSharedLootTable( 'buzzard',
-{
-    {'drumstick',             1.00},
-    {'smallmeat',             1.00},
-    {'smallmeat',             0.33},
-    {'peagawkfeather',        0.33},
-})
+SetSharedLootTable('buzzard',
+    {
+        { 'drumstick',      1.00 },
+        { 'smallmeat',      1.00 },
+        { 'smallmeat',      0.33 },
+        { 'peagawkfeather', 0.33 },
+    })
 
 local function KeepTargetFn(inst, target)
-    return inst.components.combat:CanTarget(target) and 
-    inst:GetDistanceSqToInst(target) <= (7.5*7.5)
+    return inst.components.combat:CanTarget(target) and
+        inst:GetDistanceSqToInst(target) <= (7.5 * 7.5)
 end
 
 local function OnAttacked(inst, data)
@@ -34,12 +34,12 @@ end
 
 local function OnHitOther(inst, data)
 
-end       
+end
 
 local function OnSave(inst, data)
 
 end
-        
+
 local function OnLoad(inst, data)
 
 end
@@ -48,19 +48,19 @@ local function canbeattacked(inst, attacked)
     return not inst.sg:HasStateTag("flying")
 end
 
-    
+
 local function fn(Sim)
     local inst = CreateEntity()
     local trans = inst.entity:AddTransform()
     local anim = inst.entity:AddAnimState()
     local sound = inst.entity:AddSoundEmitter()
     local shadow = inst.entity:AddDynamicShadow()
-    inst.entity:AddNetwork()	
+    inst.entity:AddNetwork()
 
-    shadow:SetSize(1.25,.75)    
-    inst.Transform:SetFourFaced()    
+    shadow:SetSize(1.25, .75)
+    inst.Transform:SetFourFaced()
     MakeCharacterPhysics(inst, 15, .25)
- --   MakePoisonableCharacter(inst)
+    --   MakePoisonableCharacter(inst)
 
     anim:SetBank("buzzard")
     anim:SetBuild("peekhen_build")
@@ -74,16 +74,16 @@ local function fn(Sim)
     inst:AddTag("scarytoprey")
 
     ------------------------------------------
-	
-	inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end			
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
 
     inst:AddComponent("health")
     inst.components.health:SetMaxHealth(TUNING.BUZZARD_HEALTH)
-    
+
     ------------------
 
     inst:AddComponent("combat")
@@ -100,15 +100,15 @@ local function fn(Sim)
     inst.components.eater:SetDiet({ FOODGROUP.OMNI }, { FOODGROUP.OMNI })
 
     ------------------------------------------
- 
+
     inst:AddComponent("sleeper")
     inst.components.sleeper:SetResistance(4)
-    
+
     ------------------------------------------
 
     inst:AddComponent("lootdropper")
     inst.components.lootdropper:SetChanceLootTable('buzzard')
-    
+
     ------------------------------------------
 
     inst:AddComponent("inspectable")
@@ -143,4 +143,4 @@ local function fn(Sim)
     return inst
 end
 
-return Prefab( "common/monsters/peekhen", fn, assets, prefabs) 
+return Prefab("common/monsters/peekhen", fn, assets, prefabs)

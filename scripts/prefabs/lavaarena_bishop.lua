@@ -9,10 +9,10 @@ local assets =
     Asset("SOUND", "sound/chess.fsb"),
     Asset("SCRIPT", "scripts/prefabs/clockwork_common.lua"),
     Asset("SCRIPT", "scripts/prefabs/ruinsrespawner.lua"),
-	
+
     Asset("ANIM", "anim/bishopboat.zip"),
     Asset("ANIM", "anim/bishopboat_build.zip"),
-    Asset("ANIM", "anim/bishopboat_death.zip"),	
+    Asset("ANIM", "anim/bishopboat_death.zip"),
 }
 
 local prefabs =
@@ -35,26 +35,26 @@ local prefabs_nightmare =
 local brain = require "brains/bishopbrain"
 
 SetSharedLootTable('bishop',
-{
-    {'gears',       1.0},
-    {'gears',       1.0},
-    {'purplegem',   1.0},
-})
+    {
+        { 'gears',     1.0 },
+        { 'gears',     1.0 },
+        { 'purplegem', 1.0 },
+    })
 
 SetSharedLootTable('bishop_nightmare',
-{
-    {'purplegem',         1.0},
-    {'nightmarefuel',     0.6},
-    {'thulecite_pieces',  0.5},
-})
+    {
+        { 'purplegem',        1.0 },
+        { 'nightmarefuel',    0.6 },
+        { 'thulecite_pieces', 0.5 },
+    })
 
 SetSharedLootTable('bishopb',
-{
+    {
 
-})
+    })
 
 local function ShouldSleep(inst)
-if inst:HasTag("Arena") then return false end
+    if inst:HasTag("Arena") then return false end
     return clockwork_common.ShouldSleep(inst)
 end
 
@@ -63,8 +63,8 @@ local function ShouldWake(inst)
 end
 
 local function Retarget(inst)
-local player = GetClosestInstWithTag("player", inst, 70)
-if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(player) end
+    local player = GetClosestInstWithTag("player", inst, 70)
+    if player and inst:HasTag("Arena") then return inst.components.combat:SetTarget(player) end
     return clockwork_common.Retarget(inst, TUNING.BISHOP_TARGET_DIST)
 end
 
@@ -83,13 +83,13 @@ local function EquipWeapon(inst)
         weapon.entity:AddTransform()
         weapon:AddComponent("weapon")
         weapon.components.weapon:SetDamage(inst.components.combat.defaultdamage)
-        weapon.components.weapon:SetRange(inst.components.combat.attackrange, inst.components.combat.attackrange+4)
+        weapon.components.weapon:SetRange(inst.components.combat.attackrange, inst.components.combat.attackrange + 4)
         weapon.components.weapon:SetProjectile("bishop_charge")
         weapon:AddComponent("inventoryitem")
         weapon.persists = false
         weapon.components.inventoryitem:SetOnDroppedFn(inst.Remove)
         weapon:AddComponent("equippable")
-        
+
         inst.components.inventory:Equip(weapon)
     end
 end
@@ -177,42 +177,41 @@ local function common_fn(build, tag)
 end
 
 local function OnWaterChange(inst, onwater)
-	inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/crocodog/emerge")
+    inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/crocodog/emerge")
 
-	if onwater then
+    if onwater then
         if inst.DynamicShadow then
             inst.DynamicShadow:Enable(false)
         end
-    
-		inst.AnimState:SetBank("bishopboat")
+
+        inst.AnimState:SetBank("bishopboat")
         inst.AnimState:SetBuild("bishopboat_build")
-	else
+    else
         if inst.DynamicShadow then
             inst.DynamicShadow:Enable(true)
         end
 
-		inst.AnimState:SetBank("bishop")
+        inst.AnimState:SetBank("bishop")
         inst.AnimState:SetBuild("bishop_build")
+    end
 
-	end
-    
- --   local splash = SpawnPrefab("splash_water")
-local splash = SpawnPrefab("frogsplash")	
+    --   local splash = SpawnPrefab("splash_water")
+    local splash = SpawnPrefab("frogsplash")
 
     local ent_pos = Vector3(inst.Transform:GetWorldPosition())
     splash.Transform:SetPosition(ent_pos.x, ent_pos.y, ent_pos.z)
-    
+
     if inst.sg then
         inst.sg:GoToState("idle")
     end
 end
 
 local function OnEntityWake(inst)
-	inst.components.tiletracker:Start()
+    inst.components.tiletracker:Start()
 end
 
 local function OnEntitySleep(inst)
-inst.components.tiletracker:Stop()
+    inst.components.tiletracker:Stop()
 end
 
 local function bishop_fn()
@@ -244,8 +243,8 @@ local function bishop_fn()
     end
 
     inst:AddComponent("lootdropper")
-	inst.components.lootdropper:SetChanceLootTable('bishop')
-	
+    inst.components.lootdropper:SetChanceLootTable('bishop')
+
     inst:AddComponent("locomotor")
     inst.components.locomotor.walkspeed = TUNING.BISHOP_WALK_SPEED
 
@@ -289,13 +288,13 @@ local function bishop_fn()
     inst.kind = ""
     inst.soundpath = "dontstarve/creatures/bishop/"
     inst.effortsound = "dontstarve/creatures/bishop/idle"
-	
-	inst:AddComponent("tiletracker")
-	inst.components.tiletracker:SetOnWaterChangeFn(OnWaterChange)
 
-	inst.OnEntityWake = OnEntityWake
-	inst.OnEntitySleep = OnEntitySleep	
-	
+    inst:AddComponent("tiletracker")
+    inst.components.tiletracker:SetOnWaterChangeFn(OnWaterChange)
+
+    inst.OnEntityWake = OnEntityWake
+    inst.OnEntitySleep = OnEntitySleep
+
     return inst
 end
 
@@ -316,8 +315,8 @@ end
 
 local function bishop_fnb()
     local inst = common_fn("bishop_build")
-	inst:AddTag("Arena")
-	
+    inst:AddTag("Arena")
+
     if not TheWorld.ismastersim then
         return inst
     end
@@ -332,8 +331,8 @@ end
 
 local function bishop_nightmare_fnb()
     local inst = common_fn("bishop_nightmare", "cavedweller")
-	inst:AddTag("Arena")
-	
+    inst:AddTag("Arena")
+
     if not TheWorld.ismastersim then
         return inst
     end
@@ -347,13 +346,13 @@ local function bishop_nightmare_fnb()
 end
 
 local function onruinsrespawn(inst, respawner)
-	if not respawner:IsAsleep() then
-		inst.sg:GoToState("ruinsrespawn")
-	end
+    if not respawner:IsAsleep() then
+        inst.sg:GoToState("ruinsrespawn")
+    end
 end
 
 return Prefab("bishop", bishop_fn, assets, prefabs),
     Prefab("bishop_nightmare", bishop_nightmare_fn, assets, prefabs_nightmare),
-	Prefab("bishopb", bishop_fnb, assets, prefabs),
-    Prefab("bishop_nightmareb", bishop_nightmare_fnb, assets, prefabs_nightmare),	
+    Prefab("bishopb", bishop_fnb, assets, prefabs),
+    Prefab("bishop_nightmareb", bishop_nightmare_fnb, assets, prefabs_nightmare),
     RuinsRespawner.Inst("bishop_nightmare", onruinsrespawn), RuinsRespawner.WorldGen("bishop_nightmare", onruinsrespawn)

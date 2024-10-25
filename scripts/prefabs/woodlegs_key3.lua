@@ -1,17 +1,17 @@
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/woodlegs_key.zip"),
 }
 
- 
- 
+
+
 local function fn(Sim)
 	local inst = CreateEntity()
 	local trans = inst.entity:AddTransform()
 	local anim = inst.entity:AddAnimState()
 	inst.entity:AddSoundEmitter()
 	MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst)	
+	MakeInventoryFloatable(inst)
 	inst.entity:AddNetwork()
 
 	inst.AnimState:SetBank("woodlegs_key")
@@ -24,15 +24,15 @@ local function fn(Sim)
 
 	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
-	
-	inst:AddComponent("inspectable")	
+	if not TheWorld.ismastersim then
+		return inst
+	end
+
+	inst:AddComponent("inspectable")
 	inst:AddComponent("tradable")
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"	
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 	-------
 
 
@@ -40,4 +40,4 @@ local function fn(Sim)
 end
 
 
-return Prefab( "woodlegs_key3", fn, assets)
+return Prefab("woodlegs_key3", fn, assets)

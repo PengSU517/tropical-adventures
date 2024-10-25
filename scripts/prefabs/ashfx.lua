@@ -22,11 +22,11 @@ local function InitEnvelope()
     EnvelopeManager:AddColourEnvelope(
         COLOUR_ENVELOPE_NAME,
         {
-            { 0, IntColour(50, 50, 50, 120) },
+            { 0,   IntColour(50, 50, 50, 120) },
             { 0.9, IntColour(50, 50, 50, 150) },
-            { 1, IntColour(50, 50, 50, 180) },
+            { 1,   IntColour(50, 50, 50, 180) },
         }
-   )
+    )
 
     local max_scale = 0.1
     EnvelopeManager:AddVector2Envelope(
@@ -79,7 +79,7 @@ local function fn()
     local rng = math.random
     local tick_time = TheSim:GetTickTime()
 
-    local desired_particles_per_second = 0--300
+    local desired_particles_per_second = 0 --300
     inst.particles_per_tick = desired_particles_per_second * tick_time
 
     inst.num_particles_to_emit = inst.particles_per_tick
@@ -96,24 +96,23 @@ local function fn()
         local px, py, pz = emitter_shape()
 
         if use_uv_offset then
-
-            local angle = math.random() * 360    
+            local angle = math.random() * 360
             local uv_offset = math.random(0, 7) * .125
             local ang_vel = UnitRand() * 4.0
             effect:AddRotatingParticleUV(
                 0,
-                lifetime,           -- lifetime
-                px, py, pz,         -- position
-                vx, vy, vz,         -- velocity
-                angle, ang_vel,     -- angle, angular_velocity
-                uv_offset, 0        -- uv offset
+                lifetime,       -- lifetime
+                px, py, pz,     -- position
+                vx, vy, vz,     -- velocity
+                angle, ang_vel, -- angle, angular_velocity
+                uv_offset, 0    -- uv offset
             )
         else
             effect:AddParticle(
                 0,
-                lifetime,           -- lifetime
-                px, py, pz,         -- position
-                vx, vy, vz          -- velocity
+                lifetime,   -- lifetime
+                px, py, pz, -- position
+                vx, vy, vz  -- velocity
             )
         end
     end
@@ -122,10 +121,10 @@ local function fn()
     local function update_fn()
         if init_effect then
             init_effect = nil
-                effect:SetRenderResources(0, TEXTURE, SHADER)
-                effect:SetScaleEnvelope(0, SCALE_ENVELOPE_NAME)
-                effect:SetAcceleration(0, -1, -9.80/2, 1)
-                effect:SetDragCoefficient(0, .8)
+            effect:SetRenderResources(0, TEXTURE, SHADER)
+            effect:SetScaleEnvelope(0, SCALE_ENVELOPE_NAME)
+            effect:SetAcceleration(0, -1, -9.80 / 2, 1)
+            effect:SetDragCoefficient(0, .8)
             effect:SetMaxNumParticles(0, 4800)
             effect:SetMaxLifetime(0, MAX_LIFETIME)
             effect:SetColourEnvelope(0, COLOUR_ENVELOPE_NAME)
@@ -157,4 +156,3 @@ local function fn()
 end
 
 return Prefab("ashfx", fn, assets)
- 

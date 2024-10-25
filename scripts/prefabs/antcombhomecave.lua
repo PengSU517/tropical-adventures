@@ -1,20 +1,20 @@
 local assets =
 {
-	Asset("ANIM", "anim/ant_house.zip"),
+    Asset("ANIM", "anim/ant_house.zip"),
 }
 
 local prefabs =
 {
-	"antman2",
+    "antman2",
 }
 
 local function ReturnChildren(inst)
-	for k,child in pairs(inst.components.childspawner.childrenoutside) do
-		if child.components.homeseeker then
-			child.components.homeseeker:GoHome()
-		end
-		child:PushEvent("gohome")
-	end
+    for k, child in pairs(inst.components.childspawner.childrenoutside) do
+        if child.components.homeseeker then
+            child.components.homeseeker:GoHome()
+        end
+        child:PushEvent("gohome")
+    end
 end
 
 local function onnear(inst)
@@ -22,9 +22,9 @@ local function onnear(inst)
         local tries = 10
         while inst.components.childspawner:CanSpawn() and tries > 0 do
             local bat = inst.components.childspawner:SpawnChild()
---            if bat ~= nil then
---                bat:DoTaskInTime(0, function() bat:PushEvent("panic") end)
---            end
+            --            if bat ~= nil then
+            --                bat:DoTaskInTime(0, function() bat:PushEvent("panic") end)
+            --            end
             tries = tries - 1
         end
         inst.SoundEmitter:PlaySound("dontstarve/cave/bat_cave_explosion")
@@ -32,22 +32,22 @@ local function onnear(inst)
     end
 end
 
-local function onaddchild( inst, count )
+local function onaddchild(inst, count)
     if inst.components.childspawner.childreninside == inst.components.childspawner.maxchildren then
-        inst.AnimState:PlayAnimation("hit",true)
+        inst.AnimState:PlayAnimation("hit", true)
         inst.SoundEmitter:PlaySound("dontstarve/cave/bat_cave_warning", "full")
     end
 end
 
-local function onspawnchild( inst, child )
-    inst.AnimState:PlayAnimation("idle",true)
+local function onspawnchild(inst, child)
+    inst.AnimState:PlayAnimation("idle", true)
     inst.SoundEmitter:KillSound("full")
     inst.SoundEmitter:PlaySound("dontstarve/cave/bat_cave_bat_spawn")
 end
 
 local function OnEntityWake(inst)
     if inst.components.childspawner.childreninside == inst.components.childspawner.maxchildren then
-        inst.AnimState:PlayAnimation("hit",true)
+        inst.AnimState:PlayAnimation("hit", true)
         inst.SoundEmitter:PlaySound("dontstarve/cave/bat_cave_warning", "full")
     end
 end
@@ -66,10 +66,10 @@ end
 
 
 local function fn()
-	local inst = CreateEntity()
+    local inst = CreateEntity()
 
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
@@ -86,15 +86,15 @@ local function fn()
         return inst
     end
 
-	inst:AddComponent("childspawner")
-	inst.components.childspawner:SetRegenPeriod(TUNING.BATCAVE_REGEN_PERIOD)
-	inst.components.childspawner:SetSpawnPeriod(TUNING.BATCAVE_SPAWN_PERIOD)
-	inst.components.childspawner:SetMaxChildren(2)
-	inst.components.childspawner.childname = "antman2"
+    inst:AddComponent("childspawner")
+    inst.components.childspawner:SetRegenPeriod(TUNING.BATCAVE_REGEN_PERIOD)
+    inst.components.childspawner:SetSpawnPeriod(TUNING.BATCAVE_SPAWN_PERIOD)
+    inst.components.childspawner:SetMaxChildren(2)
+    inst.components.childspawner.childname = "antman2"
     inst.components.childspawner:StartSpawning()
     inst.components.childspawner:StartRegen()
-    inst.components.childspawner:SetOnAddChildFn( onaddchild )
-    inst.components.childspawner:SetSpawnedFn( onspawnchild )
+    inst.components.childspawner:SetOnAddChildFn(onaddchild)
+    inst.components.childspawner:SetSpawnedFn(onspawnchild)
     -- initialize with no children
     inst.components.childspawner.childreninside = 0
 
@@ -107,14 +107,14 @@ local function fn()
     onisday(inst, TheWorld.state.iscaveday)
     inst:WatchWorldState("iscaveday", onisday)
 
-	return inst
+    return inst
 end
 
 local function fn1()
-	local inst = CreateEntity()
+    local inst = CreateEntity()
 
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
@@ -131,15 +131,15 @@ local function fn1()
         return inst
     end
 
-	inst:AddComponent("childspawner")
-	inst.components.childspawner:SetRegenPeriod(TUNING.BATCAVE_REGEN_PERIOD)
-	inst.components.childspawner:SetSpawnPeriod(TUNING.BATCAVE_SPAWN_PERIOD)
-	inst.components.childspawner:SetMaxChildren(1)
-	inst.components.childspawner.childname = "antman_warrior"
+    inst:AddComponent("childspawner")
+    inst.components.childspawner:SetRegenPeriod(TUNING.BATCAVE_REGEN_PERIOD)
+    inst.components.childspawner:SetSpawnPeriod(TUNING.BATCAVE_SPAWN_PERIOD)
+    inst.components.childspawner:SetMaxChildren(1)
+    inst.components.childspawner.childname = "antman_warrior"
     inst.components.childspawner:StartSpawning()
     inst.components.childspawner:StartRegen()
-    inst.components.childspawner:SetOnAddChildFn( onaddchild )
-    inst.components.childspawner:SetSpawnedFn( onspawnchild )
+    inst.components.childspawner:SetOnAddChildFn(onaddchild)
+    inst.components.childspawner:SetSpawnedFn(onspawnchild)
     -- initialize with no children
     inst.components.childspawner.childreninside = 0
 
@@ -152,8 +152,8 @@ local function fn1()
     onisday(inst, TheWorld.state.iscaveday)
     inst:WatchWorldState("iscaveday", onisday)
 
-	return inst
+    return inst
 end
 
 return Prefab("antcombhomecave", fn, assets, prefabs),
-	   Prefab("antcombhomecavewarrior", fn1, assets, prefabs)
+    Prefab("antcombhomecavewarrior", fn1, assets, prefabs)

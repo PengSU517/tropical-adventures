@@ -27,7 +27,7 @@ local internalloot =
 			dubloon = 1
 		}
 	},
-	
+
 	["3dubloons"] =
 	{
 		loot =
@@ -35,7 +35,7 @@ local internalloot =
 			dubloon = 3
 		}
 	},
-	
+
 	["10dubloons"] =
 	{
 		loot =
@@ -64,15 +64,15 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
 	},
 
-	--Took the actual keys out of these now that they're granted in other ways. 
+	--Took the actual keys out of these now that they're granted in other ways.
 	--Don't want to remove the loot tables incase people have saved worlds with these loots set.
 
 	["WoodlegsKey1"] =
@@ -105,7 +105,7 @@ local internalloot =
 		{
 			minerhat = 1,
 			dubloon = 5,
-			axeobsidian =1,
+			axeobsidian = 1,
 		},
 
 		random_loot =
@@ -118,9 +118,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -147,9 +147,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -173,13 +173,13 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
-			chance_loot =
+		chance_loot =
 		{
 			purplegem = .5,
 			orangegem = .25,
@@ -211,7 +211,7 @@ local internalloot =
 			dubloon = 5,
 			tunacan = 5,
 		},
-	
+
 		random_loot =
 		{
 			redgem = 1,
@@ -222,9 +222,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -235,16 +235,16 @@ local internalloot =
 			bluegem = .25,
 		}
 
-    },
--------------------------------------------------------DAN ADDED FROM HERE
-["BootyInDaBooty"] =
+	},
+	-------------------------------------------------------DAN ADDED FROM HERE
+	["BootyInDaBooty"] =
 	{
 		loot =
 		{
 			dubloon = 5,
 			piratepack = 1,
 		},
-	
+
 		random_loot =
 		{
 			redgem = 1,
@@ -255,9 +255,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -270,13 +270,13 @@ local internalloot =
 
 	},
 
-["OneTrueEarring"] =
+	["OneTrueEarring"] =
 	{
 		loot =
 		{
 			bluegem = 1,
 		},
-	
+
 		random_loot =
 		{
 			redgem = 1,
@@ -287,9 +287,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 		chance_loot =
@@ -301,14 +301,14 @@ local internalloot =
 
 	},
 
-["PegLeg"] =
+	["PegLeg"] =
 	{
 		loot =
 		{
 			dubloon = 2,
 			peg_leg = 1,
 		},
-	
+
 		random_loot =
 		{
 			redgem = 1,
@@ -319,9 +319,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -334,15 +334,15 @@ local internalloot =
 
 	},
 
-["VolcanoStaff"] =
+	["VolcanoStaff"] =
 	{
 		loot =
 		{
 			dubloon = 6,
 			volcanostaff = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -352,9 +352,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -367,17 +367,17 @@ local internalloot =
 
 	},
 
-["Gladiator"] =
+	["Gladiator"] =
 	{
 		loot =
 		{
 			dubloon = 2,
 			footballhat = 1,
 			spear = 1,
-			armor_seashell= 1,
+			armor_seashell = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -387,9 +387,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -402,17 +402,17 @@ local internalloot =
 
 	},
 
-["FancyHandyMan"] =
+	["FancyHandyMan"] =
 	{
 		loot =
 		{
 			dubloon = 1,
 			goldenaxe = 1,
 			goldenshovel = 1,
-			goldenpickaxe= 1,
+			goldenpickaxe = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -422,9 +422,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -437,7 +437,7 @@ local internalloot =
 
 	},
 
-["LobsterMan"] =
+	["LobsterMan"] =
 	{
 		loot =
 		{
@@ -445,8 +445,8 @@ local internalloot =
 			boat_lantern = 1,
 			--seatrap = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -456,9 +456,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -471,7 +471,7 @@ local internalloot =
 
 	},
 
-["Compass"] =
+	["Compass"] =
 	{
 		loot =
 		{
@@ -481,7 +481,7 @@ local internalloot =
 			messagebottleempty = 1,
 			sand = 1,
 		},
-	
+
 		random_loot =
 		{
 			redgem = 1,
@@ -492,24 +492,24 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		}
 
 	},
 
-["Scientist"] =
+	["Scientist"] =
 	{
 		loot =
 		{
 			dubloon = 3,
-			transistor =1,
-			gunpowder =3,
+			transistor = 1,
+			gunpowder = 3,
 			heatrock = 1,
 		},
-	
+
 		random_loot =
 		{
 			redgem = 1,
@@ -520,9 +520,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -535,17 +535,17 @@ local internalloot =
 
 	},
 
-["Alchemist"] =
+	["Alchemist"] =
 	{
 		loot =
 		{
 			dubloon = 2,
 			antidote = 1,
-			healingsalve =3,
+			healingsalve = 3,
 			blowdart_sleep = 2,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -555,9 +555,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -570,16 +570,16 @@ local internalloot =
 
 	},
 
-["Shaman"] =
+	["Shaman"] =
 	{
 		loot =
 		{
 			dubloon = 1,
-			nightsword =1,
-			amulet =1,
+			nightsword = 1,
+			amulet = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -589,9 +589,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -604,16 +604,16 @@ local internalloot =
 
 	},
 
-["FireBrand"] =
+	["FireBrand"] =
 	{
 		loot =
 		{
 			dubloon = 2,
-			axeobsidian =1,
-			gunpowder =2,
+			axeobsidian = 1,
+			gunpowder = 2,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -623,9 +623,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -638,17 +638,17 @@ local internalloot =
 
 	},
 
-["SailorsDelight"] =
+	["SailorsDelight"] =
 	{
 		loot =
 		{
 			dubloon = 4,
-			clothsail =1,
-			boatrepairkit =1,
-			boat_lantern =1,
+			clothsail = 1,
+			boatrepairkit = 1,
+			boat_lantern = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -658,9 +658,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -673,16 +673,16 @@ local internalloot =
 
 	},
 
-["WarShip"] =
+	["WarShip"] =
 	{
 		loot =
 		{
 			dubloon = 3,
-			coconade =3,
-			boatcannon =1,
+			coconade = 3,
+			boatcannon = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -692,9 +692,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -707,18 +707,18 @@ local internalloot =
 
 	},
 
-["Desperado"] =
+	["Desperado"] =
 	{
 		loot =
 		{
 			dubloon = 1,
-			snakeskinhat =1,
-			armor_snakeskin =1,
+			snakeskinhat = 1,
+			armor_snakeskin = 1,
 			--spear_launcher = 2,
 			spear = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -728,9 +728,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -748,13 +748,13 @@ local internalloot =
 		loot =
 		{
 			dubloon = 5,
-			goldnugget =6,
-			purplegem =2,
+			goldnugget = 6,
+			purplegem = 2,
 			redgem = 4,
 			bluegem = 3,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -764,9 +764,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		}
 
@@ -777,13 +777,13 @@ local internalloot =
 		loot =
 		{
 			dubloon = 5,
-			ruins_bat =1,
-			ruinshat =1,
+			ruins_bat = 1,
+			ruinshat = 1,
 			armorruins = 1,
 			bluegem = 2,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -793,9 +793,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		}
 
@@ -807,12 +807,12 @@ local internalloot =
 		loot =
 		{
 			dubloon = 1,
-			telescope =1,
-			piratehat =1,
+			telescope = 1,
+			piratehat = 1,
 			boatcannon = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -822,9 +822,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -842,12 +842,12 @@ local internalloot =
 		loot =
 		{
 			dubloon = 3,
-			boomerang =1,
-			snakeskin =3,
+			boomerang = 1,
+			snakeskin = 3,
 			strawhat = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -857,9 +857,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -877,11 +877,11 @@ local internalloot =
 		{
 			dubloon = 1,
 			--gashat =1,
-			venomgland =3,
+			venomgland = 3,
 			spear_poison = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -891,9 +891,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -911,12 +911,12 @@ local internalloot =
 		loot =
 		{
 			dubloon = 2,
-			coconade =2,
-			obsidianbomb =1,
+			coconade = 2,
+			obsidianbomb = 1,
 			gunpowder = 2,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -926,9 +926,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -946,13 +946,13 @@ local internalloot =
 		loot =
 		{
 			dubloon = 4,
-			goldenmachete =1,
-			tophat =1,
+			goldenmachete = 1,
+			tophat = 1,
 			rope = 3,
 			telescope = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -962,9 +962,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		}
 
@@ -981,8 +981,8 @@ local internalloot =
 			spear = 1,
 			--blubbersuit =1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -992,9 +992,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -1012,13 +1012,13 @@ local internalloot =
 		loot =
 		{
 			dubloon = 4,
-			boneshard =3,
-			nightmarefuel =4,
+			boneshard = 3,
+			nightmarefuel = 4,
 			purplegem = 2,
 			goldnugget = 3,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -1028,9 +1028,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		}
 
@@ -1042,13 +1042,13 @@ local internalloot =
 		loot =
 		{
 			dubloon = 1,
-			gears =4,
-			transistor =2,
-			telescope= 1,
+			gears = 4,
+			transistor = 2,
+			telescope = 1,
 			goldnugget = 2,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -1058,9 +1058,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		}
 
@@ -1072,11 +1072,11 @@ local internalloot =
 		loot =
 		{
 			dubloon = 4,
-			piratehat =1,
-			boatcannon =1,
+			piratehat = 1,
+			boatcannon = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -1086,9 +1086,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -1106,13 +1106,13 @@ local internalloot =
 		loot =
 		{
 			dubloon = 1,
-			captainhat =1,
-			armor_lifejacket =1,
-			tunacan =1,
-			trawlnet =1,
+			captainhat = 1,
+			armor_lifejacket = 1,
+			tunacan = 1,
+			trawlnet = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -1122,9 +1122,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		}
 
@@ -1138,10 +1138,10 @@ local internalloot =
 		{
 			dubloon = 4,
 			--armor_windbreaker = 1,
-			obsidianmachete =1,
+			obsidianmachete = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -1151,9 +1151,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -1166,15 +1166,15 @@ local internalloot =
 
 	},
 
-		["Diviner"] =
+	["Diviner"] =
 	{
 		loot =
 		{
 			dubloon = 4,
 			--diviningrod =1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -1184,9 +1184,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -1199,16 +1199,16 @@ local internalloot =
 
 	},
 
-		["GoesComesAround"] =
+	["GoesComesAround"] =
 	{
 		loot =
 		{
 			dubloon = 3,
-			boomerang =1,
-			trap_teeth =2,
+			boomerang = 1,
+			trap_teeth = 2,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -1218,9 +1218,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -1233,15 +1233,15 @@ local internalloot =
 
 	},
 
-		["GoldGoldGold"] =
+	["GoldGoldGold"] =
 	{
 		loot =
 		{
 			dubloon = 6,
 			goldnugget = 5,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -1251,9 +1251,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -1266,7 +1266,7 @@ local internalloot =
 
 	},
 
-		["FirePoker"] =
+	["FirePoker"] =
 	{
 		loot =
 		{
@@ -1274,8 +1274,8 @@ local internalloot =
 			spear_obsidian = 1,
 			armorobsidian = 1,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			redgem = 1,
 			bluegem = 1,
@@ -1285,9 +1285,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -1300,7 +1300,7 @@ local internalloot =
 
 	},
 
-		["DeadmansTreasure"] =
+	["DeadmansTreasure"] =
 	{
 		loot =
 		{
@@ -1309,8 +1309,8 @@ local internalloot =
 			goldenmachete = 1,
 			obsidianbomb = 3, --obsidiancoconade = 3,
 		},
-	
-	random_loot =
+
+		random_loot =
 		{
 			fabric = 1,
 			papyrus = 1,
@@ -1318,9 +1318,9 @@ local internalloot =
 			goldnugget = 1,
 			gears = 1,
 			purplegem = 1,
-			redgem =1,
-			bluegem =1,
-			rope =1,
+			redgem = 1,
+			bluegem = 1,
+			rope = 1,
 
 		},
 
@@ -1333,11 +1333,11 @@ local internalloot =
 
 	},
 
--------------------------------GOOD LIST
+	-------------------------------GOOD LIST
 
-	["staydry"] = 
+	["staydry"] =
 	{
-		loot = 
+		loot =
 		{
 			--palmleaf_umbrella = 1,
 			armor_snakeskin = 1,
@@ -1345,18 +1345,18 @@ local internalloot =
 		},
 	},
 
-	["gears"] = 
+	["gears"] =
 	{
-		loot = 
+		loot =
 		{
 			gears = 5,
-			
+
 		},
 	},
 
-	["cooloff"] = 
+	["cooloff"] =
 	{
-		loot = 
+		loot =
 		{
 			ice = 3,
 			hawaiianshirt = 1,
@@ -1364,9 +1364,9 @@ local internalloot =
 		},
 	},
 
-	["birders"] = 
+	["birders"] =
 	{
-		loot = 
+		loot =
 		{
 			birdtrap = 1,
 			featherhat = 1,
@@ -1374,25 +1374,25 @@ local internalloot =
 		},
 	},
 
-	["slot_anotherspin"] = 
+	["slot_anotherspin"] =
 	{
-		loot = 
+		loot =
 		{
 			dubloon = 1,
 		},
 	},
 
-	["slot_goldy"] = 
+	["slot_goldy"] =
 	{
-		loot = 
+		loot =
 		{
 			goldnugget = 5,
 		},
 	},
-	
-	["slot_honeypot"] = 
+
+	["slot_honeypot"] =
 	{
-		loot = 
+		loot =
 		{
 			beehat = 1,
 			bandage = 1,
@@ -1400,9 +1400,9 @@ local internalloot =
 		},
 	},
 
-	["slot_warrior1"] = 
+	["slot_warrior1"] =
 	{
-		loot = 
+		loot =
 		{
 			footballhat = 1,
 			armorwood = 1,
@@ -1410,9 +1410,9 @@ local internalloot =
 		},
 	},
 
-	["slot_warrior2"] = 
+	["slot_warrior2"] =
 	{
-		loot = 
+		loot =
 		{
 			armormarble = 1,
 			hambat = 1,
@@ -1420,9 +1420,9 @@ local internalloot =
 		},
 	},
 
-	["slot_warrior3"] = 
+	["slot_warrior3"] =
 	{
-		loot = 
+		loot =
 		{
 			trap_teeth = 1,
 			armorgrass = 1,
@@ -1430,110 +1430,110 @@ local internalloot =
 		},
 	},
 
-	["slot_warrior4"] = 
+	["slot_warrior4"] =
 	{
-		loot = 
+		loot =
 		{
 			--spear_launcher = 1,
 			spear_poison = 1,
 			armor_seashell = 1,
-			coconade= 1,
+			coconade = 1,
 		},
 	},
 
-	["slot_scientist"] = 
+	["slot_scientist"] =
 	{
-		loot = 
+		loot =
 		{
 			transistor = 3,
 			heatrock = 1,
-			gunpowder= 3,
+			gunpowder = 3,
 		},
 	},
 
-	["slot_walker"] = 
+	["slot_walker"] =
 	{
-		loot = 
+		loot =
 		{
 			cane = 1,
-			goldnugget= 3,
+			goldnugget = 3,
 		},
 	},
 
-	["slot_gemmy"] = 
+	["slot_gemmy"] =
 	{
-		loot = 
+		loot =
 		{
 			redgem = 3,
-			bluegem= 3,
+			bluegem = 3,
 		},
 	},
 
-	["slot_bestgem"] = 
+	["slot_bestgem"] =
 	{
-		loot = 
+		loot =
 		{
 			purplegem = 3,
 		},
 	},
 
-	["slot_lifegiver"] = 
+	["slot_lifegiver"] =
 	{
-		loot = 
+		loot =
 		{
 			amulet = 1,
 			goldnugget = 3,
 		},
 	},
 
-	["slot_chilledamulet"] = 
+	["slot_chilledamulet"] =
 	{
-		loot = 
+		loot =
 		{
 			blueamulet = 1,
 			goldnugget = 3,
 		},
 	},
 
-	["slot_icestaff"] = 
+	["slot_icestaff"] =
 	{
-		loot = 
+		loot =
 		{
 			icestaff = 1,
 			goldnugget = 3,
 		},
 	},
 
-	["slot_firestaff"] = 
+	["slot_firestaff"] =
 	{
-		loot = 
+		loot =
 		{
 			firestaff = 1,
 			goldnugget = 3,
 		},
 	},
 
-	["slot_coolasice"] = 
+	["slot_coolasice"] =
 	{
-		loot = 
+		loot =
 		{
 			icehat = 1,
 			doydoyfan = 1,
-		--	palmleaf_umbrella = 1,
+			--	palmleaf_umbrella = 1,
 		},
 	},
 
-	["slot_gunpowder"] = 
+	["slot_gunpowder"] =
 	{
-		loot = 
+		loot =
 		{
 			gunpowder = 5,
 		},
 	},
 
-	["slot_darty"] = 
+	["slot_darty"] =
 	{
-		loot = 
+		loot =
 		{
 			blowdart_pipe = 1,
 			blowdart_sleep = 1,
@@ -1541,36 +1541,36 @@ local internalloot =
 		},
 	},
 
-	["slot_firedart"] = 
+	["slot_firedart"] =
 	{
-		loot = 
+		loot =
 		{
 			blowdart_fire = 3,
 			goldnugget = 3,
 		},
 	},
 
-	["slot_sleepdart"] = 
+	["slot_sleepdart"] =
 	{
-		loot = 
+		loot =
 		{
 			blowdart_sleep = 3,
 			goldnugget = 3,
 		},
 	},
 
-	["slot_blowdart"] = 
+	["slot_blowdart"] =
 	{
-		loot = 
+		loot =
 		{
 			blowdart_pipe = 3,
 			goldnugget = 3,
 		},
 	},
 
-	["slot_speargun"] = 
+	["slot_speargun"] =
 	{
-		loot = 
+		loot =
 		{
 			--spear_launcher = 1,
 			spear = 1,
@@ -1579,9 +1579,9 @@ local internalloot =
 	},
 
 
-	["slot_dapper"] = 
+	["slot_dapper"] =
 	{
-		loot = 
+		loot =
 		{
 			cane = 1,
 			goldnugget = 3,
@@ -1589,9 +1589,9 @@ local internalloot =
 		},
 	},
 
-	["slot_speed"] = 
+	["slot_speed"] =
 	{
-		loot = 
+		loot =
 		{
 			yellowamulet = 1,
 			nightmarefuel = 3,
@@ -1599,48 +1599,48 @@ local internalloot =
 		},
 	},
 
-	["slot_coconades"] = 
+	["slot_coconades"] =
 	{
-		loot = 
+		loot =
 		{
-			coconade= 3,
+			coconade = 3,
 			goldnugget = 3,
 		},
 	},
 
-	["slot_obsidian"] = 
+	["slot_obsidian"] =
 	{
-		loot = 
+		loot =
 		{
-			obsidian= 5,
+			obsidian = 5,
 		},
 	},
 
-	["slot_thuleciteclub"] = 
+	["slot_thuleciteclub"] =
 	{
-		loot = 
+		loot =
 		{
-			ruins_bat= 1,
+			ruins_bat = 1,
 			goldnugget = 3,
 		},
 	},
 
-	["slot_thulecitesuit"] = 
+	["slot_thulecitesuit"] =
 	{
-		loot = 
+		loot =
 		{
-			armorruins= 1,
+			armorruins = 1,
 			goldnugget = 3,
 		},
 	},
 
-	["slot_ultimatewarrior"] = 
+	["slot_ultimatewarrior"] =
 	{
-		loot = 
+		loot =
 		{
-			armorruins= 1,
-			ruins_bat= 1,
-			ruinshat= 1,
+			armorruins = 1,
+			ruins_bat = 1,
+			ruinshat = 1,
 		},
 	},
 
@@ -1655,7 +1655,7 @@ local internalloot =
 
 	["slot_monkeyball"] =
 	{
-		loot = 
+		loot =
 		{
 			monkeyball = 1,
 			cave_banana = 2,
@@ -1663,21 +1663,21 @@ local internalloot =
 	},
 
 
----------------------------------------OK LIST
+	---------------------------------------OK LIST
 
-	["firestarter"] = 
+	["firestarter"] =
 	{
-		loot = 
+		loot =
 		{
 			log = 2,
-		    twigs = 1,
+			twigs = 1,
 			cutgrass = 3,
 		},
 	},
 
-	["geologist"] = 
+	["geologist"] =
 	{
-		loot = 
+		loot =
 		{
 			rocks = 1,
 			goldnugget = 1,
@@ -1691,7 +1691,7 @@ local internalloot =
 		{
 			cutgrass = 5,
 		},
-	},	
+	},
 
 	["3logs"] =
 	{
@@ -1815,7 +1815,7 @@ local internalloot =
 		loot =
 		{
 			flower_evil = 5,
-			red_cap= 1,
+			red_cap = 1,
 			green_cap = 1,
 			blue_cap = 1,
 		},
@@ -1867,7 +1867,7 @@ local internalloot =
 		},
 	},
 
-    ["slot_bonesharded"] =
+	["slot_bonesharded"] =
 	{
 		loot =
 		{
@@ -1876,7 +1876,7 @@ local internalloot =
 		},
 	},
 
-    ["slot_jerky"] =
+	["slot_jerky"] =
 	{
 		loot =
 		{
@@ -1884,7 +1884,7 @@ local internalloot =
 		},
 	},
 
-    ["slot_coconutty"] =
+	["slot_coconutty"] =
 	{
 		loot =
 		{
@@ -1902,7 +1902,7 @@ local internalloot =
 		},
 	},
 
-    ["slot_ropey"] =
+	["slot_ropey"] =
 	{
 		loot =
 		{
@@ -1910,12 +1910,12 @@ local internalloot =
 		},
 	},
 
-  	["slot_tailor"] =
+	["slot_tailor"] =
 	{
 		loot =
 		{
 			sewing_kit = 1,
-			fabric= 3,
+			fabric = 3,
 			tophat = 1,
 		},
 	},
@@ -1932,7 +1932,7 @@ local internalloot =
 
 
 
---------------------------------------BAD LIST
+	--------------------------------------BAD LIST
 	["slot_spiderattack"] =
 	{
 		loot =
@@ -1941,15 +1941,15 @@ local internalloot =
 		},
 	},
 
-  	["slot_mosquitoattack"] =
+	["slot_mosquitoattack"] =
 	{
 		loot =
 		{
-			mosquito_poison= 5,
+			mosquito_poison = 5,
 		},
 	},
 
-  	["slot_snakeattack"] =
+	["slot_snakeattack"] =
 	{
 		loot =
 		{
@@ -1957,7 +1957,7 @@ local internalloot =
 		},
 	},
 
-	  	["slot_monkeysurprise"] =
+	["slot_monkeysurprise"] =
 	{
 		loot =
 		{
@@ -1965,7 +1965,7 @@ local internalloot =
 		},
 	},
 
-		["slot_poisonsnakes"] =
+	["slot_poisonsnakes"] =
 	{
 		loot =
 		{
@@ -1973,9 +1973,9 @@ local internalloot =
 		},
 	},
 
-		["slot_hounds"] =
+	["slot_hounds"] =
 	{
-		loot = 
+		loot =
 		{
 			hound = 2,
 		},
@@ -2076,28 +2076,28 @@ local prefabs =
 
 -- A weighted average list of prizes, the bigger the number, the more likely it is.
 -- It's based off altar_prototyper.lua
-local goodspawns = 
+local goodspawns =
 {
---	log = 50,
---	twigs =50,
---	cutgrass = 50,
---	berries = 50,
---	limpets = 50,
---	meat = 50,
---	monstermeat = 50,
---	fish = 50,
---	meat_dried = 30,
---	seaweed = 50,
---	jellyfish = 20,
---	dubloon = 50, 
---	redgem = 10,
---	bluegem = 10,
---	purplegem = 10,
---	goldnugget = 50,
---	snakeskin = 20,
---	spidergland = 20,
---	torch = 50,
---	coconut = 50,
+	--	log = 50,
+	--	twigs =50,
+	--	cutgrass = 50,
+	--	berries = 50,
+	--	limpets = 50,
+	--	meat = 50,
+	--	monstermeat = 50,
+	--	fish = 50,
+	--	meat_dried = 30,
+	--	seaweed = 50,
+	--	jellyfish = 20,
+	--	dubloon = 50,
+	--	redgem = 10,
+	--	bluegem = 10,
+	--	purplegem = 10,
+	--	goldnugget = 50,
+	--	snakeskin = 20,
+	--	spidergland = 20,
+	--	torch = 50,
+	--	coconut = 50,
 
 	-- Best Slot Loot List
 	slot_goldy = 1,
@@ -2129,7 +2129,7 @@ local goodspawns =
 	staydry = 1,
 	cooloff = 1,
 	birders = 1,
-	gears =1,
+	gears = 1,
 	slot_seafoodsurprise = 1,
 	slot_fisherman = 1,
 	slot_camper = 1,
@@ -2141,14 +2141,14 @@ local goodspawns =
 
 local okspawns =
 {
-	-- OK slot List - Food and Resrouces 
+	-- OK slot List - Food and Resrouces
 	slot_anotherspin = 5,
 	firestarter = 5,
 	--geologist = 5,
 	--cutgrassbunch = 5,
 	--logbunch = 5,
 	twigsbunch = 5,
---	torch = 5,
+	--	torch = 5,
 	slot_torched = 5,
 	slot_jelly = 5,
 	slot_handyman = 5,
@@ -2168,7 +2168,7 @@ local okspawns =
 	slot_jerky = 5,
 	slot_coconutty = 5,
 	slot_bonesharded = 5,
-	
+
 
 
 
@@ -2177,8 +2177,8 @@ local okspawns =
 local badspawns =
 {
 	-- Bad prizes
---	snake = 1,
---	spider_hider = 1,
+	--	snake = 1,
+	--	spider_hider = 1,
 	slot_spiderattack = 1,
 	slot_mosquitoattack = 1,
 	slot_snakeattack = 1,
@@ -2192,7 +2192,7 @@ local badspawns =
 	--trinket = 100,
 }
 
--- weighted_random_choice for bad, ok, good prize lists 
+-- weighted_random_choice for bad, ok, good prize lists
 local prizevalues =
 {
 	bad = 2,
@@ -2205,8 +2205,8 @@ local actions =
 {
 	-- if there's a cnt, then it'll spawn that many
 	--trinket = { cnt = 2, },
---	spider_hider = { cnt = 3, },
---	snake = { cnt = 3, },
+	--	spider_hider = { cnt = 3, },
+	--	snake = { cnt = 3, },
 
 	-- Prizes based of TreasureLoot table in map/treasurehunt.lua
 	-- treasure = <the name in the TreasureLoot table>
@@ -2282,7 +2282,7 @@ local actions =
 	slot_spiderboon = { treasure = "slot_spiderboon", },
 	slot_3dubloons = { treasure = "3dubloons", },
 	slot_10dubloons = { treasure = "10dubloons", },
-	
+
 
 	slot_spiderattack = { treasure = "slot_spiderattack", },
 	slot_mosquitoattack = { treasure = "slot_mosquitoattack", },
@@ -2292,13 +2292,13 @@ local actions =
 	slot_hounds = { treasure = "slot_hounds", },
 
 
-				slot_snakeattack = { treasure = "slot_snakeattack", },
-					slot_snakeattack = { treasure = "slot_snakeattack", },
-						slot_snakeattack = { treasure = "slot_snakeattack", },
+	slot_snakeattack = { treasure = "slot_snakeattack", },
+	slot_snakeattack = { treasure = "slot_snakeattack", },
+	slot_snakeattack = { treasure = "slot_snakeattack", },
 
 }
 
-local sounds = 
+local sounds =
 {
 	ok = "dontstarve_DLC002/common/slotmachine_mediumresult",
 	good = "dontstarve_DLC002/common/slotmachine_goodresult",
@@ -2306,8 +2306,8 @@ local sounds =
 }
 
 local function SpawnCritter(inst, critter, lootdropper, pt, delay)
-	delay = delay or GetRandomWithVariance(1,0.8)
-	inst:DoTaskInTime(delay, function() 
+	delay = delay or GetRandomWithVariance(1, 0.8)
+	inst:DoTaskInTime(delay, function()
 		SpawnPrefab("collapse_small").Transform:SetPosition(pt:Get())
 		local spawn = lootdropper:SpawnLootPrefab(critter, pt)
 		if spawn and spawn.components.combat then
@@ -2317,33 +2317,33 @@ local function SpawnCritter(inst, critter, lootdropper, pt, delay)
 end
 
 local function SpawnReward(inst, reward, lootdropper, pt, delay)
-	delay = delay or GetRandomWithVariance(1,0.8)
+	delay = delay or GetRandomWithVariance(1, 0.8)
 
 	local loots = GetTreasureLootList(reward)
 	for k, v in pairs(loots) do
 		for i = 1, v, 1 do
-
-			inst:DoTaskInTime(delay, function(inst) 
+			inst:DoTaskInTime(delay, function(inst)
 				local down = TheCamera:GetDownVec()
 				local spawnangle = math.atan2(down.z, down.x)
-				local angle = math.atan2(down.z, down.x) + (math.random()*90-45)*DEGREES
-				local sp = math.random()*3+2
-				
+				local angle = math.atan2(down.z, down.x) + (math.random() * 90 - 45) * DEGREES
+				local sp = math.random() * 3 + 2
+
 				local item = SpawnPrefab(k)
 
 				if item.components.inventoryitem and not item.components.health then
-					local pt = Vector3(inst.Transform:GetWorldPosition()) + Vector3(2*math.cos(spawnangle), 3, 2*math.sin(spawnangle))
+					local pt = Vector3(inst.Transform:GetWorldPosition()) +
+					Vector3(2 * math.cos(spawnangle), 3, 2 * math.sin(spawnangle))
 					inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/slotmachine_reward")
 					item.Transform:SetPosition(pt:Get())
-					item.Physics:SetVel(sp*math.cos(angle), math.random()*2+9, sp*math.sin(angle))
-				--	item.components.inventoryitem:OnStartFalling()
+					item.Physics:SetVel(sp * math.cos(angle), math.random() * 2 + 9, sp * math.sin(angle))
+					--	item.components.inventoryitem:OnStartFalling()
 				else
-					local pt = Vector3(inst.Transform:GetWorldPosition()) + Vector3(2*math.cos(spawnangle), 0, 2*math.sin(spawnangle))
-					pt = pt + Vector3(sp*math.cos(angle), 0, sp*math.sin(angle))
+					local pt = Vector3(inst.Transform:GetWorldPosition()) +
+					Vector3(2 * math.cos(spawnangle), 0, 2 * math.sin(spawnangle))
+					pt = pt + Vector3(sp * math.cos(angle), 0, sp * math.sin(angle))
 					item.Transform:SetPosition(pt:Get())
 					SpawnPrefab("collapse_small").Transform:SetPosition(pt:Get())
 				end
-				
 			end)
 			delay = delay + 0.25
 		end
@@ -2353,7 +2353,6 @@ end
 
 
 local function PickPrize(inst)
-
 	inst.busy = true
 	local prizevalue = weighted_random_choice(prizevalues)
 	-- print("slotmachine prizevalue", prizevalue)
@@ -2372,7 +2371,6 @@ local function PickPrize(inst)
 end
 
 local function DoneSpinning(inst)
-
 	local pos = inst:GetPosition()
 	local item = inst.prize
 	local doaction = actions[item]
@@ -2383,16 +2381,16 @@ local function DoneSpinning(inst)
 	local treasure = (doaction and doaction.treasure) or nil
 
 	if doaction and doaction.var then
-		cnt = GetRandomWithVariance(cnt,doaction.var)
+		cnt = GetRandomWithVariance(cnt, doaction.var)
 		if cnt < 0 then cnt = 0 end
 	end
 
 	if cnt == 0 and func then
-		func(inst,item,doaction)
+		func(inst, item, doaction)
 	end
 
-	for i=1,cnt do
-		local offset, check_angle, deflected = FindWalkableOffset(pos, math.random()*2*PI, radius , 8, true, false) -- try to avoid walls
+	for i = 1, cnt do
+		local offset, check_angle, deflected = FindWalkableOffset(pos, math.random() * 2 * PI, radius, 8, true, false) -- try to avoid walls
 		if offset then
 			if treasure then
 				-- print("Slot machine treasure "..tostring(treasure))
@@ -2400,15 +2398,16 @@ local function DoneSpinning(inst)
 				-- SpawnPrefab("collapse_small").Transform:SetPosition((pos+offset):Get())
 				SpawnReward(inst, treasure)
 			elseif func then
-				func(inst,item,doaction)
+				func(inst, item, doaction)
 			elseif item == "trinket" then
-				SpawnCritter(inst, "trinket_"..tostring(math.random(NUM_TRINKETS)), inst.components.lootdropper, pos+offset)
+				SpawnCritter(inst, "trinket_" .. tostring(math.random(NUM_TRINKETS)), inst.components.lootdropper,
+					pos + offset)
 			elseif item == "nothing" then
 				-- do nothing
 				-- print("Slot machine says you lose.")
 			else
 				-- print("Slot machine item "..tostring(item))
-				SpawnCritter(inst, item, inst.components.lootdropper, pos+offset)
+				SpawnCritter(inst, item, inst.components.lootdropper, pos + offset)
 			end
 		end
 	end
@@ -2420,25 +2419,24 @@ local function DoneSpinning(inst)
 	inst.busy = false
 	inst.prize = nil
 	inst.prizevalue = nil
-	
-	print("Slot machine has "..tostring(inst.coins).." dubloons.")
+
+	print("Slot machine has " .. tostring(inst.coins) .. " dubloons.")
 	inst.sg:GoToState("fake_idle")
 end
 
 local function StartSpinning(inst)
-
 	inst.sg:GoToState("spinning")
 end
 
 local function ShouldAcceptItem(inst, item)
-local alagado = GetClosestInstWithTag("mare", inst, 10)
-if alagado then 
-return false
-end
-	
+	local alagado = GetClosestInstWithTag("mare", inst, 10)
+	if alagado then
+		return false
+	end
+
 	if not inst.busy and item.prefab == "dubloon" then
 		return true
-	else	
+	else
 		return false
 	end
 end
@@ -2451,20 +2449,23 @@ local function OnGetItemFromPlayer(inst, giver, item)
 end
 
 local function OnRefuseItem(inst, item)
-local alagado = GetClosestInstWithTag("mare", inst, 10)
-if alagado then 
-local fx = SpawnPrefab("shock_machines_fx")
-if fx then local pt = inst:GetPosition() fx.Transform:SetPosition(pt.x, pt.y, pt.z) end 
-if inst.SoundEmitter then inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/jellyfish/electric_water") end
-return
-end
+	local alagado = GetClosestInstWithTag("mare", inst, 10)
+	if alagado then
+		local fx = SpawnPrefab("shock_machines_fx")
+		if fx then
+			local pt = inst:GetPosition()
+			fx.Transform:SetPosition(pt.x, pt.y, pt.z)
+		end
+		if inst.SoundEmitter then inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/jellyfish/electric_water") end
+		return
+	end
 end
 
-local function OnLoad(inst,data)
+local function OnLoad(inst, data)
 	if not data then
 		return
 	end
-	
+
 	inst.coins = data.coins or 0
 	inst.prize = data.prize
 	inst.prizevalue = data.prizevalue
@@ -2474,27 +2475,26 @@ local function OnLoad(inst,data)
 	end
 end
 
-local function OnSave(inst,data)
+local function OnSave(inst, data)
 	data.coins = inst.coins
 	data.prize = inst.prize
 	data.prizevalue = inst.prizevalue
 end
 
 --local function OnFloodedStart(inst)
-	--inst.components.payable:Disable()
+--inst.components.payable:Disable()
 --end
 
 --local function OnFloodedEnd(inst)
-	--inst.components.payable:Enable()
+--inst.components.payable:Enable()
 --end
 
 local function CalcSanityAura(inst, observer)
-	return -(TUNING.SANITYAURA_MED*(1+(inst.coins/100)))
+	return -(TUNING.SANITYAURA_MED * (1 + (inst.coins / 100)))
 end
 
 local function CreateSlotMachine(name)
-	
-	local assets = 
+	local assets =
 	{
 		Asset("ANIM", "anim/slot_machine.zip"),
 		--Asset("MINIMAP_IMAGE", "slot_machine"),
@@ -2513,28 +2513,28 @@ local function CreateSlotMachine(name)
 		local trans = inst.entity:AddTransform()
 		local anim = inst.entity:AddAnimState()
 		inst.entity:AddSoundEmitter()
-			inst.entity:AddNetwork()
-		
+		inst.entity:AddNetwork()
+
 		local minimap = inst.entity:AddMiniMapEntity()
-		minimap:SetPriority( 5 )
-		minimap:SetIcon( "slot_machine.png" )
-				
+		minimap:SetPriority(5)
+		minimap:SetIcon("slot_machine.png")
+
 		MakeObstaclePhysics(inst, 0.8, 1.2)
-		
+
 
 		anim:SetBank("slot_machine")
 		anim:SetBuild("slot_machine")
 		anim:PlayAnimation("idle")
-		
-	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
+		inst.entity:SetPristine()
+
+		if not TheWorld.ismastersim then
+			return inst
+		end
 
 		-- keeps track of how many dubloons have been added
 		inst.coins = 0
-		
+
 		inst:AddComponent("inspectable")
 		inst.components.inspectable.getstatus = function(inst)
 			return "WORKING"
@@ -2542,17 +2542,17 @@ local function CreateSlotMachine(name)
 
 		inst:AddComponent("lootdropper")
 		inst:AddComponent("trader")
-	inst.components.trader:SetAcceptTest(ShouldAcceptItem)
-	inst.components.trader.onaccept = OnGetItemFromPlayer
-	inst.components.trader.onrefuse = OnRefuseItem		
+		inst.components.trader:SetAcceptTest(ShouldAcceptItem)
+		inst.components.trader.onaccept = OnGetItemFromPlayer
+		inst.components.trader.onrefuse = OnRefuseItem
 
-	--inst:AddComponent("payable")
-	--	inst.components.payable:SetAcceptTest(ShouldAcceptItem)
+		--inst:AddComponent("payable")
+		--	inst.components.payable:SetAcceptTest(ShouldAcceptItem)
 		--inst.components.payable.onaccept = OnGetItemFromPlayer
 		--inst.components.payable.onrefuse = OnRefuseItem
 
 		inst:AddComponent("sanityaura")
-    	inst.components.sanityaura.aurafn = CalcSanityAura
+		inst.components.sanityaura.aurafn = CalcSanityAura
 
 		--inst:AddComponent("floodable")
 		--inst.components.floodable.onStartFlooded = --OnFloodedStart
@@ -2565,9 +2565,7 @@ local function CreateSlotMachine(name)
 		return inst
 	end
 
-	return Prefab( "common/objects/slotmachine", InitFn, assets, prefabs)
-
+	return Prefab("common/objects/slotmachine", InitFn, assets, prefabs)
 end
 
 return CreateSlotMachine()
-

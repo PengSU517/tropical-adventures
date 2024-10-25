@@ -18,16 +18,16 @@ local spawner_prefabs =
     "lobsterhole",
 }
 
-SetSharedLootTable( "lobsterhole",
-{
-    {"rocks",  1.00},
-    {"rocks",  1.00},
-    {"rocks",  1.00},
-    {"rocks",  0.50},
-    {"wobster_sheller", 1.00},
-    {"wobster_sheller", 1.00},
-    {"wobster_sheller", 0.50},
-}
+SetSharedLootTable("lobsterhole",
+    {
+        { "rocks",           1.00 },
+        { "rocks",           1.00 },
+        { "rocks",           1.00 },
+        { "rocks",           0.50 },
+        { "wobster_sheller", 1.00 },
+        { "wobster_sheller", 1.00 },
+        { "wobster_sheller", 0.50 },
+    }
 )
 
 
@@ -54,8 +54,8 @@ local function updateart(inst)
 end
 
 local function try_blink(inst)
-    if inst.components.workable.workleft > FIRST_WORK_LEVEL 
-            and inst.components.childspawner.childreninside > 0 then
+    if inst.components.workable.workleft > FIRST_WORK_LEVEL
+        and inst.components.childspawner.childreninside > 0 then
         inst.AnimState:PlayAnimation("blink")
         inst.AnimState:PushAnimation("eyes_loop", true)
     elseif inst._blink_task ~= nil then
@@ -146,7 +146,8 @@ local DAMAGE_SCALE = 0.5
 local function OnCollide(inst, data)
     local boat_physics = data.other.components.boatphysics
     if boat_physics ~= nil then
-        local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) * DAMAGE_SCALE / boat_physics.max_velocity + 0.5)
+        local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) * DAMAGE_SCALE /
+        boat_physics.max_velocity + 0.5)
         inst.components.workable:WorkedBy(data.other, hit_velocity * TUNING.SEASTACK_MINE)
     end
 
@@ -177,7 +178,7 @@ local function fn()
     inst.AnimState:SetBuild("lobsterdenswbuild")
     inst.AnimState:PlayAnimation("full")
 
-    MakeInventoryFloatable(inst, "med", 0.1, {1.1, 0.9, 1.1})
+    MakeInventoryFloatable(inst, "med", 0.1, { 1.1, 0.9, 1.1 })
     inst.components.floater.bob_percent = 0
 
     inst.entity:SetPristine()
@@ -185,7 +186,7 @@ local function fn()
         return inst
     end
 
-    local land_time = (POPULATING and math.random()*5*FRAMES) or 0
+    local land_time = (POPULATING and math.random() * 5 * FRAMES) or 0
     inst:DoTaskInTime(land_time, function(inst)
         inst.components.floater:OnLandedServer()
     end)

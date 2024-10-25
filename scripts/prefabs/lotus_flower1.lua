@@ -1,66 +1,66 @@
 local assets =
 {
-	Asset("ANIM", "anim/lotus.zip"),
-	Asset("SOUND", "sound/common.fsb"),
+    Asset("ANIM", "anim/lotus.zip"),
+    Asset("SOUND", "sound/common.fsb"),
 }
 
 local function fn(Sim)
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
     MakeInventoryPhysics(inst)
     MakeInventoryFloatable(inst)
---    MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
-     inst.entity:AddNetwork()
-   
-    
+    --    MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
+    inst.entity:AddNetwork()
+
+
     anim:SetBank("lotus")
     anim:SetBuild("lotus")
     anim:PlayAnimation("idle")
 
-	inst:AddTag("cattoy")
+    inst:AddTag("cattoy")
     inst:AddTag("billfood")
-	
+
     inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end
-    
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     -----------------
     inst:AddComponent("stackable")
-	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
+    inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
-    ---------------------        
-                
+    ---------------------
+
     inst:AddComponent("edible")
     inst.components.edible.healthvalue = TUNING.HEALING_TINY
     inst.components.edible.hungervalue = TUNING.CALORIES_SMALL
-    inst.components.edible.sanityvalue = TUNING.SANITY_TINY or 0      
+    inst.components.edible.sanityvalue = TUNING.SANITY_TINY or 0
     inst.components.edible.foodtype = "VEGGIE"
     inst.components.edible.foodstate = "RAW"
 
-    ---------------------        
-        
+    ---------------------
+
     inst:AddComponent("perishable")
     inst.components.perishable:SetPerishTime(TUNING.PERISH_MED)
     inst.components.perishable:StartPerishing()
     inst.components.perishable.onperishreplacement = "spoiled_food"
 
-    ---------------------        
-        
+    ---------------------
+
     inst:AddComponent("cookable")
     inst.components.cookable.product = "lotus_flower1_cooked"
 
 
     inst:AddComponent("bait")
-    
+
     inst:AddComponent("inspectable")
-    ---------------------- 
+    ----------------------
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
     inst:AddComponent("tradable")
-    
+
     return inst
 end
 
@@ -68,47 +68,47 @@ local function fncooked(Sim)
     local inst = CreateEntity()
     local trans = inst.entity:AddTransform()
     local anim = inst.entity:AddAnimState()
-     inst.entity:AddNetwork()
+    inst.entity:AddNetwork()
     MakeInventoryPhysics(inst)
     MakeInventoryFloatable(inst)
---    MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
-    
-    
+    --    MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
+
+
     anim:SetBank("lotus")
     anim:SetBuild("lotus")
     anim:PlayAnimation("cooked")
 
     inst:AddTag("cattoy")
-    inst:AddTag("billfood")	
-	
+    inst:AddTag("billfood")
+
     inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end
-    
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     -----------------
     inst:AddComponent("stackable")
     inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
-    ---------------------        
-                
+    ---------------------
+
     inst:AddComponent("edible")
     inst.components.edible.healthvalue = TUNING.HEALING_TINY
     inst.components.edible.hungervalue = TUNING.CALORIES_SMALL
-    inst.components.edible.sanityvalue = TUNING.SANITY_MED or 0      
+    inst.components.edible.sanityvalue = TUNING.SANITY_MED or 0
     inst.components.edible.foodtype = "VEGGIE"
     inst.components.edible.foodstate = "COOKED"
 
-    ---------------------        
-        
+    ---------------------
+
     inst:AddComponent("perishable")
     inst.components.perishable:SetPerishTime(TUNING.PERISH_MED)
     inst.components.perishable:StartPerishing()
     inst.components.perishable.onperishreplacement = "spoiled_food"
 
-    ---------------------        
-    
+    ---------------------
+
     inst:AddComponent("inspectable")
     ----------------------
 
@@ -116,14 +116,14 @@ local function fncooked(Sim)
 
     MakeSmallBurnable(inst)
     MakeSmallPropagator(inst)
-    
+
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	
+
     inst:AddComponent("tradable")
-    
+
     return inst
 end
 
-return Prefab( "common/inventory/lotus_flower1", fn, assets), 
-       Prefab( "common/inventory/lotus_flower1_cooked", fncooked, assets) 
+return Prefab("common/inventory/lotus_flower1", fn, assets),
+    Prefab("common/inventory/lotus_flower1_cooked", fncooked, assets)

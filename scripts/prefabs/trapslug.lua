@@ -1,6 +1,6 @@
 local assets =
 {
-	Asset("ANIM", "anim/trap_slug.zip"),   	
+    Asset("ANIM", "anim/trap_slug.zip"),
     Asset("SOUND", "sound/slurtle.fsb"),
 }
 
@@ -14,18 +14,18 @@ local prefabs =
 }
 
 SetSharedLootTable('slurtle',
-{
-    {'slurtleslime',  1.0},
-    {'slurtleslime',  1.0},
-    {'slurtlehat',    0.1},
-})
+    {
+        { 'slurtleslime', 1.0 },
+        { 'slurtleslime', 1.0 },
+        { 'slurtlehat',   0.1 },
+    })
 
 SetSharedLootTable('snurtle',
-{
-    {'slurtleslime',      1.0},
-    {'slurtleslime',      1.0},
-    {'armorsnurtleshell', 0.75},
-})
+    {
+        { 'slurtleslime',      1.0 },
+        { 'slurtleslime',      1.0 },
+        { 'armorsnurtleshell', 0.75 },
+    })
 
 local SLEEP_DIST_FROMHOME = 1
 local SLEEP_DIST_FROMTHREAT = 20

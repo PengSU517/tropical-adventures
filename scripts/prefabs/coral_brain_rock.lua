@@ -24,28 +24,28 @@ local max_intensity = 0.7
 local CORAL_BRAIN_REGROW = 480 * 20
 
 local function pulse_light(inst)
-    local s = GetSineVal(0.05, true, inst)
-    local rad = Lerp(min_rad, max_rad, s)
-    local intentsity = Lerp(min_intensity, max_intensity, s)
-    local falloff = Lerp(min_falloff, max_falloff, s)
-    inst.Light:SetFalloff(falloff)
-    inst.Light:SetIntensity(intentsity)
-    inst.Light:SetRadius(rad)
+	local s = GetSineVal(0.05, true, inst)
+	local rad = Lerp(min_rad, max_rad, s)
+	local intentsity = Lerp(min_intensity, max_intensity, s)
+	local falloff = Lerp(min_falloff, max_falloff, s)
+	inst.Light:SetFalloff(falloff)
+	inst.Light:SetIntensity(intentsity)
+	inst.Light:SetRadius(rad)
 end
 
 local function turnon(inst, time)
-    inst.Light:Enable(true)
+	inst.Light:Enable(true)
 
-    local s = GetSineVal(0.05, true, inst, time)
-    local rad = Lerp(min_rad, max_rad, s)
-    local intentsity = Lerp(min_intensity, max_intensity, s)
-    local falloff = Lerp(min_falloff, max_falloff, s)
+	local s = GetSineVal(0.05, true, inst, time)
+	local rad = Lerp(min_rad, max_rad, s)
+	local intentsity = Lerp(min_intensity, max_intensity, s)
+	local falloff = Lerp(min_falloff, max_falloff, s)
 
-    local startpulse = function()
-    	inst.light_pulse = inst:DoPeriodicTask(0.1, pulse_light)
+	local startpulse = function()
+		inst.light_pulse = inst:DoPeriodicTask(0.1, pulse_light)
 	end
 
-    inst.components.lighttweener:StartTween(inst.Light, rad, intentsity, falloff, nil, time, startpulse)
+	inst.components.lighttweener:StartTween(inst.Light, rad, intentsity, falloff, nil, time, startpulse)
 end
 
 local function turnoff(inst, time)
@@ -56,7 +56,7 @@ local function turnoff(inst, time)
 
 	local lightoff = function() inst.Light:Enable(false) end
 
-    inst.components.lighttweener:StartTween(inst.Light, 0, 0, nil, nil, time, lightoff)
+	inst.components.lighttweener:StartTween(inst.Light, 0, 0, nil, nil, time, lightoff)
 end
 
 local function onduskfn(inst)
@@ -66,9 +66,8 @@ local function onduskfn(inst)
 	if not picked then
 		turnon(inst, 5)
 		inst.coralstate = CORALSTATE.GLOW
-	    inst.AnimState:PlayAnimation("glow_pre")
-    	inst.AnimState:PushAnimation("idle"..inst.coralstate, true)
-
+		inst.AnimState:PlayAnimation("glow_pre")
+		inst.AnimState:PushAnimation("idle" .. inst.coralstate, true)
 	end
 end
 
@@ -80,7 +79,7 @@ local function ondayfn(inst)
 		turnoff(inst, 5)
 		inst.coralstate = CORALSTATE.FULL
 		inst.AnimState:PushAnimation("glow_pst", false)
-		inst.AnimState:PushAnimation("idle"..inst.coralstate, true)
+		inst.AnimState:PushAnimation("idle" .. inst.coralstate, true)
 	end
 end
 
@@ -93,18 +92,18 @@ end
 local function makefullfn(inst)
 	inst.AnimState:PlayAnimation("regrow")
 	inst.coralstate = CORALSTATE.FULL
-	inst.AnimState:PushAnimation("idle"..inst.coralstate, true)
+	inst.AnimState:PushAnimation("idle" .. inst.coralstate, true)
 	--Check for dusk/ night, turn on.
 	if TheWorld.state.isdusk or TheWorld.state.isnight then
 		turnon(inst, 5)
 		inst.coralstate = CORALSTATE.GLOW
-	    inst.AnimState:PlayAnimation("glow_pre")
-    	inst.AnimState:PushAnimation("idle"..inst.coralstate, true)
+		inst.AnimState:PlayAnimation("glow_pre")
+		inst.AnimState:PushAnimation("idle" .. inst.coralstate, true)
 	end
 end
 
 local function onpickedfn(inst, picker)
-inst.SoundEmitter:PlaySound("dontstarve/wilson/harvest_berries")
+	inst.SoundEmitter:PlaySound("dontstarve/wilson/harvest_berries")
 	if inst.components.pickable then
 		--turn off light.
 		if inst.coralstate == CORALSTATE.GLOW then
@@ -113,7 +112,7 @@ inst.SoundEmitter:PlaySound("dontstarve/wilson/harvest_berries")
 
 		inst.AnimState:PlayAnimation("picked")
 		inst.coralstate = CORALSTATE.PICKED
-		inst.AnimState:PushAnimation("idle"..inst.coralstate, true)
+		inst.AnimState:PushAnimation("idle" .. inst.coralstate, true)
 	end
 end
 
@@ -128,8 +127,8 @@ local function onhammered(inst, worker)
 end
 
 local function onhit(inst)
-	inst.AnimState:PlayAnimation("hit"..inst.coralstate)
-	inst.AnimState:PushAnimation("idle"..inst.coralstate, true)
+	inst.AnimState:PlayAnimation("hit" .. inst.coralstate)
+	inst.AnimState:PushAnimation("idle" .. inst.coralstate, true)
 end
 
 local function sanityaurafn(inst, observer)
@@ -148,8 +147,8 @@ local function onload(inst, data)
 	inst.coralstate = data and data.coralstate or CORALSTATE.FULL
 
 	if inst.coralstate == CORALSTATE.GLOW then
-	    inst.AnimState:PlayAnimation("glow_pre")
-    	inst.AnimState:PushAnimation("idle"..inst.coralstate, true)
+		inst.AnimState:PlayAnimation("glow_pre")
+		inst.AnimState:PushAnimation("idle" .. inst.coralstate, true)
 		turnon(inst, 0)
 	end
 end
@@ -162,15 +161,15 @@ local function fn()
 	inst.entity:AddLight()
 	inst.entity:AddMiniMapEntity()
 	inst.entity:AddNetwork()
---inst.AnimState:SetLayer(LAYER_WORLD)
---inst.AnimState:SetSortOrder(2)
+	--inst.AnimState:SetLayer(LAYER_WORLD)
+	--inst.AnimState:SetSortOrder(2)
 
 	inst.MiniMapEntity:SetIcon("coral_brain_rock.png")
 
-    inst.Light:SetColour(210/255, 247/255, 228/255)
-    inst.Light:Enable(false)
-    inst.Light:SetIntensity(0)
-    inst.Light:SetFalloff(0.7)
+	inst.Light:SetColour(210 / 255, 247 / 255, 228 / 255)
+	inst.Light:Enable(false)
+	inst.Light:SetIntensity(0)
+	inst.Light:SetFalloff(0.7)
 
 	inst:SetPhysicsRadiusOverride(1.8)
 	MakeWaterObstaclePhysics(inst, 1, 2, 1.25)
@@ -180,14 +179,14 @@ local function fn()
 	inst.AnimState:PlayAnimation("idle_full", true)
 	inst:AddTag("mudacamada")
 	inst:AddTag("aquatic")
-    inst:AddTag("ignorewalkableplatforms")	
-	
+	inst:AddTag("ignorewalkableplatforms")
+
 	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
-	
+	if not TheWorld.ismastersim then
+		return inst
+	end
+
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("lighttweener")
@@ -208,17 +207,17 @@ local function fn()
 	inst.components.workable:SetOnWorkCallback(onhit)
 
 	inst:AddComponent("lootdropper")
-	inst.components.lootdropper:SetLoot({"limestone", "limestone"})
+	inst.components.lootdropper:SetLoot({ "limestone", "limestone" })
 
 	inst:AddComponent("sanityaura")
 	inst.components.sanityaura.aurafn = sanityaurafn
 
 	inst.coralstate = CORALSTATE.FULL
 
-	
+
 	inst:WatchWorldState("isday", ondayfn)
-	inst:WatchWorldState("isdusk", onduskfn)	
-	
+	inst:WatchWorldState("isdusk", onduskfn)
+
 	inst.OnSave = onsave
 	inst.OnLoad = onload
 

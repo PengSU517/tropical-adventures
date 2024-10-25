@@ -38,7 +38,7 @@ local function GetRotation(inst)
 		["3"] = -135, --"down"
 	}
 	local cameraVec = TheCamera:GetDownVec()
-	local cameraAngle =  math.atan2(cameraVec.z, cameraVec.x)
+	local cameraAngle = math.atan2(cameraVec.z, cameraVec.x)
 	cameraAngle = cameraAngle * (180 / math.pi)
 	cameraAngle = roundToNearest(cameraAngle, 45)
 	local rot = inst.AnimState:GetCurrentFacing()
@@ -52,7 +52,7 @@ local function SpawnPrint(inst)
 end
 
 local function SimulateStep(inst)
-	inst:DoTaskInTime(ShadowWarnTime, function(inst) 
+	inst:DoTaskInTime(ShadowWarnTime, function(inst)
 		inst:DoStep()
 		inst:Remove()
 	end)
@@ -128,7 +128,7 @@ local function footprint_fn()
 	end
 
 	inst:AddComponent("colourtweener")
-	inst.components.colourtweener:StartTween({0,0,0,0}, 15, function(inst) inst:Remove() end)
+	inst.components.colourtweener:StartTween({ 0, 0, 0, 0 }, 15, function(inst) inst:Remove() end)
 
 	inst.persists = false
 
@@ -142,7 +142,7 @@ local function LerpOut(inst)
 	if not inst.sizeTask then
 		inst.LeaveTime = inst:GetTimeAlive() + timeToLeave
 		inst.sizeTask = inst:DoPeriodicTask(FRAMES, LerpOut)
-		inst.components.colourtweener:StartTween({0, 0, 0, 0}, timeToLeave, function() inst:Remove() end)
+		inst.components.colourtweener:StartTween({ 0, 0, 0, 0 }, timeToLeave, function() inst:Remove() end)
 	end
 	local t = timeToLeave - (inst.LeaveTime - inst:GetTimeAlive())
 	local s = easing.outCirc(t, 1, inst.StartingScale - 1, timeToLeave)
@@ -186,11 +186,13 @@ local function shadow_fn()
 	inst.TimeToImpact = ShadowWarnTime
 
 	inst:AddComponent("colourtweener")
-	inst.components.colourtweener:StartTween({0, 0, 0, 1}, inst.TimeToImpact, function() inst:DoTaskInTime(45*FRAMES, LerpOut) end)
+	inst.components.colourtweener:StartTween({ 0, 0, 0, 1 }, inst.TimeToImpact,
+		function() inst:DoTaskInTime(45 * FRAMES, LerpOut) end)
 
 	inst.sizeTask = inst:DoPeriodicTask(FRAMES, LerpIn)
 
 	return inst
 end
 
-return Prefab("common/bigfoot", foot_fn, assets, prefabs), Prefab("common/bigfootprint", footprint_fn, assets, prefabs), Prefab("common/bigfootshadow", shadow_fn, assets, prefabs)
+return Prefab("common/bigfoot", foot_fn, assets, prefabs), Prefab("common/bigfootprint", footprint_fn, assets, prefabs),
+	Prefab("common/bigfootshadow", shadow_fn, assets, prefabs)

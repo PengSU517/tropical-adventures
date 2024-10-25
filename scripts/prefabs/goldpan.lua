@@ -1,4 +1,4 @@
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/pan.zip"),
 	Asset("ANIM", "anim/swap_pan.zip"),
@@ -26,8 +26,8 @@ local function fn(Sim)
 	local trans = inst.entity:AddTransform()
 	local anim = inst.entity:AddAnimState()
 	inst.entity:AddSoundEmitter()
-    inst.entity:AddNetwork()
-	
+	inst.entity:AddNetwork()
+
 	MakeInventoryPhysics(inst)
 	MakeInventoryFloatable(inst)
 
@@ -39,8 +39,8 @@ local function fn(Sim)
 
 	if not TheWorld.ismastersim then
 		return inst
-	end	
-	
+	end
+
 	inst:AddComponent("weapon")
 	inst.components.weapon:SetDamage(TUNING.AXE_DAMAGE)
 
@@ -54,23 +54,23 @@ local function fn(Sim)
 
 	inst.components.finiteuses:SetMaxUses(uses)
 	inst.components.finiteuses:SetUses(uses)
-	inst.components.finiteuses:SetOnFinished( onfinished)
+	inst.components.finiteuses:SetOnFinished(onfinished)
 	inst.components.finiteuses:SetConsumption(ACTIONS.PAN, 1)
 	-------
 	inst:AddComponent("inspectable")
 	-------
 	inst:AddComponent("equippable")
 
-	inst.components.equippable:SetOnEquip( onequip )
+	inst.components.equippable:SetOnEquip(onequip)
 
-	inst.components.equippable:SetOnUnequip( onunequip)
+	inst.components.equippable:SetOnUnequip(onunequip)
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"	
-	
-	
+	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+	inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 	return inst
 end
 
-return Prefab( "common/inventory/goldpan", fn, assets)
+return Prefab("common/inventory/goldpan", fn, assets)

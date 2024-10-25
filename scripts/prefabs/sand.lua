@@ -9,29 +9,29 @@ local function sandfn(Sim)
 	local anim = inst.entity:AddAnimState()
 	inst.entity:AddNetwork()
 	MakeInventoryPhysics(inst)
-	MakeInventoryFloatable(inst)		
+	MakeInventoryFloatable(inst)
 
-	anim:SetBuild( "sandhill" )
-	anim:SetBank( "sandhill" )
+	anim:SetBuild("sandhill")
+	anim:SetBank("sandhill")
 	anim:PlayAnimation("idle")
 
 	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	inst:AddComponent("inspectable")
 	-----------------
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 	----------------------
-	
+
 	inst:AddComponent("inventoryitem")
 	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
-	
+	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
 	return inst
 end
 
-return Prefab( "sand", sandfn, assets)
+return Prefab("sand", sandfn, assets)

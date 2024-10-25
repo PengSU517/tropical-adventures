@@ -111,7 +111,7 @@ end
 
 
 local function test_ground(inst, pt)
-    if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.BEACH) then return true end --adicionado por vagner
+    if (TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.BEACH) then return true end  --adicionado por vagner
     return false
 end
 

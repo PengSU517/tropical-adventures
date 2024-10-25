@@ -35,14 +35,14 @@ local function OnActivate(inst, doer)
 
         --Sounds are triggered in player's stategraph
     elseif inst.SoundEmitter ~= nil then
---        inst.SoundEmitter:PlaySound("dontstarve/common/teleportworm/swallow")
+        --        inst.SoundEmitter:PlaySound("dontstarve/common/teleportworm/swallow")
     end
 end
 
 local function OnActivateByOther(inst, source, doer)
---    if not inst.sg:HasStateTag("open") then
---        inst.sg:GoToState("opening")
---    end
+    --    if not inst.sg:HasStateTag("open") then
+    --        inst.sg:GoToState("opening")
+    --    end
 end
 
 local function onaccept(inst, giver, item)
@@ -51,12 +51,12 @@ local function onaccept(inst, giver, item)
 end
 
 local function StartTravelSound(inst, doer)
---    inst.SoundEmitter:PlaySound("dontstarve/common/teleportworm/swallow")
---    doer:PushEvent("wormholetravel", WORMHOLETYPE.WORM) --Event for playing local travel sound
+    --    inst.SoundEmitter:PlaySound("dontstarve/common/teleportworm/swallow")
+    --    doer:PushEvent("wormholetravel", WORMHOLETYPE.WORM) --Event for playing local travel sound
 end
 
 local function OnHaunt(inst, haunter)
-inst.components.teleporter:Activate(haunter)
+    inst.components.teleporter:Activate(haunter)
 end
 
 local function fn()
@@ -76,14 +76,14 @@ local function fn()
 
     inst.AnimState:SetBank("volcano_entrance")
     inst.AnimState:SetBuild("volcano_entrance")
-	inst.AnimState:PlayAnimation("idle")
+    inst.AnimState:PlayAnimation("idle")
     inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
     inst.AnimState:SetSortOrder(3)
 
     --trader, alltrader (from trader component) added to pristine state for optimization
     inst:AddTag("trader")
     inst:AddTag("alltrader")
-	inst:AddTag("hamletteleport")
+    inst:AddTag("hamletteleport")
     inst:AddTag("antlion_sinkhole_blocker")
 
     inst.entity:SetPristine()
@@ -103,15 +103,15 @@ local function fn()
     inst:ListenForEvent("doneteleporting", OnDoneTeleporting)
 
     inst:AddComponent("inventory")
-	
+
     inst:AddComponent("hauntable")
-    inst.components.hauntable:SetOnHauntFn(OnHaunt)		
+    inst.components.hauntable:SetOnHauntFn(OnHaunt)
 
     inst:AddComponent("trader")
     inst.components.trader.acceptnontradable = true
     inst.components.trader.onaccept = onaccept
     inst.components.trader.deleteitemonaccept = false
-	
+
     return inst
 end
 
@@ -130,11 +130,11 @@ local function fn1()
     inst.Physics:ClearCollisionMask()
     inst.Physics:SetSphere(1)
 
---    inst.MiniMapEntity:SetIcon("wormhole.png")
+    --    inst.MiniMapEntity:SetIcon("wormhole.png")
 
     inst.AnimState:SetBank("volcano_entrance")
     inst.AnimState:SetBuild("volcano_entrance")
-	inst.AnimState:PlayAnimation("idle")
+    inst.AnimState:PlayAnimation("idle")
     inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
     inst.AnimState:SetSortOrder(5)
 
@@ -144,7 +144,7 @@ local function fn1()
 
     inst:AddTag("antlion_sinkhole_blocker")
     inst:AddTag("escadadovulcao2")
-	inst:AddTag("hamletteleport")
+    inst:AddTag("hamletteleport")
 
     inst.entity:SetPristine()
 
@@ -161,9 +161,9 @@ local function fn1()
     inst.components.teleporter.offset = 0
     inst:ListenForEvent("starttravelsound", StartTravelSound) -- triggered by player stategraph
     inst:ListenForEvent("doneteleporting", OnDoneTeleporting)
-	
+
     inst:AddComponent("hauntable")
-    inst.components.hauntable:SetOnHauntFn(OnHaunt)	
+    inst.components.hauntable:SetOnHauntFn(OnHaunt)
 
     inst:AddComponent("inventory")
 
@@ -171,7 +171,7 @@ local function fn1()
     inst.components.trader.acceptnontradable = true
     inst.components.trader.onaccept = onaccept
     inst.components.trader.deleteitemonaccept = false
-	
+
     return inst
 end
 

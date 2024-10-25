@@ -5,13 +5,13 @@ local assets =
 
 local prefabs =
 {
-	 "collapse_small",
-	 "boards",
-	 "rope",
-	 "tunacan",
---	 "messagebottleempty",
-	 "fabric",
-	 "dubloon"
+	"collapse_small",
+	"boards",
+	"rope",
+	"tunacan",
+	--	 "messagebottleempty",
+	"fabric",
+	"dubloon"
 }
 
 local function setanim(inst, anim)
@@ -59,9 +59,9 @@ local function fn(Sim)
 
 	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	inst:AddComponent("workable")
 	inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
@@ -69,23 +69,23 @@ local function fn(Sim)
 	inst.components.workable:SetOnFinishCallback(onhammered)
 
 	inst:AddComponent("lootdropper")
-	inst.components.lootdropper:SetLoot({"boards"})
+	inst.components.lootdropper:SetLoot({ "boards" })
 	inst.components.lootdropper:AddRandomLoot("rope", 10)
 	inst.components.lootdropper:AddRandomLoot("tunacan", 5)
---	inst.components.lootdropper:AddRandomLoot("messagebottleempty", 10)
+	--	inst.components.lootdropper:AddRandomLoot("messagebottleempty", 10)
 	inst.components.lootdropper:AddRandomLoot("fabric", 10)
 	inst.components.lootdropper:AddRandomLoot("dubloon", 1)
-	inst.components.lootdropper:AddRandomLoot("rope",10)
-	inst.components.lootdropper:AddRandomLoot("fish",10)
-	inst.components.lootdropper:AddRandomLoot("coconut",5)
-	inst.components.lootdropper:AddRandomLoot("flint",5)
-	inst.components.lootdropper:AddRandomLoot("goldnugget",5)
-	inst.components.lootdropper:AddRandomLoot("papyrus",5)
-	inst.components.lootdropper:AddRandomLoot("gears",1)
-	inst.components.lootdropper:AddRandomLoot("gunpowder",1)
-	inst.components.lootdropper:AddRandomLoot("pigskin",1)
-	inst.components.lootdropper:AddRandomLoot("antidote",1)
-	
+	inst.components.lootdropper:AddRandomLoot("rope", 10)
+	inst.components.lootdropper:AddRandomLoot("fish", 10)
+	inst.components.lootdropper:AddRandomLoot("coconut", 5)
+	inst.components.lootdropper:AddRandomLoot("flint", 5)
+	inst.components.lootdropper:AddRandomLoot("goldnugget", 5)
+	inst.components.lootdropper:AddRandomLoot("papyrus", 5)
+	inst.components.lootdropper:AddRandomLoot("gears", 1)
+	inst.components.lootdropper:AddRandomLoot("gunpowder", 1)
+	inst.components.lootdropper:AddRandomLoot("pigskin", 1)
+	inst.components.lootdropper:AddRandomLoot("antidote", 1)
+
 	inst.components.lootdropper.numrandomloot = 1
 
 	inst:AddComponent("inspectable")

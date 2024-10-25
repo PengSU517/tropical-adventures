@@ -3,7 +3,7 @@ require "recipes"
 
 local assets =
 {
-	Asset("ANIM", "anim/monkey_barrel_tropical.zip"),
+    Asset("ANIM", "anim/monkey_barrel_tropical.zip"),
     Asset("SOUND", "sound/monkey.fsb"),
 }
 
@@ -15,14 +15,14 @@ local prefabs =
     "collapse_small",
 }
 
-SetSharedLootTable( 'primeapebarrel',
-{
-    {'poop',        1.0},
-    {'poop',        1.0},
-    {'cave_banana', 1.0},
-    {'cave_banana', 1.0},
---    {'trinket_4',   .01},
-})
+SetSharedLootTable('primeapebarrel',
+    {
+        { 'poop',        1.0 },
+        { 'poop',        1.0 },
+        { 'cave_banana', 1.0 },
+        { 'cave_banana', 1.0 },
+        --    {'trinket_4',   .01},
+    })
 
 local function shake(inst)
     local anim = ((math.random() > .5) and "move1") or "move2"
@@ -57,16 +57,16 @@ local function onhit(inst, worker)
 end
 
 local function ReturnChildren(inst)
-	for k,child in pairs(inst.components.childspawner.childrenoutside) do
-		if child.components.homeseeker then
-			child.components.homeseeker:GoHome()
-		end
-		child:PushEvent("gohome")
-	end
+    for k, child in pairs(inst.components.childspawner.childrenoutside) do
+        if child.components.homeseeker then
+            child.components.homeseeker:GoHome()
+        end
+        child:PushEvent("gohome")
+    end
 
     if not inst.task then
-        inst.task = inst:DoTaskInTime(math.random(60, 120), function() 
-            inst.task = nil 
+        inst.task = inst:DoTaskInTime(math.random(60, 120), function()
+            inst.task = nil
             inst:PushEvent("safetospawn")
         end)
     end
@@ -96,12 +96,12 @@ local function onbuilt(inst)
 end
 
 local function fn()
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
-	inst.entity:AddNetwork()
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
+    inst.entity:AddNetwork()
     inst.entity:AddSoundEmitter()
-    MakeObstaclePhysics( inst, 1)
+    MakeObstaclePhysics(inst, 1)
 
     local minimap = inst.entity:AddMiniMapEntity()
     minimap:SetIcon("prime_ape.png")
@@ -110,22 +110,22 @@ local function fn()
     anim:SetBuild("monkey_barrel_tropical")
     anim:PlayAnimation("idle", true)
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
-	
-	inst:AddComponent( "childspawner" )
-	inst.components.childspawner:SetRegenPeriod(120)
-	inst.components.childspawner:SetSpawnPeriod(30)
-	inst.components.childspawner:SetMaxChildren(math.random(2,3))
-	inst.components.childspawner:StartRegen()
-	inst.components.childspawner.childname = "primeape"
+
+    inst:AddComponent("childspawner")
+    inst.components.childspawner:SetRegenPeriod(120)
+    inst.components.childspawner:SetSpawnPeriod(30)
+    inst.components.childspawner:SetMaxChildren(math.random(2, 3))
+    inst.components.childspawner:StartRegen()
+    inst.components.childspawner.childname = "primeape"
     inst.components.childspawner:StartSpawning()
     inst.components.childspawner.ongohome = ongohome
 
-	inst:AddComponent("lootdropper")
+    inst:AddComponent("lootdropper")
     inst.components.lootdropper:SetChanceLootTable('primeapebarrel')
 
     inst:AddComponent("workable")
@@ -134,70 +134,70 @@ local function fn()
     inst.components.workable:SetOnFinishCallback(onhammered)
     inst.components.workable:SetOnWorkCallback(onhit)
 
-	inst:ListenForEvent("warnquake", function()  --Monkeys all return on a quake start
+    inst:ListenForEvent("warnquake", function() --Monkeys all return on a quake start
         if inst.components.childspawner then
             inst.components.childspawner:StopSpawning()
-            ReturnChildren(inst) 
+            ReturnChildren(inst)
         end
     end, TheWorld)
 
-    inst:ListenForEvent("primeapedanger", function()  --Monkeys all return on a quake start
+    inst:ListenForEvent("primeapedanger", function() --Monkeys all return on a quake start
         if inst.components.childspawner then
             inst.components.childspawner:StopSpawning()
-            ReturnChildren(inst) 
+            ReturnChildren(inst)
         end
     end)
 
-	inst:ListenForEvent("safetospawn", function() 
+    inst:ListenForEvent("safetospawn", function()
         if inst.components.childspawner then
-    		inst.components.childspawner:StartSpawning()
-	    end		
+            inst.components.childspawner:StartSpawning()
+        end
     end)
 
     inst:AddComponent("inspectable")
 
-    inst:ListenForEvent( "onbuilt", onbuilt)
+    inst:ListenForEvent("onbuilt", onbuilt)
 
     MakeLargeBurnable(inst)
     MakeLargePropagator(inst)
 
     inst.shake = inst:DoPeriodicTask(GetRandomWithVariance(10, 3), shake)
-	return inst
+    return inst
 end
 
 local function fn1()
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
-	inst.entity:AddNetwork()
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
+    inst.entity:AddNetwork()
     inst.entity:AddSoundEmitter()
-    MakeObstaclePhysics( inst, 1)
+    MakeObstaclePhysics(inst, 1)
 
     local minimap = inst.entity:AddMiniMapEntity()
     minimap:SetIcon("prime_ape.png")
 
-	inst.AnimState:SetMultColour(255/255, 150/255, 0/255, 1)
+    inst.AnimState:SetMultColour(255 / 255, 150 / 255, 0 / 255, 1)
 
     anim:SetBank("barrel_tropical")
     anim:SetBuild("monkey_barrel_tropical")
     anim:PlayAnimation("idle", true)
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
-	
-	inst:AddComponent( "childspawner" )
-	inst.components.childspawner:SetRegenPeriod(120)
-	inst.components.childspawner:SetSpawnPeriod(30)
-	inst.components.childspawner:SetMaxChildren(math.random(2,3))
-	inst.components.childspawner:StartRegen()
-	inst.components.childspawner.childname = "spider_ape"
+
+    inst:AddComponent("childspawner")
+    inst.components.childspawner:SetRegenPeriod(120)
+    inst.components.childspawner:SetSpawnPeriod(30)
+    inst.components.childspawner:SetMaxChildren(math.random(2, 3))
+    inst.components.childspawner:StartRegen()
+    inst.components.childspawner.childname = "spider_ape"
     inst.components.childspawner:StartSpawning()
     inst.components.childspawner.ongohome = ongohome
 
-	inst:AddComponent("lootdropper")
+    inst:AddComponent("lootdropper")
     inst.components.lootdropper:SetChanceLootTable('primeapebarrel')
 
     inst:AddComponent("workable")
@@ -206,37 +206,37 @@ local function fn1()
     inst.components.workable:SetOnFinishCallback(onhammered)
     inst.components.workable:SetOnWorkCallback(onhit)
 
-	inst:ListenForEvent("warnquake", function()  --Monkeys all return on a quake start
+    inst:ListenForEvent("warnquake", function() --Monkeys all return on a quake start
         if inst.components.childspawner then
             inst.components.childspawner:StopSpawning()
-            ReturnChildren(inst) 
+            ReturnChildren(inst)
         end
     end, TheWorld)
 
-    inst:ListenForEvent("primeapedanger", function()  --Monkeys all return on a quake start
+    inst:ListenForEvent("primeapedanger", function() --Monkeys all return on a quake start
         if inst.components.childspawner then
             inst.components.childspawner:StopSpawning()
-            ReturnChildren(inst) 
+            ReturnChildren(inst)
         end
     end)
 
-	inst:ListenForEvent("safetospawn", function() 
+    inst:ListenForEvent("safetospawn", function()
         if inst.components.childspawner then
-    		inst.components.childspawner:StartSpawning()
-	    end		
+            inst.components.childspawner:StartSpawning()
+        end
     end)
 
     inst:AddComponent("inspectable")
 
-    inst:ListenForEvent( "onbuilt", onbuilt)
+    inst:ListenForEvent("onbuilt", onbuilt)
 
     MakeLargeBurnable(inst)
     MakeLargePropagator(inst)
 
     inst.shake = inst:DoPeriodicTask(GetRandomWithVariance(10, 3), shake)
-	return inst
+    return inst
 end
 
-return Prefab( "cave/objects/primeapebarrel", fn, assets, prefabs),
-	   Prefab( "cave/objects/primeapebarrel_plus", fn1, assets, prefabs),
-       MakePlacer("common/primeapebarrel_placer", "barrel_tropical", "monkey_barrel_tropical", "idle")
+return Prefab("cave/objects/primeapebarrel", fn, assets, prefabs),
+    Prefab("cave/objects/primeapebarrel_plus", fn1, assets, prefabs),
+    MakePlacer("common/primeapebarrel_placer", "barrel_tropical", "monkey_barrel_tropical", "idle")

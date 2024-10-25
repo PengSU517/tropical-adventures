@@ -24,30 +24,30 @@ local prefabs =
 }
 
 local function jellybug_raw()
-	local inst = CreateEntity()
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
     inst.entity:AddNetwork()
-    
+
     MakeInventoryPhysics(inst)
---    MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
-    
+    --    MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
+
     inst.AnimState:SetBank("jellybug")
     inst.AnimState:SetBuild("jellybug")
     inst.AnimState:SetRayTestOnBB(true)
     inst.AnimState:PlayAnimation("idle", true)
 
-	MakeInventoryFloatable(inst)	
+    MakeInventoryFloatable(inst)
 
-	inst:AddTag("frogbait")  
+    inst:AddTag("frogbait")
     inst:AddTag("monstermeat")
- 
+
     inst.entity:SetPristine()
-	
-	if not TheWorld.ismastersim then
-		return inst
-	end
- 
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("edible")
     inst.components.edible.foodtype = "VEGGIE"
     inst.components.edible.healthvalue = 0
@@ -55,120 +55,118 @@ local function jellybug_raw()
     inst.components.edible.sanityvalue = -TUNING.SANITY_SMALL
 
     inst:AddComponent("bait")
-    
+
     inst:AddComponent("cookable")
     inst.components.cookable.product = "jellybug_cooked"
 
-	inst:AddComponent("bait")
+    inst:AddComponent("bait")
 
     inst:AddComponent("stackable")
-	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
+    inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
     inst:AddComponent("tradable")
     inst:AddComponent("inspectable")
 
-  
+
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"
-	
+    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
     inst:AddComponent("perishable")
-	inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERSLOW)
-	inst.components.perishable:StartPerishing()
-	inst.components.perishable.onperishreplacement = "spoiled_food"
-	
+    inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERSLOW)
+    inst.components.perishable:StartPerishing()
+    inst.components.perishable.onperishreplacement = "spoiled_food"
+
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
 
     return inst
-
 end
 
 local function jellybug_cooked()
-	local inst = CreateEntity()
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
     inst.entity:AddNetwork()
-    
+
     MakeInventoryPhysics(inst)
---    MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
-    
+    --    MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
+
     inst.AnimState:SetBank("jellybug_cooked")
     inst.AnimState:SetBuild("jellybug_cooked")
     inst.AnimState:SetRayTestOnBB(true)
     inst.AnimState:PlayAnimation("cooked", true)
 
-	inst:AddTag("frogbait")  
+    inst:AddTag("frogbait")
     inst:AddTag("monstermeat")
-	
-	MakeInventoryFloatable(inst)
- 
+
+    MakeInventoryFloatable(inst)
+
     inst.entity:SetPristine()
-	
-	if not TheWorld.ismastersim then
-		return inst
-	end
- 
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("edible")
     inst.components.edible.foodtype = "VEGGIE"
-	inst.components.edible.healthvalue = TUNING.HEALING_TINY
+    inst.components.edible.healthvalue = TUNING.HEALING_TINY
     inst.components.edible.hungervalue = TUNING.CALORIES_SMALL
     inst.components.edible.sanityvalue = -TUNING.SANITY_TINY
 
     inst:AddComponent("bait")
-    
+
     inst:AddComponent("cookable")
     inst.components.cookable.product = "jellybug_cooked"
 
-	inst:AddComponent("bait")
+    inst:AddComponent("bait")
 
     inst:AddComponent("stackable")
-	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
+    inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
     inst:AddComponent("tradable")
     inst:AddComponent("inspectable")
 
-  
+
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"
-	
+    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
     inst:AddComponent("perishable")
-	inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERSLOW)
-	inst.components.perishable:StartPerishing()
-	inst.components.perishable.onperishreplacement = "spoiled_food"
-	
+    inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERSLOW)
+    inst.components.perishable:StartPerishing()
+    inst.components.perishable.onperishreplacement = "spoiled_food"
+
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
 
     return inst
-
 end
 
 local function slugbug_raw()
-	local inst = CreateEntity()
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
     inst.entity:AddNetwork()
-    
+
     MakeInventoryPhysics(inst)
---    MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
-    
+    --    MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
+
     inst.AnimState:SetBank("slugbug")
     inst.AnimState:SetBuild("slugbug")
     inst.AnimState:SetRayTestOnBB(true)
     inst.AnimState:PlayAnimation("idle", true)
 
     inst:AddTag("monstermeat")
-	
-	MakeInventoryFloatable(inst)
-	
+
+    MakeInventoryFloatable(inst)
+
     inst.entity:SetPristine()
-	
-	if not TheWorld.ismastersim then
-		return inst
-	end
- 
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("edible")
     inst.components.edible.foodtype = "MEAT"
     inst.components.edible.healthvalue = 0
@@ -181,49 +179,49 @@ local function slugbug_raw()
     inst:AddComponent("bait")
 
     inst:AddComponent("stackable")
-	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
+    inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
     inst:AddComponent("tradable")
     inst:AddComponent("inspectable")
 
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
-    
+
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"
-	
+    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
     inst:AddComponent("perishable")
-	inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERSLOW)
-	inst.components.perishable:StartPerishing()
-	inst.components.perishable.onperishreplacement = "spoiled_food"
-	
+    inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERSLOW)
+    inst.components.perishable:StartPerishing()
+    inst.components.perishable.onperishreplacement = "spoiled_food"
+
     return inst
 end
 
 local function slugbug_cooked()
-	local inst = CreateEntity()
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
+    local inst = CreateEntity()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
     inst.entity:AddNetwork()
-    
+
     MakeInventoryPhysics(inst)
---    MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
-    
+    --    MakeBlowInHurricane(inst, TUNING.WINDBLOWN_SCALE_MIN.LIGHT, TUNING.WINDBLOWN_SCALE_MAX.LIGHT)
+
     inst.AnimState:SetBank("slugbug_cooked")
     inst.AnimState:SetBuild("slugbug_cooked")
     inst.AnimState:SetRayTestOnBB(true)
     inst.AnimState:PlayAnimation("cooked", true)
 
     inst:AddTag("monstermeat")
-	MakeInventoryFloatable(inst)
-	
+    MakeInventoryFloatable(inst)
+
     inst.entity:SetPristine()
-	
-	if not TheWorld.ismastersim then
-		return inst
-	end
- 
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("edible")
     inst.components.edible.foodtype = "MEAT"
     inst.components.edible.healthvalue = TUNING.HEALING_TINY
@@ -233,28 +231,27 @@ local function slugbug_cooked()
     inst:AddComponent("bait")
 
     inst:AddComponent("stackable")
-	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
+    inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
     inst:AddComponent("tradable")
     inst:AddComponent("inspectable")
 
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
-    
+
     inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"
-	
-    inst:AddComponent("perishable")
-	inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERSLOW)
-	inst.components.perishable:StartPerishing()
-	inst.components.perishable.onperishreplacement = "spoiled_food"
-	
-    return inst
+    inst.caminho = "images/inventoryimages/hamletinventory.xml"
 
+    inst:AddComponent("perishable")
+    inst.components.perishable:SetPerishTime(TUNING.PERISH_SUPERSLOW)
+    inst.components.perishable:StartPerishing()
+    inst.components.perishable.onperishreplacement = "spoiled_food"
+
+    return inst
 end
 
 return Prefab("common/inventory/jellybug", jellybug_raw, assets.jellybug, prefabs.jellybug),
-       Prefab("common/inventory/jellybug_cooked", jellybug_cooked, assets.jellybug_cooked),
-       Prefab("common/inventory/slugbug", slugbug_raw, assets.slugbug, prefabs.slugbug),
-       Prefab("common/inventory/slugbug_cooked", slugbug_cooked, assets.slugbug_cooked)
+    Prefab("common/inventory/jellybug_cooked", jellybug_cooked, assets.jellybug_cooked),
+    Prefab("common/inventory/slugbug", slugbug_raw, assets.slugbug, prefabs.slugbug),
+    Prefab("common/inventory/slugbug_cooked", slugbug_cooked, assets.slugbug_cooked)

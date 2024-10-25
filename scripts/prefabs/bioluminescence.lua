@@ -1,6 +1,6 @@
-local assets = 
+local assets =
 {
-	Asset("ANIM", "anim/bioluminessence.zip"),
+    Asset("ANIM", "anim/bioluminessence.zip"),
 }
 
 local INTENSITY = .65
@@ -144,12 +144,12 @@ end
 
 local function OnTimerDone(inst, data)
     if data.name == "vaiembora" then
-	local invader = GetClosestInstWithTag("player", inst, 25)
-	if not invader then
-	inst:Remove()
-	else
-	inst.components.timer:StartTimer("vaiembora", 10)	
-	end
+        local invader = GetClosestInstWithTag("player", inst, 25)
+        if not invader then
+            inst:Remove()
+        else
+            inst.components.timer:StartTimer("vaiembora", 10)
+        end
     end
 end
 
@@ -168,7 +168,7 @@ local function fn()
     inst.Light:SetFalloff(.45)
     inst.Light:SetIntensity(0.65)
     inst.Light:SetRadius(0.9)
-	inst.Light:SetColour(0/255, 180/255, 255/255)  
+    inst.Light:SetColour(0 / 255, 180 / 255, 255 / 255)
     inst.Light:Enable(false)
     inst.Light:EnableClientModulation(true)
 
@@ -185,10 +185,10 @@ local function fn()
     inst._fadetask = nil
 
     inst.entity:SetPristine()
-	
-	inst:AddTag("aquatic")
---	inst:AddTag("tropicalspawner")	
-	inst:AddTag("bioluminescence")
+
+    inst:AddTag("aquatic")
+    --	inst:AddTag("tropicalspawner")	
+    inst:AddTag("bioluminescence")
 
     if not TheWorld.ismastersim then
         inst:ListenForEvent("onfaderatedirty", OnFadeRateDirty)
@@ -211,8 +211,8 @@ local function fn()
     inst.components.stackable.forcedropsingle = true
 
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
     inst.components.inventoryitem:SetOnDroppedFn(ondropped)
     inst.components.inventoryitem:SetOnPickupFn(onpickup)
     inst.components.inventoryitem.canbepickedup = false
@@ -224,7 +224,7 @@ local function fn()
     inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
     inst.components.fuel.fueltype = FUELTYPE.CAVE
 
-    inst.components.playerprox:SetDist(3,5)
+    inst.components.playerprox:SetDist(3, 5)
     inst.components.playerprox:SetOnPlayerNear(updatelight)
     inst.components.playerprox:SetOnPlayerFar(updatelight)
 
@@ -232,13 +232,13 @@ local function fn()
     inst.components.hauntable:SetHauntValue(TUNING.HAUNT_TINY)
 
     inst:WatchWorldState("isnight", OnIsNight)
-	inst:WatchWorldState("stopday", OnIsNight)
+    inst:WatchWorldState("stopday", OnIsNight)
 
     updatelight(inst)
-	
+
     inst:AddComponent("timer")
     inst:ListenForEvent("timerdone", OnTimerDone)
-    inst.components.timer:StartTimer("vaiembora", 480)		
+    inst.components.timer:StartTimer("vaiembora", 480)
 
     return inst
 end

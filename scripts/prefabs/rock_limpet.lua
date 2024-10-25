@@ -8,27 +8,27 @@ local prefabs =
 	"limpets",
 	"rocks",
 	"flint",
-}   
- 
+}
 
-SetSharedLootTable( 'limpetrockempty',
-{
-	{'rocks', 1.00},
-	{'rocks', 1.00},
-	{'rocks', 1.00},
-	{'flint', 1.00},
-	{'flint', 0.60},
-})
 
-SetSharedLootTable( 'limpetrockfull',
-{
-	{'rocks', 1.00},
-	{'rocks', 1.00},
-	{'rocks', 1.00},
-	{'flint', 1.00},
-	{'flint', 0.60},
-	{'limpets', 1.00},
-})
+SetSharedLootTable('limpetrockempty',
+	{
+		{ 'rocks', 1.00 },
+		{ 'rocks', 1.00 },
+		{ 'rocks', 1.00 },
+		{ 'flint', 1.00 },
+		{ 'flint', 0.60 },
+	})
+
+SetSharedLootTable('limpetrockfull',
+	{
+		{ 'rocks',   1.00 },
+		{ 'rocks',   1.00 },
+		{ 'rocks',   1.00 },
+		{ 'flint',   1.00 },
+		{ 'flint',   0.60 },
+		{ 'limpets', 1.00 },
+	})
 
 local function makeemptyfn(inst)
 	if inst.components.pickable and inst.components.pickable.withered then
@@ -54,12 +54,11 @@ local function makebarrenfn(inst)
 end
 
 local function onpickedfn(inst, picker)
-
 	if inst.components.pickable then
 		inst.components.workable:SetWorkable(true)
 
 		inst.AnimState:PlayAnimation("limpetmost_picked")
-		
+
 		if inst.components.pickable:IsBarren() then
 			inst.AnimState:PushAnimation("idle_dead")
 		else
@@ -104,25 +103,25 @@ local function fn()
 
 
 	inst:AddTag("bush")
-	minimap:SetIcon( "limpetrock.png" )
+	minimap:SetIcon("limpetrock.png")
 
 	MakeObstaclePhysics(inst, 1)
-   
+
 	anim:SetBank("limpetrock")
 	anim:SetBuild("limpetrock")
 	anim:PlayAnimation("limpetmost", false)
 
 	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
-	
+	if not TheWorld.ismastersim then
+		return inst
+	end
+
 	inst:AddComponent("inspectable")
-	
+
 	inst:AddComponent("pickable")
 	inst.components.pickable.picksound = "dontstarve_DLC002/common/limpet_harvest"
-	inst.components.pickable:SetUp("limpets", TUNING.BERRY_REGROW_TIME)--TUNING.LIMPET_REGROW_TIME)
+	inst.components.pickable:SetUp("limpets", TUNING.BERRY_REGROW_TIME) --TUNING.LIMPET_REGROW_TIME)
 	inst.components.pickable.getregentimefn = getregentimefn
 	inst.components.pickable.onpickedfn = onpickedfn
 	inst.components.pickable.makeemptyfn = makeemptyfn
@@ -141,8 +140,8 @@ local function fn()
 	-- 		inst.components.pickable:MakeWitherable()
 	-- 	end
 	-- )
-	
-		
+
+
 	inst:AddComponent("lootdropper")
 	inst.components.lootdropper:SetChanceLootTable('limpetrockempty')
 
@@ -159,9 +158,9 @@ local function fn()
 			end
 			inst:Remove()
 		else
-			if workleft < TUNING.ROCKS_MINE*(1/3) then
+			if workleft < TUNING.ROCKS_MINE * (1 / 3) then
 				inst.AnimState:PlayAnimation("low")
-			elseif workleft < TUNING.ROCKS_MINE*(2/3) then
+			elseif workleft < TUNING.ROCKS_MINE * (2 / 3) then
 				inst.AnimState:PlayAnimation("med")
 			else
 				inst.AnimState:PlayAnimation("idle")
@@ -171,8 +170,8 @@ local function fn()
 
 	inst.components.workable:SetWorkable(false)
 
-			
+
 	return inst
 end
 
-return Prefab( "rock_limpet", fn, assets, prefabs)	
+return Prefab("rock_limpet", fn, assets, prefabs)

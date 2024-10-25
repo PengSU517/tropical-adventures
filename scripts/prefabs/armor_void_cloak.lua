@@ -23,10 +23,14 @@ local function spawnwisp(owner)
         end
 
         local armadura = owner.components.inventory:GetEquippedItem(equipslot)
-        if armadura and armadura:HasTag("void_cloak") and armadura.components.armor.condition <= 0 then armadura
-                .components.armor:SetAbsorption(0) end
-        if armadura and armadura:HasTag("void_cloak") and armadura.components.armor.condition > 0 then armadura
-                .components.armor:SetAbsorption(1) end
+        if armadura and armadura:HasTag("void_cloak") and armadura.components.armor.condition <= 0 then
+            armadura
+                .components.armor:SetAbsorption(0)
+        end
+        if armadura and armadura:HasTag("void_cloak") and armadura.components.armor.condition > 0 then
+            armadura
+                .components.armor:SetAbsorption(1)
+        end
     end
 end
 

@@ -1,6 +1,7 @@
 require "tuning"
 
-local function MakeVegStats(seedweight, hunger, health, perish_time, sanity, cooked_hunger, cooked_health, cooked_perish_time, cooked_sanity)
+local function MakeVegStats(seedweight, hunger, health, perish_time, sanity, cooked_hunger, cooked_health,
+                            cooked_perish_time, cooked_sanity)
     return {
         health = health,
         hunger = hunger,
@@ -20,8 +21,8 @@ local RARE = .5
 
 JY_VEGGIES =
 {
-    coffeebeans = MakeVegStats(0,	TUNING.CALORIES_TINY,	0,	TUNING.PERISH_FAST, 0,
-								TUNING.CALORIES_TINY,	0,	TUNING.PERISH_SLOW, -TUNING.SANITY_TINY),
+    coffeebeans = MakeVegStats(0, TUNING.CALORIES_TINY, 0, TUNING.PERISH_FAST, 0,
+        TUNING.CALORIES_TINY, 0, TUNING.PERISH_SLOW, -TUNING.SANITY_TINY),
 }
 
 local assets_seeds =
@@ -30,25 +31,24 @@ local assets_seeds =
 }
 
 local function MakeVeggie(name, has_seeds)
-
     local assets =
     {
-        Asset("ANIM", "anim/"..name..".zip"),
+        Asset("ANIM", "anim/" .. name .. ".zip"),
     }
 
     local assets_cooked =
     {
-        Asset("ANIM", "anim/"..name..".zip"),
+        Asset("ANIM", "anim/" .. name .. ".zip"),
     }
-    
+
     local prefabs =
     {
-        name.."_cooked",
+        name .. "_cooked",
         "spoiled_food",
     }
-    
+
     if has_seeds then
-        table.insert(prefabs, name.."_seeds")
+        table.insert(prefabs, name .. "_seeds")
     end
 
     local function fn_seeds()
@@ -66,11 +66,11 @@ local function MakeVeggie(name, has_seeds)
 
         --cookable (from cookable component) added to pristine state for optimization
         inst:AddTag("cookable")
-		inst:AddTag("coffeebeans")
-		inst:AddTag("deployedplant")	
-		
-		MakeInventoryFloatable(inst)
-	
+        inst:AddTag("coffeebeans")
+        inst:AddTag("deployedplant")
+
+        MakeInventoryFloatable(inst)
+
         inst.entity:SetPristine()
 
         if not TheWorld.ismastersim then
@@ -88,7 +88,7 @@ local function MakeVeggie(name, has_seeds)
         inst:AddComponent("inventoryitem")
 
         inst.AnimState:PlayAnimation("idle")
-        inst.components.edible.healthvalue = TUNING.HEALING_TINY/2
+        inst.components.edible.healthvalue = TUNING.HEALING_TINY / 2
         inst.components.edible.hungervalue = TUNING.CALORIES_TINY
 
         inst:AddComponent("perishable")
@@ -124,9 +124,9 @@ local function MakeVeggie(name, has_seeds)
 
         --cookable (from cookable component) added to pristine state for optimization
         inst:AddTag("cookable")
-		inst:AddTag("coffeebeans")
-		MakeInventoryFloatable(inst)
-		
+        inst:AddTag("coffeebeans")
+        MakeInventoryFloatable(inst)
+
         inst.entity:SetPristine()
 
         if not TheWorld.ismastersim then
@@ -136,7 +136,7 @@ local function MakeVeggie(name, has_seeds)
         inst:AddComponent("edible")
         inst.components.edible.healthvalue = JY_VEGGIES[name].health
         inst.components.edible.hungervalue = JY_VEGGIES[name].hunger
-        inst.components.edible.sanityvalue = JY_VEGGIES[name].sanity or 0      
+        inst.components.edible.sanityvalue = JY_VEGGIES[name].sanity or 0
         inst.components.edible.foodtype = FOODTYPE.SEEDS
 
         inst:AddComponent("perishable")
@@ -147,7 +147,7 @@ local function MakeVeggie(name, has_seeds)
         inst:AddComponent("stackable")
         if name ~= "pumpkin" and
             name ~= "eggplant" and
-            name ~= "durian" and 
+            name ~= "durian" and
             name ~= "watermelon" then
             inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
         end
@@ -159,22 +159,22 @@ local function MakeVeggie(name, has_seeds)
 
         inst:AddComponent("inspectable")
         inst:AddComponent("inventoryitem")
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-		inst.caminho = "images/inventoryimages/volcanoinventory.xml"	
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+        inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
         MakeSmallBurnable(inst)
         MakeSmallPropagator(inst)
-        ---------------------        
+        ---------------------
 
         inst:AddComponent("bait")
 
         ------------------------------------------------
         inst:AddComponent("tradable")
 
-        ------------------------------------------------  
+        ------------------------------------------------
 
         inst:AddComponent("cookable")
-        inst.components.cookable.product = name.."_cooked"
+        inst.components.cookable.product = name .. "_cooked"
 
         MakeHauntableLaunchAndPerish(inst)
 
@@ -182,11 +182,11 @@ local function MakeVeggie(name, has_seeds)
     end
 
 
-local function OnEaten(inst, eater)
-    eater:AddDebuff("speedup_tro", "buff_speedup_tro", {
-        debuffkey = "coffeebean",
-    }, true)
-end
+    local function OnEaten(inst, eater)
+        eater:AddDebuff("speedup_tro", "buff_speedup_tro", {
+            debuffkey = "coffeebean",
+        }, true)
+    end
 
 
     local function fn_cooked()
@@ -203,8 +203,8 @@ end
         inst.AnimState:PlayAnimation("cooked")
 
         inst.entity:SetPristine()
-		MakeInventoryFloatable(inst)
-		
+        MakeInventoryFloatable(inst)
+
         if not TheWorld.ismastersim then
             return inst
         end
@@ -219,20 +219,20 @@ end
         inst.components.edible.hungervalue = JY_VEGGIES[name].cooked_hunger
         inst.components.edible.sanityvalue = JY_VEGGIES[name].cooked_sanity or 0
         inst.components.edible.foodtype = FOODTYPE.VEGGIE
-		inst.components.edible:SetOnEatenFn(OnEaten)		
-		
+        inst.components.edible:SetOnEatenFn(OnEaten)
+
 
         inst:AddComponent("stackable")
         inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
         inst:AddComponent("inspectable")
         inst:AddComponent("inventoryitem")
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-		inst.caminho = "images/inventoryimages/volcanoinventory.xml"		
+        inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+        inst.caminho = "images/inventoryimages/volcanoinventory.xml"
 
         MakeSmallBurnable(inst)
         MakeSmallPropagator(inst)
-        ---------------------        
+        ---------------------
 
         inst:AddComponent("bait")
 
@@ -245,14 +245,14 @@ end
     end
 
     local base = Prefab(name, fn, assets, prefabs)
-    local cooked = Prefab(name.."_cooked", fn_cooked, assets_cooked)
-    local seeds = has_seeds and Prefab(name.."_seeds", fn_seeds, assets_seeds) or nil
+    local cooked = Prefab(name .. "_cooked", fn_cooked, assets_cooked)
+    local seeds = has_seeds and Prefab(name .. "_seeds", fn_seeds, assets_seeds) or nil
 
     return base, cooked, seeds
 end
 
 local prefs = {}
-for veggiename,veggiedata in pairs(JY_VEGGIES) do
+for veggiename, veggiedata in pairs(JY_VEGGIES) do
     local veg, cooked, seeds = MakeVeggie(veggiename, veggiename ~= "coffeebeans")
     table.insert(prefs, veg)
     table.insert(prefs, cooked)
