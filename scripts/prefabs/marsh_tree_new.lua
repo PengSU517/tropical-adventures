@@ -43,7 +43,7 @@ local function set_stump(inst)
     end
     RemovePhysicsColliders(inst)
     inst:AddTag("stump")
-    inst.MiniMapEntity:SetIcon("marshtree_stump.png")
+    inst.MiniMapEntity:SetIcon("marshtree_stump.tex")
 end
 
 local function dig_up_stump(inst, chopper)
@@ -92,7 +92,7 @@ local function OnBurnt(inst)
     inst.components.workable:SetOnFinishCallback(chop_down_burnt_tree)
     inst.AnimState:PlayAnimation("burnt_idle", true)
     inst:AddTag("burnt")
-    inst.MiniMapEntity:SetIcon("marshtree_burnt.png")
+    inst.MiniMapEntity:SetIcon("marshtree_burnt.tex")
 end
 
 local function inspect_tree(inst)
@@ -144,7 +144,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, .25)
 
-    inst.MiniMapEntity:SetIcon("marshtree.png")
+    inst.MiniMapEntity:SetIcon("marshtree.tex")
     inst.MiniMapEntity:SetPriority(-1)
 
     inst:AddTag("plant")

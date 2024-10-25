@@ -42,7 +42,7 @@ local function fn()
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("workbench_obsidian.png")
+    minimap:SetIcon("workbench_obsidian.tex")
 
 
 

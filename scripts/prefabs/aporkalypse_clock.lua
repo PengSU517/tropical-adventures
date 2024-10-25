@@ -182,7 +182,7 @@ local function make_master_fn()
 	inst.entity:AddSoundEmitter()
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("porkalypse_clock.png")
+	minimap:SetIcon("porkalypse_clock.tex")
 
 	local anim = inst.entity:AddAnimState()
 

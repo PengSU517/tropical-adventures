@@ -93,7 +93,7 @@ local function fn(Sim)
     MakeObstaclePhysics(inst, .5)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("gnat_mound.png")
+    minimap:SetIcon("gnat_mound.tex")
 
     anim:SetBank("gnat_mound")
     anim:SetBuild("gnat_mound")

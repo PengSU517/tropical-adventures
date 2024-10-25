@@ -212,7 +212,7 @@ local function fn(anim, loot, onground, minimapicon, talker, collision)
 
     if minimapicon then
         local minimap = inst.entity:AddMiniMapEntity()
-        minimap:SetIcon(minimapicon .. ".png")
+        minimap:SetIcon(minimapicon .. ".tex")
     end
     -- at the momnent only the ground thing isn't workable.. this might change tho..
     if onground then

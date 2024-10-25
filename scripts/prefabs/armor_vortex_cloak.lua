@@ -154,7 +154,7 @@ local function fn()
     inst.entity:SetPristine()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("armor_vortex_cloak.png")
+    minimap:SetIcon("armor_vortex_cloak.tex")
 
     if not TheWorld.ismastersim then
         return inst

@@ -43,7 +43,7 @@ local function fn()
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
 
-    --    inst.MiniMapEntity:SetIcon("gold_puddle.png")
+    --    inst.MiniMapEntity:SetIcon("gold_puddle.tex")
     inst.AnimState:SetBank("flood")
     inst.AnimState:SetBuild("flood")
     inst.AnimState:PlayAnimation("chega")

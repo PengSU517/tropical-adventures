@@ -120,7 +120,7 @@ local function fn()
 	inst.AnimState:SetBuild("volcano")
 	inst.AnimState:PlayAnimation("dormant_idle", true)
 
-	inst.MiniMapEntity:SetIcon("volcano.png")
+	inst.MiniMapEntity:SetIcon("volcano.tex")
 
 	inst:AddTag("FX")
 	inst:AddTag("vulcaomigrador")

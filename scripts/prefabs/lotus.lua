@@ -127,7 +127,7 @@ local function fn(Sim)
     anim:SetMultColour(color, color, color, 1)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("lotus.png")
+    minimap:SetIcon("lotus.tex")
 
     inst.entity:SetPristine()
 

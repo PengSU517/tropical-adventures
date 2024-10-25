@@ -32,7 +32,7 @@ local function basalt_fn(Sim)
 	inst.AnimState:PlayAnimation("full")
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("rock.png")
+	minimap:SetIcon("rock.tex")
 
 	inst.entity:SetPristine()
 

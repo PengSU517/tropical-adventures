@@ -13,8 +13,8 @@ local day_time = seg_time * day_segs
 local PALMTREE_GROW_TIME =
 {
 	{ base = 1.5 * day_time, random = 0.5 * day_time }, --tall to short
-	{ base = 5 * day_time, random = 2 * day_time }, --short to normal
-	{ base = 5 * day_time, random = 2 * day_time }, --normal to tall
+	{ base = 5 * day_time,   random = 2 * day_time }, --short to normal
+	{ base = 5 * day_time,   random = 2 * day_time }, --normal to tall
 }
 
 local PALMTREE_CHOPS = "a"
@@ -41,7 +41,8 @@ local prefabs =
 
 SetSharedLootTable('palmtree_short', { { "log", 1.0 }, { "palmleaf", 1.0 } })
 SetSharedLootTable('palmtree_normal', { { "log", 1.0 }, { "log", 1.0 }, { "palmleaf", 1.0 }, { "coconut", 1.0 } })
-SetSharedLootTable('palmtree_tall', { { "log", 1.0 }, { "log", 1.0 }, { "coconut", 1.0 }, { "coconut", 0.33 }, { "palmleaf", 1.0 } })
+SetSharedLootTable('palmtree_tall',
+	{ { "log", 1.0 }, { "log", 1.0 }, { "coconut", 1.0 }, { "coconut", 0.33 }, { "palmleaf", 1.0 } })
 
 local builds =
 {
@@ -275,18 +276,54 @@ end
 
 local growth_stages =
 {
-	{ name = "short", time = function(inst) return GetRandomWithVariance(PALMTREE_GROW_TIME[1].base,
-			PALMTREE_GROW_TIME[1].random) end,                                                                                          fn = function(
-		inst) SetShort(inst) end,                                                                                                                                                growfn = function(
-		inst) GrowShort(inst) end,                                                                                                                                                                                             leifscale = .7 },
-	{ name = "normal", time = function(inst) return GetRandomWithVariance(PALMTREE_GROW_TIME[2].base,
-			PALMTREE_GROW_TIME[2].random) end,                                                                                          fn = function(
-		inst) SetNormal(inst) end,                                                                                                                                               growfn = function(
-		inst) GrowNormal(inst) end,                                                                                                                                                                                            leifscale = 1 },
-	{ name = "tall", time = function(inst) return GetRandomWithVariance(PALMTREE_GROW_TIME[3].base,
-			PALMTREE_GROW_TIME[3].random) end,                                                                                          fn = function(
-		inst) SetTall(inst) end,                                                                                                                                                 growfn = function(
-		inst) GrowTall(inst) end,                                                                                                                                                                                              leifscale = 1.25 },
+	{
+		name = "short",
+		time = function(inst)
+			return GetRandomWithVariance(PALMTREE_GROW_TIME[1].base,
+				PALMTREE_GROW_TIME[1].random)
+		end,
+		fn = function(
+			inst)
+			SetShort(inst)
+		end,
+		growfn = function(
+			inst)
+			GrowShort(inst)
+		end,
+		leifscale = .7
+	},
+	{
+		name = "normal",
+		time = function(inst)
+			return GetRandomWithVariance(PALMTREE_GROW_TIME[2].base,
+				PALMTREE_GROW_TIME[2].random)
+		end,
+		fn = function(
+			inst)
+			SetNormal(inst)
+		end,
+		growfn = function(
+			inst)
+			GrowNormal(inst)
+		end,
+		leifscale = 1
+	},
+	{
+		name = "tall",
+		time = function(inst)
+			return GetRandomWithVariance(PALMTREE_GROW_TIME[3].base,
+				PALMTREE_GROW_TIME[3].random)
+		end,
+		fn = function(
+			inst)
+			SetTall(inst)
+		end,
+		growfn = function(
+			inst)
+			GrowTall(inst)
+		end,
+		leifscale = 1.25
+	},
 	--{name="old", time = function(inst) return GetRandomWithVariance(TUNING.EVERGREEN_GROW_TIME[4].base, TUNING.EVERGREEN_GROW_TIME[4].random) end, fn = function(inst) SetOld(inst) end, growfn = function(inst) GrowOld(inst) end },
 }
 
@@ -644,7 +681,7 @@ local function makefn(build, stage, data)
 		MakeObstaclePhysics(inst, .25)
 
 		local minimap = inst.entity:AddMiniMapEntity()
-		minimap:SetIcon("palmTree.png")
+		minimap:SetIcon("palmTree.tex")
 
 		minimap:SetPriority(-1)
 

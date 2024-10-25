@@ -99,7 +99,7 @@ local function fn()
     inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("bushVine.png")
+    inst.MiniMapEntity:SetIcon("bushVine.tex")
 
     inst.AnimState:SetRayTestOnBB(true)
     inst.AnimState:SetBank("bush_vine")
@@ -149,7 +149,7 @@ local function OnCollide(inst, data)
     local boat_physics = data.other.components.boatphysics
     if boat_physics ~= nil then
         local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) * DAMAGE_SCALE /
-        boat_physics.max_velocity + 0.5)
+            boat_physics.max_velocity + 0.5)
         inst.components.workable:WorkedBy(data.other, hit_velocity * TUNING.SEASTACK_MINE)
     end
 end
@@ -163,7 +163,7 @@ local function fn1()
     inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("bushVine.png")
+    inst.MiniMapEntity:SetIcon("bushVine.tex")
 
     inst.AnimState:SetRayTestOnBB(true)
     inst.AnimState:SetBank("bush_vine")

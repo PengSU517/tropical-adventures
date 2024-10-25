@@ -59,7 +59,7 @@ local function fn()
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("grotto_grub_nest.png")
+    minimap:SetIcon("grotto_grub_nest.tex")
 
     inst.Transform:SetScale(1, 1, 1)
 

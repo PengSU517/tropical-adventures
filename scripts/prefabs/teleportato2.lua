@@ -1000,7 +1000,10 @@ end
 local function statusdabatalha(inst)
 	-- so aceita item se a arena nao estiver ativa
 	if inst.spider + inst.hound + inst.merm + inst.knight + inst.boar + inst.lizard + inst.bossboar + inst.rhinocebros + inst.beetletaur > 0 then
-		inst.components.trader:Disable() else inst.components.trader:Enable() end
+		inst.components.trader:Disable()
+	else
+		inst.components.trader:Enable()
+	end
 
 	if inst.arenaativa == 1 then
 		----------------exibe a contagem de aranhas-----------------------------
@@ -1825,7 +1828,7 @@ local function fn(Sim)
 
 	local minimap = inst.entity:AddMiniMapEntity()
 	minimap:SetPriority(5)
-	minimap:SetIcon("teleportato_base.png")
+	minimap:SetIcon("teleportato_base.tex")
 	minimap:SetPriority(1)
 
 	inst.entity:AddSoundEmitter()

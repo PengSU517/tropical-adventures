@@ -88,7 +88,7 @@ local function fn(Sim)
 	inst.entity:AddSoundEmitter()
 	inst.entity:AddNetwork()
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("rawling.png")
+	minimap:SetIcon("rawling.tex")
 
 	inst.AnimState:SetBank("basketball")
 	inst.AnimState:SetBuild("basketball")

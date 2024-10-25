@@ -240,7 +240,7 @@ local function bluefn(Sim)
 	local sound = inst.entity:AddSoundEmitter()
 	local minimap = inst.entity:AddMiniMapEntity()
 	inst.entity:AddNetwork()
-	minimap:SetIcon("whale_carcass.png")
+	minimap:SetIcon("whale_carcass.tex")
 
 	MakeObstaclePhysics(inst, .7)
 
@@ -293,7 +293,7 @@ local function whitefn(Sim)
 	local sound = inst.entity:AddSoundEmitter()
 	local minimap = inst.entity:AddMiniMapEntity()
 	inst.entity:AddNetwork()
-	minimap:SetIcon("whale_carcass.png")
+	minimap:SetIcon("whale_carcass.tex")
 
 	MakeObstaclePhysics(inst, .7)
 

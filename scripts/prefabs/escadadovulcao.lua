@@ -72,7 +72,7 @@ local function fn()
     inst.Physics:ClearCollisionMask()
     inst.Physics:SetSphere(1)
 
-    inst.MiniMapEntity:SetIcon("volcano_entrance.png")
+    inst.MiniMapEntity:SetIcon("volcano_entrance.tex")
 
     inst.AnimState:SetBank("volcano_entrance")
     inst.AnimState:SetBuild("volcano_entrance")
@@ -130,7 +130,7 @@ local function fn1()
     inst.Physics:ClearCollisionMask()
     inst.Physics:SetSphere(1)
 
-    --    inst.MiniMapEntity:SetIcon("wormhole.png")
+    --    inst.MiniMapEntity:SetIcon("wormhole.tex")
 
     inst.AnimState:SetBank("volcano_entrance")
     inst.AnimState:SetBuild("volcano_entrance")

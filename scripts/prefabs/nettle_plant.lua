@@ -69,7 +69,7 @@ local function makefn(stage)
 		local minimap = inst.entity:AddMiniMapEntity()
 		inst.entity:AddNetwork()
 
-		inst.MiniMapEntity:SetIcon("nettle.png")
+		inst.MiniMapEntity:SetIcon("nettle.tex")
 		inst.AnimState:SetBank("nettle")
 		inst.AnimState:SetBuild("nettle")
 

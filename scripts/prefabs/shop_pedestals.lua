@@ -205,7 +205,7 @@ local function common()
     inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     local minimap = inst.entity:AddMiniMapEntity()
-    -- inst.MiniMapEntity:SetIcon("accomplishment_shrine.png")
+    -- inst.MiniMapEntity:SetIcon("accomplishment_shrine.tex")
     inst.Transform:SetTwoFaced()
     MakeObstaclePhysics(inst, .25)
 

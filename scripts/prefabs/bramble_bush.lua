@@ -50,7 +50,7 @@ local function fn()
 
     inst.AnimState:PlayAnimation("idle", true)
 
-    inst.MiniMapEntity:SetIcon("marsh_bush.png")
+    inst.MiniMapEntity:SetIcon("marsh_bush.tex")
     inst.MiniMapEntity:SetPriority(-1)
 
     inst:AddTag("plant")

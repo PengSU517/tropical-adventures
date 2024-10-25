@@ -91,7 +91,7 @@ local function fn()
 
 
     --	minimap:SetIcon("minimap_lake.tex")
-    --	inst.MiniMapEntity:SetIcon("lava_pond.png")
+    --	inst.MiniMapEntity:SetIcon("lava_pond.tex")
 
     inst:AddTag("novoaceano")
     inst:AddTag("watersource")

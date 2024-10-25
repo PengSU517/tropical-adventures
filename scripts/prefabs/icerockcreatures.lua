@@ -230,7 +230,7 @@ local function rockdeerclops()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("iceboulder.png")
+    inst.MiniMapEntity:SetIcon("iceboulder.tex")
 
     inst.AnimState:SetBank("deerclops")
     inst.AnimState:SetBuild("deerclops_yule")
@@ -282,7 +282,7 @@ local function rockbearger()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("iceboulder.png")
+    inst.MiniMapEntity:SetIcon("iceboulder.tex")
 
     inst.AnimState:SetBank("bearger")
     inst.AnimState:SetBuild("bearger_yule")
@@ -330,7 +330,7 @@ local function rockspider()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("iceboulder.png")
+    inst.MiniMapEntity:SetIcon("iceboulder.tex")
 
     inst.AnimState:SetBank("spider")
     inst.AnimState:SetBuild("spider_build")
@@ -378,7 +378,7 @@ local function rockpigman()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("iceboulder.png")
+    inst.MiniMapEntity:SetIcon("iceboulder.tex")
 
     inst.AnimState:SetBank("pigman")
     inst.AnimState:SetBuild("pig_build")
@@ -426,7 +426,7 @@ local function rockleif()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("iceboulder.png")
+    inst.MiniMapEntity:SetIcon("iceboulder.tex")
 
     inst.AnimState:SetBank("leif")
     inst.AnimState:SetBuild("leif_build")
@@ -474,7 +474,7 @@ local function rockleif2()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("iceboulder.png")
+    inst.MiniMapEntity:SetIcon("iceboulder.tex")
 
     inst.AnimState:SetBank("leif")
     inst.AnimState:SetBuild("leif_lumpy_build")
@@ -523,7 +523,7 @@ local function rockcrow()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("iceboulder.png")
+    inst.MiniMapEntity:SetIcon("iceboulder.tex")
 
     inst.AnimState:SetBank("crow")
     inst.AnimState:SetBuild("crow_build")
@@ -571,7 +571,7 @@ local function cristaled_tree_short()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("cristaled_tree.png")
+    inst.MiniMapEntity:SetIcon("cristaled_tree.tex")
 
     inst.AnimState:SetBank("petrified_tree_short")
     inst.AnimState:SetBuild("cristaled_tree_short")
@@ -615,7 +615,7 @@ local function cristaled_tree_tall()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("cristaled_tree.png")
+    inst.MiniMapEntity:SetIcon("cristaled_tree.tex")
 
     inst.AnimState:SetBank("petrified_tree_tall")
     inst.AnimState:SetBuild("cristaled_tree_tall")
@@ -659,7 +659,7 @@ local function cristaled_tre2_short()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("cristaled_tree.png")
+    inst.MiniMapEntity:SetIcon("cristaled_tree.tex")
 
     inst.AnimState:SetBank("petrified_tree_short")
     inst.AnimState:SetBuild("cristaled_tre2_short")
@@ -703,7 +703,7 @@ local function cristaled_tre2_tall()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("cristaled_tree.png")
+    inst.MiniMapEntity:SetIcon("cristaled_tree.tex")
 
     inst.AnimState:SetBank("petrified_tree_tall")
     inst.AnimState:SetBuild("cristaled_tre2_tall")
@@ -747,7 +747,7 @@ local function carrat()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("iceboulder.png")
+    inst.MiniMapEntity:SetIcon("iceboulder.tex")
 
     inst.AnimState:SetBank("carrat")
     inst.AnimState:SetBuild("carrat_build")

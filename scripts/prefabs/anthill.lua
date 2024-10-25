@@ -169,7 +169,7 @@ local function fn()
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("ant_hill_entrance.png")
+    minimap:SetIcon("ant_hill_entrance.tex")
 
     light:SetFalloff(1)
     light:SetIntensity(.5)

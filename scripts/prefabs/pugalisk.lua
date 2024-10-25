@@ -649,7 +649,7 @@ local function corpsefn(Sim)
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("xspot.png")
+    minimap:SetIcon("xspot.tex")
 
     inst.Transform:SetSixFaced()
 

@@ -56,7 +56,7 @@ local function fn()
     MakeWaterObstaclePhysics(inst, 1, 2, 1.25)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("quacken_tentacle.png")
+    minimap:SetIcon("quacken_tentacle.tex")
 
     inst:AddComponent("inspectable")
 

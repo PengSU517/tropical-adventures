@@ -27,7 +27,7 @@ local function fn(Sim)
     light:Enable(true)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("anthill_cavelamp.png")
+    minimap:SetIcon("anthill_cavelamp.tex")
 
     anim:SetBank("grotto_bug_lamp")
     anim:SetBuild("grotto_bug_lamp")

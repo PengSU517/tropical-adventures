@@ -365,7 +365,7 @@ local function fn()
 	MakeCharacterPhysics(inst, 1000, 1)
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("quacken.png")
+	minimap:SetIcon("quacken.tex")
 
 	inst.entity:SetPristine()
 

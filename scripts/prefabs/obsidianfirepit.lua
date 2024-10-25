@@ -44,7 +44,7 @@ end
 
 local function updatefuelrate(inst)
     inst.components.fueled.rate = TheWorld.state.israining and
-    1 + TUNING.FIREPIT_RAIN_RATE * TheWorld.state.precipitationrate or 1
+        1 + TUNING.FIREPIT_RAIN_RATE * TheWorld.state.precipitationrate or 1
 end
 
 local function onupdatefueled(inst)
@@ -124,7 +124,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, .3)
 
-    inst.MiniMapEntity:SetIcon("firepit.png")
+    inst.MiniMapEntity:SetIcon("firepit.tex")
     inst.MiniMapEntity:SetPriority(1)
 
     inst.AnimState:SetBank("firepit_obsidian")

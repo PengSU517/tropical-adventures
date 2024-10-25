@@ -54,7 +54,7 @@ local function getregentimefn(inst)
 	if inst.components.pickable then
 		local num_cycles_passed = math.min(inst.components.pickable.max_cycles - inst.components.pickable.cycles_left, 0)
 		return FLIPPABLE_ROCK_REPOPULATE_TIME + FLIPPABLE_ROCK_REPOPULATE_INCREASE * num_cycles_passed +
-		math.random() * FLIPPABLE_ROCK_REPOPULATE_VARIANCE
+			math.random() * FLIPPABLE_ROCK_REPOPULATE_VARIANCE
 	else
 		return FLIPPABLE_ROCK_REPOPULATE_TIME
 	end
@@ -89,32 +89,32 @@ local function setloot(inst)
 	local pt = Vector3(inst.Transform:GetWorldPosition())
 	local tile = ground.Map:GetTileAtPoint(pt.x, pt.y, pt.z)
 	if tile == GROUND.PLAINS then
-		inst.components.lootdropper:AddRandomLoot("jellybug", 5.0)     -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("rocks", 20.0)       -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("flint", 20.0)       -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("cutgrass", 20.0)    -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("jellybug", 5.0)  -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("rocks", 20.0)    -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("flint", 20.0)    -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("cutgrass", 20.0) -- Weighted average
 	elseif tile == GROUND.RAINFOREST then
-		inst.components.lootdropper:AddRandomLoot("jellybug", 10.0)    -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("slugbug", 10.0)     -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("rocks", 15.0)       -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("flint", 15.0)       -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("cutgrass", 10.0)    -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("jellybug", 10.0) -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("slugbug", 10.0)  -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("rocks", 15.0)    -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("flint", 15.0)    -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("cutgrass", 10.0) -- Weighted average
 		inst.components.lootdropper:AddRandomLoot("rabid_beetle", 0.1) -- Weighted average    	
 	elseif tile == GROUND.DEEPRAINFOREST then
-		inst.components.lootdropper:AddRandomLoot("jellybug", 15.0)    -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("slugbug", 15.0)     -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("rocks", 5.0)        -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("flint", 5.0)        -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("cutgrass", 5.0)     -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("rabid_beetle", 10)  -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("jellybug", 15.0) -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("slugbug", 15.0)  -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("rocks", 5.0)     -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("flint", 5.0)     -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("cutgrass", 5.0)  -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("rabid_beetle", 10) -- Weighted average
 		inst.components.lootdropper:AddRandomLoot("snake_amphibious", 10) -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("relic_1", 1)        -- Weighted average  	
-		inst.components.lootdropper:AddRandomLoot("relic_2", 1)        -- Weighted average  	
-		inst.components.lootdropper:AddRandomLoot("relic_3", 1)        -- Weighted average  	
+		inst.components.lootdropper:AddRandomLoot("relic_1", 1)     -- Weighted average  	
+		inst.components.lootdropper:AddRandomLoot("relic_2", 1)     -- Weighted average  	
+		inst.components.lootdropper:AddRandomLoot("relic_3", 1)     -- Weighted average  	
 	else
-		inst.components.lootdropper:AddRandomLoot("rocks", 20.0)       -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("flint", 20.0)       -- Weighted average
-		inst.components.lootdropper:AddRandomLoot("cutgrass", 20.0)    -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("rocks", 20.0)    -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("flint", 20.0)    -- Weighted average
+		inst.components.lootdropper:AddRandomLoot("cutgrass", 20.0) -- Weighted average
 	end
 end
 
@@ -140,7 +140,7 @@ local function fn(Sim)
 	inst.AnimState:SetBuild("rock_flipping")
 	inst.AnimState:PlayAnimation("idle", true)
 
-	inst.MiniMapEntity:SetIcon("rock_flipping.png")
+	inst.MiniMapEntity:SetIcon("rock_flipping.tex")
 
 	inst.entity:SetPristine()
 

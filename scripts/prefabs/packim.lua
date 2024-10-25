@@ -59,7 +59,7 @@ local function ShouldSleep(inst)
 end
 
 local function ShouldKeepTarget()
-    return false  -- chester can't attack, and won't sleep if he has a target
+    return false -- chester can't attack, and won't sleep if he has a target
 end
 
 local function OnOpen(inst)
@@ -122,8 +122,8 @@ end
 
 local function MorphShadowChester(inst)
     --    inst.AnimState:SetBuild("packim_fat_build")
-    inst.MiniMapEntity:SetIcon("packim_fat.png")
-    inst.components.maprevealable:SetIcon("packim_fat.png")
+    inst.MiniMapEntity:SetIcon("packim_fat.tex")
+    inst.components.maprevealable:SetIcon("packim_fat.tex")
 
     inst.components.container:WidgetSetup("shadowchester")
 
@@ -138,8 +138,8 @@ local function MorphSnowChester(inst)
     inst:RemoveEventCallback("onclose", CheckForMorph)
     --    inst.AnimState:SetBuild("packim_fire_build")
     inst:AddTag("fireimmune")
-    inst.MiniMapEntity:SetIcon("packim_fire.png")
-    inst.components.maprevealable:SetIcon("packim_fire.png")
+    inst.MiniMapEntity:SetIcon("packim_fire.tex")
+    inst.components.maprevealable:SetIcon("packim_fire.tex")
 
     inst.components.container:DropEverything()
     inst:RemoveComponent("container")
@@ -163,8 +163,8 @@ end
 local function MorphNormalChester(inst)
     --    inst.AnimState:SetBuild("packim_build")
     inst:RemoveTag("fireimmune")
-    inst.MiniMapEntity:SetIcon("packim.png")
-    inst.components.maprevealable:SetIcon("chester.png")
+    inst.MiniMapEntity:SetIcon("packim.tex")
+    inst.components.maprevealable:SetIcon("chester.tex")
 
     inst.components.container:DropEverything()
     inst:RemoveComponent("container")
@@ -405,7 +405,7 @@ local function create_chester()
     inst:AddTag("notraptrigger")
     inst:AddTag("noauradamage")
 
-    inst.MiniMapEntity:SetIcon("packim.png")
+    inst.MiniMapEntity:SetIcon("packim.tex")
     inst.MiniMapEntity:SetCanUseCache(false)
 
     inst.AnimState:SetBank("packim")

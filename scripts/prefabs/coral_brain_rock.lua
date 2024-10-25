@@ -164,7 +164,7 @@ local function fn()
 	--inst.AnimState:SetLayer(LAYER_WORLD)
 	--inst.AnimState:SetSortOrder(2)
 
-	inst.MiniMapEntity:SetIcon("coral_brain_rock.png")
+	inst.MiniMapEntity:SetIcon("coral_brain_rock.tex")
 
 	inst.Light:SetColour(210 / 255, 247 / 255, 228 / 255)
 	inst.Light:Enable(false)

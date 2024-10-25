@@ -79,7 +79,7 @@ local function fn(Sim)
     local anim = inst.entity:AddAnimState()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("pig_ruins_pot.png")
+    minimap:SetIcon("pig_ruins_pot.tex")
 
     inst.entity:AddPhysics()
     MakeObstaclePhysics(inst, .25)

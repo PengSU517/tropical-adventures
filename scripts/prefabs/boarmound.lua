@@ -123,7 +123,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, .5)
 
-    inst.MiniMapEntity:SetIcon("hound_mound.png")
+    inst.MiniMapEntity:SetIcon("hound_mound.tex")
 
     inst.AnimState:SetBank("houndbase")
     inst.AnimState:SetBuild("hound_base")

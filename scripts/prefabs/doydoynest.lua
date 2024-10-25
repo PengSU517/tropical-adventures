@@ -80,7 +80,7 @@ local function fn(Sim)
 	inst.entity:AddNetwork()
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("doydoynest.png")
+	minimap:SetIcon("doydoynest.tex")
 
 	anim:SetBuild("doydoy_nest_2")
 	anim:SetBank("doydoy_nest_2")

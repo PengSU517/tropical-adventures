@@ -76,7 +76,7 @@ local function fn(Sim)
 	inst.entity:AddNetwork()
 	MakeInventoryPhysics(inst)
 
-	inst.MiniMapEntity:SetIcon("cork_chest.png")
+	inst.MiniMapEntity:SetIcon("cork_chest.tex")
 
 	inst.AnimState:SetBank("treasure_chest_cork")
 	inst.AnimState:SetBuild("treasure_chest_cork")

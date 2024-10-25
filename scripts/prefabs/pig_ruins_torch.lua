@@ -197,7 +197,7 @@ local function pillarfn(Sim)
     inst:AddTag("structure")
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("ruins_torch.png")
+    minimap:SetIcon("ruins_torch.tex")
 
     MakeObstaclePhysics(inst, .2)
 
@@ -292,7 +292,7 @@ local function wallfn(Sim)
     inst:AddTag("wall_torch")
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("ruins_torch.png")
+    minimap:SetIcon("ruins_torch.tex")
 
     MakeObstaclePhysics(inst, .2)
 
@@ -387,7 +387,7 @@ local function sidewallfn(Sim)
     inst:AddTag("wall_torch")
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("ruins_torch.png")
+    minimap:SetIcon("ruins_torch.tex")
 
     MakeObstaclePhysics(inst, .2)
 
@@ -485,7 +485,7 @@ local function wallbluefn(Sim)
     inst:AddTag("wall_torch")
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("ruins_torch.png")
+    minimap:SetIcon("ruins_torch.tex")
 
     MakeObstaclePhysics(inst, .2)
 
@@ -582,7 +582,7 @@ local function sidewallbluefn(Sim)
     inst.Transform:SetRotation(270)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("ruins_torch.png")
+    minimap:SetIcon("ruins_torch.tex")
 
     MakeObstaclePhysics(inst, .2)
 

@@ -83,7 +83,7 @@ local function fn(Sim)
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("buoy.png")
+    minimap:SetIcon("buoy.tex")
 
     local phys = inst.entity:AddPhysics()
     phys:SetMass(TUNING.BOAT.MASS)

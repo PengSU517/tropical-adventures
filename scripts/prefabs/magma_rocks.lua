@@ -131,7 +131,7 @@ local function commonfn()
 
 	MakeObstaclePhysics(inst, 1)
 
-	inst.MiniMapEntity:SetIcon("rockmagma.png")
+	inst.MiniMapEntity:SetIcon("rockmagma.tex")
 
 	inst.AnimState:SetBank("rock_magma")
 	inst.AnimState:SetBuild("rock_magma")
@@ -185,7 +185,7 @@ local function gold_commonfn()
 
 	MakeObstaclePhysics(inst, 1)
 
-	inst.MiniMapEntity:SetIcon("rockmagma.png")
+	inst.MiniMapEntity:SetIcon("rockmagma.tex")
 
 	inst.AnimState:SetBank("rock_magma_gold")
 	inst.AnimState:SetBuild("rock_magma_gold")

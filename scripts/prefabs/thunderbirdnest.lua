@@ -45,7 +45,7 @@ local function fn(Sim)
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("thunderbirdnest.png")
+    inst.MiniMapEntity:SetIcon("thunderbirdnest.tex")
 
     inst.AnimState:SetBuild("thunderbird_nest")
     inst.AnimState:SetBank("thunderbird_nest")

@@ -49,7 +49,7 @@ local function setextendeddata(inst, extended)
         inst.name = STRINGS.NAMES.PIG_RUINS_SPEAR_TRAP_TRIGGERED
         inst.Physics:SetActive(true)
         if inst.MiniMapEntity then
-            inst.MiniMapEntity:SetIcon("spear_trap.png")
+            inst.MiniMapEntity:SetIcon("spear_trap.tex")
         end
     else
         inst:AddTag("NOCLICK")

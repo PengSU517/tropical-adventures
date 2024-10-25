@@ -176,7 +176,7 @@ local function makefn(name, build_interiors, dungeonname)
         --trans:SetEightFaced()
 
         local minimap = inst.entity:AddMiniMapEntity()
-        minimap:SetIcon("pig_ruins_entrance.png")
+        minimap:SetIcon("pig_ruins_entrance.tex")
 
         MakeObstaclePhysics(inst, 1.20)
 
@@ -279,7 +279,7 @@ local function makefn2(name, build_interiors, dungeonname)
         --trans:SetEightFaced()
 
         local minimap = inst.entity:AddMiniMapEntity()
-        minimap:SetIcon("pig_ruins_entrance.png")
+        minimap:SetIcon("pig_ruins_entrance.tex")
 
         MakeObstaclePhysics(inst, 1.20)
 

@@ -237,7 +237,7 @@ local function fn(Sim)
 	inst:AddTag("largecreature")
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("ox.png")
+	minimap:SetIcon("ox.tex")
 
 	inst.entity:SetPristine()
 

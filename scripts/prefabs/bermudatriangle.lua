@@ -277,7 +277,7 @@ local function fn()
     --inst.Physics:ClearCollisionMask()
     --inst.Physics:SetSphere(1)
 
-    inst.MiniMapEntity:SetIcon("bermudatriangle.png")
+    inst.MiniMapEntity:SetIcon("bermudatriangle.tex")
 
     inst.AnimState:SetBank("bermudatriangle")
     inst.AnimState:SetBuild("bermudatriangle")

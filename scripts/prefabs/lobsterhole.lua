@@ -147,7 +147,7 @@ local function OnCollide(inst, data)
     local boat_physics = data.other.components.boatphysics
     if boat_physics ~= nil then
         local hit_velocity = math.floor(math.abs(boat_physics:GetVelocity() * data.hit_dot_velocity) * DAMAGE_SCALE /
-        boat_physics.max_velocity + 0.5)
+            boat_physics.max_velocity + 0.5)
         inst.components.workable:WorkedBy(data.other, hit_velocity * TUNING.SEASTACK_MINE)
     end
 
@@ -165,7 +165,7 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("wobster_densw.png")
+    inst.MiniMapEntity:SetIcon("wobster_densw.tex")
 
     inst:SetPhysicsRadiusOverride(2.35)
 

@@ -156,7 +156,7 @@ local function fn(Sim)
     end
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("mean_flytrap.png")
+    minimap:SetIcon("mean_flytrap.tex")
 
     inst:AddComponent("health")
     inst.components.health:SetMaxHealth(ADULT_FLYTRAP_HEALTH)

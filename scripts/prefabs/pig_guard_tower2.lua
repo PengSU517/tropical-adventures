@@ -137,8 +137,10 @@ local function onhammered(inst, worker)
             local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
             local eles = TheSim:FindEntities(x, y, z, 40, { "guard" })
             for k, guardas in pairs(eles) do
-                if guardas.components.combat and guardas.components.combat.target == nil then guardas.components.combat
-                        :SetTarget(worker) end
+                if guardas.components.combat and guardas.components.combat.target == nil then
+                    guardas.components.combat
+                        :SetTarget(worker)
+                end
             end
         end
     end
@@ -267,7 +269,7 @@ local function fn(Sim)
     inst.entity:AddSoundEmitter()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("pig_guard_tower.png")
+    minimap:SetIcon("pig_guard_tower.tex")
 
     light:SetFalloff(1)
     light:SetIntensity(.5)
@@ -360,7 +362,7 @@ local function palacefn(Sim)
     inst.entity:AddSoundEmitter()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("pig_royal_tower.png")
+    minimap:SetIcon("pig_royal_tower.tex")
 
     light:SetFalloff(1)
     light:SetIntensity(.5)

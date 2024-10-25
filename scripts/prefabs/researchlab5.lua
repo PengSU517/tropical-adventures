@@ -156,7 +156,7 @@ local function createmachine(level, name, soundprefix, techtree, giftsound)
         MakeObstaclePhysics(inst, .4)
 
         inst.MiniMapEntity:SetPriority(5)
-        inst.MiniMapEntity:SetIcon(name .. ".png")
+        inst.MiniMapEntity:SetIcon(name .. ".tex")
 
         inst.AnimState:SetBank(name)
         inst.AnimState:SetBuild(name)

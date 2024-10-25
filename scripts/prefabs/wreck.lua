@@ -207,7 +207,7 @@ local function wreckfn(Sim)
 		return inst
 	end
 
-	minimap:SetIcon("wreck.png")
+	minimap:SetIcon("wreck.tex")
 
 	inst:AddComponent("pickable")
 	--	inst.components.pickable.picksound = "dontstarve_DLC002/common/limpet_harvest"

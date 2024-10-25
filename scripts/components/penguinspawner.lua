@@ -260,7 +260,7 @@ end
             newFlock.ice.Transform:SetPosition(newFlock.rookery:Get())
             newFlock.ice.spawner = self
             if newFlock.is_mutated then
-                newFlock.ice.MiniMapEntity:SetIcon("mutated_penguin.png")
+                newFlock.ice.MiniMapEntity:SetIcon("mutated_penguin.tex")
             end
 
             local numboulders = math.random(math.floor(_numBoulders / 2), _numBoulders)
@@ -381,7 +381,7 @@ end
                 end
                 _colonies[i] = { rookery = Vector3(v[1], v[2], v[3]), members = {}, ice = ice, is_mutated = v[4] }
                 if _colonies[i].is_mutated and ice ~= nil then
-                    ice.MiniMapEntity:SetIcon("mutated_penguin.png")
+                    ice.MiniMapEntity:SetIcon("mutated_penguin.tex")
                 end
             end
         end

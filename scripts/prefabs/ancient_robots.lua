@@ -178,7 +178,7 @@ local function ribsfn(Sim)
     inst.Transform:SetFourFaced()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("metal_spider.png")
+    minimap:SetIcon("metal_spider.tex")
 
     MakeCharacterPhysics(inst, 100, 2)
 
@@ -282,7 +282,7 @@ local function armfn(Sim)
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("metal_claw.png")
+    minimap:SetIcon("metal_claw.tex")
 
     inst.Transform:SetSixFaced()
     MakeCharacterPhysics(inst, 100, 2)
@@ -394,7 +394,7 @@ local function legfn(Sim)
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("metal_leg.png")
+    minimap:SetIcon("metal_leg.tex")
 
     inst.Transform:SetSixFaced()
     local shadow = inst.entity:AddDynamicShadow()
@@ -502,7 +502,7 @@ local function headfn(Sim)
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("metal_head.png")
+    minimap:SetIcon("metal_head.tex")
 
     inst.Transform:SetSixFaced()
     local shadow = inst.entity:AddDynamicShadow()

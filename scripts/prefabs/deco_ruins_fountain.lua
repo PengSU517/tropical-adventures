@@ -11,9 +11,9 @@ local prefabs =
 local function ShouldAcceptItem(inst, item)
     if not inst:HasTag("vortex") then
         local can_accept = item.components.currency or item.prefab == "goldnugget" or item.prefab == "dubloon" or
-        item.prefab == "oinc" or item.prefab == "oinc10" or
-        item.prefab ==
-        "oinc100"                                                                                                                                                                              --and (Prefabs[seed_name] or item.prefab == "seeds" or item.components.edible.foodtype == "MEAT")
+            item.prefab == "oinc" or item.prefab == "oinc10" or
+            item.prefab ==
+            "oinc100" --and (Prefabs[seed_name] or item.prefab == "seeds" or item.components.edible.foodtype == "MEAT")
 
         return can_accept
     else
@@ -124,7 +124,7 @@ local function decofn()
     --        anim:SetOrientation(ANIM_ORIENTATION.RotatingBillboard)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("pig_ruins_well.png")
+    minimap:SetIcon("pig_ruins_well.tex")
 
     inst:AddTag("blocker")
     inst.entity:AddPhysics()
@@ -167,7 +167,7 @@ local function decofn1()
     anim:PlayAnimation("vortex_idle_full", true)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("pig_ruins_well_vortex.png")
+    minimap:SetIcon("pig_ruins_well_vortex.tex")
 
     inst:AddTag("blocker")
     inst.entity:AddPhysics()

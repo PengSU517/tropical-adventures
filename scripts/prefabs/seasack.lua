@@ -53,7 +53,7 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("seasack.png")
+    inst.MiniMapEntity:SetIcon("seasack.tex")
 
     MakeInventoryPhysics(inst)
 

@@ -248,7 +248,7 @@ local function fn(Sim)
     inst.entity:AddNetwork()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("pig_palace.png")
+    minimap:SetIcon("pig_palace.tex")
 
     light:SetFalloff(1)
     light:SetIntensity(.5)

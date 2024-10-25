@@ -291,7 +291,7 @@ local function fn(Sim)
 	inst.entity:AddNetwork()
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("cookpot.png")
+	minimap:SetIcon("cookpot.tex")
 
 	local light = inst.entity:AddLight()
 	inst.Light:Enable(false)

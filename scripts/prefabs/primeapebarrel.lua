@@ -104,7 +104,7 @@ local function fn()
     MakeObstaclePhysics(inst, 1)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("prime_ape.png")
+    minimap:SetIcon("prime_ape.tex")
 
     anim:SetBank("barrel_tropical")
     anim:SetBuild("monkey_barrel_tropical")
@@ -174,7 +174,7 @@ local function fn1()
     MakeObstaclePhysics(inst, 1)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("prime_ape.png")
+    minimap:SetIcon("prime_ape.tex")
 
     inst.AnimState:SetMultColour(255 / 255, 150 / 255, 0 / 255, 1)
 

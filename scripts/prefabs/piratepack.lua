@@ -55,7 +55,7 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("piratepack.png")
+    inst.MiniMapEntity:SetIcon("piratepack.tex")
 
     MakeInventoryPhysics(inst)
 

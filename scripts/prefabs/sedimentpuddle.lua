@@ -249,7 +249,7 @@ local function commonfn()
 		end)
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("gold_puddle.png")
+	minimap:SetIcon("gold_puddle.tex")
 
 	--    inst:AddComponent("inspectable")
 	inst.no_wet_prefix = true
