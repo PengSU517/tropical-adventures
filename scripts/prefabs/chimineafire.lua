@@ -2,7 +2,7 @@ local assets = {
     Asset("ANIM", "anim/chiminea_fire.zip"),
 }
 
-local heats = {70, 85, 100, 115}
+local heats = { 70, 85, 100, 115 }
 
 local function GetHeatFn(inst)
     return heats[inst.components.firefx.level] or 20
@@ -10,10 +10,10 @@ end
 
 local firelevels =
 {
-    {anim="level1", sound="ia/common/chiminea_fire_lp", radius=2, intensity=.8, falloff=.33, colour = {255/255,255/255,192/255}, soundintensity=.1},
-    {anim="level2", sound="ia/common/chiminea_fire_lp", radius=3, intensity=.8, falloff=.33, colour = {255/255,255/255,192/255}, soundintensity=.3},
-    {anim="level3", sound="ia/common/chiminea_fire_lp", radius=4, intensity=.8, falloff=.33, colour = {255/255,255/255,192/255}, soundintensity=.6},
-    {anim="level4", sound="ia/common/chiminea_fire_lp", radius=5, intensity=.8, falloff=.33, colour = {255/255,255/255,192/255}, soundintensity=1},
+    { anim = "level1", sound = "ia/common/chiminea_fire_lp", radius = 2, intensity = .8, falloff = .33, colour = { 255 / 255, 255 / 255, 192 / 255 }, soundintensity = .1 },
+    { anim = "level2", sound = "ia/common/chiminea_fire_lp", radius = 3, intensity = .8, falloff = .33, colour = { 255 / 255, 255 / 255, 192 / 255 }, soundintensity = .3 },
+    { anim = "level3", sound = "ia/common/chiminea_fire_lp", radius = 4, intensity = .8, falloff = .33, colour = { 255 / 255, 255 / 255, 192 / 255 }, soundintensity = .6 },
+    { anim = "level4", sound = "ia/common/chiminea_fire_lp", radius = 5, intensity = .8, falloff = .33, colour = { 255 / 255, 255 / 255, 192 / 255 }, soundintensity = 1 },
 }
 
 local function fn()
@@ -52,4 +52,4 @@ local function fn()
     return inst
 end
 
-return Prefab("chimineafire", fn, assets) 
+return Prefab("chimineafire", fn, assets)

@@ -46,7 +46,8 @@ local function ShowProduct(inst)
 		local smelting = require("smelting")
 		if product ~= "smeltingrecipecard" then
 			local build, symbol = smelting.getOverrideSymbol(product)
-			inst.AnimState:OverrideSymbol("swap_item", build or GetInventoryItemAtlas(product .. ".tex"), symbol or product .. ".tex")
+			inst.AnimState:OverrideSymbol("swap_item", build or GetInventoryItemAtlas(product .. ".tex"),
+				symbol or product .. ".tex")
 		else
 			inst.AnimState:OverrideSymbol("swap_item", "cookingrecipecard", "cookingrecipecard_01")
 		end
@@ -68,25 +69,25 @@ end
 local animparams = { frame = 3, scale = .05, curframe = 0 }
 
 local function playJoggleAnim(inst)
-    if not inst:HasTag("burnt") then
-        local function stopJoggle(inst)
-            if inst._joggleTask then
-                inst._joggleTask:Cancel()
-                inst._joggleTask = nil
-                animparams.curframe = 0
-                inst.AnimState:SetScale(1, 1)
-            end
-        end
-        stopJoggle(inst)
-        inst._joggleTask = inst:DoPeriodicTask(0, function(inst)
-            inst.AnimState:SetScale(1 - animparams.scale * math.sin(math.pi / animparams.frame * animparams.curframe),
-                1 + animparams.scale * math.sin(math.pi / animparams.frame * animparams.curframe))
-            animparams.curframe = animparams.curframe + 1
-            if animparams.curframe > animparams.frame then
-                stopJoggle(inst)
-            end
-        end)
-    end
+	if not inst:HasTag("burnt") then
+		local function stopJoggle(inst)
+			if inst._joggleTask then
+				inst._joggleTask:Cancel()
+				inst._joggleTask = nil
+				animparams.curframe = 0
+				inst.AnimState:SetScale(1, 1)
+			end
+		end
+		stopJoggle(inst)
+		inst._joggleTask = inst:DoPeriodicTask(0, function(inst)
+			inst.AnimState:SetScale(1 - animparams.scale * math.sin(math.pi / animparams.frame * animparams.curframe),
+				1 + animparams.scale * math.sin(math.pi / animparams.frame * animparams.curframe))
+			animparams.curframe = animparams.curframe + 1
+			if animparams.curframe > animparams.frame then
+				stopJoggle(inst)
+			end
+		end)
+	end
 end
 
 local function onopen(inst)
@@ -290,7 +291,7 @@ local function fn(Sim)
 	inst.entity:AddNetwork()
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("cookpot.png")
+	minimap:SetIcon("cookpot.tex")
 
 	local light = inst.entity:AddLight()
 	inst.Light:Enable(false)

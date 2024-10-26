@@ -1,4 +1,3 @@
-  
 --require "prefabutil"
 local pinecone_assets =
 {
@@ -11,12 +10,12 @@ local pinecone_prefabs =
 }
 
 local function growtree(inst)
-	local tree = SpawnPrefab(inst.growprefab) 
-    if tree then 
-		tree.Transform:SetPosition(inst.Transform:GetWorldPosition() ) 
+    local tree = SpawnPrefab(inst.growprefab)
+    if tree then
+        tree.Transform:SetPosition(inst.Transform:GetWorldPosition())
         --tree:growfromseed()--PushEvent("growfromseed")
         inst:Remove()
-	end
+    end
 end
 
 local function stopgrowing(inst)
@@ -37,7 +36,7 @@ local function ontimerdone(inst, data)
 end
 
 local function digup(inst, digger)
-	inst.components.lootdropper:DropLoot()
+    inst.components.lootdropper:DropLoot()
     inst:Remove()
 end
 
@@ -53,10 +52,10 @@ local function sapling_fn(build, anim, growprefab, tag, fireproof, overrideloot)
         inst.AnimState:SetBank("clawling")
         inst.AnimState:SetBuild("clawling")
         inst.AnimState:PlayAnimation("idle_planted")
-		MakeInventoryFloatable(inst)		
+        MakeInventoryFloatable(inst)
 
         inst:AddTag("cattoy")
-		inst:AddTag("plant")
+        inst:AddTag("plant")
 
         inst.entity:SetPristine()
 
@@ -74,7 +73,7 @@ local function sapling_fn(build, anim, growprefab, tag, fireproof, overrideloot)
         inst:AddComponent("inspectable")
 
         inst:AddComponent("lootdropper")
-        inst.components.lootdropper:SetLoot(overrideloot or {"twigs"})
+        inst.components.lootdropper:SetLoot(overrideloot or { "twigs" })
 
         inst:AddComponent("workable")
         inst.components.workable:SetWorkAction(ACTIONS.DIG)
@@ -97,7 +96,6 @@ local function sapling_fn(build, anim, growprefab, tag, fireproof, overrideloot)
     return fn
 end
 
-return Prefab("clawpalmtree_sapling", sapling_fn("clawpalmtree_cone", "idle_planted", "clawpalmtree_short", "clawpalmtree", true), pinecone_assets, pinecone_prefabs)
-	   
-	   
-
+return Prefab("clawpalmtree_sapling",
+    sapling_fn("clawpalmtree_cone", "idle_planted", "clawpalmtree_short", "clawpalmtree", true), pinecone_assets,
+    pinecone_prefabs)

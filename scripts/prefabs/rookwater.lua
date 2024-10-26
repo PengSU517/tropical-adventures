@@ -9,10 +9,10 @@ local assets =
     Asset("SOUND", "sound/chess.fsb"),
     Asset("SCRIPT", "scripts/prefabs/clockwork_common.lua"),
     Asset("SCRIPT", "scripts/prefabs/ruinsrespawner.lua"),
-	
-	Asset("ANIM", "anim/rookboat.zip"),
+
+    Asset("ANIM", "anim/rookboat.zip"),
     Asset("ANIM", "anim/rookboat_build.zip"),
-    Asset("ANIM", "anim/rookboat_death.zip"),	
+    Asset("ANIM", "anim/rookboat_death.zip"),
 }
 
 local prefabs =
@@ -33,10 +33,10 @@ local prefabs_nightmare =
 local brain = require "brains/rookbrain"
 
 SetSharedLootTable('rookwater',
-{
-    {'gears',  1.0},
-    {'gears',  1.0},
-})
+    {
+        { 'gears', 1.0 },
+        { 'gears', 1.0 },
+    })
 
 local function ShouldSleep(inst)
     return clockwork_common.ShouldSleep(inst)
@@ -118,12 +118,12 @@ end
 
 local function OnTimerDone(inst, data)
     if data.name == "vaiembora" then
-	local invader = GetClosestInstWithTag("player", inst, 25)
-	if not invader then
-	inst:Remove()
-	else
-	inst.components.timer:StartTimer("vaiembora", 10)	
-	end
+        local invader = GetClosestInstWithTag("player", inst, 25)
+        if not invader then
+            inst:Remove()
+        else
+            inst.components.timer:StartTimer("vaiembora", 10)
+        end
     end
 end
 
@@ -139,16 +139,16 @@ local function common_fn(build, tag)
 
     inst.DynamicShadow:SetSize(3, 1.25)
     inst.Transform:SetFourFaced()
- --   inst.Transform:SetScale(0.66, 0.66, 0.66)
+    --   inst.Transform:SetScale(0.66, 0.66, 0.66)
 
-	inst.AnimState:SetBank("rookboat")
+    inst.AnimState:SetBank("rookboat")
     inst.AnimState:SetBuild("rookboat_build")
 
     inst:AddTag("monster")
     inst:AddTag("hostile")
     inst:AddTag("chess")
     inst:AddTag("rook")
-	inst:AddTag("tropicalspawner")	
+    inst:AddTag("tropicalspawner")
 
     if tag ~= nil then
         inst:AddTag(tag)
@@ -167,7 +167,7 @@ local function common_fn(build, tag)
 
     inst:AddComponent("locomotor")
     inst.components.locomotor.walkspeed = TUNING.ROOK_WALK_SPEED
-    inst.components.locomotor.runspeed =  TUNING.ROOK_RUN_SPEED
+    inst.components.locomotor.runspeed = TUNING.ROOK_RUN_SPEED
 
     inst:SetStateGraph("SGrookwater")
     inst:SetBrain(brain)
@@ -212,10 +212,10 @@ local function common_fn(build, tag)
     inst.kind = ""
     inst.soundpath = "dontstarve/creatures/rook/"
     inst.effortsound = "dontstarve/creatures/rook/steam"
-	
+
     inst:AddComponent("timer")
     inst:ListenForEvent("timerdone", OnTimerDone)
-    inst.components.timer:StartTimer("vaiembora", 480 + math.random()*240)		
+    inst.components.timer:StartTimer("vaiembora", 480 + math.random() * 240)
 
     return inst
 end
@@ -232,22 +232,22 @@ local function common_fn2(build, tag)
 
     inst.DynamicShadow:SetSize(3, 1.25)
     inst.Transform:SetFourFaced()
- --   inst.Transform:SetScale(0.66, 0.66, 0.66)
+    --   inst.Transform:SetScale(0.66, 0.66, 0.66)
 
-	inst.AnimState:SetBank("rookboat")
+    inst.AnimState:SetBank("rookboat")
     inst.AnimState:SetBuild("rookboat_build")
 
     inst:AddTag("monster")
     inst:AddTag("hostile")
     inst:AddTag("chess")
     inst:AddTag("rook")
-	inst:AddTag("tropicalspawner")	
+    inst:AddTag("tropicalspawner")
 
     if tag ~= nil then
         inst:AddTag(tag)
     end
-	
-	inst:SetPrefabNameOverride("rookwater")	
+
+    inst:SetPrefabNameOverride("rookwater")
 
     inst.entity:SetPristine()
 
@@ -262,7 +262,7 @@ local function common_fn2(build, tag)
 
     inst:AddComponent("locomotor")
     inst.components.locomotor.walkspeed = TUNING.ROOK_WALK_SPEED
-    inst.components.locomotor.runspeed =  TUNING.ROOK_RUN_SPEED
+    inst.components.locomotor.runspeed = TUNING.ROOK_RUN_SPEED
 
     inst:SetStateGraph("SGrookwater")
     inst:SetBrain(brain)
@@ -306,10 +306,10 @@ local function common_fn2(build, tag)
 
     inst.kind = ""
     inst.soundpath = "dontstarve/creatures/rook/"
-    inst.effortsound = "dontstarve/creatures/rook/steam"		
+    inst.effortsound = "dontstarve/creatures/rook/steam"
 
     return inst
 end
 
 return Prefab("rookwater", common_fn, assets, prefabs),
-	   Prefab("rookwaterfixo", common_fn2, assets, prefabs)
+    Prefab("rookwaterfixo", common_fn2, assets, prefabs)

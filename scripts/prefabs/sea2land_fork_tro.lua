@@ -154,8 +154,8 @@ local function normal()
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.imagename = "sea2land_fork"
-    inst.components.inventoryitem.atlasname = "images/sea2land_fork.xml"
+    inst.components.inventoryitem.imagename = "goldenpitchfork"
+
 
     inst:AddComponent("sea2land")
 

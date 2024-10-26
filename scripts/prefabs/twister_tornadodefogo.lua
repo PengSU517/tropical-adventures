@@ -55,7 +55,7 @@ local function staff_fn()
     inst.AnimState:SetBank("staffs")
     inst.AnimState:SetBuild("staffs")
     inst.AnimState:PlayAnimation("windstaff")
-	inst:SetColour(235/255, 121/255, 12/255)
+    inst:SetColour(235 / 255, 121 / 255, 12 / 255)
 
     inst:AddTag("nopunch")
 
@@ -124,21 +124,21 @@ local function tornado_fn()
     inst.AnimState:SetFinalOffset(2)
     inst.AnimState:SetBank("tornado")
     inst.AnimState:SetBuild("tornado")
-	inst.AnimState:SetMultColour(255/255, 150/255, 0/255, 1)
+    inst.AnimState:SetMultColour(255 / 255, 150 / 255, 0 / 255, 1)
     inst.AnimState:PlayAnimation("tornado_pre")
     inst.AnimState:PushAnimation("tornado_loop")
 
     inst.SoundEmitter:PlaySound("dontstarve_DLC001/common/tornado", "spinLoop")
-	--inst:AddTag("fire")
+    --inst:AddTag("fire")
     MakeInventoryPhysics(inst)
     RemovePhysicsColliders(inst)
-	
+
     inst.entity:AddLight()
     inst.Light:SetFalloff(0.4)
     inst.Light:SetIntensity(.7)
     inst.Light:SetRadius(2)
-    inst.Light:SetColour(249/255, 130/255, 117/255)
-    inst.Light:Enable(true)		
+    inst.Light:SetColour(249 / 255, 130 / 255, 117 / 255)
+    inst.Light:Enable(true)
 
     inst.entity:SetPristine()
 
@@ -147,8 +147,8 @@ local function tornado_fn()
     end
 
     inst:AddComponent("knownlocations")
-	
-	--inst:AddComponent("propagator")
+
+    --inst:AddComponent("propagator")
     --inst.components.propagator.damagerange = 3
     --inst.components.propagator.damages = true
 

@@ -118,7 +118,7 @@ end
 local function MakeCollapsedChest(name, build, bank)
 	local assets =
 	{
-		Asset("ANIM", "anim/"..build..".zip"),
+		Asset("ANIM", "anim/" .. build .. ".zip"),
 	}
 
 	local function fn()

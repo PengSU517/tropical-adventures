@@ -20,19 +20,19 @@ local prefabs =
 
 local brain = require("brains/beargerbrain")
 
-SetSharedLootTable( 'bearger',
-{
-    {'meat',             1.00},
-    {'meat',             1.00},
-    {'meat',             1.00},
-    {'meat',             1.00},
-    {'meat',             1.00},
-    {'meat',             1.00},
-    {'meat',             1.00},
-    {'meat',             1.00},
-    {'bearger_fur',      1.00},
-    {'chesspiece_bearger_sketch', 1.00},
-})
+SetSharedLootTable('bearger',
+    {
+        { 'meat',                      1.00 },
+        { 'meat',                      1.00 },
+        { 'meat',                      1.00 },
+        { 'meat',                      1.00 },
+        { 'meat',                      1.00 },
+        { 'meat',                      1.00 },
+        { 'meat',                      1.00 },
+        { 'meat',                      1.00 },
+        { 'bearger_fur',               1.00 },
+        { 'chesspiece_bearger_sketch', 1.00 },
+    })
 
 local TARGET_DIST = 7.5
 
@@ -46,30 +46,30 @@ end
 
 local function RetargetFn(inst)
     return not inst.components.sleeper:IsAsleep()
-        and (   FindEntity(
+        and (FindEntity(
+                inst,
+                TARGET_DIST,
+                function(guy)
+                    return guy.components.combat.target == inst
+                        and inst.components.combat:CanTarget(guy)
+                end,
+                { "_combat" },     --see entityreplica.lua
+                { "prey", "smallcreature", "INLIMBO" }
+            ) or
+            (inst.last_eat_time ~= nil and
+                GetTime() - inst.last_eat_time > TUNING.BEARGER_DISGRUNTLE_TIME and
+                FindEntity(
                     inst,
-                    TARGET_DIST,
+                    TARGET_DIST * 5,
                     function(guy)
-                        return guy.components.combat.target == inst
+                        return guy.components.inventory:FindItem(HoneyedItem) ~= nil
                             and inst.components.combat:CanTarget(guy)
                     end,
-                    { "_combat" }, --see entityreplica.lua
+                    { "_combat", "_inventory" },     --see entityreplica.lua
                     { "prey", "smallcreature", "INLIMBO" }
-                ) or
-                (   inst.last_eat_time ~= nil and
-                    GetTime() - inst.last_eat_time > TUNING.BEARGER_DISGRUNTLE_TIME and
-                    FindEntity(
-                        inst,
-                        TARGET_DIST * 5,
-                        function(guy)
-                            return guy.components.inventory:FindItem(HoneyedItem) ~= nil
-                                and inst.components.combat:CanTarget(guy)
-                        end,
-                        { "_combat", "_inventory" }, --see entityreplica.lua
-                        { "prey", "smallcreature", "INLIMBO" }
-                    )
                 )
             )
+        )
         or nil
 end
 
@@ -78,7 +78,7 @@ local function KeepTargetFn(inst, target)
 end
 
 local function OnSave(inst, data)
-    data.seenbase = inst.seenbase or nil-- from brain
+    data.seenbase = inst.seenbase or nil -- from brain
     data.cangroundpound = inst.cangroundpound
     data.num_food_cherrypicked = inst.num_food_cherrypicked
     data.num_good_food_eaten = inst.num_good_food_eaten
@@ -88,7 +88,7 @@ end
 
 local function OnLoad(inst, data)
     if data ~= nil then
-        inst.seenbase = data.seenbase or nil-- for brain
+        inst.seenbase = data.seenbase or nil -- for brain
         inst.cangroundpound = data.cangroundpound
         inst.num_food_cherrypicked = data.num_food_cherrypicked or 0
         inst.num_good_food_eaten = data.num_good_food_eaten or 0
@@ -98,7 +98,7 @@ local function OnLoad(inst, data)
 end
 
 local function IsHibernationSeason(season)
-    return false --season == "winter" or season == "spring"
+    return false  --season == "winter" or season == "spring"
 end
 
 local function OnSeasonChange(inst, season)
@@ -176,7 +176,7 @@ local function LaunchItem(inst, target, item)
 end
 
 local function OnGroundPound(inst)
-    if math.random() < .2 then 
+    if math.random() < .2 then
         inst.components.shedder:DoMultiShed(3, false) -- can't drop too many, or it'll be really easy to farm for thick furs
     end
 end
@@ -194,7 +194,7 @@ end
 local function ontimerdone(inst, data)
     if data.name == "GroundPound" then
         inst.cangroundpound = true
-    elseif data.name == "Yawn" and inst:HasTag("hibernation") then 
+    elseif data.name == "Yawn" and inst:HasTag("hibernation") then
         inst.canyawn = true
     end
 end
@@ -209,7 +209,7 @@ local function ShouldSleep(inst)
         inst.components.shedder:StopShedding()
         inst:AddTag("hibernation")
         inst:AddTag("asleep")
-        inst.AnimState:OverrideSymbol("bearger_head", "bearger_yule" , "bearger_head_groggy")
+        inst.AnimState:OverrideSymbol("bearger_head", "bearger_yule", "bearger_head_groggy")
         return true
     end
     return false
@@ -328,17 +328,17 @@ local function OnKilledOther(inst, data)
 end
 
 local function SwitchToEightFaced(inst)
-	if not inst._temp8faced then
-		inst._temp8faced = true
-		inst.Transform:SetEightFaced()
-	end
+    if not inst._temp8faced then
+        inst._temp8faced = true
+        inst.Transform:SetEightFaced()
+    end
 end
 
 local function SwitchToFourFaced(inst)
-	if inst._temp8faced then
-		inst._temp8faced = false
-		inst.Transform:SetFourFaced()
-	end
+    if inst._temp8faced then
+        inst._temp8faced = false
+        inst.Transform:SetFourFaced()
+    end
 end
 
 local function fn()
@@ -354,7 +354,7 @@ local function fn()
     inst.DynamicShadow:SetSize(6, 3.5)
 
     MakeGiantCharacterPhysics(inst, 1000, 1.5)
-	inst.Transform:SetScale(1.5, 1.5, 1.5)
+    inst.Transform:SetScale(1.5, 1.5, 1.5)
     inst.AnimState:SetBank("bearger")
     inst.AnimState:SetBuild("bearger_yule")
     inst.AnimState:PlayAnimation("idle_loop", true)
@@ -364,7 +364,7 @@ local function fn()
     inst:AddTag("epic")
     inst:AddTag("monster")
     inst:AddTag("hostile")
---    inst:AddTag("bearger")
+    --    inst:AddTag("bearger")
     inst:AddTag("scarytoprey")
     inst:AddTag("largecreature")
 
@@ -457,13 +457,13 @@ local function fn()
     inst:ListenForEvent("onhitother", OnHitOther)
     inst:ListenForEvent("timerdone", ontimerdone)
     inst:ListenForEvent("death", OnDead)
-    inst:ListenForEvent("onremove", OnRemove)	
+    inst:ListenForEvent("onremove", OnRemove)
     ------------------------------------------
 
     MakeLargeBurnableCharacter(inst, "swap_fire")
     MakeHugeFreezableCharacter(inst, "bearger_body")
 
-    SetStandState(inst, "quad")--SetStandState(inst, "BI")
+    SetStandState(inst, "quad") --SetStandState(inst, "BI")
     inst.SetStandState = SetStandState
     inst.IsStandState = IsStandState
     inst.seenbase = false
@@ -491,8 +491,8 @@ local function fn()
 
     inst.OnSave = OnSave
     inst.OnLoad = OnLoad
-	inst.SwitchToEightFaced = SwitchToEightFaced
-	inst.SwitchToFourFaced = SwitchToFourFaced	
+    inst.SwitchToEightFaced = SwitchToEightFaced
+    inst.SwitchToFourFaced = SwitchToFourFaced
 
     ------------------------------------------
 

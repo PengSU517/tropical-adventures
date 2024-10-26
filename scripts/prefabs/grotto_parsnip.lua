@@ -80,8 +80,8 @@ local function fn1(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/minimap/creepindedeepicon.xml"
-	inst.caminho = "images/minimap/creepindedeepicon.xml"
+
+
 
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -130,8 +130,8 @@ local function fn2(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/minimap/creepindedeepicon.xml"
-	inst.caminho = "images/minimap/creepindedeepicon.xml"
+
+
 
 	inst:AddComponent("stackable")
 	inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
@@ -167,7 +167,7 @@ local function fn3()
 	inst.entity:AddNetwork()
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("grotto_parsnip_giant.png")
+	minimap:SetIcon("grotto_parsnip_giant.tex")
 
 	inst.AnimState:SetBank("grotto_parsnip_giant")
 	inst.AnimState:SetBuild("grotto_parsnip_giant")

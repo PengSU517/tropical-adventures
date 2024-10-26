@@ -249,7 +249,7 @@ local function DoorMatFn()
 	inst.entity:AddNetwork()
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("vamp_bat_cave.png")
+	minimap:SetIcon("vamp_bat_cave.tex")
 
 	inst.AnimState:SetBank("pig_shop_doormats")
 	inst.AnimState:SetBuild("pig_shop_doormats")

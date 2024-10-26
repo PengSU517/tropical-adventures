@@ -63,7 +63,7 @@ local function seafn(Sim)
 	MakeInventoryPhysics(inst)
 	inst.entity:AddNetwork()
 	inst.entity:AddMiniMapEntity()
-	inst.MiniMapEntity:SetIcon("rabbittrap.png")
+	inst.MiniMapEntity:SetIcon("rabbittrap.tex")
 
 	inst.AnimState:SetBank("trap_sea")
 	inst.AnimState:SetBuild("trap_sea")
@@ -103,8 +103,8 @@ local function seafn(Sim)
 	inst.components.inventoryitem:SetOnPickupFn(sea_onpickup)
 	inst.components.inventoryitem:SetOnDroppedFn(ondropped)
 
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 	inst.no_wet_prefix = true
 
 	inst:SetStateGraph("SGseatrap")

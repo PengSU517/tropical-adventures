@@ -10,12 +10,12 @@ local pinecone_prefabs =
 }
 
 local function growtree(inst)
-	local tree = SpawnPrefab(inst.growprefab) 
-    if tree then 
-		tree.Transform:SetPosition(inst.Transform:GetWorldPosition() ) 
+    local tree = SpawnPrefab(inst.growprefab)
+    if tree then
+        tree.Transform:SetPosition(inst.Transform:GetWorldPosition())
         --tree:growfromseed()--PushEvent("growfromseed")
         inst:Remove()
-	end
+    end
 end
 
 local function stopgrowing(inst)
@@ -36,7 +36,7 @@ local function ontimerdone(inst, data)
 end
 
 local function digup(inst, digger)
-	inst.components.lootdropper:DropLoot()
+    inst.components.lootdropper:DropLoot()
     inst:Remove()
 end
 
@@ -71,7 +71,7 @@ local function sapling_fn(build, anim, growprefab, tag, fireproof, overrideloot)
         inst:AddComponent("inspectable")
 
         inst:AddComponent("lootdropper")
-        inst.components.lootdropper:SetLoot(overrideloot or {"twigs"})
+        inst.components.lootdropper:SetLoot(overrideloot or { "twigs" })
 
         inst:AddComponent("workable")
         inst.components.workable:SetWorkAction(ACTIONS.DIG)
@@ -94,4 +94,6 @@ local function sapling_fn(build, anim, growprefab, tag, fireproof, overrideloot)
     return fn
 end
 
-return Prefab("rainforesttree_sapling", sapling_fn("rainforesttree_cone", "idle_planted", "rainforesttree_short", "rainforesttree", true), pinecone_assets, pinecone_prefabs)
+return Prefab("rainforesttree_sapling",
+    sapling_fn("rainforesttree_cone", "idle_planted", "rainforesttree_short", "rainforesttree", true), pinecone_assets,
+    pinecone_prefabs)

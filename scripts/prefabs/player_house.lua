@@ -311,7 +311,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
     --     inst.AnimState:SetBuild("player_small_house1_cottage_build")
     --     inst.bank = "playerhouse_small"
     --     inst.AnimState:SetBank("playerhouse_small")
-    --     inst.MiniMapEntity:SetIcon("player_house_cottage.png")
+    --     inst.MiniMapEntity:SetIcon("player_house_cottage.tex")
     -- end
 end
 
@@ -395,7 +395,7 @@ local function makehousefn(name, build, bank, data)
         inst.bank = bank
 
         local minimap = inst.entity:AddMiniMapEntity()
-        minimap:SetIcon("pig_house_sale.png")
+        minimap:SetIcon("pig_house_sale.tex")
 
         light:SetFalloff(1)     --没看出来干啥的
         light:SetIntensity(0.5) --设置光的衰减速度
@@ -542,7 +542,7 @@ local function makedoorfn(name, build, bank, animation, data)
         inst.bank = bank
 
         local minimap = inst.entity:AddMiniMapEntity()
-        -- minimap:SetIcon("pig_house_sale.png")
+        -- minimap:SetIcon("pig_house_sale.tex")
 
 
         inst.Transform:SetScale(2, 2, 2)

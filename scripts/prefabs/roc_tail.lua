@@ -1,9 +1,8 @@
-
 require "stategraphs/SGroc_tail"
 
 local trace = function() end
 
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/roc_tail.zip"),
 }
@@ -19,10 +18,10 @@ local function fn(Sim)
 	local anim = inst.entity:AddAnimState()
 	local physics = inst.entity:AddPhysics()
 	local sound = inst.entity:AddSoundEmitter()
-    inst.entity:AddNetwork()
+	inst.entity:AddNetwork()
 	local shadow = inst.entity:AddDynamicShadow()
-	shadow:SetSize( 8, 4 )
-	
+	shadow:SetSize(8, 4)
+
 	inst.Transform:SetSixFaced()
 
 	inst:AddTag("scarytoprey")
@@ -40,8 +39,8 @@ local function fn(Sim)
 
 	if not TheWorld.ismastersim then
 		return inst
-	end	
-	
+	end
+
 	inst:AddComponent("knownlocations")
 
 	inst:AddComponent("combat")

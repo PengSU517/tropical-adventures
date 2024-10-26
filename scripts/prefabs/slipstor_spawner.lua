@@ -3,15 +3,15 @@ local prefabs =
     "slipstor",
 }
 
-local respawndays = 20  --revive em 8 dias
+local respawndays = 20 --revive em 8 dias
 
 local function OnTimerDone(inst, data)
     if data.name == "spawndelay" then
         local slipstor = SpawnPrefab("slipstor")
         slipstor.Transform:SetPosition(inst.Transform:GetWorldPosition())
-		slipstor.sg:GoToState("spawnin")
+        slipstor.sg:GoToState("spawnin")
         slipstor.entrada = 1
-	inst:Remove()
+        inst:Remove()
     end
 end
 
@@ -19,14 +19,14 @@ end
 
 local function fn()
     local inst = CreateEntity()
-	inst.entity:AddNetwork()
+    inst.entity:AddNetwork()
 
-	inst.entity:SetPristine()
-		
+    inst.entity:SetPristine()
+
     if not TheWorld.ismastersim then
         return inst
-    end	
-	
+    end
+
     inst.entity:AddTransform()
     --[[Non-networked entity]]
 
@@ -34,7 +34,7 @@ local function fn()
 
     inst:AddComponent("timer")
     inst:ListenForEvent("timerdone", OnTimerDone)
-	inst.components.timer:StartTimer("spawndelay", 60*8*respawndays)
+    inst.components.timer:StartTimer("spawndelay", 60 * 8 * respawndays)
 
     return inst
 end

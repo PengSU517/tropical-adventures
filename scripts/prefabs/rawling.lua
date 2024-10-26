@@ -88,7 +88,7 @@ local function fn(Sim)
 	inst.entity:AddSoundEmitter()
 	inst.entity:AddNetwork()
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("rawling.png")
+	minimap:SetIcon("rawling.tex")
 
 	inst.AnimState:SetBank("basketball")
 	inst.AnimState:SetBuild("basketball")
@@ -120,8 +120,8 @@ local function fn(Sim)
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 	inst.components.inventoryitem:SetOnPutInInventoryFn(onputininventory)
 	inst.components.inventoryitem.bouncesound = "dontstarve_DLC002/common/monkey_ball/bounce"
 

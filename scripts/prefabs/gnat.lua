@@ -4,11 +4,11 @@ require "stategraphs/SGgnat"
 local GNAT_WALK_SPEED = 2
 local GNAT_RUN_SPEED = 6
 
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/gnat.zip"),
 }
-	
+
 local prefabs =
 {
 
@@ -16,7 +16,7 @@ local prefabs =
 
 local function didplayerseebugsdie(inst)
 	local player = GetClosestInstWithTag("player", inst, 40)
-	if inst:GetDistanceSqToInst(player) < 10*10 then
+	if inst:GetDistanceSqToInst(player) < 10 * 10 then
 		player:DoTaskInTime(0.5, function()
 			player.components.talker:Say(GetString(player.prefab, "ANNOUNCE_GNATS_DIED"))
 		end)
@@ -24,33 +24,33 @@ local function didplayerseebugsdie(inst)
 end
 
 local function keeptargetfn(inst, target)
-   return target
-          and target.components.combat
-          and target.components.health
-          and not target.components.health:IsDead()
-          and not (inst.components.follower and inst.components.follower.leader == target)
-          and not (inst.components.follower and inst.components.follower.leader == GetPlayer() and target:HasTag("companion"))
+	return target
+		and target.components.combat
+		and target.components.health
+		and not target.components.health:IsDead()
+		and not (inst.components.follower and inst.components.follower.leader == target)
+		and not (inst.components.follower and inst.components.follower.leader == GetPlayer() and target:HasTag("companion"))
 end
 
 local function NormalRetarget(inst)
-    local targetDist = 5
-    local notags = {"FX", "NOCLICK","INLIMBO", "monster"}
-    return FindEntity(inst, targetDist, 
-        function(guy) 
-            if inst.components.combat:CanTarget(guy)
-               and not (inst.components.follower and inst.components.follower.leader == guy)
-               and not (inst.components.follower and inst.components.follower.leader == GetPlayer() and guy:HasTag("companion")) then
-                return (guy:HasTag("character") and not guy:HasTag("monster"))
-            end
-    end, nil, notags)
+	local targetDist = 5
+	local notags = { "FX", "NOCLICK", "INLIMBO", "monster" }
+	return FindEntity(inst, targetDist,
+		function(guy)
+			if inst.components.combat:CanTarget(guy)
+				and not (inst.components.follower and inst.components.follower.leader == guy)
+				and not (inst.components.follower and inst.components.follower.leader == GetPlayer() and guy:HasTag("companion")) then
+				return (guy:HasTag("character") and not guy:HasTag("monster"))
+			end
+		end, nil, notags)
 end
 
 local function OnGasChange(inst, onGas)
 	if onGas then
 		inst:DoTaskInTime(1, function()
-				inst.components.health:Kill()				
-				didplayerseebugsdie(inst)
-			end
+			inst.components.health:Kill()
+			didplayerseebugsdie(inst)
+		end
 		)
 	end
 end
@@ -63,22 +63,22 @@ local function bite(inst)
 end
 
 local function findlight(inst)
-    local targetDist = 15
-    local notags = {"FX", "NOCLICK","INLIMBO"}
-	local light = FindEntity(inst, targetDist, 
-        function(guy) 
-            if guy.Light and guy.Light:IsEnabled() and guy:HasTag("lightsource") then
-                return true
-            end
-    end, nil, notags)
+	local targetDist = 15
+	local notags = { "FX", "NOCLICK", "INLIMBO" }
+	local light = FindEntity(inst, targetDist,
+		function(guy)
+			if guy.Light and guy.Light:IsEnabled() and guy:HasTag("lightsource") then
+				return true
+			end
+		end, nil, notags)
 
-    return light
+	return light
 end
 
 local function stopinfesttest(inst)
-	if  TheWorld.state.isdusk or TheWorld.state.isnight then
+	if TheWorld.state.isdusk or TheWorld.state.isnight then
 		local target = findlight(inst)
-		if target and inst:GetDistanceSqToInst(target) > 5*5 then
+		if target and inst:GetDistanceSqToInst(target) > 5 * 5 then
 			return target
 		end
 	end
@@ -87,69 +87,69 @@ end
 local function makehome(act)
 	local home = SpawnPrefab("gnatmound")
 	local pos = Vector3(act.doer.Transform:GetWorldPosition())
-	home.Transform:SetPosition(pos.x,pos.y,pos.z)
+	home.Transform:SetPosition(pos.x, pos.y, pos.z)
 	home.components.workable.workleft = 1
 	home.rebuildfn(home)
 	home.components.childspawner:TakeOwnership(act.doer)
-	home.components.childspawner.childreninside = home.components.childspawner.childreninside -1
+	home.components.childspawner.childreninside = home.components.childspawner.childreninside - 1
 	act.doer:PushEvent("takeoff")
 	act.doer.makehome = nil
 end
 
 local function fn(Sim)
 	local inst = CreateEntity()
-	
+
 	inst.entity:AddTransform()
 	inst.entity:AddAnimState()
 	inst.entity:AddSoundEmitter()
 	inst.entity:AddDynamicShadow()
-	inst.DynamicShadow:SetSize( 2, .6 )
-    inst.entity:AddNetwork()
-	
+	inst.DynamicShadow:SetSize(2, .6)
+	inst.entity:AddNetwork()
+
 	----------
-	
+
 	inst:AddTag("gnat")
 	inst:AddTag("flying")
 	inst:AddTag("insect")
-	inst:AddTag("animal")	
+	inst:AddTag("animal")
 	inst:AddTag("smallcreature")
-	inst:AddTag("avoidonhit")	
+	inst:AddTag("avoidonhit")
 	inst:AddTag("no_durability_loss_on_hit")
-    inst:AddTag("hostile")	
+	inst:AddTag("hostile")
 
-    inst:AddTag("lastresort") -- for auto attacking
+	inst:AddTag("lastresort") -- for auto attacking
 	MakeCharacterPhysics(inst, 1, .25)
 	inst.Transform:SetFourFaced()
 
---	inst.Physics:SetCollisionGroup(COLLISION.FLYERS)
---	inst.Physics:ClearCollisionMask()
---	inst.Physics:CollidesWith(GetWorldCollision())
+	--	inst.Physics:SetCollisionGroup(COLLISION.FLYERS)
+	--	inst.Physics:ClearCollisionMask()
+	--	inst.Physics:CollidesWith(GetWorldCollision())
 
 	inst.AnimState:SetBuild("gnat")
 
 	------------
-	
+
 	inst.AnimState:SetBank("gnat")
 	inst.AnimState:PlayAnimation("idle_loop")
 	inst.AnimState:SetRayTestOnBB(true);
 
 	------------
 	inst.entity:SetPristine()
-	
+
 	if not TheWorld.ismastersim then
 		return inst
-	end	
+	end
 
---	MakePoisonableCharacter(inst)
-	
+	--	MakePoisonableCharacter(inst)
+
 	inst:AddComponent("locomotor") -- locomotor must be constructed before the stategraph
 	inst.components.locomotor:EnableGroundSpeedMultiplier(false)
 	inst.components.locomotor:SetTriggersCreep(false)
 	inst.components.locomotor.walkspeed = GNAT_WALK_SPEED
-    inst.components.locomotor.runspeed = GNAT_RUN_SPEED
+	inst.components.locomotor.runspeed = GNAT_RUN_SPEED
 
 	inst:SetStateGraph("SGgnat")
-	
+
 	------------------
 
 	inst:AddComponent("health")
@@ -157,14 +157,14 @@ local function fn(Sim)
 	inst.components.health.invincible = true
 
 	------------------
-	
+
 	inst:AddComponent("combat")
 	inst.components.combat.hiteffectsymbol = "fx_puff"
-    inst.components.combat:SetKeepTargetFunction(keeptargetfn)
+	inst.components.combat:SetKeepTargetFunction(keeptargetfn)
 
-    inst.components.combat:SetDefaultDamage(1)
-    inst.components.combat:SetAttackPeriod(10)
-    inst.components.combat:SetRetargetFunction(1, NormalRetarget)    
+	inst.components.combat:SetDefaultDamage(1)
+	inst.components.combat:SetAttackPeriod(10)
+	inst.components.combat:SetRetargetFunction(1, NormalRetarget)
 
 	------------------
 
@@ -173,14 +173,14 @@ local function fn(Sim)
 	------------------
 
 	inst:AddComponent("sanityaura")
-    inst.components.sanityaura.aura = -TUNING.SANITYAURA_TINY * 2
+	inst.components.sanityaura.aura = -TUNING.SANITYAURA_TINY * 2
 
-    ------------------
+	------------------
 
 	MakeTinyFreezableCharacter(inst, "fx_puff")
 
 	------------------
-	
+
 	inst:AddComponent("inspectable")
 	-----------------
 
@@ -188,29 +188,29 @@ local function fn(Sim)
 	inst.components.infester.bitefn = bite
 	inst.components.infester.stopinfesttestfn = stopinfesttest
 	------------------
-	
+
 	inst:AddComponent("lootdropper")
 
 	------------------
 
---	inst:AddComponent("tiletracker")
---	inst.components.tiletracker:SetOnGasChangeFn(OnGasChange)
---	inst.components.tiletracker:Start()
---	inst.OnGasChange = OnGasChange
+	--	inst:AddComponent("tiletracker")
+	--	inst.components.tiletracker:SetOnGasChangeFn(OnGasChange)
+	--	inst.components.tiletracker:Start()
+	--	inst.OnGasChange = OnGasChange
 
 	------------------
 
 	inst:ListenForEvent("freeze", function()
 		if inst.components.freezable then
-			inst.components.health.invincible =false
+			inst.components.health.invincible = false
 		end
-	end)    
+	end)
 
-	inst:ListenForEvent("unfreeze", function() 
+	inst:ListenForEvent("unfreeze", function()
 		if inst.components.freezable then
-			inst.components.health.invincible =true
+			inst.components.health.invincible = true
 		end
-	end)    
+	end)
 
 	inst.special_action = makehome
 
@@ -222,4 +222,4 @@ local function fn(Sim)
 	return inst
 end
 
-return Prefab( "forest/common/gnat", fn, assets, prefabs)
+return Prefab("forest/common/gnat", fn, assets, prefabs)

@@ -1,11 +1,11 @@
 local assets =
 {
-	Asset("ANIM", "anim/frog_yellow_build.zip"),
+    Asset("ANIM", "anim/frog_yellow_build.zip"),
 }
 
 local prefabs =
 {
-	"venomgland",
+    "venomgland",
     "froglegs",
     "frogsplash",
 }
@@ -14,23 +14,24 @@ local brain = require "brains/poisonfrogbrain"
 
 local function retargetfn(inst)
     if not inst.components.health:IsDead() and not inst.components.sleeper:IsAsleep() then
-        return FindEntity(inst, TUNING.FROG_TARGET_DIST, function(guy) 
-            if not guy.components.health:IsDead() then
-                return guy.components.inventory ~= nil
-            end
-        end,
-        {"_combat","_health"} -- see entityreplica.lua
+        return FindEntity(inst, TUNING.FROG_TARGET_DIST, function(guy)
+                if not guy.components.health:IsDead() then
+                    return guy.components.inventory ~= nil
+                end
+            end,
+            { "_combat", "_health" } -- see entityreplica.lua
         )
     end
 end
 
 local function ShouldSleep(inst)
-    return false -- frogs either go to their home, or just sit on the ground.
+    return false  -- frogs either go to their home, or just sit on the ground.
 end
 
 local function OnAttacked(inst, data)
     inst.components.combat:SetTarget(data.attacker)
-    inst.components.combat:ShareTarget(data.attacker, 30, function(dude) return dude:HasTag("frog") and not dude.components.health:IsDead() end, 5)
+    inst.components.combat:ShareTarget(data.attacker, 30,
+        function(dude) return dude:HasTag("frog") and not dude.components.health:IsDead() end, 5)
 end
 
 local function OnGoingHome(inst)
@@ -56,7 +57,7 @@ local function fn()
     inst.Transform:SetFourFaced()
 
     inst.AnimState:SetBank("frog")
-	inst.AnimState:SetBuild("frog_yellow_build")
+    inst.AnimState:SetBuild("frog_yellow_build")
     inst.AnimState:PlayAnimation("idle")
 
     inst:AddTag("animal")
@@ -65,7 +66,7 @@ local function fn()
     inst:AddTag("smallcreature")
     inst:AddTag("frog")
     inst:AddTag("canbetrapped")
-	inst:AddTag("scarytoprey")	
+    inst:AddTag("scarytoprey")
 
     inst.entity:SetPristine()
 
@@ -79,8 +80,8 @@ local function fn()
 
     -- boat hopping enable.
     inst.components.locomotor:SetAllowPlatformHopping(true)
-    inst:AddComponent("embarker")	
-	
+    inst:AddComponent("embarker")
+
     inst:SetStateGraph("SGfrog2")
 
     inst:SetBrain(brain)
@@ -99,14 +100,14 @@ local function fn()
     inst.components.combat.onhitotherfn = OnHitOther
 
     inst:AddComponent("thief")
-	inst:AddComponent("poisonous")
+    inst:AddComponent("poisonous")
 
     MakeTinyFreezableCharacter(inst, "frogsack")
 
     MakeHauntablePanic(inst)
 
     inst:AddComponent("lootdropper")
-    inst.components.lootdropper:SetLoot({"froglegs"})
+    inst.components.lootdropper:SetLoot({ "froglegs" })
 
     inst:AddComponent("knownlocations")
     inst:AddComponent("inspectable")

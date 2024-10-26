@@ -1,4 +1,4 @@
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/doydoy_mate_fx.zip"),
 }
@@ -16,7 +16,7 @@ local function fn(Sim)
 	inst.entity:AddNetwork()
 
 	inst.Transform:SetScale(1.2, 1.2, 1.2)
-	
+
 	inst.AnimState:SetBank("doydoy_mate_fx")
 	inst.AnimState:SetBuild("doydoy_mate_fx")
 	inst.AnimState:SetSortOrder(-1)
@@ -29,14 +29,14 @@ local function fn(Sim)
 	inst.AnimState:PushAnimation("mate_pst", false)
 
 	if not TheWorld.ismastersim then
-        return inst
-    end
-	
+		return inst
+	end
+
 	inst:ListenForEvent("animqueueover", function(inst) inst:Remove() end)
 
 	inst.SoundEmitter:PlaySound("dontstarve_DLC002/doy_doy/mating_dance_LP", "voice")
 	inst.SoundEmitter:PlaySound("dontstarve_DLC002/doy_doy/mate_dance_post", "mating")
-	
+
 	inst.entity:SetPristine()
 
 	return inst

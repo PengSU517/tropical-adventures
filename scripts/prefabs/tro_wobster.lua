@@ -639,7 +639,7 @@ local function lobster_land()
     inst.components.inventoryitem.nobounce = true
     inst.components.inventoryitem.canbepickedup = false
     inst.components.inventoryitem.canbepickedupalive = true
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+
     inst:AddComponent("murderable")
 
     inst:AddComponent("lootdropper")

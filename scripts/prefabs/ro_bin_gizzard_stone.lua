@@ -195,7 +195,7 @@ local function fn(Sim)
     end
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+
     inst.components.inventoryitem:SetOnPutInInventoryFn(OnPutInInventory)
 
     inst.openEye = "ro_bin_gem"

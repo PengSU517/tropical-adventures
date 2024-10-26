@@ -297,8 +297,8 @@ local function makebirdex(name, feathername, takeoff_soundname, chirp_soundname,
 		inst.components.sleeper:SetSleepTest(ShouldSleep)
 
 		inst:AddComponent("inventoryitem")
-		inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-		inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 		inst.components.inventoryitem.nobounce = true
 		inst.components.inventoryitem.canbepickedup = false
 		--inst.components.inventoryitem:SetOnDroppedFn(ondrop) -- done in MakeFeedablePet

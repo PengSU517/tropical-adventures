@@ -5,7 +5,7 @@ local assets =
 
 local prefabs =
 {
-	"oceanfish_small_11_inv",
+    "oceanfish_small_11_inv",
 }
 
 local function fn()
@@ -22,14 +22,14 @@ local function fn()
 
     inst.build = "fishaa"
 
-	inst:DoTaskInTime(1.5, function() 
-	local x, y, z = inst.Transform:GetWorldPosition()
-	local peixe = SpawnPrefab("oceanfish_small_11_inv")
-	if peixe then
-	peixe.Transform:SetPosition(x, y, z)
-	end 
-	inst:Remove()
-	end)
+    inst:DoTaskInTime(1.5, function()
+        local x, y, z = inst.Transform:GetWorldPosition()
+        local peixe = SpawnPrefab("oceanfish_small_11_inv")
+        if peixe then
+            peixe.Transform:SetPosition(x, y, z)
+        end
+        inst:Remove()
+    end)
 
     return inst
 end

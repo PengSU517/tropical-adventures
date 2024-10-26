@@ -1,6 +1,6 @@
-local prefabs = 
+local prefabs =
 {
-	"ballphin",
+    "ballphin",
 }
 
 local assets =
@@ -37,11 +37,10 @@ local function AddMember(inst, member)
 end
 
 local function SpawnableParent(inst)
-    for member,_ in pairs(inst.components.herd.members) do
+    for member, _ in pairs(inst.components.herd.members) do
         if member.components.domesticatable == nil
             or (member.components.domesticatable:IsDomesticated() == false and member.components.rideable:GetRider() == nil)
-            then
-
+        then
             return member
         end
     end
@@ -59,7 +58,9 @@ local function CanSpawn(inst)
 
     local x, y, z = inst.Transform:GetWorldPosition()
     return found ~= nil
-        and #TheSim:FindEntities(x, y, z, inst.components.herd.gatherrange, { "herdmember", inst.components.herd.membertag }) < TUNING.BEEFALOHERD_MAX_IN_RANGE
+        and
+        #TheSim:FindEntities(x, y, z, inst.components.herd.gatherrange, { "herdmember", inst.components.herd.membertag }) <
+        TUNING.BEEFALOHERD_MAX_IN_RANGE
 end
 
 local function OnSpawned(inst, newent)
@@ -74,7 +75,7 @@ local function OnSpawned(inst, newent)
 end
 
 --local function OnFull(inst)
-    --TODO: mark some beefalo for death
+--TODO: mark some beefalo for death
 --end
 
 local function OnInit(inst)
@@ -84,21 +85,21 @@ end
 local function fn()
     local inst = CreateEntity()
     inst.entity:AddTransform()
-	inst.entity:AddNetwork()
+    inst.entity:AddNetwork()
 
     inst:AddTag("herd")
     inst:AddTag("NOBLOCK")
     inst:AddTag("NOCLICK")
 
-	inst.entity:SetPristine()
-		
+    inst.entity:SetPristine()
+
     if not TheWorld.ismastersim then
         return inst
-    end	
-	
+    end
+
     inst:AddComponent("herd")
     if inst:HasTag("migratory") then
-        inst.components.herd:SetMemberTag("ballphin_migratory") 
+        inst.components.herd:SetMemberTag("ballphin_migratory")
     else
         inst.components.herd:SetMemberTag("ballphin")
     end
@@ -117,7 +118,8 @@ local function fn()
     inst:DoTaskInTime(0, OnInit)
 
     inst:AddComponent("periodicspawner")
-    inst.components.periodicspawner:SetRandomTimes(TUNING.BEEFALO_MATING_SEASON_BABYDELAY, TUNING.BEEFALO_MATING_SEASON_BABYDELAY_VARIANCE)
+    inst.components.periodicspawner:SetRandomTimes(TUNING.BEEFALO_MATING_SEASON_BABYDELAY,
+        TUNING.BEEFALO_MATING_SEASON_BABYDELAY_VARIANCE)
     inst.components.periodicspawner:SetPrefab("ballphin")
     inst.components.periodicspawner:SetOnSpawnFn(OnSpawned)
     inst.components.periodicspawner:SetSpawnTestFn(CanSpawn)
@@ -127,4 +129,4 @@ local function fn()
     return inst
 end
 
-return Prefab( "forest/animals/ballphinpod", fn, assets, prefabs)
+return Prefab("forest/animals/ballphinpod", fn, assets, prefabs)

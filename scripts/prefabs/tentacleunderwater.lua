@@ -11,13 +11,13 @@ local prefabs =
     "tentaclespots",
 }
 
-SetSharedLootTable( 'tentacleunderwater',
-{
-    {'monstermeat',   1.0},
-    {'monstermeat',   1.0},
-    {'tentaclespike', 0.5},
-    {'tentaclespots', 0.2},
-})
+SetSharedLootTable('tentacleunderwater',
+    {
+        { 'monstermeat',   1.0 },
+        { 'monstermeat',   1.0 },
+        { 'tentaclespike', 0.5 },
+        { 'tentaclespots', 0.2 },
+    })
 
 local RETARGET_MUST_TAGS = { "_combat", "_health" }
 local RETARGET_CANT_TAGS = { "prey" }
@@ -97,17 +97,17 @@ local function fn()
     inst:AddTag("hostile")
     inst:AddTag("wet")
     inst:AddTag("WORM_DANGER")
-	inst:AddTag("tentacle")	
+    inst:AddTag("tentacle")
 
-    inst:SetPrefabNameOverride("tentacle")	
-	
+    inst:SetPrefabNameOverride("tentacle")
+
     MakeInventoryFloatable(inst, "med", 0.3, 0.9)
     inst.components.floater.bob_percent = 0
 
-    local land_time = (POPULATING and math.random()*5*FRAMES) or 0
+    local land_time = (POPULATING and math.random() * 5 * FRAMES) or 0
     inst:DoTaskInTime(land_time, function(inst)
         inst.components.floater:OnLandedServer()
-    end)	
+    end)
 
     inst.entity:SetPristine()
 

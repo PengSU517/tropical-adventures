@@ -309,9 +309,7 @@ SHOP.stroverridefn = function(act)
     if act.target.imagename and act.target.cost then
         return subfmt(STRINGS.ACTIONS.CHECKSHOP, {
             item = STRINGS.NAMES[act.target.imagename:upper()] or
-                STRINGS.NAMES[act.target.imagename:upper() .. "_CRAFT"]
-                or (STRINGS.NAMES[string.upper(act.target.recipetouse)] or
-                    STRINGS.NAMES.UNKNOWN) .. STRINGS.NAMES.BLUEPRINT,
+                STRINGS.NAMES[act.target.imagename:upper() .. "_CRAFT"],
             cost = act.target.cost
         })
     else

@@ -1,17 +1,17 @@
 local trace = function() end
 
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/snake_build.zip"),
 	Asset("ANIM", "anim/snake_yellow_build.zip"),
 	Asset("ANIM", "anim/snake_basic.zip"),
-	Asset("ANIM", "anim/snake_water.zip"),	
+	Asset("ANIM", "anim/snake_water.zip"),
 	Asset("ANIM", "anim/snake_scaly_build.zip"),
 }
 
 local prefabs =
 {
-	
+
 }
 
 local WAKE_TO_FOLLOW_DISTANCE = 8
@@ -19,22 +19,22 @@ local SLEEP_NEAR_HOME_DISTANCE = 10
 local SHARE_TARGET_DIST = 30
 local HOME_TELEPORT_DIST = 30
 
-local NO_TAGS = {"FX", "NOCLICK","DECOR","INLIMBO"}
+local NO_TAGS = { "FX", "NOCLICK", "DECOR", "INLIMBO" }
 
 local function ShouldWakeUp(inst)
 	return not TheWorld.state.iscaveday
-           or (inst.components.combat and inst.components.combat.target)
-           or (inst.components.homeseeker and inst.components.homeseeker:HasHome() )
-           or (inst.components.burnable and inst.components.burnable:IsBurning() )
-           or (inst.components.follower and inst.components.follower.leader)
+		or (inst.components.combat and inst.components.combat.target)
+		or (inst.components.homeseeker and inst.components.homeseeker:HasHome())
+		or (inst.components.burnable and inst.components.burnable:IsBurning())
+		or (inst.components.follower and inst.components.follower.leader)
 end
 
 local function ShouldSleep(inst)
 	return TheWorld.state.iscaveday
-           and not (inst.components.combat and inst.components.combat.target)
-           and not (inst.components.homeseeker and inst.components.homeseeker:HasHome() )
-           and not (inst.components.burnable and inst.components.burnable:IsBurning() )
-           and not (inst.components.follower and inst.components.follower.leader)
+		and not (inst.components.combat and inst.components.combat.target)
+		and not (inst.components.homeseeker and inst.components.homeseeker:HasHome())
+		and not (inst.components.burnable and inst.components.burnable:IsBurning())
+		and not (inst.components.follower and inst.components.follower.leader)
 end
 
 local function OnNewTarget(inst, data)
@@ -46,14 +46,16 @@ end
 
 local function retargetfn(inst)
 	local dist = TUNING.SPIDER_TARGET_DIST
-	local notags = {"FX", "NOCLICK","INLIMBO", "wall", "snake", "structure"}
+	local notags = { "FX", "NOCLICK", "INLIMBO", "wall", "snake", "structure" }
 	return FindEntity(inst, dist, function(guy)
-		return  inst.components.combat:CanTarget(guy)
+		return inst.components.combat:CanTarget(guy)
 	end, nil, notags)
 end
 
 local function KeepTarget(inst, target)
-	return inst.components.combat:CanTarget(target) and inst:GetDistanceSqToInst(target) <= (TUNING.SPIDER_TARGET_DIST*TUNING.SPIDER_TARGET_DIST*4*4) and not target:HasTag("aquatic")
+	return inst.components.combat:CanTarget(target) and
+	inst:GetDistanceSqToInst(target) <= (TUNING.SPIDER_TARGET_DIST * TUNING.SPIDER_TARGET_DIST * 4 * 4) and
+	not target:HasTag("aquatic")
 end
 
 local function OnAttacked(inst, data)
@@ -81,7 +83,7 @@ end
 
 local function DoReturn(inst)
 	--print("DoReturn", inst)
-	if inst.components.homeseeker and inst.components.homeseeker:HasHome()  then
+	if inst.components.homeseeker and inst.components.homeseeker:HasHome() then
 		inst.components.homeseeker.home.components.spawner:GoHome(inst)
 	end
 end
@@ -102,12 +104,11 @@ local function OnEntitySleep(inst)
 end
 
 local function SanityAura(inst, observer)
+	if observer.prefab == "webber" then
+		return 0
+	end
 
-    if observer.prefab == "webber" then
-        return 0
-    end
-
-    return -TUNING.SANITYAURA_SMALL
+	return -TUNING.SANITYAURA_SMALL
 end
 
 local function fn()
@@ -125,7 +126,7 @@ local function fn()
 	inst:AddTag("monster")
 	inst:AddTag("hostile")
 	inst:AddTag("snake")
-	inst:AddTag("canbetrapped")	
+	inst:AddTag("canbetrapped")
 
 	MakeCharacterPhysics(inst, 10, .5)
 
@@ -136,9 +137,9 @@ local function fn()
 
 	inst.entity:SetPristine()
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
+	if not TheWorld.ismastersim then
+		return inst
+	end
 
 	inst:AddComponent("knownlocations")
 
@@ -168,12 +169,12 @@ local function fn()
 	inst.components.combat:SetRetargetFunction(3, retargetfn)
 	inst.components.combat:SetKeepTargetFunction(KeepTarget)
 	inst.components.combat:SetHurtSound("dontstarve_DLC002/creatures/snake/hurt")
-	inst.components.combat:SetRange(2,3)
+	inst.components.combat:SetRange(2, 3)
 
 	inst:AddComponent("lootdropper")
-    inst.components.lootdropper:AddChanceLoot("monstermeat", 1)
-    inst.components.lootdropper:AddChanceLoot("snakeskin", 0.5)
-    inst.components.lootdropper:AddChanceLoot("venomgland", 0.01)
+	inst.components.lootdropper:AddChanceLoot("monstermeat", 1)
+	inst.components.lootdropper:AddChanceLoot("snakeskin", 0.5)
+	inst.components.lootdropper:AddChanceLoot("venomgland", 0.01)
 
 	inst.components.lootdropper.numrandomloot = 0
 
@@ -204,9 +205,9 @@ end
 local function commonfn()
 	local inst = fn()
 
-    MakeMediumBurnableCharacter(inst, "body")
-    MakeMediumFreezableCharacter(inst, "body")
-    inst.components.burnable.flammability = TUNING.SPIDER_FLAMMABILITY
+	MakeMediumBurnableCharacter(inst, "body")
+	MakeMediumFreezableCharacter(inst, "body")
+	inst.components.burnable.flammability = TUNING.SPIDER_FLAMMABILITY
 
 	return inst
 end
@@ -217,36 +218,34 @@ local function poisonfn()
 	inst.AnimState:SetBuild("snake_yellow_build")
 
 	if not TheWorld.ismastersim then
-        return inst
-    end
+		return inst
+	end
 
 	inst:AddComponent("poisonous")
-	
+
 	--inst.components.lootdropper:AddChanceLoot("venom_gland", 0.25)
 
-    MakeMediumBurnableCharacter(inst, "body")
-    MakeMediumFreezableCharacter(inst, "body")
-    inst.components.burnable.flammability = TUNING.SPIDER_FLAMMABILITY
+	MakeMediumBurnableCharacter(inst, "body")
+	MakeMediumFreezableCharacter(inst, "body")
+	inst.components.burnable.flammability = TUNING.SPIDER_FLAMMABILITY
 	return inst
 end
 
 local function OnWaterChange(inst, onwater)
-    if onwater then
-        inst.onwater = true
-        inst.sg:GoToState("submerge")
-        inst.DynamicShadow:Enable(false)
-    --        inst.components.locomotor.walkspeed = 3
-    else
-          
-        if inst.onwater then
-        	inst.sg:GoToState("emerge")
-    	end
-        inst.onwater = false      
-        inst.DynamicShadow:Enable(true)
-    --        inst.components.locomotor.walkspeed = 4
-    end
-
+	if onwater then
+		inst.onwater = true
+		inst.sg:GoToState("submerge")
+		inst.DynamicShadow:Enable(false)
+		--        inst.components.locomotor.walkspeed = 3
+	else
+		if inst.onwater then
+			inst.sg:GoToState("emerge")
+		end
+		inst.onwater = false
+		inst.DynamicShadow:Enable(true)
+		--        inst.components.locomotor.walkspeed = 4
+	end
 end
 
 return Prefab("snake", commonfn, assets, prefabs),
-	   Prefab("snake_poison", poisonfn, assets, prefabs)
+	Prefab("snake_poison", poisonfn, assets, prefabs)

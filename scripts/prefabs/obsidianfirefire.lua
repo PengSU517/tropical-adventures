@@ -12,10 +12,10 @@ end
 
 local firelevels =
 {
-    {anim="level1", sound="dontstarve/common/campfire", radius=3, intensity=.8, falloff=.33, colour = {255/255,255/255,192/255}, soundintensity=.1},
-    {anim="level2", sound="dontstarve/common/campfire", radius=5, intensity=.8, falloff=.33, colour = {255/255,255/255,192/255}, soundintensity=.3},
-    {anim="level3", sound="dontstarve/common/campfire", radius=7, intensity=.8, falloff=.33, colour = {255/255,255/255,192/255}, soundintensity=.6},
-    {anim="level4", sound="dontstarve/common/campfire", radius=10, intensity=.8, falloff=.33, colour = {255/255,255/255,192/255}, soundintensity=1},
+    { anim = "level1", sound = "dontstarve/common/campfire", radius = 3, intensity = .8, falloff = .33, colour = { 255 / 255, 255 / 255, 192 / 255 }, soundintensity = .1 },
+    { anim = "level2", sound = "dontstarve/common/campfire", radius = 5, intensity = .8, falloff = .33, colour = { 255 / 255, 255 / 255, 192 / 255 }, soundintensity = .3 },
+    { anim = "level3", sound = "dontstarve/common/campfire", radius = 7, intensity = .8, falloff = .33, colour = { 255 / 255, 255 / 255, 192 / 255 }, soundintensity = .6 },
+    { anim = "level4", sound = "dontstarve/common/campfire", radius = 10, intensity = .8, falloff = .33, colour = { 255 / 255, 255 / 255, 192 / 255 }, soundintensity = 1 },
 }
 
 local function fn()

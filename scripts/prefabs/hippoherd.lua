@@ -1,12 +1,12 @@
 local assets =
 {
-	--Asset("ANIM", "anim/arrow_indicator.zip"),
+    --Asset("ANIM", "anim/arrow_indicator.zip"),
 }
 
-local ZEB_MATING_SEASON_BABYDELAY = 480*1.5
-local ZEB_MATING_SEASON_BABYDELAY_VARIANCE = 0.5*480
+local ZEB_MATING_SEASON_BABYDELAY = 480 * 1.5
+local ZEB_MATING_SEASON_BABYDELAY_VARIANCE = 0.5 * 480
 
-local prefabs = 
+local prefabs =
 {
     "hippopotamoose",
 }
@@ -24,25 +24,25 @@ end
 local function OnEmpty(inst)
     inst:Remove()
 end
-   
+
 local function fn(Sim)
-	local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
+    local inst = CreateEntity()
+    local trans = inst.entity:AddTransform()
 
     inst:AddTag("herd")
- 
-	inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
-		return inst
-	end
- 
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
     inst:AddComponent("herd")
     inst.components.herd:SetMemberTag("hippopotamoose")
     inst.components.herd:SetGatherRange(40)
     inst.components.herd:SetUpdateRange(20)
     inst.components.herd:SetOnEmptyFn(OnEmpty)
-    
+
     inst:AddComponent("periodicspawner")
     inst.components.periodicspawner:SetRandomTimes(ZEB_MATING_SEASON_BABYDELAY, ZEB_MATING_SEASON_BABYDELAY_VARIANCE)
     inst.components.periodicspawner:SetPrefab("hippopotamoose")
@@ -51,8 +51,8 @@ local function fn(Sim)
     inst.components.periodicspawner:SetDensityInRange(20, 2)
     inst.components.periodicspawner:SetOnlySpawnOffscreen(true)
     inst.components.periodicspawner:Start()
-    
+
     return inst
 end
 
-return Prefab( "forest/animals/hippoherd", fn, assets, prefabs) 
+return Prefab("forest/animals/hippoherd", fn, assets, prefabs)

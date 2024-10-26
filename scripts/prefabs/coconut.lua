@@ -283,8 +283,8 @@ local function raw()
     inst.components.edible.hungervalue = TUNING.CALORIES_TINY / 2
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
 
     inst.OnSave = OnSave
@@ -305,8 +305,8 @@ local function cooked()
     end
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     inst.components.edible.foodstate = "COOKED"
     inst.components.edible.hungervalue = TUNING.CALORIES_TINY
@@ -333,8 +333,8 @@ local function halved()
     inst.components.cookable.product = "coconut_cooked"
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     -- MakeInventoryFloatable(inst, "chopped_water", "chopped")
     inst.components.edible.hungervalue = TUNING.CALORIES_TINY / 2

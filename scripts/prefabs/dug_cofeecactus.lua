@@ -77,9 +77,9 @@ local function make_plantable(data)
         inst:AddComponent("inventoryitem")
 
         if data.name == "nettle" then
-            inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+
         else
-            inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+
         end
 
         inst:AddComponent("fuel")
@@ -108,11 +108,11 @@ end
 
 local plantables =
 {
-    { name = "bambootree",     bank = "bambootree",     build = "bambootree_build", anim = "picked",      },
-    { name = "elephantcactus", bank = "cactus_volcano", build = "cactus_volcano",   anim = "idle_dead",   },
+    { name = "bambootree",     bank = "bambootree",     build = "bambootree_build", anim = "picked", },
+    { name = "elephantcactus", bank = "cactus_volcano", build = "cactus_volcano",   anim = "idle_dead", },
     { name = "bush_vine",      bank = "bush_vine",      build = "bush_vine",        anim = "hacked_idle", },
-    { name = "nettle",         bank = "nettle",         build = "nettle",                                 },
-    { name = "coffeebush",     bank = "coffeebush",     build = "coffeebush",                             },
+    { name = "nettle",         bank = "nettle",         build = "nettle", },
+    { name = "coffeebush",     bank = "coffeebush",     build = "coffeebush", },
 }
 
 local prefabs = {}

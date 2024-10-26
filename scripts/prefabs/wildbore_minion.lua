@@ -5,16 +5,16 @@ local assets =
     Asset("ANIM", "anim/ds_pig_attacks.zip"),
     Asset("ANIM", "anim/ds_pig_elite.zip"),
     Asset("ANIM", "anim/ds_pig_elite_intro.zip"),
-    Asset("ANIM", "anim/wildbore_elite_build.zip"),	
+    Asset("ANIM", "anim/wildbore_elite_build.zip"),
     Asset("ANIM", "anim/pig_build.zip"),
     Asset("ANIM", "anim/pigspotted_build.zip"),
     Asset("ANIM", "anim/pig_guard_build.zip"),
     Asset("ANIM", "anim/werepig_build.zip"),
     Asset("ANIM", "anim/werepig_basic.zip"),
     Asset("ANIM", "anim/werepig_actions.zip"),
-    Asset("ANIM", "anim/slide_puff.zip"),	
+    Asset("ANIM", "anim/slide_puff.zip"),
     Asset("SOUND", "sound/pig.fsb"),
-    Asset("ANIM", "anim/wildbore_build.zip"),	
+    Asset("ANIM", "anim/wildbore_build.zip"),
 }
 
 local prefabs =
@@ -80,7 +80,8 @@ end
 
 local function OnAttackedByDecidRoot(inst, attacker)
     local x, y, z = inst.Transform:GetWorldPosition()
-    local ents = TheSim:FindEntities(x, y, z, SpringCombatMod(SHARE_TARGET_DIST) * .5, { "_combat", "_health", "pig" }, { "werepig", "guard", "INLIMBO" })
+    local ents = TheSim:FindEntities(x, y, z, SpringCombatMod(SHARE_TARGET_DIST) * .5, { "_combat", "_health", "pig" },
+        { "werepig", "guard", "INLIMBO" })
     local num_helpers = 0
     for i, v in ipairs(ents) do
         if v ~= inst and not v.components.health:IsDead() then
@@ -119,7 +120,7 @@ local function OnAttacked(inst, data)
 
     inst:ClearBufferedAction()
 
-    if attacker.prefab == "deciduous_root" and attacker.owner ~= nil then 
+    if attacker.prefab == "deciduous_root" and attacker.owner ~= nil then
         OnAttackedByDecidRoot(inst, attacker.owner)
     elseif attacker.prefab ~= "deciduous_root" then
         inst.components.combat:SetTarget(attacker)
@@ -127,7 +128,8 @@ local function OnAttacked(inst, data)
         if inst:HasTag("werepig") then
             inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, IsWerePig, MAX_TARGET_SHARES)
         elseif inst:HasTag("guard") then
-            inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, attacker:HasTag("pig") and IsGuardPig or IsPig, MAX_TARGET_SHARES)
+            inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST,
+                attacker:HasTag("pig") and IsGuardPig or IsPig, MAX_TARGET_SHARES)
         elseif not (attacker:HasTag("pig") and attacker:HasTag("guard")) then
             inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, IsNonWerePig, MAX_TARGET_SHARES)
         end
@@ -140,7 +142,7 @@ local function OnNewTarget(inst, data)
     end
 end
 
-local builds = {"wildbore_build"}
+local builds = { "wildbore_build" }
 local guardbuilds = { "wildbore_build" }
 
 local function NormalRetargetFn(inst)
@@ -148,9 +150,9 @@ local function NormalRetargetFn(inst)
         inst,
         TUNING.PIG_TARGET_DIST,
         function(guy)
-            return 
+            return
                 inst.components.combat:CanTarget(guy)
-                and guy.prefab ~="pigking"
+                and guy.prefab ~= "pigking"
         end,
         { "player", "epic", "_combat" }, -- see entityreplica.lua
         { "playerghost", "INLIMBO" }
@@ -174,45 +176,44 @@ local function SetNormalPig(inst)
     inst:SetBrain(normalbrain)
     inst.AnimState:SetBuild("wildbore_build")
 
-	inst.variation = inst.variation
-	if inst.variation == nil then inst.variation = math.random(1,4) end
-    inst:SetStateGraph("SGpigminion")		
-	inst.sg.mem.variation = inst.variation	
-	
-	if inst.variation == 1 then
-	inst.AnimState:OverrideSymbol("pig_arm", "wildbore_elite_build", "pig_arm_3")	
---	inst.AnimState:OverrideSymbol("pig_ear", "wildbore_elite_build", "pig_ear_1")
---	inst.AnimState:OverrideSymbol("pig_head", "wildbore_elite_build", "pig_head_1")
-	inst.AnimState:OverrideSymbol("pig_skirt", "wildbore_elite_build", "pig_skirt_1")
-	inst.AnimState:OverrideSymbol("pig_torso", "wildbore_elite_build", "pig_torso_1")
-	inst.AnimState:OverrideSymbol("spin_bod", "wildbore_elite_build", "spin_bod_1")
-	end
-	
-	if inst.variation == 2 then
-	inst.AnimState:OverrideSymbol("pig_arm", "wildbore_elite_build", "pig_arm_2")	
---	inst.AnimState:OverrideSymbol("pig_ear", "wildbore_elite_build", "pig_ear_2")
---	inst.AnimState:OverrideSymbol("pig_head", "wildbore_elite_build", "pig_head_2")
-	inst.AnimState:OverrideSymbol("pig_skirt", "wildbore_elite_build", "pig_skirt_2")
-	inst.AnimState:OverrideSymbol("pig_torso", "wildbore_elite_build", "pig_torso_2")
-	inst.AnimState:OverrideSymbol("spin_bod", "wildbore_elite_build", "spin_bod_2")
-	end
+    inst.variation = inst.variation
+    if inst.variation == nil then inst.variation = math.random(1, 4) end
+    inst:SetStateGraph("SGpigminion")
+    inst.sg.mem.variation = inst.variation
 
-	if inst.variation == 3 then
+    if inst.variation == 1 then
+        inst.AnimState:OverrideSymbol("pig_arm", "wildbore_elite_build", "pig_arm_3")
+        --	inst.AnimState:OverrideSymbol("pig_ear", "wildbore_elite_build", "pig_ear_1")
+        --	inst.AnimState:OverrideSymbol("pig_head", "wildbore_elite_build", "pig_head_1")
+        inst.AnimState:OverrideSymbol("pig_skirt", "wildbore_elite_build", "pig_skirt_1")
+        inst.AnimState:OverrideSymbol("pig_torso", "wildbore_elite_build", "pig_torso_1")
+        inst.AnimState:OverrideSymbol("spin_bod", "wildbore_elite_build", "spin_bod_1")
+    end
 
---	inst.AnimState:OverrideSymbol("pig_ear", "wildbore_elite_build", "pig_ear_3")
---	inst.AnimState:OverrideSymbol("pig_head", "wildbore_elite_build", "pig_head_3")
-	inst.AnimState:OverrideSymbol("pig_skirt", "wildbore_elite_build", "pig_skirt_3")
-	inst.AnimState:OverrideSymbol("pig_torso", "wildbore_elite_build", "pig_torso_3")
-	inst.AnimState:OverrideSymbol("spin_bod", "wildbore_elite_build", "spin_bod_3")
-	end
+    if inst.variation == 2 then
+        inst.AnimState:OverrideSymbol("pig_arm", "wildbore_elite_build", "pig_arm_2")
+        --	inst.AnimState:OverrideSymbol("pig_ear", "wildbore_elite_build", "pig_ear_2")
+        --	inst.AnimState:OverrideSymbol("pig_head", "wildbore_elite_build", "pig_head_2")
+        inst.AnimState:OverrideSymbol("pig_skirt", "wildbore_elite_build", "pig_skirt_2")
+        inst.AnimState:OverrideSymbol("pig_torso", "wildbore_elite_build", "pig_torso_2")
+        inst.AnimState:OverrideSymbol("spin_bod", "wildbore_elite_build", "spin_bod_2")
+    end
 
-	if inst.variation == 4 then
-	inst.AnimState:OverrideSymbol("pig_head", "wildbore_elite_build", "pig_head_4")
-	inst.AnimState:OverrideSymbol("pig_skirt", "wildbore_elite_build", "pig_skirt_4")
-	inst.AnimState:OverrideSymbol("pig_torso", "wildbore_elite_build", "pig_torso_4")
-	inst.AnimState:OverrideSymbol("spin_bod", "wildbore_elite_build", "spin_bod_4")
-	end	
-	
+    if inst.variation == 3 then
+        --	inst.AnimState:OverrideSymbol("pig_ear", "wildbore_elite_build", "pig_ear_3")
+        --	inst.AnimState:OverrideSymbol("pig_head", "wildbore_elite_build", "pig_head_3")
+        inst.AnimState:OverrideSymbol("pig_skirt", "wildbore_elite_build", "pig_skirt_3")
+        inst.AnimState:OverrideSymbol("pig_torso", "wildbore_elite_build", "pig_torso_3")
+        inst.AnimState:OverrideSymbol("spin_bod", "wildbore_elite_build", "spin_bod_3")
+    end
+
+    if inst.variation == 4 then
+        inst.AnimState:OverrideSymbol("pig_head", "wildbore_elite_build", "pig_head_4")
+        inst.AnimState:OverrideSymbol("pig_skirt", "wildbore_elite_build", "pig_skirt_4")
+        inst.AnimState:OverrideSymbol("pig_torso", "wildbore_elite_build", "pig_torso_4")
+        inst.AnimState:OverrideSymbol("spin_bod", "wildbore_elite_build", "spin_bod_4")
+    end
+
     inst.components.werebeast:SetOnNormalFn(SetNormalPig)
     inst.components.sleeper:SetResistance(2)
 
@@ -280,19 +281,19 @@ local function SetWerePig(inst)
     inst:SetBrain(normalbrain)
     inst:SetStateGraph("SGwerepig")
     inst.AnimState:SetBuild("werepig_build")
-    inst.AnimState:ClearOverrideSymbol("pig_arm")	
-    inst.AnimState:ClearOverrideSymbol("pig_ear")	
-    inst.AnimState:ClearOverrideSymbol("pig_head")	
-    inst.AnimState:ClearOverrideSymbol("pig_skirt")	
-    inst.AnimState:ClearOverrideSymbol("pig_torso")	
-    inst.AnimState:ClearOverrideSymbol("spin_bod")	
-	
+    inst.AnimState:ClearOverrideSymbol("pig_arm")
+    inst.AnimState:ClearOverrideSymbol("pig_ear")
+    inst.AnimState:ClearOverrideSymbol("pig_head")
+    inst.AnimState:ClearOverrideSymbol("pig_skirt")
+    inst.AnimState:ClearOverrideSymbol("pig_torso")
+    inst.AnimState:ClearOverrideSymbol("spin_bod")
+
     inst.components.sleeper:SetResistance(3)
 
     inst.components.combat:SetDefaultDamage(TUNING.WEREPIG_DAMAGE)
     inst.components.combat:SetAttackPeriod(TUNING.WEREPIG_ATTACK_PERIOD)
-    inst.components.locomotor.runspeed = TUNING.WEREPIG_RUN_SPEED 
-    inst.components.locomotor.walkspeed = TUNING.WEREPIG_WALK_SPEED 
+    inst.components.locomotor.runspeed = TUNING.WEREPIG_RUN_SPEED
+    inst.components.locomotor.walkspeed = TUNING.WEREPIG_WALK_SPEED
 
     inst.components.sleeper:SetSleepTest(GuardShouldSleep)
     inst.components.sleeper:SetWakeTest(GuardShouldWake)
@@ -320,19 +321,19 @@ end
 
 local function OnSave(inst, data)
     data.build = inst.build
-	data.variation = inst.variation
+    data.variation = inst.variation
 end
 
 local function OnLoad(inst, data)
     if data ~= nil then
-		inst.variation = data.variation
+        inst.variation = data.variation
         inst.build = data.build or builds[1]
-		
-if inst.build == "pig_guard_build" then
-SetNormalPig(inst)
-end	
-		
-		
+
+        if inst.build == "pig_guard_build" then
+            SetNormalPig(inst)
+        end
+
+
         if not inst.components.werebeast:IsInWereState() then
             inst.AnimState:SetBuild(inst.build)
         end
@@ -373,7 +374,7 @@ local function common(moonbeast)
 
     --Sneak these into pristine state for optimization
     inst:AddTag("_named")
-	inst.IsSquadAlreadyTargeting = IsSquadAlreadyTargeting
+    inst.IsSquadAlreadyTargeting = IsSquadAlreadyTargeting
 
     inst:AddTag("trader")
 
@@ -397,8 +398,8 @@ local function common(moonbeast)
         inst.components.talker.ontalk = ontalk
     end
 
-    inst:AddComponent("locomotor") -- locomotor must be constructed before the stategraph
-    inst.components.locomotor.runspeed = TUNING.PIG_RUN_SPEED --5
+    inst:AddComponent("locomotor")                              -- locomotor must be constructed before the stategraph
+    inst.components.locomotor.runspeed = TUNING.PIG_RUN_SPEED   --5
     inst.components.locomotor.walkspeed = TUNING.PIG_WALK_SPEED --3
 
     inst:AddComponent("bloomer")
@@ -456,7 +457,7 @@ local function common(moonbeast)
         inst.components.trader.onrefuse = OnRefuseItem
         inst.components.trader.deleteitemonaccept = false
     end
-    
+
     ------------------------------------------
 
     inst:AddComponent("sanityaura")
@@ -465,9 +466,9 @@ local function common(moonbeast)
     ------------------------------------------
 
     inst:AddComponent("sleeper")
-	inst:AddComponent("entitytracker")
-	inst:AddComponent("squadmember")
-	inst.components.squadmember:JoinSquad("pigkingelite4")
+    inst:AddComponent("entitytracker")
+    inst:AddComponent("squadmember")
+    inst.components.squadmember:JoinSquad("pigkingelite4")
 
     ------------------------------------------
     MakeMediumFreezableCharacter(inst, "pig_torso")
@@ -497,7 +498,7 @@ local function normal()
     end
 
     inst.build = builds[1]
-    inst.AnimState:SetBuild(inst.build)	
+    inst.AnimState:SetBuild(inst.build)
     SetNormalPig(inst)
     return inst
 end
@@ -517,4 +518,3 @@ end
 
 return Prefab("pigman_minion", normal, assets, prefabs),
     Prefab("pigguard_minion", guard, assets, prefabs)
-

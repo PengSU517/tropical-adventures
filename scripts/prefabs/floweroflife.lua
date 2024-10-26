@@ -148,7 +148,7 @@ local function fn(Sim)
 
 	MakeObstaclePhysics(inst, 0)
 
-	inst.MiniMapEntity:SetIcon("lifeplant.png")
+	inst.MiniMapEntity:SetIcon("lifeplant.tex")
 
 	inst.AnimState:SetBank("lifeplant")
 	inst.AnimState:SetBuild("lifeplant")

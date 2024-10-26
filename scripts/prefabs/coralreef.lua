@@ -135,7 +135,7 @@ local function reef_fn(Sim)
 	MakeWaterObstaclePhysics(inst, 1, 2, 1.25)
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("coral_rock.png")
+	minimap:SetIcon("coral_rock.tex")
 
 	inst.AnimState:SetBank("coral_rock")
 	inst.AnimState:SetBuild("coral_rock")

@@ -8,7 +8,7 @@ local function OnTimerDone(inst, data)
         local pigking = SpawnPrefab("wildboreking")
         pigking.Transform:SetPosition(inst.Transform:GetWorldPosition())
         pigking.sg:GoToState("lying")
-	inst:Remove()
+        inst:Remove()
     end
 end
 
@@ -24,7 +24,7 @@ local function fn()
 
     inst:AddComponent("timer")
     inst:ListenForEvent("timerdone", OnTimerDone)
-    inst.components.timer:StartTimer("spawndelay", 60*8* 10 ) 
+    inst.components.timer:StartTimer("spawndelay", 60 * 8 * 10)
     return inst
 end
 

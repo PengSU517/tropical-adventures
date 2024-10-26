@@ -1,7 +1,7 @@
 local assets =
 {
-	Asset("ANIM", "anim/kiki_basic.zip"),
-	Asset("ANIM", "anim/junglekiki_build.zip"),
+    Asset("ANIM", "anim/kiki_basic.zip"),
+    Asset("ANIM", "anim/junglekiki_build.zip"),
     Asset("SOUND", "sound/monkey.fsb"),
 }
 
@@ -21,15 +21,15 @@ local SLEEP_DIST_FROMTHREAT = 20
 local MAX_CHASEAWAY_DIST = 80
 local MAX_TARGET_SHARES = 5
 local SHARE_TARGET_DIST = 40
-local PRIMEAPE_LOYALTY_PER_HUNGER = 480/25
+local PRIMEAPE_LOYALTY_PER_HUNGER = 480 / 25
 
 local LOOT = { "smallmeat", "cave_banana" }
 SetSharedLootTable('monkey',
-{
-    {'smallmeat',     1.0},
-    {'cave_banana',   1.0},
-    {'beardhair',     1.0},
-})
+    {
+        { 'smallmeat',   1.0 },
+        { 'cave_banana', 1.0 },
+        { 'beardhair',   1.0 },
+    })
 
 local function SetHarassPlayer(inst, player)
     if inst.harassplayer ~= player then
@@ -75,25 +75,25 @@ local function hasammo(inst)
 end
 
 local function PoofHome(inst)
-	if inst.components.homeseeker then
-		inst.components.homeseeker:GoHome()
-	end
+    if inst.components.homeseeker then
+        inst.components.homeseeker:GoHome()
+    end
 end
 
 local function OnEntitySleep(inst)
-	if not inst.components.timer:TimerExists("go_home_delay") then
-		PoofHome(inst)
-	end
+    if not inst.components.timer:TimerExists("go_home_delay") then
+        PoofHome(inst)
+    end
 end
 
 local function ontimerdone(inst, data)
-	if data.name == "CanThrow" then
-		inst.CanThrowItems = true
-	elseif data.name == "go_home_delay" then
-		if inst:IsAsleep() then
-			PoofHome(inst)
-		end
-	end
+    if data.name == "CanThrow" then
+        inst.CanThrowItems = true
+    elseif data.name == "go_home_delay" then
+        if inst:IsAsleep() then
+            PoofHome(inst)
+        end
+    end
 end
 
 local function EquipWeapons(inst)
@@ -125,7 +125,6 @@ local function EquipWeapons(inst)
         hitter:AddComponent("equippable")
         inst.components.inventory:GiveItem(hitter)
         inst.weaponitems.hitter = hitter
-
     end
 end
 
@@ -142,7 +141,7 @@ local function OnAttacked(inst, data)
     local attacker = data.attacker
     inst:ClearBufferedAction()
 
-    if attacker and attacker.prefab == "deciduous_root" and attacker.owner ~= nil then 
+    if attacker and attacker.prefab == "deciduous_root" and attacker.owner ~= nil then
         OnAttackedByDecidRoot(inst, attacker.owner)
     elseif attacker and attacker.prefab ~= "deciduous_root" then
         inst.components.combat:SetTarget(attacker)
@@ -150,7 +149,7 @@ local function OnAttacked(inst, data)
         if not (attacker:HasTag("monkey")) then
             inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, IsNonWerePig, MAX_TARGET_SHARES)
         end
-    end	
+    end
 end
 
 local function IsBanana(item)
@@ -158,16 +157,16 @@ local function IsBanana(item)
 end
 
 local function FindTargetOfInterest(inst)
---if inst.components.combat.target and inst.components.combat.target:HasTag("player") then inst.components.talker:Say("ok") end
+    --if inst.components.combat.target and inst.components.combat.target:HasTag("player") then inst.components.talker:Say("ok") end
     if not inst.curious then
-        return 
+        return
     end
 
     if inst.harassplayer == nil and inst.components.combat.target == nil then
         local x, y, z = inst.Transform:GetWorldPosition()
         -- Get all players in range
         local targets = FindPlayersInRange(x, y, z, 25)
-       -- randomly iterate over all players until we find one we're interested in.
+        -- randomly iterate over all players until we find one we're interested in.
         for i = 1, #targets do
             local randomtarget = math.random(#targets)
             local target = targets[randomtarget]
@@ -178,7 +177,7 @@ local function FindTargetOfInterest(inst)
                 return
             end
         end
-   end
+    end
 end
 
 local function retargetfn(inst)
@@ -186,10 +185,12 @@ local function retargetfn(inst)
 end
 
 local function shouldKeepTarget(inst)
-local bola = GetClosestInstWithTag("monkeybait", inst, 6)
-if bola then return false
-else
-    return true end
+    local bola = GetClosestInstWithTag("monkeybait", inst, 6)
+    if bola then
+        return false
+    else
+        return true
+    end
 end
 
 local function _DropAndGoHome(inst)
@@ -245,7 +246,7 @@ end
 
 local function SetNormalMonkey(inst)
     inst:SetBrain(brain)
-	inst.AnimState:SetBuild("junglekiki_build")
+    inst.AnimState:SetBuild("junglekiki_build")
     inst.AnimState:SetMultColour(1, 1, 1, 1)
     inst.curious = true
     inst.soundtype = ""
@@ -278,39 +279,36 @@ end
 
 
 local function OnGetItemFromPlayer(inst, giver, item)
-    
     -- I eat bananas
     if item.prefab == "cave_banana" then
-	
-	if inst.components.inventory ~= nil then
-        inst.components.inventory:DropEverything(false, true)
-    end
-	
+        if inst.components.inventory ~= nil then
+            inst.components.inventory:DropEverything(false, true)
+        end
+
         -- banana makes us friends (unless I'm a guard)
         if inst.components.combat.target and inst.components.combat.target == giver then
             inst.components.combat:SetTarget(nil)
         elseif giver.components.leader then
-        	inst.sg:GoToState("befriend")
-			inst.SoundEmitter:PlaySound("dontstarve/common/makeFriend")
-			giver.components.leader:AddFollower(inst)
+            inst.sg:GoToState("befriend")
+            inst.SoundEmitter:PlaySound("dontstarve/common/makeFriend")
+            giver.components.leader:AddFollower(inst)
             inst.components.follower:AddLoyaltyTime(item.components.edible:GetHunger() * PRIMEAPE_LOYALTY_PER_HUNGER)
-	if inst.components.inventory ~= nil then
-        inst.components.inventory:DropEverything(false, true)
-    end
-			
+            if inst.components.inventory ~= nil then
+                inst.components.inventory:DropEverything(false, true)
+            end
         end
         if inst.components.sleeper:IsAsleep() then
             inst.components.sleeper:WakeUp()
         end
     end
-    
+
     --I wear hats
     if item.components.equippable and item.components.equippable.equipslot == EQUIPSLOTS.HEAD then
         local current = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
         if current then
             inst.components.inventory:DropItem(current)
         end
-        
+
         inst.components.inventory:Equip(item)
         inst.AnimState:Show("hat")
     end
@@ -328,7 +326,7 @@ local function fn()
 
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
-    inst.entity:AddSoundEmitter()   
+    inst.entity:AddSoundEmitter()
     inst.entity:AddDynamicShadow()
     inst.entity:AddNetwork()
 
@@ -341,8 +339,8 @@ local function fn()
     inst.AnimState:SetBank("kiki")
     inst.AnimState:SetBuild("junglekiki_build")
     inst.AnimState:PlayAnimation("idle_loop", true)
-	
-    inst.CanThrowItems = true	
+
+    inst.CanThrowItems = true
 
     inst:AddTag("cavedweller")
     inst:AddTag("monkey")
@@ -367,33 +365,33 @@ local function fn()
 
     inst:AddComponent("thief")
 
-	inst:AddComponent("follower")
-    inst.components.follower.maxfollowtime = 2.5*480
-	
+    inst:AddComponent("follower")
+    inst.components.follower.maxfollowtime = 2.5 * 480
+
     inst:AddComponent("locomotor")
-    inst.components.locomotor:SetSlowMultiplier( 1 )
+    inst.components.locomotor:SetSlowMultiplier(1)
     inst.components.locomotor:SetTriggersCreep(false)
     inst.components.locomotor.pathcaps = { ignorecreep = false }
     inst.components.locomotor.walkspeed = TUNING.MONKEY_MOVE_SPEED
 
     -- boat hopping setup
     inst.components.locomotor:SetAllowPlatformHopping(true)
-    inst:AddComponent("embarker")		
-	
+    inst:AddComponent("embarker")
+
     inst:AddComponent("combat")
     inst.components.combat:SetAttackPeriod(TUNING.MONKEY_ATTACK_PERIOD)
     inst.components.combat:SetRange(TUNING.MONKEY_MELEE_RANGE)
     inst.components.combat:SetRetargetFunction(1, retargetfn)
 
     inst.components.combat:SetKeepTargetFunction(shouldKeepTarget)
-    inst.components.combat:SetDefaultDamage(20)  --This doesn't matter, monkey uses weapon damage
+    inst.components.combat:SetDefaultDamage(20) --This doesn't matter, monkey uses weapon damage
 
     inst:AddComponent("health")
     inst.components.health:SetMaxHealth(TUNING.MONKEY_HEALTH)
 
     inst:AddComponent("periodicspawner")
     inst.components.periodicspawner:SetPrefab("poop")
-    inst.components.periodicspawner:SetRandomTimes(200,400)
+    inst.components.periodicspawner:SetRandomTimes(200, 400)
     inst.components.periodicspawner:SetDensityInRange(20, 2)
     inst.components.periodicspawner:SetMinimumSpacing(15)
     inst.components.periodicspawner:Start()
@@ -408,15 +406,15 @@ local function fn()
     inst:AddComponent("sleeper")
     inst.components.sleeper.sleeptestfn = DefaultSleepTest
     inst.components.sleeper.waketestfn = DefaultWakeTest
-	
-	inst:AddComponent("trader")
+
+    inst:AddComponent("trader")
     inst.components.trader:SetAcceptTest(ShouldAcceptItem)
     inst.components.trader.onaccept = OnGetItemFromPlayer
     inst.components.trader.onrefuse = OnRefuseItem
 
     inst:AddComponent("areaaware")
-	
-	inst:AddComponent("talker")
+
+    inst:AddComponent("talker")
 
     inst:SetBrain(brain)
     inst:SetStateGraph("SGmonkey")
@@ -429,15 +427,15 @@ local function fn()
     inst._onharassplayerremoved = function() SetHarassPlayer(inst, nil) end
 
     inst:AddComponent("knownlocations")
-	
+
     inst:AddComponent("timer")
-	inst:DoTaskInTime(0, function()
-		if not inst.components.timer:TimerExists("go_home_delay") then
-			inst.components.timer:StartTimer("go_home_delay", 270)
-		end
-	end)	
+    inst:DoTaskInTime(0, function()
+        if not inst.components.timer:TimerExists("go_home_delay") then
+            inst.components.timer:StartTimer("go_home_delay", 270)
+        end
+    end)
     inst:ListenForEvent("timerdone", ontimerdone)
-	
+
 
     inst.listenfn = function(listento, data) OnMonkeyDeath(inst, data) end
 
@@ -449,8 +447,8 @@ local function fn()
 
     inst.weaponitems = {}
     EquipWeapons(inst)
-	
-	inst.OnEntitySleep = OnEntitySleep	
+
+    inst.OnEntitySleep = OnEntitySleep
 
     return inst
 end

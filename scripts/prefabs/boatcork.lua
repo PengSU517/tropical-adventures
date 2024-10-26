@@ -88,7 +88,7 @@ local function fn()
 	inst.AnimState:PlayAnimation("run_loop", true)
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("coracle_boat.png")
+	minimap:SetIcon("coracle_boat.tex")
 
 	inst:AddTag("boatsw")
 	inst:AddTag("barcoapto")
@@ -137,8 +137,8 @@ local function fn()
 	inst.components.workable:SetOnFinishCallback(onhammered)
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 	inst.components.inventoryitem.cangoincontainer = false
 	inst.components.inventoryitem.canbepickedup = false
 	inst:ListenForEvent("itemget", equipaItem)

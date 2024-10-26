@@ -401,9 +401,9 @@ local function makefn(name, build, bank, data)
         local minimap = inst.entity:AddMiniMapEntity()
 
         if name == "pig_shop_cityhall_player" then
-            minimap:SetIcon("pig_shop_cityhall.png")
+            minimap:SetIcon("pig_shop_cityhall.tex")
         else
-            minimap:SetIcon(name .. ".png")
+            minimap:SetIcon(name .. ".tex")
         end
 
         light:SetFalloff(1)
@@ -545,7 +545,7 @@ local function makehousefn(name, build, bank, data)
         inst.entity:AddSoundEmitter()
 
         local minimap = inst.entity:AddMiniMapEntity()
-        minimap:SetIcon(name .. ".png")
+        minimap:SetIcon(name .. ".tex")
 
         light:SetFalloff(1)
         light:SetIntensity(.5)

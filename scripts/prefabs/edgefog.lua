@@ -13,10 +13,10 @@ local function InitEnvelopes()
     EnvelopeManager:AddColourEnvelope(
         COLOUR_ENVELOPE_NAME,
         {
-            { 0,    { 1, 1, 1, 0 } },
+            { 0,   { 1, 1, 1, 0 } },
             { .1,  { 1, 1, 1, 1 } },
             { .75, { 1, 1, 1, 1 } },
-            { 1,    { 1, 1, 1, 0 } },
+            { 1,   { 1, 1, 1, 0 } },
         }
     )
 
@@ -24,8 +24,8 @@ local function InitEnvelopes()
     EnvelopeManager:AddVector2Envelope(
         SCALE_ENVELOPE_NAME,
         {
-            { 0,    { 6, 6 } },
-            { 1,    { max_scale, max_scale } },
+            { 0, { 6, 6 } },
+            { 1, { max_scale, max_scale } },
         }
     )
 
@@ -51,17 +51,18 @@ local function fn()
     inst.persists = false
 
     inst.entity:AddTransform()
-	
-	function inst:AddTarget(target)
-		self.target = target
-		self.entity:SetParent(target.entity)
-	end
+
+    function inst:AddTarget(target)
+        self.target = target
+        self.entity:SetParent(target.entity)
+    end
+
     -----------------------------------------------------
-	if TheNet:IsDedicated() then
-		return inst
-	end
-	
-	if InitEnvelopes ~= nil then
+    if TheNet:IsDedicated() then
+        return inst
+    end
+
+    if InitEnvelopes ~= nil then
         InitEnvelopes()
     end
 
@@ -74,7 +75,7 @@ local function fn()
         SV =
         {
             { x = -1, y = 0, z = 1 },
-            { x = 1, y = 0, z = 1 },
+            { x = 1,  y = 0, z = 1 },
         },
         sort_order = 3,
         colour_envelope_name = COLOUR_ENVELOPE_NAME,
@@ -96,65 +97,65 @@ local function fn()
     effect:SetRadius(0, EMITTER_RADIUS)
 
     -----------------------------------------------------
-	
-	local function area_emitter()
-		if inst.target then
-			local px, py, pz = inst.target.Transform:GetWorldPosition()
-			local map = TheWorld.Map
-			local w, h = map:GetSize()
-			local halfw, halfh = 0.5 * w * TILE_SCALE, 0.5 * h * TILE_SCALE
-			local distx = math.min(halfw + px, halfw - px)
-			local distz = math.min(halfh + pz, halfh - pz)
-			local cloud_range = MAPWRAPPER_EDGEFOG_RANGE * TILE_SCALE
-			local min_range = cloud_range + 100
-			local range = 10 * TILE_SCALE
 
-			local getx = function(distx)
-				local x, z = 0, math.random(-range, range)
-				if px < 0 then
-					x = -halfw + math.random(0, cloud_range) - px
-				else
-					x = halfw - math.random(0, cloud_range) - px
-				end
-				return x, z
-			end
+    local function area_emitter()
+        if inst.target then
+            local px, py, pz = inst.target.Transform:GetWorldPosition()
+            local map = TheWorld.Map
+            local w, h = map:GetSize()
+            local halfw, halfh = 0.5 * w * TILE_SCALE, 0.5 * h * TILE_SCALE
+            local distx = math.min(halfw + px, halfw - px)
+            local distz = math.min(halfh + pz, halfh - pz)
+            local cloud_range = MAPWRAPPER_EDGEFOG_RANGE * TILE_SCALE
+            local min_range = cloud_range + 100
+            local range = 10 * TILE_SCALE
 
-			local getz = function(distz)
-				local x, z = math.random(-range, range), 0
-				if pz < 0 then
-					z = -halfh + math.random(0, cloud_range) - pz
-				else
-					z = halfh - math.random(0, cloud_range) - pz
-				end
-				return x, z
-			end
+            local getx = function(distx)
+                local x, z = 0, math.random(-range, range)
+                if px < 0 then
+                    x = -halfw + math.random(0, cloud_range) - px
+                else
+                    x = halfw - math.random(0, cloud_range) - px
+                end
+                return x, z
+            end
 
-			local x, z = 0, 0
-			if distx <= min_range and distz <= min_range then
-				if math.random() < 0.5 then
-					x, z = getx(distx)
-				else
-					x, z = getz(distz)
-				end
-			elseif distx <= min_range then
-				x, z = getx(distx)
-			else
-				x, z = getz(distz)
-			end
+            local getz = function(distz)
+                local x, z = math.random(-range, range), 0
+                if pz < 0 then
+                    z = -halfh + math.random(0, cloud_range) - pz
+                else
+                    z = halfh - math.random(0, cloud_range) - pz
+                end
+                return x, z
+            end
 
-			return x, z
-		end
-	end
+            local x, z = 0, 0
+            if distx <= min_range and distz <= min_range then
+                if math.random() < 0.5 then
+                    x, z = getx(distx)
+                else
+                    x, z = getz(distz)
+                end
+            elseif distx <= min_range then
+                x, z = getx(distx)
+            else
+                x, z = getz(distz)
+            end
+
+            return x, z
+        end
+    end
 
     inst:AddComponent("emitter")
     inst.components.emitter.config = config
     inst.components.emitter.max_lifetime = MAX_LIFETIME
     inst.components.emitter.ground_height = GROUND_HEIGHT
-	local tick_time = TheSim:GetTickTime()
+    local tick_time = TheSim:GetTickTime()
     inst.components.emitter.particles_per_tick = DESIRED_PARTICLES_PER_SECOND * tick_time
-	inst.components.emitter.area_emitter = area_emitter
-	inst.components.emitter:Emit()
-	
+    inst.components.emitter.area_emitter = area_emitter
+    inst.components.emitter:Emit()
+
 
     return inst
 end
