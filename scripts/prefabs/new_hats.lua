@@ -15,6 +15,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
     local function onequip(inst, owner, symbol_override)
         local skin_build = inst:GetSkinBuild()
         local symbol_override = symbol_override and "swap_hat" or "swap_hat"
+
         if skin_build ~= nil then
             owner:PushEvent("equipskinneditem", inst:GetSkinName())
             owner.AnimState:OverrideItemSkinSymbol("swap_hat", skin_build, symbol_override, inst.GUID,
@@ -250,20 +251,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
     -- end
 
     local function double_umbrella_onequip(inst, owner)
-        owner.AnimState:OverrideSymbol("swap_hat", "hat_double_umbrella", "swap_hat")
-        owner.AnimState:Show("HAT")
-        owner.AnimState:Hide("HAT_HAIR")
-        owner.AnimState:Show("HAIR_NOHAT")
-        owner.AnimState:Show("HAIR")
-
-        owner.AnimState:Show("HEAD")
-        owner.AnimState:Hide("HEAD_HAIR")
-
-        if not owner:HasTag("equipmentmodel") then
-            if inst.components.fueled then
-                inst.components.fueled:StartConsuming()
-            end
-        end
+        opentop_onequip(inst, owner)
 
         -- double_umbrella_updatesound(inst)
 

@@ -16,7 +16,7 @@ modimport("scripts/actions.lua")
 modimport("scripts/recipe_tabs")
 modimport("scripts/recipes")
 modimport("scripts/cooking_tropical")
-
+modimport("scripts/skins")
 
 
 modimport("scripts/characterdata.lua")
