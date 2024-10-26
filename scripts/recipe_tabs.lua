@@ -1,6 +1,10 @@
 ---------------------------- new recipe tab for obsidian tools ---------------------
 local require = require
 local TechTree = require("techtree")
+
+local tab_atlas = "images/ui/tabs.xml"
+
+
 table.insert(TechTree.AVAILABLE_TECH, "OBSIDIAN")
 table.insert(TechTree.AVAILABLE_TECH, "CITY")
 table.insert(TechTree.AVAILABLE_TECH, "HOME")
@@ -60,27 +64,26 @@ GLOBAL.RECIPETABS['OBSIDIANTAB'] = {
 	str = "OBSIDIANTAB",
 	sort = 90,
 	icon = "tab_volcano.tex",
-	icon_atlas =
-	"images/tabs.xml",
+	icon_atlas = tab_atlas,
 	crafting_station = true
 }
 AddPrototyperDef("obsidian_workbench",
-	{ action_str = "OBSIDIANTAB", icon_image = "tab_volcano.tex", icon_atlas = "images/tabs.xml", is_crafting_station = true })
+	{ action_str = "OBSIDIANTAB", icon_image = "tab_volcano.tex", icon_atlas = tab_atlas, is_crafting_station = true })
 
-GLOBAL.RECIPETABS['CITY'] = { str = "CITY", sort = 91, icon = "tab_city.tex", icon_atlas = "images/tabs.xml", crafting_station = false }
+GLOBAL.RECIPETABS['CITY'] = { str = "CITY", sort = 91, icon = "tab_city.tex", icon_atlas = tab_atlas, crafting_station = false }
 AddPrototyperDef("key_to_city",
-	{ action_str = "CITY", icon_image = "tab_city.tex", icon_atlas = "images/tabs.xml", is_crafting_station = false })
+	{ action_str = "CITY", icon_image = "tab_city.tex", icon_atlas = tab_atlas, is_crafting_station = false })
 
 
-GLOBAL.RECIPETABS['HOME'] = { str = "HOME", sort = 92, icon = "tab_home_decor.tex", icon_atlas = "images/tabs.xml", crafting_station = false }
+GLOBAL.RECIPETABS['HOME'] = { str = "HOME", sort = 92, icon = "tab_home_decor.tex", icon_atlas = tab_atlas, crafting_station = false }
 AddPrototyperDef("wallrenovation",
-	{ action_str = "HOME", icon_image = "tab_home_decor.tex", icon_atlas = "images/tabs.xml", is_crafting_station = false })
+	{ action_str = "HOME", icon_image = "tab_home_decor.tex", icon_atlas = tab_atlas, is_crafting_station = false })
 
 
 
-local safe_atlas = "images/tabs.xml"
 
-AddRecipeFilter({ name = "NAUTICAL", atlas = safe_atlas, image = "tab_nautical.tex" })
-AddRecipeFilter({ name = "HAMLET", atlas = safe_atlas, image = "tab_city.tex" })
-AddRecipeFilter({ name = "INTERIOR", atlas = safe_atlas, image = "tab_home_decor.tex" })
-AddRecipeFilter({ name = "LEGACY", atlas = safe_atlas, image = "tab_archaeology.tex" })
+
+AddRecipeFilter({ name = "NAUTICAL", atlas = tab_atlas, image = "tab_nautical.tex" })
+AddRecipeFilter({ name = "HAMLET", atlas = tab_atlas, image = "tab_city.tex" })
+AddRecipeFilter({ name = "INTERIOR", atlas = tab_atlas, image = "tab_home_decor.tex" })
+AddRecipeFilter({ name = "LEGACY", atlas = tab_atlas, image = "tab_archaeology.tex" })

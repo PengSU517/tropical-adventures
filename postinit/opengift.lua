@@ -1,11 +1,3 @@
-tabel.deep_merge(
-	Assets, {
-		Asset("ATLAS", "images/choose_skin.xml"),
-		Asset("IMAGE", "images/choose_skin.tex"),
-	}
-)
-
-
 local mygift = GLOBAL.require("widgets/mygift")
 local function Addgift(self)
 	self.gift = self:AddChild(mygift())

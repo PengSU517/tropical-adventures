@@ -132,8 +132,6 @@ local function CorruptedFn()
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
 
-    inst.components.inventoryitem:ChangeImageName("antler") --物品栏贴图缺失，物品栏贴图名字
-
     inst:AddComponent("instrument")
     inst.components.instrument.range = 0
     inst.components.instrument:SetOnPlayedFn(OnPlayedCorrupted)

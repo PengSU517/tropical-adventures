@@ -538,12 +538,8 @@ AddRecipe2("antler",
 	{ Ingredient("hippo_antler", 1), Ingredient("bill_quill", 3), Ingredient("flint", 1) },
 	TECH.SCIENCE_TWO, {}, { "TOOLS" })
 
-AddRecipe2("antler_corrupted",
-	{ Ingredient("antler", 1), Ingredient("nightmarefuel", 2) },
-	TECH.MAGIC_TWO, {
-
-		image = "antler.tex",
-	}, { "TOOLS", "MAGIC" })
+AddRecipe2("antler_corrupted", { Ingredient("antler", 1), Ingredient("nightmarefuel", 2) }, TECH.MAGIC_TWO, {},
+	{ "TOOLS", "MAGIC" })
 
 
 AddRecipe2("piratihatitator",

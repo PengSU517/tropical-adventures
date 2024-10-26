@@ -1,5 +1,5 @@
 local containers = require("containers")
-
+local barco_atlas = "images/ui/barco.xml"
 local params = containers.params
 
 params.armorvortexcloak = {
@@ -39,8 +39,8 @@ local hcbg = {
 }
 params.honeychest = {
     widget = {
-        slotpos = {Vector3(hcpos.x, hcpos.y + hcpos.r, 0)},
-        slotbg = {hcbg},
+        slotpos = { Vector3(hcpos.x, hcpos.y + hcpos.r, 0) },
+        slotbg = { hcbg },
         animbank = "ui_honeychest_7x",
         animbuild = "ui_honeychest_7x",
         pos = Vector3(hcpos.x, hcpos.y + 200, 0),
@@ -78,6 +78,7 @@ local smelting = require("smelting")
 function params.smelter.itemtestfn(container, item, slot)
     return smelting.isAttribute(item.prefab)
 end
+
 function params.smelter.widget.buttoninfo.fn(inst, doer)
     if inst.components.container ~= nil then
         BufferedAction(doer, inst, ACTIONS.SMELT):Do()
@@ -98,8 +99,8 @@ local function boatitemtestfn(container, item, slot)
             return (item:HasTag("sail") or item.prefab == "trawlnet") or false
         elseif slot == 2 and not container:GetItemInSlot(slot) then
             return (item.prefab == "tarlamp" or item.prefab == "boat_lantern" or item.prefab == "boat_torch" or
-                       item.prefab == "quackeringram" or item.prefab == "boatcannon" or item.prefab ==
-                       "woodlegs_boatcannon") or false
+                item.prefab == "quackeringram" or item.prefab == "boatcannon" or item.prefab ==
+                "woodlegs_boatcannon") or false
         else
             local slotitem = container:GetItemInSlot(slot)
             if slotitem then
@@ -118,18 +119,18 @@ local function boatitemtestfn(container, item, slot)
 end
 params.cargoboat = {
     widget = {
-        slotpos = {Vector3(-80, 45, 0), Vector3(-155, 45, 0), Vector3(-250, 45, 0), Vector3(-330, 45, 0),
-                   Vector3(-410, 45, 0), Vector3(-490, 45, 0), Vector3(-570, 45, 0), Vector3(-650, 45, 0)},
-        slotbg = {{
-            atlas = "images/barco.xml",
+        slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0), Vector3(-250, 45, 0), Vector3(-330, 45, 0),
+            Vector3(-410, 45, 0), Vector3(-490, 45, 0), Vector3(-570, 45, 0), Vector3(-650, 45, 0) },
+        slotbg = { {
+            atlas = barco_atlas,
             texture = "barco.tex"
         }, {
-            atlas = "images/barco.xml",
+            atlas = barco_atlas,
             texture = "luz.tex"
-        }},
+        } },
         animbank = "boat_hud_cargo",
         animbuild = "boat_hud_cargo",
-        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]] , 0),
+        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]], 0),
         isboat = true
     },
     usespecificslotsforitems = true,
@@ -139,19 +140,19 @@ params.cargoboat = {
 
 params.rowboat = {
     widget = {
-        slotpos = {Vector3(-80, 45, 0), Vector3(-155, 45, 0)},
+        slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0) },
 
-        slotbg = {{
-            atlas = "images/barco.xml",
+        slotbg = { {
+            atlas = barco_atlas,
             texture = "barco.tex"
         }, {
-            atlas = "images/barco.xml",
+            atlas = barco_atlas,
             texture = "luz.tex"
-        }},
+        } },
 
         animbank = "boat_hud_row",
         animbuild = "boat_hud_row",
-        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]] , 0),
+        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]], 0),
         isboat = true
     },
     usespecificslotsforitems = true,
@@ -165,17 +166,17 @@ params.corkboat = params.rowboat
 
 params.woodlegsboat = {
     widget = {
-        slotpos = {Vector3(-80, 45, 0), Vector3(-155, 45, 0), Vector3(-300, 45, 0)},
-        slotbg = {{
-            atlas = "images/barco.xml",
+        slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0), Vector3(-300, 45, 0) },
+        slotbg = { {
+            atlas = barco_atlas,
             texture = "barco.tex"
         }, {
-            atlas = "images/barco.xml",
+            atlas = barco_atlas,
             texture = "luz.tex"
-        }},
+        } },
         animbank = "boat_hud_encrusted",
         animbuild = "boat_hud_encrusted",
-        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]] , 0),
+        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]], 0),
         isboat = true
     },
     usespecificslotsforitems = true,
@@ -185,17 +186,17 @@ params.woodlegsboat = {
 
 params.encrustedboat = {
     widget = {
-        slotpos = {Vector3(-80, 45, 0), Vector3(-155, 45, 0), Vector3(-250, 45, 0), Vector3(-330, 45, 0)},
-        slotbg = {{
-            atlas = "images/barco.xml",
+        slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0), Vector3(-250, 45, 0), Vector3(-330, 45, 0) },
+        slotbg = { {
+            atlas = barco_atlas,
             texture = "barco.tex"
         }, {
-            atlas = "images/barco.xml",
+            atlas = barco_atlas,
             texture = "luz.tex"
-        }},
+        } },
         animbank = "boat_hud_encrusted",
         animbuild = "boat_hud_encrusted",
-        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]] , 0),
+        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]], 0),
         isboat = true
     },
     usespecificslotsforitems = true,
@@ -208,7 +209,7 @@ params.raft_old = {
         slotpos = {},
         animbank = "boat_hud_raft",
         animbuild = "boat_hud_raft",
-        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]] , 0),
+        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]], 0),
         isboat = true
     },
     usespecificslotsforitems = true,
