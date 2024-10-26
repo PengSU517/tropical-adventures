@@ -918,7 +918,8 @@ Assets =
 	Asset("SOUND", "sound/sw_character.fsb"),
 	Asset("SOUNDPACKAGE", "sound/dontstarve_DLC003.fev"),
 	Asset("SOUND", "sound/DLC003_sfx.fsb"),
-	Asset("IMAGE", "images/fog_cloud.tex"),
+
+
 
 
 	-------------------animation----------------
@@ -1044,14 +1045,16 @@ Assets =
 
 
 	----------ui-------------------
-	Asset("IMAGE", "images/barco.tex"),
-	Asset("ATLAS", "images/barco.xml"),
-	Asset("ATLAS", "images/fx4te.xml"),
-	Asset("IMAGE", "images/fx4te.tex"),
-	Asset("ATLAS", "images/tabs.xml"),
-	Asset("IMAGE", "images/tabs.tex"),
+	Asset("IMAGE", "images/ui/barco.tex"),
+	Asset("ATLAS", "images/ui/barco.xml"),
+	Asset("ATLAS", "images/ui/poison.xml"),
+	Asset("IMAGE", "images/ui/poison.tex"),
+	Asset("ATLAS", "images/ui/tabs.xml"),
+	Asset("IMAGE", "images/ui/tabs.tex"),
 	Asset("IMAGE", "images/ui/honeychest.tex"), -- ### Honey Chest UI
 	Asset("ATLAS", "images/ui/honeychest.xml"),
+
+	Asset("IMAGE", "images/fog_cloud.tex"), --云海
 }
 
 AddMinimapAtlas("images/minimap/minimap_hamlet.xml")
