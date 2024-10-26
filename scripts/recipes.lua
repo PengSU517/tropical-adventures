@@ -43,6 +43,21 @@ local function SortAfter(a, b, filter_name)
 end
 
 
+-- @author: Peng
+--防止配方名称冲突
+local old_addrecipe2 = AddRecipe2
+AddRecipe2 = function(name, ingredients, tech, config, filters)
+	if not AllRecipes[name] then
+		old_addrecipe2(name, ingredients, tech, config, filters)
+	else
+		local newname = name .. "_other"
+		if not config then config = {} end
+		config.product = config.product or name
+		AddRecipe2(newname, ingredients, tech, config, filters)
+	end
+end
+
+
 
 ---------新物品
 AddRecipe2("pugaliskfountain_made",
@@ -56,6 +71,8 @@ AddRecipe2("pugaliskfountain_made",
 		image = "pugalisk_fountain.tex"
 	},
 	{ "STRUCTURES", "LEGACY", "SUMMER" })
+
+
 
 AddRecipe2("armorvortexcloak", { Ingredient("ancient_remnant", 5), Ingredient("armor_sanity", 1) }, TECH.LOST, {
 
