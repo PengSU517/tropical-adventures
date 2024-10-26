@@ -139,7 +139,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("wildbeaver_house.png")
+    inst.MiniMapEntity:SetIcon("wildbeaver_house.tex")
 
     inst.AnimState:SetBank("merm_sw_house")
     inst.AnimState:SetBuild("wildbea_house")
@@ -205,7 +205,7 @@ local function fn1()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("pigiglu.png")
+    inst.MiniMapEntity:SetIcon("pigiglu.tex")
 
     inst.AnimState:SetBank("merm_sw_house")
     inst.AnimState:SetBuild("wildbea_house")
@@ -302,7 +302,7 @@ local function fn2()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("pig_shop_spears.png")
+    inst.MiniMapEntity:SetIcon("pig_shop_spears.tex")
 
     inst.AnimState:SetBank("merm_sw_house")
     inst.AnimState:SetBuild("wildbea_house")

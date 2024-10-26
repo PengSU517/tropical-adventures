@@ -1,6 +1,5 @@
-
 local function ontimerdone(inst)
-	inst:Remove()
+    inst:Remove()
 end
 
 local function fn()
@@ -16,7 +15,7 @@ local function fn()
 
     inst:AddTag("tropicalspawnblocker")
 
-	inst:AddComponent("timer")
+    inst:AddComponent("timer")
     inst:ListenForEvent("timerdone", ontimerdone)
     inst.components.timer:StartTimer("remove", TUNING.SCHOOL_SPAWNER_BLOCKER_LIFETIME)
 

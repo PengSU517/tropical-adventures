@@ -145,8 +145,8 @@ local function fnraft(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
@@ -209,8 +209,8 @@ local function fnraftold(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
@@ -273,8 +273,8 @@ local function fnlograft(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
@@ -337,8 +337,8 @@ local function fnlograftold(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
@@ -397,8 +397,8 @@ local function fnrowboat(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
@@ -457,8 +457,8 @@ local function fncargoboat(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
@@ -517,8 +517,8 @@ local function fnarmouredboat(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
@@ -578,8 +578,8 @@ local function fnencrustedboat(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
@@ -728,8 +728,8 @@ local function fnwoodlegsboat(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
@@ -784,8 +784,8 @@ local function fnsurfboarditem(sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
     inst.components.inventoryitem:SetOnDroppedFn(ondroppedsurfboarditem)
 
 
@@ -831,8 +831,8 @@ local function fncorkboatitem(sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
     inst.components.inventoryitem:SetOnDroppedFn(ondropped)
 
 

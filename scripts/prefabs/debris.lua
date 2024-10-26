@@ -230,7 +230,7 @@ local function fn6(Sim)
 
     -- MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("portal_dst.png")
+    inst.MiniMapEntity:SetIcon("portal_dst.tex")
 
     inst.AnimState:SetBank("parrot_pirate")
     inst.AnimState:SetBuild("parrot_pirate")
@@ -401,7 +401,7 @@ local function MakePortal2(name, bank, build, assets, prefabs, common_postinit, 
 
         -- MakeObstaclePhysics(inst, 1)
 
-        inst.MiniMapEntity:SetIcon("portal_dst.png")
+        inst.MiniMapEntity:SetIcon("portal_dst.tex")
 
         --		inst.AnimState:SetBank("portal_dst")
         --		inst.AnimState:SetBuild("portal_stone")
@@ -539,7 +539,7 @@ local function MakePortal(name, bank, build, assets, prefabs, common_postinit, m
 
         -- MakeObstaclePhysics(inst, 1)
 
-        inst.MiniMapEntity:SetIcon("portal_dst.png")
+        inst.MiniMapEntity:SetIcon("portal_dst.tex")
 
         inst.AnimState:SetBank(bank)
         inst.AnimState:SetBuild(build)

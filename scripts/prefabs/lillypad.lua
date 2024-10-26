@@ -290,7 +290,7 @@ local function fn()
     inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
-    inst.MiniMapEntity:SetIcon("lily_pad.png")
+    inst.MiniMapEntity:SetIcon("lily_pad.tex")
     inst.entity:AddNetwork()
 
     inst:AddTag("ignorewalkableplatforms")

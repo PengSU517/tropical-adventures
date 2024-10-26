@@ -97,8 +97,8 @@ local function fn(Sim)
     inst.components.equippable:SetOnUnequip(onunequip)
 
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-    inst.caminho = "images/inventoryimages/hamletinventory.xml"
+
+
 
     inst:AddComponent("fueled")
     inst.components.fueled.fueltype = "LIVINGARTIFACT"

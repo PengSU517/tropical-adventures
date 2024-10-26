@@ -117,7 +117,7 @@ local function fn()
     inst.Transform:SetScale(3, 3, 3)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("galinheiro.png")
+    minimap:SetIcon("galinheiro.tex")
 
     anim:SetBank("galinheiro")
     anim:SetBuild("galinheiro")

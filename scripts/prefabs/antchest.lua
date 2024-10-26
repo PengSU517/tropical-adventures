@@ -194,7 +194,7 @@ local function ChangeAntChestSymbol(inst) -- 切换通道
     else
         inst.AnimState:ClearOverrideSymbol("box01")
     end
-    -- inst.MiniMapEntity:SetIcon(prefix .. (buildIdx > 0 and "_" .. buildName[buildIdx] or "") .. ".png") -- "antchest_honey.png" etc.
+    -- inst.MiniMapEntity:SetIcon(prefix .. (buildIdx > 0 and "_" .. buildName[buildIdx] or "") .. ".tex") -- "antchest_honey.png" etc.
 end
 
 local function stopConvert(inst, owner)
@@ -263,7 +263,7 @@ local function Common(name)
     inst.entity:AddNetwork()
     MakeInventoryPhysics(inst)
 
-    inst.MiniMapEntity:SetIcon(name .. ".png")
+    inst.MiniMapEntity:SetIcon(name .. ".tex")
 
     inst.AnimState:SetBank("ant_chest")
     inst.AnimState:SetBuild("ant_chest")
@@ -327,7 +327,7 @@ local function fn1()
     if not TheWorld.ismastersim then
         return inst
     end
-    
+
     ArtificialPostInit(inst)
 
     return inst

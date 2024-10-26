@@ -51,7 +51,7 @@ local function SpawnChester(inst)
             return chester
         end
 
-    --else
+        --else
         -- this is not fatal, they can try again in a new location by picking up the bone again
         --print("chester_eyebone - SpawnChester: Couldn't find a suitable spawn point for chester")
     end
@@ -99,7 +99,7 @@ local function FixChester(inst)
     --take an existing chester if there is one
     if not RebindChester(inst) then
         CloseEye(inst)
-        
+
         if inst.components.inventoryitem.owner ~= nil then
             local time_remaining = inst.respawntime ~= nil and math.max(0, inst.respawntime - GetTime()) or 0
             StartRespawn(inst, time_remaining)
@@ -155,8 +155,8 @@ local function fn()
     inst.AnimState:SetBank("fishbone")
     inst.AnimState:SetBuild("packim_fishbone")
     inst.AnimState:PlayAnimation("dead", true)
-	
-	MakeInventoryFloatable(inst)
+
+    MakeInventoryFloatable(inst)
 
     inst.entity:SetPristine()
 
@@ -170,8 +170,8 @@ local function fn()
     inst.isOpenEye = nil
 
     inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"	
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"	
+
+
     inst.components.inventoryitem:SetOnPutInInventoryFn(OnPutInInventory)
     inst.components.inventoryitem:ChangeImageName(inst.closedEye)
     inst.components.inventoryitem:SetSinks(true)

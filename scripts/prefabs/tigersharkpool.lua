@@ -37,9 +37,9 @@ end
 
 local sizes =
 {
-    { anim = "small_idle", rad = 2.0, plantcount = 2, plantrad = 1.6 },
-    { anim = "med_idle", rad = 2.6, plantcount = 3, plantrad = 2.5 },
-    { anim = "big_idle", rad = 14.4, plantcount = 8, plantrad = 7.0 },
+    { anim = "small_idle", rad = 2.0,  plantcount = 2, plantrad = 1.6 },
+    { anim = "med_idle",   rad = 2.6,  plantcount = 3, plantrad = 2.5 },
+    { anim = "big_idle",   rad = 14.4, plantcount = 8, plantrad = 7.0 },
 }
 --{anim="big_idle", rad=2.7, plantcount=4, plantrad=2.9},
 
@@ -287,7 +287,7 @@ local function commonfn(pondtype)
     inst.AnimState:SetLayer(LAYER_BACKGROUND)
     inst.AnimState:SetSortOrder(3)
 
-    inst.MiniMapEntity:SetIcon("tigerpool.png")
+    inst.MiniMapEntity:SetIcon("tigerpool.tex")
 
     inst:AddTag("watersource")
     inst:AddTag("antlion_sinkhole_blocker")

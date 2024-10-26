@@ -12,8 +12,6 @@ local function MakePreparedFood(data)
 
     if data.overridebuild then
         table.insert(foodassets, Asset("ANIM", "anim/" .. data.overridebuild .. ".zip"))
-        -- table.insert(foodassets, Asset("ATLAS", "images/inventoryimages/"..data.basename..".xml")) -- 独立贴图用这个
-        -- table.insert(foodassets, Asset("IMAGE", "images/inventoryimages/"..data.basename..".tex"))
     end
 
     local spicename = data.spice ~= nil and string.lower(data.spice) or nil
@@ -121,7 +119,6 @@ local function MakePreparedFood(data)
         if spicename ~= nil then
             inst.components.inventoryitem:ChangeImageName(spicename .. "_over")
         elseif data.basename ~= nil then
-            inst.components.inventoryitem.atlasname = data.atlasname
             inst.components.inventoryitem:ChangeImageName(data.basename)
         end
 

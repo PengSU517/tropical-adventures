@@ -11,7 +11,7 @@ local assets =
 local prefabs =
 {
     "meat",
-    "log", 
+    "log",
     "character_fire",
     "livinglog",
 }
@@ -40,8 +40,8 @@ local function onpreloadfn(inst, data)
 end
 
 local function onloadfn(inst, data)
-if data == nil then return end
-	if data.entrada then inst.entrada = data.entrada end
+    if data == nil then return end
+    if data.entrada then inst.entrada = data.entrada end
     if data ~= nil then
         if data.sleep_time ~= nil then
             inst.components.sleeper.testtime = data.sleep_time
@@ -54,7 +54,7 @@ end
 
 local function onsavefn(inst, data)
     data.leifscale = inst._scale
-	data.entrada = inst.entrada
+    data.entrada = inst.entrada
     if inst.components.sleeper:IsAsleep() then
         data.sleeping = true
         data.sleep_time = inst.components.sleeper.testtime
@@ -85,12 +85,12 @@ end
 
 local function SpawnDefenders(inst, attacker)
     if not inst.components.health:IsDead() then
- --       inst.SoundEmitter:PlaySound("dontstarve/creatures/spider/spiderLair_hit")
- --       inst.AnimState:PlayAnimation(inst.anims.hit)
- --       inst.AnimState:PushAnimation(inst.anims.idle)
+        --       inst.SoundEmitter:PlaySound("dontstarve/creatures/spider/spiderLair_hit")
+        --       inst.AnimState:PlayAnimation(inst.anims.hit)
+        --       inst.AnimState:PushAnimation(inst.anims.idle)
         if inst.components.childspawner ~= nil then
             local max_release_per_stage = { 2, 4, 6 }
-            local num_to_release = math.min(1 , inst.components.childspawner.childreninside)
+            local num_to_release = math.min(1, inst.components.childspawner.childreninside)
             local num_warriors = math.min(num_to_release, 1)
             num_to_release = 1
             num_warriors = 1
@@ -101,7 +101,7 @@ local function SpawnDefenders(inst, attacker)
                 if spider ~= nil and attacker ~= nil and spider.components.combat ~= nil then
                     spider.components.combat:SetTarget(attacker)
                     spider.components.combat:BlankOutAttacks(1.5 + math.random() * 2)
-					inst.sg:GoToState("spawnin")
+                    inst.sg:GoToState("spawnin")
                 end
             end
             inst.components.childspawner.childname = "slip"
@@ -121,8 +121,8 @@ end
 
 local function SpawnInvestigators(inst, data)
     if not inst.components.health:IsDead() and not (inst.components.freezable ~= nil and inst.components.freezable:IsFrozen()) then
---        inst.AnimState:PlayAnimation(inst.anims.hit)
---        inst.AnimState:PushAnimation(inst.anims.idle)
+        --        inst.AnimState:PlayAnimation(inst.anims.hit)
+        --        inst.AnimState:PushAnimation(inst.anims.idle)
         if inst.components.childspawner ~= nil then
             local max_release_per_stage = { 1, 2, 3 }
             local num_to_release = math.min(max_release_per_stage3 or 1, inst.components.childspawner.childreninside)
@@ -194,21 +194,21 @@ end
 
 
 function OnDeadSlipstor(inst)
-local x, y, z = inst.Transform:GetLocalPosition()
+    local x, y, z = inst.Transform:GetLocalPosition()
 
---inst:DoTaskInTime(50*FRAMES, function(inst)
---if inst.entrada == nil then 
---local fx = SpawnPrefab("woodlegs_key2")
---if fx then fx.Transform:SetPosition(x, y, z) end
---inst.entrada = 1
---end 
---end)
- 
-        local spawner = SpawnPrefab("slipstor_spawner")
-        if spawner then
-           spawner.Transform:SetPosition(x, y, z)
-        end
- end
+    --inst:DoTaskInTime(50*FRAMES, function(inst)
+    --if inst.entrada == nil then
+    --local fx = SpawnPrefab("woodlegs_key2")
+    --if fx then fx.Transform:SetPosition(x, y, z) end
+    --inst.entrada = 1
+    --end
+    --end)
+
+    local spawner = SpawnPrefab("slipstor_spawner")
+    if spawner then
+        spawner.Transform:SetPosition(x, y, z)
+    end
+end
 
 local function fn()
     local inst = CreateEntity()
@@ -225,16 +225,16 @@ local function fn()
     inst.Transform:SetFourFaced()
 
     inst:AddTag("epic")
---    inst:AddTag("monster")
---    inst:AddTag("hostile")
+    --    inst:AddTag("monster")
+    --    inst:AddTag("hostile")
     inst:AddTag("largecreature")
-	inst:AddTag("slipstor")
-	inst:AddTag("slip")
+    inst:AddTag("slipstor")
+    inst:AddTag("slip")
 
     inst.AnimState:SetBank("slipstor")
     inst.AnimState:SetBuild("slipstor_build")
     inst.AnimState:PlayAnimation("idle_loop", true)
-	
+
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
@@ -268,27 +268,27 @@ local function fn()
     ------------------
     inst:AddComponent("health")
     inst.components.health:SetMaxHealth(3500)
-	inst.components.health:StartRegen(1, 3)
-	
-	    inst:AddComponent("childspawner")
-        inst.components.childspawner.childname = "slip"
-        inst.components.childspawner:SetRegenPeriod(90)
-        inst.components.childspawner:SetSpawnPeriod(5)
+    inst.components.health:StartRegen(1, 3)
 
-        inst.components.childspawner.emergencychildname = "slip"
-        inst.components.childspawner.emergencychildrenperplayer = 1
-		
-		
-		inst.components.childspawner:SetMaxChildren(9)
-        inst.components.childspawner:SetMaxEmergencyChildren(8)
-        inst.components.childspawner:SetEmergencyRadius(20)
+    inst:AddComponent("childspawner")
+    inst.components.childspawner.childname = "slip"
+    inst.components.childspawner:SetRegenPeriod(90)
+    inst.components.childspawner:SetSpawnPeriod(5)
 
-        inst.components.childspawner:SetSpawnedFn(onspawnspider)
-	
-	
-        inst:AddComponent("hauntable")
-        inst.components.hauntable.cooldown = TUNING.HAUNT_COOLDOWN_MEDIUM
-        inst.components.hauntable:SetOnHauntFn(OnHaunt)
+    inst.components.childspawner.emergencychildname = "slip"
+    inst.components.childspawner.emergencychildrenperplayer = 1
+
+
+    inst.components.childspawner:SetMaxChildren(9)
+    inst.components.childspawner:SetMaxEmergencyChildren(8)
+    inst.components.childspawner:SetEmergencyRadius(20)
+
+    inst.components.childspawner:SetSpawnedFn(onspawnspider)
+
+
+    inst:AddComponent("hauntable")
+    inst.components.hauntable.cooldown = TUNING.HAUNT_COOLDOWN_MEDIUM
+    inst.components.hauntable:SetOnHauntFn(OnHaunt)
 
     ------------------
 
@@ -298,7 +298,7 @@ local function fn()
     inst.components.combat.hiteffectsymbol = "marker"
     inst.components.combat:SetRange(3)
     inst.components.combat:SetAttackPeriod(TUNING.LEIF_ATTACK_PERIOD)
-	inst.components.combat:SetOnHit(SpawnDefenders)
+    inst.components.combat:SetOnHit(SpawnDefenders)
 
     ------------------------------------------
     MakeHauntableIgnite(inst)
@@ -306,16 +306,16 @@ local function fn()
 
     inst:AddComponent("sleeper")
     inst.components.sleeper:SetResistance(3)
---	inst.components.sleeper:SetSleepTest(NormalShouldSleep)
---    inst.components.sleeper:SetWakeTest(NormalShouldWake)
+    --	inst.components.sleeper:SetSleepTest(NormalShouldSleep)
+    --    inst.components.sleeper:SetWakeTest(NormalShouldWake)
 
---        inst:DoTaskInTime(0, OnInit)
+    --        inst:DoTaskInTime(0, OnInit)
     ------------------------------------------
 
     inst:AddComponent("lootdropper")
-    inst.components.lootdropper:SetLoot({"steelwool", "steelwool", "steelwool", "monstermeat"})
---	inst:AddComponent("knownlocations")
-	inst:ListenForEvent("death", OnDeadSlipstor)
+    inst.components.lootdropper:SetLoot({ "steelwool", "steelwool", "steelwool", "monstermeat" })
+    --	inst:AddComponent("knownlocations")
+    inst:ListenForEvent("death", OnDeadSlipstor)
     ------------------------------------------
 
     inst:AddComponent("inspectable")

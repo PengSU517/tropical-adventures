@@ -166,8 +166,8 @@ local function normal(Sim)
 	inst.components.equippable:SetOnUnequip(onunequip)
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 	inst.components.inventoryitem:SetOnDroppedFn(ondropped)
 	inst:DoTaskInTime(0, ondropped)
 	return inst
@@ -226,8 +226,8 @@ local function golden(Sim)
 	inst.components.equippable:SetOnUnequip(onunequip)
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 	inst.components.finiteuses:SetConsumption(ACTIONS.HACK, 1 / TUNING.GOLDENTOOLFACTOR)
 	inst.components.weapon.attackwear = 1 / TUNING.GOLDENTOOLFACTOR
 	inst.components.equippable:SetOnEquip(onequipgold)
@@ -330,8 +330,8 @@ local function obsidian(Sim)
 	inst.components.waterproofer:SetEffectiveness(0)
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 	inst.AnimState:SetBuild("machete_obsidian")
 	inst.AnimState:SetBank("machete_obsidian")
 
@@ -359,7 +359,7 @@ local function obsidian(Sim)
 	end
 
 	inst:AddComponent("temperature")
-    MakeObsidianTool(inst)
+	MakeObsidianTool(inst)
 
 	inst:ListenForEvent("floater_startfloating", ObsidianToolHitWater)
 	inst:ListenForEvent("percentusedchange", PercentChanged)

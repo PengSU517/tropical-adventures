@@ -249,7 +249,7 @@ local function fn_ham1(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("cave_open.png")
+    inst.MiniMapEntity:SetIcon("cave_open.tex")
 
     anim:SetBank("cave_entrance")
     anim:SetBuild("cave_entrance")
@@ -297,7 +297,7 @@ local function fn_ham2(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("cave_open.png")
+    inst.MiniMapEntity:SetIcon("cave_open.tex")
 
     anim:SetBank("cave_entrance")
     anim:SetBuild("cave_entrance")
@@ -345,7 +345,7 @@ local function fn_ham3(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("cave_open.png")
+    inst.MiniMapEntity:SetIcon("cave_open.tex")
 
     anim:SetBank("cave_entrance")
     anim:SetBuild("cave_entrance")

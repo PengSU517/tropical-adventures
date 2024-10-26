@@ -310,7 +310,7 @@ local function fn()
     inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddMiniMapEntity()
-    inst.MiniMapEntity:SetIcon("boat_iron.png")
+    inst.MiniMapEntity:SetIcon("boat_iron.tex")
     inst.entity:AddNetwork()
 
     inst:AddTag("ignorewalkableplatforms")
@@ -636,7 +636,7 @@ local function item_fn()
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
+
     --inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.NONE)
 
     --inst:AddComponent("fuel")

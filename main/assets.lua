@@ -918,7 +918,8 @@ Assets =
 	Asset("SOUND", "sound/sw_character.fsb"),
 	Asset("SOUNDPACKAGE", "sound/dontstarve_DLC003.fev"),
 	Asset("SOUND", "sound/DLC003_sfx.fsb"),
-	Asset("IMAGE", "images/fog_cloud.tex"),
+
+
 
 
 	-------------------animation----------------
@@ -986,33 +987,29 @@ Assets =
 
 
 	---------------minisign------------------
-	Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
-	Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/cookpotfoods_ham.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/cookpotfoods_sw.xml", 256),
 	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_shipwrecked.xml", 256),
 	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_hamlet.xml", 256),
 	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_rog.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),
+	Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
 
 
 
 	---------inventory-------------------
-	Asset("ATLAS", "images/inventoryimages/loot_pump.xml"),
-	Asset("IMAGE", "images/sea2land_fork.tex"),
-	Asset("ATLAS", "images/sea2land_fork.xml"),
-	Asset("ATLAS", "images/inventoryimages/novositens.xml"),
-	Asset("IMAGE", "images/inventoryimages/novositens.tex"),
-	Asset("IMAGE", "images/inventoryimages/meated_nettle.tex"),
-	Asset("ATLAS", "images/inventoryimages/meated_nettle.xml"),
+	-- Asset("ATLAS", "images/inventoryimages/loot_pump.xml"),
 
-	Asset("ATLAS", "images/inventoryimages/volcanoinventory.xml"),
-	Asset("IMAGE", "images/inventoryimages/volcanoinventory.tex"),
-	Asset("IMAGE", "images/inventoryimages/hamletinventory.tex"),
-	Asset("ATLAS", "images/inventoryimages/hamletinventory.xml"),
 	Asset("IMAGE", "images/inventoryimages/inventory_rog.tex"),
 	Asset("ATLAS", "images/inventoryimages/inventory_rog.xml"),
 	Asset("IMAGE", "images/inventoryimages/inventory_shipwrecked.tex"),
 	Asset("ATLAS", "images/inventoryimages/inventory_shipwrecked.xml"),
 	Asset("IMAGE", "images/inventoryimages/inventory_hamlet.tex"),
 	Asset("ATLAS", "images/inventoryimages/inventory_hamlet.xml"),
+	Asset("IMAGE", "images/inventoryimages/hamletinventory.tex"),
+	Asset("ATLAS", "images/inventoryimages/hamletinventory.xml"),
+	Asset("IMAGE", "images/inventoryimages/volcanoinventory.tex"),
+	Asset("ATLAS", "images/inventoryimages/volcanoinventory.xml"),
 
 
 
@@ -1029,11 +1026,12 @@ Assets =
 
 
 	---------minimap-------------------
-	Asset("ATLAS", "images/minimap/loot_pump.xml"),
-	Asset("ATLAS", "images/minimap/hamleticon.xml"),
-	Asset("IMAGE", "images/minimap/hamleticon.tex"),
-	Asset("ATLAS", "images/minimap/creepindedeepicon.xml"),
-	Asset("IMAGE", "images/minimap/creepindedeepicon.tex"),
+	Asset("ATLAS", "images/minimap/minimap_hamlet.xml"),
+	Asset("IMAGE", "images/minimap/minimap_hamlet.tex"),
+	Asset("ATLAS", "images/minimap/minimap_rog.xml"),
+	Asset("IMAGE", "images/minimap/minimap_rog.tex"),
+	Asset("ATLAS", "images/minimap/minimap_shipwrecked.xml"),
+	Asset("IMAGE", "images/minimap/minimap_shipwrecked.tex"),
 
 
 
@@ -1047,16 +1045,18 @@ Assets =
 
 
 	----------ui-------------------
-	Asset("IMAGE", "images/barco.tex"),
-	Asset("ATLAS", "images/barco.xml"),
-	Asset("ATLAS", "images/fx4te.xml"),
-	Asset("IMAGE", "images/fx4te.tex"),
-	Asset("ATLAS", "images/tabs.xml"),
-	Asset("IMAGE", "images/tabs.tex"),
+	Asset("IMAGE", "images/ui/barco.tex"),
+	Asset("ATLAS", "images/ui/barco.xml"),
+	Asset("ATLAS", "images/ui/poison.xml"),
+	Asset("IMAGE", "images/ui/poison.tex"),
+	Asset("ATLAS", "images/ui/tabs.xml"),
+	Asset("IMAGE", "images/ui/tabs.tex"),
 	Asset("IMAGE", "images/ui/honeychest.tex"), -- ### Honey Chest UI
 	Asset("ATLAS", "images/ui/honeychest.xml"),
+
+	Asset("IMAGE", "images/fog_cloud.tex"), --云海
 }
 
-AddMinimapAtlas("images/minimap/creepindedeepicon.xml")
-AddMinimapAtlas("images/minimap/hamleticon.xml")
-AddMinimapAtlas("images/minimap/loot_pump.xml")
+AddMinimapAtlas("images/minimap/minimap_hamlet.xml")
+AddMinimapAtlas("images/minimap/minimap_rog.xml")
+AddMinimapAtlas("images/minimap/minimap_shipwrecked.xml")

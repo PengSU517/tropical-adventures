@@ -405,7 +405,7 @@ local function makefn(animset, setbuild, spawnList)
         inst.entity:AddSoundEmitter()
 
         local minimap = inst.entity:AddMiniMapEntity()
-        minimap:SetIcon("pighouse.png")
+        minimap:SetIcon("pighouse.tex")
         --{anim="level1", sound="dontstarve/common/campfire", radius=2, intensity=.75, falloff=.33, colour = {197/255,197/255,170/255}},
         light:SetFalloff(1)
         light:SetIntensity(.5)
@@ -554,7 +554,7 @@ local function makefn2(animset, setbuild, spawnList)
         inst.entity:AddSoundEmitter()
 
         local minimap = inst.entity:AddMiniMapEntity()
-        minimap:SetIcon("pighouse.png")
+        minimap:SetIcon("pighouse.tex")
         --{anim="level1", sound="dontstarve/common/campfire", radius=2, intensity=.75, falloff=.33, colour = {197/255,197/255,170/255}},
         light:SetFalloff(1)
         light:SetIntensity(.5)

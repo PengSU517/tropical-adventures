@@ -1,11 +1,11 @@
-local assets=
+local assets =
 {
 	Asset("ANIM", "anim/halberd.zip"),
 	Asset("ANIM", "anim/swap_halberd.zip"),
 
 }
 
-local HALBERD_DAMAGE = 34*1.3
+local HALBERD_DAMAGE = 34 * 1.3
 local HALBERD_USES = 100
 
 local function onfinished(inst)
@@ -28,7 +28,7 @@ local function fn(Sim)
 	local trans = inst.entity:AddTransform()
 	local anim = inst.entity:AddAnimState()
 	inst.entity:AddSoundEmitter()
-    inst.entity:AddNetwork()
+	inst.entity:AddNetwork()
 	MakeInventoryPhysics(inst)
 	--MakeInventoryFloatable(inst, "idle_water", "idle")
 
@@ -45,8 +45,8 @@ local function fn(Sim)
 
 	if not TheWorld.ismastersim then
 		return inst
-	end	
-	
+	end
+
 	inst:AddComponent("weapon")
 	inst.components.weapon:SetDamage(HALBERD_DAMAGE)
 
@@ -65,14 +65,14 @@ local function fn(Sim)
 
 
 	inst:AddComponent("equippable")
-	inst.components.equippable:SetOnEquip( onequip )
-	inst.components.equippable:SetOnUnequip( onunequip)
+	inst.components.equippable:SetOnEquip(onequip)
+	inst.components.equippable:SetOnUnequip(onunequip)
 
 	inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
-	inst.caminho = "images/inventoryimages/hamletinventory.xml"	
-	
+
+
+
 	return inst
 end
 
-return Prefab( "common/inventory/halberd", fn, assets)
+return Prefab("common/inventory/halberd", fn, assets)

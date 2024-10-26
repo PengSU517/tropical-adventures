@@ -265,7 +265,7 @@ local function palmleaf(Sim)
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
 
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/hamletinventory.xml"
+
 
     return inst
 end

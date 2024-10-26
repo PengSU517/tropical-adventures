@@ -9,17 +9,17 @@ local assets =
 local prefabs =
 {
     "collapse_small",
-	"volcanostaff",
---	"turbine_blades",
---    "twister_seal",
---    "magic_seal",
+    "volcanostaff",
+    --	"turbine_blades",
+    --    "twister_seal",
+    --    "magic_seal",
 }
 
 
 local TWISTER_CALM_WALK_SPEED = 5
 local TWISTER_ANGRY_WALK_SPEED = 8
 local TWISTER_RUN_SPEED = 13
-local TWISTER_HEALTH = 9000*TUNING.tropical.bosslife
+local TWISTER_HEALTH = 9000 * TUNING.tropical.bosslife
 local TWISTER_DAMAGE = 150
 local TWISTER_VACUUM_DAMAGE = 500
 local TWISTER_VACUUM_SANITY_HIT = -33
@@ -39,18 +39,18 @@ local TWISTER_WAVES_TIME = 5
 local TWISTER_SEAL_HEALTH = 10
 
 SetSharedLootTable('twister',
-{
     {
-	'turbine_blades',   1.00}
-	,
-})
+        {
+            'turbine_blades', 1.00 }
+        ,
+    })
 
 local TARGET_DIST = 60
 
 local function OnEntitySleep(inst)
---    if inst.shouldGoAway then
---        inst:Remove()
---    end
+    --    if inst.shouldGoAway then
+    --        inst:Remove()
+    --    end
 end
 
 local function CalcSanityAura(inst, observer)
@@ -62,26 +62,29 @@ local function CalcSanityAura(inst, observer)
 end
 
 local function RetargetFn(inst)
-local player = GetClosestInstWithTag("player", inst, 70)
-if player then return inst.components.combat:SetTarget(player) else
-inst.components.combat:SetTarget(nil) end
+    local player = GetClosestInstWithTag("player", inst, 70)
+    if player then
+        return inst.components.combat:SetTarget(player)
+    else
+        inst.components.combat:SetTarget(nil)
+    end
 end
 
 local function KeepTargetFn(inst, target)
-    return inst.components.combat:CanTarget(target) 
+    return inst.components.combat:CanTarget(target)
 end
 
 local function OnSave(inst, data)
     data.CanVacuum = inst.CanVacuum
     data.CanCharge = inst.CanCharge
---    data.shouldGoAway = inst.shouldGoAway
+    --    data.shouldGoAway = inst.shouldGoAway
 end
 
 local function OnLoad(inst, data)
     if data then
         inst.CanVacuum = data.CanVacuum
         inst.CanCharge = data.CanCharge
---        inst.shouldGoAway = data.shouldGoAway or false
+        --        inst.shouldGoAway = data.shouldGoAway or false
     end
 end
 
@@ -98,22 +101,22 @@ local function OnAttacked(inst, data)
 end
 
 local function ontimerdone(inst, data)
-    if data.name == "Vacuum" then 
-        inst.CanVacuum = true 
+    if data.name == "Vacuum" then
+        inst.CanVacuum = true
     elseif data.name == "Charge" then
         inst.CanCharge = true
     end
 end
 
 local function OnKill(inst, data)
---    if data and data.victim:HasTag("Player") then
---        inst.shouldGoAway = true
---    end
+    --    if data and data.victim:HasTag("Player") then
+    --        inst.shouldGoAway = true
+    --    end
 end
 
 local function OnDead(inst)
---    AwardRadialAchievement("bearger_killed", inst:GetPosition(), TUNING.ACHIEVEMENT_RADIUS_FOR_GIANT_KILL)
---    inst.components.shedder:StopShedding()
+    --    AwardRadialAchievement("bearger_killed", inst:GetPosition(), TUNING.ACHIEVEMENT_RADIUS_FOR_GIANT_KILL)
+    --    inst.components.shedder:StopShedding()
     TheWorld:PushEvent("twisterkilled", inst)
 end
 
@@ -123,17 +126,17 @@ end
 
 local function fn(Sim)
     local inst = CreateEntity()
-	local trans = inst.entity:AddTransform()
-	local anim = inst.entity:AddAnimState()
-	local sound = inst.entity:AddSoundEmitter()
-	local shadow = inst.entity:AddDynamicShadow()
-	inst.entity:AddNetwork()
-	shadow:SetSize(6, 3.5)
-    
+    local trans = inst.entity:AddTransform()
+    local anim = inst.entity:AddAnimState()
+    local sound = inst.entity:AddSoundEmitter()
+    local shadow = inst.entity:AddDynamicShadow()
+    inst.entity:AddNetwork()
+    shadow:SetSize(6, 3.5)
+
     inst.Transform:SetFourFaced()
-    
+
     local s = 1
-    trans:SetScale(s,s,s)
+    trans:SetScale(s, s, s)
 
     local physics = inst.entity:AddPhysics()
     physics:SetMass(1000)
@@ -144,25 +147,25 @@ local function fn(Sim)
     physics:ClearCollisionMask()
     physics:CollidesWith(COLLISION.GROUND)
     physics:CollidesWith(COLLISION.CHARACTERS)
---	physics:CollidesWith(COLLISION.WAVES)
+    --	physics:CollidesWith(COLLISION.WAVES)
 
     anim:SetBank("twister")
     anim:SetBuild("twister_build")
     anim:PlayAnimation("idle_loop", true)
-    
+
     -------------------
 
     inst:AddTag("amphibious")
-	inst:AddTag("epic")
+    inst:AddTag("epic")
     inst:AddTag("monster")
     inst:AddTag("hostile")
     inst:AddTag("twister")
     inst:AddTag("scarytoprey")
     inst:AddTag("largecreature")
 
-	inst.entity:SetPristine()
+    inst.entity:SetPristine()
 
-	if not TheWorld.ismastersim then
+    if not TheWorld.ismastersim then
         return inst
     end
 
@@ -170,19 +173,19 @@ local function fn(Sim)
 
     inst:AddComponent("inventory")
     inst:AddComponent("timer")
-	inst:AddComponent("knownlocations")
+    inst:AddComponent("knownlocations")
 
     ------------------
-    
+
     inst:AddComponent("sanityaura")
     inst.components.sanityaura.aurafn = CalcSanityAura
 
     ------------------
-    
+
     inst:AddComponent("health")
     inst.components.health:SetMaxHealth(TWISTER_HEALTH)
     inst.components.health.destroytime = 5
-    
+
     ------------------
 
     inst:AddComponent("combat")
@@ -194,12 +197,12 @@ local function fn(Sim)
     inst.components.combat:SetRetargetFunction(3, RetargetFn)
     inst.components.combat:SetKeepTargetFunction(KeepTargetFn)
     --inst.components.combat:SetHurtSound("")
- 
+
     ------------------
 
     inst:AddComponent("lootdropper")
     inst.components.lootdropper:SetChanceLootTable("twister")
-    
+
     ------------------
 
     inst:AddComponent("inspectable")
@@ -220,29 +223,29 @@ local function fn(Sim)
     inst.components.locomotor.walkspeed = TWISTER_CALM_WALK_SPEED
     inst.components.locomotor.runspeed = TWISTER_RUN_SPEED
     inst.components.locomotor:SetShouldRun(true)
-	
-	inst:AddComponent("rowboatwakespawner")
+
+    inst:AddComponent("rowboatwakespawner")
     ------------------
-    
+
     inst:SetStateGraph("SGtwister")
     local brain = require("brains/twisterbrain")
     inst:SetBrain(brain)
 
     ------------------
 
---    inst:ListenForEvent("seasonChange", function() OnSeasonChange(inst) end, TheWorld)
+    --    inst:ListenForEvent("seasonChange", function() OnSeasonChange(inst) end, TheWorld)
     inst:ListenForEvent("attacked", OnAttacked)
     inst:ListenForEvent("entitysleep", OnEntitySleep)
     inst:ListenForEvent("timerdone", ontimerdone)
     inst:ListenForEvent("killed", OnKill)
-    inst:ListenForEvent("death", OnDead)	
-    inst:ListenForEvent("onremove", OnRemove)	
+    inst:ListenForEvent("death", OnDead)
+    inst:ListenForEvent("onremove", OnRemove)
 
     ------------------
 
     inst.CanVacuum = true
     inst.CanCharge = true
---    inst.shouldGoAway = false
+    --    inst.shouldGoAway = false
     inst.OnSave = OnSave
     inst.OnLoad = OnLoad
 
@@ -255,4 +258,4 @@ local function fn(Sim)
     return inst
 end
 
-return Prefab( "common/monsters/twister", fn, assets, prefabs)
+return Prefab("common/monsters/twister", fn, assets, prefabs)

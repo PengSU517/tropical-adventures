@@ -126,7 +126,7 @@ local function create_ro_bin()
     inst.entity:AddTransform()
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("ro_bin.png")
+    minimap:SetIcon("ro_bin.tex")
 
     inst.entity:AddAnimState()
     inst.AnimState:SetBank("ro_bin")

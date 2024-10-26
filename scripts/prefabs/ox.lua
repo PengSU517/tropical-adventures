@@ -138,7 +138,7 @@ local function KeepTarget(inst, target)
 		local herd = inst.components.herdmember and inst.components.herdmember:GetHerd()
 		if herd and herd.components.mood and herd.components.mood:IsInMood() then
 			return distsq(Vector3(herd.Transform:GetWorldPosition()), Vector3(inst.Transform:GetWorldPosition())) <
-			OX_CHASE_DIST * OX_CHASE_DIST
+				OX_CHASE_DIST * OX_CHASE_DIST
 		end
 	end
 
@@ -237,7 +237,7 @@ local function fn(Sim)
 	inst:AddTag("largecreature")
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("ox.png")
+	minimap:SetIcon("ox.tex")
 
 	inst.entity:SetPristine()
 

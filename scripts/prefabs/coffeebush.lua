@@ -182,7 +182,7 @@ local function createbush(name, inspectname, berryname, master_postinit)
         inst:AddTag("barren")
 
 
-        minimap:SetIcon("coffeebush.png")
+        minimap:SetIcon("coffeebush.tex")
 
         inst.AnimState:SetBank(name)
         inst.AnimState:SetBuild(name)

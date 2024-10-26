@@ -5,7 +5,7 @@ local assets =
     Asset("ANIM", "anim/ds_pig_actions.zip"),
     Asset("ANIM", "anim/ds_pig_attacks.zip"),
     Asset("ANIM", "anim/merm_fisherman_build.zip"),
-    Asset("ANIM", "anim/merm_fishing.zip"),	
+    Asset("ANIM", "anim/merm_fishing.zip"),
     Asset("SOUND", "sound/merm.fsb"),
 }
 
@@ -27,7 +27,7 @@ local sounds = {
     death = "dontstarve/creatures/merm/death",
     talk = "dontstarve/characters/wurt/merm/warrior/talk",
     buff = "dontstarve/characters/wurt/merm/warrior/yell",
-    --debuff = "dontstarve/characters/wurt/merm/warrior/yell",    
+    --debuff = "dontstarve/characters/wurt/merm/warrior/yell",
 }
 
 local lootb =
@@ -52,8 +52,8 @@ local function RetargetFn(inst)
 end
 
 local function RetargetFnb(inst)
-local player = GetClosestInstWithTag("player", inst, 70)
-if player then return inst.components.combat:SetTarget(player) end
+    local player = GetClosestInstWithTag("player", inst, 70)
+    if player then return inst.components.combat:SetTarget(player) end
     local defenseTarget = inst
     local home = inst.components.homeseeker and inst.components.homeseeker.home
     if home and inst:GetDistanceSqToInst(home) < TUNING.MERM_DEFEND_DIST * TUNING.MERM_DEFEND_DIST then
@@ -65,8 +65,8 @@ end
 local function KeepTargetFn(inst, target)
     local home = inst.components.homeseeker and inst.components.homeseeker.home
     if home then
-        return home:GetDistanceSqToInst(target) < TUNING.MERM_DEFEND_DIST*TUNING.MERM_DEFEND_DIST
-               and home:GetDistanceSqToInst(inst) < TUNING.MERM_DEFEND_DIST*TUNING.MERM_DEFEND_DIST
+        return home:GetDistanceSqToInst(target) < TUNING.MERM_DEFEND_DIST * TUNING.MERM_DEFEND_DIST
+            and home:GetDistanceSqToInst(inst) < TUNING.MERM_DEFEND_DIST * TUNING.MERM_DEFEND_DIST
     end
     return inst.components.combat:CanTarget(target)
 end
@@ -78,14 +78,14 @@ local function OnAttacked(inst, data)
         local targetshares = MAX_TARGET_SHARES
         if inst.components.homeseeker and inst.components.homeseeker.home then
             local home = inst.components.homeseeker.home
-            if home and home.components.childspawner and inst:GetDistanceSqToInst(home) <= SHARE_TARGET_DIST*SHARE_TARGET_DIST then
+            if home and home.components.childspawner and inst:GetDistanceSqToInst(home) <= SHARE_TARGET_DIST * SHARE_TARGET_DIST then
                 targetshares = targetshares - home.components.childspawner.childreninside
                 home.components.childspawner:ReleaseAllChildren(attacker)
             end
             inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, function(dude)
                 return dude.components.homeseeker
-                       and dude.components.homeseeker.home
-                       and dude.components.homeseeker.home == home
+                    and dude.components.homeseeker.home
+                    and dude.components.homeseeker.home == home
             end, targetshares)
         end
     end
@@ -113,7 +113,7 @@ local function fn()
     inst:AddTag("merm")
     inst:AddTag("wet")
     inst:AddTag("monster")
-    inst:AddTag("hostile")	
+    inst:AddTag("hostile")
 
     inst.entity:SetPristine()
 
@@ -186,7 +186,7 @@ local function fnb()
     inst:AddTag("merm")
     inst:AddTag("wet")
     inst:AddTag("monster")
-    inst:AddTag("hostile")	
+    inst:AddTag("hostile")
 
     inst.entity:SetPristine()
 
@@ -207,7 +207,7 @@ local function fnb()
 
     inst:AddComponent("sleeper")
     inst.components.sleeper:SetNocturnal(true)
-	inst.sounds = sounds
+    inst.sounds = sounds
     inst:AddComponent("health")
     inst:AddComponent("combat")
     inst.components.combat.hiteffectsymbol = "pig_torso"
@@ -260,7 +260,7 @@ local function fnb1()
     inst:AddTag("merm")
     inst:AddTag("wet")
     inst:AddTag("monster")
-    inst:AddTag("hostile")	
+    inst:AddTag("hostile")
 
     inst.entity:SetPristine()
 
@@ -281,7 +281,7 @@ local function fnb1()
 
     inst:AddComponent("sleeper")
     inst.components.sleeper:SetNocturnal(true)
-	inst.sounds = sounds
+    inst.sounds = sounds
     inst:AddComponent("health")
     inst:AddComponent("combat")
     inst.components.combat.hiteffectsymbol = "pig_torso"
@@ -319,7 +319,7 @@ local function fnb2()
     inst.entity:AddSoundEmitter()
     inst.entity:AddDynamicShadow()
     inst.entity:AddNetwork()
-	inst.Transform:SetScale(2, 2, 2)	
+    inst.Transform:SetScale(2, 2, 2)
 
     MakeCharacterPhysics(inst, 100, 1)
 
@@ -334,7 +334,7 @@ local function fnb2()
     inst:AddTag("merm")
     inst:AddTag("wet")
     inst:AddTag("monster")
-    inst:AddTag("hostile")	
+    inst:AddTag("hostile")
 
     inst.entity:SetPristine()
 
@@ -343,8 +343,8 @@ local function fnb2()
     end
 
     inst:AddComponent("locomotor")
-    inst.components.locomotor.runspeed = TUNING.MERM_RUN_SPEED/2
-    inst.components.locomotor.walkspeed = TUNING.MERM_WALK_SPEED/2
+    inst.components.locomotor.runspeed = TUNING.MERM_RUN_SPEED / 2
+    inst.components.locomotor.walkspeed = TUNING.MERM_WALK_SPEED / 2
 
     inst:SetStateGraph("SGmermtrader")
 
@@ -355,7 +355,7 @@ local function fnb2()
 
     inst:AddComponent("sleeper")
     inst.components.sleeper:SetNocturnal(true)
-	inst.sounds = sounds
+    inst.sounds = sounds
     inst:AddComponent("health")
     inst:AddComponent("combat")
     inst.components.combat.hiteffectsymbol = "pig_torso"
@@ -363,8 +363,8 @@ local function fnb2()
     inst.components.combat:SetRetargetFunction(1, RetargetFnb)
     inst.components.combat:SetKeepTargetFunction(KeepTargetFn)
 
-    inst.components.health:SetMaxHealth(TUNING.MERM_HEALTH*4)
-    inst.components.combat:SetDefaultDamage(TUNING.MERM_DAMAGE*4)
+    inst.components.health:SetMaxHealth(TUNING.MERM_HEALTH * 4)
+    inst.components.combat:SetDefaultDamage(TUNING.MERM_DAMAGE * 4)
     inst.components.combat:SetAttackPeriod(TUNING.MERM_ATTACK_PERIOD)
 
     MakeHauntablePanic(inst)
@@ -385,5 +385,5 @@ local function fnb2()
     return inst
 end
 return Prefab("mermb", fnb, assets, prefabs),
-	   Prefab("mermb1", fnb1, assets, prefabs),
-	   Prefab("mermb2", fnb2, assets, prefabs)
+    Prefab("mermb1", fnb1, assets, prefabs),
+    Prefab("mermb2", fnb2, assets, prefabs)

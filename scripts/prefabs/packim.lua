@@ -55,7 +55,7 @@ end
 local function ShouldSleep(inst)
     --print(inst, "ShouldSleep", DefaultSleepTest(inst), not inst.sg:HasStateTag("open"), inst.components.follower:IsNearLeader(SLEEP_NEAR_LEADER_DISTANCE))
     return DefaultSleepTest(inst) and not inst.sg:HasStateTag("open") and
-    inst.components.follower:IsNearLeader(SLEEP_NEAR_LEADER_DISTANCE) and not TheWorld.state.isfullmoon
+        inst.components.follower:IsNearLeader(SLEEP_NEAR_LEADER_DISTANCE) and not TheWorld.state.isfullmoon
 end
 
 local function ShouldKeepTarget()
@@ -122,8 +122,8 @@ end
 
 local function MorphShadowChester(inst)
     --    inst.AnimState:SetBuild("packim_fat_build")
-    inst.MiniMapEntity:SetIcon("packim_fat.png")
-    inst.components.maprevealable:SetIcon("packim_fat.png")
+    inst.MiniMapEntity:SetIcon("packim_fat.tex")
+    inst.components.maprevealable:SetIcon("packim_fat.tex")
 
     inst.components.container:WidgetSetup("shadowchester")
 
@@ -138,8 +138,8 @@ local function MorphSnowChester(inst)
     inst:RemoveEventCallback("onclose", CheckForMorph)
     --    inst.AnimState:SetBuild("packim_fire_build")
     inst:AddTag("fireimmune")
-    inst.MiniMapEntity:SetIcon("packim_fire.png")
-    inst.components.maprevealable:SetIcon("packim_fire.png")
+    inst.MiniMapEntity:SetIcon("packim_fire.tex")
+    inst.components.maprevealable:SetIcon("packim_fire.tex")
 
     inst.components.container:DropEverything()
     inst:RemoveComponent("container")
@@ -163,8 +163,8 @@ end
 local function MorphNormalChester(inst)
     --    inst.AnimState:SetBuild("packim_build")
     inst:RemoveTag("fireimmune")
-    inst.MiniMapEntity:SetIcon("packim.png")
-    inst.components.maprevealable:SetIcon("chester.png")
+    inst.MiniMapEntity:SetIcon("packim.tex")
+    inst.components.maprevealable:SetIcon("chester.tex")
 
     inst.components.container:DropEverything()
     inst:RemoveComponent("container")
@@ -361,7 +361,7 @@ local function RetargetFn(inst)
         function(guy)
             if not guy.LightWatcher or guy.LightWatcher:IsInLight() then
                 return guy.components.health and not guy.components.health:IsDead() and
-                inst.components.combat:CanTarget(guy)
+                    inst.components.combat:CanTarget(guy)
             end
         end, yestags, notags)
 end
@@ -405,7 +405,7 @@ local function create_chester()
     inst:AddTag("notraptrigger")
     inst:AddTag("noauradamage")
 
-    inst.MiniMapEntity:SetIcon("packim.png")
+    inst.MiniMapEntity:SetIcon("packim.tex")
     inst.MiniMapEntity:SetCanUseCache(false)
 
     inst.AnimState:SetBank("packim")

@@ -4,16 +4,16 @@ local brainwere = require "brains/werepigbrain"
 
 local assets =
 {
-	Asset("ANIM", "anim/ds_pig_basic.zip"),
-	Asset("ANIM", "anim/ds_pig_actions.zip"),
-	Asset("ANIM", "anim/ds_pig_attacks.zip"),
+    Asset("ANIM", "anim/ds_pig_basic.zip"),
+    Asset("ANIM", "anim/ds_pig_actions.zip"),
+    Asset("ANIM", "anim/ds_pig_attacks.zip"),
     Asset("ANIM", "anim/ds_pig_charge.zip"),
     Asset("ANIM", "anim/wildbore_build.zip"),
-	Asset("ANIM", "anim/pigspotted_build.zip"),
-	Asset("ANIM", "anim/pig_guard_build.zip"),
-	Asset("ANIM", "anim/werepig_build.zip"),
-	Asset("ANIM", "anim/werepig_basic.zip"),
-	Asset("ANIM", "anim/werepig_actions.zip"),
+    Asset("ANIM", "anim/pigspotted_build.zip"),
+    Asset("ANIM", "anim/pig_guard_build.zip"),
+    Asset("ANIM", "anim/werepig_build.zip"),
+    Asset("ANIM", "anim/werepig_basic.zip"),
+    Asset("ANIM", "anim/werepig_actions.zip"),
 }
 
 local prefabs =
@@ -76,7 +76,8 @@ local function OnGetItemFromPlayer(inst, giver, item)
             elseif giver and giver.components.leader ~= nil and not inst:HasTag("guard") then
                 giver:PushEvent("makefriend")
                 giver.components.leader:AddFollower(inst)
-                inst.components.follower:AddLoyaltyTime(item.components.edible:GetHunger() * TUNING.PIG_LOYALTY_PER_HUNGER)
+                inst.components.follower:AddLoyaltyTime(item.components.edible:GetHunger() *
+                TUNING.PIG_LOYALTY_PER_HUNGER)
                 inst.components.follower.maxfollowtime =
                     giver:HasTag("polite")
                     and TUNING.PIG_LOYALTY_MAXTIME + TUNING.PIG_LOYALTY_POLITENESS_MAXTIME_BONUS
@@ -122,7 +123,8 @@ end
 --群体性攻击要找的目标
 local function OnAttackedByDecidRoot(inst, attacker)
     local x, y, z = inst.Transform:GetWorldPosition()
-    local ents = TheSim:FindEntities(x, y, z, SpringCombatMod(SHARE_TARGET_DIST) * .5, { "_combat", "_health", "pig" }, { "werepig", "guard", "INLIMBO" })
+    local ents = TheSim:FindEntities(x, y, z, SpringCombatMod(SHARE_TARGET_DIST) * .5, { "_combat", "_health", "pig" },
+        { "werepig", "guard", "INLIMBO" })
     local num_helpers = 0
     for i, v in ipairs(ents) do
         if v ~= inst and not v.components.health:IsDead() then
@@ -156,7 +158,7 @@ local function OnAttacked(inst, data)
     local attacker = data.attacker
     inst:ClearBufferedAction()
 
-    if attacker and attacker.prefab == "deciduous_root" and attacker.owner ~= nil then 
+    if attacker and attacker.prefab == "deciduous_root" and attacker.owner ~= nil then
         OnAttackedByDecidRoot(inst, attacker.owner)
     elseif attacker and attacker.prefab ~= "deciduous_root" then
         inst.components.combat:SetTarget(attacker)
@@ -164,7 +166,8 @@ local function OnAttacked(inst, data)
         if inst:HasTag("werepig") then
             inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, IsWerePig, MAX_TARGET_SHARES)
         elseif inst:HasTag("guard") then
-            inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, attacker:HasTag("pig") and IsGuardPig or IsPig, MAX_TARGET_SHARES)
+            inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST,
+                attacker:HasTag("pig") and IsGuardPig or IsPig, MAX_TARGET_SHARES)
         elseif not (attacker:HasTag("pig") and attacker:HasTag("guard")) then
             inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, IsNonWerePig, MAX_TARGET_SHARES)
         end
@@ -177,8 +180,8 @@ local function OnNewTarget(inst, data)
     end
 end
 
-local builds = {"wildbore_build", "pigspotted_build"}
-local guardbuilds = {"pig_guard_build"}
+local builds = { "wildbore_build", "pigspotted_build" }
+local guardbuilds = { "pig_guard_build" }
 
 local function NormalRetargetFn(inst)
     return FindEntity(
@@ -188,9 +191,9 @@ local function NormalRetargetFn(inst)
             return (guy.LightWatcher == nil or guy.LightWatcher:IsInLight())
                 and inst.components.combat:CanTarget(guy)
         end,
-        { "monster", "_combat" }, -- see entityreplica.lua  --必须有的tag
+        { "monster", "_combat" },                  -- see entityreplica.lua  --必须有的tag
         inst.components.follower.leader ~= nil and
-        { "playerghost", "INLIMBO", "abigail" } or   --不包含的tag
+        { "playerghost", "INLIMBO", "abigail" } or --不包含的tag
         { "playerghost", "INLIMBO" }
     )
 end
@@ -260,7 +263,8 @@ local function GuardRetargetFn(inst)
         inst
 
     if not defenseTarget.happy then
-        local invader = FindEntity(defenseTarget, SpringCombatMod(TUNING.PIG_GUARD_TARGET_DIST), nil, { "character" }, { "guard", "INLIMBO" })
+        local invader = FindEntity(defenseTarget, SpringCombatMod(TUNING.PIG_GUARD_TARGET_DIST), nil, { "character" },
+            { "guard", "INLIMBO" })
         if invader ~= nil and
             not (defenseTarget.components.trader ~= nil and defenseTarget.components.trader:IsTryingToTradeWithMe(invader)) and
             not (inst.components.trader ~= nil and inst.components.trader:IsTryingToTradeWithMe(invader)) then
@@ -299,10 +303,10 @@ local function GuardKeepTargetFn(inst, target)
     end
 
     local defendDist = not TheWorld.state.isday
-                    and home.components.burnable ~= nil
-                    and home.components.burnable:IsBurning()
-                    and home.components.burnable:GetLargestLightRadius()
-                    or SpringCombatMod(TUNING.PIG_GUARD_DEFEND_DIST)
+        and home.components.burnable ~= nil
+        and home.components.burnable:IsBurning()
+        and home.components.burnable:GetLargestLightRadius()
+        or SpringCombatMod(TUNING.PIG_GUARD_DEFEND_DIST)
     return target:IsNear(home, defendDist) and inst:IsNear(home, defendDist)
 end
 
@@ -363,9 +367,9 @@ end
 
 local function WerepigKeepTargetFn(inst, target)
     return inst.components.combat:CanTarget(target)
-           and not target:HasTag("werepig")
-           and not target:HasTag("beaver")
-           and not (target.sg ~= nil and target.sg:HasStateTag("transform"))
+        and not target:HasTag("werepig")
+        and not target:HasTag("beaver")
+        and not (target.sg ~= nil and target.sg:HasStateTag("transform"))
 end
 
 local function IsNearMoonBase(inst, dist)
@@ -376,15 +380,15 @@ end
 local function MoonpigRetargetFn(inst)
     return IsNearMoonBase(inst, TUNING.MOONPIG_AGGRO_DIST)
         and FindEntity(
-                inst,
-                TUNING.PIG_TARGET_DIST,
-                function(guy)
-                    return inst.components.combat:CanTarget(guy)
-                        and not (guy.sg ~= nil and guy.sg:HasStateTag("transform"))
-                end,
-                { "_combat" }, --See entityreplica.lua (re: "_combat" tag)
-                { "werepig", "alwaysblock", "beaver", "moonbeast" }
-            )
+            inst,
+            TUNING.PIG_TARGET_DIST,
+            function(guy)
+                return inst.components.combat:CanTarget(guy)
+                    and not (guy.sg ~= nil and guy.sg:HasStateTag("transform"))
+            end,
+            { "_combat" },     --See entityreplica.lua (re: "_combat" tag)
+            { "werepig", "alwaysblock", "beaver", "moonbeast" }
+        )
         or nil
 end
 
@@ -415,8 +419,8 @@ local function SetWerePig(inst)
 
     inst.components.combat:SetDefaultDamage(TUNING.WEREPIG_DAMAGE)
     inst.components.combat:SetAttackPeriod(TUNING.WEREPIG_ATTACK_PERIOD)
-    inst.components.locomotor.runspeed = TUNING.WEREPIG_RUN_SPEED 
-    inst.components.locomotor.walkspeed = TUNING.WEREPIG_WALK_SPEED 
+    inst.components.locomotor.runspeed = TUNING.WEREPIG_RUN_SPEED
+    inst.components.locomotor.walkspeed = TUNING.WEREPIG_WALK_SPEED
 
     inst.components.sleeper:SetSleepTest(WerepigSleepTest)
     inst.components.sleeper:SetWakeTest(WerepigWakeTest)
@@ -485,7 +489,7 @@ local function common(moonbeast)
 
     inst:AddTag("character")
     inst:AddTag("pig")
-    inst:AddTag("scarytoprey")  --分泌
+    inst:AddTag("scarytoprey") --分泌
     inst.AnimState:SetBank("pigman")
     inst.AnimState:PlayAnimation("idle_loop")
     inst.AnimState:Hide("hat")
@@ -530,8 +534,8 @@ local function common(moonbeast)
         inst.components.talker.ontalk = ontalk
     end
 
-    inst:AddComponent("locomotor") -- locomotor must be constructed before the stategraph
-    inst.components.locomotor.runspeed = TUNING.PIG_RUN_SPEED --5
+    inst:AddComponent("locomotor")                              -- locomotor must be constructed before the stategraph
+    inst.components.locomotor.runspeed = TUNING.PIG_RUN_SPEED   --5
     inst.components.locomotor.walkspeed = TUNING.PIG_WALK_SPEED --3
 
     inst:AddComponent("bloomer")
@@ -589,7 +593,7 @@ local function common(moonbeast)
         inst.components.trader.onrefuse = OnRefuseItem
         inst.components.trader.deleteitemonaccept = false
     end
-    
+
     ------------------------------------------
 
     inst:AddComponent("sanityaura")
@@ -607,8 +611,8 @@ local function common(moonbeast)
     inst:AddComponent("inspectable")
     inst.components.inspectable.getstatus = GetStatus
     ------------------------------------------
-	
-	inst.annoyance = 0
+
+    inst.annoyance = 0
 
     if not moonbeast then
         inst.OnSave = OnSave
@@ -629,7 +633,7 @@ local function normal()
     end
 
     --inst.build = builds[math.random(#builds)]
-	inst.build = "wildbore_build"
+    inst.build = "wildbore_build"
     inst.AnimState:SetBuild(inst.build)
     SetNormalPig(inst)
     return inst
@@ -700,8 +704,8 @@ local function moon()
 
     inst.components.combat:SetDefaultDamage(TUNING.WEREPIG_DAMAGE)
     inst.components.combat:SetAttackPeriod(TUNING.WEREPIG_ATTACK_PERIOD)
-    inst.components.locomotor.runspeed = TUNING.WEREPIG_RUN_SPEED 
-    inst.components.locomotor.walkspeed = TUNING.WEREPIG_WALK_SPEED 
+    inst.components.locomotor.runspeed = TUNING.WEREPIG_RUN_SPEED
+    inst.components.locomotor.walkspeed = TUNING.WEREPIG_WALK_SPEED
 
     inst.components.sleeper:SetSleepTest(WerepigSleepTest)
     inst.components.sleeper:SetWakeTest(WerepigWakeTest)

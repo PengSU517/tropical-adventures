@@ -1,7 +1,7 @@
 local assets =
 {
-	Asset("ANIM", "anim/living_jungle_tree.zip"),
-	Asset("MINIMAP_IMAGE", "livingtree_burnt"),
+    Asset("ANIM", "anim/living_jungle_tree.zip"),
+    Asset("MINIMAP_IMAGE", "livingtree_burnt"),
     Asset("MINIMAP_IMAGE", "livingtree_stump"),
 }
 
@@ -46,7 +46,7 @@ local function OnBurnt(inst)
     inst.AnimState:PlayAnimation("burnt_tall", true)
     inst.AnimState:SetRayTestOnBB(true)
     inst:AddTag("burnt")
-    inst.MiniMapEntity:SetIcon("livingtree_burnt.png")
+    inst.MiniMapEntity:SetIcon("livingtree_burnt.tex")
 end
 
 local function ondug(inst)
@@ -149,14 +149,14 @@ local function fn()
 
     MakeObstaclePhysics(inst, .75)
 
-    inst.MiniMapEntity:SetIcon("livingjungletree.png")
+    inst.MiniMapEntity:SetIcon("livingjungletree.tex")
 
     inst:AddTag("tree")
 
-local anim = inst.entity:AddAnimState()
-	anim:SetBank("living_jungle_tree")
-	anim:SetBuild("living_jungle_tree")
-	anim:PlayAnimation("idle", true)
+    local anim = inst.entity:AddAnimState()
+    anim:SetBank("living_jungle_tree")
+    anim:SetBuild("living_jungle_tree")
+    anim:PlayAnimation("idle", true)
 
     MakeSnowCoveredPristine(inst)
 
@@ -169,7 +169,7 @@ local anim = inst.entity:AddAnimState()
     inst:AddComponent("inspectable")
 
     inst:AddComponent("lootdropper")
-    inst.components.lootdropper:SetLoot({"livinglog", "livinglog"})
+    inst.components.lootdropper:SetLoot({ "livinglog", "livinglog" })
 
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.CHOP)

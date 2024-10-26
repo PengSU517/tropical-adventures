@@ -813,7 +813,6 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
             for i, name in ipairs(STRINGS.CITYPIGNAMES["QUEEN"]) do
                 table.insert(names, name)
             end
-        
         else
             for i, name in ipairs(STRINGS.CITYPIGNAMES["UNISEX"]) do
                 table.insert(names, name)
@@ -1192,7 +1191,6 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
             for i, name in ipairs(STRINGS.CITYPIGNAMES["QUEEN"]) do
                 table.insert(names, name)
             end
-        
         else
             for i, name in ipairs(STRINGS.CITYPIGNAMES["UNISEX"]) do
                 table.insert(names, name)

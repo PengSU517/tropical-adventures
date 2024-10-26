@@ -1,19 +1,19 @@
-local assets=
+local assets =
 {
-	Asset("ANIM", "anim/tar_pit.zip"),
+    Asset("ANIM", "anim/tar_pit.zip"),
     Asset("MINIMAP_IMAGE", "tar_pit"),
 }
 
-local prefabs=
+local prefabs =
 {
-	"tar",
+    "tar",
 }
 
 --[[
 local function onsave(inst, data)
     if inst.components.inspectable and inst.components.inspectable.inspectdisabled then
         data.inspectdisabled = true
-    end    
+    end
 end
 
 local function onload(inst, data)
@@ -26,47 +26,47 @@ end
 ]]
 
 local function fn(Sim)
-	local inst = CreateEntity()
+    local inst = CreateEntity()
     local minimap = inst.entity:AddMiniMapEntity()
     local sound = inst.entity:AddSoundEmitter()
-    minimap:SetIcon("tar_pit.png")
-	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
-	inst.entity:AddSoundEmitter()
-	inst.entity:AddNetwork()
+    minimap:SetIcon("tar_pit.tex")
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
+    inst.entity:AddSoundEmitter()
+    inst.entity:AddNetwork()
     inst.AnimState:SetBank("tar_pit")
     inst.AnimState:SetBuild("tar_pit")
     inst.AnimState:PlayAnimation("idle", true)
     --inst.AnimState:SetRayTestOnBB(true)
 
     -- This looping sound seems to show up at 0,0,0.. so waiting a frame to start it when the tarpool will be in the world at it's location.
-    inst:DoTaskInTime(0, function() inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/tar_LP","burble") end)
+    inst:DoTaskInTime(0, function() inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/tar_LP", "burble") end)
 
     inst.AnimState:SetLayer(LAYER_BELOW_OCEAN)
-    inst.AnimState:SetSortOrder( 3 )
+    inst.AnimState:SetSortOrder(3)
 
     inst:AddTag("aquatic")
-	inst:AddTag("ignorewalkableplatforms")		
+    inst:AddTag("ignorewalkableplatforms")
     inst:AddTag("tar source")
     inst:AddTag("NOBLOCK")
     inst:AddTag("FX")
-	
-	inst.entity:SetPristine()
+
+    inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
 
---    inst:AddComponent("inspectable")
+    --    inst:AddComponent("inspectable")
 
-    
-	--MakeSmallBurnable(inst)
+
+    --MakeSmallBurnable(inst)
     --MakeSmallPropagator(inst)
- 
---    inst.OnSave = onsave 
---    inst.OnLoad = onload
+
+    --    inst.OnSave = onsave
+    --    inst.OnLoad = onload
 
     return inst
 end
 
-return Prefab( "tar_pool", fn, assets) 
+return Prefab("tar_pool", fn, assets)

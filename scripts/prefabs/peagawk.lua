@@ -237,7 +237,7 @@ local function fn()
     inst.components.eater:SetDiet({ FOODTYPE.VEGGIE }, { FOODTYPE.VEGGIE })
 
     inst:AddComponent("sleeper")
-    inst.components.sleeper:SetWakeTest(function() return true end) --always wake up if we're asleep
+    inst.components.sleeper:SetWakeTest(function() return true end)  --always wake up if we're asleep
 
     inst:AddComponent("combat")
     inst.components.combat.hiteffectsymbol = "pig_torso"

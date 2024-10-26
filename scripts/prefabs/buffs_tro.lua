@@ -1,10 +1,10 @@
-local speedupattr =  {
-    coffee                = { priority = 5, mult = TUNING.COFFEE_SPEED_INCREASE + 1,     duration = TUNING.BUFF_COFFEE_DURATION,        name = "buff_speedup_tro_4", },
-    coffeebean            = { priority = 4, mult = TUNING.COFFEE_SPEED_INCREASE + 1,     duration = TUNING.BUFF_COFFEE_DURATION / 8,    name = "buff_speedup_tro_4", },
-    tropicalbouillabaisse = { priority = 3, mult = TUNING.BOUILLABAISSE_SPEED_MODIFIER,  duration = TUNING.BUFF_BOUILLABAISSE_DURATION, name = "buff_speedup_tro_3", },
-    tea                   = { priority = 2, mult = TUNING.COFFEE_SPEED_INCREASE / 2 + 1, duration = TUNING.BUFF_COFFEE_DURATION / 2,    name = "buff_speedup_tro_2", },
-    icedtea               = { priority = 1, mult = TUNING.COFFEE_SPEED_INCREASE / 3 + 1, duration = TUNING.BUFF_COFFEE_DURATION / 3,    name = "buff_speedup_tro_1", },
-} 
+local speedupattr = {
+    coffee                = { priority = 5, mult = TUNING.COFFEE_SPEED_INCREASE + 1, duration = TUNING.BUFF_COFFEE_DURATION, name = "buff_speedup_tro_4", },
+    coffeebean            = { priority = 4, mult = TUNING.COFFEE_SPEED_INCREASE + 1, duration = TUNING.BUFF_COFFEE_DURATION / 8, name = "buff_speedup_tro_4", },
+    tropicalbouillabaisse = { priority = 3, mult = TUNING.BOUILLABAISSE_SPEED_MODIFIER, duration = TUNING.BUFF_BOUILLABAISSE_DURATION, name = "buff_speedup_tro_3", },
+    tea                   = { priority = 2, mult = TUNING.COFFEE_SPEED_INCREASE / 2 + 1, duration = TUNING.BUFF_COFFEE_DURATION / 2, name = "buff_speedup_tro_2", },
+    icedtea               = { priority = 1, mult = TUNING.COFFEE_SPEED_INCREASE / 3 + 1, duration = TUNING.BUFF_COFFEE_DURATION / 3, name = "buff_speedup_tro_1", },
+}
 
 local function buffnameoverride(target, buff_info)
     for k, v in pairs(buff_info) do
@@ -17,7 +17,7 @@ local function buffnameoverride(target, buff_info)
         if v.inst and v.inst._debuffkey_tro then
             local buffdata = {
                 buffname = speedupattr[v.inst._debuffkey_tro].name,
-				bufftime = math.floor(target.components.medal_showbufftime:getBuffTime(v.inst)),
+                bufftime = math.floor(target.components.medal_showbufftime:getBuffTime(v.inst)),
             }
             table.insert(buff_info, buffdata)
             break
@@ -57,7 +57,7 @@ local function speedup_extend(inst, target, followsymbol, followoffset, data)
                 target.components.medal_showbufftime:SetGetBuffInfoFn(buffnameoverride)
             end
         end
-        inst._debuffkey_tro = data.debuffkey    
+        inst._debuffkey_tro = data.debuffkey
     elseif data.debuffkey == inst._debuffkey_tro then
         inst.components.timer:StopTimer("buffover")
         inst.components.timer:StartTimer("buffover", speedupattr[data.debuffkey].duration)

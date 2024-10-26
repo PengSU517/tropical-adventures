@@ -71,8 +71,8 @@ local function defaultfn(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
     inst:AddComponent("perishable")
 
     inst:AddComponent("tradable")
@@ -249,8 +249,8 @@ local function deadfn(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
     inst:AddComponent("perishable")
 
     inst:AddComponent("tradable")
@@ -311,8 +311,8 @@ local function cookedfn(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
     inst:AddComponent("perishable")
 
     inst:AddComponent("tradable")
@@ -361,8 +361,8 @@ local function driedfn(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-    inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-    inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
     inst:AddComponent("perishable")
 
     inst:AddComponent("tradable")

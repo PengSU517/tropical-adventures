@@ -47,7 +47,8 @@ end
 
 local function OnAttackedByDecidRoot(inst, attacker)
     local x, y, z = inst.Transform:GetWorldPosition()
-    local ents = TheSim:FindEntities(x, y, z, SpringCombatMod(SHARE_TARGET_DIST) * .5, { "_combat", "_health", "pig" }, { "werepig", "wildbeaverguard", "INLIMBO" })
+    local ents = TheSim:FindEntities(x, y, z, SpringCombatMod(SHARE_TARGET_DIST) * .5, { "_combat", "_health", "pig" },
+        { "werepig", "wildbeaverguard", "INLIMBO" })
     local num_helpers = 0
     for i, v in ipairs(ents) do
         if v ~= inst and not v.components.health:IsDead() then
@@ -81,7 +82,7 @@ local function OnAttacked(inst, data)
     local attacker = data.attacker
     inst:ClearBufferedAction()
 
-    if attacker.prefab == "deciduous_root" and attacker.owner ~= nil then 
+    if attacker.prefab == "deciduous_root" and attacker.owner ~= nil then
         OnAttackedByDecidRoot(inst, attacker.owner)
     elseif attacker.prefab ~= "deciduous_root" then
         inst.components.combat:SetTarget(attacker)
@@ -89,7 +90,8 @@ local function OnAttacked(inst, data)
         if inst:HasTag("werepig") then
             inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, IsWerePig, MAX_TARGET_SHARES)
         elseif inst:HasTag("wildbeaverguard") then
-            inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, attacker:HasTag("wildbeaver") and IsGuardPig or IsPig, MAX_TARGET_SHARES)
+            inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST,
+                attacker:HasTag("wildbeaver") and IsGuardPig or IsPig, MAX_TARGET_SHARES)
         elseif not (attacker:HasTag("wildbeaver") and attacker:HasTag("wildbeaverguard")) then
             inst.components.combat:ShareTarget(attacker, SHARE_TARGET_DIST, IsNonWerePig, MAX_TARGET_SHARES)
         end
@@ -110,10 +112,11 @@ local function GuardRetargetFn(inst)
         FindEntity(inst, defendDist, nil, { "beaverking" }) or
         (home ~= nil and inst:IsNear(home, defendDist) and home) or
         inst
-	local defenseTarget1 = FindEntity(inst, defendDist*2, nil, { "beaverking" })
+    local defenseTarget1 = FindEntity(inst, defendDist * 2, nil, { "beaverking" })
 
     if not defenseTarget.happy then
-        local invader = FindEntity(defenseTarget, SpringCombatMod(TUNING.PIG_GUARD_TARGET_DIST), nil, { "character" }, { "wildbeaverguard", "INLIMBO" })
+        local invader = FindEntity(defenseTarget, SpringCombatMod(TUNING.PIG_GUARD_TARGET_DIST), nil, { "character" },
+            { "wildbeaverguard", "INLIMBO" })
         if invader ~= nil and not defenseTarget1 and
             not (defenseTarget.components.trader ~= nil and defenseTarget.components.trader:IsTryingToTradeWithMe(invader)) and
             not (inst.components.trader ~= nil and inst.components.trader:IsTryingToTradeWithMe(invader)) then
@@ -152,10 +155,10 @@ local function GuardKeepTargetFn(inst, target)
     end
 
     local defendDist = not TheWorld.state.isday
-                    and home.components.burnable ~= nil
-                    and home.components.burnable:IsBurning()
-                    and home.components.burnable:GetLargestLightRadius()
-                    or SpringCombatMod(TUNING.PIG_GUARD_DEFEND_DIST)
+        and home.components.burnable ~= nil
+        and home.components.burnable:IsBurning()
+        and home.components.burnable:GetLargestLightRadius()
+        or SpringCombatMod(TUNING.PIG_GUARD_DEFEND_DIST)
     return target:IsNear(home, defendDist) and inst:IsNear(home, defendDist)
 end
 
@@ -175,33 +178,33 @@ local function common()
 
     inst.DynamicShadow:SetSize(1.5, .75)
     inst.Transform:SetFourFaced()
-	
+
 
     inst.AnimState:SetBuild("werebeaver_build")
-	inst.AnimState:SetBank("werebeaver")
+    inst.AnimState:SetBank("werebeaver")
     inst.AnimState:PlayAnimation("idle_loop", true)
     inst.AnimState:Hide("hat")
 
     inst:AddTag("character")
     inst:AddTag("scarytoprey")
     inst:AddTag("wildbeaverguard")
-	inst:AddTag("wildbeaver")
-	
+    inst:AddTag("wildbeaver")
+
     inst:AddComponent("talker")
     inst.components.talker.fontsize = 35
     inst.components.talker.font = TALKINGFONT
     inst.components.talker.offset = Vector3(0, -400, 0)
     inst.components.talker:MakeChatter()
-	inst.components.talker.ontalk = ontalk
-	
+    inst.components.talker.ontalk = ontalk
+
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
-   
+
     inst:AddComponent("locomotor") -- locomotor must be constructed before the stategraph
-	inst.components.locomotor.runspeed = TUNING.PIG_RUN_SPEED
+    inst.components.locomotor.runspeed = TUNING.PIG_RUN_SPEED
     inst.components.locomotor.walkspeed = TUNING.PIG_WALK_SPEED
     ------------------------------------------
     inst:AddComponent("eater")
@@ -212,10 +215,10 @@ local function common()
     inst.components.eater:SetOnEatFn(OnEat)
     ------------------------------------------
     inst:AddComponent("health")
-	inst.components.health:SetMaxHealth(TUNING.PIG_GUARD_HEALTH)
-	
+    inst.components.health:SetMaxHealth(TUNING.PIG_GUARD_HEALTH)
+
     inst:AddComponent("combat")
-	inst.components.combat:SetDefaultDamage(TUNING.PIG_GUARD_DAMAGE)
+    inst.components.combat:SetDefaultDamage(TUNING.PIG_GUARD_DAMAGE)
     inst.components.combat:SetAttackPeriod(TUNING.PIG_GUARD_ATTACK_PERIOD)
     inst.components.combat:SetKeepTargetFunction(GuardKeepTargetFn)
     inst.components.combat:SetRetargetFunction(1, GuardRetargetFn)
@@ -229,17 +232,17 @@ local function common()
     ------------------------------------------
     inst:AddComponent("follower")
     inst.components.follower.maxfollowtime = TUNING.PIG_LOYALTY_MAXTIME
-	inst.components.follower:SetLeader(nil)
+    inst.components.follower:SetLeader(nil)
     ------------------------------------------
-	
+
     -- boat hopping setup
     inst.components.locomotor:SetAllowPlatformHopping(true)
-    inst:AddComponent("embarker")		
+    inst:AddComponent("embarker")
 
     inst:AddComponent("inventory")
 
     inst:AddComponent("lootdropper")
-	inst.components.lootdropper:SetLoot({})
+    inst.components.lootdropper:SetLoot({})
     inst.components.lootdropper:AddRandomLoot("meat", 3)
     inst.components.lootdropper:AddRandomLoot("beaverskin", 1)
     inst.components.lootdropper.numrandomloot = 1
@@ -251,12 +254,11 @@ local function common()
     ------------------------------------------
 
     inst:ListenForEvent("attacked", OnAttacked)
-	
-	inst:SetBrain(guardbrain)
+
+    inst:SetBrain(guardbrain)
     inst:SetStateGraph("SGwildbeaver")
 
     return inst
 end
 
 return Prefab("wildbeaverguard", common, assets, prefabs)
-

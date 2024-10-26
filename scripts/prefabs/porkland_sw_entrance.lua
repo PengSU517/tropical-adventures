@@ -24,7 +24,7 @@ local function fn(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("shipwrecked_exit.png")
+    inst.MiniMapEntity:SetIcon("shipwrecked_exit.tex")
 
     anim:SetBank("boatportal")
     anim:SetBuild("portal_shipwrecked_build")
@@ -87,7 +87,7 @@ local function fn1(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("portal_ham.png")
+    inst.MiniMapEntity:SetIcon("portal_ham.tex")
 
     anim:SetBank("hamportal")
     anim:SetBuild("portal_hamlet_build")
@@ -150,7 +150,7 @@ local function fn2(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("portal.png")
+    inst.MiniMapEntity:SetIcon("portal.tex")
 
     anim:SetBank("boatportal")
     anim:SetBuild("portal_shipwrecked_build")
@@ -198,7 +198,7 @@ local function fn3(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("portal_ham.png")
+    inst.MiniMapEntity:SetIcon("portal_ham.tex")
 
     anim:SetBank("hamportal")
     anim:SetBuild("portal_hamlet_build")
@@ -246,7 +246,7 @@ local function fn4(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("portal_dst.png")
+    inst.MiniMapEntity:SetIcon("portal_dst.tex")
 
     anim:SetBank("portal_dst")
     anim:SetBuild("portal_stone")
@@ -294,7 +294,7 @@ local function fn5(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("portal_dst.png")
+    inst.MiniMapEntity:SetIcon("portal_dst.tex")
 
     anim:SetBank("portal_dst")
     anim:SetBuild("portal_stone")

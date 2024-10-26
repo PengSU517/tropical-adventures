@@ -91,7 +91,7 @@ local function fn()
 	inst.AnimState:PlayAnimation("run_loop", true)
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("armouredboat.png")
+	minimap:SetIcon("armouredboat.tex")
 
 	inst:AddTag("boatsw")
 	inst:AddTag("barcoapto")
@@ -138,8 +138,8 @@ local function fn()
 
 
 	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.atlasname = "images/inventoryimages/volcanoinventory.xml"
-	inst.caminho = "images/inventoryimages/volcanoinventory.xml"
+
+
 	inst.components.equippable.equipslot = EQUIPSLOTS.BARCO
 	inst.components.inventoryitem.cangoincontainer = false
 	inst.components.inventoryitem.canbepickedup = false

@@ -13,14 +13,14 @@ local prefabs =
     "charcoal",
 }
 
-SetSharedLootTable( 'marsh_tree',
-{
-    {'twigs',  1.0},
-    {'log',    0.2},
-})
+SetSharedLootTable('marsh_tree',
+    {
+        { 'twigs', 1.0 },
+        { 'log',   0.2 },
+    })
 
 local function sway(inst)
-    inst.AnimState:PushAnimation("sway"..math.random(4).."_loop", true)
+    inst.AnimState:PushAnimation("sway" .. math.random(4) .. "_loop", true)
 end
 
 local function chop_tree(inst, chopper, chops)
@@ -43,7 +43,7 @@ local function set_stump(inst)
     end
     RemovePhysicsColliders(inst)
     inst:AddTag("stump")
-    inst.MiniMapEntity:SetIcon("marshtree_stump.png")
+    inst.MiniMapEntity:SetIcon("marshtree_stump.tex")
 end
 
 local function dig_up_stump(inst, chopper)
@@ -85,14 +85,14 @@ local function OnBurnt(inst)
     inst:RemoveComponent("hauntable")
     MakeHauntableWork(inst)
 
-    inst.components.lootdropper:SetLoot({"charcoal"})
+    inst.components.lootdropper:SetLoot({ "charcoal" })
 
     inst.components.workable:SetWorkLeft(1)
     inst.components.workable:SetOnWorkCallback(nil)
     inst.components.workable:SetOnFinishCallback(chop_down_burnt_tree)
     inst.AnimState:PlayAnimation("burnt_idle", true)
     inst:AddTag("burnt")
-    inst.MiniMapEntity:SetIcon("marshtree_burnt.png")
+    inst.MiniMapEntity:SetIcon("marshtree_burnt.tex")
 end
 
 local function inspect_tree(inst)
@@ -144,7 +144,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, .25)
 
-    inst.MiniMapEntity:SetIcon("marshtree.png")
+    inst.MiniMapEntity:SetIcon("marshtree.tex")
     inst.MiniMapEntity:SetPriority(-1)
 
     inst:AddTag("plant")
@@ -179,7 +179,7 @@ local function fn()
     local color = 0.5 + math.random() * 0.5
     inst.AnimState:SetMultColour(color, color, color, 1)
     sway(inst)
-	inst.AnimState:SetFrame(math.random(inst.AnimState:GetCurrentAnimationNumFrames()) - 1)
+    inst.AnimState:SetFrame(math.random(inst.AnimState:GetCurrentAnimationNumFrames()) - 1)
 
     inst:AddComponent("inspectable")
     inst.components.inspectable.getstatus = inspect_tree
