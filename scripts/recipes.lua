@@ -797,6 +797,18 @@ AddRecipe2("turf_beach", { Ingredient("sand", 2) }, TECH.TURFCRAFTING_ONE, { num
 
 
 --INTERIOR--
+
+AddRecipe2("player_house_cottage_craft", { Ingredient("oinc", 20) }, TECH.HOME_ONE, {}, { "INTERIOR" })
+AddRecipe2("player_house_tudor_craft", { Ingredient("oinc", 20) }, TECH.HOME_ONE, {}, { "INTERIOR" })
+AddRecipe2("player_house_gothic_craft", { Ingredient("oinc", 20) }, TECH.HOME_ONE, {}, { "INTERIOR" })
+AddRecipe2("player_house_brick_craft", { Ingredient("oinc", 20) }, TECH.HOME_ONE, {}, { "INTERIOR" })
+AddRecipe2("player_house_turret_craft", { Ingredient("oinc", 20) }, TECH.HOME_ONE, {}, { "INTERIOR" })
+AddRecipe2("player_house_villa_craft", { Ingredient("oinc", 30) }, TECH.HOME_ONE, {}, { "INTERIOR" })
+AddRecipe2("player_house_manor_craft", { Ingredient("oinc", 30) }, TECH.HOME_ONE, {}, { "INTERIOR" })
+
+
+
+
 AddRecipe2("stone_door", { Ingredient("oinc", 25) }, TECH.HOME_ONE,
 	{
 
