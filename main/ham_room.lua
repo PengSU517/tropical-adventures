@@ -57,7 +57,7 @@ local function BindKey(key, func)
 end
 
 local extra_distance = 0
-local fov_keys = GetModConfigData("roomview")
+local fov_keys = TA_CONFIG_CLIENT.fov_keys or tro_pairedkey["mp"]
 BindKey(fov_keys[2], function() extra_distance = math.min(math.max(extra_distance + 0.1, -5), 5) end)
 BindKey(fov_keys[1], function() extra_distance = math.min(math.max(extra_distance - 0.1, -5), 5) end)
 

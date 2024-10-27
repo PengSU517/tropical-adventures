@@ -126,12 +126,12 @@ local options_key = {
 
 local options_pairedkey = {
 	{ description = en_zh("Disabled", "关闭"), data = false },
-	{ description = "Q/E", data = { 113, 101 } },
-	{ description = "↓/↑", data = { 274, 273 } },
-	{ description = "←/→", data = { 276, 275 } },
-	{ description = "-/+", data = { 45, 61 } },
-	{ description = "pagedown/pageup", data = { 281, 280 } },
-	{ description = "home/end", data = { 278, 279 } },
+	{ description = "Q/E", data = "qe" },
+	{ description = "↓/↑", data = "du" },
+	{ description = "←/→", data = "lr" },
+	{ description = "-/+", data = "mp" },
+	{ description = "pagedown/pageup", data = "pp" },
+	{ description = "home/end", data = "he" },
 }
 
 
@@ -428,7 +428,23 @@ configuration_options =
 		label = en_zh("Room view", "房间视角"),
 		hover = en_zh("lower or higher view", "拉低/拉高视角"),
 		options = options_pairedkey,
-		default = { 45, 61 }, ----  -/+
+		default = "mp", ----  -/+
+	},
+
+	{
+		name = "build_height",
+		label = en_zh("Building height", "建造高度"),
+		hover = en_zh("windows or hanging section while building", "窗户、悬挂型建筑高度调整"),
+		options = options_pairedkey,
+		default = "du", ----  "↓/↑"
+	},
+
+	{
+		name = "build_rotation",
+		label = en_zh("Building rotation", "建造角度"),
+		hover = en_zh("wall sections, rugs and some decorations", "墙饰/地毯和部分装饰物的建造角度"),
+		options = options_pairedkey,
+		default = "qe", ----  q/e
 	},
 
 
