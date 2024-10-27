@@ -318,7 +318,7 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
             --------怎么合理地加入"playercrafted"这个标签呢，在makeplacer中加吗 .....监听onbuilt就可以。。。
             onBuilt(inst)
             local x, y, z = inst.Transform:GetWorldPosition()
-            inst.height = TUNING.BUILD_HEIGHT or 0
+            inst.height = (data.changevalue and data.changevalue ~= 0) and TUNING.BUILD_HEIGHT or data.height or 0
 
             inst.Transform:SetPosition(x, inst.height, z)
             -- local pt = inst:GetPosition() ----------------这两行不能放在onbuilt里
@@ -341,15 +341,14 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
             local change = TheInput:IsKeyDown(KEY_UP) and data.changevalue or
                 TheInput:IsKeyDown(KEY_DOWN) and -1 * data.changevalue or 0
             if change ~= 0 then
-                data.height = data.height + change
-                data.height = math.min(math.max(data.height, -1), 3)
+                TUNING.BUILD_HEIGHT = TUNING.BUILD_HEIGHT + change
+                TUNING.BUILD_HEIGHT = math.min(math.max(TUNING.BUILD_HEIGHT, -1), 3)
                 if TheNet:GetIsClient() then
-                    SendModRPCToServer(MOD_RPC["ham_room"]["build_height"], data.height)
-                    -- print("!!!!!!!!!!!!data" .. data.height)
+                    SendModRPCToServer(MOD_RPC["ham_room"]["build_height"], TUNING.BUILD_HEIGHT)
                 end
             end
         end
-        inst.Transform:SetPosition(pt.x, data.height or 0, pt.z)
+        inst.Transform:SetPosition(pt.x, data.changevalue ~= 0 and TUNING.BUILD_HEIGHT or data.height or 0, pt.z)
 
 
         if data.rotation then
