@@ -36,12 +36,12 @@ local roomcamera = {
 }
 
 local roomsize = {
-    small = { back = 2, front = 8, side = 7.5 },
-    medium = { back = 2, front = 8, side = 7.5 },
-    big = { back = 2, front = 8, side = 7.5 },
+    small = { back = 2.5, front = 9, side = 7.5 },
+    medium = { back = 5, front = 8.5, side = 7.5 },
+    big = { back = 5, front = 9.5, side = 9 },
     large = { back = 5, front = 8, side = 11.5 },
     cave = { back = 5, front = 13, side = 13 },
-    xlarge = { back = 6, front = 16, side = 13 },
+    xlarge = { back = 5.5, front = 13, side = 13 },
 }
 
 
