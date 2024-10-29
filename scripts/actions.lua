@@ -1032,7 +1032,6 @@ PICKUP.fn = function(act)
     if act.target and act.target.components.inventoryitem and act.target.components.shelfer then
         local item = act.target.components.shelfer:GetGift()
         if item then
-            item:AddTag("cost_one_oinc")
             if act.target.components.shelfer.shelf and not act.target.components.shelfer.shelf:HasTag("playercrafted") then
                 if act.doer.components.shopper and act.doer.components.shopper:IsWatching(item) then
                     if act.doer.components.shopper:CanPayFor(item) then
@@ -1046,7 +1045,6 @@ PICKUP.fn = function(act)
                     end
                 end
             end
-            item:RemoveTag("cost_one_oinc")
             if item.components.perishable then item.components.perishable:StartPerishing() end
             act.target = act.target.components.shelfer:GiveGift()
         end
@@ -1056,7 +1054,9 @@ PICKUP.fn = function(act)
         act.target ~= nil and
         act.target.components.inventoryitem ~= nil and
         (act.target.components.inventoryitem.canbepickedup or
-            (act.target.components.inventoryitem.canbepickedupalive and not act.doer:HasTag("player"))) and
+            (act.target.components.inventoryitem.canbepickedupalive and not act.doer:HasTag("player")) or
+            act.target.components.inventoryitem.grabbableoverridetag ~= nil and act.doer:HasTag(act.target.components.inventoryitem.grabbableoverridetag)
+        ) and
         not (act.target:IsInLimbo() or
             (act.target.components.burnable ~= nil and act.target.components.burnable:IsBurning() and act.target.components.lighter == nil) or
             (act.target.components.projectile ~= nil and act.target.components.projectile:IsThrown())) then
@@ -1104,7 +1104,7 @@ PICKUP.fn = function(act)
                 if equip == nil or act.doer.components.inventory:GetNumSlots() <= 0 then
                     act.doer.components.inventory:Equip(act.target)
                     return true
-                elseif GLOBAL.GetGameModeProperty("non_item_equips") then
+                elseif GetGameModeProperty("non_item_equips") then
                     act.doer.components.inventory:DropItem(equip)
                     act.doer.components.inventory:Equip(act.target)
                     return true
