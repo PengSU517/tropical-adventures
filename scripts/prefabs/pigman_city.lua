@@ -72,7 +72,7 @@ local function getSpeechType(inst, speech)
     local line = speech.DEFAULT
 
     if inst.talkertype and speech[inst.talkertype] then
-        line = speech[inst.talkertype]
+        line = speech[inst.talkertype] or line
     end
 
     if type(line) == "table" then
@@ -240,7 +240,7 @@ local function ShouldAcceptItem(inst, item)
         end
 
         local wanteditems = econ:GetTradeItems(econprefab)
-        local desc = econ:GetTradeItemDesc(econprefab)
+
 
         local wantitem = false
         for i, wanted in ipairs(wanteditems) do
@@ -292,8 +292,20 @@ local function ShouldAcceptItem(inst, item)
                     inst.sayline(inst, getSpeechType(inst, STRINGS.CITY_PIG_TALK_REFUSE_TRINKET_GIFT))
                 else
                     --HUGO
-                    inst.sayline(inst, getSpeechType(inst, STRINGS.CITY_PIG_TALK_REFUSE_GIFT))
-                    --inst.components.talker:Say( string.format( getSpeechType(inst,STRINGS.CITY_PIG_TALK_REFUSE_GIFT), desc ) )
+                    local itemname = GetRandomItem(wanteditems)
+                    local desc = econ:GetTradeItemDesc(econprefab)
+                    local costprefab, cost = econ:MakeTrade(econprefab, nil, nil, itemname)
+
+
+                    inst.sayline(inst,
+                        subfmt(getSpeechType(inst, STRINGS.CITY_PIG_TALK_REFUSE_GIFT),
+                            {
+                                item = STRINGS.NAMES[itemname:upper()] or itemname,
+                                costprefab = costprefab and STRINGS.NAMES[costprefab:upper()],
+                                cost = cost or 1,
+                            }
+
+                        ))
                 end
             end
             return false
@@ -316,7 +328,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
             city = 2
         end
 
-        --I wear hats (but should they? the art doesn't show)
+        -- I wear hats (but should they? the art doesn't show)
         if inst:HasTag("pigqueen") and item.components.equippable then
             local behappy = false
             if item.components.equippable.equipslot == EQUIPSLOTS.HEAD then
@@ -328,23 +340,21 @@ local function OnGetItemFromPlayer(inst, giver, item)
                 inst.components.inventory:Equip(item)
                 inst.AnimState:Show("hat")
                 behappy = true
-
-                --                if item.prefab == "pigcrownhat" and not Profile:IsCharacterUnlocked("wilba") then
-                --                    Profile:UnlockCharacter("wilba")
-                --                    Profile:Save()
-                --                end
             end
 
-            --            if item.components.equippable.equipslot == EQUIPSLOTS.HANDS and item.prefab == "pig_scepter" then
-            --                inst.components.inventory:Equip(item)
-            --                behappy = true
-            --            end
+            if item.components.equippable.equipslot == EQUIPSLOTS.HANDS and item.prefab == "pig_scepter" then
+                inst.components.inventory:Equip(item)
+                behappy = true
+            end
 
             if item.prefab == "relic_4" or item.prefab == "relic_5" then
                 behappy = true
             end
             if behappy then
                 inst:PushEvent("behappy")
+            end
+            if item.prefab ~= "pig_scepter" and item.prefab ~= "pigcrownhat" then
+                item:Remove() -- why doesn't trader use a function for deleteitemonaccept...
             end
         end
 
@@ -388,7 +398,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
                 end
             end
 
-            local reward, qty = econ:MakeTrade(econprefab, city, inst)
+            local reward, qty = econ:MakeTrade(econprefab, city, inst, item.prefab)
             if item.prefab ~= "pig_scepter" and item.prefab ~= "pigcrownhat" then
                 item:Remove()
             end
@@ -1426,6 +1436,7 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
         if not TheWorld.ismastersim then
             return inst
         end
+        inst.components.trader.deleteitemonaccept = false
         inst.components.named.possiblenames = STRINGS.QUEENPIGNAMES
         inst.components.named:PickNewName()
 
