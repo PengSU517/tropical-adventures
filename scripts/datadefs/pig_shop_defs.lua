@@ -196,13 +196,17 @@ local SHOPTYPES = {
 
     pig_shop_tinker = {
 
-        { "dragonflyfurnace_blueprint",      "oinc", 200 },
-        { "pugaliskfountain_made_blueprint", "oinc", 300 },
-        -- { "blue_musnroomhat_blueprint",      "oinc", 100 },
-        -- { "red_musnroomhat_blueprint",       "oinc", 100 },
-        -- { "green_musnroomhat_blueprint",     "oinc", 100 },
+        { "dragonflyfurnace_blueprint",      "oinc", 300 },
+        { "pugaliskfountain_made_blueprint", "oinc", 500 },
+        { "blue_mushroomhat_blueprint",      "oinc", 200 },
+        { "red_mushroomhat_blueprint",       "oinc", 200 },
+        { "green_mushroomhat_blueprint",     "oinc", 200 },
         { "bundlewrap_blueprint",            "oinc", 300 },
         { "trident_blueprint",               "oinc", 200 },
+        { "honeychest_blueprint",            "oinc", 100 },
+        { "townportal_blueprint",            "oinc", 100 },
+        { "antlionhat_blueprint",            "oinc", 200 },
+
 
 
         -- { "player_house_cottage_craft", "oinc", 20 },

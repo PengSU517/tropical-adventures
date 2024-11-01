@@ -1011,24 +1011,43 @@ local function entrance()
 				end
 			end
 
-			local part = SpawnPrefab("shelves_queen_display_1")
+
+			local part = SpawnPrefab("pigman_banker_shopkeep")
 			if part ~= nil then
-				part.Transform:SetPosition(x - 12 / 4, 0, z - 18 / 3)
-				part.Transform:SetRotation(90)
-
-
+				part.Transform:SetPosition(x - 3, 0, z)
+				part.sg:GoToState("desk_pre")
 				if part.components.health ~= nil then
 					part.components.health:SetPercent(1)
 				end
 			end
 
-			local part = SpawnPrefab("shelves_queen_display_2")
+
+			local part = SpawnPrefab("shop_buyer")
 			if part ~= nil then
-				part.Transform:SetPosition(x, 0, z)
+				part.Transform:SetPosition(x - 1, 0, z - 6)
 				part.Transform:SetRotation(90)
-				if part.components.health ~= nil then
-					part.components.health:SetPercent(1)
-				end
+				part.startAnim = "idle_marble_dome"
+				part.AnimState:PlayAnimation("idle_marble_dome")
+				part.saleitem = { "city_hammer", "pedestal_key", 1 }
+			end
+
+
+			local part = SpawnPrefab("shop_buyer")
+			if part ~= nil then
+				part.Transform:SetPosition(x + 3, 0, z)
+				-- part.Transform:SetRotation(90)
+				part.startAnim = "idle_marble_dome"
+				part.AnimState:PlayAnimation("idle_marble_dome")
+				part.saleitem = { "key_to_city", "pedestal_key", 1 }
+			end
+
+			local part = SpawnPrefab("shop_buyer")
+			if part ~= nil then
+				part.Transform:SetPosition(x - 1, 0, z + 6)
+				part.Transform:SetRotation(-90)
+				part.startAnim = "idle_marble_dome"
+				part.AnimState:PlayAnimation("idle_marble_dome")
+				part.saleitem = { "trinket_giftshop_4", "pedestal_key", 1 }
 			end
 
 			local part = SpawnPrefab("deco_palace_banner_small_sidewal")
@@ -1039,6 +1058,8 @@ local function entrance()
 					part.components.health:SetPercent(1)
 				end
 			end
+
+
 
 			local part = SpawnPrefab("deco_palace_banner_small_sidewal")
 			if part ~= nil then

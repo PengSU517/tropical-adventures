@@ -306,11 +306,14 @@ AddAction(
 
 local SHOP = GLOBAL.Action({ priority = 9, rmb = true, distance = 1, mount_valid = false })
 SHOP.stroverridefn = function(act)
-    if act.target.imagename and act.target.cost then
+    if act.target.cost then
+        local itemname = act.target.components.shopdispenser:GetItem()
+        local itemname = itemname and string.gsub(itemname, "_blueprint", "") or "unknown"
+        local costprefab = act.target.costprefab or "oinc"
         return subfmt(STRINGS.ACTIONS.CHECKSHOP, {
-            item = STRINGS.NAMES[act.target.imagename:upper()] or
-                STRINGS.NAMES[act.target.imagename:upper() .. "_CRAFT"],
-            cost = act.target.cost
+            item = STRINGS.NAMES[itemname and itemname:upper()] or itemname,
+            cost = act.target.cost and (act.target.cost <= 1 and "" or act.target.cost),
+            costprefab = STRINGS.NAMES[costprefab:upper()],
         })
     else
         return "Shop"
@@ -356,10 +359,14 @@ SHOP.fn = function(act)
                                 [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_NOT_ENOUGH)])
                         end
                     elseif reason == "goods" then
+                        local itemname = act.target.costprefab or "oinc"
                         if act.target and act.target.shopkeeper_speech then
                             act.target.shopkeeper_speech(act.target,
-                                STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE
-                                [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE)])
+                                subfmt(STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE
+                                    [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE)], {
+                                        item = STRINGS.NAMES[itemname and itemname:upper()] or "UNKNOWN",
+                                    })
+                            )
                         end
                     elseif reason == "closed" then
                         if act.target and act.target.shopkeeper_speech then
@@ -1032,7 +1039,6 @@ PICKUP.fn = function(act)
     if act.target and act.target.components.inventoryitem and act.target.components.shelfer then
         local item = act.target.components.shelfer:GetGift()
         if item then
-            item:AddTag("cost_one_oinc")
             if act.target.components.shelfer.shelf and not act.target.components.shelfer.shelf:HasTag("playercrafted") then
                 if act.doer.components.shopper and act.doer.components.shopper:IsWatching(item) then
                     if act.doer.components.shopper:CanPayFor(item) then
@@ -1046,7 +1052,6 @@ PICKUP.fn = function(act)
                     end
                 end
             end
-            item:RemoveTag("cost_one_oinc")
             if item.components.perishable then item.components.perishable:StartPerishing() end
             act.target = act.target.components.shelfer:GiveGift()
         end
@@ -1056,7 +1061,9 @@ PICKUP.fn = function(act)
         act.target ~= nil and
         act.target.components.inventoryitem ~= nil and
         (act.target.components.inventoryitem.canbepickedup or
-            (act.target.components.inventoryitem.canbepickedupalive and not act.doer:HasTag("player"))) and
+            (act.target.components.inventoryitem.canbepickedupalive and not act.doer:HasTag("player")) or
+            act.target.components.inventoryitem.grabbableoverridetag ~= nil and act.doer:HasTag(act.target.components.inventoryitem.grabbableoverridetag)
+        ) and
         not (act.target:IsInLimbo() or
             (act.target.components.burnable ~= nil and act.target.components.burnable:IsBurning() and act.target.components.lighter == nil) or
             (act.target.components.projectile ~= nil and act.target.components.projectile:IsThrown())) then
@@ -1104,7 +1111,7 @@ PICKUP.fn = function(act)
                 if equip == nil or act.doer.components.inventory:GetNumSlots() <= 0 then
                     act.doer.components.inventory:Equip(act.target)
                     return true
-                elseif GLOBAL.GetGameModeProperty("non_item_equips") then
+                elseif GetGameModeProperty("non_item_equips") then
                     act.doer.components.inventory:DropItem(equip)
                     act.doer.components.inventory:Equip(act.target)
                     return true
