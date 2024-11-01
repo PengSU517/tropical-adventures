@@ -53,10 +53,6 @@ TA_CONFIG.ham_start = TA_CONFIG.hamlet and (TA_CONFIG.multiplayerportal == "haml
 TA_CONFIG.together_not_mainland = (TA_CONFIG.sw_start or TA_CONFIG.ham_start)
 TA_CONFIG.together = not ((not TA_CONFIG.rog) and TA_CONFIG.together_not_mainland)
 
-
-
-
-
 TA_CONFIG.sealnado = TA_CONFIG.shipwrecked and TA_CONFIG.sealnado or false
 TA_CONFIG.fog = TA_CONFIG.hamlet and TA_CONFIG.fog or false
 TA_CONFIG.hayfever = TA_CONFIG.hamlet and TA_CONFIG.hayfever or false
@@ -65,3 +61,24 @@ TA_CONFIG.roc = TA_CONFIG.hamlet and TA_CONFIG.roc or false
 
 
 GLOBAL.TUNING.tropical = GLOBAL.TA_CONFIG
+
+
+
+
+GLOBAL.tro_pairedkey = {
+    qe = { 113, 101 },
+    du = { 274, 273 },
+    lr = { 276, 275 },
+    mp = { 45, 61 },
+    pp = { 281, 280 },
+    he = { 278, 279 }
+}
+
+
+
+
+GLOBAL.TA_CONFIG_CLIENT = {
+    fov_keys = tro_pairedkey[GetModConfigData("roomview")],
+    height_keys = tro_pairedkey[GetModConfigData("build_height")],
+    rotation_keys = tro_pairedkey[GetModConfigData("build_rotation")],
+}

@@ -108,7 +108,7 @@ STRINGS.ACTIONS.OPENTUNA = "打开"
 STRINGS.ACTIONS.GAS = "喷"
 STRINGS.ACTIONS.TIRO = "射击"
 STRINGS.ACTIONS.SHOP = "购买"
-STRINGS.ACTIONS.CHECKSHOP = "花费{cost}呼噜币\n换取{item}"
+STRINGS.ACTIONS.CHECKSHOP = "花费{cost}{costprefab}\n换取{item}"
 --gorge
 STRINGS.ACTIONS.STOREOPEN = "交易"
 STRINGS.ACTIONS.GRIND = "研磨"
@@ -3313,21 +3313,7 @@ STRINGS.CITY_PIG_GUARD_LIGHT_TORCH = {
     DEFAULT = { "我点亮了这热烈的火炬！", "火炬，火炬！", "宵禁时间！" },
 }
 STRINGS.CITY_PIG_TALK_REFUSE_GIFT = {
-    DEFAULT = { "你有货物吗？我可以付钱。" },
-    pigman_beautician = { "你有羽毛吗？", "你有鸟儿的羽毛吗？", "你有漂亮的羽毛吗？", "卖给我羽毛。" },
-    pigman_mechanic = { "你有木板吗？", "你有绳子吗？", "我要买你那些精炼的东西。", "你有精炼货物吗？" },
-    pigman_mayor = { "你有金子吗？", "卖给我金块。", "我要的是金子。" },
-    pigman_collector = { "你有新奇的小东西吗？", "我能买你身上的小东西吗？", "针刺，蛛丝，蚊子，虫壳，花茎，毒腺，腺体和莲花我都要。" },
-    pigman_banker = { "有珠宝吗？", "我要买你的宝石。", "你愿意卖给我珠宝吗？" },
-    pigman_florist = { "你有花瓣吗？", "我要买你的花瓣。" },
-    pigman_farmer = { "你有草吗？", "能卖给我你的草吗？" },
-    pigman_miner = { "你有石头吗？", "我会为你的石头付钱。", "卖石头吗？", "我喜欢石头。", "卖给我一些石头吧。" },
-    pigman_shopkeep = { "你有碎叶吗？", "把你的碎叶卖给我吧。", "你有剪下的树篱吗？" },
-    pigman_storeowner = { "你有碎叶吗？", "有修剪下来的碎叶吗？", "把你修剪树篱下来的碎叶卖给我吧。" },
-    pigman_erudite = { "你有古代的遗物吗？", "给我看看你的小猪遗物", "你有噩梦燃料吗？", "卖给我噩梦燃料吧。" },
-    pigman_hatmaker = { "我要买你的羽毛。", "你有蜘蛛丝吗？", "我需要蜘蛛丝。", "卖给我一些蜘蛛丝吧。" },
-    pigman_professor = { "你有遗物吗？", "我要古代的宝贝。", "我可以为你的遗物付钱。" },
-    pigman_hunter = { "你有狗牙吗？", "能卖给我针刺吗？", "我收购狗牙。" },
+    DEFAULT = { "你有{item}吗？{cost}{costprefab}。" },
 }
 STRINGS.CITY_PIG_TALK_REFUSE_GIFT_DELAY = {
     DEFAULT = { " 过几天再来吧。" },
@@ -3360,7 +3346,7 @@ STRINGS.CITY_PIG_TALK_ATTEMPT_TRADE = {
     DEFAULT = { "你有什么？", "你想要交易吗？", "来一场交易？" },
 }
 STRINGS.CITY_PIG_SHOPKEEPER_NOT_ENOUGH = { "你的钱不够。", "拿更多的钱来。" }
-STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE = { "你没有 %s。", "你还没有 %s。", "先看看钱, 这是前提。" }
+STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE = { "你没有{item}。", "你还没有{item}。", "拿钱是不够的，拿{item}来！" }
 STRINGS.CITY_PIG_SHOPKEEPER_SALE = { "谢谢。", "一次完美的交易。", "非常感谢。", "你是个不错的非猪人。", }
 STRINGS.CITY_PIG_SHOPKEEPER_ROBBED = { "这是谁干的？！", "被抢了！被抢了！被抢了！", "哦，我了个猪啊！", "报复！", }
 
@@ -3392,7 +3378,7 @@ STRINGS.BANDIT_TALK_FIGHT = { "拿去吧！", "去富人那里抢！", "护卫�
 ----------------------------------呼噜币pig oinc
 STRINGS.NAMES.PIG_COIN = "呼噜币"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.PIG_COIN = "我的一点财产。"
-STRINGS.NAMES.OINC = "一元呼噜币"
+STRINGS.NAMES.OINC = "呼噜币"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.OINC = "这一定很有价值。"
 STRINGS.NAMES.OINC10 = "十元呼噜币"
 STRINGS.CHARACTERS.GENERIC.DESCRIBE.OINC10 = "我是有钱人了。"

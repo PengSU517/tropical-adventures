@@ -102,8 +102,7 @@ function Shopper:GetMoney(inventory)
 end
 
 function Shopper:IsWatching(prefab)
-	if 1 == 1 then return true end
-	if prefab:HasTag("cost_one_oinc") or prefab.components.shopped then
+	if prefab.components.shopped then
 		local x, y, z = prefab.Transform:GetWorldPosition()
 		local ents = TheSim:FindEntities(x, y, z, 50, { "shopkeep" })
 		if #ents > 0 then
@@ -154,10 +153,8 @@ function Shopper:CanPayFor(prefab)
 			end
 		end
 	else
-		if prefab:HasTag("cost_one_oinc") then
-			if self:GetMoney(inventory) >= 1 then
-				return true
-			end
+		if self:GetMoney(inventory) >= 1 then
+			return true
 		end
 	end
 	return false, "REPAIRBOAT"
@@ -182,35 +179,32 @@ function Shopper:PayFor(prefab)
 	local player = self.inst
 	local inventory = player.components.inventory
 
-	if prefab:HasTag("cost_one_oinc") then
-		self:PayMoney(inventory, 1)
-	else
-		local prefab_wanted = prefab.costprefab
-		--		local shop = prefab.components.shopped.shop.components.shopinterior
-		if prefab.components.shopdispenser == nil or prefab.components.shopdispenser:GetItem() == nil then
-			return false
-		end
 
-		if inventory ~= nil and prefab_wanted ~= nil then
-			if prefab_wanted == "oinc" then
-				self:PayMoney(inventory, prefab.cost)
+	local prefab_wanted = prefab.costprefab
+	--		local shop = prefab.components.shopped.shop.components.shopinterior
+	if prefab.components.shopdispenser == nil or prefab.components.shopdispenser:GetItem() == nil then
+		return false
+	end
+
+	if inventory ~= nil and prefab_wanted ~= nil then
+		if prefab_wanted == "oinc" then
+			self:PayMoney(inventory, prefab.cost)
+			self:BoughtItem(prefab, player)
+		elseif prefab_wanted == "goldenbar" then
+			--if inventory:Has("goldenbar", 1) then inventory:ConsumeByName("goldenbar", 1 ) return end
+			--if inventory:Has("lucky_goldnugget", 1) then inventory:ConsumeByName("lucky_goldnugget", 1 ) return end			
+			inventory:ConsumeByName("goldenbar", 1)
+			--self:PayMoney(inventory,prefab.cost)
+			self:BoughtItem(prefab, player)
+		elseif prefab_wanted == "lucky_goldnugget" then
+			inventory:ConsumeByName("lucky_goldnugget", 1)
+			--				self:PayMoney(inventory,prefab.cost)
+			self:BoughtItem(prefab, player)
+		else
+			local item = inventory:FindItem(function(look) return look.prefab == prefab_wanted end)
+			if item ~= nil then
+				inventory:RemoveItem(item)
 				self:BoughtItem(prefab, player)
-			elseif prefab_wanted == "goldenbar" then
-				--if inventory:Has("goldenbar", 1) then inventory:ConsumeByName("goldenbar", 1 ) return end
-				--if inventory:Has("lucky_goldnugget", 1) then inventory:ConsumeByName("lucky_goldnugget", 1 ) return end			
-				inventory:ConsumeByName("goldenbar", 1)
-				--self:PayMoney(inventory,prefab.cost)
-				self:BoughtItem(prefab, player)
-			elseif prefab_wanted == "lucky_goldnugget" then
-				inventory:ConsumeByName("lucky_goldnugget", 1)
-				--				self:PayMoney(inventory,prefab.cost)
-				self:BoughtItem(prefab, player)
-			else
-				local item = inventory:FindItem(function(look) return look.prefab == prefab_wanted end)
-				if item ~= nil then
-					inventory:RemoveItem(item)
-					self:BoughtItem(prefab, player)
-				end
 			end
 		end
 	end
