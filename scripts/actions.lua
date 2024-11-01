@@ -307,10 +307,13 @@ AddAction(
 local SHOP = GLOBAL.Action({ priority = 9, rmb = true, distance = 1, mount_valid = false })
 SHOP.stroverridefn = function(act)
     if act.target.cost then
-        local itemname = string.gsub(act.target.components.shopdispenser:GetItem(), "_blueprint", "") or "unknown"
+        local itemname = act.target.components.shopdispenser:GetItem()
+        local itemname = itemname and string.gsub(itemname, "_blueprint", "") or "unknown"
+        local costprefab = act.target.costprefab or "oinc"
         return subfmt(STRINGS.ACTIONS.CHECKSHOP, {
             item = STRINGS.NAMES[itemname and itemname:upper()] or itemname,
-            cost = act.target.cost
+            cost = act.target.cost and (act.target.cost <= 1 and "" or act.target.cost),
+            costprefab = STRINGS.NAMES[costprefab:upper()],
         })
     else
         return "Shop"
@@ -356,10 +359,14 @@ SHOP.fn = function(act)
                                 [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_NOT_ENOUGH)])
                         end
                     elseif reason == "goods" then
+                        local itemname = act.target.costprefab or "oinc"
                         if act.target and act.target.shopkeeper_speech then
                             act.target.shopkeeper_speech(act.target,
-                                STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE
-                                [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE)])
+                                subfmt(STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE
+                                    [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE)], {
+                                        item = STRINGS.NAMES[itemname and itemname:upper()] or "UNKNOWN",
+                                    })
+                            )
                         end
                     elseif reason == "closed" then
                         if act.target and act.target.shopkeeper_speech then

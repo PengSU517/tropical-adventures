@@ -47,6 +47,9 @@ end
 --防止配方名称冲突
 local old_addrecipe2 = AddRecipe2
 AddRecipe2 = function(name, ingredients, tech, config, filters)
+	-- if not filters then
+	-- 	print("[WARNING] AddRecipe2: Recipe no filter: " .. name)
+	-- end
 	if not AllRecipes[name] then
 		old_addrecipe2(name, ingredients, tech, config, filters)
 	else
@@ -227,24 +230,24 @@ AddRecipe2("mermwatchtower", { Ingredient("boards", 5), Ingredient("tentaclespot
 			return ground_tile and (ground_tile == GROUND.MARSH or ground_tile == GROUND.TIDALMARSH)
 		end
 	}, { "CHARACTER" })
-AddRecipe2("shadowmower_builder", { Ingredient("nightmarefuel", 2), Ingredient(GLOBAL.CHARACTER_INGREDIENT.SANITY, 60) },
-	TECH.SHADOW_TWO, { builder_tag = "shadowmagic", nounlock = true }, { "CRAFTING_STATION" })
-AddRecipe2("shadowlumber_builder",
-	{ Ingredient("nightmarefuel", 2),
-		Ingredient(GLOBAL.CHARACTER_INGREDIENT.MAX_SANITY, GLOBAL.TUNING.SHADOWWAXWELL_SANITY_PENALTY.SHADOWLUMBER) },
-	TECH.SHADOW_TWO, nil, nil, true, nil, "shadowmagic")
-AddRecipe2("shadowminer_builder",
-	{ Ingredient("nightmarefuel", 2),
-		Ingredient(GLOBAL.CHARACTER_INGREDIENT.MAX_SANITY, GLOBAL.TUNING.SHADOWWAXWELL_SANITY_PENALTY.SHADOWMINER) },
-	TECH.SHADOW_TWO, nil, nil, true, nil, "shadowmagic")
-AddRecipe2("shadowdigger_builder",
-	{ Ingredient("nightmarefuel", 2),
-		Ingredient(GLOBAL.CHARACTER_INGREDIENT.MAX_SANITY, GLOBAL.TUNING.SHADOWWAXWELL_SANITY_PENALTY.SHADOWDIGGER) },
-	TECH.SHADOW_TWO, nil, nil, true, nil, "shadowmagic")
-AddRecipe2("shadowduelist_builder",
-	{ Ingredient("nightmarefuel", 2),
-		Ingredient(GLOBAL.CHARACTER_INGREDIENT.MAX_SANITY, GLOBAL.TUNING.SHADOWWAXWELL_SANITY_PENALTY.SHADOWDUELIST) },
-	TECH.SHADOW_TWO, nil, nil, true, nil, "shadowmagic")
+-- AddRecipe2("shadowmower_builder", { Ingredient("nightmarefuel", 2), Ingredient(GLOBAL.CHARACTER_INGREDIENT.SANITY, 60) },
+-- 	TECH.SHADOW_TWO, { builder_tag = "shadowmagic", nounlock = true }, { "CRAFTING_STATION" })
+-- AddRecipe2("shadowlumber_builder",
+-- 	{ Ingredient("nightmarefuel", 2),
+-- 		Ingredient(GLOBAL.CHARACTER_INGREDIENT.MAX_SANITY, GLOBAL.TUNING.SHADOWWAXWELL_SANITY_PENALTY.SHADOWLUMBER) },
+-- 	TECH.SHADOW_TWO, nil, { "MAGIC" }, true, nil, "shadowmagic")
+-- AddRecipe2("shadowminer_builder",
+-- 	{ Ingredient("nightmarefuel", 2),
+-- 		Ingredient(GLOBAL.CHARACTER_INGREDIENT.MAX_SANITY, GLOBAL.TUNING.SHADOWWAXWELL_SANITY_PENALTY.SHADOWMINER) },
+-- 	TECH.SHADOW_TWO, nil, { "MAGIC" }, true, nil, "shadowmagic")
+-- AddRecipe2("shadowdigger_builder",
+-- 	{ Ingredient("nightmarefuel", 2),
+-- 		Ingredient(GLOBAL.CHARACTER_INGREDIENT.MAX_SANITY, GLOBAL.TUNING.SHADOWWAXWELL_SANITY_PENALTY.SHADOWDIGGER) },
+-- 	TECH.SHADOW_TWO, nil, { "MAGIC" }, true, nil, "shadowmagic")
+-- AddRecipe2("shadowduelist_builder",
+-- 	{ Ingredient("nightmarefuel", 2),
+-- 		Ingredient(GLOBAL.CHARACTER_INGREDIENT.MAX_SANITY, GLOBAL.TUNING.SHADOWWAXWELL_SANITY_PENALTY.SHADOWDUELIST) },
+-- 	TECH.SHADOW_TWO, nil, { "MAGIC" }, true, nil, "shadowmagic")
 
 --OBSIDIAN STATION--
 AddRecipe2("axeobsidian",
@@ -308,8 +311,8 @@ AddRecipe2("messagebottleempty1", { Ingredient("sand", 3) }, TECH.SCIENCE_TWO, {
 AddRecipe2("limestone", { Ingredient("coral", 3) }, TECH.SCIENCE_ONE, {}, { "REFINE" })
 AddRecipe2("nubbin", { Ingredient("limestone", 3), Ingredient("corallarve", 1) }, TECH.SCIENCE_ONE,
 	{}, { "REFINE" })
-AddRecipe2("ice", { Ingredient("hail_ice", 4) }, TECH.SCIENCE_TWO, { "REFINE" })
-AddRecipe2("goldnugget", { Ingredient("dubloon", 3) }, TECH.SCIENCE_ONE, { "REFINE" })
+AddRecipe2("ice", { Ingredient("hail_ice", 4) }, TECH.SCIENCE_TWO, {}, { "REFINE" })
+AddRecipe2("goldnugget", { Ingredient("dubloon", 3) }, TECH.SCIENCE_ONE, {}, { "REFINE" })
 AddRecipe2("spear_poison", { Ingredient("spear", 1), Ingredient("venomgland", 1) }, TECH.SCIENCE_ONE,
 	{}, { "WEAPONS" })
 AddRecipe2("cutlass", { Ingredient("goldnugget", 2), Ingredient("twigs", 1), Ingredient("dead_swordfish", 1) },
@@ -498,7 +501,7 @@ AddRecipe2("bathat", { Ingredient("pigskin", 2), Ingredient("batwing", 1), Ingre
 AddRecipe2("candlehat", { Ingredient("cork", 4), Ingredient("iron", 2) }, TECH.SCIENCE_ONE,
 	{}, { "LIGHT" })
 AddRecipe2("glass_shards", { Ingredient("sand", 3) }, TECH.SCIENCE_ONE, {}, { "REFINE" })
---AddRecipe2("goldnugget",{Ingredient("gold_dust", 6)}, TECH.SCIENCE_ONE, {atlas=h_atlas}, {"REFINE"})
+AddRecipe2("goldnugget", { Ingredient("gold_dust", 6) }, TECH.SCIENCE_ONE, {}, { "REFINE" })
 AddRecipe2("shard_sword",
 	{ Ingredient("glass_shards", 3), Ingredient("nightmarefuel", 2), Ingredient("twigs", 2) },
 	TECH.MAGIC_TWO, {}, { "MAGIC" })
@@ -576,8 +579,8 @@ SortAfter("hogusporkusator", "researchlab4", "STRUCTURES")
 --CITY----------------------------
 
 
-AddRecipe2("city_hammer", { Ingredient("iron", 2), Ingredient("twigs", 1) }, TECH.CITY_ONE,
-	{ --[[nounlock = true]] }, { "HAMLET" })
+-- AddRecipe2("city_hammer", { Ingredient("iron", 2), Ingredient("twigs", 1) }, TECH.CITY_ONE,
+-- 	{ --[[nounlock = true]] }, { "HAMLET" })
 AddRecipe2("securitycontract", { Ingredient("oinc", 10) }, TECH.CITY_ONE, { nounlock = false },
 	{ "HAMLET" })
 AddRecipe2("city_lamp", { Ingredient("alloy", 1), Ingredient("transistor", 1), Ingredient("lantern", 1) },
