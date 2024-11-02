@@ -141,20 +141,9 @@ SortAfter("wx78module_taser_ham", "wx78module_taser", "CHARACTER")
 -- 	{ placer = "wildborehouse_placer" }, { "STRUCTURES" })
 -----------------这个为什么不需要图片
 
--- AddRecipe2("loot_pumper",
--- 	{
--- 		Ingredient("gears", 1),
--- 		Ingredient("alloy", 2),
--- 		Ingredient("transistor", 2)
--- 	},
--- 	TECH.SCIENCE_TWO,
--- 	{
--- 		atlas = "images/inventoryimages/loot_pump.xml",
--- 		min_spacing = 3.2,
--- 		placer = "loot_pumper_placer",
--- 		image = "loot_pump.tex"
--- 	},
--- 	{ "PROTOTYPERS", "STRUCTURES" })
+AddRecipe2("loot_pumper",
+	{ Ingredient("gears", 1), Ingredient("alloy", 2), Ingredient("transistor", 2) }, TECH.SCIENCE_TWO,
+	{ min_spacing = 3.2, placer = "loot_pumper_placer", image = "loot_pump.tex" }, { "PROTOTYPERS", "STRUCTURES" })
 
 
 
