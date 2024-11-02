@@ -312,7 +312,7 @@ local function entrance()
 			part.Transform:SetPosition(x + 3.3, 0, z + width / 4.5)
 			part.startAnim = "idle_marble_dome"
 			part.AnimState:PlayAnimation("idle_marble_dome")
-			part.saleitem = { "oinc", "lucky_goldnugget", 1 }
+			part.saleitem = { "lucky_goldnugget", "oinc", 10 }
 			part.Transform:SetRotation(180)
 			if part.components.health ~= nil then
 				part.components.health:SetPercent(1)
@@ -361,7 +361,7 @@ local function entrance()
 			part.Transform:SetPosition(x, 0, z + 3.5)
 			part.startAnim = "idle_marble_dome"
 			part.AnimState:PlayAnimation("idle_marble_dome")
-			part.saleitem = { "oinc10", "goldenbar", 1 }
+			part.saleitem = { "goldenbar", "oinc", 40 }
 			part.Transform:SetRotation(180)
 			if part.components.health ~= nil then
 				part.components.health:SetPercent(1)

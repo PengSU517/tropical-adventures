@@ -68,7 +68,7 @@ modimport("postinit/components/boatphysics")
 
 
 --prefabs
-modimport("postinit/prefabs/image_minisign")
+-- modimport("postinit/prefabs/image_minisign") --会影响到其他mod
 modimport("postinit/prefabs/gears")
 modimport("postinit/prefabs/warningshadow")
 modimport("postinit/prefabs/world")
