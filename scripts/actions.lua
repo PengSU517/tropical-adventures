@@ -3167,14 +3167,21 @@ local function ConfigureRunState(inst)
         inst.sg.statemem.groggy = inst:HasTag("groggy")
         inst.sg.statemem.hamfog = inst:HasTag("hamfogspeed")
         inst.sg:AddStateTag("nodangle")
+        inst.sg:AddStateTag("noslip")
 
         local mount = inst.components.rider:GetMount()
         inst.sg.statemem.ridingwoby = mount and mount:HasTag("woby")
     elseif inst.components.inventory:IsHeavyLifting() then
         inst.sg.statemem.heavy = true
         inst.sg.statemem.heavy_fast = inst.components.mightiness ~= nil and inst.components.mightiness:IsMighty()
+        inst.sg:AddStateTag("noslip")
+    elseif inst:IsChannelCasting() then
+        inst.sg.statemem.channelcast = true
+        inst.sg.statemem.channelcastitem = inst:IsChannelCastingItem()
     elseif inst:HasTag("wereplayer") then
         inst.sg.statemem.iswere = true
+        inst.sg:AddStateTag("noslip")
+
         if inst:HasTag("weremoose") then
             if inst:HasTag("groggy") or inst:HasTag("hamfogspeed") then
                 inst.sg.statemem.moosegroggy = true
@@ -3194,7 +3201,7 @@ local function ConfigureRunState(inst)
         else
             inst.sg.statemem.normal = true
         end
-    elseif inst:GetStormLevel() >= TUNING.SANDSTORM_FULL_LEVEL and not inst.components.playervision:HasGoggleVision() then
+    elseif inst:IsInAnyStormOrCloud() and not inst.components.playervision:HasGoggleVision() then
         inst.sg.statemem.sandstorm = true
     elseif inst:HasTag("groggy") then
         inst.sg.statemem.groggy = true
@@ -3202,6 +3209,7 @@ local function ConfigureRunState(inst)
         inst.sg.statemem.hamfog = true
     elseif inst:IsCarefulWalking() then
         inst.sg.statemem.careful = true
+        inst.sg:AddStateTag("noslip")
     else
         inst.sg.statemem.normal = true
         inst.sg.statemem.normalwonkey = inst:HasTag("wonkey") and not inst:HasTag("wilbur") or nil
@@ -3209,7 +3217,10 @@ local function ConfigureRunState(inst)
 end
 
 local function GetRunStateAnim(inst)
-    return (inst.sg.statemem.heavy and "heavy_walk")
+    return ((inst.sg.statemem.heavy and inst.sg.statemem.heavy_fast) and "heavy_walk_fast")
+        or (inst.sg.statemem.heavy and "heavy_walk")
+        or (inst.sg.statemem.channelcastitem and "channelcast_walk")
+        or (inst.sg.statemem.channelcast and "channelcast_oh_walk")
         or (inst.sg.statemem.sandstorm and "sand_walk")
         or
         ((inst.sg.statemem.groggy or inst.sg.statemem.hamfog or inst.sg.statemem.moosegroggy or inst.sg.statemem.goosegroggy) and "idle_walk")

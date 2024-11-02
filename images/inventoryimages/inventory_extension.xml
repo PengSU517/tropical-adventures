@@ -2,8 +2,9 @@
 <Atlas>
     <Texture filename="inventory_extension.tex"/>
     <Elements>
-        <Element name="double_umbrellahat_palmleaf.tex" u1="0.00390625" u2="0.496094" v1="0.0078125" v2="0.992188"/>
-        <Element name="double_umbrellahat_sharkitten.tex" u1="0.503906" u2="0.996094" v1="0.0078125" v2="0.992188"/>
+        <Element name="double_umbrellahat_palmleaf.tex" u1="0.00390625" u2="0.488281" v1="0.0117188" v2="0.496094"/>
+        <Element name="double_umbrellahat_sharkitten.tex" u1="0.496094" u2="0.980469" v1="0.0117188" v2="0.496094"/>
+        <Element name="loot_pump.tex" u1="0.00390625" u2="0.496094" v1="0.503906" v2="0.996094"/>
     </Elements>
     <StraightAlpha>false</StraightAlpha>
 </Atlas>

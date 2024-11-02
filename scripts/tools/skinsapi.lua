@@ -505,7 +505,7 @@ function basic_skininit_fn(inst, skinname)
         inst.AnimState:PlayAnimation(data.anim)
     end
     if inst.components.inventoryitem ~= nil then
-        -- inst.components.inventoryitem.atlasname = data.atlas or ("images/inventoryimages/" .. skinname .. ".xml")
+        -- inst.components.inventoryitem.atlasname = GetInventoryItemAtlas((data.image or skinname) .. ".tex")
         inst.components.inventoryitem:ChangeImageName(data.image or skinname)
     end
     if data.skininit_fn then
@@ -527,7 +527,7 @@ function basic_skinclear_fn(inst, skinname) -- 默认认为 build 和prefab同�
     end
     inst.AnimState:SetBuild(data.basebuild or prefab)
     if inst.components.inventoryitem ~= nil then
-        inst.components.inventoryitem.atlasname = GetInventoryItemAtlas(prefab .. ".tex")
+        -- inst.components.inventoryitem.atlasname = GetInventoryItemAtlas(prefab .. ".tex")
         inst.components.inventoryitem:ChangeImageName(prefab)
     end
     if itemskins[skinname].skinclear_fn then

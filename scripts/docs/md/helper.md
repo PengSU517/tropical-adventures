@@ -1,12 +1,10 @@
 
 
 正则表达搜索范例： \tinst\.components\.inventoryitem\.atlasname.*$
-
 GLOBAL.setfenv(1, GLOBAL) --这个是让所有的全局变量挂在global上
-
-
-
-
+dostaticTask 一段时间之后执行函数
+puff_fx_cold哈冷气的特效
+"feetslipped" 滑倒的动作
 
 
 
