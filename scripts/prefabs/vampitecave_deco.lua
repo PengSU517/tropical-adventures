@@ -713,7 +713,7 @@ return
 --BAT CAVE
     Prefab("deco_cave_beam_room",
         decofn("interior_wall_decals_batcave", "interior_wall_decals_cave", "pillar_front",
-            { decal = true, physics = "big_post_physics", workable = true, minimapicon = "vamp_cave_pillar.png" }),
+            { decal = true, physics = "big_post_physics", workable = true, minimapicon = "vamp_cave_pillar.tex" }),
         assets, prefabs),
     Prefab("deco_cave_cornerbeam",
         decofn("interior_wall_decals_batcave", "interior_wall_decals_cave", "pillar_corner",
@@ -748,7 +748,7 @@ return
                 physics = "pond_physics",
                 prefabname = "deco_cave_bat_burrow",
                 minimapicon =
-                "vamp_cave_burrow.png"
+                "vamp_cave_burrow.tex"
             }), assets, prefabs),
     Prefab("grotto_pillar_bug",
         decofn("interior_wall_grottogub_cave", "interior_wall_grottogub_cave", "pillar_front",
@@ -756,7 +756,7 @@ return
                 decal = true,
                 physics = "big_post_physics",
                 workable = true,
-                minimapicon = "grotto_pillar_bug.png",
+                minimapicon = "grotto_pillar_bug.tex",
                 scale =
                 "alto"
             }), assets, prefabs),
@@ -764,7 +764,7 @@ return
     --ANT HIVE
     Prefab("deco_hive_beam_room",
         decofn("interior_wall_decals_antcave", "interior_wall_decals_antcave", "pillar_front",
-            { decal = true, physics = "big_post_physics", workable = true, minimapicon = "vamp_cave_pillar.png" }),
+            { decal = true, physics = "big_post_physics", workable = true, minimapicon = "vamp_cave_pillar.tex" }),
         assets, prefabs),
     Prefab("deco_hive_cornerbeam",
         decofn("interior_wall_decals_antcave", "interior_wall_decals_antcave", "pillar_corner",
@@ -776,7 +776,7 @@ return
         assets, prefabs),
     Prefab("deco_hive_beam_broken_room",
         decofn("interior_wall_decals_antcave", "interior_wall_decals_antcave", "pillar_front_crumble_idle",
-            { decal = true, physics = "big_post_physics", minimapicon = "vamp_cave_pillar.png" }), assets, prefabs),
+            { decal = true, physics = "big_post_physics", minimapicon = "vamp_cave_pillar.tex" }), assets, prefabs),
     Prefab("deco_hive_stalactite", decofn("interior_wall_decals_antcave", "interior_wall_decals_antcave", "stalactite"),
         assets, prefabs),
     Prefab("deco_hive_broken_pillar",
@@ -857,7 +857,7 @@ return
             { decal = true, background = 3, tags = { "cornerpost" } }), assets, prefabs),
     Prefab("deco_ruins_corner_tree",
         decofn("interior_wall_decals_ruins", "interior_wall_decals_ruins", "giant_roots",
-            { decal = true, background = 3, physics = "tree_physics" }), assets, prefabs), -- , minimapicon="pig_ruins_tree_roots_int.png"
+            { decal = true, background = 3, physics = "tree_physics" }), assets, prefabs), -- , minimapicon="pig_ruins_tree_roots_int.tex"
     Prefab("deco_ruins_beam_heavy",
         decofn("interior_wall_decals_ruins", "interior_wall_decals_ruins", "pillar_side_lg",
             { decal = true, background = 3 }),
@@ -867,11 +867,11 @@ return
         prefabs),
     Prefab("deco_ruins_beam_room",
         decofn("interior_wall_decals_ruins", "interior_wall_decals_ruins", "pillar_front",
-            { decal = true, physics = "post_physics", workable = true, minimapicon = "pig_ruins_pillar.png" }), assets,
+            { decal = true, physics = "post_physics", workable = true, minimapicon = "pig_ruins_pillar.tex" }), assets,
         prefabs),
     Prefab("deco_ruins_beam_room_broken",
         decofn("interior_wall_decals_ruins", "interior_wall_decals_ruins", "pillar_broken",
-            { decal = true, physics = "post_physics", minimapicon = "pig_ruins_pillar.png" }), assets, prefabs),
+            { decal = true, physics = "post_physics", minimapicon = "pig_ruins_pillar.tex" }), assets, prefabs),
     Prefab("deco_ruins_beam_broken",
         decofn("interior_wall_decals_ruins", "interior_wall_decals_ruins", "pillar_broken",
             { decal = true, background = 3 }),
@@ -921,11 +921,11 @@ return
         prefabs),
     Prefab("deco_ruins_beam_room_blue",
         decofn("interior_wall_decals_ruins_blue", "interior_wall_decals_ruins", "pillar_front",
-            { decal = true, physics = "post_physics", workable = true, minimapicon = "pig_ruins_pillar.png" }), assets,
+            { decal = true, physics = "post_physics", workable = true, minimapicon = "pig_ruins_pillar.tex" }), assets,
         prefabs),
     Prefab("deco_ruins_beam_room_broken_blue",
         decofn("interior_wall_decals_ruins_blue", "interior_wall_decals_ruins", "pillar_broken",
-            { decal = true, physics = "post_physics", minimapicon = "pig_ruins_pillar.png" }), assets, prefabs),
+            { decal = true, physics = "post_physics", minimapicon = "pig_ruins_pillar.tex" }), assets, prefabs),
     Prefab("deco_ruins_beam_broken_blue",
         decofn("interior_wall_decals_ruins_blue", "interior_wall_decals_ruins", "pillar_broken",
             { decal = true, background = 3 }), assets, prefabs)

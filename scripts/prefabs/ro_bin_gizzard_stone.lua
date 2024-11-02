@@ -168,7 +168,7 @@ local function fn(Sim)
 
     --so I can find the thing while testing
     --local minimap = inst.entity:AddMiniMapEntity()
-    --minimap:SetIcon( "treasure.png" )
+    --minimap:SetIcon( "treasure.tex" )
 
     --inst:AddTag("ro_bin_eyebone")
     -- inst:AddTag("chester_eyebone") --This tag is used in save code and stuff, that's why I didn't change it

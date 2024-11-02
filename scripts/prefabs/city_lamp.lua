@@ -146,8 +146,10 @@ local function fn(Sim)
     inst:AddTag("CITY_LAMP")
     inst.entity:AddTransform()
     inst.entity:AddAnimState()
-
     inst.entity:AddPhysics()
+    local minimap = inst.entity:AddMiniMapEntity()
+    minimap:SetIcon("city_lamp.tex")
+
 
     MakeObstaclePhysics(inst, 0.25)
 

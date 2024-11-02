@@ -1063,3 +1063,7 @@ Assets =
 AddMinimapAtlas("images/minimap/minimap_hamlet.xml")
 AddMinimapAtlas("images/minimap/minimap_rog.xml")
 AddMinimapAtlas("images/minimap/minimap_shipwrecked.xml")
+AddMinimapAtlas("images/inventoryimages/inventory_rog.xml")
+AddMinimapAtlas("images/inventoryimages/inventory_shipwrecked.xml")
+AddMinimapAtlas("images/inventoryimages/inventory_hamlet.xml")
+AddMinimapAtlas("images/inventoryimages/inventory_extension.xml")

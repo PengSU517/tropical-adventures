@@ -923,7 +923,7 @@ return
 
 
     --ruins
-    --   Prefab("deco_ruins_fountain", decofn("pig_ruins_well", "pig_ruins_well", "idle_full",                                      {loopanim=true, decal=true, physics="pond_physics", minimapicon="pig_ruins_well.png"}), assets, prefabs),
+    --   Prefab("deco_ruins_fountain", decofn("pig_ruins_well", "pig_ruins_well", "idle_full",                                      {loopanim=true, decal=true, physics="pond_physics", minimapicon="pig_ruins_well.tex"}), assets, prefabs),
 
     Prefab("deco_ruins_wallcrumble_1",
         decofn("interior_wall_decals_ruins", "interior_wall_decals_ruins", "2", { decal = true, background = 1 }), assets,

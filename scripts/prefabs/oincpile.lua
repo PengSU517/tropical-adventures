@@ -116,7 +116,7 @@ local function fn(Sim)
     MakeObstaclePhysics(inst, 1.5)
 
     --	local minimap = inst.entity:AddMiniMapEntity()
-    --	minimap:SetIcon( "dung_pile.png" )
+    --	minimap:SetIcon( "dung_pile.tex" )
 
     anim:SetBank("oincpile")
     anim:SetBuild("oincpile")

@@ -101,7 +101,7 @@ local function fn()
 	local anim = inst.entity:AddAnimState()
 	inst.entity:AddNetwork()
 	--local minimap = inst.entity:AddMiniMapEntity()
-	--minimap:SetIcon( "fish.png" )
+	--minimap:SetIcon( "fish.tex" )
 
 	inst:AddTag("ballphin")
 
@@ -180,7 +180,7 @@ local function fn1()
 	local anim = inst.entity:AddAnimState()
 	inst.entity:AddNetwork()
 	--local minimap = inst.entity:AddMiniMapEntity()
-	--minimap:SetIcon( "fish.png" )
+	--minimap:SetIcon( "fish.tex" )
 
 	inst:AddTag("ballphin")
 	inst:AddTag("tropicalspawner")

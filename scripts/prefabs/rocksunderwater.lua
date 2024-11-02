@@ -465,7 +465,7 @@ local function OnRockMoonCapsuleWorkFinished(inst)
 end
 
 local function rock_moon_shell()
-    local inst = baserock_fn("moonrock_shell", "moonrock_shell", "full", "rock_moon.png", "meteor_protection")
+    local inst = baserock_fn("moonrock_shell", "moonrock_shell", "full", "rock_moon.tex", "meteor_protection")
 
     inst:SetPrefabNameOverride("rock_moon_shell")
 
@@ -500,7 +500,7 @@ local function on_load_moonglass(inst, data)
 end
 
 local function rock_moon_glass()
-    local inst = baserock_fn("moonglass_rock", "moonglass_rock", "full", "rock_moonglass.png", nil, 1.0)
+    local inst = baserock_fn("moonglass_rock", "moonglass_rock", "full", "rock_moonglass.tex", nil, 1.0)
 
     inst:SetPrefabNameOverride("moonglass_rock")
 
