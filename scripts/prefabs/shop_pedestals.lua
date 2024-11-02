@@ -32,7 +32,7 @@ local function SetImage(inst, ent)
     if image ~= nil then
         local texname = image .. ".tex"
         local atlas = src.replica.inventoryitem:GetAtlas()
-        inst.AnimState:OverrideSymbol("SWAP_SIGN", resolvefilepath(atlas), texname)
+        inst.AnimState:OverrideSymbol("SWAP_SIGN", atlas, texname)
         inst.imagename = image
     else
         inst.imagename = ""

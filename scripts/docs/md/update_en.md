@@ -1,8 +1,47 @@
 ## En
 
+### Version 2.11.2 Update:
+1. New Skins for Double-layer Umbrella Hat: Added two new skins - Coconut Leaf Skin and Tiger Shark Skin. (Special thanks to @狼轩木林 and @momo and @娜娜不是故意的) 🎉
+
+2. Redesigned Item and Map Icons: All item icons, mini-map icons, and ground textures have been revamped, courtesy of @momo. 🎉
+
+3. Terrain Generation Adjustments: Volcanoes have been fully relocated to the surface, with significantly higher temperatures in their vicinity. Stay cool!
+
+4. Ham Room Optimization:
+
+	4.1 Improved the adjustable viewpoint mechanism within rooms (keybindings can be customized in the mod settings under client options).
+	4.2 Enhanced placement of indoor items, allowing keybinding adjustments for hanging building heights and certain structure angles.
+	4.3 View angles will no longer reset after entering or leaving a room.
+	4.4 Updated room boundary detection, so birds (almost) never land indoors.
+
+5. Ham Trading System Enhancements:
+
+	5.1 Modified some items sold in Pigman stores: Executor's Hammer is no longer available at tool shops, while the Inventor’s Tower continues selling rare blueprints, and Pig Scholars now sell unique items like Narwhal Horns.
+	5.2 The Pig Queen now provides a Royal Gallery key when given certain items, displaying an animation of the crown and scepter. The gallery key allows players to exchange for desired items in the gallery.
+	5.3 Player recipes now include room decor kits, while Executor's Hammer has been removed (see above for acquisition).
+	5.4 Expanded tradeable items with Town Pigmen (Mayer and Queen). If unsure what they accept, try showing them an item!
+6. Support for Multiple Recipes for the Same Item: Now compatible with other mods.
+
+7. Restricted Developer Options for Regular Players: Certain developer features, such as the “Fill Ocean” option, are now restricted.
+
+8. Changes to the Intelligence Hat: It can now only be crafted to unlock specific items.###
+
+### Version 2.10.13 Update:
+
+
+1. Terrain Generation Adjustments: 
+	1.1 Restored the generation method for single-player Pigman towns (copied from Cloud Nation, of course). 
+	1.2 Added a chicken coop to Pigman farms. 
+	1.3 Added octopus houses and fish school animations to the coral area. 
+	1.4 Added additional spawn points for Albatross school fish in the mid-sea area. 
+	1.5 Added aquatic grass to mangrove and lotus pools.
+
+2. Fixed issues with creature pathfinding and auto-pathfinding.
+
+3. Changed the movement speed bonus for single-person boats from multiplicative to additive.
+
+
 ###Update 2.9.20:
-
-
 
 1. Very important: modifications have been made to the traditional terrain determination mechanism
 	1.1 The climate and ecology within the same region remain relatively consistent. For example, the waters near Moon Island will also sense Moon Island and replace spiritual values with enlightenment values.
