@@ -194,7 +194,7 @@ local function ChangeAntChestSymbol(inst) -- 切换通道
     else
         inst.AnimState:ClearOverrideSymbol("box01")
     end
-    -- inst.MiniMapEntity:SetIcon(prefix .. (buildIdx > 0 and "_" .. buildName[buildIdx] or "") .. ".tex") -- "antchest_honey.png" etc.
+    -- inst.MiniMapEntity:SetIcon(prefix .. (buildIdx > 0 and "_" .. buildName[buildIdx] or "") .. ".tex") -- "antchest_honey.tex" etc.
 end
 
 local function stopConvert(inst, owner)

@@ -107,8 +107,10 @@ local function onhammered(inst, worker)
             local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
             local eles = TheSim:FindEntities(x, y, z, 40, { "guard" })
             for k, guardas in pairs(eles) do
-                if guardas.components.combat and guardas.components.combat.target == nil then guardas.components.combat
-                        :SetTarget(worker) end
+                if guardas.components.combat and guardas.components.combat.target == nil then
+                    guardas.components.combat
+                        :SetTarget(worker)
+                end
             end
         end
     end
@@ -147,6 +149,8 @@ local function fn(Sim)
     inst.entity:AddAnimState()
 
     inst.entity:AddPhysics()
+    local minimap = inst.entity:AddMiniMapEntity()
+    minimap:SetIcon("city_lamp.tex")
 
     MakeObstaclePhysics(inst, 0.25)
 

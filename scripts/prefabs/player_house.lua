@@ -288,7 +288,7 @@ local function OnGetItemFromPlayer(inst, giver, item)
             local craftname = craftname1:gsub("_craft", "")
 
 
-            inst.icon = "player_house_" .. craftname .. ".png"
+            inst.icon = "player_house_" .. craftname .. ".tex"
 
             if craftname == "villa" or craftname == "manor" then
                 inst.bank = "playerhouse_large"

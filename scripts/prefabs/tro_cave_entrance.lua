@@ -143,7 +143,7 @@ local function fn(bank, build, anim, minimap, isbackground)
 end
 
 local function closed_fn()
-    local inst = fn("cave_entrance", "cave_entrance", "idle_closed", "cave_closed.png", false)
+    local inst = fn("cave_entrance", "cave_entrance", "idle_closed", "cave_closed.tex", false)
 
     inst.scrapbook_anim = "idle_closed"
 
@@ -174,7 +174,7 @@ local function closed_fn()
 end
 
 local function ruins_fn()
-    local inst = fn("ruins_entrance", "ruins_entrance", "idle_closed", "cave_closed.png", false)
+    local inst = fn("ruins_entrance", "ruins_entrance", "idle_closed", "cave_closed.tex", false)
 
     if not TheWorld.ismastersim then
         return inst
@@ -200,7 +200,7 @@ local function OnPreLoad(inst, data)
 end
 
 local function open_fn()
-    local inst = fn("cave_entrance", "cave_entrance", "no_access", "cave_open.png", true)
+    local inst = fn("cave_entrance", "cave_entrance", "no_access", "cave_open.tex", true)
 
     if not TheWorld.ismastersim then
         return inst

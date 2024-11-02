@@ -2,9 +2,35 @@
 <Atlas>
     <Texture filename="inventory_extension.tex"/>
     <Elements>
-        <Element name="double_umbrellahat_palmleaf.tex" u1="0.00390625" u2="0.488281" v1="0.0117188" v2="0.496094"/>
-        <Element name="double_umbrellahat_sharkitten.tex" u1="0.496094" u2="0.980469" v1="0.0117188" v2="0.496094"/>
-        <Element name="loot_pump.tex" u1="0.00390625" u2="0.496094" v1="0.503906" v2="0.996094"/>
+        <Element name="anthill_cavelamp.tex" u1="0.000976563" u2="0.12207" v1="0.255859" v2="0.498047"/>
+        <Element name="anthillcave.tex" u1="0.000976563" u2="0.12207" v1="0.00976563" v2="0.251953"/>
+        <Element name="beaverskin.tex" u1="0.124023" u2="0.245117" v1="0.255859" v2="0.498047"/>
+        <Element name="chickenhouse.tex" u1="0.124023" u2="0.245117" v1="0.00976563" v2="0.251953"/>
+        <Element name="double_umbrellahat_palmleaf.tex" u1="0.741211" u2="0.860352" v1="0.759766" v2="0.998047"/>
+        <Element name="double_umbrellahat_sharkitten.tex" u1="0.741211" u2="0.860352" v1="0.517578" v2="0.755859"/>
+        <Element name="feather_chicken.tex" u1="0.125977" u2="0.24707" v1="0.755859" v2="0.998047"/>
+        <Element name="grotto_grub_nest.tex" u1="0.125977" u2="0.24707" v1="0.509766" v2="0.751953"/>
+        <Element name="grotto_parsnip.tex" u1="0.24707" u2="0.368164" v1="0.263672" v2="0.505859"/>
+        <Element name="grotto_parsnip_eaten.tex" u1="0.24707" u2="0.368164" v1="0.0175781" v2="0.259766"/>
+        <Element name="grotto_parsnip_giant.tex" u1="0.249023" u2="0.370117" v1="0.755859" v2="0.998047"/>
+        <Element name="grotto_pillar_bug.tex" u1="0.249023" u2="0.370117" v1="0.509766" v2="0.751953"/>
+        <Element name="loot_pump.tex" u1="0.370117" u2="0.491211" v1="0.263672" v2="0.505859"/>
+        <Element name="mutator_frost.tex" u1="0.370117" u2="0.491211" v1="0.0175781" v2="0.259766"/>
+        <Element name="pandahouse.tex" u1="0.000976563" u2="0.124023" v1="0.751953" v2="0.998047"/>
+        <Element name="pandaskin.tex" u1="0.37207" u2="0.493164" v1="0.755859" v2="0.998047"/>
+        <Element name="pandatree.tex" u1="0.000976563" u2="0.124023" v1="0.501953" v2="0.748047"/>
+        <Element name="quagmire_lamp_post.tex" u1="0.37207" u2="0.493164" v1="0.509766" v2="0.751953"/>
+        <Element name="quagmire_lamp_short.tex" u1="0.493164" u2="0.614258" v1="0.263672" v2="0.505859"/>
+        <Element name="turnip_cooked.tex" u1="0.493164" u2="0.614258" v1="0.0175781" v2="0.259766"/>
+        <Element name="turnip_oversized _waxed.tex" u1="0.495117" u2="0.616211" v1="0.509766" v2="0.751953"/>
+        <Element name="turnip_oversized.tex" u1="0.495117" u2="0.616211" v1="0.755859" v2="0.998047"/>
+        <Element name="turnip_seeds.tex" u1="0.616211" u2="0.737305" v1="0.263672" v2="0.505859"/>
+        <Element name="wheat.tex" u1="0.616211" u2="0.737305" v1="0.0175781" v2="0.259766"/>
+        <Element name="wheat_cooked.tex" u1="0.618164" u2="0.739258" v1="0.755859" v2="0.998047"/>
+        <Element name="wheat_oversized waxed.tex" u1="0.739258" u2="0.860352" v1="0.263672" v2="0.505859"/>
+        <Element name="wheat_oversized.tex" u1="0.618164" u2="0.739258" v1="0.509766" v2="0.751953"/>
+        <Element name="wheat_seeds.tex" u1="0.739258" u2="0.860352" v1="0.0175781" v2="0.259766"/>
+        <Element name="wildbeaver_house.tex" u1="0.862305" u2="0.983398" v1="0.755859" v2="0.998047"/>
     </Elements>
     <StraightAlpha>false</StraightAlpha>
 </Atlas>

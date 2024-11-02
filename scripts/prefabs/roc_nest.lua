@@ -203,19 +203,19 @@ local prefabdata = {
     roc_nest_egg2 = insert_indexes(preset_data.egg, { anim = "shell2" }),
     roc_nest_egg3 = insert_indexes(preset_data.egg, { anim = "shell3" }),
     roc_nest_egg4 = insert_indexes(preset_data.egg, { anim = "shell4" }),
-    roc_nest_house = insert_indexes(preset_data.house, { anim = "house", minimap = "roc_junk_house.png" }),
-    roc_nest_rusty_lamp = insert_indexes(preset_data.lamp, { anim = "rusty_lamp", minimap = "roc_junk_rusty_lamp.png" }),
+    roc_nest_house = insert_indexes(preset_data.house, { anim = "house", minimap = "roc_junk_house.tex" }),
+    roc_nest_rusty_lamp = insert_indexes(preset_data.lamp, { anim = "rusty_lamp", minimap = "roc_junk_rusty_lamp.tex" }),
 
-    roc_nest_bush = insert_indexes(preset_data.bush, { anim = "bush", minimap = "roc_junk_bush.png" }),
-    roc_nest_trunk = insert_indexes(preset_data.trunk, { anim = "trunk", minimap = "roc_junk_trunk.png" }),
+    roc_nest_bush = insert_indexes(preset_data.bush, { anim = "bush", minimap = "roc_junk_bush.tex" }),
+    roc_nest_trunk = insert_indexes(preset_data.trunk, { anim = "trunk", minimap = "roc_junk_trunk.tex" }),
     roc_nest_debris1 = insert_indexes(preset_data.stick, { anim = "stick01" }),
     roc_nest_debris2 = insert_indexes(preset_data.stick, { anim = "stick02" }),
     roc_nest_debris3 = insert_indexes(preset_data.stick, { anim = "stick03" }),
     roc_nest_debris4 = insert_indexes(preset_data.stick, { anim = "stick04" }),
-    roc_nest_tree1 = insert_indexes(preset_data.tree, { anim = "tree1", minimap = "roc_junk_tree1.png" }),
-    roc_nest_tree2 = insert_indexes(preset_data.tree, { anim = "tree2", minimap = "roc_junk_tree2.png" }),
-    roc_nest_branch1 = insert_indexes(preset_data.branch, { anim = "branch1", minimap = "roc_junk_branch1.png" }),
-    roc_nest_branch2 = insert_indexes(preset_data.branch, { anim = "branch2", minimap = "roc_junk_branch2.png" }),
+    roc_nest_tree1 = insert_indexes(preset_data.tree, { anim = "tree1", minimap = "roc_junk_tree1.tex" }),
+    roc_nest_tree2 = insert_indexes(preset_data.tree, { anim = "tree2", minimap = "roc_junk_tree2.tex" }),
+    roc_nest_branch1 = insert_indexes(preset_data.branch, { anim = "branch1", minimap = "roc_junk_branch1.tex" }),
+    roc_nest_branch2 = insert_indexes(preset_data.branch, { anim = "branch2", minimap = "roc_junk_branch2.tex" }),
 }
 
 
