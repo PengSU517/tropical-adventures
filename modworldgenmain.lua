@@ -1,6 +1,7 @@
 --推荐使用腾讯的lua插件
 
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
+
 local require = require
 local modimport = modimport
 

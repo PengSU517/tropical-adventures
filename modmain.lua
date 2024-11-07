@@ -5,10 +5,11 @@ modimport("scripts/tuning") -- tuning + constants
 modimport("scripts/languages/language_setting.lua")
 
 require("tools/simutil")
+modimport("main/standardcomponents")
 
 modimport("main/assets")
-modimport("main/standardcomponents")
-modimport("main/postinit") --postinit相关全都在这里
+
+modimport("main/postinit") --postinit相关全都在这里  --工具函数需要分离出来放在前面
 modimport("scripts/actions.lua")
 
 

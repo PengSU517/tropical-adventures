@@ -194,17 +194,17 @@ function MakeItemSkin(base, skinname, data)
     -- 不存在的珍惜度 自动注册字符串
     if not STRINGS.UI.RARITY[data.rarity] then
         STRINGS.UI.RARITY[data.rarity] = data.rarity
-        SKIN_RARITY_COLORS[data.rarity] = data.raritycorlor or { 0.635, 0.769, 0.435, 1 }
+        SKIN_RARITY_COLORS[data.rarity] = data.raritycorlor or { 0.635, 0.769, 0.435, 1 } --可以自己修改显示颜色
         RARITY_ORDER[data.rarity] = data.rarityorder or -default_release_group
         if data.FrameSymbol then
             FrameSymbol[data.rarity] = data.FrameSymbol
         end
     end
     -- 注册到字符串
-    STRINGS.SKIN_NAMES[skinname] = data.name or skinname
-    STRINGS.SKIN_DESCRIPTIONS[skinname] = data.des or ""
+    STRINGS.SKIN_NAMES[skinname] = STRINGS.SKIN_NAMES[skinname] or data.name or skinname --方便在单独的string文件中写名字
+    STRINGS.SKIN_DESCRIPTIONS[skinname] = STRINGS.SKIN_DESCRIPTIONS[skinname] or data.des or ""
     if data.atlas and data.image then
-        RegisterInventoryItemAtlas(data.atlas, data.image .. ".tex")
+        RegisterInventoryItemAtlas(data.atlas, data.image .. ".tex") --注册到atlas只需要这一句就够了，甚至不需要
     end
     -- 注册到皮肤列表
     if not PREFAB_SKINS[base] then
@@ -216,17 +216,17 @@ function MakeItemSkin(base, skinname, data)
     end
     local index = 1
     for k, v in pairs(PREFAB_SKINS_IDS[base]) do
-        index = index + 1
+        index = math.max(index, v) + 1 --index + 1 --
     end
     PREFAB_SKINS_IDS[base][skinname] = index
     -- 创建皮肤预制物
-    data.skininit_fn = data.init_fn or nil
-    data.skinclear_fn = data.clear_fn or nil
-    data.init_fn = function(i)
-        basic_skininit_fn(i, skinname)
+    -- data.extra_init_fn = data.init_fn or nil --进行自定义init 和clear
+    -- data.extra_clear_fn = data.clear_fn or nil
+    data.init_fn = function(inst)
+        basic_skininit_fn(inst, skinname)
     end
-    data.clear_fn = function(i)
-        basic_skinclear_fn(i, skinname)
+    data.clear_fn = function(inst)
+        basic_skinclear_fn(inst, skinname)
     end
     if data.skinpostfn then
         data.skinpostfn(data) -- 给一个玩家改init_fn的接口
@@ -276,15 +276,17 @@ end
 
 -- 下面的可以不看
 
--- 皮肤权限hook
+-- 皮肤权限hook--help 为什么 要用metatable
 
-local timelastest = 0
+local timelastest = TheSim:GetRealTime()
 
 local mt = getmetatable(TheInventory)
 local oldTheInventoryCheckOwnership = TheInventory.CheckOwnership
 mt.__index.CheckOwnership = function(i, name, ...)
     -- print(i,name,...)
+    -- if true then return true end
     name = namemaps[name] or name
+    --help 也就是说原版dst收费的皮肤名字不是字符串？然后根据checkfn判断玩家是否有权限
     if type(name) == "string" and (characterskins[name] or itemskins[name]) then
         if characterskins[name] and characterskins[name].checkfn then
             return characterskins[name].checkfn(i, name, ...)
@@ -300,14 +302,15 @@ end
 local oldTheInventoryCheckOwnershipGetLatest = TheInventory.CheckOwnershipGetLatest
 mt.__index.CheckOwnershipGetLatest = function(i, name, ...)
     -- print(i,name,...)
+    -- if true then return true, TheSim:GetRealTime() end
     name = namemaps[name] or name
     if type(name) == "string" and (characterskins[name] or itemskins[name]) then
         if characterskins[name] and characterskins[name].checkfn then
-            return characterskins[name].checkfn(i, name, ...), timelastest
+            return characterskins[name].checkfn(i, name, ...), TheSim:GetRealTime()
         elseif itemskins[name] and itemskins[name].checkfn then
-            return itemskins[name].checkfn(i, name, ...), timelastest
+            return itemskins[name].checkfn(i, name, ...), TheSim:GetRealTime()
         else
-            return true, timelastest
+            return true, TheSim:GetRealTime()
         end
     else
         return oldTheInventoryCheckOwnershipGetLatest(i, name, ...)
@@ -316,6 +319,7 @@ end
 
 local oldTheInventoryCheckClientOwnership = TheInventory.CheckClientOwnership
 mt.__index.CheckClientOwnership = function(i, userid, name, ...)
+    -- if true then return true end
     name = namemaps[name] or name
     if type(name) == "string" and (characterskins[name] or itemskins[name]) then
         if characterskins[name] and characterskins[name].checkclientfn then
@@ -476,6 +480,7 @@ function hookskinselector(self)
 end
 
 hookskinselector(skinselector)
+
 local oldGetSkinInvIconName = GetSkinInvIconName
 GLOBAL.GetSkinInvIconName = function(item, ...)
     if itemskins[item] and itemskins[item].image then
@@ -494,48 +499,77 @@ function basic_skininit_fn(inst, skinname)
         return
     end
     local data = itemskins[skinname]
-    if not data then
-        return
-    end
+    if not data then return end
     if data.bank then
         inst.AnimState:SetBank(data.bank)
     end
-    inst.AnimState:SetBuild(data.build or skinname)
+
+    if data.build then
+        inst.AnimState:SetBuild(data.build)
+    end
+
     if data.anim then
         inst.AnimState:PlayAnimation(data.anim)
     end
-    if inst.components.inventoryitem ~= nil then
-        -- inst.components.inventoryitem.atlasname = GetInventoryItemAtlas((data.image or skinname) .. ".tex")
-        inst.components.inventoryitem:ChangeImageName(data.image or skinname)
+
+    if data.override ~= nil then
+        for _, dat in pairs(data.override) do
+            inst.AnimState:OverrideSymbol(dat[1], dat[2], dat[3])
+        end
     end
-    if data.skininit_fn then
-        data.skininit_fn(inst, skinname)
+
+    if inst.components.inventoryitem and data.image then
+        inst.components.inventoryitem:ChangeImageName(data.image)
+    end
+
+    if inst.MiniMapEntity and (data.minimapicon or data.image) then ---主要问题在于原版物品用的png作为minimap
+        inst.MiniMapEntity:SetIcon(data.minimapicon or data.image .. ".tex")
+    end
+
+    if data.extra_init_fn then
+        data.extra_init_fn(inst, skinname)
     end
 end
 
 function basic_skinclear_fn(inst, skinname) -- 默认认为 build 和prefab同名 不对的话自己改
     local prefab = inst.prefab or ""
-    local data = itemskins[skinname]
-    if not data then
+    if inst.components.placer == nil and not TheWorld.ismastersim then
         return
     end
-    if data.basebank then
-        inst.AnimState:SetBank(data.basebank)
+
+    local data = itemskins[skinname]
+    if not data then return end
+    if data.bank then
+        inst.AnimState:SetBank(data.basebank or prefab)
     end
-    if data.baseanim then
+    if data.anim and data.baseanim then
         inst.AnimState:PlayAnimation(data.baseanim)
     end
-    inst.AnimState:SetBuild(data.basebuild or prefab)
-    if inst.components.inventoryitem ~= nil then
-        -- inst.components.inventoryitem.atlasname = GetInventoryItemAtlas(prefab .. ".tex")
-        inst.components.inventoryitem:ChangeImageName(prefab)
+
+    if data.build then
+        inst.AnimState:SetBuild(data.basebuild or prefab)
     end
-    if itemskins[skinname].skinclear_fn then
-        itemskins[skinname].skinclear_fn(inst, skinname)
+
+    if data.override and data.baseoverride then
+        for _, dat in pairs(data.baseoverride) do
+            inst.AnimState:OverrideSymbol(dat[1], dat[2], dat[3])
+        end
+    end
+
+    if inst.components.inventoryitem ~= nil and data.image then
+        inst.components.inventoryitem:ChangeImageName(data.baseimage or prefab)
+    end
+
+    if inst.MiniMapEntity and (data.minimapicon or data.image) then
+        inst.MiniMapEntity:SetIcon(data.base_minimapicon or (data.baseimage or prefab) .. ".tex")
+    end
+
+    if itemskins[skinname].extra_clear_fn then
+        itemskins[skinname].extra_clear_fn(inst, skinname)
     end
 end
 
-local oldSpawnPrefab = SpawnPrefab
+local oldSpawnPrefab = SpawnPrefab --help 果然还是hook这个函数了
 GLOBAL.SpawnPrefab = function(prefab, skin, skinid, userid, ...)
     if itemskins[skin] then
         skinid = 0
@@ -548,11 +582,18 @@ Sim.ReskinEntity = function(sim, guid, oldskin, newskin, skinid, userid, ...)
     if oldskin and itemskins[oldskin] then
         itemskins[oldskin].clear_fn(inst) -- 清除旧皮肤的
     end
+
     local r = oldReskinEntity(sim, guid, oldskin, newskin, skinid, userid, ...)
     if newskin and itemskins[newskin] then
+        if itemskins[newskin].is_nature_skin then
+            inst.skinname = nil
+            inst.natureskinname = newskin
+            inst.skin_id = nil
+        else
+            inst.skinname = newskin
+            inst.skin_id = 0
+        end
         itemskins[newskin].init_fn(inst)
-        inst.skinname = newskin
-        inst.skin_id = 0
     end
     return r
 end
