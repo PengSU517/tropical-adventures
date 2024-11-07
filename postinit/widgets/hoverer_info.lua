@@ -8,8 +8,8 @@ local function GetBuild(inst)
     local bank, build, anim = str:match("bank: (.+) build: (.+) anim: .+:(.+) Frame")
 
     if bank ~= nil and build ~= nil then
-        strnn = strnn .. "动画: anim/" .. bank .. ".zip"
-        strnn = strnn .. "\n" .. "贴图: anim/" .. build .. ".zip"
+        strnn = strnn .. "动画bank: anim/" .. bank .. ".zip"
+        strnn = strnn .. "\n" .. "贴图build: anim/" .. build .. ".zip"
     end
     return strnn
 end
@@ -31,6 +31,15 @@ AddClassPostConstruct("widgets/hoverer", function(self)
             local build = GetBuild(target)
             if build ~= nil then
                 str = str .. "\n" .. build
+            end
+            local skin = target:GetSkinName(target)
+            if skin ~= nil then
+                str = str .. "\n" .. "皮肤:" .. skin
+            end
+
+            local skinid = target.skin_id
+            if skinid ~= nil then
+                str = str .. "\n" .. "皮肤ID:" .. skinid
             end
         end
         return old_SetString(text, str)

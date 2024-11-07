@@ -14,14 +14,14 @@ AddRoom("ForceDisconnectedRoomHAM", {
 AddRoom("Hamlet start", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.PLAINS,
-    tags = {},
+    tags = { "tropical", "hamlet" },
     contents = {
         distributepercent = .25,
         distributeprefabs =
         {
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             dungpile = 0.03,
             peagawk = 0.01,
@@ -557,7 +557,7 @@ AddRoom("BG_rainforest_base", {
         {
             rainforesttree = 0.6, --1.4,
             grass_tall = .5,
-            saplingnova = .6,
+            sapling = .6,
             flower_rainforest = 0.1,
             flower = 0.05,
             dungpile = 0.03,
@@ -588,7 +588,7 @@ AddRoom("rainforest_ruins", {
         {
             rainforesttree = .5, --.7,
             grass_tall = 0.5,
-            saplingnova = .6,
+            sapling = .6,
             flower_rainforest = 0.1,
             flower = 0.05,
             --	randomrelic = 0.008,
@@ -616,7 +616,7 @@ AddRoom("rainforest_ruins_entrance", {
         {
             rainforesttree = .5, --.7,
             grass_tall = 0.5,
-            saplingnova = .6,
+            sapling = .6,
             flower_rainforest = 0.1,
             flower = 0.05,
             --	randomrelic = 0.008,
@@ -1048,7 +1048,7 @@ AddRoom("BG_plains_base", {
         {
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             dungpile = 0.03,
             peagawk = 0.01,
@@ -1082,7 +1082,7 @@ AddRoom("BG_plains_base_nocanopy", {
         {
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             dungpile = 0.03,
             peagawk = 0.01,
@@ -1115,7 +1115,7 @@ AddRoom("BG_plains_base_nocanopy1", {
         {
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             dungpile = 0.03,
             peagawk = 0.01,
@@ -1151,7 +1151,7 @@ AddRoom("BG_plains_base_nocanopy2", {
         {
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             dungpile = 0.03,
             peagawk = 0.01,
@@ -1186,7 +1186,7 @@ AddRoom("BG_plains_base_nocanopy3", {
         {
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             dungpile = 0.03,
             peagawk = 0.01,
@@ -1356,7 +1356,7 @@ AddRoom("HamLightPlantField", {
             deep_jungle_fern_noise_plant2 = 1,
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             peagawk = 0.01,
             rock_flippable = 0.08,
@@ -1392,7 +1392,7 @@ AddRoom("HamLightPlantFieldexit", {
             deep_jungle_fern_noise_plant2 = 0.5,
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             peagawk = 0.01,
             rock_flippable = 0.08,
@@ -1433,7 +1433,7 @@ AddRoom("HamWormPlantField", {
             deep_jungle_fern_noise_plant2 = 0.5,
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             peagawk = 0.01,
             rock_flippable = 0.08,
@@ -1470,7 +1470,7 @@ AddRoom("HamFernGully", {
             deep_jungle_fern_noise_plant2 = 0.5,
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             peagawk = 0.01,
             rock_flippable = 0.08,
@@ -1508,7 +1508,7 @@ AddRoom("HamSlurtlePlains", {
             deep_jungle_fern_noise_plant2 = 0.5,
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             peagawk = 0.01,
             rock_flippable = 0.08,
@@ -1546,7 +1546,7 @@ AddRoom("HamMudWithRabbit", {
             deep_jungle_fern_noise_plant2 = 0.5,
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             peagawk = 0.01,
             rock_flippable = 0.08,
@@ -1584,7 +1584,7 @@ AddRoom("HamMudWithRabbitexit", {
             deep_jungle_fern_noise_plant2 = 0.5,
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             peagawk = 0.01,
             rock_flippable = 0.08,
@@ -1627,7 +1627,7 @@ AddRoom("HamBGMud", {
             deep_jungle_fern_noise_plant2 = 0.5,
             clawpalmtree = 0.5,
             grass_tall = 1,
-            saplingnova = .3,
+            sapling = .3,
             flower = 0.05,
             peagawk = 0.01,
             rock_flippable = 0.08,
@@ -1813,7 +1813,7 @@ AddRoom("HamSlurtleCanyon", {
             pillar_cave_rock = 0.1,
             rock_flippable = 0.3,
             rock_antcave = 0.7,
-            saplingnova = 0.2,
+            sapling = 0.2,
             rock_flintless = 1.0,
             rock_flintless_med = 1.0,
             rock_flintless_low = 1.0,
@@ -1849,7 +1849,7 @@ AddRoom("HamBatsAndSlurtles", {
             pillar_cave_rock = 0.1,
             rock_flippable = 0.3,
             rock_antcave = 0.7,
-            saplingnova = 0.2,
+            sapling = 0.2,
             rock_flintless = 1.0,
             rock_flintless_med = 1.0,
             rock_flintless_low = 1.0,
@@ -1885,7 +1885,7 @@ AddRoom("HamRockyPlains", {
             rock_flippable = 0.3,
             rock_antcave = 0.7,
             antcombhomecave = 0.15,
-            saplingnova = 0.2,
+            sapling = 0.2,
             guano = 0.27,
             goldnugget = .05,
             flint = 0.05,
@@ -1921,7 +1921,7 @@ AddRoom("HamRockyPlainsexit", {
             ant_cave_lantern = 0.1,
             rock_flippable = 0.7,
             rock_antcave = 0.3,
-            saplingnova = 0.2,
+            sapling = 0.2,
             deco_cave_ceiling_drip_2 = 0.1,
         },
         countprefabs =
@@ -1976,7 +1976,7 @@ AddRoom("HamBatsAndRocky", {
             pillar_cave_rock = 0.1,
             rock_flippable = 0.3,
             rock_antcave = 0.7,
-            saplingnova = 0.2,
+            sapling = 0.2,
             deco_cave_ceiling_drip_2 = 0.1,
         },
         countprefabs =
@@ -2002,7 +2002,7 @@ AddRoom("HamBGRockyCaveRoom", {
             pillar_cave_rock = 0.1,
             rock_flippable = 0.3,
             rock_antcave = 0.7,
-            saplingnova = 0.2,
+            sapling = 0.2,
             deco_cave_ceiling_drip_2 = 0.1,
         },
         countprefabs =
@@ -2303,7 +2303,7 @@ AddRoom("HamGreenMushSinkhole", {
             cavelight_small = 0.05,
 
             grass = 0.1,
-            saplingnova = 0.1,
+            sapling = 0.1,
             twiggytree = 0.04,
 
             mushtree_small = 5.0,
@@ -2383,7 +2383,7 @@ AddRoom("HamGreenMushRabbits", {
         distributeprefabs =
         {
             grass = 0.1,
-            saplingnova = 0.1,
+            sapling = 0.1,
             twiggytree = 0.04,
 
             mushtree_small = 5.0,
@@ -2497,7 +2497,7 @@ AddRoom("HamBlueMushForest", {
             flower_cave_double = 0.05,
             flower_cave_triple = 0.05,
 
-            saplingnova = 1,
+            sapling = 1,
             grass_tall = 3,
             ox = 0.5,
             teatree = 0.8,
@@ -2521,7 +2521,7 @@ AddRoom("HamBlueMushMeadow", {
             flower_cave_double = 0.05,
             flower_cave_triple = 0.05,
 
-            saplingnova = 1,
+            sapling = 1,
             grass_tall = 3,
             ox = 0.5,
             teatree = 0.8,
@@ -2550,7 +2550,7 @@ AddRoom("HamBlueSpiderForest", {
             flower_cave_double = 0.05,
             flower_cave_triple = 0.05,
 
-            saplingnova = 1,
+            sapling = 1,
             grass_tall = 3,
             ox = 0.5,
             teatree = 0.8,
@@ -2580,7 +2580,7 @@ AddRoom("HamDropperDesolation", {
             flower_cave_double = 0.05,
             flower_cave_triple = 0.05,
 
-            saplingnova = 1,
+            sapling = 1,
             grass_tall = 3,
             ox = 0.5,
             teatree = 0.8,
@@ -2604,7 +2604,7 @@ AddRoom("HamBGBlueMush", {
             flower_cave_double = 0.05,
             flower_cave_triple = 0.05,
 
-            saplingnova = 1,
+            sapling = 1,
             grass_tall = 3,
             ox = 0.5,
             teatree = 0.8,

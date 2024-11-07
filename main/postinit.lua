@@ -16,10 +16,12 @@ end
 --weather
 
 
-modimport("main/ham_room")         -----------------新的room
-modimport("main/tropical_ocean")   ----------------新的海洋属性
-modimport("main/tropical_boat")    ----------------单人船相关修改
-modimport("main/tropical_weather") ----------------热带气候
+modimport("main/ham_room")                -----------------新的room
+modimport("main/tropical_ocean")          ----------------新的海洋属性
+modimport("main/tropical_boat")           ----------------单人船相关修改
+modimport("main/tropical_weather")        ----------------热带气候
+
+modimport("postinit/natureskin_variants") -----和自然皮肤切换相关的所有内容
 
 
 -- do not know how to sort
@@ -68,6 +70,7 @@ modimport("postinit/components/boatphysics")
 
 
 --prefabs
+
 -- modimport("postinit/prefabs/image_minisign") --会影响到其他mod
 modimport("postinit/prefabs/gears")
 modimport("postinit/prefabs/warningshadow")

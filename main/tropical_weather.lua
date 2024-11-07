@@ -1,5 +1,3 @@
-GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end }) --GLOBAL 相关照抄
-
 local Utils = require("tools/utils")
 local upvaluehelper = require("tools/upvaluehelper")
 require("tools/tile_util")
@@ -149,6 +147,45 @@ end
 function EntityScript:IsInVolcanoArea()
     return TheWorld.Map:IsVolcanoAreaAtPoint(self:GetPosition():Get())
 end
+
+function EntityScript:IsOnLandTile()
+    return TheWorld.Map:IsLandTileAtPoint(self.Transform:GetWorldPosition())
+end
+
+GLOBAL.IsInTropicalArea = function(inst)
+    -- local x, _, z = inst:GetPosition():Get()-----这个东西似乎要等待一帧
+    local x, _, z = inst.Transform:GetWorldPosition() ----这个东西也取不到值
+    for i, node in ipairs(TheWorld.topology.nodes) do
+        if TheSim:WorldPointInPoly(x, z, node.poly) then
+            if node.tags ~= nil and table.contains(node.tags, "tropical") then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+GLOBAL.IsInShipwreckedArea = function(inst)
+    return inst:IsInShipwreckedArea()
+end
+
+GLOBAL.IsInHamletArea = function(inst)
+    return inst:IsInHamletArea()
+end
+
+GLOBAL.IsInVolcanoArea = function(inst)
+    return inst:IsInVolcanoArea()
+end
+
+GLOBAL.IsOnLandTile = function(inst)
+    return inst:IsOnLandTile()
+end
+
+
+
+
+
+
 
 ----area aware related--------------------
 function EntityScript:AwareInTropicalArea() ----减少计算量
@@ -333,18 +370,24 @@ end)
 -- end
 
 -- AddPrefabPostInit("grass", function(inst)
---     inst:AddTag("grasss") --用于海难刮大风用的
---     if inst:IsInTropicalArea() then
---         inst.AnimState:SetBuild("grassGreen_build")
---         inst.AnimState:PlayAnimation("idle", true)
---     end
---     if not TheWorld.ismastersim then return end
-
---     if inst.components.pickable then
---         Utils.FnDecorator(inst.components.pickable, "ontransplantfn", nil, OnTransplantfnAfter)
---     end
+--     inst:DoTaskInTime(0, function(...)
+--         if not inst:IsOnLandTile() then
+--             TheSim:ReskinEntity(inst.GUID, inst.skinname, "grass_water", nil)
+--         elseif inst:IsInTropicalArea() then
+--             TheSim:ReskinEntity(inst.GUID, inst.skinname, "grass_tropical", nil)
+--         end
+--     end)
 -- end)
 
+
+-- AddPrefabPostInit("grass", function(inst)
+--     inst:DoTaskInTime(0, function(...)
+--         if inst:IsInTropicalArea() then
+--             inst.AnimState:SetBuild("grassgreen_build")
+--             inst.AnimState:PlayAnimation("idle", true)
+--         end
+--     end)
+-- end)
 
 
 --脚印
@@ -412,35 +455,35 @@ end
 
 
 ----热带蝴蝶和发光飞虫刷新
-for _, prefab in pairs({ "butterfly" }) do
-    AddPrefabPostInit(prefab, function(inst)
-        if not TheWorld.ismastersim then
-            return
-        end
+-- for _, prefab in pairs({ "butterfly" }) do
+--     AddPrefabPostInit(prefab, function(inst)
+--         if not TheWorld.ismastersim then
+--             return
+--         end
 
-        inst:DoTaskInTime(0, function(inst)
-            local map = TheWorld.Map
-            local x, y, z = inst.Transform:GetWorldPosition()
-            if x and y and z then
-                local butterfly
-                local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-                if IsSwLandTile(ground) then
-                    butterfly = SpawnPrefab("butterfly_tropical")
-                elseif IsHamLandTile(ground) then
-                    butterfly = SpawnPrefab("glowfly")
-                end
+--         inst:DoTaskInTime(0, function(inst)
+--             local map = TheWorld.Map
+--             local x, y, z = inst.Transform:GetWorldPosition()
+--             if x and y and z then
+--                 local butterfly
+--                 local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
+--                 if IsSwLandTile(ground) then
+--                     butterfly = SpawnPrefab("butterfly_tropical")
+--                 elseif IsHamLandTile(ground) then
+--                     butterfly = SpawnPrefab("glowfly")
+--                 end
 
-                if butterfly then
-                    -- if butterfly.components.pollinator ~= nil then
-                    --     butterfly.components.pollinator:Pollinate(spawnflower)
-                    -- end
-                    -- if butterfly.components.homeseeker ~= nil then
-                    --     butterfly.components.homeseeker:SetHome(spawnflower)
-                    -- end
-                    butterfly.Transform:SetPosition(x, y, z)
-                    inst:Remove()
-                end
-            end
-        end)
-    end)
-end
+--                 if butterfly then
+--                     -- if butterfly.components.pollinator ~= nil then
+--                     --     butterfly.components.pollinator:Pollinate(spawnflower)
+--                     -- end
+--                     -- if butterfly.components.homeseeker ~= nil then
+--                     --     butterfly.components.homeseeker:SetHome(spawnflower)
+--                     -- end
+--                     butterfly.Transform:SetPosition(x, y, z)
+--                     inst:Remove()
+--                 end
+--             end
+--         end)
+--     end)
+-- end
