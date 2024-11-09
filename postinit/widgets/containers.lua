@@ -41,7 +41,7 @@ params.honeychest = {
     widget = {
         slotpos = { Vector3(hcpos.x, hcpos.y + hcpos.r, 0) },
         slotbg = { hcbg },
-        animbank = "ui_honeychest_7x",
+        animbank = "ui_chest_3x3",
         animbuild = "ui_honeychest_7x",
         pos = Vector3(hcpos.x, hcpos.y + 200, 0),
         side_align_tip = 300 - hcpos.r
@@ -53,8 +53,8 @@ params.honeychest = {
 }
 for line = 1, 0, -1 do
     for rad = hcpos.angle, hcpos.angle - 2, -1 do
-        table.insert(params.honeychest.widget.slotpos, Vector3(hcpos.x + hcpos.r * math.sin(rad * math.pi / 3),
-            hcpos.y + hcpos.r * line + hcpos.r * math.cos(rad * math.pi / 3), 0))
+        table.insert(params.honeychest.widget.slotpos, Vector3(hcpos.x + hcpos.r * math.sin(rad * PI / 3),
+            hcpos.y + hcpos.r * line + hcpos.r * math.cos(rad * PI / 3), 0))
         table.insert(params.honeychest.widget.slotbg, hcbg)
     end
 end
@@ -94,27 +94,19 @@ params.thatchpack.type = "pack"
 params.thatchpack.openlimit = 1
 
 local function boatitemtestfn(container, item, slot)
-    if slot then
-        if slot == 1 and not container:GetItemInSlot(slot) then
-            return (item:HasTag("sail") or item.prefab == "trawlnet") or false
-        elseif slot == 2 and not container:GetItemInSlot(slot) then
-            return (item.prefab == "tarlamp" or item.prefab == "boat_lantern" or item.prefab == "boat_torch" or
-                item.prefab == "quackeringram" or item.prefab == "boatcannon" or item.prefab ==
-                "woodlegs_boatcannon") or false
-        else
-            local slotitem = container:GetItemInSlot(slot)
-            if slotitem then
-                if slotitem.prefab == item.prefab then
-                    return slotitem.components.stackable and not slotitem.components.stackable:IsFull() or false
-                else
-                    return false
-                end
-            else
-                return true
-            end
-        end
-    else
-        return true
+    if not slot then return true end -- for "spslots for spitems"
+    local slotitem = container:GetItemInSlot(slot)
+    if slot == 1 then
+        return not slotitem and (item:HasTag("sail") or item.prefab == "trawlnet")
+    elseif slot == 2 then
+        return not slotitem and
+                   (item.prefab == "tarlamp" or item.prefab == "boat_lantern" or item.prefab == "boat_torch" or
+                       item.prefab == "quackeringram" or item.prefab == "boatcannon" or item.prefab ==
+                       "woodlegs_boatcannon")
+    else --if slot and slot > 2 then
+        if not slotitem then return true end
+        if slotitem.prefab ~= item.prefab then return false end -- slotitem ~= nil
+        return slotitem.components.stackable and not slotitem.components.stackable:IsFull()
     end
 end
 params.cargoboat = {
