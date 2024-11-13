@@ -1,4 +1,3 @@
-require("tools/tile_util")
 require("map/graphnode")
 
 local NodeAddEntity = Node.AddEntity

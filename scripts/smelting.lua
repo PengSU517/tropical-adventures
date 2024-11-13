@@ -15,7 +15,7 @@ local Attributes = {
     ballpein_hammer = { iron = 1, },
     shears = { iron = 1, },
     candlehat = { iron = 1, },
-    obsidian = { nitro = 2.5,}, -- nitro
+    obsidian = { nitro = 2.5, }, -- nitro
     nitre = { nitro = 1, },
     flint = { nitro = .25, },
     goldnugget = { gold = 1, }, -- gold
@@ -24,7 +24,7 @@ local Attributes = {
     rocks = { mineral = .25, }, -- mineral
 }
 
-local Products = require("smeltrecipes")
+local Products = require("datadefs/smeltrecipes")
 
 local smelt_cards = {}
 local function AddSmeltCard(recipename)
@@ -45,7 +45,8 @@ function AddMeltAttributeValue(names, tags)
             Attributes[name] = {}
         end
         for tagname, tagval in pairs(tags) do
-            assert(not Attributes[name][tagname], Path .. "49: attempt to add existed melt tag \"" .. tagname .. "\" to melt attribute \"" .. name .. "\"")
+            assert(not Attributes[name][tagname],
+                Path .. "49: attempt to add existed melt tag \"" .. tagname .. "\" to melt attribute \"" .. name .. "\"")
             Attributes[name][tagname] = tagval
         end
     end
@@ -57,7 +58,8 @@ local function AddMeltProduct(recipes)
     for name, recipe in pairs(recipes) do
         assert(not Products[name], Path .. "59: attempt to add existed melt recipe \"" .. name .. "\"")
         assert(type(recipe.test) == "table", Path .. "59: attempt to add non recipe for \"" .. name .. "\"")
-        Products[name] = { priority = recipe.priority or 0, test = {}, overridebuild = recipe.overridebuild or name, overridesymbolname = recipe.overridesymbolname or name }
+        Products[name] = { priority = recipe.priority or 0, test = {}, overridebuild = recipe.overridebuild or name, overridesymbolname =
+        recipe.overridesymbolname or name }
         for attrtag, attrval in pairs(recipe.test) do
             assert(type(attrtag) == "string", Path .. "63: attempt to add non attribute tag to \"" .. name .. "\"")
             assert(type(attrval) == "number", Path .. "63: attempt to add non attribute value to \"" .. name .. "\"")
@@ -85,7 +87,7 @@ end
 ---@param items table 物品数量表
 ---@param worker table 操作者预制物
 local function getProd(items, worker)
-    local prod = { name = nil, prior = 0, attrs = getAttrs(items)}
+    local prod = { name = nil, prior = 0, attrs = getAttrs(items) }
     for testprod, recipe in pairs(Products) do
         if prod.prior <= recipe.priority and recipe.test(worker, items, prod.attrs) then
             prod.name = testprod
@@ -100,7 +102,7 @@ local function getOverrideSymbol(item)
 end
 
 local function isAttribute(item)
-    assert(type(item) == "string", Path .. "105: \"" .. item .. "\" is not a prefab name" )
+    assert(type(item) == "string", Path .. "105: \"" .. item .. "\" is not a prefab name")
     return Attributes[item] and true or false
 end
 

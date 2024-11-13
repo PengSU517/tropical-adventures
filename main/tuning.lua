@@ -1,5 +1,109 @@
---tuning--------------------------
+--ham room tuning-----------------
 ----------------------------------
+
+TUNING.BUILD_HEIGHT = 0 ---rpc用来接收建筑高度数据-------也可以修改placer
+
+TUNING.HAMROOM = {
+    roomtype = {
+        playerhouse_city_floor = "large",
+        pig_palace_floor = "xlarge",
+        vampirebatcave_floor = "cave",
+        roc_cave_floor = "cave",
+        pig_shop_florist_floor = "small",
+        pig_palace_gallery_floor = "big", ----------这两个啥都不合适
+        pig_palace_shop_floor = "medium",
+    },
+
+
+    roomcamera = {
+        small = { pitch = 36, distance = 20, pos = -1 },
+        medium = { pitch = 35, distance = 24, pos = -2 },
+        big = { pitch = 35, distance = 27, pos = -1 },
+        large = { pitch = 36, distance = 27, pos = -2.5 },
+        cave = { pitch = 36, distance = 31, pos = 0 },
+        xlarge = { pitch = 36, distance = 38, pos = -2 },
+    },
+
+    roomsize = {
+        small = { back = 2.5, front = 9, side = 7.5 },
+        medium = { back = 5, front = 8.5, side = 7.5 },
+        big = { back = 5, front = 9.5, side = 9 },
+        large = { back = 5, front = 8, side = 11.5 },
+        cave = { back = 5, front = 13, side = 13 },
+        xlarge = { back = 5.5, front = 13, side = 13 },
+    },
+}
+
+--buff----------------------------
+----------------------------------
+TUNING.COFFEE_SPEED_INCREASE = 5 / 6
+TUNING.BUFF_COFFEE_DURATION = TUNING.TOTAL_DAY_TIME / 2
+TUNING.BOUILLABAISSE_SPEED_MODIFIER = 1.5
+TUNING.BUFF_BOUILLABAISSE_DURATION = TUNING.SEG_TIME
+
+--glass---------------------------
+----------------------------------
+TUNING.SWP_SHARD_DMG = {
+    BEAK = 34,
+    SWORD = 50,
+    SHADOW_MODIFIER_MINIMUM = 2,
+    SHADOW_MODIFIER_MAXIMUM = 8,
+    STRUCTURE_MODIFIER = 5,
+}
+
+--cloak---------------------------
+----------------------------------
+TUNING.ARMORVORTEX = 450
+TUNING.ARMORVORTEXFUEL = TUNING.ARMORVORTEX / 45 * TUNING.LARGE_FUEL
+TUNING.ARMORVORTEX_ABSORPTION = 1
+TUNING.ARMORVOID = 855
+TUNING.ARMORVOIDFUEL = TUNING.ARMORVOID / 45 * TUNING.LARGE_FUEL
+TUNING.ARMORVOID_ABSORPTION = 1
+
+--constants-----------------------
+----------------------------------
+GLOBAL.EQUIPSLOTS.BARCO = "barco"
+GLOBAL.FUELTYPE.TAR = "TAR"
+GLOBAL.FUELTYPE.REPARODEBARCO = "REPARODEBARCO"
+GLOBAL.FUELTYPE.LIVINGARTIFACT = "LIVINGARTIFACT"
+GLOBAL.FUELTYPE.ANCIENT_REMNANT = "ANCIENT_REMNANT"
+GLOBAL.MATERIALS.SANDBAG = "sandbag"
+
+GLOBAL.TOOLACTIONS["HACK"] = true
+GLOBAL.TOOLACTIONS["SHEAR"] = true
+GLOBAL.TOOLACTIONS["PAN"] = true
+GLOBAL.TOOLACTIONS["INVESTIGATEGLASS"] = true
+GLOBAL.FUELTYPE.CORK = "CORK"
+
+GLOBAL.MATERIALS.LIMESTONE = "limestone"
+GLOBAL.MATERIALS.ENFORCEDLIMESTONE = "enforcedlimestone"
+
+GLOBAL.ANTCHEST_PRESERVATION = {
+    honey = true,
+    royal_jelly = true,
+    nectar_pod = true,
+    pollen_item = true,
+}
+
+GLOBAL.SWP_WAVEBREAK_EFFICIENCY = { -- 破浪效率：var * 100%
+    BUMPER = {
+        kelp = .6,                  -- prefab = "boat_bumper_" .. k
+        shell = .8,
+        yotd = .8,
+        crabking = 1,
+    },
+    BOAT = {
+        boat = .3, -- prefab = k
+        boat_pirate = .3,
+        boat_ancient = .4,
+        boatmetal = .9,
+    }
+}
+
+
+
+
+---一些没卵用的东西
 TUNING.TFWP_SPEAR_GUNG =
 {
     USES = 200,
@@ -202,69 +306,3 @@ TUNING.SPIKY_MONKEY_TFC.SLAM_RADIUS = 5
 TUNING.SPIKY_MONKEY_TFC.SLAM_DAMAGE = 100
 
 TUNING.OBSIDIAN_TOOL_MAXHEAT = 60
-
---buff----------------------------
-----------------------------------
-TUNING.COFFEE_SPEED_INCREASE = 5 / 6
-TUNING.BUFF_COFFEE_DURATION = TUNING.TOTAL_DAY_TIME / 2
-TUNING.BOUILLABAISSE_SPEED_MODIFIER = 1.5
-TUNING.BUFF_BOUILLABAISSE_DURATION = TUNING.SEG_TIME
-
---glass---------------------------
-----------------------------------
-TUNING.SWP_SHARD_DMG = {
-    BEAK = 34,
-    SWORD = 50,
-    SHADOW_MODIFIER_MINIMUM = 2,
-    SHADOW_MODIFIER_MAXIMUM = 8,
-    STRUCTURE_MODIFIER = 5,
-}
-
---cloak---------------------------
-----------------------------------
-TUNING.ARMORVORTEX = 450
-TUNING.ARMORVORTEXFUEL = TUNING.ARMORVORTEX / 45 * TUNING.LARGE_FUEL
-TUNING.ARMORVORTEX_ABSORPTION = 1
-TUNING.ARMORVOID = 855
-TUNING.ARMORVOIDFUEL = TUNING.ARMORVOID / 45 * TUNING.LARGE_FUEL
-TUNING.ARMORVOID_ABSORPTION = 1
-
---constants-----------------------
-----------------------------------
-GLOBAL.EQUIPSLOTS.BARCO = "barco"
-GLOBAL.FUELTYPE.TAR = "TAR"
-GLOBAL.FUELTYPE.REPARODEBARCO = "REPARODEBARCO"
-GLOBAL.FUELTYPE.LIVINGARTIFACT = "LIVINGARTIFACT"
-GLOBAL.FUELTYPE.ANCIENT_REMNANT = "ANCIENT_REMNANT"
-GLOBAL.MATERIALS.SANDBAG = "sandbag"
-
-GLOBAL.TOOLACTIONS["HACK"] = true
-GLOBAL.TOOLACTIONS["SHEAR"] = true
-GLOBAL.TOOLACTIONS["PAN"] = true
-GLOBAL.TOOLACTIONS["INVESTIGATEGLASS"] = true
-GLOBAL.FUELTYPE.CORK = "CORK"
-
-GLOBAL.MATERIALS.LIMESTONE = "limestone"
-GLOBAL.MATERIALS.ENFORCEDLIMESTONE = "enforcedlimestone"
-
-GLOBAL.ANTCHEST_PRESERVATION = {
-    honey = true,
-    royal_jelly = true,
-    nectar_pod = true,
-    pollen_item = true,
-}
-
-GLOBAL.SWP_WAVEBREAK_EFFICIENCY = { -- 破浪效率：var * 100%
-    BUMPER = {
-        kelp = .6, -- prefab = "boat_bumper_" .. k
-        shell = .8,
-        yotd = .8,
-        crabking = 1,
-    },
-    BOAT = {
-        boat = .3, -- prefab = k
-        boat_pirate = .3,
-        boat_ancient = .4,
-        boatmetal = .9,
-    }
-}

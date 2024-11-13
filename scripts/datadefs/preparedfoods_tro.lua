@@ -16,8 +16,7 @@ local foods_tro = {
     [tabName[1]] = {
         feijoada = {
             test = function(cooker, names, tags)
-                return tags.meat and (names.jellybug == 3) or (names.jellybug_cooked == 3) or
-                           (names.jellybug and names.jellybug_cooked and names.jellybug + names.jellybug_cooked == 3)
+                return tags.meat and ((names.jellybug or 0) + (names.jellybug_cooked or 0) == 3)
             end,
             priority = 30,
             foodtype = FOODTYPE.MEAT,
