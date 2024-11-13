@@ -1,5 +1,3 @@
-GLOBAL.setfenv(1, GLOBAL)
-
 local relative_temperature_thresholds = { -30, -10, 10, 30 }
 local function GetRangeForTemperature(temp, ambient)
     local range = 1

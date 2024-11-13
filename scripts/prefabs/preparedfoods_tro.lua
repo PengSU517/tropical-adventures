@@ -155,7 +155,7 @@ end
 
 local prefs = {}
 
-for tabIdx, foodTab in pairs(require("preparedfoods_tro")) do
+for tabIdx, foodTab in pairs(require("datadefs/preparedfoods_tro")) do
     for _, foodDef in pairs(foodTab) do
         table.insert(prefs, MakePreparedFood(foodDef))
     end

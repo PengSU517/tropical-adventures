@@ -1,1588 +1,19 @@
--- DEPLOY_AI Action [FIX FOR MOBS THAT PLANT TREES]
---print("fist check)
-AddAction(
-    "LAVASPIT",
-    "spit",
-    function(act)
-        if act.doer and act.target and act.doer.prefab == "dragoon" then
-            local spit = GLOBAL.SpawnPrefab("dragoonspit")
-            local x, y, z = act.doer.Transform:GetWorldPosition()
-            local downvec = GLOBAL.TheCamera:GetDownVec()
-            local offsetangle = math.atan2(downvec.z, downvec.x) * (180 / math.pi)
-            while offsetangle > 180 do
-                offsetangle = offsetangle - 360
-            end
-            while offsetangle < -180 do
-                offsetangle = offsetangle + 360
-            end
-            local offsetvec =
-                GLOBAL.Vector3(math.cos(offsetangle * GLOBAL.DEGREES), -.3, math.sin(offsetangle * GLOBAL.DEGREES)) *
-                1.7
-            spit.Transform:SetPosition(x + offsetvec.x, y + offsetvec.y, z + offsetvec.z)
-            spit.Transform:SetRotation(act.doer.Transform:GetRotation())
-        end
-    end
-)
+local AddStategraphActionHandler = AddStategraphActionHandler
+local ActionHandler = ActionHandler
 
--- DEPLOY_AI Action [FIX FOR MOBS THAT PLANT TREES]
-AddAction(
-    "DEPLOY_AI",
-    "Deploy AI",
-    function(act)
-        if act.invobject and act.invobject.components.deployable then
-            local obj =
-                (act.doer.components.inventory and act.doer.components.inventory:RemoveItem(act.invobject)) or
-                (act.doer.replica.container and act.doer.replica.container:RemoveItem(act.invobject))
-            if obj then
-                if obj.components.deployable:ForceDeploy(act:GetActionPoint(), act.doer, act.rotation) then
-                    return true
-                else
-                    act.doer.components.inventory:GiveItem(obj)
-                end
-            end
-        end
-    end
-)
 
-AddComponentPostInit(
-    "deployable",
-    function(self, inst)
-        self.ForceDeploy = function(self, pt, deployer)
-            -- if not self:CanDeploy(pt) then
-            --  return
-            -- end
-            local prefab = self.inst.prefab
-            if self.ondeploy ~= nil then
-                self.ondeploy(self.inst, pt, deployer)
-            end
-            -- self.inst is removed during ondeploy
-            deployer:PushEvent("deployitem", { prefab = prefab })
-            return true
-        end
-    end
-)
+local AddStategraphState = AddStategraphState
+local EventHandler = EventHandler
+local State = State
+local ACTIONS = ACTIONS
 
-AddAction(
-    "FLUP_HIDE",
-    "Flup Hide",
-    function(act)
-        --Dummy action for flup hiding
-    end
-)
 
-AddAction(
-    "FISH1",
-    "Fish1",
-    function(act)
-        local fishingrod =
-            (act.invobject and act.invobject.components.fishingrod) or (act.doer and act.doer.components.fishingrod)
 
-        if fishingrod then
-            fishingrod:StartFishing(act.target, act.doer)
-        end
-        return true
-    end
-)
 
-AddAction(
-    "TIGERSHARK_FEED",
-    "Tigershark Feed",
-    function(act)
-        local doer = act.doer
-        if doer and doer.components.lootdropper then
-            doer.components.lootdropper:SpawnLootPrefab("wetgoop")
-        end
-    end
-)
 
-AddAction(
-    "MATE",
-    "Mate",
-    function(act)
-        if act.target == act.doer then
-            return false
-        end
 
-        if act.doer.components.mateable then
-            act.doer.components.mateable:Mate()
-            return true
-        end
-    end
-)
 
-AddAction(
-    "CRAB_HIDE",
-    "Crab Hide",
-    function(act)
-        --Dummy action for crab.
-    end
-)
-
-AddAction(
-    "HIDECRAB",
-    "Hide",
-    function(act)
-        if act.doer then
-            return true
-        end
-    end)
-
-AddAction(
-    "SHOWCRAB",
-    "Emerge",
-    function(act)
-        if act.doer then
-            return true
-        end
-    end)
-
---[[
-AddAction(
-    "THROW",
-    "Throw",
-    function(act)
-	local thrown = act.invobject or act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-	if act.target and not act.pos then
-		act.pos = act.target:GetPosition()
-	end
-	if thrown and thrown.components.throwable then
-		thrown.components.throwable:Throw(act.pos, act.doer)
-		return true
-	end
-    end
-)
-]]
-
-local THROW = GLOBAL.Action({ priority = 0, rmb = true, distance = 20, mount_valid = true })
-THROW.str = "Throw"
-THROW.id = "THROW"
-THROW.fn = function(act)
-    local thrown = act.invobject or act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-    if act.target and not act.pos then
-        act.pos = act.target:GetPosition()
-    end
-    if thrown and thrown.components.throwable then
-        thrown.components.throwable:Throw(act.pos, act.doer)
-        return true
-    end
-end
-AddAction(THROW)
-
--------------actions hamlet-------------------
-AddAction(
-    "PEAGAWK_TRANSFORM",
-    "Peagank Transform",
-    function(act)
-        --Dummy action for flup hiding
-    end
-)
-
-AddAction(
-    "MANUALEXTINGUISH",
-    "Manualextinguish",
-    function(act)
-        if act.doer:HasTag("extinguisher") then
-            if act.target.components.burnable and act.target.components.burnable:IsBurning() then
-                act.target.components.burnable:Extinguish()
-                return true
-            end
-        elseif act.target.components.sentientball then
-            act.target.components.burnable:Extinguish()
-            -- damage player?
-            return true
-        elseif act.invobject:HasTag("frozen") and act.target.components.burnable and act.target.components.burnable:IsBurning() then
-            act.target.components.burnable:Extinguish(true, TUNING.SMOTHERER_EXTINGUISH_HEAT_PERCENT, act.invobject)
-            return true
-        end
-    end
-)
-
-AddAction(
-    "SPECIAL_ACTION",
-    "Special Actions",
-    function(act)
-        if act.doer.special_action then
-            act.doer.special_action(act)
-            return true
-        end
-    end
-)
-
-AddAction(
-    "SPECIAL_ACTION2",
-    "Special Actions2",
-    function(act)
-        if act.doer.special_action2 then
-            act.doer.special_action2(act)
-            return true
-        end
-    end
-)
-
-
-AddAction(
-    "LAUNCH_THROWABLE",
-    "Launch Throwable",
-    function(act)
-        if act.target and not act.pos then
-            act.pos = act.target:GetPosition()
-        end
-        act.invobject.components.thrower:Throw(act.pos)
-        return true
-    end
-)
-
-AddAction(
-    "INFEST",
-    "Infest",
-    function(act)
-        if not act.doer.infesting then
-            act.doer.components.infester:Infest(act.target)
-        end
-    end
-)
-
-AddAction(
-    "DIGDUNG",
-    "Digdung",
-    function(act)
-        act.target.components.workable:WorkedBy(act.doer, 1)
-    end
-)
-
-AddAction(
-    "MOUNTDUNG",
-    "Mountdung",
-    function(act)
-        act.doer.dung_target:Remove()
-        act.doer:AddTag("hasdung")
-        act.doer.dung_target = nil
-    end
-)
-
-AddAction(
-    "BARK",
-    "Bark",
-    function(act)
-        return true
-    end
-)
-
-AddAction(
-    "RANSACK",
-    "Ransack",
-    function(act)
-        return true
-    end
-)
-
-AddAction(
-    "CUREPOISON",
-    "Curepoison",
-    function(act)
-        if act.invobject and act.invobject.components.poisonhealer then
-            local target = act.target or act.doer
-            return act.invobject.components.poisonhealer:Cure(target)
-        end
-    end
-)
-
-AddAction(
-    "USEDOOR",
-    "Usedoor",
-    function(act)
-        if act.target:HasTag("secret_room") then
-            return false
-        end
-
-        if act.target.components.door and not act.target.components.door.disabled then
-            act.target.components.door:Activate(act.doer)
-            return true
-        elseif act.target.components.door and act.target.components.door.disabled then
-            return false, "LOCKED"
-        end
-    end
-)
-
-local SHOP = GLOBAL.Action({ priority = 9, rmb = true, distance = 1, mount_valid = false })
-SHOP.stroverridefn = function(act)
-    if act.target.cost then
-        local itemname = act.target.components.shopdispenser:GetItem()
-        local itemname = itemname and string.gsub(itemname, "_blueprint", "") or "unknown"
-        local costprefab = act.target.costprefab or "oinc"
-        return subfmt(STRINGS.ACTIONS.CHECKSHOP, {
-            item = STRINGS.NAMES[itemname and itemname:upper()] or itemname,
-            cost = act.target.cost and (act.target.cost <= 1 and "" or act.target.cost),
-            costprefab = STRINGS.NAMES[costprefab:upper()],
-        })
-    else
-        return "Shop"
-    end
-end
-SHOP.id = "SHOP"
-SHOP.fn = function(act)
-    if act.doer.components.inventory then
-        if act.doer:HasTag("player") and act.doer.components.shopper then
-            if act.doer.components.shopper:IsWatching(act.target) then
-                local sell = true
-                local reason = nil
-
-                if act.target:HasTag("shopclosed") or GLOBAL.TheWorld.state.isnight then
-                    reason = "closed"
-                    sell = false
-                elseif not act.doer.components.shopper:CanPayFor(act.target) then
-                    local prefab_wanted = act.target.costprefab
-                    if prefab_wanted == "oinc" then
-                        reason = "money"
-                    else
-                        reason = "goods"
-                    end
-                    sell = false
-                end
-
-                if sell then
-                    act.doer.components.shopper:PayFor(act.target)
-                    act.target.components.shopdispenser:RemoveItem()
-                    act.target:SetImage(nil)
-
-                    if act.target and act.target.shopkeeper_speech then
-                        act.target.shopkeeper_speech(act.target,
-                            STRINGS.CITY_PIG_SHOPKEEPER_SALE[math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_SALE)])
-                    end
-
-                    return true
-                else
-                    if reason == "money" then
-                        if act.target and act.target.shopkeeper_speech then
-                            act.target.shopkeeper_speech(act.target,
-                                STRINGS.CITY_PIG_SHOPKEEPER_NOT_ENOUGH
-                                [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_NOT_ENOUGH)])
-                        end
-                    elseif reason == "goods" then
-                        local itemname = act.target.costprefab or "oinc"
-                        if act.target and act.target.shopkeeper_speech then
-                            act.target.shopkeeper_speech(act.target,
-                                subfmt(STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE
-                                    [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_DONT_HAVE)], {
-                                        item = STRINGS.NAMES[itemname and itemname:upper()] or "UNKNOWN",
-                                    })
-                            )
-                        end
-                    elseif reason == "closed" then
-                        if act.target and act.target.shopkeeper_speech then
-                            act.target.shopkeeper_speech(act.target,
-                                STRINGS.CITY_PIG_SHOPKEEPER_CLOSING
-                                [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_CLOSING)])
-                        end
-                    end
-                    return true
-                end
-            else
-                act.doer.components.shopper:Take(act.target)
-                -- THIS IS WHAT HAPPENS IF ISWATCHING IS FALSE
-                act.target.components.shopdispenser:RemoveItem()
-                act.target:SetImage(nil)
-                return true
-            end
-        end
-    end
-end
-SHOP.encumbered_valid = true
-AddAction(SHOP)
-
-AddAction(
-    "FIX",
-    "Fix",
-    function(act)
-        if act.target then
-            local target = act.target
-            local numworks = 1
-            target.components.workable:WorkedBy(act.doer, numworks)
-            --	return target:fix(act.doer)		
-        end
-    end
-)
-
-AddAction(
-    "STOCK",
-    "Stock",
-    function(act)
-        if act.target then
-            act.target.restock(act.target, true)
-            act.doer.changestock = nil
-            return true
-        end
-    end
-)
------------------------------------------------------------------ acoes do jogador----------------------------------------
-
-local function ExtrarummageRange(doer, dest)
-    if dest ~= nil then
-        local target_x, target_y, target_z = dest:GetPoint()
-
-        local is_on_water = GLOBAL.TheWorld.Map:IsOceanTileAtPoint(target_x, 0, target_z) and
-            not GLOBAL.TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
-        if is_on_water then
-            return 2
-        end
-    end
-    return 0
-end
-
-GLOBAL.ACTIONS.RUMMAGE.extra_arrive_dist = ExtrarummageRange
---------------------------------------------------------------------------------------------------------------
-local BOATMOUNT = GLOBAL.Action({ priority = 10, rmb = true, distance = 8, mount_valid = false })
-BOATMOUNT.str = (GLOBAL.STRINGS.ACTIONS.BOATMOUNT)
-BOATMOUNT.id = "BOATMOUNT"
-BOATMOUNT.fn = function(act)
-    if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and
-        act.target:HasTag("boatsw")
-    then
-        act.doer:AddTag("pulando")
-        if act.doer:HasTag("aquatic") then
-            act.doer:RemoveComponent("rowboatwakespawner")
-            if act.doer.components.driver then
-                local barcoinv = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-                if barcoinv and barcoinv.prefab == act.doer.components.driver.vehicle.prefab then
-                    local consumo = SpawnPrefab(act.doer.components.driver.vehicle.prefab)
-                    consumo.Transform:SetPosition(act.doer.components.driver.vehicle:GetPosition():Get())
-                    consumo.components.finiteuses.current = barcoinv.components.finiteuses.current
-                    -------------------------transfere o conteudo do barco inventario para o barco do criado---------------------------------
-                    if barcoinv.components.container then
-                        local sailslot = barcoinv.components.container:GetItemInSlot(1)
-                        if sailslot then
-                            consumo.components.container:GiveItem(sailslot, 1)
-                        end
-
-                        local luzslot = barcoinv.components.container:GetItemInSlot(2)
-                        if luzslot and luzslot.prefab == "quackeringram" then luzslot.navio1 = nil end
-                        if luzslot then
-                            consumo.components.container:GiveItem(luzslot, 2)
-                        end
-
-                        local cargoslot1 = barcoinv.components.container:GetItemInSlot(3)
-                        if cargoslot1 then
-                            consumo.components.container:GiveItem(cargoslot1, 3)
-                        end
-
-                        local cargoslot2 = barcoinv.components.container:GetItemInSlot(4)
-                        if cargoslot2 then
-                            consumo.components.container:GiveItem(cargoslot2, 4)
-                        end
-
-                        local cargoslot3 = barcoinv.components.container:GetItemInSlot(5)
-                        if cargoslot3 then
-                            consumo.components.container:GiveItem(cargoslot3, 5)
-                        end
-
-                        local cargoslot4 = barcoinv.components.container:GetItemInSlot(6)
-                        if cargoslot4 then
-                            consumo.components.container:GiveItem(cargoslot4, 6)
-                        end
-
-                        local cargoslot5 = barcoinv.components.container:GetItemInSlot(7)
-                        if cargoslot5 then
-                            consumo.components.container:GiveItem(cargoslot5, 7)
-                        end
-
-                        local cargoslot6 = barcoinv.components.container:GetItemInSlot(8)
-                        if cargoslot6 then
-                            consumo.components.container:GiveItem(cargoslot6, 8)
-                        end
-                    end
-                    ----------------------------------------------------------------------------------------------------------------------
-                    barcoinv:Remove()
-                end
-                act.doer.components.driver.vehicle:Remove()
-                act.doer:RemoveComponent("driver")
-                act.doer:RemoveTag("sail")
-                act.doer:RemoveTag("surf")
-                act.doer:RemoveTag("aquatic")
-            end
-        end
-        act.target.components.interactions:BoatJump(act.doer)
-        return true
-    else
-        return false
-    end
-end
-BOATMOUNT.encumbered_valid = true
-AddAction(BOATMOUNT)
-
-
-
-local BOATDISMOUNT = GLOBAL.Action({ priority = 9, rmb = true, distance = 8, mount_valid = false })
-BOATDISMOUNT.str = (GLOBAL.STRINGS.ACTIONS.BOATDISMOUNT)
-BOATDISMOUNT.id = "BOATDISMOUNT"
-BOATDISMOUNT.fn = function(act)
-    if act.doer ~= nil and act.doer:HasTag("player") then
-        act.doer:AddTag("pulando")
-        if not act.doer.components.interactions then
-            act.doer:AddComponent("interactions")
-        end
-        act.doer.components.interactions:BoatDismount(act.doer, act:GetActionPoint())
-        return true
-    end
-end
-BOATDISMOUNT.encumbered_valid = true
-AddAction(BOATDISMOUNT)
-
-
-local SURF = GLOBAL.Action({
-    priority = 4,
-    --is_relative_to_platform=true,
-    --disable_platform_hopping=true,
-    distance = 20
-})
-SURF.str = (GLOBAL.STRINGS.ACTIONS.SURF)
-SURF.id = "SURF"
-SURF.fn = function(act)
-    local doer_x, doer_y, doer_z = act.doer.Transform:GetWorldPosition()
-    local planchadesurf = GLOBAL.TheWorld.Map:GetPlatformAtPoint(doer_x, doer_z)
-    if planchadesurf and planchadesurf:HasTag("planchadesurf") then
-        local pos = act:GetActionPoint()
-        if pos == nil then
-            pos = act.target:GetPosition()
-        end
-        planchadesurf.components.oar:Row(act.doer, pos)
-        planchadesurf.components.health:DoDelta(-0.5)
-
-        return true
-    end
-end
-SURF.encumbered_valid = true
-AddAction(SURF)
-
-
-
-
-
-local BOATCANNON = GLOBAL.Action({ priority = 8, rmb = true, distance = 25, mount_valid = false })
-BOATCANNON.str = (GLOBAL.STRINGS.ACTIONS.BOATCANNON)
-BOATCANNON.id = "BOATCANNON"
-BOATCANNON.fn = function(act)
-    if act.doer ~= nil and act.doer:HasTag("player") then
-        act.doer:AddTag("deleidotiro")
-        act.doer:DoTaskInTime(0.5, function(inst) act.doer:RemoveTag("deleidotiro") end)
-
-
-        local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-        local canhao = equipamento.replica.container:GetItemInSlot(2)
-        ----------------posiciona pra sair no canhao-----------------------
-        local angle = act.doer:GetRotation()
-        local dist = 1.5
-        local offset = Vector3(dist * math.cos(angle * GLOBAL.DEGREES), 0, -dist * math.sin(angle * GLOBAL.DEGREES))
-        local x, y, z = act.doer.Transform:GetWorldPosition()
-        local x1, y1, z1
-        local pos
-        if act.target then
-            x1, y1, z1 = act.target:GetPosition():Get()
-            pos = act.target:GetPosition()
-        else
-            x1, y1, z1 = act:GetActionPoint():Get()
-            pos = act:GetActionPoint()
-        end
-
-        local pt = Vector3(x, y, z)
-        local bombpos = pt + offset
-        local x, y, z = bombpos:Get()
-
-        -------------------------------------------------------
-
-        if canhao and canhao.prefab == "woodlegs_boatcannon" then
-            if equipamento and canhao then canhao.components.finiteuses:Use(1) end
-            local bomba = SpawnPrefab("cannonshotobsidian")
-            bomba.Transform:SetPosition(x, y + 1.5, z)
-            bomba.components.complexprojectile:Launch(pos)
-            act.doer.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/knight_steamboat/cannon")
-        else
-            if equipamento and canhao and act.doer.prefab ~= "woodlegs" then
-                canhao.components.finiteuses:Use(1)
-                local bomba = SpawnPrefab("cannonshot")
-                bomba.Transform:SetPosition(x, y + 1.5, z)
-                bomba.components.complexprojectile:Launch(pos)
-                act.doer.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/knight_steamboat/cannon")
-            elseif equipamento and equipamento.prefab == "woodlegsboat" and canhao and act.doer.prefab == "woodlegs" then
-                local bomba = SpawnPrefab("cannonshot")
-                bomba.components.explosive.explosivedamage = 50
-                bomba.Transform:SetPosition(x, y + 1.5, z)
-                bomba.components.complexprojectile:Launch(pos)
-                act.doer.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/knight_steamboat/cannon")
-            elseif equipamento and canhao then
-                canhao.components.finiteuses:Use(1)
-                local bomba = SpawnPrefab("cannonshot")
-                bomba.Transform:SetPosition(x, y + 1.5, z)
-                bomba.components.complexprojectile:Launch(pos)
-                act.doer.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/knight_steamboat/cannon")
-            end
-        end
-
-        return true
-    end
-end
-AddAction(BOATCANNON)
-
-local TIRO = GLOBAL.Action({ priority = 9, rmb = true, distance = 20, mount_valid = false })
-TIRO.str = (GLOBAL.STRINGS.ACTIONS.TIRO)
-TIRO.id = "TIRO"
-TIRO.fn = function(act)
-    if act.doer ~= nil and act.doer:HasTag("ironlord") then
-        --        act.doer:AddComponent("interactions")
-        --        act.doer.components.interactions:TIRO(act.doer, act.target:GetPosition())
-        return true
-    end
-end
---TIRO.encumbered_valid =true
-AddAction(TIRO)
-
-
-local RETRIEVE = GLOBAL.Action({ priority = 11, rmb = true, distance = 2, mount_valid = false })
-RETRIEVE.str = (GLOBAL.STRINGS.ACTIONS.RETRIEVE)
-RETRIEVE.id = "RETRIEVE"
-RETRIEVE.fn = function(act)
-    if act.target.components.breeder and act.target.components.breeder.volume > 0 then
-        return act.target.components.breeder:Harvest(act.doer)
-    end
-
-    if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and act.target.prefab == "surfboard" then
-        if act.target and act.target.prefab == "surfboard" then
-            local panela = SpawnPrefab("surfboarditem")
-            if act.target.components.finiteuses then
-                panela.components.finiteuses.current = act.target.components.finiteuses.current
-            end
-            act.doer.components.inventory:GiveItem(panela, 1)
-            act.target:Remove()
-        end
-        return true
-    end
-
-    if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and act.target.prefab == "corkboat" then
-        if act.target and act.target.prefab == "corkboat" then
-            local panela = SpawnPrefab("corkboatitem")
-            if act.target.components.finiteuses then
-                panela.components.finiteuses.current = act.target.components.finiteuses.current
-            end
-
-
-
-            -------------------------transfere o conteudo do barco inventario para o barco do criado---------------------------------
-            if act.target.components.container then
-                local sailslot = act.target.components.container:GetItemInSlot(1)
-                if sailslot then
-                    act.doer.components.inventory:GiveItem(sailslot, 1)
-                end
-
-                local luzslot = act.target.components.container:GetItemInSlot(2)
-                if luzslot and luzslot.prefab == "quackeringram" then luzslot.navio1 = nil end
-                if luzslot then
-                    act.doer.components.inventory:GiveItem(luzslot, 1)
-                end
-            end
-            ----------------------------------------------------------------------------------------------------------------------
-
-            act.doer.components.inventory:GiveItem(panela, 1)
-            act.target:Remove()
-        end
-        return true
-    end
-end
-
-AddAction(RETRIEVE)
-
---[[
-local function ExtraDeployDist(doer, dest, bufferedaction)
-	if dest ~= nil then
-		local target_x, target_y, target_z = dest:GetPoint()
-
-		local is_on_water = GLOBAL.TheWorld.Map:IsOceanTileAtPoint(target_x, 0, target_z) and not GLOBAL.TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
-		if is_on_water then
-			return ((bufferedaction ~= nil and bufferedaction.invobject ~= nil and bufferedaction.invobject:HasTag("usedeployspacingasoffset") and bufferedaction.invobject.replica.inventoryitem ~= nil and bufferedaction.invobject.replica.inventoryitem:DeploySpacingRadius()) or 0) + 1.0
-		end
-	end
-    return 0
-end
-
-
-GLOBAL.ACTIONS.DEPLOY.distance = 6
-]]
-
-
-
-local BOATREPAIR = GLOBAL.Action({ priority = 10, rmb = true, distance = 1, mount_valid = false })
-BOATREPAIR.str = (GLOBAL.STRINGS.ACTIONS.BOATREPAIR)
-BOATREPAIR.id = "BOATREPAIR"
-BOATREPAIR.fn = function(act)
-    if act.doer ~= nil and act.doer:HasTag("aquatic") and act.invobject ~= nil and act.invobject:HasTag("boatrepairkit") then
-        local boat = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-        local boat2 = act.doer.components.driver.vehicle
-        if boat and boat2 then
-            if boat2.components.finiteuses and boat.components.armor.condition and boat2.components.finiteuses.current + 150 >= boat2.components.finiteuses.total then
-                boat2.components.finiteuses.current = boat2.components.finiteuses.total
-                boat.components.armor.condition = boat2.components.finiteuses.current
-                if boat2.components.finiteuses then
-                    boat2.components.finiteuses:Use(1)
-                end
-                if act.invobject.prefab == "sewing_tape" then
-                    local nut = act.invobject
-                    if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then
-                        nut = act.invobject.components.stackable:Get()
-                    end
-                    nut:Remove()
-                else
-                    if act.invobject.components.finiteuses then
-                        act.invobject.components.finiteuses:Use(1)
-                    end
-                end
-                return true
-            end
-
-            boat2.components.finiteuses.current = boat2.components.finiteuses.current + 150
-            boat.components.armor.condition = boat.components.armor.condition + 150
-            if act.invobject.components.finiteuses then
-                act.invobject.components.finiteuses:Use(1)
-            end
-        end
-        return true
-    end
-
-
-
-    if
-        act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and
-        act.target:HasTag("boatsw")
-    then
-        local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-
-        if equipamento then
-            if act.target.components.finiteuses.current + 150 >= act.target.components.finiteuses.total then
-                act.target.components.finiteuses.current = act.target.components.finiteuses.total
-                local gastabarco = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)                      -------armadura
-                if gastabarco then gastabarco.components.armor.condition = act.target.components.finiteuses.current end ---------armadura
-                if equipamento.components.finiteuses then
-                    equipamento.components.finiteuses:Use(1)
-                end
-                return true
-            end
-            act.target.components.finiteuses.current = act.target.components.finiteuses.current + 150
-            local gastabarco = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)                      ---------armadura
-            if gastabarco then gastabarco.components.armor.condition = act.target.components.finiteuses.current end ---------armadura
-            if equipamento.components.finiteuses then
-                equipamento.components.finiteuses:Use(1)
-            end
-        end
-        return true
-    end
-end
-
-AddAction(BOATREPAIR)
-
-
-
-
-
-local OPENTUNA = GLOBAL.Action({ priority = 10, rmb = true, distance = 1, mount_valid = false })
-OPENTUNA.str = (GLOBAL.STRINGS.ACTIONS.OPENTUNA)
-OPENTUNA.id = "OPENTUNA"
-OPENTUNA.fn = function(act)
-    if act.doer ~= nil and act.invobject ~= nil and act.invobject:HasTag("tunacan") then
-        local nut = act.invobject
-        if act.invobject.replica.inventoryitem then
-            if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then
-                nut = act.invobject.components.stackable:Get()
-            end
-            if act.doer.components.inventory then
-                local peixe = SpawnPrefab("fish_med_cooked")
-                act.doer.components.inventory:GiveItem(peixe, 1)
-            end
-        end
-        nut:Remove()
-        return true
-    end
-end
-AddAction(OPENTUNA)
-
-local DISLODGE = GLOBAL.Action({ priority = 11, rmb = true, distance = 2, mount_valid = false })
-DISLODGE.str = (GLOBAL.STRINGS.ACTIONS.DISLODGE)
-DISLODGE.id = "DISLODGE"
-DISLODGE.fn = function(act)
-    -- print("test fn used aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-    local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-
-    -- print(act.target.components.dislodgeable)
-    -- print(act.target.components.dislodgeable.canbedislodged)
-    -- print(act.target.components.dislodgeable.caninteractwith)
-    if act.target.components.dislodgeable and act.target.components.dislodgeable.canbedislodged and act.target.components.dislodgeable.caninteractwith then
-        if act.doer ~= nil and equipamento then
-            if equipamento.components.finiteuses then
-                equipamento.components.finiteuses:Use(1)
-            end
-
-            if equipamento and equipamento:HasTag("ballpein_hammer") then
-                if act.target.components.dislodgeable then
-                    act.target.components.dislodgeable:Dislodge(act.doer)
-                end
-                return true
-            end
-        end
-    else
-        return false
-    end
-end
-AddAction(DISLODGE)
-
-
-local PAINT = GLOBAL.Action({ priority = 10, rmb = true, distance = 2, mount_valid = false })
-PAINT.str = (GLOBAL.STRINGS.ACTIONS.PAINT)
-PAINT.id = "PAINT"
-PAINT.fn = function(act)
-    local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-    if act.doer ~= nil and equipamento then
-        if equipamento.components.finiteuses then
-            equipamento.components.finiteuses:Use(1)
-        end
-
-        if equipamento and equipamento:HasTag("shop_wall_checkered_metal") then
-            act.target.AnimState:SetBank("wallhamletcity1")
-            act.target.AnimState:SetBuild("wallhamletcity1")
-            act.target.AnimState:PlayAnimation("shop_wall_checkered_metal", true)
-            act.target.wallpaper = "shop_wall_checkered_metal"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_wall_circles") then
-            act.target.AnimState:SetBank("wallhamletcity1")
-            act.target.AnimState:SetBuild("wallhamletcity1")
-            act.target.AnimState:PlayAnimation("shop_wall_circles", true)
-            act.target.wallpaper = "shop_wall_circles"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_wall_marble") then
-            act.target.AnimState:SetBank("wallhamletcity1")
-            act.target.AnimState:SetBuild("wallhamletcity1")
-            act.target.AnimState:PlayAnimation("shop_wall_marble", true)
-            act.target.wallpaper = "shop_wall_marble"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_wall_sunflower") then
-            act.target.AnimState:SetBank("wallhamletcity1")
-            act.target.AnimState:SetBuild("wallhamletcity1")
-            act.target.AnimState:PlayAnimation("shop_wall_sunflower", true)
-            act.target.wallpaper = "shop_wall_sunflower"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_wall_woodwall") then
-            act.target.AnimState:SetBank("wallhamletcity1")
-            act.target.AnimState:SetBuild("wallhamletcity1")
-            act.target.AnimState:PlayAnimation("shop_wall_woodwall", true)
-            act.target.wallpaper = "shop_wall_woodwall"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("wall_mayorsoffice_whispy") then
-            act.target.AnimState:SetBank("wallhamletcity1")
-            act.target.AnimState:SetBuild("wallhamletcity1")
-            act.target.AnimState:PlayAnimation("wall_mayorsoffice_whispy", true)
-            act.target.wallpaper = "wall_mayorsoffice_whispy"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("harlequin_panel") then
-            act.target.AnimState:SetBank("wallhamletcity2")
-            act.target.AnimState:SetBuild("wallhamletcity2")
-            act.target.AnimState:PlayAnimation("harlequin_panel", true)
-            act.target.wallpaper = "harlequin_panel"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_wall_fullwall_moulding") then
-            act.target.AnimState:SetBank("wallhamletcity2")
-            act.target.AnimState:SetBuild("wallhamletcity2")
-            act.target.AnimState:PlayAnimation("shop_wall_fullwall_moulding", true)
-            act.target.wallpaper = "shop_wall_fullwall_moulding"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_wall_floraltrim2") then
-            act.target.AnimState:SetBank("wallhamletcity2")
-            act.target.AnimState:SetBuild("wallhamletcity2")
-            act.target.AnimState:PlayAnimation("shop_wall_floraltrim2", true)
-            act.target.wallpaper = "shop_wall_floraltrim2"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_wall_upholstered") then
-            act.target.AnimState:SetBank("wallhamletcity2")
-            act.target.AnimState:SetBuild("wallhamletcity2")
-            act.target.AnimState:PlayAnimation("shop_wall_upholstered", true)
-            act.target.wallpaper = "shop_wall_upholstered"
-            return true
-        end
-
-
-
-        if equipamento and equipamento:HasTag("floor_cityhall") then
-            act.target.AnimState:PlayAnimation("floor_cityhall", true)
-            act.target.floorpaper = "floor_cityhall"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("noise_woodfloor") then
-            act.target.AnimState:PlayAnimation("noise_woodfloor", true)
-            act.target.floorpaper = "noise_woodfloor"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_floor_checker") then
-            act.target.AnimState:PlayAnimation("shop_floor_checker", true)
-            act.target.floorpaper = "shop_floor_checker"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_floor_herringbone") then
-            act.target.AnimState:PlayAnimation("shop_floor_herringbone", true)
-            act.target.floorpaper = "shop_floor_herringbone"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_floor_hexagon") then
-            act.target.AnimState:PlayAnimation("shop_floor_hexagon", true)
-            act.target.floorpaper = "shop_floor_hexagon"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_floor_octagon") then
-            act.target.AnimState:PlayAnimation("shop_floor_octagon", true)
-            act.target.floorpaper = "shop_floor_octagon"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_floor_sheetmetal") then
-            act.target.AnimState:PlayAnimation("shop_floor_sheetmetal", true)
-            act.target.floorpaper = "shop_floor_sheetmetal"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_floor_woodmetal") then
-            act.target.AnimState:PlayAnimation("shop_floor_woodmetal", true)
-            act.target.floorpaper = "shop_floor_woodmetal"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_floor_hoof_curvy") then
-            act.target.AnimState:PlayAnimation("shop_floor_hoof_curvy", true)
-            act.target.floorpaper = "shop_floor_hoof_curvy"
-            return true
-        end
-
-        if equipamento and equipamento:HasTag("shop_floor_woodpaneling2") then
-            act.target.AnimState:PlayAnimation("shop_floor_woodpaneling2", true)
-            act.target.floorpaper = "shop_floor_woodpaneling2"
-            return true
-        end
-    end
-end
-
-AddAction(PAINT)
-
-local SMELT = GLOBAL.Action({ priority = 10, mount_valid = true })
-SMELT.str = (GLOBAL.STRINGS.ACTIONS.SMELT)
-SMELT.id = "SMELT"
-SMELT.fn = function(act)
-    if act.target.components.melter then
-        act.target.components.melter:StartCooking()
-        return true
-    end
-end
-AddAction(SMELT)
-
-local GIVE2 = GLOBAL.Action({ priority = 10, distance = 1, mount_valid = true })
-GIVE2.str = (GLOBAL.STRINGS.ACTIONS.GIVE2)
-GIVE2.id = "GIVE2"
-GIVE2.fn = function(act)
-    if act.invobject.components.inventoryitem then
-        act.target.components.shelfer:AcceptGift(act.doer, act.invobject)
-        return true
-    end
-end
-AddAction(GIVE2)
-
-
-AddComponentAction("USEITEM", "inventoryitem", function(inst, doer, target, actions, right)
-    if not right then
-        if target:HasTag("shelfcanaccept") then --target.components.shelfer and target.components.shelfer:CanAccept(inst, doer ) then
-            table.insert(actions, ACTIONS.GIVE2)
-        end
-    end
-end)
-
-
-local function ExtraPickupRange(doer, dest)
-    if dest ~= nil then
-        local target_x, target_y, target_z = dest:GetPoint()
-
-        local is_on_water = TheWorld.Map:IsOceanTileAtPoint(target_x, 0, target_z) and
-            not TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
-        if is_on_water then
-            return 0.75
-        end
-    end
-    return 0
-end
-
-local PICKUP = GLOBAL.Action({ priority = 1, distance = 2, extra_arrive_dist = ExtraPickupRange, mount_valid = true })
-PICKUP.str = (GLOBAL.STRINGS.ACTIONS.PICKUP)
-PICKUP.id = "PICKUP"
-PICKUP.fn = function(act)
-    if act.target and act.target.components.inventoryitem and act.target.components.shelfer then
-        local item = act.target.components.shelfer:GetGift()
-        if item then
-            if act.target.components.shelfer.shelf and not act.target.components.shelfer.shelf:HasTag("playercrafted") then
-                if act.doer.components.shopper and act.doer.components.shopper:IsWatching(item) then
-                    if act.doer.components.shopper:CanPayFor(item) then
-                        act.doer.components.shopper:PayFor(item)
-                    else
-                        return false, "CANTPAY"
-                    end
-                else
-                    if act.target.components.shelfer.shelf and act.target.components.shelfer.shelf.curse then
-                        act.target.components.shelfer.shelf.curse(act.target)
-                    end
-                end
-            end
-            if item.components.perishable then item.components.perishable:StartPerishing() end
-            act.target = act.target.components.shelfer:GiveGift()
-        end
-    end
-
-    if act.doer.components.inventory ~= nil and
-        act.target ~= nil and
-        act.target.components.inventoryitem ~= nil and
-        (act.target.components.inventoryitem.canbepickedup or
-            (act.target.components.inventoryitem.canbepickedupalive and not act.doer:HasTag("player")) or
-            act.target.components.inventoryitem.grabbableoverridetag ~= nil and act.doer:HasTag(act.target.components.inventoryitem.grabbableoverridetag)
-        ) and
-        not (act.target:IsInLimbo() or
-            (act.target.components.burnable ~= nil and act.target.components.burnable:IsBurning() and act.target.components.lighter == nil) or
-            (act.target.components.projectile ~= nil and act.target.components.projectile:IsThrown())) then
-        if act.doer.components.itemtyperestrictions ~= nil and not act.doer.components.itemtyperestrictions:IsAllowed(act.target) then
-            return false, "restriction"
-        elseif act.target.components.container ~= nil and act.target.components.container:IsOpenedByOthers(act.doer) then
-            return false, "INUSE"
-        elseif (act.target.components.yotc_racecompetitor ~= nil and act.target.components.entitytracker ~= nil) then
-            local trainer = act.target.components.entitytracker:GetEntity("yotc_trainer")
-            if trainer ~= nil and trainer ~= act.doer then
-                return false, "NOTMINE_YOTC"
-            end
-        elseif act.doer.components.inventory.noheavylifting and act.target:HasTag("heavy") then
-            return false, "NO_HEAVY_LIFTING"
-        end
-
-        if (act.target:HasTag("spider") and act.doer:HasTag("spiderwhisperer")) and
-            (act.target.components.follower.leader ~= nil and act.target.components.follower.leader ~= act.doer) then
-            return false, "NOTMINE_SPIDER"
-        end
-        if act.target.components.curseditem and not act.target.components.curseditem:checkplayersinventoryforspace(act.doer) then
-            return false, "FULL_OF_CURSES"
-        end
-
-        if act.target.components.inventory ~= nil and act.target:HasTag("drop_inventory_onpickup") then
-            act.target.components.inventory:TransferInventory(act.doer)
-        end
-
-        act.doer:PushEvent("onpickupitem", { item = act.target })
-
-        if act.target.components.equippable ~= nil and not act.target.components.equippable:IsRestricted(act.doer) then
-            local equip = act.doer.components.inventory:GetEquippedItem(act.target.components.equippable.equipslot)
-            if equip ~= nil and not act.target.components.inventoryitem.cangoincontainer then
-                --special case for trying to carry two backpacks
-                if equip.components.inventoryitem ~= nil and equip.components.inventoryitem.cangoincontainer then
-                    --act.doer.components.inventory:SelectActiveItemFromEquipSlot(act.target.components.equippable.equipslot)
-                    act.doer.components.inventory:GiveItem(act.doer.components.inventory:Unequip(act.target.components
-                        .equippable.equipslot))
-                else
-                    act.doer.components.inventory:DropItem(equip)
-                end
-                act.doer.components.inventory:Equip(act.target)
-                return true
-            elseif act.doer:HasTag("player") then
-                if equip == nil or act.doer.components.inventory:GetNumSlots() <= 0 then
-                    act.doer.components.inventory:Equip(act.target)
-                    return true
-                elseif GetGameModeProperty("non_item_equips") then
-                    act.doer.components.inventory:DropItem(equip)
-                    act.doer.components.inventory:Equip(act.target)
-                    return true
-                end
-            end
-        end
-
-        act.doer.components.inventory:GiveItem(act.target, nil, act.target:GetPosition())
-        return true
-    end
-end
-AddAction(PICKUP)
-
-
-local HARVEST1 = GLOBAL.Action({ priority = 10, mount_valid = true })
-HARVEST1.str = (GLOBAL.STRINGS.ACTIONS.HARVEST1)
-HARVEST1.id = "HARVEST1"
-HARVEST1.fn = function(act)
-    if act.target.components.melter then
-        return act.target.components.melter:Harvest(act.doer)
-    end
-end
-AddAction(HARVEST1)
-
-local PAN = GLOBAL.Action({ priority = 10, mount_valid = true })
-PAN.str = (GLOBAL.STRINGS.ACTIONS.PAN)
-PAN.id = "PAN"
-PAN.fn = function(act)
-    if act.target.components.workable and act.target.components.workable.action == ACTIONS.PAN then
-        local numworks = 1
-
-        if act.invobject and act.invobject.components.tool then
-            numworks = act.invobject.components.tool:GetEffectiveness(ACTIONS.PAN)
-        elseif act.doer and act.doer.components.worker then
-            numworks = act.doer.components.worker:GetEffectiveness(ACTIONS.PAN)
-        end
-        act.target.components.workable:WorkedBy(act.doer, numworks)
-    end
-    return true
-end
-AddAction(PAN)
-
-
-local INVESTIGATEGLASS = GLOBAL.Action({ priority = 10, mount_valid = true })
-INVESTIGATEGLASS.str = (GLOBAL.STRINGS.ACTIONS.INVESTIGATEGLASS)
-INVESTIGATEGLASS.id = "INVESTIGATEGLASS"
-INVESTIGATEGLASS.fn = function(act)
-    if act.target:HasTag("secret_room") then
-        act.target.Investigate(act.doer)
-        return true
-    end
-
-    if act.target and act.target.components.mystery then
-        act.target.components.mystery:Investigate(act.doer)
-
-        local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-        if act.doer ~= nil and equipamento then
-            equipamento.components.finiteuses:Use(1)
-        end
-
-        return true
-    end
-end
-AddAction(INVESTIGATEGLASS)
-
-
-local function DoToolWork(act, workaction)
-    if
-        act.target.components.workable ~= nil and act.target.components.workable:CanBeWorked() and
-        act.target.components.workable.action == workaction
-    then
-        if act.target:HasTag("grass_tall") then
-            local equipamento = act.doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-            if equipamento and equipamento.prefab == "shears" then
-                local x, y, z = act.target.Transform:GetWorldPosition()
-                local gramaextra = SpawnPrefab("cutgrass")
-                if gramaextra then gramaextra.Transform:SetPosition(x, y, z) end
-            end
-        end
-
-        if act.target:HasTag("hedgetoshear") then
-            local equipamento = act.doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-            if equipamento and equipamento.prefab == "shears" then
-                local x, y, z = act.target.Transform:GetWorldPosition()
-                local gramaextra = SpawnPrefab("clippings")
-                if gramaextra then gramaextra.Transform:SetPosition(x, y, z) end
-            end
-        end
-
-        if act.target:HasTag("hangingvine") then
-            local equipamento = act.doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-            if equipamento and equipamento.prefab == "shears" then
-                local x, y, z = act.target.Transform:GetWorldPosition()
-                act.target:DoTaskInTime(1, function()
-                    local gramaextra = SpawnPrefab("rope")
-                    if gramaextra then gramaextra.Transform:SetPosition(x, y, z) end
-                end)
-            end
-        end
-
-        act.target.components.workable:WorkedBy(
-            act.doer,
-            (act.invobject ~= nil and act.invobject.components.tool ~= nil and
-                act.invobject.components.tool:GetEffectiveness(workaction)) or
-            (act.doer ~= nil and act.doer.components.worker ~= nil and
-                act.doer.components.worker:GetEffectiveness(workaction)) or
-            1
-        )
-    end
-    return true
-end
-
-local HACK = GLOBAL.Action({ priority = 10, mount_valid = true })
-HACK.str = (GLOBAL.STRINGS.ACTIONS.HACK)
-HACK.id = "HACK"
-HACK.fn = function(act, ...)
-    return DoToolWork(act, GLOBAL.ACTIONS.HACK)
-end
-AddAction(HACK)
-
-local HACK1 = GLOBAL.Action({ priority = 10, mount_valid = true })
-HACK1.str = (GLOBAL.STRINGS.ACTIONS.HACK)
-HACK1.id = "HACK1"
-HACK1.fn = function(act, ...)
-    local equipamento = act.doer.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-    if equipamento and equipamento.components.finiteuses then
-        equipamento.components.finiteuses:Use(1)
-    end
-    local numworks = 1
-    if equipamento and equipamento.components.tool then
-        numworks = equipamento.components.tool:GetEffectiveness(ACTIONS.HACK)
-    elseif act.doer and act.doer.components.worker then
-        numworks = act.doer.components.worker:GetEffectiveness(ACTIONS.HACK)
-    end
-    if equipamento and equipamento.components.obsidiantool then
-        equipamento.components.obsidiantool:Use(act.doer, act.target)
-    end
-    if act.target and act.target.components.hackable then
-        act.target.components.hackable:Hack(act.doer, numworks)
-        return true
-    end
-    if act.target and act.target.components.workable and act.target.components.workable.action == ACTIONS.HACK then
-        act.target.components.workable:WorkedBy(act.doer, numworks)
-        return true
-    end
-    --    return DoToolWork(act, GLOBAL.ACTIONS.HACK)
-end
-AddAction(HACK1)
-
-AddComponentAction("SCENE", "hackable", function(inst, doer, actions, right)
-    local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-    if not right then
-        if equipamento and equipamento:HasTag("machete") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then --and equipamento.components.hackable then --and inst.components.hackable.canbehacked then
-            table.insert(actions, GLOBAL.ACTIONS.HACK1)
-        end
-    end
-
-    if right then
-        if doer:HasTag("ironlord") then
-            table.insert(actions, GLOBAL.ACTIONS.HACK1)
-        end
-    end
-end)
-
-local GAS = GLOBAL.Action({ priority = 10, distance = 3, mount_valid = true })
-GAS.str = (GLOBAL.STRINGS.ACTIONS.GAS)
-GAS.id = "GAS"
-GAS.fn = function(act)
-    if act.invobject and act.invobject.components.gasser then
-        act.invobject.components.gasser:Gas(act:GetActionPoint())
-        return true
-    end
-end
-AddAction(GAS)
-
-AddComponentAction("SCENE", "melter", function(inst, doer, actions, right)
-    if not inst:HasTag("burnt") then
-        if right and not inst:HasTag("alloydone") and inst.replica.container ~= nil and inst.replica.container:IsFull() then
-            table.insert(actions, ACTIONS.SMELT)
-        elseif not right and inst:HasTag("alloydone") then
-            table.insert(actions, ACTIONS.HARVEST1)
-        end
-    end
-end)
-
-
-
-AddComponentAction("SCENE", "workable", function(inst, doer, actions, right)
-    if right and doer:HasTag("ironlord") then
-        if inst:HasTag("tree") then
-            table.insert(actions, ACTIONS.CHOP)
-        end
-
-        if inst:HasTag("bush_vine") or inst:HasTag("bambootree") then
-            table.insert(actions, ACTIONS.HACK)
-        end
-
-        if inst:HasTag("boulder") then
-            table.insert(actions, ACTIONS.MINE)
-        end
-
-        if inst:HasTag("structure") then
-            table.insert(actions, ACTIONS.HAMMER)
-        end
-    end
-end)
-
--------------------------------------------
-AddComponentAction("SCENE", "dislodgeable", function(inst, doer, actions, right)
-    local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-    if not right then
-        if equipamento and equipamento:HasTag("ballpein_hammer") and inst:HasTag("dislodgeable") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
-            table.insert(actions, ACTIONS.DISLODGE)
-            -- print("addcomponent action aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-            -- print(equipamento.prefab)
-            -- print(inst.prefab)
-            return
-        end
-    end
-end)
-
-
-AddComponentAction("SCENE", "mystery", function(inst, doer, actions, right)
-    if not right then
-        local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        if equipamento and equipamento:HasTag("magnifying_glass") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
-            table.insert(actions, ACTIONS.INVESTIGATEGLASS)
-        end
-    end
-end)
-
-
-AddComponentAction(
-    "SCENE",
-    "interactions",
-    function(inst, doer, actions, right)
-        local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        --local rightrect = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        --  and doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).components.reticule ~= nil or nil
-        if right then
-            if equipamento and equipamento:HasTag("boatrepairkit") and doer:HasTag("aquatic") then
-                table.insert(actions, GLOBAL.ACTIONS.BOATREPAIR)
-                return
-            end
-
-            if inst:HasTag("boatsw") and not inst:HasTag("ocupado") and
-                not (doer.replica.rider:IsRiding() or
-                    doer:HasTag("bonked"))
-            then
-                table.insert(actions, GLOBAL.ACTIONS.BOATMOUNT)
-            end
-        end
-
-        if not right then
-            if inst:HasTag("boatsw") and not inst:HasTag("ocupado") and
-                not (doer.replica.rider:IsRiding() or
-                    doer:HasTag("bonked"))
-            then
-                table.insert(actions, GLOBAL.ACTIONS.BOATMOUNT)
-            end
-
-
-
-            if inst.prefab == "surfboard" and not inst:HasTag("ocupado") and not doer.replica.inventory:IsFull() then
-                table.insert(actions, GLOBAL.ACTIONS.RETRIEVE)
-                return
-            end
-
-            if inst.prefab == "corkboat" and not inst:HasTag("ocupado") and not doer.replica.inventory:IsFull() then
-                table.insert(actions, GLOBAL.ACTIONS.RETRIEVE)
-                return
-            end
-
-            if inst.prefab == "fish_farm" then
-                table.insert(actions, GLOBAL.ACTIONS.RETRIEVE)
-                return
-            end
-
-            if inst:HasTag("wallhousehamlet") and equipamento and equipamento:HasTag("hameletwallpaper") then
-                table.insert(actions, GLOBAL.ACTIONS.PAINT)
-                return
-            end
-
-            if inst:HasTag("pisohousehamlet") and equipamento and equipamento:HasTag("hameletfloor") then
-                table.insert(actions, GLOBAL.ACTIONS.PAINT)
-                return
-            end
-        end
-    end
-)
-
-local ACTIVATESAIL = GLOBAL.Action({ priority = 10, mount_valid = true })
-ACTIVATESAIL.str = (GLOBAL.STRINGS.ACTIONS.LANTERNON)
-ACTIVATESAIL.id = "ACTIVATESAIL"
-ACTIVATESAIL.fn = function(act)
-    if act.doer ~= nil and act.invobject:HasTag("boatlight") then
-        act.invobject:AddTag("ligado")
-    end
-    return true
-end
-AddAction(ACTIVATESAIL)
-
-local COMPACTPOOP = GLOBAL.Action({ priority = 10, mount_valid = true })
-COMPACTPOOP.str = "Compact Poop"
-COMPACTPOOP.id = "COMPACTPOOP"
-COMPACTPOOP.fn = function(act)
-    if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then
-        nut = act.invobject.components.stackable:Get()
-        nut:Remove()
-    else
-        act.invobject:Remove()
-    end
-    act.doer.components.inventory:GiveItem(GLOBAL.SpawnPrefab("poop2"))
-    return true
-end
-AddAction(COMPACTPOOP)
-
-local DESACTIVATESAIL = GLOBAL.Action({ priority = 10, mount_valid = true })
-DESACTIVATESAIL.str = (GLOBAL.STRINGS.ACTIONS.LANTERNOFF)
-DESACTIVATESAIL.id = "DESACTIVATESAIL"
-DESACTIVATESAIL.fn = function(act)
-    if act.doer ~= nil and act.invobject:HasTag("boatlight") then
-        act.invobject:RemoveTag("ligado")
-    end
-    return true
-end
-AddAction(DESACTIVATESAIL)
-
-AddComponentAction(
-    "INVENTORY",
-    "interactions",
-    function(inst, doer, actions)
-        if inst:HasTag("boatlight") and inst:HasTag("nonavio") and not inst:HasTag("ligado") then --and inst:HasTag("nonavio")
-            table.insert(actions, ACTIONS.ACTIVATESAIL)
-        end
-        if inst:HasTag("boatlight") and inst:HasTag("ligado") then
-            table.insert(actions, ACTIONS.DESACTIVATESAIL)
-        end
-
-        if inst:HasTag("boatrepairkit") then
-            table.insert(actions, ACTIONS.BOATREPAIR)
-        end
-
-        if inst:HasTag("tunacan") then
-            table.insert(actions, ACTIONS.OPENTUNA)
-        end
-
-        if inst:HasTag("pooptocompact") and doer:HasTag("wilbur") then
-            table.insert(actions, ACTIONS.COMPACTPOOP)
-        end
-    end)
-
-AddComponentAction(
-    "SCENE",
-    "health",
-    function(inst, doer, actions, right)
-        local containedsail = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO)
-        if right and doer:HasTag("aquatic") and containedsail and containedsail.replica.container and containedsail.replica.container:GetItemInSlot(2) ~= nil and containedsail.replica.container:GetItemInSlot(2):HasTag("boatcannon") and
-            not (doer.replica.rider:IsRiding() or doer.replica.inventory:IsHeavyLifting() or doer:HasTag("bonked") or doer:HasTag("deleidotiro")) then
-            table.insert(actions, GLOBAL.ACTIONS.BOATCANNON)
-        end
-
-
-
-        if not right and doer:HasTag("ironlord") and
-            inst.replica.health ~= nil and not inst.replica.health:IsDead() and
-            inst.replica.combat ~= nil and inst.replica.combat:CanBeAttacked(doer) then
-            table.insert(actions, GLOBAL.ACTIONS.ATTACK)
-        end
-
-        if GLOBAL.TheWorld.ismastersim then
-            if right and doer:HasTag("ironlord") and not inst:HasTag("ironlord") and
-                inst.replica.health ~= nil and not inst.replica.health:IsDead() and
-                inst.replica.combat ~= nil and inst.replica.combat:CanBeAttacked(doer) then
-                table.insert(actions, ACTIONS.TIRO)
-            end
-        end
-    end)
-
-AddComponentAction("SCENE", "shopped", function(inst, doer, actions, right)
-    if not right then
-        if doer.components.shopper then --and inst.components.shopdispenser and inst.components.shopdispenser.item_served then
-            table.insert(actions, ACTIONS.SHOP)
-        end
-    end
-end)
-
-AddComponentAction("POINT", "gasser", function(inst, doer, pos, actions, right)
-    if right and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
-        table.insert(actions, ACTIONS.GAS)
-    end
-end)
-
-AddComponentAction("SCENE", "poisonable", function(inst, doer, actions, right)
-    if right then
-        local equipamento = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
-        if equipamento and equipamento:HasTag("bugrepellent") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
-            table.insert(actions, ACTIONS.GAS)
-        end
-    end
-end)
-----------------------------------------permite pular do barco sem ter equipamento---------------------------------------------------------------------------
-
-AddComponentPostInit(
-    "playeractionpicker",
-    function(self)
-        local OldGetRightClickActions = self.GetRightClickActions
-        function self:GetRightClickActions(position, target, spellbook)
-            local boat = self.inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO)
-            local acts = OldGetRightClickActions(self, position, target, spellbook)
-            if #acts <= 0 and boat then
-                acts = self:GetPointActions(position, boat, true)
-            end
-            return acts
-        end
-    end
-)
-
-AddComponentPostInit(
-    "playeractionpicker",
-    function(self)
-        local OldGetLeftClickActions = self.GetLeftClickActions
-        function self:GetLeftClickActions(position, target)
-            local boat = self.inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO)
-            local acts = OldGetLeftClickActions(self, position, target)
-
-            if #acts <= 0 and boat and GLOBAL.TheWorld.Map:IsPassableAtPoint(position:Get()) then
-                acts = self:GetPointActions(position, boat, nil)
-            end
-            return acts
-        end
-    end
-)
-
-local function boatdismon(inst, doer, pos, actions, right, target)
-    local xjp, yjp, zjp = pos:Get()
-    local xs, ys, zs = doer.Transform:GetWorldPosition()
-    local dist = math.sqrt((xjp - xs) * (xjp - xs) + (zjp - zs) * (zjp - zs))
-    local rightrect =
-        doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO) and
-        doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO).components.reticule ~= nil or
-        nil
-    local terraformer =
-        doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO) and
-        doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO).components.terraformer ~= nil or
-        nil
-
-    local containedsail = doer.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.BARCO)
-    if right and doer:HasTag("aquatic") and containedsail and containedsail.replica.container and containedsail.replica.container:GetItemInSlot(2) ~= nil and containedsail.replica.container:GetItemInSlot(2):HasTag("boatcannon") and
-        not (doer.replica.rider:IsRiding() or doer.replica.inventory:IsHeavyLifting() or doer:HasTag("bonked") or doer:HasTag("deleidotiro")) then
-        return table.insert(actions, GLOBAL.ACTIONS.BOATCANNON)
-    end
-
-    if not right and rightrect == nil and terraformer == nil and doer:HasTag("aquatic") and
-        GLOBAL.TheWorld.Map:IsPassableAtPoint(pos:Get()) and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked"))
-    then
-        table.insert(actions, GLOBAL.ACTIONS.BOATDISMOUNT)
-    end
-
-
-    if right and rightrect == nil and terraformer == nil and dist <= 20 then
-        local doer_x, doer_y, doer_z = doer.Transform:GetWorldPosition()
-        local planchadesurf = GLOBAL.TheWorld.Map:GetPlatformAtPoint(doer_x, doer_z)
-        if planchadesurf and planchadesurf:HasTag("planchadesurf") then
-            table.insert(actions, GLOBAL.ACTIONS.SURF)
-        end
-    end
-end
-AddComponentAction("POINT", "equippable", boatdismon)
-
-------------------------------------------------------------------- players stategraph
+-- players stategraph
 local player_overrides = {
     wathgrithr = "wathgrithr_sail",
     waxwell = "waxwell_sail",
@@ -1599,30 +30,30 @@ local player_overrides = {
 }
 
 local state_jumponboatstart_pre =
-    GLOBAL.State {
+    State {
         name = "jumponboatstart_pre",
         tags = { "doing", "busy", "nointerrupt" },
         onenter = function(inst)
             inst.components.locomotor:Stop()
             local heavy = inst.replica.inventory:IsHeavyLifting()
             inst.AnimState:PlayAnimation(heavy and "heavy_jump_pre" or "jump_pre")
-            inst.sg:SetTimeout(GLOBAL.FRAMES * 18)
+            inst.sg:SetTimeout(FRAMES * 18)
         end,
         events = {
-            GLOBAL.EventHandler(
+            EventHandler(
                 "animover",
                 function(inst)
-                    if GLOBAL.TheWorld.ismastersim then
+                    if TheWorld.ismastersim then
                         inst:PerformBufferedAction()
                     end
-                    if not GLOBAL.TheWorld.ismastersim then
+                    if not TheWorld.ismastersim then
                         inst:PerformPreviewBufferedAction()
                     end
                 end
             )
         },
         onupdate = function(inst)
-            if not GLOBAL.TheWorld.ismastersim then
+            if not TheWorld.ismastersim then
                 if inst:HasTag("doing") then
                     if inst.entity:FlattenMovementPrediction() then
                         inst.sg:GoToState("idle", "noanim")
@@ -1633,7 +64,7 @@ local state_jumponboatstart_pre =
             end
         end,
         ontimeout = function(inst)
-            if not GLOBAL.TheWorld.ismastersim then -- client
+            if not TheWorld.ismastersim then -- client
                 inst:ClearBufferedAction()
             end
             inst.sg:GoToState("idle")
@@ -1648,7 +79,7 @@ local state_jumponboatstart_pre =
 AddStategraphState("wilson", state_jumponboatstart_pre)
 
 local state_jumponboatstart_preclient =
-    GLOBAL.State {
+    State {
         name = "jumponboatstart_pre",
         tags = { "doing", "busy", "nointerrupt" },
         onenter = function(inst)
@@ -1681,10 +112,10 @@ AddStategraphState("wilson_client", state_jumponboatstart_preclient)
 
 AddStategraphActionHandler(
     "wilson",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.LIGHT,
+    ActionHandler(
+        ACTIONS.LIGHT,
         function(inst)
-            local equipped = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+            local equipped = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
             if equipped and equipped:HasTag("magnifying_glass") then
                 return "investigate_start"
             else
@@ -1696,10 +127,10 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson_client",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.LIGHT,
+    ActionHandler(
+        ACTIONS.LIGHT,
         function(inst)
-            local equipped = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+            local equipped = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
             if equipped and equipped:HasTag("magnifying_glass") then
                 return "investigate_start"
             else
@@ -1711,8 +142,8 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.PLAY,
+    ActionHandler(
+        ACTIONS.PLAY,
         function(inst, action)
             if action.invobject ~= nil then
                 return (action.invobject:HasTag("flute") and "play_flute")
@@ -1732,8 +163,8 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson_client",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.PLAY,
+    ActionHandler(
+        ACTIONS.PLAY,
         function(inst, action)
             if action.invobject ~= nil then
                 return (action.invobject:HasTag("flute") and "play_flute")
@@ -1752,7 +183,7 @@ AddStategraphActionHandler(
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "play_horn2",
         tags = { "doing", "playing" },
 
@@ -1769,7 +200,7 @@ AddStategraphState(
 
         timeline =
         {
-            GLOBAL.TimeEvent(21 * FRAMES, function(inst)
+            TimeEvent(21 * FRAMES, function(inst)
                 if inst:PerformBufferedAction() then
                     inst.SoundEmitter:PlaySound("dontstarve/common/horn_beefalo")
                 else
@@ -1780,7 +211,7 @@ AddStategraphState(
 
         events =
         {
-            GLOBAL.EventHandler("animqueueover", function(inst)
+            EventHandler("animqueueover", function(inst)
                 if inst.AnimState:AnimDone() then
                     inst.sg:GoToState("idle")
                 end
@@ -1797,7 +228,7 @@ AddStategraphState(
 
 AddStategraphState(
     "wilson_client",
-    GLOBAL.State {
+    State {
         name = "play_horn2",
         tags = { "doing", "busy", "playing" },
 
@@ -1812,11 +243,11 @@ AddStategraphState(
 
         timeline =
         {
-            GLOBAL.TimeEvent(21 * FRAMES, function(inst)
+            TimeEvent(21 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve/common/horn_beefalo", "horn2")
             end),
 
-            GLOBAL.TimeEvent(36 * FRAMES, function(inst)
+            TimeEvent(36 * FRAMES, function(inst)
                 inst.sg:RemoveStateTag("busy")
             end),
 
@@ -1824,7 +255,7 @@ AddStategraphState(
 
         events =
         {
-            GLOBAL.EventHandler("animqueueover", function(inst)
+            EventHandler("animqueueover", function(inst)
                 if inst.AnimState:AnimDone() then
                     inst.sg:GoToState("idle")
                 end
@@ -1857,7 +288,7 @@ AddStategraphState(
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "play_horn3",
         tags = { "doing", "playing" },
 
@@ -1874,7 +305,7 @@ AddStategraphState(
 
         timeline =
         {
-            GLOBAL.TimeEvent(21 * FRAMES, function(inst)
+            TimeEvent(21 * FRAMES, function(inst)
                 if inst:PerformBufferedAction() then
                     inst.SoundEmitter:PlaySound("dontstarve/common/horn_beefalo")
                 else
@@ -1885,7 +316,7 @@ AddStategraphState(
 
         events =
         {
-            GLOBAL.EventHandler("animqueueover", function(inst)
+            EventHandler("animqueueover", function(inst)
                 if inst.AnimState:AnimDone() then
                     inst.sg:GoToState("idle")
                 end
@@ -1902,7 +333,7 @@ AddStategraphState(
 
 AddStategraphState(
     "wilson_client",
-    GLOBAL.State {
+    State {
         name = "play_horn3",
         tags = { "doing", "busy", "playing" },
 
@@ -1917,11 +348,11 @@ AddStategraphState(
 
         timeline =
         {
-            GLOBAL.TimeEvent(21 * FRAMES, function(inst)
+            TimeEvent(21 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve/common/horn_beefalo", "horn2")
             end),
 
-            GLOBAL.TimeEvent(36 * FRAMES, function(inst)
+            TimeEvent(36 * FRAMES, function(inst)
                 inst.sg:RemoveStateTag("busy")
             end),
 
@@ -1929,7 +360,7 @@ AddStategraphState(
 
         events =
         {
-            GLOBAL.EventHandler("animqueueover", function(inst)
+            EventHandler("animqueueover", function(inst)
                 if inst.AnimState:AnimDone() then
                     inst.sg:GoToState("idle")
                 end
@@ -1946,7 +377,7 @@ AddStategraphState(
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "play_flutesw",
         tags = { "doing", "busy", "playing" },
 
@@ -1962,7 +393,7 @@ AddStategraphState(
 
         timeline =
         {
-            GLOBAL.TimeEvent(30 * FRAMES, function(inst)
+            TimeEvent(30 * FRAMES, function(inst)
                 if inst:PerformBufferedAction() then
                     inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/ox_flute", "flute")
                 else
@@ -1970,17 +401,17 @@ AddStategraphState(
                     inst.AnimState:SetFrame(94)
                 end
             end),
-            GLOBAL.TimeEvent(36 * FRAMES, function(inst)
+            TimeEvent(36 * FRAMES, function(inst)
                 if inst.sg.statemem.action_failed then
                     inst.sg:RemoveStateTag("busy")
                 end
             end),
-            GLOBAL.TimeEvent(52 * FRAMES, function(inst)
+            TimeEvent(52 * FRAMES, function(inst)
                 if not inst.sg.statemem.action_failed then
                     inst.sg:RemoveStateTag("busy")
                 end
             end),
-            GLOBAL.TimeEvent(85 * FRAMES, function(inst)
+            TimeEvent(85 * FRAMES, function(inst)
                 if not inst.sg.statemem.action_failed then
                     inst.SoundEmitter:KillSound("flute")
                 end
@@ -1989,7 +420,7 @@ AddStategraphState(
 
         events =
         {
-            GLOBAL.EventHandler("animqueueover", function(inst)
+            EventHandler("animqueueover", function(inst)
                 if inst.AnimState:AnimDone() then
                     inst.sg:GoToState("idle")
                 end
@@ -2004,7 +435,7 @@ AddStategraphState(
 
 AddStategraphState(
     "wilson_client",
-    GLOBAL.State {
+    State {
         name = "play_flutesw",
         tags = { "doing", "busy", "playing" },
 
@@ -2017,14 +448,14 @@ AddStategraphState(
 
         timeline =
         {
-            GLOBAL.TimeEvent(30 * FRAMES, function(inst)
+            TimeEvent(30 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/ox_flute", "flute")
             end),
 
-            GLOBAL.TimeEvent(52 * FRAMES, function(inst)
+            TimeEvent(52 * FRAMES, function(inst)
                 inst.sg:RemoveStateTag("busy")
             end),
-            GLOBAL.TimeEvent(85 * FRAMES, function(inst)
+            TimeEvent(85 * FRAMES, function(inst)
                 inst:PerformPreviewBufferedAction()
             end),
 
@@ -2032,7 +463,7 @@ AddStategraphState(
 
         events =
         {
-            GLOBAL.EventHandler("animqueueover", function(inst)
+            EventHandler("animqueueover", function(inst)
                 if inst.AnimState:AnimDone() then
                     inst.sg:GoToState("idle")
                 end
@@ -2047,20 +478,20 @@ AddStategraphState(
 
 AddStategraphActionHandler(
     "wilson",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.BLINK,
+    ActionHandler(
+        ACTIONS.BLINK,
         function(inst, action)
             --		if inst:HasTag("aquatic") and inst:HasTag("soulstealer") then return false end
-            local interior = GLOBAL.GetClosestInstWithTag("interior_center", inst, 30)
+            local interior = GetClosestInstWithTag("interior_center", inst, 30)
             if interior then return false end
-            if GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_SWELL and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_ROUGH and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL_SHORE and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_WATERLOG and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_HAZARDOUS then
+            if TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_SWELL and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_ROUGH and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL_SHORE and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_WATERLOG and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_HAZARDOUS then
                 return action.invobject == nil and inst:HasTag("soulstealer") and "portal_jumpin_pre" or "quicktele"
             end
         end
@@ -2070,20 +501,20 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson_client",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.BLINK,
+    ActionHandler(
+        ACTIONS.BLINK,
         function(inst, action)
             --		if inst:HasTag("aquatic") and inst:HasTag("soulstealer") then return false end
-            local interior = GLOBAL.GetClosestInstWithTag("interior_center", inst, 30)
+            local interior = GetClosestInstWithTag("interior_center", inst, 30)
             if interior then return false end
-            if GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_SWELL and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_ROUGH and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL_SHORE and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_WATERLOG and
-                GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_HAZARDOUS then
+            if TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_SWELL and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_ROUGH and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL_SHORE and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_WATERLOG and
+                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_HAZARDOUS then
                 return action.invobject == nil and inst:HasTag("soulstealer") and "portal_jumpin_pre" or "quicktele"
             end
         end
@@ -2092,29 +523,29 @@ AddStategraphActionHandler(
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "jumponboatstart",
         tags = { "doing", "nointerupt", "busy", "canrotate", "nomorph", "nopredict" },
         onenter = function(inst, target)
             inst.Physics:ClearCollisionMask()
-            inst.Physics:CollidesWith(GLOBAL.COLLISION.GROUND)
-            inst.Physics:CollidesWith(GLOBAL.COLLISION.GIANTS)
+            inst.Physics:CollidesWith(COLLISION.GROUND)
+            inst.Physics:CollidesWith(COLLISION.GIANTS)
 
             inst.sg.statemem.heavy = inst.replica.inventory:IsHeavyLifting()
             inst.AnimState:PlayAnimation(inst.sg.statemem.heavy and "heavy_jumpout" or "jump")
 
             inst.sg.statemem.action = inst.bufferedaction
-            inst.sg:SetTimeout(17 * GLOBAL.FRAMES)
+            inst.sg:SetTimeout(17 * FRAMES)
         end,
         timeline = {
-            GLOBAL.TimeEvent(
-                15.2 * GLOBAL.FRAMES,
+            TimeEvent(
+                15.2 * FRAMES,
                 function(inst)
                     inst.SoundEmitter:PlaySound("dontstarve/movement/bodyfall_dirt")
                 end
             ),
-            GLOBAL.TimeEvent(
-                18 * GLOBAL.FRAMES,
+            TimeEvent(
+                18 * FRAMES,
                 function(inst)
                     inst.Physics:Stop()
                 end
@@ -2122,11 +553,11 @@ AddStategraphState(
         },
 
         events = {
-            GLOBAL.EventHandler(
+            EventHandler(
                 "animqueueover",
                 function(inst)
                     if inst.AnimState:AnimDone() then
-                        GLOBAL.ChangeToCharacterPhysics(inst)
+                        ChangeToCharacterPhysics(inst)
                         inst.sg:GoToState("idle")
                     end
                 end
@@ -2134,15 +565,15 @@ AddStategraphState(
         },
 
         ontimeout = function(inst)
-            if not GLOBAL.TheWorld.ismastersim then -- client
+            if not TheWorld.ismastersim then -- client
                 inst:ClearBufferedAction()
             end
-            GLOBAL.ChangeToCharacterPhysics(inst)
+            ChangeToCharacterPhysics(inst)
             inst.sg:GoToState("idle")
         end,
 
         onexit = function(inst)
-            GLOBAL.ChangeToCharacterPhysics(inst)
+            ChangeToCharacterPhysics(inst)
             if inst.components.driver and inst.components.driver.mountdata then
                 inst.components.driver:OnMount(inst.components.driver.mountdata)
             end
@@ -2156,41 +587,41 @@ AddStategraphState(
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "jumponboatdismount",
         tags = { "doing", "nointerupt", "busy", "canrotate", "nomorph", "nopredict" },
         onenter = function(inst)
             inst.Physics:ClearCollisionMask()
-            inst.Physics:CollidesWith(GLOBAL.COLLISION.GROUND)
-            inst.Physics:CollidesWith(GLOBAL.COLLISION.GIANTS)
+            inst.Physics:CollidesWith(COLLISION.GROUND)
+            inst.Physics:CollidesWith(COLLISION.GIANTS)
 
             inst.sg.statemem.heavy = inst.replica.inventory:IsHeavyLifting()
             inst.AnimState:PlayAnimation(inst.sg.statemem.heavy and "heavy_jumpout" or "jump")
 
             inst.sg.statemem.action = inst.bufferedaction
-            inst.sg:SetTimeout(17 * GLOBAL.FRAMES)
+            inst.sg:SetTimeout(17 * FRAMES)
         end,
         timeline = {
-            GLOBAL.TimeEvent(
-                15.2 * GLOBAL.FRAMES,
+            TimeEvent(
+                15.2 * FRAMES,
                 function(inst)
                     inst.SoundEmitter:PlaySound("dontstarve/movement/bodyfall_dirt")
                 end
             ),
-            GLOBAL.TimeEvent(
-                18 * GLOBAL.FRAMES,
+            TimeEvent(
+                18 * FRAMES,
                 function(inst)
                     inst.Physics:Stop()
                 end
             )
         },
         events = {
-            GLOBAL.EventHandler(
+            EventHandler(
                 "animqueueover",
                 function(inst)
                     --          local x,y,z = inst.Transform:GetWorldPosition()
                     if inst.AnimState:AnimDone() then
-                        GLOBAL.ChangeToCharacterPhysics(inst)
+                        ChangeToCharacterPhysics(inst)
                         --              inst.Transform:SetPosition(inst.posx,0,inst.posz)
                         inst.sg:GoToState("idle")
                     end
@@ -2202,17 +633,17 @@ AddStategraphState(
             )
         },
         ontimeout = function(inst)
-            if not GLOBAL.TheWorld.ismastersim then -- client
+            if not TheWorld.ismastersim then -- client
                 inst:ClearBufferedAction()
             end
-            GLOBAL.ChangeToCharacterPhysics(inst)
+            ChangeToCharacterPhysics(inst)
             --      local x,y,z = inst.Transform:GetWorldPosition()
             --      inst.Transform:SetPosition(inst.posx,0,inst.posz)
             inst.sg:GoToState("idle")
         end,
         onexit = function(inst)
             inst:RemoveTag("pulando")
-            GLOBAL.ChangeToCharacterPhysics(inst)
+            ChangeToCharacterPhysics(inst)
             --      local x,y,z = inst.Transform:GetWorldPosition()
             --      inst.Transform:SetPosition(inst.posx,0,inst.posz)
             if inst.bufferedaction == inst.sg.statemem.action then
@@ -2227,7 +658,7 @@ AddStategraphState(
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "play_bell",
         tags = { "doing", "playing" },
         onenter = function(inst)
@@ -2241,21 +672,21 @@ AddStategraphState(
             )
         end,
         timeline = {
-            GLOBAL.TimeEvent(
-                15 * GLOBAL.FRAMES,
+            TimeEvent(
+                15 * FRAMES,
                 function(inst)
                     inst.SoundEmitter:PlaySound("dontstarve_DLC001/common/glommer_bell")
                 end
             ),
-            GLOBAL.TimeEvent(
-                60 * GLOBAL.FRAMES,
+            TimeEvent(
+                60 * FRAMES,
                 function(inst)
                     inst:PerformBufferedAction()
                 end
             )
         },
         events = {
-            GLOBAL.EventHandler(
+            EventHandler(
                 "animover",
                 function(inst)
                     if inst.AnimState:AnimDone() then
@@ -2274,7 +705,7 @@ AddStategraphState(
 )
 
 local crop_dust =
-    GLOBAL.State
+    State
     {
         name = "crop_dust",
         tags = { "doing", "busy" },
@@ -2290,26 +721,26 @@ local crop_dust =
 
         timeline =
         {
-            GLOBAL.TimeEvent(10 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(10 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/bugrepellent")
             end),
 
-            GLOBAL.TimeEvent(4 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(4 * FRAMES, function(inst)
                 inst.sg:RemoveStateTag("busy")
             end),
 
-            GLOBAL.TimeEvent(20 * GLOBAL.FRAMES, function(inst)
-                if GLOBAL.TheWorld.ismastersim then
+            TimeEvent(20 * FRAMES, function(inst)
+                if TheWorld.ismastersim then
                     inst:PerformBufferedAction()
                 end
-                if not GLOBAL.TheWorld.ismastersim then
+                if not TheWorld.ismastersim then
                     inst:PerformPreviewBufferedAction()
                 end
             end),
         },
 
         events = {
-            GLOBAL.EventHandler(
+            EventHandler(
                 "animover",
                 function(inst)
                     if inst.AnimState:AnimDone() then
@@ -2325,7 +756,7 @@ AddStategraphState("wilson", crop_dust)
 
 
 local surfando =
-    GLOBAL.State { name = "surfando",
+    State { name = "surfando",
         tags = { "canrotate" },
 
         onenter = function(inst)
@@ -2337,7 +768,7 @@ local surfando =
         timeline =
         {
 
-            GLOBAL.TimeEvent(2 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(2 * FRAMES, function(inst)
                 inst:PerformBufferedAction()
             end),
 
@@ -2347,61 +778,61 @@ local surfando =
 
         events =
         {
-            GLOBAL.EventHandler("animqueueover", function(inst) inst.sg:GoToState("surfando") end),
+            EventHandler("animqueueover", function(inst) inst.sg:GoToState("surfando") end),
         },
     }
 
 AddStategraphState("wilson_client", surfando)
 AddStategraphState("wilson", surfando)
 
--------------------------------------------------player actionhandler
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.ACTIVATESAIL, "doshortaction"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.ACTIVATESAIL, "doshortaction"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.COMPACTPOOP, "doshortaction"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.COMPACTPOOP, "doshortaction"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.DESACTIVATESAIL, "doshortaction"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.DESACTIVATESAIL, "doshortaction"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.BOATMOUNT, "jumponboatstart_pre"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.BOATMOUNT, "jumponboatstart_pre"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.BOATREPAIR, "dolongaction"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.BOATREPAIR, "dolongaction"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.OPENTUNA, "dolongaction"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.OPENTUNA, "dolongaction"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.BOATCANNON, "doshortaction"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.BOATCANNON, "doshortaction"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.RETRIEVE, "dolongaction"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.RETRIEVE, "dolongaction"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.SHOP, "doshortaction"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.SHOP, "doshortaction"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.SMELT, "doshortaction"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.SMELT, "doshortaction"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.HARVEST1, "doshortaction"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.HARVEST1, "doshortaction"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.GIVE2, "give"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.GIVE2, "give"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.PAINT, "dolongaction"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.PAINT, "dolongaction"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.DISLODGE, "tap"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.DISLODGE, "tap"))
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.GAS, "crop_dust"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.GAS, "crop_dust"))
+--player actionhandler
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.ACTIVATESAIL, "doshortaction"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.ACTIVATESAIL, "doshortaction"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.COMPACTPOOP, "doshortaction"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.COMPACTPOOP, "doshortaction"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.DESACTIVATESAIL, "doshortaction"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.DESACTIVATESAIL, "doshortaction"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.BOATMOUNT, "jumponboatstart_pre"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.BOATMOUNT, "jumponboatstart_pre"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.BOATREPAIR, "dolongaction"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.BOATREPAIR, "dolongaction"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.OPENTUNA, "dolongaction"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.OPENTUNA, "dolongaction"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.BOATCANNON, "doshortaction"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.BOATCANNON, "doshortaction"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.RETRIEVE, "dolongaction"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.RETRIEVE, "dolongaction"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.SHOP, "doshortaction"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.SHOP, "doshortaction"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.SMELT, "doshortaction"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.SMELT, "doshortaction"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.HARVEST1, "doshortaction"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.HARVEST1, "doshortaction"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.GIVE2, "give"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.GIVE2, "give"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.PAINT, "dolongaction"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.PAINT, "dolongaction"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.DISLODGE, "tap"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.DISLODGE, "tap"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.GAS, "crop_dust"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.GAS, "crop_dust"))
 
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.SURF, "surfando"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.SURF, "surfando"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.SURF, "surfando"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.SURF, "surfando"))
 
-AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.INVESTIGATEGLASS, "investigate_start"))
-AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.INVESTIGATEGLASS, "investigate_start"))
+AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.INVESTIGATEGLASS, "investigate_start"))
+AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.INVESTIGATEGLASS, "investigate_start"))
 
--- AddStategraphActionHandler("wilson", GLOBAL.ActionHandler(GLOBAL.ACTIONS.FERTILIZECOFFEE, "doshortaction"))
--- AddStategraphActionHandler("wilson_client", GLOBAL.ActionHandler(GLOBAL.ACTIONS.FERTILIZECOFFEE, "doshortaction"))
+-- AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.FERTILIZECOFFEE, "doshortaction"))
+-- AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.FERTILIZECOFFEE, "doshortaction"))
 
 AddStategraphActionHandler(
     "wilson",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.BOATDISMOUNT,
+    ActionHandler(
+        ACTIONS.BOATDISMOUNT,
         function(inst, action)
             local xm, ym, zm = action:GetActionPoint():Get()
-            local passable = GLOBAL.TheWorld.Map:IsPassableAtPoint(xm, ym, zm)
+            local passable = TheWorld.Map:IsPassableAtPoint(xm, ym, zm)
             if inst:HasTag("player") and passable == true then
                 inst.posx = xm
                 inst.posz = zm
@@ -2414,11 +845,11 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson_client",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.BOATDISMOUNT,
+    ActionHandler(
+        ACTIONS.BOATDISMOUNT,
         function(inst, action)
             local xm, ym, zm = action:GetActionPoint():Get()
-            local passable = GLOBAL.TheWorld.Map:IsPassableAtPoint(xm, ym, zm)
+            local passable = TheWorld.Map:IsPassableAtPoint(xm, ym, zm)
             if inst:HasTag("player") and passable == true then
                 inst.posx = xm
                 inst.posz = zm
@@ -2431,14 +862,14 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.HACK,
+    ActionHandler(
+        ACTIONS.HACK,
         function(inst)
             if inst:HasTag("beaver") then
                 return not inst.sg:HasStateTag("gnawing") and "gnaw" or nil
             end
 
-            local equipamento = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+            local equipamento = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
             if equipamento and equipamento.prefab == "shears" then
                 if not inst.sg:HasStateTag("preshear") then
                     if inst.sg:HasStateTag("shearing") then
@@ -2458,14 +889,14 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson_client",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.HACK,
+    ActionHandler(
+        ACTIONS.HACK,
         function(inst)
             if inst:HasTag("beaver") then
                 return not inst.sg:HasStateTag("gnawing") and "gnaw" or nil
             end
 
-            local equipamento = inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS)
+            local equipamento = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
             --        if equipamento and equipamento.prefab == "shears" then
 
             --		if not inst.sg:HasStateTag("preshear") then
@@ -2484,8 +915,8 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.PAN,
+    ActionHandler(
+        ACTIONS.PAN,
         function(inst)
             if not inst.sg:HasStateTag("panning") then
                 return "pan_start"
@@ -2495,8 +926,8 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson_client",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.PAN,
+    ActionHandler(
+        ACTIONS.PAN,
         function(inst)
             if not inst.sg:HasStateTag("panning") then
                 return "pan_start"
@@ -2506,8 +937,8 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.HACK1,
+    ActionHandler(
+        ACTIONS.HACK1,
         function(inst)
             if inst:HasTag("beaver") then
                 return not inst.sg:HasStateTag("gnawing") and "gnaw" or nil
@@ -2520,8 +951,8 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson_client",
-    GLOBAL.ActionHandler(
-        GLOBAL.ACTIONS.HACK1,
+    ActionHandler(
+        ACTIONS.HACK1,
         function(inst)
             if inst:HasTag("beaver") then
                 return not inst.sg:HasStateTag("gnawing") and "gnaw" or nil
@@ -2533,7 +964,7 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson",
-    GLOBAL.ActionHandler(GLOBAL.ACTIONS.ATTACK,
+    ActionHandler(ACTIONS.ATTACK,
         function(inst, action)
             inst.sg.mem.localchainattack = not action.forced or nil
             local playercontroller = inst.components.playercontroller
@@ -2545,7 +976,7 @@ AddStategraphActionHandler(
                 "attack"
             if not (inst.sg:HasStateTag(attack_tag) and action.target == inst.sg.statemem.attacktarget or inst.components.health:IsDead()) then
                 local weapon = inst.components.combat ~= nil and inst.components.combat:GetWeapon() or nil
-                ---------umcompromissing mode compatibility---------	
+                --umcompromissing mode compatibility--	
                 if weapon and weapon:HasTag("beegun") then
                     if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then
                         return
@@ -2576,7 +1007,7 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson_client",
-    GLOBAL.ActionHandler(GLOBAL.ACTIONS.ATTACK,
+    ActionHandler(ACTIONS.ATTACK,
         function(inst, action)
             if not (inst.sg:HasStateTag("attack") and action.target == inst.sg.statemem.attacktarget or inst.replica.health:IsDead()) then
                 local equip = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
@@ -2585,7 +1016,7 @@ AddStategraphActionHandler(
                 end
                 local inventoryitem = equip.replica.inventoryitem
 
-                ---------umcompromissing mode compatibility---------	
+                --umcompromissing mode compatibility--	
                 if equip and equip:HasTag("beegun") then
                     if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then
                         return
@@ -2614,7 +1045,7 @@ AddStategraphActionHandler(
 
 
 local pan_start =
-    GLOBAL.State { name = "pan_start",
+    State { name = "pan_start",
         tags = { "prepan", "panning", "working" },
         onenter = function(inst)
             inst.components.locomotor:Stop()
@@ -2623,14 +1054,14 @@ local pan_start =
 
         events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("pan") end),
+            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("animover", function(inst) inst.sg:GoToState("pan") end),
         },
     }
 
 
 local pan =
-    GLOBAL.State {
+    State {
         name = "pan",
         tags = { "prepan", "panning", "working" },
         onenter = function(inst)
@@ -2641,47 +1072,47 @@ local pan =
 
         timeline =
         {
-            GLOBAL.TimeEvent(6 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(6 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound(
                     "dontstarve_DLC003/common/harvested/pool/pan")
             end),
-            GLOBAL.TimeEvent(14 * GLOBAL.FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-
-            GLOBAL.TimeEvent((6 + 15) * GLOBAL.FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-            GLOBAL.TimeEvent((14 + 15) * GLOBAL.FRAMES, function(inst)
+            TimeEvent(14 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound(
                     "dontstarve_DLC003/common/harvested/pool/pan")
             end),
 
-            GLOBAL.TimeEvent((6 + 30) * GLOBAL.FRAMES, function(inst)
+            TimeEvent((6 + 15) * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound(
                     "dontstarve_DLC003/common/harvested/pool/pan")
             end),
-            GLOBAL.TimeEvent((14 + 30) * GLOBAL.FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-
-            GLOBAL.TimeEvent((6 + 45) * GLOBAL.FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-            GLOBAL.TimeEvent((14 + 45) * GLOBAL.FRAMES, function(inst)
+            TimeEvent((14 + 15) * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound(
                     "dontstarve_DLC003/common/harvested/pool/pan")
             end),
 
-            GLOBAL.TimeEvent((6 + 60) * GLOBAL.FRAMES, function(inst)
+            TimeEvent((6 + 30) * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound(
                     "dontstarve_DLC003/common/harvested/pool/pan")
             end),
-            GLOBAL.TimeEvent((14 + 60) * GLOBAL.FRAMES, function(inst)
+            TimeEvent((14 + 30) * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+
+            TimeEvent((6 + 45) * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+            TimeEvent((14 + 45) * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+
+            TimeEvent((6 + 60) * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/common/harvested/pool/pan")
+            end),
+            TimeEvent((14 + 60) * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound(
                     "dontstarve_DLC003/common/harvested/pool/pan")
             end),
@@ -2695,7 +1126,7 @@ local pan =
 
         events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle", "pan_pst") end),
+            EventHandler("unequip", function(inst) inst.sg:GoToState("idle", "pan_pst") end),
             --EventHandler("animover", function(inst)
             --    inst.sg:GoToState("idle","pan_pst")
             --end ),
@@ -2709,7 +1140,7 @@ AddStategraphState("wilson", pan)
 
 
 local investigate_start =
-    GLOBAL.State { name = "investigate_start",
+    State { name = "investigate_start",
         tags = { "preinvestigate", "investigating", "working" },
         onenter = function(inst)
             inst.components.locomotor:Stop()
@@ -2719,13 +1150,13 @@ local investigate_start =
 
         events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("investigate") end),
+            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("animover", function(inst) inst.sg:GoToState("investigate") end),
         },
     }
 
 local investigate =
-    GLOBAL.State { name = "investigate",
+    State { name = "investigate",
         tags = { "preinvestigate", "investigating", "working" },
         onenter = function(inst)
             inst.sg.statemem.action = inst:GetBufferedAction()
@@ -2734,16 +1165,16 @@ local investigate =
 
         timeline =
         {
-            GLOBAL.TimeEvent(9 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(9 * FRAMES, function(inst)
                 inst.sg:RemoveStateTag("preinvestigate")
             end),
 
 
-            GLOBAL.TimeEvent(16 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(16 * FRAMES, function(inst)
                 inst.sg:RemoveStateTag("investigating")
             end),
 
-            GLOBAL.TimeEvent(45 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(45 * FRAMES, function(inst)
                 -- this covers both mystery and lighting now
                 inst:PerformBufferedAction()
             end),
@@ -2751,15 +1182,15 @@ local investigate =
 
         events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-            GLOBAL.EventHandler("animover", function(inst)
+            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("animover", function(inst)
                 inst.sg:GoToState("investigate_post")
             end),
         },
     }
 
 local investigate_post =
-    GLOBAL.State { name = "investigate_post",
+    State { name = "investigate_post",
         tags = { "investigating", "working" },
         onenter = function(inst)
             inst.AnimState:PlayAnimation("lens_pst")
@@ -2767,8 +1198,8 @@ local investigate_post =
 
         events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
     }
 
@@ -2781,7 +1212,7 @@ AddStategraphState("wilson", investigate_post)
 
 
 local shearstart =
-    GLOBAL.State { name = "shear_start",
+    State { name = "shear_start",
         tags = { "preshear", "shearing", "working" },
         onenter = function(inst)
             inst.components.locomotor:Stop()
@@ -2790,13 +1221,13 @@ local shearstart =
 
         events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("shear") end),
+            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("animover", function(inst) inst.sg:GoToState("shear") end),
         },
     }
 
 local shearshear =
-    GLOBAL.State {
+    State {
         name = "shear",
         tags = { "preshear", "shearing", "working" },
         onenter = function(inst)
@@ -2806,17 +1237,17 @@ local shearshear =
 
         timeline =
         {
-            TimeEvent(4 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(4 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/grass_tall/shears")
                 inst:PerformBufferedAction()
             end),
 
 
-            GLOBAL.TimeEvent(9 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(9 * FRAMES, function(inst)
                 inst.sg:RemoveStateTag("preshear")
             end),
 
-            GLOBAL.TimeEvent(14 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(14 * FRAMES, function(inst)
                 if
                     inst.components.playercontroller ~= nil and
                     inst.components.playercontroller:IsAnyOfControlsPressed(
@@ -2833,15 +1264,15 @@ local shearshear =
                 end
             end),
 
-            GLOBAL.TimeEvent(16 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(16 * FRAMES, function(inst)
                 inst.sg:RemoveStateTag("shearing")
             end),
         },
 
         events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-            GLOBAL.EventHandler("animover", function(inst)
+            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("animover", function(inst)
                 --inst.AnimState:PlayAnimation("chop_pst")
                 inst.sg:GoToState("shear_end")
             end),
@@ -2849,7 +1280,7 @@ local shearshear =
     }
 
 local shearend =
-    GLOBAL.State { name = "shear_end",
+    State { name = "shear_end",
         tags = { "working" },
         onenter = function(inst)
             inst.AnimState:PlayAnimation("cut_pst")
@@ -2857,8 +1288,8 @@ local shearend =
 
         events =
         {
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
 
     }
@@ -2870,10 +1301,10 @@ AddStategraphState("wilson", shearshear)
 AddStategraphState("wilson_client", shearend)
 AddStategraphState("wilson", shearend)
 
------------------------------
+--
 
 AddStategraphEvent("wilson",
-    GLOBAL.EventHandler("sanity_stun",
+    EventHandler("sanity_stun",
         function(inst, data)
             --            if not inst.components.inventory:IsItemNameEquipped("earmuffshat") then
             inst.sanity_stunned = true
@@ -2891,7 +1322,7 @@ AddStategraphEvent("wilson",
         end))
 
 AddStategraphEvent("wilson_client",
-    GLOBAL.EventHandler("sanity_stun",
+    EventHandler("sanity_stun",
         function(inst, data)
             --            if not inst.components.inventory:IsItemNameEquipped("earmuffshat") then
             inst.sanity_stunned = true
@@ -2910,7 +1341,7 @@ AddStategraphEvent("wilson_client",
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "sanity_stun",
         tags = { "busy" },
 
@@ -2922,13 +1353,13 @@ AddStategraphState(
 
         events =
         {
-            GLOBAL.EventHandler("animqueueover", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("animqueueover", function(inst) inst.sg:GoToState("idle") end),
         },
     })
 
 AddStategraphState(
     "wilson_client",
-    GLOBAL.State {
+    State {
         name = "sanity_stun",
         tags = { "busy" },
 
@@ -2940,13 +1371,13 @@ AddStategraphState(
 
         events =
         {
-            GLOBAL.EventHandler("animqueueover", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("animqueueover", function(inst) inst.sg:GoToState("idle") end),
         },
     })
----------------------------------death boat-----------------------------------------
+--death boat--
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "death_boat",
         tags = { "busy", "nopredict", "nomorph", "drowning", "nointerrupt" },
         onenter = function(inst)
@@ -2972,14 +1403,14 @@ AddStategraphState(
                     inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO):Remove()
                 end
             end
-            ----------------------------------------------------------------------------------------			
+            --			
         end,
         timeline = {
-            GLOBAL.TimeEvent(2 * GLOBAL.FRAMES, function(inst) inst.DynamicShadow:Enable(false) end),
-            GLOBAL.TimeEvent(3 * GLOBAL.FRAMES, function(inst) inst.sg:GoToState("idle") end)
+            TimeEvent(2 * FRAMES, function(inst) inst.DynamicShadow:Enable(false) end),
+            TimeEvent(3 * FRAMES, function(inst) inst.sg:GoToState("idle") end)
         },
         events = {
-            GLOBAL.EventHandler(
+            EventHandler(
                 "animover",
                 function(inst)
                     if inst.AnimState:AnimDone() then
@@ -2997,7 +1428,7 @@ AddStategraphState(
 
 AddStategraphState(
     "wilson_client",
-    GLOBAL.State {
+    State {
         name = "death_boat",
         tags = { "busy", "nopredict", "nomorph", "drowning", "nointerrupt" },
         onenter = function(inst)
@@ -3023,15 +1454,15 @@ AddStategraphState(
                     inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO):Remove()
                 end
             end
-            ----------------------------------------------------------------------------------------			
+            --			
         end,
         timeline = {
-            GLOBAL.TimeEvent(2 * GLOBAL.FRAMES, function(inst) inst.DynamicShadow:Enable(false) end),
-            GLOBAL.TimeEvent(3 * GLOBAL.FRAMES, function(inst) inst.sg:GoToState("idle") end)
+            TimeEvent(2 * FRAMES, function(inst) inst.DynamicShadow:Enable(false) end),
+            TimeEvent(3 * FRAMES, function(inst) inst.sg:GoToState("idle") end)
 
         },
         events = {
-            GLOBAL.EventHandler(
+            EventHandler(
                 "animover",
                 function(inst)
                     if inst.AnimState:AnimDone() then
@@ -3047,10 +1478,10 @@ AddStategraphState(
     }
 )
 
---------------------------------------------------------------------------------------------------------------------
+---
 
 local tapserver =
-    GLOBAL.State {
+    State {
         name = "tap",
         tags = { "doing", "busy" },
 
@@ -3066,7 +1497,7 @@ local tapserver =
 
         timeline =
         {
-            GLOBAL.TimeEvent(4 * FRAMES, function(inst)
+            TimeEvent(4 * FRAMES, function(inst)
                 inst.sg:RemoveStateTag("busy")
             end),
         },
@@ -3095,13 +1526,13 @@ local tapserver =
 
 
 local tapstart =
-    GLOBAL.State {
+    State {
         name = "tap",
         tags = { "doing", "busy" },
 
         timeline =
         {
-            GLOBAL.TimeEvent(4 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(4 * FRAMES, function(inst)
                 inst.sg:RemoveStateTag("busy")
             end),
         },
@@ -3115,12 +1546,12 @@ local tapstart =
 
         events =
         {
-            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("tap_loop") end),
+            EventHandler("animover", function(inst) inst.sg:GoToState("tap_loop") end),
         },
     }
 
 local taploop =
-    GLOBAL.State {
+    State {
         name = "tap_loop",
         tags = { "doing" },
 
@@ -3133,19 +1564,19 @@ local taploop =
 
         timeline =
         {
-            GLOBAL.TimeEvent(1 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(1 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
             end),
-            GLOBAL.TimeEvent(8 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(8 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
             end),
-            GLOBAL.TimeEvent(16 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(16 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
             end),
-            GLOBAL.TimeEvent(24 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(24 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
             end),
-            GLOBAL.TimeEvent(32 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(32 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
             end),
         },
@@ -3160,7 +1591,7 @@ AddStategraphState("wilson_client", tapserver)
 AddStategraphState("wilson", tapstart)
 AddStategraphState("wilson", taploop)
 
------------------------------------------------------------------------
+--
 local function ConfigureRunState(inst)
     if inst.components.rider:IsRiding() then
         inst.sg.statemem.riding = true
@@ -3262,11 +1693,11 @@ local DoRunSounds = function(inst)
         inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boat_paddle")
     end
     if inst.sg.mem.footsteps > 3 and not inst:HasTag("aquatic") then
-        GLOBAL.PlayFootstep(inst, .6, true)
+        PlayFootstep(inst, .6, true)
     else
         inst.sg.mem.footsteps = inst.sg.mem.footsteps + 1
         if not inst:HasTag("aquatic") then
-            GLOBAL.PlayFootstep(inst, 1, true)
+            PlayFootstep(inst, 1, true)
         end
         if inst:HasTag("aquatic") then
             inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boat_paddle")
@@ -3277,7 +1708,7 @@ end
 local function PlayMooseFootstep(inst, volume, ispredicted)
     --moose footstep always full volume
     inst.SoundEmitter:PlaySound("dontstarve/characters/woodie/moose/footstep", nil, nil, ispredicted)
-    GLOBAL.PlayFootstep(inst, volume, ispredicted)
+    PlayFootstep(inst, volume, ispredicted)
 end
 
 local function DoMooseRunSounds(inst)
@@ -3307,7 +1738,7 @@ local function DoGooseRunFX(inst)
 end
 
 local boatrunstart =
-    GLOBAL.State {
+    State {
         name = "run_start",
         tags = { "moving", "running", "canrotate", "autopredict", "sailing" },
         onenter = function(inst)
@@ -3342,7 +1773,7 @@ local boatrunstart =
         end,
         timeline = {
             --mounted
-            GLOBAL.TimeEvent(
+            TimeEvent(
                 0,
                 function(inst)
                     if inst.sg.statemem.riding then
@@ -3351,18 +1782,18 @@ local boatrunstart =
                 end
             ),
             --heavy lifting
-            GLOBAL.TimeEvent(
-                1 * GLOBAL.FRAMES,
+            TimeEvent(
+                1 * FRAMES,
                 function(inst)
                     if inst.sg.statemem.heavy then
-                        GLOBAL.PlayFootstep(inst, nil, true)
+                        PlayFootstep(inst, nil, true)
                         DoFoleySounds(inst)
                     end
                 end
             ),
 
             --moose
-            GLOBAL.TimeEvent(2 * FRAMES, function(inst)
+            TimeEvent(2 * FRAMES, function(inst)
                 if inst.sg.statemem.moose then
                     PlayMooseFootstep(inst, nil, true)
                     DoFoleySounds(inst)
@@ -3370,21 +1801,21 @@ local boatrunstart =
             end),
 
             --unmounted
-            GLOBAL.TimeEvent(
-                4 * GLOBAL.FRAMES,
+            TimeEvent(
+                4 * FRAMES,
                 function(inst)
                     if inst.sg.statemem.normal then
-                        GLOBAL.PlayFootstep(inst, nil, true)
+                        PlayFootstep(inst, nil, true)
                         DoFoleySounds(inst)
                     end
                 end
             ),
             --mounted
-            GLOBAL.TimeEvent(
-                5 * GLOBAL.FRAMES,
+            TimeEvent(
+                5 * FRAMES,
                 function(inst)
                     if inst.sg.statemem.riding then
-                        GLOBAL.PlayFootstep(inst, nil, true)
+                        PlayFootstep(inst, nil, true)
                     end
                 end
             ),
@@ -3400,7 +1831,7 @@ local boatrunstart =
 
         },
         events = {
-            GLOBAL.EventHandler(
+            EventHandler(
                 "animover",
                 function(inst)
                     if inst.AnimState:AnimDone() then
@@ -3413,7 +1844,7 @@ local boatrunstart =
 AddStategraphState("wilson", boatrunstart)
 
 local boatrun =
-    GLOBAL.State {
+    State {
         name = "run",
         tags = { "moving", "running", "canrotate", "sailing" },
         onenter = function(inst)
@@ -3456,9 +1887,9 @@ local boatrun =
                     anim = "surf_loop"
                 elseif inst:HasTag("sail") then
                     anim = "sail_loop"
-                elseif inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).prefab == "oar_driftwood" then
+                elseif inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS).prefab == "oar_driftwood" then
                     anim = "row_medium"
-                elseif inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).prefab == "oar" then
+                elseif inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS).prefab == "oar" then
                     anim = "row_medium"
                 else
                     anim = "row_loop"
@@ -3486,7 +1917,7 @@ local boatrun =
                 inst.AnimState:PlayAnimation(anim, true)
             end
 
-            inst.sg:SetTimeout(inst.AnimState:GetCurrentAnimationLength() + .5 * GLOBAL.FRAMES)
+            inst.sg:SetTimeout(inst.AnimState:GetCurrentAnimationLength() + .5 * FRAMES)
         end,
         onupdate = function(inst)
             if inst.sg.statemem.normalwonkey and inst.components.locomotor:GetTimeMoving() >= TUNING.WONKEY_TIME_TO_RUN then
@@ -3498,8 +1929,8 @@ local boatrun =
 
         timeline = {
             --unmounted
-            GLOBAL.TimeEvent(
-                7 * GLOBAL.FRAMES,
+            TimeEvent(
+                7 * FRAMES,
                 function(inst)
                     if inst.sg.statemem.normal then
                         DoRunSounds(inst)
@@ -3507,8 +1938,8 @@ local boatrun =
                     end
                 end
             ),
-            GLOBAL.TimeEvent(
-                15 * GLOBAL.FRAMES,
+            TimeEvent(
+                15 * FRAMES,
                 function(inst)
                     if inst.sg.statemem.normal then
                         DoRunSounds(inst)
@@ -3518,14 +1949,14 @@ local boatrun =
             ),
             --careful
             --Frame 11 shared with heavy lifting below
-            --[[GLOBAL.TimeEvent(11 * GLOBAL.FRAMES, function(inst)
+            --[[TimeEvent(11 * FRAMES, function(inst)
                 if inst.sg.statemem.careful then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
                 end
             end),]]
-            GLOBAL.TimeEvent(
-                26 * GLOBAL.FRAMES,
+            TimeEvent(
+                26 * FRAMES,
                 function(inst)
                     if inst.sg.statemem.careful then
                         DoRunSounds(inst)
@@ -3535,14 +1966,14 @@ local boatrun =
             ),
             --sandstorm
             --Frame 12 shared with groggy below
-            --[[GLOBAL.TimeEvent(12 * GLOBAL.FRAMES, function(inst)
+            --[[TimeEvent(12 * FRAMES, function(inst)
                 if inst.sg.statemem.sandstorm then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
                 end
             end),]]
-            GLOBAL.TimeEvent(
-                23 * GLOBAL.FRAMES,
+            TimeEvent(
+                23 * FRAMES,
                 function(inst)
                     if inst.sg.statemem.sandstorm then
                         DoRunSounds(inst)
@@ -3551,7 +1982,7 @@ local boatrun =
                 end
             ),
             --groggy	
-            GLOBAL.TimeEvent(1 * FRAMES, function(inst)
+            TimeEvent(1 * FRAMES, function(inst)
                 if inst.sg.statemem.groggy or inst.sg.statemem.hamfog then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
@@ -3561,7 +1992,7 @@ local boatrun =
                     DoGooseRunFX(inst)
                 end
             end),
-            GLOBAL.TimeEvent(12 * FRAMES, function(inst)
+            TimeEvent(12 * FRAMES, function(inst)
                 if inst.sg.statemem.groggy or inst.sg.statemem.hamfog or
                     inst.sg.statemem.sandstorm then
                     DoRunSounds(inst)
@@ -3570,7 +2001,7 @@ local boatrun =
             end),
 
             --heavy lifting
-            GLOBAL.TimeEvent(11 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(11 * FRAMES, function(inst)
                 if inst.sg.statemem.heavy then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
@@ -3587,7 +2018,7 @@ local boatrun =
                     DoFoleySounds(inst)
                 end
             end),
-            GLOBAL.TimeEvent(36 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(36 * FRAMES, function(inst)
                 if inst.sg.statemem.heavy then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
@@ -3601,12 +2032,12 @@ local boatrun =
                 end
             end),
             --mounted
-            GLOBAL.TimeEvent(0 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(0 * FRAMES, function(inst)
                 if inst.sg.statemem.riding then
                     DoMountedFoleySounds(inst)
                 end
             end),
-            GLOBAL.TimeEvent(5 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(5 * FRAMES, function(inst)
                 if inst.sg.statemem.riding then
                     DoRunSounds(inst)
                 end
@@ -3620,7 +2051,7 @@ local boatrun =
                     DoFoleySounds(inst)
                 end
             end),]]
-            GLOBAL.TimeEvent(24 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(24 * FRAMES, function(inst)
                 if inst.sg.statemem.moose then
                     DoMooseRunSounds(inst)
                     DoFoleySounds(inst)
@@ -3628,13 +2059,13 @@ local boatrun =
             end),
 
             --moose groggy
-            GLOBAL.TimeEvent(14 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(14 * FRAMES, function(inst)
                 if inst.sg.statemem.moosegroggy then
                     DoMooseRunSounds(inst)
                     DoFoleySounds(inst)
                 end
             end),
-            GLOBAL.TimeEvent(30 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(30 * FRAMES, function(inst)
                 if inst.sg.statemem.moosegroggy then
                     DoMooseRunSounds(inst)
                     DoFoleySounds(inst)
@@ -3650,7 +2081,7 @@ local boatrun =
                     DoGooseRunFX(inst)
                 end
             end),]]
-            GLOBAL.TimeEvent(9 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(9 * FRAMES, function(inst)
                 if inst.sg.statemem.goose then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
@@ -3659,14 +2090,14 @@ local boatrun =
             end),
 
             --goose groggy
-            GLOBAL.TimeEvent(4 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(4 * FRAMES, function(inst)
                 if inst.sg.statemem.goosegroggy then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
                     DoGooseWalkFX(inst)
                 end
             end),
-            GLOBAL.TimeEvent(17 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(17 * FRAMES, function(inst)
                 if inst.sg.statemem.goosegroggy then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
@@ -3675,7 +2106,7 @@ local boatrun =
             end),
         },
         events = {
-            GLOBAL.EventHandler("gogglevision", function(inst, data)
+            EventHandler("gogglevision", function(inst, data)
                 if data.enabled then
                     if inst.sg.statemem.sandstorm then
                         inst.sg:GoToState("run")
@@ -3688,7 +2119,7 @@ local boatrun =
                     inst.sg:GoToState("run")
                 end
             end),
-            GLOBAL.EventHandler("sandstormlevel", function(inst, data)
+            EventHandler("sandstormlevel", function(inst, data)
                 if data.level < TUNING.SANDSTORM_FULL_LEVEL then
                     if inst.sg.statemem.sandstorm then
                         inst.sg:GoToState("run")
@@ -3701,7 +2132,7 @@ local boatrun =
                     inst.sg:GoToState("run")
                 end
             end),
-            GLOBAL.EventHandler("carefulwalking", function(inst, data)
+            EventHandler("carefulwalking", function(inst, data)
                 if not data.careful then
                     if inst.sg.statemem.careful then
                         inst.sg:GoToState("run")
@@ -3738,7 +2169,7 @@ local boatrun =
 AddStategraphState("wilson", boatrun)
 
 local boatrunstop =
-    GLOBAL.State {
+    State {
         name = "run_stop",
         tags = { "canrotate", "idle", "sailing" },
         onenter = function(inst)
@@ -3773,9 +2204,9 @@ local boatrunstop =
 
         timeline =
         {
-            GLOBAL.TimeEvent(GLOBAL.FRAMES, function(inst)
+            TimeEvent(FRAMES, function(inst)
                 if inst.sg.statemem.goose or inst.sg.statemem.goosegroggy then
-                    GLOBAL.PlayFootstep(inst, .5, true)
+                    PlayFootstep(inst, .5, true)
                     DoFoleySounds(inst)
                     if inst.sg.statemem.goosegroggy then
                         DoGooseWalkFX(inst)
@@ -3787,7 +2218,7 @@ local boatrunstop =
         },
 
         events = {
-            GLOBAL.EventHandler(
+            EventHandler(
                 "animover",
                 function(inst)
                     if inst.AnimState:AnimDone() then
@@ -3809,10 +2240,10 @@ AddStategraphState("wilson", boatrunstop)
 
 
 
---------------------------
+--
 AddStategraphActionHandler(
     "wilson",
-    GLOBAL.ActionHandler(GLOBAL.ACTIONS.SLEEPIN,
+    ActionHandler(ACTIONS.SLEEPIN,
         function(inst, action)
             if action.invobject ~= nil then
                 if action.invobject.onuse ~= nil then
@@ -3831,7 +2262,7 @@ AddStategraphActionHandler(
 
 AddStategraphActionHandler(
     "wilson_client",
-    GLOBAL.ActionHandler(GLOBAL.ACTIONS.SLEEPIN,
+    ActionHandler(ACTIONS.SLEEPIN,
         function(inst, action)
             if action and action.target and action.target:HasTag("cama") then
                 local x, y, z = action.target.Transform:GetWorldPosition()
@@ -3882,7 +2313,7 @@ end
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "bedroll1",
         tags = { "bedroll", "busy", "nomorph" },
 
@@ -3891,8 +2322,8 @@ AddStategraphState(
             inst.Transform:SetRotation(180)
 
             local failreason =
-                (GLOBAL.TheWorld.state.isday and
-                    (GLOBAL.TheWorld:HasTag("cave") and "ANNOUNCE_NODAYSLEEP_CAVE" or "ANNOUNCE_NODAYSLEEP")
+                (TheWorld.state.isday and
+                    (TheWorld:HasTag("cave") and "ANNOUNCE_NODAYSLEEP_CAVE" or "ANNOUNCE_NODAYSLEEP")
                 )
                 -- you can still sleep if your hunger will bottom out, but not absolutely
                 or (inst.components.hunger.current < TUNING.CALORIES_MED and "ANNOUNCE_NOHUNGERSLEEP")
@@ -3903,7 +2334,7 @@ AddStategraphState(
                 inst:ClearBufferedAction()
                 inst.sg:GoToState("idle")
                 if inst.components.talker ~= nil then
-                    inst.components.talker:Say(GLOBAL.GetString(inst, failreason))
+                    inst.components.talker:Say(GetString(inst, failreason))
                 end
                 return
             end
@@ -3929,7 +2360,7 @@ AddStategraphState(
             end),
             EventHandler("animqueueover", function(inst)
                 if inst.AnimState:AnimDone() then
-                    if GLOBAL.TheWorld.state.isday or
+                    if TheWorld.state.isday or
                         (inst.components.health ~= nil and inst.components.health.takingfiredamage) or
                         (inst.components.burnable ~= nil and inst.components.burnable:IsBurning()) then
                         inst:PushEvent("performaction", { action = inst.bufferedaction })
@@ -3970,7 +2401,7 @@ AddStategraphState(
 
 AddStategraphState(
     "wilson_client",
-    GLOBAL.State
+    State
     {
         name = "bedroll1",
         tags = { "bedroll", "busy" },
@@ -3999,7 +2430,7 @@ AddStategraphState(
             inst.sg:GoToState("idle")
         end,
     })
------------------
+--
 
 local function ClearStatusAilments(inst)
     if inst.components.freezable ~= nil and inst.components.freezable:IsFrozen() then
@@ -4025,7 +2456,7 @@ end
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "death",
         tags = { "busy", "dead", "pausepredict", "nomorph" },
 
@@ -4049,7 +2480,7 @@ AddStategraphState(
                 end
             end
 
-            --            GLOBAL.assert(inst.deathcause ~= nil, "Entered death state without cause.")
+            --            assert(inst.deathcause ~= nil, "Entered death state without cause.")
 
             ClearStatusAilments(inst)
             ForceStopHeavyLifting(inst)
@@ -4080,7 +2511,7 @@ AddStategraphState(
                         (inst.soundsname or inst.prefab) .. "/death_voice")
                 end
 
-                if GLOBAL.HUMAN_MEAT_ENABLED then
+                if HUMAN_MEAT_ENABLED then
                     inst.components.inventory:GiveItem(SpawnPrefab("humanmeat")) -- Drop some player meat!
                 end
                 if inst.components.revivablecorpse ~= nil then
@@ -4106,7 +2537,7 @@ AddStategraphState(
 
         timeline =
         {
-            TimeEvent(15 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(15 * FRAMES, function(inst)
                 if inst.sg.statemem.beaver then
                     inst.SoundEmitter:PlaySound("dontstarve/movement/bodyfall_dirt")
                 elseif inst.sg.statemem.goose then
@@ -4114,7 +2545,7 @@ AddStategraphState(
                     DoGooseRunFX(inst)
                 end
             end),
-            TimeEvent(20 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(20 * FRAMES, function(inst)
                 if inst.sg.statemem.moose then
                     inst.SoundEmitter:PlaySound("dontstarve/movement/bodyfall_dirt")
                 end
@@ -4124,13 +2555,13 @@ AddStategraphState(
         onexit = function(inst)
             --You should never leave this state once you enter it!
             --            if inst.components.revivablecorpse == nil then
-            --                GLOBAL.assert(false, "Left death state.")
+            --                assert(false, "Left death state.")
             --            end
         end,
 
         events =
         {
-            GLOBAL.EventHandler("animover", function(inst)
+            EventHandler("animover", function(inst)
                 if inst.AnimState:AnimDone() then
                     if inst.sg:HasStateTag("dismounting") then
                         inst.sg:RemoveStateTag("dismounting")
@@ -4143,7 +2574,7 @@ AddStategraphState(
                                 (inst.soundsname or inst.prefab) .. "/death_voice")
                         end
 
-                        if GLOBAL.HUMAN_MEAT_ENABLED then
+                        if HUMAN_MEAT_ENABLED then
                             inst.components.inventory:GiveItem(SpawnPrefab("humanmeat")) -- Drop some player meat!
                         end
                         if inst.components.revivablecorpse ~= nil then
@@ -4158,17 +2589,17 @@ AddStategraphState(
                         inst.sg:GoToState("corpse")
                     else
                         inst:PushEvent(inst.ghostenabled and "makeplayerghost" or "playerdied",
-                            { skeleton = GLOBAL.TheWorld.Map:IsPassableAtPoint(inst.Transform:GetWorldPosition()) }) -- if we are not on valid ground then don't drop a skeleton
+                            { skeleton = TheWorld.Map:IsPassableAtPoint(inst.Transform:GetWorldPosition()) }) -- if we are not on valid ground then don't drop a skeleton
                     end
                 end
             end),
         },
     })
 
-------------------------
+--
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "reviver_rebirth",
         tags = { "busy", "reviver_rebirth", "pausepredict", "silentmorph", "ghostbuild" },
 
@@ -4181,7 +2612,7 @@ AddStategraphState(
             inst.components.locomotor:Clear()
             inst:ClearBufferedAction()
 
-            GLOBAL.SpawnPrefab("ghost_transform_overlay_fx").entity:SetParent(inst.entity)
+            SpawnPrefab("ghost_transform_overlay_fx").entity:SetParent(inst.entity)
 
             inst.SoundEmitter:PlaySound("dontstarve/ghost/ghost_get_bloodpump")
             if inst.CustomSetSkinMode ~= nil then
@@ -4202,7 +2633,7 @@ AddStategraphState(
 
         timeline =
         {
-            GLOBAL.TimeEvent(88 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(88 * FRAMES, function(inst)
                 inst.DynamicShadow:Enable(true)
                 if inst.CustomSetSkinMode ~= nil then
                     inst:CustomSetSkinMode(inst.overrideskinmode or "normal_skin")
@@ -4215,12 +2646,12 @@ AddStategraphState(
                 inst.sg:RemoveStateTag("ghostbuild")
                 inst:PushEvent("stopghostbuildinstate")
             end),
-            GLOBAL.TimeEvent(89 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(89 * FRAMES, function(inst)
                 if inst:HasTag("weregoose") then
                     DoGooseRunFX(inst)
                 end
             end),
-            GLOBAL.TimeEvent(96 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(96 * FRAMES, function(inst)
                 inst.components.bloomer:PopBloom("playerghostbloom")
                 inst.AnimState:SetLightOverride(0)
             end),
@@ -4228,7 +2659,7 @@ AddStategraphState(
 
         events =
         {
-            GLOBAL.EventHandler("animqueueover", function(inst)
+            EventHandler("animqueueover", function(inst)
                 if inst.AnimState:AnimDone() then
                     inst.sg:GoToState("idle")
                 end
@@ -4259,14 +2690,14 @@ AddStategraphState(
             inst:ShowHUD(true)
             --            inst:SetCameraDistance()
 
-            GLOBAL.SerializeUserSession(inst)
+            SerializeUserSession(inst)
         end,
     })
 
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "amulet_rebirth",
         tags = { "busy", "nopredict", "silentmorph" },
 
@@ -4292,16 +2723,16 @@ AddStategraphState(
 
         timeline =
         {
-            GLOBAL.TimeEvent(0, function(inst)
+            TimeEvent(0, function(inst)
                 local stafflight = SpawnPrefab("staff_castinglight")
                 stafflight.Transform:SetPosition(inst.Transform:GetWorldPosition())
                 stafflight:SetUp({ 150 / 255, 46 / 255, 46 / 255 }, 1.7, 1)
                 inst.SoundEmitter:PlaySound("dontstarve/common/rebirth_amulet_raise")
             end),
-            GLOBAL.TimeEvent(60 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(60 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve/common/rebirth_amulet_poof")
             end),
-            GLOBAL.TimeEvent(80 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(80 * FRAMES, function(inst)
                 local x, y, z = inst.Transform:GetWorldPosition()
                 local ents = TheSim:FindEntities(x, y, z, 10)
                 for k, v in pairs(ents) do
@@ -4314,7 +2745,7 @@ AddStategraphState(
 
         events =
         {
-            GLOBAL.EventHandler("animover", function(inst)
+            EventHandler("animover", function(inst)
                 if inst.AnimState:AnimDone() then
                     inst.sg:GoToState("idle")
                 end
@@ -4333,14 +2764,14 @@ AddStategraphState(
             inst.components.health:SetInvincible(false)
             inst.AnimState:ClearOverrideSymbol("FX")
 
-            GLOBAL.SerializeUserSession(inst)
+            SerializeUserSession(inst)
         end,
     })
 
 
 AddStategraphState(
     "wilson",
-    GLOBAL.State {
+    State {
         name = "corpse_rebirth",
         tags = { "busy", "noattack", "nopredict", "nomorph" },
 
@@ -4358,12 +2789,12 @@ AddStategraphState(
 
         timeline =
         {
-            GLOBAL.TimeEvent(53 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(53 * FRAMES, function(inst)
                 inst.components.bloomer:PushBloom("corpse_rebirth", "shaders/anim.ksh", -2)
-                inst.sg.statemem.fadeintime = (86 - 53) * GLOBAL.FRAMES
+                inst.sg.statemem.fadeintime = (86 - 53) * FRAMES
                 inst.sg.statemem.fadetime = 0
             end),
-            GLOBAL.TimeEvent(86 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(86 * FRAMES, function(inst)
                 inst.sg.statemem.physicsrestored = true
                 inst.Physics:ClearCollisionMask()
                 inst.Physics:CollidesWith(COLLISION.WORLD)
@@ -4374,12 +2805,12 @@ AddStategraphState(
 
                 inst.AnimState:PlayAnimation("corpse_revive")
                 if inst.sg.statemem.fade ~= nil then
-                    inst.sg.statemem.fadeouttime = 20 * GLOBAL.FRAMES
+                    inst.sg.statemem.fadeouttime = 20 * FRAMES
                     inst.sg.statemem.fadetotal = inst.sg.statemem.fade
                 end
                 inst.sg.statemem.fadeintime = nil
             end),
-            GLOBAL.TimeEvent((86 + 20) * GLOBAL.FRAMES, function(inst)
+            TimeEvent((86 + 20) * FRAMES, function(inst)
                 inst.components.bloomer:PopBloom("corpse_rebirth")
             end),
         },
@@ -4406,9 +2837,9 @@ AddStategraphState(
 
         events =
         {
-            GLOBAL.EventHandler("animover", function(inst)
+            EventHandler("animover", function(inst)
                 if inst.AnimState:AnimDone() and inst.AnimState:IsCurrentAnimation("corpse_revive") then
-                    inst.components.talker:Say(GLOBAL.GetString(inst, "ANNOUNCE_REVIVED_FROM_CORPSE"))
+                    inst.components.talker:Say(GetString(inst, "ANNOUNCE_REVIVED_FROM_CORPSE"))
                     inst.sg:GoToState("idle")
                 end
             end),
@@ -4434,10 +2865,10 @@ AddStategraphState(
                 inst.Physics:CollidesWith(COLLISION.GIANTS)
             end
 
-            GLOBAL.SerializeUserSession(inst)
+            SerializeUserSession(inst)
         end,
     })
--------------------------------
+--
 
 local function DoEquipmentFoleySounds(inst)
     local inventory = inst.replica.inventory
@@ -4471,11 +2902,11 @@ local function DoRunSounds(inst)
         inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boat_paddle")
     end
     if inst.sg.mem.footsteps > 3 and not inst:HasTag("aquatic") then
-        GLOBAL.PlayFootstep(inst, .6, true)
+        PlayFootstep(inst, .6, true)
     else
         inst.sg.mem.footsteps = inst.sg.mem.footsteps + 1
         if not inst:HasTag("aquatic") then
-            GLOBAL.PlayFootstep(inst, 1, true)
+            PlayFootstep(inst, 1, true)
             if inst:HasTag("aquatic") then
                 inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boat_paddle")
             end
@@ -4486,7 +2917,7 @@ end
 local function PlayMooseFootstep(inst, volume, ispredicted)
     --moose footstep always full volume
     inst.SoundEmitter:PlaySound("dontstarve/characters/woodie/moose/footstep", nil, nil, ispredicted)
-    GLOBAL.PlayFootstep(inst, volume, ispredicted)
+    PlayFootstep(inst, volume, ispredicted)
 end
 
 local function DoMooseRunSounds(inst)
@@ -4555,7 +2986,7 @@ local function GetRunStateAnim(inst)
 end
 
 local boatrunstartcliente =
-    GLOBAL.State {
+    State {
         name = "run_start",
         tags = { "moving", "running", "canrotate", "autopredict", "sailing" },
         onenter = function(inst)
@@ -4589,45 +3020,45 @@ local boatrunstartcliente =
         end,
         timeline = {
             --mounted
-            GLOBAL.TimeEvent(0, function(inst)
+            TimeEvent(0, function(inst)
                 if inst.sg.statemem.riding then
                     DoMountedFoleySounds(inst)
                 end
             end),
 
             --heavy lifting
-            GLOBAL.TimeEvent(1 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(1 * FRAMES, function(inst)
                 if inst.sg.statemem.heavy then
-                    GLOBAL.PlayFootstep(inst, nil, true)
+                    PlayFootstep(inst, nil, true)
                     DoFoleySounds(inst)
                 end
             end),
 
             --moose
-            GLOBAL.TimeEvent(2 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(2 * FRAMES, function(inst)
                 if inst.sg.statemem.moose then
-                    GLOBAL.PlayFootstep(inst, nil, true)
+                    PlayFootstep(inst, nil, true)
                     DoFoleySounds(inst)
                 end
             end),
 
             --unmounted
-            GLOBAL.TimeEvent(4 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(4 * FRAMES, function(inst)
                 if inst.sg.statemem.normal then
-                    GLOBAL.PlayFootstep(inst, nil, true)
+                    PlayFootstep(inst, nil, true)
                     DoFoleySounds(inst)
                 end
             end),
 
             --mounted
-            GLOBAL.TimeEvent(5 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(5 * FRAMES, function(inst)
                 if inst.sg.statemem.riding then
-                    GLOBAL.PlayFootstep(inst, nil, true)
+                    PlayFootstep(inst, nil, true)
                 end
             end),
 
             --moose groggy
-            GLOBAL.TimeEvent(7 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(7 * FRAMES, function(inst)
                 if inst.sg.statemem.moosegroggy then
                     PlayMooseFootstep(inst, nil, true)
                     DoFoleySounds(inst)
@@ -4635,7 +3066,7 @@ local boatrunstartcliente =
             end),
         },
         events = {
-            GLOBAL.EventHandler(
+            EventHandler(
                 "animover",
                 function(inst)
                     if inst.AnimState:AnimDone() then
@@ -4648,7 +3079,7 @@ local boatrunstartcliente =
 AddStategraphState("wilson_client", boatrunstartcliente)
 
 local boatruncliente =
-    GLOBAL.State {
+    State {
         name = "run",
         tags = { "moving", "running", "canrotate", "sailing" },
         onenter = function(inst)
@@ -4696,9 +3127,9 @@ local boatruncliente =
                     anim = "surf_loop"
                 elseif inst:HasTag("sail") then
                     anim = "sail_loop"
-                elseif inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).prefab == "oar_driftwood" then
+                elseif inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS).prefab == "oar_driftwood" then
                     anim = "row_medium"
-                elseif inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(GLOBAL.EQUIPSLOTS.HANDS).prefab == "oar" then
+                elseif inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS).prefab == "oar" then
                     anim = "row_medium"
                 else
                     anim = "row_loop"
@@ -4725,7 +3156,7 @@ local boatruncliente =
                 inst.AnimState:PlayAnimation(anim, true)
             end
 
-            inst.sg:SetTimeout(inst.AnimState:GetCurrentAnimationLength() + .5 * GLOBAL.FRAMES)
+            inst.sg:SetTimeout(inst.AnimState:GetCurrentAnimationLength() + .5 * FRAMES)
         end,
         onupdate = function(inst)
             if inst.sg.statemem.normalwonkey and inst.components.locomotor:GetTimeMoving() >= TUNING.WONKEY_TIME_TO_RUN then
@@ -4737,13 +3168,13 @@ local boatruncliente =
 
         timeline = {
             --unmounted
-            GLOBAL.TimeEvent(7 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(7 * FRAMES, function(inst)
                 if inst.sg.statemem.normal then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
                 end
             end),
-            GLOBAL.TimeEvent(15 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(15 * FRAMES, function(inst)
                 if inst.sg.statemem.normal then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
@@ -4758,7 +3189,7 @@ local boatruncliente =
                     DoFoleySounds(inst)
                 end
             end),]]
-            GLOBAL.TimeEvent(26 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(26 * FRAMES, function(inst)
                 if inst.sg.statemem.careful then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
@@ -4773,7 +3204,7 @@ local boatruncliente =
                     DoFoleySounds(inst)
                 end
             end),]]
-            GLOBAL.TimeEvent(23 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(23 * FRAMES, function(inst)
                 if inst.sg.statemem.sandstorm then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
@@ -4781,14 +3212,14 @@ local boatruncliente =
             end),
 
             --groggy
-            GLOBAL.TimeEvent(1 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(1 * FRAMES, function(inst)
                 if inst.sg.statemem.groggy or inst.sg.statemem.hamfog or
                     inst.sg.statemem.goose then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
                 end
             end),
-            GLOBAL.TimeEvent(12 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(12 * FRAMES, function(inst)
                 if inst.sg.statemem.groggy or inst.sg.statemem.hamfog or
                     inst.sg.statemem.sandstorm then
                     DoRunSounds(inst)
@@ -4797,7 +3228,7 @@ local boatruncliente =
             end),
 
             --heavy lifting
-            GLOBAL.TimeEvent(11 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(11 * FRAMES, function(inst)
                 if inst.sg.statemem.heavy or
                     inst.sg.statemem.sandstorm or
                     inst.sg.statemem.careful then
@@ -4808,7 +3239,7 @@ local boatruncliente =
                     DoFoleySounds(inst)
                 end
             end),
-            GLOBAL.TimeEvent(36 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(36 * FRAMES, function(inst)
                 if inst.sg.statemem.heavy or
                     inst.sg.statemem.sandstorm or
                     inst.sg.statemem.careful then
@@ -4818,12 +3249,12 @@ local boatruncliente =
             end),
 
             --mounted
-            GLOBAL.TimeEvent(0, function(inst)
+            TimeEvent(0, function(inst)
                 if inst.sg.statemem.riding then
                     DoMountedFoleySounds(inst)
                 end
             end),
-            GLOBAL.TimeEvent(5 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(5 * FRAMES, function(inst)
                 if inst.sg.statemem.riding then
                     DoRunSounds(inst)
                 end
@@ -4837,7 +3268,7 @@ local boatruncliente =
                     DoFoleySounds(inst)
                 end
             end),]]
-            GLOBAL.TimeEvent(24 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(24 * FRAMES, function(inst)
                 if inst.sg.statemem.moose then
                     DoMooseRunSounds(inst)
                     DoFoleySounds(inst)
@@ -4845,13 +3276,13 @@ local boatruncliente =
             end),
 
             --moose groggy
-            GLOBAL.TimeEvent(14 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(14 * FRAMES, function(inst)
                 if inst.sg.statemem.moosegroggy then
                     DoMooseRunSounds(inst)
                     DoFoleySounds(inst)
                 end
             end),
-            GLOBAL.TimeEvent(30 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(30 * FRAMES, function(inst)
                 if inst.sg.statemem.moosegroggy then
                     DoMooseRunSounds(inst)
                     DoFoleySounds(inst)
@@ -4866,7 +3297,7 @@ local boatruncliente =
                     DoFoleySounds(inst)
                 end
             end),]]
-            GLOBAL.TimeEvent(9 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(9 * FRAMES, function(inst)
                 if inst.sg.statemem.goose then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
@@ -4874,13 +3305,13 @@ local boatruncliente =
             end),
 
             --goose groggy
-            GLOBAL.TimeEvent(4 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(4 * FRAMES, function(inst)
                 if inst.sg.statemem.goosegroggy then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
                 end
             end),
-            GLOBAL.TimeEvent(17 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(17 * FRAMES, function(inst)
                 if inst.sg.statemem.goosegroggy then
                     DoRunSounds(inst)
                     DoFoleySounds(inst)
@@ -4888,7 +3319,7 @@ local boatruncliente =
             end),
         },
         events = {
-            GLOBAL.EventHandler("gogglevision", function(inst, data)
+            EventHandler("gogglevision", function(inst, data)
                 if data.enabled then
                     if inst.sg.statemem.sandstorm then
                         inst.sg:GoToState("run")
@@ -4901,7 +3332,7 @@ local boatruncliente =
                     inst.sg:GoToState("run")
                 end
             end),
-            GLOBAL.EventHandler("sandstormlevel", function(inst, data)
+            EventHandler("sandstormlevel", function(inst, data)
                 if data.level < TUNING.SANDSTORM_FULL_LEVEL then
                     if inst.sg.statemem.sandstorm then
                         inst.sg:GoToState("run")
@@ -4914,7 +3345,7 @@ local boatruncliente =
                     inst.sg:GoToState("run")
                 end
             end),
-            GLOBAL.EventHandler("carefulwalking", function(inst, data)
+            EventHandler("carefulwalking", function(inst, data)
                 if not data.careful then
                     if inst.sg.statemem.careful then
                         inst.sg:GoToState("run")
@@ -4950,7 +3381,7 @@ local boatruncliente =
 AddStategraphState("wilson_client", boatruncliente)
 
 local boatrunstopcliente =
-    GLOBAL.State {
+    State {
         name = "run_stop",
         tags = { "canrotate", "idle", "sailing", "aparece" },
         onenter = function(inst)
@@ -4985,16 +3416,16 @@ local boatrunstopcliente =
 
         timeline =
         {
-            GLOBAL.TimeEvent(GLOBAL.FRAMES, function(inst)
+            TimeEvent(FRAMES, function(inst)
                 if inst.sg.statemem.goose or inst.sg.statemem.goosegroggy then
-                    GLOBAL.PlayFootstep(inst, .5, true)
+                    PlayFootstep(inst, .5, true)
                     DoFoleySounds(inst)
                 end
             end),
         },
 
         events = {
-            GLOBAL.EventHandler(
+            EventHandler(
                 "animover",
                 function(inst)
                     if inst.AnimState:AnimDone() then
@@ -5015,7 +3446,7 @@ local boatrunstopcliente =
 AddStategraphState("wilson_client", boatrunstopcliente)
 
 local boatbrake =
-    GLOBAL.State {
+    State {
         name = "brake",
         tags = { "idle", "canrotate", "boating", "sailing", "aparece" },
         onenter = function(inst)
@@ -5026,7 +3457,7 @@ local boatbrake =
         end,
 
         events = {
-            GLOBAL.EventHandler(
+            EventHandler(
                 "animover",
                 function(inst)
                     if inst.AnimState:GetCurrentAnimationTime() > 3 then
@@ -5041,7 +3472,7 @@ AddStategraphState("wilson_client", boatbrake)
 AddStategraphState("wilson", boatbrake)
 
 AddStategraphEvent("wilson",
-    GLOBAL.EventHandler("sneeze",
+    EventHandler("sneeze",
         function(inst, data)
             print("checkstage!!!!!!!!!")
             print(inst.sg:HasStateTag("busy"))
@@ -5056,7 +3487,7 @@ AddStategraphEvent("wilson",
         end))
 
 local sneeze =
-    GLOBAL.State {
+    State {
         name = "sneeze",
         tags = { "busy", "sneeze", "pausepredict" },
 
@@ -5086,12 +3517,12 @@ local sneeze =
 
         events =
         {
-            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
 
         timeline =
         {
-            GLOBAL.TimeEvent(1 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(1 * FRAMES, function(inst)
                 local itemstodrop = 0
                 if math.random() < 0.6 then itemstodrop = itemstodrop + 1 end
                 if math.random() < 0.3 then itemstodrop = itemstodrop + 1 end
@@ -5114,7 +3545,7 @@ local sneeze =
                     end
                 end
             end),
-            GLOBAL.TimeEvent(10 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(10 * FRAMES, function(inst)
                 inst.sg:RemoveStateTag("busy")
                 if inst.components.sanity then inst.components.sanity:DoDelta(-3) end
             end),
@@ -5127,7 +3558,7 @@ AddStategraphState("wilson", sneeze)
 
 
 local speargunstate =
-    GLOBAL.State {
+    State {
         name = "speargun",
         tags = { "attack", "notalking", "abouttoattack", "autopredict" },
 
@@ -5144,11 +3575,11 @@ local speargunstate =
             inst.AnimState:PlayAnimation("speargun")
             if inst.sg.prevstate == inst.sg.currentstate then
                 inst.sg.statemem.chained = true
-                inst.AnimState:SetTime(5 * GLOBAL.FRAMES)
+                inst.AnimState:SetTime(5 * FRAMES)
             end
 
-            inst.sg:SetTimeout(math.max((inst.sg.statemem.chained and 14 or 18) * GLOBAL.FRAMES,
-                inst.components.combat.min_attack_period + .5 * GLOBAL.FRAMES))
+            inst.sg:SetTimeout(math.max((inst.sg.statemem.chained and 14 or 18) * FRAMES,
+                inst.components.combat.min_attack_period + .5 * FRAMES))
 
             if target ~= nil and target:IsValid() then
                 inst:FacePoint(target.Transform:GetWorldPosition())
@@ -5156,10 +3587,10 @@ local speargunstate =
             end
 
             if (equip ~= nil and equip.projectiledelay or 0) > 0 then
-                --V2C: Projectiles don't show in the initial delayed GLOBAL.FRAMES so that
+                --V2C: Projectiles don't show in the initial delayed FRAMES so that
                 --     when they do appear, they're already in front of the player.
                 --     Start the attack early to keep animation in sync.
-                inst.sg.statemem.projectiledelay = (inst.sg.statemem.chained and 9 or 14) * GLOBAL.FRAMES -
+                inst.sg.statemem.projectiledelay = (inst.sg.statemem.chained and 9 or 14) * FRAMES -
                     equip.projectiledelay
                 if inst.sg.statemem.projectiledelay <= 0 then
                     inst.sg.statemem.projectiledelay = nil
@@ -5179,12 +3610,12 @@ local speargunstate =
 
         timeline =
         {
-            TimeEvent(8 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(8 * FRAMES, function(inst)
                 if inst.sg.statemem.chained then
                     inst.SoundEmitter:PlaySound("dontstarve/wilson/blowdart_shoot", nil, nil, true)
                 end
             end),
-            TimeEvent(9 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(9 * FRAMES, function(inst)
                 if inst.sg.statemem.chained and inst.sg.statemem.projectiledelay == nil then
                     inst:PerformBufferedAction()
                     inst.sg:RemoveStateTag("abouttoattack")
@@ -5193,7 +3624,7 @@ local speargunstate =
 
 
 
-            TimeEvent(15 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(15 * FRAMES, function(inst)
                 if not inst.sg.statemem.chained then
                     if inst.components.combat:GetWeapon() and inst.components.combat:GetWeapon():HasTag("blunderbuss") then
                         inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/weapon/blunderbuss_shoot")
@@ -5212,7 +3643,7 @@ local speargunstate =
                 end
             end),
 
-            TimeEvent(16 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(16 * FRAMES, function(inst)
                 if not inst.sg.statemem.chained and inst.sg.statemem.projectiledelay == nil then
                     inst:PerformBufferedAction()
                     inst.sg:RemoveStateTag("abouttoattack")
@@ -5227,9 +3658,9 @@ local speargunstate =
 
         events =
         {
-            GLOBAL.EventHandler("equip", function(inst) inst.sg:GoToState("idle") end),
-            GLOBAL.EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-            GLOBAL.EventHandler("animqueueover", function(inst)
+            EventHandler("equip", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("animqueueover", function(inst)
                 if inst.AnimState:AnimDone() then
                     inst.sg:GoToState("idle")
                 end
@@ -5250,7 +3681,7 @@ local speargunstate =
 
 
 local speargunstateclient =
-    GLOBAL.State
+    State
     {
         name = "speargun",
         tags = { "attack", "notalking", "abouttoattack" },
@@ -5322,7 +3753,7 @@ local speargunstateclient =
 
 
 
-            TimeEvent(15 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(15 * FRAMES, function(inst)
                 if not inst.sg.statemem.chained then
                     if inst.replica.combat:GetWeapon() and inst.replica.combat:GetWeapon():HasTag("blunderbuss") then
                         inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/weapon/blunderbuss_shoot")
@@ -5376,7 +3807,7 @@ local speargunstateclient =
 AddStategraphState("wilson_client", speargunstateclient)
 AddStategraphState("wilson", speargunstate)
 
-local vagnerintro = GLOBAL.State({
+local vagnerintro = State({
     name = "sleep_dlc",
 
     onenter = function(inst)
@@ -5398,7 +3829,7 @@ local vagnerintro = GLOBAL.State({
 
 })
 
-local vagnerintro2 = GLOBAL.State({
+local vagnerintro2 = State({
     name = "sleep_intro",
     onenter = function(inst)
         if inst.prefab == "walani" or inst.prefab == "warly" or inst.prefab == "wilbur" or inst.prefab == "woodlegs" then
@@ -5423,7 +3854,7 @@ AddStategraphState("wilson_client", vagnerintro)
 AddStategraphState("wilson_client", vagnerintro2)
 
 
-local telescopio = GLOBAL.State {
+local telescopio = State {
     name = "peertelescope",
     tags = { "doing", "busy", "canrotate" },
 
@@ -5444,7 +3875,7 @@ local telescopio = GLOBAL.State {
 
     timeline =
     {
-        GLOBAL.TimeEvent(20 * GLOBAL.FRAMES, function(inst)
+        TimeEvent(20 * FRAMES, function(inst)
             inst.SoundEmitter:PlaySound(
                 "dontstarve_DLC002/common/use_spyglass")
         end),
@@ -5455,10 +3886,10 @@ local telescopio = GLOBAL.State {
     end,
 
     events = {
-        GLOBAL.EventHandler("animover", function(inst)
+        EventHandler("animover", function(inst)
             inst:PerformBufferedAction()
         end),
-        GLOBAL.EventHandler("animqueueover", function(inst)
+        EventHandler("animqueueover", function(inst)
             --                local telescope = inst.sg.statemem.action.invobject or inst.sg.statemem.action.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
             --                if telescope and telescope.components.finiteuses then
             -- this is here because the telescope still needs to exist while playing the put away animation
@@ -5473,7 +3904,7 @@ local telescopio = GLOBAL.State {
 AddStategraphState("wilson", telescopio)
 AddStategraphState("wilson_client", telescopio)
 
-local magica = GLOBAL.State {
+local magica = State {
     name = "quickcastspell",
     tags = { "doing", "busy", "canrotate" },
 
@@ -5493,14 +3924,14 @@ local magica = GLOBAL.State {
 
     timeline =
     {
-        GLOBAL.TimeEvent(5 * GLOBAL.FRAMES, function(inst)
+        TimeEvent(5 * FRAMES, function(inst)
             inst:PerformBufferedAction()
         end),
     },
 
     events =
     {
-        GLOBAL.EventHandler("animqueueover", function(inst)
+        EventHandler("animqueueover", function(inst)
             if inst.AnimState:AnimDone() then
                 inst.sg:GoToState("idle")
             end
@@ -5510,7 +3941,7 @@ local magica = GLOBAL.State {
 
 local TIMEOUT = 2
 
-local magica_client = GLOBAL.State
+local magica_client = State
     {
         name = "quickcastspell",
         tags = { "doing", "busy", "canrotate" },
@@ -5553,7 +3984,7 @@ AddStategraphState("wilson", magica)
 AddStategraphState("wilson_client", magica_client)
 
 
-local usefansw = GLOBAL.State {
+local usefansw = State {
     name = "use_fan",
     tags = { "doing" },
 
@@ -5599,7 +4030,7 @@ local usefansw = GLOBAL.State {
 
     timeline =
     {
-        GLOBAL.TimeEvent(30 * FRAMES, function(inst)
+        TimeEvent(30 * FRAMES, function(inst)
             if inst.sg.statemem.item ~= nil and
                 inst.sg.statemem.item:IsValid() and
                 inst.sg.statemem.item.components.fan ~= nil then
@@ -5607,7 +4038,7 @@ local usefansw = GLOBAL.State {
                     inst.sg.statemem.target:IsValid() and inst.sg.statemem.target or inst)
             end
         end),
-        GLOBAL.TimeEvent(50 * FRAMES, function(inst)
+        TimeEvent(50 * FRAMES, function(inst)
             if inst.sg.statemem.item ~= nil and
                 inst.sg.statemem.item:IsValid() and
                 inst.sg.statemem.item.components.fan ~= nil then
@@ -5615,7 +4046,7 @@ local usefansw = GLOBAL.State {
                     inst.sg.statemem.target:IsValid() and inst.sg.statemem.target or inst)
             end
         end),
-        GLOBAL.TimeEvent(70 * FRAMES, function(inst)
+        TimeEvent(70 * FRAMES, function(inst)
             if inst.sg.statemem.item ~= nil then
                 inst.sg:RemoveStateTag("busy")
             end
@@ -5643,7 +4074,7 @@ AddStategraphState("wilson", usefansw)
 
 
 --[[
-local macacorunstart = GLOBAL.State{
+local macacorunstart = State{
         name = "run_monkey_start",
         tags = {"moving", "running", "canrotate", "monkey", "sailing"},
 
@@ -5664,13 +4095,13 @@ local macacorunstart = GLOBAL.State{
 
         events=
         {
-            GLOBAL.EventHandler("animover", function(inst)
+            EventHandler("animover", function(inst)
                 inst.sg:GoToState("run_monkey")
             end ),
         },
     }	
 
-local macacorun = GLOBAL.State{
+local macacorun = State{
         name = "run_monkey",
         tags = {"moving", "running", "canrotate", "monkey", "sailing"},
 
@@ -5702,10 +4133,10 @@ if inst.components.hunger then inst.components.hunger:SetRate(1*TUNING.WILSON_HU
 
         timeline =
         {
-            GLOBAL.TimeEvent(4*GLOBAL.FRAMES, function(inst) GLOBAL.PlayFootstep(inst, 0.5) end),
-            GLOBAL.TimeEvent(5*GLOBAL.FRAMES, function(inst) GLOBAL.PlayFootstep(inst, 0.5) DoFoleySounds(inst) end),
-            GLOBAL.TimeEvent(10*GLOBAL.FRAMES, function(inst) GLOBAL.PlayFootstep(inst, 0.5) end),
-            GLOBAL.TimeEvent(11*GLOBAL.FRAMES, function(inst) GLOBAL.PlayFootstep(inst, 0.5) end),
+            TimeEvent(4*FRAMES, function(inst) PlayFootstep(inst, 0.5) end),
+            TimeEvent(5*FRAMES, function(inst) PlayFootstep(inst, 0.5) DoFoleySounds(inst) end),
+            TimeEvent(10*FRAMES, function(inst) PlayFootstep(inst, 0.5) end),
+            TimeEvent(11*FRAMES, function(inst) PlayFootstep(inst, 0.5) end),
         },
 
         onupdate = function(inst)
@@ -5714,14 +4145,14 @@ if inst.components.hunger then inst.components.hunger:SetRate(1*TUNING.WILSON_HU
 
         events=
         {
-            GLOBAL.EventHandler("animover", function(inst) inst.sg:GoToState("run_monkey") end),
+            EventHandler("animover", function(inst) inst.sg:GoToState("run_monkey") end),
 
-            GLOBAL.EventHandler("equip", function(inst)
+            EventHandler("equip", function(inst)
                 inst.AnimState:Show("TAIL_carry")
                 inst.AnimState:Hide("TAIL_normal")
             end),
 
-            GLOBAL.EventHandler("unequip", function(inst)
+            EventHandler("unequip", function(inst)
                 inst.AnimState:Hide("TAIL_carry")
                 inst.AnimState:Show("TAIL_normal")
             end),
@@ -5733,8 +4164,8 @@ AddStategraphState("wilson", macacorun)
 AddStategraphState("wilson_client", macacorunstart)
 AddStategraphState("wilson_client", macacorun)
 ]]
-local JUMPIN = GLOBAL.Action({ priority = 10, ghost_valid = true, encumbered_valid = true, invalid_hold_action = true })
-JUMPIN.str = (GLOBAL.STRINGS.ACTIONS.JUMPIN)
+local JUMPIN = Action({ priority = 10, ghost_valid = true, encumbered_valid = true, invalid_hold_action = true })
+JUMPIN.str = (STRINGS.ACTIONS.JUMPIN)
 JUMPIN.id = "JUMPIN"
 JUMPIN.fn = function(act)
     if act.doer ~= nil and
@@ -5755,6 +4186,17 @@ JUMPIN.fn = function(act)
 end
 AddAction(JUMPIN)
 
+--进出房间动作--
+local Oldstrfnjumpin = ACTIONS.JUMPIN.strfn
+ACTIONS.JUMPIN.strfn = function(act)
+    if act.target ~= nil and act.target:HasTag("hamletteleport") then
+        return "HAMLET"
+    end
+    return Oldstrfnjumpin(act)
+end
+
+
+
 local function ToggleOffPhysics(inst)
     inst.sg.statemem.isphysicstoggle = true
     inst.Physics:ClearCollisionMask()
@@ -5772,7 +4214,7 @@ local function ToggleOnPhysics(inst)
 end
 
 local hamletteleport =
-    GLOBAL.State {
+    State {
         name = "hamletteleport",
         tags = { "doing", "busy", "canrotate", "nopredict", "nomorph" },
 
@@ -5821,33 +4263,33 @@ local hamletteleport =
 
         timeline =
         {
-            TimeEvent(.5 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(.5 * FRAMES, function(inst)
                 inst.Physics:SetMotorVel(inst.sg.statemem.speed * (inst.sg.statemem.heavy and .55 or .75), 0, 0)
             end),
-            TimeEvent(1 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(1 * FRAMES, function(inst)
                 inst.Physics:SetMotorVel(
                     inst.sg.statemem.heavy and inst.sg.statemem.speed * .6 or inst.sg.statemem.speed, 0, 0)
             end),
 
             --Heavy lifting
-            TimeEvent(12 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(12 * FRAMES, function(inst)
                 if inst.sg.statemem.heavy then
                     inst.Physics:SetMotorVel(inst.sg.statemem.speed * .5, 0, 0)
                 end
             end),
-            TimeEvent(13 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(13 * FRAMES, function(inst)
                 if inst.sg.statemem.heavy then
                     inst.Physics:SetMotorVel(inst.sg.statemem.speed * .4, 0, 0)
                 end
             end),
-            TimeEvent(14 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(14 * FRAMES, function(inst)
                 if inst.sg.statemem.heavy then
                     inst.Physics:SetMotorVel(inst.sg.statemem.speed * .3, 0, 0)
                 end
             end),
 
             --Normal
-            TimeEvent(15 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(15 * FRAMES, function(inst)
                 if not inst.sg.statemem.heavy then
                     inst.Physics:Stop()
                 end
@@ -5863,7 +4305,7 @@ local hamletteleport =
             end),
 
             --Heavy lifting
-            TimeEvent(20 * GLOBAL.FRAMES, function(inst)
+            TimeEvent(20 * FRAMES, function(inst)
                 if inst.sg.statemem.heavy then
                     inst.Physics:Stop()
                 end
@@ -5872,7 +4314,7 @@ local hamletteleport =
 
         events =
         {
-            GLOBAL.EventHandler("animover", function(inst)
+            EventHandler("animover", function(inst)
                 if inst.AnimState:AnimDone() then
                     if inst.sg.statemem.target ~= nil and
                         inst.sg.statemem.target:IsValid() and
@@ -5917,41 +4359,3 @@ local hamletteleport =
 
 AddStategraphState("wilson_client", hamletteleport)
 AddStategraphState("wilson", hamletteleport)
-
-
-
-
-
-
-ACTIONS.ADDFUEL.priority = 1 -- Runar: 未定义的优先级，没有的话碎布加燃料会有问题
-ACTIONS.GIVE.priority = 0
-
-
-
-
-
-AddComponentPostInit("fueled", function(self)
-    function self:CanAcceptFuelItem(item)
-        if self.fueltype == "TAR" and item:HasTag("tar") then return true end
-        return self.accepting and item and item.components.fuel and
-            (item.components.fuel.fueltype == self.fueltype or item.components.fuel.fueltype == self.secondaryfueltype)
-    end
-end)
-
-
-AddComponentAction("USEITEM", "fueltar", function(inst, doer, target, actions)
-    if not (doer.replica.rider ~= nil and doer.replica.rider:IsRiding())
-        or (target.replica.inventoryitem ~= nil and target.replica.inventoryitem:IsGrandOwner(doer)) then
-        if target:HasTag("seayard") then
-            table.insert(actions, ACTIONS.ADDFUEL)
-        end
-
-        if target:HasTag("tarlamp") then
-            table.insert(actions, ACTIONS.ADDFUEL)
-        end
-
-        if target:HasTag("tarsuit") then
-            table.insert(actions, ACTIONS.ADDFUEL)
-        end
-    end
-end)
