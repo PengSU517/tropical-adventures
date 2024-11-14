@@ -316,9 +316,9 @@ PrefabFiles =
     "vidanomarseaworld",
     "ashfx",
     "boat_raft_rot",
-    -- "panda", -----------这是海难plus的
-    -- "pandaskin",
-    -- "pandatree",
+    "panda", -----------这是海难plus的
+    "pandaskin",
+    "pandatree",
     "nectar_pod",
     "piggravestone",
     "mangrovespawner", --------刷新点
@@ -632,8 +632,8 @@ table.insert(PrefabFiles, "slipstor_spawner")
 -- 	table.insert(PrefabFiles, "wanawanatiki")
 -- 	table.insert(PrefabFiles, "tikistick")
 
--- 	table.insert(PrefabFiles, "summerwalrus")
--- 	table.insert(PrefabFiles, "summerigloo")
+table.insert(PrefabFiles, "summerwalrus")
+table.insert(PrefabFiles, "summerigloo")
 
 table.insert(PrefabFiles, "octoatt")
 table.insert(PrefabFiles, "octopus")
