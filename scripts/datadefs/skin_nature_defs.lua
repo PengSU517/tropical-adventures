@@ -6,6 +6,7 @@ local natureskins = {
     sapling = {
         default = {},
         sapling_green = {
+            build = "sapling",
             assetname = "sapling", --这个是防止注册没有的asset
             skintype = "tropical",
             extra_init_fn = function(inst, skinname) CancelNoGrowInWinter(inst) end,

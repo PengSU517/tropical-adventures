@@ -304,7 +304,7 @@ if troadj.testmap then
 
 
             if level.location == "forest" then
-                level.tasks = { "Make a NewPick" }
+                level.tasks = { "Make a pick" }
                 -- table.insert(level.tasks, "Kill the spiders")
                 -- table.insert(level.tasks, "Pincale")
                 -- table.insert(level.tasks, "Verdent")
@@ -334,7 +334,7 @@ if troadj.testmap then
 
 
                 level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋
-                level.set_pieces["CaveEntrance"] = { count = 1, tasks = { "Make a NewPick" } }
+                level.set_pieces["CaveEntrance"] = { count = 1, tasks = { "Make a pick" } }
                 level.overrides = {}
                 level.overrides.layout_mode = "LinkNodesByKeys"
                 level.required_setpieces = {}

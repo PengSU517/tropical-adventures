@@ -82,9 +82,9 @@ function NatureSkin:OnSave()
 end
 
 function NatureSkin:OnLoad(data)
-	print("skin load111" .. self.inst.prefab)
-	print((data.nature_skin_name or "nil") ..
-		(data.nature_skin_type or "nil") .. (data.has_nature_skin and "true" or "nil"))
+	-- print("skin load111" .. self.inst.prefab)
+	-- print((data.nature_skin_name or "nil") ..
+	-- 	(data.nature_skin_type or "nil") .. (data.has_nature_skin and "true" or "nil"))
 
 	if data then
 		self.nature_skin_name = data.nature_skin_name
