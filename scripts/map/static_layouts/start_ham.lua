@@ -51,10 +51,10 @@ return {
       objects = {
         {
           name = "",
-          type = "welcomitem",
+          type = "multiplayer_portal",
           shape = "rectangle",
-          x = 192,
-          y = 80,
+          x = 128,
+          y = 128,
           width = 0,
           height = 0,
           visible = true,
@@ -62,7 +62,18 @@ return {
         },
         {
           name = "",
-          type = "welcomitem",
+          type = "spawnpoint_master",
+          shape = "rectangle",
+          x = 160,
+          y = 160,
+          width = 0,
+          height = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "porkland_intro_basket",
           shape = "rectangle",
           x = 128,
           y = 48,
@@ -73,21 +84,10 @@ return {
         },
         {
           name = "",
-          type = "welcomitem",
+          type = "porkland_intro_balloon",
           shape = "rectangle",
-          x = 32,
-          y = 144,
-          width = 0,
-          height = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          name = "刷新点",
-          type = "spawnpoint_master", --刷新点
-          shape = "rectangle",
-          x = 160,                    --横坐标，64的倍数
-          y = 160,                    --纵坐标，64的倍数
+          x = 60,
+          y = 123,
           width = 0,
           height = 0,
           visible = true,
@@ -95,15 +95,70 @@ return {
         },
         {
           name = "",
-          type = "multiplayer_portal",
+          type = "porkland_intro_trunk",
           shape = "rectangle",
-          x = 160,
-          y = 160,
+          x = 109,
+          y = 197,
           width = 0,
           height = 0,
           visible = true,
           properties = {}
-        }
+        },
+        {
+          name = "",
+          type = "porkland_intro_suitcase",
+          shape = "rectangle",
+          x = 85,
+          y = 187,
+          width = 0,
+          height = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "porkland_intro_sandbag",
+          shape = "rectangle",
+          x = 188,
+          y = 123,
+          width = 0,
+          height = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "porkland_intro_flags",
+          shape = "rectangle",
+          x = 217,
+          y = 94,
+          width = 0,
+          height = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          name = "",
+          type = "porkland_intro_scrape",
+          shape = "rectangle",
+          x = 128,
+          y = 49,
+          width = 0,
+          height = 0,
+          visible = true,
+          properties = {}
+        },
+        -- {
+        --   name = "",
+        --   type = "machete",
+        --   shape = "rectangle",
+        --   x = 167,
+        --   y = 44,
+        --   width = 0,
+        --   height = 0,
+        --   visible = true,
+        --   properties = {}
+        -- }
       }
     }
   }

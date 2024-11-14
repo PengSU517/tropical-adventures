@@ -71,17 +71,17 @@ return {
           visible = true,
           properties = {}
         },
-        -- {
-        --   name = "",
-        --   type = "spawnpoint_master",
-        --   shape = "rectangle",
-        --   x = 160,
-        --   y = 160,
-        --   width = 0,
-        --   height = 0,
-        --   visible = true,
-        --   properties = {}
-        -- },
+        {
+          name = "",
+          type = "spawnpoint_master",
+          shape = "rectangle",
+          x = 160,
+          y = 160,
+          width = 0,
+          height = 0,
+          visible = true,
+          properties = {}
+        },
         {
           name = "",
           type = "porkland_intro_basket",

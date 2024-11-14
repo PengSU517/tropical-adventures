@@ -10,7 +10,7 @@ Layouts["newstart"] = StaticLayout.Get("map/static_layouts/start_wor_portal", {
 	layout_position = LAYOUT_POSITION.CENTER,
 	disable_transform = true,
 	defs = {
-		welcomitem = { "flower" } --三矛开局哈哈哈
+		welcomitem = { "flower" }
 	},
 })
 
@@ -20,7 +20,7 @@ Layouts["start_ham"] = StaticLayout.Get("map/static_layouts/start_ham", {
 	layout_position = LAYOUT_POSITION.CENTER,
 	disable_transform = true,
 	defs = {
-		welcomitem = { "flower" } --三矛开局哈哈哈
+		welcomitem = { "flower" }
 	},
 })
 
@@ -30,7 +30,7 @@ Layouts["start_sw"] = StaticLayout.Get("map/static_layouts/start_sw", {
 	layout_position = LAYOUT_POSITION.CENTER,
 	disable_transform = true,
 	defs = {
-		welcomitem = { "flower" } --三矛开局哈哈哈
+		welcomitem = { "flower" }
 	},
 })
 

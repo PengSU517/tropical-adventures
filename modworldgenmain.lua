@@ -6,12 +6,12 @@ local require = require
 local modimport = modimport
 
 
-require("tools/table")       ----一些表相关的工具函数，都在表tabel里
+require("tools/table")      ----一些表相关的工具函数，都在表tabel里
 require("tools/tileutil")
-require("tools/spawnutil")   ----地形生成相关工具
-modimport("main/ta_config")  ----mod 设置相关内容
-modimport("main/tiledefs")   ----缺少行走的声音
-require("map/ocean_gen_new") ----防止新的水面地皮被覆盖 ---但是暴力覆盖似乎太严重
+require("tools/spawnutil")  ----地形生成相关工具
+modimport("main/ta_config") ----mod 设置相关内容
+modimport("main/tiledefs")  ----缺少行走的声音
+
 
 
 ----------新内容
@@ -22,7 +22,6 @@ modimport("scripts/map/ruin_maze_layouts")   --新的地下遗迹layouts
 modimport("scripts/map/rooms/ham")
 modimport("scripts/map/rooms/sw")
 modimport("scripts/map/rooms/ocean")
-modimport("scripts/map/rooms/unknown")
 modimport("scripts/map/tasks/ham")
 modimport("scripts/map/tasks/sw")
 modimport("scripts/map/newstartlocation")
@@ -34,6 +33,7 @@ modimport("postinit/map/levels") -----------[[几乎所有地形修改都在这�
 modimport("postinit/map/graph")
 modimport("postinit/map/storygen")
 modimport("postinit/map/forest_map_new") -----在这里添加哈姆雷特城镇
+modimport("postinit/map/ocean_gen_new")  ----防止新的水面地皮被覆盖 ---但是暴力覆盖似乎太严重
 modimport("postinit/map/node")           ------------防止清空水上内容
 
 
