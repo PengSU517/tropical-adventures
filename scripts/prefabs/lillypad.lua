@@ -64,33 +64,8 @@ local function OnLoadPostPass(inst)
         -- Need to further rotate the bumpers to account for the boat's rotation
         bumper.Transform:SetRotation(-angle + 90)
     end
-
-    -- Cannons
-    --[[local cannons = TheSim:FindEntities(x, y, z, boatring:GetRadius(), BOATCANNON_MUST_TAGS)
-    for i, cannon in ipairs(cannons) do
-        local cannonpos = cannon:GetPosition()
-        local angle = GetAngleFromBoat(inst, cannonpos.x, cannonpos.z) / DEGREES
-
-        cannon.Transform:SetRotation(-angle)
-    end]]
 end
 
-local function speed(inst)
-    if not inst.startpos then
-        inst.startpos = Vector3(inst.Transform:GetWorldPosition())
-        inst.starttime = GetTime()
-        inst.speedtask = inst:DoPeriodicTask(FRAMES, function()
-            local pt = Vector3(inst.Transform:GetWorldPosition())
-            local dif = distsq(pt.x, pt.z, inst.startpos.x, inst.startpos.z)
-            print("DIST", dif, GetTime() - inst.starttime)
-        end)
-    else
-        inst.startpos = nil
-        inst.speedtask:Cancel()
-        inst.speedtask = nil
-        inst.starttime = nil
-    end
-end
 
 local function groundtest(inst)
     local map = TheWorld.Map
@@ -106,36 +81,6 @@ local function otheritemtest(inst)
     for k, v in pairs(ents) do
         if v ~= inst then ----------排除自己？
             v:Remove()
-        end
-    end
-end
-
-
-local function OnRepaired(inst)
-    --inst.SoundEmitter:PlaySound("dontstarve/creatures/together/fossil/repair")
-end
-
-local function OnSpawnNewBoatLeak(inst, data)
-    if data ~= nil and data.pt ~= nil then
-        local leak = SpawnPrefab("boat_leak")
-        leak.Transform:SetPosition(data.pt:Get())
-        leak.components.boatleak.isdynamic = true
-        leak.components.boatleak:SetBoat(inst)
-        leak.components.boatleak:SetState(data.leak_size)
-
-        table.insert(inst.components.hullhealth.leak_indicators_dynamic, leak)
-
-        if inst.components.walkableplatform ~= nil then
-            inst.components.walkableplatform:AddEntityToPlatform(leak)
-            for k in pairs(inst.components.walkableplatform:GetPlayersOnPlatform()) do
-                if k:IsValid() then
-                    k:PushEvent("on_standing_on_new_leak")
-                end
-            end
-        end
-
-        if data.playsoundfx then
-            inst.SoundEmitter:PlaySoundWithParams("turnoftides/common/together/boat/damage", { intensity = 0.8 })
         end
     end
 end
@@ -241,29 +186,6 @@ local function StartBoatPhysics(inst)
     inst.Physics:SetDontRemoveOnSleep(true)
 end
 
-local function ReturnChildren(inst)
-    inst:DoTaskInTime(math.random() * 10, function(inst)
-        for k, child in pairs(inst.components.childspawner.childrenoutside) do
-            if child.components.homeseeker ~= nil then
-                child.components.homeseeker:GoHome()
-            end
-            child:PushEvent("gohome")
-        end
-    end)
-end
-
-
-local function DoReleaseAllChildren(inst)
-    if math.random() < 0.5 then
-        inst.components.childspawner.childname = "mosquito"
-    else
-        inst.components.childspawner.childname = "frog_poison"
-    end
-
-    inst:DoTaskInTime(math.random() * 30, function(inst)
-        inst.components.childspawner:ReleaseAllChildren()
-    end)
-end
 
 local function SpawnFragment(lp, prefix, offset_x, offset_y, offset_z, ignite)
     local fragment = SpawnPrefab(prefix)
@@ -299,8 +221,6 @@ local function fn()
     inst.sounds = sounds
     inst.walksound = "marsh" --"tallgrass"
     inst.second_walk_sound = "tallgrass"
-
-    inst:ListenForEvent("spawnnewboatleak", OnSpawnNewBoatLeak)
     inst.boat_crackle = "fx_boat_crackle"
 
     inst.sinkloot = function()
@@ -323,6 +243,7 @@ local function fn()
 
 
     local radius = 4
+    local scale = 1 -- math.random() / 2 + 0.25
     local max_health = TUNING.BOAT.HEALTH + 1000
 
     local phys = inst.entity:AddPhysics()
@@ -333,7 +254,7 @@ local function fn()
     phys:ClearCollisionMask()
     phys:CollidesWith(COLLISION.WORLD)
     phys:CollidesWith(COLLISION.OBSTACLES)
-    phys:SetCylinder(radius, 3)
+    phys:SetCylinder(radius * scale, 3)
 
     inst.AnimState:SetBank("lily_pad")
     inst.AnimState:SetBuild("lily_pad")
@@ -342,12 +263,11 @@ local function fn()
     inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
     inst.AnimState:SetLayer(LAYER_BACKGROUND)
 
-    inst:AddComponent("walkableplatform")
-    inst.components.walkableplatform.radius = radius
-    inst.components.walkableplatform.player_collision_prefab = "boat_player_collision"
+    inst.AnimState:SetScale(scale, scale, 1)
 
-    --    inst:AddComponent("healthsyncer")
-    --    inst.components.healthsyncer.max_health = max_health
+    inst:AddComponent("walkableplatform")
+    inst.components.walkableplatform.radius = radius * scale
+    inst.components.walkableplatform.player_collision_prefab = "boat_player_collision"
 
     inst:AddComponent("waterphysics")
     inst.components.waterphysics.restitution = 0.75
@@ -371,7 +291,7 @@ local function fn()
     end
 
     inst:AddComponent("boatringdata")
-    inst.components.boatringdata:SetRadius(radius)
+    inst.components.boatringdata:SetRadius(radius * scale)
     inst.components.boatringdata:SetNumSegments(8)
 
     inst.entity:SetPristine()
@@ -386,36 +306,8 @@ local function fn()
     inst.entity:AddPhysicsWaker() --server only component
     inst.PhysicsWaker:SetTimeBetweenWakeTests(TUNING.BOAT.WAKE_TEST_TIME)
 
-    inst:AddComponent("hull")
-    inst.components.hull:SetRadius(radius)
-    --    inst.components.hull:SetBoatLip(SpawnPrefab('boatlip'))
-    inst:AddComponent("boatring")
 
-    inst:AddComponent("childspawner")
-    inst.components.childspawner:SetRegenPeriod(150)
-    inst.components.childspawner:SetSpawnPeriod(TUNING.COOKIECUTTER_SPAWNER.RELEASE_TIME)
-    inst.components.childspawner:SetMaxChildren(1)
-    inst.components.childspawner:StartRegen()
-    inst.components.childspawner.spawnradius = { min = 0, max = 0 }
-    inst.components.childspawner.childname = "frog_poison"
-    inst.components.childspawner.wateronly = true
-    inst.components.childspawner:StartSpawning()
-
-    --    local walking_plank = SpawnPrefab("walkingplank")
-    --    local edge_offset = -0.05
-    --    inst.components.hull:AttachEntityToBoat(walking_plank, 0, radius + edge_offset, true)
-    --    inst.components.hull:SetPlank(walking_plank)
-
-    inst:AddComponent("repairable")
-    inst.components.repairable.repairmaterial = MATERIALS.WOOD
-    inst.components.repairable.onrepaired = OnRepaired
-
-    --    inst:AddComponent("hullhealth")
     inst:AddComponent("boatphysics")
-
-    inst:AddComponent("health")
-    inst.components.health:SetMaxHealth(-1)
-    inst.components.health.nofadeout = true
 
     inst.activefires = 0
 
@@ -427,13 +319,8 @@ local function fn()
     inst.OnPhysicsWake = OnPhysicsWake
     inst.OnPhysicsSleep = OnPhysicsSleep
 
-    inst:WatchWorldState("startday", DoReleaseAllChildren)
-    inst:WatchWorldState("stopday", ReturnChildren)
-
     inst:DoTaskInTime(0, groundtest)
     inst:DoTaskInTime(0, otheritemtest)
-
-    inst.speed = speed
 
     inst.OnLoadPostPass = OnLoadPostPass
 
