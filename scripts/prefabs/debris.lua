@@ -907,7 +907,7 @@ return
 -- MakePortal("multiplayer_portal_moonrock_new", "portal_moonrock_dst", "portal_moonrock", assets_moonrock,
 --     prefabs_moonrock, moonrock_common_postinit, moonrock_master_postinit),
 -- Prefab("multiplayer_portal_moonrock_fx_new", moonrockfxfn, assets_fx),
-    Prefab("debris_1", fn2, assets),
-    Prefab("debris_2", fn3, assets),
-    Prefab("debris_3", fn4, assets),
-    Prefab("debris_4", fn5, assets)
+    Prefab("wallyintro_debris_1", fn2, assets),
+    Prefab("wallyintro_debris_2", fn3, assets),
+    Prefab("wallyintro_debris_3", fn4, assets),
+    Prefab("wallyintro_shipmast", fn5, assets)

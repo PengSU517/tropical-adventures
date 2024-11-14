@@ -785,9 +785,8 @@ local function fn()
     MakeGiantCharacterPhysics(inst, 1000000, 1.5)
     inst.Transform:SetFourFaced()
 
-    inst.MiniMapEntity:SetIcon("pigking.tex")
+    inst.MiniMapEntity:SetIcon("pigking.png")
     inst.MiniMapEntity:SetPriority(1)
-
     inst.DynamicShadow:SetSize(7, 3)
 
     --inst.Transform:SetScale(1.5, 1.5, 1.5)
