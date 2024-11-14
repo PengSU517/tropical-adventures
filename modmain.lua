@@ -1,23 +1,29 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 
 
-modimport("scripts/tuning") -- tuning + constants
+modimport("main/tuning") -- tuning + constants
 modimport("scripts/languages/language_setting.lua")
 
+--工具函数，全部在GLOBAL里
 require("tools/simutil")
+require("tools/worldutil")
+require("tools/standardcomponents")
 
+
+modimport("main/prefabfiles")
 modimport("main/assets")
-modimport("main/standardcomponents")
+modimport("main/actions.lua")
+modimport("main/componentactions.lua")
 modimport("main/postinit") --postinit相关全都在这里
-modimport("scripts/actions.lua")
+
 
 
 --recipes and cooking recipes
-modimport("scripts/recipe_tabs")
-modimport("scripts/recipes")
-modimport("scripts/cooking_tropical")
-modimport("scripts/skins")
+modimport("main/recipe_tabs")
+modimport("main/recipes")
+modimport("main/cooking")
+modimport("main/skins")
 
 
-modimport("scripts/characterdata.lua")
-modimport("scripts/tropical_fx.lua")
+modimport("main/characters.lua")
+modimport("main/tropical_fx.lua")

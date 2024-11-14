@@ -1,15 +1,17 @@
 --推荐使用腾讯的lua插件
 
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
+
 local require = require
 local modimport = modimport
 
 
-require("tools/table")               ----一些表相关的工具函数，都在表tabel里
-modimport("scripts/ta_config")       ----mod 设置相关内容
-modimport("main/tiledefs")           ----缺少行走的声音
-modimport("scripts/tools/spawnutil") ----地形生成相关工具
-require("map/ocean_gen_new")         ----防止新的水面地皮被覆盖 ---但是暴力覆盖似乎太严重
+require("tools/table")       ----一些表相关的工具函数，都在表tabel里
+require("tools/tileutil")
+require("tools/spawnutil")   ----地形生成相关工具
+modimport("main/ta_config")  ----mod 设置相关内容
+modimport("main/tiledefs")   ----缺少行走的声音
+require("map/ocean_gen_new") ----防止新的水面地皮被覆盖 ---但是暴力覆盖似乎太严重
 
 
 ----------新内容

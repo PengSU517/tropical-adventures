@@ -8,20 +8,6 @@ puff_fx_cold哈冷气的特效
 
 
 
-
--- "quest", 相关prefab  会生成一个老式对话框
--------------这两个rpc干什么用的暂时未知
-AddModRPCHandler("volcanomod", "quest1", function(inst)
-    local portalinvoca1 = GLOBAL.SpawnPrefab("log")
-    local a, b, c = inst.Transform:GetWorldPosition()
-    portalinvoca1.Transform:SetPosition(a + 4, b, c - 4)
-
-    GLOBAL.TheFrontEnd:PopScreen()
-    GLOBAL.SetPause(false)
-    --inst:Remove()
-end)
-AddModRPCHandler("volcanomod", "quest2", function(inst)
-    GLOBAL.TheFrontEnd:PopScreen()
-    GLOBAL.SetPause(false)
-    --inst:Remove()
-end)
+PrefabExists  检查是否有prefab
+PREFAB_SKINS_SHOULD_NOT_SELECT不可选择的skin
+local task_id = "REGION_LINK_"..tostring(self.region_link_tasks)---连接地形的task
