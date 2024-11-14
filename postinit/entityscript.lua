@@ -48,7 +48,6 @@ function EntityScript:IsInHamRoom()
     return TheWorld.Map:IsHamRoomAtPoint(self:GetPosition():Get()) --------------------似乎不太对
 end
 
---[[
 --推入事件
 local _PushEvent = EntityScript.PushEvent
 function EntityScript:PushEvent(event, data)
@@ -78,7 +77,33 @@ function EntityScript:SetEventShare(event, shared)
         self.eventlistening_shared = {}
     end
     self.eventlistening_shared[event] = shared and true or nil
-end ]]
+end
+
+function EntityScript:StopWatchingOneOfWorldStates(var, initval)
+    if not self.worldstatewatching then return end
+    if self.muted_worldstate == nil then self.muted_worldstate = {} end
+    self.muted_worldstate[var] = self.worldstatewatching[var] or {}
+
+    -- for i, fn in ipairs(self.worldstatewatching[var]) do
+    --     fn(self, initval or false)
+    -- end
+
+    TheWorld.components.worldstate:RemoveWatcher(var, self)
+    self.worldstatewatching[var] = nil
+end
+
+function EntityScript:ReWatchingOneOfWorldStates(var)
+    if not self.muted_worldstate then return end
+    if self.worldstatewatching == nil then
+        self.worldstatewatching = {}
+    end
+    self.worldstatewatching[var] = self.muted_worldstate[var] or {}
+    for i, fn in ipairs(self.worldstatewatching[var]) do
+        TheWorld.components.worldstate:AddWatcher(var, self.inst, fn, self)
+    end
+
+    self.muted_worldstate[var] = nil
+end
 
 --------------------------------------------------------------------------------------------
 ----------------------------------[[ 相关物品hook ]]-----------------------------------------
@@ -108,4 +133,9 @@ function AnimState:SetLayer(layer, ...)
         self:SetSortOrder(5)
     end
     return _SetLayer(self, layer, ...)
+end
+
+local _OnCreep = GroundCreep.OnCreep
+function GroundCreep:OnCreep(x, y, z, ...)
+    return _OnCreep(self, x, y, z, ...) and not TheWorld.Map:IsHamRoomAtPoint(x, y, z)
 end

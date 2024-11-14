@@ -46,3 +46,14 @@ function CancelNoGrowInWinter(inst)
     inst.components.pickable:StopWatchingWorldState("iswinter", TogglePickable)
     inst.components.pickable:Resume()
 end
+
+function MakeNoWinterItem(inst)
+    -- inst:StopAllWatchingWorldStates()
+    inst:StopWatchingOneOfWorldStates("iswinter")
+    inst:StopWatchingOneOfWorldStates("snowlevel")
+end
+
+function CancelMakeNoWinterItem(inst)
+    -- inst:ReWatchingOneOfWorldStates("iswinter")
+    -- inst:ReWatchingOneOfWorldStates("snowlevel")
+end
