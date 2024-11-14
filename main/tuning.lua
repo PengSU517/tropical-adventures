@@ -1,5 +1,13 @@
 --ham room tuning-----------------
 ----------------------------------
+local seg_time = TUNING.SEG_TIME
+local day_time = TUNING.DAY_SEGS_DEFAULT * seg_time
+local dusk_time = TUNING.DUSK_SEGS_DEFAULT * seg_time
+local night_time = TUNING.NIGHT_SEGS_DEFAULT * seg_time
+local total_day_time = TUNING.TOTAL_DAY_TIME
+
+local wilson_attack = TUNING.SPEAR_DAMAGE
+local wilson_health = TUNING.WILSON_HEALTH
 
 TUNING.BUILD_HEIGHT = 0 ---rpc用来接收建筑高度数据-------也可以修改placer
 
@@ -100,8 +108,24 @@ GLOBAL.SWP_WAVEBREAK_EFFICIENCY = { -- 破浪效率：var * 100%
     }
 }
 
+local tuning = {
+    LOTUS_REGROW_TIME = total_day_time * 5,
 
+    MOSQUITO_LILYPAD_MAX_SPAWN = 1,
+    MOSQUITO_LILYPAD_REGEN_TIME = day_time / 2,
+    MOSQUITO_LILYPAD_RELEASE_TIME = 20,
+    MOSQUITO_LILYPAD_ENABLED = true,
 
+    FROG_POISON_LILYPAD_MAX_SPAWN = 1,
+    FROG_POISON_LILYPAD_REGEN_TIME = day_time / 2,
+    FROG_POISON_LILYPAD_RELEASE_TIME = 20,
+    FROG_POISON_LILYPAD_ENABLED = true,
+
+}
+
+for k, v in pairs(tuning) do
+    TUNING[k] = v
+end
 
 ---一些没卵用的东西
 TUNING.TFWP_SPEAR_GUNG =
