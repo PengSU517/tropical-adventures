@@ -1,177 +1,5 @@
-GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end }) --GLOBAL 相关照抄
-
 local Utils = require("tools/utils")
 local upvaluehelper = require("tools/upvaluehelper")
-require("tools/tile_util")
-
-
------------map related--------------------------
-require("components/map")
-
-local function FindVisualNodeAtPoint_TestArea(map, pt_x, pt_z, r)
-    local best = { tile_type = WORLD_TILES.INVALID, render_layer = -1 }
-    for _z = -1, 1 do
-        for _x = -1, 1 do
-            local x, z = pt_x + _x * r, pt_z + _z * r
-
-            local tile_type = map:GetTileAtPoint(x, 0, z) -----这里判断地皮总有点不太合适，判断初始地皮会好一些
-            if IsValidNodeTile(tile_type) then
-                local tile_info = GetTileInfo(tile_type)
-                local render_layer = tile_info ~= nil and tile_info._render_layer or 0
-                if render_layer > best.render_layer then
-                    best.tile_type = tile_type
-                    best.render_layer = render_layer
-                    best.x = x
-                    best.z = z
-                end
-            end
-        end
-    end
-
-    return best.tile_type ~= WORLD_TILES.INVALID and best or nil
-end
-
-Map.FindVisualNodeAtPoint = function(self, x, y, z, has_tag)
-    local node_index
-
-    local nodeid = self:GetNodeIdAtPoint(x, 0, z)
-    local in_node = nodeid and nodeid ~= 0
-
-    local tile_type = self:GetTileAtPoint(x, 0, z)
-    local is_valid_tile = IsValidNodeTile(tile_type)
-    if in_node and is_valid_tile then
-        node_index = nodeid
-    else
-        local best = FindVisualNodeAtPoint_TestArea(self, x, z, 4)
-            or FindVisualNodeAtPoint_TestArea(self, x, z, 16)
-            or FindVisualNodeAtPoint_TestArea(self, x, z, 64)
-
-        node_index = (best ~= nil) and self:GetNodeIdAtPoint(best.x, 0, best.z) or 0
-    end
-
-
-    if has_tag == nil then
-        return TheWorld.topology.nodes[node_index], node_index
-    else
-        local node = TheWorld.topology.nodes[node_index]
-        return ((node ~= nil and table.contains(node.tags, has_tag)) and node or nil), node_index
-    end
-end
-
-
-Map.IsTropicalAreaAtPoint = function(self, x, y, z)
-    local node = self:FindVisualNodeAtPoint(x, y, z, "tropical")
-        or self:FindVisualNodeAtPoint(x, y, z, "ForceDisconnected")
-
-    if node ~= nil then
-        return true
-    else
-        return false
-    end
-end
-
-Map.IsShipwreckedAreaAtPoint = function(self, x, y, z)
-    local node = self:FindVisualNodeAtPoint(x, y, z, "shipwrecked")
-    if node ~= nil then
-        return true
-    else
-        return false
-    end
-end
-
-Map.IsHamletAreaAtPoint = function(self, x, y, z)
-    local node = self:FindVisualNodeAtPoint(x, y, z, "hamlet")
-    if node ~= nil then
-        return true
-    else
-        return false
-    end
-end
-
-Map.IsVolcanoAreaAtPoint = function(self, x, y, z)
-    local node = self:FindVisualNodeAtPoint(x, y, z, "volcano")
-    if node ~= nil then
-        return true
-    else
-        return false
-    end
-end
-
-
------area aware related -------------
---[[ AddComponentPostInit("areaaware", function(self)
-    self.current_nearby_area = -1
-    self.current_nearby_area_data = nil
-
-
-    local old = self.UpdatePosition
-    function self:UpdatePosition(x, y, z, ...)
-        local node, node_index = TheWorld.Map:FindVisualNodeAtPoint(x, y, z)
-        if node_index ~= self.current_nearby_area then
-            self.current_nearby_area = node_index or 0
-
-            self.current_nearby_area_data = node and {
-                    id = TheWorld.topology.ids[node_index],
-                    type = node.type,
-                    center = node.cent,
-                    poly = node.poly,
-                    tags = node.tags,
-                }
-                or nil
-
-            -- self.inst:PushEvent("changearea", self.current_nearby_area_data)
-        end
-
-        old(self, x, y, z, ...)
-    end
-
-    function self:CurrentlyInTag(tag)
-        return self.current_nearby_area_data and self.current_nearby_area_data.tags and
-            table.contains(self.current_nearby_area_data.tags, tag)
-    end
-end) ]]
-
-------entity related--------------------------
-require("entityscript")
-
-function EntityScript:IsInTropicalArea()
-    return TheWorld.Map:IsTropicalAreaAtPoint(self:GetPosition():Get())
-end
-
-function EntityScript:IsInShipwreckedArea()
-    return TheWorld.Map:IsShipwreckedAreaAtPoint(self:GetPosition():Get())
-end
-
-function EntityScript:IsInHamletArea()
-    return TheWorld.Map:IsHamletAreaAtPoint(self:GetPosition():Get())
-end
-
-function EntityScript:IsInVolcanoArea()
-    return TheWorld.Map:IsVolcanoAreaAtPoint(self:GetPosition():Get())
-end
-
-----area aware related--------------------
-function EntityScript:AwareInTropicalArea() ----减少计算量
-    return self.components.areaaware and
-        (self.components.areaaware:CurrentlyInTag("tropical")
-            or self.components.areaaware:CurrentlyInTag("ForceDisconnected")) and
-        true or false
-end
-
-function EntityScript:AwareInShipwreckedArea()
-    local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("shipwrecked") and true
-    return aware or false
-end
-
-function EntityScript:AwareInHamletArea()
-    local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("hamlet") and true
-    return aware or false
-end
-
-function EntityScript:AwareInVolcanoArea()
-    local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("volcano") and true
-    return aware or false
-end
 
 --温度变化更加丝滑
 local function OnTemperatureUpdateBefore(self)
@@ -333,18 +161,24 @@ end)
 -- end
 
 -- AddPrefabPostInit("grass", function(inst)
---     inst:AddTag("grasss") --用于海难刮大风用的
---     if inst:IsInTropicalArea() then
---         inst.AnimState:SetBuild("grassGreen_build")
---         inst.AnimState:PlayAnimation("idle", true)
---     end
---     if not TheWorld.ismastersim then return end
-
---     if inst.components.pickable then
---         Utils.FnDecorator(inst.components.pickable, "ontransplantfn", nil, OnTransplantfnAfter)
---     end
+--     inst:DoTaskInTime(0, function(...)
+--         if not inst:IsOnLandTile() then
+--             TheSim:ReskinEntity(inst.GUID, inst.skinname, "grass_water", nil)
+--         elseif inst:IsInTropicalArea() then
+--             TheSim:ReskinEntity(inst.GUID, inst.skinname, "grass_tropical", nil)
+--         end
+--     end)
 -- end)
 
+
+-- AddPrefabPostInit("grass", function(inst)
+--     inst:DoTaskInTime(0, function(...)
+--         if inst:IsInTropicalArea() then
+--             inst.AnimState:SetBuild("grassgreen_build")
+--             inst.AnimState:PlayAnimation("idle", true)
+--         end
+--     end)
+-- end)
 
 
 --脚印
@@ -412,35 +246,35 @@ end
 
 
 ----热带蝴蝶和发光飞虫刷新
-for _, prefab in pairs({ "butterfly" }) do
-    AddPrefabPostInit(prefab, function(inst)
-        if not TheWorld.ismastersim then
-            return
-        end
+-- for _, prefab in pairs({ "butterfly" }) do
+--     AddPrefabPostInit(prefab, function(inst)
+--         if not TheWorld.ismastersim then
+--             return
+--         end
 
-        inst:DoTaskInTime(0, function(inst)
-            local map = TheWorld.Map
-            local x, y, z = inst.Transform:GetWorldPosition()
-            if x and y and z then
-                local butterfly
-                local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-                if IsSwLandTile(ground) then
-                    butterfly = SpawnPrefab("butterfly_tropical")
-                elseif IsHamLandTile(ground) then
-                    butterfly = SpawnPrefab("glowfly")
-                end
+--         inst:DoTaskInTime(0, function(inst)
+--             local map = TheWorld.Map
+--             local x, y, z = inst.Transform:GetWorldPosition()
+--             if x and y and z then
+--                 local butterfly
+--                 local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
+--                 if IsSwLandTile(ground) then
+--                     butterfly = SpawnPrefab("butterfly_tropical")
+--                 elseif IsHamLandTile(ground) then
+--                     butterfly = SpawnPrefab("glowfly")
+--                 end
 
-                if butterfly then
-                    -- if butterfly.components.pollinator ~= nil then
-                    --     butterfly.components.pollinator:Pollinate(spawnflower)
-                    -- end
-                    -- if butterfly.components.homeseeker ~= nil then
-                    --     butterfly.components.homeseeker:SetHome(spawnflower)
-                    -- end
-                    butterfly.Transform:SetPosition(x, y, z)
-                    inst:Remove()
-                end
-            end
-        end)
-    end)
-end
+--                 if butterfly then
+--                     -- if butterfly.components.pollinator ~= nil then
+--                     --     butterfly.components.pollinator:Pollinate(spawnflower)
+--                     -- end
+--                     -- if butterfly.components.homeseeker ~= nil then
+--                     --     butterfly.components.homeseeker:SetHome(spawnflower)
+--                     -- end
+--                     butterfly.Transform:SetPosition(x, y, z)
+--                     inst:Remove()
+--                 end
+--             end
+--         end)
+--     end)
+-- end

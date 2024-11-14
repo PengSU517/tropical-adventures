@@ -1,8 +1,4 @@
 local Utils = require("tools/utils")
-
-modimport("postinit/prefabs/dock_kit") ---------甲板相关
-
-
 ----海上漂浮物刷新
 local flotsam_prefabs
 AddComponentPostInit("flotsamgenerator", function(self)

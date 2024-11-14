@@ -1,24 +1,60 @@
 local Utils = require("tools/utils")
 
-modimport("postinit/player_load")
-
 -- 不会落水
 local function DrownableShouldDrownBefore(self)
-    if self.inst.components.driver then
-        return { false }, true
-    end
+	if self.inst.components.driver then
+		return { false }, true
+	end
 
-    local x, y, z = self.inst.Transform:GetWorldPosition()
-    if #TheSim:FindEntities(x, y, z, 1, { "boat" }) > 0
-    then
-        return { false }, true
-    end
+	local x, y, z = self.inst.Transform:GetWorldPosition()
+	if #TheSim:FindEntities(x, y, z, 1, { "boat" }) > 0
+	then
+		return { false }, true
+	end
 end
 
 
 AddComponentPostInit("drownable", function(self)
-    Utils.FnDecorator(self, "ShouldDrown", DrownableShouldDrownBefore)
+	Utils.FnDecorator(self, "ShouldDrown", DrownableShouldDrownBefore)
 end)
+
+-- -----------防止重新进档落水---------------需要和playerpost配合使用
+AddComponentPostInit("playerspawner", function(self)
+	local OldSpawnAtLocation = self.SpawnAtLocation
+	function self:SpawnAtLocation(inst, player, x, y, z, isloading, ...)
+		if isloading then
+			local ship = player.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+			if ship then
+				if player.components.drownable ~= nil then
+					player.components.drownable.enabled = false
+					player.undrownable_bcz_ship = true
+				end
+			end
+		end
+		OldSpawnAtLocation(self, inst, player, x, y, z, isloading, ...)
+
+		-- local ship = player.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+		-- if ship then
+		--     if player.components.drownable ~= nil then
+		--         player.components.drownable.enabled = true
+		--     end
+		-- end
+	end
+end)
+
+
+AddPlayerPostInit(function(inst)
+	if TheWorld.ismastersim then
+		inst:DoTaskInTime(2 * FRAMES, function()
+			if inst.undrownable_bcz_ship and inst.components.drownable then
+				inst.components.drownable.enabled = true
+				inst.undrownable_bcz_ship = nil
+			end
+		end)
+	end
+end)
+
+
 
 ---"armor_lifejacket"是否消失呢
 

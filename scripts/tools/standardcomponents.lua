@@ -1,6 +1,4 @@
-GLOBAL.setfenv(1, GLOBAL)
-
-local relative_temperature_thresholds = {-30, -10, 10, 30}
+local relative_temperature_thresholds = { -30, -10, 10, 30 }
 local function GetRangeForTemperature(temp, ambient)
     local range = 1
     for i, v in ipairs(relative_temperature_thresholds) do
@@ -10,7 +8,7 @@ local function GetRangeForTemperature(temp, ambient)
     end
     return range
 end
-local emitted_temperatures = {-10, 10, 25, 40, 60}
+local emitted_temperatures = { -10, 10, 25, 40, 60 }
 local function HeatFn(inst, observer)
     local range = GetRangeForTemperature(inst.components.temperature:GetCurrent(), TheWorld.state.temperature)
     return emitted_temperatures[range]
@@ -29,4 +27,22 @@ function MakeObsidianTool(inst)
     heater.carriedheatfn = HeatFn
     heater.carriedheatmultiplier = TUNING.HEAT_ROCK_CARRIED_BONUS_HEAT_FACTOR
     heater:SetThermics(true, false)
+end
+
+local function TogglePickable(pickable, iswinter)
+    if iswinter then
+        pickable:Pause()
+    else
+        pickable:Resume()
+    end
+end
+
+function MakeNoGrowInWinter(inst)
+    inst.components.pickable:WatchWorldState("iswinter", TogglePickable)
+    TogglePickable(inst.components.pickable, TheWorld.state.iswinter)
+end
+
+function CancelNoGrowInWinter(inst)
+    inst.components.pickable:StopWatchingWorldState("iswinter", TogglePickable)
+    inst.components.pickable:Resume()
 end
