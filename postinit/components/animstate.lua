@@ -17,6 +17,13 @@ local fillters = {
     shadowed = function(animstate)
         animstate:SetMultColour(0, 0, 0, .6)
     end,
+
+    green = function(animstate)
+        animstate:SetHSV(30 / 255 + math.random() * 0.05,
+            .75 + math.random() * 0.05,
+            .75 + math.random() * 0.05)
+    end,
+
 }
 
 ---AnimState:SetHSV
@@ -28,11 +35,13 @@ function AnimState:SetHSV(hue, saturation, lightness)
     self:SetSaturation(saturation or 1)
     self:SetBrightness(lightness or 1)
 end
+
 ---AnimState:SetHSB
 ---@param hue number @Hue(0~1)
 ---@param saturation number @Saturation(0~1)
 ---@param lightness number @Brightness(0~1)
 function AnimState:SetHSB(...) return self:SetHSV(...) end
+
 ---AnimState:SetHSL
 ---@param hue number @Hue(0~1)
 ---@param saturation number @Saturation(0~1)
@@ -44,9 +53,11 @@ function AnimState:SetHSL(hue, saturation, lightness) self:SetHSV(hue, saturatio
 function AnimState:GetHSV()
     return AnimState:GetHue(), self:GetSaturation(), self:GetBrightness()
 end
+
 ---AnimState:GetHSB
 ---@return number|nil,number|nil,number|nil @Hue(0~1),Saturation(0~1),Brightness(0~1)
 function AnimState:GetHSB() return self:GetHSV() end
+
 ---AnimState:GetHSL
 ---@return number|nil,number|nil,number|nil @Hue(0~1),Saturation(0~1),Lightness(0~1)
 function AnimState:GetHSL()
@@ -57,7 +68,8 @@ end
 ---AnimState:SetFillter
 ---@param fillter string|nil @fillter name
 function AnimState:SetFillter(fillter)
-    assert(fillter == nil or type(fillter) == "string", string.format("AnimState Extension: fillter '%s' is not a string!\n", fillter))
+    assert(fillter == nil or type(fillter) == "string",
+        string.format("AnimState Extension: fillter '%s' is not a string!\n", fillter))
     if fillters[fillter] then fillters[fillter](self) end
 end
 
@@ -75,7 +87,7 @@ function AnimState:DoJoggle(inst)
     inst._jTask = inst:StartThread(function()
         for frame = 0, 3 do
             self:SetScale(1 - .1 * math.sin(PI / 2 * frame + PI / 8),
-                          1 + .1 * math.sin(PI / 2 * frame + PI / 8))
+                1 + .1 * math.sin(PI / 2 * frame + PI / 8))
             Sleep(FRAMES or GLOBAL.FRAMES)
         end
         self:SetScale(1, 1)

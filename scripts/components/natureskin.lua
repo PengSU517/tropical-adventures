@@ -41,8 +41,7 @@ function NatureSkin:SetSkin(skinname)
 		(not self.inst.replica.inventoryitem or not self.inst.replica.inventoryitem.classified) then
 		return
 	end
-
-	if skinname and skinname ~= "default" then
+	if skinname then
 		TheSim:ReskinEntity(self.inst.GUID, self.inst.skinname or self.inst.natureskinname, skinname) ----怎么切换成默认皮肤
 	end
 end
