@@ -10,6 +10,10 @@ function IsTroLandTile(tile)
     return TRO_LAND_TILES[tile] ~= nil
 end
 
+function IsTroWaterTile(tile)
+    return TRO_OCEAN_TILES[tile] ~= nil
+end
+
 function IsOnFlood(x, y, z)
     x, y, z = GetWorldPosition(x, y, z)
     local _flood = TheWorld.components.flooding
@@ -24,5 +28,5 @@ function IsOnOcean(x, y, z, onflood, ignoreboat)
 end
 
 function IsValidNodeTile(tile)
-    return (IsLandTile(tile) or tile == WORLD_TILES.MANGROVE or tile == WORLD_TILES.LILYPOND) and true or false
+    return (IsLandTile(tile) or IsTroWaterTile(tile)) and true or false
 end

@@ -287,8 +287,8 @@ end
 
 ---------------------测试模式------------
 if troadj.testmap then
-    modimport("postinit/map/forest_map_notcheck") ----防止世界生成难产，但可能会缺失重要地形
-    ------------这个需要在hook forestmap之前执行，否则upvalue就找不到了
+    -- modimport("postinit/map/forest_map_notcheck") ----防止世界生成难产，但可能会缺失重要地形
+    -- ------------这个需要在hook forestmap之前执行，否则upvalue就找不到了
     if true then
         AddLevelPreInitAny(function(level)
             if level.location == "cave" then

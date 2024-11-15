@@ -1,4 +1,5 @@
 local Utils = require("tools/utils")
+local upvaluehelper = require("tools/upvaluehelper")
 
 --限制制作的配方
 -- local banrecipe = { "hua_player_house_recipe", "homesign", "townportal", "telebase", "hua_player_house1_recipe",
@@ -381,7 +382,6 @@ end)
 
 
 
-local upvaluehelper = require("tools/upvaluehelper")
 AddPrefabPostInit("forest", function(inst)
     if not TheWorld.ismastersim then
         return
