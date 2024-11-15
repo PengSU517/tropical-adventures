@@ -4,33 +4,53 @@
 
 local natureskins = {
     sapling = {
-        default = {},
+        default = { basebuild = "sapling", },
         sapling_green = {
             build = "sapling",
-            assetname = "sapling", --这个是防止注册没有的asset
             skintype = "tropical",
-            extra_init_fn = function(inst, skinname) CancelNoGrowInWinter(inst) end,
-            extra_clear_fn = function(inst, skinname) MakeNoGrowInWinter(inst) end,
+            name = "saplingnova",
+            extra_init_fn = function(inst, skinname)
+                CancelNoGrowInWinter(inst)
+                -- inst.AnimState:SetFillter("lightgreen")
+            end,
+            extra_clear_fn = function(inst, skinname)
+                MakeNoGrowInWinter(inst)
+                -- inst.AnimState:SetFillter("generic")
+            end,
         },
     },
 
     grass = {
         default = { basebuild = "grass1", base_minimapicon = "grass.png" },
         grass_green = {
-            build = "grassgreen_build",
+            build = "grass1",
             image = "grassGreen",
             skintype = "tropical",
-            extra_init_fn = function(inst, skinname) CancelNoGrowInWinter(inst) end,
-            extra_clear_fn = function(inst, skinname) MakeNoGrowInWinter(inst) end,
+            name = "grassnova",
+            extra_init_fn = function(inst, skinname)
+                CancelNoGrowInWinter(inst)
+                inst.AnimState:SetFillter("green")
+            end,
+            extra_clear_fn = function(inst, skinname)
+                MakeNoGrowInWinter(inst)
+                inst.AnimState:SetFillter("generic")
+            end,
         },
     },
 
     dug_grass = {
         default = { basebuild = "grass1", },
         dug_grass_green = {
-            build = "grassgreen_build",
+            build = "grass1",
             image = "dug_grass_green",
+            sourceprefabs = { "grass_tall", "grassdwater" },
             skintype = "tropical",
+            extra_init_fn = function(inst, skinname)
+                inst.AnimState:SetFillter("green")
+            end,
+            extra_clear_fn = function(inst, skinname)
+                inst.AnimState:SetFillter("generic")
+            end,
         },
     },
 
@@ -39,10 +59,30 @@ local natureskins = {
             basebuild = "cutgrass",
         },
         cutgrass_green = {
-            build = "cutgrassgreen",
+            build = "cutgrass",
             image = "cutgrass_green",
             sourceprefabs = { "grass_tall", "grassdwater" },
             skintype = "tropical",
+            extra_init_fn = function(inst, skinname)
+                inst.AnimState:SetFillter("green")
+            end,
+            extra_clear_fn = function(inst, skinname)
+                inst.AnimState:SetFillter("generic")
+            end,
+        },
+    },
+
+    grassgekko = {
+        default = { basebuild = "grassgecko" },
+        tropical = {
+            build = "grassgecko",
+            skintype = "tropical",
+            extra_init_fn = function(inst, skinname)
+                inst.AnimState:SetFillter("green")
+            end,
+            extra_clear_fn = function(inst, skinname)
+                inst.AnimState:SetFillter("generic")
+            end,
         },
     },
 
@@ -72,7 +112,7 @@ local natureskins = {
 
     butterfly = {
         default = { basebuild = "butterfly_basic" },
-        butterfly_tropical = { build = "butterfly_tropical_basic", image = "butterfly_tropical", skintype = "tropical", },
+        butterfly_tropical = { build = "butterfly_tropical_basic", image = "butterfly_tropical", skintype = "tropical", name = "butterfly_tropical", },
     },
 
     butterflywings = {
@@ -82,6 +122,7 @@ local natureskins = {
             bank = "butterfly_tropical_wings",
             image = "butterflywings_tropical",
             skintype = "tropical",
+            name = "butterfly_tropical_wings",
         },
     },
 
@@ -146,7 +187,13 @@ local natureskins = {
 
     snakeskin = {
         default = { basebank = "snakeskin", basebuild = "snakeskin" },
-        snakeskin_scaly = { build = "snakeskin_scaly", bank = "snakeskin_scaly", image = "snakeskin_scaly", skintype = "tropical", }
+        snakeskin_scaly = {
+            build = "snakeskin_scaly",
+            bank = "snakeskin_scaly",
+            image = "snakeskin_scaly",
+            sourceprefabs = { "snake_amphibious", },
+            -- skintype = "tropical",
+        }
     },
 
     pigskin = {
@@ -156,6 +203,7 @@ local natureskins = {
             bank = "bat_leather",
             image = "bat_leather",
             sourceprefabs = { "circlingbat", "vampirebat" },
+            name = "bat_leather",
             -- skintype = "shipwrecked",
         }
     },
@@ -186,9 +234,6 @@ for prefabname, prefabdata in pairs(natureskins) do
 
             skindata.build = skindata.build or skindata.skinname
             skindata.image = skindata.image or skindata.skinname
-
-            --显示的字符串
-            skindata.name = skindata.name or skindata.skinname
         end
     end
 end

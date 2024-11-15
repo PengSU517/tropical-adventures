@@ -191,6 +191,7 @@ function MakeItemSkin(base, skinname, data)
     data.build_name_override = data.build_name_override or skinname
     data.release_group = data.release_group or default_release_group
     data.display_order = data.display_order or default_display_order
+
     -- 不存在的珍惜度 自动注册字符串
     if not STRINGS.UI.RARITY[data.rarity] then
         STRINGS.UI.RARITY[data.rarity] = data.rarity
@@ -581,14 +582,16 @@ Sim.ReskinEntity = function(sim, guid, oldskin, newskin, skinid, userid, ...)
     local inst = Ents[guid]
     if oldskin and itemskins[oldskin] then
         itemskins[oldskin].clear_fn(inst) -- 清除旧皮肤的
+        inst:SetPrefabNameOverride(nil)
     end
 
     local r = oldReskinEntity(sim, guid, oldskin, newskin, skinid, userid, ...)
     if newskin and itemskins[newskin] then
-        if itemskins[newskin].is_nature_skin then
+        if PREFAB_SKINS_SHOULD_NOT_CHANGE[newskin] then
             inst.skinname = nil
             inst.natureskinname = newskin
             inst.skin_id = nil
+            inst:SetPrefabNameOverride(itemskins[newskin].name or inst.prefab)
         else
             inst.skinname = newskin
             inst.skin_id = 0

@@ -5,6 +5,12 @@ GLOBAL.setfenv(1, GLOBAL) --这个是让所有的全局变量挂在global上
 dostaticTask 一段时间之后执行函数
 puff_fx_cold哈冷气的特效
 "feetslipped" 滑倒的动作
+通过 ambientlighting  colorcube 和 playervision调节滤镜
+没有onblock标签就会被船粘上
+
+
+inst:PushEvent("nightvision", self.nightvision)---跟着的是相应的 参数
+inst:ListenForEvent("nightvision", OnNightVision, player)--跟着的是需要执行的函数，以及参数，pushevent传过来的参数会放到执行函数里面，排在player之后
 
 
 
