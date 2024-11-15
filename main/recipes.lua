@@ -376,12 +376,12 @@ AddRecipe2("dragoonden",
 	TECH.SCIENCE_TWO, { placer = "dragoonden_placer" }, { "STRUCTURES" })
 AddRecipe2("wildborehouse",
 	{ Ingredient("pigskin", 4), Ingredient("palmleaf", 5), Ingredient("bamboo", 8) }, TECH.SCIENCE_TWO,
-	{ placer = "wildborehouse_placer" }, { "STRUCTURES" })
+	{ placer = "wildborehouse_placer", image = "wildborehouse_craft.tex" }, { "STRUCTURES" })
 AddRecipe2("primeapebarrel", { Ingredient("twigs", 10), Ingredient("cave_banana", 3), Ingredient("poop", 4) },
 	TECH.SCIENCE_TWO, { placer = "primeapebarrel_placer" }, { "STRUCTURES" })
 AddRecipe2("porto_ballphinhouse",
 	{ Ingredient("limestone", 4), Ingredient("seaweed", 4), Ingredient("dorsalfin", 2) },
-	TECH.SCIENCE_ONE, { image = "ballphinhouse.tex" }, { "STRUCTURES" })
+	TECH.SCIENCE_ONE, { image = "ballphinhouse_craft.tex" }, { "STRUCTURES" })
 AddRecipe2("sandbag_item", { Ingredient("fabric", 2), Ingredient("sand", 3) }, TECH.SCIENCE_TWO,
 	{ numtogive = 4 }, { "STRUCTURES" })
 AddRecipe2("doydoynest", { Ingredient("twigs", 8), Ingredient("doydoyfeather", 2), Ingredient("poop", 4) },

@@ -81,28 +81,16 @@ Assets =
 	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_shipwrecked.xml", 256),
 	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_hamlet.xml", 256),
 	Asset("ATLAS_BUILD", "images/inventoryimages/inventory_extension.xml", 256),
-	Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
-	Asset("ATLAS_BUILD", "images/inventoryimages/hamletinventory.xml", 256),
-	Asset("ATLAS_BUILD", "images/inventoryimages/volcanoinventory.xml", 256),
 
 
 
-	---------inventory-------------------
-	-- Asset("ATLAS", "images/inventoryimages/loot_pump.xml"),
-
-	Asset("IMAGE", "images/inventoryimages/inventory_rog.tex"),
-	Asset("ATLAS", "images/inventoryimages/inventory_rog.xml"),
+	---------inventory -------------------
 	Asset("IMAGE", "images/inventoryimages/inventory_shipwrecked.tex"),
 	Asset("ATLAS", "images/inventoryimages/inventory_shipwrecked.xml"),
 	Asset("IMAGE", "images/inventoryimages/inventory_hamlet.tex"),
 	Asset("ATLAS", "images/inventoryimages/inventory_hamlet.xml"),
 	Asset("IMAGE", "images/inventoryimages/inventory_extension.tex"),
 	Asset("ATLAS", "images/inventoryimages/inventory_extension.xml"),
-	Asset("IMAGE", "images/inventoryimages/hamletinventory.tex"),
-	Asset("ATLAS", "images/inventoryimages/hamletinventory.xml"),
-	Asset("IMAGE", "images/inventoryimages/volcanoinventory.tex"),
-	Asset("ATLAS", "images/inventoryimages/volcanoinventory.xml"),
-
 
 
 	--新的食谱大图与物品栏贴图
@@ -114,16 +102,6 @@ Assets =
 	Asset("ATLAS", "images/inventoryimages/cookpotfoods_sw.xml"),
 	Asset("IMAGE", "images/inventoryimages/cookpotfoods_ham.tex"),
 	Asset("ATLAS", "images/inventoryimages/cookpotfoods_ham.xml"),
-
-
-
-	---------minimap-------------------
-	Asset("ATLAS", "images/minimap/minimap_hamlet.xml"),
-	Asset("IMAGE", "images/minimap/minimap_hamlet.tex"),
-	Asset("ATLAS", "images/minimap/minimap_rog.xml"),
-	Asset("IMAGE", "images/minimap/minimap_rog.tex"),
-	Asset("ATLAS", "images/minimap/minimap_shipwrecked.xml"),
-	Asset("IMAGE", "images/minimap/minimap_shipwrecked.tex"),
 
 
 
@@ -149,10 +127,7 @@ Assets =
 	Asset("IMAGE", "images/fog_cloud.tex"), --云海
 }
 
-AddMinimapAtlas("images/minimap/minimap_hamlet.xml")
-AddMinimapAtlas("images/minimap/minimap_rog.xml")
-AddMinimapAtlas("images/minimap/minimap_shipwrecked.xml")
-AddMinimapAtlas("images/inventoryimages/inventory_rog.xml")
+
 AddMinimapAtlas("images/inventoryimages/inventory_shipwrecked.xml")
 AddMinimapAtlas("images/inventoryimages/inventory_hamlet.xml")
 AddMinimapAtlas("images/inventoryimages/inventory_extension.xml")
