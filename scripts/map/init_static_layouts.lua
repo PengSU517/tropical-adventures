@@ -3,6 +3,28 @@ local GROUND = GLOBAL.GROUND
 local Layouts = require("map/layouts").Layouts
 local StaticLayout = require("map/static_layout")
 
+
+----原有layout的改动
+if Layouts["Oasis"] and Layouts["Oasis"].layout and Layouts["Oasis"].layout.deciduoustree then
+	Layouts["Oasis"].layout.palmtree = Layouts["Oasis"].layout.deciduoustree
+	Layouts["Oasis"].layout.deciduoustree = nil
+end
+
+
+
+
+--加上没有用，很奇怪
+-- if Layouts["MonkeyIsland"] and Layouts["MonkeyIsland"].add_topology and Layouts["MonkeyIsland"].add_topology.tags then
+-- 	table.insert(Layouts["MonkeyIsland"].add_topology.tags, "tropical")
+-- 	print("MonkeyIsland add_topology.tags")
+-- 	for k, v in pairs(Layouts["MonkeyIsland"].add_topology.tags) do
+-- 		print(v)
+-- 	end
+-- end
+
+
+
+
 --新加static_layout 注意这个里面必须有大门否则地图无法生成--现在不是这样了
 Layouts["newstart"] = StaticLayout.Get("map/static_layouts/start_wor_portal", {
 	start_mask = PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED, --mask什么意思不太明白

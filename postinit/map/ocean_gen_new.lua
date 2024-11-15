@@ -205,7 +205,7 @@ local function do_squarefill(shallowRadius, width, height, data)
 	for y = 0, height - 1, 1 do
 		for x = 0, width - 1, 1 do
 			local ground = world:GetTile(x, y)
-			if is_tropical_oceanlined(ground) and
+			if is_oceanlined(ground) and
 				(IsCloseToImpassable(x, y, shallowRadius) or IsCloseToWater(x, y, shallowRadius)) then
 				squareFill(width, height, x, y, shallowRadius, WORLD_TILES.OCEAN_COASTAL)
 				-- WORLD_TILES.OCEAN_COASTAL

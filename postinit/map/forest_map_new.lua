@@ -1,11 +1,10 @@
--- GLOBAL.setfenv(1, GLOBAL)
-
+local upvaluehelper = require("tools/upvaluehelper")
 require("constants")
 require("mathutil")
 
 -- local separate_region = require("map/separate_region")
 -- local build_porkland = require("map/build_porkland")
-local make_cities = require("map/city_builder")
+-- local make_cities = require("map/city_builder")
 -- local startlocations = require("map/startlocations")
 local forest_map = require("map/forest_map")
 -- local BuildPorkLandStory = require("map/pl_storygen")
@@ -15,9 +14,15 @@ local forest_map = require("map/forest_map")
 
 
 
-
-
 local old_generatemap = forest_map.Generate
+local SKIP_GEN_CHECKS = upvaluehelper.Get(old_generatemap, "SKIP_GEN_CHECKS")
+if SKIP_GEN_CHECKS ~= nil and TA_CONFIG.testmap then
+    print("Skipping generation checks for test map")
+    local old = SKIP_GEN_CHECKS
+    upvaluehelper.Set(old_generatemap, "SKIP_GEN_CHECKS", true)
+end
+
+
 forest_map.Generate = function(prefab, map_width, map_height, tasks, level, level_type, ...)
     local save = old_generatemap(prefab, map_width, map_height, tasks, level, level_type, ...)
 
@@ -28,11 +33,6 @@ forest_map.Generate = function(prefab, map_width, map_height, tasks, level, leve
         return
             save
     end
-
-
-    -- require "map/monkeyisland_worldgen"
-    -- MonkeyIsland_GenerateDocks(WorldSim, save.ents, map_width, map_height)
-
 
     --------------------building porkland cities---------------------------------------------------------------------
     local make_cities = require("map/city_builder")
@@ -46,9 +46,8 @@ forest_map.Generate = function(prefab, map_width, map_height, tasks, level, leve
         save.map.tiles, save.map.tiledata, save.map.nav, save.map.adj, save.map.nodeidtilemap =
             WorldSim:GetEncodedMap(join_islands) ----这是存储地形数据的关键
     end
-
     build_porkland(save.ents, TOPOLOGY_SAVE, save.map.width, save.map.height, deepcopy(level.overrides))
     ----mapwidth,height在其中发生过改变
-    -------------------------------------------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------------------------------------------
     return save
 end
