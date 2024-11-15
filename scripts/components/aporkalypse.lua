@@ -228,43 +228,32 @@ function Aporkalypse:SpawnBats()
 
 	self:ScheduleBatSpawning()
 end
-
 function Aporkalypse:ScheduleHeraldCheck()
-	-- self:CancelHeraldCheck()
-	self.herald_check_task = self.inst:DoTaskInTime(math.random(TUNING.TOTAL_DAY_TIME / 32, TUNING.TOTAL_DAY_TIME / 16),
-		function()
-			if self.aporkalypse_active == false then
-				self.herald_check_task:Cancel()
-				self.herald_check_task = nil
-			end
-			for i, player in ipairs(AllPlayers) do
-				if player and player.components.health and not player.components.health:IsDead() then
+	self.herald_check_task = self.inst:StartThread(function()
+		while self.aporkalypse_active do
+			for _, player in ipairs(AllPlayers) do
+				if player and player:IsValid() and player.components.health and not player.components.health:IsDead() then
 					local herald = GetClosestInstWithTag("ancient", player, 30)
 					local interior = GetClosestInstWithTag("interior_center", player, 30)
 					if not interior then
-						if herald == nil then
+						if not herald then
 							local map = TheWorld.Map
 							local x, y, z = player.Transform:GetWorldPosition()
-							local x1 = x + math.random(-10, 10)
-							-- local y1 = y
-							local z1 = z + math.random(-10, 10)
-							-- local ground = map:GetTile(map:GetTileCoordsAtPoint(x1, y1, z1))
-
-							if map:IsLandTileAtPoint(x1, 0, z1) then
-								local part = SpawnPrefab("ancient_herald")
-								if part ~= nil then
-									part.Transform:SetPosition(x1, 0, z1)
-									if part.components.combat then part.components.combat:SuggestTarget(player) end
-								end
+							x = x + math.random(-10, 10)
+							z = z + math.random(-10, 10)
+							if map:IsLandTileAtPoint(x, 0, z) then
+								herald = SpawnAt("ancient_herald", Vector3(x, 0, z))
 							end
-						else
-							if herald.components.combat then herald.components.combat:SuggestTarget(player) end
+						end
+						if herald and herald.components.combat then
+							herald.components.combat:SuggestTarget(player)
 						end
 					end
 				end
-				self:ScheduleHeraldCheck()
 			end
-		end)
+			Sleep(math.random(TUNING.SEG_TIME / 2, TUNING.SEG_TIME))
+		end
+	end)
 end
 
 function Aporkalypse:CancelHeraldCheck()
