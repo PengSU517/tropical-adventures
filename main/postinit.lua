@@ -67,6 +67,7 @@ modimport("postinit/components/wavemanager")
 modimport("postinit/components/map")
 modimport("postinit/components/boatphysics")
 
+modimport("postinit/components/animstate")
 
 
 

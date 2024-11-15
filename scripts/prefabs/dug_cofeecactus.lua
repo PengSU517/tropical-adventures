@@ -76,12 +76,6 @@ local function make_plantable(data)
         inst.components.inspectable.nameoverride = data.inspectoverride or ("dug_" .. data.name)
         inst:AddComponent("inventoryitem")
 
-        if data.name == "nettle" then
-
-        else
-
-        end
-
         inst:AddComponent("fuel")
         inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
 

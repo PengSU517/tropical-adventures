@@ -26,7 +26,7 @@ local function SortRecipe(a, b, filter_name, offset)
 	end
 end
 
----将a配方重排到b配方之后
+---将a配方重排到b配方之前
 ---@param a string 被排配方名
 ---@param b string 参照配方名
 ---@param filter_name string 配方分类名
@@ -34,7 +34,7 @@ local function SortBefore(a, b, filter_name)
 	SortRecipe(a, b, filter_name, 0)
 end
 
----将a配方重排到b配方之前
+---将a配方重排到b配方之后
 ---@param a string 被排配方名
 ---@param b string 参照配方名
 ---@param filter_name string 配方分类名
