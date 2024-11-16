@@ -434,7 +434,7 @@ local function CheckHamRoomBeforeDeploy(self, pt, recipe, rot)
         if not iswall then
             return { false }, true
         end
-    elseif tabel.has_component(banrecipe, recipe.name) or string.find(recipe.name, "pig_shop") then
+    elseif tableutil.has_component(banrecipe, recipe.name) or string.find(recipe.name, "pig_shop") then
         local pt_x, pt_y, pt_z = pt:Get()
         local isroom = IsHamRoomAtPoint(pt_x, pt_y, pt_z, false)
         if isroom then
@@ -487,7 +487,7 @@ Map.CanDeployRecipeAtPoint = function(self, pt, recipe, rot)
         else
             return false
         end
-    elseif tabel.has_component(banrecipe, recipe.name) or string.find(recipe.name, "pig_shop") then
+    elseif tableutil.has_component(banrecipe, recipe.name) or string.find(recipe.name, "pig_shop") then
         local pt_x, pt_y, pt_z = pt:Get()
         local isroom = IsHamRoomAtPoint(pt_x, pt_y, pt_z, false)
         if isroom then
