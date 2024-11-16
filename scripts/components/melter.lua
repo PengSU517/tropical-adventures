@@ -70,7 +70,6 @@ function Melter:StartCooking()
 	if not self.done and not self.cooking then
 		local container = self.inst.components.container
 		if container then
-
 			self.done = nil
 			self.cooking = true
 
@@ -94,7 +93,7 @@ function Melter:StartCooking()
 				local item4 = self.inst.replica.container:GetItemInSlot(4) and
 					self.inst.replica.container:GetItemInSlot(4).prefab
 
-				local items = tabel.count_components({ item1, item2, item3, item4 })
+				local items = tableutil.count_components({ item1, item2, item3, item4 })
 
 				local function getcount(item)
 					return items[item] and items[item] or 0

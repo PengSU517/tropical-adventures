@@ -29,7 +29,7 @@ forest_map.Generate = function(prefab, map_width, map_height, tasks, level, leve
     if save == nil then return save end
     -- if level.location ~= "forest" then return save end
     -- if not TA_CONFIG.hamlet then return save end
-    if not tabel.has_all_of_component(level.tasks, { "Edge_of_civilization", "Pigtopia", "Other_edge_of_civilization", "Other_pigtopia" }) then
+    if not tableutil.has_all_of_component(level.tasks, { "Edge_of_civilization", "Pigtopia", "Other_edge_of_civilization", "Other_pigtopia" }) then
         return
             save
     end
