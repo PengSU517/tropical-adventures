@@ -150,9 +150,8 @@ configuration_options =
 		hover = en_zh("Change mod language...", "选择模组语言"),
 		options =
 		{
-			-- { description = "Auto(自动)", data = (locale == "zh" or locale == "zhr" or locale == "zht") and "stringsCH" or "stringsEN" },
-			{ description = "English", data = "stringsEN" },
-			{ description = "中文", data = "stringsCH" },
+			{ description = "Default(默认)", data = false },
+			{ description = "中文", data = "ch" },
 			-- { description = "Português", data = "stringsPT" },
 			-- { description = "Italian", data = "stringsIT" },
 			-- { description = "Russian", data = "stringsRU" },
@@ -161,7 +160,7 @@ configuration_options =
 			-- { description = "Magyar", data = "stringsHUN" },
 			-- { description = "Français", data = "stringsFR" },
 		},
-		default = (locale == "zh" or locale == "zhr" or locale == "zht") and "stringsCH" or "stringsEN",
+		default = nil,
 	},
 
 	Breaker("World Generation", "世界生成"),

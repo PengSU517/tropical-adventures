@@ -1,5 +1,3 @@
-GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
-
 local SERVER_SIDE
 local CLIENT_SIDE
 if TheNet:GetIsServer() then
