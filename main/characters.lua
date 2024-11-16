@@ -1,6 +1,3 @@
-GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
-
-
 AddModCharacter("walani", "FEMALE")
 AddModCharacter("wilbur", "NEUTRAL")
 AddModCharacter("woodlegs", "MALE")
@@ -39,55 +36,24 @@ RemapSoundEvent("dontstarve/characters/woodlegs/carol", "sw_character/characters
 RemapSoundEvent("dontstarve/characters/woodlegs/sleepy", "sw_character/characters/woodlegs/sleepy")
 
 --Wilbur
-GLOBAL.STRINGS.CHARACTER_TITLES.wilbur = "The Monkey King"
-GLOBAL.STRINGS.CHARACTER_NAMES.wilbur = "Wilbur"
-GLOBAL.STRINGS.CHARACTER_DESCRIPTIONS.wilbur = "*Can't talk\n*Slow as biped, but fast as quadruped\n*Is a monkey"
-GLOBAL.STRINGS.CHARACTER_QUOTES.wilbur = "\"Ooo ooa oah ah!\""
-GLOBAL.STRINGS.NAMES.WILBUR = "Wilbur"
-GLOBAL.STRINGS.CHARACTER_ABOUTME.wilbur = "Can't talk Slow as biped, fast as quadruped Is a monkey"
-GLOBAL.STRINGS.CHARACTER_SURVIVABILITY.wilbur = "Slim"
 TUNING.WILBUR_HEALTH = 125
 TUNING.WILBUR_SANITY = 150
 TUNING.WILBUR_HUNGER = 175
 
 --Woodlegs:
-GLOBAL.STRINGS.CHARACTER_TITLES.woodlegs = "The Pirate Captain"
-GLOBAL.STRINGS.CHARACTER_NAMES.woodlegs = "Woodlegs"
-GLOBAL.STRINGS.CHARACTER_DESCRIPTIONS.woodlegs = "*Has his lucky hat\n*Has his lucky cutlass\n*Pirate"
-GLOBAL.STRINGS.CHARACTER_QUOTES.woodlegs = "\"Don't ye mind th'scurvy. Yarr-harr-harr!\""
-GLOBAL.STRINGS.CHARACTERS.WOODLEGS = require "languages/speech_woodlegs"
-GLOBAL.STRINGS.NAMES.WOODLEGS = "Woodlegs"
-GLOBAL.STRINGS.CHARACTER_ABOUTME.woodlegs = "Don't ye mind th'scurvy. Yarr-harr-harr!"
-GLOBAL.STRINGS.CHARACTER_SURVIVABILITY.woodlegs = "Grim"
 TUNING.WOODLEGS_HEALTH = 150
 TUNING.WOODLEGS_SANITY = 120
 TUNING.WOODLEGS_HUNGER = 150
 TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.WOODLEGS = { "luckyhat", "boatcannon", "boards", "boards", "boards", "boards",
     "dubloon", "dubloon", "dubloon", "dubloon" }
-TUNING.STARTING_ITEM_IMAGE_OVERRIDE["luckyhat"] = {
-    image = "luckyhat.tex",
-}
-TUNING.STARTING_ITEM_IMAGE_OVERRIDE["boatcannon"] = {
-    image = "boatcannon.tex",
-}
-TUNING.STARTING_ITEM_IMAGE_OVERRIDE["dubloon"] = {
-    image = "dubloon.tex",
-}
+TUNING.STARTING_ITEM_IMAGE_OVERRIDE["luckyhat"] = { image = "luckyhat.tex", }
+TUNING.STARTING_ITEM_IMAGE_OVERRIDE["boatcannon"] = { image = "boatcannon.tex", }
+TUNING.STARTING_ITEM_IMAGE_OVERRIDE["dubloon"] = { image = "dubloon.tex", }
 
 --Walani
-GLOBAL.STRINGS.CHARACTER_TITLES.walani = "The Unperturbable"
-GLOBAL.STRINGS.CHARACTER_NAMES.walani = "Walani"
-GLOBAL.STRINGS.CHARACTER_DESCRIPTIONS.walani = "*Loves surfing\n*Dries off quickly\n*Is a pretty chill gal"
-GLOBAL.STRINGS.CHARACTER_QUOTES.walani = "\"Forgive me if I don't get up. I don't want to.\""
-GLOBAL.STRINGS.CHARACTERS.WALANI = require "languages/speech_walani"
-GLOBAL.STRINGS.NAMES.WALANI = "Walani"
-GLOBAL.STRINGS.CHARACTER_ABOUTME.walani = "Forgive me if I don't get up. I don't want to."
-GLOBAL.STRINGS.CHARACTER_SURVIVABILITY.walani = "Slim"
 TUNING.WALANI_HEALTH = 120
 TUNING.WALANI_SANITY = 200
 TUNING.WALANI_HUNGER = 200
 
 TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.WALANI = { "surfboarditem" }
-TUNING.STARTING_ITEM_IMAGE_OVERRIDE["surfboarditem"] = {
-    image = "surfboarditem.tex",
-}
+TUNING.STARTING_ITEM_IMAGE_OVERRIDE["surfboarditem"] = { image = "surfboarditem.tex", }
