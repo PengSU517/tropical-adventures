@@ -1,7 +1,7 @@
 local AddComponentAction = AddComponentAction
 local ACTIONS = ACTIONS
 
-
+-------------ATTENTION!!!!!addcomponentaction  同目录会相互覆盖
 AddComponentAction("USEITEM", "inventoryitem", function(inst, doer, target, actions, right)
     if not right then
         if target:HasTag("shelfcanaccept") then --target.components.shelfer and target.components.shelfer:CanAccept(inst, doer ) then
@@ -271,16 +271,18 @@ AddComponentAction("USEITEM", "fueltar", function(inst, doer, target, actions)
             table.insert(actions, ACTIONS.ADDFUEL)
         end
 
-        if target:HasTag("wallhousehamlet") and inst:HasTag("hameletwallpaper") then
-            table.insert(actions, ACTIONS.PAINT)
-            return
-        end
+        -- if target:HasTag("wallhousehamlet") and inst:HasTag("hameletwallpaper") then
+        --     table.insert(actions, ACTIONS.PAINT)
+        --     return
+        -- end
     end
 end)
 
-AddComponentAction("USEITEM", "inventoryitem", function(inst, doer, target, actions)
-    if target:HasTag("wallhousehamlet") and inst:HasTag("hameletwallpaper") then
-        table.insert(actions, ACTIONS.PAINT)
-        return
-    end
-end)
+
+-- AddComponentAction("USEITEM", "inventoryitem", function(inst, doer, target, actions)
+--     print("addcomponentactionpaint")
+--     if target:HasTag("wallhousehamlet") and inst:HasTag("hameletwallpaper") then
+--         table.insert(actions, ACTIONS.PAINT)
+--         return
+--     end
+-- end)
