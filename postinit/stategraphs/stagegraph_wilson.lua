@@ -4192,7 +4192,7 @@ ACTIONS.JUMPIN.strfn = function(act)
     if act.target ~= nil and act.target:HasTag("hamletteleport") then
         return "HAMLET"
     end
-    return Oldstrfnjumpin(act)
+    return Oldstrfnjumpin and Oldstrfnjumpin(act) or "GENERIC"
 end
 
 

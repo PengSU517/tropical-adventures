@@ -984,8 +984,8 @@ SMELT.fn = function(act)
 end
 AddAction(SMELT)
 
-local GIVE2 = Action({ priority = 10, distance = 1, mount_valid = true })
-GIVE2.str = (STRINGS.ACTIONS.GIVE2)
+local GIVE2 = Action({ priority = 10, distance = 2, mount_valid = true })
+GIVE2.str = (STRINGS.ACTIONS.GIVE)
 GIVE2.id = "GIVE2"
 GIVE2.fn = function(act)
     if act.invobject.components.inventoryitem then
@@ -1017,19 +1017,19 @@ PICKUP.fn = function(act)
     if act.target and act.target.components.inventoryitem and act.target.components.shelfer then
         local item = act.target.components.shelfer:GetGift()
         if item then
-            if act.target.components.shelfer.shelf and not act.target.components.shelfer.shelf:HasTag("playercrafted") then
-                if act.doer.components.shopper and act.doer.components.shopper:IsWatching(item) then
-                    if act.doer.components.shopper:CanPayFor(item) then
-                        act.doer.components.shopper:PayFor(item)
-                    else
-                        return false, "CANTPAY"
-                    end
-                else
-                    if act.target.components.shelfer.shelf and act.target.components.shelfer.shelf.curse then
-                        act.target.components.shelfer.shelf.curse(act.target)
-                    end
-                end
-            end
+            -- if act.target.components.shelfer.shelf and not act.target.components.shelfer.shelf:HasTag("playercrafted") then
+            --     if act.doer.components.shopper and act.doer.components.shopper:IsWatching(item) then
+            --         if act.doer.components.shopper:CanPayFor(item) then
+            --             act.doer.components.shopper:PayFor(item)
+            --         else
+            --             return false, "CANTPAY"
+            --         end
+            --     else
+            --         if act.target.components.shelfer.shelf and act.target.components.shelfer.shelf.curse then
+            --             act.target.components.shelfer.shelf.curse(act.target)
+            --         end
+            --     end
+            -- end
             if item.components.perishable then item.components.perishable:StartPerishing() end
             act.target = act.target.components.shelfer:GiveGift()
         end
