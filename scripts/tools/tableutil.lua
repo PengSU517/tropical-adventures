@@ -150,6 +150,8 @@ function tableutil.deep_merge(target, add_table, override)
             end
         end
     end
+
+    return target
 end
 
 return tableutil
