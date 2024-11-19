@@ -185,4 +185,4 @@ local ruinlayouts = {
 	["hamlet_end"] = GetSpecialLayoutsForType("hamlet_end", "hamlet_end", nil, nil, archive_areas),
 }
 
-tabel.deep_merge(alllayouts, ruinlayouts, false)
+tableutil.deep_merge(alllayouts, ruinlayouts, false)

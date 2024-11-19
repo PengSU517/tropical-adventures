@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Atlas>
+    <Texture filename="customization_porkland.tex"/>
+    <Elements>
+        <Element name="adult_flytraps.tex" u1="0.000244141" u2="0.0617676" v1="0.876465" v2="0.999512"/>
+        <Element name="aloe.tex" u1="0.000244141" u2="0.0617676" v1="0.752441" v2="0.875488"/>
+        <Element name="aporkalypse.tex" u1="0.000244141" u2="0.0617676" v1="0.628418" v2="0.751465"/>
+        <Element name="asparagus.tex" u1="0.000244141" u2="0.0617676" v1="0.504395" v2="0.627441"/>
+        <Element name="bats.tex" u1="0.000244141" u2="0.0617676" v1="0.380371" v2="0.503418"/>
+        <Element name="brambles.tex" u1="0.000244141" u2="0.0617676" v1="0.256348" v2="0.379395"/>
+        <Element name="butterfly.tex" u1="0.000244141" u2="0.0617676" v1="0.132324" v2="0.255371"/>
+        <Element name="canopy_loops.tex" u1="0.000244141" u2="0.0617676" v1="0.00830078" v2="0.131348"/>
+        <Element name="claw_trees.tex" u1="0.0622559" u2="0.123779" v1="0.876465" v2="0.999512"/>
+        <Element name="creeping_vines.tex" u1="0.0622559" u2="0.123779" v1="0.752441" v2="0.875488"/>
+        <Element name="crumbling_brazier.tex" u1="0.0622559" u2="0.123779" v1="0.628418" v2="0.751465"/>
+        <Element name="dart_traps.tex" u1="0.0622559" u2="0.123779" v1="0.504395" v2="0.627441"/>
+        <Element name="day.tex" u1="0.0622559" u2="0.123779" v1="0.380371" v2="0.503418"/>
+        <Element name="dung_beetles.tex" u1="0.0622559" u2="0.123779" v1="0.256348" v2="0.379395"/>
+        <Element name="dung_piles.tex" u1="0.0622559" u2="0.123779" v1="0.132324" v2="0.255371"/>
+        <Element name="flipping_rocks.tex" u1="0.0622559" u2="0.123779" v1="0.00830078" v2="0.131348"/>
+        <Element name="flowers.tex" u1="0.124268" u2="0.185791" v1="0.876465" v2="0.999512"/>
+        <Element name="fog.tex" u1="0.124268" u2="0.185791" v1="0.752441" v2="0.875488"/>
+        <Element name="giant_grubs.tex" u1="0.124268" u2="0.185791" v1="0.628418" v2="0.751465"/>
+        <Element name="glowflies.tex" u1="0.124268" u2="0.185791" v1="0.504395" v2="0.627441"/>
+        <Element name="glowfly_life_cycle.tex" u1="0.124268" u2="0.185791" v1="0.380371" v2="0.503418"/>
+        <Element name="gnat.tex" u1="0.124268" u2="0.185791" v1="0.256348" v2="0.379395"/>
+        <Element name="gnat_mounds.tex" u1="0.124268" u2="0.185791" v1="0.132324" v2="0.255371"/>
+        <Element name="grabbing_vines.tex" u1="0.124268" u2="0.185791" v1="0.00830078" v2="0.131348"/>
+        <Element name="grass.tex" u1="0.186279" u2="0.247803" v1="0.876465" v2="0.999512"/>
+        <Element name="grass_bunches.tex" u1="0.186279" u2="0.247803" v1="0.752441" v2="0.875488"/>
+        <Element name="great_leafy_stalks.tex" u1="0.186279" u2="0.247803" v1="0.628418" v2="0.751465"/>
+        <Element name="guard_towers.tex" u1="0.186279" u2="0.247803" v1="0.504395" v2="0.627441"/>
+        <Element name="hanging_vines.tex" u1="0.186279" u2="0.247803" v1="0.380371" v2="0.503418"/>
+        <Element name="hayfever.tex" u1="0.186279" u2="0.247803" v1="0.256348" v2="0.379395"/>
+        <Element name="hippopotamoose.tex" u1="0.186279" u2="0.247803" v1="0.132324" v2="0.255371"/>
+        <Element name="honey_chests.tex" u1="0.186279" u2="0.247803" v1="0.00830078" v2="0.131348"/>
+        <Element name="humid.tex" u1="0.248291" u2="0.309814" v1="0.876465" v2="0.999512"/>
+        <Element name="kingfisher.tex" u1="0.248291" u2="0.309814" v1="0.752441" v2="0.875488"/>
+        <Element name="lamp_posts.tex" u1="0.248291" u2="0.309814" v1="0.628418" v2="0.751465"/>
+        <Element name="lightning.tex" u1="0.248291" u2="0.309814" v1="0.504395" v2="0.627441"/>
+        <Element name="lily_pads.tex" u1="0.248291" u2="0.309814" v1="0.380371" v2="0.503418"/>
+        <Element name="lost_relics.tex" u1="0.248291" u2="0.309814" v1="0.256348" v2="0.379395"/>
+        <Element name="lost_sculptures.tex" u1="0.248291" u2="0.309814" v1="0.132324" v2="0.255371"/>
+        <Element name="lotus.tex" u1="0.248291" u2="0.309814" v1="0.00830078" v2="0.131348"/>
+        <Element name="lush.tex" u1="0.310303" u2="0.371826" v1="0.876465" v2="0.999512"/>
+        <Element name="mandrake_men.tex" u1="0.310303" u2="0.371826" v1="0.752441" v2="0.875488"/>
+        <Element name="mant_comb_homes.tex" u1="0.310303" u2="0.371826" v1="0.628418" v2="0.751465"/>
+        <Element name="mant_lamps.tex" u1="0.310303" u2="0.371826" v1="0.504395" v2="0.627441"/>
+        <Element name="mant_queen.tex" u1="0.310303" u2="0.371826" v1="0.380371" v2="0.503418"/>
+        <Element name="mants.tex" u1="0.310303" u2="0.371826" v1="0.256348" v2="0.379395"/>
+        <Element name="mean_flytraps.tex" u1="0.310303" u2="0.371826" v1="0.132324" v2="0.255371"/>
+        <Element name="mosquitos.tex" u1="0.310303" u2="0.371826" v1="0.00830078" v2="0.131348"/>
+        <Element name="mushrooms.tex" u1="0.372314" u2="0.433838" v1="0.876465" v2="0.999512"/>
+        <Element name="nettle.tex" u1="0.372314" u2="0.433838" v1="0.752441" v2="0.875488"/>
+        <Element name="noise_ferns.tex" u1="0.372314" u2="0.433838" v1="0.628418" v2="0.751465"/>
+        <Element name="orange_pikos.tex" u1="0.372314" u2="0.433838" v1="0.504395" v2="0.627441"/>
+        <Element name="pangolden.tex" u1="0.372314" u2="0.433838" v1="0.380371" v2="0.503418"/>
+        <Element name="peagawk.tex" u1="0.372314" u2="0.433838" v1="0.256348" v2="0.379395"/>
+        <Element name="pig_bandit.tex" u1="0.372314" u2="0.433838" v1="0.132324" v2="0.255371"/>
+        <Element name="pig_ghosts.tex" u1="0.372314" u2="0.433838" v1="0.00830078" v2="0.131348"/>
+        <Element name="pig_houses.tex" u1="0.434326" u2="0.49585" v1="0.876465" v2="0.999512"/>
+        <Element name="pikos.tex" u1="0.434326" u2="0.49585" v1="0.752441" v2="0.875488"/>
+        <Element name="platypine.tex" u1="0.434326" u2="0.49585" v1="0.628418" v2="0.751465"/>
+        <Element name="pogs.tex" u1="0.434326" u2="0.49585" v1="0.504395" v2="0.627441"/>
+        <Element name="poison_dart_frogs.tex" u1="0.434326" u2="0.49585" v1="0.380371" v2="0.503418"/>
+        <Element name="pugalisk.tex" u1="0.434326" u2="0.49585" v1="0.256348" v2="0.379395"/>
+        <Element name="pugalisk_fountain.tex" u1="0.434326" u2="0.49585" v1="0.132324" v2="0.255371"/>
+        <Element name="rabid_beetles.tex" u1="0.434326" u2="0.49585" v1="0.00830078" v2="0.131348"/>
+        <Element name="radish.tex" u1="0.496338" u2="0.557861" v1="0.876465" v2="0.999512"/>
+        <Element name="rain.tex" u1="0.496338" u2="0.557861" v1="0.752441" v2="0.875488"/>
+        <Element name="rainforest_trees.tex" u1="0.496338" u2="0.557861" v1="0.628418" v2="0.751465"/>
+        <Element name="reeds.tex" u1="0.496338" u2="0.557861" v1="0.504395" v2="0.627441"/>
+        <Element name="roc.tex" u1="0.496338" u2="0.557861" v1="0.380371" v2="0.503418"/>
+        <Element name="rusted_hulks.tex" u1="0.496338" u2="0.557861" v1="0.256348" v2="0.379395"/>
+        <Element name="sapling.tex" u1="0.496338" u2="0.557861" v1="0.132324" v2="0.255371"/>
+        <Element name="scorpions.tex" u1="0.496338" u2="0.557861" v1="0.00830078" v2="0.131348"/>
+        <Element name="season_start.tex" u1="0.55835" u2="0.619873" v1="0.876465" v2="0.999512"/>
+        <Element name="skeletons.tex" u1="0.620361" u2="0.681885" v1="0.876465" v2="0.999512"/>
+        <Element name="small_ruins.tex" u1="0.682373" u2="0.743896" v1="0.876465" v2="0.999512"/>
+        <Element name="snakes.tex" u1="0.744385" u2="0.805908" v1="0.876465" v2="0.999512"/>
+        <Element name="spike_traps.tex" u1="0.806396" u2="0.86792" v1="0.876465" v2="0.999512"/>
+        <Element name="stalagmites.tex" u1="0.868408" u2="0.929932" v1="0.876465" v2="0.999512"/>
+        <Element name="tall_grass.tex" u1="0.93042" u2="0.991943" v1="0.876465" v2="0.999512"/>
+        <Element name="tea_trees.tex" u1="0.55835" u2="0.619873" v1="0.752441" v2="0.875488"/>
+        <Element name="temperate.tex" u1="0.55835" u2="0.619873" v1="0.628418" v2="0.751465"/>
+        <Element name="thunderbirds.tex" u1="0.55835" u2="0.619873" v1="0.504395" v2="0.627441"/>
+        <Element name="tropical_flowers.tex" u1="0.55835" u2="0.619873" v1="0.380371" v2="0.503418"/>
+        <Element name="tuber_trees.tex" u1="0.55835" u2="0.619873" v1="0.256348" v2="0.379395"/>
+        <Element name="vampire_bat_caves.tex" u1="0.55835" u2="0.619873" v1="0.132324" v2="0.255371"/>
+        <Element name="vampire_bats.tex" u1="0.55835" u2="0.619873" v1="0.00830078" v2="0.131348"/>
+        <Element name="weevole.tex" u1="0.620361" u2="0.681885" v1="0.752441" v2="0.875488"/>
+        <Element name="world_size.tex" u1="0.682373" u2="0.743896" v1="0.752441" v2="0.875488"/>
+    </Elements>
+    <StraightAlpha>false</StraightAlpha>
+</Atlas>
+

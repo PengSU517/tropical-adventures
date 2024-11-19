@@ -247,7 +247,7 @@ if true then
             level.ocean_prefill_setpieces["HermitcrabIsland"] = 1
             -- level.ocean_prefill_setpieces["CrabKing"] = 1
 
-            tabel.insert_components(level.ocean_population, {
+            tableutil.insert_components(level.ocean_population, {
                 "OceanBrinepool",
             })
         end
@@ -277,7 +277,7 @@ end
 --                     if not task.room_tags then
 --                         task.room_tags = {}
 --                     end
---                     tabel.insert_components(task.room_tags, "tropical")
+--                     tableutil.insert_components(task.room_tags, "tropical")
 --                 end
 --             end)
 --         end

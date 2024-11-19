@@ -1,8 +1,7 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 
-
 modimport("main/tuning") -- tuning + constants
-modimport("scripts/languages/language_setting.lua")
+modimport("main/strings.lua")
 
 --工具函数，全部在GLOBAL里
 require("tools/simutil")

@@ -6,7 +6,7 @@ local require = require
 local modimport = modimport
 
 
-require("tools/table")      ----一些表相关的工具函数，都在表tabel里
+require("tools/tableutil")  ----一些表相关的工具函数，都在表tabel里
 require("tools/tileutil")
 require("tools/spawnutil")  ----地形生成相关工具
 modimport("main/ta_config") ----mod 设置相关内容

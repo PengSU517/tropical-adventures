@@ -3,6 +3,10 @@ return
 
 	ACTIONFAIL =
 	{
+		 BUILD =
+        {
+            MOUNTED = "It be too high fer ol' Woodlegs.",
+        },
 		REPAIRBOAT =
 		{
 			GENERIC = "It be jus'like new!",
@@ -37,11 +41,43 @@ return
         {
             GENERIC = "Alls I can write be an \"X\"!",
         },
+        CHANGEIN =
+        {
+            GENERIC = "Woodlegs'll not be changin' t'day!",
+            BURNING = "'Tis a roarin' fire!",
+        },
 		TEACH =
         {
             KNOWN = "Arrrr.",
             CANTLEARN = "Yarrrrrr!",
         },
+         MOUNT =
+        {
+            TARGETINCOMBAT = "It be i'tha midst o'battle.",
+            INUSE = "It be some'ne elses' beastie.",
+        },
+		SADDLE =
+        {
+            TARGETINCOMBAT = "Too orn'ry at tha' moment.",
+        },
+		WRAPBUNDLE =
+        {
+            EMPTY = "Thar b'nothin' ta wrap!",
+        },
+        DRAW =
+        {
+            NOIMAGE = "What be ol' Woodlegs muse?",
+        },
+        SHOP = 
+        {
+        	GENERIC = "Arrrg. 'tis na fer sale.",
+        	CANTPAY = "Ol' Woodlegs d'na ha'tha doubloons fer't.",
+        },
+        USEDOOR = 
+      	{
+        GENERIC = "'tis closed ta me.",
+        LOCKED = "It be needin' somethin' ta open't.",
+      	}, 
 	},
 	ACTIONFAIL_GENERIC = "Me can'ts be doin' thet.",
 	ANNOUNCE_MAGIC_FAIL = "Thet's not fer this land!",
@@ -129,6 +165,41 @@ return
 	ANNOUNCE_WHALE_HUNT_LOST_TRAIL_SPRING = "Like findin' a wet needle inna wet haystack.",
 	ANNOUNCE_WORMHOLE = "Me must be oot me mind.",
 	ANNOUNCE_TREASURE_DISCOVER = "Me pirate sense be tinglin'.",
+
+	--PORKLAND 
+	ANNOUCE_UNDERLEAFCANOPY = "'Tis dark!",
+	ANNOUCE_ALARMOVER = "Ol'Woodlegs wins ag'in!",
+	ANNOUCE_BATS = "Beasties be flappin' about.",
+	ANNOUCE_OTHERWORLD_DEED = "'Tis not from 'round here.",
+	ANNOUNCE_TOOLCORRODED = "Arrgh! Me tools be fallin' apart!",
+	ANNOUNCE_TURFTOOHARD = "No use pullin' up this ground.",
+	ANNOUNCE_GAS_DAMAGE = "Koff! Koff! Smelly as tha bilgewater!",
+
+	ANNOUNCE_SNEEZE = "Ahh-pheww!!",	
+	ANNOUNCE_HAYFEVER = "Me nose be itchier than a sliver in me pegleg.",	
+	ANNOUNCE_HAYFEVER_OFF = "Ah! Th'air be clear again!",	
+
+	ANNOUNCE_PICKPOOP = {"Arrgh!","Avast!","Ye repulsive thing!"},	
+	ANNOUNCE_TOO_HUMID = {"Arrgh! It be hot!","This %s is makin' me sweat me britches."},	
+	ANNOUNCE_DEHUMID = {"Ah! Th'air be cool again."},	
+
+	ANNOUNCE_PUGALISK_INVULNERABLE = {"Tha' hide be too tough!", "Where's me harpoon!", "What's ye weakness, ye land Leviathan?"},
+
+	ANNOUNCE_MYSTERY_FOUND = "Treasure!",
+	ANNOUNCE_MYSTERY_NOREWARD = "Bah. Tha treasure be gone.",
+
+	ANNOUNCE_MYSTERY_DOOR_FOUND = "Ol' Woodlegs found'a door!",
+	ANNOUNCE_MYSTERY_DOOR_NOT_FOUND = "Bah. Nothin'.",
+
+	ANNOUNCE_HOUSE_DOOR = "Woodlegs be needin'a permit fer't.",
+	ANNOUNCE_ROOM_STUCK = "Ol' Woodlegs is na lookin' ta get trapped'ere!",
+	ANNOUNCE_TAXDAY = "Ye'll be needin' ta pay tha taxes!",
+	ANNOUNCE_NOTHING_FOUND = "Thar b'nothin' ta find 'round these parts.",
+
+	ANNOUNCE_SUITUP = "Yarrrrrg!",
+
+	ANNOUNCE_WOODLEGSHAT_INDOORS = "Me lucky 'at cannae be lucky in'ere.",
+
 	BATTLECRY =
 	{
 		GENERIC = "Ye messed wit' th'wrong pirate!",
@@ -203,6 +274,7 @@ return
 		BAT = "Back ye rat-faced, flyin' devil!",
 		BATBAT = "I'd let this fly at me enemies.",
 		BATWING = "Wit' a wee bit o'ranch dressin'...",
+		VAMPIRE_BAT_WING = "Wit' a wee bit o'ranch dressin'...",
 		BATWING_COOKED = "Tastes like cackler.",
 		BEARDHAIR = "Chinny whiskers.",
 		BEARGER = "Back ye badgerin' devil!",
@@ -229,6 +301,11 @@ return
 			GENERIC = "Here's th'beef!",
 			NAKED = "Ye should be ashamed o'yerself.",
 			SLEEPING = "Its snorin' would wake th'dead.",
+			--Domesticated states:
+            DOMESTICATED = "'e be an agreeable fellow.",
+            ORNERY = "Tha orn'ry type.",
+            RIDER = "I can set sail 'pon 'is back!",
+            PUDGY = "'es 'ad a bit too much o'tha food!",
 		},
 		BEEFALOHAT = "Keeps me ears warm.",
 		BEEFALOWOOL = "Carries a musk wit' it.",
@@ -354,6 +431,7 @@ return
 			OPEN = "I bet thar ain't no sea down there.",
 		},
 		CAVE_EXIT = "Back ta open air.",
+		CAVE_REGENERATOR = "Got a funny feelin' about bringin' it back to the mouth o'this cave.",
 		CAVE_FERN = "How did ye grow doon here wit' no light?",
 		CHARCOAL = "Burnt ta a brickette.",
 		CHESSJUNK1 = "Somebody's a sore loser.",
@@ -781,7 +859,7 @@ return
 		LIVINGJUNGLETREE = "Thet tree be givin' Woodlegs th'evil eye.",
 		LIVINGLOG = "It be cursed wood.",
 		LIVINGTREE = "Don't be wakin'im up.",
-		LOBSTER_LAND = "Don't be scurryin' from me!",
+		LOBSTER = "Don't be scurryin' from me!",
 		LOBSTERHOLE = "'Tis th'shellbeast's cabin.",
 		LOBSTER_DEAD = "Aye! Now Woodlegs can eat 'em.",
 		LOBSTER_DEAD_COOKED = "Hot meat o'th'sea!",
@@ -1023,7 +1101,7 @@ return
 		POND = "Ye couldn't fit a real ship in this.",
 		POND_ALGAE = "Ye couldn't fit a real ship in this.",
 		POOP = "What scallywag left their poop layin' about!",
-		PORTAL_SHIPWRECKED = "Looks a delightful lil ride!",
+		PORTAL_SHIPWRECKED = "Looks like I be maroon'd 'ere.",
 		POTTEDFERN = "Now whut use 'ave I for a house plant?",
 		POWCAKE = "This really be food?",
 		PRIMEAPE = "Like lookin' in a cracked, greasy mirror.",
@@ -1280,6 +1358,7 @@ return
 		},
 		STATUEHARP = "Yer missing ye head!",
 		STATUEMAXWELL = "I'd know thet scallywag's face anywheres!",
+		STEAMEDHAMSANDWICH = "It's a ham sandwich.",
 		STINGER = "Bee dropped its bottom.",
 		STRAWHAT = "Not fit fer a captain. But makes fer a cool head.",
 		STUFFEDEGGPLANT = "Stuffed wit' whut?",
@@ -1547,6 +1626,7 @@ return
 		WOODLEGSHAT = "'Tis me lucky hat!",
 
 		ARMORCACTUS = "Me'd like ta see them try ta hit Woodlegs now!",
+		BIGFISHINGROD = "Woodlegs'seen bigger.",
 		--BOOK_METEOR = "Devil magic thet summons demons from th'sky!",
 		BRAINJELLYHAT = "A jelly ta rest upon me dainty head.",
 		COCONUT_HALVED = "Its flesh be prone fer th'takin'.",
@@ -1586,6 +1666,17 @@ return
 		SHADOWSKITTISH_WATER = "Back, beast!",
 		SHIPWRECKED_ENTRANCE = "Ahoy me mateys!",
 		SHIPWRECKED_EXIT = "Farewell ye land lubbers!",
+
+		BOOK_BIRDS = "This book means to bewitch the birds!",
+		BOOK_TENTACLES = "I've seen enough o'them ship sinkers to last me lifetime!",
+		BOOK_GARDENING = "Th'dirt's only good fer buryin' me treasure.",
+		BOOK_SLEEP = "It'll put ye into a cursed slumber.",
+		BOOK_BRIMSTONE = "It'll spell me doom, mark me words!",
+		BOOK_METEOR = "Devil magic thet summons demons from th'sky!",
+
+		WATHGRITHRHAT = "'Tis no hat fer this ol'sea dog.",
+		SPEAR_WATHGRITHR = "Aye, it's sharp!",
+
 		SNAKESKINSAIL = "Thet be a sail.",
 		SNAKE_FIRE = "Aye, thet's a foul creature.",
 		SPEAR_LAUNCHER = "Load a spear an'let'er fly!",
@@ -1609,6 +1700,7 @@ return
 		WOODLEGS_KEY3 = "A useless thing if ever there were one.",
 		WRECK = "Rest well, ye weary seafarer.",
 		CALIFORNIAROLL = "Them be fancy fish treats.",
+
 
 	--- 5C DLC ------------------------------------------------------------------------------------------------
 
@@ -1689,14 +1781,1049 @@ return
         TROPICALBOUILLABAISSE = "Tis a'hearty fish soup!",
         
         RESEARCHLAB5 = "Thet b'fer tinkerin' on th'waves!",
-        WATERCHEST1 = "Woodlegs' treasure, buried at sea!",
-        QUACKENDRILL = "Thar b'a drill.",
-        HARPOON = "T'whales cow'r in fear 'fore ol'Woodlegs!",
+        WATERCHEST = "Woodlegs' treasure, buried at sea!",	
+
+		--Porkland
+		PIG_PALACE = "A brigantine o' tha land.",
+		PIGMAN_QUEEN = "Whar be yer treasure?",
+        PIG_SCEPTER = "Thet b'treasure for sure!",
+        PIGCROWNHAT = "Treasure!",
+		RECONSTRUCTION_PROJECT = 
+        {
+            SCAFFOLD = "Repairs be in order.",
+            RUBBLE = "Rubble'n'stone.",
+        },
+		PIG_SHOP_FLORIST = 
+		{
+        	GENERIC = "A house'o'land plants.",
+        	BURNING = "'Tis ablaze!",
+		},
+        PIG_SHOP_GENERAL = 
+        {
+        	GENERIC = "Thar b'no treasure t'be had inside.",
+        	BURNING = "Headed for Davey Jones' Locker!",
+		},
+        PIG_SHOP_HOOFSPA = 
+        {
+        	GENERIC = "Ripe fer th'plunder.",
+        	BURNING = "'tas been scuttl'd!",
+		},
+        PIG_SHOP_PRODUCE = 
+        {
+        	GENERIC = "T'ward off th'scurvy.",
+        	BURNING = "'Tis ablaze!",
+		},
+		PIGMAN_BEAUTICIAN = 
+		{
+			GENERIC = "P'rty swine.",
+			SLEEPING = "A sleepin' p'rty swine.",
+		},
+		PIGMAN_ROYALGUARD = 
+		{
+			GENERIC = "Dare ye ta cross swords wit ol'Woodlegs?",
+			SLEEPING = "Sleepin' scallywag'n swine.",
+		},
+		PIGMAN_COLLECTOR = 
+		{
+			GENERIC = "Full o'tha strange treas're, 'e is!",
+			SLEEPING = "Be'a sleepin' treasure'oardin' swine.",
+		},
+		PIGMAN_MAYOR = 
+		{
+			GENERIC = "Too plump fer'is own good.",
+			SLEEPING = "Sleepin' landlubbin' swine.",
+		},
+		PIGMAN_BANKER = 
+		{
+			GENERIC = "Moneygrubbin' landlubbin' swine.",
+			SLEEPING = "Moneygrubbin' landlubbin' groundnappin' swine.",
+		},
+		PIGMAN_MINER = 
+		{
+			GENERIC = " 'e picks tha treas're o' the ground.",
+			SLEEPING = "Sleepin'sw'ne.",
+		},
+		PIGMAN_MECHANIC = 
+		{
+			GENERIC = "Whut'a snout ye'ave!",
+			SLEEPING = "Sleepin'swine.",
+		},
+		PIGMAN_FARMER = 
+		{
+			GENERIC = "Walkin' sw'ne ye be.",
+			SLEEPING = "A dung haulin' sw'ne.",
+		},
+		PIGMAN_FLORIST = 
+		{
+			GENERIC = "'Tis a swine, fer sure.",
+			SLEEPING = "Sleepin' sweet smellin'sw'ne.",
+		},
+		PIGMAN_STOREOWNER = 
+		{
+			GENERIC = "'e be'a boar!",
+			SLEEPING = "Thet be a sleepin' hornswagglin' swine.",
+		},
+		PIGMAN_ERUDITE = 
+		{
+			GENERIC = "Yer a wizard then?",
+			SLEEPING = "Thet be a sleepin' magicin' swine.",
+		},
+		PIGMAN_HATMAKER = 
+		{
+			GENERIC = "Ye'ave 'ats fer tha piratin'?",
+			SLEEPING = "Sleepin'atted swine.",
+		},
+		PIGMAN_PROFESSOR = 
+		{
+			GENERIC = "Grizzl'd 'un, ain't ye.",
+			SLEEPING = "Sleepin' rusty swine.",
+		},
+		PIGMAN_HUNTER =
+		{
+			GENERIC = "'as tha look'o' a swashbuckl'r.",
+			SLEEPING = "Sleepin' swashbucklin' swine.",
+		},
+		PIG_SHOP_ARCANE = 
+        {
+        	GENERIC = "Thar be magic in that there store.",
+        	BURNING = "'Tis ablaze!",
+        },
+        PIG_SHOP_WEAPONS = 
+        {
+        	GENERIC = "I be'in need o'tha piratin' gear.",
+        	BURNING = "T'were not me!",
+        },
+        PIG_SHOP_HATSHOP = 
+        {
+        	GENERIC = "Already gotme 'at!",
+        	BURNING = "Arr, 'tis'a shame.",
+        },
+        PIG_SHOP_ACADEMY = 
+        {
+        	GENERIC = "Full o'tha 'oary plunder.",
+        	BURNING = "Blazes! 'Tis ablaze!",
+        },
+        TREE_PILLAR = "Vessel i'th'makin'.",
+        PIGHOUSE_CITY = 
+        {
+        	GENERIC = "Boathouse'o'th'land.",
+        	BURNING = "A flamin' abode!",
+		},
+        PIGHOUSE_MINE = 
+        {
+        	GENERIC = "Them b'th'mines.",
+        	BURNING = "Avast! 'Tis afire!",
+		},
+        PIGHOUSE_FARM = 
+        {
+        	GENERIC = "'Tis th'home o'a landlubber.",
+        	BURNING = "Not long fer'tha world!",
+		},
+        PIG_GUARD_TOWER = 
+        {
+        	GENERIC = "Thems tha lookout.",
+        	BURNING = "Yo ho ho! It'be done fer!",
+		},        
+        CITY_LAMP = 
+        {
+        	GENERIC = "Sanctuary!",
+        	ON = "A landlamp.", --off
+    	},
+        DUNGBEETLE = 
+        {
+        	GENERIC = "Cre'ture o' tha dung.",
+        	UNDUNGED = "Th'foul stench follows ye.",
+        	SLEEPING = "Too much o' the grog?",
+        	DEAD = "'tas been run through!",
+        },
+        DUNGBALL = "Throw it o'erboard!",
+        DUNGPILE = 
+        {
+        	GENERIC = "Foul.",
+        	PICKED = "Argh! Sweet seawat'r could'na cleanse me now.",
+        },
+        PIGEON =
+        {
+        	GENERIC = "Be'a gulls o'th' land.",
+        	SLEEPING = "Grabbin' shuteye.",
+        	DEAD = "Tells no tales.",
+        },
+        SPIDER_MONKEY =
+        {
+        	GENERIC = "Man th'cannons!",
+        	SLEEPING = "Arg! Cleav'im while ya got th' chance!",
+        	DEAD = "Shark bait now.",
+        },
+        SPIDER_MONKEY_TREE = "Be'fulla tha beasties.",
+        SPIDER_MONKEY_NEST = "Whut slumbers wit'in?",
+        TOPIARY = "Whut strange manner'o'tree b'this?",
+        LAWNORNAMENT = 
+        {
+        	GENERIC = "Ol'Woodlegs prefers a touch'o'gold.",
+        	BURNING = "Ablaze!",
+        	BURNT = "Tha hull be burnt'out.",
+        },
+        HEDGE = 
+        {
+        	GENERIC = "'Tis th'way o'th'land.",
+        	SHAVEABLE = "Could do wit'a shave.",
+        	BURNING = "Avast! Man tha pumps!",
+        	BURNT = "Been pillag'd!",
+        },
+        RAINFORESTTREE = 
+        {
+        	GENERIC = "'Tis a land mast.",
+        	CHOPPED = "Cleav'd i'twain.",
+        	BURNING = "'Tis aflame!",
+        	BURNT = "A touch o' the scurvy.",
+        },
+        FLOWER_RAINFOREST = "Ol'Woodlegs na'got use fer'it.",
+        HALBERD = "T'ain't no cutlass.",
+        CHICKEN =
+        {
+        	GENERIC = "Yer a tiny bird.",
+        	SLEEPING = "Be grabbin' shuteye.",
+        	DEAD = "Walk'd tha'plank.",
+        },
+        GRASS_TALL = 
+        {
+        	GENERIC = "As tall'as th'sky.",
+        	PICKED = "Plunder'd.",
+        	BURNING = "'Tis ablaze!",
+        },
+        GLOWFLY =
+        {
+        	GENERIC = "A fly'o'glow!",        	
+        	SLEEPING = "Becalm'd.",
+        	DEAD = "Tells no tales.",
+        },
+        GLOWFLY_COCOON = "'e be sleepin' it off.",
+        CHITIN = "A harden'd hull.",
+        HANGING_VINE = "Them be th'ropes.",
+        GRABBING_VINE = "Them be th'ropes.",
+        VENUS_STALK = "A plant skelerton.",
+        WALKINGSTICK = "Moor legs mean moor walkin'.",
+        ADULT_FLYTRAP = 
+        {
+        	GENERIC = "Yer in fer it now.",
+        	SLEEPING = "Thar sails b'furled.",
+        	DEAD = "Danc'd tha hemp'n jig.",
+        },
+        MEAN_FLYTRAP = 
+        {
+        	GENERIC = "'Tis a land shark!",
+        	SLEEPING = "Thar sails be furled.",
+        	DEAD = "Belay'd of life.",
+        },
+        SNAPDRAGON = 
+        {
+        	GENERIC = "Pr'pare t'be board'd, landlubb'r!",
+        	SLEEPING = "Hang 'em from the yardarm!",
+        	DEAD = "Its hatches 'avebeen batten'd.",
+        },
+        LILYPAD = "A leaf aft'r me own heart.",
+
+        ZEB =
+        {
+        	GENERIC = "A seahorse'o'th'land.",
+        	SLEEPING = "Takin' tha caulk.",
+        	DEAD = "Been scuttl'd.",
+        },
+        SCORPION =
+        {
+        	GENERIC = "A terible foe t'be sure.",
+        	SLEEPING = "Keelhaul tha'beast, while ye can!",
+        	DEAD = "Aye! 'Tis defeated!",
+        },
+
+        PEAGAWK =
+        {
+        	GENERIC = "Arr, them eyes need patches!",
+        	SLEEPING = "She be grabbin' some shuteye.",
+        	DEAD = "It tells no tales.",
+        },
+        PEEKHEN = 
+        {
+        	GENERIC = "Aye. A pr'tty fowl lass.", 
+        	SLEEPING = "Snorin' up a storm.",
+        	DEAD = "Fish feed now!",
+        }, 
+        PEAGAWKFEATHERHAT = "T'ain't no pirate's hat.",
+        PEAGAWK_BUSH = "'Tis unsettlin' t'b'sure.",
+        PEAGAWKFEATHER = "Feather'o'glimmer.",
+        PEAGAWKFEATHER_PRISM = "Prism'o'feather.",
+
+        ANTMAN =
+        {
+        	GENERIC = "Whut mann'r o'beast be ye?",
+        	SLEEPING = "Keelhaul tha beast!",
+        	DEAD = "Its 'atches 'ave been battened.",
+        },
+        ANTHILL = "'Tis no mole hill.",
+        ANTMASKHAT = "T'mask yer ugly mug.",
+        ANTSUIT = "'Tis an unpleasant bus'niss.",
+        
+        PHEROMONESTONE = "Be a stone'o'tongues.",
+        PIKO =
+        {
+        	GENERIC = "Thievin' scoundr'l.",
+        	SLEEPING = "Grabbin' some shuteye.",
+        	DEAD = "Tells no tales.",
+        },
+        
+        RELIC_1 = "Long fergott'n treas're.",
+        RELIC_2 = "'oary treas're!",
+        RELIC_3 = "Treasure b'this!",
+        RELIC_4 = "A queenly tre'sure.",
+     	RELIC_5 = "t'be worth more than'a pretty penny.",
+        REEDS_WATER = "Sticks aft'r me'own 'eart.",
+        LOTUS = "It be a big pink flow'r.",
+		LOTUS_FLOWER = "Tis a flow'r'o'th'land.",
+        LOTUS_FLOWER_COOKED = "It b'cooked.",
+
+        VAMPIREBAT =
+        {
+        	GENERIC = "'Tis a wretch'd bloodsucker.",
+        	SLEEPING = "'Tha scurvy dog be defenceless.",
+        	DEAD = "Avast ye! The bilge-sucker's been cleaved.",
+        },
+        VAMPIREBATCAVE = "Inta th'depths wit'ye.",
+
+        FROGLEGS_POISON = "Best b'careful eatin' thet!",
+        FROGLEGS_POISON_COOKED = "Na'a prop'r meal.",
+		FROG_POISON = 
+		{
+        	GENERIC = "Scallywag of o' tha land!",
+        	SLEEPING = "Maroon tha' beastie!",
+        	DEAD = "Walk'd tha plank.",
+        },
+
+        PIG_RUINS_ENTRANCE = 
+        {
+        	GENERIC = "Unholy depths.",
+        	LOCKED = "Arrggh! Let Ol' Woodlegs in!",
+        },
+        PIG_COIN = "Arrr! A doubloon o'tha pigs!",
+        PIG_RUINS_EXIT = "Th'way be clear.",
+        PIG_RUINS_TORCH_WALL = "A port fer fire.",
+        PIG_RUINS_TORCH = "A port fer fire.",
+        PIG_RUINS_HEAD = "Thar be th'head.",
+        PIG_RUINS_ARTICHOKE = "Thar be treas're in't.",
+
+        OINC = "Pieces o' Eight!",
+        OINC10 = "Thet b'gold!!",
+        OINC100 = "'tis a small tre'sure!",
+
+        RABID_BEETLE = 
+		{
+        	GENERIC = "Ornery buggie.",
+        	SLEEPING = "Thar she blows!",
+        	DEAD = "Aye, 'tis fer'tha best.",
+        },
+		PARROT_BLUE =
+		{
+        	GENERIC = "Blue as th'sea.",
+        	SLEEPING = "'Tis just restin'",
+        	DEAD = "Thar be an ex-parrot.",
+        },
+		KINGFISHER = 
+		{
+        	GENERIC = "Ye live off'th'ocean too?",
+        	SLEEPING = "'Tis not on watch.",
+        	DEAD = "Met Davey Jones.",
+        },
+		
+        BURR = "Sticks t'yer pegs.",   
+        BURR_SAPLING = "Legs'n th'makin'.",
+        {
+			BURNING = "Tis aflame!",
+			WITHERED = "Ground'd.",
+			GENERIC = "T'be a sturdy plant.",
+			PICKED = "Looted! Avast!",
+		},        	
+
+        PIG_LATIN_1 = "Calls for a flame!", -- light fires in pig latin
+
+		DECO_RUINS_BEAM_ROOM ="Fine mast fer'a room.",
+		DECO_CAVE_BEAM_ROOM = "Fine mast fer'a room.",
+        DECO_CAVE_BAT_BURROW = "Arr. Tha flyin' devils be within ye.",
+        DECO_RUINS_BEAM_ROOM_BLUE = "Fine mast fer'a room.",        		
+
+        SMASHINGPOT = "Due fer'a smashin'.",
+
+        HIPPOPOTAMOOSE ="Avast! 'Tis a land Kracken!",
+		PIGGHOST = "I've faced worse than ye!",        
+
+        ANTCOMBHOME = "Thar buggie beasties reside within.",        
+        SECURITYCONTRACT = "Articles fer a guard o' my own.",
+        
+        PLAYERHOUSE_CITY = {
+        	BURNT = "Avast ye! 'Tis afire!",
+        	FORSALE = "A main deck fer'tha land.",
+        	SOLD = "Ol' Woodlegs prefers tha'seas."
+        },
+
+        JELLYBUG = "Avast ye, jumpin' beans!",
+        JELLYBUG_COOKED = "Tha virtue o'this meat be dubious.",
+        SLUGBUG = "A land eel.",
+        SLUGBUG_COOKED = "Rather eat me hat.",
+
+        PLAYER_HOUSE_COTTAGE_CRAFT = "I've built m'own ship. I ken handle this.",
+        PLAYER_HOUSE_VILLA_CRAFT = "Argh. I'll put me ship buildin' skills t'work.",           
+		PLAYER_HOUSE_TUDOR_CRAFT = "I miss m'crew fer tha hard labor jobs.",
+        PLAYER_HOUSE_GOTHIC_CRAFT = "These ol' bones could still build s'methin'.",           
+		PLAYER_HOUSE_TURRET_CRAFT = "Stone be not good fer buildin'a ship.",
+        PLAYER_HOUSE_BRICK_CRAFT = "Bricks be not good fer buildin'a ship.",
+		PLAYER_HOUSE_MANOR_CRAFT = "Like buildin'a brigantine.",        
+
+        CLIPPINGS = "A bit o' plant bilge.",
+
+        CUTNETTLE = "Cleans tha' nose as good as sea air.",
+
+        NETTLE = {
+        	WITHERED = "Na'tha right dirt fer'it.",
+        	MOIST = "Water be doin'it good.",
+        	EMPTY = "Pillag'd.",
+        	DEFAULT = "Arrr. Tis a strong smell!",
+        },        	
+         DECO_RUINS_FOUNTAIN = "Shall I throw m'luck to th'wind?",
+
+        PUGALISK = "'Tis a land Leviathan!",        
+        SNAKE_BONE = "A treasure o'tha snake.", 
+        SNAKEBONESOUP = "A hearty brew, t'be sure.", 
+
+        BANDITMAP = "Arrgh! 'Tis treasure!", 
+        BANDITTREASURE = "Let's get'ta diggin'!", 
+
+        BLUNDERBUSS = "It be a hand cannon.", 
+
+        PUGALISK_FOUNTAIN = "Argh! 'Tis but a tiny sea.", 
+        PUGALISK_RUINS_PILLAR = "Steady as a ship inna storm.", 
+        PUGALISK_TRAP_DOOR = "That be'a strange sight.",  
+
+        TEA = "Ah, a fine brew.",      
+        TEATREE = "'Tis a growin' ship mast.",    
+        TEATREE_SAPLING = "'e'll be a fine one.",    
+        TEATREE_NUT = "A botan'cal barber-surgeon.",    
+
+        WALL_PIG_RUINS = "A wall.", 
+
+        PIG_RUINS_DART_TRAP = "Aye. 'tis a trap.", 
+        PIG_RUINS_SPEAR_TRAP = "Don't like tha looks o'those.", 
+        PIG_RUINS_SPEAR_TRAP_TRIGGERED = "Tha trap's been sprung!", 
+        PIG_RUINS_SPEAR_TRAP_BROKEN = "It's been run through!", 
+        PIG_RUINS_PRESSURE_PLATE = "Ol' Woodlegs' got me s'spicions...",
+        PIG_RUINS_DART_STATUE = "I'll be keepin' me eye on ye!",                                           
+        
+        DISARMING_KIT = "Now Woodlegs' got'tha upp'r hand!", 
+
+        BALLPEIN_HAMMER = "Fer diggin' treasures from'tha artifacts.",
+
+        GOLD_DUST = "Aye! 'Tis treasure dust!",
+
+        ALOE = "Thar be gooey treasure with'n.", 
+        ALOE_COOKED = "'Tis treasu're fer me belly.", 
+        ALOE_PLANTED = "Land seaweed.",
+
+        ASPARAGUS = "Lil' vegetable masts.", 
+        ASPARAGUS_COOKED = "It fills Woodlegs' belly.", 
+        ASPARAGUS_PLANTED = "Tiny masts growin' from the ground.", 
+
+        RADISH = "Fer keepin' off tha scurvy.", 
+        RADISH_COOKED = "A veg'table brew.",
+        RADISH_PLANTED = "Arrgh. Litt'le buried treasures.", 
+
+        SNAKE_AMPHIBIOUS = "'Tis a land and sea serpent.",
+
+        GASMASKHAT = "Cuts down onna coughin'.",
+        PITHHAT = "Tougher than me pirate hat.", 
+        
+        BILL = 
+        {
+            GENERIC = "A cannonball o' fur.",
+            SLEEPING = "Arrgh. It's takin' tha caulk.",
+            DEAD = "It's been run through.",
+        },
+        
+        ROCK_ANTCAVE = "A pointy mizz'nmast.",
+        ANT_CAVE_LANTERN = "'Tis a sweet lantern.",
+        PROP_DOOR = "Thar'be adventure down thar.",
+
+        PIKO_ORANGE = "Aye, 'tis a useful brood.",
+
+        TURF_PIGRUINS = "Me ain't no ground lubber.",
+        TURF_RAINFOREST = "Me ain't no ground lubber.",
+        TURF_DEEPRAINFOREST = "Me ain't no ground lubber.",
+        TURF_LAWN = "Me ain't no ground lubber.",
+        TURF_GASJUNGLE = "Me ain't no ground lubber.",
+        TURF_MOSS = "Me ain't no ground lubber.",
+        TURF_FIELDS = "Me ain't no ground lubber.",
+        TURF_FOUNDATION = "Me ain't no ground lubber.",
+        TURF_COBBLEROAD = "Me ain't no ground lubber.",
+
+        MANDRAKEMAN = "I'll run ye through!",
+        MANDRAKEHOUSE = "They live b'low decks.",
+
+         -- HOME DECO ITEMS
+        INTERIOR_FLOOR_MARBLE = "'tis decking fer a house.",
+        INTERIOR_FLOOR_CHECK = "'tis decking fer a house.",
+        INTERIOR_FLOOR_PLAID_TILE = "'tis decking fer a house.",
+        INTERIOR_FLOOR_SHEET_METAL = "'tis decking fer a house.",
+        INTERIOR_FLOOR_WOOD = "'tis decking fer a house.",
+        INTERIOR_FLOOR_GARDENSTONE = "'tis decking fer outside, but 'tis inside.",        
+        INTERIOR_FLOOR_GEOMETRICTILES = "'tis decking fer a house.",
+        INTERIOR_FLOOR_SHAG_CARPET = "Arr, 'tis soft on ol' Woodlegs pegs.",
+        INTERIOR_FLOOR_TRANSITIONAL = "Thar be much werk t'be done.",
+        INTERIOR_FLOOR_WOODPANELS = "'tis decking fer a house.",
+        INTERIOR_FLOOR_HERRINGBONE = "'tis decking fer a house.",
+        INTERIOR_FLOOR_HEXAGON = "'tis decking fer a house.",
+        INTERIOR_FLOOR_HOOF_CURVY = "'tis decking o' piggie 'ouse.",
+        INTERIOR_FLOOR_OCTAGON = "'tis decking fer a house.",
+
+        INTERIOR_WALL_WOOD = "'tis a bulk'ead fer'a house.",
+        INTERIOR_WALL_CHECKERED = "'tis a bulk'ead fer'a house.",
+        INTERIOR_WALL_FLORAL = "Fancy bulk'ead fer'a house.",
+        INTERIOR_WALL_SUNFLOWER = "'Tis a bulk'ead fer'a house.",
+        INTERIOR_WALL_HARLEQUIN = "Fancy bulk'ead fer'a house.",
+        INTERIOR_WALL_PEAGAWK = "Fancy bulk'ead fer'a house.",
+        INTERIOR_WALL_PLAIN_DS = "'tis a bulk'ead fer'a house.",
+        INTERIOR_WALL_PLAIN_ROG = "'tis a bulk'ead fer'a house.",
+        INTERIOR_WALL_ROPE = "Ol' Woodlegs feel at 'ome here.",
+        INTERIOR_WALL_CIRCLES = "Fancy bulk'ead fer'a house.",
+        INTERIOR_WALL_MARBLE = "Fancy bulk'ead fer'a house.",
+        INTERIOR_WALL_MAYORSOFFICE = "Fancy bulk'ead fer'a house.",
+        INTERIOR_WALL_FULLWALL_MOULDING = "Fancy bulk'ead fer'a house.",
+        INTERIOR_WALL_UPHOLSTERED = "Fancy bulk'ead fer'a house.",   
+
+        DECO_CHAIR_CLASSIC = "Captain's chair fer'a house.",
+        DECO_CHAIR_CORNER = "A poor captain's chair.",
+        DECO_CHAIR_BENCH = "Thar's room inn'at chair fer two captains.",
+        DECO_CHAIR_HORNED = "A captain's chair fer'a house.",
+        DECO_CHAIR_FOOTREST = "A poor captain's chair.",
+        DECO_CHAIR_LOUNGE = "A captain's chair fer'a house.",
+        DECO_CHAIR_MASSAGER = "A captain's chair fer Davey Jones.",
+        DECO_CHAIR_STUFFED = "A poor captain's chair.",
+        DECO_CHAIR_ROCKING = "A poor captain's chair.",
+        DECO_CHAIR_OTTOMAN = "A poor captain's chair.",
+
+        DECO_LAMP_FRINGE = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_STAINGLASS = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_DOWNBRIDGE = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_2EMBROIDERED = "'Tis two f'ncy house lanterns.",
+        DECO_LAMP_CERAMIC = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_GLASS = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_2FRINGES = "'Tis two f'ncy house lanterns.",
+        DECO_LAMP_CANDELABRA = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_ELIZABETHAN = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_GOTHIC = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_ORB = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_BELLSHADE = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_CRYSTALS = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_UPTURN = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_2UPTURNS = "'Tis two f'ncy house lanterns.",
+        DECO_LAMP_SPOOL = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_EDISON = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_ADJUSTABLE = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_RIGHTANGLES = "'Tis a f'ncy house lantern.",
+        DECO_LAMP_HOOFSPA = "'Tis a f'ncy house lantern.",
+
+        DECO_CHAISE = "It be a captain's chair fer two.",
+
+        DECO_PLANTHOLDER_BASIC = "'Tis nature's booty.",
+        DECO_PLANTHOLDER_WIP = "Still got some riggin'.",
+        DECO_PLANTHOLDER_FANCY = "'Tis nature's booty.",
+        DECO_PLANTHOLDER_BONSAI = "Thar be a tiny mast.",
+        DECO_PLANTHOLDER_DISHGARDEN = "'Tis nature's booty.",
+        DECO_PLANTHOLDER_PHILODENDRON = "'Tis nature's booty.",
+        DECO_PLANTHOLDER_ORCHID = "'Tis prettier than me f'gurehead.",
+        DECO_PLANTHOLDER_DRACEANA = "'Tis nature's booty.",
+        DECO_PLANTHOLDER_XEROGRAPHICA = "Hangin' land seaweed.",
+        DECO_PLANTHOLDER_BIRDCAGE = "Hangin' land seaweed.",
+        DECO_PLANTHOLDER_PALM = "Land seaweed.",
+        DECO_PLANTHOLDER_ZZ = "'Tis nature's booty.",
+        DECO_PLANTHOLDER_FERNSTAND = "Land seaweed.",
+        DECO_PLANTHOLDER_FERN = "Land seaweed.",
+        DECO_PLANTHOLDER_TERRARIUM = "'Tis a pen fer nature's booty.",
+        DECO_PLANTHOLDER_PLANTPET = "'Tis so slow, moss be growin' on it.",
+        DECO_PLANTHOLDER_TRAPS = "Tiny land sharks.",
+        DECO_PLANTHOLDER_PITCHERS = "'Tis nature's booty.",
+        DECO_PLANTHOLDER_MARBLE = "'Tis nature's booty.",
+
+        DECO_PLANTHOLDER_WINTERFEASTTREEOFSADNESS = "'tas seen better days.",  
+        DECO_PLANTHOLDER_WINTERFEASTTREE = "'tis a festive time o' tha year.",
+
+        DECO_TABLE_ROUND = "'Tis a chart table.",
+        DECO_TABLE_BANKER = "'Tis a chart table.",
+        DECO_TABLE_DIY = "'Tis a chart table.",
+        DECO_TABLE_RAW = "'Tis not seaw'rthy.",
+        DECO_TABLE_CRATE = "'Tis not seaw'rthy.",
+        DECO_TABLE_CHESS = "'Tis a chart table. Fer chessmen.",
+
+        DECO_ANTIQUITIES_WALLFISH = "A monument to'tha sea.",        
+        DECO_ANTIQUITIES_BEEFALO = "Aye. Been run through.",
+        DECO_WALLORNAMENT_PHOTO = "Argh! Who's this bilge rat?",
+        DECO_WALLORNAMENT_FULLLENGTH_MIRROR = "Ol' Woodlegs cuts a fine figure.",
+        DECO_WALLORNAMENT_EMBROIDERY_HOOP = "Aye. Me home is'tha sea.",
+        DECO_WALLORNAMENT_MOSAIC = "Color'd beach pebbles.",
+        DECO_WALLORNAMENT_WREATH = "A life preserver.",
+        DECO_WALLORNAMENT_AXE = "Could use one o' those.",
+        DECO_WALLORNAMENT_HUNT = "'Tis 'arpoons.",
+        DECO_WALLORNAMENT_PERIODIC_TABLE = "A flag o' some sort.",
+        DECO_WALLORNAMENT_GEARS_ART = "Some sort o' block an'tackle.",
+        DECO_WALLORNAMENT_CAPE = "Fine cloth.",
+        DECO_WALLORNAMENT_NO_SMOKING = "Woodlegs don't care fer rules.",
+        DECO_WALLORNAMENT_BLACK_CAT = "Cats keep tha rats at bay.",
+
+        WINDOW_ROUND_CURTAINS_NAILS = "Tha gun ports.",
+        WINDOW_ROUND_BURLAP = "Scuppers fer the house.",
+        WINDOW_SMALL_PEAKED = "Tha gun ports.",
+        WINDOW_LARGE_SQUARE = "A porthole.",
+        WINDOW_TALL = "Scuppers fer tha house.",
+        WINDOW_LARGE_SQUARE_CURTAIN = "The gun ports.",
+        WINDOW_TALL_CURTAIN = "A porthole.",
+        WINDOW_SMALL_PEAKED_CURTAIN = "A porthole.",
+        WINDOW_GREENHOUSE = "'tis a grand porthole!",
+        WINDOW_ROUND = "'tbe a sturdy porthole!",
+
+        DECO_WOOD_CORNERBEAM = "Thar's a fine mizzenmast.",
+        DECO_MARBLE_CORNERBEAM = "Thar's a fine mizzenmast.",
+        DECO_WOOD       = "Thar's a fine mizzenmast.",
+        DECO_MILLINERY  = "Thar's a fine mizzenmast.",
+        DECO_ROUND      = "Thar's a fine mizzenmast.",
+        DECO_MARBLE     = "Thar's a fine mizzenmast.",
+
+        SWINGING_LIGHT_BASIC_BULB = "Barebones lantern.",
+        SWINGING_LIGHT_FLORAL_BLOOMER = "F'ncy pants lantern.",
+        SWINGING_LIGHT_CHANDALIER_CANDLES = "Tiny torches.",
+        SWINGING_LIGHT_ROPE_1 = "'Tis a barebones lantern'.",
+        SWINGING_LIGHT_ROPE_2 = "'Tis a barebones lantern.",
+        SWINGING_LIGHT_FLORAL_BULB = "F'ncy pants lantern.",
+        SWINGING_LIGHT_PENDANT_CHERRIES = "F'ncy pants lantern.",
+        SWINGING_LIGHT_FLORAL_SCALLOP = "F'ncy pants lantern.",
+        SWINGING_LIGHT_FLORAL_BLOOMER = "F'ncy pants lantern.",
+        SWINGING_LIGHT_BASIC_METAL = "'Tis a barebones lantern.",
+        SWINGING_LIGHT_TOPHAT = "Arrgh. Me pirate 'at be better'an that.",
+        SWINGING_LIGHT_DERBY = "Arrgh. Me pirate 'at be better'an that.",
+        SWINGING_LIGHT1 = "F'ncy pants lantern.",
+
+        RUG_ROUND = "'Tis a strange sail what lays on'na deck.",
+        RUG_SQUARE = "'Tis a strange sail what lays on'na deck.",
+        RUG_OVAL = "'Tis a strange sail what lays on'na deck.",
+        RUG_RECTANGLE = "'Tis a strange sail what lays on'na deck.",
+        RUG_FUR = "Aye. It's been run through.",
+        RUG_HEDGEHOG = "'Tis a strange sail what lays on'na deck.",
+        RUG_PORCUPUSS = "Aye. It's been run through.",
+        RUG_HOOFPRINT = "'Tis a strange sail what lays on'na deck.",
+        RUG_OCTAGON = "'Tis a strange sail what lays on'na deck.",
+        RUG_SWIRL = "'Tis a strange sail what lays on'na deck.",
+        RUG_CATCOON = "Aye. It's been run through.",
+        RUG_RUBBERMAT = "A fine rug fer th'ships.",
+        RUG_WEB = "'Tis a rug from th'spider web.",
+        RUG_METAL = "'Tis too slippery fer'a ship.",
+        RUG_WORMHOLE = "Be it safe to step on?",
+        RUG_BRAID = "'Tis made from the hemp rope.",
+        RUG_BEARD = "Aye. Must've been a fine beard.",
+        RUG_NAILBED = "'Twould make fine grapeshot.",
+        RUG_CRIME = "Argh. He's been run through.",
+        RUG_TILES = "'Tis a strange sail what lays on the deck.",
+
+        SHELVES_WOOD = "Fer the keepin' of me booty.",
+        SHELVES_CINDERBLOCKS = "In need o' repairs.",
+        SHELVES_MARBLE = "Fer the keepin' of me booty.",
+        SHELVES_MIDCENTURY = "Fer the keepin' of me booty.",
+        SHELVES_GLASS = "Fer the keepin' of me booty.",
+        SHELVES_LADDER = "Fer the keepin' of me booty.",
+        SHELVES_HUTCH = "Fer the keepin' of me booty.",
+        SHELVES_INDUSTRIAL = "Fer the keepin' of me booty.",
+        SHELVES_ADJUSTABLE = "Fer the keepin' of me booty.",
+        SHELVES_WALLMOUNT = "Fer the keepin' of me booty.",
+        SHELVES_AFRAME = "Fer the keepin' of me booty.",
+        SHELVES_CRATES = "In need o' repairs.",
+        SHELVES_FRIDGE = "'Tis no shelf that I've ever seen.",
+        SHELVES_HOOKS = "Fer the keepin' of me booty.",
+        SHELVES_PIPE = "Fer the keepin' of me booty.",
+        SHELVES_HATTREE = "Fer the keepin' of me hats.",
+        SHELVES_PALLET = "In need o' repairs.",
+        SHELVES_BASIC = "Fer th'keepin' o' me booty.",
+        SHELVES_FLOATING = "Fer th'keepin' o' me booty.",
+		SHELVES_METAL = "A sturdy port fer me booty.",        
+
+        WOOD_DOOR = "Woodlegs' acquired another poop deck. ",
+		STONE_DOOR = "Heavier than m'anchor.",
+		ORGANIC_DOOR = "That way lays a'cabin.",
+		IRON_DOOR = "That way lays a'cabin.",
+		PILLAR_DOOR = "Thar's gold in thar!",
+		CURTAIN_DOOR = "Woodlegs' acquired another poop deck.",
+		ROUND_DOOR = "Ah, she'll eat ol' Woodlegs clean up.",
+		PLATE_DOOR = "Has tha look o'tha iron sail to 'er.",
+
+        ROCK_FLIPPABLE = "Plenty o'booty t'be found under a rock.",
+
+        PLAYER_HOUSE_COTTAGE = "I've built m'own ship. I ken handle this.",
+        PLAYER_HOUSE_VILLA = "Argh. I'll put me shipbuildin' skills t'work.",  
+        PLAYER_HOUSE_TUDOR = "I miss m'crew fer tha hard labor jobs.",
+        PLAYER_HOUSE_MANOR = "Like buildin'a brigantine.",                
+        PLAYER_HOUSE_GOTHIC = "These ol' bones could still build.",                
+        PLAYER_HOUSE_BRICK = "Bricks be not good fer buildin'a ship.",   
+        PLAYER_HOUSE_TURRET = "Stone be not good fer buildin'a ship.",
+
+        BRAMBLESPIKE = "Argh! A mast with shark's teeth.",
+
+        SUNKEN_RELIC = "Aye! Sunk'n treasure.",  
+
+        IRON = "'Tis not gold, but a treasure nonetheless.",
+        
+        CLAWPALMTREE = "Strange wood b'within.",     
+        DUG_NETTLE = "Be needin' some land.",
+
+        THUNDERBIRD = "Ye'll not b'shockin' me.",
+        THUNDERBIRDNEST = "'Tis nature's treasure chest.",
+        FEATHER_THUNDER = "Argh! Found'a treasure!",
+        THUNDERHAT = "Not me piratin' 'at, but I'll take it.",
+
+        WEEVOLE = "'ave at ye landlubbers!",
+        WEEVOLE_CARAPACE = "Longcoat made o' them pesky bugs.",
+        ARMOR_WEEVOLE = "Aye. Finery made o' bug skin.",
+        
+        TUBERTREE = "'Tis too hardy fer an axe.",
+        CORK = "Barely seaworthy.",
+
+        CANDLEHAT = "A fine hat fer lootin' temples.",
+        CORK_BAT = "Lighter than a belayin' pin.",
+
+        LEATHER = "Stronger than sailcloth.",
+        BAT_HIDE = "Woodlegs don't care what ye call it.",
+
+        ANCIENT_ROBOT_RIBS = "'Tis an iron leviathan.",
+        ANCIENT_ROBOT_CLAW = "I've no need fer a'extra hand.",
+        ANCIENT_ROBOT_LEG = "Arrg! I could use tha' leg!",    
+        ANCIENT_ROBOT_HEAD = "I'll hang tha' head from me bowsprit.",
+
+        TEATREE_NUT_COOKED = "Grub.",
+
+        DEED = "Only a deed to a 'ouse, not a ship.",
+        CONSTRUCTION_PERMIT = "Fer buildin' on ta me land ship.",
+        DEMOLITION_PERMIT = "Me rooms be headin' fer a careenin'.",
+
+		CLAWPALMTREE_SAPLING = "Too small fer a mast.",
+
+        BANDITHAT = "'Tis a sneaky 'at.",
+        PIGBANDIT = "Argh! Stay away from me gold!",
+
+        PIG_RUINS_CREEPING_VINES = "Thar be sneaky tree riggin'.",
+
+        MAGNIFYING_GLASS = "'Tis a spyglass o' tha land.",
+
+        CORKCHEST = "'Tis fer keepin' the pests a'bay.",
+        CORKBOAT = "It be'a poorly ship.",
+
+        SEDIMENTPUDDLE = "Alas, not big enough to sail in.",
+        GOLDPAN = "Fer fishin' fer gold.",
+
+        PORKLAND_ENTRANCE = "Fer sailin' the skies.",
+        PORKLAND_EXIT = "'Tis not a boat, but ye c'n sail it.",
+
+        POG = 
+        {
+        	GENERIC ="Scurvy dog.",
+        	FOLLOWER = "B'gone y'scurvy dog!",
+        	SLEEPING = "Thet b'nice.",
+        	APORKALYPSE = "Have at ye!",
+        },
+
+        PANGOLDEN = "Eatin' up all tha treasure!",
+
+        ROC_LEG = "A great movin'mast.",
+        ROC_HEAD = "A livin'ship wit' three heads!",
+        ROC_TAIL = "Them feathers'd make fer good sails.",
+
+        GNATMOUND = "Barnacle's o'tha land.",
+        GNAT = "Flyin' minnows.",
+        
+        PORKLAND_INTRO = "Woodlegs liked tha other guy better.",
+
+        ROC_NEST_TREE1 = "A land mast.",
+        ROC_NEST_TREE2 = "A land mast far from home.",
+        ROC_NEST_BUSH = "Has no berries to speak of.",
+        ROC_NEST_BRANCH1 = "Too old fer'a mast.",
+        ROC_NEST_BRANCH2 = "'Tis good fer nothin'.",
+        ROC_NEST_TRUNK = "Have ta careen this nest t'fix it.",
+        ROC_NEST_HOUSE = "Captain's cabin.",
+        ROC_NEST_RUSTY_LAMP = "It's been run through!",
+
+        ROC_NEST_EGG1 = "Been run aground!",
+        ROC_NEST_EGG2 = "Been run through!",
+        ROC_NEST_EGG3 = "Been keel'auled!",
+        ROC_NEST_EGG4 = "Been marooned!",
+
+        ROC_ROBIN_EGG = "'Tis treasure within!",
+
+        TUBER_CROP = "Give ya a bout of scurvy that.",
+        TUBER_BLOOM_CROP = "What can I make o' ye?",
+        TUBER_CROP_COOKED = "Not m'usual grub.",
+        TUBER_BLOOM_CROP_COOKED = "A fine meal fer a fine fellow.",
+
+        ALLOY = "Ahoy, alloy!",
+
+        ARMOR_METALPLATE = "Not good fer swimmin' in.",
+        METALPLATEHAT = "Prefer me captain's hat.",
+
+        SMELTER = "A cannon fer makin' metals.",
+
+        BUGREPELLENT = "A land cannon fer th' wee buggies.",
+        
+        HOGUSPORKUSATOR = "Thars a funny little pig.",
+
+        GASCLOUD = "An ill wind.",
+
+        SHEARS = "A cutlass fer tha'bushes.",
+    	BATHAT = "Has the look o' tha' flyin' beasties.",
+    	
+    	WATERDROP = "'Tis only a wee bit o' water.",
+
+    	LIFEPLANT = "Grew from a drop o' water.",
+
+    	TRINKET_GIFTSHOP_1 = "Avast ye!",
+    	TRINKET_GIFTSHOP_3 = "Woodlegs wish he wer'nt here.",        
+
+    	KEY_TO_CITY = "Woodlegs be tha'Admiral fer this town.",
+
+    	PEDESTAL_KEY = "Argh! 'Tis fer tha'treasure?",
+
+	    ROYAL_GALLERY = "A treasure!",
+
+    	APORKALYPSE_CLOCK = "Tha time be nigh!",
+    	ANCIENT_HERALD = "Scallywag, if'n Woodlegs e'er seen one.",
+
+    	ASPARAGUSSOUP = "Watery grass.",
+    	SPICYVEGSTINGER = "Has the kick to't.",
+    	FEIJOADA = "Thar beans be jumpin' no more.",
+    	HARDSHELL_TACOS = "Full o' tha crunch.",
+    	GUMMY_CAKE = "More chewy than'a week ol' shark fin.",
+    	STEAMEDHAMSANDWICH = "'Tis a'unforgettable luncheon.",
+		MEATED_NETTLE = "A bite o' meat to go with th'nose clearin'!",
+
+    	ROC_NEST_DEBRIS1 = "A stick.",
+    	ROC_NEST_DEBRIS2 = "It be'a stick.",
+    	ROC_NEST_DEBRIS3 = "There be'a stick.",
+    	ROC_NEST_DEBRIS4 = "A stick, t'be sure.",
+
+    	ANTQUEEN = "Full o'tha blubber.",
+    	ANTQUEEN_CHAMBERS = "'Tis the cabin o'tha queen.",
+    	ANTQUEEN_THRONE = "Thar be treas're within.",
+    	ANTMAN_WARRIOR_EGG = "Full o'them fiery bugs.",
+    	ANTMAN_WARRIOR = "Ye be meetin' yer match!",
+    	ANTCHEST = "'t be makin' tha sweet golden treasure!",
+ 		NECTAR_POD = "Tha sweet, sweet nectar!",
+
+    	PIG_SHOP_DELI =
+        {
+            GENERIC = "Ah. Grub!",
+            BURNING = "Afire!",
+        },
+
+        PIG_SHOP_CITYHALL =
+         {
+            GENERIC = "Full o'tha pesky bigshots.",
+            BURNING = "Good riddance.",
+        },
+        PIG_SHOP_CITYHALL_PLAYER = 
+         {
+            GENERIC = "Where I capt'n me city.",
+            BURNING = "Avast!",
+        },
+        PIG_GUARD_TOWER_PALACE =
+        {
+            GENERIC = "'Tis a crows nest.",   
+            BURNING = "Aflame!",
+        },
+
+        PIG_RUINS_PIG = "What'r ye smilin' at?",
+        PIG_RUINS_IDOL = "Tha' treasure atop there.",
+        PIG_RUINS_PLAQUE = "Tha' treasure needs a diggin' out.",
+
+        BASEFAN = "A cool wind blows from thee!",
+        SPRINKLER = "Relief fer tha'plants.",
+
+        NETTLELOSANGE = "Like eatin'a bunch'a fresh air.",
+
+        ICEDTEA = "'Tis relief ta be sure.",
+
+        TRINKET_GIFTSHOP_4 = "'Tis na'tha' hempen rope.",
+
+        WALLCRACK_RUINS = "There be treasure a'hind it!",
+
+        RAINFORESTTREE_ROT = "Would'na make a good mast.",
+
+        DEFLATED_BALLOON = "A poor sky vessel.",
+		DEFLATED_BALLOON_BASKET = "Na good fer na'thin'.",
+
+		SNAKE_FIRE = "'es got the fire in'em.",
+
+		DISGUISEHAT = "'Tis fer foolin' tha'pigs.",
+
+		ALOE_SEEDS = "Fer puttin' in tha'ground.",
+		ASPARAGUS_SEEDS = "Grows'em veget'ble masts.",
+		RADISH_SEEDS = "It belon' in'tha ground.",
+
+		CAVE_EXIT_ROC = "Thar be a way out!",
+
+        PORKLAND_INTRO_BASKET = "Na good fer na'thin'.",
+        PORKLAND_INTRO_BALLOON = "A poor sky vessel.",
+        PORKLAND_INTRO_TRUNK = "'tas been pillag'd.",
+        PORKLAND_INTRO_SUITCASE = "'tas been pillag'd.",
+        PORKLAND_INTRO_FLAGS = "I'll na fly't on me boat.",
+        PORKLAND_INTRO_SANDBAG = "I've na need fer ballast.",
+
+        TURF_BEARD_HAIR = "Me ain't no ground lubber.", 
+
+        HIPPO_ANTLER = "'Tis tha riggin' o' tha'beastie.",
+        BILL_QUILL = "'Tis a part o' tha spiky beastie.",
+
+        ANTLER = "Fer tha'callin' o'tha big feather'd beastie.",
+        ANTLER_CORRUPTED = "Fer chasin' off tha big feather'd beastie.",
+
+        PUGALISK_SKULL = "Bigger than me crows nest.",
+        PUGALISK_CORPSE = "'es danc'd the hemp'n jig.",
+
+        BONESTAFF = "'twill chill ye to tha bone.",
+
+        CITY_HAMMER = "'Tis a pow'rful 'ammer!",
+
+        TURF_PAINTED = "Me ain't no ground lubber.", 
+		TURF_PLAINS = "Me ain't no ground lubber.",
+
+		PIG_SHOP_BANK = 
+        {
+          GENERIC = "'t be fulla tha dubloons!",
+          BURNING = "'t goin' up'n flames!",
+        },
+		PIGMAN_USHER = 
+        {
+          GENERIC = "Older'n ol' Woodlegs, 'e be.",
+          SLEEPING = "Thar be better places fer that!",
+        },
+        PIGMAN_ROYALGUARD_2 = 
+        {
+          GENERIC = "Ye'll not be nabbin' me.",
+          SLEEPING = "'es a lazy one.",
+        },
+        PIG_SHOP_ANTIQUITIES = 
+        {
+          GENERIC = "Full o' tha strange treasures.",
+          BURNING = "'tis done fer.",
+        },
+        PIG_RUINS_ENTRANCE2 = "Inta tha depths with me.",
+        PIG_RUINS_EXIT2 = "Above decks.",
+        PIG_RUINS_ENTRANCE3 = "Below decks.",   
+        PIG_RUINS_ENTRANCE4 = "Leads to powerful magicin'.",           
+        PIG_RUINS_EXIT4 = "'tbe tha way out!",
+        PIG_RUINS_ENTRANCE5 = "Inta tha depths with me.",           
+        PIG_RUINS_ENTRANCE_SMALL = "Inta tha depths with me.",
+
+        RO_BIN = "'e be keepin' me treasures in'is gullet.",
+        RO_BIN_GIZZARD_STONE = "'t be'a birdie treasure.",
+        GIANTGRUB = "A leviathan from tha' depths.",
         MUSSEL_BED = "Ye'll b'returned t'th'sea.",
+        SEAWEED_STALK = "Fine bit o' tha sea veg.",
+        HARPOON = "T'whales cow'r in fear 'fore ol'Woodlegs.",
+
+		DECO_RUINS_ENDSWELL = "Na'a drop ta'drink.",
+		QUACKENDRILL = "Thar b'a drill.", 
+
+          ---QOL Update--
+
+ 		SADDLE_BASIC = "A cap'ns chair fer m'beast.",
+        SADDLE_RACE = "Puts tha wind in m'sails.",
+        SADDLE_WAR = "Fit fer an'admiral that is.",
+        SADDLEHORN = "Fer pryin' tha chair off'n tha beasties.",
+        SALTLICK = "Saltier than ol' Woodlegs.",
+        BRUSH = "Na' fer Woodleg's beard.",
+
+        BUNDLE = "Full o' Woodleg's treas'res.",
+        BUNDLEWRAP = "Ol' Woodlegs can bury 'is tre'sure in't.",
+
+        FENCE = "Fer pennin' tha beasties in.",
+        FENCE_ITEM = "Ol' Woodlegs'll build it 'imself.",
+        FENCE_GATE = "Fer goin' in. Also fer goin' out.",
+        FENCE_GATE_ITEM = "Yaaar. Needs ta be built.",
+
+        MINISIGN =
+        {
+            GENERIC = "A wee landmarker.",
+            UNDRAWN = "Ol' Woodlegs c'n make 'is mark on't.",
+        },
+        MINISIGN_ITEM = "Needs ta be anchored someplace.",
+        FEATHERPENCIL = "Fer makin' me mark.",
+
+        STEELWOOL = "'Tis a wonder 't'is na rusted.",
+        SPAT = "Full o' tha vigor.",
+        PHLEGM = "Blubber from tha woolly beastie.",
+
+        BEESWAX = "Na as good as me own earwax!",
+        WAXPAPER = "Keeps tha weather outta me food.",
+
+        ---------------YOTP-----------
+
+        FIRECRACKERS = "Yar, is'a small cannon, it'is.",
+        REDLANTERN = "Ol' Woodlegs loves a party.",
+
+		-------------Wormwood Specific-------
+
+		COMPOSTWRAP = "Someone be tryin' t'make a fool of ol'Woodlegs!",
+		POISONBALM = "Aye, that'll take the sting out.",
+		ARMOR_BRAMBLE = "I'll be a fearsome sight with that thorny hull!",
+		TRAP_BRAMBLE = "Best not t'get me legs caught in that.",
+
+        -------rewards update-------
+
+		TURF_DEEPRAINFOREST_NOCANOPY = "Me ain't no ground lubber.",
+
+		BRAMBLE_CORE = "A rose in'a sea o' brambles.",
+        BRAMBLE_BULB = "Tha heart o' the flower.",
+        ROOTTRUNK_CHILD = "Yarr! All o'Woodleg's treasures!",
+
+        PIG_SHOP_TINKER =
+        {
+            GENERIC = "Fer tha tinkerin' about me ship.",
+            BURNING = "Goin' down!",
+        },
+        ARMORVORTEXCLOAK = "T'be like starin' into th'ocean depths.",    
+        ANCIENT_REMNANT = "Like Davey Jones' sailcloth.",
+
+        GOGGLESNORMALHAT = "T'be of no use t'me.",
+        GOGGLESHEATHAT = "Not fer ol'Woodleg's eyes.",
+        GOGGLESARMORHAT = "T'be like starin' out a port'ole.",
+        GOGGLESSHOOTHAT = "Nary a use in sight.",     
+        THUMPER = "Fer makin' land waves.",
+        TELEBRELLA = "Saves the wood in ol'Woodleg's wooden legs.",
+        TELIPAD = "A teleport o' call.", 
+
+        TRUSTY_SHOOTER = "A wee cannon fer ol' Woodleg's 'and.",
+        WHEELER_TRACKER = "Point tha way ta treasure!",
+
+        ANCIENT_HULK = "Ye be lookin' fer a fight?",
+        ROCK_BASALT = "'tis a rock. Nothin' ta lose yer 'ead over.",
+        LIVING_ARTIFACT = "A Man o' War o' tha land!",
+        INFUSED_IRON = "'as th'look 'o treasure to't.",
+
+        TELEPORTATO_HAMLET_POTATO = "Ol' Woodlegs'll take it with'im.",
+        TELEPORTATO_HAMLET_RING = "It be'a hummin'.",
+        TELEPORTATO_HAMLET_BOX = "Well, tha be'a strange sight.",
+        TELEPORTATO_HAMLET_CRANK = "Thar be'a use ta it. But me na knowin't.",
+        TELEPORTATO_HAMLET_BASE = "A vessel. But na a seagoin' one.",
+
+        ANCIENT_ROBOTS_ASSEMBLY = "An'alf t'gether metal leviathan.",
+
+        HEDGE_BLOCK_ITEM = "Ol' Woodlegs ain't much o'tha gardener.",
+        HEDGE_CONE_ITEM = "'t be na much use ta me like this.",
+        HEDGE_LAYERED_ITEM = "Fer tha fancy livin'.",
 	},
-	DESCRIBE_GENERIC = "Tis a... somethin'er tother.",
-	DESCRIBE_SMOLDERING = "Tis like ta catch fire.",
-	DESCRIBE_TOODARK = "Tis too dark ta spy wit' ye eye!",
+	DESCRIBE_GENERIC = "'Tis a... somethin'er tother.",
+	DESCRIBE_SMOLDERING = "'Tis like ta catch fire.",
+	DESCRIBE_MYSTERY = "There be booty within. I knows it.",
+	DESCRIBE_TOODARK = "'Tis too dark ta spy wit' ye eye!",
+	DESCRIBE_NEARSIGHTED = "Thar be somthin' wrong wit' these spyglasses.",
 	EAT_FOOD =
 	{
 		TALLBIRDEGG_CRACKED = "Inta' ma belly wit ya!",

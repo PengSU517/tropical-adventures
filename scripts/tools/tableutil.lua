@@ -1,6 +1,6 @@
-tabel = {}
+tableutil = {}
 
-function tabel.is_array(t)
+function tableutil.is_array(t)
     if type(t) ~= "table" or not next(t) then
         return false
     end
@@ -15,7 +15,7 @@ function tabel.is_array(t)
     return true
 end
 
-function tabel.has_index(tbl, index)
+function tableutil.has_index(tbl, index)
     for i, v in pairs(tbl) do
         if i == index then
             return true
@@ -23,7 +23,7 @@ function tabel.has_index(tbl, index)
     end
 end
 
-function tabel.has_component(tbl, component)
+function tableutil.has_component(tbl, component)
     for _, v in pairs(tbl) do
         if v == component then
             return true
@@ -31,35 +31,35 @@ function tabel.has_component(tbl, component)
     end
 end
 
-function tabel.has_one_of_component(tbl, components)
+function tableutil.has_one_of_component(tbl, components)
     for _, v in pairs(components) do
-        if tabel.has_component(tbl, v) then
+        if tableutil.has_component(tbl, v) then
             return true
         end
     end
 end
 
-function tabel.has_all_of_component(tbl, components)
+function tableutil.has_all_of_component(tbl, components)
     for _, v in pairs(components) do
-        if not tabel.has_component(tbl, v) then
+        if not tableutil.has_component(tbl, v) then
             return false
         end
     end
     return true
 end
 
-function tabel.insert_indexes(tbl, vs)
+function tableutil.insert_indexes(tbl, vs)
     for i, v in pairs(vs) do
         tbl[i] = v
     end
 end
 
-function tabel.insert_components(tbl, vs)
+function tableutil.insert_components(tbl, vs)
     if type(vs) ~= "table" then
         vs = { vs }
     end
     for _, v in pairs(vs) do
-        if not tabel.has_component(tbl, v) then
+        if not tableutil.has_component(tbl, v) then
             table.insert(tbl, v)
         end
     end
@@ -77,7 +77,7 @@ function table.remove_components(tbl, vs)
     end
 end
 
-function tabel.remove_indexes(tbl, vs)
+function tableutil.remove_indexes(tbl, vs)
     for i, v in pairs(tbl) do
         for k, w in pairs(vs) do
             if i == k then
@@ -88,7 +88,7 @@ function tabel.remove_indexes(tbl, vs)
     end
 end
 
-function tabel.common_components(tbl, vs)
+function tableutil.common_components(tbl, vs)
     local commontbl = {}
     for i, v in pairs(tbl) do
         for k, w in pairs(vs) do
@@ -101,7 +101,7 @@ function tabel.common_components(tbl, vs)
     return commontbl
 end
 
-function tabel.common_indexes(tbl, vs)
+function tableutil.common_indexes(tbl, vs)
     local commontbl = {}
     for i, v in pairs(tbl) do
         for k, w in pairs(vs) do
@@ -114,7 +114,7 @@ function tabel.common_indexes(tbl, vs)
     return commontbl
 end
 
-function tabel.count_components(tbl)
+function tableutil.count_components(tbl)
     local lst = {}
     for _, v in pairs(tbl) do
         if not lst[v] then
@@ -126,7 +126,7 @@ function tabel.count_components(tbl)
     return lst
 end
 
-function tabel.deep_merge(target, add_table, override)
+function tableutil.deep_merge(target, add_table, override)
     target = target or {}
 
     for k, v in pairs(add_table) do
@@ -141,9 +141,9 @@ function tabel.deep_merge(target, add_table, override)
                 end
             end
 
-            tabel.deep_merge(target[k], v, override)
+            tableutil.deep_merge(target[k], v, override)
         else
-            if tabel.is_array(target) and not override then
+            if tableutil.is_array(target) and not override then
                 table.insert(target, v)
             elseif not target[k] or override then
                 target[k] = v
@@ -152,4 +152,4 @@ function tabel.deep_merge(target, add_table, override)
     end
 end
 
-return tabel
+return tableutil
