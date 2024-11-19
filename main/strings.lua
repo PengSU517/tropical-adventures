@@ -20,22 +20,16 @@ end
 ---@param target table
 ---@param new table
 local function merge(target, new, hard)
-    if not target then
-        target = {}
-    end
+    target = target or {}
 
     for k, v in pairs(new) do
-        if type(v) == "table" then
-            target[k] = type(target[k]) == "table" and target[k] or {}
-            merge(target[k], v)
+        if type(v) == "table" and type(target[k]) == "table" then
+            merge(target[k], v, hard)
         else
-            if target[k] then
-                if not hard then
-                else
-                    target[k] = v
-                end
-            else
+            if hard then
                 target[k] = v
+            else
+                target[k] = target[k] or v
             end
         end
     end
@@ -193,10 +187,10 @@ end
 -- local filePath = env.MODROOT .. "example_comp.txt"
 -- saveTableToFile(complement, filePath)
 
-
 -------------------------------speech importing begin--------------------------------------
 
-local DLC_STRINGS = modrequire("dlc_strings/common")
+
+local DLC_STRINGS = {} --modrequire("dlc_strings/common") --modrequire("dlc_strings/common")
 
 DLC_STRINGS.CHARACTERS =
 {
@@ -228,11 +222,6 @@ DLC_STRINGS.CHARACTERS =
 
 merge(STRINGS, DLC_STRINGS)
 
--- local EXTENSION_STRINGS = modrequire("extension/chinese.lua")
--- local compact = findComplement(EXTENSION_STRINGS, DLC_STRINGS)
--- saveTableToFile(compact, env.MODROOT .. "tempfile_ch.lua")
-
-
 ---------------------speech translation begin---------------------------------
 
 local setting_languages = {
@@ -257,33 +246,18 @@ local setting_languages = {
 
 
 
-
-local IsTheFrontEnd = rawget(_G, "TheFrontEnd") and rawget(_G, "IsInFrontEnd") and IsInFrontEnd()
+merge(STRINGS, modrequire("extension/english"), true)
 
 local desiredlang = nil
-local TA_CONFIG = rawget(_G, "TA_CONFIG")
-if TA_CONFIG and TA_CONFIG.language then
-    desiredlang = TA_CONFIG.language
-    --only use default in FrontEnd or if locale is not set
-elseif (IsTheFrontEnd or TA_CONFIG) and LanguageTranslator.defaultlang then
+if LanguageTranslator.defaultlang then
     desiredlang = LanguageTranslator.defaultlang
 end
 
-print("desired language: " .. desiredlang)
+print("desired language: " .. (desiredlang or "nil"))
 if desiredlang and setting_languages[desiredlang] then
     LoadPOFile("languages/dlc_translations/" .. setting_languages[desiredlang] .. ".po", desiredlang)
     TranslateStringTable(DLC_STRINGS)
-
     if setting_languages[desiredlang] == "chinese_s" or setting_languages[desiredlang] == "chinese_t" then
-        merge(STRINGS, modrequire("extension/chinese")) --扩展内容（强制覆盖
+        merge(STRINGS, modrequire("extension/chinese"), true)
     end
-    merge(STRINGS, modrequire("extension/english"))
 end
-
-
--- -- merge(STRINGS.UI.CUSTOMIZATIONSCREEN, STRINGS.NAMES)
--- local EXTENSION_STRINGS = modrequire("extension/english.lua")
--- -- local compact = findComplement(EXTENSION_STRINGS, DLC_STRINGS)
--- -- saveTableToFile(compact, env.MODROOT .. "languages/tempfile_ch.lua")
--- merge(STRINGS, EXTENSION_STRINGS, false) --扩展内容（强制覆盖
--- -- merge(STRINGS, modrequire("extension/chinese")) --扩展内容

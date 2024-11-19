@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.11.2.2"
+version = "2.11.20"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -143,26 +143,6 @@ end
 
 configuration_options =
 {
-	Breaker("Set Language", "选择语言"),
-	{
-		name = "language",
-		label = en_zh("Set Language", "选择语言"),
-		hover = en_zh("Change mod language...", "选择模组语言"),
-		options =
-		{
-			{ description = "Default(默认)", data = false },
-			{ description = "中文", data = "ch" },
-			-- { description = "Português", data = "stringsPT" },
-			-- { description = "Italian", data = "stringsIT" },
-			-- { description = "Russian", data = "stringsRU" },
-			-- { description = "Spanish", data = "stringsSP" },
-			-- { description = "한국어", data = "stringsKO" },
-			-- { description = "Magyar", data = "stringsHUN" },
-			-- { description = "Français", data = "stringsFR" },
-		},
-		default = nil,
-	},
-
 	Breaker("World Generation", "世界生成"),
 
 
