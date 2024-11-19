@@ -7,7 +7,7 @@ if TUNING.tropical.shipwrecked then
 
 
     AddRoomPreInit("OceanCoastal", function(room)
-        tabel.insert_indexes(room.contents.distributeprefabs,
+        tableutil.insert_indexes(room.contents.distributeprefabs,
             {
                 messagebottle1 = 0.1,
                 seaweed_planted = 3,
@@ -23,7 +23,7 @@ if TUNING.tropical.shipwrecked then
 
 
     AddRoomPreInit("OceanSwell", function(room)
-        tabel.insert_indexes(room.contents.distributeprefabs,
+        tableutil.insert_indexes(room.contents.distributeprefabs,
             {
                 ballphinhouse = 5,
                 --  fishinhole = 5,
@@ -45,7 +45,7 @@ if TUNING.tropical.shipwrecked then
 
         }
 
-        -- tabel.insert_indexes(room.contents.countstaticlayouts,
+        -- tableutil.insert_indexes(room.contents.countstaticlayouts,
         --     {
         --         coralpool1 = 3,
         --         coralpool2 = 3,
@@ -61,7 +61,7 @@ if TUNING.tropical.shipwrecked then
 
 
     AddRoomPreInit("OceanRough", function(room)
-        tabel.insert_indexes(room.contents.distributeprefabs,
+        tableutil.insert_indexes(room.contents.distributeprefabs,
             {
                 --  fishinhole = 0.5,
                 -- solofish_spawner = 0.2,
@@ -81,7 +81,7 @@ if TUNING.tropical.shipwrecked then
 
     AddRoomPreInit("OceanHazardous", function(room)
         room.contents.distributepercent = 0.3
-        tabel.insert_indexes(room.contents.distributeprefabs,
+        tableutil.insert_indexes(room.contents.distributeprefabs,
             {
                 --  fishinhole = 3,
                 waterygrave = 5,
@@ -107,7 +107,7 @@ if TUNING.tropical.shipwrecked then
     end)
 
     AddRoomPreInit("OceanBrinepool", function(room)
-        tabel.insert_indexes(room.contents.distributeprefabs,
+        tableutil.insert_indexes(room.contents.distributeprefabs,
             {
 
                 coralreef = 0.5,
