@@ -39,20 +39,17 @@ local Aporkalypse = Class(function(self, inst)
 	--    end)
 
 
-	self.inst:DoTaskInTime(0.5, function()
-		if self.aporkalypse_active == true then
-			for k, jogador in pairs(AllPlayers) do
-				jogador:AddTag("aporkalypse")
-			end
-		end
-	end)
-
-
-	local function OnPlayerJoined(src, player)
+	local function OnPlayerJoined(_, player)
 		if self.aporkalypse_active == true then
 			player:AddTag("aporkalypse")
 		end
 	end
+
+	self.inst:DoTaskInTime(.5, function()
+		for _, player in ipairs(AllPlayers) do
+			OnPlayerJoined(_, player)
+		end
+	end)
 
 	self.inst:ListenForEvent("ms_playerjoined", OnPlayerJoined, TheWorld)
 end)
@@ -112,7 +109,6 @@ function Aporkalypse:ScheduleAporkalypse(date)
 end
 
 function Aporkalypse:ScheduleAporkalypseTasks()
-	self:ScheduleBatSpawning()
 	self:ScheduleHeraldCheck()
 end
 
@@ -151,9 +147,6 @@ function Aporkalypse:EndAporkalypse()
 		jogador:RemoveTag("aporkalypse")
 	end
 
-	self:CancelBatSpawning()
-	self:CancelHeraldCheck()
-
 	local aporkalypse_duration = ((TheWorld.state.cycles + TheWorld.state.time) * TUNING.TOTAL_DAY_TIME - self.begin_date) /
 		TUNING.TOTAL_DAY_TIME
 	if aporkalypse_duration >= 2 then
@@ -169,65 +162,6 @@ function Aporkalypse:EndAporkalypse()
 	self.inst:PushEvent("endaporkalypse")
 end
 
-function Aporkalypse:ScheduleBatSpawning()
-	self:CancelBatSpawning()
-	self.bat_task = self.inst:DoTaskInTime(
-		15 --[[TUNING.TOTAL_DAY_TIME + (TUNING.TOTAL_DAY_TIME * math.random(0, 0.25))]],
-		function() self:SpawnBats() end)
-end
-
-function Aporkalypse:CancelBatSpawning()
-	if self.bat_task then
-		self.bat_task:Cancel()
-		self.bat_task = nil
-	end
-end
-
-function Aporkalypse:SpawnBats()
-	for i, player in ipairs(AllPlayers) do
-		-- local interior = GetClosestInstWithTag("interior_center", player, 30)
-		-- local bat = GetClosestInstWithTag("circlingbat", player, 10)
-		-- if (not interior) and (not bat) then
-		-- 	local x, y, z = player.Transform:GetWorldPosition()
-		-- 	local part = SpawnPrefab("circlingbat")
-		-- 	if part ~= nil then
-		-- 		part.Transform:SetPosition(x + math.random(-10, 10), y, z + math.random(-10, 10))
-		-- 	end
-
-		-- 	local x, y, z = player.Transform:GetWorldPosition()
-		-- 	local part = SpawnPrefab("circlingbat")
-		-- 	if part ~= nil then
-		-- 		part.Transform:SetPosition(x + math.random(-10, 10), y, z + math.random(-10, 10))
-		-- 	end
-
-		-- 	local x, y, z = player.Transform:GetWorldPosition()
-		-- 	local part = SpawnPrefab("circlingbat")
-		-- 	if part ~= nil then
-		-- 		part.Transform:SetPosition(x + math.random(-10, 10), y, z + math.random(-10, 10))
-		-- 	end
-
-		-- 	local x, y, z = player.Transform:GetWorldPosition()
-		-- 	local part = SpawnPrefab("circlingbat")
-		-- 	if part ~= nil then
-		-- 		part.Transform:SetPosition(x + math.random(-10, 10), y, z + math.random(-10, 10))
-		-- 	end
-
-		-- 	local x, y, z = player.Transform:GetWorldPosition()
-		-- 	local part = SpawnPrefab("circlingbat")
-		-- 	if part ~= nil then
-		-- 		part.Transform:SetPosition(x + math.random(-10, 10), y, z + math.random(-10, 10))
-		-- 	end
-
-		-- 	local x, y, z = player.Transform:GetWorldPosition()
-		-- 	local part = SpawnPrefab("circlingbat")
-		-- 	if part ~= nil then
-		-- 		part.Transform:SetPosition(x + math.random(-10, 10), y, z + math.random(-10, 10))
-		-- 	end
-		-- end
-	end
-
-	self:ScheduleBatSpawning()
-end
 function Aporkalypse:ScheduleHeraldCheck()
 	self.herald_check_task = self.inst:StartThread(function()
 		while self.aporkalypse_active do
@@ -254,13 +188,6 @@ function Aporkalypse:ScheduleHeraldCheck()
 			Sleep(math.random(TUNING.SEG_TIME / 2, TUNING.SEG_TIME))
 		end
 	end)
-end
-
-function Aporkalypse:CancelHeraldCheck()
-	if self.herald_check_task then
-		self.herald_check_task:Cancel()
-		self.herald_check_task = nil
-	end
 end
 
 function Aporkalypse:GetClockDungeon()
