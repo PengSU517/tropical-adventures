@@ -54,7 +54,7 @@ AddRecipe2 = function(name, ingredients, tech, config, filters)
 		old_addrecipe2(name, ingredients, tech, config, filters)
 	else
 		local newname = name .. "_other"
-		STRINGS.NAMES[string.upper(newname)] = STRINGS.NAMES[string.upper(name)] or STRINGS.NAMES.UNKNOWN .. "ANOTHER"
+		STRINGS.NAMES[string.upper(newname)] = (STRINGS.NAMES[string.upper(name)] or STRINGS.NAMES.UNKNOWN)
 		if not config then config = {} end
 		config.product = config.product or name
 		AddRecipe2(newname, ingredients, tech, config, filters)
