@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.11.20"
+version = "2.11.22"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -47,7 +47,12 @@ server_filter_tags = { "Shipwrecked", "Hamlet", "海难", "哈姆雷特", "猪�
 icon_atlas = "images/modicon/modicon.xml"
 icon = "modicon.tex"
 
+-- mod_dependencies = {
+-- 	{ --GEMCORE
+-- 		-- workshop = "workshop-3361402499",
 
+-- 	},
+-- }
 
 
 local options_enable = {
