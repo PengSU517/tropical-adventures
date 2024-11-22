@@ -1,5 +1,5 @@
 ---@author: Runar 2024-11-13 16:36:57
--- AnimState 增强
+-- AnimState 增强 Ver 1.11.22
 -- 滤镜与色彩空间封装
 local AnimState = AnimState or GLOBAL.AnimState
 
@@ -11,19 +11,26 @@ local fillters = {
         animstate:SetMultColour(1, 1, 1, 1)
         animstate:SetHSV()
     end,
-    withered = function(animstate)
-        animstate:SetHSV(.3, .4, .5)
-    end,
-    shadowed = function(animstate)
-        animstate:SetMultColour(0, 0, 0, .6)
-    end,
-
+    withered = function(animstate) animstate:SetHSV(.3, .4, .5) end,
+    shadowed = function(animstate) animstate:SetMultColour(0, 0, 0, .6) end,
     green = function(animstate)
-        animstate:SetHSV(30 / 255 + math.random() * 0.05,
-            .75 + math.random() * 0.05,
-            .75 + math.random() * 0.05)
+        animstate:SetHSV(30 / 255 + math.random() * 0.05, .75 + math.random() * 0.05, .75 + math.random() * 0.05)
     end,
 
+}
+
+local fillters_s = {}
+setmetatable(fillters, fillters_s)
+
+--[[ animations[animname] =
+table{[1]FrameAction:function(self, frame),
+      [2]TotalFrame:number,
+      [3]Interval:nil|number|function(frame)}
+]]
+local animations = {
+    shake = {function(animstate, frame)
+        animstate:SetScale(1 - .1 * math.sin(PI / 2 * frame + PI / 8), 1 + .1 * math.sin(PI / 2 * frame + PI / 8))
+    end, 3},
 }
 
 ---AnimState:SetHSV
@@ -50,9 +57,7 @@ function AnimState:SetHSL(hue, saturation, lightness) self:SetHSV(hue, saturatio
 
 ---AnimState:GetHSV
 ---@return number|nil,number|nil,number|nil @Hue(0~1),Saturation(0~1),Value(0~1)
-function AnimState:GetHSV()
-    return AnimState:GetHue(), self:GetSaturation(), self:GetBrightness()
-end
+function AnimState:GetHSV() return AnimState:GetHue(), self:GetSaturation(), self:GetBrightness() end
 
 ---AnimState:GetHSB
 ---@return number|nil,number|nil,number|nil @Hue(0~1),Saturation(0~1),Brightness(0~1)
@@ -67,33 +72,44 @@ end
 
 ---AnimState:SetFillter
 ---@param fillter string|nil @fillter name
-function AnimState:SetFillter(fillter)
+function AnimState:SetFillter(fillter, ...)
     assert(fillter == nil or type(fillter) == "string",
-        string.format("AnimState Extension: fillter '%s' is not a string!\n", fillter))
-    if fillters[fillter] then fillters[fillter](self) end
+           string.format("AnimState Extension: filltername '%s' is not a string!\n", fillter))
+    if fillters[fillter] then fillters[fillter](self, ...) end
 end
 
 ---AnimState:FillterList
 ---@return string[] @fillter names
 function AnimState:FillterList()
     local list = {}
-    for fillter in pairs(fillters) do
-        table.insert(list, fillter)
-    end
+    for fillter in pairs(fillters) do table.insert(list, fillter) end
     return list
 end
 
-function AnimState:DoJoggle(inst)
-    inst._jTask = inst:StartThread(function()
-        for frame = 0, 3 do
-            self:SetScale(1 - .1 * math.sin(PI / 2 * frame + PI / 8),
-                1 + .1 * math.sin(PI / 2 * frame + PI / 8))
-            Sleep(FRAMES or GLOBAL.FRAMES)
+function AnimState:PlayExtendAnim(animname)
+    assert(animname == nil or type(animname) == "string",
+           string.format("AnimState Extension: animname '%s' is not a string!\n", animname))
+    if not animname or not animations[animname] then return end
+    local inst = CreateEntity()
+    inst._animTask = inst:StartThread(function()
+        for frame = 0, animations[animname][2] do
+            animations[animname][1](self, frame)
+            Sleep(FunctionOrValue(animations[animname][3], frame) or FRAMES or GLOBAL.FRAMES)
         end
         self:SetScale(1, 1)
+        inst:Remove()
     end)
 end
 
+local function Addfillter(name, fn)
+    assert(name and type(name) == "string",
+           string.format("AnimState Extension: fillter name '%s' is not a string!\n", name or "nil"))
+    assert(fn and type(fn) == "function",
+           string.format("AnimState Extension: fillter '%s' is not a function!\n", fn or "nil"))
+    assert(fillters_s[name] == nil, string.format("AnimState Extension: fillter '%s' existed!\n", name))
+    fillters_s[name] = function(animstate, ...) return pcall(fn, animstate, ...) end
+end
+
 return {
-    fillters = fillters,
+    Addfillter = Addfillter,
 }
