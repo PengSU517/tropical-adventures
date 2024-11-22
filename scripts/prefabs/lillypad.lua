@@ -306,6 +306,11 @@ local function fn()
     inst.entity:AddPhysicsWaker() --server only component
     inst.PhysicsWaker:SetTimeBetweenWakeTests(TUNING.BOAT.WAKE_TEST_TIME)
 
+    inst:AddComponent("hull")
+    inst.components.hull:SetRadius(radius)
+    --    inst.components.hull:SetBoatLip(SpawnPrefab('boatlip'))
+    inst:AddComponent("boatring")
+
 
     inst:AddComponent("boatphysics")
 
