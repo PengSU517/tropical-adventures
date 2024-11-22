@@ -1,3 +1,5 @@
+local istestmode = debug.getinfo(1, "S").source:match("([^/]+)/[^/]*/[^/]*/[^/]*$") == "mods"
+
 GLOBAL.TA_CONFIG = {
 
     language          = GetModConfigData("language"),
@@ -33,9 +35,8 @@ GLOBAL.TA_CONFIG = {
     -- ocean = GetModConfigData("ocean"),
     ocean = "default",
 
-
-    testmap = GLOBAL.KnownModIndex:IsModEnabled("tropical-adventures") and GetModConfigData("testmap") or false,
-    testmode = GLOBAL.KnownModIndex:IsModEnabled("tropical-adventures") and GetModConfigData("testmode") or false,
+    testmap = istestmode and GetModConfigData("testmap") or false,
+    testmode = istestmode and GetModConfigData("testmode") or false,
 
     -- prefabname = true,
     -- seafork    = true,
@@ -44,9 +45,6 @@ GLOBAL.TA_CONFIG = {
     ndnr = GLOBAL.KnownModIndex:IsModEnabled("workshop-2823458540"),
 
 }
-
-
-
 
 TA_CONFIG.sw_start = TA_CONFIG.shipwrecked and (TA_CONFIG.multiplayerportal == "shipwrecked")
 TA_CONFIG.ham_start = TA_CONFIG.hamlet and (TA_CONFIG.multiplayerportal == "hamlet")
