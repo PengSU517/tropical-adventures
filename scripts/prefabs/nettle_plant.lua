@@ -10,7 +10,7 @@ local function onregenfn(inst)
 end
 
 local function makeemptyfn(inst)
-    inst.AnimState:DoJoggle(inst)
+    inst.AnimState:PlayExtendAnim("shake")
     inst.AnimState:SetFillter("generic")
     inst.AnimState:PlayAnimation("picked", true)
 end
