@@ -210,6 +210,7 @@ local function fn(anim, loot, onground, minimapicon, talker, collision)
     inst.AnimState:SetBuild("balloon_wreckage")
     inst.AnimState:PlayAnimation(anim)
 
+
     if minimapicon then
         local minimap = inst.entity:AddMiniMapEntity()
         minimap:SetIcon(minimapicon .. ".tex")
@@ -230,6 +231,8 @@ local function fn(anim, loot, onground, minimapicon, talker, collision)
     if not TheWorld.ismastersim then
         return inst
     end
+
+    inst:AddComponent("inspectable")
 
     if loot then
         inst:AddComponent("workable")
