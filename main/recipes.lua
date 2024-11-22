@@ -259,6 +259,10 @@ AddRecipe2("obsidianbomb",
 	TECH.OBSIDIAN_TWO, { nounlock = true, numtogive = 3 }, { "CRAFTING_STATION" })
 AddRecipe2("book_meteor1", { Ingredient("papyrus", 2), Ingredient("obsidian", 2) }, TECH.SCIENCE_TWO,
 	{ builder_tag = "bookbuilder", }, { "CHARACTER" })
+
+-- AddRecipe2("book_gardening", { Ingredient("papyrus", 2), Ingredient("seeds", 1), Ingredient("poop", 1) },
+-- 	TECH.SCIENCE_TWO, { builder_tag = "bookbuilder", }, { "CHARACTER" })
+
 AddRecipe2("wind_conch",
 	{ Ingredient("obsidian", 4), Ingredient("purplegem", 1), Ingredient("magic_seal", 1) },
 	TECH.OBSIDIAN_TWO, { nounlock = true }, { "CRAFTING_STATION" })
@@ -410,6 +414,15 @@ AddRecipe2("palmleaf_hut",
 	{ Ingredient("palmleaf", 4), Ingredient("bamboo", 4), Ingredient("rope", 3) },
 	TECH.SCIENCE_TWO, { placer = "palmleaf_hut_placer" }, { "SUMMER" })
 
+
+AddRecipe2("slow_farmplot", { Ingredient("cutgrass", 8), Ingredient("poop", 4), Ingredient("log", 4) }, TECH.SCIENCE_ONE,
+	{ min_spacing = 3.2, placer = "slow_farmplot_placer", image = "slow_farmplot.tex", }, { "GARDENING" })
+AddRecipe2("fast_farmplot", { Ingredient("cutgrass", 10), Ingredient("poop", 6), Ingredient("rocks", 4) },
+	TECH.SCIENCE_ONE, { min_spacing = 3.2, placer = "fast_farmplot_placer", image = "fast_farmplot.tex", },
+	{ "GARDENING" })
+
+AddRecipe2("chickenhouse", { Ingredient("seeds", 6), Ingredient("boards", 4), Ingredient("feather_chicken", 2) },
+	TECH.SCIENCE_TWO, { placer = "chickenhouse_placer", }, { "STRUCTURES" })
 --SEAFARING--
 AddRecipe2("boatmetal_item", { Ingredient("alloy", 4), Ingredient("iron", 4) }, TECH.SEAFARING_TWO,
 	{}, { "SEAFARING" })
@@ -417,6 +430,7 @@ AddRecipe2("porto_lograft_old", { Ingredient("log", 6), Ingredient("cutgrass", 4
 	{ "NAUTICAL" })
 AddRecipe2("porto_raft_old", { Ingredient("bamboo", 4), Ingredient("vine", 3) }, TECH.NONE,
 	{}, { "NAUTICAL" })
+
 
 -- AddRecipe2("porto_lograft", { Ingredient("log", 6), Ingredient("cutgrass", 4) }, TECH.NONE, {  },
 -- 	{ "SEAFARING" })
