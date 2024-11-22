@@ -54,6 +54,7 @@ AddRecipe2 = function(name, ingredients, tech, config, filters)
 		old_addrecipe2(name, ingredients, tech, config, filters)
 	else
 		local newname = name .. "_other"
+		STRINGS.NAMES[string.upper(newname)] = STRINGS.NAMES[string.upper(name)] or STRINGS.NAMES.UNKNOWN .. "ANOTHER"
 		if not config then config = {} end
 		config.product = config.product or name
 		AddRecipe2(newname, ingredients, tech, config, filters)
@@ -368,8 +369,8 @@ AddRecipe2("turf_snakeskinfloor", { Ingredient("snakeskin", 2), Ingredient("fabr
 AddRecipe2("sand_castle",
 	{ Ingredient("sand", 4), Ingredient("palmleaf", 2), Ingredient("seashell", 3) }, TECH
 	.NONE, { placer = "sand_castle_placer" }, { "STRUCTURES" })
-AddRecipe2("turf_road", { Ingredient("cutstone", 1), Ingredient("flint", 2) }, TECH.SCIENCE_TWO, { numtogive = 4 },
-	{ "DECOR" })
+-- AddRecipe2("turf_road", { Ingredient("cutstone", 1), Ingredient("flint", 2) }, TECH.SCIENCE_TWO, { numtogive = 4 },
+-- 	{ "DECOR" })
 -- if GetModConfigData("kindofworld") == 10 then --WHAT?
 -- 	AddRecipe2("turf_road", { Ingredient("boards", 1), Ingredient("turf_magmafield", 1) }, TECH.SCIENCE_TWO,
 -- 		{ numtogive = 4 }, { "DECOR" })
