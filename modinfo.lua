@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.11.22"
+version = "2.11.23"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -437,20 +437,23 @@ configuration_options =
 	Breaker("Developer Settings(only works in the test version)", "开发者选项(仅在测试版中有效)"),
 
 	{
-		name = "testmap",
+		name = "test_map",
 		label = en_zh("Test Map", "测试地图"),
 		hover = en_zh("a small map for testing", "用于测试用的小型地图"),
 		options = options_enable,
-		default = true,
+		default = false,
 	},
 
 	{
-		name = "testmode",
+		name = "test_mode",
 		label = en_zh("Test Mode", "测试模式"),
 		hover = en_zh("seafork, autoskin, prefabname", "填海叉，开礼物，显示代码名"),
 		options = options_enable,
-		default = true,
+		default = false,
 	},
+
+
+
 
 	--[[ {
 		name = "prefabname",
