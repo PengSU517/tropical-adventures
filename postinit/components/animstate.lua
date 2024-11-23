@@ -5,7 +5,7 @@ local AnimState = AnimState or GLOBAL.AnimState
 
 if not AnimState then return end
 
-local fillters = {
+local filters = {
     generic = function(animstate)
         animstate:SetAddColour(0, 0, 0, 0)
         animstate:SetMultColour(1, 1, 1, 1)
@@ -19,8 +19,8 @@ local fillters = {
 
 }
 
-local fillters_s = {}
-setmetatable(fillters, fillters_s)
+local filters_s = {}
+setmetatable(filters, filters_s)
 
 --[[ animations[animname] =
 table{[1]FrameAction:function(self, frame),
@@ -70,19 +70,19 @@ function AnimState:GetHSL()
     return h, s, l / 2
 end
 
----AnimState:SetFillter
----@param fillter string|nil @fillter name
-function AnimState:SetFillter(fillter, ...)
-    assert(fillter == nil or type(fillter) == "string",
-           string.format("AnimState Extension: filltername '%s' is not a string!\n", fillter))
-    if fillters[fillter] then fillters[fillter](self, ...) end
+---AnimState:SetFilter
+---@param filter string|nil @filter name
+function AnimState:SetFilter(filter, ...)
+    assert(filter == nil or type(filter) == "string",
+           string.format("AnimState Extension: filtername '%s' is not a string!\n", filter))
+    if filters[filter] then filters[filter](self, ...) end
 end
 
----AnimState:FillterList
----@return string[] @fillter names
-function AnimState:FillterList()
+---AnimState:FilterList
+---@return string[] @filter names
+function AnimState:FilterList()
     local list = {}
-    for fillter in pairs(fillters) do table.insert(list, fillter) end
+    for filter in pairs(filters) do table.insert(list, filter) end
     return list
 end
 
@@ -101,15 +101,20 @@ function AnimState:PlayExtendAnim(animname)
     end)
 end
 
-local function Addfillter(name, fn)
+local function Addfilter(name, fn)
     assert(name and type(name) == "string",
-           string.format("AnimState Extension: fillter name '%s' is not a string!\n", name or "nil"))
+           string.format("AnimState Extension: filter name '%s' is not a string!\n", name or "nil"))
     assert(fn and type(fn) == "function",
-           string.format("AnimState Extension: fillter '%s' is not a function!\n", fn or "nil"))
-    assert(fillters_s[name] == nil, string.format("AnimState Extension: fillter '%s' existed!\n", name))
-    fillters_s[name] = function(animstate, ...) return pcall(fn, animstate, ...) end
+           string.format("AnimState Extension: filter '%s' is not a function!\n", fn or "nil"))
+    assert(filters_s[name] == nil, string.format("AnimState Extension: filter '%s' existed!\n", name))
+    filters_s[name] = function(animstate, ...) return pcall(fn, animstate, ...) end
+end
+
+local function AddExAnim(animname, animfn, totalframes, interval)
+    
 end
 
 return {
-    Addfillter = Addfillter,
+    Addfilter = Addfilter,
+    AddAnim = AddExAnim,
 }

@@ -11,11 +11,11 @@ local natureskins = {
             name = "saplingnova",
             extra_init_fn = function(inst, skinname)
                 CancelNoGrowInWinter(inst)
-                -- inst.AnimState:SetFillter("lightgreen")
+                -- inst.AnimState:SetFilter("lightgreen")
             end,
             extra_clear_fn = function(inst, skinname)
                 MakeNoGrowInWinter(inst)
-                -- inst.AnimState:SetFillter("generic")
+                -- inst.AnimState:SetFilter("generic")
             end,
         },
     },
@@ -29,11 +29,11 @@ local natureskins = {
             name = "grassnova",
             extra_init_fn = function(inst, skinname)
                 CancelNoGrowInWinter(inst)
-                inst.AnimState:SetFillter("green")
+                inst.AnimState:SetFilter("green")
             end,
             extra_clear_fn = function(inst, skinname)
                 MakeNoGrowInWinter(inst)
-                inst.AnimState:SetFillter("generic")
+                inst.AnimState:SetFilter("generic")
             end,
         },
     },
@@ -46,10 +46,10 @@ local natureskins = {
             sourceprefabs = { "grass_tall", "grassdwater" },
             skintype = "tropical",
             extra_init_fn = function(inst, skinname)
-                inst.AnimState:SetFillter("green")
+                inst.AnimState:SetFilter("green")
             end,
             extra_clear_fn = function(inst, skinname)
-                inst.AnimState:SetFillter("generic")
+                inst.AnimState:SetFilter("generic")
             end,
         },
     },
@@ -64,10 +64,10 @@ local natureskins = {
             sourceprefabs = { "grass_tall", "grassdwater" },
             skintype = "tropical",
             extra_init_fn = function(inst, skinname)
-                inst.AnimState:SetFillter("green")
+                inst.AnimState:SetFilter("green")
             end,
             extra_clear_fn = function(inst, skinname)
-                inst.AnimState:SetFillter("generic")
+                inst.AnimState:SetFilter("generic")
             end,
         },
     },
@@ -78,10 +78,10 @@ local natureskins = {
             build = "grassgecko",
             skintype = "tropical",
             extra_init_fn = function(inst, skinname)
-                inst.AnimState:SetFillter("green")
+                inst.AnimState:SetFilter("green")
             end,
             extra_clear_fn = function(inst, skinname)
-                inst.AnimState:SetFillter("generic")
+                inst.AnimState:SetFilter("generic")
             end,
         },
     },
