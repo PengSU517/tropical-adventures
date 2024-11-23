@@ -11,12 +11,12 @@ end
 
 local function makeemptyfn(inst)
     inst.AnimState:PlayExtendAnim("shake")
-    inst.AnimState:SetFillter("generic")
+    inst.AnimState:SetFilter("generic")
     inst.AnimState:PlayAnimation("picked", true)
 end
 
 local function makebarrenfn(inst) 
-    inst.AnimState:SetFillter("withered")
+    inst.AnimState:SetFilter("withered")
     inst.AnimState:PlayAnimation("picked", true)
 end
 

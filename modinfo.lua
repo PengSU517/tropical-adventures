@@ -150,7 +150,6 @@ configuration_options =
 {
 	Breaker("World Generation", "世界生成"),
 
-
 	{
 		name = "rog",
 		label = en_zh("Region of Gaints", "巨人国"),
@@ -200,8 +199,6 @@ configuration_options =
 		options = options_enable,
 		default = true,
 	},
-
-
 
 	{
 		name = "startlocation",
@@ -277,7 +274,6 @@ configuration_options =
 				data = false
 			},
 
-
 		},
 		default = true,
 	},
@@ -289,9 +285,6 @@ configuration_options =
 	-- 	options = options_enable,
 	-- 	default = true,
 	-- },
-
-
-
 
 	Breaker("Weather Settings", "气候设置"),
 
@@ -400,7 +393,6 @@ configuration_options =
 			-- 	data = "blue"
 			-- },
 
-
 		},
 		default = "default",
 	},
@@ -431,9 +423,6 @@ configuration_options =
 		default = "qe", ----  q/e
 	},
 
-
-
-
 	Breaker("Developer Settings(only works in the test version)", "开发者选项(仅在测试版中有效)"),
 
 	{
@@ -452,9 +441,6 @@ configuration_options =
 		default = false,
 	},
 
-
-
-
 	--[[ {
 		name = "prefabname",
 		label = en_zh("Show Prefab Name", "显示物品代码"),
@@ -470,6 +456,5 @@ configuration_options =
 		options = options_enable,
 		default = false,
 	}, ]]
-
 
 }
