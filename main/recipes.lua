@@ -1548,7 +1548,7 @@ AddRecipe2("rug_tiles", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
 	{ "INTERIOR" })
 
 GLOBAL.CONSTRUCTION_PLANS["collapsed_honeychest"] = { Ingredient("chitin", 3), Ingredient("beeswax", 1), Ingredient(
-	"honey", 1), Ingredient("alterguardianhatshard", 1) }
+	"honey", 2), Ingredient("alterguardianhatshard", 1) }
 
 AddRecipe2("bed0", { Ingredient("oinc", 5) }, TECH.HOME_ONE, { nounlock = true, min_spacing = 1, placer = "bed0_placer" },
 	{ "INTERIOR" })

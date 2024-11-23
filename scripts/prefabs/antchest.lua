@@ -27,7 +27,7 @@ local function onhammered(inst, worker) -- 常规破坏后
     if inst.components.container then
         inst.components.container:DropEverything()
     end
-    SpawnPrefab("collapse_small").Transform:SetPosition(inst.Transform:GetWorldPosition())
+    SpawnAt("collapse_small", inst)
     inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
     inst:Remove()
 end
@@ -42,11 +42,9 @@ local function onhit(inst, worker) -- 常规受击
     end
 end
 
-local function converttocollapsed(inst, droploot) -- 升级后转化废墟
-    local x, y, z = inst.Transform:GetWorldPosition()
+local function converttocollapsed(inst, droploot, burnt) -- 升级后转化废墟
     if droploot then
-        local fx = SpawnPrefab("collapse_small")
-        fx.Transform:SetPosition(x, y, z)
+        local fx = SpawnAt("collapse_small", inst)
         fx:SetMaterial("wood")
         inst.components.lootdropper.min_speed = 2.25
         inst.components.lootdropper.max_speed = 2.75
@@ -58,8 +56,8 @@ local function converttocollapsed(inst, droploot) -- 升级后转化废墟
     inst.components.container:Close()
     inst.components.workable:SetWorkLeft(2)
 
-    local pile = SpawnPrefab("collapsed_honeychest")
-    pile.Transform:SetPosition(x, y, z)
+    local pile = SpawnAt("collapsed_honeychest", inst)
+	pile:SetChest(inst, burnt)
 end
 
 local function Upgrade_onhit(inst, worker) -- 升级后受击
@@ -102,8 +100,7 @@ local function Upgrade_onhammered(inst, worker) -- 升级后被破坏
             --sunk, drops more, but will lose the remainder
             inst.components.lootdropper:DropLoot()
             inst.components.container:DropEverythingUpToMaxStacks(TUNING.COLLAPSED_CHEST_EXCESS_STACKS_THRESHOLD)
-            local fx = SpawnPrefab("collapse_small")
-            fx.Transform:SetPosition(inst.Transform:GetWorldPosition())
+            local fx = SpawnAt("collapse_small", inst)
             fx:SetMaterial("wood")
             inst:Remove()
             return
