@@ -15,10 +15,10 @@ ReloadFrontEndAssets()
 -- modimport("main/strings.lua")
 -- modimport("main/ta_customize")
 
+print(env.modname)
 
-function KnowTAConfigs(config)
-	local configs = KnownModIndex:LoadModConfigurationOptions("workshop-2986194136", false) -- "workshop-1289779251" (live)
-	-- "workshop-3047220901" (playtest)
+function KnowModConfigs(config)
+	local configs = KnownModIndex:LoadModConfigurationOptions(env.modname, false) -- "workshop-1289779251" (live)
 	if configs then
 		for i, v in ipairs(configs) do
 			if v.name == config then
@@ -26,26 +26,21 @@ function KnowTAConfigs(config)
 			end
 		end
 	end
-	KnownModIndex:SaveConfigurationOptions(function() end, "workshop-2986194136", configs, false)
+	KnownModIndex:SaveConfigurationOptions(function() end, env.modname, configs, false)
 end
 
-function ChangeTAConfigs(config, value)
-	local configs = KnownModIndex:LoadModConfigurationOptions("workshop-2986194136", false) -- "workshop-1289779251" (live)
-	-- "workshop-3047220901" (playtest)
+function ChangeModConfigs(config, value)
+	local configs = KnownModIndex:LoadModConfigurationOptions(env.modname, false) -- "workshop-1289779251" (live)
 	if configs then
 		for i, v in ipairs(configs) do
 			if v.name == config then
 				v.saved = value
-				print("Changed " .. config .. " to " .. value)
+				print("Changed " .. config .. " to " .. tostring(value))
 			end
 		end
 	end
-	KnownModIndex:SaveConfigurationOptions(function() end, "workshop-2986194136", configs, false)
+	KnownModIndex:SaveConfigurationOptions(function() end, env.modname, configs, false)
 end
 
--- local languageconfig = KnowTAConfigs("language")
--- print("Current language: ")
--- print(languageconfig)
--- if languageconfig == "English" or languageconfig == "stringsEN" or languageconfig == "ch" then
--- ChangeTAConfigs("language", false)
--- end
+-- ChangeTAConfigs("testmode", false)
+-- ChangeTAConfigs("testmap", false)
