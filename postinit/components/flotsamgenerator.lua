@@ -8,7 +8,7 @@ AddComponentPostInit("flotsamgenerator", function(self)
             flotsam_prefabs["waterygrave"] = 1
             flotsam_prefabs["redbarrel"] = 1
             flotsam_prefabs["luggagechest_spawner"] = 1
-            flotsam_prefabs["messagebottle1"] = 1
+            flotsam_prefabs["tro_messagebottle"] = 1
         end
     end
 end)

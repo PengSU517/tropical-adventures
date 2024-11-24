@@ -9,7 +9,7 @@ if TUNING.tropical.shipwrecked then
     AddRoomPreInit("OceanCoastal", function(room)
         tableutil.insert_indexes(room.contents.distributeprefabs,
             {
-                messagebottle1 = 0.1,
+                tro_messagebottle = 0.1,
                 seaweed_planted = 3,
                 mussel_farm = 2,
                 lobsterhole = 1 / 2,

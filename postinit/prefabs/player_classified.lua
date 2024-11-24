@@ -17,6 +17,6 @@ local function OnRevealTreasureDirty(inst)
 end
 
 AddPrefabPostInit("player_classified", function(inst)
-    inst.revealtreasure = GLOBAL.net_uint(inst.GUID, "messagebottle1.reveal", "revealtreasuredirty")
+    inst.revealtreasure = GLOBAL.net_uint(inst.GUID, "tro_messagebottle.reveal", "revealtreasuredirty")
     inst:ListenForEvent("revealtreasuredirty", OnRevealTreasureDirty)
 end)

@@ -21,7 +21,7 @@ local function OnGetItem(inst, giver, item)
 
             TheWorld:PushEvent("ms_sendlightningstrike", inst:GetPosition())
 
-            local woodlegres = SpawnPrefab("woodlegs1").Transform:SetPosition(inst:GetPosition():Get())
+            local woodlegres = SpawnPrefab("woodlegs_retinue").Transform:SetPosition(inst:GetPosition():Get())
 
             inst:Remove()
         end)

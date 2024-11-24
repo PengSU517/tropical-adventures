@@ -25,7 +25,7 @@ local function UnlockWoodlegs(inst)
 				smoke.Transform:SetPosition(inst:GetPosition():Get())
 				smoke.Transform:SetScale(2, 2, 2)
 				inst:Remove()
-				SpawnPrefab("woodlegs1").Transform:SetPosition(inst.Transform:GetWorldPosition())
+				SpawnPrefab("woodlegs_retinue").Transform:SetPosition(inst.Transform:GetWorldPosition())
 			end)
 		end
 

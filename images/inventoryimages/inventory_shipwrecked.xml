@@ -171,9 +171,9 @@
         <Element name="mermhouse_tropical.tex" u1="0.307861" u2="0.338135" v1="0.13916" v2="0.199707"/>
         <Element name="mermhouse_tropical_crafted.tex" u1="0.307861" u2="0.338135" v1="0.0776367" v2="0.138184"/>
         <Element name="messageBottle.tex" u1="0.307861" u2="0.338135" v1="0.0161133" v2="0.0766602"/>
-        <Element name="messagebottle1.tex" u1="0.338623" u2="0.368896" v1="0.938965" v2="0.999512"/>
+        <Element name="tro_messagebottle.tex" u1="0.338623" u2="0.368896" v1="0.938965" v2="0.999512"/>
         <Element name="messagebottle_sw.tex" u1="0.338623" u2="0.368896" v1="0.877441" v2="0.937988"/>
-        <Element name="messagebottleempty1.tex" u1="0.338623" u2="0.368896" v1="0.815918" v2="0.876465"/>
+        <Element name="tro_messagebottleempty.tex" u1="0.338623" u2="0.368896" v1="0.815918" v2="0.876465"/>
         <Element name="messagebottleempty_sw.tex" u1="0.338623" u2="0.368896" v1="0.754395" v2="0.814941"/>
         <Element name="monkeyball.tex" u1="0.338623" u2="0.368896" v1="0.692871" v2="0.753418"/>
         <Element name="mosquito_yellow.tex" u1="0.338623" u2="0.368896" v1="0.631348" v2="0.691895"/>
