@@ -3348,8 +3348,8 @@ TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.RELIC_5                    = "The Jeweled
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.REEDS_WATER                = "Aquatic reeds."
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOTUS                      = "The science is blooming well this season."
 
-TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOTUS_FLOWER1              = "A lovely science flower."
-TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOTUS_FLOWER1_COOKED       = "A delicacy."
+TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOTUS_FLOWER              = "A lovely science flower."
+TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOTUS_FLOWER_COOKED       = "A delicacy."
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.VAMPIREBAT                 =
 {
@@ -3986,8 +3986,8 @@ TA_STRINGS.NAMES.LILYPAD                                                   = "Li
 TA_STRINGS.NAMES.LOTUS                                                     = "Lotus Plant"
 TA_STRINGS.NAMES.REEDS_WATER                                               = "Reeds"
 
-TA_STRINGS.NAMES.LOTUS_FLOWER1                                             = "Lotus Flower"
-TA_STRINGS.NAMES.LOTUS_FLOWER1_COOKED                                      = "Cooked Lotus Root"
+TA_STRINGS.NAMES.LOTUS_FLOWER                                             = "Lotus Flower"
+TA_STRINGS.NAMES.LOTUS_FLOWER_COOKED                                      = "Cooked Lotus Root"
 
 TA_STRINGS.NAMES.FROGLEGS_POISON                                           = "Poison Dartfrog Legs"
 TA_STRINGS.NAMES.FROGLEGS_POISON_COOKED                                    = "Cooked Dartfrog Legs"

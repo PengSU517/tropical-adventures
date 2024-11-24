@@ -27,7 +27,7 @@ local function PickLotusAction(inst)
     local target = FindEntity(inst, SEE_FOOD_DIST, function(item)
         return item.components.pickable
                and item.components.pickable:CanBePicked()
-               and item.components.pickable.product == "lotus_flower1"
+               and item.components.pickable.product == "lotus_flower"
     end)
     if target then
         --check for scary things near the lotus
