@@ -256,7 +256,7 @@ PrefabFiles = {
     "livingjungletree",
     "lobsterhole",
     "loot_pumper",
-    "lotus_flower1",
+    "lotus_flower",
     "lotus",
     "luckyhat",
     "luggarechestspawn",

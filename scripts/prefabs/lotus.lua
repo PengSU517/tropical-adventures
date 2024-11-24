@@ -137,11 +137,11 @@ local function fn(Sim)
 
     inst:AddComponent("pickable")
     inst.components.pickable.picksound = "dontstarve/wilson/pickup_plants"
-    inst.components.pickable:SetUp("lotus_flower1", LOTUS_REGROW_TIME)
+    inst.components.pickable:SetUp("lotus_flower", LOTUS_REGROW_TIME)
     inst.components.pickable.onregenfn = onregenfn
     inst.components.pickable.onpickedfn = onpickedfn
     inst.components.pickable.makeemptyfn = makeemptyfn
-    inst.components.pickable.product = "lotus_flower1"
+    inst.components.pickable.product = "lotus_flower"
 
     inst.components.pickable.SetRegenTime = 120
 

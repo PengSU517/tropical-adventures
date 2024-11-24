@@ -240,9 +240,9 @@ local foods_tro = {
 
         lotuschips = { -- 莲藕汤 Lotus Root Soup
             test = function(cooker, names, tags)
-                return ((names.lotus_flower1 and names.lotus_flower1 > 1) or
-                           (names.lotus_flower1_cooked and names.lotus_flower1_cooked > 1) or
-                           (names.lotus_flower1 and names.lotus_flower1_cooked)) and not tags.fish
+                return ((names.lotus_flower and names.lotus_flower > 1) or
+                           (names.lotus_flower_cooked and names.lotus_flower_cooked > 1) or
+                           (names.lotus_flower and names.lotus_flower_cooked)) and not tags.fish
             end,
             priority = 5,
             foodtype = FOODTYPE.VEGGIE,
@@ -252,7 +252,7 @@ local foods_tro = {
             sanity = TUNING.SANITY_MEDLARGE * 2,
             cooktime = .5,
             card_def = {
-                ingredients = {{"lotus_flower1", 2}, {"ice", 1}, {"twigs", 1}},
+                ingredients = {{"lotus_flower", 2}, {"ice", 1}, {"twigs", 1}},
             },
         },
 
