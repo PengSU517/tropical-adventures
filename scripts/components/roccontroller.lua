@@ -590,7 +590,7 @@ local function teleport(player)
 	if not player or not IsValidPlayer(player) then
 		return
 	end
-	local nest = TheSim:FindFirstEntityWithTag("roc_nest")
+	local nest = TheSim:FindFirstEntityWithTag("roc_nest") or TheSim:FindFirstEntityWithTag("multiplayer_portal")
 	local nest_pos = nest and Vector3(nest.Transform:GetWorldPosition()) or { 0, 0, 0 }
 	player.Transform:SetPosition(nest_pos:Get())
 	player:DoTaskInTime(0, function() FadeInFinished(player) end)

@@ -192,7 +192,7 @@ local function SetAsRabid(inst, rabid)
 end
 
 local function transformtest(inst)
-	if TheWorld.state.isnight and (TheWorld.state.moonphase == "full") or TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.aporkalypse_active == true then
+	if TheWorld.state.isnight and (TheWorld.state.moonphase == "full") or TheWorld.state.isaporkalypse then
 		if not inst.currentlyRabid then
 			inst:DoTaskInTime(1 + (math.random() * 1), function() SetAsRabid(inst, true) end)
 		end
@@ -347,8 +347,8 @@ local function fn()
 
 	-- When a piko is first created, ensure that it isn't rabid.
 	SetAsRabid(inst, false)
-	inst:ListenForEvent("beginaporkalypse", function() transformtest(inst) end, TheWorld)
-	inst:ListenForEvent("endaporkalypse", function() transformtest(inst) end, TheWorld)
+	inst:WatchWorldState("startaporkalypse", function() transformtest(inst) end, TheWorld)
+	inst:WatchWorldState("stopaporkalypse", function() transformtest(inst) end, TheWorld)
 	inst:DoTaskInTime(0.2, function(inst) transformtest(inst) end)
 
 	return inst
@@ -507,8 +507,8 @@ local function orangefn()
 
 	-- When a piko is first created, ensure that it isn't rabid.
 	SetAsRabid(inst, false)
-	inst:ListenForEvent("beginaporkalypse", function() transformtest(inst) end, TheWorld)
-	inst:ListenForEvent("endaporkalypse", function() transformtest(inst) end, TheWorld)
+	inst:WatchWorldState("startaporkalypse", function() transformtest(inst) end, TheWorld)
+	inst:WatchWorldState("stopaporkalypse", function() transformtest(inst) end, TheWorld)
 	inst:DoTaskInTime(0.2, function(inst) transformtest(inst) end)
 
 	return inst

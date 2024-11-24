@@ -151,18 +151,9 @@ local function fn(Sim)
     ------------------------------------------
 
     inst:ListenForEvent("attacked", OnAttacked)
-
     inst.sg:GoToState("appear")
-
-    inst:DoTaskInTime(0, function()
-        inst.home_pos = Point(inst.Transform:GetWorldPosition())
-    end)
-
-    inst:ListenForEvent("endaporkalypse",
-        function()
-            inst:Remove()
-        end, TheWorld)
-
+    inst:DoTaskInTime(0, function() inst.home_pos = Point(inst.Transform:GetWorldPosition()) end)
+    inst:WatchWorldState("stopaporkalypse", function() inst.sg:GoToState("disappear") end, TheWorld)
 
     inst.summon_time = GetTime()
     inst.taunt_time = GetTime()

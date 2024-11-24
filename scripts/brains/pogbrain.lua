@@ -31,8 +31,8 @@ local AVOID_STOP = 10
 local POG_SEE_FOOD = 30
 local POG_EAT_DELAY = 0.5
 
-local NO_TAGS = {"FX", "NOCLICK", "DECOR","INLIMBO", "stump", "burnt"}
-local PLAY_TAGS = {"cattoy", "cattoyairborne", "catfood"}
+local NO_TAGS = { "FX", "NOCLICK", "DECOR", "INLIMBO", "stump", "burnt" }
+local PLAY_TAGS = { "cattoy", "cattoyairborne", "catfood" }
 
 local PogBrain = Class(Brain, function(self, inst)
     Brain._ctor(self, inst)
@@ -45,30 +45,31 @@ local function EatFoodAction(inst)
         target = inst.components.inventory:FindItem(function(item) return inst.components.eater:CanEat(item) end)
     end
     if not target then
-        local notags = {"FX", "NOCLICK", "DECOR","INLIMBO", "aquatic"}    
-        target = FindEntity(inst, POG_SEE_FOOD, function(item) return inst.components.eater:CanEat(item) and not item:HasTag("poisonous") and item:IsOnValidGround() and item:GetTimeAlive() > POG_EAT_DELAY end, nil, notags)    
-        
-        local pt = Vector3(inst.Transform:GetWorldPosition())
-        local ents = TheSim:FindEntities(pt.x,pt.y,pt.z, POG_SEE_FOOD, {"pog"})
-        for i,ent in ipairs(ents)do
+        local notags = { "FX", "NOCLICK", "DECOR", "INLIMBO", "aquatic" }
+        target = FindEntity(inst, POG_SEE_FOOD,
+            function(item) return inst.components.eater:CanEat(item) and not item:HasTag("poisonous") and
+                item:IsOnValidGround() and item:GetTimeAlive() > POG_EAT_DELAY end, nil, notags)
 
+        local pt = Vector3(inst.Transform:GetWorldPosition())
+        local ents = TheSim:FindEntities(pt.x, pt.y, pt.z, POG_SEE_FOOD, { "pog" })
+        for i, ent in ipairs(ents) do
             -- if another nearby pog is already going to this food, maybe go after it?
-            if ((ent.components.locomotor.bufferedaction and ent.components.locomotor.bufferedaction.target and ent.components.locomotor.bufferedaction.target == target) or 
-                (inst.bufferedaction and inst.bufferedaction.target and inst.bufferedaction.target == target) )            
-                and ent ~= inst then            
+            if ((ent.components.locomotor.bufferedaction and ent.components.locomotor.bufferedaction.target and ent.components.locomotor.bufferedaction.target == target) or
+                    (inst.bufferedaction and inst.bufferedaction.target and inst.bufferedaction.target == target))
+                and ent ~= inst then
                 if math.random() < 0.9 then
                     return nil
                 end
             end
         end
     end
-    if target then   
+    if target then
         return BufferedAction(inst, target, ACTIONS.EAT)
     end
 end
 
 local function GetLeader(inst)
-    return inst.components.follower.leader 
+    return inst.components.follower.leader
 end
 
 local function GetFaceTargetFn(inst)
@@ -79,7 +80,7 @@ local function GetFaceTargetFn(inst)
 end
 
 local function KeepFaceTargetFn(inst, target)
-    return inst:GetDistanceSqToInst(target) <= KEEP_FACE_DIST*KEEP_FACE_DIST and not target:HasTag("notarget")
+    return inst:GetDistanceSqToInst(target) <= KEEP_FACE_DIST * KEEP_FACE_DIST and not target:HasTag("notarget")
 end
 
 local function GetWanderDistFn(inst)
@@ -91,8 +92,7 @@ local function GetWanderDistFn(inst)
 end
 
 local function barkatfriend(inst)
-
-    local target = FindEntity(inst, BARK_AT_FRIEND_DIST, function(item) return item.sg:HasStateTag("idle") end, {"pog"}) --  item:HasTag("pog") and 
+    local target = FindEntity(inst, BARK_AT_FRIEND_DIST, function(item) return item.sg:HasStateTag("idle") end, { "pog" }) --  item:HasTag("pog") and
     if target and math.random() < 0.01 then
         return BufferedAction(inst, target, ACTIONS.BARK)
     end
@@ -100,16 +100,16 @@ end
 
 local function ransack(inst)
     local pt = Vector3(inst.Transform:GetWorldPosition())
-    local ents = TheSim:FindEntities(pt.x,pt.y,pt.z, POG_SEE_FOOD, {"structure"})
+    local ents = TheSim:FindEntities(pt.x, pt.y, pt.z, POG_SEE_FOOD, { "structure" })
     local containers = {}
     for i, ent in ipairs(ents) do
         if ent.components.container then
-            table.insert(containers,ent)
+            table.insert(containers, ent)
         end
     end
 
     if #containers > 0 then
-        local container = containers[math.random(1,#containers)]
+        local container = containers[math.random(1, #containers)]
 
         local items = container.components.container:FindItems(function() return true end)
         if #items > 0 then
@@ -120,20 +120,20 @@ end
 
 local function harassPlayer(inst)
     local target = GetClosestInstWithTag("player", inst, 30)
-	if target then
-    local item = nil
-
-    local p_pt = Vector3(target.Transform:GetWorldPosition())
-    local m_pt = Vector3(inst.Transform:GetWorldPosition())
-
     if target then
-        item = target.components.inventory:FindItem(function(item) return inst.components.eater:CanEat(item) end )
-    end
+        local item = nil
 
-    if item and distsq(p_pt, m_pt) < FOLLOWPLAYER_DIST * FOLLOWPLAYER_DIST then --  and not (target and target.components.driver and target.components.driver:GetIsDriving()) then
-        return target
+        local p_pt = Vector3(target.Transform:GetWorldPosition())
+        local m_pt = Vector3(inst.Transform:GetWorldPosition())
+
+        if target then
+            item = target.components.inventory:FindItem(function(item) return inst.components.eater:CanEat(item) end)
+        end
+
+        if item and distsq(p_pt, m_pt) < FOLLOWPLAYER_DIST * FOLLOWPLAYER_DIST then --  and not (target and target.components.driver and target.components.driver:GetIsDriving()) then
+            return target
+        end
     end
-	end
 end
 
 local function SuggestTarget(inst)
@@ -144,28 +144,30 @@ local function SuggestTarget(inst)
 end
 
 function PogBrain:OnStart()
-    local root = 
-    PriorityNode(
-    {
-        WhileNode( function() return self.inst.components.health.takingfiredamage end, "OnFire", Panic(self.inst)),
-        DoAction(self.inst, function() return EatFoodAction(self.inst) end, "Eat", true),  
+    local root =
+        PriorityNode(
+            {
+                WhileNode(function() return self.inst.components.health.takingfiredamage end, "OnFire", Panic(self.inst)),
+                DoAction(self.inst, function() return EatFoodAction(self.inst) end, "Eat", true),
 
-        IfNode ( function() return TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.aporkalypse_active == true end, "AporkalypseActive",
-            DoAction(self.inst, function() SuggestTarget(self.inst) end)),
+                IfNode(function() return TheWorld.state.isaporkalypse end, "AporkalypseActive",
+                    DoAction(self.inst, function() SuggestTarget(self.inst) end)),
 
-        ChaseAndAttack(self.inst, MAX_CHASE_TIME, MAX_CHASE_DIST),   
+                ChaseAndAttack(self.inst, MAX_CHASE_TIME, MAX_CHASE_DIST),
 
-        DoAction(self.inst, function() return ransack(self.inst) end, "ransack", true),
+                DoAction(self.inst, function() return ransack(self.inst) end, "ransack", true),
 
-        Follow(self.inst, GetLeader, MIN_FOLLOW_DIST, TARGET_FOLLOW_DIST, MAX_FOLLOW_DIST),     
+                Follow(self.inst, GetLeader, MIN_FOLLOW_DIST, TARGET_FOLLOW_DIST, MAX_FOLLOW_DIST),
 
-        FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn),
-        Follow(self.inst, function() return harassPlayer(self.inst) end, MIN_FOLLOW_DIST, TARGET_FOLLOW_DIST, MAX_FOLLOW_DIST, true),
-        
-        DoAction(self.inst, function() return barkatfriend(self.inst) end, "Bark at friend", true),
+                FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn),
+                Follow(self.inst, function() return harassPlayer(self.inst) end, MIN_FOLLOW_DIST, TARGET_FOLLOW_DIST,
+                    MAX_FOLLOW_DIST, true),
 
-        Wander(self.inst, function() return self.inst.components.knownlocations:GetLocation("herd") end, GetWanderDistFn)
-    }, .25)
+                DoAction(self.inst, function() return barkatfriend(self.inst) end, "Bark at friend", true),
+
+                Wander(self.inst, function() return self.inst.components.knownlocations:GetLocation("herd") end,
+                    GetWanderDistFn)
+            }, .25)
     self.bt = BT(self.inst, root)
 end
 

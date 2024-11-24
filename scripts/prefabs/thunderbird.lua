@@ -30,7 +30,7 @@ local function DoLightning(inst, target)
     local LIGHTNING_COUNT = 3
     local COOLDOWN = 60
 
-    if TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.aporkalypse_active == true then
+    if TheWorld.state.isaporkalypse then
         LIGHTNING_COUNT = 10
     end
 
@@ -39,7 +39,7 @@ local function DoLightning(inst, target)
             local rad = math.random(4, 8)
             local angle = i * ((4 * PI) / LIGHTNING_COUNT)
             local pos = Vector3(target.Transform:GetWorldPosition()) +
-            Vector3(rad * math.cos(angle), 0, rad * math.sin(angle))
+                Vector3(rad * math.cos(angle), 0, rad * math.sin(angle))
             TheWorld:PushEvent("ms_sendlightningstrike", pos)
         end)
     end
@@ -97,7 +97,7 @@ local function fn()
     inst.components.eater:SetDiet({ FOODTYPE.VEGGIE }, { FOODTYPE.VEGGIE })
 
     inst:AddComponent("sleeper")
-    inst.components.sleeper:SetWakeTest(function() return true end)   --always wake up if we're asleep
+    inst.components.sleeper:SetWakeTest(function() return true end) --always wake up if we're asleep
 
     inst:AddComponent("combat")
     inst.components.combat.hiteffectsymbol = "pig_torso"

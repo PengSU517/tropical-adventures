@@ -214,7 +214,7 @@ end
 local function transformtest(inst)
     inst:DoTaskInTime(1 + (math.random() * 1),
         function()
-            if TheWorld.state.isfullmoon and TheWorld.state.isnight or TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.aporkalypse_active == true then
+            if TheWorld.state.isfullmoon and TheWorld.state.isnight or TheWorld.state.isaporkalypse then
                 --        if inst:HasTag("grumpy") then
                 transform(inst)
                 --        end
@@ -348,8 +348,12 @@ local function fn()
 
     inst:AddComponent("inspectable")
 
-    inst.components.inspectable.getstatus = function(inst) if inst.components.follower.leader ~= nil then return
-            "FOLLOWER" end end
+    inst.components.inspectable.getstatus = function(inst)
+        if inst.components.follower.leader ~= nil then
+            return
+            "FOLLOWER"
+        end
+    end
     ------------------------------------------
 
     inst:ListenForEvent("attacked", OnAttacked)
@@ -392,8 +396,8 @@ local function fn()
     inst:SetBrain(brain)
     inst:SetStateGraph("SGmandrakeman")
 
-    inst:ListenForEvent("beginaporkalypse", function() transformtest(inst) end, TheWorld)
-    inst:ListenForEvent("endaporkalypse", function() transformtest(inst) end, TheWorld)
+    inst:WatchWorldState("startaporkalypse", function() transformtest(inst) end, TheWorld)
+    inst:WatchWorldState("stopaporkalypse", function() transformtest(inst) end, TheWorld)
     inst:DoTaskInTime(0.2, function(inst) transformtest(inst) end)
 
     return inst

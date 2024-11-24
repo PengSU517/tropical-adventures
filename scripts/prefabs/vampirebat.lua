@@ -293,7 +293,7 @@ local function dodive(inst)
             --            bat:DoTaskInTime(2,function()  bat:PushEvent("attacked", {attacker = player, damage = 0, weapon = nil}) end)
         end
     end
-    inst:Remove()
+    inst:DoTaskInTime(1, function() inst:Remove() end)
 end
 
 
@@ -361,10 +361,6 @@ local function circlingbatfn()
     --    inst:DoPeriodicTask(1, function() if math.random()<0.1 then inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/vampire_bat/distant_taunt") end end)
 
     inst.task = inst:DoTaskInTime(3, function() dodive(inst) end)
-    inst:ListenForEvent("endaporkalypse",
-        function()
-            inst:Remove()
-        end, TheWorld)
 
     inst.OnSave = onsaveshadow
     inst.OnLoad = onloadshadow

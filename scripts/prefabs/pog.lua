@@ -249,11 +249,16 @@ local function fn()
 ]]
 
 
-	inst:ListenForEvent("beginaporkalypse", function() inst.AnimState:SetBuild("pog_feral_build") end, TheWorld)
-	inst:ListenForEvent("endaporkalypse", function() inst.AnimState:SetBuild("pog_basic") end, TheWorld)
+	inst:WatchWorldState("startaporkalypse", function() inst.AnimState:SetBuild("pog_feral_build") end, TheWorld)
+	inst:WatchWorldState("stopaporkalypse", function() inst.AnimState:SetBuild("pog_basic") end, TheWorld)
 	inst:DoTaskInTime(0.2,
-		function(inst) if TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.aporkalypse_active == true then
-				inst.AnimState:SetBuild("pog_feral_build") else inst.AnimState:SetBuild("pog_basic") end end)
+		function(inst)
+			if TheWorld.state.isaporkalypse then
+				inst.AnimState:SetBuild("pog_feral_build")
+			else
+				inst.AnimState:SetBuild("pog_basic")
+			end
+		end)
 
 	local brain = require("brains/pogbrain")
 	inst:SetBrain(brain)

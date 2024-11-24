@@ -63,7 +63,7 @@ local function KeepTarget(inst, target)
 end
 
 local function periodicupdate(inst)
-    if (TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.aporkalypse_active == true) then
+    if (TheWorld.state.isaporkalypse) then
         return
     end
 

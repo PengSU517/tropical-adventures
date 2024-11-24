@@ -87,8 +87,10 @@ local function NormalRetargetFn(inst)
         function(guy)
             if guy.components.health and not guy.components.health:IsDead() and inst.components.combat:CanTarget(guy) then
                 if guy:HasTag("monster") then return guy end
-                if guy:HasTag("player") and guy.components.inventory and guy:GetDistanceSqToInst(inst) < ANTMAN_WARRIOR_ATTACK_ON_SIGHT_DIST * ANTMAN_WARRIOR_ATTACK_ON_SIGHT_DIST and not guy:HasTag("antlingual") then return
-                    guy end
+                if guy:HasTag("player") and guy.components.inventory and guy:GetDistanceSqToInst(inst) < ANTMAN_WARRIOR_ATTACK_ON_SIGHT_DIST * ANTMAN_WARRIOR_ATTACK_ON_SIGHT_DIST and not guy:HasTag("antlingual") then
+                    return
+                        guy
+                end
             end
         end
     )
@@ -237,7 +239,7 @@ local function common()
     end
 
     inst:ListenForEvent("antqueenbattle", function() inst.SetAporkalypse(true) end, TheWorld)
-    --    inst:ListenForEvent("endaporkalypse", function()
+    --    inst:WatchWorldState("stopaporkalypse", function()
     --        if inst:HasTag("aporkalypse_cleanup") then
     --            if not inst:IsInLimbo() then
     --                TransformToNormal(inst)
@@ -253,7 +255,7 @@ local function common()
     --        end
     --    end)
 
-    inst:ListenForEvent("beginaporkalypse", function()
+    inst:WatchWorldState("startaporkalypse", function()
         inst.Light:Enable(true)
         inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
         inst.build = "antman_warpaint_build"
@@ -261,7 +263,7 @@ local function common()
     end, TheWorld)
 
 
-    inst:ListenForEvent("endaporkalypse",
+    inst:WatchWorldState("stopaporkalypse",
         function()
             local warrior = SpawnPrefab("antman")
             warrior.Transform:SetPosition(inst.Transform:GetWorldPosition())
@@ -269,7 +271,7 @@ local function common()
         end, TheWorld)
 
     inst:DoTaskInTime(0.2, function(inst)
-        if TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.aporkalypse_active == true then
+        if TheWorld.state.isaporkalypse then
             inst.Light:Enable(true)
             inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
             inst.build = "antman_warpaint_build"

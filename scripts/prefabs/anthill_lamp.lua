@@ -69,8 +69,8 @@ local function fn(Sim)
             end
         end)
 
-    inst:ListenForEvent("beginaporkalypse", function() inst.Light:Enable(false) end, TheWorld)
-    inst:ListenForEvent("endaporkalypse", function() inst.Light:Enable(true) end, TheWorld)
+    inst:WatchWorldState("startaporkalypse", function() inst.Light:Enable(false) end, TheWorld)
+    inst:WatchWorldState("stopaporkalypse", function() inst.Light:Enable(true) end, TheWorld)
     --    inst:ListenForEvent("exitlimbo", function(inst) inst.Light:Enable(not GetAporkalypse():IsActive()) end)
 
     --    inst.Light:Enable(not GetAporkalypse():IsActive())
