@@ -1,7 +1,6 @@
 require("stategraphs/commonstates")
 
 function SpawnRandomInRange(inst, prefab, min_count, max_count, radius, offset_y)
-
     local objs = {}
     offset_y = offset_y or 0
 
@@ -45,6 +44,7 @@ function SpawnRandomInRange(inst, prefab, min_count, max_count, radius, offset_y
 
     return objs
 end
+
 function SpawnFireRain(inst)
     if TheWorld:HasTag("cave") then
         SpawnRandomInRange(inst, "cavein_boulder", 1, 4, 6, 35)
@@ -59,7 +59,7 @@ function SpawnGhosts(inst)
 end
 
 function SpawnNightmares(inst)
-    local nightmares = SpawnRandomInRange(inst, {"nightmarebeak", "crawlingnightmare"}, 2, 4, 10)
+    local nightmares = SpawnRandomInRange(inst, { "nightmarebeak", "crawlingnightmare" }, 2, 4, 10)
 
     for _, nightmare in pairs(nightmares) do nightmare:AddTag("aporkalypse_cleanup") end
 end
@@ -92,7 +92,7 @@ local function startaura(inst) inst.SoundEmitter:PlaySound("dontstarve/ghost/gho
 local function stopaura(inst) inst.SoundEmitter:KillSound("angry") end
 
 local function setfires(x, y, z, rad)
-    for i, v in ipairs(TheSim:FindEntities(x, 0, z, rad, nil, {"laser", "DECOR", "INLIMBO"})) do
+    for i, v in ipairs(TheSim:FindEntities(x, 0, z, rad, nil, { "laser", "DECOR", "INLIMBO" })) do
         if v.components.burnable then v.components.burnable:Ignite() end
     end
 end
@@ -102,7 +102,7 @@ local function DoDamage(inst, rad)
     local x, y, z = inst.Transform:GetWorldPosition()
 
     setfires(x, y, z, rad)
-    for i, v in ipairs(TheSim:FindEntities(x, 0, z, rad, nil, {"laser", "DECOR", "INLIMBO"})) do --  { "_combat", "pickable", "campfire", "CHOP_workable", "HAMMER_workable", "MINE_workable", "DIG_workable" }
+    for i, v in ipairs(TheSim:FindEntities(x, 0, z, rad, nil, { "laser", "DECOR", "INLIMBO" })) do --  { "_combat", "pickable", "campfire", "CHOP_workable", "HAMMER_workable", "MINE_workable", "DIG_workable" }
         if not targets[v] and v:IsValid() and not v:IsInLimbo() and
             not (v.components.health ~= nil and v.components.health:IsDead()) and not v:HasTag("laser_immune") then
             local vradius = 0
@@ -115,9 +115,8 @@ local function DoDamage(inst, rad)
                     local work_action = v.components.workable:GetWorkAction()
                     -- V2C: nil action for campfires
                     isworkable = (work_action == nil and v:HasTag("campfire")) or
-
-                                     (work_action == ACTIONS.CHOP or work_action == ACTIONS.HAMMER or work_action ==
-                                         ACTIONS.MINE or work_action == ACTIONS.DIG)
+                        (work_action == ACTIONS.CHOP or work_action == ACTIONS.HAMMER or work_action ==
+                            ACTIONS.MINE or work_action == ACTIONS.DIG)
                 end
                 if isworkable then
                     targets[v] = true
@@ -144,7 +143,6 @@ local function DoDamage(inst, rad)
                             targets[loot] = true
                         end
                     end
-
                 elseif v.components.health then
                     inst.components.combat:DoAttack(v)
                     if v:IsValid() then
@@ -172,108 +170,172 @@ local function DoDamage(inst, rad)
     end
 end
 
-local events = {CommonHandlers.OnLocomote(false, true), CommonHandlers.OnAttack(),
-                EventHandler("startaura", function(inst) startaura(inst) end),
-                EventHandler("stopaura", function(inst) stopaura(inst) end), EventHandler("attacked", function(inst)
-    if inst.components.health:GetPercent() > 0 and not inst.sg:HasStateTag("busy") then inst.sg:GoToState("hit") end
-end), EventHandler("death", function(inst) inst.sg:GoToState("death") end)}
+local herald_summons = {
+    SpawnFireRain,
+    SpawnFrogRain,
+    SpawnGhosts,
+    SpawnNightmares,
+}
+
+-- these shouldn't spawn inside room
+local herald_summons_cave = {
+    SpawnGhosts,
+    SpawnNightmares,
+}
+
+local function SpawnHeraldSummons(inst)
+    local fn
+    if TheWorld:HasTag("cave") then
+        fn = GetRandomItem(herald_summons_cave)
+    else
+        fn = GetRandomItem(herald_summons)
+    end
+
+
+    fn(inst)
+end
+
+local events = {
+    CommonHandlers.OnLocomote(false, true),
+    CommonHandlers.OnAttack(),
+    EventHandler("startaura", function(inst) startaura(inst) end),
+    EventHandler("stopaura", function(inst) stopaura(inst) end),
+    EventHandler("attacked", function(inst)
+        if inst.components.health:GetPercent() > 0 and not inst.sg:HasStateTag("busy") then
+            inst.sg:GoToState("hit")
+        end
+    end),
+    EventHandler("death", function(inst) inst.sg:GoToState("death") end) }
 
 local function getidleanim(inst) return "idle" end
 
-local states = {State {
-    name = "idle",
-    tags = {"idle", "canrotate", "canslide"},
-    onenter = function(inst) inst.AnimState:PlayAnimation(getidleanim(inst), true) end,
-}, State {
-    name = "appear",
-    tags = {"busy"},
-    onenter = function(inst)
-        inst.AnimState:PlayAnimation("appear")
-        inst.SoundEmitter:PlaySound("dontstarve/ghost/ghost_howl")
-        TheMixer:PushMix("shadow")
 
-    end,
 
-    timeline = {TimeEvent(0 * FRAMES, function(inst)
-        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/appear")
-    end)},
+local states = {
+    State {
+        name = "idle",
+        tags = { "idle", "canrotate", "canslide" },
+        onenter = function(inst) inst.AnimState:PlayAnimation(getidleanim(inst), true) end,
+    },
+    State {
+        name = "appear",
+        tags = { "busy" },
+        onenter = function(inst)
+            inst.AnimState:PlayAnimation("appear")
+            inst.SoundEmitter:PlaySound("dontstarve/ghost/ghost_howl")
+            TheMixer:PushMix("shadow")
+        end,
 
-    events = {EventHandler("animover", function(inst, data) inst.sg:GoToState("idle") end)},
+        timeline = { TimeEvent(0 * FRAMES, function(inst)
+            inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/appear")
+        end) },
 
-}, State {
-    name = "taunt",
-    tags = {"busy"},
-    onenter = function(inst)
-        inst.Physics:Stop()
-        inst.AnimState:PlayAnimation("taunt")
-    end,
+        events = { EventHandler("animover", function(inst, data) inst.sg:GoToState("idle") end) },
 
-    timeline = {TimeEvent(0 * FRAMES, function(inst)
-        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/taunt")
-    end)},
+    },
+    State {
+        name = "disappear",
+        tags = { "busy" },
 
-    events = {EventHandler("animover", function(inst, data) inst.sg:GoToState("idle") end)},
-}, State {
-    name = "summon",
-    tags = {"busy"},
-    onenter = function(inst)
-        inst.Physics:Stop()
-        inst.AnimState:PlayAnimation("summon")
-    end,
+        onenter = function(inst)
+            inst.components.locomotor:StopMoving()
+            inst.AnimState:PlayAnimation("death")
+            RemovePhysicsColliders(inst)
+        end,
 
-    timeline = {TimeEvent(0 * FRAMES, function(inst)
-        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/summon")
-    end), TimeEvent(1 * FRAMES, function(inst)
-        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/summon_2d")
-    end), TimeEvent(30 * FRAMES, function(inst)
+        timeline =
+        {
+            TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/death")
+            end),
+        },
 
-        local tipo = math.random(1, 4)
-        if tipo == 1 then
-            SpawnGhosts(inst)
-        elseif tipo == 2 then
-            SpawnFireRain(inst)
-        elseif tipo == 3 then
-            SpawnFrogRain(inst)
-        else
-            SpawnNightmares(inst)
-        end
+        events =
+        {
+            EventHandler("animover", function(inst, data)
+                inst:Remove()
+            end)
+        },
+    },
 
-    end)},
+    State {
+        name = "taunt",
+        tags = { "busy" },
+        onenter = function(inst)
+            inst.Physics:Stop()
+            inst.AnimState:PlayAnimation("taunt")
+        end,
 
-    events = {EventHandler("animover", function(inst, data) inst.sg:GoToState("idle") end)},
-}}
+        timeline = { TimeEvent(0 * FRAMES, function(inst)
+            inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/taunt")
+        end) },
 
-CommonStates.AddCombatStates(states, {
+        events = { EventHandler("animover", function(inst, data) inst.sg:GoToState("idle") end) },
+    },
+    State {
+        name = "summon",
+        tags = { "busy" },
+        onenter = function(inst)
+            inst.Physics:Stop()
+            inst.AnimState:PlayAnimation("summon")
+        end,
 
-    attacktimeline = {TimeEvent(0 * FRAMES, function(inst)
-        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/attack")
-    end), TimeEvent(1 * FRAMES, function(inst)
-        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/attack_2d")
-    end), TimeEvent(20 * FRAMES, function(inst)
-        local ring = SpawnPrefab("laser_ring")
-        ring.Transform:SetPosition(inst.Transform:GetWorldPosition())
-        ring.Transform:SetScale(1.1, 1.1, 1.1)
-        DoDamage(inst, 6)
-    end)},
-    hittimeline = {TimeEvent(0 * FRAMES, function(inst)
-        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/hit")
-    end)},
-    deathtimeline = {TimeEvent(0 * FRAMES, function(inst)
-        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/death")
-    end), TimeEvent(32 * FRAMES, function(inst)
-        -- inst.components.lootdropper:DropLoot(Vector3(inst.Transform:GetWorldPosition())) 
+        timeline = {
+            TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/summon")
+            end),
+            TimeEvent(1 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/summon_2d")
+            end),
+            TimeEvent(30 * FRAMES, function(inst) SpawnHeraldSummons(inst) end)
+        },
 
-    end)},
-}, {
-    attack = "attack",
-})
+        events = { EventHandler("animover", function(inst, data) inst.sg:GoToState("idle") end) },
+    } }
+
+CommonStates.AddCombatStates(states,
+    {
+
+        attacktimeline = {
+            TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/attack")
+            end),
+            TimeEvent(1 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/attack_2d")
+            end),
+            TimeEvent(20 * FRAMES, function(inst)
+                local ring = SpawnPrefab("laser_ring")
+                ring.Transform:SetPosition(inst.Transform:GetWorldPosition())
+                ring.Transform:SetScale(1.1, 1.1, 1.1)
+                DoDamage(inst, 6)
+            end) },
+        hittimeline = {
+            TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/hit")
+            end)
+        },
+        deathtimeline = {
+            TimeEvent(0 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/death")
+            end),
+            TimeEvent(32 * FRAMES, function(inst)
+                -- inst.components.lootdropper:DropLoot(Vector3(inst.Transform:GetWorldPosition()))
+            end)
+        },
+    },
+    {
+        attack = "attack",
+    })
 
 CommonStates.AddWalkStates(states, {
-    walktimeline = {TimeEvent(0 * FRAMES, function(inst)
-        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/breath_in")
-    end), TimeEvent(17 * FRAMES, function(inst)
-        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/breath_out")
-    end)},
+    walktimeline = {
+        TimeEvent(0 * FRAMES, function(inst)
+            inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/breath_in")
+        end),
+        TimeEvent(17 * FRAMES, function(inst)
+            inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/ancient_herald/breath_out")
+        end)
+    },
 })
 
 return StateGraph("ancient_herald", states, events, "idle")

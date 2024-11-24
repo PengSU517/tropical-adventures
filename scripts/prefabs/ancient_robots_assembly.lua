@@ -281,7 +281,7 @@ local function commonfn(Sim)
     inst.OnLoad = OnLoad
     inst.OnLoadPostPass = OnLoadPostPass
 
-    --  inst:ListenForEvent("beginaporkalypse", function(world) OnLightning(inst) end, GetWorld())
+    --  inst:WatchWorldState("startaporkalypse", function(world) OnLightning(inst) end, GetWorld())
 
     return inst
 end

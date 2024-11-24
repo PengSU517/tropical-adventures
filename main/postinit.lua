@@ -69,6 +69,7 @@ modimport("postinit/components/map")
 modimport("postinit/components/boatphysics")
 
 modimport("postinit/components/animstate")
+modimport("postinit/components/worldstate")
 
 
 
@@ -81,8 +82,8 @@ modimport("postinit/components/animstate")
 modimport("postinit/prefabs/gears")
 modimport("postinit/prefabs/warningshadow")
 modimport("postinit/prefabs/world")
-modimport("postinit/prefabs/forest")
-modimport("postinit/prefabs/cave")
+-- modimport("postinit/prefabs/forest")
+-- modimport("postinit/prefabs/cave")
 modimport("postinit/prefabs/player_classified")
 modimport("postinit/prefabs/floatable_items")
 modimport("postinit/prefabs/blueprints")

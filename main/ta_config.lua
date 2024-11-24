@@ -1,6 +1,6 @@
 local source = debug.getinfo(1, "S").source
 local istestmode = source:match("([^/]+)/[^/]*/[^/]*/[^/]*$") == "mods"
-          and not (source:match("workshop-") or source:match("2986194136"))
+    and not (source:match("workshop-") or source:match("2986194136"))
 
 GLOBAL.TA_CONFIG = {
 

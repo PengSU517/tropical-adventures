@@ -27,8 +27,8 @@ local KEEP_FACE_DIST = 8
 -- local START_RUN_DIST = 3
 -- local STOP_RUN_DIST = 5
 
-local MAX_CHASE_TIME = 10  
-local MAX_CHASE_DIST = 30 
+local MAX_CHASE_TIME = 10
+local MAX_CHASE_DIST = 30
 
 local TRADE_DIST = 20
 local SEE_TREE_DIST = 15
@@ -42,7 +42,7 @@ local STOP_RUN_AWAY_DIST = 8
 
 local FAR_ENOUGH = 40
 
-local function getSpeechType(inst,speech)
+local function getSpeechType(inst, speech)
     local line = speech.DEFAULT
 
     if inst.talkertype and speech[inst.talkertype] then
@@ -56,7 +56,7 @@ local function getString(speech)
         return speech[math.random(#speech)]
     else
         return speech
-    end 
+    end
 end
 
 local function GetFaceTargetFn(inst)
@@ -64,8 +64,8 @@ local function GetFaceTargetFn(inst)
         return inst.components.follower.leader
     end
     local target = GetClosestInstWithTag("player", inst, START_FACE_DIST)
-    if target and not target:HasTag("notarget") then    
-       -- inst.sg:GoToState("greet")
+    if target and not target:HasTag("notarget") then
+        -- inst.sg:GoToState("greet")
         return target
     end
 end
@@ -82,7 +82,8 @@ local function ShouldRunAway(inst, target)
 end
 
 local function GetTraderFn(inst)
-    return FindEntity(inst, TRADE_DIST, function(target) return inst.components.trader:IsTryingToTradeWithMe(target) end, {"player"})
+    return FindEntity(inst, TRADE_DIST, function(target) return inst.components.trader:IsTryingToTradeWithMe(target) end,
+        { "player" })
 end
 
 local function KeepTraderFn(inst, target)
@@ -99,46 +100,46 @@ end
 local function FindFoodAction(inst)
     local target = nil
 
-	if inst.sg:HasStateTag("busy") then
-		return
-	end
-    
+    if inst.sg:HasStateTag("busy") then
+        return
+    end
+
     if inst.components.inventory and inst.components.eater then
         target = inst.components.inventory:FindItem(function(item) return inst.components.eater:CanEat(item) end)
     end
-    
+
     local time_since_eat = inst.components.eater:TimeSinceLastEating()
-    local noveggie = time_since_eat and time_since_eat < TUNING.PIG_MIN_POOP_PERIOD*4
-    
-    if not target and (not time_since_eat or time_since_eat > TUNING.PIG_MIN_POOP_PERIOD*2) then
-        target = FindEntity(inst, SEE_FOOD_DIST, function(item) 
-				if item:GetTimeAlive() < 8 then return false end
-				if item.prefab == "mandrake" then return false end
-				if noveggie and item.components.edible and item.components.edible.foodtype ~= "MEAT" then
-					return false
-				end
-				if not item:IsOnValidGround() then
-					return false
-				end
-				return inst.components.eater:CanEat(item) 
-			end)
+    local noveggie = time_since_eat and time_since_eat < TUNING.PIG_MIN_POOP_PERIOD * 4
+
+    if not target and (not time_since_eat or time_since_eat > TUNING.PIG_MIN_POOP_PERIOD * 2) then
+        target = FindEntity(inst, SEE_FOOD_DIST, function(item)
+            if item:GetTimeAlive() < 8 then return false end
+            if item.prefab == "mandrake" then return false end
+            if noveggie and item.components.edible and item.components.edible.foodtype ~= "MEAT" then
+                return false
+            end
+            if not item:IsOnValidGround() then
+                return false
+            end
+            return inst.components.eater:CanEat(item)
+        end)
     end
     if target then
         return BufferedAction(inst, target, ACTIONS.EAT)
     end
 
-    if not target and (not time_since_eat or time_since_eat > TUNING.PIG_MIN_POOP_PERIOD*2) then
-        target = FindEntity(inst, SEE_FOOD_DIST, function(item) 
-                if not item.components.shelf then return false end
-                if not item.components.shelf.itemonshelf or not item.components.shelf.cantakeitem then return false end
-                if noveggie and item.components.shelf.itemonshelf.components.edible and item.components.shelf.itemonshelf.components.edible.foodtype ~= "MEAT" then
-                    return false
-                end
-                if not item:IsOnValidGround() then
-                    return false
-                end
-                return inst.components.eater:CanEat(item.components.shelf.itemonshelf) 
-            end)
+    if not target and (not time_since_eat or time_since_eat > TUNING.PIG_MIN_POOP_PERIOD * 2) then
+        target = FindEntity(inst, SEE_FOOD_DIST, function(item)
+            if not item.components.shelf then return false end
+            if not item.components.shelf.itemonshelf or not item.components.shelf.cantakeitem then return false end
+            if noveggie and item.components.shelf.itemonshelf.components.edible and item.components.shelf.itemonshelf.components.edible.foodtype ~= "MEAT" then
+                return false
+            end
+            if not item:IsOnValidGround() then
+                return false
+            end
+            return inst.components.eater:CanEat(item.components.shelf.itemonshelf)
+        end)
     end
 
     if target then
@@ -148,84 +149,90 @@ end
 
 local function FindMoneyAction(inst)
     local target = FindEntity(inst, SEE_MONEY_DIST, function(item)
-                if not item:IsOnValidGround() then
-                    return false
-                end            
-               -- local itempos = Vector3(item.Transform:GetWorldPosition())
-               -- local instpos = Vector3(inst.Transform:GetWorldPosition())
-                --and TheWorld.Pathfinder:IsClear(itempos.x, itempos.y, itempos.z, instpos.x, instpos.y, instpos.z,  {ignorewalls = false})
-                return item.prefab == "oinc" or item.prefab == "oinc10"
-            end)    
-    if target then        
+        if not item:IsOnValidGround() then
+            return false
+        end
+        -- local itempos = Vector3(item.Transform:GetWorldPosition())
+        -- local instpos = Vector3(inst.Transform:GetWorldPosition())
+        --and TheWorld.Pathfinder:IsClear(itempos.x, itempos.y, itempos.z, instpos.x, instpos.y, instpos.z,  {ignorewalls = false})
+        return item.prefab == "oinc" or item.prefab == "oinc10"
+    end)
+    if target then
         return BufferedAction(inst, target, ACTIONS.PICKUP)
     end
 end
 
 local function checknotangry(inst)
-local jogador = GetClosestInstWithTag("player", inst, 5)
-if jogador then
-    return not inst:HasTag("angry_at_player") or inst:GetDistanceSqToInst(jogador) > 4*4  
-end
-return false	
+    local jogador = GetClosestInstWithTag("player", inst, 5)
+    if jogador then
+        return not inst:HasTag("angry_at_player") or inst:GetDistanceSqToInst(jogador) > 4 * 4
+    end
+    return false
 end
 
 local function KeepChoppingAction(inst)
-    local keep_chop = inst.components.follower.leader and inst.components.follower.leader:GetDistanceSqToInst(inst) <= KEEP_CHOPPING_DIST*KEEP_CHOPPING_DIST
-    local target = FindEntity(inst, SEE_TREE_DIST/3, function(item)
-        return item.prefab == "deciduoustree" and item.monster and item.components.workable and item.components.workable.action == ACTIONS.CHOP 
-    end)    
+    local keep_chop = inst.components.follower.leader and
+    inst.components.follower.leader:GetDistanceSqToInst(inst) <= KEEP_CHOPPING_DIST * KEEP_CHOPPING_DIST
+    local target = FindEntity(inst, SEE_TREE_DIST / 3, function(item)
+        return item.prefab == "deciduoustree" and item.monster and item.components.workable and
+        item.components.workable.action == ACTIONS.CHOP
+    end)
     if inst.tree_target ~= nil then target = inst.tree_target end
 
     return (keep_chop or target ~= nil)
 end
 
 local function StartChoppingCondition(inst)
-    local start_chop = inst.components.follower.leader and inst.components.follower.leader.sg and inst.components.follower.leader.sg:HasStateTag("chopping")
-    local target = FindEntity(inst, SEE_TREE_DIST/3, function(item) 
-        return item.prefab == "deciduoustree" and item.monster and item.components.workable and item.components.workable.action == ACTIONS.CHOP 
+    local start_chop = inst.components.follower.leader and inst.components.follower.leader.sg and
+    inst.components.follower.leader.sg:HasStateTag("chopping")
+    local target = FindEntity(inst, SEE_TREE_DIST / 3, function(item)
+        return item.prefab == "deciduoustree" and item.monster and item.components.workable and
+        item.components.workable.action == ACTIONS.CHOP
     end)
     if inst.tree_target ~= nil then target = inst.tree_target end
-    
+
     return (start_chop or target ~= nil)
 end
 
 
 local function FindTreeToChopAction(inst)
-    local target = FindEntity(inst, SEE_TREE_DIST, function(item) return item.components.workable and item.components.workable.action == ACTIONS.CHOP end)
+    local target = FindEntity(inst, SEE_TREE_DIST,
+        function(item) return item.components.workable and item.components.workable.action == ACTIONS.CHOP end)
     if target then
-        local decid_monst_target = FindEntity(inst, SEE_TREE_DIST/3, function(item)
-            return item.prefab == "deciduoustree" and item.monster and item.components.workable and item.components.workable.action == ACTIONS.CHOP 
+        local decid_monst_target = FindEntity(inst, SEE_TREE_DIST / 3, function(item)
+            return item.prefab == "deciduoustree" and item.monster and item.components.workable and
+            item.components.workable.action == ACTIONS.CHOP
         end)
-        if decid_monst_target ~= nil then 
-            target = decid_monst_target 
+        if decid_monst_target ~= nil then
+            target = decid_monst_target
         end
-        if inst.tree_target then 
+        if inst.tree_target then
             target = inst.tree_target
-            inst.tree_target = nil 
+            inst.tree_target = nil
         end
         return BufferedAction(inst, target, ACTIONS.CHOP)
     end
 end
 
 local function HasValidHome(inst)
-    return inst.components.homeseeker and 
-       inst.components.homeseeker.home and 
-       not inst.components.homeseeker.home:HasTag("fire") and
-       not inst.components.homeseeker.home:HasTag("burnt") and
-       inst.components.homeseeker.home:IsValid()
+    return inst.components.homeseeker and
+        inst.components.homeseeker.home and
+        not inst.components.homeseeker.home:HasTag("fire") and
+        not inst.components.homeseeker.home:HasTag("burnt") and
+        inst.components.homeseeker.home:IsValid()
 end
 
 
 local function GuardGoHomeAction(inst)
     local homePos = inst.components.knownlocations:GetLocation("home")
-    if homePos and 
-       not inst.components.combat.target then
+    if homePos and
+        not inst.components.combat.target then
         return BufferedAction(inst, nil, ACTIONS.WALKTO, nil, homePos)
     end
 end
 
 local function GetLeader(inst)
-    return inst.components.follower.leader 
+    return inst.components.follower.leader
 end
 
 local function GetHomePos(inst)
@@ -246,9 +253,8 @@ end)
 
 
 local function shouldPanic(inst)
-
-    local x,y,z = inst.Transform:GetWorldPosition()
-    local ents = TheSim:FindEntities(x,y,z, 20, {"hostile"},{"city_pig"}) 
+    local x, y, z = inst.Transform:GetWorldPosition()
+    local ents = TheSim:FindEntities(x, y, z, 20, { "hostile" }, { "city_pig" })
     if #ents > 0 then
         return true
     end
@@ -256,11 +262,11 @@ local function shouldPanic(inst)
     if inst.components.combat.target then
         local threat = inst.components.combat.target
         if threat then
-            local myPos = Vector3(inst.Transform:GetWorldPosition() )
-            local threatPos = Vector3(threat.Transform:GetWorldPosition() )
+            local myPos = Vector3(inst.Transform:GetWorldPosition())
+            local threatPos = Vector3(threat.Transform:GetWorldPosition())
             local dist = distsq(threatPos, myPos)
-            if dist < FAR_ENOUGH*FAR_ENOUGH then
-                if dist > STOP_RUN_AWAY_DIST*STOP_RUN_AWAY_DIST then
+            if dist < FAR_ENOUGH * FAR_ENOUGH then
+                if dist > STOP_RUN_AWAY_DIST * STOP_RUN_AWAY_DIST then
                     return true
                 end
             else
@@ -273,21 +279,20 @@ end
 
 local function ShouldGoHome(inst)
     local homePos = inst.components.knownlocations:GetLocation("home")
-    local myPos = Vector3(inst.Transform:GetWorldPosition() )
-    return (homePos and distsq(homePos, myPos) > GO_HOME_DIST*GO_HOME_DIST )
+    local myPos = Vector3(inst.Transform:GetWorldPosition())
+    return (homePos and distsq(homePos, myPos) > GO_HOME_DIST * GO_HOME_DIST)
 end
 
 local function inCityLimits(inst)
-    local x,y,z = inst.Transform:GetWorldPosition()
-    local ents = TheSim:FindEntities(x,y,z, FAR_ENOUGH, {"citypossession"},{"city_pig"}) 
+    local x, y, z = inst.Transform:GetWorldPosition()
+    local ents = TheSim:FindEntities(x, y, z, FAR_ENOUGH, { "citypossession" }, { "city_pig" })
     if #ents > 0 then
         return true
     end
     if inst.components.combat.target then
-
-        local speechset = getSpeechType(inst,STRINGS.CITY_PIG_TALK_STAYOUT)
+        local speechset = getSpeechType(inst, STRINGS.CITY_PIG_TALK_STAYOUT)
         local str = speechset[math.random(#speechset)]
-        
+
         inst.sayline(inst, str)
         --inst.components.talker:Say(str)
 
@@ -297,14 +302,13 @@ local function inCityLimits(inst)
 end
 
 local function ExtinguishfireAction(inst)
-
     if not inst:HasTag("guard") then
         return false
     end
 
     -- find fire
-    local x,y,z = inst.Transform:GetWorldPosition()
-    local ents = TheSim:FindEntities(x,y,z, FAR_ENOUGH/2, {"campfire"}) 
+    local x, y, z = inst.Transform:GetWorldPosition()
+    local ents = TheSim:FindEntities(x, y, z, FAR_ENOUGH / 2, { "campfire" })
     if #ents == 0 then
         return false
     end
@@ -313,10 +317,10 @@ local function ExtinguishfireAction(inst)
     for i, ent in ipairs(ents) do
         if ent.components.burnable and ent.components.burnable:IsBurning() then
             local pt = inst:GetPosition()
-			
+
             local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
 
-            if tiletype == GROUND.SUBURB or tiletype == GROUND.FOUNDATION or tiletype == GROUND.COBBLEROAD or tiletype == GROUND.LAWN or tiletype == GROUND.FIELDS  or tiletype == GROUND.CHECKEREDLAWN then
+            if tiletype == GROUND.SUBURB or tiletype == GROUND.FOUNDATION or tiletype == GROUND.COBBLEROAD or tiletype == GROUND.LAWN or tiletype == GROUND.FIELDS or tiletype == GROUND.CHECKEREDLAWN then
                 target = ent
                 break
             end
@@ -329,116 +333,119 @@ local function ExtinguishfireAction(inst)
 end
 
 local function playersproblem(inst)
-    if inst.components.combat.target and inst.components.combat.target:HasTag("scary_to_pig_guards") and 
-        (not inst.components.follower.leader or not inst.components.follower.leader:HasTag("player")) then 
+    if inst.components.combat.target and inst.components.combat.target:HasTag("scary_to_pig_guards") and
+        (not inst.components.follower.leader or not inst.components.follower.leader:HasTag("player")) then
         return true
     end
-    return false        
+    return false
 end
 
 local function GoHomeAction(inst)
     if not inst.components.follower.leader and
         HasValidHome(inst) and
         not inst.components.combat.target then
-            return BufferedAction(inst, inst.components.homeseeker.home, ACTIONS.GOHOME)
+        return BufferedAction(inst, inst.components.homeseeker.home, ACTIONS.GOHOME)
     end
 end
 
 function RoyalPigGuardBrain:OnStart()
---   print("RoyalPigGuardBrain:OnStart")
-      
-    local day = WhileNode( function() return TheWorld.state.isday end, "IsDay",
-        PriorityNode{
+    --   print("RoyalPigGuardBrain:OnStart")
+
+    local day = WhileNode(function() return TheWorld.state.isday end, "IsDay",
+        PriorityNode {
 
 
-            ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_TALK_FIND_MEAT),
-                DoAction(self.inst, FindFoodAction )),
-            IfNode(function() return StartChoppingCondition(self.inst) end, "chop", 
+            ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_FIND_MEAT),
+                DoAction(self.inst, FindFoodAction)),
+            IfNode(function() return StartChoppingCondition(self.inst) end, "chop",
                 WhileNode(function() return KeepChoppingAction(self.inst) end, "keep chopping",
-                    LoopNode{ 
-                        ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_TALK_HELP_CHOP_WOOD),
-                            DoAction(self.inst, FindTreeToChopAction ))})),
+                    LoopNode {
+                        ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_HELP_CHOP_WOOD),
+                            DoAction(self.inst, FindTreeToChopAction)) })),
 
             Leash(self.inst, GetNoLeaderHomePos, LEASH_MAX_DIST, LEASH_RETURN_DIST),
 
             IfNode(function() return not self.inst.alerted end, "greet",
                 ChattyNode(self.inst, getfacespeech(self.inst),
                     FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn))),
-            
+
             Wander(self.inst, GetNoLeaderHomePos, MAX_WANDER_DIST)
-        },.5)
-        
-    
-    local night = WhileNode( function() return not TheWorld.state.isday end, "IsNight",
-        PriorityNode{
-            
-            ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_TALK_FIND_MEAT),
-                DoAction(self.inst, FindFoodAction )),
+        }, .5)
+
+
+    local night = WhileNode(function() return not TheWorld.state.isday end, "IsNight",
+        PriorityNode {
+
+            ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_FIND_MEAT),
+                DoAction(self.inst, FindFoodAction)),
             --RunAway(self.inst, "player", START_RUN_DIST, STOP_RUN_DIST, function(target) return ShouldRunAway(self.inst, target) end ),
-            
+
             IfNode(function() return self.inst:HasTag("guard") end, "panic",
                 Wander(self.inst, GetNoLeaderHomePos, MAX_WANDER_DIST)),
-        },1)
+        }, 1)
 
-    local root = 
+    local root =
         PriorityNode(
-        {
-            WhileNode(function() return self.inst.components.health.takingfiredamage end, "OnFire",
-				ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_TALK_PANICFIRE),
-					Panic(self.inst))),
+            {
+                WhileNode(function() return self.inst.components.health.takingfiredamage end, "OnFire",
+                    ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_PANICFIRE),
+                        Panic(self.inst))),
 
-            --AttackWall(self.inst),
-            -- GUARD SECTION
-            WhileNode(function() return checknotangry(self.inst) end, "not angry",
-                ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_TALK_FIND_MONEY),
-                    DoAction(self.inst, FindMoneyAction ))),
+                --AttackWall(self.inst),
+                -- GUARD SECTION
+                WhileNode(function() return checknotangry(self.inst) end, "not angry",
+                    ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_FIND_MONEY),
+                        DoAction(self.inst, FindMoneyAction))),
 
-            ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_TALK_PROTECT),
-                WhileNode( function() return (self.inst.components.combat.target == nil or not self.inst.components.combat:InCooldown()) and self.inst:HasTag("guard") and not playersproblem(self.inst) end, "AttackMomentarily", -- and inCityLimits(self.inst)
-                    ChaseAndAttack(self.inst, MAX_CHASE_TIME, MAX_CHASE_DIST) )),
+                ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_PROTECT),
+                    WhileNode(
+                        function() return (self.inst.components.combat.target == nil or not self.inst.components.combat:InCooldown()) and
+                            self.inst:HasTag("guard") and not playersproblem(self.inst) end, "AttackMomentarily",                                                                                                                  -- and inCityLimits(self.inst)
+                        ChaseAndAttack(self.inst, MAX_CHASE_TIME, MAX_CHASE_DIST))),
 
-            ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_TALK_EXTINGUISH),                
-                    DoAction(self.inst, ExtinguishfireAction,"extinguish", true )),
+                ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_EXTINGUISH),
+                    DoAction(self.inst, ExtinguishfireAction, "extinguish", true)),
 
-            ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_TALK_FIGHT),
-                WhileNode( function() return self.inst.components.combat.target and self.inst.components.combat:InCooldown() and self.inst:HasTag("guard") end, "Dodge",
-                    RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST) )),         
+                ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_FIGHT),
+                    WhileNode(
+                        function() return self.inst.components.combat.target and self.inst.components.combat:InCooldown() and
+                            self.inst:HasTag("guard") end, "Dodge",
+                        RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST,
+                            STOP_RUN_AWAY_DIST))),
 
-            -- FOLLOWER CODE
-            ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_TALK_FOLLOWWILSON), 
-                Follow(self.inst, GetLeader, MIN_FOLLOW_DIST, TARGET_FOLLOW_DIST, MAX_FOLLOW_DIST)),
-            IfNode(function() return GetLeader(self.inst) end, "has leader",
-                ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_TALK_FOLLOWWILSON),
-                    FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn ))),
-            -- END FOLLOWER CODE
+                -- FOLLOWER CODE
+                ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_FOLLOWWILSON),
+                    Follow(self.inst, GetLeader, MIN_FOLLOW_DIST, TARGET_FOLLOW_DIST, MAX_FOLLOW_DIST)),
+                IfNode(function() return GetLeader(self.inst) end, "has leader",
+                    ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_FOLLOWWILSON),
+                        FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn))),
+                -- END FOLLOWER CODE
 
-            WhileNode(function() return ShouldGoHome(self.inst) and self.inst:HasTag("guard") end, "ShouldGoHome",
-                ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_GUARD_TALK_GOHOME),
-                    DoAction(self.inst, GuardGoHomeAction, "Go Home", true ) ) ),     
-					
-            IfNode(function() return (TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.aporkalypse_active == true) end, "gohome",
-                ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_GO_HOME),
-                    DoAction(self.inst, GoHomeAction, "go home", true ))),					
-					
-            -- END GUARD SECTION
+                WhileNode(function() return ShouldGoHome(self.inst) and self.inst:HasTag("guard") end, "ShouldGoHome",
+                    ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_GUARD_TALK_GOHOME),
+                        DoAction(self.inst, GuardGoHomeAction, "Go Home", true))),
 
-            ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_TALK_FLEE),
-                WhileNode(function() return shouldPanic(self.inst)  end, "Threat Panic",
-                    Panic(self.inst) )),
+                IfNode(function() return (TheWorld.state.isaporkalypse) end, "gohome",
+                    ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_GO_HOME),
+                        DoAction(self.inst, GoHomeAction, "go home", true))),
 
-            RunAway(self.inst, function(guy) return guy:HasTag("pig") and guy.components.combat and guy.components.combat.target == self.inst end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST ),
+                -- END GUARD SECTION
 
-            ChattyNode(self.inst, getSpeechType(self.inst,STRINGS.CITY_PIG_TALK_ATTEMPT_TRADE),
-                FaceEntity(self.inst, GetTraderFn, KeepTraderFn)),
-            day,
-            night
-        }, .5)
-    
+                ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_FLEE),
+                    WhileNode(function() return shouldPanic(self.inst) end, "Threat Panic",
+                        Panic(self.inst))),
+
+                RunAway(self.inst,
+                    function(guy) return guy:HasTag("pig") and guy.components.combat and
+                        guy.components.combat.target == self.inst end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST),
+
+                ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_ATTEMPT_TRADE),
+                    FaceEntity(self.inst, GetTraderFn, KeepTraderFn)),
+                day,
+                night
+            }, .5)
+
     self.bt = BT(self.inst, root)
-    
 end
 
 return RoyalPigGuardBrain
-
-
-

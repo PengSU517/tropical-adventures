@@ -73,7 +73,7 @@ local BUILDING_QUOTAS_2 = {
     { prefab = "pig_antiquities_entrance",  num = 2 },
     { prefab = "hatshop_entrance",          num = 1 },
 
-    { prefab = "pig_guard_tower2",          num = 15 },
+    { prefab = "pig_guard_tower",           num = 15 },
     { prefab = "pighouse_city",             num = 50 },
 
 }

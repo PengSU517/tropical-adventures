@@ -12,6 +12,7 @@ Assets =
 
 
 	-------------------animation----------------
+	Asset("ANIM", "anim/moon_aporkalypse_phases.zip"),
 	Asset("ANIM", "anim/swap_land_fork.zip"),
 	Asset("ANIM", "anim/player_actions_paddle.zip"),
 	Asset("ANIM", "anim/player_actions_speargun.zip"),

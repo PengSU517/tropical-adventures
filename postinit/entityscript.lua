@@ -105,6 +105,25 @@ function EntityScript:ReWatchingOneOfWorldStates(var)
     self.muted_worldstate[var] = nil
 end
 
+function EntityScript:GetEventCallbacks(event, source, source_file, test_fn)
+    source = source or self
+
+    if not self.event_listening[event] or not self.event_listening[event][source] then
+        return
+    end
+
+    for _, fn in ipairs(self.event_listening[event][source]) do
+        if source_file then
+            local info = debug.getinfo(fn, "S")
+            if info and (info.source == source_file) and (not test_fn or test_fn(fn)) then
+                return fn
+            end
+        elseif (not test_fn or test_fn(fn)) then
+            return fn
+        end
+    end
+end
+
 --------------------------------------------------------------------------------------------
 ----------------------------------[[ 相关物品hook ]]-----------------------------------------
 --------------------------------------------------------------------------------------------

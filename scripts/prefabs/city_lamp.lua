@@ -2,7 +2,7 @@ local assets =
 {
     Asset("ANIM", "anim/lamp_post2.zip"),
     Asset("ANIM", "anim/lamp_post2_city_build.zip"),
-    Asset("INV_IMAGE", "city_lamp"),
+    Asset("ANIM", "anim/lamp_post2_yotp_build.zip"),
 }
 
 local INTENSITY = 0.6
@@ -53,7 +53,7 @@ local function fadeout(inst)
 end
 
 local function updatelight(inst)
-    if TheWorld.state.isday and not (TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.aporkalypse_active == true) then
+    if TheWorld.state.isday and not (TheWorld.state.isaporkalypse) then
         if inst.lighton then
             inst:DoTaskInTime(math.random() * 2, function()
                 fadeout(inst)
@@ -223,6 +223,9 @@ local function fn(Sim)
 
     -- inst.setobstical = setobstical -----加上墙的寻路特性
     -- inst:AddComponent("gridnudger") ------------加上这个就只能放在墙点,这两个必须同时使用
+
+    inst:WatchWorldState("startfiesta", function() inst.AnimState:SetBuild("lamp_post2_yotp_build") end, TheWorld)
+    inst:WatchWorldState("stopfiesta", function() inst.AnimState:SetBuild("lamp_post2_city_build") end, TheWorld)
 
     return inst
 end

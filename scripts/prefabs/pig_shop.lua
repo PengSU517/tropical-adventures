@@ -523,7 +523,7 @@ local function makefn(name, build, bank, data)
 
         --        inst:ListenForEvent("usedoor", function(inst,data) usedoor(inst,data) end)
         inst.OnEntityWake = function(inst)
-            if TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.fiesta_active == true then
+            if TheWorld.state.isfiesta then
                 inst.AnimState:Show("YOTP")
             else
                 inst.AnimState:Hide("YOTP")
@@ -609,7 +609,7 @@ local function makehousefn(name, build, bank, data)
         end
 
         inst.OnEntityWake = function(inst)
-            if TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.fiesta_active == true then
+            if TheWorld.state.isfiesta then
                 inst.AnimState:Show("YOTP")
             else
                 inst.AnimState:Hide("YOTP")

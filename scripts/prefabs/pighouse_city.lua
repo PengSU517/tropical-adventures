@@ -291,9 +291,25 @@ local function checktax(inst)
 end
 
 local function OnDay(inst)
-    --print(inst, "OnDay")
     if not inst:HasTag("burnt") then
-        if inst.components.spawner:IsOccupied() and not (TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.aporkalypse_active == true) then
+        if inst.components.spawner:IsOccupied() and not (TheWorld.state.isaporkalypse) then
+            LightsOff(inst)
+            if inst.doortask then
+                inst.doortask:Cancel()
+                inst.doortask = nil
+            end
+            inst.doortask = inst:DoTaskInTime(1 + math.random() * 2,
+                function() inst.components.spawner:ReleaseChild() end)
+        end
+    end
+    if inst:HasTag("feitapelojogador") then
+        checktax(inst)
+    end
+end
+
+local function OnStopAporka(inst)
+    if not inst:HasTag("burnt") then
+        if inst.components.spawner:IsOccupied() and (TheWorld.state.isday) then
             LightsOff(inst)
             if inst.doortask then
                 inst.doortask:Cancel()
@@ -368,6 +384,7 @@ local function ConfigureSpawner(inst, selected_citizens)
     inst.components.spawner.onoccupied = onoccupied
     inst.components.spawner.onvacate = onvacate
     inst:WatchWorldState("isday", OnDay)
+    inst:WatchWorldState("stopaporkalypse", OnStopAporka)
 end
 
 local function citypossessionfn(inst)
@@ -484,13 +501,10 @@ local function makefn(animset, setbuild, spawnList)
             inst.components.spawner:Configure(lista[math.random(1, 7)], PIGHOUSE_CITY_RESPAWNTIME, 1)
             inst.components.spawner.onoccupied = onoccupied
             inst.components.spawner.onvacate = onvacate
-            inst:WatchWorldState("isday", OnDay)
-
-            --            inst.citypossessionfn = citypossessionfn
-            --            inst.OnLoadPostPass = OnLoadPostPass
         end
 
         inst:WatchWorldState("isday", OnDay)
+        inst:WatchWorldState("stopaporkalypse", OnStopAporka)
 
 
         inst:AddComponent("inspectable")
@@ -527,12 +541,11 @@ local function makefn(animset, setbuild, spawnList)
         inst.OnLoad = onload
 
         inst:ListenForEvent("onbuilt", onbuilt) -------------问题似乎是监听不到这个事件
-        inst:WatchWorldState("isday", OnDay)
 
         inst:AddComponent("gridnudger")
 
         inst.OnEntityWake = function(inst)
-            if TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.fiesta_active == true then
+            if TheWorld.state.isfiesta then
                 inst.AnimState:Show("YOTP")
             else
                 inst.AnimState:Hide("YOTP")
@@ -544,171 +557,13 @@ local function makefn(animset, setbuild, spawnList)
     return fn
 end
 
-local function makefn2(animset, setbuild, spawnList)
-    local function fn(Sim)
-        local inst = CreateEntity()
-        local trans = inst.entity:AddTransform()
-        local anim = inst.entity:AddAnimState()
-        local light = inst.entity:AddLight()
-        inst.entity:AddNetwork()
-        inst.entity:AddSoundEmitter()
-
-        local minimap = inst.entity:AddMiniMapEntity()
-        minimap:SetIcon("pighouse.tex")
-        --{anim="level1", sound="dontstarve/common/campfire", radius=2, intensity=.75, falloff=.33, colour = {197/255,197/255,170/255}},
-        light:SetFalloff(1)
-        light:SetIntensity(.5)
-        light:SetRadius(1)
-        light:Enable(false)
-        light:SetColour(180 / 255, 195 / 255, 50 / 255)
-
-        MakeObstaclePhysics(inst, 1)
-
-        local build = house_builds[math.random(1, #house_builds)]
-        if setbuild then
-            build = setbuild
-        end
-
-        inst.build = build
-        anim:SetBuild(build)
-
-        inst.animset = nil
-
-        if animset then
-            anim:SetBank(animset)
-            inst.animset = animset
-        else
-            anim:SetBank(SETBANK[build])
-            inst.animset = SETBANK[build]
-        end
-
-        setScale(inst, build)
-
-        anim:PlayAnimation("idle", true)
-        anim:Hide("YOTP")
-
-        inst.colornum = setcolor(inst)
-        local color = 0.5 + math.random() * 0.5
-        anim:SetMultColour(color, color, color, 1)
-
-        inst:AddTag("bandit_cover")
-        inst:AddTag("structure")
-
-
-        inst.entity:SetPristine()
-
-        if not TheWorld.ismastersim then
-            return inst
-        end
-
-
-
-
-        --inst:AddComponent("lootdropper")
-        inst:AddComponent("workable")
-        inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
-        inst.components.workable:SetWorkLeft(4)
-        inst.components.workable:SetOnFinishCallback(onhammered)
-        inst.components.workable:SetOnWorkCallback(onhit)
-        if not inst.components.spawner then
-            inst:AddComponent("spawner")
-            WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME * 3, true)
-        end
-        if spawnList then
-            ConfigureSpawner(inst, spawnList)
-        else
-            local lista =
-            {
-
-                [1] = "pigman_collector",
-                [2] = "pigman_erudite",
-                [3] = "pigman_hatmaker",
-                [4] = "pigman_hunter",
-                [5] = "pigman_banker",
-                [6] = "pigman_beautician",
-                [7] = "pigman_florist",
-                [8] = "pigman_usher",
-                [9] = "pigman_mechanic",
-                [10] = "pigman_storeowner",
-                [11] = "pigman_professor",
-            }
-
-
-            -- inst:AddComponent("spawner")
-            -- WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME * 3, true)
-            inst.components.spawner:Configure(lista[math.random(1, 11)], PIGHOUSE_CITY_RESPAWNTIME, 1)
-            inst.components.spawner.onoccupied = onoccupied
-            inst.components.spawner.onvacate = onvacate
-            inst:WatchWorldState("isday", OnDay)
-
-            --            inst.citypossessionfn = citypossessionfn
-            --            inst.OnLoadPostPass = OnLoadPostPass
-        end
-
-        inst:WatchWorldState("isday", OnDay)
-
-
-        inst:AddComponent("inspectable")
-
-        inst.components.inspectable.getstatus = getstatus
-
-        MakeSnowCovered(inst, .01)
-
-        MakeMediumBurnable(inst, nil, nil, true)
-        MakeLargePropagator(inst)
-
-        inst:AddComponent("fixable")
-        inst.components.fixable:AddRecinstructionStageData("rubble", "pig_townhouse", build, nil, getScale(inst, build))
-        inst.components.fixable:AddRecinstructionStageData("unbuilt", "pig_townhouse", build, nil, getScale(inst, build))
-
-
-
-        inst:ListenForEvent("burntup", function(inst)
-            inst.components.fixable:AddRecinstructionStageData("burnt", "pig_townhouse", build, 1, getScale(inst, build))
-            if inst.doortask then
-                inst.doortask:Cancel()
-                inst.doortask = nil
-            end
-            inst:Remove()
-        end)
-
-        inst:ListenForEvent("onignite", function(inst)
-            if inst.components.spawner and inst.components.spawner:IsOccupied() then
-                inst.components.spawner:ReleaseChild()
-            end
-        end)
-
-        inst.OnSave = onsave
-        inst.OnLoad = onload
-
-        inst:ListenForEvent("onbuilt", onbuilt)
-        inst:WatchWorldState("isday", OnDay)
-
-        inst:AddComponent("gridnudger")
-
-        inst.OnEntityWake = function(inst)
-            if TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.fiesta_active == true then
-                inst.AnimState:Show("YOTP")
-            else
-                inst.AnimState:Hide("YOTP")
-            end
-        end
-
-        return inst
-    end
-    return fn
-end
 
 local function house(name, anim, build, spawnList)
     return Prefab("common/objects/" .. name, makefn(anim, build, spawnList), assets, prefabs)
 end
 
-local function house2(name, anim, build, spawnList)
-    return Prefab("common/objects/" .. name, makefn2(anim, build, spawnList), assets, prefabs)
-end
 
 return house("pighouse_city", nil, nil),
-    house2("pighouse_city2", nil, nil),
     house("pighouse_farm", "pig_shop", "pig_farmhouse_build", spawned_farm),
     house("pighouse_mine", "pig_shop", "pig_farmhouse_build", spawned_mine),
     MakePlacer("common/pighouse_city_placer", "pig_shop", "pig_townhouse1_green_build", "idle", nil, nil, nil, 0.75)

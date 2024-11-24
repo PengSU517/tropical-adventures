@@ -160,10 +160,8 @@ local function RemoveFromInteriorScene(inst)
 end
 
 local function onnear(inst)
-	local aporkalypse = TheWorld.components.aporkalypse
+	local aporkalypse = TheWorld.net.components.aporkalypse
 	if aporkalypse and aporkalypse:IsActive() then
-
-
 	else
 		inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/aporkalypse_clock/totem_LP", "totem_sound")
 		inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/aporkalypse_clock/base_LP", "base_sound")
@@ -239,8 +237,7 @@ local function make_master_fn()
 		CleanupAllOrphans(inst)
 		SpawnChildren(inst)
 
-		local aporkalypse = TheWorld.components.aporkalypse
-		if aporkalypse and aporkalypse:IsActive() then
+		if TheWorld.state.isaporkalypse then
 			inst.AnimState:PlayAnimation("idle_on")
 			playclockanimation("on")
 			inst.SoundEmitter:KillSound("totem_sound")
@@ -248,54 +245,45 @@ local function make_master_fn()
 		end
 	end)
 
+	local changeaporkalypse_fn = function(world, data)
+		local total_time = (TheWorld.state.cycles + TheWorld.state.time) * TUNING.TOTAL_DAY_TIME
+		local aporkalypse = TheWorld.net.components.aporkalypse
+
+		if not aporkalypse then return end
+
+		local time_left_till_aporkalypse = math.max(aporkalypse:GetBeginDate() - total_time, 0)
+
+		if inst.rewind then
+			if aporkalypse then
+				time_left_till_aporkalypse = math.max(aporkalypse:GetBeginDate() - total_time, 0) or 0
+				local dt = math.clamp(data.time, 0, 2 * TheSim:GetTickTime())
+				local rewind_time = inst.rewind_mult * dt * 250
+				aporkalypse:ScheduleAporkalypse(aporkalypse:GetBeginDate() + rewind_time)
+			end
+		end
+
+		for i, v in ipairs(inst.clocks) do
+			local angle = time_left_till_aporkalypse / (120 * TUNING.TOTAL_DAY_TIME) * 360 * inst.rotation_speeds[i]
+			set_rotation(v, angle)
+		end
+	end
+
 	inst:DoTaskInTime(0.02, function()
-		inst:ListenForEvent("clocktick", function(world, data)
-			local total_time = (TheWorld.state.cycles + TheWorld.state.time) * TUNING.TOTAL_DAY_TIME
-			local aporkalypse = TheWorld.components.aporkalypse
-
-			local time_left_till_aporkalypse = aporkalypse and
-				math.max(
-					aporkalypse:GetBeginDate() - (TheWorld.state.cycles + TheWorld.state.time) * TUNING.TOTAL_DAY_TIME,
-					0) or 0
-			--			print("time_left:",time_left_till_aporkalypse	)
-
-			if inst.rewind then
-				if aporkalypse then
-					if aporkalypse:IsActive() then
-						aporkalypse:EndAporkalypse()
-					end
-					time_left_till_aporkalypse = aporkalypse and
-						math.max(
-							aporkalypse:GetBeginDate() -
-							(TheWorld.state.cycles + TheWorld.state.time) * TUNING.TOTAL_DAY_TIME, 0) or
-						0
-					-- I'd like to use dt but update for season-switch can mess with it bigtime				
-					local dt = -1 * math.clamp(data.time, 0, 2 * TheSim:GetTickTime())
-					time_left_till_aporkalypse = time_left_till_aporkalypse - inst.rewind_mult * dt * 250
-					aporkalypse:ScheduleAporkalypse((TheWorld.state.cycles + TheWorld.state.time) * TUNING
-						.TOTAL_DAY_TIME + time_left_till_aporkalypse)
-				end
-			end
-
-			for i, v in ipairs(inst.clocks) do
-				local angle = time_left_till_aporkalypse / (120 * TUNING.TOTAL_DAY_TIME) * 360 * inst.rotation_speeds[i]
-				set_rotation(v, angle)
-			end
-		end, TheWorld)
+		inst:ListenForEvent("clocktick", changeaporkalypse_fn, TheWorld)
 	end)
 
-	inst:ListenForEvent("beginaporkalypse", function()
+	inst:WatchWorldState("startaporkalypse", function()
 		playclockanimation("on")
 		inst.SoundEmitter:KillSound("totem_sound")
 		inst.SoundEmitter:KillSound("base_sound")
 		inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/stone_door/close")
-		--		TheCamera:Shake("FULL", 0.7, 0.02, .5, 40)
+		ShakeAllCameras(CAMERASHAKE.FULL, 0.7, 0.02, .5, inst)
 
 		inst.AnimState:PushAnimation("idle_pst", false)
 		inst.AnimState:PushAnimation("idle_on")
 	end, TheWorld)
 
-	inst:ListenForEvent("endaporkalypse", function()
+	inst:WatchWorldState("stopaporkalypse", function()
 		playclockanimation("off")
 
 		inst.AnimState:PushAnimation("idle_pre", false)

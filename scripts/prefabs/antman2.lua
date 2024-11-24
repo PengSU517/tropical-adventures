@@ -66,7 +66,7 @@ end
 
 local function SpringMod(amt)
     if TheWorld.state.isspring then
-        return amt  --* SPRING_COMBAT_MOD
+        return amt --* SPRING_COMBAT_MOD
     else
         return amt
     end
@@ -206,8 +206,10 @@ local function NormalRetargetFn(inst)
         function(guy)
             if guy.components.health and not guy.components.health:IsDead() and inst.components.combat:CanTarget(guy) and not is_complete_disguise(guy) then
                 if guy:HasTag("monster") then return guy end
-                if guy:HasTag("player") and guy.components.inventory and guy:GetDistanceSqToInst(inst) < ANTMAN_ATTACK_ON_SIGHT_DIST * ANTMAN_ATTACK_ON_SIGHT_DIST and not guy:HasTag("ant_disguise") then return
-                    guy end
+                if guy:HasTag("player") and guy.components.inventory and guy:GetDistanceSqToInst(inst) < ANTMAN_ATTACK_ON_SIGHT_DIST * ANTMAN_ATTACK_ON_SIGHT_DIST and not guy:HasTag("ant_disguise") then
+                    return
+                        guy
+                end
             end
         end)
 end
@@ -463,7 +465,7 @@ local function common()
     inst.is_complete_disguise = is_complete_disguise
 
 
-    --    inst:ListenForEvent("beginaporkalypse", function()
+    --    inst:WatchWorldState("startaporkalypse", function()
     --        if not inst:IsInLimbo() then
     --            TransformToWarrior(inst, false)
     --        end

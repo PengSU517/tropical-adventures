@@ -8,7 +8,7 @@ require("tools/simutil")
 require("tools/worldutil")
 require("tools/standardcomponents")
 
-
+modimport("main/rpc")
 modimport("main/prefabfiles")
 modimport("main/assets")
 modimport("main/actions.lua")

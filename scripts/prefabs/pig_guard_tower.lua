@@ -180,7 +180,7 @@ end
 local function OnDay(inst)
     --print(inst, "OnDay")
     if not inst:HasTag("burnt") then
-        if inst.components.spawner:IsOccupied() and not (TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.aporkalypse_active == true) then
+        if inst.components.spawner:IsOccupied() and not (TheWorld.state.isaporkalypse) then
             LightsOff(inst)
             if inst.doortask then
                 inst.doortask:Cancel()
@@ -351,7 +351,7 @@ local function fn(Sim)
     inst:AddComponent("gridnudger")
 
     inst.OnEntityWake = function(inst)
-        if TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.fiesta_active == true then
+        if TheWorld.state.isfiesta then
             inst.AnimState:Show("YOTP")
         else
             inst.AnimState:Hide("YOTP")
@@ -454,7 +454,7 @@ local function palacefn(Sim)
     inst:AddComponent("gridnudger")
 
     inst.OnEntityWake = function(inst)
-        if TheWorld.components.aporkalypse and TheWorld.components.aporkalypse.fiesta_active == true then
+        if TheWorld.state.isfiesta then
             inst.AnimState:Show("YOTP")
         else
             inst.AnimState:Hide("YOTP")
