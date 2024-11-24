@@ -19,7 +19,7 @@ local function onunwrapped(inst, pos, doer)
 		z = math.floor(z)
 		doer:DoTaskInTime(0, function()
 			doer.player_classified.MapExplorer:RevealArea(x, 0, z)
-			doer.components.inventory:GiveItem(SpawnPrefab("messagebottleempty1"))
+			doer.components.inventory:GiveItem(SpawnPrefab("tro_messagebottleempty"))
 		end)
 
 		if doer.player_classified.revealtreasure then
@@ -47,7 +47,7 @@ local function onunwrapped(inst, pos, doer)
 
 		doer:DoTaskInTime(0, function()
 			doer.player_classified.MapExplorer:RevealArea(x, 0, z)
-			doer.components.inventory:GiveItem(SpawnPrefab("messagebottleempty1"))
+			doer.components.inventory:GiveItem(SpawnPrefab("tro_messagebottleempty"))
 		end)
 
 		if doer.player_classified.revealtreasure then
@@ -86,7 +86,7 @@ local function onunwrapped(inst, pos, doer)
 
 	doer:DoTaskInTime(0, function()
 		doer.player_classified.MapExplorer:RevealArea(x, 0, y)
-		doer.components.inventory:GiveItem(SpawnPrefab("messagebottleempty1"))
+		doer.components.inventory:GiveItem(SpawnPrefab("tro_messagebottleempty"))
 	end)
 
 	if doer.player_classified.revealtreasure then
@@ -178,5 +178,5 @@ local function emptybottlefn(Sim)
 	return inst
 end
 
-return Prefab("shipwrecked/objects/messagebottle1", messagebottlefn, assets),
-	Prefab("shipwrecked/objects/messagebottleempty1", emptybottlefn, assets)
+return Prefab("shipwrecked/objects/tro_messagebottle", messagebottlefn, assets),
+	Prefab("shipwrecked/objects/tro_messagebottleempty", emptybottlefn, assets)

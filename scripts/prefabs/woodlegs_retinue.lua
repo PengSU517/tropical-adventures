@@ -289,4 +289,4 @@ local function fn()
     return inst
 end
 
-return Prefab("woodlegs1", fn, assets)
+return Prefab("woodlegs_retinue", fn, assets)

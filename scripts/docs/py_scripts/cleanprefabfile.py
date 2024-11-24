@@ -112,7 +112,7 @@ rst = ["loot_pumper",\
 "waterchest",\
 "mussel_bed",\
 "mussel_stick",\
-"messagebottle1",\
+"tro_messagebottle",\
 "bottlelantern",\
 "researchlab5",\
 "roe",\
@@ -220,7 +220,7 @@ rst = ["loot_pumper",\
 "floodsw",\
 "birdwhistle",\
 "bundled_structure",\
-"teleportato2",\
+"tro_teleportato",\
 "invisiblepondfish",\
 "spider_mutators_new",\
 "anthillcave",\
@@ -322,7 +322,7 @@ rst = ["loot_pumper",\
 "woodlegs_key1",\
 "woodlegs_key2",\
 "woodlegs_key3",\
-"woodlegs1",\
+"woodlegs_retinue",\
 "woodlegsghost",\
 "woodlegs_unlock",\
 "vulcano",\

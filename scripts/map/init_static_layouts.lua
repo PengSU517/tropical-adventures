@@ -727,7 +727,7 @@ Layouts["octopuskinghome"] = StaticLayout.Get("map/static_layouts/octopuskinghom
 				if tipo == 21 then return { "lobsterhole" } end
 				if tipo == 22 then return { "lobsterhole" } end
 				if tipo == 23 then return { "lobsterhole" } end
-				if tipo == 24 then return { "messagebottle1" } end
+				if tipo == 24 then return { "tro_messagebottle" } end
 				if tipo == 25 then return { "tar_pool" } end
 			end
 		end,
@@ -774,7 +774,7 @@ Layouts["coralpool1"] = StaticLayout.Get("map/static_layouts/coralpool1",
 					if tipo == 21 then return { "lobsterhole" } end
 					if tipo == 22 then return { "lobsterhole" } end
 					if tipo == 23 then return { "lobsterhole" } end
-					if tipo == 24 then return { "messagebottle1" } end
+					if tipo == 24 then return { "tro_messagebottle" } end
 					if tipo == 25 then return { "tar_pool" } end
 				end
 			end,
@@ -819,7 +819,7 @@ Layouts["coralpool2"] = StaticLayout.Get("map/static_layouts/coralpool2",
 					if tipo == 21 then return { "lobsterhole" } end
 					if tipo == 22 then return { "lobsterhole" } end
 					if tipo == 23 then return { "lobsterhole" } end
-					if tipo == 24 then return { "messagebottle1" } end
+					if tipo == 24 then return { "tro_messagebottle" } end
 					if tipo == 25 then return { "tar_pool" } end
 				end
 			end,
@@ -864,7 +864,7 @@ Layouts["coralpool3"] = StaticLayout.Get("map/static_layouts/coralpool3",
 					if tipo == 21 then return { "lobsterhole" } end
 					if tipo == 22 then return { "lobsterhole" } end
 					if tipo == 23 then return { "lobsterhole" } end
-					if tipo == 24 then return { "messagebottle1" } end
+					if tipo == 24 then return { "tro_messagebottle" } end
 					if tipo == 25 then return { "tar_pool" } end
 				end
 			end,

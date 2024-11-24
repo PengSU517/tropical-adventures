@@ -1898,4 +1898,4 @@ inst:DoTaskInTime(0, oninit)
 	return inst
 end
 
-return Prefab("common/objects/teleportato2", fn, assets, prefabs)
+return Prefab("common/objects/tro_teleportato", fn, assets, prefabs)

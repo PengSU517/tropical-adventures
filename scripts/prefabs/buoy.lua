@@ -17,7 +17,7 @@ local function onhammered(inst, worker)
     end
     inst.components.lootdropper:SpawnLootPrefab("porto_buoy")
     -- inst.components.lootdropper:SpawnLootPrefab("bamboo")
-    -- inst.components.lootdropper:SpawnLootPrefab("messagebottleempty1")
+    -- inst.components.lootdropper:SpawnLootPrefab("tro_messagebottleempty")
     SpawnPrefab("collapse_small").Transform:SetPosition(inst.Transform:GetWorldPosition())
     inst.SoundEmitter:PlaySound("dontstarve/common/destroy_metal")
     inst:Remove()
