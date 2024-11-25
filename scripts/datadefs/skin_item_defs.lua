@@ -7,7 +7,7 @@ local itemskins =
         double_umbrellahat_palmleaf = {
             assetname = "hat_double_umbrella_palm",
             build = "hat_double_umbrella_palm", --原物品scml文件名字
-            rarity = "Elegant",                 --珍惜度:会影响皮肤名字的显示颜色
+            rarity = "Eternal",                 --珍惜度:会影响皮肤名字的显示颜色
             -- type = "item",      --类别
             name = "palmleaf",                  --填皮肤的名称:经典,小熊,小猫,小狗什么的
 
