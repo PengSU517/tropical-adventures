@@ -2325,8 +2325,14 @@ local STRINGS =
 
         GROUNDED_WILBA = "Wilba",
 
+
     },
 
+    SKIN_NAMES =
+    {
+        double_umbrellahat_palmleaf = "Palm Guardian",
+        double_umbrellahat_sharkitten = "Sharkitten Advent",
+    },
 
     DIRECTIONS =
     {

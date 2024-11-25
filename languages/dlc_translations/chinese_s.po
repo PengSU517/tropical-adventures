@@ -208576,6 +208576,16 @@ msgctxt "STRINGS.SHIPNAMES.9"
 msgid "Nomadic"
 msgstr "游牧号"
 
+#. STRINGS.SKIN_NAMES.double_umbrellahat_palmleaf
+msgctxt "STRINGS.SKIN_NAMES.double_umbrellahat_palmleaf"
+msgid "Palm Guardian"
+msgstr "椰树守卫"
+
+#. STRINGS.SKIN_NAMES.double_umbrellahat_sharkitten
+msgctxt "STRINGS.SKIN_NAMES.double_umbrellahat_sharkitten"
+msgid "Sharkitten Advent"
+msgstr "喵鲨降临"
+
 #. STRINGS.SMOLDERINGITEM
 msgctxt "STRINGS.SMOLDERINGITEM"
 msgid "Smoldering"
