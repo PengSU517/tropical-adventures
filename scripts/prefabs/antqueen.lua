@@ -56,15 +56,16 @@ local function SpawnWarrior(inst)
     y = 35
     z = z + random_offset.z + math.random(-1.5, 1.5)
 
-    local egg = SpawnPrefab("antman_warrior_egg")
+    local egg = SpawnAt("antman_warrior_egg", Vector3(x, y, z))
     egg.queen = inst
-    egg.Physics:Teleport(x, y, z)
 
     egg.start_grounddetection(egg)
 
-    local shadow = SpawnPrefab("warningshadow")
-    shadow.Transform:SetPosition(x, 0.2, z)
-    shadow:shrink(1.5, 1.5, 0.25)
+    egg.shadow = SpawnAt("warningshadow", Vector3(x, .2, z))
+    egg.shadow:shrink(1.5, 1.5, 0.25)
+    egg.shadow:ListenForEvent("onremove", function(hatch)
+        hatch.shadow:Remove()
+    end, egg)
 
     --    inst.warrior_count = inst.warrior_count + 1
 end
