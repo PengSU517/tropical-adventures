@@ -1,5 +1,5 @@
-AddPrefabPostInitAny(function(inst)
-    if inst:HasTag("player") then
+AddPlayerPostInit(function(inst)
+    if TheWorld.ismastersim then
         if inst.components.shopper == nil then
             inst:AddComponent("shopper")
         end
@@ -11,6 +11,11 @@ AddPrefabPostInitAny(function(inst)
 
         if inst.components.drownable == nil then
             inst:AddComponent("drownable")
+        end
+
+        if not inst.components.regionaware then
+            --print("Adding regionaware to player")
+            inst:AddComponent("regionaware")
         end
     end
 end)

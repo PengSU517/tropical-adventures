@@ -144,7 +144,7 @@ Aporkalypse.ScheduleHeraldCheck = _ismastersim and function(self)
 	self.herald_check_task = self.inst:StartThread(function()
 		Sleep(math.random(TUNING.SEG_TIME / 2, TUNING.SEG_TIME))
 		while self:IsActive() do
-			for _, player in ipairs(AllPlayers) do
+			for _, player in ipairs(AllPlayers) do ----isinworld好像不太对
 				if player and player:IsInWorld() and player:IsValid() and player.components.health and not player.components.health:IsDead() then
 					local herald = GetClosestInstWithTag("ancient", player, 30)
 					if not herald then

@@ -30,7 +30,7 @@ function GetInventoryItemAtlas_Internal(imagename, no_fallback)
     end
 end
 
--- local upvaluehelper = require("tools/upvaluehelper")
+-- -- local upvaluehelper = require("tools/upvaluehelper")
 -- local inventoryItemAtlasLookup = upvaluehelper.Get(GetInventoryItemAtlas, "inventoryItemAtlasLookup")
 
 -- function GetInventoryItemAtlas(imagename, no_fallback)

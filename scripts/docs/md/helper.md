@@ -7,6 +7,7 @@ puff_fx_cold哈冷气的特效
 "feetslipped" 滑倒的动作
 通过 ambientlighting  colorcube 和 playervision调节滤镜
 没有onblock标签就会被船粘上
+grue 控制查理
 
 
 inst:PushEvent("nightvision", self.nightvision)---跟着的是相应的 参数

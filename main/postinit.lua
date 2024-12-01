@@ -9,7 +9,6 @@ end
 
 
 --目前仍然有暴力覆盖的组件
---ambientlighting
 --hounded
 --penguinspawner
 --weather
@@ -58,7 +57,7 @@ modimport("postinit/components/locomotor") --这两个内容需要整合一下
 modimport("postinit/components/locomotor_boat")
 modimport("postinit/components/playercontroller")
 modimport("postinit/components/playerspawner")
-modimport("postinit/components/playervision")
+
 -- modimport("postinit/components/plantgrowth")  --黄蘑菇生长速度，之后或许可以加进来
 -- modimport("postinit/components/spooked")  --黄蘑菇孢子
 modimport("postinit/components/snowtile") -- disable snow effeccts
@@ -69,11 +68,16 @@ modimport("postinit/components/map")
 modimport("postinit/components/boatphysics")
 
 modimport("postinit/components/animstate")
+modimport("postinit/components/soundemitter")
 modimport("postinit/components/worldstate")
 
 
 
-
+modimport("postinit/components/ambientlighting")
+modimport("postinit/components/colourcube")
+-- modimport("postinit/components/playervision")
+modimport("postinit/components/ambientsound")
+modimport("postinit/components/dynamicmusic")
 
 
 --prefabs

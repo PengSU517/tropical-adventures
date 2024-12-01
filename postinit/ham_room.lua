@@ -1,5 +1,5 @@
 local Utils = require("tools/utils")
-local upvaluehelper = require("tools/upvaluehelper")
+-- local upvaluehelper = require("tools/upvaluehelper")
 
 --限制制作的配方
 -- local banrecipe = { "hua_player_house_recipe", "homesign", "townportal", "telebase", "hua_player_house1_recipe",

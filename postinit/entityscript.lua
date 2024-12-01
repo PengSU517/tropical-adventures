@@ -16,6 +16,23 @@ function EntityScript:IsInVolcanoArea()
     return TheWorld.Map:IsVolcanoAreaAtPoint(self:GetPosition():Get())
 end
 
+function EntityScript:IsInWorld()
+    local x, y, z = self.Transform:GetWorldPosition()
+    return math.abs(x) <= 1350 and math.abs(z) <= 1350
+    -- local width, height = TheWorld.Map:GetWorldSize()
+    -- local x, y, z = self.Transform:GetWorldPosition()
+    -- local tile_x, tile_y = TheWorld.Map:GetTileCoordsAtPoint(x, 0, z)
+
+    -- return tile_x <= width and tile_y <= height
+
+    -- local nx = (tile_x - width / 2) * TILE_SCALE
+    -- local nz = (tile_y - height / 2) * TILE_SCALE
+    -- local worldwidth, worldheight = TheWorld.Map:GetWorldSize()
+    -- local x, y, z = self.Transform:GetWorldPosition()
+    -- return math.abs(x) <= worldwidth and math.abs(z) <= worldheight
+    -- return true
+end
+
 function EntityScript:IsOnLandTile()
     return TheWorld.Map:IsLandTileAtPoint(self.Transform:GetWorldPosition())
 end
@@ -79,7 +96,7 @@ function EntityScript:SetEventShare(event, shared)
     self.eventlistening_shared[event] = shared and true or nil
 end
 
-function EntityScript:StopWatchingOneOfWorldStates(var, initval)
+function EntityScript:StopWatchingOneOfWorldStates(var)
     if not self.worldstatewatching then return end
     if self.muted_worldstate == nil then self.muted_worldstate = {} end
     self.muted_worldstate[var] = self.worldstatewatching[var] or {}

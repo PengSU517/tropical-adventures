@@ -1,4 +1,4 @@
-local upvaluehelper = require("tools/upvaluehelper")
+-- local upvaluehelper = require("tools/upvaluehelper")
 
 AddComponentPostInit("worldstate", function(self, inst)
     --------------------------------------------------------------------------
