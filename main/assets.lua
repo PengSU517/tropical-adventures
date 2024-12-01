@@ -1,15 +1,17 @@
 Assets =
 {
-	--LOD SOUND FILE
+	--LOAD SOUND FILE
 	Asset("SOUNDPACKAGE", "sound/dontstarve_DLC002.fev"),
-	Asset("SOUNDPACKAGE", "sound/sw_character.fev"),
+	Asset("SOUND", "sound/music_stream_SW.fsb"),
 	Asset("SOUND", "sound/dontstarve_shipwreckedSFX.fsb"),
+
+	Asset("SOUNDPACKAGE", "sound/sw_character.fev"),
 	Asset("SOUND", "sound/sw_character.fsb"),
+
 	Asset("SOUNDPACKAGE", "sound/dontstarve_DLC003.fev"),
 	Asset("SOUND", "sound/DLC003_sfx.fsb"),
-
-
-
+	Asset("SOUND", "sound/DLC003_music_stream.fsb"),
+	Asset("SOUND", "sound/DLC003_AMB_stream.fsb"),
 
 	-------------------animation----------------
 	Asset("ANIM", "anim/moon_aporkalypse_phases.zip"),
@@ -126,6 +128,43 @@ Assets =
 	Asset("ATLAS", "images/ui/honeychest.xml"),
 
 	Asset("IMAGE", "images/fog_cloud.tex"), --云海
+
+
+
+	-------------colour cubes -------------------
+	Asset("IMAGE", "images/colour_cubes/sw_mild_day_cc.tex"),
+	Asset("IMAGE", "images/colour_cubes/SW_mild_dusk_cc.tex"),
+
+	Asset("IMAGE", "images/colour_cubes/SW_wet_day_cc.tex"),
+	Asset("IMAGE", "images/colour_cubes/SW_wet_dusk_cc.tex"),
+
+	Asset("IMAGE", "images/colour_cubes/sw_green_day_cc.tex"),
+	Asset("IMAGE", "images/colour_cubes/sw_green_dusk_cc.tex"),
+
+	Asset("IMAGE", "images/colour_cubes/SW_dry_day_cc.tex"),
+	Asset("IMAGE", "images/colour_cubes/SW_dry_dusk_cc.tex"),
+
+	Asset("IMAGE", "images/colour_cubes/sw_volcano_cc.tex"),
+	Asset("IMAGE", "images/colour_cubes/sw_volcano_active_cc.tex"),
+
+
+	Asset("IMAGE", "images/colour_cubes/pork_temperate_day_cc.tex"),
+	Asset("IMAGE", "images/colour_cubes/pork_temperate_dusk_cc.tex"),
+	Asset("IMAGE", "images/colour_cubes/pork_temperate_night_cc.tex"),
+	Asset("IMAGE", "images/colour_cubes/pork_temperate_fullmoon_cc.tex"),
+
+	Asset("IMAGE", "images/colour_cubes/pork_cold_day_cc.tex"),
+	Asset("IMAGE", "images/colour_cubes/pork_cold_dusk_cc.tex"),
+	Asset("IMAGE", "images/colour_cubes/pork_cold_fullmoon_cc.tex"),
+
+	Asset("IMAGE", "images/colour_cubes/pork_lush_day_test.tex"),
+	Asset("IMAGE", "images/colour_cubes/pork_lush_dusk_test.tex"),
+	Asset("IMAGE", "images/colour_cubes/pork_warm_fullmoon_cc.tex"),
+
+	Asset("IMAGE", "images/colour_cubes/pork_cold_bloodmoon_cc.tex"),
+
+	Asset("IMAGE", "images/colour_cubes/pigshop_interior_cc.tex"),
+
 }
 
 

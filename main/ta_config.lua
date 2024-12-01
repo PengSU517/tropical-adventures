@@ -37,7 +37,7 @@ GLOBAL.TA_CONFIG = {
     -- ocean = GetModConfigData("ocean"),
     ocean = "default",
 
-    testmap = istestmode and GetModConfigData("test_map") or false,
+    testmap = false and istestmode and GetModConfigData("test_map") or false,
     testmode = istestmode and GetModConfigData("test_mode") or false,
 
     ndnr = GLOBAL.KnownModIndex:IsModEnabled("workshop-2823458540"),

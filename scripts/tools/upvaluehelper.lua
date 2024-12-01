@@ -8,7 +8,7 @@
 		params.cookpot.itemtestfn = function() ... end					--因为返回值是表 可以直接操作 否则需要使用Set
 	end
 ]]
-   --
+--
 
 local function Get(fn, name, maxlevel, max, level, file)
 	if type(fn) ~= "function" then return end
@@ -42,7 +42,7 @@ local upvaluehelper = require "utils/upvaluehelp"
 	local params = upvaluehelper.Set(containers.widgetsetup,"params",newtable)  --获取containers.widgetsetup的名为 params的upvalue
 
 ]]
-   --
+--
 local function Set(fn, name, set, maxlevel, max, level, file)
 	if type(fn) ~= "function" then return end
 	local maxlevel = maxlevel or 5 --默认最多追5层
@@ -90,7 +90,7 @@ end
 	end
 	
 ]]
-   --
+--
 
 local function GetEventHandle(inst, event, file, test)
 	if type(inst) == "table" then
@@ -213,10 +213,14 @@ end
 
 return UpvalueHacker
 ]]
-return {
+
+
+upvaluehelper = {
 	Get = Get,
 	Set = Set,
 	GetEventHandle = GetEventHandle,
 	GetWorldHandle = GetWorldHandle,
 	GetWorldStateWatchers = GetWorldStateWatchers
 }
+
+return upvaluehelper

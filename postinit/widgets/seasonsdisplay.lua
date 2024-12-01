@@ -13,8 +13,6 @@ local function Badge_display(self)
         self.hayfever:MoveToBack()
     end
 
-
-
     if TUNING.tropical.fog then
         local FogBadge = GLOBAL.require "widgets/fogbadge"
         self.fog = self:AddChild(FogBadge(self.owner))

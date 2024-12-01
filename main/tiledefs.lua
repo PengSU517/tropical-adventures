@@ -1,3 +1,8 @@
+-- 异名内容 SNAKESKINFLOOR  CHECKEREDLAWN
+-- 新增内容 BATFLOOR ANTFLOOR
+
+
+
 local GroundTiles = require("worldtiledefs")
 local NoiseFunctions = require("noisetilefunctions")
 local ChangeTileRenderOrder = ChangeTileRenderOrder
@@ -239,26 +244,26 @@ local tro_tiledefs = {
         },
     },
 
-    -- SWAMP = {
-    --     tile_range = TileRanges.SW_LAND,
-    --     tile_data = {
-    --         ground_name = "Swamp",
-    --         old_static_id = 33,
-    --     },
-    --     ground_tile_def  = {
-    --         name = "swamp",
-    --         noise_texture = "ground_noise_swamp",
-    --         runsound = "dontstarve/movement/run_marsh",
-    --         walksound = "dontstarve/movement/walk_marsh",
-    --     },
-    --     minimap_tile_def = {
-    --         name = "map_edge",
-    --         noise_texture = "mini_swamp_noise",
-    --     },
-    --     turf_def = {
-    --         name = "swamp",
-    --     },
-    -- },
+    SWAMP = {
+        tile_range       = TileRanges.SW_LAND,
+        tile_data        = {
+            ground_name = "Swamp",
+            old_static_id = 33,
+        },
+        ground_tile_def  = {
+            name = "sw/swamp",
+            noise_texture = "sw/ground_swamp",
+            runsound = "dontstarve/movement/run_marsh",
+            walksound = "dontstarve/movement/walk_marsh",
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "sw/mini_ground_swamp",
+        },
+        turf_def         = {
+            name = "swamp",
+        },
+    },
 
     MAGMAFIELD = {
         tile_range       = TileRanges.SW_LAND,
@@ -443,16 +448,16 @@ local tro_tiledefs = {
     -- (render order doesnt matter)
     -------------------------------
 
-    -- VOLCANO_LAVA = {
-    --     tile_range = TileRanges.IMPASSABLE,
-    --     tile_data = {
-    --         ground_name = "Lava",
-    --     },
-    --     minimap_tile_def = {
-    --         name = "map_edge",
-    --         noise_texture = "mini_lava_noise",
-    --     },
-    -- },
+    VOLCANO_LAVA = {
+        tile_range = TileRanges.IMPASSABLE,
+        tile_data = {
+            ground_name = "Lava",
+        },
+        minimap_tile_def = {
+            name = "map_edge",
+            noise_texture = "sw/mini_lava_noise",
+        },
+    },
 
     -------------------------------
     -- NOISE
@@ -860,8 +865,6 @@ local tro_tiledefs = {
             bank_build = "turf_ham",
         },
     },
-
-
 
 }
 

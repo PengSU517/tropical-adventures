@@ -5,7 +5,7 @@ GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL,
 local require = require
 local modimport = modimport
 
-
+require("tools/upvaluehelper")
 require("tools/tableutil")  ----一些表相关的工具函数，都在表tabel里
 require("tools/tileutil")
 require("tools/spawnutil")  ----地形生成相关工具
