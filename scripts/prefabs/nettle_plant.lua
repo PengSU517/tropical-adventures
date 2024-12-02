@@ -10,13 +10,15 @@ local function onregenfn(inst)
 end
 
 local function makeemptyfn(inst)
-    inst.AnimState:PlayExtendAnim("shake")
+    -- inst.AnimState:PlayExtendAnim("shake")
+    inst.components.animcontroller:PlayAnimation("shake")
     inst.AnimState:SetFilter("generic")
     inst.AnimState:PlayAnimation("picked", true)
 end
 
 local function makebarrenfn(inst) 
-    inst.AnimState:SetFilter("withered")
+    inst.components.animcontroller:SetFilter("withered")
+    -- inst.AnimState:SetFilter("withered")
     inst.AnimState:PlayAnimation("picked", true)
 end
 
@@ -70,6 +72,8 @@ local function fn()
     inst:AddTag("plant")
 
     inst.entity:SetPristine()
+
+    inst:AddComponent("animcontroller")
 
     if not TheWorld.ismastersim then return inst end
 
