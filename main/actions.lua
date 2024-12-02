@@ -1104,15 +1104,21 @@ end
 AddAction(PICKUP)
 
 
-local HARVEST1 = Action({ priority = 10, mount_valid = true })
-HARVEST1.str = (STRINGS.ACTIONS.HARVEST1)
-HARVEST1.id = "HARVEST1"
-HARVEST1.fn = function(act)
-    if act.target.components.melter then
-        return act.target.components.melter:Harvest(act.doer)
-    end
+-- local HARVEST1 = Action({ priority = 10, mount_valid = true })
+-- HARVEST1.str = (STRINGS.ACTIONS.HARVEST1)
+-- HARVEST1.id = "HARVEST1"
+-- HARVEST1.fn = function(act)
+--     if act.target.components.melter then
+--         return act.target.components.melter:Harvest(act.doer)
+--     end
+-- end
+-- AddAction(HARVEST1)
+local old_HARVEST_fn = ACTIONS.HARVEST.fn
+ACTIONS.HARVEST.fn = function(act)
+    if act.target.components.melter then return act.target.components.melter:Harvest(act.doer) end
+    return old_HARVEST_fn(act)
 end
-AddAction(HARVEST1)
+
 
 local PAN = Action({ priority = 10, mount_valid = true })
 PAN.str = (STRINGS.ACTIONS.PAN)
