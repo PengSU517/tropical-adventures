@@ -806,8 +806,6 @@ AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.SHOP, "doshortaction"
 AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.SHOP, "doshortaction"))
 AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.SMELT, "doshortaction"))
 AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.SMELT, "doshortaction"))
-AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.HARVEST1, "doshortaction"))
-AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.HARVEST1, "doshortaction"))
 AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.GIVE2, "give"))
 AddStategraphActionHandler("wilson_client", ActionHandler(ACTIONS.GIVE2, "give"))
 AddStategraphActionHandler("wilson", ActionHandler(ACTIONS.PAINT, "dolongaction"))

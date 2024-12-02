@@ -100,6 +100,25 @@ local function onunwrapped(inst, pos, doer)
 	inst:Remove()
 end
 
+local function OnBottle(inst, target, doer)
+	if target.prefab == "gelblob_small_fx" then
+		local targetpos = target:GetPosition()
+		local x, y, z = inst.Transform:GetWorldPosition()
+		inst.components.stackable:Get():Remove()
+		target:Remove()
+
+		local bottledinst = SpawnPrefab("gelblob_bottle")
+		if doer and doer.components.inventory then
+			doer.components.inventory:GiveItem(bottledinst, nil, targetpos)
+		else
+			bottledinst.Transform:SetPosition(x, y, z)
+		end
+		return true
+	end
+	return false
+end
+
+--------------------------------------------------------------------------
 local function messagebottlefn(Sim)
 	local inst = CreateEntity()
 	local trans = inst.entity:AddTransform()
@@ -166,7 +185,8 @@ local function emptybottlefn(Sim)
 	inst:AddComponent("inspectable")
 	inst:AddComponent("inventoryitem")
 
-
+	inst:AddComponent("bottler")
+	inst.components.bottler:SetOnBottleFn(OnBottle)
 
 	inst:AddComponent("waterproofer")
 	inst.components.waterproofer:SetEffectiveness(0)

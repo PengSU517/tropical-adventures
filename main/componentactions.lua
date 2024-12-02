@@ -32,7 +32,7 @@ AddComponentAction("SCENE", "melter", function(inst, doer, actions, right)
         if right and not inst:HasTag("alloydone") and inst.replica.container ~= nil and inst.replica.container:IsFull() then
             table.insert(actions, ACTIONS.SMELT)
         elseif not right and inst:HasTag("alloydone") then
-            table.insert(actions, ACTIONS.HARVEST1)
+            table.insert(actions, ACTIONS.HARVEST)
         end
     end
 end)
