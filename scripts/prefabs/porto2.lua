@@ -12,12 +12,23 @@ local prefabs =
 
 }
 
+local function onplaced(inst)
+    inst.components.autofixer.locked = false
+    inst:RemoveEventCallback("animover", onplaced)
+end
+
 local function ondeploybuoy(inst, pt, deployer)
-    local boat = SpawnPrefab("buoy")
-    if boat ~= nil then
-        boat.Physics:SetCollides(false)
-        boat.Physics:Teleport(pt.x, 0, pt.z)
-        boat.Physics:SetCollides(true)
+    local at = SpawnPrefab("buoy")
+    if at ~= nil then
+        at.Physics:SetCollides(false)
+        at.Physics:Teleport(pt.x, 0, pt.z)
+        at.Physics:SetCollides(true)
+
+	    at.SoundEmitter:PlaySound("yotc_2020/gym/start/place")
+        at.AnimState:PlayAnimation("place")
+		at.AnimState:PushAnimation("idle", true)
+        inst:ListenForEvent("animover", onplaced)
+
         inst:Remove()
     end
 end
@@ -27,6 +38,8 @@ local function fnbuoy(sim)
     local trans = inst.entity:AddTransform()
     local anim = inst.entity:AddAnimState()
     inst.entity:AddNetwork()
+
+    inst:AddTag("usedeploystring")
 
     MakeInventoryPhysics(inst)
     MakeInventoryFloatable(inst)
@@ -52,8 +65,6 @@ local function fnbuoy(sim)
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
 
-
-
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
 
@@ -66,9 +77,16 @@ end
 
 
 local function ondeployfish_farm(inst, pt, deployer)
-    local boat = SpawnPrefab("fish_farm")
-    if boat ~= nil then
-        boat.Transform:SetPosition(pt.x, 0, pt.z)
+    local at = SpawnPrefab("fish_farm")
+    if at ~= nil then
+        at.Transform:SetPosition(pt.x, 0, pt.z)
+
+	    at.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/seacreature_movement/water_submerge_med")
+        at.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/seacreature_movement/splash_medium")
+        --at.AnimState:PlayAnimation("place")
+		at.AnimState:PushAnimation("idle", true)
+        inst:ListenForEvent("animover", onplaced)
+
         inst:Remove()
     end
 end
@@ -81,6 +99,8 @@ local function fnfish_farm(sim)
 
     MakeInventoryPhysics(inst)
     MakeInventoryFloatable(inst)
+
+    inst:AddTag("usedeploystring")
 
     inst.AnimState:SetBank("fish_farm_ground")
     inst.AnimState:SetBuild("fish_farm_ground")
@@ -102,8 +122,6 @@ local function fnfish_farm(sim)
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
 
-
-
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
 
@@ -115,9 +133,16 @@ local function fnfish_farm(sim)
 end
 
 local function ondeployballphinhouse(inst, pt, deployer)
-    local boat = SpawnPrefab("ballphinhouse")
-    if boat ~= nil then
-        boat.Transform:SetPosition(pt.x, 0, pt.z)
+    local at = SpawnPrefab("ballphinhouse")
+    if at ~= nil then
+        at.Transform:SetPosition(pt.x, 0, pt.z)
+
+        at.SoundEmitter:PlaySound("dontstarve_DLC002/common/ballphin_house_craft")
+        at.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/seacreature_movement/splash_medium")
+        at.AnimState:PlayAnimation("place")
+		at.AnimState:PushAnimation("idle", true)
+        inst:ListenForEvent("animover", onplaced)
+
         inst:Remove()
     end
 end
@@ -131,10 +156,11 @@ local function fnballphinhouse(sim)
     MakeInventoryPhysics(inst)
     MakeInventoryFloatable(inst)
 
+    inst:AddTag("usedeploystring")
+
     inst.AnimState:SetBank("seafarer_boatsw")
     inst.AnimState:SetBuild("seafarer_boatsw")
     inst.AnimState:PlayAnimation("ballphinhouse", true)
-
 
     inst.entity:SetPristine()
 
@@ -150,8 +176,6 @@ local function fnballphinhouse(sim)
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
 
-
-
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
 
@@ -163,9 +187,15 @@ local function fnballphinhouse(sim)
 end
 
 local function ondeployresearchlab5(inst, pt, deployer)
-    local boat = SpawnPrefab("researchlab5")
-    if boat ~= nil then
-        boat.Transform:SetPosition(pt.x, 0, pt.z)
+    local at = SpawnPrefab("researchlab5")
+    if at ~= nil then
+        at.Transform:SetPosition(pt.x, 0, pt.z)
+
+	    at.SoundEmitter:PlaySound("dontstarve/common/researchmachine_lvl2_place")
+        at.AnimState:PlayAnimation("place")
+		at.AnimState:PushAnimation("idle", false)
+        inst:ListenForEvent("animover", onplaced)
+
         inst:Remove()
     end
 end
@@ -179,10 +209,11 @@ local function fnresearchlab5(sim)
     MakeInventoryPhysics(inst)
     MakeInventoryFloatable(inst)
 
+    inst:AddTag("usedeploystring")
+
     inst.AnimState:SetBank("seafarer_boatsw")
     inst.AnimState:SetBuild("seafarer_boatsw")
     inst.AnimState:PlayAnimation("research", true)
-
 
     inst.entity:SetPristine()
 
@@ -198,8 +229,6 @@ local function fnresearchlab5(sim)
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
 
-
-
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
 
@@ -211,9 +240,16 @@ local function fnresearchlab5(sim)
 end
 
 local function ondeploytar_extractor(inst, pt, deployer)
-    local boat = SpawnPrefab("tar_extractor")
-    if boat ~= nil then
-        boat.Transform:SetPosition(pt.x, 0, pt.z)
+    local at = SpawnPrefab("tar_extractor")
+    if at ~= nil then
+        at.Transform:SetPosition(pt.x, 0, pt.z)
+
+	    at.SoundEmitter:PlaySound("dontstarve_DLC002/common/tar_extractor/craft")
+	    at.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/tiger_shark/splash_large")
+        at.AnimState:PlayAnimation("place")
+		at.AnimState:PushAnimation("idle", true)
+        inst:ListenForEvent("animover", onplaced)
+
         inst:Remove()
     end
 end
@@ -221,7 +257,7 @@ end
 local function test_ground(inst, pt)
     local valor
     local valor2
-    local ents = TheSim:FindEntities(pt.x, pt.y, pt.z, 0.5, { "tar source" })
+    local ents = TheSim:FindEntities(pt.x, pt.y, pt.z, 0.7, { "tar source" })
     for k, item in pairs(ents) do
         if item then
             valor = true
@@ -251,6 +287,8 @@ local function fntar_extractor(sim)
     MakeInventoryPhysics(inst)
     MakeInventoryFloatable(inst)
 
+    inst:AddTag("usedeploystring")
+
     inst.AnimState:SetBank("seafarer_boatsw")
     inst.AnimState:SetBuild("seafarer_boatsw")
     inst.AnimState:PlayAnimation("extractor", true)
@@ -271,8 +309,6 @@ local function fntar_extractor(sim)
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
 
-
-
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
 
@@ -284,9 +320,15 @@ local function fntar_extractor(sim)
 end
 
 local function ondeploysea_chiminea(inst, pt, deployer)
-    local boat = SpawnPrefab("sea_chiminea")
-    if boat ~= nil then
-        boat.Transform:SetPosition(pt.x, 0, pt.z)
+    local at = SpawnPrefab("sea_chiminea")
+    if at ~= nil then
+        at.Transform:SetPosition(pt.x, 0, pt.z)
+
+	    at.SoundEmitter:PlaySound("dontstarve/common/fireAddFuel")
+        at.AnimState:PlayAnimation("place")
+		at.AnimState:PushAnimation("idle_water", true)
+        inst:ListenForEvent("animover", onplaced)
+
         inst:Remove()
     end
 end
@@ -297,13 +339,11 @@ local function fnsea_chiminea(sim)
     local anim = inst.entity:AddAnimState()
     inst.entity:AddNetwork()
 
-    MakeInventoryPhysics(inst)
-    MakeInventoryFloatable(inst)
+    inst:AddTag("usedeploystring")
 
     inst.AnimState:SetBank("seafarer_boatsw")
     inst.AnimState:SetBuild("seafarer_boatsw")
     inst.AnimState:PlayAnimation("firepit", true)
-
 
     inst.entity:SetPristine()
 
@@ -319,8 +359,6 @@ local function fnsea_chiminea(sim)
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
 
-
-
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
 
@@ -332,9 +370,15 @@ local function fnsea_chiminea(sim)
 end
 
 local function ondeploywaterchest1(inst, pt, deployer)
-    local boat = SpawnPrefab("waterchest1")
-    if boat ~= nil then
-        boat.Transform:SetPosition(pt.x, 0, pt.z)
+    local at = SpawnPrefab("waterchest1")
+    if at ~= nil then
+        at.Transform:SetPosition(pt.x, 0, pt.z)
+
+	    at.SoundEmitter:PlaySound("dontstarve/common/chest_craft")
+        at.AnimState:PlayAnimation("place")
+		at.AnimState:PushAnimation("closed", true)
+        inst:ListenForEvent("animover", onplaced)
+
         inst:Remove()
     end
 end
@@ -344,6 +388,8 @@ local function fnwaterchest1(sim)
     local trans = inst.entity:AddTransform()
     local anim = inst.entity:AddAnimState()
     inst.entity:AddNetwork()
+
+    inst:AddTag("usedeploystring")
 
     MakeInventoryPhysics(inst)
     MakeInventoryFloatable(inst)
@@ -367,8 +413,6 @@ local function fnwaterchest1(sim)
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
 
-
-
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL
 
@@ -380,9 +424,15 @@ local function fnwaterchest1(sim)
 end
 
 local function ondeploysea_yard(inst, pt, deployer)
-    local boat = SpawnPrefab("sea_yard")
-    if boat ~= nil then
-        boat.Transform:SetPosition(pt.x, 0, pt.z)
+    local at = SpawnPrefab("sea_yard")
+    if at ~= nil then
+        at.Transform:SetPosition(pt.x, 0, pt.z)
+
+	    at.SoundEmitter:PlaySound("dontstarve_DLC002/common/shipyard/craft")
+        at.AnimState:PlayAnimation("place")
+		at.AnimState:PushAnimation("idle", true)
+        inst:ListenForEvent("animover", onplaced)
+
         inst:Remove()
     end
 end
@@ -396,10 +446,11 @@ local function fnsea_yard(sim)
     MakeInventoryPhysics(inst)
     MakeInventoryFloatable(inst)
 
+    inst:AddTag("usedeploystring")
+
     inst.AnimState:SetBank("seafarer_boatsw")
     inst.AnimState:SetBuild("seafarer_boatsw")
     inst.AnimState:PlayAnimation("seayard", true)
-
 
     inst.entity:SetPristine()
 
@@ -414,8 +465,6 @@ local function fnsea_yard(sim)
 
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
-
-
 
     inst:AddComponent("fuel")
     inst.components.fuel.fuelvalue = TUNING.LARGE_FUEL

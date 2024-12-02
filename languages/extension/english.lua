@@ -88,8 +88,14 @@ TA_STRINGS.ACTIONS.JUMPIN                                    = {
 	GENERIC = "Jump In",
 }
 
-
-
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYBUOY                       = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYFISH_FARM                  = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYBALLPHINHOUSE              = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYSEARCHLAB5                 = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYTAR_EXTRATOR               = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYSEA_CHIMINEA               = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYWATERCHEST                 = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYSEA_YARD                   = "Deploy"
 
 
 -- Name of Things --
