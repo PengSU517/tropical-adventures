@@ -258,7 +258,7 @@ AddRecipe2("armorobsidian",
 AddRecipe2("obsidianbomb",
 	{ Ingredient("coconade", 3), Ingredient("obsidian", 3), Ingredient("dragoonheart", 1) },
 	TECH.OBSIDIAN_TWO, { nounlock = true, numtogive = 3 }, { "CRAFTING_STATION" })
-AddRecipe2("book_meteor1", { Ingredient("papyrus", 2), Ingredient("obsidian", 2) }, TECH.SCIENCE_TWO,
+AddRecipe2("book_meteor", { Ingredient("papyrus", 2), Ingredient("obsidian", 2) }, TECH.SCIENCE_TWO,
 	{ builder_tag = "bookbuilder", }, { "CHARACTER" })
 
 -- AddRecipe2("book_gardening", { Ingredient("papyrus", 2), Ingredient("seeds", 1), Ingredient("poop", 1) },
@@ -1698,7 +1698,7 @@ SortAfter("turf_beach", "turf_volcano", "DECOR")
 SortAfter("woodlegs_boatcannon", "obsidianbomb", "OBSIDIAN")
 SortAfter("surfboarditem", "wx78_scanner_item", "CHARACTER")
 SortAfter("luckyhat", "surfboarditem", "CHARACTER")
-SortAfter("book_meteor1", "book_sleep", "CHARACTER")
+SortAfter("book_meteor", "book_sleep", "CHARACTER")
 SortAfter("mutator_tropical", "mutator_warrior", "CHARACTER")
 SortAfter("mutator_frost", "mutator_moon", "CHARACTER")
 SortAfter("poisonbalm", "livinglog", "CHARACTER")

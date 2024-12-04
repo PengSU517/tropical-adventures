@@ -10,7 +10,7 @@
         <Element name="beaverskin.tex" u1="0.000488281" u2="0.0610352" v1="0.566895" v2="0.627441"/>
         <Element name="bell.tex" u1="0.000488281" u2="0.0610352" v1="0.505371" v2="0.565918"/>
         <Element name="bell1.tex" u1="0.000488281" u2="0.0610352" v1="0.443848" v2="0.504395"/>
-        <Element name="book_meteor1.tex" u1="0.124512" u2="0.185059" v1="0.939941" v2="0.999512"/>
+        <Element name="book_meteor.tex" u1="0.124512" u2="0.185059" v1="0.939941" v2="0.999512"/>
         <Element name="bucket.tex" u1="0.000488281" u2="0.0610352" v1="0.382324" v2="0.442871"/>
         <Element name="cave_regenerator.tex" u1="0.000488281" u2="0.0610352" v1="0.320801" v2="0.381348"/>
         <Element name="chickenhouse.tex" u1="0.921387" u2="0.980957" v1="0.755371" v2="0.814941"/>
