@@ -168,7 +168,7 @@ AddRecipe2("loot_pumper",
 
 
 --CHARACTER--
-AddRecipe2("surfboarditem", { Ingredient("boards", 1), Ingredient("seashell", 1) }, TECH.NONE,
+AddRecipe2("surfboard_item", { Ingredient("boards", 1), Ingredient("seashell", 1) }, TECH.NONE,
 	{ builder_tag = "walani", image = "surfboard_item.tex" }, { "CHARACTER" })
 AddRecipe2("porto_woodlegsboat",
 	{ Ingredient("boards", 4), Ingredient("dubloon", 4), Ingredient("boatcannon", 1) }, TECH.NONE,
@@ -1696,8 +1696,8 @@ SortAfter("turf_ash", "turf_magmafield", "DECOR")
 SortAfter("turf_volcano", "turf_ash", "DECOR")
 SortAfter("turf_beach", "turf_volcano", "DECOR")
 SortAfter("woodlegs_boatcannon", "obsidiancoconade", "OBSIDIAN")
-SortAfter("surfboarditem", "wx78_scanner_item", "CHARACTER")
-SortAfter("woodlegshat", "surfboarditem", "CHARACTER")
+SortAfter("surfboard_item", "wx78_scanner_item", "CHARACTER")
+SortAfter("woodlegshat", "surfboard_item", "CHARACTER")
 SortAfter("book_meteor", "book_sleep", "CHARACTER")
 SortAfter("mutator_tropical", "mutator_warrior", "CHARACTER")
 SortAfter("mutator_frost", "mutator_moon", "CHARACTER")

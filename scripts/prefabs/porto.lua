@@ -25,7 +25,7 @@ local prefabs =
 }
 
 
-local function ondroppedsurfboarditem(inst)
+local function ondroppedsurfboard_item(inst)
     local map = TheWorld.Map
     local x, y, z = inst.Transform:GetWorldPosition()
     local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
@@ -745,7 +745,7 @@ local function onfinished(inst)
     inst:Remove()
 end
 
-local function fnsurfboarditem(sim)
+local function fnsurfboard_item(sim)
     local inst = CreateEntity()
 
     inst.entity:AddTransform()
@@ -786,7 +786,7 @@ local function fnsurfboarditem(sim)
     inst:AddComponent("inventoryitem")
 
 
-    inst.components.inventoryitem:SetOnDroppedFn(ondroppedsurfboarditem)
+    inst.components.inventoryitem:SetOnDroppedFn(ondroppedsurfboard_item)
 
 
     return inst
@@ -856,8 +856,8 @@ return Prefab("porto_raft", fnraft, assets, prefabs),
     MakePlacer("porto_surfboard_placer", "raft", "raft_surfboard_build", "run_loop", false, false, false),
     Prefab("porto_woodlegsboat", fnwoodlegsboat, assets, prefabs),
     MakePlacer("porto_woodlegsboat_placer", "pirate_boat_placer", "pirate_boat_placer", "idle", false, false, false),
-    Prefab("surfboarditem", fnsurfboarditem, assets, prefabs),
-    MakePlacer("surfboarditem_placer", "raft", "raft_surfboard_build", "run_loop", false, false, false),
+    Prefab("surfboard_item", fnsurfboard_item, assets, prefabs),
+    MakePlacer("surfboard_item_placer", "raft", "raft_surfboard_build", "run_loop", false, false, false),
     Prefab("corkboatitem", fncorkboatitem, assets, prefabs),
     MakePlacer("corkboatitem_placer", "rowboat", "coracle_boat_build", "run_loop", false, false, false),
     Prefab("porto_raft_old", fnraftold, assets, prefabs),

@@ -28,7 +28,7 @@ local prefabs =
 
 local start_inv =
 {
-	"surfboarditem"
+	"surfboard_item"
 }
 
 

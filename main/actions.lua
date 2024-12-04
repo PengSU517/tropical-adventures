@@ -637,7 +637,7 @@ RETRIEVE.fn = function(act)
 
     if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and act.target.prefab == "surfboard" then
         if act.target and act.target.prefab == "surfboard" then
-            local panela = SpawnPrefab("surfboarditem")
+            local panela = SpawnPrefab("SURFBOARD_ITEM")
             if act.target.components.finiteuses then
                 panela.components.finiteuses.current = act.target.components.finiteuses.current
             end
