@@ -1,5 +1,3 @@
-require "prefabutil"
-
 local assets =
 {
 	Asset("ANIM", "anim/tar_extractor.zip"),
@@ -10,6 +8,15 @@ local assets =
 local prefabs =
 {
 	"tar",
+}
+
+local loot =
+{
+	"coconut",
+	"bamboo",
+	"bamboo",
+	"limestone",
+	"limestone",
 }
 
 local SEG_TIME = 30
@@ -23,7 +30,7 @@ local function spawnTarProp(inst)
 	inst.task_spawn = nil
 	local tar = SpawnPrefab("tar")
 
-	local pt = Vector3(inst.Transform:GetWorldPosition()) + Vector3(0, 4.5, 0)
+	local pt = inst:GetPosition() + Vector3(0, 4.5, 0)
 
 	local right = TheCamera:GetRightVec()
 	local offset = 1.3
@@ -55,7 +62,7 @@ local function startTar(inst)
 	inst.task_tar = inst:DoTaskInTime(RESOURSE_TIME, makeTar)
 	inst.task_tar_time = GetTime()
 end
-
+--[[
 local function onBuilt(inst)
 	inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/tar_extractor/craft")
 	inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/tiger_shark/splash_large")
@@ -63,14 +70,14 @@ local function onBuilt(inst)
 	inst.AnimState:PushAnimation("idle", true)
 
 	local range = 1
-	local pt = Vector3(inst.Transform:GetWorldPosition())
+	local pt = inst:GetPosition()
 	local tarpits = TheSim:FindEntities(pt.x, pt.y, pt.z, range, { "tar source" }, nil)
 	for i, tarpit in ipairs(tarpits) do
 		if tarpit.components.inspectable then
 			tarpit.components.inspectable.inspectdisabled = true
 		end
 	end
-end
+end]]
 
 local function placeTestFn(inst, pt)
 	local range = 1
@@ -106,7 +113,7 @@ end
 
 local function onRemove(inst, worker)
 	local range = 1
-	local pt = Vector3(inst.Transform:GetWorldPosition())
+	local pt = inst:GetPosition()
 	local tarpits = TheSim:FindEntities(pt.x, pt.y, pt.z, range, { "tar source" }, nil)
 	for i, tarpit in ipairs(tarpits) do
 		if tarpit.components.inspectable and tarpit.components.inspectable.inspectdisabled == true then
@@ -297,6 +304,7 @@ local function fn(Sim)
 	inst.components.inspectable.getstatus = getstatus
 
 	inst:AddComponent("lootdropper")
+	inst.components.lootdropper:SetLoot(loot)
 
 	inst:AddComponent("workable")
 	inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
@@ -326,10 +334,10 @@ local function fn(Sim)
 	--MakeLargePropagator(inst)
 	inst.OnSave = onsave
 	inst.OnLoad = onload
-
+    --[[
 	inst:ListenForEvent("onbuilt", function()
 		onBuilt(inst)
-	end)
+	end)]]
 
 	inst.startTar = startTar
 	inst.OnRemoveEntity = onRemove
