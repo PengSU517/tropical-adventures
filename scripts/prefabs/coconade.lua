@@ -4,12 +4,14 @@ local assets =
     Asset("ANIM", "anim/swap_coconade.zip"),
 }
 
-local COCONADE_DAMAGE = 250
-
 local prefabs =
 {
-
+    "explode_small",
 }
+
+local COCONADE_DAMAGE = 250
+local COCONADE_EXPLOSIONRANGE = 6
+local COCONADE_BUILDINGDAMAGE = 10
 
 local function OnHitWater(inst, attacker, target)
     inst.SoundEmitter:KillSound("hiss")
@@ -34,7 +36,6 @@ local function OnHitWater(inst, attacker, target)
     end
     inst:Remove()
 end
-
 
 local function onthrown(inst)
     inst._fx = SpawnPrefab("torchfire")
@@ -127,25 +128,20 @@ local function fn(Sim)
     inst.components.complexprojectile:SetOnLaunch(onthrown)
     inst.components.complexprojectile:SetOnHit(OnHitWater)
 
-
     inst:AddComponent("explosive")
-    inst.components.explosive.explosivedamage = COCONADE_DAMAGE
-    inst.components.explosive.explosiverange = 6
+	inst.components.explosive.explosivedamage = COCONADE_DAMAGE
+	inst.components.explosive.explosiverange = COCONADE_EXPLOSIONRANGE
+	inst.components.explosive.buildingdamage = COCONADE_BUILDINGDAMAGE
 
     MakeSmallBurnable(inst, 3 + math.random() * 3)
     inst.components.burnable:SetOnBurntFn(nil)
     inst.components.burnable:SetOnIgniteFn(OnIgniteFn)
 
-
     inst:AddComponent("inspectable")
-
-
-
 
     inst:AddComponent("weapon")
     inst.components.weapon:SetDamage(10)
     inst.components.weapon:SetRange(10, 12)
-
 
     inst:AddComponent("equippable")
     inst.components.equippable:SetOnEquip(onequip)
@@ -156,4 +152,4 @@ local function fn(Sim)
     return inst
 end
 
-return Prefab("common/inventory/coconade", fn, assets)
+return Prefab("coconade", fn, assets)

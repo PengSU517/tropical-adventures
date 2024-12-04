@@ -292,7 +292,7 @@ end
 
 local function OnHitWater(inst, attacker, target)
 	inst.SoundEmitter:KillSound("hiss")
-	SpawnPrefab("obsidianbombactive").Transform:SetPosition(inst.Transform:GetWorldPosition())
+	SpawnPrefab("obsidiancoconadeactive").Transform:SetPosition(inst.Transform:GetWorldPosition())
 	inst.SoundEmitter:PlaySound("dontstarve/common/dropwood")
 	inst:Remove()
 end

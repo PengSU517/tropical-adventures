@@ -11,7 +11,7 @@ local prefabs =
 
 local function OnHitWater(inst, attacker, target)
     inst.SoundEmitter:KillSound("hiss")
-    SpawnPrefab("obsidianbombactive").Transform:SetPosition(inst.Transform:GetWorldPosition())
+    SpawnPrefab("obsidiancoconadeactive").Transform:SetPosition(inst.Transform:GetWorldPosition())
     inst.SoundEmitter:PlaySound("dontstarve/common/dropwood")
 
     inst:Remove()
@@ -56,7 +56,7 @@ local function ReticuleTargetFn()
 end
 
 local function OnIgniteFn(inst)
-    SpawnPrefab("obsidianbombactive").Transform:SetPosition(inst.Transform:GetWorldPosition())
+    SpawnPrefab("obsidiancoconadeactive").Transform:SetPosition(inst.Transform:GetWorldPosition())
     inst:Remove()
 end
 
@@ -138,4 +138,4 @@ local function fn(Sim)
     return inst
 end
 
-return Prefab("common/inventory/obsidianbomb", fn, assets)
+return Prefab("common/inventory/obsidiancoconade", fn, assets)

@@ -106,7 +106,7 @@ local function TakeLightSteps(light, value)
 end
 
 local function OnExploded(inst, data)
-    if data and data.explosive and data.explosive.prefab == "coconade" or data and data.explosive and data.explosive.prefab == "obsidianbomb" then
+    if data and data.explosive and data.explosive.prefab == "coconade" or data and data.explosive and data.explosive.prefab == "obsidiancoconade" then
         local x, y, z = inst.Transform:GetWorldPosition()
 
         local fx = SpawnPrefab("mining_fx")

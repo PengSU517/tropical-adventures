@@ -9,6 +9,10 @@ local prefabs =
     "explode_small",
 }
 
+local COCONADE_OBSIDIAN_DAMAGE = 350
+local COCONADE_OBSIDIAN_EXPLOSIONRANGE = 9
+local COCONADE_OBSIDIAN_BUILDINGDAMAGE = 15
+
 local function ondropped(inst)
     local map = TheWorld.Map
     local x, y, z = inst.Transform:GetWorldPosition()
@@ -28,14 +32,14 @@ local function ondropped(inst)
         end
     end
 
-    if TileGroupManager:IsOceanTile(ground) --[[ground == GROUND.OCEAN_COASTAL or
+    if ground == GROUND.OCEAN_COASTAL or
         ground == GROUND.OCEAN_COASTAL_SHORE or
         ground == GROUND.OCEAN_SWELL or
         ground == GROUND.OCEAN_ROUGH or
         ground == GROUND.OCEAN_BRINEPOOL or
         ground == GROUND.OCEAN_BRINEPOOL_SHORE or
         ground == GROUND.OCEAN_WATERLOG or
-        ground == GROUND.OCEAN_HAZARDOUS]] then
+        ground == GROUND.OCEAN_HAZARDOUS then
         if not plataforma then
             inst.AnimState:PlayAnimation("idle_water", true)
         else
@@ -155,8 +159,6 @@ local function CreateGroundFX(bomb)
     inst.Transform:SetPosition(bomb.Transform:GetWorldPosition())
 end
 
-
-
 local function OnIgniteFn(inst)
     inst._fx = SpawnPrefab("torchfire")
     inst._fx.entity:SetParent(inst.entity)
@@ -173,27 +175,19 @@ local function OnExplodeFn(inst)
     inst.SoundEmitter:KillSound("hiss")
 end
 
-
-
 local function Explode(inst)
     local map = TheWorld.Map
     local x, y, z = inst.Transform:GetWorldPosition()
     local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
 
-
-
-
-
-
-
-    if TileGroupManager:IsOceanTile(ground) --[[ground == GROUND.OCEAN_COASTAL or
+    if ground == GROUND.OCEAN_COASTAL or
         ground == GROUND.OCEAN_COASTAL_SHORE or
         ground == GROUND.OCEAN_SWELL or
         ground == GROUND.OCEAN_ROUGH or
         ground == GROUND.OCEAN_BRINEPOOL or
         ground == GROUND.OCEAN_BRINEPOOL_SHORE or
         ground == GROUND.OCEAN_WATERLOG or
-        ground == GROUND.OCEAN_HAZARDOUS]] then
+        ground == GROUND.OCEAN_HAZARDOUS then
         local WALKABLE_PLATFORM_TAGS = { "walkableplatform" }
         local x, y, z = inst.Transform:GetWorldPosition()
         local plataforma = false
@@ -230,11 +224,6 @@ local function Explode(inst)
     inst.components.explosive:OnBurnt()
 end
 
-
-
-
-
-
 local function fn(Sim)
     local inst = CreateEntity()
     local trans = inst.entity:AddTransform()
@@ -250,18 +239,16 @@ local function fn(Sim)
     inst:AddTag("explosive")
     inst:AddTag("SCARYTOPREY")
 
-
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
         return inst
     end
 
-
     inst:AddComponent("explosive")
-    inst.components.explosive:SetOnExplodeFn(OnExplodeFn)
-    inst.components.explosive.explosivedamage = TUNING.GUNPOWDER_DAMAGE
-    inst.components.explosive.explosiverange = 5.5
+	inst.components.explosive.explosivedamage = COCONADE_OBSIDIAN_DAMAGE
+	inst.components.explosive.explosiverange = COCONADE_OBSIDIAN_EXPLOSIONRANGE
+	inst.components.explosive.buildingdamage = COCONADE_OBSIDIAN_BUILDINGDAMAGE
 
     inst._light = nil
 
@@ -271,4 +258,4 @@ local function fn(Sim)
     return inst
 end
 
-return Prefab("common/inventory/obsidianbombactive", fn, assets)
+return Prefab("obsidiancoconadeactive", fn, assets)
