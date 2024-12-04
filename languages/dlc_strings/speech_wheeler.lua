@@ -1590,8 +1590,8 @@ return {
 		},
 		SNAKEOIL = "I know it's a fake, but I still just have to try it!",
 		LOBSTER = "Don't mind me, just trying to capture you for my dinner.",
-		MESSAGEBOTTLE = "Adventure just seems to find me.",
-		MESSAGEBOTTLEEMPTY = "Swell. An empty bottle. Just what I was looking for.",
+		MESSAGEBOTTLE_SW = "Adventure just seems to find me.",
+		MESSAGEBOTTLEEMPTY_SW = "Swell. An empty bottle. Just what I was looking for.",
 		SHARK_FIN = "It deserves to swim again. In a soup.",
 		VOLCANO_ALTAR =
 		{

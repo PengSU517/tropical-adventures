@@ -1597,8 +1597,8 @@ return {
 		},
 		SNAKEOIL = "Ah, I made a fortune selling such concoctions in my youth.",
 		LOBSTER = "What a complex cephalothorax! I'm going to eat it for dinner!",
-		MESSAGEBOTTLE = "An enthralling missive from a mysterious being.",
-		MESSAGEBOTTLEEMPTY = "A shame. I was looking forward to a communication.",
+		MESSAGEBOTTLE_SW = "An enthralling missive from a mysterious being.",
+		MESSAGEBOTTLEEMPTY_SW = "A shame. I was looking forward to a communication.",
 		SHARK_FIN = "Structurally superior at avoiding aerodynamic drag. Also, it's good in soup.",
 		VOLCANO_ALTAR =
 		{

@@ -112,7 +112,7 @@ rst = ["loot_pumper",\
 "waterchest",\
 "mussel_bed",\
 "mussel_stick",\
-"tro_messagebottle",\
+"messagebottle_sw",\
 "bottlelantern",\
 "researchlab5",\
 "roe",\

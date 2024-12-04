@@ -8,7 +8,7 @@ local prefabs =
 	"ballphinpod",
 	"fishmeat_small",
 	"dorsalfin",
-	"messagebottleempty",
+	"messagebottleempty_sw",
 }
 
 

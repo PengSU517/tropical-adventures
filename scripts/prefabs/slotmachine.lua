@@ -478,7 +478,7 @@ local internalloot =
 			dubloon = 3,
 			compass = 1,
 			boneshard = 2,
-			messagebottleempty = 1,
+			messagebottleempty_sw = 1,
 			sand = 1,
 		},
 

@@ -1603,8 +1603,8 @@ return {
 		},
 		SNAKEOIL = "I'm not convinced.",
 		LOBSTER = "Come here, you!",
-		MESSAGEBOTTLE = "Bottled paper!",
-		MESSAGEBOTTLEEMPTY = "It's a bottle.",
+		MESSAGEBOTTLE_SW = "Bottled paper!",
+		MESSAGEBOTTLEEMPTY_SW = "It's a bottle.",
 		SHARK_FIN = "The fin fell off.",
 		VOLCANO_ALTAR =
 		{
