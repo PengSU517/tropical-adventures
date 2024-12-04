@@ -51,7 +51,7 @@ return {
     ANTHILL_DOOR_QUEEN = "Chamber Entrance",
     ANTHILL_EXIT_1 = "Mant Hill",
     ANTHILL_EXIT_2 = "Mant Hill",
-    ANTIDOTE = "Antidote",
+    ANTIVENOM = "Antidote",
     ANTIQUITIES_DOOR_ENTRADA = "Door",
     ANTIQUITIES_DOOR_SAIDA = "Door",
     ANTMAN2 = "Antman",
@@ -724,7 +724,7 @@ return {
   },
   RAWLINGother_owner = "Ouch!",
   RECIPE_DESC = {
-    ANTIDOTE = "Cures that not-so-fresh \"poison\" feeling.",
+    ANTIVENOM = "Cures that not-so-fresh \"poison\" feeling.",
     ARMOR_SEASHELL = "Pretty poison prevention.",
     AXEOBSIDIAN = "Like a regular axe, only hotter.",
     BANANARANG = "Death by potassium!",

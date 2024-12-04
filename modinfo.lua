@@ -2,7 +2,7 @@ local function en_zh(en, zh)
 	return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
 end
 
-name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
+name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|dev_test")
 
 
 author = "Peng, 杰杰, Runar"

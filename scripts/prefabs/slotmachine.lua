@@ -540,7 +540,7 @@ local internalloot =
 		loot =
 		{
 			dubloon = 2,
-			antidote = 1,
+			antivenom = 1,
 			healingsalve = 3,
 			blowdart_sleep = 2,
 		},

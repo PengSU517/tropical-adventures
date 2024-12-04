@@ -192,7 +192,7 @@ return {
     ANTHILL_EXIT_2 = "蚁穴入口",
     ANTHILL_FLOOR = "蚁穴房间地板",
     ANTHILL_FLOOR2 = "蚁穴房间地板2",
-    ANTIDOTE = "解毒剂",
+    ANTIVENOM = "解毒剂",
     ANTIQUITIES_DOOR_ENTRADA = "门",
     ANTIQUITIES_DOOR_SAIDA = "门",
     ANTLARVA = "幼蚁",
@@ -1223,7 +1223,7 @@ return {
   },
   RAWLINGother_owner = "诶呀！",
   RECIPE_DESC = {
-    ANTIDOTE = "用来解毒。",
+    ANTIVENOM = "用来解毒。",
     ARMORVOIDCLOAK = "料子厚实，口袋很深。",
     ARMOR_SEASHELL = "提供毒液防护。",
     AXEOBSIDIAN = "像一个普通的斧头，但是很热。",
