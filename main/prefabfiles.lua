@@ -28,7 +28,7 @@ PrefabFiles = {
     "armor_lifejacket",
     "armor_metal",
     "armor_obsidian",
-    "armorseashell",
+    "armor_seashell",
     "armor_snakeskin",
     "armor_void_cloak",
     "armor_vortex_cloak",
