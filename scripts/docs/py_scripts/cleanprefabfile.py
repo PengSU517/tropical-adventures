@@ -51,7 +51,7 @@ rst = ["loot_pumper",\
 "frogpoison",\
 "mosquitopoison",\
 "cormorant",\
-"antidote",\
+"antivenom",\
 "chiminea",\
 "chimineafire",\
 "armor_seashell",\

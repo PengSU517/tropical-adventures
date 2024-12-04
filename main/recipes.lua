@@ -359,7 +359,7 @@ AddRecipe2("armor_windbreaker",
 AddRecipe2("gashat",
 	{ Ingredient("coral", 2), Ingredient("tro_messagebottleempty", 2), Ingredient("jellyfish", 1) },
 	TECH.SCIENCE_TWO, {}, { "CLOTHING" })
-AddRecipe2("antidote",
+AddRecipe2("antivenom",
 	{ Ingredient("venomgland", 1), Ingredient("coral", 2), Ingredient("seaweed", 2) },
 	TECH.SCIENCE_ONE, {}, { "RESTORATION" })
 AddRecipe2("ox_flute", { Ingredient("ox_horn", 1), Ingredient("nightmarefuel", 2), Ingredient("rope", 1) },
@@ -1611,7 +1611,7 @@ SortAfter("monkeyball", "megaflare", "TOOLS")
 SortAfter("palmleaf_umbrella", "grass_umbrella", "RAIN")
 SortAfter("palmleaf_umbrella", "grass_umbrella", "SUMMER")
 SortAfter("palmleaf_umbrella", "grass_umbrella", "CLOTHING")
-SortAfter("antidote", "lifeinjector", "RESTORATION")
+SortAfter("antivenom", "lifeinjector", "RESTORATION")
 SortBefore("thatchpack", "backpack", "CONTAINERS")
 SortBefore("thatchpack", "backpack", "CLOTHING")
 SortAfter("seasack", "icepack", "CONTAINERS")

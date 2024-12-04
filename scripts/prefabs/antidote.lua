@@ -41,8 +41,6 @@ local function fn()
 
     inst:AddComponent("inventoryitem")
 
-
-
     inst:AddComponent("stackable")
     inst:AddComponent("tradable")
 
@@ -58,4 +56,4 @@ local function fn()
     return inst
 end
 
-return Prefab("antidote", fn, assets)
+return Prefab("antivenom", fn, assets)

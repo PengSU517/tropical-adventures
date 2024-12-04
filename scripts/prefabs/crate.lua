@@ -84,7 +84,7 @@ local function fn(Sim)
 	inst.components.lootdropper:AddRandomLoot("gears", 1)
 	inst.components.lootdropper:AddRandomLoot("gunpowder", 1)
 	inst.components.lootdropper:AddRandomLoot("pigskin", 1)
-	inst.components.lootdropper:AddRandomLoot("antidote", 1)
+	inst.components.lootdropper:AddRandomLoot("antivenom", 1)
 
 	inst.components.lootdropper.numrandomloot = 1
 

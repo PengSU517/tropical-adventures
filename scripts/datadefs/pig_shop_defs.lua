@@ -73,7 +73,7 @@ local SHOPTYPES = {
         { "green_cap",    "oinc", 2 },
         { "bandage",      "oinc", 5 },
         { "healingsalve", "oinc", 4 },
-        { "antidote",     "oinc", 5 },
+        { "antivenom",     "oinc", 5 },
         { "coffeebeans",  "oinc", 2 },
         { "lifeinjector", "oinc", 20 },
     },
