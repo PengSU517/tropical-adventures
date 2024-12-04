@@ -69,7 +69,7 @@ local function OnChanneling(inst, target)
     end
 end
 
-local function doydoyfan()
+local function tropicalfan()
     local inst = CreateEntity()
 
     inst.entity:AddTransform()
@@ -117,4 +117,4 @@ local function doydoyfan()
     return inst
 end
 
-return Prefab("doydoyfan", doydoyfan, assets)
+return Prefab("tropicalfan", tropicalfan, assets)

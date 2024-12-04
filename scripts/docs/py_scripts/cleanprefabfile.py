@@ -354,7 +354,7 @@ rst = ["loot_pumper",\
 "bigfoot",\
 "glommerbell",\
 "sweet_potato",\
-"doydoyfan",\
+"tropicalfan",\
 "sand_castle",\
 "sandhill",\
 "sand",\
