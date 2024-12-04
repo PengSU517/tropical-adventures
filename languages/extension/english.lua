@@ -723,7 +723,7 @@ TA_STRINGS.NAMES.ARMOR_LIFEJACKET = "Life jacket"
 
 TA_STRINGS.NAMES.SURFBOARDITEM = "Surfboard"
 
-TA_STRINGS.NAMES.LUCKYHAT = "Lucky Hat"
+TA_STRINGS.NAMES.WOODLEGSHAT = "Lucky Hat"
 
 TA_STRINGS.NAMES.SPICEPACK = "Chef Pouch"
 
@@ -960,7 +960,7 @@ TA_STRINGS.RECIPE_DESC.BUOY = "Mark your place in the water."
 
 TA_STRINGS.RECIPE_DESC.ARMOR_LIFEJACKET = "Safety first!"
 
-TA_STRINGS.RECIPE_DESC.LUCKYHAT = "Sniff out treasures."
+TA_STRINGS.RECIPE_DESC.WOODLEGSHAT = "Sniff out treasures."
 
 TA_STRINGS.RECIPE_DESC.SPICEPACK = "Freshen up your foodstuffs."
 
@@ -1609,7 +1609,7 @@ TA_STRINGS.WALLY1 = "Chump."
 
 TA_STRINGS.WALLY2 = "Nice Sailing"
 
-TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.LUCKYHAT = "Does it make me look scurvy... I mean scary!?"
+TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.WOODLEGSHAT = "Does it make me look scurvy... I mean scary!?"
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.SPICEPACK = "My bag of chef's tricks!"
 
@@ -2488,7 +2488,7 @@ TA_STRINGS.WALLY1                                              = "Chump."
 
 TA_STRINGS.WALLY2                                              = "Nice Sailing"
 
---TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.LUCKYHAT = "Does it make me look scurvy... I mean scary!?"
+--TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.WOODLEGSHAT = "Does it make me look scurvy... I mean scary!?"
 
 --TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.SPICEPACK = "My bag of chef's tricks!"
 
