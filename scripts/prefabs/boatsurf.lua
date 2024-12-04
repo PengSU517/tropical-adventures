@@ -41,7 +41,7 @@ end
 
 local function onequipsurf(inst, owner)
 	if not inst:HasTag("ocupado") then
-		local plancha = SpawnPrefab("surfboarditem")
+		local plancha = SpawnPrefab("surfboard_item")
 		plancha.components.finiteuses.current = inst.components.finiteuses.current
 		owner.components.inventory:GiveItem(plancha, 1)
 		inst:Remove()

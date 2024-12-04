@@ -55,5 +55,5 @@ TUNING.WALANI_HEALTH = 120
 TUNING.WALANI_SANITY = 200
 TUNING.WALANI_HUNGER = 200
 
-TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.WALANI = { "surfboarditem" }
-TUNING.STARTING_ITEM_IMAGE_OVERRIDE["surfboarditem"] = { image = "surfboarditem.tex", }
+TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.WALANI = { "surfboard_item" }
+TUNING.STARTING_ITEM_IMAGE_OVERRIDE["surfboard_item"] = { image = "surfboard_item.tex", }
