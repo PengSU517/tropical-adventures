@@ -9,15 +9,23 @@ local prefabs =
     "collapse_small",
 }
 
+local loot =
+{
+    "bamboo",
+    "bamboo",
+    "messagebottleempty_sw",
+    "bioluminescence",
+    "bioluminescence",
+}
+
 local HIT_SOUND = "terraria1/skins/hammush" -- TODO better sound for this maybe?
 
 local function onhammered(inst, worker)
     if inst:HasTag("fire") and inst.components.burnable then
         inst.components.burnable:Extinguish()
     end
-    inst.components.lootdropper:SpawnLootPrefab("porto_buoy")
-    -- inst.components.lootdropper:SpawnLootPrefab("bamboo")
-    -- inst.components.lootdropper:SpawnLootPrefab("messagebottleempty_sw")
+    --inst.components.lootdropper:SpawnLootPrefab("bamboo")	
+    inst.components.lootdropper:DropLoot()
     SpawnPrefab("collapse_small").Transform:SetPosition(inst.Transform:GetWorldPosition())
     inst.SoundEmitter:PlaySound("dontstarve/common/destroy_metal")
     inst:Remove()
@@ -56,12 +64,12 @@ end
 local function OnCollide(inst, data)
     inst.SoundEmitter:PlaySound(HIT_SOUND)
 end
-
+--[[
 local function onbuilt(inst)
     inst.sg:GoToState("place")
     --inst.AnimState:PlayAnimation("place")
     --inst.AnimState:PushAnimation("idle", true)
-end
+end]]
 
 local function OnPhysicsWake(inst)
     inst.components.boatphysics:StartUpdating()
@@ -109,6 +117,7 @@ local function fn(Sim)
     inst.Light:SetFalloff(0.5)
     inst.Light:SetRadius(2)
 
+    inst:AddTag("quebraonda")
     inst:AddTag("blocker")
     inst:AddTag("ignorewalkableplatforms")
     inst:AddTag("noauradamage")
@@ -144,7 +153,9 @@ local function fn(Sim)
     health.nofadeout = true
 
     inst:AddComponent("inspectable")
+
     inst:AddComponent("lootdropper")
+    inst.components.lootdropper:SetLoot(loot)
 
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
@@ -172,7 +183,7 @@ local function fn(Sim)
     end)
 
     inst:ListenForEvent("on_collide", OnCollide)
-    inst:ListenForEvent("onbuilt", onbuilt)
+    --inst:ListenForEvent("onbuilt", onbuilt)
 
     inst:SetStateGraph("SGbuoy")
 

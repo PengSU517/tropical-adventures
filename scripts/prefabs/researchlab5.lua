@@ -1,4 +1,10 @@
-require "prefabutil"
+local loot =
+{
+    "limestone",
+    "limestone",
+    "sand",
+    "transistor",
+}
 
 local function Default_PlayAnimation(inst, anim)
     inst.AnimState:PushAnimation("idle", true)
@@ -133,7 +139,7 @@ local function createmachine(level, name, soundprefix, techtree, giftsound)
             inst._activetask = inst:DoTaskInTime(inst.AnimState:GetCurrentAnimationLength() + 2 * FRAMES, doneact)
         end
     end
-
+    --[[
     local function onbuilt(inst, data)
         inst:_PlayAnimation("place")
         inst:_PushAnimation("idle", false)
@@ -142,7 +148,7 @@ local function createmachine(level, name, soundprefix, techtree, giftsound)
         if name == "researchlab5" then
             AwardPlayerAchievement("build_researchlab5", data.builder)
         end
-    end
+    end]]
 
     local function fn()
         local inst = CreateEntity()
@@ -156,7 +162,7 @@ local function createmachine(level, name, soundprefix, techtree, giftsound)
         MakeObstaclePhysics(inst, .4)
 
         inst.MiniMapEntity:SetPriority(5)
-        inst.MiniMapEntity:SetIcon(name .. ".tex")
+        inst.MiniMapEntity:SetIcon(name .. ".png")
 
         inst.AnimState:SetBank(name)
         inst.AnimState:SetBuild(name)
@@ -194,9 +200,11 @@ local function createmachine(level, name, soundprefix, techtree, giftsound)
         inst.components.wardrobe:SetCanBeShared(true)
         inst.components.wardrobe:SetRange(TUNING.RESEARCH_MACHINE_DIST + .1)
 
-        inst:ListenForEvent("onbuilt", onbuilt)
+        --inst:ListenForEvent("onbuilt", onbuilt)
 
         inst:AddComponent("lootdropper")
+        inst.components.lootdropper:SetLoot(loot)
+
         inst:AddComponent("workable")
         inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
         inst.components.workable:SetWorkLeft(4)
@@ -226,4 +234,4 @@ local function createmachine(level, name, soundprefix, techtree, giftsound)
 end
 
 return createmachine(2, "researchlab5", "lvl2", TUNING.PROTOTYPER_TREES.ALCHEMYMACHINE),
-    MakePlacer("common/researchlab5_placer", "researchlab5", "researchlab5", "idle")
+    MakePlacer("researchlab5_placer", "researchlab5", "researchlab5", "idle")

@@ -18,6 +18,14 @@ local prefabs =
     "fish_farm_sign"
 }
 
+local loots =
+{
+    "silk",
+    "rope",
+    "coconut",
+    "coconut",
+}
+
 local usedFishStates = {}
 local unusedFishStates = { 1, 2, 3, 4, 5, 6, 7, 8 }
 
@@ -259,6 +267,8 @@ local function fn(Sim)
     -- inst.components.breeder.updateFn = updateFn
 
     inst:AddComponent("lootdropper")
+    inst.components.lootdropper:SetLoot(loots)
+
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
     inst.components.workable:SetWorkLeft(4)

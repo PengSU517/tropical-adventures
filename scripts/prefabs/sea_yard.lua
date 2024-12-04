@@ -13,6 +13,18 @@ local prefabs =
 	"sea_yard_arms_fx"
 }
 
+local loot =
+{
+	"limestone",
+	"limestone",
+	"limestone",
+	"tar",
+	"tar",
+	"tar",
+	"log",
+	"log",
+}
+
 local SEA_YARD_MAX_FUEL_TIME = 30 * 6
 
 local function onturnon(inst)
@@ -313,8 +325,9 @@ local function fn(Sim)
 		inst:ListenForEvent("animover", onplaced)
 	end)
 
-
 	inst:AddComponent("lootdropper")
+	inst.components.lootdropper:SetLoot(loot)
+
 	inst:AddComponent("workable")
 	inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
 	inst.components.workable:SetWorkLeft(4)

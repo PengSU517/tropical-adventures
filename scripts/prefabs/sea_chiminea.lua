@@ -8,6 +8,19 @@ local prefabs =
     "chimineafire",
     "collapse_small",
 }
+
+local loot =
+{
+    "sand",
+    "sand",
+    "tar",
+    "tar",
+    "tar",
+    "limestone",
+    "limestone",
+    "limestone",
+}
+
 local total_day_time = 480
 local CHIMINEA_FUEL_MAX = total_day_time * 2
 local CHIMINEA_FUEL_START = total_day_time
@@ -57,6 +70,7 @@ local function fn()
     inst:AddTag("structure")
     inst:AddTag("nowaves")
     inst:AddTag("ignorewalkableplatforms")
+    inst:AddTag("quebraonda")
 
     MakeWaterObstaclePhysics(inst, 0.3, 2, 1.25)
 
@@ -76,6 +90,8 @@ local function fn()
 
     -------------------------
     inst:AddComponent("lootdropper")
+    inst.components.lootdropper:SetLoot(loot)
+
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
     inst.components.workable:SetWorkLeft(4)
@@ -125,12 +141,12 @@ local function fn()
             return t[sec]
         end
     end
-
+    --[[
     inst:ListenForEvent("onbuilt", function()
         anim:PlayAnimation("place")
         anim:PushAnimation("idle_water", true)
         inst.SoundEmitter:PlaySound("dontstarve/common/fireAddFuel")
-    end)
+    end)]]
 
     return inst
 end
