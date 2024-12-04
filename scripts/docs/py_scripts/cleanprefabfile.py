@@ -29,7 +29,7 @@ rst = ["loot_pumper",\
 "house_wall",\
 "sparkle_fx",\
 "fx",\
-"axeobsidian",\
+"obsidianaxe",\
 "armor_obsidian",\
 "meteor_impact",\
 "dug_cofeecactus",\

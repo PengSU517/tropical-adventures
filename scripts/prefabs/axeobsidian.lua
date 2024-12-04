@@ -159,4 +159,4 @@ local function obsidianfn(Sim)
     return inst
 end
 
-return Prefab("common/inventory/axeobsidian", obsidianfn, assets)
+return Prefab("common/inventory/obsidianaxe", obsidianfn, assets)

@@ -240,7 +240,7 @@ AddRecipe2("mermwatchtower", { Ingredient("boards", 5), Ingredient("tentaclespot
 -- 	TECH.SHADOW_TWO, nil, { "MAGIC" }, true, nil, "shadowmagic")
 
 --OBSIDIAN STATION--
-AddRecipe2("axeobsidian",
+AddRecipe2("obsidianaxe",
 	{ Ingredient("axe", 1), Ingredient("obsidian", 2), Ingredient("dragoonheart", 1) },
 	TECH.OBSIDIAN_TWO, { nounlock = true }, { "CRAFTING_STATION" })
 AddRecipe2("obsidianmachete",
