@@ -22,7 +22,7 @@ local prefabs =
 
 local start_inv =
 {
-	"luckyhat",
+	"woodlegshat",
 	"boatcannon",
 	"boards",
 	"boards",

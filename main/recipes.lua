@@ -173,7 +173,7 @@ AddRecipe2("surfboarditem", { Ingredient("boards", 1), Ingredient("seashell", 1)
 AddRecipe2("porto_woodlegsboat",
 	{ Ingredient("boards", 4), Ingredient("dubloon", 4), Ingredient("boatcannon", 1) }, TECH.NONE,
 	{ builder_tag = "woodlegs" }, { "CHARACTER" })
-AddRecipe2("luckyhat",
+AddRecipe2("woodlegshat",
 	{ Ingredient("boneshard", 4), Ingredient("fabric", 3), Ingredient("dubloon", 10) },
 	TECH.NONE, { builder_tag = "woodlegs" }, { "CHARACTER" })
 AddRecipe2("poisonbalm", { Ingredient("livinglog", 1), Ingredient("venomgland", 1) }, TECH.NONE,
@@ -1697,7 +1697,7 @@ SortAfter("turf_volcano", "turf_ash", "DECOR")
 SortAfter("turf_beach", "turf_volcano", "DECOR")
 SortAfter("woodlegs_boatcannon", "obsidianbomb", "OBSIDIAN")
 SortAfter("surfboarditem", "wx78_scanner_item", "CHARACTER")
-SortAfter("luckyhat", "surfboarditem", "CHARACTER")
+SortAfter("woodlegshat", "surfboarditem", "CHARACTER")
 SortAfter("book_meteor", "book_sleep", "CHARACTER")
 SortAfter("mutator_tropical", "mutator_warrior", "CHARACTER")
 SortAfter("mutator_frost", "mutator_moon", "CHARACTER")

@@ -44,9 +44,9 @@ TUNING.WILBUR_HUNGER = 175
 TUNING.WOODLEGS_HEALTH = 150
 TUNING.WOODLEGS_SANITY = 120
 TUNING.WOODLEGS_HUNGER = 150
-TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.WOODLEGS = { "luckyhat", "boatcannon", "boards", "boards", "boards", "boards",
+TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.WOODLEGS = { "woodlegshat", "boatcannon", "boards", "boards", "boards", "boards",
     "dubloon", "dubloon", "dubloon", "dubloon" }
-TUNING.STARTING_ITEM_IMAGE_OVERRIDE["luckyhat"] = { image = "luckyhat.tex", }
+TUNING.STARTING_ITEM_IMAGE_OVERRIDE["woodlegshat"] = { image = "woodlegshat.tex", }
 TUNING.STARTING_ITEM_IMAGE_OVERRIDE["boatcannon"] = { image = "boatcannon.tex", }
 TUNING.STARTING_ITEM_IMAGE_OVERRIDE["dubloon"] = { image = "dubloon.tex", }
 

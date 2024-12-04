@@ -95,7 +95,7 @@ rst = ["loot_pumper",\
 "edgefog",\
 "boatpirateamigo",\
 "shadowwaxwell_boat",\
-"luckyhat",\
+"woodlegshat",\
 "telescope",\
 "thatchpack",\
 "parrot",\
