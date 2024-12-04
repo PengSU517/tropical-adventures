@@ -5,49 +5,46 @@ local assets =
     --Asset("INV_IMAGE", "cane"),
 }
 
-local function onfinished(inst)
-    inst:Remove()
-end
-
-local function OnEquipToModel(inst, owner, from_ground)
-    if inst.components.fueled ~= nil then
-        inst.components.fueled:StopConsuming()
-    end
-end
-
-local function onequip(inst, owner)
+local function OnEquip(inst, owner)
     owner.AnimState:OverrideSymbol("swap_object", "swap_walkingstick", "swap_walkingstick")
     owner.AnimState:Show("ARM_carry")
     owner.AnimState:Hide("ARM_normal")
 
-    OnEquipToModel(inst)
+    if inst.components.fueled ~= nil then
+        inst.components.fueled:StartConsuming()
+    end
 end
 
-local function onunequip(inst, owner)
-    owner.AnimState:Hide("ARM_carry")
-    owner.AnimState:Show("ARM_normal")
-
+local function OnEquipToModel(inst, owner)
     if inst.components.fueled ~= nil then
         inst.components.fueled:StopConsuming()
     end
 end
 
-local function onwornout(inst)
-    inst:Remove()
+local function OnUnequip(inst, owner)
+    owner.AnimState:Hide("ARM_carry")
+    owner.AnimState:Show("ARM_normal")
+
+    OnEquipToModel(inst, owner)
 end
 
-local function fn(Sim)
-    local inst = CreateEntity()
-    inst.entity:AddNetwork()
-    local trans = inst.entity:AddTransform()
-    local anim = inst.entity:AddAnimState()
-    inst.entity:AddSoundEmitter()
-    MakeInventoryPhysics(inst)
-    MakeInventoryFloatable(inst, "small", 0.05, { 1.2, 0.75, 1.2 })
-    anim:SetBank("walkingstick")
-    anim:SetBuild("walkingstick")
-    anim:PlayAnimation("idle")
+--local floatable_swap_data = {sym_build = "walkingstick", sym_name = "swap_walkingstick"}
 
+local function fn()
+    local inst = CreateEntity()
+
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
+    inst.entity:AddSoundEmitter()
+    inst.entity:AddNetwork()
+
+    MakeInventoryPhysics(inst)
+    MakeInventoryFloatable(inst, "small", .05, { 1.2, .75, 1.2 })
+
+    inst.AnimState:SetBuild("walkingstick")
+    inst.AnimState:SetBankAndPlayAnimation("walkingstick", "idle")
+
+    --MakeInventoryFloatable(inst, "med", .05, {0.95, .40, .95}, true, 1, floatable_swap_data)
 
     inst.entity:SetPristine()
 
@@ -65,18 +62,16 @@ local function fn(Sim)
     inst:AddComponent("inventoryitem")
 
 
-
     inst:AddComponent("equippable")
-
-    inst.components.equippable:SetOnEquip(onequip)
-    inst.components.equippable:SetOnUnequip(onunequip)
+    inst.components.equippable:SetOnEquip(OnEquip)
+    inst.components.equippable:SetOnUnequip(OnUnequip)
     inst.components.equippable:SetOnEquipToModel(OnEquipToModel)
     inst.components.equippable.walkspeedmult = 1.3
 
     inst:AddComponent("fueled")
     inst.components.fueled.fueltype = FUELTYPE.USAGE
-    inst.components.fueled:InitializeFuelLevel(480 * 3)
-    inst.components.fueled:SetDepletedFn(onwornout)
+    inst.components.fueled:InitializeFuelLevel(TUNING.DAY_TIME_DEFAULT * 3)
+    inst.components.fueled:SetDepletedFn(inst.Remove)
 
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
     MakeSmallPropagator(inst)
@@ -85,6 +80,5 @@ local function fn(Sim)
 
     return inst
 end
-
 
 return Prefab("common/inventory/walkingstick", fn, assets)
