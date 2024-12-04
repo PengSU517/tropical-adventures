@@ -718,12 +718,18 @@ AddRecipe2("pig_shop_cityhall_player_entrance",
 AddRecipe2("pig_guard_tower", { Ingredient("cutstone", 3), Ingredient("halberd", 1), Ingredient("pigskin", 4) },
 	TECH.CITY_ONE, { nounlock = false, min_spacing = 3.2, placer = "pig_guard_tower_placer" },
 	{ "HAMLET" })
-AddRecipe2("hedge_block", { Ingredient("clippings", 3), Ingredient("nitre", 1) }, TECH.CITY_ONE,
-	{ nounlock = false, min_spacing = 1, placer = "hedge_block_placer" }, { "HAMLET" })
-AddRecipe2("hedge_cone", { Ingredient("clippings", 3), Ingredient("nitre", 1) }, TECH.CITY_ONE,
-	{ nounlock = false, min_spacing = 1, placer = "hedge_cone_placer" }, { "HAMLET" })
-AddRecipe2("hedge_layered", { Ingredient("clippings", 3), Ingredient("nitre", 1) }, TECH.CITY_ONE,
-	{ nounlock = false, min_spacing = 1, placer = "hedge_layered_placer" }, { "HAMLET" })
+	AddRecipe2("hedge_block_item", {Ingredient("clippings", 9), Ingredient("nitre", 1)}, TECH.CITY_ONE, {
+		nounlock = true,
+		numtogive = 3,
+	}, {"HAMLET"})
+	AddRecipe2("hedge_cone_item", {Ingredient("clippings", 9), Ingredient("nitre", 1)}, TECH.CITY_ONE, {
+		nounlock = true,
+		numtogive = 3,
+	}, {"HAMLET"})
+	AddRecipe2("hedge_layered_item", {Ingredient("clippings", 9), Ingredient("nitre", 1)}, TECH.CITY_ONE, {
+		nounlock = true,
+		numtogive = 3,
+	}, {"HAMLET"})
 AddRecipe2("pig_guard_tower_palace",
 	{ Ingredient("cutstone", 5), Ingredient("halberd", 1), Ingredient("pigskin", 4) }, TECH.CITY_ONE,
 	{
