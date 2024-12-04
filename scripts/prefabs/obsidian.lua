@@ -65,7 +65,7 @@ local function MakeBook(def)
 
         inst.AnimState:SetBank("book_meteor")
         inst.AnimState:SetBuild("book_meteor")
-        inst.AnimState:PlayAnimation(def.name)
+        inst.AnimState:PlayAnimation("book_meteor1")
 
         inst:AddTag("book")
         inst:AddTag("bookcabinet_item")
@@ -87,7 +87,6 @@ local function MakeBook(def)
 
         inst:AddComponent("inventoryitem")
         if def.name == "book_meteor" then
-
         end
         inst:AddComponent("finiteuses")
         inst.components.finiteuses:SetMaxUses(def.uses)
@@ -151,7 +150,6 @@ local function fnobsidian(Sim)
     inst:AddComponent("inspectable")
 
     inst:AddComponent("inventoryitem")
-
 
 
 
