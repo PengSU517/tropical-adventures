@@ -206,7 +206,7 @@ return {
     APORKALYPSE_MARKER = "天启日历",
     APORKALYPSE_REWIND_PLATE = "天启日历",
     ARMORVOIDCLOAK = "虚空斗篷",
-    ARMOR_SEASHELL = "海贝甲",
+    ARMORSEASHELL = "海贝甲",
     ASPARAGUS_PATCH = "生成数个芦笋",
     AXEOBSIDIAN = "黑曜石斧",
     BALLPHIN2 = "黑海豚",
@@ -1225,7 +1225,7 @@ return {
   RECIPE_DESC = {
     ANTIVENOM = "用来解毒。",
     ARMORVOIDCLOAK = "料子厚实，口袋很深。",
-    ARMOR_SEASHELL = "提供毒液防护。",
+    ARMORSEASHELL = "提供毒液防护。",
     AXEOBSIDIAN = "像一个普通的斧头，但是很热。",
     BANANARANG = "死于钾元素吧！",
     BED0 = "林中小屋风格。",

@@ -73,4 +73,4 @@ local function fn()
     return inst
 end
 
-return Prefab("armor_seashell", fn, assets)
+return Prefab("armorseashell", fn, assets)

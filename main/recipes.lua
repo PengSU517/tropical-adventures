@@ -318,7 +318,7 @@ AddRecipe2("spear_launcher", { Ingredient("bamboo", 3), Ingredient("jellyfish", 
 AddRecipe2("blowdart_poison",
 	{ Ingredient("cutreeds", 2), Ingredient("venomgland", 1), Ingredient("feather_crow", 1) }, TECH.SCIENCE_ONE,
 	{}, { "WEAPONS" })
-AddRecipe2("armor_seashell",
+AddRecipe2("armorseashell",
 	{ Ingredient("seashell", 10), Ingredient("rope", 1), Ingredient("seaweed", 2) }, TECH.SCIENCE_TWO,
 	{}, { "ARMOUR" })
 AddRecipe2("oxhat", { Ingredient("rope", 1), Ingredient("seashell", 4), Ingredient("ox_horn", 1) },
@@ -1644,7 +1644,7 @@ SortAfter("goldnugget", "nubbin", "REFINE")
 SortAfter("ice", "goldnugget", "REFINE")
 SortAfter("tro_messagebottleempty", "ice", "REFINE")
 SortAfter("spear_poison", "spear", "WEAPONS")
-SortAfter("armor_seashell", "armorwood", "ARMOUR")
+SortAfter("armorseashell", "armorwood", "ARMOUR")
 SortAfter("armorlimestone", "armormarble", "ARMOUR")
 SortAfter("armorcactus", "armorlimestone", "ARMOUR")
 SortAfter("oxhat", "footballhat", "ARMOUR")

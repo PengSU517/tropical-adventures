@@ -6,7 +6,7 @@
         <Element name="antidote.tex" u1="0.523193" u2="0.553467" v1="0.939941" v2="0.999512"/>
         <Element name="antivenom.tex" u1="0.000244141" u2="0.0305176" v1="0.377441" v2="0.437988"/>
         <Element name="armor_lifejacket.tex" u1="0.000244141" u2="0.0305176" v1="0.315918" v2="0.376465"/>
-        <Element name="armor_seashell.tex" u1="0.000244141" u2="0.0305176" v1="0.254395" v2="0.314941"/>
+        <Element name="armorseashell.tex" u1="0.000244141" u2="0.0305176" v1="0.254395" v2="0.314941"/>
         <Element name="armor_snakeskin.tex" u1="0.000244141" u2="0.0305176" v1="0.192871" v2="0.253418"/>
         <Element name="armor_windbreaker.tex" u1="0.000244141" u2="0.0305176" v1="0.131348" v2="0.191895"/>
         <Element name="armorcactus.tex" u1="0.000244141" u2="0.0305176" v1="0.0698242" v2="0.130371"/>

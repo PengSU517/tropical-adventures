@@ -14,7 +14,7 @@ function Poisonous:OnAttack(target, dmg)
 			local corpo = target.components.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
 			local cabeca = target.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
 			if target and target.prefab == "wx78" then return end
-			if corpo and corpo.prefab == "armor_seashell" then return end
+			if corpo and corpo.prefab == "armorseashell" then return end
 			if cabeca and cabeca.prefab == "oxhat" then return end
 			if cabeca and cabeca.prefab == "gasmaskhat" and self.inst.prefab == "stungray" then return end
 			if cabeca and cabeca.prefab == "gashat" and self.inst.prefab == "stungray" then return end

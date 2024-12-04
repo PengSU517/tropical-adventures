@@ -319,7 +319,7 @@ local function poisonattack(inst, attacker, target, projectile)
     if target and target:HasTag("player") then
         local corpo = target.components.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
         local cabeca = target.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
-        if corpo and corpo.prefab == "armor_seashell" then return end
+        if corpo and corpo.prefab == "armorseashell" then return end
         if cabeca and cabeca.prefab == "oxhat" then return end
     end
 
