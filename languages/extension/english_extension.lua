@@ -65,7 +65,7 @@ return {
     ARMORVOIDCLOAK = "Void Cloak",
     ARMORSEASHELL = "Seashell Suit",
     ASPARAGUS_SEEEDS = "Asparagus Seeds",
-    AXEOBSIDIAN = "Obsidian Axe",
+    OBSIDIANAXE = "Obsidian Axe",
     BALLPHIN2 = "Ballphin",
     BALLPHINOCEAN = "Dead Ballphin",
     BAMBOOTREEBIG = "Bamboo Patch",
@@ -726,7 +726,7 @@ return {
   RECIPE_DESC = {
     ANTIVENOM = "Cures that not-so-fresh \"poison\" feeling.",
     ARMORSEASHELL = "Pretty poison prevention.",
-    AXEOBSIDIAN = "Like a regular axe, only hotter.",
+    OBSIDIANAXE = "Like a regular axe, only hotter.",
     BANANARANG = "Death by potassium!",
     BED0 = "Cabin-in-the-woods style",
     BED1 = "Better than nothing",
