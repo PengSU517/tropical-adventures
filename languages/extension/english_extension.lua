@@ -63,7 +63,7 @@ return {
     APORKALYPSE_MARKER = "Aporkalypse Calendar",
     APORKALYPSE_REWIND_PLATE = "Aporkalypse Calendar",
     ARMORVOIDCLOAK = "Void Cloak",
-    ARMOR_SEASHELL = "Seashell Suit",
+    ARMORSEASHELL = "Seashell Suit",
     ASPARAGUS_SEEEDS = "Asparagus Seeds",
     AXEOBSIDIAN = "Obsidian Axe",
     BALLPHIN2 = "Ballphin",
@@ -725,7 +725,7 @@ return {
   RAWLINGother_owner = "Ouch!",
   RECIPE_DESC = {
     ANTIVENOM = "Cures that not-so-fresh \"poison\" feeling.",
-    ARMOR_SEASHELL = "Pretty poison prevention.",
+    ARMORSEASHELL = "Pretty poison prevention.",
     AXEOBSIDIAN = "Like a regular axe, only hotter.",
     BANANARANG = "Death by potassium!",
     BED0 = "Cabin-in-the-woods style",

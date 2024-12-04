@@ -54,7 +54,7 @@ rst = ["loot_pumper",\
 "antivenom",\
 "chiminea",\
 "chimineafire",\
-"armor_seashell",\
+"armorseashell",\
 "ox_horn",\
 "ox",\
 "oxherd",\

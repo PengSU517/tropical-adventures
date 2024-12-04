@@ -410,7 +410,7 @@ TA_STRINGS.NAMES.POISONCROCODOG = "Poison Crocodog"
 
 TA_STRINGS.NAMES.GRASSWATER = "Grass"
 
-TA_STRINGS.NAMES.ARMOR_SEASHELL = "Seashell Suit"
+TA_STRINGS.NAMES.ARMORSEASHELL = "Seashell Suit"
 
 TA_STRINGS.NAMES.OXHAT = "Horned Helmet"
 
@@ -862,7 +862,7 @@ TA_STRINGS.RECIPE_DESC.OBSIDIANMACHETE = "Hack'n'burn!"
 
 TA_STRINGS.RECIPE_DESC.ANTIVENOM = "Cures that not-so-fresh \"poison\" feeling."
 
-TA_STRINGS.RECIPE_DESC.ARMOR_SEASHELL = "Pretty poison prevention."
+TA_STRINGS.RECIPE_DESC.ARMORSEASHELL = "Pretty poison prevention."
 
 TA_STRINGS.RECIPE_DESC.OXHAT = "Shell out for some poison protection."
 
@@ -1319,7 +1319,7 @@ TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.POISONCROCODOG = "That looks like an expe
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.GRASSWATER = "I hope you're thirsty, grass."
 
-TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.ARMOR_SEASHELL = "Arts and crafts!"
+TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.ARMORSEASHELL = "Arts and crafts!"
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.OXHAT = "Nice and dry. This helmet will protect me from the elements."
 
@@ -2189,7 +2189,7 @@ TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.POISONCROCODOG = "Leave us alone!"
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.GRASSWATER               = "It's going for a swim."
 
-TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.ARMOR_SEASHELL           = "We feel like a knight in not-so-shiny armor."
+TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.ARMORSEASHELL           = "We feel like a knight in not-so-shiny armor."
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.OXHAT                    = "How do we look?"
 
