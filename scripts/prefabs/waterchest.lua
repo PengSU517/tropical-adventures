@@ -1,8 +1,20 @@
-require "prefabutil"
+local prefabs =
+{
+    "boards",
+    "tar",
+}
+
+local loot =
+{
+    "boards",
+    "boards",
+    "tar",
+}
 
 local function onopen(inst)
     if not inst:HasTag("burnt") then
         inst.AnimState:PlayAnimation("open")
+        inst.AnimState:PushAnimation("opened", true)
         inst.SoundEmitter:PlaySound("dontstarve/wilson/chest_open")
     end
 end
@@ -39,12 +51,12 @@ local function onhit(inst, worker)
         end
     end
 end
-
+--[[
 local function onbuilt(inst)
     inst.AnimState:PlayAnimation("place")
     inst.AnimState:PushAnimation("closed", true)
     inst.SoundEmitter:PlaySound("dontstarve/common/chest_craft")
-end
+end]]
 
 local function onsave(inst, data)
     if inst.components.burnable ~= nil and inst.components.burnable:IsBurning() or inst:HasTag("burnt") then
@@ -74,7 +86,7 @@ local function MakeChest(name, bank, build, indestructible, custom_postinit, pre
         inst.entity:AddMiniMapEntity()
         inst.entity:AddNetwork()
 
-        inst.MiniMapEntity:SetIcon("water_chest.tex")
+        inst.MiniMapEntity:SetIcon("water_chest.png")
 
         inst:AddTag("structure")
         inst:AddTag("chest")
@@ -89,9 +101,6 @@ local function MakeChest(name, bank, build, indestructible, custom_postinit, pre
         inst.entity:SetPristine()
 
         if not TheWorld.ismastersim then
-            inst.OnEntityReplicated = function(inst)
-                if inst.replica.container then inst.replica.container:WidgetSetup("treasurechest") end
-            end
             return inst
         end
 
@@ -103,6 +112,8 @@ local function MakeChest(name, bank, build, indestructible, custom_postinit, pre
 
         if not indestructible then
             inst:AddComponent("lootdropper")
+            inst.components.lootdropper:SetLoot(loot)
+
             inst:AddComponent("workable")
             inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
             inst.components.workable:SetWorkLeft(2)
@@ -113,7 +124,7 @@ local function MakeChest(name, bank, build, indestructible, custom_postinit, pre
             MakeMediumPropagator(inst)
         end
 
-        inst:ListenForEvent("onbuilt", onbuilt)
+        --inst:ListenForEvent("onbuilt", onbuilt)
         MakeSnowCovered(inst)
 
         inst.OnSave = onsave
@@ -129,5 +140,5 @@ local function MakeChest(name, bank, build, indestructible, custom_postinit, pre
     return Prefab(name, fn, assets, prefabs)
 end
 
-return MakeChest("waterchest1", "water_chest", "water_chest", false, nil, { "collapse_small" }),
-    MakePlacer("waterchest1_placer", "water_chest", "water_chest", "closed")
+return MakeChest("waterchest", "water_chest", "water_chest", false, nil, { "collapse_small" }),
+    MakePlacer("waterchest_placer", "water_chest", "water_chest", "closed")
