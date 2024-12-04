@@ -409,7 +409,7 @@ AddRecipe2("mussel_bed", { Ingredient("mussel", 1), Ingredient("coral", 1) }, TE
 	{}, { "GARDENING" })
 AddRecipe2("porto_fish_farm", { Ingredient("silk", 2), Ingredient("rope", 2), Ingredient("coconut", 4) },
 	TECH.SCIENCE_ONE, { image = "fish_farm.tex" }, { "GARDENING" })
-AddRecipe2("doydoyfan", { Ingredient("cutreeds", 2), Ingredient("rope", 2), Ingredient("doydoyfeather", 5) },
+AddRecipe2("tropicalfan", { Ingredient("cutreeds", 2), Ingredient("rope", 2), Ingredient("doydoyfeather", 5) },
 	TECH.SCIENCE_TWO, {}, { "SUMMER" })
 AddRecipe2("palmleaf_hut",
 	{ Ingredient("palmleaf", 4), Ingredient("bamboo", 4), Ingredient("rope", 3) },
@@ -1620,8 +1620,8 @@ SortAfter("seasack", "icepack", "CLOTHING")
 SortAfter("palmleaf_hut", "siestahut", "STRUCTURES")
 SortBefore("palmleaf_hut", "lightning_rod", "RAIN")
 SortAfter("palmleaf_hut", "siestahut", "SUMMER")
-SortAfter("doydoyfan", "featherfan", "SUMMER")
-SortAfter("doydoyfan", "featherfan", "CLOTHING")
+SortAfter("tropicalfan", "featherfan", "SUMMER")
+SortAfter("tropicalfan", "featherfan", "CLOTHING")
 SortAfter("doydoynest", "rabbithouse", "STRUCTURES")
 SortAfter("machete", "axe", "TOOLS")
 SortAfter("goldenmachete", "goldenaxe", "TOOLS")
