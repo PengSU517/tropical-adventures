@@ -1536,8 +1536,8 @@ return {
 		LOBSTERHOLE = "That is where the armored meat goes during the day.",
 		LOGRAFT = "This does not look swift.",
 		MACHETE = "Hyah! Hyah!",
-		MESSAGEBOTTLE = "Maybe there's a comic book in here!",
-		MESSAGEBOTTLEEMPTY = "We wish it was filled with soda pop.",
+		MESSAGEBOTTLE_SW = "Maybe there's a comic book in here!",
+		MESSAGEBOTTLEEMPTY_SW = "We wish it was filled with soda pop.",
 		MOSQUITO_POISON = "These ones leave a gift when they bite.",
 		
 		MUSSEL = "Maybe one day I'll have big mussels.",

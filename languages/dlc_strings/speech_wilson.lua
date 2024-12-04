@@ -1536,7 +1536,7 @@ return {
 		},
 		LOGRAFT = "This looks... sort of boat-like...",
 		MACHETE = "I like the cut of this blade.",
-		MESSAGEBOTTLEEMPTY = "Just an empty bottle.",
+		MESSAGEBOTTLEEMPTY_SW = "Just an empty bottle.",
 		MOSQUITO_POISON = "These blasted mosquitoes carry a terrible sickness.",
 		OBSIDIANCOCONADE = "It's even bombier!",
 		OBSIDIANFIREPIT =

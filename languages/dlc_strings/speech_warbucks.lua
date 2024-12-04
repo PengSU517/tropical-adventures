@@ -1586,8 +1586,8 @@ return {
 		},
 		SNAKEOIL = "I'll not be fooled again!",
 		LOBSTER = "Ah! A mid-Atlantic variation if I'm not mistaken.",
-		MESSAGEBOTTLE = "Thank goodness! I was afraid the mail wasn't getting through.",
-		MESSAGEBOTTLEEMPTY = "A rather bland bottle.",
+		MESSAGEBOTTLE_SW = "Thank goodness! I was afraid the mail wasn't getting through.",
+		MESSAGEBOTTLEEMPTY_SW = "A rather bland bottle.",
 		SHARK_FIN = "A fine dorsal artifact.",
 		VOLCANO_ALTAR =
 		{

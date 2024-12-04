@@ -1225,8 +1225,8 @@ local STRINGS =
         MUSSEL_STICK = "Mussel Stick",
         MUSSEL_FARM = "Mussels",
 
-        MESSAGEBOTTLE = "Message in a Bottle",
-        MESSAGEBOTTLEEMPTY = "Empty Bottle",
+        MESSAGEBOTTLE_SW = "Message in a Bottle",
+        MESSAGEBOTTLEEMPTY_SW = "Empty Bottle",
         BURIEDTREASURE = "X Marks the Spot",
         MACHETE = "Machete",
         GOLDENMACHETE = "Luxury Machete",

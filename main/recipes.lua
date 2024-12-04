@@ -274,7 +274,7 @@ AddRecipe2("sail_stick",
 --OTHER--
 AddRecipe2("machete", { Ingredient("flint", 3), Ingredient("twigs", 1) }, TECH.NONE, {}, { "TOOLS" })
 AddRecipe2("goldenmachete", { Ingredient("twigs", 4), Ingredient("goldnugget", 2) }, TECH.SCIENCE_TWO, {}, { "TOOLS" })
-AddRecipe2("telescope", { Ingredient("goldnugget", 1), Ingredient("pigskin", 1), Ingredient("tro_messagebottleempty", 1) },
+AddRecipe2("telescope", { Ingredient("goldnugget", 1), Ingredient("pigskin", 1), Ingredient("messagebottleempty_sw", 1) },
 	TECH.SEAFARING_TWO, {}, { "TOOLS" })
 AddRecipe2("supertelescope", { Ingredient("telescope", 1), Ingredient("goldnugget", 1), Ingredient("tigereye", 1) },
 	TECH.SEAFARING_TWO, {}, { "TOOLS" })
@@ -282,10 +282,10 @@ AddRecipe2("monkeyball", { Ingredient("cave_banana", 1), Ingredient("snakeskin",
 	TECH.SCIENCE_ONE, {}, { "TOOLS" })
 AddRecipe2("chiminea", { Ingredient("log", 2), Ingredient("limestone", 3), Ingredient("sand", 2) },
 	TECH.NONE, { placer = "chiminea_placer" }, { "LIGHT", "COOKING" })
-AddRecipe2("bottlelantern", { Ingredient("tro_messagebottleempty", 1), Ingredient("bioluminescence", 2) },
+AddRecipe2("bottlelantern", { Ingredient("messagebottleempty_sw", 1), Ingredient("bioluminescence", 2) },
 	TECH.SCIENCE_TWO, {}, { "LIGHT" })
 AddRecipe2("boat_lantern",
-	{ Ingredient("tro_messagebottleempty", 1), Ingredient("twigs", 2), Ingredient("bioluminescence", 1) },
+	{ Ingredient("messagebottleempty_sw", 1), Ingredient("twigs", 2), Ingredient("bioluminescence", 1) },
 	TECH.SCIENCE_TWO, {}, { "LIGHT", "NAUTICAL" })
 AddRecipe2("boat_torch", { Ingredient("torch", 1), Ingredient("twigs", 2) }, TECH.ONE, {}, { "LIGHT", "NAUTICAL" })
 AddRecipe2("porto_sea_chiminea", { Ingredient("sand", 4), Ingredient("tar", 6), Ingredient("limestone", 6) },
@@ -301,7 +301,7 @@ AddRecipe2("icemaker", { Ingredient("heatrock", 1), Ingredient("bamboo", 5), Ing
 AddRecipe2("quackendrill", { Ingredient("quackenbeak", 1), Ingredient("gears", 1), Ingredient("transistor", 1) },
 	TECH.SCIENCE_TWO, {}, { "PROTOTYPERS" })
 AddRecipe2("fabric", { Ingredient("bamboo", 3) }, TECH.SCIENCE_ONE, {}, { "REFINE" })
-AddRecipe2("tro_messagebottleempty", { Ingredient("sand", 3) }, TECH.SCIENCE_TWO, {}, { "REFINE" })
+AddRecipe2("messagebottleempty_sw", { Ingredient("sand", 3) }, TECH.SCIENCE_TWO, {}, { "REFINE" })
 AddRecipe2("limestone", { Ingredient("coral", 3) }, TECH.SCIENCE_ONE, {}, { "REFINE" })
 AddRecipe2("nubbin", { Ingredient("limestone", 3), Ingredient("corallarve", 1) }, TECH.SCIENCE_ONE,
 	{}, { "REFINE" })
@@ -357,7 +357,7 @@ AddRecipe2("armor_windbreaker",
 	{ Ingredient("blubber", 2), Ingredient("fabric", 1), Ingredient("rope", 1) }, TECH.SCIENCE_TWO,
 	{}, { "CLOTHING", "WINTER" }) -- CHECK  THIS
 AddRecipe2("gashat",
-	{ Ingredient("coral", 2), Ingredient("tro_messagebottleempty", 2), Ingredient("jellyfish", 1) },
+	{ Ingredient("coral", 2), Ingredient("messagebottleempty_sw", 2), Ingredient("jellyfish", 1) },
 	TECH.SCIENCE_TWO, {}, { "CLOTHING" })
 AddRecipe2("antivenom",
 	{ Ingredient("venomgland", 1), Ingredient("coral", 2), Ingredient("seaweed", 2) },
@@ -473,13 +473,13 @@ AddRecipe2("trawlnet", { Ingredient("bamboo", 2), Ingredient("rope", 3) }, TECH.
 	{},
 	{ "NAUTICAL" })
 AddRecipe2("armor_lifejacket",
-	{ Ingredient("fabric", 2), Ingredient("vine", 2), Ingredient("tro_messagebottleempty", 2) },
+	{ Ingredient("fabric", 2), Ingredient("vine", 2), Ingredient("messagebottleempty_sw", 2) },
 	TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
 AddRecipe2("seatrap",
-	{ Ingredient("palmleaf", 4), Ingredient("tro_messagebottleempty", 2),
+	{ Ingredient("palmleaf", 4), Ingredient("messagebottleempty_sw", 2),
 		Ingredient("jellyfish", 1) }, TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
 AddRecipe2("porto_buoy",
-	{ Ingredient("tro_messagebottleempty", 1), Ingredient("bamboo", 4),
+	{ Ingredient("messagebottleempty_sw", 1), Ingredient("bamboo", 4),
 		Ingredient("bioluminescence", 2) }, TECH.SEAFARING_TWO, { image = "buoy.tex" },
 	{ "LIGHT", "NAUTICAL" })
 AddRecipe2("quackeringram",
@@ -1642,7 +1642,7 @@ SortAfter("limestone", "fabric", "REFINE")
 SortAfter("nubbin", "limestone", "REFINE")
 SortAfter("goldnugget", "nubbin", "REFINE")
 SortAfter("ice", "goldnugget", "REFINE")
-SortAfter("tro_messagebottleempty", "ice", "REFINE")
+SortAfter("messagebottleempty_sw", "ice", "REFINE")
 SortAfter("spear_poison", "spear", "WEAPONS")
 SortAfter("armorseashell", "armorwood", "ARMOUR")
 SortAfter("armorlimestone", "armormarble", "ARMOUR")
@@ -1720,7 +1720,7 @@ SortAfter("smelter", "firesuppressor", "STRUCTURES")
 SortAfter("smelter", "wintersfeastoven", "PROTOTYPERS")
 SortAfter("basefan", "smelter", "STRUCTURES")
 SortAfter("basefan", "icemaker", "SUMMER")
-SortAfter("glass_shards", "tro_messagebottleempty", "REFINE")
+SortAfter("glass_shards", "messagebottleempty_sw", "REFINE")
 SortAfter("pigskin", "bearger_fur", "REFINE")
 SortAfter("halberd", "boomerang", "WEAPONS")
 SortAfter("cork_bat", "halberd", "WEAPONS")

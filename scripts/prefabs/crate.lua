@@ -9,7 +9,7 @@ local prefabs =
 	"boards",
 	"rope",
 	"tunacan",
-	--	 "messagebottleempty",
+	--	 "messagebottleempty_sw",
 	"fabric",
 	"dubloon"
 }
@@ -72,7 +72,7 @@ local function fn(Sim)
 	inst.components.lootdropper:SetLoot({ "boards" })
 	inst.components.lootdropper:AddRandomLoot("rope", 10)
 	inst.components.lootdropper:AddRandomLoot("tunacan", 5)
-	--	inst.components.lootdropper:AddRandomLoot("messagebottleempty", 10)
+	--	inst.components.lootdropper:AddRandomLoot("messagebottleempty_sw", 10)
 	inst.components.lootdropper:AddRandomLoot("fabric", 10)
 	inst.components.lootdropper:AddRandomLoot("dubloon", 1)
 	inst.components.lootdropper:AddRandomLoot("rope", 10)

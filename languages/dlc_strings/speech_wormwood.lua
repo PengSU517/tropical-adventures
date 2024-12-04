@@ -1596,8 +1596,8 @@ return {
 		},
 		SNAKEOIL = "Hmmm...",
 		LOBSTER = "Snappy Glub Glub",
-		MESSAGEBOTTLE = "Says something...",
-		MESSAGEBOTTLEEMPTY = "Aw. Nothing inside",
+		MESSAGEBOTTLE_SW = "Says something...",
+		MESSAGEBOTTLEEMPTY_SW = "Aw. Nothing inside",
 		SHARK_FIN = "Water Slicer",
 		VOLCANO_ALTAR =
 		{
