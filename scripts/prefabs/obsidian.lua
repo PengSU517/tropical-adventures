@@ -31,7 +31,7 @@ local HORTICULTURE_CANT_TAGS = { "pickable", "stump", "withered", "barren", "INL
 local book_defs =
 {
     {
-        name = "book_meteor1",
+        name = "book_meteor",
         uses = 5,
 
         fn = function(inst, reader)
@@ -86,7 +86,7 @@ local function MakeBook(def)
         inst.components.book.onperuse = def.perusefn
 
         inst:AddComponent("inventoryitem")
-        if def.name == "book_meteor1" then
+        if def.name == "book_meteor" then
 
         end
         inst:AddComponent("finiteuses")

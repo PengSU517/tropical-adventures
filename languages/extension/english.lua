@@ -104,7 +104,7 @@ TA_STRINGS.NAMES.SNAKESKINHAT = "Snake Skin Hat"
 
 TA_STRINGS.NAMES.DRAGOONDEN = "Dragoon Den"
 
-TA_STRINGS.NAMES.BOOK_METEOR1 = "Joy of Volcanology"
+TA_STRINGS.NAMES.BOOK_METEOR = "Joy of Volcanology"
 
 TA_STRINGS.NAMES.OBSIDIANFIREPIT = "Obsidian Fire Pit"
 
@@ -826,7 +826,7 @@ TA_STRINGS.RECIPE_DESC.DUG_BAMBOOTREE = "It requires soil to grow."
 
 TA_STRINGS.RECIPE_DESC.AXEOBSIDIAN = "Like a regular axe, only hotter."
 
-TA_STRINGS.RECIPE_DESC.BOOK_METEOR1 = "And the sky shall rain fire!"
+TA_STRINGS.RECIPE_DESC.BOOK_METEOR = "And the sky shall rain fire!"
 
 TA_STRINGS.RECIPE_DESC.VOLCANOSTAFF = "The sky is falling!"
 
@@ -1029,7 +1029,7 @@ TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.DRAGOONEGG = "Do I hear cracking?"
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.OBSIDIAN = "It's a fire rock."
 
-TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.BOOK_METEOR1 = "The foreword just says \"Hope you like dragoons.\""
+TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.BOOK_METEOR = "The foreword just says \"Hope you like dragoons.\""
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.OBSIDIAN_WORKBENCH = "I feel inspired."
 
@@ -1879,7 +1879,7 @@ TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.DRAGOONEGG = "Will it hatch soon?"
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.OBSIDIAN = "This rock is pretty tough."
 
---TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.BOOK_METEOR1 = "The foreword just says \"Hope you like dragoons.\""
+--TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.BOOK_METEOR = "The foreword just says \"Hope you like dragoons.\""
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.OBSIDIAN_WORKBENCH = "We forge the fire items here!"
 
