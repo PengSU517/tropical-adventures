@@ -276,6 +276,7 @@ PrefabFiles = {
     "meteor_impact",
     "monkeyball",
     "mosquitopoison",
+    "mosquitosack_yellow",
     "mussel_bed",
     "mussel_farm",
     "mussel_stick",
