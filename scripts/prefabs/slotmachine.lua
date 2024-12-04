@@ -912,7 +912,7 @@ local internalloot =
 		{
 			dubloon = 2,
 			coconade = 2,
-			obsidianbomb = 1,
+			obsidiancoconade = 1,
 			gunpowder = 2,
 		},
 
@@ -1307,7 +1307,7 @@ local internalloot =
 			dubloon = 4,
 			boatrepairkit = 1,
 			goldenmachete = 1,
-			obsidianbomb = 3, --obsidiancoconade = 3,
+			obsidianbomb = 3,
 		},
 
 		random_loot =

@@ -255,7 +255,7 @@ AddRecipe2("volcanostaff",
 AddRecipe2("armorobsidian",
 	{ Ingredient("armorwood", 1), Ingredient("obsidian", 5), Ingredient("dragoonheart", 1) },
 	TECH.OBSIDIAN_TWO, { nounlock = true }, { "CRAFTING_STATION" })
-AddRecipe2("obsidianbomb",
+AddRecipe2("obsidiancoconade",
 	{ Ingredient("coconade", 3), Ingredient("obsidian", 3), Ingredient("dragoonheart", 1) },
 	TECH.OBSIDIAN_TWO, { nounlock = true, numtogive = 3 }, { "CRAFTING_STATION" })
 AddRecipe2("book_meteor", { Ingredient("papyrus", 2), Ingredient("obsidian", 2) }, TECH.SCIENCE_TWO,
@@ -1695,7 +1695,7 @@ SortAfter("turf_magmafield", "turf_tidalmarsh", "DECOR")
 SortAfter("turf_ash", "turf_magmafield", "DECOR")
 SortAfter("turf_volcano", "turf_ash", "DECOR")
 SortAfter("turf_beach", "turf_volcano", "DECOR")
-SortAfter("woodlegs_boatcannon", "obsidianbomb", "OBSIDIAN")
+SortAfter("woodlegs_boatcannon", "obsidiancoconade", "OBSIDIAN")
 SortAfter("surfboarditem", "wx78_scanner_item", "CHARACTER")
 SortAfter("woodlegshat", "surfboarditem", "CHARACTER")
 SortAfter("book_meteor", "book_sleep", "CHARACTER")

@@ -296,8 +296,8 @@ rst = ["loot_pumper",\
 "bill",\
 "bill_quill",\
 "reeds_water",\
-"obsidianbomb",\
-"obsidianbombactive",\
+"obsidiancoconade",\
+"obsidiancoconadeactive",\
 "fabric",\
 "armor_snakeskin",\
 "crate",\
