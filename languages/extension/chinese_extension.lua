@@ -463,7 +463,7 @@ return {
     DEEP_JUNGLE_FERN_NOISE_PLANT2 = "深层雨林杂草2",
     DOGFISHOCEAN = "死狗鱼",
     DOGFISH_UNDER = "狗鱼",
-    TROPICALFAN = "渡渡羽毛扇",
+    TROPICALFAN = "热带羽扇",
     DST_TO_HAMLET = "去哈姆雷特的传送门",
     DST_TO_SW = "去海难世界的传送门",
     ESCADADOVULCAO = "火山入口",
