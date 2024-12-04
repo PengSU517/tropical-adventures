@@ -400,7 +400,7 @@ AddRecipe2("wall_enforcedlimestone_item", { Ingredient("limestone", 2), Ingredie
 AddRecipe2("seasack",
 	{ Ingredient("seaweed", 5), Ingredient("vine", 2), Ingredient("shark_gills", 1) },
 	TECH.SCIENCE_TWO, {}, { "CONTAINERS" })
-AddRecipe2("porto_waterchest1", { Ingredient("boards", 4), Ingredient("tar", 1) }, TECH.SCIENCE_ONE,
+AddRecipe2("porto_waterchest", { Ingredient("boards", 4), Ingredient("tar", 1) }, TECH.SCIENCE_ONE,
 	{}, { "CONTAINERS" })
 AddRecipe2("mussel_stick",
 	{ Ingredient("bamboo", 2), Ingredient("vine", 1), Ingredient("seaweed", 1) },
@@ -1587,8 +1587,8 @@ SortAfter("bottlelantern", "lantern", "LIGHT")
 SortAfter("porto_sea_chiminea", "chiminea", "LIGHT")
 SortAfter("porto_sea_chiminea", "chiminea", "COOKING")
 SortAfter("porto_sea_chiminea", "chiminea", "WINTER")
-SortAfter("porto_waterchest1", "treasurechest", "STRUCTURES")
-SortAfter("porto_waterchest1", "treasurechest", "CONTAINERS")
+SortAfter("porto_waterchest", "treasurechest", "STRUCTURES")
+SortAfter("porto_waterchest", "treasurechest", "CONTAINERS")
 SortAfter("wall_limestone_item", "wall_stone_item", "STRUCTURES")
 SortAfter("wall_limestone_item", "wall_stone_item", "DECOR")
 SortAfter("wall_enforcedlimestone_item", "wall_limestone_item", "STRUCTURES")
@@ -1744,8 +1744,8 @@ SortAfter("turf_quagmire_citystone", "turf_quagmire_gateway", "DECOR")
 SortAfter("turf_quagmire_parkfield", "turf_quagmire_citystone", "DECOR")
 SortAfter("turf_quagmire_parkstone", "turf_quagmire_parkfield", "DECOR")
 SortAfter("turf_quagmire_peatforest", "turf_quagmire_parkstone", "DECOR")
-SortAfter("corkchest", "porto_waterchest1", "STRUCTURES")
-SortAfter("corkchest", "porto_waterchest1", "CONTAINERS")
+SortAfter("corkchest", "porto_waterchest", "STRUCTURES")
+SortAfter("corkchest", "porto_waterchest", "CONTAINERS")
 SortAfter("roottrunk_child", "corkchest", "STRUCTURES")
 SortAfter("roottrunk_child", "corkchest", "CONTAINERS")
 SortBefore("chestupgrade_stacksize", "treasurechest", "CONTAINERS")

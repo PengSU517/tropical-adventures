@@ -369,8 +369,8 @@ local function fnsea_chiminea(sim)
     return inst
 end
 
-local function ondeploywaterchest1(inst, pt, deployer)
-    local at = SpawnPrefab("waterchest1")
+local function ondeploywaterchest(inst, pt, deployer)
+    local at = SpawnPrefab("waterchest")
     if at ~= nil then
         at.Transform:SetPosition(pt.x, 0, pt.z)
 
@@ -383,7 +383,7 @@ local function ondeploywaterchest1(inst, pt, deployer)
     end
 end
 
-local function fnwaterchest1(sim)
+local function fnwaterchest(sim)
     local inst = CreateEntity()
     local trans = inst.entity:AddTransform()
     local anim = inst.entity:AddAnimState()
@@ -406,7 +406,7 @@ local function fnwaterchest1(sim)
     end
 
     inst:AddComponent("deployable")
-    inst.components.deployable.ondeploy = ondeploywaterchest1
+    inst.components.deployable.ondeploy = ondeploywaterchest
     inst.components.deployable:SetDeployMode(DEPLOYMODE.WATER)
     inst.components.deployable:SetDeploySpacing(DEPLOYSPACING.MEDIUM)
 
@@ -488,7 +488,7 @@ return Prefab("porto_buoy", fnbuoy, assets, prefabs),
     MakePlacer("porto_tar_extractor_placer", "tar_extractor", "tar_extractor", "idle", false, false, false),
     Prefab("porto_sea_chiminea", fnsea_chiminea, assets, prefabs),
     MakePlacer("porto_sea_chiminea_placer", "fire_water_pit", "fire_water_pit", "idle_water", false, false, false),
-    Prefab("porto_waterchest1", fnwaterchest1, assets, prefabs),
-    MakePlacer("porto_waterchest1_placer", "water_chest", "water_chest", "closed", false, false, false),
+    Prefab("porto_waterchest", fnwaterchest, assets, prefabs),
+    MakePlacer("porto_waterchest_placer", "water_chest", "water_chest", "closed", false, false, false),
     Prefab("porto_sea_yard", fnsea_yard, assets, prefabs),
     MakePlacer("porto_sea_yard_placer", "sea_yard", "sea_yard", "idle", false, false, false)
