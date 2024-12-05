@@ -346,7 +346,7 @@ local tro_tiledefs = {
             snowsound = "dontstarve/movement/run_ice",
             flashpoint_modifier = 0,
             hard = true,
-            cannotbedug = true, ----不能挖
+            cannotbedug = false, ----不能挖
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -397,7 +397,7 @@ local tro_tiledefs = {
             walksound = "dontstarve/movement/walk_rock",
             flashpoint_modifier = 0,
             hard = true, ----不可种植
-            cannotbedug = true,
+            cannotbedug = false,
 
         },
         minimap_tile_def = {
