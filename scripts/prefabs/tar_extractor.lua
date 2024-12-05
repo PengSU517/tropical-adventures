@@ -105,7 +105,7 @@ local function onhammered(inst, worker)
 	end
 	inst.components.lootdropper:DropLoot()
 	SpawnPrefab("collapse_small").Transform:SetPosition(inst.Transform:GetWorldPosition())
-	inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
+	inst.SoundEmitter:PlaySound("dontstarve/common/destroy_metal")
 
 	inst:Remove()
 end
@@ -186,7 +186,7 @@ local function TurnOff(inst)
 		inst.task_tar = nil
 	end
 	inst.components.fueled:StopConsuming()
-	inst.AnimState:PlayAnimation("idle")
+	inst.AnimState:PlayAnimation("idle", true)
 	inst.SoundEmitter:KillSound("suck")
 end
 
