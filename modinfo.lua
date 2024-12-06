@@ -6,7 +6,7 @@ name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之�
 
 
 author = "Peng, 杰杰, Runar"
-version = "2.11.23"
+version = "2.12.06.0"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -24,13 +24,15 @@ QQ 群：469668062
 
 local updateen = [[
 
-Nobody cares
+Fix lots of Bugs
+region adaptive season filter, sound and music
 
 ]]
 
 local updatech = [[
 
-反正没人看这里
+修复大量bug
+随区域变动的季节滤镜、音乐、音效
 
 ]]
 
