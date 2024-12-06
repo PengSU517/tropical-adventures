@@ -1,7 +1,3 @@
-local source = debug.getinfo(1, "S").source
-local istestmode = source:match("([^/]+)/[^/]*/[^/]*/[^/]*$") == "mods"
-    and not (source:match("workshop-") or source:match("2986194136"))
-
 GLOBAL.TA_CONFIG = {
 
     language          = GetModConfigData("language"),
@@ -37,8 +33,8 @@ GLOBAL.TA_CONFIG = {
     -- ocean = GetModConfigData("ocean"),
     ocean = "default",
 
-    testmap = false and istestmode and GetModConfigData("test_map") or false,
-    testmode = istestmode and GetModConfigData("test_mode") or false,
+    testmap = GetModConfigData("test_map") or false,
+    testmode = GetModConfigData("test_mode") or false,
 
     ndnr = GLOBAL.KnownModIndex:IsModEnabled("workshop-2823458540"),
 
