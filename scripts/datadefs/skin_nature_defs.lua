@@ -38,6 +38,23 @@ local natureskins = {
         },
     },
 
+    grass_tall = {
+        default = { basebuild = "grass_tall" },
+        grass_tall_green = {
+            build = "grass_tall_green",
+            skintype = "tropical",
+            name = "grass_tall_green",
+            -- extra_init_fn = function(inst, skinname)
+            --     -- CancelNoGrowInWinter(inst)
+            --     -- inst.AnimState:SetFilter("green")
+            -- end,
+            -- extra_clear_fn = function(inst, skinname)
+            --     -- MakeNoGrowInWinter(inst)
+            --     -- inst.AnimState:SetFilter("generic")
+            -- end,
+        },
+    },
+
     dug_grass = {
         default = { basebuild = "grass1", },
         dug_grass_green = {
@@ -74,7 +91,7 @@ local natureskins = {
 
     grassgekko = {
         default = { basebuild = "grassgecko" },
-        tropical = {
+        grassgekko_tropical = {
             build = "grassgecko",
             skintype = "tropical",
             extra_init_fn = function(inst, skinname)
@@ -90,6 +107,22 @@ local natureskins = {
         default = { basebuild = "grass1" },
         grasspartfx_tropical = { build = "grassgreen_build", skintype = "tropical", },
     },
+
+    -- hacking_tall_grass_fx = {
+    --     default = { basebuild = "hacking_tall_grass_fx" },
+    --     hacking_tall_grass_fx_tropical = {
+    --         build = "hacking_tall_grass_fx",
+    --         skintype = "tropical",
+    --         extra_init_fn = function(inst, skinname)
+    --             -- CancelNoGrowInWinter(inst)
+    --             inst.AnimState:SetFilter("green")
+    --         end,
+    --         extra_clear_fn = function(inst, skinname)
+    --             -- MakeNoGrowInWinter(inst)
+    --             inst.AnimState:SetFilter("generic")
+    --         end,
+    --     },
+    -- },
 
     -- grasswater = {
     --     default = {
