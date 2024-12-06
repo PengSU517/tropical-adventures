@@ -1,16 +1,23 @@
 local function en_zh(en, zh)
-	return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
+    return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
 end
 
-name = en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船")
+folder_name = folder_name or "workshop-"
 
+local isdev = folder_name:len() < 9 or not folder_name:sub(1, 9) == "workshop"
+
+local function pub_dev(pub, dev)
+    return isdev and dev or pub
+end
+
+name = pub_dev(en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船"),
+               en_zh(" Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, 杰杰, Runar"
 version = "2.12.06.0"
 forumthread = ""
 api_version = 10
 priority = -100
-
 
 local desen = [[
 Personal modification of Tropical Experience
@@ -19,23 +26,19 @@ Personal modification of Tropical Experience
 local desch = [[
 在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改
 QQ 群：469668062
-
 ]]
 
 local updateen = [[
 
 Fix lots of Bugs
 region adaptive season filter, sound and music
-
 ]]
 
 local updatech = [[
 
 修复大量bug
 随区域变动的季节滤镜、音乐、音效
-
 ]]
-
 
 description = en_zh(desen .. "Version " .. version .. updateen, desch .. "版本 " .. version .. updatech)
 
@@ -44,7 +47,7 @@ dont_starve_compatible = false
 all_clients_require_mod = true
 client_only_mod = false
 reign_of_giants_compatible = false
-server_filter_tags = { "Shipwrecked", "Hamlet", "海难", "哈姆雷特", "猪镇", "三合一" }
+server_filter_tags = {"Shipwrecked", "Hamlet", "海难", "哈姆雷特", "猪镇", "三合一"}
 
 icon_atlas = "images/modicon/modicon.xml"
 icon = "modicon.tex"
@@ -153,33 +156,33 @@ configuration_options =
 	Breaker("World Generation", "世界生成"),
 
 	{
-		name = "rog",
-		label = en_zh("Region of Gaints", "巨人国"),
-		hover = en_zh("Mainland, MoonIslands and Together Caves", "联机大陆,月岛和联机洞穴"),
+    name = "rog",
+    label = en_zh("Region of Gaints", "巨人国"),
+    hover = en_zh("Mainland, MoonIslands and Together Caves", "联机大陆,月岛和联机洞穴"),
 		options =
 		{
 			{
-				description = en_zh("Default", "默认"),
-				hover = en_zh("Default settings with 5 random tasks", "默认设置,有五个随机地形"),
-				data = "default"
+        description = en_zh("Default", "默认"),
+        hover = en_zh("Default settings with 5 random tasks", "默认设置,有五个随机地形"),
+        data = "default"
 			},
 			-- {
-			-- 	description = en_zh("No Random Tasks", "无随机地形"),
-			-- 	hover = en_zh("No Random Tasks", "无随机地形"),
-			-- 	data = "no_random"
-			-- },
-			{
-				description = en_zh("Fxied Random Tasks", "固定的随机地形"),
+    -- 	description = en_zh("No Random Tasks", "无随机地形"),
+    -- 	hover = en_zh("No Random Tasks", "无随机地形"),
+    -- 	data = "no_random"
+    -- },
+    {
+        description = en_zh("Fxied Random Tasks", "固定的随机地形"),
 				hover = en_zh("KillerBees, Walrus, PigVillage, Frogs&Bugs, SpiderRocks", "杀人蜂,海象,小猪村,青蛙蜜蜂,蜘蛛矿"),
-				data = "fixed"
+        data = "fixed"
 			},
 
 			{
-				description = en_zh("Disabled(Not Recommended)", "关闭(不推荐)"),
+        description = en_zh("Disabled(Not Recommended)", "关闭(不推荐)"),
 				hover = en_zh(
 					"only works when enabling at least one another region and set it as start location",
-					"需要开启至少一个其他区域并设为出生地时此项才能生效"),
-				data = false
+            "需要开启至少一个其他区域并设为出生地时此项才能生效"),
+        data = false
 			},
 
 		},
@@ -187,41 +190,41 @@ configuration_options =
 	},
 
 	{
-		name = "shipwrecked",
-		label = en_zh("Shipwrecked", "海难"),
-		hover = en_zh("Shipwrecked", "海难"),
-		options = options_enable,
+    name = "shipwrecked",
+    label = en_zh("Shipwrecked", "海难"),
+    hover = en_zh("Shipwrecked", "海难"),
+    options = options_enable,
 		default = true,
 	},
 
 	{
-		name = "hamlet",
-		label = en_zh("Hamlet", "哈姆雷特"),
-		hover = en_zh("Hamlet", "哈姆雷特"),
-		options = options_enable,
+    name = "hamlet",
+    label = en_zh("Hamlet", "哈姆雷特"),
+    hover = en_zh("Hamlet", "哈姆雷特"),
+    options = options_enable,
 		default = true,
 	},
 
 	{
-		name = "startlocation",
-		label = en_zh("Start location", "出生地"),
-		hover = en_zh("Start location", "出生地"),
+    name = "startlocation",
+    label = en_zh("Start location", "出生地"),
+    hover = en_zh("Start location", "出生地"),
 		options =
 		{
 			{
-				description = en_zh("Default", "默认"),
-				hover = en_zh("Default (Together Mainland)", "默认(联机大陆)"),
-				data = "default"
+        description = en_zh("Default", "默认"),
+        hover = en_zh("Default (Together Mainland)", "默认(联机大陆)"),
+        data = "default"
 			},
 			{
-				description = en_zh("Shipwrecked region", "海难区域"),
-				hover = en_zh("Shipwrecked region, need corresponding region enabled", "海难区域，需开启相应地形"),
-				data = "shipwrecked"
+        description = en_zh("Shipwrecked region", "海难区域"),
+        hover = en_zh("Shipwrecked region, need corresponding region enabled", "海难区域，需开启相应地形"),
+        data = "shipwrecked"
 			},
 			{
-				description = en_zh("Hamlet region", "哈姆雷特区域"),
-				hover = en_zh("Hamlet region, need corresponding region enabled", "哈姆雷特区域，需开启相应地形"),
-				data = "hamlet"
+        description = en_zh("Hamlet region", "哈姆雷特区域"),
+        hover = en_zh("Hamlet region, need corresponding region enabled", "哈姆雷特区域，需开启相应地形"),
+        data = "hamlet"
 			},
 
 		},
@@ -229,9 +232,9 @@ configuration_options =
 	},
 
 	{
-		name = "worldsize",
-		label = en_zh("World size", "世界大小"),
-		hover = en_zh("World size", "世界大小"),
+    name = "worldsize",
+    label = en_zh("World size", "世界大小"),
+    hover = en_zh("World size", "世界大小"),
 		options =
 		{
 			{
@@ -240,19 +243,19 @@ configuration_options =
 				data = "default"
 			},
 			{
-				description = en_zh("Normal", "适中"),
-				hover = en_zh("world generation may be slower", "世界生成可能较慢"),
-				data = "normal"
+        description = en_zh("Normal", "适中"),
+        hover = en_zh("world generation may be slower", "世界生成可能较慢"),
+        data = "normal"
 			},
 			{
-				description = en_zh("Larger", "更大"),
-				hover = en_zh(" a compromising choice", "一个折中的选择"),
-				data = "large"
+        description = en_zh("Larger", "更大"),
+        hover = en_zh(" a compromising choice", "一个折中的选择"),
+        data = "large"
 			},
 			{
-				description = en_zh("Huger", "巨大"),
-				hover = en_zh("high server pressure.", "服务器压力较大"),
-				data = "huge"
+        description = en_zh("Huger", "巨大"),
+        hover = en_zh("high server pressure.", "服务器压力较大"),
+        data = "huge"
 			},
 
 		},
@@ -260,20 +263,20 @@ configuration_options =
 	},
 
 	{
-		name = "coastline",
-		label = en_zh("Coastline", "海岸线"),
-		hover = en_zh("Coastline", "海岸线"),
+    name = "coastline",
+    label = en_zh("Coastline", "海岸线"),
+    hover = en_zh("Coastline", "海岸线"),
 		options =
 		{
 			{
-				description = en_zh("Smoother", "更平滑的海岸线"),
-				hover = en_zh("Not seperating tasks", "不分离土地, 岛屿有可能粘连在一起"),
-				data = true
+        description = en_zh("Smoother", "更平滑的海岸线"),
+        hover = en_zh("Not seperating tasks", "不分离土地, 岛屿有可能粘连在一起"),
+        data = true
 			},
 			{
-				description = en_zh("Default", "默认"),
-				hover = en_zh("Default settings", "默认设置"),
-				data = false
+        description = en_zh("Default", "默认"),
+        hover = en_zh("Default settings", "默认设置"),
+        data = false
 			},
 
 		},
@@ -281,20 +284,20 @@ configuration_options =
 	},
 
 	-- {
-	-- 	name = "layout",
-	-- 	label = en_zh("Layout adjustment", "布局调整"),
-	-- 	hover = en_zh("Layout adjustment", "如大理石雕像、猴岛、寄居蟹岛、帝王蟹的位置调整"),
-	-- 	options = options_enable,
-	-- 	default = true,
-	-- },
+-- 	name = "layout",
+-- 	label = en_zh("Layout adjustment", "布局调整"),
+-- 	hover = en_zh("Layout adjustment", "如大理石雕像、猴岛、寄居蟹岛、帝王蟹的位置调整"),
+-- 	options = options_enable,
+-- 	default = true,
+-- },
 
 	Breaker("Weather Settings", "气候设置"),
 
 	{
-		name = "wind",
-		label = en_zh("Wind", "海风"),
-		hover = en_zh("Wind", "海风"),
-		options = options_enable,
+    name = "wind",
+    label = en_zh("Wind", "海风"),
+    hover = en_zh("Wind", "海风"),
+    options = options_enable,
 		default = true,
 	},
 
@@ -425,38 +428,38 @@ configuration_options =
 		default = "qe", ----  q/e
 	},
 
-	Breaker("Developer Settings(only works in the test version)", "开发者选项(仅在测试版中有效)"),
+	isdev and Breaker("Developer Settings(only works in the test version)", "开发者选项(仅在测试版中有效)") or {},
 
-	{
+	isdev and {
 		name = "test_map",
 		label = en_zh("Test Map", "测试地图"),
 		hover = en_zh("a small map for testing", "用于测试用的小型地图"),
 		options = options_enable,
 		default = false,
-	},
+	} or {},
 
-	{
+	isdev and {
 		name = "test_mode",
 		label = en_zh("Test Mode", "测试模式"),
 		hover = en_zh("seafork, autoskin, prefabname", "填海叉，开礼物，显示代码名"),
 		options = options_enable,
 		default = false,
-	},
+	} or {},
 
-	--[[ {
+	--[[ isdev and {
 		name = "prefabname",
 		label = en_zh("Show Prefab Name", "显示物品代码"),
 		hover = en_zh("Show Prefab Name on Cursor", "显示物品代码"),
 		options = options_enable,
 		default = false,
-	},
+	} or {},
 
-	{
+	isdev and {
 		name = "seafork",
 		label = en_zh("Seafork", "填海叉"),
 		hover = en_zh("Sea to Land", "填海造陆"),
 		options = options_enable,
 		default = false,
-	}, ]]
+	} or {}, ]]
 
 }
