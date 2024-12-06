@@ -136,7 +136,9 @@ Aporkalypse.ScheduleAporkalypse = _ismastersim and function(self, date)
 end
 
 Aporkalypse.ScheduleAporkalypseTasks = _ismastersim and function(self)
-	self:ScheduleHeraldCheck()
+	if TheWorld:HasTag("cave") then
+		self:ScheduleHeraldCheck()
+	end
 	self:ScheduleVampireBatCheck()
 end
 
