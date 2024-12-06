@@ -1,3 +1,5 @@
+require "tro_cooking"
+
 local prefabs =
 {
     "spoiled_food",
@@ -161,8 +163,8 @@ for tabIdx, foodTab in pairs(require("datadefs/preparedfoods_tro")) do
     end
 end
 
-for k, v in pairs(require("spicedfoods")) do
-    if v.mod and v.mod == true and v.official ~= false then
+for _, v in pairs(require("spicedfoods")) do
+    if v.mod and v.official ~= false then
         v.official = false
         table.insert(prefs, MakePreparedFood(v))
     end

@@ -1,4 +1,6 @@
-local foods = require("preparedfoods")
+require "cooking"
+require "spicedfoods"
+local foods = require "preparedfoods"
 -- if foods.butterflymuffin then
 --     local posttest = foods.butterflymuffin.test
 --     foods.butterflymuffin.test = function(cooker, names, tags)
@@ -31,10 +33,10 @@ local foodsGrandDef = require("datadefs/preparedfoods_tro")
 for tabIdx, foodTab in pairs(foodsGrandDef) do
     for _, foodDef in pairs(foodTab) do
         if foodDef.isMasterfood == nil then
-            AddCookerRecipe("cookpot", foodDef)
-            AddCookerRecipe("archive_cookpot", foodDef)
+            AddCookerRecipe("cookpot", foodDef, true)
+            AddCookerRecipe("archive_cookpot", foodDef, true)
         end
-        AddCookerRecipe("portablecookpot", foodDef)
+        AddCookerRecipe("portablecookpot", foodDef, true)
         if foodDef.card_def then
             AddRecipeCard("cookpot", foodDef)
         end
@@ -44,9 +46,8 @@ end
 
 local spicedfoods = require("spicedfoods")
 for _, foodDef in pairs(spicedfoods) do
-    if foodDef.mod and foodDef.mod == true then
-        foodDef.official = false
-        AddCookerRecipe("portablespicer", foodDef)
+    if foodDef.mod then
+        AddCookerRecipe("portablespicer", foodDef, true)
     end
 end
 
