@@ -74,7 +74,7 @@ function RegionAware:GetRegion(forceupdate)
         local oldregion = self.region
         local newregion = self:GetRegionFromArea()
 
-        print("Region changed from", oldregion or "nil", "to", newregion or "nil")
+        -- print("Region changed from", oldregion or "nil", "to", newregion or "nil")
         if newregion then
             self.regionpos = pt
             if newregion ~= oldregion then

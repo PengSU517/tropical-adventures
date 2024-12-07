@@ -196,6 +196,7 @@ AddComponentAction(
     end)
 
 AddComponentAction("SCENE", "shopped", function(inst, doer, actions, right)
+    -- print("shopped action")
     if not right then
         if doer.components.shopper then --and inst.components.shopdispenser and inst.components.shopdispenser.item_served then
             table.insert(actions, ACTIONS.SHOP)
