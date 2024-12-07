@@ -15,6 +15,14 @@ function tableutil.is_array(t)
     return true
 end
 
+function tableutil.getlength(tbl)
+    local num = 0
+    for i, v in pairs(tbl) do
+        num = num + 1
+    end
+    return num - #tbl
+end
+
 function tableutil.has_index(tbl, index)
     for i, v in pairs(tbl) do
         if i == index then
