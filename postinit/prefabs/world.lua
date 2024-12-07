@@ -45,5 +45,7 @@ AddPrefabPostInitAny(function(inst)
         return
     end
 
-    inst:AddComponent("aporkalypse")
+    if TUNING.tropical.aporkalypse then
+        inst:AddComponent("aporkalypse")
+    end
 end)
