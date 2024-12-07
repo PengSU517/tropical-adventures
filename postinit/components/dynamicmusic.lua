@@ -50,22 +50,35 @@ local soundremap = {
 AddComponentPostInit("dynamicmusic", function(self, inst)
     ------------------------------Adding Climate Music---------------------------------
     local _activatedplayer
+    local OnPlayerActivated = inst:GetEventCallbacks("playeractivated", inst, "scripts/components/dynamicmusic.lua")
+    local BUSYTHEMES = upvaluehelper.Get(OnPlayerActivated, "BUSYTHEMES")
+
+
+    ---勾不了函数我还勾不了参数吗，我可太牛逼了
+    BUSYTHEMES.ROG = BUSYTHEMES.FOREST
+    BUSYTHEMES.SHIPWRECCKED = tableutil.getlength(BUSYTHEMES) + 1
+    BUSYTHEMES.HAMLET = tableutil.getlength(BUSYTHEMES) + 1
+    BUSYTHEMES.VOLCANO = tableutil.getlength(BUSYTHEMES) + 1
+
 
     local function MusicReDirect()
         if _activatedplayer then
             -- print("MusicReDirect")
             if _activatedplayer:AwareInHamletArea() then
                 -- print "in hamlet"
+                BUSYTHEMES.FOREST = BUSYTHEMES.HAMLET
                 for k, v in pairs(soundremap.hamlet) do
                     RemapSound(k, v)
                 end
             elseif _activatedplayer:AwareInShipwreckedArea() then
                 -- print "in shipwrecked"
+                BUSYTHEMES.FOREST = BUSYTHEMES.SHIPWRECCKED
                 for k, v in pairs(soundremap.shipwrecked) do
                     RemapSound(k, v)
                 end
             else
                 -- print "in neither"
+                BUSYTHEMES.FOREST = BUSYTHEMES.ROG
                 for k, v in pairs(soundremap.shipwrecked) do
                     RemapSound(k, nil)
                 end
