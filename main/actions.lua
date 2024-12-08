@@ -1289,3 +1289,19 @@ DESACTIVATESAIL.fn = function(act)
     return true
 end
 AddAction(DESACTIVATESAIL)
+
+-- 渡渡羽毛扇摇扇动作写死在sg里了，没留overridebuild，勾一下
+AddStategraphPostInit("wilson", function(sg)
+    local old_enter = sg.states["use_fan"].onenter
+    sg.states["use_fan"].onenter = function (inst, ...)
+        old_enter(inst, ...)
+        local invobject = nil
+        if inst.bufferedaction ~= nil then
+            invobject = inst.bufferedaction.invobject
+        end
+        local src_symbol = invobject ~= nil and invobject.components.fan ~= nil and invobject.components.fan.overridesymbol
+        if src_symbol == "fan01" then
+            inst.AnimState:OverrideSymbol( "fan01", "fan_tropical", src_symbol )
+        end
+    end
+end)
