@@ -10,15 +10,15 @@ local prefabs =
 
     --loot:
     "boards",
-    "rocks",
-    "fish",
+    "cutreeds",
+    "oceanfish_small_61_inv",
 }
 
 local loot =
 {
     "boards",
-    "rocks",
-    "fish",
+    "cutreeds",
+    "oceanfish_small_61_inv",
 }
 
 local function onhammered(inst, worker)
@@ -198,5 +198,81 @@ local function fn()
     return inst
 end
 
+local function onbuilt(inst)
+    inst.SoundEmitter:PlaySound("dontstarve/characters/wurt/merm/hut/place")
+    inst.AnimState:PlayAnimation("hit")
+end
+
+local function fn1()
+    local inst = CreateEntity()
+
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
+    inst.entity:AddSoundEmitter()
+    inst.entity:AddMiniMapEntity()
+    inst.entity:AddNetwork()
+
+    MakeObstaclePhysics(inst, 1)
+
+    inst.MiniMapEntity:SetIcon("mermhouse_fisher.png")
+
+    inst.AnimState:SetBank("merm_fisherman_house")
+    inst.AnimState:SetBuild("merm_fisherman_house")
+    inst.AnimState:PlayAnimation("idle")
+
+    inst:AddTag("structure")
+
+    MakeSnowCoveredPristine(inst)
+
+    inst.entity:SetPristine()
+
+    if not TheWorld.ismastersim then
+        return inst
+    end
+
+    inst:AddComponent("lootdropper")
+    --inst.components.lootdropper:SetLoot(loot)
+    inst:AddComponent("workable")
+    inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
+    inst.components.workable:SetWorkLeft(2)
+    inst.components.workable:SetOnFinishCallback(onhammered)
+    inst.components.workable:SetOnWorkCallback(onhit)
+
+    inst:AddComponent("childspawner")
+    inst.components.childspawner.childname = "mermfisher"
+    inst.components.childspawner:SetSpawnedFn(OnSpawned)
+    inst.components.childspawner:SetGoHomeFn(OnGoHome)
+    inst.components.childspawner:SetRegenPeriod(TUNING.TOTAL_DAY_TIME * 4)
+    inst.components.childspawner:SetSpawnPeriod(10)
+    inst.components.childspawner:SetMaxChildren(1)
+    --[[
+    inst.components.childspawner.emergencychildname = "mermfisher"
+    inst.components.childspawner:SetEmergencyRadius(TUNING.MERMHOUSE_EMERGENCY_RADIUS)
+    inst.components.childspawner:SetMaxEmergencyChildren(TUNING.MERMHOUSE_EMERGENCY_MERMS)
+]]
+    inst:AddComponent("hauntable")
+    inst.components.hauntable:SetHauntValue(TUNING.HAUNT_SMALL)
+    inst.components.hauntable:SetOnHauntFn(OnHaunt)
+
+    inst:WatchWorldState("isday", OnIsDay)
+
+    StartSpawning(inst)
+
+    MakeMediumBurnable(inst, nil, nil, true)
+    MakeLargePropagator(inst)
+    inst:ListenForEvent("onignite", onignite)
+    inst:ListenForEvent("burntup", onburntup)
+    inst:ListenForEvent("onbuilt", onbuilt)
+
+    inst:AddComponent("inspectable")
+
+    MakeSnowCovered(inst)
+
+    inst.OnSave = onsave
+    inst.OnLoad = onload
+
+    return inst
+end
 return Prefab("mermhouse_fisher", fn, assets, prefabs),
-    MakePlacer("common/mermhouse_fisher_placer", "merm_fisherman_house", "merm_fisherman_house", "idle", false, false, false)
+    Prefab("mermhouse_fisher_crafted", fn1, assets, prefabs),
+    MakePlacer("mermhouse_fisher_crafted_placer", "merm_fisherman_house", "merm_fisherman_house", "idle", false,false, false)
