@@ -1108,7 +1108,7 @@ AddRoom("TidalMarsh", {
             spiderden = .01,
             green_mushroom = 1,
             --					                    mermhouse = 0.01, --was 0.04
-            mermfishhouse = 0.05,
+            mermhouse_fisher = 0.05,
             poisonhole = 0.15,
             --					                    seaweed_planted = 0.5,
             --					                    fishinhole = .1,
@@ -1117,10 +1117,10 @@ AddRoom("TidalMarsh", {
         },
         countprefabs =
         {
-            --mermfishhouse = 5,
+            --mermhouse_fisher = 5,
             tidalpool = 2,
             poisonhole = 8,
-            mermfishhouse = 2,
+            mermhouse_fisher = 2,
             reeds = 3,
             --										mermhouse = 2,
             poisonhole = 3,
@@ -1143,7 +1143,7 @@ AddRoom("TidalMarsh1", {
             poisonhole = 0.5,
             green_mushroom = 0.4,
             --                                        mermhouse = 0.2,
-            --                                        mermfishhouse = 1.0,
+            --                                        mermhouse_fisher = 1.0,
             --                                        tidalpool = 0.8,
             -- poisonhole = 0.1,
             --                                        seaweed_planted = 0.5,
@@ -1154,7 +1154,7 @@ AddRoom("TidalMarsh1", {
 
         countprefabs =
         {
-            mermfishhouse = 3,
+            mermhouse_fisher = 3,
             tidalpool = 3,
 
         },
@@ -1176,7 +1176,7 @@ AddRoom("TidalMermMarsh", {
             spiderden = .01,
             green_mushroom = 1.02,
             --					                    mermhouse = 0.2,
-            --					                    mermfishhouse = 1.0,
+            --					                    mermhouse_fisher = 1.0,
             poisonhole = 0.2,
             --					                    seaweed_planted = 0.5,
             --					                    fishinhole = .1,
@@ -1187,7 +1187,7 @@ AddRoom("TidalMermMarsh", {
 
         countprefabs =
         {
-            mermfishhouse = 2,
+            mermhouse_fisher = 2,
             tidalpool = 2,
             reeds = 6,
         },
@@ -1210,7 +1210,7 @@ AddRoom("TidalSharkHome", {
             -- tidalpool = 3,
             -- reeds = 7,
             -- poisonhole = 5,
-            -- mermfishhouse = 2,
+            -- mermhouse_fisher = 2,
             -- green_mushroom = 7,
             --tigersharkpool = 1,
             -- flupspawner = 3,
@@ -1236,7 +1236,7 @@ AddRoom("ToxicTidalMarsh", {
             spiderden = .01,
             green_mushroom = 1.02,
             mermhouse = 0.1, --was 0.04
-            mermfishhouse = 0.05,
+            mermhouse_fisher = 0.05,
             poisonhole = 1,  --was 2
             --seaweed_planted = 0.5,
             -- fishinhole = .1,
@@ -1264,7 +1264,7 @@ AddRoom("TidalMarshnovo", {
             spiderden = .01,
             green_mushroom = 1,
             --					                    mermhouse = 0.01, --was 0.04
-            mermfishhouse = 0.05,
+            mermhouse_fisher = 0.05,
             poisonhole = 0.15,
             --					                    seaweed_planted = 0.5,
             --					                    fishinhole = .1,
@@ -1273,10 +1273,10 @@ AddRoom("TidalMarshnovo", {
         },
         countprefabs =
         {
-            --mermfishhouse = 5,
+            --mermhouse_fisher = 5,
             tidalpool = 2,
             poisonhole = 8,
-            mermfishhouse = 2,
+            mermhouse_fisher = 2,
             reeds = 3,
             --										mermhouse = 2,
             poisonhole = 3,

@@ -179,17 +179,25 @@ AddRecipe2("woodlegshat",
 AddRecipe2("poisonbalm", { Ingredient("livinglog", 1), Ingredient("venomgland", 1) }, TECH.NONE,
 	{ builder_tag = "plantkin" }, { "CHARACTER" })
 
-AddRecipe2("mermfishhouse", { Ingredient("boards", 5), Ingredient("cutreeds", 3), Ingredient("fish2", 2) },
-	TECH.SCIENCE_ONE,
-	{
+AddRecipe2("mermhouse_fisher_crafted",
+	{ Ingredient("boards", 5), Ingredient("cutreeds", 3), Ingredient("oceanfish_small_61_inv", 2) },
+	TECH.SCIENCE_ONE, {
 		builder_tag = "merm_builder",
-
-		placer = "mermfishhouse_placer",
-		image = "mermhouse_tropical.tex",
+		placer = "mermhouse_fisher_crafted_placer",
 		testfn = function(pt, rot)
 			local ground_tile = GLOBAL.TheWorld.Map:GetTileAtPoint(pt.x, pt.y, pt.z)
 			return ground_tile and (ground_tile == GROUND.MARSH or ground_tile == GROUND.TIDALMARSH)
-		end
+		end,
+	}, { "CHARACTER" })
+AddRecipe2("mermhouse_tropical_crafted",
+	{ Ingredient("boards", 5), Ingredient("cutreeds", 3), Ingredient("oceanfish_small_61_inv", 2) },
+	TECH.SCIENCE_ONE, {
+		builder_tag = "merm_builder",
+		placer = "mermhouse_tropical_crafted_placer",
+		testfn = function(pt, rot)
+			local ground_tile = GLOBAL.TheWorld.Map:GetTileAtPoint(pt.x, pt.y, pt.z)
+			return ground_tile and (ground_tile == GROUND.MARSH or ground_tile == GROUND.TIDALMARSH)
+		end,
 	}, { "CHARACTER" })
 AddRecipe2("mermhouse_crafted", { Ingredient("boards", 4), Ingredient("cutreeds", 3), Ingredient("pondfish", 2) },
 	TECH.SCIENCE_ONE,

@@ -272,6 +272,7 @@ PrefabFiles = {
     "marsh_tree_new",
     "mean_flytrap",
     "mermhouse_fisher",
+    "mermhouse_tropical",
     "mermtrader",
     "meteor_impact",
     "monkeyball",
