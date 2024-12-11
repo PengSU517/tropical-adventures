@@ -139,7 +139,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, 1)
 
-    inst.MiniMapEntity:SetIcon("mermhouse_tropical.tex")
+    inst.MiniMapEntity:SetIcon("mermhouse_fisher.tex")
 
     inst.AnimState:SetBank("merm_fisherman_house")
     inst.AnimState:SetBuild("merm_fisherman_house")
@@ -198,5 +198,5 @@ local function fn()
     return inst
 end
 
-return Prefab("mermfishhouse", fn, assets, prefabs),
-    MakePlacer("common/mermfishhouse_placer", "merm_fisherman_house", "merm_fisherman_house", "idle", false, false, false)
+return Prefab("mermhouse_fisher", fn, assets, prefabs),
+    MakePlacer("common/mermhouse_fisher_placer", "merm_fisherman_house", "merm_fisherman_house", "idle", false, false, false)
