@@ -335,57 +335,7 @@ local function cookedfn(sim)
     return inst
 end
 
-local function driedfn(sim)
-    local inst = CreateEntity()
-    inst.entity:AddTransform()
-    inst.Transform:SetScale(0.8, 0.8, 0.8)
-
-    inst.entity:AddAnimState()
-    MakeInventoryPhysics(inst)
-    MakeInventoryFloatable(inst)
-    inst.entity:AddSoundEmitter()
-    inst.entity:AddNetwork()
-
-    inst.AnimState:SetBank("meat_rack_food")
-    inst.AnimState:SetBuild("meat_rack_food")
-    inst.AnimState:PlayAnimation("idle_dried_large", true)
-
-    inst.AnimState:SetLayer(LAYER_BACKGROUND)
-    inst.AnimState:SetSortOrder(3)
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst:AddComponent("inspectable")
-    inst:AddComponent("inventoryitem")
-
-
-    inst:AddComponent("perishable")
-
-    inst:AddComponent("tradable")
-    inst.components.tradable.goldvalue = TUNING.GOLD_VALUES.MEAT
-    --    inst.components.tradable.dubloonvalue = TUNING.DUBLOON_VALUES.SEAFOOD
-    inst:AddComponent("edible")
-    inst.components.edible.foodtype = "MEAT"
-    inst.components.edible.foodstate = "DRIED"
-    inst.components.edible.hungervalue = TUNING.CALORIES_MEDSMALL
-    inst.components.edible.sanityvalue = 0
-
-
-    inst.components.perishable:SetPerishTime(TUNING.PERISH_PRESERVED)
-    inst.components.perishable:StartPerishing()
-    inst.components.perishable.onperishreplacement = "spoiled_food"
-
-    inst:AddComponent("stackable")
-    inst.components.stackable.maxsize = TUNING.STACK_SIZE_MEDITEM
-    return inst
-end
-
 return Prefab("common/inventory/rainbowjellyfish", defaultfn, assets),
     Prefab("common/inventory/rainbowjellyfish_dead", deadfn, assets),
     Prefab("common/inventory/rainbowjellyfish_cooked", cookedfn, assets),
-    Prefab("common/inventory/rainbowjellyjerky", driedfn, assets),
     Prefab("common/inventory/rainbowjellylight", lightfn, assets)
