@@ -4,6 +4,8 @@ if TA_CONFIG.testmode then --开发人员测试时才可以使用,mod文件夹�
     modimport("postinit/seafork")
     modimport("postinit/opengift")
     modimport("postinit/widgets/hoverer_info")
+else
+    modimport("postinit/safeapi") --这些函数是env里的，仅对这个mod有效
 end
 
 
@@ -13,7 +15,7 @@ end
 --penguinspawner
 --weather
 
-modimport("postinit/safeapi")      --这些函数是env里的，仅对这个mod有效
+
 modimport("postinit/world_map")    --theworld.map相关
 modimport("postinit/entityscript") --修改entity相关
 
