@@ -4,6 +4,8 @@ if TA_CONFIG.testmode then --开发人员测试时才可以使用,mod文件夹�
     modimport("postinit/seafork")
     modimport("postinit/opengift")
     modimport("postinit/widgets/hoverer_info")
+else
+    modimport("postinit/safeapi") --这些函数是env里的，仅对这个mod有效
 end
 
 
@@ -94,7 +96,7 @@ modimport("postinit/prefabs/blueprints")
 modimport("postinit/prefabs/lots_of_things")
 modimport("postinit/prefabs/player") --shopper, drownable, infestable
 modimport("postinit/prefabs/player_hayfever")
-modimport("postinit/prefabs/farm_plants")
+-- modimport("postinit/prefabs/farm_plants")--目前不太需要
 modimport("postinit/prefabs/dock_kit") --甲板相关
 
 --widgets

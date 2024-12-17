@@ -39,48 +39,18 @@ local QUAGMIRE_PORTS =
 
 TRO_VEGGIES =
 {
-    -- cave_banana = MakeVegStats(0, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, 0,
+    radish = MakeVegStats(COMMON, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_SLOW, 0,
+        TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_MED, 0),
+
+    aloe = MakeVegStats(COMMON, TUNING.CALORIES_TINY, TUNING.HEALING_MEDSMALL, TUNING.PERISH_FAST, 0,
+        TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_SLOW, 0),
+    -- gooseberry = MakeVegStats(0, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, 0,
     --     TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0,
     --     { "small", 0.05, 0.9 }, { "med", nil, 0.75 }),
+    sweet_potato = MakeVegStats(COMMON, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, 0,
+        TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0),
 
-    -- carrot = MakeVegStats(0, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, 0,
-    --     TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0,
-    --     { "med", 0.05, 0.8 }, { "small", 0.1, nil },
-    --     nil, nil,
-    --     { prefab = "carrat" }),
-
-    -- corn = MakeVegStats(COMMON, TUNING.CALORIES_MED, TUNING.HEALING_SMALL, TUNING.PERISH_MED, 0,
-    --     TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_SLOW, 0),
-
-    -- pumpkin = MakeVegStats(UNCOMMON, TUNING.CALORIES_LARGE, TUNING.HEALING_SMALL,
-    --     IsSpecialEventActive(SPECIAL_EVENTS.HALLOWED_NIGHTS) and TUNING.PERISH_PRESERVED or TUNING.PERISH_MED, 0,
-    --     TUNING.CALORIES_LARGE, TUNING.HEALING_MEDSMALL, TUNING.PERISH_FAST, 0,
-    --     nil, { "small", 0.1, nil }),
-
-    -- eggplant = MakeVegStats(UNCOMMON, TUNING.CALORIES_MED, TUNING.HEALING_MEDSMALL, TUNING.PERISH_MED, 0,
-    --     TUNING.CALORIES_MED, TUNING.HEALING_MED, TUNING.PERISH_FAST, 0),
-
-    -- durian = MakeVegStats(RARE, TUNING.CALORIES_MED, -TUNING.HEALING_SMALL, TUNING.PERISH_MED, -TUNING.SANITY_TINY,
-    --     TUNING.CALORIES_MED, 0, TUNING.PERISH_FAST, -TUNING.SANITY_TINY,
-    --     nil, nil, nil, FOODTYPE.MONSTER),
-
-    -- pomegranate = MakeVegStats(RARE, TUNING.CALORIES_TINY, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0,
-    --     TUNING.CALORIES_SMALL, TUNING.HEALING_MED, TUNING.PERISH_SUPERFAST, 0,
-    --     { "small", nil, 0.8 }, { "small", nil, 0.8 }),
-
-    -- dragonfruit = MakeVegStats(RARE, TUNING.CALORIES_TINY, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0,
-    --     TUNING.CALORIES_SMALL, TUNING.HEALING_MED, TUNING.PERISH_SUPERFAST, 0,
-    --     { "small", 0.1, 0.8 }, { "small", 0.05, nil },
-    --     nil,
-    --     nil,
-    --     {
-    --         prefab = "fruitdragon",
-    --         onmutatefn = function(inst, new_inst)
-    --             new_inst:MakeRipe(true)
-    --         end
-    --     }),
-
-    -- berries = MakeVegStats(0, TUNING.CALORIES_TINY, 0, TUNING.PERISH_FAST, 0,
+    -- blueberries = MakeVegStats(0, TUNING.CALORIES_TINY, 0, TUNING.PERISH_FAST, 0,
     --     TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_SUPERFAST, 0,
     --     { "med", nil, 0.7 }, { "med", nil, 0.65 },
     --     nil,
@@ -93,115 +63,20 @@ TRO_VEGGIES =
     --         symbol =
     --         "hook_berries"
     --     }),
-
-    -- berries_juicy = MakeVegStats(0, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_TWO_DAY, 0,
-    --     TUNING.CALORIES_MEDSMALL, TUNING.HEALING_SMALL, TUNING.PERISH_ONE_DAY, 0,
-    --     { "med", nil, 0.7 }, nil,
-    --     nil,
-    --     FOODTYPE.BERRY,
-    --     nil,
-    --     {
-    --         lure_data = TUNING.OCEANFISHING_LURE.BERRY,
-    --         single_use = true,
-    --         build = "oceanfishing_lure_mis",
-    --         symbol =
-    --         "hook_juiceberries"
-    --     }),
-
-    -- fig = MakeVegStats(0, TUNING.CALORIES_SMALL, 0, TUNING.PERISH_FAST, 0,
-    --     TUNING.CALORIES_MEDSMALL, TUNING.HEALING_TINY, TUNING.PERISH_SUPERFAST, 0,
-    --     { "med", nil, 0.7 }, { "med", nil, 0.65 },
-    --     nil,
-    --     FOODTYPE.BERRY,
-    --     nil,
-    --     {
-    --         lure_data = TUNING.OCEANFISHING_LURE.BERRY,
-    --         single_use = true,
-    --         build = "oceanfishing_lure_mis",
-    --         symbol =
-    --         "hook_fig"
-    --     }),
-
-    -- cactus_meat = MakeVegStats(0, TUNING.CALORIES_SMALL, -TUNING.HEALING_SMALL, TUNING.PERISH_MED, -TUNING.SANITY_TINY,
-    --     TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, TUNING.SANITY_MED),
-
-    -- watermelon = MakeVegStats(UNCOMMON, TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST,
-    --     TUNING.SANITY_TINY,
-    --     TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_SUPERFAST, TUNING.SANITY_TINY * 1.5,
-    --     { "med", 0.05, 0.7 }),
-
-    -- kelp = MakeVegStats(0, TUNING.CALORIES_TINY, -TUNING.HEALING_TINY, TUNING.PERISH_MED, -TUNING.SANITY_SMALL,
-    --     TUNING.CALORIES_TINY, 0, TUNING.PERISH_MED, -TUNING.SANITY_TINY,
-    --     { "med", nil, 0.7 }, { "med", nil, 0.65 },
-    --     {
-    --         build = "meat_rack_food_tot",
-    --         hunger = TUNING.CALORIES_TINY,
-    --         health = TUNING.HEALING_TINY,
-    --         sanity = TUNING
-    --             .SANITY_SMALL,
-    --         perish = TUNING.PERISH_PRESERVED,
-    --         time = TUNING.DRY_SUPERFAST
-    --     }),
-
-
-    -- tomato = MakeVegStats(COMMON, TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0,
-    --     TUNING.CALORIES_SMALL, TUNING.HEALING_MED, TUNING.PERISH_MED, 0,
-    --     { nil, 0.1, 0.75 }),
-
-    -- potato = MakeVegStats(COMMON, TUNING.CALORIES_SMALL, -TUNING.HEALING_SMALL, TUNING.PERISH_MED, -TUNING.SANITY_TINY,
-    --     TUNING.CALORIES_MED, TUNING.HEALING_MED, TUNING.PERISH_FAST, 0,
-    --     { nil, 0.05, 0.65 }),
-
-    -- asparagus = MakeVegStats(UNCOMMON, TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0,
-    --     TUNING.CALORIES_MED, TUNING.HEALING_SMALL, TUNING.PERISH_SUPERFAST, 0,
-    --     { "med", nil, 0.7 }),
-
-    -- onion = MakeVegStats(RARE, TUNING.CALORIES_TINY, 0, TUNING.PERISH_SLOW, -TUNING.SANITY_SMALL,
-    --     TUNING.CALORIES_TINY, TUNING.HEALING_TINY, TUNING.PERISH_MED, -TUNING.SANITY_TINY,
-    --     { "large", 0.05, 0.45 }),
-
-    -- garlic = MakeVegStats(RARE, TUNING.CALORIES_TINY, 0, TUNING.PERISH_SLOW, -TUNING.SANITY_SMALL,
-    --     TUNING.CALORIES_TINY, TUNING.HEALING_TINY, TUNING.PERISH_MED, -TUNING.SANITY_TINY,
-    --     { nil, 0.05, 0.775 }),
-
-    -- pepper = MakeVegStats(RARE, TUNING.CALORIES_TINY, -TUNING.HEALING_MED, TUNING.PERISH_SLOW, -TUNING.SANITY_MED,
-    --     TUNING.CALORIES_TINY, -TUNING.HEALING_SMALL, TUNING.PERISH_SLOW, -TUNING.SANITY_SMALL,
-    --     { nil, 0.1, 0.75 }),
-
-    radish = MakeVegStats(0, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_SLOW, 0,
-        TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_MED, 0),
-
-    aloe = MakeVegStats(0, TUNING.CALORIES_TINY, TUNING.HEALING_MEDSMALL, TUNING.PERISH_FAST, 0,
-        TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_SLOW, 0),
-    gooseberry = MakeVegStats(0, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, 0,
-        TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0,
-        { "small", 0.05, 0.9 }, { "med", nil, 0.75 }),
-    sweet_potato = MakeVegStats(0, TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_MED, 0,
-        TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_FAST, 0),
-
-    blueberries = MakeVegStats(0, TUNING.CALORIES_TINY, 0, TUNING.PERISH_FAST, 0,
-        TUNING.CALORIES_SMALL, TUNING.HEALING_TINY, TUNING.PERISH_SUPERFAST, 0,
-        { "med", nil, 0.7 }, { "med", nil, 0.65 },
-        nil,
-        FOODTYPE.BERRY,
-        nil,
-        {
-            lure_data = TUNING.OCEANFISHING_LURE.BERRY,
-            single_use = true,
-            build = "oceanfishing_lure_mis",
-            symbol =
-            "hook_berries"
-        }),
-    turnip = MakeVegStats(0, TUNING.CALORIES_MED, TUNING.HEALING_TINY, TUNING.PERISH_SLOW, 0,
-        TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_MED, 0),
+    -- turnip = MakeVegStats(COMMON, TUNING.CALORIES_MED, TUNING.HEALING_TINY, TUNING.PERISH_SLOW, 0,
+    --     TUNING.CALORIES_SMALL, TUNING.HEALING_SMALL, TUNING.PERISH_MED, 0),
 
     -- wheat = MakeVegStats(0, 0, 0, TUNING.PERISH_SLOW, 0,
     --     0, 0, TUNING.PERISH_SLOW, 0),
 
 }
 
--- TRO_VEGGIES.cave_banana.extra_tags_fresh = { "monkeyqueenbribe" }
--- TRO_VEGGIES.cave_banana.extra_tags_cooked = { "monkeyqueenbribe" }
+for veggiename, veggiedata in pairs(TRO_VEGGIES) do
+    VEGGIES[veggiename] = veggiedata
+    if veggiedata.seed_weight then
+        TUNING.BURNED_LOOT_OVERRIDES[veggiename .. "_seeds"] = "seeds_cooked"
+    end
+end
 
 local SEEDLESS =
 {
