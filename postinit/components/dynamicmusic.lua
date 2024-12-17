@@ -53,6 +53,9 @@ AddComponentPostInit("dynamicmusic", function(self, inst)
     local OnPlayerActivated = inst:GetEventCallbacks("playeractivated", inst, "scripts/components/dynamicmusic.lua")
     local BUSYTHEMES = upvaluehelper.Get(OnPlayerActivated, "BUSYTHEMES")
 
+    local OnEnableDynamicMusic = inst:GetEventCallbacks("enabledynamicmusic", TheWorld)
+    local StopBusy = upvaluehelper.Get(OnEnableDynamicMusic, "StopBusy")
+
 
     ---勾不了函数我还勾不了参数吗，我可太牛逼了
     BUSYTHEMES.ROG = BUSYTHEMES.FOREST
@@ -63,6 +66,7 @@ AddComponentPostInit("dynamicmusic", function(self, inst)
 
     local function MusicReDirect()
         if _activatedplayer then
+            StopBusy()
             -- print("MusicReDirect")
             if _activatedplayer:AwareInHamletArea() then
                 -- print "in hamlet"
