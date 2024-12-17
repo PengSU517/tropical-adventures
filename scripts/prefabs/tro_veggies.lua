@@ -219,7 +219,7 @@ local assets_seeds =
 {
     Asset("ANIM", "anim/seeds.zip"),
     Asset("ANIM", "anim/farm_plant_seeds.zip"),
-    Asset("ANIM", "anim/moded_seeds.zip"),
+    Asset("ANIM", "anim/seeds_tropical.zip"),
 }
 
 local prefabs_seeds =
@@ -471,24 +471,24 @@ local function MakeVeggie(name, has_seeds)
         MakeInventoryPhysics(inst)
 
         if name == "aloe" then
-            inst.AnimState:SetBank("moded_seeds")
-            inst.AnimState:SetBuild("moded_seeds")
+            inst.AnimState:SetBank("seeds_tropical")
+            inst.AnimState:SetBuild("seeds_tropical")
             inst.AnimState:PlayAnimation("aloe")
         elseif name == "radish" then
-            inst.AnimState:SetBank("moded_seeds")
-            inst.AnimState:SetBuild("moded_seeds")
+            inst.AnimState:SetBank("seeds_tropical")
+            inst.AnimState:SetBuild("seeds_tropical")
             inst.AnimState:PlayAnimation("radish")
         elseif name == "sweet_potato" then
-            inst.AnimState:SetBank("moded_seeds")
-            inst.AnimState:SetBuild("moded_seeds")
+            inst.AnimState:SetBank("seeds_tropical")
+            inst.AnimState:SetBuild("seeds_tropical")
             inst.AnimState:PlayAnimation("sweet_potato")
         elseif name == "turnip" then
-            inst.AnimState:SetBank("moded_seeds")
-            inst.AnimState:SetBuild("moded_seeds")
+            inst.AnimState:SetBank("seeds_tropical")
+            inst.AnimState:SetBuild("seeds_tropical")
             inst.AnimState:PlayAnimation("turnip")
         elseif name == "wheat" then
-            inst.AnimState:SetBank("moded_seeds")
-            inst.AnimState:SetBuild("moded_seeds")
+            inst.AnimState:SetBank("seeds_tropical")
+            inst.AnimState:SetBuild("seeds_tropical")
             inst.AnimState:PlayAnimation("wheat")
         else
             inst.AnimState:SetBank("farm_plant_seeds")
