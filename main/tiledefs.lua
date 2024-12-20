@@ -1,16 +1,46 @@
 -- 异名内容 SNAKESKINFLOOR  CHECKEREDLAWN
 -- 新增内容 BATFLOOR ANTFLOOR
 
-
-
-local GroundTiles = require("worldtiledefs")
 local NoiseFunctions = require("noisetilefunctions")
+local GroundTiles = require("worldtiledefs")
 local ChangeTileRenderOrder = ChangeTileRenderOrder
 local AddTile = AddTile
 
 local WORLD_TILES = WORLD_TILES
 local GROUND = GROUND
 
+
+local DEFAULT_OCEAN_COLOR =
+{
+    primary_color = { 0, 255, 200, 0 },
+    secondary_color = { 0, 110, 86, 0 },
+    secondary_color_dusk = { 0, 110, 76, 0 },
+    minimap_color = { 23, 62, 51, 102 },
+}
+
+local MANGROVE_COLOR =
+{
+    primary_color = { 84, 155, 101, 60 },
+    secondary_color = { 52, 84, 50, 140 },
+    secondary_color_dusk = { 52, 84, 50, 50 },
+    minimap_color = { 84, 155, 101, 50 },
+}
+
+local OCEAN_CORAL_COLOR =
+{
+    primary_color = { 220, 240, 255, 160 },
+    secondary_color = { 21, 96, 110, 140 },
+    secondary_color_dusk = { 0, 0, 0, 50 },
+    minimap_color = { 23, 51, 62, 102 },
+}
+
+local LILYPOND_COLOR =
+{
+    primary_color = { 20, 80, 55, 5 },
+    secondary_color = { 20, 80, 55, 5 },
+    secondary_color_dusk = { 20, 80, 55, 5 },
+    minimap_color = { 20, 80, 55, 5 },
+}
 
 
 GLOBAL.setfenv(1, GLOBAL) --这个是让所有的全局变量挂在global上
@@ -57,6 +87,7 @@ local tro_tiledefs = {
             noise_texture = "sw/water_mangrove",
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
+            -- colors = MANGROVE_COLOR,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -77,7 +108,7 @@ local tro_tiledefs = {
             -- is_shoreline = true,   -------------加上
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
-            -- colors = OCEAN_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
+            -- colors = LILYPOND_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
             -- wavetint = WAVETINTS.waterlog,
             is_shoreline = true,
         },
@@ -98,6 +129,7 @@ local tro_tiledefs = {
             noise_texture = "sw/water_coral", --   "ground_water_coral",
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
+            -- colors = OCEAN_CORAL_COLOR,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -448,16 +480,16 @@ local tro_tiledefs = {
     -- (render order doesnt matter)
     -------------------------------
 
-    VOLCANO_LAVA = {
-        tile_range = TileRanges.IMPASSABLE,
-        tile_data = {
-            ground_name = "Lava",
-        },
-        minimap_tile_def = {
-            name = "map_edge",
-            noise_texture = "sw/mini_lava_noise",
-        },
-    },
+    -- VOLCANO_LAVA = {
+    --     tile_range = TileRanges.IMPASSABLE,
+    --     tile_data = {
+    --         ground_name = "Lava",
+    --     },
+    --     minimap_tile_def = {
+    --         name = "map_edge",
+    --         noise_texture = "sw/mini_lava_noise",
+    --     },
+    -- },
 
     -------------------------------
     -- NOISE
@@ -883,6 +915,11 @@ for tile, def in pairs(tro_tiledefs) do
     elseif type(range) == "function" then
         range = TileRanges.NOISE
     end
+
+    -- if def.ground_tile_def and type(def.ground_tile_def) == "table" then
+    --     def.ground_tile_def.-- colors = def.ground_tile_def.colors or DEFAULT_OCEAN_COLOR
+    -- end
+
 
     AddNewTile(tile, range, def.tile_data, def.ground_tile_def, def.minimap_tile_def, def.turf_def)
 

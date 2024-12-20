@@ -80,7 +80,7 @@ modimport("postinit/components/colourcube")
 -- modimport("postinit/components/playervision")
 modimport("postinit/components/ambientsound")
 modimport("postinit/components/dynamicmusic")
-
+-- modimport("postinit/components/oceancolor")
 
 --prefabs
 
