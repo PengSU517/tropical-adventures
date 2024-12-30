@@ -90,7 +90,7 @@ local function seafn(Sim)
 	inst.components.finiteuses:SetOnFinished(onfinished)
 
 	inst:AddComponent("trap")
-	inst.components.trap.targettag = "lobster"
+	inst.components.trap.targettag = "oceanfishinghookable"
 	inst.components.trap:SetOnHarvestFn(onharvested)
 	inst.components.trap.baitsortorder = 1
 
