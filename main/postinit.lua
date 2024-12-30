@@ -98,6 +98,7 @@ modimport("postinit/prefabs/player") --shopper, drownable, infestable
 modimport("postinit/prefabs/player_hayfever")
 -- modimport("postinit/prefabs/farm_plants")--目前不太需要
 modimport("postinit/prefabs/dock_kit") --甲板相关
+modimport("postinit/prefabs/wobster")
 
 --widgets
 
