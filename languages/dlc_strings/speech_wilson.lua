@@ -826,7 +826,7 @@ return {
 		FISH = "Now I shall eat for a day.",
 		FISHINGROD = "Hook, line and stick!",
 		FISHSTICKS = "Sticks to my ribs.",
-		FISH_MED = "Good dog.",
+		DOGFISH_DEAD = "Good dog.",
 		FISH_MED_COOKED = "Grilled to perfection.",
 		FISHTACOS = "Crunchy and delicious!",
 		FISH_COOKED = "Grilled to perfection.",
@@ -1597,7 +1597,7 @@ return {
 		AERODYNAMICHAT = "It really cuts through the air!",
 		POISONHOLE = "I think I'll stay away from that.",
 		BOAT_LANTERN = "This will do wonders for my night vision!",
-		DEAD_SWORDFISH = "I better not run with this.",
+		SWORDFISH_DEAD = "I better not run with this.",
 		LIMPETS = "Maybe starving wouldn't be so bad.",
 		OBSIDIANAXE = "A winning combination!",
 		COCONUT = 

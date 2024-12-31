@@ -1,15 +1,4 @@
-require "brains/frog2brain"
-require "stategraphs/SGfrog2"
-
 local assets =
-{
-	Asset("ANIM", "anim/frog.zip"),
-	Asset("ANIM", "anim/frog_build.zip"),
-	Asset("ANIM", "anim/frog_yellow_build.zip"),
-	Asset("SOUND", "sound/frog.fsb"),
-}
-
-local poisonassets =
 {
 	Asset("ANIM", "anim/frog.zip"),
 	Asset("ANIM", "anim/frog_water.zip"),
@@ -22,20 +11,13 @@ local prefabs =
 	"froglegs",
 	"splash",
 	"venomgland",
-	--	"froglegs_poison",
+	"froglegs_poison",
 }
+
+local brain = require "brains/frog2brain"
 
 local sounds = {
 	base = {
-		grunt = "dontstarve/frog/grunt",
-		walk = "dontstarve/frog/walk",
-		spit = "dontstarve/frog/attack_spit",
-		voice = "dontstarve/frog/attack_voice",
-		splat = "dontstarve/frog/splat",
-		die = "dontstarve/frog/die",
-		wake = "dontstarve/frog/wake",
-	},
-	poison = {
 		grunt = "dontstarve_DLC003/creatures/enemy/frog_poison/grunt",
 		walk = "dontstarve/frog/walk",
 		spit = "dontstarve_DLC003/creatures/enemy/frog_poison/attack_spit",
@@ -61,17 +43,6 @@ local function OnWaterChange(inst, onwater)
 end
 
 local function retargetfn(inst)
-	if not inst.components.health:IsDead() and not inst.components.sleeper:IsAsleep() then
-		local notags = { "FX", "NOCLICK", "INLIMBO" }
-		return FindEntity(inst, TUNING.FROG_TARGET_DIST, function(guy)
-			if guy.components.combat and guy.components.health and not guy.components.health:IsDead() then
-				return guy.components.inventory ~= nil
-			end
-		end, nil, notags)
-	end
-end
-
-local function retargetpoisonfrogfn(inst)
 	if not inst.components.health:IsDead() and not inst.components.sleeper:IsAsleep() then
 		local notags = { "FX", "NOCLICK", "INLIMBO" }
 		return FindEntity(inst, TUNING.FROG_TARGET_DIST, function(guy)
@@ -109,7 +80,7 @@ local function OnEntitySleep(inst)
 	inst.components.tiletracker:Stop()
 end
 
-local function commonfn(Sim)
+local function fn()
 	local inst = CreateEntity()
 	local trans = inst.entity:AddTransform()
 	inst.entity:AddAnimState()
@@ -122,8 +93,10 @@ local function commonfn(Sim)
 	inst.Transform:SetFourFaced()
 
 	inst.AnimState:SetBank("frog")
-	inst.AnimState:SetBuild("frog_build")
+	inst.AnimState:SetBuild("frog_treefrog_build")
 	inst.AnimState:PlayAnimation("idle")
+
+	inst.Physics:ClearCollidesWith(COLLISION.BOAT_LIMITS)
 
 	MakeCharacterPhysics(inst, 1, .3)
 
@@ -132,6 +105,9 @@ local function commonfn(Sim)
 	inst:AddTag("smallcreature")
 	inst:AddTag("frog")
 	inst:AddTag("canbetrapped")
+	inst:AddTag("duskok")
+	inst:AddTag("eatsbait")
+	inst:AddTag("scarytoprey")
 
 	inst.entity:SetPristine()
 
@@ -150,7 +126,12 @@ local function commonfn(Sim)
 	inst.components.health:SetMaxHealth(TUNING.FROG_HEALTH)
 
 	inst:AddComponent("lootdropper")
-	inst.components.lootdropper:SetLoot({ "froglegs" })
+	inst.components.lootdropper:AddChanceLoot("froglegs_poison", 1)
+	--inst.components.lootdropper:AddChanceLoot("venomgland", 0.5)
+
+	inst:AddComponent("eater")
+	inst:AddComponent("tiletracker")
+	inst.components.tiletracker:SetOnWaterChangeFn(OnWaterChange)
 
 	inst:AddComponent("combat")
 	inst.components.combat:SetDefaultDamage(TUNING.FROG_DAMAGE)
@@ -160,53 +141,21 @@ local function commonfn(Sim)
 	inst.components.combat.onhitotherfn = function(inst, other, damage) inst.components.thief:StealItem(other) end
 
 	inst:AddComponent("thief")
-
+	--inst:AddComponent("poisonous")
 	MakeTinyFreezableCharacter(inst, "frogsack")
 	MakeSmallBurnableCharacter(inst, "frogsack")
 
-	inst.sounds = sounds.base
+	inst.sounds = sounds.poison
 
 	inst:AddComponent("knownlocations")
 	inst:AddComponent("inspectable")
 
-	local brain = require "brains/frog2brain"
+
 	inst:SetBrain(brain)
 	inst:SetStateGraph("SGfrog2")
 
 	inst:ListenForEvent("attacked", OnAttacked)
 	inst:ListenForEvent("goinghome", OnGoingHome)
-
-	return inst
-end
-
-local function poisonfn(Sim)
-	local inst = commonfn(Sim)
-
-	MakeCharacterPhysics(inst, 1, .3)
-	inst.AnimState:SetBuild("frog_treefrog_build")
-	inst.AnimState:PlayAnimation("idle")
-	inst.Physics:ClearCollidesWith(COLLISION.BOAT_LIMITS)
-
-	inst:AddTag("duskok")
-	inst:AddTag("eatsbait")
-	inst:AddTag("scarytoprey")
-
-	inst.entity:SetPristine()
-
-	if not TheWorld.ismastersim then
-		return inst
-	end
-
-	inst.components.lootdropper:SetLoot({ "froglegs" })
-	inst.components.lootdropper:AddRandomLoot("venomgland", 0.5)
-
-	inst:AddComponent("eater")
-	inst:AddComponent("tiletracker")
-	inst.components.tiletracker:SetOnWaterChangeFn(OnWaterChange)
-
-	inst.components.combat:SetRetargetFunction(3, retargetpoisonfrogfn)
-
-	inst.sounds = sounds.poison
 
 	inst.OnEntityWake = OnEntityWake
 	inst.OnEntitySleep = OnEntitySleep
@@ -214,4 +163,4 @@ local function poisonfn(Sim)
 	return inst
 end
 
-return Prefab("forest/animals/frog_poison", poisonfn, poisonassets, prefabs)
+return Prefab("frog_poison", fn, assets, prefabs)

@@ -5,7 +5,7 @@ local assets =
 
 local prefabs =
 {
-    "fish_med"
+    "dogfish_dead"
 }
 
 local SOLOFISH_WALK_SPEED = 5
@@ -89,7 +89,7 @@ local function solofishfn()
 
     inst:AddComponent("eater")
     inst:AddComponent("lootdropper")
-    inst.components.lootdropper:SetLoot({ "fish_med" })
+    inst.components.lootdropper:SetLoot({ "dogfish_dead" })
 
     inst:AddComponent("sleeper")
     inst.components.sleeper:SetSleepTest(ShouldSleep)

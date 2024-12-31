@@ -8,7 +8,7 @@ local assets =
 
 local prefabs =
 {
-    "fish_med_cooked",
+    "fishmeat_cooked",
 }
 
 local function OnStartBundling(inst)
@@ -24,7 +24,7 @@ local function onhacked(inst)
             inst.components.workable:SetWorkLeft(1)
         end
         --        if owner then
-        --            local hacked = SpawnPrefab("fish_med_cooked")
+        --            local hacked = SpawnPrefab("fishmeat_cooked")
         --            hacked.components.stackable.stacksize = 1
         --            if owner.components.inventory and not owner.components.inventory:IsFull() then
         --                owner.components.inventory:GiveItem(hacked)
@@ -34,7 +34,7 @@ local function onhacked(inst)
         --                inst.components.lootdropper:DropLootPrefab(hacked)
         --            end
         --        else
-        inst.components.lootdropper:SpawnLootPrefab("fish_med_cooked")
+        inst.components.lootdropper:SpawnLootPrefab("fishmeat_cooked")
         --        end
         inst.SoundEmitter:PlaySound("dontstarve/wilson/use_axe_tree")
     end

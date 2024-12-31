@@ -10,8 +10,6 @@ local prefabs =
 
 local INTENSITY = 0.65
 local RAINBOWJELLYFISH_WALKSPEED = 3
-local JELLYFISH_WALK_SPEED = 2
-local JELLYFISH_DAMAGE = 5
 local JELLYFISH_HEALTH = 50
 
 local function swapColor(inst, light)
@@ -81,6 +79,12 @@ local function onsleep(inst)
 	end
 end
 
+local function OnDeath(inst)
+	if inst.Light then
+		local secs = .25
+		inst.components.lighttweener:StartTween(inst.Light, 0, nil, nil, nil, secs, turnoff)
+	end
+end
 
 local function OnWorked(inst, worker)
 	if worker.components.inventory then
@@ -124,21 +128,28 @@ end
 
 local function fn(Sim)
 	local inst = CreateEntity()
+
+	inst.entity:AddTransform()
+	inst.entity:AddAnimState()
+	inst.entity:AddSoundEmitter()
+	inst.entity:AddNetwork()
+
 	inst.no_wet_prefix = true
 
 	inst:AddTag("aquatic")
 	inst:AddTag("rainbowjellyfish")
-	inst.entity:AddTransform()
-	inst.Transform:SetScale(0.8, 0.8, 0.8)
-	inst.entity:AddAnimState()
-	inst.entity:AddSoundEmitter()
-	inst.entity:AddNetwork()
+
 	MakeCharacterPhysics(inst, 1, 0.5)
+
+	inst.Transform:SetScale(0.8, 0.8, 0.8)
 	inst.Transform:SetFourFaced()
 
 	inst.AnimState:SetBank("rainbowjellyfish")
 	inst.AnimState:SetBuild("rainbowjellyfish")
 	inst.AnimState:PlayAnimation("idle", true)
+
+	inst.AnimState:SetLayer(LAYER_BACKGROUND)
+    inst.AnimState:SetSortOrder(3)
 
 	inst:AddTag("rainbowjellyfishrede")
 	inst:AddTag("tropicalspawner")
@@ -159,6 +170,7 @@ local function fn(Sim)
 	inst._statusdaluz = net_event(inst.GUID, "rainbowjellyfish_planted._statusdaluz")
 
 	if not TheWorld.ismastersim then
+
 		inst:ListenForEvent("rainbowjellyfish_planted._statusdaluz", function(inst, data)
 			if inst.Light and not inst:HasTag("NOCLICK") then
 				local secs = 1 + math.random()
@@ -174,24 +186,24 @@ local function fn(Sim)
 	inst:AddComponent("locomotor")
 	inst.components.locomotor.walkspeed = RAINBOWJELLYFISH_WALKSPEED
 
-	inst:SetStateGraph("SGrainbowjellyfish")
 	--inst.AnimState:SetRayTestOnBB(true);
-	inst.AnimState:SetSortOrder(ANIM_SORT_ORDER_BELOW_GROUND.BOAT_TRAIL) --ANIM_SORT_ORDER_BELOW_GROUND.UNDERWATER
-	inst.AnimState:SetLayer(LAYER_GROUND)                             --LAYER_BELOW_GROUND
+	--inst.AnimState:SetSortOrder(ANIM_SORT_ORDER_BELOW_GROUND.UNDERWATER)
+	--inst.AnimState:SetLayer(LAYER_BELOW_GROUND)
 
 	inst:AddComponent("combat")
 	inst.components.combat:SetHurtSound("dontstarve_DLC002/creatures/jellyfish/hit")
 
 	inst:AddComponent("health")
 	inst.components.health:SetMaxHealth(JELLYFISH_HEALTH)
-
-	MakeMediumFreezableCharacter(inst, "jelly")
+    inst:ListenForEvent("death", OnDeath)
 
 	inst:AddComponent("lootdropper")
 	inst.components.lootdropper:SetLoot({ "rainbowjellyfish_dead" })
 
 	inst:AddComponent("inspectable")
+
 	inst:AddComponent("knownlocations")
+
 	inst:AddComponent("sleeper")
 	inst.components.sleeper:SetSleepTest(ShouldSleep)
 
@@ -206,18 +218,21 @@ local function fn(Sim)
 
 	inst:AddComponent("fader")
 
-	local brain = require "brains/rainbowjellyfishbrain"
-	inst:SetBrain(brain)
-
-
 	inst:WatchWorldState("isday", turnoff)
 	inst:WatchWorldState("isdusk", turnon)
+
+	inst:SetStateGraph("SGrainbowjellyfish")
+	local brain = require "brains/rainbowjellyfishbrain"
+	inst:SetBrain(brain)
 
 	inst:AddComponent("timer")
 	inst:ListenForEvent("timerdone", OnTimerDone)
 	inst.components.timer:StartTimer("vaiembora", 480 + math.random() * 240)
 
+    MakeHauntablePanic(inst)
+	MakeMediumFreezableCharacter(inst, "jelly")
+
 	return inst
 end
 
-return Prefab("common/inventory/rainbowjellyfish_planted", fn, assets, prefabs)
+return Prefab("rainbowjellyfish_planted", fn, assets, prefabs)
