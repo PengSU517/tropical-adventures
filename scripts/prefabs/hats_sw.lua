@@ -38,11 +38,6 @@ local function MakeHat(name, bankparam, prefabnameparam)
                 inst.components.fueled:StartConsuming()
             end
         end
-
-        if inst:HasTag("disguise") then
-            owner:RemoveTag("monster")
-            owner:RemoveTag("merm")
-        end
     end
 
     local function onunequip(inst, owner)
@@ -65,15 +60,6 @@ local function MakeHat(name, bankparam, prefabnameparam)
         if inst.components.fueled ~= nil then
             inst.components.fueled:StopConsuming()
         end
-
-        if inst:HasTag("disguise") then
-            if owner:HasTag("spiderwhisperer") or owner:HasTag("playermonster") then
-                owner:AddTag("monster")
-            end
-            if owner:HasTag("playermerm") then
-                owner:AddTag("merm")
-            end
-        end
     end
 
     local function opentop_onequip(inst, owner)
@@ -90,8 +76,10 @@ local function MakeHat(name, bankparam, prefabnameparam)
         owner.AnimState:Show("HAIR_NOHAT")
         owner.AnimState:Show("HAIR")
 
-        owner.AnimState:Show("HEAD")
-        owner.AnimState:Hide("HEAD_HAT")
+        if owner:HasTag("player") then
+            owner.AnimState:Show("HEAD")
+            owner.AnimState:Hide("HEAD_HAT")
+       end
 
         if not owner:HasTag("equipmentmodel") then
             if inst.components.fueled ~= nil then
@@ -128,7 +116,6 @@ local function MakeHat(name, bankparam, prefabnameparam)
         end
 
         inst:AddComponent("inventoryitem")
-
 
 
         inst:AddComponent("inspectable")
@@ -227,7 +214,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         end
 
         inst:AddComponent("fueled")
-        inst.components.fueled.fueltype = "USAGE"
+        inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(TUNING.RAINHAT_PERISHTIME)
         inst.components.fueled:SetDepletedFn(generic_perish)
 
@@ -338,7 +325,6 @@ local function MakeHat(name, bankparam, prefabnameparam)
         inst:AddComponent("inventoryitem")
 
 
-
         inst:AddComponent("inspectable")
 
         inst:AddComponent("tradable")
@@ -351,7 +337,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         inst.components.equippable:SetOnUnequip(onunequip)
 
         inst:AddComponent("fueled")
-        inst.components.fueled.fueltype = "USAGE"
+        inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(2400)
         inst.components.fueled:SetDepletedFn(generic_perish)
 
@@ -374,7 +360,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         inst.components.equippable.walkspeedmult = 1.25
 
         inst:AddComponent("fueled")
-        inst.components.fueled.fueltype = "USAGE"
+        inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(48 * 30)
         inst.components.fueled:SetDepletedFn(generic_perish)
 
@@ -431,21 +417,22 @@ local function MakeHat(name, bankparam, prefabnameparam)
         owner.AnimState:Hide("HAIR_NOHAT")
         owner.AnimState:Hide("HAIR")
 
-        --		local builder = owner.components.builder
-        --		if builder then
-        --		builder:GiveAllRecipes()
         owner:AddTag("brainjelly")
-        --		end	
+
+        inst._onbuilt = function(owner) inst.components.finiteuses:Use() end
+        inst:ListenForEvent("builditem", inst._onbuilt, owner)
+        inst:ListenForEvent("buildstructure", inst._onbuilt, owner)
     end
 
     local function brainjelly_onunequip(inst, owner)
         onunequip(inst, owner)
-        --		local builder = owner.components.builder
-        --		if builder then
-        --		builder:GiveAllRecipes()
-        --		builder.brainjelly = false
         owner:RemoveTag("brainjelly")
-        --		end	
+
+        if inst._onbuilt then
+            inst:RemoveEventCallback("builditem", inst._onbuilt, owner)
+            inst:RemoveEventCallback("buildstructure", inst._onbuilt, owner)
+            inst._onbuilt = nil
+        end
     end
 
     local function brainjelly()
@@ -457,10 +444,12 @@ local function MakeHat(name, bankparam, prefabnameparam)
             return inst
         end
 
+        inst._onbuilt = nil
+
         inst:AddComponent("finiteuses")
         inst.components.finiteuses:SetMaxUses(4)
         inst.components.finiteuses:SetPercent(1)
-        inst.components.finiteuses.onfinished = function() inst:Remove() end
+        inst.components.finiteuses.onfinished = inst.Remove
 
         inst.components.equippable:SetOnEquip(brainjelly_onequip)
         inst.components.equippable:SetOnUnequip(brainjelly_onunequip)
@@ -468,22 +457,22 @@ local function MakeHat(name, bankparam, prefabnameparam)
         return inst
     end
 
+    local SHARK_TEETHHAT_DAPPERNESS = 0
+    local SHARK_TEETHHAT_DAPPERNESS_OCEAN = TUNING.DAPPERNESS_LARGE
 
-    local function disguise()
-        local inst = CreateEntity()
-        inst.entity:AddNetwork()
-        inst.entity:AddTransform()
-        inst.entity:AddAnimState()
-        MakeInventoryPhysics(inst)
+    local function shark_teethhat_calculation(inst, target)
+        local is_over_ground = TheWorld.Map:IsVisualGroundAtPoint(target:GetPosition():Get())
+        return (is_over_ground and SHARK_TEETHHAT_DAPPERNESS) or SHARK_TEETHHAT_DAPPERNESS_OCEAN
+    end
 
-        inst.AnimState:SetBank("disguise")
-        inst.AnimState:SetBuild("hat_disguise")
+    local function shark_teeth()
+        local inst = simple()
+
+        inst.AnimState:SetBank("hat_shark_teeth")
+        inst.AnimState:SetBuild("hat_shark_teeth")
         inst.AnimState:PlayAnimation("anim")
 
-
-        inst:AddTag("hat")
-        inst:AddTag("disguise")
-        MakeInventoryFloatable(inst)
+        inst:AddTag("regal")
 
         inst.entity:SetPristine()
 
@@ -491,30 +480,18 @@ local function MakeHat(name, bankparam, prefabnameparam)
             return inst
         end
 
-        inst:AddComponent("inspectable")
+        inst:AddComponent("fueled")
+        inst.components.fueled.fueltype = FUELTYPE.USAGE
+        inst.components.fueled:InitializeFuelLevel(TUNING.SHARK_HAT_PERISHTIME)
+        --inst.components.fueled:SetFirstPeriod(TUNING.TURNON_FUELED_CONSUMPTION, TUNING.TURNON_FULL_FUELED_CONSUMPTION)
+        inst.components.fueled:SetDepletedFn(generic_perish)
 
-        inst:AddComponent("inventoryitem")
+        inst.components.equippable:SetDappernessFn(shark_teethhat_calculation)
 
-
-        inst:AddComponent("tradable")
-
-        inst:AddComponent("equippable")
-        inst.components.equippable.equipslot = EQUIPSLOTS.HEAD
-
-        inst.components.equippable:SetOnEquip(onequip)
-
-        inst.components.equippable:SetOnUnequip(onunequip)
-
-        MakeHauntableLaunch(inst)
+        inst.components.equippable:SetOnEquip(opentop_onequip)
 
         return inst
     end
-
-
-
-
-
-
 
     local fn = nil
     local assets = { Asset("ANIM", "anim/" .. fname .. ".zip") }
@@ -538,8 +515,8 @@ local function MakeHat(name, bankparam, prefabnameparam)
         fn = brainjelly
     elseif name == "gas" then
         fn = gas
-    elseif name == "disguise" then
-        fn = disguise
+    elseif name == "shark_teeth" then
+        fn = shark_teeth
     end
 
     return Prefab(prefabname, fn, assets, prefabs)
@@ -553,6 +530,6 @@ return MakeHat("pirate"),
     MakeHat("ox"),
     MakeHat("aerodynamic"),
     MakeHat("brainjelly"),
-    MakeHat("disguise"),
+    MakeHat("shark_teeth"),
     MakeHat("gas")
 --    MakeHat("bunny", "beefalohat", "bunnyhat")

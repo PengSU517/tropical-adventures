@@ -286,7 +286,7 @@ PrefabFiles = {
     "nectar_pod",
     "nettle_plant",
     "nettle",
-    "new_hats",
+    "hats_sw",
     "nubbin",
     "obsidian_workbench",
     "obsidian",
