@@ -525,6 +525,8 @@ PrefabFiles = {
     "tidalpoolnew",
     "tigereye",
     "tigershark",
+	"shark_tooth",
+	"mysterymeat",
     "tigersharkpool",
     "tigersharkshadow",
     "tigersharktorch",
