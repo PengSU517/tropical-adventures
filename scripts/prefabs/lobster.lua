@@ -40,7 +40,7 @@ local function fn()
     inst.AnimState:SetBuild("lobster_build_color")
 
     if not TheWorld.ismastersim then return inst end
-    
+
     inst.fish_def = LOBSTER_FISH_DEF
 
     inst.components.lootdropper:SetLoot({ "lobster_dead" })
@@ -53,6 +53,8 @@ end
 local function water_fn()
     local inst = Prefabs.wobster_sheller.fn()
     inst:SetPrefabName("lobster")
+
+    inst:AddTag("lobster")
 
     inst.AnimState:SetBank("lobster")
     inst.AnimState:SetBuild("lobster_build")
