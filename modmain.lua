@@ -25,3 +25,5 @@ modimport("main/skins")
 
 modimport("main/characters.lua")
 modimport("main/tropical_fx.lua")
+
+modimport "scripts/datadefs/sw_fertilizer_nutrient_defs" --肥料值定义

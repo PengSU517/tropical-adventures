@@ -21,12 +21,31 @@ local prefabs =
 
 SetSharedLootTable('tigershark',
     {
-        { "bell1",       1.00 },
-        { "harpoon",     1.00 },
-        { "shark_gills", 1.00 },
-        { "shark_gills", 1.00 },
-        { "shark_gills", 1.00 },
+        { "fishmeat",    1.00 },
+        { "fishmeat",    1.00 },
+        { "fishmeat",    1.00 },
+        { "fishmeat",    1.00 },
+        { "fishmeat",    1.00 },
+        { "fishmeat",    1.00 },
+        { "fishmeat",    1.00 },
+        { "fishmeat",    1.00 },
+
         { "tigereye",    1.00 },
+        { "tigereye",    0.50 },
+
+        { "shark_gills", 1.00 },
+        { "shark_gills", 1.00 },
+        { "shark_gills", 0.10 },
+        { "shark_gills", 0.33 },
+
+        { "shark_tooth", 1.00 },
+        { "shark_tooth", 1.00 },
+        { "shark_tooth", 1.00 },
+        { "shark_tooth", 1.00 },
+        { "shark_tooth", 1.00 },
+
+        { "mysterymeat", 1.00 },
+        { "mysterymeat", 0.10 },
     })
 
 local TARGET_DIST = 20
