@@ -555,7 +555,7 @@ PrefabFiles = {
     "tro_tumbleweedspawner",
     "tro_veggies",
     "tro_walls",
-    "tro_wobster",
+    "lobster",
     "tropicalspawnblocker",
     "tuber",
     "tubertrees",
