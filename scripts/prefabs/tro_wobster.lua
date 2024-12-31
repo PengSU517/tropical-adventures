@@ -29,8 +29,8 @@ local LOBSTER_FISH_DEF =
     prefab = "lobster",
     loot = { "lobster_dead" },
     lures = TUNING.OCEANFISH_LURE_PREFERENCE.WOBSTER,
-    weight_min = 153.67,
-    weight_max = 307.34,
+    weight_min = 142.56,
+    weight_max = 299.44,
 }
 
 local function fn()
