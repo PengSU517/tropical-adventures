@@ -70,7 +70,7 @@
         <Element name="crate.tex" u1="0.123291" u2="0.153564" v1="0.446777" v2="0.507324"/>
         <Element name="cutgrass_green.tex" u1="0.123291" u2="0.153564" v1="0.385254" v2="0.445801"/>
         <Element name="cutlass.tex" u1="0.123291" u2="0.153564" v1="0.32373" v2="0.384277"/>
-        <Element name="dead_swordfish.tex" u1="0.123291" u2="0.153564" v1="0.262207" v2="0.322754"/>
+        <Element name="swordfish_dead.tex" u1="0.123291" u2="0.153564" v1="0.262207" v2="0.322754"/>
         <Element name="dogfishocean.tex" u1="0.123291" u2="0.153564" v1="0.200684" v2="0.26123"/>
         <Element name="dorsalfin.tex" u1="0.123291" u2="0.153564" v1="0.13916" v2="0.199707"/>
         <Element name="double_umbrellahat.tex" u1="0.123291" u2="0.153564" v1="0.0776367" v2="0.138184"/>
@@ -110,7 +110,7 @@
         <Element name="fish7_cooked.tex" u1="0.215576" u2="0.24585" v1="0.938965" v2="0.999512"/>
         <Element name="fish_dogfish.tex" u1="0.215576" u2="0.24585" v1="0.877441" v2="0.937988"/>
         <Element name="fish_farm.tex" u1="0.215576" u2="0.24585" v1="0.815918" v2="0.876465"/>
-        <Element name="fish_med.tex" u1="0.215576" u2="0.24585" v1="0.754395" v2="0.814941"/>
+        <Element name="dogfish_dead.tex" u1="0.215576" u2="0.24585" v1="0.754395" v2="0.814941"/>
         <Element name="fish_med_cooked.tex" u1="0.215576" u2="0.24585" v1="0.692871" v2="0.753418"/>
         <Element name="fish_raw.tex" u1="0.215576" u2="0.24585" v1="0.631348" v2="0.691895"/>
         <Element name="fish_raw_small.tex" u1="0.215576" u2="0.24585" v1="0.569824" v2="0.630371"/>

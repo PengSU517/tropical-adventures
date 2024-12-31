@@ -557,7 +557,7 @@ return{
 		CUTREEDS = "Smells like greenery.",
 		CUTSTONE = "Compressed stones, nice presentation.",
 		DEADLYFEAST = "I would not recommend this.",
-		DEAD_SWORDFISH = "The grand poisson!",
+		SWORDFISH_DEAD = "The grand poisson!",
 		DECIDUOUSTREE =
 		{
 			BURNING = "Au revoir, tree.",
@@ -689,7 +689,7 @@ return{
 		FISHINHOLE = "Shining, sparkling snacks.",
 		FISHSTICKS = "Crunchy and golden outside, flaky and moist inside!",
 		FISHTACOS = "Takes me south of the border!",
-		FISH_MED = "Don't worry, mon amie. I will make you delicious.",
+		DOGFISH_DEAD = "Don't worry, mon amie. I will make you delicious.",
 		FISH_MED_COOKED = "Could use fresh herbs and butter...",
 		FISH_COOKED = "Could use a squeeze of lemon...",
 		FISH_RAW = "Doesn't even smell fishy it's so fresh!",

@@ -179,6 +179,7 @@ PrefabFiles = {
     "flupegg",
     "flupspawner",
     "frog_poison",
+    "froglegs_poison",
     "frogpoison",
     "fx",
     "gascloud",

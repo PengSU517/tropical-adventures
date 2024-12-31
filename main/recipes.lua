@@ -317,7 +317,7 @@ AddRecipe2("ice", { Ingredient("hail_ice", 4) }, TECH.SCIENCE_TWO, {}, { "REFINE
 AddRecipe2("goldnugget", { Ingredient("dubloon", 3) }, TECH.SCIENCE_ONE, {}, { "REFINE" })
 AddRecipe2("spear_poison", { Ingredient("spear", 1), Ingredient("venomgland", 1) }, TECH.SCIENCE_ONE,
 	{}, { "WEAPONS" })
-AddRecipe2("cutlass", { Ingredient("goldnugget", 2), Ingredient("twigs", 1), Ingredient("dead_swordfish", 1) },
+AddRecipe2("cutlass", { Ingredient("goldnugget", 2), Ingredient("twigs", 1), Ingredient("swordfish_dead", 1) },
 	TECH.SCIENCE_TWO, {}, { "WEAPONS" })
 AddRecipe2("coconade", { Ingredient("coconut", 1), Ingredient("gunpowder", 1), Ingredient("rope", 1) },
 	TECH.SCIENCE_ONE, {}, { "WEAPONS" })

@@ -781,7 +781,7 @@ OPENTUNA.fn = function(act)
                 nut = act.invobject.components.stackable:Get()
             end
             if act.doer.components.inventory then
-                local peixe = SpawnPrefab("fish_med_cooked")
+                local peixe = SpawnPrefab("fishmeat_cooked")
                 act.doer.components.inventory:GiveItem(peixe, 1)
             end
         end

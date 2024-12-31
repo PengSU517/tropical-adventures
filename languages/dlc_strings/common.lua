@@ -1400,7 +1400,7 @@ local STRINGS =
         BOAT_LANTERN = "Boat Lantern",
         FISH_RAW = "Raw Fish",
         FISH_MED_COOKED = "Fish Steak",
-        FISH_MED = "Dead Dogfish",
+        DOGFISH_DEAD = "Dead Dogfish",
         FISH_RAW_SMALL = "Fish Morsel",
         FISH_RAW_SMALL_COOKED = "Cooked Fish Morsel",
         FISHINHOLE = "Shoal",
@@ -1441,7 +1441,7 @@ local STRINGS =
         MUSSELBOUILLABAISE = "Mussel Bouillabaisse",
 
         SWORDFISH = "Swordfish",
-        DEAD_SWORDFISH = "Dead Swordfish",
+        SWORDFISH_DEAD = "Dead Swordfish",
 
         BIOLUMINESCENCE = "Bioluminescence",
         SHARK_FIN = "Shark Fin",

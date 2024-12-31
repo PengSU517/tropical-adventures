@@ -534,7 +534,7 @@ return
 		CUTREEDS = "But Woodlegs can't reed.",
 		CUTSTONE = "Thet be well tooled stone.",
 		DEADLYFEAST = "'Tis a dreadful meal.",
-		DEAD_SWORDFISH = "Ye put up a good fight.",
+		SWORDFISH_DEAD = "Ye put up a good fight.",
 		DECIDUOUSTREE =
 		{
 			BURNING = "Ye won't be standin' fer long.",
@@ -669,7 +669,7 @@ return
 		FISHSTICKS = "Woodlegs turned th'fish ta sticks.",
 		FISHTACOS = "Th'crunchy shell be delicious.",
 		FISH_COOKED = "Th'fish roasted up good.",
-		FISH_MED = "'Tis a seadog n'more.",
+		DOGFISH_DEAD = "'Tis a seadog n'more.",
 		FISH_MED_COOKED = "'Tis a bit better.",
 		FISH_RAW = "Could use a bit'o'heat.",
 		FISH_RAW_SMALL = "'Tis hardly a bite'o'fish.",

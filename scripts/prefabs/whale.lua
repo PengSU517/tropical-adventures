@@ -12,7 +12,7 @@ local assets =
 
 local prefabs =
 {
-	"fish_med_cooked",
+	"fishmeat_cooked",
 	"boneshard",
 	"whale_carcass_blue",
 	"whale_carcass_white",
@@ -65,10 +65,10 @@ local WHALE_WHITE_EXPLOSION_HACKS = 3
 local WHALE_WHITE_EXPLOSION_DAMAGE = 50
 
 
-local loot_blue = { "fish_med_cooked", "fish_med_cooked", "fish_med_cooked", "fish_med_cooked", "fish_med_cooked",
-	"fish_med_cooked", "boneshard", "boneshard", "boneshard", "boneshard" }
-local loot_white = { "fish_med_cooked", "fish_med_cooked", "fish_med_cooked", "fish_med_cooked", "fish_med_cooked",
-	"fish_med_cooked", "boneshard", "boneshard", "boneshard", "boneshard" }
+local loot_blue = { "fishmeat_cooked", "fishmeat_cooked", "fishmeat_cooked", "fishmeat_cooked", "fishmeat_cooked",
+	"fishmeat_cooked", "boneshard", "boneshard", "boneshard", "boneshard" }
+local loot_white = { "fishmeat_cooked", "fishmeat_cooked", "fishmeat_cooked", "fishmeat_cooked", "fishmeat_cooked",
+	"fishmeat_cooked", "boneshard", "boneshard", "boneshard", "boneshard" }
 
 
 local WAKE_TO_RUN_DISTANCE = 10

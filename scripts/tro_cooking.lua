@@ -61,10 +61,10 @@ AddIngredientValues(
         "sweet_potato", "turnip", }, { veggie = 1 }, true, false)
 AddIngredientValues({ "seaweed", }, { veggie = 1 }, true, true)
 AddIngredientValues(
-    { "coi", "fish_med", "fish_raw", "fish2", "fish3", "fish4", "fish5", "fish6", "fish7", "oceanfish_small_61_inv",
+    { "coi", "dogfish_dead", "fish2", "fish3", "fish4", "fish5", "fish6", "fish7", "oceanfish_small_61_inv",
         "oceanfish_small_71_inv", "oceanfish_small_81_inv", "roe_cooked", "roe", "salmon", "shark_fin", },
     { meat = 0.5, fish = 1 }, true, false)
-AddIngredientValues({ "dead_swordfish", }, { fish = 1.5 }, true, false)
+AddIngredientValues({ "swordfish_dead", }, { fish = 1.5 }, true, false)
 AddIngredientValues({ "quagmire_crabmeat", }, { fish = 0.5, crab = 1 }, true, false)
 AddIngredientValues({ "lobster_land", }, { meat = 1.0, fish = 1.0 }, false, false)
 AddIngredientValues({ "fish_dogfish", }, { fish = 1 }, true, false)

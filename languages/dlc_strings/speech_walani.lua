@@ -479,7 +479,7 @@ return {
 		},
 		CRABHOLE = "A beachfront home. Nice.",
 		CUTGRASS = "It makes a swishing sound when I walk.",
-		DEAD_SWORDFISH = "Woah, that fish is HUGE!",
+		SWORDFISH_DEAD = "Woah, that fish is HUGE!",
 		DEPLETED_GRASS =
 		{
 			GENERIC = "That grass looks pretty dead.",
@@ -578,7 +578,7 @@ return {
 		FISHSTICKS = "Looks like these fish are gonna be stickin' around.",
 		FISHTACOS = "All times are taco times.",
 		FISH_COOKED = "From my own personal recipe.",
-		FISH_MED = "Sorry, lil dude.",
+		DOGFISH_DEAD = "Sorry, lil dude.",
 		FISH_MED_COOKED = "Is it snacktime?",
 		FISH_RAW = "Needs more fire.",
 		FISH_RAW_SMALL = "Small fish from a big pond.",

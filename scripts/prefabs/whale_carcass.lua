@@ -8,7 +8,7 @@ local assets =
 
 local prefabs =
 {
-	"fish_raw",
+	"fishmeat",
 	"boneshard",
 	--"coconade",
 	"tophat",
@@ -31,7 +31,7 @@ local prefabs =
 	--"seatrap",
 	"machete",
 	"messagebottleempty",
-	"fish_raw",
+	"fishmeat",
 	"boneshard",
 	"seaweed",
 	"seashell",
@@ -43,8 +43,8 @@ local prefabs =
 	"vine",
 }
 
-local alwaysloot_blue = { "blubber", "blubber", "blubber", "blubber", "fish_raw", "fish_raw", "fish_raw", "fish_raw" }
-local alwaysloot_white = { "blubber", "blubber", "blubber", "blubber", "fish_raw", "fish_raw", "fish_raw", "fish_raw",
+local alwaysloot_blue = { "blubber", "blubber", "blubber", "blubber", "fishmeat", "fishmeat", "fishmeat", "fishmeat" }
+local alwaysloot_white = { "blubber", "blubber", "blubber", "blubber", "fishmeat", "fishmeat", "fishmeat", "fishmeat",
 	"harpoon", "boneshard" }
 
 local day_time = 300
@@ -94,7 +94,7 @@ local loots = {
 	{
 		--HIGH % ITEMS, 4 of these
 		"blubber",
-		"fish_raw",
+		"fishmeat",
 		"boneshard",
 		"seaweed",
 		"seashell",
