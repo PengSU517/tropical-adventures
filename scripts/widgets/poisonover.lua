@@ -8,7 +8,7 @@ local PoisonOver = Class(Widget, function(self, owner)
 
     self:SetClickable(false)
 
-    self.bg = self:AddChild(Image("images/ui/poison.xml", "poison_over.tex"))
+    self.bg = self:AddChild(Image("images/overlays/poison.xml", "poison_over.tex"))
     self.bg:SetVRegPoint(ANCHOR_MIDDLE)
     self.bg:SetHRegPoint(ANCHOR_MIDDLE)
     self.bg:SetVAnchor(ANCHOR_MIDDLE)

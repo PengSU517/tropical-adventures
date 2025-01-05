@@ -16,6 +16,8 @@ Assets =
 	-------------------animation----------------
 	Asset("ANIM", "anim/moon_aporkalypse_phases.zip"),
 	Asset("ANIM", "anim/swap_land_fork.zip"),
+	Asset("ANIM", "anim/player_wagstaff.zip" ),
+    Asset("ANIM", "anim/player_mount_wagstaff.zip"),
 	Asset("ANIM", "anim/player_actions_paddle.zip"),
 	Asset("ANIM", "anim/player_actions_speargun.zip"),
 	Asset("ANIM", "anim/player_actions_tap.zip"),
@@ -120,8 +122,6 @@ Assets =
 	----------ui-------------------
 	Asset("IMAGE", "images/ui/barco.tex"),
 	Asset("ATLAS", "images/ui/barco.xml"),
-	Asset("ATLAS", "images/ui/poison.xml"),
-	Asset("IMAGE", "images/ui/poison.tex"),
 	Asset("ATLAS", "images/ui/tabs.xml"),
 	Asset("IMAGE", "images/ui/tabs.tex"),
 	Asset("IMAGE", "images/ui/honeychest.tex"), -- ### Honey Chest UI
@@ -129,9 +129,23 @@ Assets =
 
 	Asset("IMAGE", "images/fog_cloud.tex"), --云海
 
+    ------------- overlays -------------------
+    Asset("ATLAS", "images/overlays/poison.xml"),
+    Asset("IMAGE", "images/overlays/poison.tex"),
+    Asset("ATLAS", "images/overlays/hayfever.xml"),
+    Asset("IMAGE", "images/overlays/hayfever.tex"),
+    Asset("ATLAS", "images/overlays/fog.xml"),
+    Asset("IMAGE", "images/overlays/fog.tex"),
+    Asset("ATLAS", "images/overlays/living_artifact.xml"),
+    Asset("IMAGE", "images/overlays/living_artifact.tex"),
+    Asset("ATLAS", "images/overlays/visorvision.xml"),
+    Asset("IMAGE", "images/overlays/visorvision.tex"),
 
+	------------- colour cubes -------------------
+	Asset("IMAGE", "images/colour_cubes/bat_vision_on_cc.tex"),
+    Asset("IMAGE", "images/colour_cubes/heat_vision_cc.tex"),
+    Asset("IMAGE", "images/colour_cubes/shooting_goggles_cc.tex"),
 
-	-------------colour cubes -------------------
 	Asset("IMAGE", "images/colour_cubes/sw_mild_day_cc.tex"),
 	Asset("IMAGE", "images/colour_cubes/SW_mild_dusk_cc.tex"),
 

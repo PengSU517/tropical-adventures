@@ -100,6 +100,8 @@ modimport("postinit/prefabs/player_hayfever")
 modimport("postinit/prefabs/dock_kit") --甲板相关
 modimport("postinit/prefabs/wobster")
 modimport("postinit/prefabs/meatrack")
+modimport("postinit/prefabs/mosquitosack")
+
 
 --widgets
 

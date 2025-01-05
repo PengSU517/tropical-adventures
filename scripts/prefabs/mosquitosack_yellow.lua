@@ -45,6 +45,10 @@ local function poisonfn()
     inst:AddComponent("healer")
     inst.components.healer:SetHealthAmount(TUNING.HEALING_MED)
 
+    inst:AddComponent("fuel")
+	inst.components.fuel.fueltype = FUELTYPE.BLOOD
+	inst.components.fuel.fuelvalue = TUNING.TOTAL_DAY_TIME
+
     return inst
 end
 
