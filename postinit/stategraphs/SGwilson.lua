@@ -3,6 +3,15 @@ local AddStategraphEvent = AddStategraphEvent
 local AddStategraphActionHandler = AddStategraphActionHandler
 local AddStategraphPostInit = AddStategraphPostInit
 
+local ActionHandler = GLOBAL.ActionHandler
+local EventHandler = GLOBAL.EventHandler
+local State = GLOBAL.State
+local TimeEvent = GLOBAL.TimeEvent
+
+local FRAMES = GLOBAL.FRAMES
+local ACTIONS = GLOBAL.ACTIONS
+local EQUIPSLOTS = GLOBAL.EQUIPSLOTS
+
 
 
 local actionhandlers = {
@@ -202,4 +211,113 @@ AddStategraphPostInit("wilson", function(sg)
             _play_horn_timeevent_1(inst, ...)
         end
     end
+end)
+
+AddStategraphState("wilson", --激光眼镜
+     State{
+          name = "goggleattack",
+          tags = {"attack", "notalking", "abouttoattack"},
+
+          onenter = function(inst)
+               if inst.components.rider:IsRiding() then
+                    inst.Transform:SetFourFaced()
+               end
+               local buffaction = inst:GetBufferedAction()
+               local target = buffaction ~= nil and buffaction.target or nil
+               local equip = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+               if (equip ~= nil and equip.projectiledelay or 0) > 0 then
+                    inst.sg.statemem.projectiledelay = (inst.sg.statemem.chained and 9 or 14) * FRAMES - equip.projectiledelay
+                    if inst.sg.statemem.projectiledelay <= 0 then
+                        inst.sg.statemem.projectiledelay = nil
+                    end
+               end
+               inst.components.combat:SetTarget(target)
+               inst.components.combat:StartAttack()
+               inst.components.locomotor:Stop()
+               inst.AnimState:PlayAnimation("goggle_fast")
+               if inst.sg.laststate == inst.sg.currentstate then
+                    inst.sg.statemem.chained = true
+                    inst.AnimState:SetFrame(5)
+               end
+               inst.AnimState:PushAnimation("goggle_fast_pst", false)
+
+               inst.sg:SetTimeout(math.max((inst.sg.statemem.chained and 14 or 18) * FRAMES, inst.components.combat.min_attack_period))
+
+               if target ~= nil and target:IsValid() then
+                    inst:FacePoint(target.Transform:GetWorldPosition())
+                    inst.sg.statemem.attacktarget = target
+                    inst.sg.statemem.retarget = target
+               end
+          end,
+
+          onupdate = function(inst, dt)
+               if (inst.sg.statemem.projectiledelay or 0) > 0 then
+                    inst.sg.statemem.projectiledelay = inst.sg.statemem.projectiledelay - dt
+                    if inst.sg.statemem.projectiledelay <= 0 then
+                         inst:PerformBufferedAction()
+                         inst.sg:RemoveStateTag("abouttoattack")
+                    end
+               end
+          end,
+
+          timeline=
+          {
+               TimeEvent(9 * FRAMES, function(inst)
+                    if inst.sg.statemem.chained and inst.sg.statemem.projectiledelay == nil then
+                         inst:PerformBufferedAction()
+                         inst.sg:RemoveStateTag("abouttoattack")
+                    end
+               end),
+               TimeEvent(14 * FRAMES, function(inst)
+                    if not inst.sg.statemem.chained and inst.sg.statemem.projectiledelay == nil then
+                         inst:PerformBufferedAction()
+                         inst.sg:RemoveStateTag("abouttoattack")
+                         if inst.components.moisture and inst.components.moisture:GetMoisture() > 0 and not inst.components.inventory:IsInsulated() then
+                              inst.components.health:DoDelta(-TUNING.HEALING_MEDSMALL, false, "Shockwhenwet", nil, true)
+                              inst.sg:GoToState("electrocute")
+                         end
+                    end
+               end),
+          },
+
+          ontimeout = function(inst)
+               inst.sg:RemoveStateTag("attack")
+               inst.sg:AddStateTag("idle")
+          end,
+
+          events=
+          {
+               EventHandler("equip", function(inst) inst.sg:GoToState("idle") end),
+               EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
+               EventHandler("animqueueover", function(inst)
+                    if inst.AnimState:AnimDone() then
+                         inst.sg:GoToState("idle")
+                    end
+               end),
+          },
+
+          onexit = function(inst)
+               inst.components.combat:SetTarget(nil)
+               if inst.sg:HasStateTag("abouttoattack") then
+                    inst.components.combat:CancelAttack()
+               end
+               if inst.components.rider:IsRiding() then
+                    inst.Transform:SetSixFaced()
+               end
+          end,
+     }
+)
+
+AddStategraphPostInit("wilson", function(inst)
+	local actionHandler_attack = inst.actionhandlers[ACTIONS.ATTACK].deststate
+	inst.actionhandlers[ACTIONS.ATTACK].deststate = function(inst, action, ...)
+		if not (inst.sg:HasStateTag("attack") and action.target == inst.sg.statemem.attacktarget or inst.components.health:IsDead()) then
+               local weapon = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+               local hand = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+			if hand == nil and weapon and weapon.prefab == "gogglesshoothat" then
+                    return "goggleattack"
+               end
+		end
+		return actionHandler_attack(inst, action, ...)
+	end
 end)

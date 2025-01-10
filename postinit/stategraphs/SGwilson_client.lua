@@ -161,3 +161,99 @@ end
 for _, state in ipairs(states) do
     AddStategraphState("wilson_client", state)
 end
+
+AddStategraphState("wilson_client",
+     State{
+          name = "goggleattack",--激光眼镜
+          tags = {"attack", "notalking", "abouttoattack"},
+
+          onenter = function(inst)
+               local buffaction = inst:GetBufferedAction()
+               if buffaction ~= nil then
+                    inst:PerformPreviewBufferedAction()
+                    if buffaction.target ~= nil and buffaction.target:IsValid() then
+                         inst:FacePoint(buffaction.target:GetPosition())
+                         inst.sg.statemem.attacktarget = buffaction.target
+                         inst.sg.statemem.retarget = buffaction.target
+                    end
+               end
+               local equip = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+               if (equip ~= nil and equip.projectiledelay or 0) > 0 then
+                    inst.sg.statemem.projectiledelay = (inst.sg.statemem.chained and 9 or 14) * FRAMES - equip.projectiledelay
+                    if inst.sg.statemem.projectiledelay <= 0 then
+                         inst.sg.statemem.projectiledelay = nil
+                    end
+               end
+               inst.replica.combat:StartAttack()
+               inst.components.locomotor:Stop()
+               inst.AnimState:PlayAnimation("goggle_fast")
+               if inst.sg.laststate == inst.sg.currentstate then
+                    inst.sg.statemem.chained = true
+                    inst.AnimState:SetFrame(5)
+               end
+               inst.AnimState:PushAnimation("goggle_fast_pst", false)
+
+               inst.sg:SetTimeout(math.max((inst.sg.statemem.chained and 14 or 18) * FRAMES, inst.replica.combat:MinAttackPeriod()))
+          end,
+
+          onupdate = function(inst, dt)
+               if (inst.sg.statemem.projectiledelay or 0) > 0 then
+                    inst.sg.statemem.projectiledelay = inst.sg.statemem.projectiledelay - dt
+                    if inst.sg.statemem.projectiledelay <= 0 then
+                         inst:ClearBufferedAction()
+                         inst.sg:RemoveStateTag("abouttoattack")
+                    end
+               end
+          end,
+
+          timeline=
+          {
+               TimeEvent(9 * FRAMES, function(inst)
+                    if inst.sg.statemem.chained and inst.sg.statemem.projectiledelay == nil then
+                         inst:ClearBufferedAction()
+                         inst.sg:RemoveStateTag("abouttoattack")
+                    end
+               end),
+               TimeEvent(14 * FRAMES, function(inst)
+                    if not inst.sg.statemem.chained and inst.sg.statemem.projectiledelay == nil then
+                         inst:ClearBufferedAction()
+                         inst.sg:RemoveStateTag("abouttoattack")
+                    end
+               end),
+          },
+
+          ontimeout = function(inst)
+               inst.sg:RemoveStateTag("attack")
+               inst.sg:AddStateTag("idle")
+          end,
+
+          events=
+          {
+               EventHandler("animqueueover", function(inst)
+                    if inst.AnimState:AnimDone() then
+                         inst.sg:GoToState("idle")
+                    end
+               end),
+          },
+
+          onexit = function(inst)
+               if inst.sg:HasStateTag("abouttoattack") then
+                    inst.replica.combat:CancelAttack()
+               end
+          end,
+     }
+)
+
+AddStategraphPostInit("wilson_client", function(inst)
+	local actionHandler_attack = inst.actionhandlers[ACTIONS.ATTACK].deststate
+	inst.actionhandlers[ACTIONS.ATTACK].deststate = function(inst, action, ...)
+		if not (inst.sg:HasStateTag("attack") and action.target == inst.sg.statemem.attacktarget or inst.replica.health:IsDead()) then
+			local weapon = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD) 
+               local hand = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) 
+			if hand == nil and weapon and weapon.prefab == "gogglesshoothat" then 
+                    return "goggleattack" 
+               end
+		end
+		return actionHandler_attack(inst, action, ...)
+	end
+end)
