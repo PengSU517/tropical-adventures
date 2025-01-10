@@ -475,7 +475,7 @@ AddRecipe2("malbatrossail",
 	TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
 AddRecipe2("boatcannon", { Ingredient("coconut", 6), Ingredient("log", 5), Ingredient("gunpowder", 4) },
 	TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
-AddRecipe2("woodlegs_boatcannon",
+AddRecipe2("obsidian_boatcannon",
 	{ Ingredient("obsidian", 6), Ingredient("log", 5), Ingredient("gunpowder", 4) },
 	TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
 AddRecipe2("trawlnet", { Ingredient("bamboo", 2), Ingredient("rope", 3) }, TECH.SEAFARING_TWO,
@@ -1706,7 +1706,7 @@ SortAfter("turf_magmafield", "turf_tidalmarsh", "DECOR")
 SortAfter("turf_ash", "turf_magmafield", "DECOR")
 SortAfter("turf_volcano", "turf_ash", "DECOR")
 SortAfter("turf_beach", "turf_volcano", "DECOR")
-SortAfter("woodlegs_boatcannon", "obsidiancoconade", "OBSIDIAN")
+SortAfter("obsidian_boatcannon", "obsidiancoconade", "OBSIDIAN")
 SortAfter("surfboard_item", "wx78_scanner_item", "CHARACTER")
 SortAfter("woodlegshat", "surfboard_item", "CHARACTER")
 SortAfter("book_meteor", "book_sleep", "CHARACTER")

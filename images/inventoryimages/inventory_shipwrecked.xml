@@ -398,7 +398,7 @@
         <Element name="wildborehouse_craft.tex" u1="0.830811" u2="0.861084" v1="0.631348" v2="0.691895"/>
         <Element name="wind_conch.tex" u1="0.861572" u2="0.891846" v1="0.631348" v2="0.691895"/>
         <Element name="woodlegs.tex" u1="0.892334" u2="0.922607" v1="0.631348" v2="0.691895"/>
-        <Element name="woodlegs_boatcannon.tex" u1="0.923096" u2="0.953369" v1="0.631348" v2="0.691895"/>
+        <Element name="obsidian_boatcannon.tex" u1="0.923096" u2="0.953369" v1="0.631348" v2="0.691895"/>
         <Element name="woodlegs_cage.tex" u1="0.953857" u2="0.984131" v1="0.631348" v2="0.691895"/>
         <Element name="woodlegs_key1.tex" u1="0.769287" u2="0.799561" v1="0.569824" v2="0.630371"/>
         <Element name="woodlegs_key2.tex" u1="0.738525" u2="0.768799" v1="0.509277" v2="0.569824"/>

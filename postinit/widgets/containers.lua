@@ -102,7 +102,7 @@ local function boatitemtestfn(container, item, slot)
         return not slotitem and
                    (item.prefab == "tarlamp" or item.prefab == "boat_lantern" or item.prefab == "boat_torch" or
                        item.prefab == "quackeringram" or item.prefab == "boatcannon" or item.prefab ==
-                       "woodlegs_boatcannon")
+                       "obsidian_boatcannon")
     else --if slot and slot > 2 then
         if not slotitem then return true end
         if slotitem.prefab ~= item.prefab then return false end -- slotitem ~= nil

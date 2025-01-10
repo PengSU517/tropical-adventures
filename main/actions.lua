@@ -580,7 +580,7 @@ BOATCANNON.fn = function(act)
 
         --
 
-        if canhao and canhao.prefab == "woodlegs_boatcannon" then
+        if canhao and canhao.prefab == "obsidian_boatcannon" then
             if equipamento and canhao then canhao.components.finiteuses:Use(1) end
             local bomba = SpawnPrefab("cannonshotobsidian")
             bomba.Transform:SetPosition(x, y + 1.5, z)
