@@ -3,7 +3,7 @@ local RUN_SPEED = 7
 
 require("stategraphs/commonstates")
 
-local actionhandlers = 
+local actionhandlers =
 {
     ActionHandler(ACTIONS.EAT, "eat"),
     ActionHandler(ACTIONS.GOHOME, "action"),
@@ -13,23 +13,23 @@ local actionhandlers =
 local function PlayCrabFootstep(inst)
     local sound = inst.SoundEmitter
     if sound then
-    sound:PlaySound("dontstarve_DLC002/creatures/crab/walk_dirt")
+        sound:PlaySound("dontstarve_DLC002/creatures/crab/walk_dirt")
     end
 end
 
 local function PlayCrabFootstepRun(inst)
     local sound = inst.SoundEmitter
     if sound then
-    sound:PlaySound("dontstarve_DLC002/creatures/crab/run_dirt")
+        sound:PlaySound("dontstarve_DLC002/creatures/crab/run_dirt")
     end
 end
 
-local events=
+local events =
 {
     CommonHandlers.OnSleep(),
     CommonHandlers.OnFreeze(),
     CommonHandlers.OnLocomote(true, true),
-    EventHandler("attacked", function(inst) if inst.components.health:GetPercent() > 0 then inst.sg:GoToState("hit") end end),
+    EventHandler("attacked",function(inst) if inst.components.health:GetPercent() > 0 then inst.sg:GoToState("hit") end end),
     EventHandler("death", function(inst) inst.sg:GoToState("death") end),
     EventHandler("trapped", function(inst) inst.sg:GoToState("trapped") end),
     EventHandler("locomote",
@@ -41,7 +41,7 @@ local events=
                     if not inst.sg:HasStateTag("running") then
                         inst.sg:GoToState("idle")
                     end
-                        inst.sg:GoToState("idle")
+                    inst.sg:GoToState("idle")
                 end
             elseif inst.components.locomotor:WantsToRun() then
                 if not inst.sg:HasStateTag("running") then
@@ -54,19 +54,19 @@ local events=
             end
         end),
     EventHandler("stunned", function(inst) inst.sg:GoToState("stunned") end),
+    EventHandler("stunbomb", function(inst) inst.sg:GoToState("stunned") end),
 }
 
-local states=
+local states =
 {
- 
-    State{
+
+    State {
         name = "look",
-        tags = {"idle", "canrotate" },
+        tags = { "idle", "canrotate" },
         onenter = function(inst)
-            
             inst.data.lookingup = nil
             inst.data.donelooking = nil
-            
+
             if math.random() > .5 then
                 inst.AnimState:PlayAnimation("lookup_pre")
                 inst.AnimState:PushAnimation("lookup_loop", true)
@@ -75,10 +75,10 @@ local states=
                 inst.AnimState:PlayAnimation("lookdown_pre")
                 inst.AnimState:PushAnimation("lookdown_loop", true)
             end
-            
-            inst.sg:SetTimeout(2.5 + math.random()*0.5)
+
+            inst.sg:SetTimeout(2.5 + math.random() * 0.5)
         end,
-        
+
         ontimeout = function(inst)
             inst.data.donelooking = true
             if inst.data.lookingup then
@@ -87,21 +87,21 @@ local states=
                 inst.AnimState:PlayAnimation("lookdown_pst")
             end
         end,
-        
-        events=
+
+        events =
         {
-            EventHandler("animover", function (inst, data)
+            EventHandler("animover", function(inst, data)
                 if inst.data.donelooking then
                     inst.sg:GoToState("idle")
                 end
             end),
         }
     },
-    
-    State{
-        
+
+    State {
+
         name = "idle",
-        tags = {"idle", "canrotate"},
+        tags = { "idle", "canrotate" },
         onenter = function(inst, playanim)
             inst.Physics:Stop()
             if playanim then
@@ -109,40 +109,40 @@ local states=
                 inst.AnimState:PushAnimation("idle", true)
             else
                 inst.AnimState:PlayAnimation("idle", true)
-            end                                
-            inst.sg:SetTimeout(1 + math.random()*1)
+            end
+            inst.sg:SetTimeout(1 + math.random() * 1)
         end,
-        
-        ontimeout= function(inst)
+
+        ontimeout = function(inst)
             inst.sg:GoToState("look")
         end,
 
     },
-    
-    State{
-        
+
+    State {
+
         name = "action",
         onenter = function(inst, playanim)
             inst.Physics:Stop()
             inst.AnimState:PlayAnimation("idle")
             inst:PerformBufferedAction()
         end,
-        events=
+        events =
         {
-            EventHandler("animover", function (inst, data) inst.sg:GoToState("idle") end),
+            EventHandler("animover", function(inst, data) inst.sg:GoToState("idle") end),
         }
-    },    
-    
-    State{
+    },
+
+    State {
         name = "eat",
-        
+
         onenter = function(inst)
             inst.Physics:Stop()
             inst.AnimState:PlayAnimation("rabbit_eat_pre", false)
             inst.AnimState:PushAnimation("rabbit_eat_loop", true)
-            inst.sg:SetTimeout(1+math.random())
+            inst.sg:SetTimeout(1 + math.random())
         end,
-        
+
         ontimeout = function(inst)
             inst:PerformBufferedAction()
             inst.sg:GoToState("idle", "rabbit_eat_pst")
@@ -151,47 +151,47 @@ local states=
         onexit = function(inst)
             inst:ClearBufferedAction()
         end,
-    },    
+    },
 
-    State{
+    State {
         name = "hop",
-        tags = {"moving", "canrotate", "hopping"},
+        tags = { "moving", "canrotate", "hopping" },
 
-        timeline=
+        timeline =
         {
-            TimeEvent(0*FRAMES, PlayCrabFootstep),
-            TimeEvent(3*FRAMES, PlayCrabFootstep),
-            TimeEvent(7*FRAMES, PlayCrabFootstep),
-            TimeEvent(12*FRAMES, PlayCrabFootstep),
-            TimeEvent(16*FRAMES, PlayCrabFootstep),
-            TimeEvent(20*FRAMES, PlayCrabFootstep),
-            TimeEvent(24*FRAMES, PlayCrabFootstep),
-            TimeEvent(28*FRAMES, PlayCrabFootstep),
+            TimeEvent(0 * FRAMES, PlayCrabFootstep),
+            TimeEvent(3 * FRAMES, PlayCrabFootstep),
+            TimeEvent(7 * FRAMES, PlayCrabFootstep),
+            TimeEvent(12 * FRAMES, PlayCrabFootstep),
+            TimeEvent(16 * FRAMES, PlayCrabFootstep),
+            TimeEvent(20 * FRAMES, PlayCrabFootstep),
+            TimeEvent(24 * FRAMES, PlayCrabFootstep),
+            TimeEvent(28 * FRAMES, PlayCrabFootstep),
         },
 
-        onenter = function(inst) 
+        onenter = function(inst)
             inst.AnimState:PlayAnimation("walk_pre")
             inst.AnimState:PushAnimation("walk")
             inst.components.locomotor:WalkForward()
-            inst.sg:SetTimeout(1.25+math.random())
+            inst.sg:SetTimeout(1.25 + math.random())
         end,
 
-        onupdate= function(inst)
+        onupdate = function(inst)
             if not inst.components.locomotor:WantsToMoveForward() then
                 inst.sg:GoToState("idle", "walk_pst")
             end
         end,
 
-        ontimeout= function(inst)
-           inst.sg:GoToState("hop")
+        ontimeout = function(inst)
+            inst.sg:GoToState("hop")
         end,
     },
 
-    State{
+    State {
         name = "run",
-        tags = {"moving", "running", "canrotate"},
+        tags = { "moving", "running", "canrotate" },
 
-        onenter = function(inst) 
+        onenter = function(inst)
             local play_scream = true
             if inst.components.inventoryitem then
                 play_scream = inst.components.inventoryitem.owner == nil
@@ -203,64 +203,67 @@ local states=
             inst.components.locomotor:RunForward()
         end,
 
-        events=
+        events =
         {
-            EventHandler("animover", function(inst) inst.sg:GoToState("run_loop") end ),
+            EventHandler("animover", function(inst) inst.sg:GoToState("run_loop") end),
         },
     },
 
-    State{
+    State {
         name = "run_loop",
-        tags = {"moving", "running", "canrotate"},
+        tags = { "moving", "running", "canrotate" },
 
-        onenter = function(inst) 
+        onenter = function(inst)
             inst.AnimState:PlayAnimation("run")
             PlayCrabFootstepRun(inst)
             inst.components.locomotor:RunForward()
         end,
 
-        events=
+        events =
         {
-            EventHandler("animover", function(inst) inst.sg:GoToState("run_loop") end ),
+            EventHandler("animover", function(inst) inst.sg:GoToState("run_loop") end),
         },
     },
 
     State{
         name = "death",
         tags = {"busy"},
-        
-        onenter = function(inst)
+
+        onenter = function(inst, data)
             inst.SoundEmitter:PlaySound(inst.sounds.scream)
             inst.AnimState:PlayAnimation("death")
             inst.Physics:Stop()
-            RemovePhysicsColliders(inst)        
-            inst.components.lootdropper:DropLoot(Vector3(inst.Transform:GetWorldPosition()))            
+            RemovePhysicsColliders(inst)
+			--print("data.afflicter",tostring(data.afflicter),type(data.afflicter))
+			-- KAJ: I'm not happy with this, I'd rather set this somewhere else
+			inst.causeofdeath = data and data.afflicter or nil
+            inst.components.lootdropper:DropLoot(Vector3(inst.Transform:GetWorldPosition()), data and data.afflicter or nil)
         end,
 
-    }, 
+    },
 
-    State{
+    State {
         name = "fall",
-        tags = {"busy", "stunned"},
+        tags = { "busy", "stunned" },
         onenter = function(inst)
             inst.Physics:SetDamping(0)
-            inst.Physics:SetMotorVel(0,-20+math.random()*10,0)
+            inst.Physics:SetMotorVel(0, -20 + math.random() * 10, 0)
             inst.AnimState:PlayAnimation("stunned_loop", true)
             inst:CheckTransformState()
         end,
-        
+
         onupdate = function(inst)
             local pt = Point(inst.Transform:GetWorldPosition())
             if pt.y < 2 then
-                inst.Physics:SetMotorVel(0,0,0)
+                inst.Physics:SetMotorVel(0, 0, 0)
             end
-            
+
             if pt.y <= .1 then
                 pt.y = 0
 
                 inst.Physics:Stop()
                 inst.Physics:SetDamping(5)
-                inst.Physics:Teleport(pt.x,pt.y,pt.z)
+                inst.Physics:Teleport(pt.x, pt.y, pt.z)
                 inst.DynamicShadow:Enable(true)
                 inst.sg:GoToState("stunned")
             end
@@ -273,50 +276,50 @@ local states=
         end,
     },
 
-    State{
+    State {
         name = "stunned",
-        tags = {"busy", "stunned"},
-        
-        onenter = function(inst) 
+        tags = { "busy", "stunned" },
+
+        onenter = function(inst)
             --inst.Physics:Stop()
             inst.AnimState:PlayAnimation("stunned_loop", true)
-            inst.sg:SetTimeout(GetRandomWithVariance(6, 2) )
+            inst.sg:SetTimeout(GetRandomWithVariance(6, 2))
             if inst.components.inventoryitem then
                 inst.components.inventoryitem.canbepickedup = true
             end
         end,
-        
+
         onexit = function(inst)
             if inst.components.inventoryitem then
                 inst.components.inventoryitem.canbepickedup = false
             end
         end,
-        
-        ontimeout = function(inst) inst.sg:GoToState("idle") end,
-    },    
 
-    State{
+        ontimeout = function(inst) inst.sg:GoToState("idle") end,
+    },
+
+    State {
         name = "stunned_post",
-        tags = {"busy", "stunned"},
+        tags = { "busy", "stunned" },
 
         onenter = function(inst)
             inst.Physics:Stop()
             inst.AnimState:PlayAnimation("stunned_pst")
         end,
 
-        events=
+        events =
         {
-            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
     },
 
-    State{
+    State {
         name = "trapped",
-        tags = {"busy", "trapped"},
+        tags = { "busy", "trapped" },
 
-        onenter = function(inst) 
+        onenter = function(inst)
             inst.Physics:Stop()
-			inst:ClearBufferedAction()
+            inst:ClearBufferedAction()
             inst.AnimState:PlayAnimation("stunned_loop", true)
             inst.sg:SetTimeout(1)
         end,
@@ -324,25 +327,25 @@ local states=
         ontimeout = function(inst) inst.sg:GoToState("idle") end,
     },
 
-    State{
+    State {
         name = "hit",
-        tags = {"busy"},
-        
+        tags = { "busy" },
+
         onenter = function(inst)
             inst.SoundEmitter:PlaySound(inst.sounds.hurt)
             inst.AnimState:PlayAnimation("hit")
-            inst.Physics:Stop()            
+            inst.Physics:Stop()
         end,
-        
-        events=
+
+        events =
         {
-            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
     },
 
-    State{
+    State {
         name = "hide_pre",
-        tags = {"busy", "invisible"},
+        tags = { "busy", "invisible" },
 
         onenter = function(inst)
             inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/crab/bury")
@@ -358,15 +361,15 @@ local states=
             inst.components.health:SetInvincible(false)
         end,
 
-        events=
+        events =
         {
-            EventHandler("animover", function(inst) inst.sg:GoToState("hide_loop") end ),
+            EventHandler("animover", function(inst) inst.sg:GoToState("hide_loop") end),
         },
     },
 
-    State{
+    State {
         name = "hide_loop",
-        tags = {"busy", "invisible"},
+        tags = { "busy", "invisible" },
 
         onenter = function(inst)
             inst.AnimState:PlayAnimation("hide_idle")
@@ -394,9 +397,9 @@ local states=
 
     },
 
-    State{
+    State {
         name = "hide_check",
-        tags = {"busy", "invisible"},
+        tags = { "busy", "invisible" },
 
         onenter = function(inst)
             inst.AnimState:PlayAnimation("look_pre")
@@ -420,10 +423,10 @@ local states=
             inst.components.health:SetInvincible(false)
         end,
 
-        events=
+        events =
         {
             EventHandler("animqueueover", function(inst)
-                local danger = FindEntity(inst, 7, nil, {"scarytoprey"}, {'notarget'}) ~= nil
+                local danger = FindEntity(inst, 7, nil, { "scarytoprey" }, { 'notarget' }) ~= nil
                 if not danger then
                     inst.sg:GoToState("hide_post")
                 else
@@ -433,9 +436,9 @@ local states=
         },
     },
 
-    State{
+    State {
         name = "hide_post",
-        tags = {"busy"},
+        tags = { "busy" },
 
         onenter = function(inst)
             inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/crab/emerge")
@@ -443,9 +446,9 @@ local states=
             inst.Physics:Stop()
         end,
 
-        events=
+        events =
         {
-            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
     },
 
@@ -466,7 +469,7 @@ local states=
 -- CommonStates.AddRunStates(states,
 -- {
 --     starttimeline = {
---         TimeEvent(0, function(inst) 
+--         TimeEvent(0, function(inst)
 --             local play_scream = true
 --             if inst.components.inventoryitem then
 --                 play_scream = inst.components.inventoryitem.owner == nil
