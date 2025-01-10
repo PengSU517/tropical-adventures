@@ -102,7 +102,7 @@ modimport("postinit/prefabs/dock_kit") --甲板相关
 modimport("postinit/prefabs/wobster")
 modimport("postinit/prefabs/meatrack")
 modimport("postinit/prefabs/mosquitosack")
-
+modimport("postinit/prefabs/trinket_1")
 
 --widgets
 

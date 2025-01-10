@@ -312,7 +312,7 @@
         <Element name="spear_poison.tex" u1="0.523193" u2="0.553467" v1="0.38623" v2="0.446777"/>
         <Element name="spider_tropical.tex" u1="0.523193" u2="0.553467" v1="0.324707" v2="0.385254"/>
         <Element name="spidercoralhole.tex" u1="0.523193" u2="0.553467" v1="0.263184" v2="0.32373"/>
-        <Element name="spoiled_fish.tex" u1="0.523193" u2="0.553467" v1="0.20166" v2="0.262207"/>
+        <Element name="spoiled_fish_large.tex" u1="0.523193" u2="0.553467" v1="0.20166" v2="0.262207"/>
         <Element name="stinkray.tex" u1="0.523193" u2="0.553467" v1="0.140137" v2="0.200684"/>
         <Element name="stopwatch.tex" u1="0.523193" u2="0.553467" v1="0.0786133" v2="0.13916"/>
         <Element name="stunrod.tex" u1="0.523193" u2="0.553467" v1="0.0170898" v2="0.0776367"/>
@@ -320,17 +320,17 @@
         <Element name="surfboard.tex" u1="0.584717" u2="0.61499" v1="0.755371" v2="0.815918"/>
         <Element name="surfboard_item.tex" u1="0.553955" u2="0.584229" v1="0.754395" v2="0.814941"/>
         <Element name="surfboarditem.tex" u1="0.64624" u2="0.676514" v1="0.815918" v2="0.876465"/>
-        <Element name="sw_trinket_13.tex" u1="0.677002" u2="0.707275" v1="0.815918" v2="0.876465"/>
-        <Element name="sw_trinket_14.tex" u1="0.707764" u2="0.738037" v1="0.815918" v2="0.876465"/>
-        <Element name="sw_trinket_15.tex" u1="0.738525" u2="0.768799" v1="0.815918" v2="0.876465"/>
-        <Element name="sw_trinket_16.tex" u1="0.769287" u2="0.799561" v1="0.815918" v2="0.876465"/>
-        <Element name="sw_trinket_17.tex" u1="0.800049" u2="0.830322" v1="0.815918" v2="0.876465"/>
-        <Element name="sw_trinket_18.tex" u1="0.830811" u2="0.861084" v1="0.815918" v2="0.876465"/>
-        <Element name="sw_trinket_19.tex" u1="0.861572" u2="0.891846" v1="0.815918" v2="0.876465"/>
-        <Element name="sw_trinket_20.tex" u1="0.892334" u2="0.922607" v1="0.815918" v2="0.876465"/>
-        <Element name="sw_trinket_21.tex" u1="0.923096" u2="0.953369" v1="0.815918" v2="0.876465"/>
-        <Element name="sw_trinket_22.tex" u1="0.953857" u2="0.984131" v1="0.815918" v2="0.876465"/>
-        <Element name="sw_trinket_23.tex" u1="0.553955" u2="0.584229" v1="0.692871" v2="0.753418"/>
+        <Element name="trinket_sw_13.tex" u1="0.677002" u2="0.707275" v1="0.815918" v2="0.876465"/>
+        <Element name="trinket_sw_14.tex" u1="0.707764" u2="0.738037" v1="0.815918" v2="0.876465"/>
+        <Element name="trinket_sw_15.tex" u1="0.738525" u2="0.768799" v1="0.815918" v2="0.876465"/>
+        <Element name="trinket_sw_16.tex" u1="0.769287" u2="0.799561" v1="0.815918" v2="0.876465"/>
+        <Element name="trinket_sw_17.tex" u1="0.800049" u2="0.830322" v1="0.815918" v2="0.876465"/>
+        <Element name="trinket_sw_18.tex" u1="0.830811" u2="0.861084" v1="0.815918" v2="0.876465"/>
+        <Element name="trinket_sw_19.tex" u1="0.861572" u2="0.891846" v1="0.815918" v2="0.876465"/>
+        <Element name="trinket_sw_20.tex" u1="0.892334" u2="0.922607" v1="0.815918" v2="0.876465"/>
+        <Element name="trinket_sw_21.tex" u1="0.923096" u2="0.953369" v1="0.815918" v2="0.876465"/>
+        <Element name="trinket_sw_22.tex" u1="0.953857" u2="0.984131" v1="0.815918" v2="0.876465"/>
+        <Element name="trinket_sw_23.tex" u1="0.553955" u2="0.584229" v1="0.692871" v2="0.753418"/>
         <Element name="swbait.tex" u1="0.553955" u2="0.584229" v1="0.631348" v2="0.691895"/>
         <Element name="sweet_potato.tex" u1="0.553955" u2="0.584229" v1="0.569824" v2="0.630371"/>
         <Element name="sweet_potato_cooked.tex" u1="0.553955" u2="0.584229" v1="0.508301" v2="0.568848"/>
