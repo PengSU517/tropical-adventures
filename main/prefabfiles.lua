@@ -619,7 +619,7 @@ PrefabFiles = {
     "wind_conch",
     "windswirl",
     "windtrail",
-    "woodlegs_boatcannon",
+    "obsidian_boatcannon",
     "woodlegs_cage",
     "woodlegs_keys",
     "woodlegs_unlock",

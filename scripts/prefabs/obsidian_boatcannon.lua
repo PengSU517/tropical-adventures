@@ -1,5 +1,6 @@
 local assets =
 {
+    Asset("ANIM", "anim/cannon_obsidian.zip"),
     Asset("ANIM", "anim/swap_cannon_pirate.zip"),
 }
 
@@ -73,9 +74,9 @@ local function fn(Sim)
     inst.entity:AddAnimState()
     inst.entity:AddNetwork()
 
-    inst.AnimState:SetBank("cannon")
-    inst.AnimState:SetBuild("swap_cannon_pirate")
-    inst.AnimState:PlayAnimation("anim")
+    inst.AnimState:SetBank("cannon_obsidian")
+    inst.AnimState:SetBuild("cannon_obsidian")
+    inst.AnimState:PlayAnimation("idle")
 
     MakeInventoryPhysics(inst)
     --    MakeInventoryFloatable(inst, "idle_water", "idle")
@@ -120,4 +121,4 @@ local function fn(Sim)
     return inst
 end
 
-return Prefab("common/inventory/woodlegs_boatcannon", fn, assets, prefabs)
+return Prefab("obsidian_boatcannon", fn, assets, prefabs)
