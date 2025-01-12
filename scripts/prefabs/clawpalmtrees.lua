@@ -49,9 +49,9 @@ local builds =
 	normal = {
 		file = "claw_tree_build",
 		prefab_name = "clawpalmtree",
-		normal_loot = { "cork", "cork", "clawpalmtree_cone" },                      -- "jungletreeseed"
 		short_loot = { "cork" },
-		tall_loot = { "cork", "cork", "cork", "clawpalmtree_cone", "clawpalmtree_cone" }, -- "jungletreeseed", "jungletreeseed"
+		normal_loot = { "cork", "cork"},
+		tall_loot = { "cork", "cork", "cork", "clawpalmtree_cone"},
 	},
 }
 

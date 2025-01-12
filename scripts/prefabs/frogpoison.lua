@@ -107,7 +107,8 @@ local function fn()
     MakeHauntablePanic(inst)
 
     inst:AddComponent("lootdropper")
-    inst.components.lootdropper:SetLoot({ "froglegs" })
+    inst.components.lootdropper:AddChanceLoot("froglegs", 1)
+	inst.components.lootdropper:AddChanceLoot("venomgland", 0.5)
 
     inst:AddComponent("knownlocations")
     inst:AddComponent("inspectable")

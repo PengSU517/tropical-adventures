@@ -507,6 +507,10 @@ AddRecipe2("shears", { Ingredient("twigs", 2), Ingredient("iron", 2) }, TECH.SCI
 	{ "TOOLS" })
 AddRecipe2("bugrepellent", { Ingredient("tuber_crop", 6), Ingredient("venus_stalk", 1) },
 	TECH.SCIENCE_ONE, {}, { "TOOLS" })
+AddRecipe2("clawpalmtree_cone", {Ingredient("cork", 1), Ingredient("poop", 1)}, TECH.SCIENCE_ONE, {
+    }, {"REFINE"})
+AddRecipe2("venomgland", {Ingredient("froglegs_poison", 3)}, TECH.SCIENCE_TWO, {
+    }, {"REFINE"})
 AddRecipe2("goldpan", { Ingredient("iron", 2), Ingredient("hammer", 1) }, TECH.SCIENCE_ONE, {},
 	{ "TOOLS", "LEGACY" })
 AddRecipe2("bathat", { Ingredient("pigskin", 2), Ingredient("batwing", 1), Ingredient("compass", 1) },
