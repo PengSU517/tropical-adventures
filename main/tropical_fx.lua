@@ -8,7 +8,7 @@ local HAM_FX =
     	build = "chop_mangrove_pink",
     	anim = "chop",
     	dlc = true,
-	},	
+	},
     {
     	name = "fall_mangrove_pink",
     	bank = "chop_mangrove",
@@ -17,9 +17,24 @@ local HAM_FX =
     	dlc = true,
 	},
 	{
-	    name = "hacking_tall_grass_fx", 
-	    bank = "hacking_fx", 
-	    build = "hacking_tall_grass_fx", 
+        name = "chop_mangrove_blue",
+        bank = "chop_mangrove",
+        build = "chop_mangrove_blue",
+        anim = "chop",
+		dlc = true,
+    },
+    {
+        name = "fall_mangrove_blue",
+        bank = "chop_mangrove",
+        build = "chop_mangrove_blue",
+        anim = "fall",
+		dlc = true,
+    },
+
+	{
+	    name = "hacking_tall_grass_fx",
+	    bank = "hacking_fx",
+	    build = "hacking_tall_grass_fx",
 	    anim = "idle",
 	    dlc = true,
     },
@@ -93,14 +108,14 @@ local HAM_FX =
 	    anim = "idle",
 	    dlc = true,
     },
-	
+
 	{
 		name = "circle_puff_fx",
     	bank = "circle_puff_fx",
     	build = "circle_puff_fx",
     	anim = "idle",
     	dlc = true,
-	},  
+	},
     {
 	    name = "sparklefx",
 	    bank = "sparklefx",
@@ -109,7 +124,7 @@ local HAM_FX =
 	    sound = "dontstarve/common/chest_positive",
 	    tintalpha = 0.6,
 	    --transform = Vector3(1.5, 1, 1)
-    },	
+    },
 
     {
 	    name = "groundpound_fx_hulk",
@@ -118,36 +133,36 @@ local HAM_FX =
 	    sound = "dontstarve_DLC003/creatures/boss/hulk_metal_robot/dust",
     	anim = "idle",
 	    dlc = true,
-    },    
+    },
     {
-        name = "laser_burst_fx", 
-        bank = "laser_ring_fx", 
-        build = "laser_ring_fx", 
+        name = "laser_burst_fx",
+        bank = "laser_ring_fx",
+        build = "laser_ring_fx",
         anim = "idle",
-        dlc = true,        
-    },    
+        dlc = true,
+    },
     {
-        name = "living_suit_explode_fx", 
-        bank = "living_suit_explode_fx", 
-        build = "living_suit_explode_fx", 
+        name = "living_suit_explode_fx",
+        bank = "living_suit_explode_fx",
+        build = "living_suit_explode_fx",
         anim = "idle",
-        dlc = true,        
-    },   	
+        dlc = true,
+    },
     {
-        name = "rock_hit_debris", 
-        bank = "rock_hit_debris", 
-        build = "rock_hit_debris", 
+        name = "rock_hit_debris",
+        bank = "rock_hit_debris",
+        build = "rock_hit_debris",
         anim = "hit_rock_ruins",
-        dlc = true,        
-    },	
-	
+        dlc = true,
+    },
+
 	{
 	    name = "poop_splat",
 	    bank = "ground_breaking",
 	    build = "ground_chunks_breaking",
 	    anim = "idle",
 	    tint = Vector3(183/255,143/255,85/255),
-	},	
+	},
     {
 	    name = "shock_machines_fx",
 	    bank = "shock_machines_fx",
@@ -162,7 +177,7 @@ local HAM_FX =
 	    build = "hacking_bamboo_fx",
 	    anim = "idle",
 	    dlc = true,
-    },	
+    },
 	{
     	name = "jungle_chop",
     	bank = "chop_jungle",
@@ -191,14 +206,14 @@ local HAM_FX =
     	anim = "fall",
     	dlc = true,
 	},
-	
+
     {
-        name = "vortex_cloak_fx", 
-        bank = "vortex_cloak_fx", 
-        build = "vortex_cloak_fx", 
+        name = "vortex_cloak_fx",
+        bank = "vortex_cloak_fx",
+        build = "vortex_cloak_fx",
         anim = "idle",
-        dlc = true,        
-    },	
+        dlc = true,
+    },
 }
 
 GLOBAL.require("fx")
