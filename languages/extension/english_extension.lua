@@ -126,7 +126,7 @@ return {
     CAVE_EXIT_VULCAO = "Volcano Exit",
     CHICKENHOUSE = "Chicken House",
     CITY_LAMP2 = "Lamp Post",
-    CLAWPALMTREE_CONE = "Jungle Burr",
+    CLAWPALMTREE_CONE = "Claw Palm Tree Cone",
     CLAYHOUNDB = "Hound",
     COI = "Dead Coi",
     COI_COOKED = "Coi Cooked",
