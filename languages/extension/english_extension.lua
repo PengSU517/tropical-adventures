@@ -452,7 +452,7 @@ return {
     RADISH_OVERSIZED_ROTTEN = "Radish Oversized Rotten",
     RADISH_OVERSIZED_WAXED = "Radish Oversized Waxed",
     RAFT_OLD = "Raft",
-    RAINFORESTTREE_CONE = "Rain forest Cone",
+    BURR = "Rain forest Cone",
     RAINFORESTTREE_SAPLING = "Rain forest Sapling",
     RECONSTRUCTION_PROJECT = "rubble.",
     RENO_ANTIQUITIES_BEEFALO = "Beefalo Mounting",

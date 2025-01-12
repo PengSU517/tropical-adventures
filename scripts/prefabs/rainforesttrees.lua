@@ -86,9 +86,9 @@ local builds =
 	blooming = {
 		file = "tree_rainforest_bloom_build",
 		prefab_name = "rainforesttree",
-		normal_loot = { "log", "log", "rainforesttree_cone" },                       -- "jungletreeseed"
+		normal_loot = { "log", "log", "burr" },                       -- "jungletreeseed"
 		short_loot = { "log" },
-		tall_loot = { "log", "log", "log", "rainforesttree_cone", "rainforesttree_cone" }, -- "jungletreeseed", "jungletreeseed"
+		tall_loot = { "log", "log", "log", "burr", "burr" }, -- "jungletreeseed", "jungletreeseed"
 	}
 }
 
