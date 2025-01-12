@@ -95,5 +95,5 @@ local function sapling_fn(build, anim, growprefab, tag, fireproof, overrideloot)
 end
 
 return Prefab("rainforesttree_sapling",
-    sapling_fn("rainforesttree_cone", "idle_planted", "rainforesttree_short", "rainforesttree", true), pinecone_assets,
+    sapling_fn("burr", "idle_planted", "rainforesttree_short", "rainforesttree", true), pinecone_assets,
     pinecone_prefabs)

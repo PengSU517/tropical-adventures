@@ -882,7 +882,7 @@ return {
     RADISH_OVERSIZED_WAXED = "打过蜡的巨型萝卜",
     RAFT_OLD = "竹筏",
     RAINBOWJELLYFISH_UNDERWATER = "彩虹水母",
-    RAINFORESTTREE_CONE = "雨林树种",
+    BURR = "雨林树种",
     RAINFORESTTREE_SAPLING = "雨林树苗",
     RECONSTRUCTION_PROJECT = "废墟",
     REDBARRELUNDERWATER = "火药桶",
