@@ -21,6 +21,13 @@ local prefabs =
 	"dragoon_charge_fx",
 }
 
+SetSharedLootTable( 'dragoon',
+{
+    {'monstermeat',  1.0},
+    {'monstermeat',  1.0},
+    {'dragoonheart', .25},
+})
+
 local DRAGOON_TARGET_DIST = 6
 
 local WAKE_TO_FOLLOW_DISTANCE = 8
@@ -175,9 +182,7 @@ local function fn()
 
 	inst:AddComponent("lootdropper")
 	inst.components.lootdropper:SetLoot({})
-	inst.components.lootdropper:AddRandomLoot("monstermeat", 1)
-	inst.components.lootdropper:AddRandomLoot("dragoonheart", 1)
-	inst.components.lootdropper.numrandomloot = 1
+	inst.components.lootdropper:SetChanceLootTable("dragoon")
 
 	inst:AddComponent("eater")
 	inst:AddComponent("inspectable")
