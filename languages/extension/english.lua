@@ -3837,8 +3837,8 @@ TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_DEBRIS3                    = "Th
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_DEBRIS4                    = "It's in the sticks."
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.BASEFAN                             = "Fan-tastic."
-TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.SPRINKLER1                          = "Water you think it's for?"
-TA_STRINGS.RECIPE_DESC.SPRINKLER1                                          = "Water you think it's for?"
+TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.SPRINKLER                          = "Water you think it's for?"
+TA_STRINGS.RECIPE_DESC.SPRINKLER                                          = "Water you think it's for?"
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.NETTLELOSANGE                       = "Innocuous inoculation."
 
@@ -4056,7 +4056,7 @@ TA_STRINGS.NAMES.MANDRAKEMAN                                               = "El
 TA_STRINGS.NAMES.MANDRAKEHOUSE                                             = "Mandrake Hill"
 
 TA_STRINGS.NAMES.BASEFAN                                                   = "Oscillating Fan"
-TA_STRINGS.NAMES.SPRINKLER1                                                = "Sprinkler"
+TA_STRINGS.NAMES.SPRINKLER                                                = "Sprinkler"
 
 -- HOME DECO ITEMS
 TA_STRINGS.NAMES.INTERIOR_FLOOR_MARBLE                                     = "Marble Flooring"

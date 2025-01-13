@@ -547,7 +547,7 @@ AddRecipe2("roottrunk_child",
 	TECH.SCIENCE_ONE, { min_spacing = 1, placer = "roottrunk_child_placer" }, { "CONTAINERS" })
 AddRecipe2("basefan", { Ingredient("alloy", 2), Ingredient("transistor", 2), Ingredient("gears", 1) },
 	TECH.SCIENCE_TWO, { placer = "basefan_placer" }, { "PROTOTYPERS" })
-AddRecipe2("sprinkler1", { Ingredient("alloy", 2), Ingredient("bluegem", 1), Ingredient("ice", 6) },
+AddRecipe2("sprinkler", { Ingredient("alloy", 2), Ingredient("bluegem", 1), Ingredient("ice", 6) },
 	TECH.SCIENCE_TWO, { placer = "sprinkler1_placer" }, { "GARDENING" })
 AddRecipe2("smelter", { Ingredient("cutstone", 6), Ingredient("boards", 4), Ingredient("redgem", 1) },
 	TECH.SCIENCE_TWO, { placer = "smetler_placer" }, { "PROTOTYPERS" })
@@ -1768,7 +1768,7 @@ SortAfter("antchest", "saltbox", "STRUCTURES")
 SortAfter("antchest", "saltbox", "CONTAINERS")
 SortAfter("antchest", "saltbox", "COOKING")
 SortAfter("antchest", "beebox", "GARDENING")
-SortBefore("sprinkler1", "beebox", "GARDENING")
+SortBefore("sprinkler", "beebox", "GARDENING")
 SortAfter("porto_lograft", "seafaring_prototyper", "SEAFARING")
 SortAfter("porto_raft", "porto_lograft", "SEAFARING")
 SortAfter("boatmetal_item", "boat_item", "SEAFARING")

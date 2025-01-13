@@ -610,7 +610,7 @@ end
 
 require "prefabutil"
 
-return Prefab("sprinkler1", fn, assets, prefabs),
+return Prefab("sprinkler", fn, assets, prefabs),
 	MakePlacer("common/sprinkler1_placer", "sprinkler_placement", "sprinkler_placement", "idle", true, nil, nil, 1.4, nil,
 		nil, nil, nil, nil, nil)
 --MakePlacer("common/sprinkler1_placer", "sprinkler_placement", "sprinkler_placement", "idle", true, nil, nil, 1.4, nil, nil, nil, nil, nil, PlaceTestFn)
