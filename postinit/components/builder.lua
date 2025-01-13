@@ -398,7 +398,7 @@ AddComponentPostInit("builder", function(self)
 
 	function self:MakeRecipeAtPoint(recipe, pt, rot, skin)
 		----------------------------------------------------------
-		if recipe.product == "sprinkler1" and (GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.FARMING_SOIL) then
+		if recipe.product == "sprinkler" and (GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.FARMING_SOIL) then
 			return
 				self:MakeRecipe(recipe, pt, rot, skin)
 		end
@@ -501,7 +501,7 @@ AddClassPostConstruct("components/builder_replica", function(self)
 	end
 
 	function self:CanBuildAtPoint(pt, recipe, rot)
-		if recipe.product == "sprinkler1" and (GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.FARMING_SOIL) then return true end
+		if recipe.product == "sprinkler" and (GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.FARMING_SOIL) then return true end
 
 		if (GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.UNDERWATER_SANDY) then return false end                          --adicionado por vagner
 		if (GLOBAL.TheWorld.Map:GetTile(GLOBAL.TheWorld.Map:GetTileCoordsAtPoint(pt:Get())) == GROUND.UNDERWATER_ROCKY) then return false end                          --adicionado por vagner
