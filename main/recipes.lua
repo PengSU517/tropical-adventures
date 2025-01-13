@@ -773,16 +773,16 @@ AddRecipe2("lawnornament_6", { Ingredient("cutstone", 2), Ingredient("oinc", 7) 
 AddRecipe2("lawnornament_7", { Ingredient("cutstone", 2), Ingredient("oinc", 7) }, TECH.CITY_ONE,
 	{ nounlock = false, min_spacing = 1, placer = "lawnornament_7_placer", image = "lawnornament_7.tex" },
 	{ "HAMLET" })
-AddRecipe2("topiary_1", { Ingredient("cutstone", 2), Ingredient("oinc", 9) }, TECH.CITY_ONE,
+AddRecipe2("topiary_1", { Ingredient("oinc", 10) }, TECH.CITY_ONE,
 	{ nounlock = false, min_spacing = 1, placer = "topiary_1_placer", image = "topiary_1.tex" },
 	{ "HAMLET" })
-AddRecipe2("topiary_2", { Ingredient("cutstone", 2), Ingredient("oinc", 9) }, TECH.CITY_ONE,
+AddRecipe2("topiary_2", { Ingredient("oinc", 10) }, TECH.CITY_ONE,
 	{ nounlock = false, min_spacing = 1, placer = "topiary_2_placer", image = "topiary_2.tex" },
 	{ "HAMLET" })
-AddRecipe2("topiary_3", { Ingredient("cutstone", 2), Ingredient("oinc", 9) }, TECH.CITY_ONE,
+AddRecipe2("topiary_3", { Ingredient("oinc", 12) }, TECH.CITY_ONE,
 	{ nounlock = false, min_spacing = 1, placer = "topiary_3_placer", image = "topiary_3.tex" },
 	{ "HAMLET" })
-AddRecipe2("topiary_4", { Ingredient("cutstone", 2), Ingredient("oinc", 9) }, TECH.CITY_ONE,
+AddRecipe2("topiary_4", { Ingredient("oinc", 12) }, TECH.CITY_ONE,
 	{ nounlock = false, min_spacing = 1, placer = "topiary_4_placer", image = "topiary_4.tex" },
 	{ "HAMLET" })
 AddRecipe2("turf_foundation", { Ingredient("cutstone", 1) }, TECH.CITY_ONE, {
