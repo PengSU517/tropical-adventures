@@ -10,11 +10,11 @@ local prefabs =
 
 SetSharedLootTable('reconstruction_project',
     {
-        { "boards",   1.00 },
-        { "boards",   1.00 },
-        { "pigskin",  1.00 },
-        { "pigskin",  1.00 },
-        { "cutstone", 2.00 },
+        { "boards", 1.00 },
+        { "boards", 0.50 },
+        { "pigskin", 1.00 },
+        { "pigskin", 0.50 },
+        { "cutstone", 1.00 },
     })
 
 SetSharedLootTable('lawnornamentsdrop',
@@ -23,6 +23,20 @@ SetSharedLootTable('lawnornamentsdrop',
         { "oinc", 1.00 },
         { "oinc", 1.00 },
         { "oinc", 1.00 },
+        { "cutstone", 1.00 },
+    })
+
+SetSharedLootTable('topiarymedium',
+    {
+        { "oinc", 1.00 },
+        { "oinc", 1.00 },
+        { "oinc", 1.00 },
+        { "oinc", 1.00 },
+        { "oinc", 1.00 },
+    })
+
+SetSharedLootTable('topiarylarge',
+    {
         { "oinc", 1.00 },
         { "oinc", 1.00 },
         { "oinc", 1.00 },
@@ -33,9 +47,9 @@ SetSharedLootTable('lawnornamentsdrop',
 
 SetSharedLootTable('lamp_post',
     {
-        { "alloy",      1.00 },
+        { "alloy", 1.00 },
         { "transistor", 1.00 },
-        { "lantern",    1.00 },
+        { "lantern", 1.00 },
     })
 
 
@@ -62,9 +76,6 @@ local function fix(inst, fixer)
         newprop.AnimState:PlayAnimation("place")
         newprop.AnimState:PushAnimation("idle")
         if inst.cityID then
-            if not newprop.components.citypossession then
-                newprop:AddComponent("citypossession")
-            end
             newprop.components.citypossession:SetCity(inst.cityID)
             if newprop.citypossessionfn then
                 newprop.citypossessionfn(newprop)
@@ -94,11 +105,23 @@ local function onhammered(inst, worker)
         SpawnPrefab("collapse_big").Transform:SetPosition(inst.Transform:GetWorldPosition())
         inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
 
-        if inst.reconstruction_stages[inst.reconstruction_stage].bank and inst.reconstruction_stages[inst.reconstruction_stage].bank == "topiary" then
+        local bank = inst.reconstruction_stages[inst.reconstruction_stage].bank
+
+        if bank and bank == bank:match("topiary0[1-7]") then
             inst.components.lootdropper:SetChanceLootTable('lawnornamentsdrop')
         end
 
-        if inst.reconstruction_stages[inst.reconstruction_stage].bank and inst.reconstruction_stages[inst.reconstruction_stage].bank == "lamp_post" then
+        if bank and bank == bank:match("topiary_pigman")
+        or bank and bank == bank:match("topiary_werepig")then
+            inst.components.lootdropper:SetChanceLootTable('topiarymedium')
+        end
+
+        if bank and bank == bank:match("topiary_beefalo")
+        or bank and bank == bank:match("topiary_pigking")then
+            inst.components.lootdropper:SetChanceLootTable('topiarylarge')
+        end
+
+        if bank and bank == bank:match("lamp_post") then
             inst.components.lootdropper:SetChanceLootTable('lamp_post')
         end
 
@@ -245,7 +268,7 @@ function GetSpawnPoint(inst, pt)
     --        return
     --    end
 
-    local theta = math.random() * 2 * PI
+    local theta = math.random() * TWOPI
     local radius = OFF_SCREENDIST
 
     local offset = FindWalkableOffset(pt, theta, radius, 12, true)
@@ -327,6 +350,9 @@ local function fn(Sim)
     --MakeObstaclePhysics(inst, .25)
 
     inst.entity:AddSoundEmitter()
+
+    inst.entity:AddMiniMapEntity()
+    inst.MiniMapEntity:SetIcon("rubble.png")
 
     anim:SetBank("pig_house")
     anim:SetBuild("pig_house")
