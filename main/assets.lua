@@ -68,7 +68,6 @@ Assets =
 	Asset("ANIM", "anim/parrot_pirate_build.zip"),
 	Asset("ANIM", "anim/cormorant_build.zip"),
 	Asset("ANIM", "anim/seagull_build.zip"),
-	Asset("ANIM", "anim/quagmire_pigeon_build.zip"),
 	Asset("ANIM", "anim/skeletons.zip"),
 	Asset("ANIM", "anim/vagner_over.zip"),
 	Asset("ANIM", "anim/leaves_canopy2.zip"),
