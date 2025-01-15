@@ -1,14 +1,14 @@
 local birdvstile = {
     [WORLD_TILES.OCEAN_COASTAL] = { "puffin", "cormorant" },
     [WORLD_TILES.OCEAN_COASTAL_SHORE] = { "puffin", "cormorant" },
-    [WORLD_TILES.OCEAN_SWELL] = { "puffin", "cormorant", "seagullwater" },
-    [WORLD_TILES.OCEAN_ROUGH] = { "puffin", "seagullwater", "cormorant" },
-    [WORLD_TILES.OCEAN_BRINEPOOL] = { "puffin", "seagullwater" },
+    [WORLD_TILES.OCEAN_SWELL] = { "puffin", "cormorant", "seagull" },
+    [WORLD_TILES.OCEAN_ROUGH] = { "puffin", "seagull", "cormorant" },
+    [WORLD_TILES.OCEAN_BRINEPOOL] = { "puffin", "seagull" },
     [WORLD_TILES.OCEAN_BRINEPOOL_SHORE] = { "puffin" },
-    [WORLD_TILES.OCEAN_HAZARDOUS] = { "puffin", "seagullwater" },
+    [WORLD_TILES.OCEAN_HAZARDOUS] = { "puffin", "seagull" },
 
-    [WORLD_TILES.LILYPOND] = { "cormorant", "seagullwater" }, -------------------新添加----------------
-    [WORLD_TILES.MANGROVE] = { "puffin", "seagullwater" },
+    [WORLD_TILES.LILYPOND] = { "cormorant", "seagull" }, -------------------新添加----------------
+    [WORLD_TILES.MANGROVE] = { "puffin", "seagull" },
     [WORLD_TILES.RAINFOREST] = { "toucan_hamlet", "kingfisher", "parrot_blue" },
     [WORLD_TILES.DEEPRAINFOREST] = { "toucan_hamlet", "parrot_blue", "kingfisher" },
     [WORLD_TILES.GASJUNGLE] = { "parrot_blue" },

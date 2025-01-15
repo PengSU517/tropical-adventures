@@ -6800,6 +6800,74 @@ TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TRINKET_SW_22 = "I'm sure someone would l
 TA_STRINGS.NAMES.TRINKET_SW_23 = "Broken AAC Device"
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TRINKET_SW_23 = "Someone lost their words."
 
+TA_STRINGS.PARROTNAMES = {
+    "Danjaya","Sammy","Zoe","Kris","Trent",
+    "Harrison","Alethea","Jonny Dregs","Frankie","Pollygon",
+    "Vixel","Jean Claud Van Dan","Hank","Cutiepie","Vegetable",
+    "Scurvy","Black Beard","Octoparrot","Migsy","Amy",
+    "Victoire","Cornelius","Donny Jepp","Long John","Dr Hook",
+    "Horatio","Iago","Wilde","Murdoch","Lightoller",
+    "Boxhall","Moody","Phillips","Crackers","Fleet",
+    "Barrett","Sully","Reginald VelJohnson",
+    "Dan Van 3000","Van Dader","Harry"
+}
+TA_STRINGS.TALKINGBIRD = {
+    in_container = {
+    "Don't bury me!",
+    "Out, out!",
+    "Sunk!",
+    "Me eyes! Me eyes!",
+    "Too dark!"
+    },
+    in_inventory = {
+    "Adventure!",
+    "You stink!",
+    "SQUAAAWK!",
+    "Hey you!",
+    "Chump!",
+    "Nerd!",
+    "Treasure!",
+    "Walk the plank!",
+    "Cracker!"
+    },
+    on_dismounted = {
+    "Land!",
+    "Solid ground!",
+    "We made it!"
+    },
+    on_dropped = {
+    "Chump!",
+    "Bye now!",
+    "See ya chump!",
+    "Goodbye!"
+    },
+    on_ground = {
+    "Nice one!",
+    "Chump!",
+    "Big head!",
+    "You stink!"
+    },
+    on_mounted = {
+    "Onward!",
+    "Uh-oh!",
+    "Are you sure about this?"
+    },
+    on_pickedup = {
+    "Chump!",
+    "Hello!",
+    "Feed me!",
+    "I'm hungry!",
+    "Ouch!"
+    },
+    other_owner = {
+    "Help!",
+    "Ack!",
+    "Scurvy!",
+    "Save me!",
+    "I'm okay!"
+    }
+    }
+
 local TA_STRINGS = convertToPlainTable(TA_STRINGS)
 
 return TA_STRINGS
