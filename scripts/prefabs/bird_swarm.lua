@@ -2,7 +2,7 @@ require "prefabutil"
 
 local prefabs =
 {
-    "quagmire_pigeon"
+    "pigeon"
 }
 
 local assets =
@@ -35,7 +35,7 @@ local function spawn_pigeon(inst)
             TheWorld.Map:GetTileAtPoint(x, y, z + 2) ~= GROUND.OCEAN_COASTAL_SHORE and
             TheWorld.Map:GetTileAtPoint(x, y, z - 2) ~= GROUND.OCEAN_COASTAL_SHORE and not
             TheWorld.GroundCreep:OnCreep(x, y, z) then
-            local pigeon = SpawnPrefab("quagmire_pigeon")
+            local pigeon = SpawnPrefab("pigeon")
             pigeon.Physics:Teleport(x, 15, z)
             if math.random() < .5 then
                 pigeon.Transform:SetRotation(180)
