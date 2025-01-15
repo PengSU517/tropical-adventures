@@ -955,10 +955,77 @@ TA_STRINGS_CH.NAMES.CORMORANT = "鸬鹚"
 TA_STRINGS_CH.CHARACTERS.GENERIC.DESCRIBE.CORMORANT = "我敢打赌它吃了很多鱼。"
 
 TA_STRINGS_CH.NAMES.PARROT = "鹦鹉"
-TA_STRINGS_CH.CHARACTERS.GENERIC.DESCRIBE.PARROT = "我尽量不吃取了名字的东西。"
+TA_STRINGS_CH.CHARACTERS.GENERIC.DESCRIBE.PARROT = "我发现我的饼干刚用完了。"
 TA_STRINGS_CH.NAMES.PARROT_PIRATE = "海盗鹦鹉"
 TA_STRINGS_CH.CHARACTERS.GENERIC.DESCRIBE.PARROT_PIRATE = "我尽量不吃取了名字的东西。"
 
+TA_STRINGS_CH.PARROTNAMES = {
+    "丹佳亚","萨米","佐伊","克丽丝","特伦特",
+    "哈里森","阿勒西娅","乔尼・德雷格","弗兰克","波利冈",
+    "威克胜","尚格云顿","汉克","小甜心","蔬菜",
+    "斯卡威","黑胡子","奥克托帕罗","米格西","艾米",
+    "维多利亚","科尼利厄斯","德翰尼・约普","大个儿","虎克博士",
+    "霍雷肖","艾格","王尔德","默多克","莱托勒",
+    "博克霍尔","穆迪","菲利普斯","饼干","舰长",
+    "巴雷特","萨利","雷金纳德・韦尔约翰森",
+    "丹凡 3000","范・达德","哈利"
+}
+TA_STRINGS_CH.TALKINGBIRD = {
+    in_container = {
+    "别把我埋了！",
+    "我要出去，出去！",
+    "完蛋了！",
+    "我的眼睛！我的眼睛！",
+    "太黑了！"
+    },
+    in_inventory = {
+    "冒险！",
+    "你真臭！",
+    "嘎～！",
+    "喂～你！",
+    "笨蛋！",
+    "呆子！",
+    "宝藏！",
+    "走跳板！",
+    "饼干！"
+    },
+    on_dismounted = {
+    "着陆！",
+    "坚实的大地！",
+    "我们成功了！"
+    },
+    on_dropped = {
+    "笨蛋！",
+    "再见！",
+    "再见，笨蛋！",
+    "再见！"
+    },
+    on_ground = {
+    "不错！",
+    "笨蛋！",
+    "自以为是！",
+    "你真臭！"
+    },
+    on_mounted = {
+    "前进！",
+    "啊哦！",
+    "你确定吗？"
+    },
+    on_pickedup = {
+    "笨蛋！",
+    "你好！",
+    "喂我吃东西！",
+    "我饿了！",
+    "哎哟！"
+    },
+    other_owner = {
+    "救命啊！",
+    "啊！",
+    "卑鄙！",
+    "救救我！",
+    "我没事！"
+    }
+    }
 --------------------海难食物SWfood---------------------------------------------
 
 TA_STRINGS_CH.NAMES.SWEET_POTATO_PLANTED = "甘薯"
