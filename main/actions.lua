@@ -369,10 +369,17 @@ SHOP.fn = function(act)
                     return true
                 end
             else
-                act.doer.components.shopper:Take(act.target)
-                -- THIS IS WHAT HAPPENS IF ISWATCHING IS FALSE
-                act.target.components.shopdispenser:RemoveItem()
-                act.target:SetImage(nil)
+                -- act.doer.components.shopper:Take(act.target)
+                -- -- THIS IS WHAT HAPPENS IF ISWATCHING IS FALSE
+                -- -- print("SHOPPER IS NOT WATCHING")
+                -- act.target.components.shopdispenser:RemoveItem()
+                -- act.target:SetImage(nil)
+                --暂时不让偷东西
+                if act.target and act.target.shopkeeper_speech then
+                    act.target.shopkeeper_speech(act.target,
+                        STRINGS.CITY_PIG_SHOPKEEPER_CLOSING
+                        [math.random(1, #STRINGS.CITY_PIG_SHOPKEEPER_CLOSING)])
+                end
                 return true
             end
         end
@@ -1299,15 +1306,16 @@ AddAction(DESACTIVATESAIL)
 -- 渡渡羽毛扇摇扇动作写死在sg里了，没留overridebuild，勾一下
 AddStategraphPostInit("wilson", function(sg)
     local old_enter = sg.states["use_fan"].onenter
-    sg.states["use_fan"].onenter = function (inst, ...)
+    sg.states["use_fan"].onenter = function(inst, ...)
         old_enter(inst, ...)
         local invobject = nil
         if inst.bufferedaction ~= nil then
             invobject = inst.bufferedaction.invobject
         end
-        local src_symbol = invobject ~= nil and invobject.components.fan ~= nil and invobject.components.fan.overridesymbol
+        local src_symbol = invobject ~= nil and invobject.components.fan ~= nil and
+            invobject.components.fan.overridesymbol
         if src_symbol == "fan01" then
-            inst.AnimState:OverrideSymbol( "fan01", "fan_tropical", src_symbol )
+            inst.AnimState:OverrideSymbol("fan01", "fan_tropical", src_symbol)
         end
     end
 end)
