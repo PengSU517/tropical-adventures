@@ -6,6 +6,43 @@ local Utils = require("tools/utils")
 -----------map related--------------------------
 require("components/map")
 
+
+----种植判定改动
+local function FindVisualTileAtPoint_TestArea(map, pt_x, pt_z, r)
+    local best = { tile_type = WORLD_TILES.INVALID, render_layer = -1 }
+    for _z = -1, 1 do
+        for _x = -1, 1 do
+            local x, z = pt_x + _x * r, pt_z + _z * r
+
+            local tile_type = map:GetTileAtPoint(x, 0, z) -----这里判断地皮总有点不太合适，判断初始地皮会好一些
+            local tile_info = GetTileInfo(tile_type)
+            local render_layer = tile_info ~= nil and tile_info._render_layer or 0
+            if render_layer > best.render_layer then
+                best.tile_type = tile_type
+                best.render_layer = render_layer
+                best.x = x
+                best.z = z
+            end
+        end
+    end
+
+    return best.tile_type ~= WORLD_TILES.INVALID and best or nil
+end
+
+Map.FindVisualTileAtPoint = function(self, x, y, z)
+    local best = FindVisualTileAtPoint_TestArea(self, x, z, 0.95)
+    return (best ~= nil) and best.tile_type or 1 ---1应该是虚空吧
+end
+
+function Map:CanPlantAtPoint(x, y, z)
+    local tile = self:FindVisualTileAtPoint(x, y, z)
+    if not TileGroupManager:IsLandTile(tile) then
+        return false
+    end
+    return not GROUND_HARD[tile]
+end
+
+-------区域判定改动
 local function FindVisualNodeAtPoint_TestArea(map, pt_x, pt_z, r)
     local best = { tile_type = WORLD_TILES.INVALID, render_layer = -1 }
     for _z = -1, 1 do

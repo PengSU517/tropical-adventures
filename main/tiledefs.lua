@@ -754,7 +754,7 @@ local tro_tiledefs = {
             -- walksound = "walk_grass",
             flashpoint_modifier = 0,
             flooring = true,
-            hard = true,
+            hard = false,
         },
         minimap_tile_def = {
             name = "map_edge",
