@@ -142,23 +142,23 @@ end
 
 
 
-AddTask("HomeIsland_start", {
-    locks = { LOCKS.HARD },
-    keys_given = { KEYS.HARD },
-    region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
-    room_choices = {
-        ["JungleDenseMedHome"] = 2,
-        ["BeachUnkept"] = 1,
-        ["Shipwrecked start"] = 1,
-    },
-    room_bg = GROUND.JUNGLE,
-    background_room = "BeachSandHome",
-    colour = { r = 1, g = 1, b = 0, a = 1 }
-})
+-- AddTask("HomeIsland_start", {
+--     locks = LOCKS.NONE,
+--     keys_given = { KEYS.HARD },
+--     region_id = "shipwrecked",
+--     room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+--     room_choices = {
+--         ["JungleDenseMedHome"] = 2,
+--         ["BeachUnkept"] = 1,
+--         ["Shipwrecked start"] = 1,
+--     },
+--     room_bg = GROUND.JUNGLE,
+--     background_room = "BeachSandHome",
+--     colour = { r = 1, g = 1, b = 0, a = 1 }
+-- })
 
 AddTask("HomeIsland", {
-    locks = { LOCKS.HARD },
+    locks = LOCKS.NONE,
     keys_given = { KEYS.HARD },
     region_id = "shipwrecked",
     room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
