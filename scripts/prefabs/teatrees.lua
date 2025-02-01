@@ -11,24 +11,24 @@ local assets =
     Asset("SOUND", "sound/forest.fsb"),
 }
 
-local MIN_LEAF_CHANGE_TIME = .1 * 300
-local MAX_LEAF_CHANGE_TIME = 3 * 300
-local MIN_SWAY_FX_FREQUENCY = 1 * 30
-local MAX_SWAY_FX_FREQUENCY = 2 * 30
-local SWAY_FX_FREQUENCY = 1 * 3
-local DECID_MONSTER_MIN_DAY = 3
-local DECID_MONSTER_DAY_THRESHOLDS = { 20, 35, 70 }
-local DECID_MONSTER_SPAWN_CHANCE_BASE = .033
-local DECID_MONSTER_SPAWN_CHANCE_LOW = .08
-local DECID_MONSTER_SPAWN_CHANCE_MED = .15
-local DECID_MONSTER_SPAWN_CHANCE_HIGH = .33
+-- local MIN_LEAF_CHANGE_TIME = .1 * 300
+-- local MAX_LEAF_CHANGE_TIME = 3 * 300
+-- local MIN_SWAY_FX_FREQUENCY = 1 * 30
+-- local MAX_SWAY_FX_FREQUENCY = 2 * 30
+-- local SWAY_FX_FREQUENCY = 1 * 3
+-- local DECID_MONSTER_MIN_DAY = 3
+-- local DECID_MONSTER_DAY_THRESHOLDS = { 20, 35, 70 }
+-- local DECID_MONSTER_SPAWN_CHANCE_BASE = .033
+-- local DECID_MONSTER_SPAWN_CHANCE_LOW = .08
+-- local DECID_MONSTER_SPAWN_CHANCE_MED = .15
+-- local DECID_MONSTER_SPAWN_CHANCE_HIGH = .33
 
-local DECID_MONSTER_TARGET_DIST = 7
-local DECID_MONSTER_ATTACK_PERIOD = 2.3
-local DECID_MONSTER_ROOT_ATTACK_RADIUS = 3.7
-local DECID_MONSTER_DAMAGE = 30
-local DECID_MONSTER_ADDITIONAL_LOOT_CHANCE = .2
-local DECID_MONSTER_DURATION = 480 * .5
+-- local DECID_MONSTER_TARGET_DIST = 7
+-- local DECID_MONSTER_ATTACK_PERIOD = 2.3
+-- local DECID_MONSTER_ROOT_ATTACK_RADIUS = 3.7
+-- local DECID_MONSTER_DAMAGE = 30
+-- local DECID_MONSTER_ADDITIONAL_LOOT_CHANCE = .2
+-- local DECID_MONSTER_DURATION = 480 * .5
 local day_time = 300
 local DECIDUOUS_GROW_TIME =
 {
@@ -41,9 +41,9 @@ local DECIDUOUS_GROW_TIME =
 local DECIDUOUS_CHOPS_SMALL = 5
 local DECIDUOUS_CHOPS_NORMAL = 10
 local DECIDUOUS_CHOPS_TALL = 15
-local DECIDUOUS_CHOPS_MONSTER = 12
-local DECIDUOUS_WINDBLOWN_SPEED = 0.2
-local DECIDUOUS_WINDBLOWN_FALL_CHANCE = 0.01
+-- local DECIDUOUS_CHOPS_MONSTER = 12
+-- local DECIDUOUS_WINDBLOWN_SPEED = 0.2
+-- local DECIDUOUS_WINDBLOWN_FALL_CHANCE = 0.01
 
 local prefabs =
 {
@@ -103,11 +103,7 @@ local tall_anims = makeanims("tall")
 local normal_anims = makeanims("normal")
 
 local function GetBuild(inst)
-    local build = builds[inst.build]
-    if build == nil then
-        return builds["normal"]
-    end
-    return build
+    return inst.build and builds[inst.build] or builds["normal"]
 end
 
 local function SpawnLeafFX(inst, waittime, chop)
@@ -390,14 +386,14 @@ local growth_stages =
 }
 
 local function detachchild(inst)
-    if inst.components.spawner and inst.components.spawner.child then
-        local child = inst.components.spawner.child
-        if child.components.knownlocations then
-            print("CLEARIGN HOME")
-            child.components.knownlocations:ForgetLocation("home")
-        end
-        child:RemoveComponent("homeseeker")
-    end
+    -- if inst.components.spawner and inst.components.spawner.child then
+    --     local child = inst.components.spawner.child
+    --     if child.components.knownlocations then
+    --         print("CLEARIGN HOME")
+    --         child.components.knownlocations:ForgetLocation("home")
+    --     end
+    --     child:RemoveComponent("homeseeker")
+    -- end
 end
 
 local function chop_tree(inst, chopper, chops)
@@ -471,9 +467,10 @@ local function chop_down_tree(inst, chopper)
 
     inst.components.inventory:DropEverything(false, false)
 
-    if inst.components.spawner and inst.components.spawner:IsOccupied() then
-        inst.components.spawner:ReleaseChild()
-    end
+    -- if inst.components.spawner and inst.components.spawner:IsOccupied() then
+    --     inst.components.spawner:ReleaseChild()
+    -- end
+
 
     detachchild(inst)
 
@@ -569,7 +566,8 @@ local function onburntchanges(inst)
 
     detachchild(inst)
 
-    inst:RemoveComponent("spawner")
+    -- inst:RemoveComponent("spawner")
+    inst:RemoveComponent("childspawner")
 
     inst.AnimState:PlayAnimation(inst.anims.burnt, true)
     inst.MiniMapEntity:SetIcon("teatree_burnt.tex")
@@ -691,16 +689,16 @@ local function OnIgnite(inst)
         inst.components.deciduoustreeupdater:SpawnIgniteWave()
     end
 
-    if inst.components.spawner then
-        local child = inst.components.spawner.child
-        if child then
-            child.components.knownlocations:ForgetLocation("home")
-        end
+    -- if inst.components.spawner then
+    --     local child = inst.components.spawner.child
+    --     if child then
+    --         child.components.knownlocations:ForgetLocation("home")
+    --     end
 
-        if inst.components.spawner:IsOccupied() then
-            inst.components.spawner:ReleaseChild()
-        end
-    end
+    --     if inst.components.spawner:IsOccupied() then
+    --         inst.components.spawner:ReleaseChild()
+    --     end
+    -- end
 end
 
 local function OnEntitySleep(inst)
@@ -778,24 +776,12 @@ local function OnEntityWake(inst)
     end
 end
 
-local function GetChild(inst)
-    if math.random() < 0.2 then
-        return "piko_orange"
-    end
-    return "piko"
-end
-
-local function startspawning(inst)
-    if inst.components.spawner then
-        inst.components.spawner:SpawnWithDelay(2 + math.random(20))
-    end
-end
-
-local function stopspawning(inst)
-    if inst.components.spawner then
-        inst.components.spawner:CancelSpawning()
-    end
-end
+-- local function GetChild(inst)
+--     if math.random() < 0.2 then
+--         return "piko_orange"
+--     end
+--     return "piko"
+-- end
 
 local function OnSpawned(inst, child)
     child.sg:GoToState("descendtree")
@@ -803,9 +789,9 @@ end
 
 local function testspawning(inst)
     if TheWorld.state.isday or (TheWorld.state.moonphase == "new" and TheWorld.state.isnight) then
-        startspawning(inst)
+        inst.components.childspawner:StartSpawning()
     else
-        stopspawning(inst)
+        inst.components.childspawner:StopSpawning()
     end
 end
 
@@ -819,16 +805,14 @@ local function onoccupied(inst, child)
 end
 
 local function setupspawner(inst)
-    WorldSettings_Spawner_SpawnDelay(inst, TUNING.TOTAL_DAY_TIME, true)
-    -- Runar: 我真服了,运行不了不运行就行了是吧,原来的生成时间和概率也不对,一并改了
-    if math.random() < 0.25 then
-        inst.components.spawner:Configure("piko_orange", 8) --TUNING.PIKO_RESPAWN_TIME
-    else
-        inst.components.spawner:Configure("piko", 8)        --TUNING.PIKO_RESPAWN_TIME
-    end
-    --    inst.components.spawner.childfn = GetChild
-    --    inst.components.spawner:SetOnSpawnedFn(OnSpawned)
-    inst.components.spawner:SetOnOccupiedFn(onoccupied)
+    local childspawner = inst:AddComponent("childspawner")
+    childspawner.childname = "piko"
+    childspawner:SetRareChild("piko_orange", .25)
+    -- 调整测试
+    childspawner:SetRegenPeriod(TUNING.TOTAL_DAY_TIME) -- 什么时间
+    childspawner:SetSpawnPeriod(8) -- 出巢与再次生成的时间?
+    childspawner:SetMaxChildren(1)
+    childspawner:StartSpawning()
     inst:AddTag("dumpchildrenonignite")
     -- This tag allows the piko to spawn at the same location as the home (ie. tree), so that when it plays the
     -- animation for climbing down, it appears on the trunk, rather than floating in the air next to the trunk.
@@ -839,7 +823,7 @@ local function setupspawner(inst)
 end
 
 local function onsave(inst, data)
-    if inst.components.spawner then
+    if inst.components.childspawner then
         data.pikonest = true
     end
 
@@ -880,16 +864,11 @@ local function onload(inst, data)
             inst:AddTag("stump")
         end
 
-        if data and data.spawner then
-            inst:AddComponent( "spawner" )
+        if data and data.pikonest then
             setupspawner(inst)
         end
 
-        if not data.build or builds[data.build] == nil then
-            inst.build = "normal"
-        else
-            inst.build = data.build
-        end
+        inst.build = data.build and builds[data.build] and data.build or "normal"
 
         inst.target_leaf_state = data.target_leaf_state
         inst.leaf_state = data.leaf_state
@@ -965,12 +944,6 @@ local function onload(inst, data)
 end
 
 local function OnLoadPostPass(inst, newents, data)
-    --[[ 
-    if inst.spawner
-       inst:AddComponent( "spawner" )
-        setupspawner(inst)
-    end
-    ]]
 end
 
 function GetItemschild(criteriaFn, child)
@@ -1040,7 +1013,7 @@ local function OnGustFall(inst)
 end]]
 
 local function pikofix(inst)
-    if GetWorld().meta.pikofixed or inst.components.spawner then
+    if GetWorld().meta.pikofixed or inst.components.childspawner then
         return
     end
 
@@ -1048,7 +1021,6 @@ local function pikofix(inst)
     local ground = GetWorld()
     for t,node in ipairs(ground.topology.nodes)do
         if node.type == "piko_land" and TheSim:WorldPointInPoly(x, z, node.poly) then
-            inst:AddComponent( "spawner" )
             setupspawner(inst)
             break
         end
@@ -1124,7 +1096,7 @@ local function makefn(build, stage, data)
 
         --inst:AddComponent("deciduoustreeupdater")
         inst:ListenForEvent("sway", function(inst, data)
-            print("got")
+            -- print("got")
             local m = nil
             local m_pst = nil
             if data and data.monster then m = data.monster end
@@ -1132,19 +1104,19 @@ local function makefn(build, stage, data)
             Sway(inst, m, m_pst)
         end)
 
-        inst.lastleaffxtime = 0
-        inst.leaffxinterval = math.random(MIN_SWAY_FX_FREQUENCY, MAX_SWAY_FX_FREQUENCY)
-        inst.SpawnLeafFX = SpawnLeafFX
-        inst:ListenForEvent("deciduousleaffx", function(it)
-            if inst.entity:IsAwake() then
-                if inst.leaf_state == "colorful" and GetTime() - inst.lastleaffxtime > inst.leaffxinterval then
-                    local variance = math.random() * 2
-                    SpawnLeafFX(inst, variance)
-                    inst.leaffxinterval = math.random(MIN_SWAY_FX_FREQUENCY, MAX_SWAY_FX_FREQUENCY)
-                    inst.lastleaffxtime = GetTime()
-                end
-            end
-        end, TheWorld)
+        -- inst.lastleaffxtime = 0
+        -- inst.leaffxinterval = math.random(MIN_SWAY_FX_FREQUENCY, MAX_SWAY_FX_FREQUENCY)
+        -- inst.SpawnLeafFX = SpawnLeafFX
+        -- inst:ListenForEvent("deciduousleaffx", function(it)
+        --     if inst.entity:IsAwake() then
+        --         if inst.leaf_state == "colorful" and GetTime() - inst.lastleaffxtime > inst.leaffxinterval then
+        --             local variance = math.random() * 2
+        --             SpawnLeafFX(inst, variance)
+        --             inst.leaffxinterval = math.random(MIN_SWAY_FX_FREQUENCY, MAX_SWAY_FX_FREQUENCY)
+        --             inst.lastleaffxtime = GetTime()
+        --         end
+        --     end
+        -- end, TheWorld)
 
         inst:AddComponent("growable")
         inst.components.growable.stages = growth_stages
@@ -1176,9 +1148,7 @@ local function makefn(build, stage, data)
 
         if data == "burnt" then
             OnBurnt(inst)
-        end
-
-        if data == "stump" then
+        elseif data == "stump" then
             inst:RemoveTag("shelter")
             inst:RemoveComponent("burnable")
             MakeSmallBurnable(inst)
@@ -1195,16 +1165,11 @@ local function makefn(build, stage, data)
             inst.components.workable:SetWorkAction(ACTIONS.DIG)
             inst.components.workable:SetOnFinishCallback(dig_up_stump)
             inst.components.workable:SetWorkLeft(1)
-        end
-
-        if data == "piko_nest" then
+        elseif data == "piko_nest" then
             inst:AddTag("spyable")
-            inst:AddComponent( "spawner" )
             setupspawner(inst)
         end
         inst:DoTaskInTime(0,function() pikofix(inst) end)
-
-        --inst:DoTaskInTime(0, function() if not inst.hasspawner then print("Cancel spawn") inst.components.spawner:CancelSpawning() else print("************* SPAWNER OK") end end )        
 
         inst:DoTaskInTime(0.5, oninit)
 
@@ -1225,13 +1190,13 @@ local function makefn(build, stage, data)
 end
 
 local function tree(name, build, stage, data)
-    return Prefab("" .. name, makefn(build, stage, data), assets, prefabs)
+    return Prefab(name, makefn(build, stage, data), assets, prefabs)
 end
 
 return tree("teatree", "normal", 0),
+    tree("teatree_burnt",     "normal", 0, "burnt"),
+    tree("teatree_stump",     "normal", 0, "stump"),
+    tree("teatree_piko_nest", "normal", 0, "piko_nest"),
+    tree("teatree_tall",   "normal", 3),
     tree("teatree_normal", "normal", 2),
-    tree("teatree_tall", "normal", 3),
-    tree("teatree_short", "normal", 1),
-    tree("teatree_burnt", "normal", 0, "burnt"),
-    tree("teatree_stump", "normal", 0, "stump"),
-    tree("teatree_piko_nest", "normal", 0, "piko_nest")
+    tree("teatree_short",  "normal", 1)
