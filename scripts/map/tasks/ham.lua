@@ -68,8 +68,8 @@ AddTask("Pincale", {
 
 ------------------------------------------------------------------------HAMLET continental tasks----------------------------------------------------------------------	
 AddTask("Plains_start", {
-    locks = { LOCKS.JUNGLE_DEPTH_1 },
-    keys_given = {},
+    locks = LOCKS.NONE,
+    keys_given = { KEYS.JUNGLE_DEPTH_1 },
     region_id = "hamlet",
     room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
@@ -86,7 +86,7 @@ AddTask("Plains_start", {
 
 AddTask("Plains", {
     locks = { LOCKS.JUNGLE_DEPTH_1 },
-    keys_given = { --[[KEYS.HAM_BLANK]] --[[ KEYS.JUNGLE_DEPTH_1 KEYS.RAINFOREST, KEYS.EDGE, KEYS.PAINTED, KEYS.DEEPRAINFOREST]] },
+    keys_given = { KEYS.JUNGLE_DEPTH_1 },
     region_id = "hamlet",
     room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     -- room_tags = { "RoadPoison", "moonhunt", "nohasslers", "lunacyarea", "not_mainland" },
@@ -108,8 +108,8 @@ AddTask("Plains", {
 })
 
 AddTask("Plains_ruins", {
-    locks = { LOCKS.JUNGLE_DEPTH_2 },
-    keys_given = { KEYS.JUNGLE_DEPTH_2, --[[KEYS.HAM_BLANK]] },
+    locks = { LOCKS.JUNGLE_DEPTH_1 },
+    keys_given = { KEYS.JUNGLE_DEPTH_2, },
     region_id = "hamlet",
     room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
@@ -123,10 +123,8 @@ AddTask("Plains_ruins", {
 })
 
 AddTask("Rainforest_ruins", {
-    -- locks = { LOCKS.RAINFOREST },
-    -- keys_given = { KEYS.DEEPRAINFOREST, --[[KEYS.HAM_BLANK]] },
     locks = { LOCKS.JUNGLE_DEPTH_1 },
-    keys_given = { KEYS.JUNGLE_DEPTH_1, --[[KEYS.HAM_BLANK]] },
+    keys_given = { KEYS.JUNGLE_DEPTH_2, },
     region_id = "hamlet",
     room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     -- room_tags = { "RoadPoison", "moonhunt", "nohasslers", "lunacyarea", "not_mainland" },
@@ -149,9 +147,9 @@ AddTask("Rainforest_ruins", {
 ---------------------	
 AddTask("Painted_sands", {
     -- locks = { LOCKS.PAINTED },
-    -- keys_given = { --[[KEYS.HAM_BLANK]] },
-    locks = { LOCKS.JUNGLE_DEPTH_1 },
-    keys_given = { KEYS.JUNGLE_DEPTH_1, --[[KEYS.HAM_BLANK]] },
+    -- keys_given = {  },
+    locks = { LOCKS.JUNGLE_DEPTH_2 },
+    keys_given = { KEYS.JUNGLE_DEPTH_2, },
     region_id = "hamlet",
     room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
@@ -174,7 +172,7 @@ AddTask("Painted_sands", {
 -------------------------
 -- AddTask("Edge_of_civilization", {
 --     -- locks = { LOCKS.EDGE },
---     -- keys_given = { KEYS.CITY_1, --[[KEYS.HAM_BLANK]] },
+--     -- keys_given = { KEYS.CITY_1,  },
 --     locks = { LOCKS.JUNGLE_DEPTH_1 },
 --     keys_given = { KEYS.CITY_1 },
 --     region_id = "hamlet",
@@ -215,7 +213,7 @@ AddTask("Painted_sands", {
 
 
 AddTask("Edge_of_civilization", {
-    locks = LOCKS.JUNGLE_DEPTH_1,
+    locks = LOCKS.JUNGLE_DEPTH_2,
     keys_given = KEYS.CIVILIZATION_1,
     region_id = "hamlet",
     room_tags = { "City1", "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
@@ -420,9 +418,9 @@ AddTask("Deep_lost_ruins_gas", {
 
 AddTask("Deep_rainforest", {
     -- locks = { LOCKS.DEEPRAINFOREST },
-    -- keys_given = { --[[KEYS.HAM_BLANK]] },
+    -- keys_given = {  },
     locks = { LOCKS.JUNGLE_DEPTH_1 },
-    keys_given = { --[[KEYS.HAM_BLANK]] },
+    keys_given = {},
     region_id = "hamlet",
     room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
@@ -441,7 +439,7 @@ AddTask("Deep_rainforest", {
 
 AddTask("Deep_rainforest_2", {
     -- locks = { LOCKS.DEEPRAINFOREST },
-    -- keys_given = { --[[KEYS.HAM_BLANK]] },
+    -- keys_given = {  },
     locks = { LOCKS.DEEPRAINFOREST_CITY2 },
     region_id = "hamlet_palace",
     room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
@@ -463,7 +461,7 @@ AddTask("Deep_rainforest_3", {
     -- locks = {},
     -- keys_given = { KEYS.CIVILIZATION_2 },
     locks = { LOCKS.DEEPRAINFOREST_SNAKE },
-    -- keys_given = { KEYS.JUNGLE_DEPTH_1, --[[KEYS.HAM_BLANK]] },
+    -- keys_given = { KEYS.JUNGLE_DEPTH_1,  },
     region_id = "hamlet_snake",
     room_tags = { "RoadPoison", "hamlet", "tropical", "nohasslers", "not_mainland" },
     room_choices = {
