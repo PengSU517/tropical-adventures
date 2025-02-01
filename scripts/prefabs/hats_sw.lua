@@ -79,7 +79,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         if owner:HasTag("player") then
             owner.AnimState:Show("HEAD")
             owner.AnimState:Hide("HEAD_HAT")
-       end
+        end
 
         if not owner:HasTag("equipmentmodel") then
             if inst.components.fueled ~= nil then
