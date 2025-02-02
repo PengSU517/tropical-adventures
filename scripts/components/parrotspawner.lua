@@ -107,7 +107,7 @@ return Class(function(self, inst)
                         -------------------coloca os itens------------------------
                         if curr == GROUND.RAINFOREST and curr1 == GROUND.RAINFOREST and curr2 == GROUND.RAINFOREST and curr3 == GROUND.RAINFOREST and curr4 == GROUND.RAINFOREST or
                             curr == GROUND.DEEPRAINFOREST and curr1 == GROUND.DEEPRAINFOREST and curr2 == GROUND.DEEPRAINFOREST and curr3 == GROUND.DEEPRAINFOREST and curr4 == GROUND.DEEPRAINFOREST or
-                            curr == GROUND.GASJUNGLE and curr1 == GROUND.GASJUNGLE and curr2 == GROUND.GASJUNGLE and curr3 == GROUND.GASJUNGLE and curr4 == GROUND.GASJUNGLE or
+                            curr == GROUND.GASRAINFOREST and curr1 == GROUND.GASRAINFOREST and curr2 == GROUND.GASRAINFOREST and curr3 == GROUND.GASRAINFOREST and curr4 == GROUND.GASRAINFOREST or
                             curr == GROUND.PLAINS and curr1 == GROUND.PLAINS and curr2 == GROUND.PLAINS and curr3 == GROUND.PLAINS and curr4 == GROUND.PLAINS then
                             local colocaitem = SpawnPrefab("bramble")
                             colocaitem.Transform:SetPosition(x, 0, z)

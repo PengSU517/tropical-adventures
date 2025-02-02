@@ -692,7 +692,7 @@ local tro_tiledefs = {
          },
     },
 
-    GASJUNGLE = {
+    GASRAINFOREST = {------------毒瘴雨林地皮
         tile_range = TileRanges.HAM_LAND,
         tile_data = {
             ground_name = "Gas Jungle",
@@ -703,14 +703,14 @@ local tro_tiledefs = {
             noise_texture = "ham/ground_gasrainforest",
             runsound = "dontstarve/movement/run_moss",
             walksound = "dontstarve/movement/walk_moss",
-            cannotbedug = true,
+            --cannotbedug = true,
         },
         minimap_tile_def = {
             name = "map_edge",
             noise_texture = "ham/mini_ground_gasrainforest",
         },
         turf_def = {
-            name = "gasjungle",
+            name = "gasrainforest",
             anim = "gasrainforest",
             bank_build = "turf_ham",
         },
@@ -962,7 +962,7 @@ ChangeTileRenderOrder(WORLD_TILES.VOLCANO, WORLD_TILES.DESERT_DIRT, true)
 ChangeTileRenderOrder(WORLD_TILES.VOLCANO_ROCK, WORLD_TILES.DESERT_DIRT, true)
 ChangeTileRenderOrder(WORLD_TILES.BEACH, WORLD_TILES.DESERT_DIRT, true)
 
-ChangeTileRenderOrder(WORLD_TILES.GASJUNGLE, WORLD_TILES.MUD, true)
+ChangeTileRenderOrder(WORLD_TILES.GASRAINFOREST, WORLD_TILES.MUD, true)--GASJUNGLE
 ChangeTileRenderOrder(WORLD_TILES.DEEPRAINFOREST, WORLD_TILES.MUD, true)
 ChangeTileRenderOrder(WORLD_TILES.RAINFOREST, WORLD_TILES.MUD, true)
 ChangeTileRenderOrder(WORLD_TILES.PLAINS, WORLD_TILES.MUD, true)

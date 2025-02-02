@@ -2305,7 +2305,7 @@ return {
         TURF_RAINFOREST = "Fertile turf.",
         TURF_DEEPRAINFOREST = "Fertile turf.",
         TURF_LAWN = "Turf.",
-        TURF_GASJUNGLE = "Turf.",
+        TURF_GASRAINFOREST = "Turf.",
         TURF_MOSS = "Squishy.",
         TURF_FIELDS = "Turf.",
         TURF_FOUNDATION = "Provides a solid foundation.",

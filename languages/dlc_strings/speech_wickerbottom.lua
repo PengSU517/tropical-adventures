@@ -2437,7 +2437,7 @@ return
         TURF_RAINFOREST = "The ground. You step on it.",
         TURF_DEEPRAINFOREST = "The ground. You step on it.",
         TURF_LAWN = "The ground. You step on it.",
-        TURF_GASJUNGLE = "The ground. You step on it.",
+        TURF_GASRAINFOREST = "The ground. You step on it.",
         TURF_MOSS = "The ground. You step on it.",
         TURF_FIELDS = "The ground. You step on it.",
         TURF_FOUNDATION = "The ground. You step on it.",

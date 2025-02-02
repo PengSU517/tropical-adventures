@@ -2414,7 +2414,7 @@ return {
         TURF_RAINFOREST = "Do I really need to drag this dirt around with me?",
         TURF_DEEPRAINFOREST = "Do I really need to drag this dirt around with me?",
         TURF_LAWN = "Do I really need to drag this dirt around with me?",
-        TURF_GASJUNGLE = "Do I really need to drag this dirt around with me?",
+        TURF_GASRAINFOREST = "Do I really need to drag this dirt around with me?",
         TURF_MOSS = "Do I really need to drag this dirt around with me?",
         TURF_FIELDS = "Do I really need to drag this dirt around with me?",
         TURF_FOUNDATION = "Do I really need to drag these stones around with me?",

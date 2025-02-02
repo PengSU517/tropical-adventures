@@ -2286,7 +2286,7 @@ return {
         TURF_RAINFOREST = "Green dirt.",
         TURF_DEEPRAINFOREST = "Green dirt.",
         TURF_LAWN = "Grassy dirt.",
-        TURF_GASJUNGLE = "Purply dirt.",
+        TURF_GASRAINFOREST = "Purply dirt.",
         TURF_MOSS = "Mushy dirt.",
         TURF_FIELDS = "Turfy dirt.",
         TURF_FOUNDATION = "Solid dirt.",

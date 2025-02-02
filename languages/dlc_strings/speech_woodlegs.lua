@@ -2255,7 +2255,7 @@ return
         TURF_RAINFOREST = "Me ain't no ground lubber.",
         TURF_DEEPRAINFOREST = "Me ain't no ground lubber.",
         TURF_LAWN = "Me ain't no ground lubber.",
-        TURF_GASJUNGLE = "Me ain't no ground lubber.",
+        TURF_GASRAINFOREST = "Me ain't no ground lubber.",
         TURF_MOSS = "Me ain't no ground lubber.",
         TURF_FIELDS = "Me ain't no ground lubber.",
         TURF_FOUNDATION = "Me ain't no ground lubber.",

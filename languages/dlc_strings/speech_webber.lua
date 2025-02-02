@@ -2449,7 +2449,7 @@ return {
         TURF_RAINFOREST = "Some ground that we dug up.",
         TURF_DEEPRAINFOREST = "Some ground that we dug up.",
         TURF_LAWN = "Some ground that we dug up.",
-        TURF_GASJUNGLE = "Some ground that we dug up.",
+        TURF_GASRAINFOREST = "Some ground that we dug up.",
         TURF_MOSS = "Some ground that we dug up.",
         TURF_FIELDS = "Some ground that we dug up.",
         TURF_FOUNDATION = "Some ground that we dug up.",

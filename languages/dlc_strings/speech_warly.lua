@@ -2300,7 +2300,7 @@ return{
         TURF_RAINFOREST = "It's like an ingredient for the ground.",
         TURF_DEEPRAINFOREST = "It's like an ingredient for the ground.",
         TURF_LAWN = "It's like an ingredient for the ground.",
-        TURF_GASJUNGLE = "It's like an ingredient for the ground.",
+        TURF_GASRAINFOREST = "It's like an ingredient for the ground.",
         TURF_MOSS = "It's like an ingredient for the ground.",
         TURF_FIELDS = "It's like an ingredient for the ground.",
         TURF_FOUNDATION = "It's like an ingredient for the ground.",

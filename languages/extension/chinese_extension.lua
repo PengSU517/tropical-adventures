@@ -1392,7 +1392,7 @@ return {
     TURF_BEARDRUG = "来自火山！",
     TURF_CHECKEREDLAWN = "整齐的方格地面。",
     TURF_DEEPRAINFOREST = "深层雨林地皮。",
-    TURF_GASJUNGLE = "让你爱上抽搐。",
+    TURF_GASRAINFOREST = "让你爱上抽搐。",
     TURF_JUNGLE = "热带丛林。",
     TURF_MAGMAFIELD = "熔岩冷却形成的。",
     TURF_MEADOW = "草甸地皮。",

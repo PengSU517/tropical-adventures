@@ -141,7 +141,7 @@ local function updatevis(inst)
         local ground = TheWorld
         local x, y, z = player.Transform:GetWorldPosition()
         local tile_type = ground.Map:GetTileAtPoint(x, y, z)
-        if tile_type == GROUND.DEEPRAINFOREST or tile_type == GROUND.GASJUNGLE or tile_type == GROUND.PIGRUINS then
+        if tile_type == GROUND.DEEPRAINFOREST or tile_type == GROUND.GASRAINFOREST or tile_type == GROUND.PIGRUINS then
             inst:AddTag("under_leaf_canopy")
         else
             inst:RemoveTag("under_leaf_canopy")

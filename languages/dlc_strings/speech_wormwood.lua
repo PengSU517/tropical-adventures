@@ -2419,7 +2419,7 @@ return {
         TURF_RAINFOREST = "Dirt",
         TURF_DEEPRAINFOREST = "Dirt",
         TURF_LAWN = "Dirt",
-        TURF_GASJUNGLE = "Dirt",
+        TURF_GASRAINFOREST = "Dirt",
         TURF_MOSS = "Soft and squishy",
         TURF_FIELDS = "Dirt",
         TURF_FOUNDATION = "Not dirt",

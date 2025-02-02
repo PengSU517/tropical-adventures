@@ -2459,7 +2459,7 @@ return {
         TURF_RAINFOREST = "It's a chunk of ground.",
         TURF_DEEPRAINFOREST = "It's a chunk of ground.",
         TURF_LAWN = "It's a chunk of ground.",
-        TURF_GASJUNGLE = "It's a chunk of ground.",
+        TURF_GASRAINFOREST = "It's a chunk of ground.",
         TURF_MOSS = "It's a chunk of ground.",
         TURF_FIELDS = "It's a chunk of ground.",
         TURF_FOUNDATION = "Some nicely cobbled together rocks.",

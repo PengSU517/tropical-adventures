@@ -2420,7 +2420,7 @@ return {
         TURF_RAINFOREST = "A bit of rainforest floor.",
         TURF_DEEPRAINFOREST = "A bit of rainforest floor.",
         TURF_LAWN = "A bit of grassy turf.",
-        TURF_GASJUNGLE = "A bit of lavender.",
+        TURF_GASRAINFOREST = "A bit of lavender.",
         TURF_MOSS = "A bit of mossy dirt.",
         TURF_FIELDS = "A bit of turf, I believe.",
         TURF_FOUNDATION = "A solid bit of turf.",
