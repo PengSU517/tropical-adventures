@@ -2422,7 +2422,7 @@ return {
         TURF_RAINFOREST = "The ground is boring.",
         TURF_DEEPRAINFOREST = "The ground is boring.",
         TURF_LAWN = "The ground is boring.",
-        TURF_GASJUNGLE = "The ground is boring.",
+        TURF_GASRAINFOREST = "The ground is boring.",
         TURF_MOSS = "The ground is boring.",
         TURF_FIELDS = "The ground is boring.",
         TURF_FOUNDATION = "The ground is boring.",

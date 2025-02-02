@@ -96,7 +96,7 @@ end)
 
 local function IsValidTile(tile)
 	return --[[IsHamTile(tile) and not IsCityTile(tile) -- and]] IsLandTile(tile) and not (tile == GROUND.FOUNDATION or
-		tile == GROUND.COBBLEROAD or tile == GROUND.LAWN or tile == GROUND.DEEPRAINFOREST or tile == GROUND.GASJUNGLE)
+		tile == GROUND.COBBLEROAD or tile == GROUND.LAWN or tile == GROUND.DEEPRAINFOREST or tile == GROUND.GASRAINFOREST)
 end
 
 local function IsValidTileAtPoint(x, y, z)

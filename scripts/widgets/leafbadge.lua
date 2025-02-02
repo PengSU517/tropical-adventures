@@ -60,7 +60,7 @@ return LeafBadge
 
 
 
--- if self.owner and self.owner:HasTag("mostraselva") then --    ground == GROUND.DEEPRAINFOREST or ground == GROUND.GASJUNGLE then		
+-- if self.owner and self.owner:HasTag("mostraselva") then --    ground == GROUND.DEEPRAINFOREST or ground == GROUND.GASRAINFOREST then		
 --     if self.owner and self.owner.leafbadge then
 --         self.owner.leafbadge:StartUpdating()
 --         self.owner.leafbadge:Show()

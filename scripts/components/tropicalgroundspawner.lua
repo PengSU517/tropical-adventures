@@ -110,7 +110,7 @@ local PESODOGRUPO                      = {
 			lightrays_jungle = 1,
 		},
 
-		[GROUND.GASJUNGLE] =
+		[GROUND.GASRAINFOREST] =
 		{
 			mean_flytrap = 1,
 			adult_flytrap = 0.5,
@@ -140,7 +140,7 @@ local PESODOGRUPO                      = {
 			lightrays_jungle = 1,
 		},
 
-		[GROUND.GASJUNGLE] =
+		[GROUND.GASRAINFOREST] =
 		{
 			mean_flytrap = 1,
 			adult_flytrap = 0.5,
@@ -175,7 +175,7 @@ local PESODOGRUPO                      = {
 			lightrays_jungle = 1,
 		},
 
-		[GROUND.GASJUNGLE] =
+		[GROUND.GASRAINFOREST] =
 		{
 			mean_flytrap = 1,
 			adult_flytrap = 0.5,
@@ -204,7 +204,7 @@ local PESODOGRUPO                      = {
 			lightrays_jungle = 1,
 		},
 
-		[GROUND.GASJUNGLE] =
+		[GROUND.GASRAINFOREST] =
 		{
 			mean_flytrap = 1,
 			adult_flytrap = 0.5,
@@ -370,7 +370,7 @@ return Class(function(self, inst)
 		local x, y, z = pos:Get()
 		local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
 		if ground == GROUND.DEEPRAINFOREST or
-			ground == GROUND.GASJUNGLE then
+			ground == GROUND.GASRAINFOREST then
 			if prefab == "lightrays_jungle" then
 				if not TheWorld.state.isnight then
 					local fish = SpawnPrefab(prefab)

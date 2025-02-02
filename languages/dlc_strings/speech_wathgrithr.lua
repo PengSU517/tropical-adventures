@@ -2328,7 +2328,7 @@ return {
         TURF_RAINFOREST = "A piece of the battlefield.",
         TURF_DEEPRAINFOREST = "A piece of the battlefield.",
         TURF_LAWN = "A piece of the battlefield.",
-        TURF_GASJUNGLE = "A piece of the battlefield.",
+        TURF_GASRAINFOREST = "A piece of the battlefield.",
         TURF_MOSS = "A piece of the battlefield.",
         TURF_FIELDS = "A piece of the battlefield.",
         TURF_FOUNDATION = "A piece of the battlefield.",

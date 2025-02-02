@@ -2416,7 +2416,7 @@ return {
         TURF_RAINFOREST = "Some ground.",
         TURF_DEEPRAINFOREST = "Some ground.",
         TURF_LAWN = "Some ground.",
-        TURF_GASJUNGLE = "Some ground.",
+        TURF_GASRAINFOREST = "Some ground.",
         TURF_MOSS = "Some ground.",
         TURF_FIELDS = "Some ground.",
         TURF_FOUNDATION = "Some ground.",

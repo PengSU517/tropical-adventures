@@ -2425,7 +2425,7 @@ return {
         TURF_RAINFOREST = "Luscious turf that should be put somewhere.",
         TURF_DEEPRAINFOREST = "This will help with the germinating of plantlife.",
         TURF_LAWN = "A finely kept lawn.",
-        TURF_GASJUNGLE = "It retains some of its noxiousness.",
+        TURF_GASRAINFOREST = "It retains some of its noxiousness.",
         TURF_MOSS = "Slightly spongy texture.",
         TURF_FIELDS = "Cultivated land.",
         TURF_FOUNDATION = "In theory, it would be great for building a city on.",

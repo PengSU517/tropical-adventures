@@ -34,7 +34,7 @@ local old_terraform = ACTIONS.TERRAFORM.fn
 ACTIONS.TERRAFORM.fn = function(act)
 	if act.invobject and act.invobject.components.terraformer then
         local tile = TheWorld.Map:GetTileAtPoint(act:GetActionPoint():Get())
-		if tile == GROUND.GASJUNGLE then
+		if tile == GROUND.GASRAINFOREST then
             if act.doer.components.talker then
 			    act.doer.components.talker:Say(GetString(act.doer.prefab, "ANNOUNCE_TOOLCORRODED"))
             end

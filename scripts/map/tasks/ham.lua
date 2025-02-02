@@ -408,7 +408,7 @@ AddTask("Deep_lost_ruins_gas", {
         ["deeprainforest_gas_flytrap_grove"] = math.random(2),
         -- ["deeprainforest_gas_entrance6"] = 1,
     },
-    room_bg = GROUND.GASJUNGLE,
+    room_bg = GROUND.GASRAINFOREST,
     background_room = "deeprainforest_gas",
     crosslink_factor = 3,
     colour = { r = 0.8, g = 0.6, b = 0.2, a = 0.3 }

@@ -911,7 +911,7 @@ return {
     TURF_BEARDRUG = "Made with human beard.",
     TURF_CHECKEREDLAWN = "Checkered Floor copy.",
     TURF_DEEPRAINFOREST = "Deep Forest Turf.",
-    TURF_GASJUNGLE = "Twitch loves this one.",
+    TURF_GASRAINFOREST = "Twitch loves this one.",
     TURF_PAINTED = "There is iron inside this turf.",
     TURF_PIGRUINS = "Ancient Pig Turf.",
     TURF_PLAINS = "Green Savanna Edition!",

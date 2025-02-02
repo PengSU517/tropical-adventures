@@ -2408,7 +2408,7 @@ return {
         TURF_RAINFOREST = "Just some ground, eh?",
         TURF_DEEPRAINFOREST = "Just some ground, eh?",
         TURF_LAWN = "Just some ground, eh?",
-        TURF_GASJUNGLE = "Just some ground, eh?",
+        TURF_GASRAINFOREST = "Just some ground, eh?",
         TURF_MOSS = "Just some ground, eh?",
         TURF_FIELDS = "Just some ground, eh?",
         TURF_FOUNDATION = "Just some ground, eh?",

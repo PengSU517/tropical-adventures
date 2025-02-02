@@ -2387,7 +2387,7 @@ return {
         TURF_RAINFOREST = "Step stones.",
         TURF_DEEPRAINFOREST = "Step stones.",
         TURF_LAWN = "Step stones.",
-        TURF_GASJUNGLE = "Step stones.",
+        TURF_GASRAINFOREST = "Step stones.",
         TURF_MOSS = "Step stones.",
         TURF_FIELDS = "Step stones.",
         TURF_FOUNDATION = "Step stones.",

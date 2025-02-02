@@ -457,7 +457,7 @@ AddRoom("BG_painted_base", {
 -------------------------------------------room deep florest hamlet-------------------------------------------
 AddRoom("deeprainforest_gas", {
     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
-    value = GROUND.GASJUNGLE,
+    value = GROUND.GASRAINFOREST,
     tags = { "ExitPiece" },
     contents = {
         distributepercent = 0.45, --.45
@@ -483,7 +483,7 @@ AddRoom("deeprainforest_gas", {
 
 AddRoom("deeprainforest_gas_entrance6", {
     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
-    value = GROUND.GASJUNGLE,
+    value = GROUND.GASRAINFOREST,
     tags = { "ExitPiece" },
     contents = {
         distributepercent = 0.45, --.45
@@ -513,7 +513,7 @@ AddRoom("deeprainforest_gas_entrance6", {
 
 AddRoom("deeprainforest_gas_flytrap_grove", {
     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
-    value = GROUND.GASJUNGLE,
+    value = GROUND.GASRAINFOREST,
     tags = { "ExitPiece" },
     contents = {
         countstaticlayouts = {
