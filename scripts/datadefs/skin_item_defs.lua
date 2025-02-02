@@ -22,6 +22,45 @@ local itemskins =
             name = "sharkitten",
         },
     },
+	    snakeskinhat = {
+        default = {
+            basebuild = "hat_snakeskin",
+        },
+        snakeskinhat_scaly = {
+            assetname = "hat_snakeskin_scaly",
+            build = "hat_snakeskin_scaly",
+            build_name_override = "hat_snakeskin_scaly",
+            rarity = "Eternal",
+            -- type = "item",
+            name = "viper",
+        },
+    },
+	    armor_snakeskin = {
+        default = {
+            basebuild = "armor_snakeskin",
+        },
+        armor_snakeskin_scaly = {
+            assetname = "armor_snakeskin_scaly",
+            build = "armor_snakeskin_scaly",
+            build_name_override = "armor_snakeskin_scaly",
+            rarity = "Eternal",
+            -- type = "item",
+            name = "viper",
+        },
+    },
+	    snakeskinsail = {
+        default = {
+            basebuild = "swap_sail_snakeskin",
+        },
+        snakeskinsail_scaly = {
+            assetname = "swap_sail_snakeskin_scaly",
+            build = "swap_sail_snakeskin_scaly",
+            build_name_override = "swap_sail_snakeskin_scaly",
+            rarity = "Eternal",
+            -- type = "item",
+            name = "viper",
+        },
+    },
 }
 
 
