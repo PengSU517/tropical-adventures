@@ -232,34 +232,34 @@ configuration_options =
 	},
 
 	{
-		name = "worldsize",
-		label = en_zh("World size", "世界大小"),
-		hover = en_zh("World size", "世界大小"),
+		name = "world_size_multi",
+		label = en_zh("World size multiplayer", "世界大小乘数"),
+		hover = en_zh("World size multiplayer", "世界大小乘数"),
 		options =
 		{
 			{
-				description = en_zh("Default", "默认"),
-				hover = en_zh("Follow game settings, not recommended", "跟随游戏设定,不推荐"),
-				data = "default"
+				description = en_zh("Tiny, 0.1×", "极小 , 0.1×"),
+				data = 0.1
 			},
 			{
-				description = en_zh("Normal", "适中"),
-				hover = en_zh("world generation may be slower", "世界生成可能较慢"),
-				data = "normal"
+				description = en_zh("Smaller, 0.75×", "更小, 0.75×"),
+				data = 0.75
 			},
 			{
-				description = en_zh("Larger", "更大"),
-				hover = en_zh(" a compromising choice", "一个折中的选择"),
-				data = "large"
+				description = en_zh("Default, 1×", "默认, 1×"),
+				data = 1
 			},
 			{
-				description = en_zh("Huger", "巨大"),
-				hover = en_zh("high server pressure.", "服务器压力较大"),
-				data = "huge"
+				description = en_zh("Larger, 1.25×", "更大, 1.25×"),
+				data = 1.25
+			},
+			{
+				description = en_zh("Huger, 1.5×", "巨大, 1.5×"),
+				data = 1.5
 			},
 
 		},
-		default = "normal",
+		default = 1,
 	},
 
 	{

@@ -4,24 +4,18 @@ local troadj = TA_CONFIG
 if GLOBAL.rawget(GLOBAL, "WorldSim") then
     local idx = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
 
-    if (troadj.worldsize ~= "default") or troadj.testmap then
-        local size = (troadj.worldsize == "huge" and 450) or (troadj.worldsize == "large" and 400) or 350
-        --450是默认边长 --地图太小可能生成不了世界
-        local multi = (troadj.together and 1 or 0) + (troadj.shipwrecked and 0.5 or 0) + (troadj.hamlet and 0.5 or 0)
-        size = math.max(math.ceil(math.sqrt((size ^ 2) * multi)), 400)
-        if troadj.testmap then size = 100 end
+    local multi = troadj.world_size_multi
 
-        TUNING.WORLD_SIZE_ADJ = size
-
+    if multi ~= 1 then
         local OldSetWorldSize = idx.SetWorldSize
         idx.SetWorldSize = function(self, width, height)
-            print("[Giant Size] Setting world size to " .. (size or width))
-            OldSetWorldSize(self, size or width, size or height)
+            print("Setting world size to " .. width .. " times " .. multi)
+            OldSetWorldSize(self, math.ceil(multi * width), math.ceil(multi * height))
         end
 
         local OldConvertToTileMap = idx.ConvertToTileMap
         idx.ConvertToTileMap = function(self, length)
-            OldConvertToTileMap(self, size or length)
+            OldConvertToTileMap(self, math.ceil(multi * length))
         end
     end
 

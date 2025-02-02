@@ -78,9 +78,11 @@ local ta_customize_table = {
             },
 
             {
-                name = "worldsize",
+                name = "world_size_multi",
                 label = en_zh("World size multiplier", "世界大小乘数"),
                 desc = {
+                    { text = en_zh("Tiny, 0.1×", "极小 , 0.1×"), data = 0.1 },
+                    { text = en_zh("Smaller, 0.75×", "更小, 0.75×"), data = 0.75 },
                     { text = en_zh("Default, 1×", "默认, 1×"), data = 1 },
                     { text = en_zh("Larger, 1.25×", "更大, 1.25×"), data = 1.25 },
                     { text = en_zh("Huger, 1.5×", "巨大, 1.5×"), data = 1.5 },

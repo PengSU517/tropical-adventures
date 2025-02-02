@@ -1,18 +1,7 @@
 -- local upvaluehelper = require("tools/upvaluehelper")
 require("constants")
 require("mathutil")
-
--- local separate_region = require("map/separate_region")
--- local build_porkland = require("map/build_porkland")
--- local make_cities = require("map/city_builder")
--- local startlocations = require("map/startlocations")
 local forest_map = require("map/forest_map")
--- local BuildPorkLandStory = require("map/pl_storygen")
--- local MULTIPLY = forest_map.MULTIPLY
--- local TRANSLATE_TO_PREFABS = forest_map.TRANSLATE_TO_PREFABS
--- local TRANSLATE_AND_OVERRIDE = forest_map.TRANSLATE_AND_OVERRIDE
-
-
 
 local old_generatemap = forest_map.Generate
 local SKIP_GEN_CHECKS = upvaluehelper.Get(old_generatemap, "SKIP_GEN_CHECKS")
@@ -24,6 +13,32 @@ end
 
 
 forest_map.Generate = function(prefab, map_width, map_height, tasks, level, level_type, ...)
+    -- local worldgenset = deepcopy(level.overrides)
+    -- local multi = worldgenset.world_size_multi or 1
+
+
+    -- if GLOBAL.rawget(GLOBAL, "WorldSim") then
+    --     local idx = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
+
+    --     if multi ~= 1 then
+    --         local OldSetWorldSize = idx.SetWorldSize
+    --         idx.SetWorldSize = function(self, width, height)
+    --             print("Setting world size to " .. width .. " times " .. multi)
+    --             OldSetWorldSize(self, math.ceil(multi * width), math.ceil(multi * height))
+    --         end
+
+    --         local OldConvertToTileMap = idx.ConvertToTileMap
+    --         idx.ConvertToTileMap = function(self, length)
+    --             OldConvertToTileMap(self, math.ceil(multi * length))
+    --         end
+    --     end
+
+    --     if worldgenset.coastline then
+    --         idx.SeparateIslands = function(self) print("不分离土地") end
+    --     end
+    -- end
+
+
     local save = old_generatemap(prefab, map_width, map_height, tasks, level, level_type, ...)
 
     if save == nil then return save end
@@ -33,6 +48,12 @@ forest_map.Generate = function(prefab, map_width, map_height, tasks, level, leve
         return
             save
     end
+
+    ------在这里可以获取所有信息
+    -- print("Generating map for hamlet!")
+    -- for i, v in pairs(level.overrides) do
+    --     print("overrides", i, v)
+    -- end
 
     --------------------building porkland cities---------------------------------------------------------------------
     local make_cities = require("map/city_builder")

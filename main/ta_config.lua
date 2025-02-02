@@ -8,7 +8,7 @@ GLOBAL.TA_CONFIG = {
 
     multiplayerportal = GetModConfigData("startlocation"),
     startlocation     = GetModConfigData("startlocation"),
-    worldsize         = GetModConfigData("worldsize"),
+    world_size_multi  = GetModConfigData("world_size_multi"),
     coastline         = GetModConfigData("coastline"),
     layout            = true, --  GetModConfigData("layout"),
 
