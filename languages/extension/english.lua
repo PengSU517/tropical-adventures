@@ -3531,6 +3531,8 @@ TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_MOSS                           = "It
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_FIELDS                         = "It's a chunk of ground."
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_FOUNDATION                     = "Some nicely cobbled together rocks."
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_COBBLEROAD                     = "Some nicely cobbled together rocks."
+TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_TOOLCORRODED = "My tool just dissolved!"
+TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_TURFTOOHARD = "This ground is too stubborn to pry up."
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.MANDRAKEMAN                         = "Large and screamy."
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.MANDRAKEHOUSE                       = "It looks... screamy."
