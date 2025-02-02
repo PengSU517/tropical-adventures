@@ -791,7 +791,8 @@ AddRecipe2("turf_cobbleroad", { Ingredient("cutstone", 2), Ingredient("boards", 
 	{ nounlock = false, numtogive = 4 }, { "HAMLET" })
 AddRecipe2("turf_checkeredlawn", { Ingredient("cutgrass", 2), Ingredient("nitre", 1) }, TECH.CITY_ONE,
 	{ nounlock = false, numtogive = 4, image = "turf_lawn.tex" }, { "HAMLET" })
-
+AddRecipe2("turf_pigruins", {Ingredient("cutstone", 4), Ingredient("rocks", 2)}, TECH.CITY_TWO, 
+    { nounlock = true,  numtogive = 4,}, {"HAMLET"})
 --TURFS--
 AddRecipe2("turf_magmafield", { Ingredient("rocks", 2), Ingredient("ash", 1) }, TECH.TURFCRAFTING_ONE,
 	{ numtogive = 4 }, { "DECOR" })
