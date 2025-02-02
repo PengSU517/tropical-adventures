@@ -35,7 +35,7 @@ PrefabFiles = {
     "armor_weevole",
     "armor_windbreaker",
     "ashfx",
-    "asparagus",
+    "asparagus_planted",
     "axeobsidian",
     "ballphin",
     "ballphinhouse",
