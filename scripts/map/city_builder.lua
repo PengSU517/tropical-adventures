@@ -239,35 +239,39 @@ local function place_tile(pt, tile)
 end
 
 
-local required_prefabs =
+local unrequired_prefabs =
 {
-    "pugalisk_fountain",
-    "roc_nest",
-    "pig_ruins_entrance",
-    "pig_ruins_entrance2",
-    "pig_ruins_entrance3",
-    "pig_ruins_entrance4",
-    "pig_ruins_entrance5",
-    "pig_ruins_exit",
-    "pig_ruins_exit2",
-    "pig_ruins_exit4",
+    "grass",
+    "rocks",
+    "twigs",
+    "spoiled_food"
+    -- "pugalisk_fountain",
+    -- "roc_nest",
+    -- "pig_ruins_entrance",
+    -- "pig_ruins_entrance2",
+    -- "pig_ruins_entrance3",
+    -- "pig_ruins_entrance4",
+    -- "pig_ruins_entrance5",
+    -- "pig_ruins_exit",
+    -- "pig_ruins_exit2",
+    -- "pig_ruins_exit4",
 
-    "anthill_exit",
-    "anthill_exit",
-    "anthill",
+    -- "anthill_exit",
+    -- "anthill_exit",
+    -- "anthill",
 
-    --"teleportato_hamlet_base",
-    --"teleportato_hamlet_box",
-    --"teleportato_hamlet_crank",
-    --"teleportato_hamlet_ring",
-    --"teleportato_hamlet_potato", -- THE POTATO IS HANDLED IN CITYBUILDER AS A UNIQUE FARM.
+    -- --"teleportato_hamlet_base",
+    -- --"teleportato_hamlet_box",
+    -- --"teleportato_hamlet_crank",
+    -- --"teleportato_hamlet_ring",
+    -- --"teleportato_hamlet_potato", -- THE POTATO IS HANDLED IN CITYBUILDER AS A UNIQUE FARM.
 
-    "ancient_robot_ribs",
-    "ancient_robot_head",
-    "ancient_robot_claw",
-    "ancient_robot_claw",
-    "ancient_robot_leg",
-    "ancient_robot_leg",
+    -- "ancient_robot_ribs",
+    -- "ancient_robot_head",
+    -- "ancient_robot_claw",
+    -- "ancient_robot_claw",
+    -- "ancient_robot_leg",
+    -- "ancient_robot_leg",
 }
 
 
@@ -275,8 +279,8 @@ local function clear_ground(entities, width, height, pt)
     local radius = 6
     for prefab, data_list in pairs(entities) do
         local reserved = false
-        for i, rprefab in ipairs(required_prefabs) do
-            if prefab == rprefab then
+        for i, rprefab in ipairs(unrequired_prefabs) do
+            if prefab ~= rprefab then
                 reserved = true
                 break
             end
