@@ -644,7 +644,7 @@ local tro_tiledefs = {
         },
     },
 
-    PIGRUINS = {
+    PIGRUINS = {------------古代废墟地皮
         tile_range = TileRanges.HAM_LAND,
         tile_data = {
             ground_name = "Pigruins",
@@ -667,29 +667,29 @@ local tro_tiledefs = {
         },
     },
 
-    PIGRUINS_NOCANOPY = {
+    PIGRUINS_BLUE = {------------蓝色古代废墟地皮
         tile_range = TileRanges.HAM_LAND,
         tile_data = {
-            ground_name = "Pigruins Nocanopy",
+            ground_name = "Pigruins Blue",
             old_static_id = 33,
         },
         ground_tile_def = {
             name = "ham/blocky",
-            noise_texture = "ham/ground_pigruins",
+            noise_texture = "ham/ground_pigruins_blue",
             runsound = "dontstarve/movement/run_dirt",
             walksound = "dontstarve/movement/walk_dirt",
             snowsound = "run_ice",
-            cannotbedug = true
+            --cannotbedug = true
         },
         minimap_tile_def = {
             name = "map_edge",
             noise_texture = "ham/mini_ground_pigruins"
         },
-        -- turf_def = {
-        --     name = "pig_ruins_nocanopy",
-        --     name = "pigruins",
-        --     bank_build = "turf_ham",
-        -- },
+         turf_def = {
+             name = "pigruins_blue",
+             anim = "pigruins",
+             bank_build = "turf_ham",
+         },
     },
 
     GASJUNGLE = {

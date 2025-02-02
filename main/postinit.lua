@@ -27,6 +27,7 @@ modimport("postinit/room_camera")         --房间镜头
 modimport("postinit/boat")                --单人船相关修改
 modimport("postinit/natureskin_variants") --和自然皮肤切换相关的所有内容
 modimport("postinit/player_vision_post") --四眼镜、蝙蝠帽所用
+modimport("postinit/tile_post") --特殊地皮挖起
 
 
 -- do not know how to sort
