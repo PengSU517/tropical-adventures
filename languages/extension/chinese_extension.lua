@@ -214,7 +214,7 @@ return {
     BAMBOOTREEBIG = "高竹丛",
     BANANARANG = "香蕉圈",
     BANDITBOAT = "强盗猪船",
-    BAT_LEATHER = "蝙蝠皮",
+    BAT_HIDE = "猪皮？",
     BEAR = "北极熊",
     BEARDEN = "熊洞",
     BEAVERHEAD = "海狸头",

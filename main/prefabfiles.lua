@@ -44,7 +44,7 @@ PrefabFiles = {
     "bambootree",
     "banditmap",
     "basefan",
-    "beaver_head",
+    "stick_heads",
     "beaverskin",
     "beavertorch",
     "beds",
