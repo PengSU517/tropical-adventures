@@ -84,7 +84,7 @@ return {
     BED6 = "Jungle Canopy Bed",
     BED7 = "Rose Bed",
     BED8 = "Soft Bed",
-    BELL1 = "Old Bell",
+    BELL = "Old Bell",
     BILLSNOW = "Platapine",
     BISHOPB = "Bishop",
     BISHOPWATER = "Bishop",
