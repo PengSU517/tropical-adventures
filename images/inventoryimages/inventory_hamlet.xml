@@ -193,7 +193,7 @@
         <Element name="living_artifact.tex" u1="0.0925293" u2="0.122803" v1="0.723389" v2="0.753662"/>
         <Element name="log_rainforest.tex" u1="0.0925293" u2="0.122803" v1="0.692627" v2="0.7229"/>
         <Element name="lotus_flower.tex" u1="0.0925293" u2="0.122803" v1="0.661865" v2="0.692139"/>
-        <Element name="lotus_flower1.tex" u1="0.0925293" u2="0.122803" v1="0.631104" v2="0.661377"/>
+        <Element name=".tex" u1="0.0925293" u2="0.122803" v1="0.631104" v2="0.661377"/>
         <Element name="lotus_flower1_cooked.tex" u1="0.0925293" u2="0.122803" v1="0.600342" v2="0.630615"/>
         <Element name="lotus_flower_cooked.tex" u1="0.0925293" u2="0.122803" v1="0.56958" v2="0.599854"/>
         <Element name="magnifying_glass.tex" u1="0.0925293" u2="0.122803" v1="0.538818" v2="0.569092"/>

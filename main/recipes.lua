@@ -329,6 +329,8 @@ AddRecipe2("blowdart_poison",
 AddRecipe2("armorseashell",
 	{ Ingredient("seashell", 10), Ingredient("rope", 1), Ingredient("seaweed", 2) }, TECH.SCIENCE_TWO,
 	{}, { "ARMOUR" })
+AddRecipe2("bell", {Ingredient("glommerwings", 1), Ingredient("glommerflower", 1)}, TECH.MAGIC_TWO, 
+    {}, {"MAGIC"})
 AddRecipe2("oxhat", { Ingredient("rope", 1), Ingredient("seashell", 4), Ingredient("ox_horn", 1) },
 	TECH.SCIENCE_ONE, {}, { "ARMOUR" })
 AddRecipe2("armorcactus", { Ingredient("needlespear", 3), Ingredient("armorwood", 1) }, TECH.SCIENCE_TWO,
@@ -1750,7 +1752,7 @@ SortAfter("disguisehat", "mermhat", "CLOTHING")
 SortBefore("pithhat", "snakeskinhat", "CLOTHING")
 SortAfter("gasmaskhat", "gashat", "CLOTHING")
 SortAfter("thunderhat", "snakeskinhat", "CLOTHING")
-SortAfter("bell1", "ox_flute", "MAGIC")
+SortAfter("bell", "ox_flute", "MAGIC")
 SortAfter("bonestaff", "icestaff", "MAGIC")
 SortAfter("living_artifact", "armorvortexcloak", "MAGIC")
 SortAfter("turf_fields", "turf_beach", "DECOR")
