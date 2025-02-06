@@ -112,11 +112,13 @@ Assets =
 	-----------character-------------------
 	Asset("IMAGE", "images/names_wilbur.tex"),
 	Asset("ATLAS", "images/names_wilbur.xml"),
+	Asset("ATLAS", "images/names_gold_cn_wilbur.xml"),
 	Asset("IMAGE", "images/names_woodlegs.tex"),
 	Asset("ATLAS", "images/names_woodlegs.xml"),
+    Asset("ATLAS", "images/names_gold_cn_woodlegs.xml"),
 	Asset("IMAGE", "images/names_walani.tex"),
 	Asset("ATLAS", "images/names_walani.xml"),
-
+    Asset("ATLAS", "images/names_gold_cn_walani.xml"),
 
 	----------ui-------------------
 	Asset("IMAGE", "images/ui/barco.tex"),
