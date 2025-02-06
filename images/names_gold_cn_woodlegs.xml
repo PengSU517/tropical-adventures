@@ -1,0 +1,7 @@
+<Atlas>
+    <Texture filename="names_gold_cn_woodlegs.tex"/>
+    <Elements>
+        <Element name="woodlegs.tex" u1="0.000488281" u2="0.999512" v1="0.000976563" v2="0.999023"/>
+    </Elements>
+</Atlas>
+
