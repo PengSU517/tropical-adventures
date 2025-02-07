@@ -32,6 +32,14 @@ local function OnWork(inst, worker, workleft)
     end
 end
 
+-- 新增判断是否应该弹开的函数
+local function ShouldRecoil(inst, worker, tool, numworks)
+    -- 如果工具存在且工具组件存在且工具不能执行困难工作（普通镐子）
+    if tool and tool.components.tool and not tool.components.tool:CanDoToughWork() then
+        return true, 0 -- 弹开且不完成任何工作量
+    end
+    return false, numworks -- 不弹开，正常完成工作量
+end
 
 SetSharedLootTable('charcoal',
     {
@@ -122,7 +130,7 @@ local function baserock_fn()
     MakeObstaclePhysics(inst, 1)
 
 
-    inst.MiniMapEntity:SetIcon("rock_obsidian.tex")
+    inst.MiniMapEntity:SetIcon("rock_obsidian.text0")
 
     inst.AnimState:SetBank("rock_obsidian")
     inst.AnimState:SetBuild("rock_obsidian")
@@ -151,10 +159,10 @@ local function baserock_fn()
     inst:AddComponent("lootdropper")
 
     inst:AddComponent("workable")
-    inst.components.workable:SetWorkAction(nil)
+    inst.components.workable:SetWorkAction(ACTIONS.MINE)
     inst.components.workable:SetWorkLeft(TUNING.ROCKS_MINE)
     inst.components.workable:SetOnWorkCallback(OnWork)
-
+    inst.components.workable:SetShouldRecoilFn(ShouldRecoil) -- 设置判断是否弹开的函数
 
     inst.components.lootdropper:SetChanceLootTable('rock_obsidian')
 
