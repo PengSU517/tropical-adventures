@@ -69,7 +69,8 @@ local function MakeRelic(num)
 
         inst:AddComponent("inventoryitem")
 
-
+        inst:AddComponent("stackable")
+        inst.components.stackable.maxsize = TUNING.STACK_SIZE_LARGEITEM
 
         --        inst:AddComponent("sinkable")
         --        inst.components.sinkable.swapbuild = "relics"
@@ -78,7 +79,6 @@ local function MakeRelic(num)
         inst.relicnum = num
 
         inst:AddComponent("bait")
-
 
         return inst
     end
