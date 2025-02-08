@@ -128,6 +128,9 @@ local function fn()
     MakeObstaclePhysics(inst, 2)
     --    MakePoisonableCharacter(inst)
 
+    inst.entity:AddMiniMapEntity()
+    inst.MiniMapEntity:SetIcon("ant_queen_entrance.tex")
+
     anim:SetBank("crick_crickantqueen")
     anim:SetBuild("crickant_queen_basics")
     anim:AddOverrideBuild("throne")
@@ -243,6 +246,9 @@ local function fnrespawnquenn()
     inst.entity:AddNetwork()
 
     inst.entity:SetPristine()
+
+    inst.entity:AddMiniMapEntity()
+    inst.MiniMapEntity:SetIcon("ant_queen_entrance.tex")
 
     if not TheWorld.ismastersim then
         return inst

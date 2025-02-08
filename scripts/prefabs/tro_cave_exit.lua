@@ -40,7 +40,7 @@ local function fn()
 
     MakeObstaclePhysics(inst, 2)
 
-    inst.MiniMapEntity:SetIcon("cave_open2.tex")
+    inst.MiniMapEntity:SetIcon("cave_open2.png")
 
     inst.AnimState:SetBank("cave_stairs")
     inst.AnimState:SetBuild("cave_exit")
@@ -98,7 +98,7 @@ local function fn1()
 
     MakeObstaclePhysics(inst, 2)
 
-    inst.MiniMapEntity:SetIcon("cave_open2.tex")
+    inst.MiniMapEntity:SetIcon("cave_open2.png")
 
     inst.AnimState:SetBank("cave_stairs")
     inst.AnimState:SetBuild("cave_exit")
@@ -157,7 +157,7 @@ local function fn2()
 
     MakeObstaclePhysics(inst, 2)
 
-    inst.MiniMapEntity:SetIcon("cave_open2.tex")
+    inst.MiniMapEntity:SetIcon("cave_open2.png")
 
     inst.AnimState:SetBank("cave_stairs")
     inst.AnimState:SetBuild("cave_exit")
@@ -216,7 +216,7 @@ local function fn3()
 
     MakeObstaclePhysics(inst, 2)
 
-    inst.MiniMapEntity:SetIcon("cave_open2.tex")
+    inst.MiniMapEntity:SetIcon("cave_open2.png")
 
     inst.AnimState:SetBank("cave_stairs")
     inst.AnimState:SetBuild("cave_exit")
