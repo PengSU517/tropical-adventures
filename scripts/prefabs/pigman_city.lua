@@ -1420,10 +1420,8 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
             inst:AddComponent("inventory")
         end
 
-        if inst.components.inventory and tool then -- Runar: 根据单机的逻辑修复一下建筑猪掉锤子的问题
-            local remove_item = inst.components.inventory:RemoveItem(tool)
-            remove_item:Remove()
-            inst.components.inventory:GiveItem(tool)
+        if not inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
+            local tool = SpawnPrefab("hammer")
             inst.components.inventory:Equip(tool)
         end
 
