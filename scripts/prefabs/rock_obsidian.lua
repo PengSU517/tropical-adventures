@@ -36,7 +36,7 @@ end
 local function ShouldRecoil(inst, worker, tool, numworks)
     -- 如果工具存在且工具组件存在且工具不能执行困难工作（普通镐子）
     if tool and tool.components.tool and not tool.components.tool:CanDoToughWork() then
-        return true, 0 -- 弹开且不完成任何工作量
+        return true, 0     -- 弹开且不完成任何工作量
     end
     return false, numworks -- 不弹开，正常完成工作量
 end
@@ -130,7 +130,7 @@ local function baserock_fn()
     MakeObstaclePhysics(inst, 1)
 
 
-    inst.MiniMapEntity:SetIcon("rock_obsidian.text0")
+    inst.MiniMapEntity:SetIcon("rock_obsidian.tex")
 
     inst.AnimState:SetBank("rock_obsidian")
     inst.AnimState:SetBuild("rock_obsidian")
