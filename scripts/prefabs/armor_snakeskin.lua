@@ -10,7 +10,7 @@ local function onequip(inst, owner)
         owner:PushEvent("equipskinneditem", inst:GetSkinName())
         owner.AnimState:OverrideItemSkinSymbol("swap_body", skin_build, "swap_body", inst.GUID, "armor_snakeskin")
     else
-    owner.AnimState:OverrideSymbol("swap_body", "armor_snakeskin", "swap_body")
+        owner.AnimState:OverrideSymbol("swap_body", "armor_snakeskin", "swap_body")
     end
     inst.components.fueled:StartConsuming()
 end
@@ -60,8 +60,9 @@ local function fn()
 
     inst:AddComponent("fueled")
     inst.components.fueled.fueltype = FUELTYPE.USAGE
-    inst.components.fueled:InitializeFuelLevel(TUNING.ARMOR_SNAKESKIN_FUEL)
+    inst.components.fueled:InitializeFuelLevel(480 * 8)
     inst.components.fueled:SetDepletedFn(inst.Remove)
+
 
     inst:AddComponent("waterproofer")
     inst.components.waterproofer:SetEffectiveness(TUNING.WATERPROOFNESS_HUGE)
