@@ -239,7 +239,7 @@ local tro_tiledefs = {
             runsound = "dontstarve/movement/run_sand",
             walksound = "dontstarve/movement/walk_sand",
             flashpoint_modifier = 0,
-            -- cannotbedug = true,
+            cannotbedug = true,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -434,7 +434,7 @@ local tro_tiledefs = {
             walksound = "dontstarve/movement/walk_rock",
             flashpoint_modifier = 0,
             hard = true, ----不可种植
-            cannotbedug = false,
+            -- cannotbedug = true,
 
         },
         minimap_tile_def = {
@@ -644,7 +644,7 @@ local tro_tiledefs = {
         },
     },
 
-    PIGRUINS = {------------古代废墟地皮
+    PIGRUINS = { ------------古代废墟地皮
         tile_range = TileRanges.HAM_LAND,
         tile_data = {
             ground_name = "Pigruins",
@@ -667,7 +667,7 @@ local tro_tiledefs = {
         },
     },
 
-    PIGRUINS_BLUE = {------------蓝色古代废墟地皮
+    PIGRUINS_BLUE = { ------------蓝色古代废墟地皮
         tile_range = TileRanges.HAM_LAND,
         tile_data = {
             ground_name = "Pigruins Blue",
@@ -685,14 +685,14 @@ local tro_tiledefs = {
             name = "map_edge",
             noise_texture = "ham/mini_ground_pigruins"
         },
-         turf_def = {
-             name = "pigruins_blue",
-             anim = "pigruins",
-             bank_build = "turf_ham",
-         },
+        turf_def = {
+            name = "pigruins_blue",
+            anim = "pigruins",
+            bank_build = "turf_ham",
+        },
     },
 
-    GASRAINFOREST = {------------毒瘴雨林地皮
+    GASRAINFOREST = { ------------毒瘴雨林地皮
         tile_range = TileRanges.HAM_LAND,
         tile_data = {
             ground_name = "Gas Jungle",
@@ -962,7 +962,7 @@ ChangeTileRenderOrder(WORLD_TILES.VOLCANO, WORLD_TILES.DESERT_DIRT, true)
 ChangeTileRenderOrder(WORLD_TILES.VOLCANO_ROCK, WORLD_TILES.DESERT_DIRT, true)
 ChangeTileRenderOrder(WORLD_TILES.BEACH, WORLD_TILES.DESERT_DIRT, true)
 
-ChangeTileRenderOrder(WORLD_TILES.GASRAINFOREST, WORLD_TILES.MUD, true)--GASJUNGLE
+ChangeTileRenderOrder(WORLD_TILES.GASRAINFOREST, WORLD_TILES.MUD, true) --GASJUNGLE
 ChangeTileRenderOrder(WORLD_TILES.DEEPRAINFOREST, WORLD_TILES.MUD, true)
 ChangeTileRenderOrder(WORLD_TILES.RAINFOREST, WORLD_TILES.MUD, true)
 ChangeTileRenderOrder(WORLD_TILES.PLAINS, WORLD_TILES.MUD, true)

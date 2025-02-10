@@ -132,6 +132,31 @@ Map.IsVolcanoAreaAtPoint = function(self, x, y, z)
     end
 end
 
+local _SetTile = Map.SetTile
+function Map:SetTile(x, y, tile, ...)
+    local newtile
+    if tile == WORLD_TILES.DIRT then
+        if self:IsVolcanoAreaAtPoint(x, 0, y) then
+            print("is in volcano")
+        end
+        newtile =
+        -- (self:IsVolcanoAreaAtPoint(x, 0, y) and WORLD_TILES.VOLCANO_ROCK) or
+            (self:IsShipwreckedAreaAtPoint(x, 0, y) and WORLD_TILES.BEACH) or nil
+
+        print(newtile)
+    end
+    _SetTile(self, x, y, newtile or tile, ...)
+end
+
+local BASE_TILES = {
+    -- [WORLD_TILES.VOLCANO_ROCK] = true,
+    [WORLD_TILES.BEACH] = true,
+}
+
+local _CanPlaceTurfAtPoint = Map.CanPlaceTurfAtPoint
+function Map:CanPlaceTurfAtPoint(x, y, z, ...)
+    return _CanPlaceTurfAtPoint(self, x, y, z, ...) or BASE_TILES[self:GetTileAtPoint(x, y, z)]
+end
 
 -----area aware related -------------
 --[[ AddComponentPostInit("areaaware", function(self)
