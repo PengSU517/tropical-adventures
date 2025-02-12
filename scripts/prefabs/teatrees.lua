@@ -421,17 +421,6 @@ local function onload(inst, data)
     PushSway(inst)
 end
 
-local function worldgen_init_pikonest(inst)
-    if TheWorld.meta.pikofixed or inst.components.childspawner then return end
-    local x, _, z = inst:GetPosition()
-    for _, node in ipairs(TheWorld.topology.nodes) do
-        if node.type == "piko_land" and TheSim:WorldPointInPoly(x, z, node.poly) then
-            -- setupspawner(inst)
-            break
-        end
-    end
-end
-
 local function tree(name, stage, type)
     return Prefab(name, function()
         stage = stage ~= 0 and stage or math.random(1, 3)
@@ -511,7 +500,6 @@ local function tree(name, stage, type)
         else
             setupfns[type or "normal"](inst)
         end
-        -- inst:DoTaskInTime(0, setupAsPikoNest)
 
         inst.setupspawner = spawner_presetup
         inst.OnEntitySleep = OnEntitySleep

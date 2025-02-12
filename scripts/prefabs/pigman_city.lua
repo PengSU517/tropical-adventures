@@ -829,11 +829,7 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
             end
 
             if sex then
-                if sex == "MALE" then
-                    inst.female = false
-                else
-                    inst.female = true
-                end
+                inst.female = sex ~= "MALE"
 
                 for i, name in ipairs(STRINGS.CITYPIGNAMES[sex]) do
                     table.insert(names, name)
@@ -1410,7 +1406,6 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
 
     local function make_mechanic()
         local inst = make_common()
-        local tool = SpawnPrefab("hammer")
 
         if not TheWorld.ismastersim then
             return inst
@@ -1421,8 +1416,7 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
         end
 
         if not inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
-            local tool = SpawnPrefab("hammer")
-            inst.components.inventory:Equip(tool)
+            inst.components.inventory:Equip(SpawnPrefab("hammer"))
         end
 
         return inst
