@@ -23,7 +23,6 @@ local pikosounds = {
 local brain = require "brains/pikobrain"
 
 local function updatebuild(inst, cheeks)
-    print("~~~build", (inst:HasTag("orange") and "orange_" or "") .. "squirrel_" .. (cheeks and "cheeks_" or "") .. "build")
     inst.AnimState:SetBuild(
         (inst:HasTag("orange") and "orange_" or "") .. "squirrel_" .. (cheeks and "cheeks_" or "") .. "build")
 end
@@ -245,10 +244,6 @@ local function fn()
             inst.AnimState:Show("eye2_red")
             inst.lighton = true
         end
-        -- if inst.spawntask then
-        --     inst.spawntask:Cancel()
-        --     inst.spawntask = nil
-        -- end
     end
 
     inst:SetStateGraph("SGpiko")
@@ -270,7 +265,9 @@ local function fn()
     SetAsRabid(inst, false)
     inst:WatchWorldState("startaporkalypse", function() transformtest(inst) end, TheWorld)
     inst:WatchWorldState("stopaporkalypse", function() transformtest(inst) end, TheWorld)
-    inst:DoTaskInTime(.2, function(inst) transformtest(inst) end)
+    inst:DoTaskInTime(FRAMES, function(inst)
+        transformtest(inst)
+    end)
 
     return inst
 end
