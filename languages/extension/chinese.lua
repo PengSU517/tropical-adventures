@@ -111,9 +111,10 @@ TA_STRINGS_CH.NAMES.PORTAL_SHIPWRECKED = "遇到故障的新奇旅途"
 TA_STRINGS_CH.CHARACTER_TITLES.wilbur = "猴王"
 TA_STRINGS_CH.CHARACTER_NAMES.wilbur = "威尔伯"
 TA_STRINGS_CH.CHARACTER_DESCRIPTIONS.wilbur = "*不会说话\n*走的时候慢,跑的时候快\n*是个猴子"
-TA_STRINGS_CH.CHARACTER_QUOTES.wilbur = "\"哦哦啊哈！\""
+TA_STRINGS_CH.CHARACTER_QUOTES.wilbur = "\"呜哦啊哈！\""
 TA_STRINGS_CH.NAMES.WILBUR = "威尔伯"
-TA_STRINGS_CH.CHARACTER_ABOUTME.wilbur = "哦哦啊哈！"
+TA_STRINGS_CH.CHARACTER_ABOUTME.wilbur = "呜哦啊哈！"
+TA_STRINGS_CH.CHARACTER_SURVIVABILITY.wilbur  = "渺茫"
 
 --Woodlegs:
 TA_STRINGS_CH.CHARACTER_TITLES.woodlegs = "海盗船长"
@@ -122,14 +123,16 @@ TA_STRINGS_CH.CHARACTER_DESCRIPTIONS.woodlegs = "*可以嗅到宝藏\n*海腿号
 TA_STRINGS_CH.CHARACTER_QUOTES.woodlegs = "\"不要介意我的卑鄙。吼吼吼吼！\""
 TA_STRINGS_CH.NAMES.WOODLEGS = "伍德莱格"
 TA_STRINGS_CH.CHARACTER_ABOUTME.woodlegs = "\"不要介意我的卑鄙。吼吼吼吼！\""
+TA_STRINGS_CH.CHARACTER_SURVIVABILITY.woodlegs = "严峻"
 
 --Walani
-TA_STRINGS_CH.CHARACTER_TITLES.walani = "稳如泰山"
+TA_STRINGS_CH.CHARACTER_TITLES.walani = "沉稳的冲浪者"
 TA_STRINGS_CH.CHARACTER_NAMES.walani = "瓦拉尼"
-TA_STRINGS_CH.CHARACTER_DESCRIPTIONS.walani = "*喜欢冲浪\n*干燥的快\n*是个相当冷艳的女孩"
+TA_STRINGS_CH.CHARACTER_DESCRIPTIONS.walani = "*喜欢冲浪\n*干燥的快\n*是个相当冷静的女孩"
 TA_STRINGS_CH.CHARACTER_QUOTES.walani = "\"如果我起不来请原谅我。我也不想这样。\""
 TA_STRINGS_CH.NAMES.WALANI = "瓦拉尼"
 TA_STRINGS_CH.CHARACTER_ABOUTME.walani = "如果我起不来请原谅我。我也不想这样。"
+TA_STRINGS_CH.CHARACTER_SURVIVABILITY.walani = "渺茫"
 
 -------------死因death causes--------------
 TA_STRINGS_CH.NAMES.DROWNING = "溺水"
