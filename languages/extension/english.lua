@@ -6873,6 +6873,11 @@ TA_STRINGS.TALKINGBIRD = {
     }
     }
 
+TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_PUGALISK_INVULNERABLE = {
+	"Its hide is too tough!",
+	"A tough nut to crack.",
+	"Break, darn you!"
+}
 local TA_STRINGS = convertToPlainTable(TA_STRINGS)
 
 return TA_STRINGS
