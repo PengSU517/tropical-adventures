@@ -104,6 +104,7 @@ modimport("postinit/prefabs/wobster")
 modimport("postinit/prefabs/meatrack")
 modimport("postinit/prefabs/mosquitosack")
 modimport("postinit/prefabs/trinket_1")
+modimport("postinit/prefabs/mushroom_farm")
 
 --widgets
 
