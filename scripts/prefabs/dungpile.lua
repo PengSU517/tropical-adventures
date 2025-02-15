@@ -38,11 +38,9 @@ local function spawndungball(inst)
     ball.AnimState:PlayAnimation("idle")
 end
 
-
 local function ondug(inst, worker)
     inst.SoundEmitter:PlaySound("dontstarve/common/food_rot")
     local pt = Point(inst.Transform:GetWorldPosition())
-
 
     if worker:HasTag("player") then
         for i = 1, inst.components.pickable.cycles_left do
@@ -71,19 +69,37 @@ end
 local function OnEntitySleep(inst)
 end
 
-
-
 local function makeemptyfn(inst)
     -- adjust art for empty
 end
 
+local function PlayStageAnim(inst, anim)
+    if inst.components.pickable.cycles_left == 3 then
+        inst.AnimState:PushAnimation("idle_full")
+    elseif inst.components.pickable.cycles_left == 2 then
+        inst.AnimState:PlayAnimation("dig_full", false)
+        inst.AnimState:PushAnimation("idle_med")
+    elseif inst.components.pickable.cycles_left == 1 then
+        inst.AnimState:PlayAnimation("dig_med", false)
+        inst.AnimState:PushAnimation("idle_low")
+	else
+        inst.AnimState:PlayAnimation("dig_low", false)
+        --inst.AnimState:PushAnimation("idle_dead")
+    end
+end
+
 local function onpickedfn(inst, picker)
+    PlayStageAnim(inst)
+
     inst.SoundEmitter:PlaySound("dontstarve/common/food_rot")
     local loots = inst.components.lootdropper:GenerateLoot()
     local pt = Point(inst.Transform:GetWorldPosition())
     inst.components.lootdropper:DropLoot(pt, loots)
 
     if picker and picker.components.sanity then
+        if picker.components.talker and picker:HasTag("player") then
+            picker.components.talker:Say(GetString(picker, "ANNOUNCE_PICKPOOP"))
+        end
         if picker:HasTag("plantkin") then
             picker.components.sanity:DoDelta(10)
         else
@@ -100,8 +116,6 @@ local function makefullfn(inst)
     if inst.components.pickable.cycles_left <= 0 then
         inst.components.workable:SetWorkLeft(1)
         inst:AddTag("dungpile")
-        inst.AnimState:PlayAnimation("dead_to_idle")
-        inst.AnimState:PushAnimation("idle")
     end
 end
 
@@ -167,13 +181,12 @@ local function OnBurn(inst)
 end
 
 local function onload(inst, data)
+    PlayStageAnim(inst)
     if data then
         if data.hasdung then
             inst:AddTag("hasdung")
-            inst.AnimState:PlayAnimation("idle")
         else
             inst:RemoveTag("hasdung")
-            inst.AnimState:PlayAnimation("dead")
         end
         if data.timeleft then
             if inst.task then
@@ -192,23 +205,23 @@ end
 
 local function fall(inst)
     inst.AnimState:PlayAnimation("fall")
-    inst:DoTaskInTime(15 / 30, function() TheCamera:Shake("VERTICAL", 0.3, 0.02, 0.5) end)
+    inst:DoTaskInTime(10/30,function() inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/roc/dung_pile") end)
+    inst:DoTaskInTime(15/30,function()  TheCamera:Shake("VERTICAL", 0.3, 0.02, 0.5)  end)
 end
 
 local function fn(Sim)
     local inst = CreateEntity()
-    local trans = inst.entity:AddTransform()
-    local anim = inst.entity:AddAnimState()
+    inst.entity:AddTransform()
+    inst.entity:AddAnimState()
+    inst.entity:AddSoundEmitter()
+    inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.entity:AddSoundEmitter()
+    inst.MiniMapEntity:SetIcon("dung_pile.tex")
 
-    local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("dung_pile.tex")
-
-    anim:SetBank("dung_pile")
-    anim:SetBuild("dung_pile")
-    anim:PlayAnimation("idle")
+    inst.AnimState:SetBank("dung_pile")
+    inst.AnimState:SetBuild("dung_pile")
+    inst.AnimState:PlayAnimation("idle")
 
     inst:AddTag("dungpile")
     inst:AddTag("pick_digin")
@@ -227,7 +240,6 @@ local function fn(Sim)
     ---------------------
     inst:AddComponent("pickable")
     inst.components.pickable.picksound = "dontstarve/wilson/harvest_berries"
-
     inst.components.pickable.getregentimefn = getregentimefn
     inst.components.pickable.onpickedfn = onpickedfn
     inst.components.pickable.makebarrenfn = makebarrenfn
@@ -243,7 +255,6 @@ local function fn(Sim)
     inst.components.childspawner:SetSpawnPeriod(CATCOONDEN_RELEASE_TIME)
     inst.components.childspawner:SetMaxChildren(1)
     -- inst.components.childspawner.canspawnfn = function(inst)
-
     -- end
 
     ---------------------
@@ -268,10 +279,10 @@ local function fn(Sim)
     end
 
     inst:ListenForEvent("animover", function(inst, data)
-        if anim:IsCurrentAnimation("idle_to_dead") then
+        if inst.AnimState:IsCurrentAnimation("idle_to_dead") then
             destroy(inst)
         end
-        if anim:IsCurrentAnimation("fall") then
+        if inst.AnimState:IsCurrentAnimation("fall") then
             land(inst)
         end
     end)
@@ -280,6 +291,7 @@ local function fn(Sim)
     inst.flies.Transform:SetScale(1.2, 1.2, 1.2)
 
     MakeSnowCovered(inst)
+    MakeHauntableIgnite(inst)
 
     inst.OnEntitySleep = OnEntitySleep
     inst.OnEntityWake = OnEntityWake
@@ -291,4 +303,4 @@ local function fn(Sim)
     return inst
 end
 
-return Prefab("forest/monsters/dungpile", fn, assets, prefabs)
+return Prefab("dungpile", fn, assets, prefabs)

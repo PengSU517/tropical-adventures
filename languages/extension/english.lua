@@ -6878,6 +6878,18 @@ TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_PUGALISK_INVULNERABLE = {
 	"A tough nut to crack.",
 	"Break, darn you!"
 }
+
+TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_PICKPOOP = {
+    "Eugg!",
+    "Gross!",
+    "Ick!",
+    "I got some on my hands!",
+}
+TA_STRINGS.CHARACTERS.WORMWOOD.ANNOUNCE_PICKPOOP = {
+    "Wheee!",
+    "Yay!",
+    "Woohoo!",
+}
 local TA_STRINGS = convertToPlainTable(TA_STRINGS)
 
 return TA_STRINGS
