@@ -9,7 +9,7 @@ local Poisonous = Class(function(self, inst)
 end)
 
 function Poisonous:OnAttack(target, dmg)
-	if target and target.components.poisonable and self.poisontestfn and self.poisontestfn(self.inst, target) then
+	if target and target.components.poisonable and (not self.poisontestfn or self.poisontestfn(self.inst, target)) then
 		if target and target:HasTag("player") then
 			local corpo = target.components.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
 			local cabeca = target.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)

@@ -277,7 +277,7 @@ local states=
         tags = {"attack", "busy","no_stun"},
         
         onenter = function(inst, target)
-            inst.components.combat.poisonous = true
+            inst.components.poisonous:SetPoisonTestFn()
             inst.Physics:Stop()
             inst.components.combat:StartAttack()
             inst.AnimState:PlayAnimation("tail")
@@ -301,7 +301,7 @@ local states=
         },
 
         onexit = function(inst)
-             inst.components.combat.poisonous = false
+            inst.components.poisonous:SetPoisonTestFn(function() return false end)
         end,
        
     },
