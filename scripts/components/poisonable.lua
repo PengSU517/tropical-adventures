@@ -7,6 +7,7 @@ local Poisonable = Class(function(self, inst)
 	self.defaultDuration = 60 * 16
 	self.startDuration = 0
 	self.duration = 0
+    self.immuneduration = 0
 	self.updating = false
 	self.lastDamageTime = 0
 	self:SetOnHitFn()
@@ -22,10 +23,28 @@ local function SpoilLoot(inst, loot)
 end
 
 function Poisonable:SetPoison(dmg, interval, duration)
+    self.immuneduration = math.max(self.immuneduration - duration / 2, 0)
+    if self.immuneduration > 0 then
+        if self.poisonfx then self.poisonfx:Remove() end
+        self.poisonfx = SpawnPrefab("poisonbubble_level1")
+        self.poisonfx.AnimState:SetHSV(130 / 360, 1, .9)
+        self.inst:AddChild(self.poisonfx)
+        local burnable = self.inst.components.burnable
+        if burnable and #burnable.fxdata > 0 then
+            local symbol = burnable.fxdata[1].follow
+            if symbol then
+                self.poisonfx.Follower:FollowSymbol(self.inst.GUID, symbol, 0, 0, 0)
+            end
+        end
+        self.inst:AddDebuff("poisoned_tro", "buff_poisoned_tro", {duration = self.immuneduration, debuffkey = "antitoxin"}, true)
+        return
+    end
+    duration = duration - self.immuneduration * 2
 	self.dmg = dmg or -1
 	self.interval = interval or self.maxInterval
 	self.startDuration = duration or self.defaultDuration
 	self.duration = self.startDuration
+    self.inst:AddDebuff("poisoned_tro", "buff_poisoned_tro", {duration = self.duration, debuffkey = "poisoned"}, true)
 	if not self.updating then
 		self.inst:StartUpdatingComponent(self)
 		if self.inst.components.lootdropper then
@@ -45,11 +64,13 @@ function Poisonable:ResetValues()
 	self.dmg = 0
 	self.interval = 0
 	self.lastDamageTime = 0
+    self.immuneduration = 0
 end
 
-function Poisonable:WearOff()
+function Poisonable:WearOff(immuneduration)
 	self:ResetValues()
 	self.inst:StopUpdatingComponent(self)
+    self.inst:RemoveDebuff("poisoned_tro")
 	if self.updating and self.inst.components.lootdropper then
 		self.inst.components.lootdropper:RemoveLootPostInit("poisoned")
 	end
@@ -60,6 +81,14 @@ function Poisonable:WearOff()
 		self.poisonfx:Remove()
 		self.poisonfx = nil
 	end
+
+    if immuneduration then
+        self.immuneduration = math.max(self.immuneduration, immuneduration)
+        self.inst:AddDebuff("poisoned_tro", "buff_poisoned_tro", {duration = self.immuneduration, debuffkey = "antitoxin"}, true)
+    	if not self.updating then
+		    self.inst:StartUpdatingComponent(self)
+        end
+    end
 end
 
 function Poisonable:IncreaseIntensity()
@@ -70,6 +99,9 @@ function Poisonable:IncreaseIntensity()
 end
 
 function Poisonable:OnUpdate(dt)
+    self.immuneduration = self.immuneduration - dt
+    if self.immuneduration < 0 then self.immuneduration = 0 end
+
 	self.duration = self.duration - dt
 	self.lastDamageTime = self.lastDamageTime - dt
 	-- thanks to Swaggy for the fix
@@ -96,7 +128,8 @@ function Poisonable:OnUpdate(dt)
 		end
 	end
 
-	if self.duration <= 0 or self.inst:HasTag("weremoose") or self.inst:HasTag("weregoose") or self.inst:HasTag("beaver") or self.inst:HasTag("playerghost") then
+	if self.duration <= 0 and self.immuneduration <= 0 or
+       self.inst:HasOneOfTags({"weremoose", "weregoose", "beaver", "playerghost"}) then
 		self:WearOff()
 	end
 end

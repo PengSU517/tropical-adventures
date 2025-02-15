@@ -9,17 +9,20 @@ local MAX_VENOM_GLAND_DAMAGE = 80
 local MIN_VENOM_GLAND_LEFTOVER = 5
 
 local function oneat(inst, eater)
-    if eater.components.poisonable then
-        eater.components.poisonable:WearOff()
-    end
+    if not eater.components.poisonable then return end
+    eater.components.poisonable:WearOff(TUNING.TOTAL_DAY_TIME / 2)
+    return true
+end
+
+local function oneat_anti(inst, eater)
+    if not oneat(inst, eater) or not eater:HasTag("player") then return end
+    eater.AnimState:PlayAnimation("research")
 end
 
 local function oneat_gland(inst, eater)
-    oneat(inst, eater)
-
+    if not oneat(inst, eater) then return end
     local health = eater.components.health
     if not health then return end
-
     health:DoDelta(health.currenthealth - MIN_VENOM_GLAND_LEFTOVER < MAX_VENOM_GLAND_DAMAGE and
                    MIN_VENOM_GLAND_LEFTOVER - health.currenthealth or -MAX_VENOM_GLAND_DAMAGE, nil, "venomgland")
 end
@@ -76,7 +79,7 @@ local function MakeAntitoxin(name, build, oneatfn, tags)
     
 end
 
-return MakeAntitoxin("antivenom", "poison_antidote", oneat, {"aquatic", "preparedfood"}),
-    MakeAntitoxin("poisonbalm", "poison_salve", oneat, {"aquatic", "preparedfood"}),
+return MakeAntitoxin("antivenom", "poison_antidote", oneat_anti, {"aquatic", "preparedfood"}),
+    MakeAntitoxin("poisonbalm", "poison_salve", oneat_anti, {"aquatic", "preparedfood"}),
     MakeAntitoxin("venomgland", "venom_gland", oneat_gland, {"cattoy"})
 
