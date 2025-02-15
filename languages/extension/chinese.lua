@@ -5361,6 +5361,9 @@ TA_STRINGS_CH.NAMES.BUFF_SPEEDUP_TRO_2                       = "咖啡因II"
 TA_STRINGS_CH.NAMES.BUFF_SPEEDUP_TRO_3                       = "冲浪"
 TA_STRINGS_CH.NAMES.BUFF_SPEEDUP_TRO_4                       = "咖啡因III"
 
+TA_STRINGS_CH.NAMES.BUFF_POISONED_TRO                        = "中毒"
+TA_STRINGS_CH.NAMES.BUFF_ANTITOXIN_TRO                       = "抗毒"
+
 
 ------------------工具武器装备
 

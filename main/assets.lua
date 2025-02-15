@@ -77,6 +77,9 @@ Assets =
 
 	Asset("ANIM", "anim/ui_honeychest_7x.zip"), -- ## Hamlet Plus
 
+    Asset("ANIM", "anim/poison.zip"),
+    Asset("ANIM", "anim/poison_meter_overlay.zip"),
+
 	--蘑菇农场额外种植动画包，来自老版棱镜
     Asset("ANIM", "anim/mushroom_farm_cutlichen_build.zip"),
     Asset("ANIM", "anim/mushroom_farm_foliage1_build.zip"),

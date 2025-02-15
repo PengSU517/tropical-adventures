@@ -222,6 +222,9 @@ local function create_scorpion(Sim)
     inst.components.locomotor:SetAllowPlatformHopping(true)
     inst:AddComponent("embarker")
 
+    inst:AddComponent("poisonous")
+    inst.components.poisonous:SetPoisonTestFn(function() return false end)
+
     inst:AddComponent("sanityaura")
     inst.components.sanityaura.aura = -TUNING.SANITYAURA_SMALL
 

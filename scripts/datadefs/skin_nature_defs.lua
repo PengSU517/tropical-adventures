@@ -4,11 +4,12 @@
 
 local natureskins = {
     sapling = {
-        default = { basebuild = "sapling", },
+        default = { basebuild = "sapling", base_minimapicon = "sapling.png" },
         sapling_green = {
             build = "sapling",
             skintype = "tropical",
             name = "saplingnova",
+            minimapicon = "sapling.png",
             extra_init_fn = function(inst, skinname)
                 CancelNoGrowInWinter(inst)
                 -- inst.AnimState:SetFilter("lightgreen")
@@ -39,11 +40,12 @@ local natureskins = {
     },
 
     grass_tall = {
-        default = { basebuild = "grass_tall" },
+        default = { basebuild = "grass_tall", base_minimapicon = "grass_tall.tex" },
         grass_tall_green = {
             build = "grass_tall_green",
             skintype = "tropical",
             name = "grass_tall_green",
+            minimapicon = "grass_tall.tex",
             -- extra_init_fn = function(inst, skinname)
             --     -- CancelNoGrowInWinter(inst)
             --     -- inst.AnimState:SetFilter("green")
