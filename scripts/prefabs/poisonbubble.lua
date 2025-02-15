@@ -24,8 +24,11 @@ local function MakeBubble(name, level, loop)
 
         inst.level = level or 2
         anim:PlayAnimation("level" .. inst.level .. "_pre")
-        anim:PushAnimation("level" .. inst.level .. "_loop", loop) -- Let this loop until something externally calls StopBubbles
-        if not loop then inst:ListenForEvent("animqueueover", Removefx) end
+        if loop then
+            anim:PushAnimation("level" .. inst.level .. "_loop", loop) -- Let this loop until something externally calls StopBubbles
+        else
+            inst:ListenForEvent("animqueueover", Removefx)
+        end
 
         inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/poisoned", "poisoned")
 
@@ -53,4 +56,5 @@ return unpack(bubbles)
 ]]
 
 -- Runar: Other bubbles haven't been used, just keep them away from Prefabs
-return MakeBubble("poisonbubble_level1_loop", 1, true)
+return MakeBubble("poisonbubble_level1_loop", 1, true),
+    MakeBubble("poisonbubble_level1", 1)

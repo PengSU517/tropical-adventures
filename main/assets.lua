@@ -77,6 +77,9 @@ Assets =
 
 	Asset("ANIM", "anim/ui_honeychest_7x.zip"), -- ## Hamlet Plus
 
+    Asset("ANIM", "anim/poison.zip"),
+    Asset("ANIM", "anim/poison_meter_overlay.zip"),
+
 
 
 	---------------minisign------------------
