@@ -1,3 +1,39 @@
+-- if CustomPresetManager then
+--     print("TA Mod Loading Custom Presets Manager") --这个只能获取玩家自定义预设
+--     for _, custompresetid in ipairs(CustomPresetManager:GetPresetIDs(LEVELCATEGORY.WORLDGEN)) do
+--         print("TA Mod Loading Custom Preset: ")
+
+
+--         local level = CustomPresetManager:LoadCustomPreset(LEVELCATEGORY.WORLDGEN, custompresetid)
+
+--         for i, v in pairs(level) do
+--             print("TA Mod Loading Custom Preset: ")
+--             print(i or "nil")
+--             print(v or "nil")
+--         end
+
+--         if level.overrides then
+--             for name, override in pairs(level.overrides) do
+--                 print("TA Mod Loading Custom Preset Override: ")
+--                 print(name or "nil")
+--                 print(override or "nil")
+--             end
+--         end
+--     end
+-- else
+--     print("TA Mod Loading Custom Presets Manager Failed")
+-- end
+
+
+-- for i, v in pairs(leveldata) do
+--     print("TA Mod Loading Custom Preset: ")
+--     print(i or "nil")
+--     print(v or "nil")
+-- end
+
+
+
+
 GLOBAL.TA_CONFIG = {
 
     language          = GetModConfigData("language"),
@@ -6,7 +42,7 @@ GLOBAL.TA_CONFIG = {
     shipwrecked       = GetModConfigData("shipwrecked"),
     hamlet            = GetModConfigData("hamlet"),
 
-    multiplayerportal = GetModConfigData("startlocation"),
+    multiplayerportal = GetModConfigData("multiplayerportal"),
     startlocation     = GetModConfigData("startlocation"),
     world_size_multi  = GetModConfigData("world_size_multi"),
     coastline         = GetModConfigData("coastline"),

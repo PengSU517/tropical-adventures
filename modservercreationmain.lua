@@ -44,3 +44,9 @@ end
 
 -- ChangeTAConfigs("testmode", false)
 -- ChangeTAConfigs("testmap", false)
+
+
+
+-- print("tropical adventures: Loaded!1111111")
+-- print(CheckName or "hahahhahaahhaahha22222222")
+-- if tbl then print(tbl[1]) end

@@ -6,11 +6,18 @@ local require = require
 local modimport = modimport
 
 require("tools/upvaluehelper")
-require("tools/tableutil")  ----一些表相关的工具函数，都在表tabel里
+require("tools/tableutil") ----一些表相关的工具函数，都在表tableutil里
+require("tools/modutil")
 require("tools/tileutil")
-require("tools/spawnutil")  ----地形生成相关工具
-modimport("main/ta_config") ----mod 设置相关内容
-modimport("main/tiledefs")  ----缺少行走的声音
+require("tools/spawnutil")     ----地形生成相关工具
+
+modimport("main/ta_customize") ----世界设置项
+modimport("main/ta_config")    ----mod 设置相关内容
+modimport("main/tiledefs")     ----缺少行走的声音
+
+
+-- ModGetLevelDataOverride()
+
 
 
 
@@ -29,10 +36,10 @@ modimport("scripts/map/newstartlocation")
 -------------修改之前内容
 modimport("postinit/map/rooms")
 modimport("postinit/map/tasks")
-modimport("postinit/map/levels") -----------[[几乎所有地形修改都在这里]]
+modimport("postinit/map/levels")
 modimport("postinit/map/graph")
 modimport("postinit/map/storygen")
-modimport("postinit/map/forest_map_new") -----在这里添加哈姆雷特城镇
+modimport("postinit/map/forest_map_new") -----在这里添加哈姆雷特城镇 -----------[[几乎所有地形修改都在这里]]
 modimport("postinit/map/ocean_gen_new")  ----防止新的水面地皮被覆盖 ---但是暴力覆盖似乎太严重
 modimport("postinit/map/node")           ------------防止清空水上内容
 

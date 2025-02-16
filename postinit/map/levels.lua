@@ -1,28 +1,28 @@
 local troadj = TA_CONFIG
 -------------------------调整地图大小和海岸线-------但是用的方法有些暴力-------------------
 
-if GLOBAL.rawget(GLOBAL, "WorldSim") then
-    local idx = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
+-- if GLOBAL.rawget(GLOBAL, "WorldSim") then
+--     local idx = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
 
-    local multi = troadj.world_size_multi
+--     local multi = troadj.world_size_multi
 
-    if multi ~= 1 then
-        local OldSetWorldSize = idx.SetWorldSize
-        idx.SetWorldSize = function(self, width, height)
-            print("Setting world size to " .. width .. " times " .. multi)
-            OldSetWorldSize(self, math.ceil(multi * width), math.ceil(multi * height))
-        end
+--     if multi ~= 1 then
+--         local OldSetWorldSize = idx.SetWorldSize
+--         idx.SetWorldSize = function(self, width, height)
+--             print("Setting world size to " .. width .. " times " .. multi)
+--             OldSetWorldSize(self, math.ceil(multi * width), math.ceil(multi * height))
+--         end
 
-        local OldConvertToTileMap = idx.ConvertToTileMap
-        idx.ConvertToTileMap = function(self, length)
-            OldConvertToTileMap(self, math.ceil(multi * length))
-        end
-    end
+--         local OldConvertToTileMap = idx.ConvertToTileMap
+--         idx.ConvertToTileMap = function(self, length)
+--             OldConvertToTileMap(self, math.ceil(multi * length))
+--         end
+--     end
 
-    if troadj.coastline then
-        idx.SeparateIslands = function(self) print("不分离土地") end
-    end
-end
+--     if troadj.coastline then
+--         idx.SeparateIslands = function(self) print("不分离土地") end
+--     end
+-- end
 
 
 
