@@ -30,10 +30,10 @@ end
 
 
 
-local troadv = TA_CONFIG
+local troadv = TA_CONFIG.WORLDGEN
 -------------以下代码可以直接改变主大陆但是 background room都不会生成
 if (troadv.together_not_mainland) and (not troadv.testmap) then
-    local land = troadv.startlocation
+    local land = troadv.multiplayerportal
 
     function Story:AddRegionsToMainland(on_region_added_fn)
         -- print("!!!!!!!!!!!!!")

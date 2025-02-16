@@ -15,7 +15,7 @@ AddPlayerPostInit(function(inst)
         return
     end
 
-    if TUNING.tropical.hayfever then
+    if TUNING.hayfever then
         if not inst.components.hayfever then
             inst:AddComponent("hayfever")
         end

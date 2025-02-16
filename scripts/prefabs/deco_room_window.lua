@@ -338,8 +338,9 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
 
         --------------调整在墙面上的高度
         if data.height then
-            local change = TheInput:IsKeyDown(TA_CONFIG_CLIENT.height_keys[2]) and data.changevalue or
-                TheInput:IsKeyDown(TA_CONFIG_CLIENT.height_keys[1]) and -1 * data.changevalue or 0
+            local change = TheInput:IsKeyDown(TUNING.tro_pairedkey[TA_CONFIG.CLIENT.build_height][2]) and data
+                .changevalue or
+                TheInput:IsKeyDown(TUNING.tro_pairedkey[TA_CONFIG.CLIENT.build_height][1]) and -1 * data.changevalue or 0
             if change ~= 0 then
                 TUNING.BUILD_HEIGHT = TUNING.BUILD_HEIGHT + change
                 TUNING.BUILD_HEIGHT = math.min(math.max(TUNING.BUILD_HEIGHT, -1), 3)
@@ -352,9 +353,9 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
 
 
         if data.rotation then
-            if TheInput:IsKeyDown(TA_CONFIG_CLIENT.rotation_keys[2]) then
+            if TheInput:IsKeyDown(TUNING.tro_pairedkey[TA_CONFIG.CLIENT.build_rotation][2]) then
                 data.rotation = 180
-            elseif TheInput:IsKeyDown(TA_CONFIG_CLIENT.rotation_keys[1]) then
+            elseif TheInput:IsKeyDown(TUNING.tro_pairedkey[TA_CONFIG.CLIENT.build_rotation][1]) then
                 data.rotation = 0
             end
 

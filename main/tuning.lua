@@ -42,6 +42,16 @@ TUNING.HAMROOM = {
     },
 }
 
+
+TUNING.tro_pairedkey = {
+    qe = { 113, 101 },
+    du = { 274, 273 },
+    lr = { 276, 275 },
+    mp = { 45, 61 },
+    pp = { 281, 280 },
+    he = { 278, 279 }
+}
+
 --buff----------------------------
 ----------------------------------
 TUNING.COFFEE_SPEED_INCREASE = 5 / 6
@@ -350,48 +360,48 @@ TUNING.RAINBOWJELLYFISH_WEIGHTS = {
     max = 118.21,
 }
 
-TUNING.BATHAT_PERISHTIME = TUNING.TOTAL_DAY_TIME*2
+TUNING.BATHAT_PERISHTIME = TUNING.TOTAL_DAY_TIME * 2
 TUNING.SCAN_DISTANCE = 30
-TUNING.GOGGLES_PERISHTIME = TUNING.TOTAL_DAY_TIME*10
-TUNING.GOGGLES_HEAT_PERISHTIME = TUNING.TOTAL_DAY_TIME*2
+TUNING.GOGGLES_PERISHTIME = TUNING.TOTAL_DAY_TIME * 10
+TUNING.GOGGLES_HEAT_PERISHTIME = TUNING.TOTAL_DAY_TIME * 2
 TUNING.GOGGLES_ARMOR_ARMOR = wilson_health * 4 * 0.7
 TUNING.GOGGLES_ARMOR_ABSORPTION = 0.85
 TUNING.GOGGLES_SHOOT_USES = 10
 TUNING.NEARSIGHTED_BLUR_START_RADIUS = 0.0
 TUNING.NEARSIGHTED_BLUR_STRENGTH = 3.0
 TUNING.GOGGLES_HEAT =
-	{
-		HOT=
-		{
-			BLOOM = true,
-			DESATURATION = 1.0,
-			MULT_COLOUR = {0.0, 1.0, 0.5, 1.0},
-			ADD_COLOUR  = {1.0, 0.1, 0.3, 1.0},
-		},
-		COLD=
-		{
-			BLOOM = false,
-			DESATURATION = 0.7,
-			MULT_COLOUR = {0.0, 0.0, 0.3, 1.0},
-			ADD_COLOUR  = {0.1, 0.1, 0.5, 1.0},
-		},
-		GROUND=
-		{
-			MULT_COLOUR = {0.0, 0.1, 0.3, 1.0},
-        	ADD_COLOUR  = {0.1, 0.1, 0.5, 1.0}
-		},
-		WAVES=
-		{
-			MULT_COLOUR = {0.0, 0.0, 0.3, 1.0},
-			ADD_COLOUR  = {0.1, 0.1, 0.6, 1.0},
-		},
-		BLUR=
-		{
-			ENABLED = true,
-			START_RADIUS = -5.0,
-			STRENGTH = 0.16,
-		}
- 	}
+{
+    HOT =
+    {
+        BLOOM        = true,
+        DESATURATION = 1.0,
+        MULT_COLOUR  = { 0.0, 1.0, 0.5, 1.0 },
+        ADD_COLOUR   = { 1.0, 0.1, 0.3, 1.0 },
+    },
+    COLD =
+    {
+        BLOOM        = false,
+        DESATURATION = 0.7,
+        MULT_COLOUR  = { 0.0, 0.0, 0.3, 1.0 },
+        ADD_COLOUR   = { 0.1, 0.1, 0.5, 1.0 },
+    },
+    GROUND =
+    {
+        MULT_COLOUR = { 0.0, 0.1, 0.3, 1.0 },
+        ADD_COLOUR  = { 0.1, 0.1, 0.5, 1.0 }
+    },
+    WAVES =
+    {
+        MULT_COLOUR = { 0.0, 0.0, 0.3, 1.0 },
+        ADD_COLOUR  = { 0.1, 0.1, 0.6, 1.0 },
+    },
+    BLUR =
+    {
+        ENABLED = true,
+        START_RADIUS = -5.0,
+        STRENGTH = 0.16,
+    }
+}
 
 TUNING.TELEBRELLA_USES = 10
 TUNING.NEARSIGHTED_ACTION_RANGE = 4

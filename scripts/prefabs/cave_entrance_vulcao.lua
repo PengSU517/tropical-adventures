@@ -63,32 +63,13 @@ local function fn()
     if not TheWorld.ismastersim then
         return inst
     end
-    --[[
-    if TheNet:GetServerIsClientHosted() and not (TheShard:IsMaster() or TheShard:IsSecondary()) then
-        --On non-sharded servers we'll make these vanish for now, but still generate them
-        --into the world so that they can magically appear in existing saves when sharded
-        RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0,0)
-        inst.MiniMapEntity:SetEnabled(false)
-        inst:AddTag("NOCLICK")
-        inst:AddTag("CLASSIFIED")
-    end
-]]
+
     inst:AddComponent("inspectable")
     inst:AddComponent("worldmigrator")
     inst.components.worldmigrator.id = 778
     inst.components.worldmigrator.receivedPortal = 777
 
-    -- if TUNING.tropical.tropicalshards then
-    --     inst.components.worldmigrator.auto = false
-    --     inst.components.worldmigrator.linkedWorld = "2"
-    -- end
 
-
-
-    --	if not inst:HasTag("NOCLICK") then
-    --	inst:DoPeriodicTask(15, OnSeasonChange)
-    --	end
 
     inst:SetStateGraph("SGvolcano")
 
@@ -135,7 +116,7 @@ local function fn2()
     inst.components.worldmigrator.id = 558
     inst.components.worldmigrator.receivedPortal = 557
 
-    -- if TUNING.tropical.tropicalshards then
+    -- if TUNING.tropicalshards then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "2"
     -- end

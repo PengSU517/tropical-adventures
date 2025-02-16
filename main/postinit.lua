@@ -1,6 +1,6 @@
 local modimport = modimport
 
-if TA_CONFIG.testmode then --开发人员测试时才可以使用,mod文件夹名称为tropical-adventures
+if TUNING.testmode then --开发人员测试时才可以使用,mod文件夹名称为tropical-adventures
     modimport("postinit/seafork")
     modimport("postinit/opengift")
     modimport("postinit/widgets/hoverer_info")
@@ -26,8 +26,8 @@ modimport("postinit/ham_room")            --新的room
 modimport("postinit/room_camera")         --房间镜头
 modimport("postinit/boat")                --单人船相关修改
 modimport("postinit/natureskin_variants") --和自然皮肤切换相关的所有内容
-modimport("postinit/player_vision_post") --四眼镜、蝙蝠帽所用
-modimport("postinit/tile_post") --特殊地皮挖起
+modimport("postinit/player_vision_post")  --四眼镜、蝙蝠帽所用
+modimport("postinit/tile_post")           --特殊地皮挖起
 
 
 -- do not know how to sort
@@ -64,7 +64,7 @@ modimport("postinit/components/curseditem")
 modimport("postinit/components/dynamicmusic")
 modimport("postinit/components/embarker")
 modimport("postinit/components/flotsamgenerator") --漂浮物刷新，TODO可能不生效
-modimport("postinit/components/groundpounder") --这个组件拍地板的？
+modimport("postinit/components/groundpounder")    --这个组件拍地板的？
 modimport("postinit/components/hatchable")
 modimport("postinit/components/healthtrigger")
 modimport("postinit/components/inventory_prevent_pick")
@@ -102,10 +102,10 @@ modimport("postinit/prefabs/wobster")
 modimport("postinit/prefabs/world")
 
 --widgets
-modimport("postinit/widgets/container_boat")     -- boat container sizing tweak by EvenMr
+modimport("postinit/widgets/container_boat") -- boat container sizing tweak by EvenMr
 modimport("postinit/widgets/container_widget_boat")
 modimport("postinit/widgets/container_woodleg_boat")
-modimport("postinit/widgets/containers")         --new containers
+modimport("postinit/widgets/containers") --new containers
 modimport("postinit/widgets/crafttabs")
 modimport("postinit/widgets/healthbadge")
 modimport("postinit/widgets/seasonsdisplay.lua") --雾和花粉症,还有树荫

@@ -339,7 +339,7 @@ local function fn()
     inst:AddComponent("knownlocations")
 
     inst:AddComponent("health")
-    inst.components.health:SetMaxHealth(8000 * TUNING.tropical.bosslife)
+    inst.components.health:SetMaxHealth(8000 * TUNING.bosslife)
     inst.components.health.absorb = .3
 
     inst:AddComponent("eater")

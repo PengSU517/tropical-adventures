@@ -16,7 +16,7 @@ AddClassPostConstruct("components/playercontroller", function(self)
             target_x, target_z = platform.components.walkableplatform:GetEmbarkPosition(my_x, my_z)
         else
             platform_for_velocity_calculation = self.inst:GetCurrentPlatform()
-            --		if TUNING.tropical.disembarkation then platform_for_velocity_calculation = self.inst:GetCurrentPlatform() or GetClosestInstWithTag("barcoapto", self.inst, 0.5) end
+            --		if TUNING.disembarkation then platform_for_velocity_calculation = self.inst:GetCurrentPlatform() or GetClosestInstWithTag("barcoapto", self.inst, 0.5) end
             platform_for_velocity_calculation = self.inst:GetCurrentPlatform() or
                 GetClosestInstWithTag("barcoapto", self.inst, 0.5)
         end

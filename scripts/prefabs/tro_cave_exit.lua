@@ -74,12 +74,12 @@ local function fn()
     inst:ListenForEvent("migration_full", full)
     inst:ListenForEvent("migration_activate", activate)
 
-    -- if TUNING.tropical.tropicalshards == 5 or  TUNING.tropical.tropicalshards == 10 or  TUNING.tropical.tropicalshards == 20 then
+    -- if TUNING.tropicalshards == 5 or  TUNING.tropicalshards == 10 or  TUNING.tropicalshards == 20 then
     -- inst.components.worldmigrator.auto = false
     -- inst.components.worldmigrator.linkedWorld = "1"	
     -- end		
 
-    -- if TUNING.tropical.tropicalshards == 30 then
+    -- if TUNING.tropicalshards == 30 then
     -- inst.components.worldmigrator.auto = false
     -- inst.components.worldmigrator.linkedWorld = "5"	
     -- end		
@@ -133,12 +133,12 @@ local function fn1()
     inst:ListenForEvent("migration_full", full)
     inst:ListenForEvent("migration_activate", activate)
 
-    -- if TUNING.tropical.tropicalshards == 5 or TUNING.tropical.tropicalshards == 10 or TUNING.tropical.tropicalshards == 20 then
+    -- if TUNING.tropicalshards == 5 or TUNING.tropicalshards == 10 or TUNING.tropicalshards == 20 then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "4"
     -- end
 
-    -- if TUNING.tropical.tropicalshards == 30 then
+    -- if TUNING.tropicalshards == 30 then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "5"
     -- end
@@ -192,12 +192,12 @@ local function fn2()
     inst:ListenForEvent("migration_full", full)
     inst:ListenForEvent("migration_activate", activate)
 
-    -- if TUNING.tropical.tropicalshards == 5 or TUNING.tropical.tropicalshards == 10 or TUNING.tropical.tropicalshards == 20 then
+    -- if TUNING.tropicalshards == 5 or TUNING.tropicalshards == 10 or TUNING.tropicalshards == 20 then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "4"
     -- end
 
-    -- if TUNING.tropical.tropicalshards == 30 then
+    -- if TUNING.tropicalshards == 30 then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "5"
     -- end
@@ -251,12 +251,12 @@ local function fn3()
     inst:ListenForEvent("migration_full", full)
     inst:ListenForEvent("migration_activate", activate)
 
-    -- if TUNING.tropical.tropicalshards == 5 or TUNING.tropical.tropicalshards == 10 or TUNING.tropical.tropicalshards == 20 then
+    -- if TUNING.tropicalshards == 5 or TUNING.tropicalshards == 10 or TUNING.tropicalshards == 20 then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "4"
     -- end
 
-    -- if TUNING.tropical.tropicalshards == 30 then
+    -- if TUNING.tropicalshards == 30 then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "5"
     -- end

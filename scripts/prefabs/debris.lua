@@ -408,7 +408,7 @@ local function MakePortal2(name, bank, build, assets, prefabs, common_postinit, 
         --        inst.AnimState:PlayAnimation("idle_loop", true)	
 
 
-        if TUNING.tropical.multiplayerportal == "together" then
+        if TUNING.multiplayerportal == "together" then
             inst.AnimState:SetBank("portal_dst")
             inst.AnimState:SetBuild("portal_stone")
             inst.AnimState:PlayAnimation("idle_loop", true)
@@ -499,7 +499,7 @@ local function MakePortal2(name, bank, build, assets, prefabs, common_postinit, 
                 end)
             end
 
-            if TUNING.tropical.multiplayerportal == "together" then
+            if TUNING.multiplayerportal == "together" then
                 inst:DoTaskInTime(.4, function()
                     inst.sg:GoToState("spawn_pre")
                 end)

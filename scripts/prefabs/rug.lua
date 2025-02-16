@@ -285,9 +285,9 @@ local function placeAlign(inst)
 		inst.AnimState:SetOrientation(ANIM_ORIENTATION.OnGround)
 	end
 	if true then
-		if TheInput:IsKeyDown(TA_CONFIG_CLIENT.rotation_keys[2]) then
+		if TheInput:IsKeyDown(TUNING.tro_pairedkey[TA_CONFIG.CLIENT.build_rotation][2]) then
 			rug_rotation = rug_rotation + 1
-		elseif TheInput:IsKeyDown(TA_CONFIG_CLIENT.rotation_keys[1]) then
+		elseif TheInput:IsKeyDown(TUNING.tro_pairedkey[TA_CONFIG.CLIENT.build_rotation][1]) then
 			rug_rotation = rug_rotation - 0.25
 		end
 

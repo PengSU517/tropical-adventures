@@ -158,7 +158,7 @@ end
 
 local _SetOceanBlendParams = AnimState.SetOceanBlendParams
 function AnimState:SetOceanBlendParams(...)
-    if TUNING.tropical.ocean == "tropical" then return end
+    if TUNING.ocean == "tropical" then return end
     return _SetOceanBlendParams(self, ...)
 end
 

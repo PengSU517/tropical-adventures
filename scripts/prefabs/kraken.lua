@@ -119,7 +119,7 @@ local tesouroescondido =
 	[88] = "coral",
 }
 
-local vidamaxima = 6000 * TUNING.tropical.bosslife
+local vidamaxima = 6000 * TUNING.bosslife
 
 local function MoveToNewSpot(inst)
 	local pos = inst:GetPosition()

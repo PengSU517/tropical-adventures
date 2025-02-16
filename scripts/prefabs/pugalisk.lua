@@ -4,7 +4,7 @@ require "stategraphs/SGpugalisk_head"
 
 local pu = require("prefabs/pugalisk_util")
 
-local PUGALISK_HEALTH = 10000 * TUNING.tropical.bosslife
+local PUGALISK_HEALTH = 10000 * TUNING.bosslife
 local PUGALISK_ATTACK_PERIOD = 3
 local PUGALISK_MELEE_RANGE = 6
 local PUGALISK_DAMAGE = 200

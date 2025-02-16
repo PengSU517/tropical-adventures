@@ -455,16 +455,6 @@ local function entrance()
 					part.components.health:SetPercent(1)
 				end
 			end
-			-----------------------SPAWN-----------------------------------------
-			-- if TUNING.tropical.forge == 1 then	
-			-- 	local part = SpawnPrefab("lavaarena_entrance")
-			-- 	if part ~= nil then
-			-- 	part.Transform:SetPosition(x - 170, 0, z + 170)
-			-- 	if part.components.health ~= nil then
-			-- 	part.components.health:SetPercent(1)
-			-- 	end
-			-- 	end
-			-- end
 
 			local part = SpawnPrefab("skeleton")
 			if part ~= nil then

@@ -1,6 +1,6 @@
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 
-modimport("main/tuning") -- tuning + constants
+-- modimport("main/tuning") -- tuning + constants
 modimport("main/strings.lua")
 
 --工具函数，全部在GLOBAL里

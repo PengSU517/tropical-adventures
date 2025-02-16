@@ -1,33 +1,34 @@
-local troadj = TA_CONFIG
+local ta_worldgen = TA_CONFIG.WORLDGEN
 -------------------------调整地图大小和海岸线-------但是用的方法有些暴力-------------------
 
 if GLOBAL.rawget(GLOBAL, "WorldSim") then
-    local idx = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
+    local worldsim = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
 
-    local multi = troadj.world_size_multi
-
+    ------世界大小调整
+    local multi = ta_worldgen.world_size_multi or 1
     if multi ~= 1 then
-        local OldSetWorldSize = idx.SetWorldSize
-        idx.SetWorldSize = function(self, width, height)
+        local OldSetWorldSize = worldsim.SetWorldSize
+        worldsim.SetWorldSize = function(self, width, height)
             print("Setting world size to " .. width .. " times " .. multi)
             OldSetWorldSize(self, math.ceil(multi * width), math.ceil(multi * height))
         end
 
-        local OldConvertToTileMap = idx.ConvertToTileMap
-        idx.ConvertToTileMap = function(self, length)
+        local OldConvertToTileMap = worldsim.ConvertToTileMap
+        worldsim.ConvertToTileMap = function(self, length)
             OldConvertToTileMap(self, math.ceil(multi * length))
         end
     end
 
-    if troadj.coastline then
-        idx.SeparateIslands = function(self) print("不分离土地") end
+    ------海岸线调整
+    if ta_worldgen.coastline then
+        worldsim.SeparateIslands = function(self) print("Not Seperating Islands") end
     end
 end
 
 
 
 ---------------------联机大陆调整--------------------------
-if troadj.together == false then
+if ta_worldgen.together == false then
     AddLevelPreInitAny(function(level)
         if level.location == "cave" then
             level.overrides.keep_disconnected_tiles = true
@@ -64,7 +65,7 @@ if troadj.together == false then
 end
 
 
-if (troadj.together == true) and (troadj.rog == "fixed") then
+if (ta_worldgen.together == true) and (ta_worldgen.rog == "fixed") then
     AddLevelPreInitAny(function(level)
         if level.location == "cave" then
 
@@ -74,7 +75,7 @@ if (troadj.together == true) and (troadj.rog == "fixed") then
             level.numoptionaltasks = 0
             level.optionaltasks = {}
 
-            if troadj.rog == "fixed" then
+            if ta_worldgen.rog == "fixed" then
                 table.insert(level.tasks, "Killer bees!")
                 table.insert(level.tasks, "The hunters")
                 table.insert(level.tasks, "Befriend the pigs")
@@ -98,7 +99,7 @@ end
 
 
 ------------------------海难----------------------------
-if troadj.shipwrecked then
+if ta_worldgen.shipwrecked then
     AddLevelPreInitAny(function(level)
         if level.location == "forest" then
             table.insert(level.tasks, "HomeIsland")
@@ -161,7 +162,7 @@ if troadj.shipwrecked then
 end
 
 -----------------哈姆雷特-------------------------------------
-if troadj.hamlet then
+if ta_worldgen.hamlet then
     AddLevelPreInitAny(function(level)
         if level.location == "cave" then
             table.insert(level.tasks, "HamMudWorld")   ---地下版的出生地，但是爪树 "HamLightPlantFieldexit"--exit1 "HamArchiveMaze"
@@ -200,25 +201,25 @@ if troadj.hamlet then
 end
 
 -----------------------出生地调整-----------------------------
-if troadj.multiplayerportal == "shipwrecked" and troadj.shipwrecked then
+if ta_worldgen.multiplayerportal == "shipwrecked" and ta_worldgen.shipwrecked then
     AddLevelPreInitAny(function(level)
         if level.location == "forest" then
             -- table.insert(level.tasks, "HomeIsland_start")
             level.overrides.start_location = "SWStart"
             level.valid_start_tasks = { "HomeIsland" }
-        elseif level.location == "cave" and (not troadj.together) then
+        elseif level.location == "cave" and (not ta_worldgen.together) then
             -- table.insert(level.tasks, "Plains_start")
             -- level.overrides.start_location = "HamStart"
             level.valid_start_tasks = { "Volcano entrance" }
         end
     end)
-elseif troadj.multiplayerportal == "hamlet" and troadj.hamlet then
+elseif ta_worldgen.multiplayerportal == "hamlet" and ta_worldgen.hamlet then
     AddLevelPreInitAny(function(level)
         if level.location == "forest" then
             -- table.insert(level.tasks, "Plains_start")
             level.overrides.start_location = "HamStart"
             level.valid_start_tasks = { "Plains" }
-        elseif level.location == "cave" and (not troadj.together) then
+        elseif level.location == "cave" and (not ta_worldgen.together) then
             -- table.insert(level.tasks, "Plains_start")
             -- level.overrides.start_location = "HamStart"
             level.valid_start_tasks = { "HamMudWorld" }
@@ -280,7 +281,7 @@ end
 
 
 ---------------------测试模式------------
-if troadj.testmap then
+if ta_worldgen.testmap then
     -- modimport("postinit/map/forest_map_notcheck") ----防止世界生成难产，但可能会缺失重要地形
     -- ------------这个需要在hook forestmap之前执行，否则upvalue就找不到了
     if true then

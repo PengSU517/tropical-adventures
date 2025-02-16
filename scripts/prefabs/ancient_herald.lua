@@ -1,7 +1,7 @@
 local brain = require "brains/ancientheraldbrain"
 require "stategraphs/SGancientherald"
 
-local ANCIENT_HERALD_HEALTH = 8000 * TUNING.tropical.bosslife
+local ANCIENT_HERALD_HEALTH = 8000 * TUNING.bosslife
 local ANCIENT_HERALD_DAMAGE = 50
 
 local assets =

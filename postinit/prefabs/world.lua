@@ -12,15 +12,15 @@ AddPrefabPostInit("forest", function(inst)
         inst:AddComponent("quaker_interior") ------------这是啥
 
 
-        if TUNING.tropical.sealnado then
+        if TUNING.sealnado then
             inst:AddComponent("twisterspawner")
         end
 
-        if TUNING.tropical.roc then
+        if TUNING.roc then
             inst:AddComponent("rocmanager")
         end
 
-        -- if TUNING.tropical.aporkalypse then
+        -- if TUNING.aporkalypse then
         --     inst:AddComponent("aporkalypse")
         -- end
     end
@@ -34,7 +34,7 @@ AddPrefabPostInit("cave", function(inst)
         inst:AddComponent("economy")
         inst:AddComponent("contador")
 
-        -- if TUNING.tropical.aporkalypse then
+        -- if TUNING.aporkalypse then
         --     inst:AddComponent("aporkalypse")
         -- end
     end
@@ -45,7 +45,7 @@ AddPrefabPostInitAny(function(inst)
         return
     end
 
-    if TUNING.tropical.aporkalypse then
+    if TUNING.aporkalypse then
         inst:AddComponent("aporkalypse")
     end
 end)
