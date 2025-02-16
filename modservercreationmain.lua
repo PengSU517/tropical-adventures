@@ -15,7 +15,7 @@ ReloadFrontEndAssets()
 -- modimport("main/strings.lua")
 -- modimport("main/ta_customize")
 
-print(env.modname)
+-- print(env.modname)
 
 function KnowModConfigs(config)
 	local configs = KnownModIndex:LoadModConfigurationOptions(env.modname, false) -- "workshop-1289779251" (live)
@@ -44,3 +44,9 @@ end
 
 -- ChangeTAConfigs("testmode", false)
 -- ChangeTAConfigs("testmap", false)
+
+
+
+-- print("tropical adventures: Loaded!1111111")
+-- print(CheckName or "hahahhahaahhaahha22222222")
+-- if tbl then print(tbl[1]) end

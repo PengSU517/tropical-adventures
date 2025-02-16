@@ -54,25 +54,6 @@ local function fn(Sim)
     inst.components.worldmigrator.id = 1878
     inst.components.worldmigrator.receivedPortal = 1877
 
-    -- if TUNING.tropical.tropicalshards == 5 then
-    -- inst.components.worldmigrator.auto = false
-    -- inst.components.worldmigrator.linkedWorld = "1"	
-    -- end	
-
-    -- if TUNING.tropical.tropicalshards == 10 then
-    -- inst.components.worldmigrator.auto = false
-    -- inst.components.worldmigrator.linkedWorld = "3"	
-    -- end		
-
-    -- if TUNING.tropical.tropicalshards == 20 then
-    -- inst.components.worldmigrator.auto = false
-    -- inst.components.worldmigrator.linkedWorld = "3"	
-    -- end
-
-    -- if TUNING.tropical.tropicalshards == 30 then
-    -- inst.components.worldmigrator.auto = false
-    -- inst.components.worldmigrator.linkedWorld = "3"	
-    -- end	
 
     return inst
 end
@@ -117,22 +98,22 @@ local function fn1(Sim)
     inst.components.worldmigrator.id = 1887
     inst.components.worldmigrator.receivedPortal = 1888
 
-    -- if TUNING.tropical.tropicalshards == 5 then
+    -- if TUNING.tropicalshards == 5 then
     -- inst.components.worldmigrator.auto = false
     -- inst.components.worldmigrator.linkedWorld = "3"	
     -- end	
 
-    -- if TUNING.tropical.tropicalshards == 10 then
+    -- if TUNING.tropicalshards == 10 then
     -- inst.components.worldmigrator.auto = false
     -- inst.components.worldmigrator.linkedWorld = "3"	
     -- end		
 
-    -- if TUNING.tropical.tropicalshards == 20 then
+    -- if TUNING.tropicalshards == 20 then
     -- inst.components.worldmigrator.auto = false
     -- inst.components.worldmigrator.linkedWorld = "4"	
     -- end
 
-    -- if TUNING.tropical.tropicalshards == 30 then
+    -- if TUNING.tropicalshards == 30 then
     -- inst.components.worldmigrator.auto = false
     -- inst.components.worldmigrator.linkedWorld = "4"	
     -- end	
@@ -180,7 +161,7 @@ local function fn2(Sim)
     inst.components.worldmigrator.id = 1877
     inst.components.worldmigrator.receivedPortal = 1878
 
-    -- if TUNING.tropical.tropicalshards then
+    -- if TUNING.tropicalshards then
     -- inst.components.worldmigrator.auto = false
     -- inst.components.worldmigrator.linkedWorld = "1"	
     -- end
@@ -228,7 +209,7 @@ local function fn3(Sim)
     inst.components.worldmigrator.id = 1888
     inst.components.worldmigrator.receivedPortal = 1887
 
-    -- if TUNING.tropical.tropicalshards ~= 0 then
+    -- if TUNING.tropicalshards ~= 0 then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "1"
     -- end
@@ -276,7 +257,7 @@ local function fn4(Sim)
     inst.components.worldmigrator.id = 2847
     inst.components.worldmigrator.receivedPortal = 2848
 
-    -- if TUNING.tropical.tropicalshards ~= 0 then
+    -- if TUNING.tropicalshards ~= 0 then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "5"
     -- end
@@ -324,7 +305,7 @@ local function fn5(Sim)
     inst.components.worldmigrator.id = 2848
     inst.components.worldmigrator.receivedPortal = 2847
 
-    -- if TUNING.tropical.tropicalshards ~= 0 then
+    -- if TUNING.tropicalshards ~= 0 then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "1"
     -- end

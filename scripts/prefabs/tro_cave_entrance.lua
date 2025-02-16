@@ -134,7 +134,7 @@ local function fn(bank, build, anim, minimap, isbackground)
     inst:AddComponent("inspectable")
     inst:AddComponent("worldmigrator")
 
-    -- if TUNING.tropical.tropicalshards then
+    -- if TUNING.tropicalshards then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "2"
     -- end
@@ -279,7 +279,7 @@ local function fn_ham1(Sim)
     inst.components.worldmigrator.id = 1272
     inst.components.worldmigrator.receivedPortal = 1271
 
-    -- if TUNING.tropical.tropicalshards then
+    -- if TUNING.tropicalshards then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "2"
     -- end
@@ -327,7 +327,7 @@ local function fn_ham2(Sim)
     inst.components.worldmigrator.id = 1372
     inst.components.worldmigrator.receivedPortal = 1371
 
-    -- if TUNING.tropical.tropicalshards then
+    -- if TUNING.tropicalshards then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "2"
     -- end
@@ -375,7 +375,7 @@ local function fn_ham3(Sim)
     inst.components.worldmigrator.id = 1472
     inst.components.worldmigrator.receivedPortal = 1471
 
-    -- if TUNING.tropical.tropicalshards then
+    -- if TUNING.tropicalshards then
     --     inst.components.worldmigrator.auto = false
     --     inst.components.worldmigrator.linkedWorld = "2"
     -- end

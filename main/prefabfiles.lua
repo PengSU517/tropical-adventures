@@ -520,8 +520,8 @@ PrefabFiles = {
     "tidalpoolnew",
     "tigereye",
     "tigershark",
-	"shark_tooth",
-	"mysterymeat",
+    "shark_tooth",
+    "mysterymeat",
     "tigersharkpool",
     "tigersharkshadow",
     "tigersharktorch",
@@ -625,8 +625,7 @@ PrefabFiles = {
     "wreck",
     "zeb",
 
-	"fryfocals_charge",
-	"hiddendanger_fx",
-	"goggles",
+    "fryfocals_charge",
+    "hiddendanger_fx",
+    "goggles",
 }
-if GLOBAL and GLOBAL.TA_CONFIG.testmode or TA_CONFIG.testmode then table.insert(PrefabFiles, "sea2land_fork_tro") end

@@ -502,7 +502,7 @@ local function ShootProjectile(inst, targetpos)
     -- inst.shotspawn:Remove()
     -- inst.shotspawn = nil
 
-    local speed = 60  --  easing.linear(rangesq, 15, 3, maxrange * maxrange)
+    local speed = 60 --  easing.linear(rangesq, 15, 3, maxrange * maxrange)
     projectile.components.complexprojectile:SetHorizontalSpeed(speed)
     projectile.components.complexprojectile:SetGravity(-25)
     projectile.components.complexprojectile:Launch(targetpos, inst, inst)
@@ -664,7 +664,7 @@ local function fn(Sim)
     ------------------
 
     inst:AddComponent("health")
-    inst.components.health:SetMaxHealth(8000 * TUNING.tropical.bosslife)
+    inst.components.health:SetMaxHealth(8000 * TUNING.bosslife)
     inst.components.health.destroytime = 5
     inst.components.health.fire_damage_scale = 0
 

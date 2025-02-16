@@ -39,7 +39,7 @@ local loot =
 
 }
 
-local ANTQUEEN_HEALTH = 16000 * TUNING.tropical.bosslife
+local ANTQUEEN_HEALTH = 16000 * TUNING.bosslife
 
 local spawn_positions =
 {

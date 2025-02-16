@@ -1,6 +1,6 @@
 -- local tabel = require("tools/table") ----一些表相关的工具函数
 
-if TUNING.tropical.shipwrecked then
+if TUNING.shipwrecked then
     AddRoomPreInit("OceanCoastalShore", function(room)
         -- room.contents.distributeprefabs.lobsterhole = 1
     end)

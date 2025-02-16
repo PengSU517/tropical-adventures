@@ -205,7 +205,7 @@ local function fn(Sim)
     ------------------
 
     inst:AddComponent("health")
-    inst.components.health:SetMaxHealth(3500 * TUNING.tropical.bosslife)
+    inst.components.health:SetMaxHealth(3500 * TUNING.bosslife)
     inst.components.health.destroytime = 5
 
     ------------------

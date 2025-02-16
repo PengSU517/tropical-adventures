@@ -6,11 +6,20 @@ local require = require
 local modimport = modimport
 
 require("tools/upvaluehelper")
-require("tools/tableutil")  ----一些表相关的工具函数，都在表tabel里
+require("tools/tableutil") ----一些表相关的工具函数，都在表tableutil里
+require("tools/modutil")
 require("tools/tileutil")
-require("tools/spawnutil")  ----地形生成相关工具
-modimport("main/ta_config") ----mod 设置相关内容
-modimport("main/tiledefs")  ----缺少行走的声音
+require("tools/spawnutil")     ----地形生成相关工具
+
+modimport("main/tuning")       -- tuning + constants
+modimport("main/ta_customize") ----世界设置项
+modimport("main/ta_config")    ----mod 设置相关内容
+modimport("main/tiledefs")     ----缺少行走的声音
+
+
+-- ModGetLevelDataOverride()
+
+
 
 
 
@@ -42,3 +51,27 @@ modimport("postinit/map/node")           ------------防止清空水上内容
 
 -------------加载世界前进行的一些修改
 modimport("main/preinit") ------------修改一些prefab的表
+
+
+
+print("gerrqdfgdggadfg")
+local setting = rawget(_G, "GEN_PARAMETERS")
+
+if setting then
+    require("json")
+    local world_gen_data = json.decode(setting)
+    print("world_gen_data", world_gen_data or "nil")
+    for i, v in pairs(world_gen_data) do
+        print(i, v)
+        if type(v) == "table" then
+            for ii, vv in pairs(v) do
+                print(i, ii, vv)
+                if type(vv) == "table" then
+                    for iii, vvv in pairs(vv) do
+                        print(i, ii, iii, vvv)
+                    end
+                end
+            end
+        end
+    end
+end

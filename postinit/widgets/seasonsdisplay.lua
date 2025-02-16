@@ -5,7 +5,7 @@ local function Badge_display(self)
     self.leaf:SetPosition(0, 0, 0)
     self.leaf:MoveToBack()
 
-    if TUNING.tropical.hayfever then
+    if TUNING.hayfever then
         local HayfeverBadge = GLOBAL.require "widgets/hayfeverbadge"
         self.hayfever = self:AddChild(HayfeverBadge(self.owner))
         self.owner.hayfeverbadge = self.hayfever
@@ -13,7 +13,7 @@ local function Badge_display(self)
         self.hayfever:MoveToBack()
     end
 
-    if TUNING.tropical.fog then
+    if TUNING.fog then
         local FogBadge = GLOBAL.require "widgets/fogbadge"
         self.fog = self:AddChild(FogBadge(self.owner))
         self.owner.fogbadge = self.fog

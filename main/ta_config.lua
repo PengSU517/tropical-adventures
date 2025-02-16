@@ -1,76 +1,74 @@
-GLOBAL.TA_CONFIG = {
+GLOBAL.TA_CONFIG = {}
 
-    language          = GetModConfigData("language"),
+local world_overrides
+if rawget(_G, "GEN_PARAMETERS") then
+    require("json")
+    local world_gen_data = json.decode(rawget(_G, "GEN_PARAMETERS"))
+    world_overrides = world_gen_data.level_data.overrides
 
-    rog               = GetModConfigData("rog"),
-    shipwrecked       = GetModConfigData("shipwrecked"),
-    hamlet            = GetModConfigData("hamlet"),
+    -- print("TA Mod Loading Custom Presets Manager: ")
+    -- for i, v in pairs(world_overrides) do
+    --     print(i, v)
+    -- end
+end
 
-    multiplayerportal = GetModConfigData("startlocation"),
-    startlocation     = GetModConfigData("startlocation"),
-    world_size_multi  = GetModConfigData("world_size_multi"),
-    coastline         = GetModConfigData("coastline"),
-    layout            = true, --  GetModConfigData("layout"),
-
-
-    springflood      = false, ---GetModConfigData("flood"),
-    wind             = GetModConfigData("wind"),
-    waves            = GetModConfigData("waves"),
-    hail             = GetModConfigData("hail"),
-    volcaniceruption = false, ------GetModConfigData("volcaniceruption"),
-
-    fog              = GetModConfigData("fog"),
-    hayfever         = GetModConfigData("hayfever"),
-    aporkalypse      = GetModConfigData("aporkalypse"),
-    -- bramble           = false, ----GetModConfigData("bramble"), ----荆棘藤蔓，但似乎实现不怎么样   没用上
-    roc              = GetModConfigData("roc"),      -----没用上
-    sealnado         = GetModConfigData("sealnado"), --------------parrotspawner里很多东西很奇怪
-
-    disembarkation   = false,                        -----GetModConfigData("automatic_disembarkation"),------------自动离开船
-    bosslife         = 1,                            --------GetModConfigData("bosslife"),
+local addconfig = function(tbl, options)
+    for i, v in ipairs(options) do
+        tbl[v.name] = world_overrides and world_overrides[v.name] or GetModConfigData(v.name) or v.default
+        if tbl[v.name] == "disabled" then ----如果是禁用，则设置为false
+            tbl[v.name] = false
+        end
+    end
+end
 
 
-    -- ocean = GetModConfigData("ocean"),
-    ocean = "default",
+----configurations-----------
+TA_CONFIG.WORLDGEN = {}
+TA_CONFIG.CLIMATE = {}
+TA_CONFIG.CLIENT = {}
+TA_CONFIG.DEVELOP = {}
 
-    testmap = GetModConfigData("test_map") or false,
-    testmode = GetModConfigData("test_mode") or false,
+addconfig(TA_CONFIG.WORLDGEN, worldgen_options)
+addconfig(TA_CONFIG.CLIMATE, climate_options)
+addconfig(TA_CONFIG.CLIENT, client_options)
+addconfig(TA_CONFIG.DEVELOP, developer_options)
 
+
+TA_CONFIG.DEPENDENCY = {
     ndnr = GLOBAL.KnownModIndex:IsModEnabled("workshop-2823458540"),
-
-}
-
-TA_CONFIG.sw_start = TA_CONFIG.shipwrecked and (TA_CONFIG.multiplayerportal == "shipwrecked")
-TA_CONFIG.ham_start = TA_CONFIG.hamlet and (TA_CONFIG.multiplayerportal == "hamlet")
-TA_CONFIG.together_not_mainland = (TA_CONFIG.sw_start or TA_CONFIG.ham_start)
-TA_CONFIG.together = not ((not TA_CONFIG.rog) and TA_CONFIG.together_not_mainland)
-
-TA_CONFIG.sealnado = TA_CONFIG.shipwrecked and TA_CONFIG.sealnado or false
-TA_CONFIG.fog = TA_CONFIG.hamlet and TA_CONFIG.fog or false
-TA_CONFIG.hayfever = TA_CONFIG.hamlet and TA_CONFIG.hayfever or false
-TA_CONFIG.aporkalypse = TA_CONFIG.hamlet and TA_CONFIG.aporkalypse or false
-TA_CONFIG.roc = TA_CONFIG.hamlet and TA_CONFIG.roc or false
-
-
-GLOBAL.TUNING.tropical = GLOBAL.TA_CONFIG
-
-
-
-
-GLOBAL.tro_pairedkey = {
-    qe = { 113, 101 },
-    du = { 274, 273 },
-    lr = { 276, 275 },
-    mp = { 45, 61 },
-    pp = { 281, 280 },
-    he = { 278, 279 }
 }
 
 
 
+----configuration adjustments----------
+TA_CONFIG.WORLDGEN.sw_start = TA_CONFIG.WORLDGEN.shipwrecked and (TA_CONFIG.WORLDGEN.multiplayerportal == "shipwrecked")
+TA_CONFIG.WORLDGEN.ham_start = TA_CONFIG.WORLDGEN.hamlet and (TA_CONFIG.WORLDGEN.multiplayerportal == "hamlet")
+TA_CONFIG.WORLDGEN.together_not_mainland = (TA_CONFIG.WORLDGEN.sw_start or TA_CONFIG.WORLDGEN.ham_start)
+TA_CONFIG.WORLDGEN.together = not ((not TA_CONFIG.WORLDGEN.rog) and TA_CONFIG.WORLDGEN.together_not_mainland)
 
-GLOBAL.TA_CONFIG_CLIENT = {
-    fov_keys = tro_pairedkey[GetModConfigData("roomview")],
-    height_keys = tro_pairedkey[GetModConfigData("build_height")],
-    rotation_keys = tro_pairedkey[GetModConfigData("build_rotation")],
-}
+TA_CONFIG.CLIMATE.sealnado = TA_CONFIG.CLIMATE.shipwrecked and TA_CONFIG.CLIMATE.sealnado or false
+TA_CONFIG.CLIMATE.fog = TA_CONFIG.CLIMATE.hamlet and TA_CONFIG.CLIMATE.fog or false
+TA_CONFIG.CLIMATE.hayfever = TA_CONFIG.CLIMATE.hamlet and TA_CONFIG.CLIMATE.hayfever or false
+TA_CONFIG.CLIMATE.aporkalypse = TA_CONFIG.CLIMATE.hamlet and TA_CONFIG.CLIMATE.aporkalypse or false
+TA_CONFIG.CLIMATE.roc = TA_CONFIG.CLIMATE.hamlet and TA_CONFIG.CLIMATE.roc or false
+TA_CONFIG.CLIMATE.bosslife = 1
+
+
+----将参数加到tuning中---------
+local addtuning = function(i, v)
+    if TUNING[i] ~= nil then
+        print(i .. " is already defined!!!!!!!!!!!!!!!!!!!")
+    else
+        TUNING[i] = v
+    end
+end
+
+for _, module in pairs(TA_CONFIG) do
+    for k, v in pairs(module) do
+        addtuning(k, v)
+    end
+end
+
+-- print("TA_CONFIG:")
+-- print(TA_CONFIG and TA_CONFIG.CLIMATE and TA_CONFIG.CLIMATE.waves or "nil")
+-- print(TUNING.waves or "nil111")

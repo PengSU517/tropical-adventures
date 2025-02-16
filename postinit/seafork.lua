@@ -20,6 +20,8 @@ end
 --     Asset("ANIM", "anim/swap_land_fork.zip"),
 -- }
 
+table.insert(PrefabFiles, "sea2land_fork_tro")
+
 GLOBAL.STRINGS.RECIPE_DESC.SEA2LAND_FORK = '填海造陆！'
 GLOBAL.STRINGS.NAMES.SEA2LAND_FORK = "填海叉"
 GLOBAL.STRINGS.ACTIONS.CASTSPELL.SEA2LAND = "应用填海造陆"
