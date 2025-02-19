@@ -1,3 +1,5 @@
+require("derives")
+
 local assets =
 {
     Asset("ANIM", "anim/poison_antidote.zip"),
@@ -27,59 +29,49 @@ local function oneat_gland(inst, eater)
                    MIN_VENOM_GLAND_LEFTOVER - health.currenthealth or -MAX_VENOM_GLAND_DAMAGE, nil, "venomgland")
 end
 
-local function MakeAntitoxin(name, build, oneatfn, tags)
-    return Prefab(name, function()
-        local inst = CreateEntity()
+local function syrumpost(inst)
+    inst.AnimState:SetBank("poison_antidote")
+    inst.AnimState:SetBuild("poison_antidote")
+    inst:AddTag("aquatic")
+    inst:AddTag("preparedfood")
 
-        inst.entity:AddTransform()
-        inst.entity:AddAnimState()
-        inst.entity:AddNetwork()
+    if not TheWorld.ismastersim then return inst end
 
-        MakeInventoryPhysics(inst)
-        MakeInventoryFloatable(inst)
+    local healer = inst:AddComponent("healer")
+    healer:SetHealthAmount(0)
+    healer:SetOnHealFn(oneat_anti)
 
-        inst.AnimState:SetBank(build)
-        inst.AnimState:SetBuild(build)
-        inst.AnimState:PlayAnimation("idle")
-
-        for i, v in ipairs(tags) do
-            inst:AddTag(v)
-        end
-        inst.entity:SetPristine()
-
-        if not TheWorld.ismastersim then
-            return inst
-        end
-
-        MakeSmallBurnable(inst, TUNING.TINY_BURNTIME)
-        MakeSmallPropagator(inst)
-        MakeHauntableLaunchAndIgnite(inst)
-
-        ---------------------
-
-        inst:AddComponent("inspectable")
-
-        inst:AddComponent("inventoryitem")
-
-        inst:AddComponent("stackable")
-        inst:AddComponent("tradable")
-
-        local edible = inst:AddComponent("edible")
-        edible.healthvalue = 0
-        edible.hungervalue = 0
-        edible.foodtype = FOODTYPE.GOODIES
-        edible.secondaryfoodtype = FOODTYPE.ROUGHAGE
-        edible.sanityvalue = 0
-        edible.temperaturedelta = 0
-        edible.temperatureduration = 0
-        edible:SetOnEatenFn(oneatfn)
-
-        return inst
-    end, assets)
-    
+    return inst
 end
 
-return MakeAntitoxin("antivenom", "poison_antidote", oneat_anti, {"aquatic", "preparedfood"}),
-    MakeAntitoxin("poisonbalm", "poison_salve", oneat_anti, {"aquatic", "preparedfood"}),
-    MakeAntitoxin("venomgland", "venom_gland", oneat_gland, {"cattoy"})
+local function balmpost(inst)
+    inst.AnimState:SetBank("poison_salve")
+    inst.AnimState:SetBuild("poison_salve")
+    inst:AddTag("aquatic")
+    inst:AddTag("preparedfood")
 
+    if not TheWorld.ismastersim then return inst end
+
+    local healer = inst:AddComponent("healer")
+    healer:SetHealthAmount(0)
+    healer:SetOnHealFn(oneat_anti)
+
+    return inst
+end
+
+local function glandpost(inst)
+    inst.AnimState:SetBank("venom_gland")
+    inst.AnimState:SetBuild("venom_gland")
+
+    if not TheWorld.ismastersim then return inst end
+
+    local healer = inst:AddComponent("healer")
+    healer:SetHealthAmount(0)
+    healer:SetOnHealFn(oneat_gland)
+
+    return inst
+end
+
+return Derive("bandage", "antivenom", syrumpost, assets),
+    Derive("bandage", "poisonbalm", balmpost, assets),
+    Derive("spidergland", "venomgland", glandpost, assets)
