@@ -1,6 +1,7 @@
 local containers = require("containers")
 local barco_atlas = "images/ui/barco.xml"
 local params = containers.params
+local bias = GetModConfigData("boatlefthud") or 0
 
 params.armorvortexcloak = {
     widget = {
@@ -122,7 +123,7 @@ params.cargoboat = {
         } },
         animbank = "boat_hud_cargo",
         animbuild = "boat_hud_cargo",
-        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]], 0),
+        pos = Vector3(440, 80 + bias, 0),
         isboat = true
     },
     usespecificslotsforitems = true,
@@ -144,7 +145,7 @@ params.rowboat = {
 
         animbank = "boat_hud_row",
         animbuild = "boat_hud_row",
-        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]], 0),
+        pos = Vector3(440, 80 + bias, 0),
         isboat = true
     },
     usespecificslotsforitems = true,
@@ -168,7 +169,7 @@ params.woodlegsboat = {
         } },
         animbank = "boat_hud_encrusted",
         animbuild = "boat_hud_encrusted",
-        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]], 0),
+        pos = Vector3(440, 80 + bias, 0),
         isboat = true
     },
     usespecificslotsforitems = true,
@@ -188,7 +189,7 @@ params.encrustedboat = {
         } },
         animbank = "boat_hud_encrusted",
         animbuild = "boat_hud_encrusted",
-        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]], 0),
+        pos = Vector3(440, 80 + bias, 0),
         isboat = true
     },
     usespecificslotsforitems = true,
@@ -201,7 +202,7 @@ params.raft_old = {
         slotpos = {},
         animbank = "boat_hud_raft",
         animbuild = "boat_hud_raft",
-        pos = Vector3(440, 80 --[[+ GetModConfigData("boatlefthud")]], 0),
+        pos = Vector3(440, 80 + bias, 0),
         isboat = true
     },
     usespecificslotsforitems = true,

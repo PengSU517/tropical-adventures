@@ -37,7 +37,7 @@ local function syrumpost(inst)
 
     if not TheWorld.ismastersim then return inst end
 
-    local healer = inst:AddComponent("healer")
+    local healer = inst.components.healer or inst:AddComponent("healer")
     healer:SetHealthAmount(0)
     healer:SetOnHealFn(oneat_anti)
 
@@ -52,7 +52,7 @@ local function balmpost(inst)
 
     if not TheWorld.ismastersim then return inst end
 
-    local healer = inst:AddComponent("healer")
+    local healer = inst.components.healer or inst:AddComponent("healer")
     healer:SetHealthAmount(0)
     healer:SetOnHealFn(oneat_anti)
 
@@ -65,7 +65,7 @@ local function glandpost(inst)
 
     if not TheWorld.ismastersim then return inst end
 
-    local healer = inst:AddComponent("healer")
+    local healer = inst.components.healer or inst:AddComponent("healer")
     healer:SetHealthAmount(0)
     healer:SetOnHealFn(oneat_gland)
 

@@ -428,6 +428,22 @@ configuration_options =
 		default = "qe", ----  q/e
 	},
 
+	{
+		name = "boatlefthud",
+		label = en_zh("Boat HUD(Vertical Adjustment)", "海难船只HUD调整"),
+		hover = en_zh(
+			"Here u can adjust the height of the boat HUD *Health meter",
+			"在这里可以调整海难船只HUD的显示高度(原版自适应调整)"),
+		options =
+		{
+			{ description = "0", data = 0 },
+			{ description = "↑20", data = 20 },
+			{ description = "↑40", data = 40 },
+			{ description = "↑80", data = 80 },
+		},
+		default = 0,
+	},
+
 	isdev and Breaker("Developer Settings(only works in the test version)", "开发者选项(仅在测试版中有效)") or nil,
 
 	isdev and {
