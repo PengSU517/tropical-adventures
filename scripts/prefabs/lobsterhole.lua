@@ -165,7 +165,7 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
 
-    inst.MiniMapEntity:SetIcon("wobster_densw.tex")
+    inst.MiniMapEntity:SetIcon("wobster_den.png")
 
     inst:SetPhysicsRadiusOverride(2.35)
 

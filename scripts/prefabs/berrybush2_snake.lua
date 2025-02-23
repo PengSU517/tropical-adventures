@@ -266,7 +266,7 @@ local function createbush(name, inspectname, berryname, master_postinit)
             inst:AddTag("quagmire_wildplant")
         end
 
-        inst.MiniMapEntity:SetIcon("berrybush2.tex")
+        inst.MiniMapEntity:SetIcon("berrybush2.png")
 
         inst.AnimState:SetBank("berrybush2")
         inst.AnimState:SetBuild("berrybush2")

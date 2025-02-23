@@ -362,7 +362,7 @@ local function fn()
     inst:AddTag("cocoon_home")
     inst:AddTag("shadecanopy")
 
-    inst.MiniMapEntity:SetIcon("oceantree_pillar.tex")
+    inst.MiniMapEntity:SetIcon("oceantree_pillar.png")
 
     inst.AnimState:SetBank("oceantree_pillar")
     inst.AnimState:SetBuild("oceantree_pillar_build1")

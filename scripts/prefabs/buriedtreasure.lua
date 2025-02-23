@@ -1,21 +1,21 @@
-local assets = {Asset("ANIM", "anim/x_marks_spotsw.zip")}
+local assets = { Asset("ANIM", "anim/x_marks_spotsw.zip") }
 
-local prefabs = {"messagebottle", "collapse_small"}
+local prefabs = { "messagebottle", "collapse_small" }
 
-local treasures = {"healingstaff", "purplegem", "orangegem", "yellowgem", "greengem", "redgem", "bluegem",
-                          "supertelescope", "spear_poison", "boat_lantern", "papyrus", "tunacan", "goldnugget", "gears",
-                          "rope", "minerhat", "dubloon", "obsidianaxe", "telescope", "captainhat", "peg_leg",
-                          "volcanostaff", "footballhat", "spear", "goldenaxe", "goldenshovel", "goldenpickaxe",
-                          "seatrap", "compass", "boneshard", "transistor", "gunpowder", "heatrock", "antivenom",
-                          "healingsalve", "blowdart_sleep", "nightsword", "amulet", "clothsail", "boatrepairkit",
-                          "coconade", "boatcannon", "snakeskinhat", "armor_snakeskin", "spear_launcher", "piratehat",
-                          "boomerang", "snakeskin", "strawhat", "blubbersuit", "nightmarefuel", "obsidianmachete",
-                          "trap_teeth", "spear_obsidian", "armorobsidian", "goldenmachete", "obsidiancoconade",
-                          "fabric", "harpoon", "umbrella", "birdtrap", "featherhat", "beehat", "bandage", "armorwood",
-                          "armormarble", "blowdart_pipe", "armorgrass", "armorseashell", "cane", "icestaff",
-                          "firestaff", "blowdart_fire", "yellowamulet", "armorruins", "ruins_bat", "ruinshat",
-                          "cutgrass", "charcoal", "axe", "hammer", "shovel", "bugnet", "fishingrod", "spidergland",
-                          "silk", "flint", "coral", "earring",}
+local treasures = { "healingstaff", "purplegem", "orangegem", "yellowgem", "greengem", "redgem", "bluegem",
+    "supertelescope", "spear_poison", "boat_lantern", "papyrus", "tunacan", "goldnugget", "gears",
+    "rope", "minerhat", "dubloon", "obsidianaxe", "telescope", "captainhat", "peg_leg",
+    "volcanostaff", "footballhat", "spear", "goldenaxe", "goldenshovel", "goldenpickaxe",
+    "seatrap", "compass", "boneshard", "transistor", "gunpowder", "heatrock", "antivenom",
+    "healingsalve", "blowdart_sleep", "nightsword", "amulet", "clothsail", "boatrepairkit",
+    "coconade", "boatcannon", "snakeskinhat", "armor_snakeskin", "spear_launcher", "piratehat",
+    "boomerang", "snakeskin", "strawhat", "blubbersuit", "nightmarefuel", "obsidianmachete",
+    "trap_teeth", "spear_obsidian", "armorobsidian", "goldenmachete", "obsidiancoconade",
+    "fabric", "harpoon", "umbrella", "birdtrap", "featherhat", "beehat", "bandage", "armorwood",
+    "armormarble", "blowdart_pipe", "armorgrass", "armorseashell", "cane", "icestaff",
+    "firestaff", "blowdart_fire", "yellowamulet", "armorruins", "ruins_bat", "ruinshat",
+    "cutgrass", "charcoal", "axe", "hammer", "shovel", "bugnet", "fishingrod", "spidergland",
+    "silk", "flint", "coral", "earring", }
 
 local function onfinishcallback(inst, worker)
     -- figure out which side to drop the loot
@@ -109,7 +109,7 @@ local function fn(Sim)
 
     inst:AddTag("buriedtreasure")
 
-    minimap:SetIcon("xspot.png")
+    minimap:SetIcon("xspot.tex")
     --	minimap:SetEnabled(false)
 
     anim:SetBank("x_marks_spotsw")
@@ -126,7 +126,7 @@ local function fn(Sim)
     inst.components.workable:SetWorkAction(ACTIONS.DIG)
     inst.components.workable:SetWorkLeft(3)
     inst:AddComponent("lootdropper")
-    inst.components.lootdropper:SetLoot({"boneshard"})
+    inst.components.lootdropper:SetLoot({ "boneshard" })
 
     inst.components.workable:SetOnFinishCallback(onfinishcallback)
 
@@ -194,4 +194,4 @@ local function fn2(Sim)
 end
 
 return Prefab("buriedtreasure", fn, assets, prefabs),
-       Prefab("shipwrecked/objects/buriedtreasure2", fn2, assets, prefabs)
+    Prefab("shipwrecked/objects/buriedtreasure2", fn2, assets, prefabs)
