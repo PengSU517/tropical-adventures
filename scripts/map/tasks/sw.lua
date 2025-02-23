@@ -158,7 +158,7 @@ end
 -- })
 
 AddTask("HomeIsland", {
-    locks = LOCKS.NONE,
+    locks = { LOCKS.HARD },
     keys_given = { KEYS.HARD },
     region_id = "shipwrecked",
     room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },

@@ -200,7 +200,7 @@ local function OnPreLoad(inst, data)
 end
 
 local function open_fn()
-    local inst = fn("cave_entrance", "cave_entrance", "no_access", "cave_open.tex", true)
+    local inst = fn("cave_entrance", "cave_entrance", "no_access", "cave_open.png", true)
 
     if not TheWorld.ismastersim then
         return inst
@@ -249,7 +249,7 @@ local function fn_ham1(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("cave_open.tex")
+    inst.MiniMapEntity:SetIcon("cave_open.png")
 
     anim:SetBank("cave_entrance")
     anim:SetBuild("cave_entrance")
@@ -297,7 +297,7 @@ local function fn_ham2(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("cave_open.tex")
+    inst.MiniMapEntity:SetIcon("cave_open.png")
 
     anim:SetBank("cave_entrance")
     anim:SetBuild("cave_entrance")
@@ -345,7 +345,7 @@ local function fn_ham3(Sim)
     inst.entity:AddNetwork()
 
     MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("cave_open.tex")
+    inst.MiniMapEntity:SetIcon("cave_open.png")
 
     anim:SetBank("cave_entrance")
     anim:SetBuild("cave_entrance")

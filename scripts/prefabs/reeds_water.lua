@@ -68,7 +68,7 @@ local function fn()
     inst.entity:AddMiniMapEntity()
     inst.entity:AddNetwork()
     MakeInventoryPhysics(inst, nil, 0.7)
-    inst.MiniMapEntity:SetIcon("reeds.tex")
+    inst.MiniMapEntity:SetIcon("reeds.png")
 
     inst:AddTag("plant")
 
