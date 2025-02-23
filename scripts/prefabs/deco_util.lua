@@ -506,6 +506,8 @@ local function decofn(build, bank, animframe, data, assets, prefabs)
 
         inst.entity:SetPristine()
 
+        inst:AddComponent("inspectable")
+
         if not TheWorld.ismastersim then
             return inst
         end
@@ -519,7 +521,7 @@ local function decofn(build, bank, animframe, data, assets, prefabs)
         end
 
         if workable then -------workable?
-            inst:AddComponent("inspectable")
+            -- inst:AddComponent("inspectable")
 
             inst.entity:AddSoundEmitter()
 
