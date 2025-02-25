@@ -2,7 +2,7 @@ require "prefabutil"
 
 local assets =
 {
-    Asset("ANIM", "anim/python_fountain.zip"),
+    Asset("ANIM", "anim/python_fountain_lunar.zip"),
 }
 
 local prefabs =
@@ -78,13 +78,13 @@ local function fn()
     inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
 
-    inst.AnimState:SetScale(0.90, 0.90, 0.90)
+    inst.AnimState:SetScale(0.80, 0.80, 0.80)
 
     local minimap = inst.entity:AddMiniMapEntity()
     minimap:SetIcon("pugalisk_fountain.tex") ----------"kyno_pigruins_well.tex"
 
     inst.AnimState:SetBank("fountain")
-    inst.AnimState:SetBuild("python_fountain")
+    inst.AnimState:SetBuild("python_fountain_lunar")
     inst.AnimState:PlayAnimation("off", true)
 
     inst.on = true
@@ -139,9 +139,9 @@ local function fn()
 end
 
 local function fountainplacetestfn(inst)
-    inst.AnimState:SetScale(0.90, 0.90, 0.90)
+    inst.AnimState:SetScale(0.80, 0.80, 0.80)
 end
 
 return Prefab("pugaliskfountain_made", fn, assets, prefabs),
-    MakePlacer("pugaliskfountain_made_placer", "fountain", "python_fountain", "flow_loop", false, nil, nil, nil, nil, nil,
-        fountainplacetestfn)
+    MakePlacer("pugaliskfountain_made_placer", "fountain", "python_fountain_lunar", "flow_loop", false, nil, nil, nil,
+        nil, nil, fountainplacetestfn)

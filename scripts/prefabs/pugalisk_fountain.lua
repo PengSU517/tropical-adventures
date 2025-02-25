@@ -99,7 +99,7 @@ local function fn(Sim)
     inst:AddTag("pugalisk_avoids")
     inst:AddTag("shadecanopysmall") --防止自然、过热和玻璃雨的标签
 
-    MakeObstaclePhysics(inst, 2)
+    MakeObstaclePhysics(inst, 0.5)
 
     local minimap = inst.entity:AddMiniMapEntity()
     minimap:SetIcon("pugalisk_fountain.tex")

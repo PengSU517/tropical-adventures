@@ -22,7 +22,7 @@ local itemskins =
             name = "sharkitten",
         },
     },
-	    snakeskinhat = {
+    snakeskinhat = {
         default = {
             basebuild = "hat_snakeskin",
         },
@@ -35,7 +35,7 @@ local itemskins =
             name = "viper",
         },
     },
-	    armor_snakeskin = {
+    armor_snakeskin = {
         default = {
             basebuild = "armor_snakeskin",
         },
@@ -48,7 +48,7 @@ local itemskins =
             name = "viper",
         },
     },
-	    snakeskinsail = {
+    snakeskinsail = {
         default = {
             basebuild = "swap_sail_snakeskin",
         },
@@ -59,6 +59,20 @@ local itemskins =
             rarity = "Eternal",
             -- type = "item",
             name = "viper",
+        },
+    },
+
+    pugaliskfountain_made = {
+        default = {
+            basebuild = "python_fountain_lunar",
+        },
+        python_fountain_lunar = {
+            assetname = "python_fountain",
+            build = "python_fountain",
+            build_name_override = "python_fountain",
+            rarity = "Eternal",
+            type = "item",
+            name = "old fashion",
         },
     },
 }
