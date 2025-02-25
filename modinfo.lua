@@ -14,7 +14,7 @@ name = pub_dev(en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒�
 	en_zh(" Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "3.2.15"
+version = "3.2.25"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -30,14 +30,10 @@ QQ 群：469668062
 
 local updateen = [[
 
-Fix lots of Bugs
-region adaptive season filter, sound and music
 ]]
 
 local updatech = [[
 
-修复大量bug
-随区域变动的季节滤镜、音乐、音效
 ]]
 
 description = en_zh(desen .. "Version " .. version .. updateen, desch .. "版本 " .. version .. updatech)
