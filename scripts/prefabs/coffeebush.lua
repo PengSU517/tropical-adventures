@@ -241,7 +241,7 @@ end
 local function normal_postinit(inst)
     inst.components.pickable:SetUp("coffeebeans", TUNING.BERRY_REGROW_TIME)
     inst.components.pickable.getregentimefn = getregentimefn_normal
-    inst.components.pickable.max_cycles = 1
+    inst.components.pickable.max_cycles = TUNING.BERRYBUSH_JUICY_CYCLES + math.random(2)
     inst.components.pickable.cycles_left = inst.components.pickable.max_cycles
 
     inst.components.workable:SetOnFinishCallback(dig_up_normal)
