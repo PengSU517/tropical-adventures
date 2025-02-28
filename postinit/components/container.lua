@@ -2,9 +2,11 @@
 AddComponentPostInit("container", function(self)
     local old = self.OnUpdate
     self.OnUpdate = function(self, dt)
-        if self.widget.isboat and self.widget.intergratedbackpack ~= Profile:GetIntegratedBackpack() then
+        if self.widget and self.widget.isboat and self.widget.intergratedbackpack ~= Profile:GetIntegratedBackpack() then
             self.widget.intergratedbackpack = Profile:GetIntegratedBackpack()
-            self.widget.pos.y = self.widget.pos.y + (self.widget.intergratedbackpack and 40 or -40)
+            if self.widget.pos then
+                self.widget.pos.y = self.widget.pos.y + (self.widget.intergratedbackpack and 40 or -40)
+            end
         end
         return old(self, dt)
     end
