@@ -211,12 +211,12 @@ DLC_STRINGS.CHARACTERS =
     WILBUR = modrequire "dlc_strings/speech_wilbur",
     WOODLEGS = modrequire "dlc_strings/speech_woodlegs",
 
-    -- WARBUCKS = modrequire "dlc_strings/speech_warbucks",
-    -- WILBA = modrequire "dlc_strings/speech_wilba",
+    WARBUCKS = modrequire "dlc_strings/speech_warbucks",
+    WILBA = modrequire "dlc_strings/speech_wilba",
 
     WORMWOOD = modrequire "dlc_strings/speech_wormwood",
-    -- WAGSTAFF = modrequire "dlc_strings/speech_wagstaff",
-    -- WHEELER = modrequire "dlc_strings/speech_wheeler",
+    WAGSTAFF = modrequire "dlc_strings/speech_wagstaff",
+    WHEELER = modrequire "dlc_strings/speech_wheeler",
 }
 
 

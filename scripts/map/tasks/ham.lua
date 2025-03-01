@@ -1,4 +1,7 @@
 -------------add tags
+
+
+
 local forest_rooms = {
     [1] = "BG_rainforest_base",
     [2] = "BG_deeprainforest_base"
@@ -16,33 +19,32 @@ local field_rooms = {
     [1] = "BG_cultivated_base"
 }
 
+if TUNING.ham_start then
+    for i, room in ipairs(forest_rooms) do
+        AddRoomPreInit(room, function(room)
+            table.insert(room.tags, "Terrarium_Spawner")
+            table.insert(room.tags, "StatueHarp_HedgeSpawner")
+        end)
+    end
 
-for i, room in ipairs(forest_rooms) do
-    AddRoomPreInit(room, function(room)
-        table.insert(room.tags, "Terrarium_Spawner")
-        table.insert(room.tags, "StatueHarp_HedgeSpawner")
-    end)
+    for i, room in ipairs(plains_rooms) do
+        AddRoomPreInit(room, function(room)
+            table.insert(room.tags, "CharlieStage_Spawner")
+        end)
+    end
+
+    for i, room in ipairs(rock_rooms) do
+        AddRoomPreInit(room, function(room)
+            table.insert(room.tags, "Junkyard_Spawner")
+        end)
+    end
+
+    for i, room in ipairs(field_rooms) do
+        AddRoomPreInit(room, function(room)
+            table.insert(room.tags, "StagehandGarden")
+        end)
+    end
 end
-
-for i, room in ipairs(plains_rooms) do
-    AddRoomPreInit(room, function(room)
-        table.insert(room.tags, "CharlieStage_Spawner")
-    end)
-end
-
-for i, room in ipairs(rock_rooms) do
-    AddRoomPreInit(room, function(room)
-        table.insert(room.tags, "Junkyard_Spawner")
-    end)
-end
-
-for i, room in ipairs(field_rooms) do
-    AddRoomPreInit(room, function(room)
-        table.insert(room.tags, "StagehandGarden")
-    end)
-end
-
-
 
 
 

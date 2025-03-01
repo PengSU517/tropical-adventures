@@ -106,40 +106,39 @@ local salasmeadow =
 }
 
 
+if TUNING.sw_start then
+    -------------add map tags --------
+    for i, room in ipairs(salasjungle) do
+        AddRoomPreInit(room, function(room)
+            table.insert(room.tags, "Terrarium_Spawner")
+            table.insert(room.tags, "StatueHarp_HedgeSpawner")
+        end)
+    end
 
--------------add map tags --------
-for i, room in ipairs(salasjungle) do
-    AddRoomPreInit(room, function(room)
-        table.insert(room.tags, "Terrarium_Spawner")
-        table.insert(room.tags, "StatueHarp_HedgeSpawner")
-    end)
+    for i, room in ipairs(salasbeach) do
+        AddRoomPreInit(room, function(room)
+            table.insert(room.tags, "CharlieStage_Spawner")
+            table.insert(room.tags, "Junkyard_Spawner")
+        end)
+    end
+
+    for i, room in ipairs(salasmagma) do
+        AddRoomPreInit(room, function(room)
+            table.insert(room.tags, "Junkyard_Spawner")
+        end)
+    end
+    for i, room in ipairs(salasvolcano) do
+        AddRoomPreInit(room, function(room)
+            -- table.insert(room.tags, "Junkyard_Spawner")
+        end)
+    end
+
+    for i, room in ipairs(salasmeadow) do
+        AddRoomPreInit(room, function(room)
+            table.insert(room.tags, "StagehandGarden")
+        end)
+    end
 end
-
-for i, room in ipairs(salasbeach) do
-    AddRoomPreInit(room, function(room)
-        table.insert(room.tags, "CharlieStage_Spawner")
-        table.insert(room.tags, "Junkyard_Spawner")
-    end)
-end
-
-for i, room in ipairs(salasmagma) do
-    AddRoomPreInit(room, function(room)
-        table.insert(room.tags, "Junkyard_Spawner")
-    end)
-end
-for i, room in ipairs(salasvolcano) do
-    AddRoomPreInit(room, function(room)
-        -- table.insert(room.tags, "Junkyard_Spawner")
-    end)
-end
-
-for i, room in ipairs(salasmeadow) do
-    AddRoomPreInit(room, function(room)
-        table.insert(room.tags, "StagehandGarden")
-    end)
-end
-
-
 
 
 -- AddTask("HomeIsland_start", {
