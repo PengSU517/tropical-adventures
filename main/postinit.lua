@@ -1,6 +1,6 @@
 local modimport = modimport
 
-if TUNING.testmode then --开发人员测试时才可以使用,mod文件夹名称为tropical-adventures
+if TA_CONFIG.DEVELOP.testmode then --开发人员测试时才可以使用,mod文件夹名称为tropical-adventures
     modimport("postinit/seafork")
     modimport("postinit/opengift")
     modimport("postinit/widgets/hoverer_info")

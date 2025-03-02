@@ -706,7 +706,7 @@ AddTask("HamArchiveMaze", {
     entrance_room = "HamArchiveMazeEntrance",
     room_choices =
     {
-        ["ArchiveMazeRooms"] = 4,
+        ["ArchiveMazeRooms"] = 15,
     },
     room_bg = GROUND.FUNGUSMOON,
     maze_tiles = {

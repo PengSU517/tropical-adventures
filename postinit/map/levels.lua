@@ -27,61 +27,136 @@ end
 
 
 
+
+
+-----------海上布景---------------会显著加快地形生成
+if true then
+    AddLevelPreInitAny(function(level)
+        if level.location == "forest" then
+            if not level.ocean_prefill_setpieces then
+                level.ocean_prefill_setpieces = {}
+            end
+
+            level.ocean_prefill_setpieces["MonkeyIsland"] = 1
+            level.ocean_prefill_setpieces["HermitcrabIsland"] = 1
+            -- level.ocean_prefill_setpieces["CrabKing"] = 1
+
+            tableutil.insert_components(level.ocean_population, {
+                "OceanBrinepool",
+            })
+        end
+    end)
+
+    AddRoomPreInit("OceanRough", function(room)
+        room.required_prefabs = {}
+        room.contents.countstaticlayouts = {} ---delete  ["HermitcrabIsland"] = 1, 	["MonkeyIsland"] = 1,
+    end)
+
+    AddRoomPreInit("OceanSwell", function(room)
+        -- room.required_prefabs = {}
+        -- room.contents.countstaticlayouts = {} ---- delete ["CrabKing"] = 1
+    end)
+end
+
 ---------------------联机大陆调整--------------------------
 if ta_worldgen.together == false then
     AddLevelPreInitAny(function(level)
-        if level.location == "cave" then
-            level.overrides.keep_disconnected_tiles = true
-
-            level.tasks = {}
-            level.numoptionaltasks = 0
-            level.optionaltasks = {}
-            level.set_pieces = {}
-        end
-
-
         if level.location == "forest" then
-            level.tasks = {}
+            tableutil.remove_components(
+                level.tasks,
+                {
+                    "Make a pick",
+                    "Dig that rock",
+                    "Great Plains",
+                    "Squeltch",
+                    "Beeeees!",
+                    "Speak to the king",
+                    "Forest hunters",
+                    "Badlands",
+                    "For a nice walk",
+                    "Lightning Bluff",
+                }
+            )
+
             level.numoptionaltasks = 0
-            level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋
-            level.overrides = {}
+            tableutil.remove_indexes(
+                level.set_pieces,
+                {
+                    "ResurrectionStone",
+                    "WormholeGrass",
+                    "MooseNest",
+                    "CaveEntrance",
+                }
+            )
+            -- level.required_setpieces = {}
+
+            -- level.random_set_pieces = {}
+            -- level.ordered_story_setpieces = {}
             level.overrides.layout_mode = "LinkNodesByKeys"
-            level.required_setpieces = {}
-
-            level.random_set_pieces = {}
-            level.ordered_story_setpieces = {}
-            level.numrandom_set_pieces = 0
-
-            -- level.ocean_population = nil       --海洋生态 礁石 海带之类的 还有奶奶岛,帝王蟹和猴岛
-            -- level.ocean_prefill_setpieces = {} -- 巨树和盐矿的layout
-
+            -- level.numrandom_set_pieces = 0
             level.overrides.keep_disconnected_tiles = true
-            -- level.overrides.roads = "never"
-            -- level.overrides.birds = "never"  --没鸟
-            level.overrides.has_ocean = true --没海  ----如果设置了有海的话会清除所有非地面地皮然后根据规则重新生成
-            level.required_prefabs = {}      -----这个是为了检测是否有必要的prefabs
         end
     end)
 end
 
-
-if (ta_worldgen.together == true) and (ta_worldgen.rog == "fixed") then
+if ta_worldgen.ocean_content == false then
     AddLevelPreInitAny(function(level)
-        if level.location == "cave" then
+        if level.location == "forest" then
+            tableutil.remove_components(
+                level.tasks,
+                {
+                    "MoonIsland_IslandShards",
+                    "MoonIsland_Beach",
+                    "MoonIsland_Forest",
+                    "MoonIsland_Baths",
+                    "MoonIsland_Mine",
+                }
+            )
+            tableutil.remove_indexes(
+                level.set_pieces,
+                {
+                    "MoonAltarRockGlass",
+                    "MoonAltarRockIdol",
+                    "MoonAltarRockSeed",
+                    "BathbombedHotspring",
+                    "MoonFissures",
+                }
+            )
 
+            tableutil.remove_indexes(
+                level.ocean_prefill_setpieces,
+                {
+                    "BrinePool1",
+                    "BrinePool2",
+                    "BrinePool3",
+                    "Waterlogged1",
+                    "MonkeyIsland",
+                    "HermitcrabIsland",
+                }
+            )
+
+            -- level.required_setpieces = {}
+
+            -- level.random_set_pieces = {}
+            -- level.ordered_story_setpieces = {}
+            level.overrides.layout_mode = "LinkNodesByKeys"
+            -- level.numrandom_set_pieces = 0
+            level.overrides.keep_disconnected_tiles = true
         end
+    end)
+end
 
+if ta_worldgen.rog == "fixed" then
+    AddLevelPreInitAny(function(level)
         if level.location == "forest" then
             level.numoptionaltasks = 0
             level.optionaltasks = {}
-
             if ta_worldgen.rog == "fixed" then
                 table.insert(level.tasks, "Killer bees!")
                 table.insert(level.tasks, "The hunters")
                 table.insert(level.tasks, "Befriend the pigs")
                 table.insert(level.tasks, "Frogs and bugs")
                 table.insert(level.tasks, "Kill the spiders")
-
                 -- "Befriend the pigs",
                 -- "Kill the spiders",---蜘蛛矿区
                 -- "Killer bees!",
@@ -97,6 +172,27 @@ if (ta_worldgen.together == true) and (ta_worldgen.rog == "fixed") then
     end)
 end
 
+if ta_worldgen.cave_content == "part" then
+    AddLevelPreInitAny(function(level)
+        if level.location == "caves" then
+            tableutil.remove_components(
+                level.tasks,
+                {
+                    "CaveExitTask1",
+                    "CaveExitTask2",
+                    "CaveExitTask3",
+                    "CaveExitTask4",
+                    "CaveExitTask5",
+                    "CaveExitTask6",
+                    "CaveExitTask7",
+                    "CaveExitTask8",
+                    "CaveExitTask9",
+                    "CaveExitTask10",
+                }
+            )
+        end
+    end)
+end
 
 ------------------------海难----------------------------
 if ta_worldgen.shipwrecked then
@@ -123,6 +219,7 @@ if ta_worldgen.shipwrecked then
             table.insert(level.tasks, "BeachPiggy")      --猪人沙滩
             table.insert(level.tasks, "DoyDoyM")         ---doydoyM
             table.insert(level.tasks, "DoyDoyF")         ---doydoyF
+
             table.insert(level.tasks, "Volcano ground")  --火山  ["VolcanoAsh"] = 1,       ["Volcano"] = 1,    ["VolcanoObsidian"] = 1,
 
             table.insert(level.tasks, "A_BLANK1")
@@ -139,24 +236,6 @@ if ta_worldgen.shipwrecked then
             table.insert(level.tasks, "A_BLANK12")
 
             table.insert(level.ocean_population, "OceanBrinepool")
-
-            -- if not level.ocean_prefill_setpieces then
-            --     level.ocean_prefill_setpieces = {}
-            -- end
-
-            -- level.ocean_prefill_setpieces["coralpool1"] = 3
-            -- level.ocean_prefill_setpieces["coralpool2"] = 3
-            -- level.ocean_prefill_setpieces["coralpool3"] = 2
-            -- level.ocean_prefill_setpieces["octopuskinghome"] = 1
-            -- level.ocean_prefill_setpieces["mangrove1"] = 2
-            -- level.ocean_prefill_setpieces["mangrove2"] = 1
-            -- level.ocean_prefill_setpieces["wreck"] = 1
-            -- level.ocean_prefill_setpieces["wreck2"] = 1
-            -- level.ocean_prefill_setpieces["kraken"] = 1
-        elseif level.location == "cave" then
-            -- table.insert(level.tasks, "Volcano entrance")
-            -- table.insert(level.tasks, "Volcano")
-            -- table.insert(level.tasks, "Volcano inner")
         end
     end)
 end
@@ -164,14 +243,6 @@ end
 -----------------哈姆雷特-------------------------------------
 if ta_worldgen.hamlet then
     AddLevelPreInitAny(function(level)
-        if level.location == "cave" then
-            table.insert(level.tasks, "HamMudWorld")   ---地下版的出生地，但是爪树 "HamLightPlantFieldexit"--exit1 "HamArchiveMaze"
-            table.insert(level.tasks, "HamRockyLand")  --"HamBatsAndRocky"有蚁后
-            table.insert(level.tasks, "HamMudCave")    --同质化严重  "HamMudWithRabbitexit" 有exit2
-            table.insert(level.tasks, "HamBigBatCave") ----exit3
-            table.insert(level.tasks, "HamArchiveMaze")
-        end
-
         if level.location == "forest" then
             table.insert(level.tasks, "Plains")               --island3 高草地形，类似牛场
             table.insert(level.tasks, "Rainforest_ruins")
@@ -196,6 +267,18 @@ if ta_worldgen.hamlet then
             level.set_pieces["cave_entranceham1"] = { count = 1, tasks = { "Deep_rainforest" } }
             level.set_pieces["cave_entranceham2"] = { count = 1, tasks = { "Deep_rainforest_2" } }
             level.set_pieces["cave_entranceham3"] = { count = 1, tasks = { "Deep_lost_ruins_gas" } }
+        end
+    end)
+end
+
+if ta_worldgen.ruins then
+    AddLevelPreInitAny(function(level)
+        if level.location == "cave" then
+            table.insert(level.tasks, "HamMudWorld")   ---地下版的出生地，但是爪树 "HamLightPlantFieldexit"--exit1 "HamArchiveMaze"
+            table.insert(level.tasks, "HamRockyLand")  --"HamBatsAndRocky"有蚁后
+            table.insert(level.tasks, "HamMudCave")    --同质化严重  "HamMudWithRabbitexit" 有exit2
+            table.insert(level.tasks, "HamBigBatCave") ----exit3
+            table.insert(level.tasks, "HamArchiveMaze")
         end
     end)
 end
@@ -229,62 +312,9 @@ end
 
 
 
-
------------海上布景---------------会显著加快地形生成
-if true then
-    AddLevelPreInitAny(function(level)
-        if level.location == "forest" then
-            if not level.ocean_prefill_setpieces then
-                level.ocean_prefill_setpieces = {}
-            end
-
-            level.ocean_prefill_setpieces["MonkeyIsland"] = 1
-            level.ocean_prefill_setpieces["HermitcrabIsland"] = 1
-            -- level.ocean_prefill_setpieces["CrabKing"] = 1
-
-            tableutil.insert_components(level.ocean_population, {
-                "OceanBrinepool",
-            })
-        end
-    end)
-
-    AddRoomPreInit("OceanRough", function(room)
-        room.required_prefabs = {}
-        room.contents.countstaticlayouts = {} ---delete  ["HermitcrabIsland"] = 1, 	["MonkeyIsland"] = 1,
-    end)
-
-    AddRoomPreInit("OceanSwell", function(room)
-        -- room.required_prefabs = {}
-        -- room.contents.countstaticlayouts = {} ---- delete ["CrabKing"] = 1
-    end)
-end
-
-
--- ------------------------热带气候调整---------------------------
--- AddLevelPreInitAny(function(level)
---     if level.location == "forest" then
---         for i, taskname in ipairs(level.tasks) do
---             AddTaskPreInit(taskname, function(task)
---                 if task.region_id and (task.region_id ~= "mainland" and task.region_id ~= "island1") then
---                     -- print(taskname .. "taskname!!!!!!")
---                     -- print(task.room_tags)
---                     -- print("task.room_tags")
---                     if not task.room_tags then
---                         task.room_tags = {}
---                     end
---                     tableutil.insert_components(task.room_tags, "tropical")
---                 end
---             end)
---         end
---     end
--- end)
-
-
 ---------------------测试模式------------
-if ta_worldgen.testmap then
-    -- modimport("postinit/map/forest_map_notcheck") ----防止世界生成难产，但可能会缺失重要地形
-    -- ------------这个需要在hook forestmap之前执行，否则upvalue就找不到了
-    if true then
+if TA_CONFIG.DEVELOP.testmap then
+    if false then
         AddLevelPreInitAny(function(level)
             if level.location == "cave" then
                 level.overrides.keep_disconnected_tiles = true
@@ -300,34 +330,7 @@ if ta_worldgen.testmap then
 
             if level.location == "forest" then
                 level.tasks = { "Make a pick" }
-                -- table.insert(level.tasks, "Kill the spiders")
-                -- table.insert(level.tasks, "Pincale")
-                -- table.insert(level.tasks, "Verdent")
-                -- table.insert(level.tasks, "Plains_start")
-                -- table.insert(level.tasks, "Plains") --island3 高草地形，类似牛场
-                -- table.insert(level.tasks, "Rainforest_ruins")
-                -- table.insert(level.tasks, "Deep_rainforest") ----有蚁穴
-                -- table.insert(level.tasks, "Edge_of_the_unknown")
-                -- table.insert(level.tasks, "Pigcity2")
-                -- table.insert(level.tasks, "BeachMarshy") --纯随机 沙滩和沼泽
-                -- table.insert(level.tasks, "HamArchiveMaze")
                 level.numoptionaltasks = 0
-
-                --[[optionaltasks = {
-                    "Befriend the pigs",
-                    "Kill the spiders",---蜘蛛矿区
-                    "Killer bees!",
-                    "Make a Beehat", ---蜜蜂矿场？
-                    "The hunters",
-                    "Magic meadow", ----有池塘
-                    "Frogs and bugs", --青蛙和蜜蜂？
-                    "Mole Colony Deciduous",---第二桦树林
-                    "Mole Colony Rocks",---大矿区
-                    "MooseBreedingTask",
-                }]]
-
-
-
                 level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋
                 level.set_pieces["CaveEntrance"] = { count = 1, tasks = { "Make a pick" } }
                 level.overrides = {}
