@@ -257,7 +257,7 @@ AddRoom("piko_land", {
 ----------------------------------------------------------- battlegrounds room--------------------------------------------------------------------------------------------------
 AddRoom("BG_battleground_base", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
+    value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
     tags = { "ExitPiece" },
     contents = {
         distributepercent = .22, -- .22, --.26
@@ -281,7 +281,7 @@ AddRoom("BG_battleground_base", {
 
 AddRoom("battleground_ribs", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
+    value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
     tags = { "ExitPiece" },
     contents = {
         distributepercent = .22, -- .22, --.26
@@ -306,7 +306,7 @@ AddRoom("battleground_ribs", {
 })
 AddRoom("battleground_claw", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
+    value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
     tags = { "ExitPiece" },
     contents = {
         distributepercent = .22, -- .22, --.26
@@ -331,7 +331,7 @@ AddRoom("battleground_claw", {
 
 AddRoom("battleground_claw1", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
+    value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
     tags = { "ExitPiece" },
     contents = {
         distributepercent = .22, -- .22, --.26
@@ -356,7 +356,7 @@ AddRoom("battleground_claw1", {
 
 AddRoom("battleground_leg", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
+    value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
     tags = { "ExitPiece" },
     contents = {
         distributepercent = .22, -- .22, --.26
@@ -381,7 +381,7 @@ AddRoom("battleground_leg", {
 
 AddRoom("battleground_leg1", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
+    value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
     tags = { "ExitPiece" },
     contents = {
         distributepercent = .22, -- .22, --.26
@@ -405,7 +405,7 @@ AddRoom("battleground_leg1", {
 })
 AddRoom("battleground_head", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
-    value = GROUND.DIRT,
+    value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
     tags = { "ExitPiece" },
     contents = {
         --					countstaticlayouts={["CaveEntrance"]=1},
@@ -1646,7 +1646,7 @@ AddRoom("HamBGMud", {
 -- cave iron
 AddRoom("HamBatCave", {
     colour = { r = 0.3, g = 0.2, b = 0.1, a = 0.3 },
-    value = GROUND.MUD,
+    value = GROUND.ANTFLOOR,
     tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .15,
@@ -1676,7 +1676,7 @@ AddRoom("HamBatCave", {
 -- cave iron
 AddRoom("HamBattyCave", {
     colour = { r = 0.3, g = 0.2, b = 0.1, a = 0.3 },
-    value = GROUND.MUD,
+    value = GROUND.ANTFLOOR,
     tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .25,
@@ -1705,7 +1705,7 @@ AddRoom("HamBattyCave", {
 -- cave iron
 AddRoom("HamFernyBatCave", {
     colour = { r = 0.3, g = 0.2, b = 0.1, a = 0.3 },
-    value = GROUND.MUD,
+    value = GROUND.ANTFLOOR,
     tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .25,
@@ -1735,7 +1735,7 @@ AddRoom("HamFernyBatCave", {
 -- cave iron
 AddRoom("HamFernyBatCaveexit", {
     colour = { r = 0.3, g = 0.2, b = 0.1, a = 0.3 },
-    value = GROUND.MUD,
+    value = GROUND.ANTFLOOR,
     tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .25,
@@ -1770,7 +1770,7 @@ AddRoom("HamFernyBatCaveexit", {
 -- caveiron
 AddRoom("HamBGBatCaveRoom", {
     colour = { r = 0.3, g = 0.2, b = 0.1, a = 0.3 },
-    value = GROUND.MUD,
+    value = GROUND.ANTFLOOR,
     tags = { "Hutch_Fishbowl" },
     contents = {
         distributepercent = .13,
@@ -1801,7 +1801,7 @@ AddRoom("HamBGBatCaveRoom", {
 -- fip
 AddRoom("HamSlurtleCanyon", {
     colour = { r = 0.7, g = 0.7, b = 0.7, a = 0.9 },
-    value = GROUND.MUD,
+    value = GROUND.ANTFLOOR,
     --    tags = {"Hutch_Fishbowl"},
     type = GLOBAL.NODE_TYPE.Room,
     internal_type = GLOBAL.NODE_INTERNAL_CONNECTION_TYPE.EdgeSite,
@@ -1837,7 +1837,7 @@ AddRoom("HamSlurtleCanyon", {
 -- fip
 AddRoom("HamBatsAndSlurtles", {
     colour = { r = 0.7, g = 0.7, b = 0.7, a = 0.9 },
-    value = GROUND.MUD,
+    value = GROUND.ANTFLOOR,
     --    tags = {"Hutch_Fishbowl"},
     type = GLOBAL.NODE_TYPE.Room,
     internal_type = GLOBAL.NODE_INTERNAL_CONNECTION_TYPE.EdgeSite,
@@ -1872,7 +1872,7 @@ AddRoom("HamBatsAndSlurtles", {
 -- fip
 AddRoom("HamRockyPlains", {
     colour = { r = 0.7, g = 0.7, b = 0.7, a = 0.9 },
-    value = GROUND.MUD,
+    value = GROUND.ANTFLOOR,
     --    tags = {"Hutch_Fishbowl"},
     type = GLOBAL.NODE_TYPE.Room,
     internal_type = GLOBAL.NODE_INTERNAL_CONNECTION_TYPE.EdgeSite,
@@ -1908,7 +1908,7 @@ AddRoom("HamRockyPlains", {
 -- fip
 AddRoom("HamRockyPlainsexit", {
     colour = { r = 0.7, g = 0.7, b = 0.7, a = 0.9 },
-    value = GROUND.MUD,
+    value = GROUND.ANTFLOOR,
     --    tags = {"Hutch_Fishbowl"},
     type = GLOBAL.NODE_TYPE.Room,
     internal_type = GLOBAL.NODE_INTERNAL_CONNECTION_TYPE.EdgeSite,
@@ -1935,7 +1935,7 @@ AddRoom("HamRockyPlainsexit", {
 -- fip
 AddRoom("HamRockyHatchingGrounds", {
     colour = { r = 0.7, g = 0.7, b = 0.7, a = 0.9 },
-    value = GROUND.MUD,
+    value = GROUND.ANTFLOOR,
     --    tags = {"Hutch_Fishbowl"},
     type = GLOBAL.NODE_TYPE.Room,
     internal_type = GLOBAL.NODE_INTERNAL_CONNECTION_TYPE.EdgeSite,
@@ -1961,7 +1961,7 @@ AddRoom("HamRockyHatchingGrounds", {
 -- fip
 AddRoom("HamBatsAndRocky", {
     colour = { r = 0.7, g = 0.7, b = 0.7, a = 0.9 },
-    value = GROUND.MUD,
+    value = GROUND.ANTFLOOR,
     --    tags = {"Hutch_Fishbowl"},
     type = GLOBAL.NODE_TYPE.SeparatedRoom,
     internal_type = GLOBAL.NODE_INTERNAL_CONNECTION_TYPE.EdgeCentroid,
@@ -1990,7 +1990,7 @@ AddRoom("HamBatsAndRocky", {
 -- fip
 AddRoom("HamBGRockyCaveRoom", {
     colour = { r = 0.7, g = 0.7, b = 0.7, a = 0.9 },
-    value = GROUND.MUD,
+    value = GROUND.ANTFLOOR,
     --    tags = {"Hutch_Fishbowl"},	
     type = GLOBAL.NODE_TYPE.Room,
     internal_type = GLOBAL.NODE_INTERNAL_CONNECTION_TYPE.EdgeSite,

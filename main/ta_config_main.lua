@@ -1,6 +1,6 @@
 GLOBAL.TA_CONFIG      = TA_CONFIG or {}
 local leveldata       = ModGetLevelDataOverride() ----在生成世界的时候是没有的，只有重新加载世界时可以
-local world_overrides = leveldata and leveldata.overrides or nil
+local world_overrides = leveldata and deepcopy(leveldata.overrides) or nil
 
 if world_overrides then
     print("Re-update world settings in modmain")

@@ -606,7 +606,7 @@ AddRoom("MagmaVolcano", {
 
 AddRoom("Volcano", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
-    value = GROUND.VOLCANO,
+    value = GROUND.VOLCANO_NOISE,
     tags = {},
     --					required_prefabs = {"volcano"},
     contents = {
@@ -640,7 +640,7 @@ AddRoom("Volcano", {
 
 AddRoom("Volcanofundo", {
     colour = { r = 0.8, g = .8, b = .1, a = .50 },
-    value = GROUND.VOLCANO,
+    value = GROUND.VOLCANO_NOISE,
     tags = {},
     contents = {
         --						     green_mushroom = .05,
@@ -841,7 +841,7 @@ AddRoom("MagmaSpiders", {
 
 AddRoom("VolcanoRock", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
-    value = GROUND.VOLCANO,
+    value = GROUND.VOLCANO_NOISE,
     tags = {},
     contents = {
         distributepercent = .15,
@@ -926,7 +926,7 @@ AddRoom("VolcanoObsidian", {
 
 AddRoom("VolcanoStart", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
-    value = GROUND.VOLCANO,
+    value = GROUND.VOLCANO_NOISE,
     tags = {},
     contents = {
         countstaticlayouts = { ["Entradavulcao"] = 1 }, --adds 1 per room
@@ -954,7 +954,7 @@ AddRoom("VolcanoStart", {
 
 AddRoom("VolcanoNoise", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
-    value = GROUND.VOLCANO,
+    value = GROUND.VOLCANO_NOISE,
     tags = {},
     contents = {
         countstaticlayouts = {

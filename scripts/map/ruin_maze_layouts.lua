@@ -138,7 +138,7 @@ local function GetLayoutsForType(name, sub_dir, params, areas)
 		v.fill_mask = PLACE_MASK.IGNORE_IMPASSABLE_BARREN_RESERVED
 
 		if string.find(name, "hamlet") then
-			v.ground_types[42] = GROUND.PIGRUINS
+			v.ground_types[42] = WORLD_TILES.PIGRUINS
 		end
 		-- v.areas = ruins_areas
 	end

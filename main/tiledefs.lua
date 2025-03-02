@@ -434,7 +434,7 @@ local tro_tiledefs = {
             walksound = "dontstarve/movement/walk_rock",
             flashpoint_modifier = 0,
             hard = true, ----不可种植
-            -- cannotbedug = true,
+            cannotbedug = true,
 
         },
         minimap_tile_def = {
@@ -496,9 +496,23 @@ local tro_tiledefs = {
     -- (only for worldgen)
     -------------------------------
 
-    -- VOLCANO_NOISE = {
-    --     tile_range = volcano_noisefn,
-    -- },
+    VOLCANO_NOISE = {
+        tile_range = function(noise)
+            if noise < 0.5 then
+                return WORLD_TILES.VOLCANO
+            end
+            return WORLD_TILES.VOLCANO_ROCK
+        end,
+    },
+
+    BATTLEGROUND_RAINFOREST_NOISE = {
+        tile_range = function(noise)
+            if noise < 0.5 then
+                return WORLD_TILES.DIRT
+            end
+            return WORLD_TILES.RAINFOREST
+        end,
+    },
 
 
     --------------------------以下为哈姆陆地地皮---------------------
@@ -679,7 +693,7 @@ local tro_tiledefs = {
             runsound = "dontstarve/movement/run_dirt",
             walksound = "dontstarve/movement/walk_dirt",
             snowsound = "run_ice",
-            --cannotbedug = true
+            cannotbedug = true
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -860,7 +874,7 @@ local tro_tiledefs = {
             runsound = "dontstarve/movement/run_dirt",
             walksound = "dontstarve/movement/walk_dirt",
             snowsound = "run_ice",
-            cannotbedug = true
+            -- cannotbedug = true
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -969,8 +983,8 @@ ChangeTileRenderOrder(WORLD_TILES.PLAINS, WORLD_TILES.MUD, true)
 ChangeTileRenderOrder(WORLD_TILES.SUBURB, WORLD_TILES.MUD, true)
 ChangeTileRenderOrder(WORLD_TILES.FIELDS, WORLD_TILES.MUD, true)
 ChangeTileRenderOrder(WORLD_TILES.PAINTED, WORLD_TILES.MUD, true)
-ChangeTileRenderOrder(WORLD_TILES.PIGRUINS, WORLD_TILES.CHECKER, true)
-
+ChangeTileRenderOrder(WORLD_TILES.PIGRUINS, WORLD_TILES.DESERT_DIRT, true)
+ChangeTileRenderOrder(WORLD_TILES.PIGRUINS_BLUE, WORLD_TILES.DESERT_DIRT, true)
 
 -- --Priority turf
 ChangeTileRenderOrder(WORLD_TILES.SNAKESKINFLOOR, WORLD_TILES.CARPET, false)
