@@ -313,7 +313,7 @@ end
 
 
 ---------------------测试模式------------
-if TA_CONFIG.DEVELOP.testmap then
+if TA_CONFIG.DEVELOP.test_map then
     if false then
         AddLevelPreInitAny(function(level)
             if level.location == "cave" then

@@ -4,7 +4,7 @@ local world_overrides
 if rawget(_G, "GEN_PARAMETERS") then
     require("json")
     local world_gen_data = json.decode(rawget(_G, "GEN_PARAMETERS"))
-    world_overrides = world_gen_data.level_data.overrides
+    world_overrides = deepcopy(world_gen_data.level_data.overrides)
 end
 
 if world_overrides then
@@ -62,6 +62,7 @@ local addtuning = function(i, v)
         print(i .. " is already defined in TUNING")
     else
         TUNING[i] = v
+        print(i .. " is added to TUNING" .. ":" .. tostring(v))
     end
 end
 

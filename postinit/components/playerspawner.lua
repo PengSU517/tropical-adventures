@@ -25,7 +25,7 @@ AddComponentPostInit("playerspawner", function(self)
 
             ----------填海叉
             local startitem
-            if TUNING.testmode then
+            if TA_CONFIG.DEVELOP.test_mode then
                 startitem = "sea2land_fork"
             end
 
