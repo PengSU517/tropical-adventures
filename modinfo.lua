@@ -262,8 +262,28 @@ worldgen_options = {
 	{
 		name = "cave_content",
 		label = en_zh("Together Caves", "联机洞穴内容"),
-		options = options_enable,
-		default = "enabled",
+		options =
+		{
+			{
+				description = en_zh("Default", "默认"),
+				hover = en_zh("Default settings", "默认设置"),
+				data = "default"
+			},
+
+			{
+				description = en_zh("No ladder", "没有楼梯"),
+				hover = en_zh("No ladder", "没有楼梯"),
+				data = "part"
+			},
+
+			-- {
+			-- 	description = en_zh("Disabled(Not Recommended)", "关闭(不推荐)"),
+			-- 	hover = en_zh("Disabled(Not Recommended)", "关闭(不推荐)"),
+			-- 	data = "disabled"
+			-- },
+
+		},
+		default = "default",
 		order = 5,
 		image = "blank_world.tex",
 		atlas = sw_atlas,
@@ -535,7 +555,7 @@ climate_options = {
 client_options =
 {
 	{
-		name = "roomview",
+		name = "room_view_key",
 		label = en_zh("Room view", "房间视角"),
 		hover = en_zh("lower or higher view", "拉低/拉高视角"),
 		options = options_pairedkey,
@@ -543,7 +563,7 @@ client_options =
 	},
 
 	{
-		name = "build_height",
+		name = "build_height_key",
 		label = en_zh("Building height", "建造高度"),
 		hover = en_zh("windows or hanging section while building", "窗户、悬挂型建筑高度调整"),
 		options = options_pairedkey,
@@ -551,7 +571,7 @@ client_options =
 	},
 
 	{
-		name = "build_rotation",
+		name = "build_rotation_key",
 		label = en_zh("Building rotation", "建造角度"),
 		hover = en_zh("wall sections, rugs and some decorations", "墙饰/地毯和部分装饰物的建造角度"),
 		options = options_pairedkey,
