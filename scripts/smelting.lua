@@ -15,6 +15,9 @@ local Attributes = {
     ballpein_hammer = { iron = 1, },
     shears = { iron = 1, },
     candlehat = { iron = 1, },
+    halberd = { iron = 1, },
+    armor_metalplate = { iron = 1, },
+    metalplatehat = { iron = 1, },
     obsidian = { nitro = 2.5, }, -- nitro
     nitre = { nitro = 1, },
     flint = { nitro = .25, },
