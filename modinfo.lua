@@ -42,7 +42,7 @@ name = pub_dev(en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒�
 	en_zh(" Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "3.2.25"
+version = "3.3.2"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -668,6 +668,20 @@ table_insert(configuration_options, Breaker("Client Adjustments", "客户端调�
 for i, v in my_ipairs(client_options) do
 	table_insert(configuration_options, v)
 end
+
+-- table_insert(configuration_options, Breaker("Option Reset ", "选项重置"))
+-- table_insert(configuration_options, {
+-- 	name = "already_reset",
+-- 	label = en_zh("Option Reset ", "选项重置"),
+-- 	options = {
+-- 		{ description = en_zh("Done", "已完成"), data = true },
+-- 		{ description = en_zh("Not yet", "未完成"), data = false },
+
+-- 	},
+-- 	default = false,
+-- })
+
+
 
 if isdev then
 	table_insert(configuration_options, Breaker("Developer Settings", "开发者选项") or nil)
