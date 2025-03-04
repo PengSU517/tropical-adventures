@@ -31,6 +31,7 @@ modimport("postinit/tile_post")           --特殊地皮挖起
 
 
 -- do not know how to sort
+modimport("postinit/oceancolor")
 modimport("postinit/postinit_poisonables") --posonables--and loot dropper--
 modimport("postinit/camera")               --旧的房间镜头，但是现在不能删
 modimport("postinit/sim_rain_effect")

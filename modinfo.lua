@@ -594,7 +594,7 @@ client_options =
 		default = 0,
 	},
 
-	--[[
+
 	{
 		name = "ocean",
 		label = en_zh("Ocean", "海洋"),
@@ -621,7 +621,7 @@ client_options =
 		},
 		default = "default",
 	},
- ]]
+
 }
 
 
