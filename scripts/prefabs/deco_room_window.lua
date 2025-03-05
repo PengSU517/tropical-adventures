@@ -300,11 +300,6 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
             return inst
         end
 
-
-        if data.inspectable then
-            inst:AddComponent("inspectable") -----------------可检测吗？---加上太乱了
-        end
-
         if data.craftable then
             setPlayerUncraftable(inst)
         end
@@ -513,7 +508,6 @@ local function Lightfn(prefabname, animdata, data)
         changevalue = data and data.changevalue or 0.02,
         rotation = 0,
         background = data and data.background or false,
-        inspectable = true,
         craftable = data and data.craftable or false,
         light = true,
         followlight = "electric_1",

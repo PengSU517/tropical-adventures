@@ -506,8 +506,6 @@ local function decofn(build, bank, animframe, data, assets, prefabs)
 
         inst.entity:SetPristine()
 
-        inst:AddComponent("inspectable")
-
         if not TheWorld.ismastersim then
             return inst
         end
