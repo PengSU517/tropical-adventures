@@ -61,8 +61,13 @@ local function AddMeltProduct(recipes)
     for name, recipe in pairs(recipes) do
         assert(not Products[name], Path .. "59: attempt to add existed melt recipe \"" .. name .. "\"")
         assert(type(recipe.test) == "table", Path .. "59: attempt to add non recipe for \"" .. name .. "\"")
-        Products[name] = { priority = recipe.priority or 0, test = {}, overridebuild = recipe.overridebuild or name, overridesymbolname =
-        recipe.overridesymbolname or name }
+        Products[name] = {
+            priority = recipe.priority or 0,
+            test = {},
+            overridebuild = recipe.overridebuild or name,
+            overridesymbolname =
+                recipe.overridesymbolname or name
+        }
         for attrtag, attrval in pairs(recipe.test) do
             assert(type(attrtag) == "string", Path .. "63: attempt to add non attribute tag to \"" .. name .. "\"")
             assert(type(attrval) == "number", Path .. "63: attempt to add non attribute value to \"" .. name .. "\"")
@@ -101,7 +106,7 @@ local function getProd(items, worker)
 end
 
 local function getOverrideSymbol(item)
-    return Products[item].overridebuild, Products[item].overridesymbolname
+    return Products[item] and Products[item].overridebuild, Products[item] and Products[item].overridesymbolname
 end
 
 local function isAttribute(item)
