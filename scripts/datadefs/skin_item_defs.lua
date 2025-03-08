@@ -65,11 +65,13 @@ local itemskins =
     pugaliskfountain_made = {
         default = {
             basebuild = "python_fountain_lunar",
+            base_minimapicon = "pugalisk_fountain.tex"
         },
         python_fountain_lunar = {
             assetname = "python_fountain",
             build = "python_fountain",
             build_name_override = "python_fountain",
+            minimapicon = "pugalisk_fountain.tex",
             rarity = "Eternal",
             type = "item",
             name = "old fashion",
