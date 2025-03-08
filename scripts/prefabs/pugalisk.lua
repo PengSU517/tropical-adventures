@@ -680,9 +680,8 @@ local function corpsefn(Sim)
     inst.components.workable:SetWorkAction(ACTIONS.DIG)
     inst.components.workable:SetWorkLeft(1)
     -- inst:AddComponent("lootdropper")
-    inst.components.lootdropper:SetLoot({ "bonestaff", 'pugaliskfountain_made_blueprint' })
+    inst.components.lootdropper:SetLoot({ "pugalisk_skull", "bonestaff_blueprint", 'pugaliskfountain_made_blueprint' })
     inst.components.workable:SetOnFinishCallback(onfinishcallback)
-
     return inst
 end
 
