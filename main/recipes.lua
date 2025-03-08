@@ -329,8 +329,8 @@ AddRecipe2("blowdart_poison",
 AddRecipe2("armorseashell",
 	{ Ingredient("seashell", 10), Ingredient("rope", 1), Ingredient("seaweed", 2) }, TECH.SCIENCE_TWO,
 	{}, { "ARMOUR" })
-AddRecipe2("bell", {Ingredient("glommerwings", 1), Ingredient("glommerflower", 1)}, TECH.MAGIC_TWO, 
-    {}, {"MAGIC"})
+AddRecipe2("bell", { Ingredient("glommerwings", 1), Ingredient("glommerflower", 1) }, TECH.MAGIC_TWO,
+	{}, { "MAGIC" })
 AddRecipe2("oxhat", { Ingredient("rope", 1), Ingredient("seashell", 4), Ingredient("ox_horn", 1) },
 	TECH.SCIENCE_ONE, {}, { "ARMOUR" })
 AddRecipe2("armorcactus", { Ingredient("needlespear", 3), Ingredient("armorwood", 1) }, TECH.SCIENCE_TWO,
@@ -363,7 +363,8 @@ AddRecipe2("blubbersuit",
 AddRecipe2("brainjellyhat",
 	{ Ingredient("coral_brain", 1), Ingredient("jellyfish", 1), Ingredient("rope", 2) },
 	TECH.SCIENCE_TWO, {}, { "CLOTHING" })
-AddRecipe2("shark_teethhat", {Ingredient("shark_tooth", 5), Ingredient("goldnugget", 1)}, TECH.SCIENCE_ONE, nil, {"CLOTHING"})
+AddRecipe2("shark_teethhat", { Ingredient("shark_tooth", 5), Ingredient("goldnugget", 1) }, TECH.SCIENCE_ONE, nil,
+	{ "CLOTHING" })
 AddRecipe2("armor_windbreaker",
 	{ Ingredient("blubber", 2), Ingredient("fabric", 1), Ingredient("rope", 1) }, TECH.SCIENCE_TWO,
 	{}, { "CLOTHING", "WINTER" }) -- CHECK  THIS
@@ -509,10 +510,10 @@ AddRecipe2("shears", { Ingredient("twigs", 2), Ingredient("iron", 2) }, TECH.SCI
 	{ "TOOLS" })
 AddRecipe2("bugrepellent", { Ingredient("tuber_crop", 6), Ingredient("venus_stalk", 1) },
 	TECH.SCIENCE_ONE, {}, { "TOOLS" })
-AddRecipe2("clawpalmtree_cone", {Ingredient("cork", 1), Ingredient("poop", 1)}, TECH.SCIENCE_ONE, {
-    }, {"REFINE"})
-AddRecipe2("venomgland", {Ingredient("froglegs_poison", 3)}, TECH.SCIENCE_TWO, {
-    }, {"REFINE"})
+AddRecipe2("clawpalmtree_cone", { Ingredient("cork", 1), Ingredient("poop", 1) }, TECH.SCIENCE_ONE, {
+}, { "REFINE" })
+AddRecipe2("venomgland", { Ingredient("froglegs_poison", 3) }, TECH.SCIENCE_TWO, {
+}, { "REFINE" })
 AddRecipe2("goldpan", { Ingredient("iron", 2), Ingredient("hammer", 1) }, TECH.SCIENCE_ONE, {},
 	{ "TOOLS", "LEGACY" })
 AddRecipe2("bathat", { Ingredient("pigskin", 2), Ingredient("batwing", 1), Ingredient("compass", 1) },
@@ -570,6 +571,9 @@ AddRecipe2("gasmaskhat",
 	TECH.SCIENCE_ONE, {}, { "CLOTHING" })
 AddRecipe2("corkboatitem", { Ingredient("rope", 1), Ingredient("cork", 4) }, TECH.NONE, {},
 	{ "NAUTICAL" })
+
+AddRecipe2("bonestaff", { Ingredient("pugalisk_skull", 1), Ingredient("boneshard", 1), Ingredient("nightmarefuel", 2) },
+	TECH.LOST, { "TOOLS", "MAGIC" })
 -- end
 
 
@@ -733,18 +737,18 @@ AddRecipe2("pig_shop_cityhall_player_entrance",
 AddRecipe2("pig_guard_tower", { Ingredient("cutstone", 3), Ingredient("halberd", 1), Ingredient("pigskin", 4) },
 	TECH.CITY_ONE, { nounlock = false, min_spacing = 3.2, placer = "pig_guard_tower_placer" },
 	{ "HAMLET" })
-	AddRecipe2("hedge_block_item", {Ingredient("clippings", 9), Ingredient("nitre", 1)}, TECH.CITY_ONE, {
-		nounlock = true,
-		numtogive = 3,
-	}, {"HAMLET"})
-	AddRecipe2("hedge_cone_item", {Ingredient("clippings", 9), Ingredient("nitre", 1)}, TECH.CITY_ONE, {
-		nounlock = true,
-		numtogive = 3,
-	}, {"HAMLET"})
-	AddRecipe2("hedge_layered_item", {Ingredient("clippings", 9), Ingredient("nitre", 1)}, TECH.CITY_ONE, {
-		nounlock = true,
-		numtogive = 3,
-	}, {"HAMLET"})
+AddRecipe2("hedge_block_item", { Ingredient("clippings", 9), Ingredient("nitre", 1) }, TECH.CITY_ONE, {
+	nounlock = true,
+	numtogive = 3,
+}, { "HAMLET" })
+AddRecipe2("hedge_cone_item", { Ingredient("clippings", 9), Ingredient("nitre", 1) }, TECH.CITY_ONE, {
+	nounlock = true,
+	numtogive = 3,
+}, { "HAMLET" })
+AddRecipe2("hedge_layered_item", { Ingredient("clippings", 9), Ingredient("nitre", 1) }, TECH.CITY_ONE, {
+	nounlock = true,
+	numtogive = 3,
+}, { "HAMLET" })
 AddRecipe2("pig_guard_tower_palace",
 	{ Ingredient("cutstone", 5), Ingredient("halberd", 1), Ingredient("pigskin", 4) }, TECH.CITY_ONE,
 	{
@@ -793,8 +797,8 @@ AddRecipe2("turf_cobbleroad", { Ingredient("cutstone", 2), Ingredient("boards", 
 	{ nounlock = false, numtogive = 4 }, { "HAMLET" })
 AddRecipe2("turf_checkeredlawn", { Ingredient("cutgrass", 2), Ingredient("nitre", 1) }, TECH.CITY_ONE,
 	{ nounlock = false, numtogive = 4, image = "turf_lawn.tex" }, { "HAMLET" })
-AddRecipe2("turf_pigruins", {Ingredient("cutstone", 4), Ingredient("rocks", 2)}, TECH.CITY_TWO, 
-    { nounlock = true,  numtogive = 4,}, {"HAMLET"})
+AddRecipe2("turf_pigruins", { Ingredient("cutstone", 4), Ingredient("rocks", 2) }, TECH.CITY_TWO,
+	{ nounlock = true, numtogive = 4, }, { "HAMLET" })
 --TURFS--
 AddRecipe2("turf_magmafield", { Ingredient("rocks", 2), Ingredient("ash", 1) }, TECH.TURFCRAFTING_ONE,
 	{ numtogive = 4 }, { "DECOR" })
@@ -1571,6 +1575,7 @@ AddRecipe2("rug_tiles", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
 
 GLOBAL.CONSTRUCTION_PLANS["collapsed_honeychest"] = { Ingredient("chitin", 3), Ingredient("beeswax", 1), Ingredient(
 	"honey", 2), Ingredient("alterguardianhatshard", 1) }
+GLOBAL.CONSTRUCTION_PLANS["pugaliskfountain_made"] = { Ingredient("ice", 10), Ingredient("waterdrop", 1) }
 
 AddRecipe2("bed0", { Ingredient("oinc", 5) }, TECH.HOME_ONE, { nounlock = true, min_spacing = 1, placer = "bed0_placer" },
 	{ "INTERIOR" })
@@ -1754,6 +1759,7 @@ SortAfter("gasmaskhat", "gashat", "CLOTHING")
 SortAfter("thunderhat", "snakeskinhat", "CLOTHING")
 SortAfter("bell", "ox_flute", "MAGIC")
 SortAfter("bonestaff", "icestaff", "MAGIC")
+SortAfter("bonestaff", "ballpein_hammer", "TOOLS")
 SortAfter("living_artifact", "armorvortexcloak", "MAGIC")
 SortAfter("turf_fields", "turf_beach", "DECOR")
 SortAfter("turf_deeprainforest", "turf_fields", "DECOR")

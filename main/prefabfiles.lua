@@ -388,6 +388,7 @@ PrefabFiles = {
     "pugalisk_fountain_made",
     "pugalisk_fountain",
     "pugalisk_ruins_pillar",
+    "pugalisk_skull",
     "pugalisk_trap_door",
     "pugalisk",
     "quackenbeak",
