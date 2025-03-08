@@ -5,7 +5,9 @@ local assets =
 	--Asset("ANIM", "anim/evergreen_tall_old.zip"),
 	--Asset("ANIM", "anim/evergreen_short_normal.zip"),
 
+	Asset("ANIM", "anim/tree_forest_rot_build.zip"),
 	Asset("ANIM", "anim/tree_rainforest_gas_build.zip"),
+
 	Asset("ANIM", "anim/tree_forest_bloom_build.zip"),
 
 	Asset("ANIM", "anim/tree_rainforest_build.zip"),
@@ -17,6 +19,8 @@ local assets =
 	Asset("SOUND", "sound/forest.fsb"),
 	Asset("INV_IMAGE", "jungleTreeSeed"),
 	Asset("MINIMAP_IMAGE", "tree_rainforest"),
+	Asset("MINIMAP_IMAGE", "tree_rainforest_stump"),
+	Asset("MINIMAP_IMAGE", "tree_rainforest_burnt"),
 }
 
 local prefabs =
@@ -86,7 +90,7 @@ local builds =
 	blooming = {
 		file = "tree_rainforest_bloom_build",
 		prefab_name = "rainforesttree",
-		normal_loot = { "log", "log", "burr" },                       -- "jungletreeseed"
+		normal_loot = { "log", "log", "burr" },        -- "jungletreeseed"
 		short_loot = { "log" },
 		tall_loot = { "log", "log", "log", "burr", "burr" }, -- "jungletreeseed", "jungletreeseed"
 	}
@@ -148,7 +152,7 @@ local function chop_down_burnt_tree(inst, chopper)
 	inst.SoundEmitter:PlaySound("dontstarve/wilson/use_axe_tree")
 	inst.AnimState:PlayAnimation(inst.anims.chop_burnt)
 	RemovePhysicsColliders(inst)
-	inst:ListenForEvent("animover", function() inst:Remove() end)
+	inst:ListenForEvent("animover", inst.Remove)
 	inst.components.lootdropper:SpawnLootPrefab("charcoal")
 	inst.components.lootdropper:DropLoot()
 	if inst.pineconetask then
@@ -195,6 +199,7 @@ local function OnBurnt(inst, imm)
 		inst:DoTaskInTime(0.5, changes)
 	end
 	inst.AnimState:PlayAnimation(inst.anims.burnt, true)
+	inst.MiniMapEntity:SetIcon("tree_rainforest_burnt.tex")
 	--inst.AnimState:SetRayTestOnBB(true);
 	inst:AddTag("burnt")
 
@@ -247,6 +252,16 @@ end
 
 local function stopbloom(inst)
 	doTransformNormal(inst)
+end
+
+local function dropBurr(inst)
+	if not inst:HasTag("burnt") then
+		local burr = SpawnPrefab("burr")
+		local pt = Vector3(inst.Transform:GetWorldPosition())
+		burr.AnimState:PlayAnimation("drop")
+		burr.AnimState:PushAnimation("idle")
+		burr.Transform:SetPosition(pt:Get())
+	end
 end
 
 local function OnSeasonChange(inst)
@@ -479,7 +494,7 @@ local function chop_tree(inst, chopper, chops)
 	inst.AnimState:PushAnimation(inst.anims.sway1, true)
 
 	--tell any nearby leifs to wake up
-	local pt = Vector3(inst.Transform:GetWorldPosition())
+	local pt = inst:GetPosition()
 	local ents = TheSim:FindEntities(pt.x, pt.y, pt.z, PALMTREEGUARD_REAWAKEN_RADIUS, { "treeguard" })
 	for k, v in pairs(ents) do
 		if v.components.sleeper and v.components.sleeper:IsAsleep() then
@@ -499,7 +514,7 @@ local function chop_down_tree(inst, chopper)
 	--	inst:RemoveComponent("blowinwindgust")
 	inst:RemoveTag("gustable")
 	inst.SoundEmitter:PlaySound("dontstarve/forest/treefall")
-	local pt = Vector3(inst.Transform:GetWorldPosition())
+	local pt = inst:GetPosition()
 	local hispos = Vector3(chopper.Transform:GetWorldPosition())
 
 	local he_right = (hispos - pt):Dot(TheCamera:GetRightVec()) > 0
@@ -527,11 +542,11 @@ local function chop_down_tree(inst, chopper)
 
 	inst:DoTaskInTime(.4, function()
 		local sz = (inst.components.growable and inst.components.growable.stage > 2) and .5 or .25
-		--		GetPlayer().components.playercontroller:ShakeCamera(inst, "FULL", 0.25, 0.03, sz, 6)
 	end)
 
 	RemovePhysicsColliders(inst)
 	inst.AnimState:PushAnimation(inst.anims.stump)
+
 
 	inst:AddComponent("workable")
 	inst.components.workable:SetWorkAction(ACTIONS.DIG)
@@ -539,6 +554,7 @@ local function chop_down_tree(inst, chopper)
 	inst.components.workable:SetWorkLeft(1)
 
 	inst:AddTag("stump")
+	inst.MiniMapEntity:SetIcon("tree_rainforest_stump.tex")
 	if inst.components.growable then
 		inst.components.growable:StopGrowing()
 	end
@@ -611,9 +627,10 @@ end
 
 local function tree_burnt(inst)
 	OnBurnt(inst)
+	inst.MiniMapEntity:SetIcon("tree_rainforest_burnt.tex")
 	inst.pineconetask = inst:DoTaskInTime(10,
 		function()
-			local pt = Vector3(inst.Transform:GetWorldPosition())
+			local pt = inst:GetPosition()
 			if math.random(0, 1) == 1 then
 				pt = pt + TheCamera:GetRightVec()
 			else
@@ -627,7 +644,7 @@ end
 
 local function dropCritter(inst, prefab)
 	local snake = SpawnPrefab(prefab)
-	local pt = Vector3(inst.Transform:GetWorldPosition())
+	local pt = inst:GetPosition()
 
 	if math.random(0, 1) == 1 then
 		pt = pt + (TheCamera:GetRightVec() * ((math.random() * 1) + 1))
@@ -735,6 +752,7 @@ local function onload(inst, data)
 
 		if data.burnt then
 			inst:AddTag("fire") -- Add the fire tag here: OnEntityWake will handle it actually doing burnt logic
+			inst.MiniMapEntity:SetIcon("tree_rainforest_burnt.tex")
 		elseif data.stump then
 			inst:RemoveComponent("burnable")
 			MakeSmallBurnable(inst)
@@ -744,6 +762,7 @@ local function onload(inst, data)
 			inst:RemoveComponent("growable")
 			RemovePhysicsColliders(inst)
 			inst.AnimState:PlayAnimation(inst.anims.stump)
+			inst.MiniMapEntity:SetIcon("tree_rainforest_stump.tex")
 			inst:AddTag("stump")
 			inst:RemoveTag("shelter")
 			inst:RemoveTag("gustable")
@@ -801,7 +820,7 @@ end
 
 --local function dropBurr(inst)
 --	local burr = SpawnPrefab("burr")
---	local pt = Vector3(inst.Transform:GetWorldPosition())
+--	local pt = inst:GetPosition()
 
 --	if math.random(0, 1) == 1 then
 --		pt = pt + (TheCamera:GetRightVec()*((math.random()*1)+1))
@@ -853,9 +872,11 @@ local function makefn(build, stage, data)
 		inst:AddTag("jungletree")
 		inst:AddTag("plant")
 		inst:AddTag("twiggytreesw")
+		inst:AddTag("spyable")
 
 		if build == "rot" then
 			inst:AddTag("rotten")
+			minimap:SetIcon("rainforesttree_rot.tex")
 		end
 
 		inst.build = build
@@ -900,11 +921,11 @@ local function makefn(build, stage, data)
 
 		inst.growfromseed = handler_growfromseed
 
-		--		inst:AddComponent("bloomable")
-		--		inst.components.bloomable:SetCanBloom(canbloom)
-		--		inst.components.bloomable:SetStartBloomFn(startbloom)
-		--		inst.components.bloomable:SetStopBloomFn(stopbloom)
-		--		inst.components.bloomable:SetDoBloom(dropBurr)
+		inst:AddComponent("bloomable")
+		inst.components.bloomable:SetCanBloom(canbloom)
+		inst.components.bloomable:SetStartBloomFn(startbloom)
+		inst.components.bloomable:SetStopBloomFn(stopbloom)
+		inst.components.bloomable:SetDoBloom(dropBurr)
 		inst:AddComponent("mystery")
 
 		---------------------
@@ -936,6 +957,7 @@ local function makefn(build, stage, data)
 			inst:RemoveTag("gustable")
 			RemovePhysicsColliders(inst)
 			inst.AnimState:PlayAnimation(inst.anims.stump)
+			inst.MiniMapEntity:SetIcon("tree_rainforest_stump.tex")
 			inst:AddTag("stump")
 			inst:AddComponent("workable")
 			inst.components.workable:SetWorkAction(ACTIONS.DIG)
@@ -943,15 +965,6 @@ local function makefn(build, stage, data)
 			inst.components.workable:SetWorkLeft(1)
 		end
 
-		--		inst:ListenForEvent("blownbywind", function()
-		--	    	if inst.components.bloomable:CanBloom() and inst:HasTag("blooming") then
-		--	    		if math.random()< 0.30 then  --0.15
-		--	    			inst.components.bloomable:DoBloom()
-		--	    		end
-		--	    	end
-		--	    end)
-
-		--		inst:WatchWorldState("startday", OnSeasonChange)
 		inst:DoTaskInTime(0, OnSeasonChange)
 
 		inst.OnEntitySleep = OnEntitySleep
@@ -963,7 +976,7 @@ local function makefn(build, stage, data)
 end
 
 local function tree(name, build, stage, data)
-	return Prefab("forest/objects/trees/" .. name, makefn(build, stage, data), assets, prefabs)
+	return Prefab("" .. name, makefn(build, stage, data), assets, prefabs)
 end
 
 return tree("rainforesttree", "normal", 0),
