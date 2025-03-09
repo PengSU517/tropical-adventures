@@ -596,7 +596,7 @@ client_options =
 
 
 	{
-		name = "ocean",
+		name = "ocean_color", ----这是纯客机
 		label = en_zh("Ocean", "海洋"),
 		hover = en_zh("Ocean Style", "海洋风格"),
 		options =
