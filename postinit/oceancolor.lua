@@ -32,7 +32,7 @@ local TileRanges =
     IMPASSABLE = "IMPASSABLE",
 }
 
-if TA_CONFIG.CLIENT.ocean_color == "blue" then
+if TA_CONFIG.PERSONAL.ocean_color == "blue" then
     TUNING.OCEAN_SHADER.OCEAN_FLOOR_COLOR      = { 0, 100, 100, 255 } ---------------------------------------------------修改这个调整世界背景颜色
     TUNING.OCEAN_SHADER.OCEAN_FLOOR_COLOR_DUSK = { 0, 60, 60, 155 }
 end
@@ -341,12 +341,15 @@ local function tile_redirect(tbl)
             return
         end
 
-        if TA_CONFIG.CLIENT.ocean_color == "tropical" then
+        if TUNING.ocean_color == "tropical" or TUNING.ocean_style == "tropical" then
             if not is_worldgen then
                 TileGroupManager:AddInvalidTile(TileGroups.TransparentOceanTiles, WORLD_TILES[origin])
                 TileGroupManager:AddValidTile(TileGroups.TAOceanTiles, WORLD_TILES[origin])
             end
-            -- ChangeTileRenderOrder(WORLD_TILES[origin], WORLD_TILES.MONKEY_DOCK, false)
+
+            if TUNING.ocean_style == "tropical" then
+                ChangeTileRenderOrder(WORLD_TILES[origin], WORLD_TILES.MONKEY_DOCK, false)
+            end
 
             for k, v in pairs(GroundTiles.ground) do
                 if v[1] == WORLD_TILES[origin] then
@@ -355,7 +358,7 @@ local function tile_redirect(tbl)
                     v[2] = tro_tiledefs[override].ground_tile_def
                 end
             end
-        elseif TA_CONFIG.CLIENT.ocean_color == "blue" then
+        elseif TA_CONFIG.PERSONAL.ocean_color == "blue" then
             for k, v in pairs(GroundTiles.ground) do
                 if v[1] == WORLD_TILES[origin] then
                     v[2].colors = tro_tiledefs[override].ground_tile_def.colors
@@ -372,6 +375,6 @@ local function tile_redirect(tbl)
     end
 end
 
-if TA_CONFIG.CLIENT.ocean_color ~= "default" and (not TheNet:IsDedicated()) then
+if TA_CONFIG.PERSONAL.ocean_color ~= "default" and (not TheNet:IsDedicated()) or TUNING.ocean_style == "tropical" then
     tile_redirect(tile_tbl)
 end

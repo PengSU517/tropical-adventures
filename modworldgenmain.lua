@@ -2,6 +2,8 @@
 
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 
+print("modworldgenmain loaded1111111111111")
+
 local require = require
 local modimport = modimport
 

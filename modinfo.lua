@@ -552,7 +552,7 @@ climate_options = {
 }
 
 
-client_options =
+personal_options =
 {
 	{
 		name = "room_view_key",
@@ -594,11 +594,31 @@ client_options =
 		default = 0,
 	},
 
+	-- {
+	-- 	name = "ocean_style",
+	-- 	label = en_zh("Ocean style", "海洋风格"),
+	-- 	hover = en_zh("Ocean Style", "海洋风格"),
+	-- 	options =
+	-- 	{
+	-- 		{
+	-- 			description = en_zh("Default", "默认"),
+	-- 			hover = en_zh("DST ocean", "联机海洋"),
+	-- 			data = "default"
+	-- 		},
+	-- 		{
+	-- 			description = en_zh("Shipwrecked Style", "海难风格"),
+	-- 			hover = en_zh("Shipwrecked stylized tropical ocean", "海难风格的热带海洋"),
+	-- 			data = "tropical"
+	-- 		},
+	-- 	},
+	-- 	default = "default",
+
+	-- },
 
 	{
 		name = "ocean_color", ----这是纯客机
-		label = en_zh("Ocean", "海洋"),
-		hover = en_zh("Ocean Style", "海洋风格"),
+		label = en_zh("Ocean filter", "海洋滤镜"),
+		hover = en_zh("Ocean Filter, only working with default dst ocean", "海洋滤镜，仅对原版海洋有效"),
 		options =
 		{
 			{
@@ -664,8 +684,8 @@ developer_options =
 
 configuration_options = {}
 
-table_insert(configuration_options, Breaker("Client Adjustments", "客户端调整"))
-for i, v in my_ipairs(client_options) do
+table_insert(configuration_options, Breaker("Personal Adjustments", "个性化调整"))
+for i, v in my_ipairs(personal_options) do
 	table_insert(configuration_options, v)
 end
 

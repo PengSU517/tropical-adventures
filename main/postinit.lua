@@ -17,6 +17,7 @@ end
 
 
 modimport("postinit/world_map")    --theworld.map相关
+-- modimport("postinit/world_map_tropical_ocean")
 modimport("postinit/entityscript") --修改entity相关
 
 
