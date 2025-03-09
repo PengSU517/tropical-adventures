@@ -9,7 +9,6 @@ require "tools/worldutil"
 require "tools/standardcomponents"
 
 
-modimport "main/ta_config_main" ----modmain中用到的内容
 modimport "main/rpc"
 modimport "main/prefabfiles"
 modimport "main/assets"
