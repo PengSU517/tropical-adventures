@@ -1,6 +1,6 @@
 require("stategraphs/commonstates")
 
-local actionhandlers = 
+local actionhandlers =
 {
     ActionHandler(ACTIONS.GOHOME, "gohome"),
     ActionHandler(ACTIONS.EAT, "eat"),
@@ -8,74 +8,75 @@ local actionhandlers =
     ActionHandler(ACTIONS.PEAGAWK_TRANSFORM, "transform")
 }
 
-local events=
+local events =
 {
     CommonHandlers.OnStep(),
-    CommonHandlers.OnLocomote(true,true),
+    CommonHandlers.OnLocomote(true, true),
     CommonHandlers.OnSleep(),
     CommonHandlers.OnFreeze(),
-    EventHandler("attacked", function(inst) 
+    EventHandler("attacked", function(inst)
         if inst.components.health:GetPercent() > 0 and not inst.sg:HasStateTag("transform") then
-                if inst.is_bush then
-                    inst.sg:GoToState("transform")
-                else
-                    inst.sg:GoToState("hit") 
-                end
-
-            end 
-        end),
+            if inst.is_bush then
+                inst.sg:GoToState("transform")
+            else
+                inst.sg:GoToState("hit")
+            end
+        end
+    end),
 
     EventHandler("death", function(inst) inst.sg:GoToState("death") end),
-    EventHandler("doattack", function(inst) if inst.components.health:GetPercent() > 0 and not inst.sg:HasStateTag("transform") then inst.sg:GoToState("attack") end end),
+    EventHandler("doattack",
+        function(inst) if inst.components.health:GetPercent() > 0 and not inst.sg:HasStateTag("transform") then inst.sg
+                    :GoToState("attack") end end),
 }
 
 local function Gobble(inst)
     --if not inst.SoundEmitter:PlayingSound("gobble") then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/Peakcock/idle")--, "gobble")
+    inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/Peakcock/idle")     --, "gobble")
     --end
 end
 
-local states=
+local states =
 {
-    State{
-        name= "idle",
-        tags = {"idle"},
-        
+    State {
+        name = "idle",
+        tags = { "idle" },
+
         onenter = function(inst)
             if not inst.is_bush then
-    			inst.Physics:Stop()
+                inst.Physics:Stop()
                 Gobble(inst)
                 inst.AnimState:PlayAnimation("idle_loop")
             else
                 inst.AnimState:PlayAnimation("idle", true)
             end
         end,
-        
+
         timeline =
         {
-            TimeEvent(1*FRAMES, function(inst) 
+            TimeEvent(1 * FRAMES, function(inst)
                 if inst.is_bush then
                     --print ("HEY DANY! ADD THE BLINKING SOUND HERE, DON'T FORGET TO SET THE PROPER FRAME TOO")
                 end
             end),
         },
 
-        events=
+        events =
         {
-            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),
-        },        
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
+        },
     },
-    
-	State{
+
+    State {
         name = "death",
-        tags = {"busy"},
-        
+        tags = { "busy" },
+
         onenter = function(inst)
-            inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/Peakcock/death")
+            inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/Peakcock/death")
             inst.components.locomotor:StopMoving()
             inst.components.lootdropper:DropLoot(Vector3(inst.Transform:GetWorldPosition()))
             RemovePhysicsColliders(inst)
-            
+
             if inst.is_bush then
                 inst.TransformToAnimal(inst, true)
                 inst.AnimState:PlayAnimation("appear")
@@ -83,14 +84,13 @@ local states=
             else
                 inst.AnimState:PlayAnimation("death")
             end
-
         end,
-        
+
     },
 
-    State{
+    State {
         name = "transform",
-        tags = {"busy"}, 
+        tags = { "busy" },
 
         onenter = function(inst)
             inst:PerformBufferedAction()
@@ -99,52 +99,54 @@ local states=
             else
                 inst.sg:GoToState("transform_to_bush")
             end
-        end, 
+        end,
     },
 
-    State{
+    State {
         name = "transform_to_animal",
-        tags = {"busy"}, 
+        tags = { "busy" },
 
         onenter = function(inst)
             inst.components.locomotor:Stop()
             inst.TransformToAnimal(inst)
-        end, 
+        end,
     },
 
-    State{
+    State {
         name = "transform_to_bush",
-        tags = {"busy"}, 
+        tags = { "busy" },
 
         onenter = function(inst)
             inst.AnimState:PlayAnimation("hide_pre")
-        end, 
-        events=
+        end,
+        events =
         {
             EventHandler("animover", function(inst)
                 inst.TransformToBush(inst)
                 inst.sg:GoToState("idle")
-                end ),
+            end),
         },
     },
 
-    State{
+    State {
         name = "appear",
-        tags = {"busy"},
-        
+        tags = { "busy" },
+
         onenter = function(inst)
-            inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/mole/move","appear")
-            inst.Physics:Stop()	
+            inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/mole/move", "appear")
+            inst.Physics:Stop()
             inst.AnimState:PlayAnimation("appear")
         end,
 
         timeline =
         {
-            TimeEvent(24*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/Peakcock/appear") end),
-            TimeEvent(20*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/mole/emerge") end),
-            TimeEvent(19*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/Peakcock/appear_pop") end),
+            TimeEvent(24 * FRAMES, function(inst) inst.SoundEmitter:PlaySound(
+                "dontstarve_DLC002/creatures/Peakcock/appear") end),
+            TimeEvent(20 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/mole/emerge") end),
+            TimeEvent(19 * FRAMES, function(inst) inst.SoundEmitter:PlaySound(
+                "dontstarve_DLC002/creatures/Peakcock/appear_pop") end),
         },
-        
+
         events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
@@ -154,115 +156,118 @@ local states=
             inst.SoundEmitter:KillSound("appear")
         end,
     },
-    
-    State{
+
+    State {
         name = "attack",
-        tags = {"attack"},
-        
+        tags = { "attack" },
+
         onenter = function(inst)
-            inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/Peakcock/attack")
+            inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/Peakcock/attack")
             inst.SoundEmitter:PlaySound("dontstarve/wilson/attack_whoosh")
             inst.components.combat:StartAttack()
             inst.Physics:Stop()
             inst.AnimState:PlayAnimation("atk")
         end,
-        
+
         timeline =
         {
-            TimeEvent(20*FRAMES, function(inst) inst.components.combat:DoAttack() end),
+            TimeEvent(20 * FRAMES, function(inst) inst.components.combat:DoAttack() end),
         },
-        
+
         events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
     },
-    
-    State{
+
+    State {
         name = "eat",
-        tags = {"busy"},
-        
+        tags = { "busy" },
+
         onenter = function(inst)
             inst.AnimState:PlayAnimation("eat")
-            inst.Physics:Stop()            
+            inst.Physics:Stop()
         end,
-        
-        timeline=
+
+        timeline =
         {
-            TimeEvent(10*FRAMES, function(inst)
+            TimeEvent(10 * FRAMES, function(inst)
                 inst:PerformBufferedAction()
                 inst.sg:RemoveStateTag("busy")
                 inst.sg:AddStateTag("idle")
             end),
         },
-        
-        events=
+
+        events =
         {
-            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),
-        },        
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
+        },
     },
-    
-    State{
+
+    State {
         name = "hit",
-        tags = {"busy"},
-        
+        tags = { "busy" },
+
         onenter = function(inst)
-            inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/Peakcock/hurt")
+            inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/Peakcock/hurt")
             inst.AnimState:PlayAnimation("hit")
             inst.Physics:Stop()
         end,
-        
-        events=
+
+        events =
         {
-            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),
-        },        
-    },    
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
+        },
+    },
 }
 
 CommonStates.AddWalkStates(states,
-{
-    starttimeline = 
     {
-		TimeEvent(0*FRAMES, Gobble),
-    },
-    
-	walktimeline = {
-		TimeEvent(0*FRAMES, PlayFootstep ),
-		TimeEvent(12*FRAMES, PlayFootstep ),
-	},
-})
+        starttimeline =
+        {
+            TimeEvent(0 * FRAMES, Gobble),
+        },
+
+        walktimeline = {
+            TimeEvent(0 * FRAMES, PlayFootstep),
+            TimeEvent(12 * FRAMES, PlayFootstep),
+        },
+    })
 CommonStates.AddRunStates(states,
-{
-    starttimeline = 
     {
-		TimeEvent(0*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/Peakcock/move") end ),
-    },
-    
-	runtimeline = {
-		TimeEvent(0*FRAMES, PlayFootstep ),
-		TimeEvent(5*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/Peakcock/move") end ),
-		TimeEvent(10*FRAMES, PlayFootstep ),
-	},
-})
+        starttimeline =
+        {
+            TimeEvent(0 * FRAMES,
+                function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/Peakcock/move") end),
+        },
+
+        runtimeline = {
+            TimeEvent(0 * FRAMES, PlayFootstep),
+            TimeEvent(5 * FRAMES,
+                function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/Peakcock/move") end),
+            TimeEvent(10 * FRAMES, PlayFootstep),
+        },
+    })
 
 CommonStates.AddSleepStates(states,
-{
-    starttimeline = 
     {
-		TimeEvent(0*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/Peakcock/sleep") end ),
-    },
-    
-	sleeptimeline = {
-        TimeEvent(40*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/Peakcock/sleep") end),
-	},
-})
+        starttimeline =
+        {
+            TimeEvent(0 * FRAMES,
+                function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/Peakcock/sleep") end),
+        },
+
+        sleeptimeline = {
+            TimeEvent(40 * FRAMES,
+                function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/Peakcock/sleep") end),
+        },
+    })
 
 --CommonStates.AddIdle(states,"idle")
 
-CommonStates.AddSimpleActionState(states, "gohome", "hit", 4*FRAMES, {"busy"})
-CommonStates.AddSimpleActionState(states, "pick", "take", 9*FRAMES, {"busy"})
+CommonStates.AddSimpleActionState(states, "gohome", "hit", 4 * FRAMES, { "busy" })
+CommonStates.AddSimpleActionState(states, "pick", "take", 9 * FRAMES, { "busy" })
 CommonStates.AddFrozenStates(states)
 
-    
-return StateGraph("peagawk", states, events, "idle", actionhandlers)
 
+return StateGraph("peagawk", states, events, "idle", actionhandlers)

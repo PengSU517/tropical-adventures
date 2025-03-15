@@ -158,59 +158,7 @@ local function fn()
 
     StartSpawning(inst)
 
-    MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
-
-
-
-    local function DefaultBurntFn(inst)
-        if inst.components.growable ~= nil then
-            inst:RemoveComponent("growable")
-        end
-
-        if inst.inventoryitemdata ~= nil then
-            inst.inventoryitemdata = nil
-        end
-
-        if inst.components.workable ~= nil and inst.components.workable.action ~= ACTIONS.HAMMER then
-            inst.components.workable:SetWorkLeft(0)
-        end
-
-        local my_x, my_y, my_z = inst.Transform:GetWorldPosition()
-
-        -- Spawn ash everywhere except on the ocean
-        if not TheWorld.Map:IsOceanAtPoint(my_x, my_y, my_z, false) then
-            local ash = SpawnPrefab("ash")
-            ash.Transform:SetPosition(inst.Transform:GetWorldPosition())
-
-            if inst.components.stackable ~= nil then
-                ash.components.stackable.stacksize = math.min(ash.components.stackable.maxsize,
-                    inst.components.stackable.stacksize)
-            end
-        end
-
-        inst:Remove()
-    end
-
-    local function DefaultBurnFn(inst)
-        if not (inst:HasTag("tree") or inst:HasTag("structure")) then
-            inst.persists = false
-        end
-    end
-
-    local function DefaultExtinguishFn(inst)
-        if not (inst:HasTag("tree") or inst:HasTag("structure")) then
-            inst.persists = true
-        end
-    end
-
-    inst:AddComponent("burnable")
-    inst.components.burnable:SetFXLevel(3)
-    inst.components.burnable:SetBurnTime(20)
-    inst.components.burnable:AddBurnFX("fire", Vector3(0, 0, 0), nil, nil, 0.2)
-    inst.components.burnable:SetOnIgniteFn(DefaultBurnFn)
-    inst.components.burnable:SetOnExtinguishFn(DefaultExtinguishFn)
-    inst.components.burnable:SetOnBurntFn(DefaultBurntFn)
-
+    MakeMediumBurnable(inst, TUNING.MED_BURNTIME)
     MakeLargePropagator(inst)
     inst:ListenForEvent("onignite", onignite)
     inst:ListenForEvent("burntup", onburntup)
