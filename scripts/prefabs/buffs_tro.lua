@@ -21,7 +21,7 @@ local function NameOverrideFns(name)
             end
         end
         for _, v in pairs(target.components.debuffable.debuffs) do
-            if v.inst and v.inst._debuffkey_tro then
+            if v.inst and v.inst.prefab == "buff_" .. name .. "_tro" and v.inst._debuffkey_tro then
                 local buffdata = {
                     buffname = buffattr[name][v.inst._debuffkey_tro].name,
                     bufftime = math.floor(target.components.medal_showbufftime:getBuffTime(v.inst)),
