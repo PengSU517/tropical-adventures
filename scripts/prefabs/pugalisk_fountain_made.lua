@@ -45,7 +45,7 @@ end
 
 
 local function onhit(inst, dist)
-    if inst.components.machine.ison then
+    if inst.components.machine and inst.components.machine.ison then
         inst.AnimState:PlayAnimation("flow_pst")
         inst.AnimState:PushAnimation("off", true)
         inst.SoundEmitter:KillSound("burble")
@@ -54,20 +54,34 @@ local function onhit(inst, dist)
     end
 end
 
-local function OnBuilt(inst)
-    -- inst.sg:GoToState("place")
-    -- inst.AnimState:PlayAnimation("flow_pre")
-    -- inst.AnimState:PushAnimation("flow_loop", true)
-    -- inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/pugalisk/fountain_LP", "burble")
-    -- inst.components.machine.ison = true
-    -- inst.components.watersource.available = true
-end
-
 local function CalcSanityAura(inst, observer)
     return TUNING.SANITYAURA_LARGE
 end
 
+SetSharedLootTable('pugalisk_fountain_made',
+    {
+        { 'waterdrop', 1.0 },
+        { 'ice',       0.5 },
+        { 'ice',       0.5 },
+        { 'ice',       0.5 },
+        { 'ice',       0.5 },
+        { 'ice',       0.5 },
+        { 'ice',       0.5 },
+        { 'ice',       0.5 },
+        { 'ice',       0.5 },
+        { 'ice',       0.5 },
+        { 'ice',       0.5 },
+    })
+
+
 local function OnFinished(inst)
+    inst:AddTag("shadecanopysmall") --防止自然、过热和玻璃雨的标签
+    inst:RemoveComponent("constructionsite")
+
+    if inst.components.lootdropper then
+        inst.components.lootdropper:SetChanceLootTable('pugalisk_fountain_made')
+    end
+
     inst:AddComponent("machine")
     inst.components.machine.turnonfn = TurnOn
     inst.components.machine.turnofffn = TurnOff
@@ -103,7 +117,6 @@ local function OnConstructed(inst, doer)
         inst.has_constructed = true
         inst.is_on = true
         OnFinished(inst)
-        inst:RemoveComponent("constructionsite")
     end
 end
 
@@ -140,7 +153,7 @@ local function fn()
 
     inst:AddTag("structure")
     inst:AddTag("pugalisk_fountain")
-    inst:AddTag("shadecanopysmall") --防止自然、过热和玻璃雨的标签
+
 
     inst.entity:SetPristine()
 
@@ -153,6 +166,11 @@ local function fn()
     inst:AddComponent("hauntable")
     inst.components.hauntable:SetHauntValue(TUNING.HAUNT_TINY)
 
+    inst:AddTag("constructionsite")
+    local constructionsite = inst:AddComponent("constructionsite")
+    constructionsite:SetConstructionPrefab("construction_container")
+    constructionsite:SetOnConstructedFn(OnConstructed)
+
     inst:AddComponent("workable")
     inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
     inst.components.workable:SetOnFinishCallback(onhammered)
@@ -162,12 +180,8 @@ local function fn()
 
     inst.has_constructed = false
 
-    inst:DoTaskInTime(0.1, function(inst)
-        if not inst.has_constructed then
-            local constructionsite = inst:AddComponent("constructionsite")
-            constructionsite:SetConstructionPrefab("construction_container")
-            constructionsite:SetOnConstructedFn(OnConstructed)
-        else
+    inst:DoTaskInTime(0, function(inst)
+        if inst.has_constructed then
             OnFinished(inst)
         end
     end)
