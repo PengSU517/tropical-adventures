@@ -42,7 +42,7 @@ name = pub_dev(en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒�
 	en_zh(" Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "3.3.19"
+version = "3.3.19.1"
 forumthread = ""
 api_version = 10
 priority = -100
