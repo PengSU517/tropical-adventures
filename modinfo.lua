@@ -42,7 +42,7 @@ name = pub_dev(en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒�
 	en_zh(" Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "3.3.19.1"
+version = "3.3.20.1"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -408,25 +408,25 @@ worldgen_options = {
 
 climate_options = {
 
-	{
-		name = "startlocation",
-		label = en_zh("Start location", "出生地"),
-		hover = en_zh("Start location", "出生地"),
-		options =
-		{
-			{
-				description = en_zh("Default", "默认"),
-				hover = en_zh("Florid Postern", "绚丽之门"),
-				data = "default"
-			},
-		},
-		default = "default",
-		order = 7,
-		image = "spawnmode.tex",
-		atlas = dstset_atlas,
-		world = { "forest" }
+	-- {
+	-- 	name = "startlocation",
+	-- 	label = en_zh("Start location", "出生地"),
+	-- 	hover = en_zh("Start location", "出生地"),
+	-- 	options =
+	-- 	{
+	-- 		{
+	-- 			description = en_zh("Florid Postern", "绚丽之门"),
+	-- 			hover = en_zh("Florid Postern", "绚丽之门"),
+	-- 			data = "default"
+	-- 		},
+	-- 	},
+	-- 	default = "default",
+	-- 	order = 7,
+	-- 	image = "spawnmode.tex",
+	-- 	atlas = dstset_atlas,
+	-- 	world = { "forest" }
 
-	},
+	-- },
 
 	{
 		name = "wind",
