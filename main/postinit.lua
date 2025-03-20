@@ -1,6 +1,6 @@
 local modimport = modimport
 
-if TA_CONFIG.DEVELOP.test_mode then --开发人员测试时才可以使用,mod文件夹名称为tropical-adventures
+if TA_CONFIG.DEVELOP.test_mode then --开发人员测试时才可以使用
     modimport("postinit/seafork")
     modimport("postinit/opengift")
     modimport("postinit/widgets/hoverer_info")
@@ -8,7 +8,24 @@ else
     modimport("postinit/safeapi") --这些函数是env里的，仅对这个mod有效
 end
 
+if not TheNet:IsDedicated() then ---客机读取主机的overrides---似乎也只能在这里读取了
+    print("reupdate overrides in client")
+    AddSimPostInit(function() modimport("main/ta_config_client") end)
+else
+    print("not reupdate overrides in client")
+end
 
+-- AddGamePostInit(function()
+--     if not TheNet:IsDedicated() then ---客机读取主机的overrides---似乎也只能在这里读取了
+--         print("reupdate overrides in client")
+--         modimport("main/ta_config_client")
+--         -- modimport("postinit/oceancolor")
+--     else
+--         print("not reupdate overrides in client")
+--     end
+--     -- modimport("postinit/world_map_tropical_ocean")
+-- end)
+-- -----也许比AddSimPostInit优先级高？
 
 --目前仍然有暴力覆盖的组件
 --hounded
@@ -17,7 +34,7 @@ end
 
 
 modimport("postinit/world_map")    --theworld.map相关
--- modimport("postinit/world_map_tropical_ocean")
+
 modimport("postinit/entityscript") --修改entity相关
 
 

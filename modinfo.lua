@@ -42,7 +42,7 @@ name = pub_dev(en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒�
 	en_zh(" Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "3.3.20.1"
+version = "3.3.22"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -258,6 +258,31 @@ worldgen_options = {
 		atlas = sw_atlas,
 		world = { "forest" }
 	},
+
+	-- {
+	-- 	name = "ocean_style",
+	-- 	label = en_zh("Ocean style", "海洋风格"),
+	-- 	hover = en_zh("Ocean Style", "海洋风格"),
+	-- 	options =
+	-- 	{
+	-- 		{
+	-- 			description = en_zh("Default", "默认"),
+	-- 			hover = en_zh("DST ocean", "联机海洋"),
+	-- 			data = "default"
+	-- 		},
+	-- 		{
+	-- 			description = en_zh("Shipwrecked Style", "海难风格"),
+	-- 			hover = en_zh("Shipwrecked stylized tropical ocean", "海难风格的热带海洋"),
+	-- 			data = "tropical"
+	-- 		},
+	-- 	},
+	-- 	default = "default",
+	-- 	order = 4.5,
+	-- 	image = "blank_world.tex",
+	-- 	atlas = sw_atlas,
+	-- 	world = { "forest" }
+
+	-- },
 
 	{
 		name = "cave_content",
@@ -594,26 +619,7 @@ personal_options =
 		default = 0,
 	},
 
-	-- {
-	-- 	name = "ocean_style",
-	-- 	label = en_zh("Ocean style", "海洋风格"),
-	-- 	hover = en_zh("Ocean Style", "海洋风格"),
-	-- 	options =
-	-- 	{
-	-- 		{
-	-- 			description = en_zh("Default", "默认"),
-	-- 			hover = en_zh("DST ocean", "联机海洋"),
-	-- 			data = "default"
-	-- 		},
-	-- 		{
-	-- 			description = en_zh("Shipwrecked Style", "海难风格"),
-	-- 			hover = en_zh("Shipwrecked stylized tropical ocean", "海难风格的热带海洋"),
-	-- 			data = "tropical"
-	-- 		},
-	-- 	},
-	-- 	default = "default",
 
-	-- },
 
 	{
 		name = "ocean_color", ----这是纯客机
