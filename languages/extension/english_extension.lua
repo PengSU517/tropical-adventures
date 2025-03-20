@@ -4,7 +4,7 @@ return {
     BOATDISMOUNT = "Boat Dismount",
     BOATMOUNT = "Boat Mount",
     BOATREPAIR = "Boat Repair",
-    CHECKSHOP = "Cost {cost}{costprefab}\n for {item}",
+    CHECKSHOP = "Cost {cost} {costprefab}\n for {item}",
     GIVE2 = "Give",
     HARVEST1 = "Havest",
     INVESTIGATEGLASS = "Investigate",

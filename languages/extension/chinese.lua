@@ -86,70 +86,70 @@ TA_STRINGS_CH.UI.COOKBOOK.NETTLELOSANGE         = "免受花粉困扰"
 TA_STRINGS_CH.UI.COOKBOOK.MEATED_NETTLE         = "免受花粉困扰"
 
 --from RoG
-TA_STRINGS_CH.NAMES.BELL                       = "远古铃铛"
-TA_STRINGS_CH.RECIPE_DESC.BELL                 = "这可不是普通的铃铛。"
+TA_STRINGS_CH.NAMES.BELL                        = "远古铃铛"
+TA_STRINGS_CH.RECIPE_DESC.BELL                  = "这可不是普通的铃铛。"
 
 
 -------------------沃丽语句wally
-TA_STRINGS_CH.WALLY1 = "傻瓜。"
-TA_STRINGS_CH.WALLY2 = "真是开得一手好船。"
+TA_STRINGS_CH.WALLY1                                          = "傻瓜。"
+TA_STRINGS_CH.WALLY2                                          = "真是开得一手好船。"
 
-TA_STRINGS_CH.NAMES.WALLYINTRO_DEBRIS_1 = "船只碎片"
+TA_STRINGS_CH.NAMES.WALLYINTRO_DEBRIS_1                       = "船只碎片"
 TA_STRINGS_CH.CHARACTERS.GENERIC.DESCRIBE.WALLYINTRO_DEBRIS_1 = "遇难船只的碎片。"
-TA_STRINGS_CH.NAMES.WALLYINTRO_DEBRIS_2 = "船只碎片"
+TA_STRINGS_CH.NAMES.WALLYINTRO_DEBRIS_2                       = "船只碎片"
 TA_STRINGS_CH.CHARACTERS.GENERIC.DESCRIBE.WALLYINTRO_DEBRIS_2 = "船只的一部分。"
-TA_STRINGS_CH.NAMES.WALLYINTRO_DEBRIS_3 = "船只碎片"
+TA_STRINGS_CH.NAMES.WALLYINTRO_DEBRIS_3                       = "船只碎片"
 TA_STRINGS_CH.CHARACTERS.GENERIC.DESCRIBE.WALLYINTRO_DEBRIS_3 = "这还能修得好吗？"
-TA_STRINGS_CH.NAMES.WALLYINTRO_SHIPMAST = "船只碎片"
+TA_STRINGS_CH.NAMES.WALLYINTRO_SHIPMAST                       = "船只碎片"
 TA_STRINGS_CH.CHARACTERS.GENERIC.DESCRIBE.WALLYINTRO_SHIPMAST = "之前曾是我的船。"
 
 ------------------SW介绍
-TA_STRINGS_CH.NAMES.PORTAL_SHIPWRECKED = "遇到故障的新奇旅途"
+TA_STRINGS_CH.NAMES.PORTAL_SHIPWRECKED                        = "遇到故障的新奇旅途"
 
 -----------海难人物SWcharacter
 --Wilbur
-TA_STRINGS_CH.CHARACTER_TITLES.wilbur = "猴王"
-TA_STRINGS_CH.CHARACTER_NAMES.wilbur = "威尔伯"
-TA_STRINGS_CH.CHARACTER_DESCRIPTIONS.wilbur = "*不会说话\n*走的时候慢,跑的时候快\n*是个猴子"
-TA_STRINGS_CH.CHARACTER_QUOTES.wilbur = "\"呜哦啊哈！\""
-TA_STRINGS_CH.NAMES.WILBUR = "威尔伯"
-TA_STRINGS_CH.CHARACTER_ABOUTME.wilbur = "呜哦啊哈！"
-TA_STRINGS_CH.CHARACTER_SURVIVABILITY.wilbur  = "渺茫"
+TA_STRINGS_CH.CHARACTER_TITLES.wilbur                         = "猴王"
+TA_STRINGS_CH.CHARACTER_NAMES.wilbur                          = "威尔伯"
+TA_STRINGS_CH.CHARACTER_DESCRIPTIONS.wilbur                   = "*不会说话\n*走的时候慢,跑的时候快\n*是个猴子"
+TA_STRINGS_CH.CHARACTER_QUOTES.wilbur                         = "\"呜哦啊哈！\""
+TA_STRINGS_CH.NAMES.WILBUR                                    = "威尔伯"
+TA_STRINGS_CH.CHARACTER_ABOUTME.wilbur                        = "呜哦啊哈！"
+TA_STRINGS_CH.CHARACTER_SURVIVABILITY.wilbur                  = "渺茫"
 
 --Woodlegs:
-TA_STRINGS_CH.CHARACTER_TITLES.woodlegs = "海盗船长"
-TA_STRINGS_CH.CHARACTER_NAMES.woodlegs = "伍德莱格"
-TA_STRINGS_CH.CHARACTER_DESCRIPTIONS.woodlegs = "*可以嗅到宝藏\n*海腿号的船长\n*海盗"
-TA_STRINGS_CH.CHARACTER_QUOTES.woodlegs = "\"不要介意我的卑鄙。吼吼吼吼！\""
-TA_STRINGS_CH.NAMES.WOODLEGS = "伍德莱格"
-TA_STRINGS_CH.CHARACTER_ABOUTME.woodlegs = "\"不要介意我的卑鄙。吼吼吼吼！\""
-TA_STRINGS_CH.CHARACTER_SURVIVABILITY.woodlegs = "严峻"
+TA_STRINGS_CH.CHARACTER_TITLES.woodlegs                       = "海盗船长"
+TA_STRINGS_CH.CHARACTER_NAMES.woodlegs                        = "伍德莱格"
+TA_STRINGS_CH.CHARACTER_DESCRIPTIONS.woodlegs                 = "*可以嗅到宝藏\n*海腿号的船长\n*海盗"
+TA_STRINGS_CH.CHARACTER_QUOTES.woodlegs                       = "\"不要介意我的卑鄙。吼吼吼吼！\""
+TA_STRINGS_CH.NAMES.WOODLEGS                                  = "伍德莱格"
+TA_STRINGS_CH.CHARACTER_ABOUTME.woodlegs                      = "\"不要介意我的卑鄙。吼吼吼吼！\""
+TA_STRINGS_CH.CHARACTER_SURVIVABILITY.woodlegs                = "严峻"
 
 --Walani
-TA_STRINGS_CH.CHARACTER_TITLES.walani = "沉稳的冲浪者"
-TA_STRINGS_CH.CHARACTER_NAMES.walani = "瓦拉尼"
-TA_STRINGS_CH.CHARACTER_DESCRIPTIONS.walani = "*喜欢冲浪\n*干燥的快\n*是个相当冷静的女孩"
-TA_STRINGS_CH.CHARACTER_QUOTES.walani = "\"如果我起不来请原谅我。我也不想这样。\""
-TA_STRINGS_CH.NAMES.WALANI = "瓦拉尼"
-TA_STRINGS_CH.CHARACTER_ABOUTME.walani = "如果我起不来请原谅我。我也不想这样。"
-TA_STRINGS_CH.CHARACTER_SURVIVABILITY.walani = "渺茫"
+TA_STRINGS_CH.CHARACTER_TITLES.walani                         = "沉稳的冲浪者"
+TA_STRINGS_CH.CHARACTER_NAMES.walani                          = "瓦拉尼"
+TA_STRINGS_CH.CHARACTER_DESCRIPTIONS.walani                   = "*喜欢冲浪\n*干燥的快\n*是个相当冷静的女孩"
+TA_STRINGS_CH.CHARACTER_QUOTES.walani                         = "\"如果我起不来请原谅我。我也不想这样。\""
+TA_STRINGS_CH.NAMES.WALANI                                    = "瓦拉尼"
+TA_STRINGS_CH.CHARACTER_ABOUTME.walani                        = "如果我起不来请原谅我。我也不想这样。"
+TA_STRINGS_CH.CHARACTER_SURVIVABILITY.walani                  = "渺茫"
 
 -------------死因death causes--------------
-TA_STRINGS_CH.NAMES.DROWNING = "溺水"
-TA_STRINGS_CH.NAMES.POISON = "中毒"
+TA_STRINGS_CH.NAMES.DROWNING                                  = "溺水"
+TA_STRINGS_CH.NAMES.POISON                                    = "中毒"
 
 --------------操作选项-------
 --SW
-TA_STRINGS_CH.ACTIONS.HACK = "劈砍"
-TA_STRINGS_CH.ACTIONS.BOATMOUNT = "登船"
-TA_STRINGS_CH.ACTIONS.BOATDISMOUNT = "上岸"
-TA_STRINGS_CH.ACTIONS.BOATREPAIR = "修理"
-TA_STRINGS_CH.ACTIONS.STICK = "捣入"
-TA_STRINGS_CH.ACTIONS.DESACTIVATESAIL = "关灯"
-TA_STRINGS_CH.ACTIONS.LANTERNON = "开灯"
-TA_STRINGS_CH.ACTIONS.BOATCANNON = "发射"
-TA_STRINGS_CH.ACTIONS.RETRIEVE = "获取"
-TA_STRINGS_CH.ACTIONS.PEER = "观察"
+TA_STRINGS_CH.ACTIONS.HACK                                    = "劈砍"
+TA_STRINGS_CH.ACTIONS.BOATMOUNT                               = "登船"
+TA_STRINGS_CH.ACTIONS.BOATDISMOUNT                            = "上岸"
+TA_STRINGS_CH.ACTIONS.BOATREPAIR                              = "修理"
+TA_STRINGS_CH.ACTIONS.STICK                                   = "捣入"
+TA_STRINGS_CH.ACTIONS.DESACTIVATESAIL                         = "关灯"
+TA_STRINGS_CH.ACTIONS.LANTERNON                               = "开灯"
+TA_STRINGS_CH.ACTIONS.BOATCANNON                              = "发射"
+TA_STRINGS_CH.ACTIONS.RETRIEVE                                = "获取"
+TA_STRINGS_CH.ACTIONS.PEER                                    = "观察"
 
 TA_STRINGS_CH.ACTIONS.DEPLOY.DEPLOYBUOY                       = "部署"
 TA_STRINGS_CH.ACTIONS.DEPLOY.DEPLOYFISH_FARM                  = "部署"
@@ -161,43 +161,43 @@ TA_STRINGS_CH.ACTIONS.DEPLOY.DEPLOYWATERCHEST                 = "部署"
 TA_STRINGS_CH.ACTIONS.DEPLOY.DEPLOYSEA_YARD                   = "部署"
 
 --ham
-TA_STRINGS_CH.ACTIONS.HACK = "劈砍"
-TA_STRINGS_CH.ACTIONS.SMELT = "熔炼"
-TA_STRINGS_CH.ACTIONS.SHEAR = "剪"
-TA_STRINGS_CH.ACTIONS.DISLODGE = "取出"
-TA_STRINGS_CH.ACTIONS.HARVEST1 = "收获"
-TA_STRINGS_CH.ACTIONS.INVESTIGATE = "调查"
-TA_STRINGS_CH.ACTIONS.PAN = "淘金"
-TA_STRINGS_CH.ACTIONS.GIVE2 = "给予"
-TA_STRINGS_CH.ACTIONS.PAINT = "涂画"
-TA_STRINGS_CH.ACTIONS.JUMPIN.HAMLET = "进入"
-TA_STRINGS_CH.ACTIONS.OPENTUNA = "打开"
-TA_STRINGS_CH.ACTIONS.GAS = "喷"
-TA_STRINGS_CH.ACTIONS.TIRO = "射击"
-TA_STRINGS_CH.ACTIONS.SHOP = "购买"
-TA_STRINGS_CH.ACTIONS.CHECKSHOP = "花费{cost}{costprefab}\n换取{item}"
+TA_STRINGS_CH.ACTIONS.HACK                                    = "劈砍"
+TA_STRINGS_CH.ACTIONS.SMELT                                   = "熔炼"
+TA_STRINGS_CH.ACTIONS.SHEAR                                   = "剪"
+TA_STRINGS_CH.ACTIONS.DISLODGE                                = "取出"
+TA_STRINGS_CH.ACTIONS.HARVEST1                                = "收获"
+TA_STRINGS_CH.ACTIONS.INVESTIGATE                             = "调查"
+TA_STRINGS_CH.ACTIONS.PAN                                     = "淘金"
+TA_STRINGS_CH.ACTIONS.GIVE2                                   = "给予"
+TA_STRINGS_CH.ACTIONS.PAINT                                   = "涂画"
+TA_STRINGS_CH.ACTIONS.JUMPIN.HAMLET                           = "进入"
+TA_STRINGS_CH.ACTIONS.OPENTUNA                                = "打开"
+TA_STRINGS_CH.ACTIONS.GAS                                     = "喷"
+TA_STRINGS_CH.ACTIONS.TIRO                                    = "射击"
+TA_STRINGS_CH.ACTIONS.SHOP                                    = "购买"
+TA_STRINGS_CH.ACTIONS.CHECKSHOP                               = "花费 {cost} {costprefab}\n换取 {item}"
 --gorge
-TA_STRINGS_CH.ACTIONS.STOREOPEN = "交易"
-TA_STRINGS_CH.ACTIONS.GRIND = "研磨"
-TA_STRINGS_CH.ACTIONS.SNACKRIFICE = "献贡"
-TA_STRINGS_CH.ACTIONS.COLLECTSAP = "采集树液"
-TA_STRINGS_CH.ACTIONS.TAPSUGARTREE = "凿树"
-TA_STRINGS_CH.ACTIONS.SETUPITEM = "安装"
-TA_STRINGS_CH.ACTIONS.KILLSOFTLY = "屠宰"
+TA_STRINGS_CH.ACTIONS.STOREOPEN                               = "交易"
+TA_STRINGS_CH.ACTIONS.GRIND                                   = "研磨"
+TA_STRINGS_CH.ACTIONS.SNACKRIFICE                             = "献贡"
+TA_STRINGS_CH.ACTIONS.COLLECTSAP                              = "采集树液"
+TA_STRINGS_CH.ACTIONS.TAPSUGARTREE                            = "凿树"
+TA_STRINGS_CH.ACTIONS.SETUPITEM                               = "安装"
+TA_STRINGS_CH.ACTIONS.KILLSOFTLY                              = "屠宰"
 
 -----------选项卡----------
 
-TA_STRINGS_CH.TABS.NAUTICALTAB = "航海"
-TA_STRINGS_CH.TABS.OBSIDIANTAB = "火山"
-TA_STRINGS_CH.TABS.NAUTICALTAB = "航海"
-TA_STRINGS_CH.TABS.ARCHAEOLOGY = "考古"
-TA_STRINGS_CH.TABS.HOME = "家"
-TA_STRINGS_CH.TABS.CITY = "城镇"
+TA_STRINGS_CH.TABS.NAUTICALTAB                                = "航海"
+TA_STRINGS_CH.TABS.OBSIDIANTAB                                = "火山"
+TA_STRINGS_CH.TABS.NAUTICALTAB                                = "航海"
+TA_STRINGS_CH.TABS.ARCHAEOLOGY                                = "考古"
+TA_STRINGS_CH.TABS.HOME                                       = "家"
+TA_STRINGS_CH.TABS.CITY                                       = "城镇"
 
 ------------------进入迷雾mapwrapper---------------
 TA_STRINGS_CH.CHARACTERS.GENERIC.ANNOUNCE_MAPWRAP_LOSECONTROL = "看来我的未来笼罩着一层雾。"
-TA_STRINGS_CH.CHARACTERS.GENERIC.ANNOUNCE_MAPWRAP_RETURN = "我想我感到有什么东西擦过了我的腿……"
-TA_STRINGS_CH.CHARACTERS.GENERIC.ANNOUNCE_MAPWRAP_WARN = "这里有怪物。"
+TA_STRINGS_CH.CHARACTERS.GENERIC.ANNOUNCE_MAPWRAP_RETURN      = "我想我感到有什么东西擦过了我的腿……"
+TA_STRINGS_CH.CHARACTERS.GENERIC.ANNOUNCE_MAPWRAP_WARN        = "这里有怪物。"
 
 
 -------------------------------------------沙滩相关beach---------------------------
@@ -963,72 +963,72 @@ TA_STRINGS_CH.NAMES.PARROT_PIRATE = "海盗鹦鹉"
 TA_STRINGS_CH.CHARACTERS.GENERIC.DESCRIBE.PARROT_PIRATE = "我尽量不吃取了名字的东西。"
 
 TA_STRINGS_CH.PARROTNAMES = {
-    "丹佳亚","萨米","佐伊","克丽丝","特伦特",
-    "哈里森","阿勒西娅","乔尼・德雷格","弗兰克","波利冈",
-    "威克胜","尚格云顿","汉克","小甜心","蔬菜",
-    "斯卡威","黑胡子","奥克托帕罗","米格西","艾米",
-    "维多利亚","科尼利厄斯","德翰尼・约普","大个儿","虎克博士",
-    "霍雷肖","艾格","王尔德","默多克","莱托勒",
-    "博克霍尔","穆迪","菲利普斯","饼干","舰长",
-    "巴雷特","萨利","雷金纳德・韦尔约翰森",
-    "丹凡 3000","范・达德","哈利"
+    "丹佳亚", "萨米", "佐伊", "克丽丝", "特伦特",
+    "哈里森", "阿勒西娅", "乔尼・德雷格", "弗兰克", "波利冈",
+    "威克胜", "尚格云顿", "汉克", "小甜心", "蔬菜",
+    "斯卡威", "黑胡子", "奥克托帕罗", "米格西", "艾米",
+    "维多利亚", "科尼利厄斯", "德翰尼・约普", "大个儿", "虎克博士",
+    "霍雷肖", "艾格", "王尔德", "默多克", "莱托勒",
+    "博克霍尔", "穆迪", "菲利普斯", "饼干", "舰长",
+    "巴雷特", "萨利", "雷金纳德・韦尔约翰森",
+    "丹凡 3000", "范・达德", "哈利"
 }
 TA_STRINGS_CH.TALKINGBIRD = {
     in_container = {
-    "别把我埋了！",
-    "我要出去，出去！",
-    "完蛋了！",
-    "我的眼睛！我的眼睛！",
-    "太黑了！"
+        "别把我埋了！",
+        "我要出去，出去！",
+        "完蛋了！",
+        "我的眼睛！我的眼睛！",
+        "太黑了！"
     },
     in_inventory = {
-    "冒险！",
-    "你真臭！",
-    "嘎～！",
-    "喂～你！",
-    "笨蛋！",
-    "呆子！",
-    "宝藏！",
-    "走跳板！",
-    "饼干！"
+        "冒险！",
+        "你真臭！",
+        "嘎～！",
+        "喂～你！",
+        "笨蛋！",
+        "呆子！",
+        "宝藏！",
+        "走跳板！",
+        "饼干！"
     },
     on_dismounted = {
-    "着陆！",
-    "坚实的大地！",
-    "我们成功了！"
+        "着陆！",
+        "坚实的大地！",
+        "我们成功了！"
     },
     on_dropped = {
-    "笨蛋！",
-    "再见！",
-    "再见，笨蛋！",
-    "再见！"
+        "笨蛋！",
+        "再见！",
+        "再见，笨蛋！",
+        "再见！"
     },
     on_ground = {
-    "不错！",
-    "笨蛋！",
-    "自以为是！",
-    "你真臭！"
+        "不错！",
+        "笨蛋！",
+        "自以为是！",
+        "你真臭！"
     },
     on_mounted = {
-    "前进！",
-    "啊哦！",
-    "你确定吗？"
+        "前进！",
+        "啊哦！",
+        "你确定吗？"
     },
     on_pickedup = {
-    "笨蛋！",
-    "你好！",
-    "喂我吃东西！",
-    "我饿了！",
-    "哎哟！"
+        "笨蛋！",
+        "你好！",
+        "喂我吃东西！",
+        "我饿了！",
+        "哎哟！"
     },
     other_owner = {
-    "救命啊！",
-    "啊！",
-    "卑鄙！",
-    "救救我！",
-    "我没事！"
+        "救命啊！",
+        "啊！",
+        "卑鄙！",
+        "救救我！",
+        "我没事！"
     }
-    }
+}
 --------------------海难食物SWfood---------------------------------------------
 
 TA_STRINGS_CH.NAMES.SWEET_POTATO_PLANTED = "甘薯"
@@ -3500,7 +3500,7 @@ TA_STRINGS_CH.CITY_PIG_GUARD_LIGHT_TORCH = {
     DEFAULT = { "我点亮了这热烈的火炬！", "火炬，火炬！", "宵禁时间！" },
 }
 TA_STRINGS_CH.CITY_PIG_TALK_REFUSE_GIFT = {
-    DEFAULT = { "你有{item}吗？{cost}{costprefab}。" },
+    DEFAULT = { "你有 {item} 吗？{cost} {costprefab}。" },
 }
 TA_STRINGS_CH.CITY_PIG_TALK_REFUSE_GIFT_DELAY = {
     DEFAULT = { " 过几天再来吧。" },

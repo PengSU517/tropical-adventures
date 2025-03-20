@@ -88,14 +88,14 @@ TA_STRINGS.ACTIONS.JUMPIN                                    = {
 	GENERIC = "Jump In",
 }
 
-TA_STRINGS.ACTIONS.DEPLOY.DEPLOYBUOY                       = "Deploy"
-TA_STRINGS.ACTIONS.DEPLOY.DEPLOYFISH_FARM                  = "Deploy"
-TA_STRINGS.ACTIONS.DEPLOY.DEPLOYBALLPHINHOUSE              = "Deploy"
-TA_STRINGS.ACTIONS.DEPLOY.DEPLOYSEARCHLAB5                 = "Deploy"
-TA_STRINGS.ACTIONS.DEPLOY.DEPLOYTAR_EXTRATOR               = "Deploy"
-TA_STRINGS.ACTIONS.DEPLOY.DEPLOYSEA_CHIMINEA               = "Deploy"
-TA_STRINGS.ACTIONS.DEPLOY.DEPLOYWATERCHEST                 = "Deploy"
-TA_STRINGS.ACTIONS.DEPLOY.DEPLOYSEA_YARD                   = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYBUOY                         = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYFISH_FARM                    = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYBALLPHINHOUSE                = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYSEARCHLAB5                   = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYTAR_EXTRATOR                 = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYSEA_CHIMINEA                 = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYWATERCHEST                   = "Deploy"
+TA_STRINGS.ACTIONS.DEPLOY.DEPLOYSEA_YARD                     = "Deploy"
 
 
 -- Name of Things --
@@ -2189,7 +2189,7 @@ TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.POISONCROCODOG = "Leave us alone!"
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.GRASSWATER               = "It's going for a swim."
 
-TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.ARMORSEASHELL           = "We feel like a knight in not-so-shiny armor."
+TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.ARMORSEASHELL            = "We feel like a knight in not-so-shiny armor."
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.OXHAT                    = "How do we look?"
 
@@ -2254,9 +2254,9 @@ TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.FISH_RAW_SMALL           = "It's a little 
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.FISH_MED_COOKED          = "Flaky and moist. Delicious."
 
-TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.DOGFISH_DEAD                 = "All dogfish go to heaven, right?"
+TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.DOGFISH_DEAD             = "All dogfish go to heaven, right?"
 
-TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.SPOILED_FISH_LARGE             = "I'm not terribly curious about the smell."
+TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.SPOILED_FISH_LARGE       = "I'm not terribly curious about the smell."
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.FISH_RAW                 = "It would probably be better cooked."
 
@@ -2323,7 +2323,7 @@ TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.BIOLUMINESCENCE          = "Wooow! Pretty 
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.BOTTLELANTERN            = "Hey in there, thanks for the light!"
 
-TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.MESSAGEBOTTLEEMPTY_SW      = "We wish it was filled with soda pop."
+TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.MESSAGEBOTTLEEMPTY_SW    = "We wish it was filled with soda pop."
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.ARMOUREDBOAT             = "It provides peace of mind at sea."
 
@@ -2407,7 +2407,7 @@ TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.SHARK_FIN                = "Do we touch it
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.SPEAR_POISON             = "One jab'll do ya."
 
-TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.MESSAGEBOTTLE_SW           = "Maybe there's a comic book in here!"
+TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.MESSAGEBOTTLE_SW         = "Maybe there's a comic book in here!"
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.BURIEDTREASURE           = "Treasure, treasure, treasure!!"
 
@@ -2590,7 +2590,7 @@ TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.BLUBBERSUIT              = "A boy inside a
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.MUSSEL_BED               = "They'd be happier in the water."
 
-TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.WATERCHEST              = "We could keep our bath toys in it!"
+TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.WATERCHEST               = "We could keep our bath toys in it!"
 
 TA_STRINGS.CHARACTERS.WEBBER.DESCRIBE.SHARKITTEN               = "Here kitty, kitty!"
 
@@ -2695,8 +2695,8 @@ TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.KNIGHTBATTLE               = "knightbattl
 TA_STRINGS.NAMES.LIZARDBATTLE                                     = "lizardbattle"
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.LIZARDBATTLE               = "lizardbattle."
 
-TA_STRINGS.NAMES.TRO_TELEPORTATO                                     = "Battle Recipient"
-TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TRO_TELEPORTATO               = "Battle Recipient."
+TA_STRINGS.NAMES.TRO_TELEPORTATO                                  = "Battle Recipient"
+TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TRO_TELEPORTATO            = "Battle Recipient."
 
 TA_STRINGS.NAMES.WILDBEAVER_HOUSE                                 = "Wildbeaver House"
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.WILDBEAVER_HOUSE           = "Wildbeaver House."
@@ -3354,8 +3354,8 @@ TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.RELIC_5                    = "The Jeweled
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.REEDS_WATER                = "Aquatic reeds."
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOTUS                      = "The science is blooming well this season."
 
-TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOTUS_FLOWER              = "A lovely science flower."
-TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOTUS_FLOWER_COOKED       = "A delicacy."
+TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOTUS_FLOWER               = "A lovely science flower."
+TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.LOTUS_FLOWER_COOKED        = "A delicacy."
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.VAMPIREBAT                 =
 {
@@ -3526,13 +3526,13 @@ TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_PIGRUINS                       = "It
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_RAINFOREST                     = "It's a chunk of ground."
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_DEEPRAINFOREST                 = "It's a chunk of ground."
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_LAWN                           = "It's a chunk of ground."
-TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_GASRAINFOREST                      = "It's a chunk of ground."
+TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_GASRAINFOREST                  = "It's a chunk of ground."
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_MOSS                           = "It's a chunk of ground."
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_FIELDS                         = "It's a chunk of ground."
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_FOUNDATION                     = "Some nicely cobbled together rocks."
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TURF_COBBLEROAD                     = "Some nicely cobbled together rocks."
-TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_TOOLCORRODED = "My tool just dissolved!"
-TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_TURFTOOHARD = "This ground is too stubborn to pry up."
+TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_TOOLCORRODED                        = "My tool just dissolved!"
+TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_TURFTOOHARD                         = "This ground is too stubborn to pry up."
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.MANDRAKEMAN                         = "Large and screamy."
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.MANDRAKEHOUSE                       = "It looks... screamy."
@@ -3839,8 +3839,8 @@ TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_DEBRIS3                    = "Th
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.ROC_NEST_DEBRIS4                    = "It's in the sticks."
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.BASEFAN                             = "Fan-tastic."
-TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.SPRINKLER                          = "Water you think it's for?"
-TA_STRINGS.RECIPE_DESC.SPRINKLER                                          = "Water you think it's for?"
+TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.SPRINKLER                           = "Water you think it's for?"
+TA_STRINGS.RECIPE_DESC.SPRINKLER                                           = "Water you think it's for?"
 
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.NETTLELOSANGE                       = "Innocuous inoculation."
 
@@ -3994,8 +3994,8 @@ TA_STRINGS.NAMES.LILYPAD                                                   = "Li
 TA_STRINGS.NAMES.LOTUS                                                     = "Lotus Plant"
 TA_STRINGS.NAMES.REEDS_WATER                                               = "Reeds"
 
-TA_STRINGS.NAMES.LOTUS_FLOWER                                             = "Lotus Flower"
-TA_STRINGS.NAMES.LOTUS_FLOWER_COOKED                                      = "Cooked Lotus Root"
+TA_STRINGS.NAMES.LOTUS_FLOWER                                              = "Lotus Flower"
+TA_STRINGS.NAMES.LOTUS_FLOWER_COOKED                                       = "Cooked Lotus Root"
 
 TA_STRINGS.NAMES.FROGLEGS_POISON                                           = "Poison Dartfrog Legs"
 TA_STRINGS.NAMES.FROGLEGS_POISON_COOKED                                    = "Cooked Dartfrog Legs"
@@ -4045,7 +4045,7 @@ TA_STRINGS.NAMES.TURF_PIGRUINS                                             = "An
 TA_STRINGS.NAMES.TURF_RAINFOREST                                           = "Rainforest Turf"
 TA_STRINGS.NAMES.TURF_DEEPRAINFOREST                                       = "Dense Rainforest Turf"
 TA_STRINGS.NAMES.TURF_LAWN                                                 = "Lawn Turf"
-TA_STRINGS.NAMES.TURF_GASRAINFOREST                                            = "Toxic Turf"
+TA_STRINGS.NAMES.TURF_GASRAINFOREST                                        = "Toxic Turf"
 TA_STRINGS.NAMES.TURF_MOSS                                                 = "Mossy Turf"
 TA_STRINGS.NAMES.TURF_FIELDS                                               = "Cultivated Turf"
 TA_STRINGS.NAMES.TURF_FOUNDATION                                           = "Flat Stone Turf"
@@ -4058,7 +4058,7 @@ TA_STRINGS.NAMES.MANDRAKEMAN                                               = "El
 TA_STRINGS.NAMES.MANDRAKEHOUSE                                             = "Mandrake Hill"
 
 TA_STRINGS.NAMES.BASEFAN                                                   = "Oscillating Fan"
-TA_STRINGS.NAMES.SPRINKLER                                                = "Sprinkler"
+TA_STRINGS.NAMES.SPRINKLER                                                 = "Sprinkler"
 
 -- HOME DECO ITEMS
 TA_STRINGS.NAMES.INTERIOR_FLOOR_MARBLE                                     = "Marble Flooring"
@@ -5133,7 +5133,7 @@ TA_STRINGS.CITY_PIG_GUARD_LIGHT_TORCH = {
 	DEFAULT = { "ME LIGHT A FIERY TORCH", "TORCHES, TORCHES!", "CURFEW'S RUNGETH" },
 }
 TA_STRINGS.CITY_PIG_TALK_REFUSE_GIFT = {
-	DEFAULT = { "HAVE THEE {item}？WILL PAY{cost}{costprefab}." },
+	DEFAULT = { "HAVE THEE {item} ？WILL PAY {cost} {costprefab}." },
 }
 TA_STRINGS.CITY_PIG_TALK_REFUSE_GIFT_DELAY = {
 	DEFAULT = { "COME HERE LATER." },
@@ -6765,7 +6765,7 @@ TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.SLAW = "A salad from your dreams."
 
 TA_STRINGS.ACTIONS.TIRO = "Shoot"
 
-TA_STRINGS.ACTIONS.CHECKSHOP = "Cost {cost}{costprefab}\n for {item}"
+TA_STRINGS.ACTIONS.CHECKSHOP = "Cost {cost} {costprefab}\n for {item}"
 
 TA_STRINGS.NAMES.LIGAMUNDOSW = "Portal"
 TA_STRINGS.NAMES.LIGAMUNDOHAM = "Portal"
@@ -6806,72 +6806,72 @@ TA_STRINGS.NAMES.TRINKET_SW_23 = "Broken AAC Device"
 TA_STRINGS.CHARACTERS.GENERIC.DESCRIBE.TRINKET_SW_23 = "Someone lost their words."
 
 TA_STRINGS.PARROTNAMES = {
-    "Danjaya","Sammy","Zoe","Kris","Trent",
-    "Harrison","Alethea","Jonny Dregs","Frankie","Pollygon",
-    "Vixel","Jean Claud Van Dan","Hank","Cutiepie","Vegetable",
-    "Scurvy","Black Beard","Octoparrot","Migsy","Amy",
-    "Victoire","Cornelius","Donny Jepp","Long John","Dr Hook",
-    "Horatio","Iago","Wilde","Murdoch","Lightoller",
-    "Boxhall","Moody","Phillips","Crackers","Fleet",
-    "Barrett","Sully","Reginald VelJohnson",
-    "Dan Van 3000","Van Dader","Harry"
+	"Danjaya", "Sammy", "Zoe", "Kris", "Trent",
+	"Harrison", "Alethea", "Jonny Dregs", "Frankie", "Pollygon",
+	"Vixel", "Jean Claud Van Dan", "Hank", "Cutiepie", "Vegetable",
+	"Scurvy", "Black Beard", "Octoparrot", "Migsy", "Amy",
+	"Victoire", "Cornelius", "Donny Jepp", "Long John", "Dr Hook",
+	"Horatio", "Iago", "Wilde", "Murdoch", "Lightoller",
+	"Boxhall", "Moody", "Phillips", "Crackers", "Fleet",
+	"Barrett", "Sully", "Reginald VelJohnson",
+	"Dan Van 3000", "Van Dader", "Harry"
 }
 TA_STRINGS.TALKINGBIRD = {
-    in_container = {
-    "Don't bury me!",
-    "Out, out!",
-    "Sunk!",
-    "Me eyes! Me eyes!",
-    "Too dark!"
-    },
-    in_inventory = {
-    "Adventure!",
-    "You stink!",
-    "SQUAAAWK!",
-    "Hey you!",
-    "Chump!",
-    "Nerd!",
-    "Treasure!",
-    "Walk the plank!",
-    "Cracker!"
-    },
-    on_dismounted = {
-    "Land!",
-    "Solid ground!",
-    "We made it!"
-    },
-    on_dropped = {
-    "Chump!",
-    "Bye now!",
-    "See ya chump!",
-    "Goodbye!"
-    },
-    on_ground = {
-    "Nice one!",
-    "Chump!",
-    "Big head!",
-    "You stink!"
-    },
-    on_mounted = {
-    "Onward!",
-    "Uh-oh!",
-    "Are you sure about this?"
-    },
-    on_pickedup = {
-    "Chump!",
-    "Hello!",
-    "Feed me!",
-    "I'm hungry!",
-    "Ouch!"
-    },
-    other_owner = {
-    "Help!",
-    "Ack!",
-    "Scurvy!",
-    "Save me!",
-    "I'm okay!"
-    }
-    }
+	in_container = {
+		"Don't bury me!",
+		"Out, out!",
+		"Sunk!",
+		"Me eyes! Me eyes!",
+		"Too dark!"
+	},
+	in_inventory = {
+		"Adventure!",
+		"You stink!",
+		"SQUAAAWK!",
+		"Hey you!",
+		"Chump!",
+		"Nerd!",
+		"Treasure!",
+		"Walk the plank!",
+		"Cracker!"
+	},
+	on_dismounted = {
+		"Land!",
+		"Solid ground!",
+		"We made it!"
+	},
+	on_dropped = {
+		"Chump!",
+		"Bye now!",
+		"See ya chump!",
+		"Goodbye!"
+	},
+	on_ground = {
+		"Nice one!",
+		"Chump!",
+		"Big head!",
+		"You stink!"
+	},
+	on_mounted = {
+		"Onward!",
+		"Uh-oh!",
+		"Are you sure about this?"
+	},
+	on_pickedup = {
+		"Chump!",
+		"Hello!",
+		"Feed me!",
+		"I'm hungry!",
+		"Ouch!"
+	},
+	other_owner = {
+		"Help!",
+		"Ack!",
+		"Scurvy!",
+		"Save me!",
+		"I'm okay!"
+	}
+}
 
 TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_PUGALISK_INVULNERABLE = {
 	"Its hide is too tough!",
@@ -6880,15 +6880,15 @@ TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_PUGALISK_INVULNERABLE = {
 }
 
 TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_PICKPOOP = {
-    "Eugg!",
-    "Gross!",
-    "Ick!",
-    "I got some on my hands!",
+	"Eugg!",
+	"Gross!",
+	"Ick!",
+	"I got some on my hands!",
 }
 TA_STRINGS.CHARACTERS.WORMWOOD.ANNOUNCE_PICKPOOP = {
-    "Wheee!",
-    "Yay!",
-    "Woohoo!",
+	"Wheee!",
+	"Yay!",
+	"Woohoo!",
 }
 local TA_STRINGS = convertToPlainTable(TA_STRINGS)
 
