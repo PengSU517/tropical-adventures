@@ -45,7 +45,22 @@ AddPrefabPostInitAny(function(inst)
         return
     end
 
+
+    -- print("print aporkalypse in world net")
+    -- print("tuning")
+    -- print(TUNING.aporkalypse)
+    -- print("overrides")
+    -- print(TheWorld.topology.overrides.aporkalypse)
+
+    -- if TheWorld.topology.overrides.aporkalypse == "enabled" or (TheWorld.topology.overrides.aporkalypse == nil and TUNING.aporkalypse) then
+    --     print("add aporkalypse")
+    --     inst:AddComponent("aporkalypse")
+    -- end
+
     if TUNING.aporkalypse then
+        print("add aporkalypse in world net")
         inst:AddComponent("aporkalypse")
+    else
+        print("not add aporkalypse in world net")
     end
 end)

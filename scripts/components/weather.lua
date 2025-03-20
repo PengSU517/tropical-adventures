@@ -471,7 +471,7 @@ return Class(function(self, inst)
         local season = _season
         local snowlight = _preciptype:value() == PRECIP_TYPES.snow
         local dynrange = snowlight and (_daylight and SEASON_DYNRANGE_DAY["winter"] or SEASON_DYNRANGE_NIGHT["winter"])
-            or (_daylight and SEASON_DYNRANGE_DAY[season] or SEASON_DYNRANGE_NIGHT[season])
+            or (_daylight and SEASON_DYNRANGE_DAY[season] or SEASON_DYNRANGE_NIGHT[season]) or 0.4
 
         if _precipmode:value() == PRECIP_MODES.always then
             return 1 - dynrange
