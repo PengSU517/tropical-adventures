@@ -90,6 +90,22 @@ local function SpawnInventory(inst, prefabtype, costprefab, cost)
         inst.components.shopdispenser:SetItem(item)
         item:Remove()
     end
+
+    -- fixed: 客户机鼠标放在 shop_buyer 对象上不显示物品名称和价格
+    -- note: 代码取自上个版本的 main/actions.lua - 299
+    --       在原本代码基础上修复了不显示 "蓝图" 的 bug
+    if inst.components.named then
+        local itemname = inst.components.shopdispenser:GetItem()
+        local is_blueprint = string.sub(itemname, -10) == "_blueprint"
+        if is_blueprint then itemname = string.sub(itemname, 0, -11) end
+        local item = STRINGS.NAMES[itemname:upper()] or itemname
+        if is_blueprint then item = item .. " " .. STRINGS.NAMES.BLUEPRINT end
+        local costprefab = STRINGS.NAMES[inst.costprefab:upper() or "ONIC"]
+        inst.components.named:SetName(subfmt(STRINGS.ACTIONS.CHECKSHOP,
+            { item = item, cost = inst.cost, costprefab = costprefab }
+        ))
+    end
+    -- fixed end
 end
 
 
@@ -253,6 +269,11 @@ local function buyer()
 
     inst:AddComponent("shopdispenser")
     inst:AddComponent("shopped")
+
+    -- fixed: 客户机鼠标放在 shop_buyer 对象上不显示物品名称和价格
+    -- note: 添加 named 组件修改物品的显示名称
+    inst:AddComponent("named")
+    -- fixed end
 
     inst:WatchWorldState("isday", restock)
     inst:DoTaskInTime(1, restock)

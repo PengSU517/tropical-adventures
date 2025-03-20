@@ -4,7 +4,7 @@ return {
     BOATDISMOUNT = "上岸",
     BOATMOUNT = "登船",
     BOATREPAIR = "修理",
-    CHECKSHOP = "花费{cost}{costprefab}\n换取{item}",
+    CHECKSHOP = "花费 {cost} {costprefab} \n换取 {item}",
     COLLECTSAP = "采集树液",
     DESACTIVATESAIL = "关灯",
     GIVE2 = "给予",
