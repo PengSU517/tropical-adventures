@@ -302,26 +302,16 @@ local SHOP = Action({ priority = 9, rmb = true, distance = 1, mount_valid = fals
 --       尝试 return nil 会自动使用 ACTION 作为前缀
 --       尝试 return 包括空字符串在内的任何字符串都会屏蔽 named 组件的名称显示
 --       考虑屏蔽原有的 SHOP.stroverridefn 处理逻辑
---[[
 SHOP.stroverridefn = function(act)
-    if act.target.cost then
-        local itemname = act.target.components.shopdispenser:GetItem()
-        local itemname = itemname and string.gsub(itemname, "_blueprint", "") or "unknown"
-        local costprefab = act.target.costprefab or "oinc"
-        return subfmt(STRINGS.ACTIONS.CHECKSHOP, {
-            item = STRINGS.NAMES[itemname and itemname:upper()] or itemname,
-            cost = act.target.cost and (act.target.cost <= 1 and "" or act.target.cost),
-            costprefab = STRINGS.NAMES[costprefab:upper()],
-        })
-    else
-        return "Shop"
-    end
+    return act.target:GetBasicDisplayName() or "SHOP"
 end
-]]--
+
 -- note: 屏蔽原有的 ( ACTION ), 使用 STRINGS.ACTIONS.SHOP
 -- TODO: 我需要一个更加优雅的实现, 最好连 STRINGS.ACTIONS.SHOP 都不要显示
-SHOP.str = ""
 -- fixed end
+
+
+
 
 SHOP.id = "SHOP"
 SHOP.fn = function(act)
