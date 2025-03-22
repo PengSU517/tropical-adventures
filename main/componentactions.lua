@@ -210,15 +210,6 @@ AddComponentAction("POINT", "gasser", function(inst, doer, pos, actions, right)
     end
 end)
 
-AddComponentAction("SCENE", "poisonable", function(inst, doer, actions, right)
-    if right then
-        local equipamento = doer.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-        if equipamento and equipamento:HasTag("bugrepellent") and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
-            table.insert(actions, ACTIONS.GAS)
-        end
-    end
-end)
-
 local function boatdismon(inst, doer, pos, actions, right, target)
     local xjp, yjp, zjp = pos:Get()
     local xs, ys, zs = doer.Transform:GetWorldPosition()
