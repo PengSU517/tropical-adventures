@@ -39,6 +39,7 @@ modimport("postinit/entityscript") --修改entity相关
 
 
 modimport("postinit/actionrelated")
+modimport("postinit/components/weather")  --热带气候（冬季降雨
 modimport("postinit/tropical_climate")    --热带气候
 modimport("postinit/ham_room")            --新的room
 modimport("postinit/room_camera")         --房间镜头

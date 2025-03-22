@@ -52,24 +52,6 @@ function Moisture:GetMoistureRate()
     return self:_GetMoistureRateAssumingRain()
 end
 
---如果在区域内就更新滤镜  ------------滤镜似乎没有效果
--- AddComponentPostInit("areaaware", function(self)
---     local old = self.UpdatePosition
---     function self:UpdatePosition(x, y, z, ...)
---         if TheWorld.Map:IsTropicalAreaAtPoint(x, 0, z) then
---             if self.current_area_data ~= nil then
---                 self.current_area = -1
---                 self.current_area_data = nil
---                 self.inst:PushEvent("changearea", self:GetCurrentArea())
---             end
---             return
---         end
---         return old(self, x, y, z, ...)
---     end
--- end)
-
-
-
 --清除积雪覆盖效果
 local Old_MakeSnowCovered = GLOBAL.MakeSnowCovered
 local function ClearSnowCoveredPristine(inst)
@@ -111,6 +93,26 @@ AddPrefabPostInit("forest", function(inst)
                 return old(pt)
             end
             upvaluehelper.Set(frograin, "GetSpawnPoint", newGetSpawnPoint)
+        end
+    end
+
+    --玻璃雨
+    local lunarrain = upvaluehelper.GetWorldHandle(inst, "islunarhailing", "components/lunarhailmanager") --下雨
+
+    if lunarrain then
+        -- print("找到玻璃雨了")
+        local GetSpawnPoint = upvaluehelper.Get(lunarrain, "GetSpawnPoint")
+        if GetSpawnPoint ~= nil then
+            local old = GetSpawnPoint
+            local function newGetSpawnPoint(pt)
+                local x, y, z = player.Transform:GetWorldPosition()
+                if TheWorld.Map:IsTropicalAreaAtPoint(x, y, z) then
+                    -- print("成功玻璃雨")
+                    return nil
+                end
+                return old(pt)
+            end
+            upvaluehelper.Set(lunarrain, "GetSpawnPoint", newGetSpawnPoint)
         end
     end
 

@@ -2,7 +2,6 @@
 
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 
-print("modworldgenmain loaded1111111111111")
 
 local require = require
 local modimport = modimport
@@ -23,10 +22,10 @@ modimport "main/tiledefs"            ----缺少行走的声音
 
 if rawget(_G, "WorldSim") then
     ----------新内容
-    modimport "scripts/map/tro_lockandkey"  ----地形锁钥
+    modimport "scripts/map/tro_lockandkey"      ----地形锁钥
     modimport "scripts/map/init_static_layouts" --新的 static layouts
-    modimport "scripts/map/city_layouts"    --新的城镇 layouts
-    modimport "scripts/map/ruin_maze_layouts" --新的地下遗迹layouts
+    modimport "scripts/map/city_layouts"        --新的城镇 layouts
+    modimport "scripts/map/ruin_maze_layouts"   --新的地下遗迹layouts
     modimport "scripts/map/rooms/ham"
     modimport "scripts/map/rooms/sw"
     modimport "scripts/map/rooms/ocean"
@@ -41,8 +40,8 @@ if rawget(_G, "WorldSim") then
     modimport "postinit/map/graph"
     modimport "postinit/map/storygen"
     modimport "postinit/map/forest_map_new" -----在这里添加哈姆雷特城镇
-    modimport "postinit/map/ocean_gen_new" ----防止新的水面地皮被覆盖 ---但是暴力覆盖似乎太严重
-    modimport "postinit/map/node"       ------------防止清空水上内容
+    modimport "postinit/map/ocean_gen_new"  ----防止新的水面地皮被覆盖 ---但是暴力覆盖似乎太严重
+    modimport "postinit/map/node"           ------------防止清空水上内容
 else
     -------------加载世界前进行的一些修改
     modimport "main/preinit" ------------修改一些prefab的表
