@@ -155,6 +155,9 @@ function Poisonable:SetOnHitFn()
 end
 
 function Poisonable:OnLoad(data)
+    if data.immuneduration then
+        self.immuneduration = data.immuneduration
+    end
 	if data.dmg and data.startDuration and data.duration and data.interval then
 		self:SetPoison(data.dmg, data.interval, data.duration)
 		self.startDuration = data.startDuration
@@ -169,6 +172,7 @@ function Poisonable:OnSave()
 		dmg = self.dmg,
 		interval = self.interval,
 		duration = self.duration,
+        immuneduration = self.immuneduration,
 		startDuration = self.startDuration,
 		lastDamageTime = self.lastDamageTime
 	}
