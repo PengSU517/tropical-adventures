@@ -9,6 +9,11 @@ local total_day_time = TUNING.TOTAL_DAY_TIME
 local wilson_attack = TUNING.SPEAR_DAMAGE
 local wilson_health = TUNING.WILSON_HEALTH
 
+
+local tuning_origin = require "datadefs/tuning_origin"
+
+tableutil.deep_merge(TUNING, tuning_origin)
+
 TUNING.BUILD_HEIGHT = 0 ---rpc用来接收建筑高度数据-------也可以修改placer
 
 TUNING.HAMROOM = {
