@@ -1262,7 +1262,7 @@ GAS.str = (STRINGS.ACTIONS.GAS)
 GAS.id = "GAS"
 GAS.fn = function(act)
     if act.invobject and act.invobject.components.gasser then
-        act.invobject.components.gasser:Gas(act:GetActionPoint())
+        act.invobject.components.gasser:Gas(act:GetActionPoint() or act.target:GetPosition())
         return true
     end
 end
