@@ -210,6 +210,12 @@ AddComponentAction("POINT", "gasser", function(inst, doer, pos, actions, right)
     end
 end)
 
+AddComponentAction("EQUIPPED", "gasser", function(inst, doer, target, actions, right)
+    if right and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
+        table.insert(actions, ACTIONS.GAS)
+    end
+end)
+
 local function boatdismon(inst, doer, pos, actions, right, target)
     local xjp, yjp, zjp = pos:Get()
     local xs, ys, zs = doer.Transform:GetWorldPosition()
