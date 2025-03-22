@@ -7,31 +7,10 @@ local buffattr = {
         icedtea               = { priority = 1, mult = TUNING.COFFEE_SPEED_INCREASE / 3 + 1, duration = TUNING.BUFF_COFFEE_DURATION / 3, name = "buff_speedup_tro_1", },
     },
     poisoned = {
-        poisoned  = {name = "buff_poisoned_tro"},
-        antitoxin = {name = "buff_antitoxin_tro"},
+        poisoned  = { name = "buff_poisoned_tro", },
+        antitoxin = { name = "buff_antitoxin_tro", },
     }
 }
-
-local function NameOverrideFns(name)
-    return function(target, buff_info)
-        for k, v in pairs(buff_info) do
-            if v.buffname == "buff_" .. name .. "_tro" then
-                table.remove(buff_info, k)
-                break
-            end
-        end
-        for _, v in pairs(target.components.debuffable.debuffs) do
-            if v.inst and v.inst.prefab == "buff_" .. name .. "_tro" and v.inst._debuffkey_tro then
-                local buffdata = {
-                    buffname = buffattr[name][v.inst._debuffkey_tro].name,
-                    bufftime = math.floor(target.components.medal_showbufftime:getBuffTime(v.inst)),
-                }
-                table.insert(buff_info, buffdata)
-                break
-            end
-        end
-    end
-end
 
 local fns = {
     speedup = {},
@@ -49,7 +28,9 @@ fns.speedup.attach = function(inst, target, followsymbol, followoffset, data)
         target.components.locomotor:SetExternalSpeedMultiplier(inst, "speedup_tro", data and data.debuffkey and
             buffattr.speedup[data.debuffkey].mult or inst._debuffkey_tro and buffattr.speedup[inst._debuffkey_tro].mult or 1) -- 进入世界时
         if target.components.medal_showbufftime then
-            target.components.medal_showbufftime:SetGetBuffInfoFn(NameOverrideFns("speedup"))
+            inst.nameoverride = buffattr.speedup[data and data.debuffkey or inst._debuffkey_tro].name -- data优先
+            target.components.medal_showbufftime:SetBuffInfo()
+            target.replica.medal_showbufftime:GetBuffInfo()
         end
     end
 end
@@ -58,9 +39,7 @@ fns.speedup.extend = function(inst, target, followsymbol, followoffset, data)
     if not inst._debuffkey_tro then
         fns.speedup.attach(inst, target, followsymbol, followoffset, data)
     end
-    if not data then
-        return
-    end
+    if not data then return end
     if buffattr.speedup[data.debuffkey].priority > buffattr.speedup[inst._debuffkey_tro].priority then
         inst.components.timer:StopTimer("buffover")
         inst.components.timer:StartTimer("buffover", buffattr.speedup[data.debuffkey].duration)
@@ -68,7 +47,9 @@ fns.speedup.extend = function(inst, target, followsymbol, followoffset, data)
             target.components.locomotor:RemoveExternalSpeedMultiplier(inst, "speedup_tro")
             target.components.locomotor:SetExternalSpeedMultiplier(inst, "speedup_tro", buffattr.speedup[data.debuffkey].mult)
             if target.components.medal_showbufftime then
-                target.components.medal_showbufftime:SetGetBuffInfoFn(NameOverrideFns("speedup"))
+                inst.nameoverride = buffattr.speedup[data.debuffkey].name
+                target.components.medal_showbufftime:SetBuffInfo()
+                target.replica.medal_showbufftime:GetBuffInfo()
             end
         end
         inst._debuffkey_tro = data.debuffkey
@@ -91,7 +72,8 @@ fns.poisoned.attach = function(inst, target, followsymbol, followoffset, data)
     inst.components.timer:StartTimer("buffover", data.duration)
     inst._debuffkey_tro = data.debuffkey
     if target.components.medal_showbufftime then
-        target.components.medal_showbufftime:SetGetBuffInfoFn(NameOverrideFns("poisoned"))
+        inst.nameoverride = buffattr.poisoned[inst._debuffkey_tro].name
+        target.components.medal_showbufftime:SetBuffInfo()
     end
 end
 
@@ -201,10 +183,14 @@ local function MakeBuff(name, duration, priority, prefabs)
     return Prefab("buff_" .. name .. "_tro", fn, nil, prefabs)
 end
 
+local function MakeDynBuff(name, priority)
+    return MakeBuff(name, 0, priority)
+end
+
 -- Make dynamic buffs
-return MakeBuff("speedup", 0, 2),
-    MakeBuff("poisoned", 0, 1)
-    -- MakeBuff("antitoxin", 0, 1)
+return MakeDynBuff("speedup", 2),
+    MakeDynBuff("poisoned", 1)
+    -- MakeDynBuff("antitoxin", 1)
 
 -- Runar: These are here to make this file findable.
 -- buff_speedup_tro
