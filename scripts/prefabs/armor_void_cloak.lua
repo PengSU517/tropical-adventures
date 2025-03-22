@@ -16,7 +16,7 @@ end
 
 local function spawnwisp(owner)
     if owner then
-        local wisp = SpawnPrefab("armorvoidcloak_fx")
+        local wisp = SpawnPrefab("armorvortexcloak_fx")
         local x, y, z = owner.Transform:GetWorldPosition()
         if x ~= nil and y ~= nil and z ~= nil then
             wisp.Transform:SetPosition(x + math.random() * 0.25 - 0.25 / 2, y, z + math.random() * 0.25 - 0.25 / 2)
@@ -74,35 +74,13 @@ local function onunequip(inst, owner)
     --    inst.SoundEmitter:KillSound("vortex")
 end
 
-local function nofuel(inst)
-
-end
-
-local function ontakefuel(inst)
-    if inst.components.armor:GetPercent() > inst.components.fueled:GetPercent() then -- Runar: 同步套件修的耐久
-        inst.components.fueled:SetPercent(1)
-    end
-    if inst.components.armor.condition and inst.components.armor.condition < 0 then
-        inst.components.armor:SetCondition(0)
-    end
+local function ontakefuelitem(inst, _fuel, _fuelvalue, doer)
     inst.components.armor:SetPercent(inst.components.fueled:GetPercent()) -- Runar: 修复时耐久同步燃料
-    local player = inst.components.inventoryitem.owner
-    if player then
-        player.components.sanity:DoDelta(-TUNING.SANITY_TINY)
-        player.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/add_fuel")
+    if doer then
+        doer.components.sanity:DoDelta(-TUNING.SANITY_TINY)
+        doer.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/add_fuel")
     end
     setsoundparam(inst)
-end
-
-local function SetupEquippable(inst)
-    inst:AddComponent("equippable")
-    inst.components.equippable.equipslot = equipslot
-    inst.components.equippable:SetOnEquip(onequip)
-    inst.components.equippable:SetOnUnequip(onunequip)
-
-    if inst._equippable_restrictedtag ~= nil then
-        inst.components.equippable.restrictedtag = inst._equippable_restrictedtag
-    end
 end
 
 local function OnBroken(inst)
@@ -142,15 +120,11 @@ local function _MakeForgeRepairable(inst, material, _onbroken, onrepaired)
 end
 
 local function OnTakeDamage(inst, damage_amount)
-    local owner = inst.components.inventoryitem.owner
-    if owner then
-        local sanity = owner.components.sanity
-        if sanity then
-            local unsaneness = damage_amount * TUNING.ARMOR_SANITY_DMG_AS_SANITY -- Runar: 升级后减少受击san值消耗
-            sanity:DoDelta(-unsaneness, false)
-        end
-    end
-    inst.components.fueled:SetPercent(inst.components.armor:GetPercent()) -- Runar: 受击时燃料同步耐久
+    local sanity = inst.components.inventoryitem.owner and
+                   inst.components.inventoryitem.owner.components.sanity
+    if not sanity then return end
+    sanity:DoDelta(-damage_amount * TUNING.ARMOR_SANITY_DMG_AS_SANITY, false)
+    inst.components.fueled:SetPercent(inst.components.armor:GetPercent())
 end
 
 local function fn()
@@ -161,7 +135,6 @@ local function fn()
     inst.entity:AddAnimState()
     inst.entity:AddNetwork()
     MakeInventoryPhysics(inst)
-
 
     inst.AnimState:SetBank("armor_void_cloak")
     inst.AnimState:SetBuild("armor_void_cloak")
@@ -189,7 +162,6 @@ local function fn()
     inst:AddComponent("inspectable")
     inst:AddComponent("inventoryitem")
 
-
     inst.components.inventoryitem.cangoincontainer = false
     inst.foleysound = "dontstarve_DLC003/common/crafted/vortex_armour/foley"
 
@@ -204,7 +176,7 @@ local function fn()
     fueled:InitializeFuelLevel(TUNING.ARMORVOIDFUEL)
     fueled.fueltype = FUELTYPE.NIGHTMARE -- 燃料是噩梦燃料
     fueled.secondaryfueltype = FUELTYPE.ANCIENT_REMNANT
-    fueled.ontakefuelfn = ontakefuel
+    fueled.ontakefuelitemfn = ontakefuelitem
     fueled.accepting = true
 
     local planardefense = inst:AddComponent("planardefense")
@@ -216,8 +188,11 @@ local function fn()
     local shadowlevel = inst:AddComponent("shadowlevel")
     shadowlevel:SetDefaultLevel(TUNING.ARMOR_VOIDCLOTH_SHADOW_LEVEL) --虚空长袍的老麦3级暗影之力
 
-    SetupEquippable(inst)
-    --inst.components.equippable.dapperness = TUNING.CRAZINESS_MED
+    local equippable = inst:AddComponent("equippable")
+    equippable.equipslot = equipslot
+    equippable:SetOnEquip(onequip)
+    equippable:SetOnUnequip(onunequip)
+
     --采用修改后的联机版中的虚空长袍的机制
     _MakeForgeRepairable(inst, "voidcloth", OnBroken, OnRepaired)
 
@@ -226,28 +201,4 @@ local function fn()
     return inst
 end
 
-local function fxfn()
-    local inst = CreateEntity()
-    inst.entity:AddNetwork()
-    inst.entity:AddTransform()
-    inst.entity:AddSoundEmitter()
-    inst.entity:AddAnimState()
-
-    inst.AnimState:SetBank("cloakfx")
-    inst.AnimState:SetBuild("cloak_fx")
-    inst.AnimState:PlayAnimation("idle", true)
-
-    inst:AddTag("fx")
-
-    for i = 1, 14 do
-        inst.AnimState:Hide("fx" .. i)
-    end
-    inst.AnimState:Show("fx" .. math.random(1, 14))
-
-    inst:ListenForEvent("animover", function() inst:Remove() end)
-
-    return inst
-end
-
-return Prefab("common/inventory/armorvoidcloak", fn, assets),
-    Prefab("common/inventory/armorvoidcloak_fx", fxfn, assets)
+return Prefab("common/inventory/armorvoidcloak", fn, assets)

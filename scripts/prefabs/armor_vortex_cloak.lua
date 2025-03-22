@@ -83,53 +83,23 @@ local function ondrop(inst, owner)
     inst.components.container.canbeopened = true
 end
 
-local function ontakefuel(inst)
-    if inst.components.armor.condition and inst.components.armor.condition < 0 then
-        inst.components.armor:SetCondition(0)
-    end
+local function ontakefuelitem(inst, _fuel, _fuelvalue, doer)
     inst.components.armor:SetPercent(inst.components.fueled:GetPercent())
-    local player = inst.components.inventoryitem.owner
-    if player then
-        player.components.sanity:DoDelta(-TUNING.SANITY_TINY)
-        player.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/add_fuel")
+    if doer then
+        doer.components.sanity:DoDelta(-TUNING.SANITY_TINY)
+        doer.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/add_fuel")
     end
     setsoundparam(inst)
 end
 
 local function SetupEquippable(inst)
-    inst:AddComponent("equippable")
-    inst.components.equippable.equipslot = equipslot
-    inst.components.equippable:SetOnEquip(onequip)
-    inst.components.equippable:SetOnUnequip(onunequip)
-
-    if inst._equippable_restrictedtag ~= nil then
-        inst.components.equippable.restrictedtag = inst._equippable_restrictedtag
-    end
-end
-
-local function OnBroken(inst)
-    local owner = inst.components.inventoryitem.owner
-    if owner ~= nil and owner:HasTag("not_hit_stunned") ~= nil then
-        owner:RemoveTag("not_hit_stunned")
-    end
-end
-
-local function OnRepaired(inst)
-    local owner = inst.components.inventoryitem.owner
-    if owner ~= nil and owner:HasTag("not_hit_stunned") == nil then
-        owner:AddTag("not_hit_stunned")
-    end
 end
 
 local function OnTakeDamage(inst, damage_amount)
-    local owner = inst.components.inventoryitem.owner
-    if owner then
-        local sanity = owner.components.sanity
-        if sanity then
-            local unsaneness = damage_amount * TUNING.ARMOR_SANITY_DMG_AS_SANITY * 3
-            sanity:DoDelta(-unsaneness, false)
-        end
-    end
+    local sanity = inst.components.inventoryitem.owner and
+                   inst.components.inventoryitem.owner.components.sanity
+    if not sanity then return end
+    sanity:DoDelta(-damage_amount * TUNING.ARMOR_SANITY_DMG_AS_SANITY * 3, false)
     inst.components.fueled:SetPercent(inst.components.armor:GetPercent())
 end
 
@@ -165,11 +135,13 @@ local function fn()
     end
 
     inst:AddComponent("inspectable")
-    inst:AddComponent("inventoryitem")
 
-    inst.components.inventoryitem.cangoincontainer = true
-    inst.components.inventoryitem.canonlygoinpocket = true
-    inst.components.inventoryitem:SetOnDroppedFn(ondrop)
+    local inventoryitem = inst:AddComponent("inventoryitem")
+    inventoryitem.cangoincontainer = true
+    inventoryitem.canonlygoinpocket = true
+    inventoryitem:SetOnPutInInventoryFn(close)
+    inventoryitem:SetOnDroppedFn(ondrop)
+
     inst.foleysound = "dontstarve_DLC003/common/crafted/vortex_armour/foley"
 
     local container = inst:AddComponent("container")
@@ -185,19 +157,19 @@ local function fn()
     fueled:InitializeFuelLevel(TUNING.ARMORVORTEXFUEL) -- Runar: 原来的燃值是充场面的，现在是等效燃值
     fueled.fueltype = FUELTYPE.NIGHTMARE               -- 燃料是噩梦燃料
     fueled.secondaryfueltype = FUELTYPE.ANCIENT_REMNANT
-    fueled.ontakefuelfn = ontakefuel
+    fueled.ontakefuelitemfn = ontakefuelitem
     fueled.accepting = true
 
     local shadowlevel = inst:AddComponent("shadowlevel")
     shadowlevel:SetDefaultLevel(TUNING.ARMOR_SANITY_SHADOW_LEVEL) -- Runar: 影甲的老麦2级暗影之力
 
-    SetupEquippable(inst)
+    local equippable = inst:AddComponent("equippable")
+    equippable.equipslot = equipslot
+    equippable:SetOnEquip(onequip)
+    equippable:SetOnUnequip(onunequip)
 
-    inst:ListenForEvent("onputininventory", close)
+    inst.OnBlocked = function(owner, data) OnBlocked(owner, data, inst) end
 
-    inst.OnBlocked = function(owner, data)
-        OnBlocked(owner, data, inst)
-    end
 
     return inst
 end
@@ -220,9 +192,7 @@ local function fxfn()
     end
     inst.AnimState:Show("fx" .. math.random(1, 14))
 
-    inst:ListenForEvent("animover", function()
-        inst:Remove()
-    end)
+    inst:ListenForEvent("animover", inst.Remove, inst)
 
     return inst
 end
