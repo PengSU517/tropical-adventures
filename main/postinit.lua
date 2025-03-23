@@ -87,6 +87,7 @@ modimport("postinit/components/flotsamgenerator") --漂浮物刷新，TODO可能
 modimport("postinit/components/groundpounder")    --这个组件拍地板的？
 modimport("postinit/components/hatchable")
 modimport("postinit/components/healthtrigger")
+modimport("postinit/components/hounded")
 modimport("postinit/components/inventory_prevent_pick")
 modimport("postinit/components/inventoryitem")
 modimport("postinit/components/locomotor_boat")

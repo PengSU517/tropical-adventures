@@ -1,6 +1,6 @@
 GLOBAL.TA_CONFIG = {}
 
-
+local world_overrides
 ------生成世界时
 if rawget(_G, "WorldSim") then
     if rawget(_G, "GEN_PARAMETERS") then
