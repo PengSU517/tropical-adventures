@@ -3,6 +3,7 @@ local AddTile = AddTile
 local WORLD_TILES = WORLD_TILES
 local GROUND = GROUND
 
+
 local AddNewTile = function(tile, range, tile_data, ground_tile_def, minimap_tile_def, turf_def)
     if WORLD_TILES[tile] then
         return
