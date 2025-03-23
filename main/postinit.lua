@@ -28,9 +28,8 @@ end
 -- -----也许比AddSimPostInit优先级高？
 
 --目前仍然有暴力覆盖的组件
---hounded
 --penguinspawner
---weather
+
 
 
 modimport("postinit/world_map")    --theworld.map相关
@@ -93,6 +92,7 @@ modimport("postinit/components/inventoryitem")
 modimport("postinit/components/locomotor_boat")
 modimport("postinit/components/locomotor") --这两个内容需要整合一下
 modimport("postinit/components/map")
+modimport("postinit/components/penguinspawner")
 modimport("postinit/components/playercontroller")
 modimport("postinit/components/playerspawner")
 modimport("postinit/components/snowtile") -- disable snow effeccts
