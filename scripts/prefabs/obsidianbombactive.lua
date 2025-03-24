@@ -56,43 +56,7 @@ local FADE_INTENSITY = .8
 local FADE_RADIUS = 1.5
 local FADE_FALLOFF = .5
 
-function SpawnWavesSW(inst, numWaves, totalAngle, waveSpeed, wavePrefab, initialOffset, idleTime, instantActive,
-                      random_angle)
-    wavePrefab = wavePrefab or "rogue_wave"
-    totalAngle = math.clamp(totalAngle, 1, 360)
 
-    local pos = inst:GetPosition()
-    local startAngle = (random_angle and math.random(-180, 180)) or inst.Transform:GetRotation()
-    local anglePerWave = totalAngle / (numWaves - 1)
-
-    if totalAngle == 360 then
-        anglePerWave = totalAngle / numWaves
-    end
-
-    for i = 0, numWaves - 1 do
-        local wave = SpawnPrefab(wavePrefab)
-
-        local angle = (startAngle - (totalAngle / 2)) + (i * anglePerWave)
-        local rad = initialOffset or (inst.Physics and inst.Physics:GetRadius()) or 0.0
-        local total_rad = rad + wave.Physics:GetRadius() + 0.1
-        local offset = Vector3(math.cos(angle * DEGREES), 0, -math.sin(angle * DEGREES)):Normalize()
-        local wavepos = pos + (offset * total_rad)
-
-        wave.Transform:SetPosition(wavepos:Get())
-
-        local speed = waveSpeed or 6
-        wave.Transform:SetRotation(angle)
-        wave.Physics:SetMotorVel(speed, 0, 0)
-        wave.idle_time = idleTime or 5
-
-        if instantActive then
-            wave.sg:GoToState("idle")
-        end
-
-        if wave.soundtidal then
-        end
-    end
-end
 
 local function OnUpdateFade(inst)
     local k
@@ -246,9 +210,9 @@ local function fn(Sim)
     end
 
     inst:AddComponent("explosive")
-	inst.components.explosive.explosivedamage = COCONADE_OBSIDIAN_DAMAGE
-	inst.components.explosive.explosiverange = COCONADE_OBSIDIAN_EXPLOSIONRANGE
-	inst.components.explosive.buildingdamage = COCONADE_OBSIDIAN_BUILDINGDAMAGE
+    inst.components.explosive.explosivedamage = COCONADE_OBSIDIAN_DAMAGE
+    inst.components.explosive.explosiverange = COCONADE_OBSIDIAN_EXPLOSIONRANGE
+    inst.components.explosive.buildingdamage = COCONADE_OBSIDIAN_BUILDINGDAMAGE
 
     inst._light = nil
 

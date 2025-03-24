@@ -1,6 +1,6 @@
 AddPrefabPostInit("forest", function(inst)
     if TheWorld.ismastersim then
-        inst:AddComponent("parrotspawner") -----这个东西很复杂--海浪在这里
+        inst:AddComponent("climatespawner") -----这个东西很复杂--海浪在这里
         inst:AddComponent("economy")
         inst:AddComponent("contador")
         inst:AddComponent("bigfooter")
