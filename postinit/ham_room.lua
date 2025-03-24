@@ -305,20 +305,20 @@ end)
 
 
 --如果在区域内就更新滤镜  ------------滤镜似乎没有效果
-AddComponentPostInit("areaaware", function(self)
-    local old = self.UpdatePosition
-    function self:UpdatePosition(x, y, z, ...)
-        if TheWorld.Map:IsHamRoomAtPoint(x, 0, z) then
-            if self.current_area_data ~= nil then
-                self.current_area = -1
-                self.current_area_data = nil
-                self.inst:PushEvent("changearea", self:GetCurrentArea())
-            end
-            return
-        end
-        return old(self, x, y, z, ...)
-    end
-end)
+-- AddComponentPostInit("areaaware", function(self)
+--     local old = self.UpdatePosition
+--     function self:UpdatePosition(x, y, z, ...)
+--         if TheWorld.Map:IsHamRoomAtPoint(x, 0, z) then
+--             if self.current_area_data ~= nil then
+--                 self.current_area = -1
+--                 self.current_area_data = nil
+--                 self.inst:PushEvent("changearea", self:GetCurrentArea())
+--             end
+--             return
+--         end
+--         return old(self, x, y, z, ...)
+--     end
+-- end)
 
 
 -- --这个地方应该渺无鸟烟
@@ -425,6 +425,8 @@ AddPrefabPostInit("forest", function(inst)
         end
     end
 
+
+    ---野火
     local wildfires = upvaluehelper.GetEventHandle(TheWorld, "ms_lightwildfireforplayer", "components/wildfires") --野火
     if wildfires then
         local LightFireForPlayer = upvaluehelper.Get(wildfires, "LightFireForPlayer")
@@ -469,41 +471,23 @@ end)
 
 --消除雨雪
 local old_update = { rain = nil, caverain = nil, snow = nil }
-local emitters = GLOBAL.EmitterManager --发射器
+local emitters = EmitterManager --发射器
 local oldPostUpdate = emitters.PostUpdate or nil
+local nilfunc = function(...) end
 
 function emitters:PostUpdate(...)
     for inst, data in pairs(self.awakeEmitters.infiniteLifetimes) do
-        if ( --[[inst.prefab == "rain" or]]
-                inst.prefab == "caverain" or
-                inst.prefab == "caveacidrain" or
-                inst.prefab == "snow" or
-                inst.prefab == "pollen" or
-                inst.prefab == "lunarhail") and
-            data.updateFunc ~= nil then
-            if old_update[inst] == nil then
-                old_update[inst] = data.updateFunc
+        local x, y, z = inst.Transform:GetWorldPosition()
+        if TheWorld.Map:IsHamRoomAtPoint(x, y, z) then
+            if data.updateFunc ~= nil and data.updateFunc ~= nilfunc then
+                old_update[inst.prefab] = data.updateFunc
             end
-            local x, y, z = inst.Transform:GetWorldPosition()
-            if TheWorld.Map:IsHamRoomAtPoint(x, y, z) then
-                data.updateFunc = function(...) end
-            else
-                data.updateFunc = old_update[inst]
+            data.updateFunc = nilfunc
+        else
+            if old_update[inst.prefab] ~= nil then
+                data.updateFunc = old_update[inst.prefab]
             end
         end
-        -- if TUNING.WATER_BM then
-        if inst.prefab == "rain" and data.updateFunc ~= nil then
-            if old_update[inst] == nil then
-                old_update[inst] = data.updateFunc
-            end
-            local x, y, z = inst.Transform:GetWorldPosition()
-            if TheWorld.Map:IsHamRoomAtPoint(x, y, z) then
-                data.updateFunc = function(...) end
-            else
-                data.updateFunc = old_update[inst]
-            end
-        end
-        -- end
     end
     if oldPostUpdate ~= nil then
         oldPostUpdate(emitters, ...)
