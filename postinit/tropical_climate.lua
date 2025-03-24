@@ -96,25 +96,6 @@ AddPrefabPostInit("forest", function(inst)
         end
     end
 
-    --玻璃雨
-    local lunarrain = upvaluehelper.GetWorldHandle(inst, "islunarhailing", "components/lunarhailmanager") --下雨
-
-    if lunarrain then
-        -- print("找到玻璃雨了")
-        local GetSpawnPoint = upvaluehelper.Get(lunarrain, "GetSpawnPoint")
-        if GetSpawnPoint ~= nil then
-            local old = GetSpawnPoint
-            local function newGetSpawnPoint(pt)
-                local x, y, z = player.Transform:GetWorldPosition()
-                if TheWorld.Map:IsTropicalAreaAtPoint(x, y, z) then
-                    -- print("成功玻璃雨")
-                    return nil
-                end
-                return old(pt)
-            end
-            upvaluehelper.Set(lunarrain, "GetSpawnPoint", newGetSpawnPoint)
-        end
-    end
 
     local wildfires = upvaluehelper.GetEventHandle(TheWorld, "ms_lightwildfireforplayer", "components/wildfires") --野火
     if wildfires then
