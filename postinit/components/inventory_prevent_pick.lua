@@ -21,7 +21,7 @@ local function preventpick(cmp)
 end
 AddComponentPostInit("inventory", preventpick)
 
-local function preventpickclassified(cmp)
+local function preventpick_replica(cmp)
     local oldfn = cmp.TakeActiveItemFromEquipSlot
     function cmp:TakeActiveItemFromEquipSlot(eslot)
         local item = self:GetEquippedItem(eslot)
@@ -31,4 +31,4 @@ local function preventpickclassified(cmp)
 end
 
 
-AddPrefabPostInit("inventory_classified", preventpickclassified)
+AddClassPostConstruct("components/inventory_replica", preventpick_replica)
