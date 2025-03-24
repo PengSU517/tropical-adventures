@@ -87,7 +87,8 @@ modimport("postinit/components/groundpounder")    --这个组件拍地板的？
 modimport("postinit/components/hatchable")
 modimport("postinit/components/healthtrigger")
 modimport("postinit/components/hounded")
-modimport("postinit/components/inventory_prevent_pick")
+modimport("postinit/components/inventory")              ----主要是物品栏的钱的计算
+modimport("postinit/components/inventory_prevent_pick") ----可能和船拿不起来有关系
 modimport("postinit/components/inventoryitem")
 modimport("postinit/components/locomotor_boat")
 modimport("postinit/components/locomotor") --这两个内容需要整合一下
