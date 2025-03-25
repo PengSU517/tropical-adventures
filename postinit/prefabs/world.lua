@@ -16,13 +16,14 @@ AddPrefabPostInit("forest", function(inst)
             inst:AddComponent("twisterspawner")
         end
 
-        if TUNING.roc then
-            inst:AddComponent("rocmanager")
-        end
 
-        -- if TUNING.aporkalypse then
-        --     inst:AddComponent("aporkalypse")
-        -- end
+        if TUNING.hamlet then
+            inst:AddComponent("banditmanager")
+
+            if TUNING.roc then
+                inst:AddComponent("rocmanager")
+            end
+        end
     end
 end)
 
@@ -33,10 +34,6 @@ AddPrefabPostInit("cave", function(inst)
         inst:AddComponent("quaker_interior")
         inst:AddComponent("economy")
         inst:AddComponent("contador")
-
-        -- if TUNING.aporkalypse then
-        --     inst:AddComponent("aporkalypse")
-        -- end
     end
 end)
 

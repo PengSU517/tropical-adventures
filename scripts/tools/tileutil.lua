@@ -14,6 +14,13 @@ function IsTroWaterTile(tile)
     return TRO_OCEAN_TILES[tile] ~= nil
 end
 
+function IsCityTile(tile)
+    return tile == WORLD_TILES.CHECKEREDLAWN or
+        tile == WORLD_TILES.SUBURB or
+        tile == WORLD_TILES.FOUNDATION or
+        tile == WORLD_TILES.COBBLEROAD
+end
+
 function IsOnFlood(x, y, z)
     x, y, z = GetWorldPosition(x, y, z)
     local _flood = TheWorld.components.flooding
