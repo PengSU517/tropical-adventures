@@ -97,7 +97,7 @@ local function fn(Sim)
 
     inst:AddTag("pugalisk_fountain")
     inst:AddTag("pugalisk_avoids")
-    inst:AddTag("shadecanopysmall") --防止自然、过热和玻璃雨的标签
+    inst:AddTag("shadecanopy") --防止自然、过热和玻璃雨的标签
 
     MakeObstaclePhysics(inst, 0.5)
 

@@ -446,6 +446,18 @@ AddPrefabPostInit("forest", function(inst)
     end
 end)
 
+-----屏蔽 闪电 ---暂时先这样
+AddPrefabPostInitAny(function(inst)
+    if TheWorld.ismastersim and inst:HasTag("interior_center") then
+        -- inst:AddTag("shadecanopy") --防止自然、过热和玻璃雨的标签
+        inst:AddComponent("lightningblocker")
+        inst.components.lightningblocker:SetBlockRange(TUNING.SHADE_CANOPY_RANGE_SMALL)
+        inst.components.lightningblocker:SetOnLightningStrike(OnLightningStrike)
+    end
+end)
+
+
+
 
 AddPrefabPostInit("player_classified", function(inst)
     -- if not TheWorld.ismastersim then
