@@ -75,7 +75,7 @@ SetSharedLootTable('pugalisk_fountain_made',
 
 
 local function OnFinished(inst)
-    inst:AddTag("shadecanopysmall") --防止自然、过热和玻璃雨的标签
+    inst:AddTag("shadecanopy") --防止自然、过热和玻璃雨的标签
     inst:RemoveComponent("constructionsite")
 
     if inst.components.lootdropper then
