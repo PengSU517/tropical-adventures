@@ -299,6 +299,7 @@ end
 
 local function OnStartLeashing(inst, data)
     inst:SetHappyFace(true)
+    inst.components.inventoryitem.canbepickedup = true
 
     if inst.recipe then
         local leader = inst.components.follower.leader
@@ -311,6 +312,7 @@ end
 local function OnStopLeashing(inst, data)
     inst.defensive = false
     inst.no_targeting = false
+    inst.components.inventoryitem.canbepickedup = false
 
     if not inst.bedazzled then
         inst:SetHappyFace(false)
