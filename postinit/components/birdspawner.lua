@@ -100,8 +100,9 @@ AddComponentPostInit("birdspawner", function(self)
         -- end
 
         local bird_prefab = nil
-        local tile = TheWorld.Map:GetTileAtPoint(spawnpoint:Get())
-        local istropicalclimate = TheWorld.Map:IsTropicalAreaAtPoint(spawnpoint:Get())
+        local x, y, z = spawnpoint:Get()
+        local tile = TheWorld.Map:GetTileAtPoint(x, 0, z)
+        local istropicalclimate = TheWorld.Map:IsTropicalAreaAtPoint(x, 0, z)
         local isocean = IsOceanTile(tile)
 
         if birdvstile[tile] ~= nil then
@@ -121,7 +122,9 @@ AddComponentPostInit("birdspawner", function(self)
 
             return RelevantSpawnBird(self, bird_prefab, spawnpoint, ignorebait)
         else
-            return _SpawnBird(self, spawnpoint, ignorebait)
+            if not TheWorld.Map:OutsideWorldAtPoint(x, 0, z) then
+                return _SpawnBird(self, spawnpoint, ignorebait)
+            end
         end
     end
 end)
