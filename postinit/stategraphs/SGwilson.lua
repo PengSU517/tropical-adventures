@@ -321,3 +321,37 @@ AddStategraphPostInit("wilson", function(inst)
 		return actionHandler_attack(inst, action, ...)
 	end
 end)
+
+-- 碎裂喙横扫sg hooker
+if GetModConfigData("dev_beak") == true then
+AddStategraphPostInit("wilson", function(sg)
+    local attack = sg.states["attack"]
+    if not attack then return end
+    local _onenter = attack.onenter
+    if not _onenter then return end
+    attack.onenter = function(inst)
+        if inst.components.rider:IsRiding() then return _onenter(inst) end
+        local equip = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+        local cooldown = inst.components.combat.min_attack_period
+        if equip and equip.prefab == "shard_beak" then
+            if not inst._beakSweepCount or not inst.AnimState:IsCurrentAnimation("atk") then
+                inst._beakSweepCount = 2
+            end
+            if inst._beakSweepCount == 0 then
+                inst.sg:GoToState("scythe") -- 直接使用收割动作
+                inst._beakSweepTrigger = true
+                inst._beakSweepCount = 2
+            else
+                inst.AnimState:PlayAnimation("atk_pre")
+                inst.AnimState:PushAnimation("atk", false)
+                inst.SoundEmitter:PlaySound("dontstarve/wilson/attack_weapon")
+                inst._beakSweepCount = inst._beakSweepCount - 1
+                inst.sg:SetTimeout(cooldown)
+            end
+        else
+            inst._beakSweepCount = nil
+            return _onenter(inst)
+        end
+    end
+end)
+end

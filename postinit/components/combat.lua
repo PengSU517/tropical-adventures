@@ -12,18 +12,22 @@ local function shardDMGRedirect(self, attacker, damage, weapon, ...) -- 碎裂�
                             weapon, ...}
                 else
                     if attacker and attacker.components.combat then
-                        attacker:DoTaskInTime(0, function()
-                            attacker.components.combat:GetAttacked(weapon, math.random(1, 5))
-                            attacker:PushEvent("thorns")
-                        end)
+                        if math.random(0, 1) < .67 then
+                            attacker:DoTaskInTime(0, function()
+                                attacker.components.combat:GetAttacked(weapon, math.random(1, 5))
+                                attacker:PushEvent("thorns")
+                            end)
+                        end
                     end
                     return nil, false,
                            {self, attacker, damage * TUNING.SWP_SHARD_DMG.SHADOW_MODIFIER_MAXIMUM, weapon, ...}
                 end
             end
-        elseif weapon.prefab == "shard_beak" and -- 碎裂喙对建筑和巢
-            (self.inst:HasTag("wall") or self.inst:HasTag("structure") or self.inst.components.childspawner) then
-            return nil, false, {self, attacker, damage * TUNING.SWP_SHARD_DMG.STRUCTURE_MODIFIER, weapon, ...}
+        elseif weapon.prefab == "shard_beak" then -- 碎裂喙对建筑和巢, 以及碎裂扫的伤害重定向
+            return nil, false, {self, attacker, damage *
+                ((self.inst:HasTag("wall") or self.inst:HasTag("structure") or self.inst.components.childspawner) and
+                    TUNING.SWP_SHARD_DMG.STRUCTURE_MODIFIER or 1) *
+                (attacker._beakSweepTrigger == true and TUNING.SWP_SHARD_DMG.SWEEP_MODIFIER or 1), weapon, ...}
         end
     end
 end
