@@ -650,6 +650,21 @@ personal_options =
 
 }
 
+local experimental_options =
+{
+    Breaker("Experimental Options", "实验性选项"),
+    {
+        name = "dev_beak",
+        label = en_zh("New Shard Beak", "新碎裂喙"),
+        hover = en_zh("New Shard Beak with AOE attack module", "有范围攻击模组的新碎裂喙"),
+        options = {
+            { description = en_zh("Enabled", "开启"), data = true, },
+            { description = en_zh("Disabled", "关闭"), data = false, },
+        },
+        default = true,
+    }
+}
+
 
 developer_options =
 {
@@ -707,7 +722,9 @@ end
 -- 	default = false,
 -- })
 
-
+for i, v in my_ipairs(experimental_options) do
+    table_insert(configuration_options, v)
+end
 
 if isdev then
 	table_insert(configuration_options, Breaker("Developer Settings", "开发者选项") or nil)
