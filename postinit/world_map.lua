@@ -434,8 +434,17 @@ Map.IsHamRoomWallAtPoint = function(self, x, y, z)
 end
 
 Map.OutsideWorldAtPoint = function(x, y, z)
+    if type(x) == "table" then
+        x, z = x.x or x, x.z or z
+    end
+
+    -- 未知类型错误bug
     if type(x) ~= "number" then
-        x, y, z = x.x or x, x.y or y, x.z or z
+        x = 0
+    end
+
+    if type(z) ~= "number" then
+        z = 0
     end
 
     if checkxz(x, z) then --判断的基础，也许光判断z就行了
