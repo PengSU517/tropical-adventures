@@ -5,6 +5,7 @@ local assets =
     Asset("ANIM", "anim/poison_antidote.zip"),
     Asset("ANIM", "anim/poison_salve.zip"),
     Asset("ANIM", "anim/venom_gland.zip"),
+    Asset("ANIM", "anim/snakeoil.zip"),
 }
 
 local MAX_VENOM_GLAND_DAMAGE = 80
@@ -27,6 +28,11 @@ local function oneat_gland(inst, eater)
     if not health then return end
     health:DoDelta(health.currenthealth - MIN_VENOM_GLAND_LEFTOVER < MAX_VENOM_GLAND_DAMAGE and
                    MIN_VENOM_GLAND_LEFTOVER - health.currenthealth or -MAX_VENOM_GLAND_DAMAGE, nil, "venomgland")
+end
+
+local function oneat_oil(inst, eater)
+    eater.SoundEmitter:PlaySound("dontstarve_DLC002/common/HUD_antivenom_use")
+    eater.AnimState:PlayAnimation("research")
 end
 
 local function syrumpost(inst)
@@ -72,6 +78,21 @@ local function glandpost(inst)
     return inst
 end
 
+local function oilpost(inst)
+    inst.AnimState:SetBank("snakeoil")
+    inst.AnimState:SetBuild("snakeoil")
+
+    if not TheWorld.ismastersim then return inst end
+
+    local healer = inst.components.healer or inst:AddComponent("healer")
+    healer:SetHealthAmount(0)
+    healer:SetOnHealFn(oneat_oil)
+    --healer:SetUses(99999)
+
+    return inst
+end
+
 return Derive("bandage", "antivenom", syrumpost, assets),
     Derive("bandage", "poisonbalm", balmpost, assets),
-    Derive("spidergland", "venomgland", glandpost, assets)
+    Derive("spidergland", "venomgland", glandpost, assets),
+    Derive("spidergland", "snakeoil", oilpost, assets)
