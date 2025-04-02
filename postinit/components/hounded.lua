@@ -37,8 +37,8 @@ AddComponentPostInit("hounded", function(cmp)
         end
 
         upvaluehelper.Set(_GetSpawnPoint, "SPAWN_DIST", _SPAWN_DIST)
-        _SummonSpawn(pt, upgrade, radius_override)
         upvaluehelper.Set(cmp.SetSpawnData, "_spawndata", spawndat)
+        _SummonSpawn(pt, upgrade, radius_override)
     end
 
     upvaluehelper.Set(cmp.SummonSpawn, "SummonSpawn", SummonSpawn)

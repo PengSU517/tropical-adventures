@@ -159,7 +159,6 @@ local function fn()
     inst.components.edible.antihistamine = 60
     inst.components.edible.foodtype = "SEEDS"
     inst.components.edible.foodstate = "RAW"
-    inst.components.edible:SetOnEatenFn(oneat)
 
     inst:AddComponent("bait")
 
@@ -217,7 +216,6 @@ local function cooked()
     inst.components.edible.healthvalue = TUNING.HEALING_SMALL
     inst.components.edible.antihistamine = 120
     inst.components.edible.foodtype = "SEEDS"
-    inst.components.edible:SetOnEatenFn(oneat)
 
     inst:AddComponent("perishable")
     inst.components.perishable:SetPerishTime(TUNING.PERISH_FAST)

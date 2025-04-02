@@ -1,4 +1,4 @@
-local tabName = {"ham", "sw"}
+local tabName = { "ham", "sw" }
 local overridebuild = {
     [tabName[1]] = "cook_pot_food_ham",
     [tabName[2]] = "cook_pot_food_sw",
@@ -26,7 +26,7 @@ local foods_tro = {
             sanity = TUNING.SANITY_MED,
             cooktime = 3.5,
             card_def = {
-                ingredients = {{"jellybug", 3}, {"carrot", 1}},
+                ingredients = { { "jellybug", 3 }, { "carrot", 1 } },
             },
         },
 
@@ -42,7 +42,7 @@ local foods_tro = {
             sanity = TUNING.SANITY_MED,
             cooktime = 2,
             card_def = {
-                ingredients = {{"meat", 1}, {"carrot", 2}, {"foliage", 1}},
+                ingredients = { { "meat", 1 }, { "carrot", 2 }, { "foliage", 1 } },
             },
         },
 
@@ -56,7 +56,7 @@ local foods_tro = {
             sanity = TUNING.SANITY_TINY,
             cooktime = 1,
             card_def = {
-                ingredients = {{"weevole_carapace", 2}, {"carrot", 2}},
+                ingredients = { { "weevole_carapace", 2 }, { "carrot", 2 } },
             },
         },
 
@@ -71,16 +71,16 @@ local foods_tro = {
             perishtime = TUNING.PERISH_PRESERVED,
             sanity = -TUNING.SANITY_TINY,
             cooktime = 2,
-            tags = {"honeyed"},
+            tags = { "honeyed" },
             card_def = {
-                ingredients = {{"slugbug", 1}, {"honey", 1}, {"twigs", 2}},
+                ingredients = { { "slugbug", 1 }, { "honey", 1 }, { "twigs", 2 } },
             },
         },
 
         tea = {
             test = function(cooker, names, tags)
                 return tags.filter and tags.filter >= 2 and tags.sweetener and not tags.meat and not tags.veggie and
-                           not tags.inedible
+                    not tags.inedible
             end,
             priority = 25,
             foodtype = FOODTYPE.GOODIES,
@@ -91,7 +91,7 @@ local foods_tro = {
             temperature = 40,
             temperatureduration = 10,
             cooktime = 0.5,
-            tags = {"honeyed"},
+            tags = { "honeyed" },
             oneatenfn = function(inst, eater)
                 eater:AddDebuff("speedup_tro", "buff_speedup_tro", {
                     debuffkey = "tea",
@@ -108,7 +108,7 @@ local foods_tro = {
                     owner and owner.inst.prefab == "icebox" and "iced" .. inst.prefab or "spoiled_food"
             end,
             card_def = {
-                ingredients = {{"piko_orange", 2}, {"honey", 2}},
+                ingredients = { { "piko_orange", 2 }, { "honey", 2 } },
             },
         },
 
@@ -125,7 +125,7 @@ local foods_tro = {
             temperature = -40,
             temperatureduration = 10,
             cooktime = 0.5,
-            tags = {"honeyed"},
+            tags = { "honeyed" },
             oneatenfn = function(inst, eater)
                 eater:AddDebuff("speedup_tro", "buff_speedup_tro", {
                     debuffkey = "icedtea",
@@ -137,7 +137,7 @@ local foods_tro = {
                 end
             end,
             card_def = {
-                ingredients = {{"piko_orange", 2}, {"honey", 1}, {"ice", 1}},
+                ingredients = { { "piko_orange", 2 }, { "honey", 1 }, { "ice", 1 } },
             },
         },
 
@@ -153,7 +153,7 @@ local foods_tro = {
             sanity = TUNING.SANITY_SMALL,
             cooktime = 1,
             card_def = {
-                ingredients = {{"snake_bone", 2}, {"meat", 2}},
+                ingredients = { { "snake_bone", 2 }, { "meat", 2 } },
             },
         },
 
@@ -164,22 +164,17 @@ local foods_tro = {
             hunger = TUNING.CALORIES_MED,
             perishtime = TUNING.PERISH_FAST,
             sanity = TUNING.SANITY_TINY,
-            antihistamine = 720,
+            antihistamine = 720, ----通过这个控制花粉症
             cooktime = .5,
-            oneatenfn = function(inst, eater)
-                if eater.components.hayfever ~= nil and eater.components.hayfever.fevervalue then
-                    eater.components.hayfever.fevervalue = eater.components.hayfever.fevervalue - 19000
-                end
-            end,
             card_def = {
-                ingredients = {{"cutnettle", 3}, {"twigs", 1}},
+                ingredients = { { "cutnettle", 3 }, { "twigs", 1 } },
             },
         },
 
         meated_nettle = {
             test = function(cooker, names, tags)
                 return (tags.antihistamine and tags.antihistamine >= 2) and (tags.meat and tags.meat >= 1) and
-                           (not tags.monster or tags.monster <= 1) and not tags.inedible
+                    (not tags.monster or tags.monster <= 1) and not tags.inedible
             end,
             priority = 1,
             foodtype = FOODTYPE.MEAT,
@@ -189,13 +184,8 @@ local foods_tro = {
             sanity = TUNING.SANITY_TINY,
             antihistamine = 600,
             cooktime = 1,
-            oneatenfn = function(inst, eater)
-                if eater.components.hayfever ~= nil and eater.components.hayfever.fevervalue then
-                    eater.components.hayfever.fevervalue = eater.components.hayfever.fevervalue - 16000
-                end
-            end,
             card_def = {
-                ingredients = {{"cutnettle", 2}, {"smallmeat", 2}},
+                ingredients = { { "cutnettle", 2 }, { "smallmeat", 2 } },
             },
         },
 
@@ -203,7 +193,7 @@ local foods_tro = {
         bubbletea = { -- 芋泥啵啵 Bubble Tea
             test = function(cooker, names, tags)
                 return (names.seataro or names.seataro_cooked) and tags.filter and tags.dairy and tags.sweetener and
-                           not tags.meat and not tags.monster and not tags.fish
+                    not tags.meat and not tags.monster and not tags.fish
             end,
             priority = 1,
             foodtype = FOODTYPE.GOODIES,
@@ -214,16 +204,16 @@ local foods_tro = {
             temperature = -40,
             temperatureduration = 10,
             cooktime = .5,
-            tags = {"honeyed"},
+            tags = { "honeyed" },
             card_def = {
-                ingredients = {{"seataro", 1}, {"piko_orange", 1}, {"goatmilk", 1}, {"honey", 1}},
+                ingredients = { { "seataro", 1 }, { "piko_orange", 1 }, { "goatmilk", 1 }, { "honey", 1 } },
             },
         },
 
         frenchonionsoup = { -- 法式洋葱汤 French Onion Soup
             test = function(cooker, names, tags)
                 return tags.meat and (names.onion or names.onion_cooked) and (names.tomato or names.tomato_cooked) and
-                           not tags.fish and not tags.inedible
+                    not tags.fish and not tags.inedible
             end,
             priority = 35, -- 比海鲜杂烩高一点
             foodtype = FOODTYPE.MEAT,
@@ -234,15 +224,15 @@ local foods_tro = {
             cooktime = .75,
             isMasterfood = true,
             card_def = {
-                ingredients = {{"smallmeat", 1}, {"onion", 1}, {"tomato", 1}, {"twigs", 1}},
+                ingredients = { { "smallmeat", 1 }, { "onion", 1 }, { "tomato", 1 }, { "twigs", 1 } },
             },
         },
 
         lotuschips = { -- 莲藕汤 Lotus Root Soup
             test = function(cooker, names, tags)
                 return ((names.lotus_flower and names.lotus_flower > 1) or
-                           (names.lotus_flower_cooked and names.lotus_flower_cooked > 1) or
-                           (names.lotus_flower and names.lotus_flower_cooked)) and not tags.fish
+                    (names.lotus_flower_cooked and names.lotus_flower_cooked > 1) or
+                    (names.lotus_flower and names.lotus_flower_cooked)) and not tags.fish
             end,
             priority = 5,
             foodtype = FOODTYPE.VEGGIE,
@@ -252,16 +242,16 @@ local foods_tro = {
             sanity = TUNING.SANITY_MEDLARGE * 2,
             cooktime = .5,
             card_def = {
-                ingredients = {{"lotus_flower", 2}, {"ice", 1}, {"twigs", 1}},
+                ingredients = { { "lotus_flower", 2 }, { "ice", 1 }, { "twigs", 1 } },
             },
         },
 
         poi = { -- 芋泥 Poi
             test = function(cooker, names, tags)
                 return ((names.seataro or 0) + (names.seataro_cooked or 0)) >= 2 and
-                           ((names.seataro or 0) + (names.seataro_cooked or 0) + (names.potato or 0) +
-                               (names.potato_cooked or 0) + (names.sweet_potato or 0) + (names.sweet_potato_cooked or 0)) >
-                           2 and not tags.meat and not tags.monster and not tags.fish
+                    ((names.seataro or 0) + (names.seataro_cooked or 0) + (names.potato or 0) +
+                        (names.potato_cooked or 0) + (names.sweet_potato or 0) + (names.sweet_potato_cooked or 0)) >
+                    2 and not tags.meat and not tags.monster and not tags.fish
             end,
             priority = 1,
             foodtype = FOODTYPE.VEGGIE,
@@ -271,7 +261,7 @@ local foods_tro = {
             sanity = TUNING.SANITY_TINY,
             cooktime = 2,
             card_def = {
-                ingredients = {{"seataro", 3}, {"ice", 1}},
+                ingredients = { { "seataro", 3 }, { "ice", 1 } },
             },
         },
 
@@ -307,7 +297,7 @@ local foods_tro = {
             sanity = TUNING.SANITY_TINY,
             cooktime = 1,
             card_def = {
-                ingredients = {{"limpets", 3}, {"ice", 1}},
+                ingredients = { { "limpets", 3 }, { "ice", 1 } },
             },
         },
 
@@ -324,7 +314,7 @@ local foods_tro = {
             sanity = TUNING.SANITY_TINY,
             cooktime = 2,
             card_def = {
-                ingredients = {{"butterfly_tropical_wings", 1}, {"carrot", 2}, {"twigs", 1}},
+                ingredients = { { "butterfly_tropical_wings", 1 }, { "carrot", 2 }, { "twigs", 1 } },
             },
         },
 
@@ -341,15 +331,15 @@ local foods_tro = {
             sanity = TUNING.SANITY_LARGE,
             cooktime = 2,
             card_def = {
-                ingredients = {{"roe", 3}, {"carrot", 1}},
+                ingredients = { { "roe", 3 }, { "carrot", 1 } },
             },
         },
 
         coffee = {
             test = function(cooker, names, tags)
                 return names.coffeebeans_cooked and
-                           (names.coffeebeans_cooked == 4 or
-                               (names.coffeebeans_cooked == 3 and (tags.dairy or tags.sweetener)))
+                    (names.coffeebeans_cooked == 4 or
+                        (names.coffeebeans_cooked == 3 and (tags.dairy or tags.sweetener)))
             end,
             priority = 30,
             weight = 1,
@@ -366,7 +356,7 @@ local foods_tro = {
                 }, true)
             end,
             card_def = {
-                ingredients = {{"coffeebeans_cooked", 4}},
+                ingredients = { { "coffeebeans_cooked", 4 } },
             },
         },
 
@@ -383,7 +373,7 @@ local foods_tro = {
             temperatureduration = 10,
             cooktime = 0.5,
             card_def = {
-                ingredients = {{"jellyfish", 1}, {"ice", 1}, {"twigs", 2}},
+                ingredients = { { "jellyfish", 1 }, { "ice", 1 }, { "twigs", 2 } },
             },
         },
 
@@ -432,7 +422,7 @@ local foods_tro = {
             perishtime = TUNING.PERISH_MED,
             sanity = TUNING.SANITY_MED,
             cooktime = 2,
-            tags = {"masterfood"},
+            tags = { "masterfood" },
             -- card_def = {ingredients = {{"mussel", 2}, {"carrot", 2}} }, -- Runar: 大厨也读不出专属食谱卡
             isMasterfood = true, -- Runar:热带大厨料理标记
         },
@@ -449,7 +439,7 @@ local foods_tro = {
             -- naughtiness = 10, -- 失效 -- Runar: 让我想起了某个处心积虑的营销，遂放弃还原这个效果
             cooktime = 1,
             card_def = {
-                ingredients = {{"shark_fin", 1}, {"ice", 2}, {"twigs", 1}},
+                ingredients = { { "shark_fin", 1 }, { "ice", 2 }, { "twigs", 1 } },
             },
         },
 
@@ -465,7 +455,7 @@ local foods_tro = {
             perishtime = TUNING.PERISH_MED,
             sanity = TUNING.SANITY_MED,
             cooktime = 2,
-            tags = {"masterfood"},
+            tags = { "masterfood" },
             -- card_def = {ingredients = {{"sweet_potato", 2}, {"bird_egg", 2}} },
             isMasterfood = true,
         },
@@ -473,7 +463,7 @@ local foods_tro = {
         tropicalbouillabaisse = {
             test = function(cooker, names, tags)
                 return (names.fish3 or names.fish3_cooked) and (names.fish4 or names.fish4_cooked) and
-                           (names.fish5 or names.fish5_cooked) and tags.veggie
+                    (names.fish5 or names.fish5_cooked) and tags.veggie
             end,
             priority = 35,
             weight = 1,
@@ -495,7 +485,7 @@ local foods_tro = {
                 end
             end,
             card_def = {
-                ingredients = {{"fish3", 1}, {"fish4", 1}, {"fish5", 1}, {"carrot", 1}},
+                ingredients = { { "fish3", 1 }, { "fish4", 1 }, { "fish5", 1 }, { "carrot", 1 } },
             },
         },
 
@@ -509,7 +499,7 @@ for tabIdx, foodTab in pairs(foods_tro) do
         foodDef.weight = foodDef.weight or 1
         foodDef.priority = foodDef.priority or 0
         foodDef.overridebuild = overridebuild[tabIdx]
-        foodDef.floater = foodDef.floater or {"small", 0.05, 0.7}
+        foodDef.floater = foodDef.floater or { "small", 0.05, 0.7 }
         foodDef.mod = true
         -- foodDef.cookbook_tex = foodName..".tex"
         foodDef.cookbook_atlas = cookbook_atlas[tabIdx]

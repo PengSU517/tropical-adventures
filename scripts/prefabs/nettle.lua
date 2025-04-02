@@ -6,11 +6,6 @@ local assets =
 
 local WRATH_SMALL = -8
 
-local function oneat(inst, eater)
-    if eater.components.hayfever ~= nil and eater.components.hayfever.fevervalue then
-        eater.components.hayfever.fevervalue = eater.components.hayfever.fevervalue - 4000
-    end
-end
 
 local function fn(Sim)
     local inst = CreateEntity()
@@ -39,7 +34,7 @@ local function fn(Sim)
 
     inst:AddComponent("edible")
     inst.components.edible.foodtype = "VEGGIE"
-    inst.components.edible:SetOnEatenFn(oneat)
+    inst.components.edible.antihistamine = 60
 
     inst:AddComponent("tradable")
     inst:AddComponent("inspectable")

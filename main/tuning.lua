@@ -15,6 +15,7 @@ local tuning_origin = require "datadefs/tuning_origin"
 tableutil.deep_merge(TUNING, tuning_origin)
 
 TUNING.BUILD_HEIGHT = 0 ---rpc用来接收建筑高度数据-------也可以修改placer
+TUNING.FAN_RANGE = 30
 
 TUNING.HAMROOM = {
     roomtype = {

@@ -4,6 +4,7 @@ AddComponentPostInit("worldstate", function(self, inst)
     --------------------------------------------------------------------------
     --[[ Member variables ]]
     --------------------------------------------------------------------------
+    -- local inst = self.inst
     assert(inst == TheWorld, "Invalid world")
 
     -- Private
@@ -22,12 +23,22 @@ AddComponentPostInit("worldstate", function(self, inst)
     --------------------------------------------------------------------------
 
     local function OnAporkalypseChange(src, phase)
-        -- print("aporkalypse world state changed:", phase)
+        -- print("aporkalypse world state changed:")
         SetVariable("aporkalypse", phase)
         SetVariable("isaporkalypsecalm", phase == "calm", "aporkalypsecalm")
         SetVariable("isaporkalypsenear", phase == "near", "aporkalypsenear")
         SetVariable("isaporkalypse", phase == "aporkalypse", "aporkalypse")
         SetVariable("isfiesta", phase == "fiesta", "fiesta")
+    end
+
+    local function OnWeatherHamChange(src, dat)
+        -- print("listen for weatherham world state changed:")
+        -- -----这里为什么接听不到事件呢？？
+        -- print(dat.pollenduststate)
+        SetVariable("ispollendust", dat.pollenduststate == true, "pollendust")
+        SetVariable("isfoggy", dat.fogstate == true, "foggy")
+        SetVariable("pollendustrate", dat.pollendustrate)
+        SetVariable("fograte", dat.fograte)
     end
 
 
@@ -39,6 +50,11 @@ AddComponentPostInit("worldstate", function(self, inst)
     data.isaporkalypse = false
     data.isfiesta = false
 
+    data.ispollendust = false
+    data.pollendustrate = 0
+    data.isfoggy = false
+    data.fograte = 0
 
     inst:ListenForEvent("aporkalypsephasechanged", OnAporkalypseChange)
+    inst:ListenForEvent("hamweathertick", OnWeatherHamChange)
 end)

@@ -3472,15 +3472,10 @@ AddStategraphState("wilson", boatbrake)
 AddStategraphEvent("wilson",
     EventHandler("sneeze",
         function(inst, data)
-            print("checkstage!!!!!!!!!")
+            print("check sneeze event!!!!!!!!!")
             print(inst.sg:HasStateTag("busy"))
-            print(inst.sg.currentstate.name ~= "emote")
             if not inst.components.health:IsDead() and not inst.components.health.invincible then
-                if inst.sg:HasStateTag("busy") and inst.sg.currentstate.name ~= "emote" then
-                    inst.wantstosneeze = true
-                else
-                    inst.sg:GoToState("sneeze")
-                end
+                inst.sg:GoToState("sneeze")
             end
         end))
 
@@ -3490,6 +3485,7 @@ local sneeze =
         tags = { "busy", "sneeze", "pausepredict" },
 
         onenter = function(inst)
+            print("check sneeze state!!!!!!!!!")
             local usehit = inst.components.rider:IsRiding() or inst:HasTag("wereplayer")
             local stun_frames = usehit and 6 or 9
             inst.wantstosneeze = false
@@ -3506,9 +3502,8 @@ local sneeze =
                 inst.components.playercontroller:RemotePausePrediction(stun_frames <= 7 and stun_frames or nil)
             end
 
-
+            inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/sneeze")
             if inst.prefab ~= "wes" then
-                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/sneeze")
                 inst.components.talker:Say(STRINGS.CHARACTERS.GENERIC.ANNOUNCE_SNEEZE)
             end
         end,
@@ -3520,33 +3515,12 @@ local sneeze =
 
         timeline =
         {
-            TimeEvent(1 * FRAMES, function(inst)
-                local itemstodrop = 0
-                if math.random() < 0.6 then itemstodrop = itemstodrop + 1 end
-                if math.random() < 0.3 then itemstodrop = itemstodrop + 1 end
-                if math.random() < 0.2 then itemstodrop = itemstodrop + 1 end
-                if math.random() < 0.1 then itemstodrop = itemstodrop + 1 end
-
-                if itemstodrop > 0 then
-                    for i = 1, itemstodrop do
-                        if inst.components.inventory and inst.components.inventory.isopen then
-                            local item = inst.components.inventory:FindItem(function(item)
-                                return not item:HasTag(
-                                    "nosteal")
-                            end)
-                            if item then
-                                local direction = Vector3(inst.Transform:GetWorldPosition()) -
-                                    Vector3(inst.Transform:GetWorldPosition())
-                                inst.components.inventory:DropItem(item, false, direction:GetNormalized())
-                            end
-                        end
-                    end
+            TimeEvent(10 * FRAMES, function(inst)
+                if inst.components.hayfever then
+                    inst.components.hayfever:DoSneezeEffects()
                 end
             end),
-            TimeEvent(10 * FRAMES, function(inst)
-                inst.sg:RemoveStateTag("busy")
-                if inst.components.sanity then inst.components.sanity:DoDelta(-3) end
-            end),
+
         },
 
     }

@@ -103,6 +103,7 @@ local function MakePreparedFood(data)
         inst.components.edible.foodtype = data.foodtype or FOODTYPE.GENERIC
         inst.components.edible.secondaryfoodtype = data.secondaryfoodtype or nil
         inst.components.edible.sanityvalue = data.sanity or 0
+        inst.components.edible.antihistamine = data.antihistamine or nil
         inst.components.edible.temperaturedelta = data.temperature or 0
         inst.components.edible.temperatureduration = data.temperatureduration or 0
         inst.components.edible.nochill = data.nochill or nil
