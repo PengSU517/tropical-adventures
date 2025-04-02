@@ -11,12 +11,10 @@ end
 if not TheNet:IsDedicated() then ---客机读取主机的overrides---似乎也只能在这里读取了
     print("reupdate overrides in client")
     AddSimPostInit(function() modimport("main/ta_config_client") end)
-else
-    print("not reupdate overrides in client")
 end
 
 -- AddGamePostInit(function()
---     if not TheNet:IsDedicated() then ---客机读取主机的overrides---似乎也只能在这里读取了
+--     if not TheNet:IsDedicated() then
 --         print("reupdate overrides in client")
 --         modimport("main/ta_config_client")
 --         -- modimport("postinit/oceancolor")
@@ -27,8 +25,6 @@ end
 -- end)
 -- -----也许比AddSimPostInit优先级高？
 
---目前仍然有暴力覆盖的组件
---penguinspawner
 
 
 
@@ -101,6 +97,7 @@ modimport("postinit/components/soundemitter")
 modimport("postinit/components/thief")
 modimport("postinit/components/wavemanager")
 modimport("postinit/components/worldstate")
+modimport("postinit/components/edible")
 
 --prefabs
 -- modimport("postinit/prefabs/cave")
@@ -123,15 +120,17 @@ modimport("postinit/prefabs/warningshadow")
 modimport("postinit/prefabs/wobster")
 modimport("postinit/prefabs/world")
 
---widgets
+--screens and widgets
+modimport("postinit/screens/playerhud")      ---花粉症效果在这里
+
 modimport("postinit/widgets/container_boat") -- boat container sizing tweak by EvenMr
 modimport("postinit/widgets/container_widget_boat")
 modimport("postinit/widgets/container_woodleg_boat")
 modimport("postinit/widgets/containers") --new containers
 modimport("postinit/widgets/crafttabs")
 modimport("postinit/widgets/healthbadge")
-modimport("postinit/widgets/inventorybar") -- 船HUD自适应
-modimport("postinit/widgets/seasonsdisplay.lua") --雾和花粉症,还有树荫
+modimport("postinit/widgets/inventorybar")       -- 船HUD自适应
+modimport("postinit/widgets/seasonsdisplay.lua") --雾和还有树荫
 modimport("postinit/widgets/statusdisplays_speed")
 modimport("postinit/widgets/uiclock_bloodmoon")
 

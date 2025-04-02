@@ -36,6 +36,16 @@ local eventhandlers = {
     EventHandler("disgrabbed", function(inst)
         inst.sg:GoToState("disgrabbed")
     end),
+
+    -- EventHandler("sneeze", function(inst, data)
+    --     if not inst.components.health:IsDead() and not inst.components.health:IsInvincible() then
+    --         if inst.sg:HasStateTag("busy") then
+    --             inst.sg.wantstosneeze = true
+    --         else
+    --             inst.sg:GoToState("sneeze")
+    --         end
+    --     end
+    -- end),
 }
 
 
@@ -172,6 +182,56 @@ local states = {
             -- inst.player_classified.MapExplorer:EnableUpdate(true)
         end,
     },
+
+    -- State {
+    --     name = "sneeze",
+    --     tags = { "busy", "sneeze", "nopredict" },
+
+    --     onenter = function(inst)
+    --         -- if inst.components.drownable ~= nil and inst.components.drownable:ShouldDrown() then
+    --         --     inst.sg:GoToState("sink_boat")
+    --         --     return
+    --         -- end
+
+    --         inst.sg.wantstosneeze = false
+    --         inst.components.locomotor:Stop()
+    --         inst.components.locomotor:Clear()
+
+    --         inst.SoundEmitter:PlaySound("dontstarve/wilson/hit", nil, .02)
+    --         inst.AnimState:PlayAnimation("sneeze")
+    --         inst.SoundEmitter:PlaySound("dontstarve_DLC003/characters/sneeze")
+    --         inst:ClearBufferedAction()
+
+    --         if not inst:HasTag("mime") then
+    --             local sound_name = inst.soundsname or inst.prefab
+    --             local path = inst.talker_path_override or "dontstarve/characters/"
+
+    --             local sound_event = path .. sound_name .. "/hurt"
+    --             inst.SoundEmitter:PlaySound(inst.hurtsoundoverride or sound_event)
+    --         end
+
+    --         inst.components.talker:Say(GetString(inst, "ANNOUNCE_SNEEZE"))
+    --     end,
+
+    --     timeline =
+    --     {
+    --         TimeEvent(10 * FRAMES, function(inst)
+    --             if inst.components.hayfever then
+    --                 inst.components.hayfever:DoSneezeEffects()
+    --             end
+    --             inst.sg:RemoveStateTag("busy")
+    --         end),
+    --     },
+
+    --     events =
+    --     {
+    --         EventHandler("animover", function(inst)
+    --             if inst.AnimState:AnimDone() then
+    --                 inst.sg:GoToState("idle")
+    --             end
+    --         end),
+    --     },
+    -- },
 }
 
 for _, actionhandler in ipairs(actionhandlers) do
@@ -214,144 +274,146 @@ AddStategraphPostInit("wilson", function(sg)
 end)
 
 AddStategraphState("wilson", --激光眼镜
-     State{
-          name = "goggleattack",
-          tags = {"attack", "notalking", "abouttoattack"},
+    State {
+        name = "goggleattack",
+        tags = { "attack", "notalking", "abouttoattack" },
 
-          onenter = function(inst)
-               if inst.components.rider:IsRiding() then
-                    inst.Transform:SetFourFaced()
-               end
-               local buffaction = inst:GetBufferedAction()
-               local target = buffaction ~= nil and buffaction.target or nil
-               local equip = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
-               if (equip ~= nil and equip.projectiledelay or 0) > 0 then
-                    inst.sg.statemem.projectiledelay = (inst.sg.statemem.chained and 9 or 14) * FRAMES - equip.projectiledelay
-                    if inst.sg.statemem.projectiledelay <= 0 then
-                        inst.sg.statemem.projectiledelay = nil
+        onenter = function(inst)
+            if inst.components.rider:IsRiding() then
+                inst.Transform:SetFourFaced()
+            end
+            local buffaction = inst:GetBufferedAction()
+            local target = buffaction ~= nil and buffaction.target or nil
+            local equip = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+            if (equip ~= nil and equip.projectiledelay or 0) > 0 then
+                inst.sg.statemem.projectiledelay = (inst.sg.statemem.chained and 9 or 14) * FRAMES -
+                    equip.projectiledelay
+                if inst.sg.statemem.projectiledelay <= 0 then
+                    inst.sg.statemem.projectiledelay = nil
+                end
+            end
+            inst.components.combat:SetTarget(target)
+            inst.components.combat:StartAttack()
+            inst.components.locomotor:Stop()
+            inst.AnimState:PlayAnimation("goggle_fast")
+            if inst.sg.laststate == inst.sg.currentstate then
+                inst.sg.statemem.chained = true
+                inst.AnimState:SetFrame(5)
+            end
+            inst.AnimState:PushAnimation("goggle_fast_pst", false)
+
+            inst.sg:SetTimeout(math.max((inst.sg.statemem.chained and 14 or 18) * FRAMES,
+                inst.components.combat.min_attack_period))
+
+            if target ~= nil and target:IsValid() then
+                inst:FacePoint(target.Transform:GetWorldPosition())
+                inst.sg.statemem.attacktarget = target
+                inst.sg.statemem.retarget = target
+            end
+        end,
+
+        onupdate = function(inst, dt)
+            if (inst.sg.statemem.projectiledelay or 0) > 0 then
+                inst.sg.statemem.projectiledelay = inst.sg.statemem.projectiledelay - dt
+                if inst.sg.statemem.projectiledelay <= 0 then
+                    inst:PerformBufferedAction()
+                    inst.sg:RemoveStateTag("abouttoattack")
+                end
+            end
+        end,
+
+        timeline =
+        {
+            TimeEvent(9 * FRAMES, function(inst)
+                if inst.sg.statemem.chained and inst.sg.statemem.projectiledelay == nil then
+                    inst:PerformBufferedAction()
+                    inst.sg:RemoveStateTag("abouttoattack")
+                end
+            end),
+            TimeEvent(14 * FRAMES, function(inst)
+                if not inst.sg.statemem.chained and inst.sg.statemem.projectiledelay == nil then
+                    inst:PerformBufferedAction()
+                    inst.sg:RemoveStateTag("abouttoattack")
+                    if inst.components.moisture and inst.components.moisture:GetMoisture() > 0 and not inst.components.inventory:IsInsulated() then
+                        inst.components.health:DoDelta(-TUNING.HEALING_MEDSMALL, false, "Shockwhenwet", nil, true)
+                        inst.sg:GoToState("electrocute")
                     end
-               end
-               inst.components.combat:SetTarget(target)
-               inst.components.combat:StartAttack()
-               inst.components.locomotor:Stop()
-               inst.AnimState:PlayAnimation("goggle_fast")
-               if inst.sg.laststate == inst.sg.currentstate then
-                    inst.sg.statemem.chained = true
-                    inst.AnimState:SetFrame(5)
-               end
-               inst.AnimState:PushAnimation("goggle_fast_pst", false)
+                end
+            end),
+        },
 
-               inst.sg:SetTimeout(math.max((inst.sg.statemem.chained and 14 or 18) * FRAMES, inst.components.combat.min_attack_period))
+        ontimeout = function(inst)
+            inst.sg:RemoveStateTag("attack")
+            inst.sg:AddStateTag("idle")
+        end,
 
-               if target ~= nil and target:IsValid() then
-                    inst:FacePoint(target.Transform:GetWorldPosition())
-                    inst.sg.statemem.attacktarget = target
-                    inst.sg.statemem.retarget = target
-               end
-          end,
+        events =
+        {
+            EventHandler("equip", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
+            EventHandler("animqueueover", function(inst)
+                if inst.AnimState:AnimDone() then
+                    inst.sg:GoToState("idle")
+                end
+            end),
+        },
 
-          onupdate = function(inst, dt)
-               if (inst.sg.statemem.projectiledelay or 0) > 0 then
-                    inst.sg.statemem.projectiledelay = inst.sg.statemem.projectiledelay - dt
-                    if inst.sg.statemem.projectiledelay <= 0 then
-                         inst:PerformBufferedAction()
-                         inst.sg:RemoveStateTag("abouttoattack")
-                    end
-               end
-          end,
-
-          timeline=
-          {
-               TimeEvent(9 * FRAMES, function(inst)
-                    if inst.sg.statemem.chained and inst.sg.statemem.projectiledelay == nil then
-                         inst:PerformBufferedAction()
-                         inst.sg:RemoveStateTag("abouttoattack")
-                    end
-               end),
-               TimeEvent(14 * FRAMES, function(inst)
-                    if not inst.sg.statemem.chained and inst.sg.statemem.projectiledelay == nil then
-                         inst:PerformBufferedAction()
-                         inst.sg:RemoveStateTag("abouttoattack")
-                         if inst.components.moisture and inst.components.moisture:GetMoisture() > 0 and not inst.components.inventory:IsInsulated() then
-                              inst.components.health:DoDelta(-TUNING.HEALING_MEDSMALL, false, "Shockwhenwet", nil, true)
-                              inst.sg:GoToState("electrocute")
-                         end
-                    end
-               end),
-          },
-
-          ontimeout = function(inst)
-               inst.sg:RemoveStateTag("attack")
-               inst.sg:AddStateTag("idle")
-          end,
-
-          events=
-          {
-               EventHandler("equip", function(inst) inst.sg:GoToState("idle") end),
-               EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-               EventHandler("animqueueover", function(inst)
-                    if inst.AnimState:AnimDone() then
-                         inst.sg:GoToState("idle")
-                    end
-               end),
-          },
-
-          onexit = function(inst)
-               inst.components.combat:SetTarget(nil)
-               if inst.sg:HasStateTag("abouttoattack") then
-                    inst.components.combat:CancelAttack()
-               end
-               if inst.components.rider:IsRiding() then
-                    inst.Transform:SetSixFaced()
-               end
-          end,
-     }
+        onexit = function(inst)
+            inst.components.combat:SetTarget(nil)
+            if inst.sg:HasStateTag("abouttoattack") then
+                inst.components.combat:CancelAttack()
+            end
+            if inst.components.rider:IsRiding() then
+                inst.Transform:SetSixFaced()
+            end
+        end,
+    }
 )
 
 AddStategraphPostInit("wilson", function(inst)
-	local actionHandler_attack = inst.actionhandlers[ACTIONS.ATTACK].deststate
-	inst.actionhandlers[ACTIONS.ATTACK].deststate = function(inst, action, ...)
-		if not (inst.sg:HasStateTag("attack") and action.target == inst.sg.statemem.attacktarget or inst.components.health:IsDead()) then
-               local weapon = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
-               local hand = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-			if hand == nil and weapon and weapon.prefab == "gogglesshoothat" then
-                    return "goggleattack"
-               end
-		end
-		return actionHandler_attack(inst, action, ...)
-	end
+    local actionHandler_attack = inst.actionhandlers[ACTIONS.ATTACK].deststate
+    inst.actionhandlers[ACTIONS.ATTACK].deststate = function(inst, action, ...)
+        if not (inst.sg:HasStateTag("attack") and action.target == inst.sg.statemem.attacktarget or inst.components.health:IsDead()) then
+            local weapon = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+            local hand = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+            if hand == nil and weapon and weapon.prefab == "gogglesshoothat" then
+                return "goggleattack"
+            end
+        end
+        return actionHandler_attack(inst, action, ...)
+    end
 end)
 
 -- 碎裂喙横扫sg hooker
 if GetModConfigData("dev_beak") == true then
-AddStategraphPostInit("wilson", function(sg)
-    local attack = sg.states["attack"]
-    if not attack then return end
-    local _onenter = attack.onenter
-    if not _onenter then return end
-    attack.onenter = function(inst)
-        if inst.components.rider:IsRiding() then return _onenter(inst) end
-        local equip = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-        local cooldown = inst.components.combat.min_attack_period
-        if equip and equip.prefab == "shard_beak" then
-            if not inst._beakSweepCount or not inst.AnimState:IsCurrentAnimation("atk") then
-                inst._beakSweepCount = 2
-            end
-            if inst._beakSweepCount == 0 then
-                inst.sg:GoToState("scythe") -- 直接使用收割动作
-                inst._beakSweepTrigger = true
-                inst._beakSweepCount = 2
+    AddStategraphPostInit("wilson", function(sg)
+        local attack = sg.states["attack"]
+        if not attack then return end
+        local _onenter = attack.onenter
+        if not _onenter then return end
+        attack.onenter = function(inst)
+            if inst.components.rider:IsRiding() then return _onenter(inst) end
+            local equip = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+            local cooldown = inst.components.combat.min_attack_period
+            if equip and equip.prefab == "shard_beak" then
+                if not inst._beakSweepCount or not inst.AnimState:IsCurrentAnimation("atk") then
+                    inst._beakSweepCount = 2
+                end
+                if inst._beakSweepCount == 0 then
+                    inst.sg:GoToState("scythe") -- 直接使用收割动作
+                    inst._beakSweepTrigger = true
+                    inst._beakSweepCount = 2
+                else
+                    inst.AnimState:PlayAnimation("atk_pre")
+                    inst.AnimState:PushAnimation("atk", false)
+                    inst.SoundEmitter:PlaySound("dontstarve/wilson/attack_weapon")
+                    inst._beakSweepCount = inst._beakSweepCount - 1
+                    inst.sg:SetTimeout(cooldown)
+                end
             else
-                inst.AnimState:PlayAnimation("atk_pre")
-                inst.AnimState:PushAnimation("atk", false)
-                inst.SoundEmitter:PlaySound("dontstarve/wilson/attack_weapon")
-                inst._beakSweepCount = inst._beakSweepCount - 1
-                inst.sg:SetTimeout(cooldown)
+                inst._beakSweepCount = nil
+                return _onenter(inst)
             end
-        else
-            inst._beakSweepCount = nil
-            return _onenter(inst)
         end
-    end
-end)
+    end)
 end

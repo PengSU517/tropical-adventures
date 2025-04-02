@@ -541,8 +541,8 @@ climate_options = {
 		name = "hayfever",
 		label = en_zh("Hayfever", "花粉过敏"),
 		hover = en_zh("Hayfever", "花粉过敏"),
-		options = options_enable2,
-		default = "disabled",
+		options = options_enable,
+		default = "enabled",
 		order = 18,
 		image = "hayfever.tex",
 		atlas = ham_atlas,
@@ -652,17 +652,17 @@ personal_options =
 
 local experimental_options =
 {
-    Breaker("Experimental Options", "实验性选项"),
-    {
-        name = "dev_beak",
-        label = en_zh("New Shard Beak", "新碎裂喙"),
-        hover = en_zh("New Shard Beak with AOE attack module", "有范围攻击模组的新碎裂喙"),
-        options = {
-            { description = en_zh("Enabled", "开启"), data = true, },
-            { description = en_zh("Disabled", "关闭"), data = false, },
-        },
-        default = true,
-    }
+	Breaker("Experimental Options", "实验性选项"),
+	{
+		name = "dev_beak",
+		label = en_zh("New Shard Beak", "新碎裂喙"),
+		hover = en_zh("New Shard Beak with AOE attack module", "有范围攻击模组的新碎裂喙"),
+		options = {
+			{ description = en_zh("Enabled", "开启"), data = true, },
+			{ description = en_zh("Disabled", "关闭"), data = false, },
+		},
+		default = true,
+	}
 }
 
 
@@ -723,7 +723,7 @@ end
 -- })
 
 for i, v in my_ipairs(experimental_options) do
-    table_insert(configuration_options, v)
+	table_insert(configuration_options, v)
 end
 
 if isdev then
