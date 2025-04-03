@@ -16,6 +16,7 @@ tableutil.deep_merge(TUNING, tuning_origin)
 
 TUNING.BUILD_HEIGHT = 0 ---rpc用来接收建筑高度数据-------也可以修改placer
 TUNING.FAN_RANGE = 30
+TUNING.FOG_MOISTURE_RATE = 1000
 
 TUNING.HAMROOM = {
     roomtype = {
@@ -415,9 +416,9 @@ TUNING.NEARSIGHTED_ACTION_RANGE = 4
 
 TUNING.INVSLOT45 = false
 for k, v in ipairs(_G.ModManager:GetEnabledServerModNames()) do
-	if v == "workshop-786556008"  or v == "workshop-2166704267" or v == "workshop-2801880191" or
-       v == "workshop-2568821043" or v == "workshop-2886543901" then
-		TUNING.INVSLOT45 = true
+    if v == "workshop-786556008" or v == "workshop-2166704267" or v == "workshop-2801880191" or
+        v == "workshop-2568821043" or v == "workshop-2886543901" then
+        TUNING.INVSLOT45 = true
         break
-	end			
+    end
 end

@@ -5,13 +5,13 @@ local function Badge_display(self)
     self.leaf:SetPosition(0, 0, 0)
     self.leaf:MoveToBack()
 
-    if TUNING.fog then
-        local FogBadge = GLOBAL.require "widgets/fogbadge"
-        self.fog = self:AddChild(FogBadge(self.owner))
-        self.owner.fogbadge = self.fog
-        self.fog:SetPosition(0, 0, 0)
-        self.fog:MoveToBack()
-    end
+    -- if TUNING.fog then
+    --     local FogBadge = GLOBAL.require "widgets/fogbadge"
+    --     self.fog = self:AddChild(FogBadge(self.owner))
+    --     self.owner.fogbadge = self.fog
+    --     self.fog:SetPosition(0, 0, 0)
+    --     self.fog:MoveToBack()
+    -- end
 end
 
 AddClassPostConstruct("widgets/controls", Badge_display)
