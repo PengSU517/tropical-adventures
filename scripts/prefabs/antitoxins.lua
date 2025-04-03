@@ -33,6 +33,7 @@ end
 local function oneat_oil(inst, eater)
     eater.SoundEmitter:PlaySound("dontstarve_DLC002/common/HUD_antivenom_use")
     eater.AnimState:PlayAnimation("research")
+    inst.removebyused = true
 end
 
 local function syrumpost(inst)
@@ -84,10 +85,21 @@ local function oilpost(inst)
 
     if not TheWorld.ismastersim then return inst end
 
+    inst:RemoveComponent("stackable")
+
     local healer = inst.components.healer or inst:AddComponent("healer")
     healer:SetHealthAmount(0)
     healer:SetOnHealFn(oneat_oil)
-    --healer:SetUses(99999)
+
+    local fuel = inst.components.fuel or inst:AddComponent("fuel")
+    fuel.fuelvalue = 0
+
+    local Remove = inst.Remove
+    inst.Remove = function(inst)
+        local remove = not inst.removebyused
+        inst.removebyused = nil
+        return remove and Remove(inst)
+    end
 
     return inst
 end
