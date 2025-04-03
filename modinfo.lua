@@ -42,7 +42,7 @@ name = pub_dev(en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒�
 	en_zh(" Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "3.3.22"
+version = "3.4.3"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -605,10 +605,10 @@ personal_options =
 
 	{
 		name = "boatlefthud",
-		label = en_zh("Boat HUD(Vertical Adjustment)", "海难船只HUD调整"),
+		label = en_zh("Boat HUD(Vertical Adjustment)", "海难船只HUD高度补偿"),
 		hover = en_zh(
-			"Here u can adjust the height of the boat HUD *Health meter",
-			"在这里可以调整海难船只HUD的显示高度(原版自适应调整)"),
+			"Here u can adjust the height of the ShipWreck Boat HUD(It's already self-adapted)",
+			"在这里可以调整海难船只HUD的高度补偿(自适应调整)"),
 		options =
 		{
 			{ description = "0", data = 0 },

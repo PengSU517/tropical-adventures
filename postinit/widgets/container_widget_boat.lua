@@ -59,6 +59,7 @@ AddClassPostConstruct("widgets/containerwidget", function(self)
             else
                 container.replica.inventoryitem:DeserializeUsage()
             end
+            self:UpdatePosition()
         end
     end
 
@@ -69,4 +70,25 @@ AddClassPostConstruct("widgets/containerwidget", function(self)
             self.inst:RemoveEventCallback("percentusedchange", BoatState, self.contanier)
         end
     end
+
+    function self:GetNextPosition()
+        if not self.isboat then
+            return self:GetPosition()
+        end
+        if TUNING.INVSLOT45 then
+            return BOATHUDPOSPRESET + Vector3(0, 40, 0)
+        elseif Profile:GetIntegratedBackpack() then
+            local backpack = self.owner.replica.inventory:GetOverflowContainer()
+            if backpack and backpack:IsOpenedBy(self.owner) then
+                return BOATHUDPOSPRESET + Vector3(0, 40, 0)
+            end
+        end
+        return BOATHUDPOSPRESET
+    end
+
+    function self:UpdatePosition()
+        self:CancelMoveTo()
+        self:MoveTo(self:GetPosition(), self:GetNextPosition(), .2)
+    end
+
 end)

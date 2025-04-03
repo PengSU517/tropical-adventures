@@ -78,7 +78,7 @@ modimport("postinit/components/boatphysics")
 modimport("postinit/components/builder")
 modimport("postinit/components/colourcube")
 modimport("postinit/components/combat")
-modimport("postinit/components/container")
+-- modimport("postinit/components/container")
 modimport("postinit/components/curseditem")
 modimport("postinit/components/dynamicmusic")
 modimport("postinit/components/embarker")
@@ -130,6 +130,7 @@ modimport("postinit/widgets/container_woodleg_boat")
 modimport("postinit/widgets/containers") --new containers
 modimport("postinit/widgets/crafttabs")
 modimport("postinit/widgets/healthbadge")
+modimport("postinit/widgets/inventorybar") -- 船HUD自适应
 modimport("postinit/widgets/seasonsdisplay.lua") --雾和花粉症,还有树荫
 modimport("postinit/widgets/statusdisplays_speed")
 modimport("postinit/widgets/uiclock_bloodmoon")
