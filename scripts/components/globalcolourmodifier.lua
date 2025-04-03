@@ -14,12 +14,9 @@ end)
 
 function GlobalColourModifier:SetModifyColourFn(fn)
     self.modifycolorfn = fn
-    for i, ent in pairs(Ents) do
-        if ent.AnimState and not ent:HasTag("widget") then
-            self.modifycolorfn(ent)
-        end
+    if self.modifycolorfn ~= self.modifycolorfndefault then
+        self.inst:StartUpdatingComponent(self)
     end
-    self.modifycolorfn(TheWorld)
 end
 
 function GlobalColourModifier:Apply(ent)
@@ -30,6 +27,16 @@ end
 
 function GlobalColourModifier:Reset()
     self:SetModifyColourFn(self.modifycolorfndefault)
+    self.inst:StopUpdatingComponent(self)
+    self:OnUpdate(0)
+end
+
+function GlobalColourModifier:OnUpdate(dt)
+    for i, ent in pairs(Ents) do
+        if ent.AnimState and not ent:HasTag("widget") then
+            self.modifycolorfn(ent)
+        end
+    end
 end
 
 return GlobalColourModifier
