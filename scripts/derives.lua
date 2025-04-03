@@ -7,6 +7,7 @@ Derive = Class(Prefab, function(self, parent, name, postfn, assets, deps, force_
         local inst = Prefabs[parent].fn()
         return postfn(inst)
     end
+    deps = table.insert(deps or {}, parent)
     Prefab._ctor(self, name, fn, assets, deps, force_path_search)
     self.lastname = parent
 end)
