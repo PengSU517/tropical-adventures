@@ -167,9 +167,9 @@ return Class(function(self, inst)
         -- client fog state wait for server sync
         -- print("OnUpdate weatherham")
         if _ismastersim then
-            if _state.iswinter and _state.moistureceil > 1000 then
+            if _state.iswinter and _state.moistureceil > TUNING.FOG_MOISTURE_RATE then
                 _fogstate:set(FOG_STATES.active)
-                _fograte:set_local(_state.precipitationrate)
+                _fograte:set(_state.precipitationrate)
             else
                 _fogstate:set(FOG_STATES.inactive)
                 _fograte:set(0)

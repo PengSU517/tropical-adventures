@@ -23,7 +23,7 @@ local Hayfever = Class(function(self, inst)
     inst:WatchWorldState("ispollendust", Check)
     -- inst:ListenForEvent("regionchange", Check)
     inst:DoTaskInTime(0, Check)
-    inst:StartUpdatingComponent(self)
+    -- inst:StartUpdatingComponent(self)
 end, nil, {
     nextsneeze = onnextsneeze,
 })
@@ -167,6 +167,11 @@ function Hayfever:DoSneezeEffects()
             end
         end
     end
+end
+
+function Hayfever:OnRemoveEntity()
+    self:Disable()
+    self:StopWatchingWorldState("ispollendust", Check)
 end
 
 return Hayfever

@@ -11,10 +11,6 @@ local HayfeverBadge = Class(UIAnim, function(self, owner)
     self:SetVAnchor(ANCHOR_MIDDLE)
     self:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC)
 
-    -- self:GetAnimState():SetBank("vagner_over")
-    -- self:GetAnimState():SetBuild("vagner_over")
-    -- self:GetAnimState():PlayAnimation("polenfraco", true)
-
     self:StartUpdating()
     self:Hide()
     self.speed = false

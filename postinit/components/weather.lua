@@ -130,28 +130,16 @@ AddComponentPostInit("weather", function(self)
     function self:OnUpdate(dt)
         OnUpdate_old(self, dt)
 
-        if not _world.state.issnowing then return end
+        -- if not _world.state.issnowing then return end
 
         local preciprate = _world.state.precipitationrate
+        -- local moisture = _world.state.moistureceil
         local playerintropical = _activatedplayer and _activatedplayer:AwareInTropicalArea()
-        local playerinhamlet = _activatedplayer and _activatedplayer:AwareInHamletArea()
-        local winterrain = playerintropical
-        local winterfog = playerinhamlet and preciprate > 900
+        -- local playerinhamlet = _activatedplayer and _activatedplayer:AwareInHamletArea()
+        local winterrain = playerintropical and _world.state.issnowing
+        -- local winterfog = playerinhamlet and moisture > TUNING.FOG_MOISTURE_RATE
 
-        if winterfog then
-            if _rainfx then
-                _rainfx.particles_per_tick = 0
-                _rainfx.splashes_per_tick = 0
-            end
-
-            if _snowfx then
-                _snowfx.particles_per_tick = 0
-            end
-
-            -- StopAmbientRainSound()
-            -- StopTreeRainSound()
-            -- StopUmbrellaRainSound()
-        elseif winterrain then
+        if winterrain then
             if _rainfx then
                 _rainfx.particles_per_tick = 5 * preciprate
                 _rainfx.splashes_per_tick = 2 * preciprate
@@ -195,9 +183,11 @@ AddComponentPostInit("weather", function(self)
                 end
             end
         else
-            -- StopAmbientRainSound()
-            -- StopTreeRainSound()
-            -- StopUmbrellaRainSound()
+            if not (_world.state.israining or _world.state.islunarhailing) then
+                StopAmbientRainSound()
+                StopTreeRainSound()
+                StopUmbrellaRainSound()
+            end
         end
     end
 

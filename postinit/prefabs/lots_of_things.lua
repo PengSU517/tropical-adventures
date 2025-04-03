@@ -47,13 +47,13 @@ end
 
 
 
-for _, prefab in pairs({ "gogglesnormalhat", "gogglesheathat", "gogglesarmorhat", "gogglesshoothat", "bathat", "pithhat", "armor_weevole" }) do
+for _, prefab in pairs({ "gogglesheathat", "bathat", "molehat" }) do
     AddPrefabPostInit(prefab, function(inst)
         -- if not TheWorld.ismastersim then
         --     return
         -- end
 
-        inst:AddTag("velocidadenormal")
+        inst:AddTag("clearfog")
     end)
 end
 
