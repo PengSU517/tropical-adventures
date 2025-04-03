@@ -411,3 +411,12 @@ TUNING.GOGGLES_HEAT =
 
 TUNING.TELEBRELLA_USES = 10
 TUNING.NEARSIGHTED_ACTION_RANGE = 4
+
+TUNING.INVSLOT45 = false
+for k, v in ipairs(_G.ModManager:GetEnabledServerModNames()) do
+	if v == "workshop-786556008"  or v == "workshop-2166704267" or v == "workshop-2801880191" or
+       v == "workshop-2568821043" or v == "workshop-2886543901" then
+		TUNING.INVSLOT45 = true
+        break
+	end			
+end
