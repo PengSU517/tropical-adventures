@@ -8,6 +8,7 @@ local function generic_perish(inst)
 end
 
 local function MakeHat(name, bankparam, prefabnameparam)
+    local fns = {}
     local fname = "hat_" .. name
     local symname = bankparam or name .. "hat"
     local prefabname = prefabnameparam or symname
@@ -134,7 +135,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         return inst
     end
 
-    local function pirate()
+    function fns.pirate()
         local inst = simple()
 
         inst.AnimState:SetBank("piratehat")
@@ -160,7 +161,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         return inst
     end
 
-    local function captain()
+    function fns.captain()
         local inst = simple()
 
         inst.AnimState:SetBank("captainhat")
@@ -181,14 +182,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         return inst
     end
 
-
-
-
-
-
-
-
-    local function ox()
+    function fns.ox()
         local inst = simple()
 
         if not TheWorld.ismastersim then
@@ -206,7 +200,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         return inst
     end
 
-    local function snakeskin()
+    function fns.snakeskin()
         local inst = simple()
 
         if not TheWorld.ismastersim then
@@ -260,11 +254,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         inst:Remove()
     end
 
-
-
-
-
-    local function double_umbrella()
+    function fns.double_umbrella()
         local inst = simple()
         inst.AnimState:SetBank("hat_double_umbrella")
         inst.AnimState:SetBuild("hat_double_umbrella")
@@ -299,8 +289,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         return inst
     end
 
-
-    local function gas()
+    function fns.gas()
         local inst = CreateEntity()
 
         inst.entity:AddTransform()
@@ -316,7 +305,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
 
         inst:AddTag("hat")
 
-        inst.entity:SetPristine()
+        -- inst.entity:SetPristine()
 
         if not TheWorld.ismastersim then
             return inst
@@ -346,8 +335,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         return inst
     end
 
-
-    local function aerodynamic()
+    function fns.aerodynamic()
         local inst = simple()
 
         inst.AnimState:SetBank("hat_aerodynamic")
@@ -386,7 +374,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         inst:AddTag("waterproofer")
     end
 
-    local function bunny()
+    function fns.bunny()
         local inst = simple(bunny_custom_init)
 
         if not TheWorld.ismastersim then
@@ -435,7 +423,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         end
     end
 
-    local function brainjelly()
+    function fns.brainjelly()
         local inst = simple()
 
         inst:AddTag("brainjelly")
@@ -465,7 +453,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         return (is_over_ground and SHARK_TEETHHAT_DAPPERNESS) or SHARK_TEETHHAT_DAPPERNESS_OCEAN
     end
 
-    local function shark_teeth()
+    function fns.shark_teeth()
         local inst = simple()
 
         inst.AnimState:SetBank("hat_shark_teeth")
@@ -474,7 +462,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
 
         inst:AddTag("regal")
 
-        inst.entity:SetPristine()
+        -- inst.entity:SetPristine()
 
         if not TheWorld.ismastersim then
             return inst
@@ -483,7 +471,7 @@ local function MakeHat(name, bankparam, prefabnameparam)
         inst:AddComponent("fueled")
         inst.components.fueled.fueltype = FUELTYPE.USAGE
         inst.components.fueled:InitializeFuelLevel(TUNING.SHARK_HAT_PERISHTIME)
-        --inst.components.fueled:SetFirstPeriod(TUNING.TURNON_FUELED_CONSUMPTION, TUNING.TURNON_FULL_FUELED_CONSUMPTION)
+        -- inst.components.fueled:SetFirstPeriod(TUNING.TURNON_FUELED_CONSUMPTION, TUNING.TURNON_FULL_FUELED_CONSUMPTION)
         inst.components.fueled:SetDepletedFn(generic_perish)
 
         inst.components.equippable:SetDappernessFn(shark_teethhat_calculation)
@@ -493,43 +481,19 @@ local function MakeHat(name, bankparam, prefabnameparam)
         return inst
     end
 
-    local fn = nil
     local assets = { Asset("ANIM", "anim/" .. fname .. ".zip") }
     local prefabs = nil
 
-    if name == "pirate" then
-        fn = pirate
-    elseif name == "captain" then
-        fn = captain
-    elseif name == "double_umbrella" then
-        fn = double_umbrella
-    elseif name == "snakeskin" then
-        fn = snakeskin
-    elseif name == "ox" then
-        fn = ox
-    elseif name == "bunny" then
-        fn = bunny
-    elseif name == "aerodynamic" then
-        fn = aerodynamic
-    elseif name == "brainjelly" then
-        fn = brainjelly
-    elseif name == "gas" then
-        fn = gas
-    elseif name == "shark_teeth" then
-        fn = shark_teeth
-    end
-
-    return Prefab(prefabname, fn, assets, prefabs)
+    return Prefab(prefabname, fns[name], assets, prefabs)
 end
 
-
 return MakeHat("pirate"),
-    MakeHat("captain"),
-    MakeHat("double_umbrella"),
-    MakeHat("snakeskin"),
-    MakeHat("ox"),
-    MakeHat("aerodynamic"),
-    MakeHat("brainjelly"),
-    MakeHat("shark_teeth"),
-    MakeHat("gas")
+       MakeHat("captain"),
+       MakeHat("double_umbrella"),
+       MakeHat("snakeskin"),
+       MakeHat("ox"),
+       MakeHat("aerodynamic"),
+       MakeHat("brainjelly"),
+       MakeHat("gas"),
+       MakeHat("shark_teeth")
 --    MakeHat("bunny", "beefalohat", "bunnyhat")
