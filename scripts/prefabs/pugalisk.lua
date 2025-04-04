@@ -184,7 +184,7 @@ local function segment_deathfn(segment)
     if math.random() < 0.005 then
         local bone = segment.components.lootdropper:SpawnLootPrefab("bluegem", pt)
     end
-    if math.random() < 0.001 then
+    if math.random() < 0.003 then
         local bone = segment.components.lootdropper:SpawnLootPrefab("snakeoil", pt)
     end
 
