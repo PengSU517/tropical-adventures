@@ -37,7 +37,6 @@ SetSharedLootTable('pugalisk',
         { 'monstermeat', 1.00 },
         { 'monstermeat', 1.00 },
         { 'monstermeat', 1.00 },
-        -- {'pugaliskfountain_blueprint',             1.00},
     })
 
 local SHAKE_DIST = 40
@@ -176,14 +175,17 @@ local function segment_deathfn(segment)
     if math.random() < 0.2 then
         local bone = segment.components.lootdropper:SpawnLootPrefab("monstermeat", pt)
     end
+    if math.random() < 0.05 then
+        local bone = segment.components.lootdropper:SpawnLootPrefab("spoiled_fish_large", pt)
+    end
     if math.random() < 0.005 then
         local bone = segment.components.lootdropper:SpawnLootPrefab("redgem", pt)
     end
     if math.random() < 0.005 then
         local bone = segment.components.lootdropper:SpawnLootPrefab("bluegem", pt)
     end
-    if math.random() < 0.05 then
-        local bone = segment.components.lootdropper:SpawnLootPrefab("spoiled_fish_large", pt)
+    if math.random() < 0.001 then
+        local bone = segment.components.lootdropper:SpawnLootPrefab("snakeoil", pt)
     end
 
     local fx = SpawnPrefab("snake_scales_fx")

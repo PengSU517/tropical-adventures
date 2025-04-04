@@ -25,28 +25,25 @@ local SNAKEDEN_TRAP_DIST = 2
 local assets =
 {
 	Asset("ANIM", "anim/snake_build.zip"),
-	Asset("ANIM", "anim/snake_yellow_build.zip"),
 	Asset("ANIM", "anim/snake_basic.zip"),
 	Asset("ANIM", "anim/snake_water.zip"),
 	Asset("ANIM", "anim/snake_scaly_build.zip"),
-	Asset("ANIM", "anim/dragonfly_fx.zip"),
-	Asset("SOUND", "sound/hound.fsb"),
 }
 
 local prefabs =
 {
 	"monstermeat",
 	"snakeskin",
-	"venomgland",
+	--"venomgland",
 	--	"obsidian",
-	"ash",
-	"charcoal",
+	--"ash",
+	--"charcoal",
 	--"vomitfire_fx",
-	"firesplash_fx",
-	"firering_fx",
+	--"firesplash_fx",
+	--"firering_fx",
 	--	"dragonfly_fx",
 	--	"lavaspit",
-	--	"snakeoil",
+	"snakeoil",
 }
 
 local sounds = {
@@ -280,7 +277,7 @@ local function fn(Sim)
 	inst:AddComponent("lootdropper")
 	inst.components.lootdropper:AddRandomLoot("monstermeat", 1.00)
 	inst.components.lootdropper:AddRandomLoot("snakeskin", 0.50)
-	--	inst.components.lootdropper:AddRandomLoot("snakeoil", 0.01)
+	inst.components.lootdropper:AddRandomLoot("snakeoil", 0.01)
 	inst.components.lootdropper.numrandomloot = math.random(0, 1)
 
 	inst:AddComponent("inspectable")
