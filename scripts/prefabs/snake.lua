@@ -1,17 +1,25 @@
-local trace = function() end
 
 local assets =
 {
 	Asset("ANIM", "anim/snake_build.zip"),
 	Asset("ANIM", "anim/snake_yellow_build.zip"),
 	Asset("ANIM", "anim/snake_basic.zip"),
-	Asset("ANIM", "anim/snake_water.zip"),
-	Asset("ANIM", "anim/snake_scaly_build.zip"),
 }
 
 local prefabs =
 {
-
+	"monstermeat",
+	"snakeskin",
+	"venomgland",
+	--	"obsidian",
+	--"ash",
+	--"charcoal",
+	--"vomitfire_fx",
+	--"firesplash_fx",
+	--"firering_fx",
+	--	"dragonfly_fx",
+	--	"lavaspit",
+	"snakeoil",
 }
 
 local WAKE_TO_FOLLOW_DISTANCE = 8
@@ -174,9 +182,9 @@ local function fn()
 	inst:AddComponent("lootdropper")
 	inst.components.lootdropper:AddChanceLoot("monstermeat", 1)
 	inst.components.lootdropper:AddChanceLoot("snakeskin", 0.5)
-	inst.components.lootdropper:AddChanceLoot("venomgland", 0.01)
+	inst.components.lootdropper:AddChanceLoot("snakeoil", 0.01)
 
-	inst.components.lootdropper.numrandomloot = 0
+	inst.components.lootdropper.numrandomloot = math.random(0, 1)
 
 	inst:AddComponent("inspectable")
 
@@ -223,7 +231,7 @@ local function poisonfn()
 
 	inst:AddComponent("poisonous")
 
-	--inst.components.lootdropper:AddChanceLoot("venom_gland", 0.25)
+	inst.components.lootdropper:AddChanceLoot("venomgland", 0.75)
 
 	MakeMediumBurnableCharacter(inst, "body")
 	MakeMediumFreezableCharacter(inst, "body")
