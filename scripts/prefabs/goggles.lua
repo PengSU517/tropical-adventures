@@ -1,5 +1,5 @@
-function MakeGoggle(name)
-
+local function MakeGoggle(name)
+    local fns = {}
 	local fname = "hat_"..name
 	local symname = name.."hat"
 	local texture = symname..".tex"
@@ -135,7 +135,7 @@ function MakeGoggle(name)
 
 		inst.components.floater:SetBankSwapOnFloat(false, nil, { bank = "gogglesnormalhat", anim = "anim" })
 
-		inst.entity:SetPristine()
+		-- inst.entity:SetPristine()
 
 		if not TheWorld.ismastersim then
 			return inst
@@ -179,7 +179,7 @@ function MakeGoggle(name)
 
 		inst.components.floater:SetBankSwapOnFloat(false, nil, { bank = "gogglesheathat", anim = "anim" })
 
-		inst.entity:SetPristine()
+		-- inst.entity:SetPristine()
 
 		if not TheWorld.ismastersim then
 			return inst
@@ -233,7 +233,7 @@ function MakeGoggle(name)
 
 		inst.components.floater:SetBankSwapOnFloat(false, nil, { bank = "gogglesarmorhat", anim = "anim" })
 
-		inst.entity:SetPristine()
+		-- inst.entity:SetPristine()
 
 		if not TheWorld.ismastersim then
 			return inst
