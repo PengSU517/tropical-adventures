@@ -12,8 +12,8 @@ function PlayerHud:CreateOverlays(owner, ...)
     self.fogover:Hide()
     self.inst:ListenForEvent("updatefoggroggy",
         function(inst, data)
-            print("updatefoggroggy in playerhud")
-            print(data.foggroggylevel)
+            -- print("updatefoggroggy in playerhud")
+            -- print(data.foggroggylevel)
             return self.fogover:UpdateState(data.foggroggylevel)
         end,
         self.owner)
@@ -22,6 +22,7 @@ function PlayerHud:CreateOverlays(owner, ...)
     self.pollenover:Hide()
     self.inst:ListenForEvent("updatehayfever",
         function(inst, data)
+            print("updatehayfever in playerhud")
             return self.pollenover:UpdateState(data.sneezetime)
         end,
         self.owner)

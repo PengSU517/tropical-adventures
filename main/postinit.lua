@@ -113,7 +113,7 @@ modimport("postinit/prefabs/meatrack")
 modimport("postinit/prefabs/mosquitosack")
 modimport("postinit/prefabs/mushroom_farm")
 modimport("postinit/prefabs/player_classified")
-modimport("postinit/prefabs/player_hayfever")
+-- modimport("postinit/prefabs/player_hayfever")
 modimport("postinit/prefabs/player") --shopper, drownable, infestable
 modimport("postinit/prefabs/trinket_1")
 modimport("postinit/prefabs/warningshadow")
@@ -121,7 +121,7 @@ modimport("postinit/prefabs/wobster")
 modimport("postinit/prefabs/world")
 
 --screens and widgets
-modimport("postinit/screens/playerhud")      ---花粉症效果在这里
+modimport("postinit/screens/playerhud")      ---雾和花粉症效果在这里
 
 modimport("postinit/widgets/container_boat") -- boat container sizing tweak by EvenMr
 modimport("postinit/widgets/container_widget_boat")
@@ -130,7 +130,7 @@ modimport("postinit/widgets/containers") --new containers
 modimport("postinit/widgets/crafttabs")
 modimport("postinit/widgets/healthbadge")
 modimport("postinit/widgets/inventorybar")       -- 船HUD自适应
-modimport("postinit/widgets/seasonsdisplay.lua") --雾和还有树荫
+modimport("postinit/widgets/seasonsdisplay.lua") --还有树荫
 modimport("postinit/widgets/statusdisplays_speed")
 modimport("postinit/widgets/uiclock_bloodmoon")
 

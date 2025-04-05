@@ -50,9 +50,9 @@ function Foggroggy:OnUpdate(dt)
     if self:CanGroggy() then
         self.foggroggylevel = foggyrate
 
-        self.inst:AddTag("hamfogspeed")
+        -- self.inst:AddTag("hamfogspeed")
     else
-        self.inst:RemoveTag("hamfogspeed")
+        -- self.inst:RemoveTag("hamfogspeed")
 
         if self.should_clear then
             self.foggroggylevel = 0

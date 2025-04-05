@@ -1,21 +1,23 @@
+AddReplicableComponent("hayfever")
+AddReplicableComponent("foggroggy")
+
 AddPlayerPostInit(function(inst)
     if TheWorld.ismastersim then
+        inst:AddComponent("infestable")
+        inst:AddComponent("shopper")
+
         if not inst.components.regionaware then
-            --print("Adding regionaware to player")
             inst:AddComponent("regionaware")
         end
-    end
 
-    if inst.components.infestable == nil then
-        inst:AddComponent("infestable")
-    end
+        if TUNING.hamlet then
+            if TUNING.hayfever then
+                inst:AddComponent("hayfever")
+            end
 
-
-    if inst.components.drownable == nil then
-        inst:AddComponent("drownable")
-    end
-
-    if inst.components.shopper == nil then
-        inst:AddComponent("shopper")
+            if TUNING.fog then
+                inst:AddComponent("foggroggy")
+            end
+        end
     end
 end)
