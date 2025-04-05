@@ -38,8 +38,8 @@ end)
 function FogOver:UpdateState(foggroggylevel)
     self.foggroggylevel = foggroggylevel
     if self.foggroggylevel and self.foggroggylevel > 0 then
-        print("startupdatingfoggy in widget")
-        print(self.foggroggylevel)
+        -- print("startupdatingfoggy in widget")
+        -- print(self.foggroggylevel)
         self:StartUpdating()
         self:Show()
     end
