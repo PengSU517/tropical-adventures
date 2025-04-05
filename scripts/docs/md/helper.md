@@ -31,3 +31,6 @@ PREFAB_SKINS_SHOULD_NOT_SELECT不可选择的skin
 
 ##
 local task_id = "REGION_LINK_"..tostring(self.region_link_tasks)---连接地形的task
+
+##
+MakeInventoryPhysics(inst, nil, 0.7)就不会被船粘住，obstacle反而会粘住，也就是说海上物体很多是没有碰撞体积的？
