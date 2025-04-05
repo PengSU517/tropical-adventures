@@ -163,21 +163,23 @@ end
 
 
 for _, prefab in pairs(
-    { "snake_amphibious",
+    {
+        -- "snake_amphibious",
         -- "bat",
         -- "scorpion",
         -- "ghost",
         -- "antman_warrior",
         -- "antman",
-        "hanging_vine",
-        "grabbing_vine",
-        "hanging_vine_patch",
-        "mean_flytrap",
-        "adult_flytrap",
-        "lightrays_jungle",
+        -- "hanging_vine",
+        -- "grabbing_vine",
+        -- "hanging_vine_patch",
+        -- "mean_flytrap",
+        -- "adult_flytrap",
+        -- "lightrays_jungle",
         -- "pog",
         -- "zeb",
-        "lightrays" }) do
+        -- "lightrays"
+    }) do
     AddPrefabPostInit(prefab, function(inst)
         inst:AddTag("tropicalspawner")
 
