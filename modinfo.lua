@@ -42,7 +42,7 @@ name = pub_dev(en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒�
 	en_zh(" Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "3.4.5"
+version = "3.4.6"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -542,7 +542,7 @@ climate_options = {
 		label = en_zh("Hayfever", "花粉过敏"),
 		hover = en_zh("Hayfever", "花粉过敏"),
 		options = options_enable,
-		default = "enabled",
+		default = "disabled",
 		order = 18,
 		image = "hayfever.tex",
 		atlas = ham_atlas,

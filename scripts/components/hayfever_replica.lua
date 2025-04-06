@@ -1,6 +1,7 @@
 local function OnSneezetimeDirty(inst)
 	local sneezetime = inst.replica.hayfever._nextsneeze:value() or 999
-	-- print("sneeze time is dirty")
+	print("sneeze time is dirty")
+	print(sneezetime)
 	inst:PushEvent("updatehayfever", { sneezetime = sneezetime })
 end
 
@@ -9,6 +10,7 @@ local Hayfever = Class(function(self, inst)
 
 	-- self._level = net_tinybyte(inst.GUID, "hayfever.level", "leveldirty")
 	self._nextsneeze = net_float(inst.GUID, "hayfever.nextsneeze", "nextsneezedirty")
+	self._nextsneeze:set(999)
 
 	if not TheNet:IsDedicated() then
 		inst:ListenForEvent("nextsneezedirty", OnSneezetimeDirty)

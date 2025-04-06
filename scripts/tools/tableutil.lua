@@ -136,7 +136,7 @@ function tableutil.count_components(tbl)
     return lst
 end
 
-function tableutil.deep_merge(target, add_table, override)
+function tableutil.deep_merge(target, add_table, override, arrayadd)
     target = target or {}
 
     for k, v in pairs(add_table) do
@@ -153,7 +153,7 @@ function tableutil.deep_merge(target, add_table, override)
 
             tableutil.deep_merge(target[k], v, override)
         else
-            if tableutil.is_array(target) and not override then
+            if tableutil.is_array(target) and not override and arrayadd then
                 table.insert(target, v)
             elseif not target[k] or override then
                 target[k] = v

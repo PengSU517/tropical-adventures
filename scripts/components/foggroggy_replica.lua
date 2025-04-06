@@ -1,7 +1,7 @@
 local function OnFoggroggylevelDirty(inst)
     local foggroggylevel = inst.replica.foggroggy._foggroggylevel:value() or 0
-    print("foggroggylevel is dirty")
-    print(foggroggylevel)
+    -- print("foggroggylevel is dirty")
+    -- print(foggroggylevel)
     inst:PushEvent("updatefoggroggy", { foggroggylevel = foggroggylevel })
 end
 
@@ -16,8 +16,8 @@ local Foggroggy = Class(function(self, inst)
 end)
 
 function Foggroggy:Setfoggroggy(foggroggy)
-    print("set froggy in replica")
-    print(foggroggy)
+    -- print("set froggy in replica")
+    -- print(foggroggy)
     self._foggroggylevel:set(foggroggy)
 end
 
