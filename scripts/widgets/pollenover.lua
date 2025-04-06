@@ -5,6 +5,7 @@ local easing = require "easing"
 local PollenOver = Class(Widget, function(self, owner)
     self.owner = owner
     Widget._ctor(self, "PollenOver")
+    self:UpdateWhilePaused(false)
     self:SetClickable(false)
 
     self.bg = self:AddChild(Image("images/overlays/hayfever.xml", "pollen_over.tex"))
@@ -42,8 +43,10 @@ end)
 
 function PollenOver:UpdateState(sneezetime)
     self.lastsneezetime = sneezetime
+    if self.lastsneezetime < 0 then self.lastsneezetime = 9999 end
     if self.lastsneezetime and self.lastsneezetime < 50 then
-        print("startupdating")
+        -- print("startupdating bcz event")
+        -- print(sneezetime)
         self:StartUpdating()
         self:Show()
     end
