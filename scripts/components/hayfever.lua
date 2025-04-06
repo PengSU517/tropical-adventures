@@ -8,7 +8,11 @@ end
 
 
 local function onnextsneeze(self, nextsneeze)
-    self.inst.replica.hayfever:Setnextsneeze(nextsneeze)
+    -- -- print("hayfever component set nextsneeze")
+    -- -- print(nextsneeze)
+    if nextsneeze >= 0 then
+        self.inst.replica.hayfever:Setnextsneeze(nextsneeze)
+    end
 end
 
 --- 哈姆雷特花粉症
@@ -50,8 +54,8 @@ function Hayfever:CanSneeze()
 end
 
 function Hayfever:OnUpdate(dt)
-    -- print("hayfever component update")
-    -- print(self.nextsneeze)
+    -- -- print("hayfever component update")
+    -- -- print(self.nextsneeze)
     if self:CanSneeze() then
         if self.nextsneeze <= 0 then
             if not self.inst.sg:HasStateTag("sneeze") then
@@ -93,6 +97,8 @@ function Hayfever:OnLoad(data, newents)
         end
         if data.nextsneeze then
             self.nextsneeze = data.nextsneeze
+            -- -- print("hayfever component load nextsneeze")
+            -- -- print(data.nextsneeze)
         end
     end
 end

@@ -16,8 +16,8 @@ local Foggroggy = Class(function(self, inst)
 end)
 
 function Foggroggy:Setfoggroggy(foggroggy)
-    print("set froggy in replica")
-    print(foggroggy)
+    -- print("set froggy in replica")
+    -- print(foggroggy)
     self._foggroggylevel:set(foggroggy)
 end
 

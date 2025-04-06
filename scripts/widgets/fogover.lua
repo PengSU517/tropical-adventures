@@ -4,6 +4,7 @@ local UIAnim = require("widgets/uianim")
 
 local FogOver = Class(Widget, function(self, owner)
     Widget._ctor(self, "FogOver")
+    self:UpdateWhilePaused(false)
 
     self.owner = owner
 
@@ -38,8 +39,8 @@ end)
 function FogOver:UpdateState(foggroggylevel)
     self.foggroggylevel = foggroggylevel
     if self.foggroggylevel and self.foggroggylevel > 0 then
-        -- print("startupdatingfoggy in widget")
-        -- print(self.foggroggylevel)
+        -- -- -- print("startupdatingfoggy in widget")
+        -- -- -- print(self.foggroggylevel)
         self:StartUpdating()
         self:Show()
     end
@@ -57,7 +58,7 @@ function FogOver:OnUpdate(dt)
 
     if self.nowlevel <= 0 then
         self:Hide()
-        self.owner:DoTaskInTime(10, function() self:StopUpdating() end)
+        -- self.owner:DoTaskInTime(10, function() self:StopUpdating() end)
     else
         self:Show()
     end
