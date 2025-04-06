@@ -3,9 +3,6 @@ AddReplicableComponent("foggroggy")
 
 AddPlayerPostInit(function(inst)
     if TheWorld.ismastersim then
-        inst:AddComponent("infestable")
-        inst:AddComponent("shopper")
-
         if not inst.components.regionaware then
             inst:AddComponent("regionaware")
         end
@@ -20,4 +17,7 @@ AddPlayerPostInit(function(inst)
             end
         end
     end
+
+    inst:AddComponent("infestable")
+    inst:AddComponent("shopper")
 end)

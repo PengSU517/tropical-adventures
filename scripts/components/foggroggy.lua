@@ -7,8 +7,8 @@ local function Check(inst)
 end
 
 local function onfoggroggylevel(self, foggroggylevel)
-    print("Setfoggroggy in components")
-    print(foggroggylevel)
+    -- print("Setfoggroggy in components")
+    -- print(foggroggylevel)
     self.inst.replica.foggroggy:Setfoggroggy(foggroggylevel)
 end
 
