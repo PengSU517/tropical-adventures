@@ -93,22 +93,21 @@ return Class(function(self, inst)
         end
         ---------------------------------------------waves------------------------------------------------------
         if TUNING.waves then
-            local spawnpoint = self:GetSpawnPoint(pt)
-            local sx, sy, sz = spawnpoint:Get()
-            local tile = _map:GetTileAtPoint(spawnpoint:Get())
+            -- local spawnpoint = self:GetSpawnPoint(pt)
+            local sx, sy, sz = ex + math.random(-15, 15), 0, ez + math.random(-15, 15)
+            local tile = _map:GetTileAtPoint(sx, sy, sz)
 
 
             local prefab = GetRandomItem(WAVE_TYPES[tile])
             if prefab ~= nil then
-                if (_worldstate.issummer or _worldstate.moonphase == "new") and math.random() > 0.10 then
-                    prefab = "rogue_wave"
-                elseif (_worldstate.iswinter or _worldstate.moonphase == "full") and math.random() < 0.3 then
+                if ((_worldstate.issummer or _worldstate.moonphase == "new") and math.random() > 0.10) or
+                    ((_worldstate.iswinter or _worldstate.moonphase == "full") and math.random() < 0.3) then
                     prefab = "rogue_wave"
                 end
 
                 if IsOceanTile(tile) and not TheWorld.Map:IsPassableAtPoint(sx, sy, sz) then
                     local wave = SpawnPrefab(prefab)
-                    wave.Transform:SetPosition(spawnpoint:Get())
+                    wave.Transform:SetPosition(sx, sy, sz)
 
                     if _worldstate.isday then
                         wave.Transform:SetRotation(90)
@@ -204,22 +203,6 @@ return Class(function(self, inst)
         print "DEPRECATED: SetSpawnTimes() in birdspawner.lua, use birdattractor.spawnmodifier instead"
         _minspawndelay = delay.min
         _maxspawndelay = delay.max
-    end
-
-    function self:GetSpawnPoint(pt)
-        --We have to use custom test function because birds can't land on creep
-        local function TestSpawnPoint(offset)
-            local spawnpoint = pt + offset
-            return not _groundcreep:OnCreep(spawnpoint:Get())
-        end
-
-        local theta = math.random() * 2 * PI
-        local radius = 2 + math.random() * 25
-        local resultoffset = FindValidPositionByFan(theta, radius, 12, TestSpawnPoint)
-
-        if resultoffset ~= nil then
-            return pt + resultoffset
-        end
     end
 
     function self.StartTrackingFn(target)
