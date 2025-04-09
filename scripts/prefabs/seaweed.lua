@@ -105,8 +105,6 @@ local function cookedfn(sim)
     local inst = commonfn()
     inst.AnimState:PlayAnimation("cooked", true)
 
-    inst.entity:SetPristine()
-
     if not TheWorld.ismastersim then
         return inst
     end
