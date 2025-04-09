@@ -228,24 +228,6 @@ AddRecipe2("mermwatchtower", { Ingredient("boards", 5), Ingredient("tentaclespot
 			return ground_tile and (ground_tile == GROUND.MARSH or ground_tile == GROUND.TIDALMARSH)
 		end
 	}, { "CHARACTER" })
--- AddRecipe2("shadowmower_builder", { Ingredient("nightmarefuel", 2), Ingredient(GLOBAL.CHARACTER_INGREDIENT.SANITY, 60) },
--- 	TECH.SHADOW_TWO, { builder_tag = "shadowmagic", nounlock = true }, { "CRAFTING_STATION" })
--- AddRecipe2("shadowlumber_builder",
--- 	{ Ingredient("nightmarefuel", 2),
--- 		Ingredient(GLOBAL.CHARACTER_INGREDIENT.MAX_SANITY, GLOBAL.TUNING.SHADOWWAXWELL_SANITY_PENALTY.SHADOWLUMBER) },
--- 	TECH.SHADOW_TWO, nil, { "MAGIC" }, true, nil, "shadowmagic")
--- AddRecipe2("shadowminer_builder",
--- 	{ Ingredient("nightmarefuel", 2),
--- 		Ingredient(GLOBAL.CHARACTER_INGREDIENT.MAX_SANITY, GLOBAL.TUNING.SHADOWWAXWELL_SANITY_PENALTY.SHADOWMINER) },
--- 	TECH.SHADOW_TWO, nil, { "MAGIC" }, true, nil, "shadowmagic")
--- AddRecipe2("shadowdigger_builder",
--- 	{ Ingredient("nightmarefuel", 2),
--- 		Ingredient(GLOBAL.CHARACTER_INGREDIENT.MAX_SANITY, GLOBAL.TUNING.SHADOWWAXWELL_SANITY_PENALTY.SHADOWDIGGER) },
--- 	TECH.SHADOW_TWO, nil, { "MAGIC" }, true, nil, "shadowmagic")
--- AddRecipe2("shadowduelist_builder",
--- 	{ Ingredient("nightmarefuel", 2),
--- 		Ingredient(GLOBAL.CHARACTER_INGREDIENT.MAX_SANITY, GLOBAL.TUNING.SHADOWWAXWELL_SANITY_PENALTY.SHADOWDUELIST) },
--- 	TECH.SHADOW_TWO, nil, { "MAGIC" }, true, nil, "shadowmagic")
 
 --OBSIDIAN STATION--
 AddRecipe2("obsidianaxe",
@@ -738,15 +720,15 @@ AddRecipe2("pig_guard_tower", { Ingredient("cutstone", 3), Ingredient("halberd",
 	TECH.CITY_ONE, { nounlock = false, min_spacing = 3.2, placer = "pig_guard_tower_placer" },
 	{ "HAMLET" })
 AddRecipe2("hedge_block_item", { Ingredient("clippings", 9), Ingredient("nitre", 1) }, TECH.CITY_ONE, {
-	nounlock = true,
+	nounlock = false,
 	numtogive = 3,
 }, { "HAMLET" })
 AddRecipe2("hedge_cone_item", { Ingredient("clippings", 9), Ingredient("nitre", 1) }, TECH.CITY_ONE, {
-	nounlock = true,
+	nounlock = false,
 	numtogive = 3,
 }, { "HAMLET" })
 AddRecipe2("hedge_layered_item", { Ingredient("clippings", 9), Ingredient("nitre", 1) }, TECH.CITY_ONE, {
-	nounlock = true,
+	nounlock = false,
 	numtogive = 3,
 }, { "HAMLET" })
 AddRecipe2("pig_guard_tower_palace",
@@ -798,7 +780,7 @@ AddRecipe2("turf_cobbleroad", { Ingredient("cutstone", 2), Ingredient("boards", 
 AddRecipe2("turf_checkeredlawn", { Ingredient("cutgrass", 2), Ingredient("nitre", 1) }, TECH.CITY_ONE,
 	{ nounlock = false, numtogive = 4, image = "turf_lawn.tex" }, { "HAMLET" })
 AddRecipe2("turf_pigruins", { Ingredient("cutstone", 4), Ingredient("rocks", 2) }, TECH.CITY_TWO,
-	{ nounlock = true, numtogive = 4, }, { "HAMLET" })
+	{ nounlock = false, numtogive = 4, }, { "HAMLET" })
 --TURFS--
 AddRecipe2("turf_magmafield", { Ingredient("rocks", 2), Ingredient("ash", 1) }, TECH.TURFCRAFTING_ONE,
 	{ numtogive = 4 }, { "DECOR" })
@@ -993,47 +975,6 @@ AddWallSectionRecipe("wallornament_fulllength_mirror", 10)
 
 
 
-local function AddShelfRecipe(name, oincvalue)
-	local presetoincvalue = oincvalue or 5
-	local prefabname = ((name:find("wallornament") or name:find("antiquities")) and ("deco_" .. name)) or name
-	AddRecipe2(prefabname,
-		{ Ingredient("oinc", presetoincvalue) }, TECH.HOME_ONE,
-		{
-
-			nounlock = true,
-			-- build_mode = data and data.buildmode or "wallsection",
-			min_spacing = 3.2,
-			placer = prefabname .. "_placer",
-			image = "reno_" .. name .. ".tex"
-		},
-		{ "INTERIOR" })
-end
-
-AddShelfRecipe("shelves_wood", 2)
-AddShelfRecipe("shelves_basic")
-AddShelfRecipe("shelves_floating")
-AddShelfRecipe("shelves_wood")
-AddShelfRecipe("shelves_basic")
-AddShelfRecipe("shelves_marble")
-AddShelfRecipe("shelves_glass")
-AddShelfRecipe("shelves_ladder")
-AddShelfRecipe("shelves_hutch")
-AddShelfRecipe("shelves_industrial")
-AddShelfRecipe("shelves_adjustable")
-AddShelfRecipe("shelves_fridge")
-AddShelfRecipe("shelves_cinderblocks")
-AddShelfRecipe("shelves_midcentury")
-AddShelfRecipe("shelves_wallmount")
-AddShelfRecipe("shelves_aframe")
-AddShelfRecipe("shelves_crates")
--- AddShelfRecipe("shelves_hooks")
-AddShelfRecipe("shelves_pipe")
-AddShelfRecipe("shelves_hattree")
-AddShelfRecipe("shelves_pallet")
-AddShelfRecipe("shelves_floating")
--- AddShelfRecipe("shelves_displaycase")
--- AddShelfRecipe("shelves_displaycase_metal")
-
 
 
 local function AddLightRecipe(name, oincvalue)
@@ -1079,6 +1020,47 @@ AddRecipe2("reno_cornerbeam_round", { Ingredient("oinc", 1) }, TECH.HOME_ONE,
 AddRecipe2("reno_cornerbeam_marble", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
 	{ nounlock = true },
 	{ "INTERIOR" })
+
+local function AddShelfRecipe(name, oincvalue)
+	local presetoincvalue = oincvalue or 5
+	local prefabname = ((name:find("wallornament") or name:find("antiquities")) and ("deco_" .. name)) or name
+	AddRecipe2(prefabname,
+		{ Ingredient("oinc", presetoincvalue) }, TECH.HOME_ONE,
+		{
+
+			nounlock = false,
+			-- build_mode = data and data.buildmode or "wallsection",
+			min_spacing = 3.2,
+			placer = prefabname .. "_placer",
+			image = "reno_" .. name .. ".tex"
+		},
+		{ "INTERIOR" })
+end
+
+AddShelfRecipe("shelves_wood", 2)
+AddShelfRecipe("shelves_basic")
+AddShelfRecipe("shelves_floating")
+AddShelfRecipe("shelves_wood")
+AddShelfRecipe("shelves_basic")
+AddShelfRecipe("shelves_marble")
+AddShelfRecipe("shelves_glass")
+AddShelfRecipe("shelves_ladder")
+AddShelfRecipe("shelves_hutch")
+AddShelfRecipe("shelves_industrial")
+AddShelfRecipe("shelves_adjustable")
+AddShelfRecipe("shelves_fridge")
+AddShelfRecipe("shelves_cinderblocks")
+AddShelfRecipe("shelves_midcentury")
+AddShelfRecipe("shelves_wallmount")
+AddShelfRecipe("shelves_aframe")
+AddShelfRecipe("shelves_crates")
+-- AddShelfRecipe("shelves_hooks")
+AddShelfRecipe("shelves_pipe")
+AddShelfRecipe("shelves_hattree")
+AddShelfRecipe("shelves_pallet")
+AddShelfRecipe("shelves_floating")
+-- AddShelfRecipe("shelves_displaycase")
+-- AddShelfRecipe("shelves_displaycase_metal")
 
 AddRecipe2("deco_lamp_fringe", { Ingredient("oinc", 8) }, TECH.HOME_ONE,
 	{
@@ -1490,33 +1472,33 @@ AddRecipe2("deco_chair_rocking", { Ingredient("oinc", 2) }, TECH.HOME_ONE,
 
 
 AddRecipe2("rug_round", { Ingredient("oinc", 2) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_round_placer", image = "reno_rug_round.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_round_placer", image = "reno_rug_round.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_square", { Ingredient("oinc", 2) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_square_placer", image = "reno_rug_square.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_square_placer", image = "reno_rug_square.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_oval", { Ingredient("oinc", 2) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_oval_placer", image = "reno_rug_oval.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_oval_placer", image = "reno_rug_oval.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_rectangle", { Ingredient("oinc", 3) }, TECH.HOME_ONE,
 	{
 
-		nounlock = true,
+		nounlock = false,
 		min_spacing = 0,
 		placer = "rug_rectangle_placer",
 		image =
 		"reno_rug_rectangle.tex"
 	}, { "INTERIOR" })
 AddRecipe2("rug_fur", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_fur_placer", image = "reno_rug_fur.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_fur_placer", image = "reno_rug_fur.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_hedgehog", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_hedgehog_placer", image = "reno_rug_hedgehog.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_hedgehog_placer", image = "reno_rug_hedgehog.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_porcupuss", { Ingredient("oinc", 10) }, TECH.HOME_ONE,
 	{
 
-		nounlock = true,
+		nounlock = false,
 		min_spacing = 0,
 		placer = "rug_porcupuss_placer",
 		image =
@@ -1525,76 +1507,78 @@ AddRecipe2("rug_porcupuss", { Ingredient("oinc", 10) }, TECH.HOME_ONE,
 AddRecipe2("rug_hoofprint", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
 	{
 
-		nounlock = true,
+		nounlock = false,
 		min_spacing = 0,
 		placer = "rug_hoofprint_placer",
 		image =
 		"reno_rug_hoofprint.tex"
 	}, { "INTERIOR" })
 AddRecipe2("rug_octagon", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_octagon_placer", image = "reno_rug_octagon.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_octagon_placer", image = "reno_rug_octagon.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_swirl", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_swirl_placer", image = "reno_rug_swirl.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_swirl_placer", image = "reno_rug_swirl.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_catcoon", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_catcoon_placer", image = "reno_rug_catcoon.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_catcoon_placer", image = "reno_rug_catcoon.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_rubbermat", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
 	{
 
-		nounlock = true,
+		nounlock = false,
 		min_spacing = 0,
 		placer = "rug_rubbermat_placer",
 		image = "reno_rug_rubbermat.tex"
 	}, { "INTERIOR" })
 AddRecipe2("rug_web", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_web_placer", image = "reno_rug_web.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_web_placer", image = "reno_rug_web.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_metal", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_metal_placer", image = "reno_rug_metal.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_metal_placer", image = "reno_rug_metal.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_wormhole", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_wormhole_placer", image = "reno_rug_wormhole.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_wormhole_placer", image = "reno_rug_wormhole.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_braid", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_braid_placer", image = "reno_rug_braid.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_braid_placer", image = "reno_rug_braid.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_beard", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_beard_placer", image = "reno_rug_beard.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_beard_placer", image = "reno_rug_beard.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_nailbed", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_nailbed_placer", image = "reno_rug_nailbed.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_nailbed_placer", image = "reno_rug_nailbed.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_crime", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_crime_placer", image = "reno_rug_crime.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_crime_placer", image = "reno_rug_crime.tex" },
 	{ "INTERIOR" })
 AddRecipe2("rug_tiles", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 0, placer = "rug_tiles_placer", image = "reno_rug_tiles.tex" },
+	{ nounlock = false, min_spacing = 0, placer = "rug_tiles_placer", image = "reno_rug_tiles.tex" },
 	{ "INTERIOR" })
 
 GLOBAL.CONSTRUCTION_PLANS["collapsed_honeychest"] = { Ingredient("chitin", 3), Ingredient("beeswax", 1), Ingredient(
 	"honey", 2), Ingredient("alterguardianhatshard", 1) }
 GLOBAL.CONSTRUCTION_PLANS["pugaliskfountain_made"] = { Ingredient("ice", 10), Ingredient("waterdrop", 1) }
 
-AddRecipe2("bed0", { Ingredient("oinc", 5) }, TECH.HOME_ONE, { nounlock = true, min_spacing = 1, placer = "bed0_placer" },
+AddRecipe2("bed0", { Ingredient("oinc", 5) }, TECH.HOME_ONE,
+	{ nounlock = false, min_spacing = 1, placer = "bed0_placer" },
 	{ "INTERIOR" })
-AddRecipe2("bed1", { Ingredient("oinc", 7) }, TECH.HOME_ONE, { nounlock = true, min_spacing = 1, placer = "bed1_placer" },
+AddRecipe2("bed1", { Ingredient("oinc", 7) }, TECH.HOME_ONE,
+	{ nounlock = false, min_spacing = 1, placer = "bed1_placer" },
 	{ "INTERIOR" })
 AddRecipe2("bed2", { Ingredient("oinc", 10) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 1, placer = "bed2_placer" }, { "INTERIOR" })
+	{ nounlock = false, min_spacing = 1, placer = "bed2_placer" }, { "INTERIOR" })
 AddRecipe2("bed3", { Ingredient("oinc", 12) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 1, placer = "bed3_placer" }, { "INTERIOR" })
+	{ nounlock = false, min_spacing = 1, placer = "bed3_placer" }, { "INTERIOR" })
 AddRecipe2("bed4", { Ingredient("oinc", 14) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 1, placer = "bed4_placer" }, { "INTERIOR" })
+	{ nounlock = false, min_spacing = 1, placer = "bed4_placer" }, { "INTERIOR" })
 AddRecipe2("bed5", { Ingredient("oinc", 16) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 1, placer = "bed5_placer" }, { "INTERIOR" })
+	{ nounlock = false, min_spacing = 1, placer = "bed5_placer" }, { "INTERIOR" })
 AddRecipe2("bed6", { Ingredient("oinc", 18) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 1, placer = "bed6_placer" }, { "INTERIOR" })
+	{ nounlock = false, min_spacing = 1, placer = "bed6_placer" }, { "INTERIOR" })
 AddRecipe2("bed7", { Ingredient("oinc", 20) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 1, placer = "bed7_placer" }, { "INTERIOR" })
+	{ nounlock = false, min_spacing = 1, placer = "bed7_placer" }, { "INTERIOR" })
 AddRecipe2("bed8", { Ingredient("oinc", 22) }, TECH.HOME_ONE,
-	{ nounlock = true, min_spacing = 1, placer = "bed8_placer" }, { "INTERIOR" })
+	{ nounlock = false, min_spacing = 1, placer = "bed8_placer" }, { "INTERIOR" })
 
 -- Sort
 SortAfter("hammer", "pitchfork", "TOOLS")
