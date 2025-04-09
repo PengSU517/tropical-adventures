@@ -1,5 +1,7 @@
 local modimport = modimport
 
+modimport("scripts/tools/modutil_limited") -- 优化env下的modutil
+
 if TA_CONFIG.DEVELOP.test_mode then --开发人员测试时才可以使用
     modimport("postinit/seafork")
     modimport("postinit/opengift")
@@ -49,7 +51,7 @@ modimport("postinit/oceancolor")
 modimport("postinit/postinit_poisonables") --posonables--and loot dropper--
 modimport("postinit/camera")               --旧的房间镜头，但是现在不能删
 modimport("postinit/sim_rain_effect")
-modimport("postinit/player_darkness")
+-- modimport("postinit/player_darkness") --没有用
 modimport("postinit/farm")    --种植相关  --通过veggies改变随机种子权重
 modimport("postinit/wx78_module")
 modimport("postinit/sim_ham") --ham cloud

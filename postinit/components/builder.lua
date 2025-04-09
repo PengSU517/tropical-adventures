@@ -1,27 +1,21 @@
+local TechTree = require("techtree")
 local Utils = require("tools/utils")
 
 AddComponentPostInit("builder", function(self)
-	--- 对消耗呼噜币的扣除
-	-- Utils.FnDecorator(self, "RemoveIngredients", function(self, ingredients, recname, ...)
-	-- 	local recipe = GetValidRecipe(recname)
-	-- 	if self.freebuildmode or not recipe then return end
+	Utils.FnDecorator(self, "MakeRecipeAtPoint", function(self, recipe)
+		if not self:KnowsRecipe(recipe) and recipe.level.HOME and recipe.level.HOME <= 2 then
+			self:AddRecipe(recipe.name)
+		end
+	end)
 
-	-- 	-- 自己扣除呼噜币
-	-- 	for i, v in ipairs(recipe.ingredients) do
-	-- 		if v.type == "oinc" then
-	-- 			self.inst.components.inventory:PayMoney(v.amount)
-	-- 		end
+	-- function self:MakeRecipeAtPoint(recipe, pt, rot, skin)
+	-- 	if recipe.placer ~= nil and
+	-- 		self:KnowsRecipe(recipe.name) and ---为什么这个环节会出问题呢
+	-- 		self:IsBuildBuffered(recipe.name) and
+	-- 		TheWorld.Map:CanDeployRecipeAtPoint(pt, recipe, rot) then
+	-- 		self:MakeRecipe(recipe, pt, rot, skin)
 	-- 	end
-
-	-- 	--移除呼噜币的扣除
-	-- 	local newIngredients = {}
-	-- 	for item, ents in pairs(ingredients) do
-	-- 		if item ~= "oinc" then
-	-- 			newIngredients[item] = ents
-	-- 		end
-	-- 	end
-	-- 	return nil, false, { self, newIngredients, recname, ... }
-	-- end)
+	-- end
 
 	-- 装备智慧帽时解锁所有配方
 	Utils.FnDecorator(self, "KnowsRecipe", function(self, recipe)
@@ -35,7 +29,7 @@ AddComponentPostInit("builder", function(self)
 	end)
 end)
 
-----------------------------------------------------------------------------------------------------
+
 AddClassPostConstruct("components/builder_replica", function(self)
 	Utils.FnDecorator(self, "KnowsRecipe", function(self, recipe)
 		if type(recipe) == "string" then
