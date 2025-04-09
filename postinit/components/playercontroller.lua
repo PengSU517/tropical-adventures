@@ -1,4 +1,5 @@
 ----- desembarque automatico resto do código dentro de locomotor ----------------
+local Utils = require("tools/utils")
 AddClassPostConstruct("components/playercontroller", function(self)
     local RUBBER_BAND_PING_TOLERANCE_IN_SECONDS = 0.7
     local RUBBER_BAND_DISTANCE = 4
@@ -67,4 +68,22 @@ AddClassPostConstruct("components/playercontroller", function(self)
         self.remote_vector.y = 6
         self.inst.components.locomotor:StartHopping(x, z, platform)
     end
+
+    Utils.FnDecorator(self, "GetActionButtonAction", nil, function(rets, _force_target, ...)
+        local _distsq = 1023
+        if #rets > 0 then
+            _distsq = self.inst:GetDistanceSqToInst(rets[1].target)
+        end
+        local shop = FindEntity(self.inst, 2, function(inst)
+            return inst.components.shopped ~= nil
+        end)
+        if shop ~= nil then
+            return self.inst:GetDistanceSqToInst(shop) < _distsq and
+                { BufferedAction(self.inst, shop, ACTIONS.SHOP) } or rets
+        end
+        local door = FindEntity(self.inst, 2, nil, { "hamletteleport" })
+        if door ~= nil then
+            return { BufferedAction(self.inst, door, ACTIONS.JUMPIN) }
+        end
+    end)
 end)
