@@ -405,11 +405,9 @@ local setupfns = {
 }
 
 local function onsave(inst, data)
-    return {
-        nest = inst.components.childspawner ~= nil,
-        burnt = inst:HasTag("burnt") or inst:HasTag("fire"),
-        stump = inst:HasTag("stump")
-    }
+    if inst:HasTag("stump") then data.stump = true
+    elseif inst:HasTag("burnt") or inst:HasTag("fire") then data.burnt = true
+    elseif inst.components.childspawner ~= nil then data.nest = true end
 end
 
 local function onload(inst, data)
