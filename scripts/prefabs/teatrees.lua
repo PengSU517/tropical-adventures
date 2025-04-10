@@ -48,25 +48,12 @@ local function makeanims(stage)
         idle = "idle_" .. stage,
         sway1 = "sway1_loop_" .. stage,
         sway2 = "sway2_loop_" .. stage,
-        -- swayaggropre = "sway_agro_pre",
-        -- swayaggro = "sway_loop_agro",
-        -- swayaggropst = "sway_agro_pst",
-        -- swayaggroloop = "idle_loop_agro",
-        -- swayfx = "swayfx_" .. stage,
         chop = "chop_" .. stage,
         fallleft = "fallleft_" .. stage,
         fallright = "fallright_" .. stage,
         stump = "stump_" .. stage,
-        -- burning = "burning_loop_" .. stage,
         burnt = "burnt_" .. stage,
         chop_burnt = "chop_burnt_" .. stage,
-        -- idle_chop_burnt = "idle_chop_burnt_" .. stage,
-        -- dropleaves = "drop_leaves_" .. stage,
-        -- growleaves = "grow_leaves_" .. stage,
-        -- blown1 = "blown_loop_" .. stage .. "1",
-        -- blown2 = "blown_loop_" .. stage .. "2",
-        -- blown_pre = "blown_pre_" .. stage,
-        -- blown_pst = "blown_pst_" .. stage,
     }
 end
 
@@ -128,18 +115,18 @@ end
 local growth_stages = {{
     name = "short",
     time = function(inst) return GetRandomWithVariance(DECIDUOUS_GROW_TIME[1].base, DECIDUOUS_GROW_TIME[1].random) end,
-    fn = function(inst) SetShort(inst) end,
-    growfn = function(inst) GrowShort(inst) end,
+    fn = SetShort,
+    growfn = GrowShort,
 }, {
     name = "normal",
     time = function(inst) return GetRandomWithVariance(DECIDUOUS_GROW_TIME[2].base, DECIDUOUS_GROW_TIME[2].random) end,
-    fn = function(inst) SetNormal(inst) end,
-    growfn = function(inst) GrowNormal(inst) end,
+    fn = SetNormal,
+    growfn = GrowNormal,
 }, {
     name = "tall",
     time = function(inst) return GetRandomWithVariance(DECIDUOUS_GROW_TIME[3].base, DECIDUOUS_GROW_TIME[3].random) end,
-    fn = function(inst) SetTall(inst) end,
-    growfn = function(inst) GrowTall(inst) end,
+    fn = SetTall,
+    growfn = GrowTall,
 }}
 
 local function chop_tree(inst, chopper, chops)
@@ -168,8 +155,8 @@ local function chop_down_tree(inst, chopper)
 
     inst.SoundEmitter:PlaySound("dontstarve/forest/treefall")
 
-    local pt = Vector3(inst.Transform:GetWorldPosition())
-    local hispos = Vector3(chopper.Transform:GetWorldPosition())
+    local pt = inst:GetPosition()
+    local hispos = chopper:GetPosition()
     local he_right = (hispos - pt):Dot(TheCamera:GetRightVec()) > 0
 
     if he_right then
@@ -398,6 +385,9 @@ local setupfns = {
         inst:RemoveComponent("childspawner")
     end,
     nest = function(inst)
+        if not inst.components.childspawner then
+            spawner_presetup(inst)
+        end
         TestSpawning(inst)
         inst:ListenForEvent("enterlight", TestSpawning)
         inst:ListenForEvent("enterdark", TestSpawning)
@@ -428,7 +418,6 @@ local function tree(name, stage, type)
         inst.entity:AddTransform()
         inst.entity:AddSoundEmitter()
         inst.entity:AddMiniMapEntity()
-        inst.entity:SetPristine()
 
         local anim = inst.entity:AddAnimState()
         inst.color = .7 + math.random() * .3
@@ -448,6 +437,8 @@ local function tree(name, stage, type)
         inst:AddTag("shelter")
         inst:AddTag("workable")
         inst:AddTag("cattoyairborne")
+
+        inst.entity:SetPristine()
 
         if not TheWorld.ismastersim then
             return inst
