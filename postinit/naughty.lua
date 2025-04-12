@@ -1,4 +1,4 @@
--- 淘气值表
+------ 淘气值表-----------------------------------
 
 NAUGHTY_VALUE["lightflier"] = 1
 NAUGHTY_VALUE["dustmoth"] = 4
@@ -33,3 +33,36 @@ NAUGHTY_VALUE["mandrakeman"] = 3
 NAUGHTY_VALUE["peagawk"] = 3
 NAUGHTY_VALUE["zeb"] = 2
 NAUGHTY_VALUE["chicken"] = 3
+
+--猪镇猪人
+NAUGHTY_VALUE["pigman_beautician"] = 6
+NAUGHTY_VALUE["pigman_florist"] = 6
+NAUGHTY_VALUE["pigman_erudite"] = 6
+NAUGHTY_VALUE["pigman_hatmaker"] = 6
+NAUGHTY_VALUE["pigman_storeowner"] = 6
+NAUGHTY_VALUE["pigman_banker"] = 6
+NAUGHTY_VALUE["pigman_collector"] = 6
+NAUGHTY_VALUE["pigman_hunter"] = 6
+NAUGHTY_VALUE["pigman_mayor"] = 6
+NAUGHTY_VALUE["pigman_mechanic"] = 6
+NAUGHTY_VALUE["pigman_professor"] = 6
+NAUGHTY_VALUE["pigman_usher"] = 6
+NAUGHTY_VALUE["pigman_royalguard"] = 6
+NAUGHTY_VALUE["pigman_royalguard_2"] = 6
+NAUGHTY_VALUE["pigman_farmer"] = 6
+NAUGHTY_VALUE["pigman_miner"] = 6
+NAUGHTY_VALUE["pigman_queen"] = 6
+NAUGHTY_VALUE["pigman_beautician_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_florist_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_erudite_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_hatmaker_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_storeowner_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_banker_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_hunter_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_mayor_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_farmer_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_miner_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_collector_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_professor_shopkeep"] = 6
+NAUGHTY_VALUE["pigman_mechanic_shopkeep"] = 6
