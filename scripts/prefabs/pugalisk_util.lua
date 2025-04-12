@@ -65,7 +65,7 @@ local function FindCurrentTarget(inst)
     return target
 end
 
-function FindValidPositionByFan(start_angle, radius, attempts, test_fn)
+local function FindValidPositionByFan(start_angle, radius, attempts, test_fn)
     local theta = start_angle -- radians
 
     attempts = attempts or 8
