@@ -2,7 +2,7 @@ local modimport = modimport
 
 modimport("scripts/tools/modutil_limited") -- 优化env下的modutil
 
-if TA_CONFIG.DEVELOP.test_mode then --开发人员测试时才可以使用
+if TA_CONFIG.DEVELOP.test_mode then        --开发人员测试时才可以使用
     modimport("postinit/seafork")
     modimport("postinit/opengift")
     modimport("postinit/widgets/hoverer_info")
@@ -36,14 +36,15 @@ modimport("postinit/entityscript") --修改entity相关
 
 
 modimport("postinit/actionrelated")
-modimport("postinit/components/weather")  --热带气候（冬季降雨
-modimport("postinit/tropical_climate")    --热带气候
-modimport("postinit/ham_room")            --新的room
-modimport("postinit/room_camera")         --房间镜头
-modimport("postinit/boat")                --单人船相关修改
-modimport("postinit/natureskin_variants") --和自然皮肤切换相关的所有内容
-modimport("postinit/player_vision_post")  --四眼镜、蝙蝠帽所用
-modimport("postinit/tile_post")           --特殊地皮挖起
+modimport("postinit/components/weather")       --热带气候（冬季降雨
+modimport("postinit/tropical_climate")         --热带气候
+modimport("postinit/ham_room")                 --新的room
+modimport("postinit/room_camera")              --房间镜头
+modimport("postinit/boat")                     --单人船相关修改
+modimport("postinit/natureskin_variants")      --和自然皮肤切换相关的所有内容
+modimport("postinit/player_vision_post")       --四眼镜、蝙蝠帽所用
+modimport("postinit/tile_post")                --特殊地皮挖起
+modimport("postinit/components/plantregrowth") --植物再生
 
 
 -- do not know how to sort
@@ -62,7 +63,6 @@ modimport("postinit/naughty") --淘气值？
 
 --components
 -- modimport("postinit/components/oceancolor")
--- modimport("postinit/components/plantgrowth")  --黄蘑菇生长速度，之后或许可以加进来
 -- modimport("postinit/components/playervision")
 -- modimport("postinit/components/spooked")  --黄蘑菇孢子
 -- modimport("postinit/components/trap")
