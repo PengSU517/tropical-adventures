@@ -117,6 +117,7 @@ modimport("postinit/prefabs/mushroom_farm")
 modimport("postinit/prefabs/player_classified")
 -- modimport("postinit/prefabs/player_hayfever")
 modimport("postinit/prefabs/player") --shopper, drownable, infestable
+modimport("postinit/prefabs/sword_lunarplant")
 modimport("postinit/prefabs/trinket_1")
 modimport("postinit/prefabs/warningshadow")
 modimport("postinit/prefabs/wobster")
