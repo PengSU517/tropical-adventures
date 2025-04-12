@@ -1,13 +1,12 @@
 local modimport = modimport
 
 modimport("scripts/tools/modutil_limited") -- 优化env下的modutil
+modimport("postinit/safeapi")              --这些函数是env里的，仅对这个mod有效
 
 if TA_CONFIG.DEVELOP.test_mode then        --开发人员测试时才可以使用
     modimport("postinit/seafork")
     modimport("postinit/opengift")
     modimport("postinit/widgets/hoverer_info")
-else
-    modimport("postinit/safeapi") --这些函数是env里的，仅对这个mod有效
 end
 
 if not TheNet:IsDedicated() then ---客机读取主机的overrides---似乎也只能在这里读取了
@@ -15,23 +14,7 @@ if not TheNet:IsDedicated() then ---客机读取主机的overrides---似乎也�
     AddSimPostInit(function() modimport("main/ta_config_client") end)
 end
 
--- AddGamePostInit(function()
---     if not TheNet:IsDedicated() then
---         print("reupdate overrides in client")
---         modimport("main/ta_config_client")
---         -- modimport("postinit/oceancolor")
---     else
---         print("not reupdate overrides in client")
---     end
---     -- modimport("postinit/world_map_tropical_ocean")
--- end)
--- -----也许比AddSimPostInit优先级高？
-
-
-
-
 modimport("postinit/world_map")    --theworld.map相关
-
 modimport("postinit/entityscript") --修改entity相关
 
 
