@@ -75,12 +75,12 @@ AddClassPostConstruct("components/playercontroller", function(self)
             _distsq = self.inst:GetDistanceSqToInst(rets[1].target)
         end
         local shop = FindEntity(self.inst, 2, function(inst)
-            return inst.components.shopped ~= nil
+            return inst.prefab == "shop_buyer"
         end)
-        if shop ~= nil then
-            return self.inst:GetDistanceSqToInst(shop) < _distsq and
-                { BufferedAction(self.inst, shop, ACTIONS.SHOP) } or rets
+        if shop ~= nil and self.inst:GetDistanceSqToInst(shop) < _distsq then
+            return { BufferedAction(self.inst, shop, ACTIONS.SHOP) }
         end
+        if #rets > 0 then return rets end
         local door = FindEntity(self.inst, 2, nil, { "hamletteleport" })
         if door ~= nil then
             return { BufferedAction(self.inst, door, ACTIONS.JUMPIN) }
