@@ -58,7 +58,6 @@ modimport("postinit/components/birdspawner")
 modimport("postinit/components/boatphysics")
 modimport("postinit/components/builder")
 modimport("postinit/components/colourcube")
-modimport("postinit/components/mapstyle")
 modimport("postinit/components/combat")
 -- modimport("postinit/components/container")
 modimport("postinit/components/curseditem")
@@ -110,7 +109,7 @@ modimport("postinit/prefabs/world")
 
 --screens and widgets
 modimport("postinit/screens/playerhud")      ---雾和花粉症效果在这里
-
+modimport("postinit/widgets/mapstyle")
 modimport("postinit/widgets/container_boat") -- boat container sizing tweak by EvenMr
 modimport("postinit/widgets/container_widget_boat")
 modimport("postinit/widgets/container_woodleg_boat")
