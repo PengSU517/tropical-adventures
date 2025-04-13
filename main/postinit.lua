@@ -90,6 +90,7 @@ modimport("postinit/components/edible")
 -- modimport("postinit/prefabs/farm_plants")--目前不太需要
 -- modimport("postinit/prefabs/forest")
 -- modimport("postinit/prefabs/image_minisign") --会影响到其他mod
+modimport("postinit/prefabs/spawned_creature")
 modimport("postinit/prefabs/blueprints")
 modimport("postinit/prefabs/dock_kit") --甲板相关
 modimport("postinit/prefabs/floatable_items")
