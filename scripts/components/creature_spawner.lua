@@ -1,5 +1,5 @@
 local CHECK_RADIUS = 40
-local SCREEN_DIST  = 40
+local SCREEN_DIST  = 50
 local creaturedef  = require("datadefs/creature_spawn_defs")
 
 return Class(function(self, inst)
@@ -109,7 +109,7 @@ return Class(function(self, inst)
 		local creature = SpawnPrefab(prefab)
 		if creature then
 			creature.Transform:SetPosition(pos:Get())
-			creature:AddTag("spawned_" .. prefab)
+			-- creature:AddTag("spawned_" .. prefab)
 			--print("Spawn creature " .. prefab)
 		end
 	end
@@ -121,8 +121,9 @@ return Class(function(self, inst)
 
 		--print("SpawnSchool")
 		local prefab = schooldata.prefab
+		local checkname = schooldata.checkname or schooldata.prefab
 		local num_creature = #TheSim:FindEntities(spawnpoint.x, spawnpoint.y, spawnpoint.z, CHECK_RADIUS,
-			{ "spawned_" .. prefab })
+			{ "spawned_" .. checkname })
 
 		if schooldata.schoolmin < num_creature then
 			return
