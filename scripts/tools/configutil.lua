@@ -57,8 +57,8 @@ function AddConfigAndTuning(config, source)
 
     config.WORLDGEN = addconfig({}, source, worldgen_options)
     config.CLIMATE = addconfig({}, source, climate_options)
-    config.PERSONAL = addconfig({}, source, personal_options)                         ----这里读取客机配置
-    config.DEVELOP = addconfig({}, source, developer_options)
+    config.PERSONAL = addconfig({}, {}, personal_options, true)                       ----这里读取客机配置
+    config.DEVELOP = addconfig({}, {}, developer_options)
     config.DEPENDENCY = { ndnr = KnownModIndex:IsModEnabled("workshop-2823458540"), } ----富贵险中求
 
     ----configuration adjustments----------
