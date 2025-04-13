@@ -118,13 +118,13 @@ local CREATURES   =
         schoolrange = SCHOOL_AREA.TINY,
     },
 
-    luggagechest_spawner = {
-        prefab = "luggagechest_spawner",
-        checkname = "luggagechest",
-        schoolmin = 1,
-        schoolmax = 1,
-        schoolrange = SCHOOL_AREA.TINY,
-    },
+    -- luggagechest_spawner = {
+    --     prefab = "luggagechest_spawner",
+    --     checkname = "luggagechest",
+    --     schoolmin = 1,
+    --     schoolmax = 1,
+    --     schoolrange = SCHOOL_AREA.TINY,
+    -- },
 
     -- crocodog_spawner = {
     --     prefab = "crocodog_spawner",

@@ -152,9 +152,8 @@ local function messagebottlefn(Sim)
 	inst.components.waterproofer:SetEffectiveness(0)
 
 	inst.no_wet_prefix = true
-	--local minimap = inst.entity:AddMiniMapEntity() --temp
-
-	--minimap:SetIcon("messageBottle.tex")
+	local minimap = inst.entity:AddMiniMapEntity() --temp
+	minimap:SetIcon("messagebottle_sw.tex")
 
 	inst:AddComponent("unwrappable")
 	inst.components.unwrappable:SetOnUnwrappedFn(onunwrapped)

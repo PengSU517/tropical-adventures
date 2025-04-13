@@ -25,6 +25,7 @@ if TUNING.shipwrecked then
     AddRoomPreInit("OceanSwell", function(room)
         tableutil.insert_indexes(room.contents.distributeprefabs,
             {
+                messagebottle_sw = 0.1,
                 ballphinhouse = 5,
                 --  fishinhole = 5,
                 -- jellyfish_spawner = 4 * 2,
@@ -73,7 +74,7 @@ if TUNING.shipwrecked then
                 oceanfog = 0.1,
             })
         room.contents.countprefabs = {
-            luggagechest = 4,
+            luggagechest_spawner = 4,
             rawling = 1
         }
     end)
