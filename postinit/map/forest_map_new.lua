@@ -15,49 +15,17 @@ end
 
 
 forest_map.Generate = function(prefab, map_width, map_height, tasks, level, level_type, ...)
-    ----世界设置覆盖mod设置中的相同内容
-    local worldgenset = deepcopy(level.overrides) or {}
-    -- print("worldgenset:")
-    -- for i, v in pairs(worldgenset) do
-    --     print(i .. ":" .. tostring(v))
-    -- end
-
-    for i, v in pairs(ta_worldgen) do
-        ta_worldgen[i] = (worldgenset[i] ~= nil) and worldgenset[i] or ta_worldgen[i]
-        if ta_worldgen[i] == "disabled" then
-            ta_worldgen[i] = false
-        end
-    end
-
-    -- print("ta_worldgen:")
-    -- for i, v in pairs(ta_worldgen) do
-    --     print(i .. ":" .. tostring(v))
-    -- end
-
-    ta_worldgen.sw_start = ta_worldgen.shipwrecked and (ta_worldgen.multiplayerportal == "shipwrecked")
-    ta_worldgen.ham_start = ta_worldgen.hamlet and (ta_worldgen.multiplayerportal == "hamlet")
-    ta_worldgen.together_not_mainland = (ta_worldgen.sw_start or ta_worldgen.ham_start)
-    ta_worldgen.together = not ((not ta_worldgen.rog) and ta_worldgen.together_not_mainland)
-
-
     local save = old_generatemap(prefab, map_width, map_height, tasks, level, level_type, ...)
-
     if save == nil then return save end
-    -- if level.location ~= "forest" then return save end
-    -- if not TUNING.hamlet then return save end
-    if not tableutil.has_all_of_component(level.tasks, { "Edge_of_civilization", "Pigtopia", "Other_edge_of_civilization", "Other_pigtopia" }) then
-        return
-            save
-    end
 
     --------------------building porkland cities---------------------------------------------------------------------
+    if not tableutil.has_all_of_component(level.tasks, { "Edge_of_civilization", "Pigtopia", "Other_edge_of_civilization", "Other_pigtopia" }) then
+        return save
+    end
     local make_cities = require("map/city_builder")
     local build_porkland = function(entities, topology_save, map_width, map_height, current_gen_params)
         print("Building porkland cities!")
         make_cities(entities, topology_save, WorldSim, map_width, map_height, current_gen_params)
-
-
-
         local join_islands = not current_gen_params.no_joining_islands
         save.map.tiles, save.map.tiledata, save.map.nav, save.map.adj, save.map.nodeidtilemap =
             WorldSim:GetEncodedMap(join_islands) ----这是存储地形数据的关键
@@ -65,5 +33,11 @@ forest_map.Generate = function(prefab, map_width, map_height, tasks, level, leve
     build_porkland(save.ents, TOPOLOGY_SAVE, save.map.width, save.map.height, deepcopy(level.overrides))
     ----mapwidth,height在其中发生过改变
     -----------------------------------------------------------------------------------------------------------------
+    if save.ents then
+        for i, v in pairs(require("datadefs/translated_prefabs").translated_prefabs) do
+            tableutil.insert_indexes(save.ents[v], save.ents[i])
+            save.ents[i] = nil
+        end
+    end
     return save
 end

@@ -236,6 +236,23 @@ if ta_worldgen.shipwrecked then
             table.insert(level.tasks, "A_BLANK12")
 
             table.insert(level.ocean_population, "OceanBrinepool")
+            tableutil.insert_components(
+                level.required_prefabs,
+                {
+                    "packim_fishbone",
+                    "tigersharkpool", --"sharkittenspawner",
+                    "slipstor",
+                    "octopusking",    --为什么会出现两个呢
+                    "mermhouse_fisher",
+                    "doydoy",
+                    "doydoy",
+                    "doydoybaby",
+                    -- "volcano_altar",
+                    "obsidian_workbench",
+                    "wildboreking",
+                    "firetwister",
+                }
+            )
         end
     end)
 end
@@ -267,6 +284,21 @@ if ta_worldgen.hamlet then
             level.set_pieces["cave_entranceham1"] = { count = 1, tasks = { "Deep_rainforest" } }
             level.set_pieces["cave_entranceham2"] = { count = 1, tasks = { "Deep_rainforest_2" } }
             level.set_pieces["cave_entranceham3"] = { count = 1, tasks = { "Deep_lost_ruins_gas" } }
+
+            tableutil.insert_components(
+                level.required_prefabs,
+                {
+                    "pugalisk_fountain",
+                    "roc_nest",
+                    "ancient_robot_ribs",
+                    "ancient_robot_head",
+                    "ancient_robot_claw",
+                    "ancient_robot_claw",
+                    "ancient_robot_leg",
+                    "ancient_robot_leg",
+
+                }
+            )
         end
     end)
 end
