@@ -113,7 +113,8 @@ modimport("postinit/widgets/mapstyle")
 modimport("postinit/widgets/container_boat") -- boat container sizing tweak by EvenMr
 modimport("postinit/widgets/container_widget_boat")
 modimport("postinit/widgets/container_woodleg_boat")
-modimport("postinit/widgets/containers") --new containers
+modimport("postinit/widgets/containers") --new contaoiners
+modimport("postinit/widgets/craftingmenu_ingredients")
 modimport("postinit/widgets/crafttabs")
 modimport("postinit/widgets/healthbadge")
 modimport("postinit/widgets/inventorybar")       -- 船HUD自适应

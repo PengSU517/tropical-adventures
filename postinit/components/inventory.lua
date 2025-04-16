@@ -102,14 +102,22 @@ local function IsItemNameEquippedClient(self, item_name)
     end
 end
 
-AddComponentPostInit("inventory", function(self)
-    self.HasMoney = HasMoney
-    self.PayMoney = PayMoney
+local Inventory = require("components/inventory")
+Inventory.HasMoney = HasMoney
+Inventory.PayMoney = PayMoney
+Inventory.IsItemNameEquipped = IsItemNameEquipped
 
-    self.IsItemNameEquipped = IsItemNameEquipped
-end)
-
-AddClassPostConstruct("components/inventory_replica", function(self)
-    self.HasMoney = HasMoney
-    self.IsItemNameEquipped = IsItemNameEquippedClient
-end)
+local Inventory_replica = require("components/inventory_replica")
+Inventory_replica.HasMoney = HasMoney
+Inventory_replica.IsItemNameEquipped = IsItemNameEquippedClient
+local Has = Inventory_replica.Has
+function Inventory_replica:Has(prefab, amount, checkallcontainers, ...)
+    if self.check_all_oincs and prefab == "oinc" then
+        local _, oincamount = Has(self, "oinc", 0, true)
+        local _, oinc10amount = Has(self, "oinc10", 0, true)
+        local _, oinc100amount = Has(self, "oinc100", 0, true)
+        local total = oincamount + (oinc10amount * 10) + (oinc100amount * 100)
+        return total >= amount, total
+    end
+    return Has(self, prefab, amount, checkallcontainers, ...)
+end
