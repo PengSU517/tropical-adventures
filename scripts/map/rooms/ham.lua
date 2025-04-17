@@ -44,7 +44,7 @@ AddRoom("Hamlet start", {
 AddRoom("Rockyham", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countprefabs =
         {
@@ -150,14 +150,14 @@ local cityContents = {
 AddRoom("BG_city_base", {
     colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
     value = WORLD_TILES.SUBURB,
-    tags = { "ExitPiece", "City_Foundation" },
+    tags = { "City_Foundation" },
     contents = cityContents
 })
 
 AddRoom("city_base_1", {
     colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
     value = WORLD_TILES.SUBURB,
-    tags = { "ExitPiece", "City_Foundation" },
+    tags = { "City_Foundation" },
     contents = cityContents
 })
 
@@ -165,7 +165,7 @@ AddRoom("city_base_1", {
 AddRoom("city_base_2", {
     colour = { r = .1, g = 0.1, b = 0.1, a = 0.3 },
     value = WORLD_TILES.SUBURB,
-    tags = { "ExitPiece", "City_Foundation" },
+    tags = { "City_Foundation" },
     contents = cityContents
 })
 
@@ -184,21 +184,21 @@ local suburb_contents = {
 AddRoom("BG_suburb_base", {
     colour = { r = .3, g = 0.3, b = 0.3, a = 0.3 },
     value = WORLD_TILES.SUBURB,
-    tags = { "ExitPiece", "City_Foundation", "Suburb" },
+    tags = { "City_Foundation", "Suburb" },
     contents = suburb_contents
 })
 
 AddRoom("suburb_base_1", {
     colour = { r = .3, g = 0.3, b = 0.3, a = 0.3 },
     value = WORLD_TILES.SUBURB,
-    tags = { "ExitPiece", "City_Foundation", "Suburb" },
+    tags = { "City_Foundation", "Suburb" },
     contents = suburb_contents
 })
 
 AddRoom("suburb_base_2", {
     colour = { r = .3, g = 0.3, b = 0.3, a = 0.3 },
     value = WORLD_TILES.SUBURB,
-    tags = { "ExitPiece", "City_Foundation", "Suburb" },
+    tags = { "City_Foundation", "Suburb" },
     contents = suburb_contents
 })
 
@@ -216,28 +216,28 @@ local cultivated_contnets = {
 AddRoom("BG_cultivated_base", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = WORLD_TILES.FIELDS,
-    tags = { "ExitPiece", "Cultivated" },
+    tags = { "Cultivated" },
     contents = cultivated_contnets
 })
 
 AddRoom("cultivated_base_1", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = WORLD_TILES.FIELDS,
-    tags = { "ExitPiece", "Cultivated" },
+    tags = { "Cultivated" },
     contents = cultivated_contnets
 })
 
 AddRoom("cultivated_base_2", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = WORLD_TILES.FIELDS,
-    tags = { "ExitPiece", "Cultivated" },
+    tags = { "Cultivated" },
     contents = cultivated_contnets
 })
 
 AddRoom("piko_land", {
     colour = { r = 1.0, g = 0.0, b = 1.0, a = 0.3 },
     value = WORLD_TILES.FIELDS,
-    tags = { "ExitPiece", "Cultivated" },
+    tags = { "Cultivated" },
     contents = {
         distributepercent = 0.06, -- 0.1
         distributeprefabs = {
@@ -258,7 +258,7 @@ AddRoom("piko_land", {
 AddRoom("BG_battleground_base", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .22, -- .22, --.26
         distributeprefabs =
@@ -282,7 +282,7 @@ AddRoom("BG_battleground_base", {
 AddRoom("battleground_ribs", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .22, -- .22, --.26
         distributeprefabs =
@@ -307,7 +307,7 @@ AddRoom("battleground_ribs", {
 AddRoom("battleground_claw", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .22, -- .22, --.26
         distributeprefabs =
@@ -332,7 +332,7 @@ AddRoom("battleground_claw", {
 AddRoom("battleground_claw1", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .22, -- .22, --.26
         distributeprefabs =
@@ -357,7 +357,7 @@ AddRoom("battleground_claw1", {
 AddRoom("battleground_leg", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .22, -- .22, --.26
         distributeprefabs =
@@ -382,7 +382,7 @@ AddRoom("battleground_leg", {
 AddRoom("battleground_leg1", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .22, -- .22, --.26
         distributeprefabs =
@@ -406,7 +406,7 @@ AddRoom("battleground_leg1", {
 AddRoom("battleground_head", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.BATTLEGROUND_RAINFOREST_NOISE,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         --					countstaticlayouts={["CaveEntrance"]=1},
         distributepercent = .22, -- .22, --.26
@@ -432,7 +432,7 @@ AddRoom("battleground_head", {
 AddRoom("BG_painted_base", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.PAINTED,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .15, --.26
         distributeprefabs =
@@ -458,7 +458,7 @@ AddRoom("BG_painted_base", {
 AddRoom("deeprainforest_gas", {
     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.GASRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = 0.45, --.45
         distributeprefabs =
@@ -484,7 +484,7 @@ AddRoom("deeprainforest_gas", {
 AddRoom("deeprainforest_gas_entrance6", {
     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.GASRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = 0.45, --.45
         distributeprefabs =
@@ -514,7 +514,7 @@ AddRoom("deeprainforest_gas_entrance6", {
 AddRoom("deeprainforest_gas_flytrap_grove", {
     colour = { r = 1, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.GASRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = {
             ["pig_ruins_head"] = 1,
@@ -550,7 +550,7 @@ AddRoom("deeprainforest_gas_flytrap_grove", {
 AddRoom("BG_rainforest_base", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.RAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .38, --.5
         distributeprefabs =
@@ -581,7 +581,7 @@ AddRoom("BG_rainforest_base", {
 AddRoom("rainforest_ruins", {
     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
     value = GROUND.RAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .35, -- .5
         distributeprefabs =
@@ -609,7 +609,7 @@ AddRoom("rainforest_ruins", {
 AddRoom("rainforest_ruins_entrance", {
     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
     value = GROUND.RAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .35, -- .5
         distributeprefabs =
@@ -636,7 +636,7 @@ AddRoom("rainforest_ruins_entrance", {
 AddRoom("BG_deeprainforest_base", {
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = 0.5,
         distributeprefabs =
@@ -667,7 +667,7 @@ AddRoom("BG_deeprainforest_base", {
 AddRoom("deeprainforest_spider_monkey_nest", {
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -695,7 +695,7 @@ AddRoom("deeprainforest_spider_monkey_nest", {
 AddRoom("deeprainforest_flytrap_grove", {
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = {
             ["nettlegrove"] = function()
@@ -733,7 +733,7 @@ AddRoom("deeprainforest_flytrap_grove", {
 AddRoom("deeprainforest_flytrap_grove_PigRuinsEntrance5", {
     colour = { r = 0.2, g = 0.6, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -762,7 +762,7 @@ AddRoom("deeprainforest_flytrap_grove_PigRuinsEntrance5", {
 AddRoom("deeprainforest_fireflygrove", {
     colour = { r = 1, g = 1, b = 0.2, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = 0.25, --0.25, --.3
         distributeprefabs =
@@ -790,7 +790,7 @@ AddRoom("deeprainforest_fireflygrove", {
 AddRoom("deeprainforest_ruins_entrance", {
     colour = { r = 1, g = 0.1, b = 0.2, a = 0.5 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -818,7 +818,7 @@ AddRoom("deeprainforest_ruins_entrance", {
 AddRoom("deeprainforest_ruins_entrance2", {
     colour = { r = 1, g = 0.1, b = 0.2, a = 0.5 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -845,7 +845,7 @@ AddRoom("deeprainforest_ruins_entrance2", {
 AddRoom("deeprainforest_ruins_exit", {
     colour = { r = 0.2, g = 0.1, b = 1, a = 0.5 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -873,7 +873,7 @@ AddRoom("deeprainforest_ruins_exit", {
 AddRoom("deeprainforest_ruins_exit2", {
     colour = { r = 0.2, g = 0.1, b = 1, a = 0.5 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = { ["nettlegrove"] = 1 },
         distributepercent = 0.25, --.3
@@ -904,7 +904,7 @@ AddRoom("deeprainforest_ruins_exit2", {
 AddRoom("deeprainforest_anthill", {
     colour = { r = 1, g = 0, b = 1, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -933,7 +933,7 @@ AddRoom("deeprainforest_anthill", {
 AddRoom("deeprainforest_mandrakeman", {
     colour = { r = 1, g = 0, b = 1, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = { ["mandraketown"] = 1 },
         distributepercent = 0.25, --.3
@@ -962,7 +962,7 @@ AddRoom("deeprainforest_mandrakeman", {
 AddRoom("deeprainforest_anthill_exit", {
     colour = { r = 1, g = 0, b = 1, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = {
             -- ["pig_ruins_entrance_5"] = GetModConfigData("pigruins")
@@ -990,7 +990,7 @@ AddRoom("deeprainforest_anthill_exit", {
 AddRoom("deeprainforest_anthill_exit2", {
     colour = { r = 1, g = 0, b = 1, a = 0.3 },
     value = GROUND.DEEPRAINFOREST,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = 0.25, --.3
         distributeprefabs =
@@ -1021,7 +1021,7 @@ AddRoom("deeprainforest_anthill_exit2", {
 AddRoom("BG_plains_inicio", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .25, --.22, --.26
         distributeprefabs =
@@ -1041,7 +1041,7 @@ AddRoom("BG_plains_inicio", {
 AddRoom("BG_plains_base", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .25, --.22, --.26
         distributeprefabs =
@@ -1071,7 +1071,7 @@ AddRoom("BG_plains_base", {
 AddRoom("BG_plains_base_nocanopy", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = {
             ["pig_ruins_nocanopy"] = 1,
@@ -1105,7 +1105,7 @@ AddRoom("BG_plains_base_nocanopy", {
 AddRoom("BG_plains_base_nocanopy1", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = {
             ["pugalisk_fountain"] = 1,
@@ -1140,7 +1140,7 @@ AddRoom("BG_plains_base_nocanopy1", {
 AddRoom("BG_plains_base_nocanopy2", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = {
             ["pig_ruins_nocanopy_3"] = 1,
@@ -1175,7 +1175,7 @@ AddRoom("BG_plains_base_nocanopy2", {
 AddRoom("BG_plains_base_nocanopy3", {
     colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.3 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = {
             ["pig_ruins_nocanopy_4"] = 1,
@@ -1209,7 +1209,7 @@ AddRoom("BG_plains_base_nocanopy3", {
 AddRoom("plains_tallgrass", {
     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .15, -- .15, -- .3
         distributeprefabs =
@@ -1236,7 +1236,7 @@ AddRoom("plains_tallgrass", {
 AddRoom("plains_ruins", {
     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .25, -- .15, -- .3
         distributeprefabs =
@@ -1260,7 +1260,7 @@ AddRoom("plains_ruins", {
 AddRoom("plains_ruins_set", {
     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .25, -- .15, -- .3
         distributeprefabs =
@@ -1284,7 +1284,7 @@ AddRoom("plains_ruins_set", {
 AddRoom("plains_pogs", {
     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .25, -- .15, -- .3
         distributeprefabs =
@@ -1307,7 +1307,7 @@ AddRoom("plains_pogs", {
 AddRoom("plains_pogs_ruin", {
     colour = { r = 0.0, g = 1, b = 0.3, a = 0.3 },
     value = GROUND.PLAINS,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .25, -- .15, -- .3
         distributeprefabs =
