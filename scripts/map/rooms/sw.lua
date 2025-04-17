@@ -288,7 +288,7 @@ AddRoom("JungleDense_plus", {
 AddRoom("NoOxMeadow", {
     colour = { r = .8, g = .4, b = .4, a = .50 },
     value = GROUND.MEADOW,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = meadow_fairy_rings,
         distributepercent = .4, --.1, --lowered from .2
@@ -310,7 +310,7 @@ AddRoom("NoOxMeadow", {
 AddRoom("MeadowOxBoon", {
     colour = { r = .8, g = .4, b = .4, a = .50 },
     value = GROUND.MEADOW,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = meadow_fairy_rings,
         distributepercent = .4, --was .1,
@@ -328,7 +328,7 @@ AddRoom("MeadowOxBoon", {
 AddRoom("MeadowFlowery", {
     colour = { r = .8, g = .4, b = .4, a = .50 },
     value = GROUND.MEADOW,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = meadow_fairy_rings,
         distributepercent = .5, --.1, --lowered from .2
@@ -346,7 +346,7 @@ AddRoom("MeadowFlowery", {
 AddRoom("MeadowBees", {
     colour = { r = .8, g = .4, b = .4, a = .50 },
     value = GROUND.MEADOW,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = meadow_fairy_rings,
         distributepercent = .4, --.1, --lowered from .2
@@ -367,7 +367,7 @@ AddRoom("MeadowBees", {
 AddRoom("MeadowCarroty", {
     colour = { r = .8, g = .4, b = .4, a = .50 },
     value = GROUND.MEADOW,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts = meadow_fairy_rings,
         distributepercent = .35, --was .1
@@ -385,7 +385,7 @@ AddRoom("MeadowCarroty", {
 AddRoom("MeadowSappy", {
     colour = { r = .8, g = .4, b = .4, a = .50 },
     value = GROUND.MEADOW,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -404,7 +404,7 @@ AddRoom("MeadowSappy", {
 AddRoom("MeadowSpider", {
     colour = { r = .8, g = .4, b = .4, a = .50 },
     value = GROUND.MEADOW,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .4, --was .2
         distributeprefabs =
@@ -421,7 +421,7 @@ AddRoom("MeadowSpider", {
 AddRoom("MeadowRocky", {
     colour = { r = .8, g = .4, b = .4, a = .50 },
     value = GROUND.MEADOW,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .4, --was .1,
         distributeprefabs =
@@ -439,7 +439,7 @@ AddRoom("MeadowRocky", {
 AddRoom("MeadowMandrake", {
     colour = { r = .8, g = .4, b = .4, a = .50 },
     value = GROUND.MEADOW,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -811,7 +811,7 @@ AddRoom("MagmaForest", {
 AddRoom("MagmaSpiders", {
     colour = { r = .55, g = .75, b = .75, a = .50 },
     value = GROUND.MAGMAFIELD,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .2,
         distributeprefabs =
@@ -1594,7 +1594,7 @@ AddRoom("DoydoyBeach1", {
 AddRoom("DoydoyBeach", {
     colour = { r = .66, g = .66, b = .66, a = .50 },
     value = GROUND.BEACH,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         distributepercent = .3,
         distributeprefabs =
@@ -2720,7 +2720,7 @@ AddRoom("JungleDenseBerries", {
 AddRoom("JungleDenseMedHome", {
     colour = { r = .5, g = 0.6, b = .080, a = .10 },
     value = GROUND.JUNGLE,
-    tags = { "ExitPiece" },
+    tags = {},
     contents = {
         countstaticlayouts =
         {
