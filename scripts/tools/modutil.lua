@@ -1,31 +1,10 @@
--- local moddir = KnownModIndex:GetModsToLoad(true)
--- local enablemods = {}
+local Utils = require("tools/utils")
 
--- for k, dir in pairs(moddir) do
---     local info = KnownModIndex:GetModInfo(dir)
---     local name = info and info.name or "unknow"
---     enablemods[dir] = name
--- end
--- -- MOD是否开启
--- function IsModEnabled(name)
---     for k, v in pairs(enablemods) do
---         if v and (k:match(name) or v:match(name)) then return true end
---     end
---     return false
--- end
+--pcall是否会显著影响性能开销是个问题
+local function MODULE_ERROR(module)
+    print("API_ERROR:", module)
+end
 
---- func desc
--- ---@param modname string
--- function GetModEnv(modname)
---     for i, name in pairs(GLOBAL.ModManager.modnames) do
---         if name == modname then
---             return GLOBAL.ModManager.modnames[i]
---         end
---     end
--- end
-
-
----@param modname string
 function GetModEnv(modname)
     for k, mod_name in pairs(ModManager:GetEnabledModNames()) do
         if mod_name == modname then
@@ -36,7 +15,6 @@ function GetModEnv(modname)
 end
 
 --- import files outside the script folder or even from other mods
----
 function Modrequire(modulename, modname, newenv)
     local rootpath
     local env = env
@@ -55,4 +33,30 @@ function Modrequire(modulename, modname, newenv)
         setfenv(result, newenv or env) -- in case we use mod data
         return result()
     end
+end
+
+local _AddPlayerPostInit = AddPlayerPostInit
+local initprint = Utils.FindUpvalue(AddPlayerPostInit, "initprint")
+AddPlayerPostInit = function(fn)
+    if initprint then initprint("AddPlayerPostInit_Overrided") end
+    if postinitfns.ComponentPostInit["playervision"] == nil then
+        postinitfns.ComponentPostInit["playervision"] = {}
+    end
+    table.insert(postinitfns.ComponentPostInit["playervision"], function(self)
+        if not pcall(fn, self and self.inst) then return MODULE_ERROR("player") end
+    end)
+end
+
+local _AddPrefabPostInit = AddPrefabPostInit
+function AddPrefabPostInit(prefab, fn)
+    _AddPrefabPostInit(prefab, function(...)
+        if not pcall(fn, ...) then return MODULE_ERROR(prefab or "unknown prefab") end
+    end)
+end
+
+local _AddComponentPostInit = AddComponentPostInit
+function AddComponentPostInit(component, fn)
+    _AddComponentPostInit(component, function(...)
+        if not pcall(fn, ...) then return MODULE_ERROR(component or "unknown component") end
+    end)
 end
