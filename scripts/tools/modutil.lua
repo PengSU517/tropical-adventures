@@ -35,24 +35,24 @@ function GetModEnv(modname)
     end
 end
 
---- import files outside the script folder or from other mods
+--- import files outside the script folder or even from other mods
 ---
 function Modrequire(modulename, modname, newenv)
     local rootpath
-    if modname == nil then
-        rootpath = env.MODROOT
-    else
-        rootpath = GetModEnv(modname).MODROOT
+    local env = env
+    if modname ~= nil then
+        env = GetModEnv(modname)
     end
+    rootpath = env.MODROOT
     modulename = string.gsub(modulename, "%.lua$", "")
-    print("modimport (strings file): " .. rootpath .. "languages/" .. modulename .. ".lua")
-    local result = kleiloadlua(rootpath .. "languages/" .. modulename .. ".lua")
+    print("modimport (strings file): " .. rootpath .. modulename .. ".lua")
+    local result = kleiloadlua(rootpath .. modulename .. ".lua")
     if result == nil then
-        print("Error in custom import: Stringsfile " .. "languages/" .. modulename .. " not found!")
+        print("Error in custom import: Stringsfile " .. modulename .. " not found!")
     elseif type(result) == "string" then
-        print("Error in custom import: importing languages/" .. modulename .. "!\n" .. result)
+        print("Error in custom import: importing/" .. modulename .. "!\n" .. result)
     else
-        setfenv(result, newenv or GLOBAL) -- in case we use mod data
+        setfenv(result, newenv or env) -- in case we use mod data
         return result()
     end
 end

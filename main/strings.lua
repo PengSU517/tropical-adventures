@@ -1,6 +1,6 @@
 --- import files outside the script folder
 ---@param modulename string
-local function modrequire(modulename)
+local function languagerequire(modulename)
     modulename = string.gsub(modulename, "%.lua$", "")
     print("modimport (strings file): " .. env.MODROOT .. "languages/" .. modulename .. ".lua")
     local result = kleiloadlua(env.MODROOT .. "languages/" .. modulename .. ".lua")
@@ -190,33 +190,33 @@ end
 -------------------------------speech importing begin--------------------------------------
 
 
-local DLC_STRINGS = {} --modrequire("dlc_strings/common") --modrequire("dlc_strings/common")
+local DLC_STRINGS = {} --languagerequire("dlc_strings/common") --languagerequire("dlc_strings/common")
 
 DLC_STRINGS.CHARACTERS =
 {
-    GENERIC = modrequire "dlc_strings/speech_wilson",
-    WAXWELL = modrequire "dlc_strings/speech_maxwell",
-    WOLFGANG = modrequire "dlc_strings/speech_wolfgang",
-    WX78 = modrequire "dlc_strings/speech_wx78",
-    WILLOW = modrequire "dlc_strings/speech_willow",
-    WENDY = modrequire "dlc_strings/speech_wendy",
-    WOODIE = modrequire "dlc_strings/speech_woodie",
-    WICKERBOTTOM = modrequire "dlc_strings/speech_wickerbottom",
+    GENERIC = languagerequire "dlc_strings/speech_wilson",
+    WAXWELL = languagerequire "dlc_strings/speech_maxwell",
+    WOLFGANG = languagerequire "dlc_strings/speech_wolfgang",
+    WX78 = languagerequire "dlc_strings/speech_wx78",
+    WILLOW = languagerequire "dlc_strings/speech_willow",
+    WENDY = languagerequire "dlc_strings/speech_wendy",
+    WOODIE = languagerequire "dlc_strings/speech_woodie",
+    WICKERBOTTOM = languagerequire "dlc_strings/speech_wickerbottom",
 
-    WATHGRITHR = modrequire "dlc_strings/speech_wathgrithr",
-    WEBBER = modrequire "dlc_strings/speech_webber",
+    WATHGRITHR = languagerequire "dlc_strings/speech_wathgrithr",
+    WEBBER = languagerequire "dlc_strings/speech_webber",
 
-    WALANI = modrequire "dlc_strings/speech_walani",
-    WARLY = modrequire "dlc_strings/speech_warly",
-    WILBUR = modrequire "dlc_strings/speech_wilbur",
-    WOODLEGS = modrequire "dlc_strings/speech_woodlegs",
+    WALANI = languagerequire "dlc_strings/speech_walani",
+    WARLY = languagerequire "dlc_strings/speech_warly",
+    WILBUR = languagerequire "dlc_strings/speech_wilbur",
+    WOODLEGS = languagerequire "dlc_strings/speech_woodlegs",
 
-    WARBUCKS = modrequire "dlc_strings/speech_warbucks",
-    WILBA = modrequire "dlc_strings/speech_wilba",
+    WARBUCKS = languagerequire "dlc_strings/speech_warbucks",
+    WILBA = languagerequire "dlc_strings/speech_wilba",
 
-    WORMWOOD = modrequire "dlc_strings/speech_wormwood",
-    WAGSTAFF = modrequire "dlc_strings/speech_wagstaff",
-    WHEELER = modrequire "dlc_strings/speech_wheeler",
+    WORMWOOD = languagerequire "dlc_strings/speech_wormwood",
+    WAGSTAFF = languagerequire "dlc_strings/speech_wagstaff",
+    WHEELER = languagerequire "dlc_strings/speech_wheeler",
 }
 
 
@@ -246,7 +246,7 @@ local setting_languages = {
 
 
 
-merge(STRINGS, modrequire("extension/english"), true)
+merge(STRINGS, languagerequire("extension/english"), true)
 
 local desiredlang = nil
 if LanguageTranslator.defaultlang then
@@ -258,6 +258,6 @@ if desiredlang and setting_languages[desiredlang] then
     LoadPOFile("languages/dlc_translations/" .. setting_languages[desiredlang] .. ".po", desiredlang)
     TranslateStringTable(DLC_STRINGS)
     if setting_languages[desiredlang] == "chinese_s" or setting_languages[desiredlang] == "chinese_t" then
-        merge(STRINGS, modrequire("extension/chinese"), true)
+        merge(STRINGS, languagerequire("extension/chinese"), true)
     end
 end
