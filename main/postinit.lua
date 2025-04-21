@@ -1,9 +1,5 @@
 local modimport = modimport
 
-modimport("scripts/tools/modutil_limited") -- 优化env下的modutil
-modimport("postinit/safeapi")              --这些函数是env里的，仅对这个mod有效
--- modimport("postinit/simfunctions")
-
 if TA_CONFIG.DEVELOP.test_mode then --开发人员测试时才可以使用
     modimport("postinit/seafork")
     modimport("postinit/opengift")
