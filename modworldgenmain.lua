@@ -6,17 +6,16 @@ GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL,
 local require = require
 local modimport = modimport
 
-require "tools/upvaluehelper"        ----用来hook的一些函数
-require "tools/tableutil"            ----一些表相关的工具函数，都在表tableutil里
-require "tools/modutil"              ----用来require  scripts之外的文件，读取，修改mod相关配置
-require "tools/tileutil"             ----一些关于tile的工具函数
-require "tools/spawnutil"            ----地形生成相关工具
+require "tools/upvaluehelper" ----用来hook的一些函数
+require "tools/tableutil"     ----一些表相关的工具函数，都在表tableutil里
+require "tools/modutil"       ----用来require  scripts之外的文件，读取，修改mod相关配置
+require "tools/tileutil"      ----一些关于tile的工具函数
+require "tools/spawnutil"     ----地形生成相关工具
 
-modimport "main/tuning"              -- tuning + constants
-modimport "main/ta_customize"        ----世界设置项
-modimport "scripts/tools/configutil" ---世界配置，mod配置的相关函数迁移到这里
-modimport "main/ta_config"           ----mod 设置相关内容
-modimport "main/tiledefs"            ----缺少行走的声音
+modimport "main/tuning"       -- tuning + constants
+modimport "main/ta_customize" ----世界设置项
+modimport "main/ta_config"    ----mod 设置相关内容
+modimport "main/tiledefs"     ----缺少行走的声音
 
 
 

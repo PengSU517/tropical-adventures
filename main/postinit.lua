@@ -13,7 +13,7 @@ end
 if not TheNet:IsDedicated() then ---客机读取主机的overrides---似乎也只能在这里读取了
     print("reupdate overrides in client")
     AddSimPostInit(function()
-        modimport("main/ta_config_client")
+        modimport("main/ta_config")
     end)
 end
 
