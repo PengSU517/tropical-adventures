@@ -16,3 +16,11 @@ GLOBAL.setfenv(1, GLOBAL)
 RemapSound = function(name, alias)
     SoundRedirectMap[name] = alias
 end
+
+
+RemapSound("dontstarve/movement/run_rock", "dontstarve/movement/run_dirt")
+RemapSound("dontstarve/movement/run_rock_small", "dontstarve/movement/run_dirt_small")
+RemapSound("dontstarve/movement/run_rock_large", "dontstarve/movement/run_dirt_large")
+RemapSound("dontstarve/movement/walk_rock", "dontstarve/movement/walk_dirt")
+RemapSound("dontstarve/movement/walk_rock_small", "dontstarve/movement/walk_dirt_small")
+RemapSound("dontstarve/movement/walk_rock_large", "dontstarve/movement/walk_dirt_large")

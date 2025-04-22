@@ -1,4 +1,4 @@
-local FISH_DATA = require("prefabs/tro_oceanfishdef")
+local FISH_DATA = require("datadefs/tro_oceanfishdef")
 
 local function AddMember(inst, member)
     inst:ListenForEvent("entitysleep", function() inst.checkforremoval(inst) end, member)

@@ -1,4 +1,4 @@
-local Utils = require("tools/utils")
+-- local Utils = require("tools/utils")
 
 --pcall是否会显著影响性能开销是个问题
 local function MODULE_ERROR(module)
@@ -36,9 +36,9 @@ function Modrequire(modulename, modname, newenv)
 end
 
 local _AddPlayerPostInit = AddPlayerPostInit
-local initprint = Utils.FindUpvalue(AddPlayerPostInit, "initprint")
+-- local initprint = Utils.FindUpvalue(AddPlayerPostInit, "initprint")
 AddPlayerPostInit = function(fn)
-    if initprint then initprint("AddPlayerPostInit_Overrided") end
+    -- if initprint then initprint("AddPlayerPostInit_Overrided") end
     if postinitfns.ComponentPostInit["playervision"] == nil then
         postinitfns.ComponentPostInit["playervision"] = {}
     end

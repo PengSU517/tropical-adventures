@@ -1,7 +1,7 @@
 ---------------------------override before main-------------------
 
 local oceanfishdefs = require("prefabs/oceanfishdef")
-local tro_oceanfishdefs = require("prefabs/tro_oceanfishdef")
+local tro_oceanfishdefs = require("datadefs/tro_oceanfishdef")
 
 if not TA_CONFIG.DEPENDENCY.ndnr then
     tableutil.deep_merge(oceanfishdefs, tro_oceanfishdefs, false)
