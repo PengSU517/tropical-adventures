@@ -1,45 +1,45 @@
 require("stategraphs/commonstates")
 
-local actionhandlers = 
+local actionhandlers =
 {
     ActionHandler(ACTIONS.EAT, "eat"),
-    ActionHandler(ACTIONS.BARK, "bark_at_friend"),  
-    ActionHandler(ACTIONS.RANSACK, "ransack"),  
+    ActionHandler(ACTIONS.BARK, "bark_at_friend"),
+    ActionHandler(ACTIONS.RANSACK, "ransack"),
 }
 
 local POG_SEE_FOOD = 30
 local POG_EAT_DELAY = 0.5
 
-local events=
+local events =
 {
     CommonHandlers.OnSleep(),
     CommonHandlers.OnFreeze(),
     CommonHandlers.OnAttacked(true),
     CommonHandlers.OnDeath(),
-    CommonHandlers.OnHop(),	
-    CommonHandlers.OnLocomote(true,true),
-    EventHandler("barked_at", function(inst, data) 
+    CommonHandlers.OnHop(),
+    CommonHandlers.OnLocomote(true, true),
+    EventHandler("barked_at", function(inst, data)
         if not inst.components.health:IsDead() and not inst.sg:HasStateTag("busy") and not inst.sg:HasStateTag("preoccupied") and data.belly then
             inst.sg:GoToState("belly")
-        else 
+        else
             if inst.components.sleeper:IsAsleep() then
                 inst.components.sleeper:WakeUp()
-            end            
+            end
         end
     end),
-    EventHandler("doattack", function(inst, data) 
-        if not inst.components.health:IsDead() and not inst.sg:HasStateTag("busy") then 
-            inst.sg:GoToState("attack", data.target) 
+    EventHandler("doattack", function(inst, data)
+        if not inst.components.health:IsDead() and not inst.sg:HasStateTag("busy") then
+            inst.sg:GoToState("attack", data.target)
         end
     end),
 }
 
-local function testrummage(inst,target)
-     if target and target.components.container then
-
-
-        local notags = {"FX", "NOCLICK", "DECOR","INLIMBO", "aquatic"}    
-        local food = FindEntity(inst, POG_SEE_FOOD, function(item) return inst.components.eater:CanEat(item) and item:IsOnValidGround() and item:GetTimeAlive() > POG_EAT_DELAY end, nil, notags)    
+local function testrummage(inst, target)
+    if target and target.components.container then
+        local notags = { "FX", "NOCLICK", "DECOR", "INLIMBO", "aquatic" }
+        local food = FindEntity(inst, POG_SEE_FOOD,
+            function(item) return inst.components.eater:CanEat(item) and item:IsOnValidGround() and
+                item:GetTimeAlive() > POG_EAT_DELAY end, nil, notags)
 
         local items = target.components.container:FindItems(function() return true end)
         if #items > 0 and not food then
@@ -48,56 +48,54 @@ local function testrummage(inst,target)
     end
 end
 
-local function tossitems(inst,target)
+local function tossitems(inst, target)
     if target and target.components.container then
         local items = target.components.container:FindItems(function() return true end)
         if #items > 0 then
-            local item = items[math.random(1,#items)]
+            local item = items[math.random(1, #items)]
             item = target.components.container:RemoveItem(item)
-            
-            local x,y,z = target.Transform:GetWorldPosition()               
-            item.Transform:SetPosition(x,y,z)
+
+            local x, y, z = target.Transform:GetWorldPosition()
+            item.Transform:SetPosition(x, y, z)
 
             local vel = Vector3(0, 5, 0)
-            local speed = 3 + math.random()          
-            local angle = math.random()*2*PI
-            vel.x = speed*math.cos(angle)
-            vel.y = speed*3
-            vel.z = speed*math.sin(angle)
+            local speed = 3 + math.random()
+            local angle = math.random() * 2 * PI
+            vel.x = speed * math.cos(angle)
+            vel.y = speed * 3
+            vel.z = speed * math.sin(angle)
             item.Physics:SetVel(vel.x, vel.y, vel.z)
         end
     end
 end
 
 local function bark_at_friends(inst)
-    local pt = Vector3(inst.Transform:GetWorldPosition())
-    local ents = TheSim:FindEntities(pt.x,pt.y,pt.z, 4, {"pog"})
+    local pt           = Vector3(inst.Transform:GetWorldPosition())
+    local ents         = TheSim:FindEntities(pt.x, pt.y, pt.z, 4, { "pog" })
 
-    local nottriggered  = true
-    for i, ent in ipairs(ents)do
-        local belly = false        
-        if ent.sg:HasStateTag("idle") then    
-                            
-            if nottriggered then                
+    local nottriggered = true
+    for i, ent in ipairs(ents) do
+        local belly = false
+        if ent.sg:HasStateTag("idle") then
+            if nottriggered then
                 belly = true
                 nottriggered = nil
             end
-        end  
-        inst:DoTaskInTime(math.random()*0.3, function() ent:PushEvent("barked_at",{belly = belly})  end) 
+        end
+        inst:DoTaskInTime(math.random() * 0.3, function() ent:PushEvent("barked_at", { belly = belly }) end)
     end
 end
 
-local states=
+local states =
 {
-    State{
+    State {
         name = "idle",
-        tags = {"idle", "canrotate"},
+        tags = { "idle", "canrotate" },
 
         onenter = function(inst, playanim)
             if inst:HasTag("can_beg") and math.random() < 0.6 then
                 inst.sg:GoToState("beg")
             else
-    
                 inst.components.locomotor:StopMoving()
 
                 if playanim then
@@ -107,16 +105,16 @@ local states=
                     inst.AnimState:PlayAnimation("idle_loop", true)
                 end
 
-                inst.sg:SetTimeout(2 + 2*math.random())
+                inst.sg:SetTimeout(2 + 2 * math.random())
             end
         end,
 
-        timeline = 
+        timeline =
         {
             --TimeEvent(25*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/catcoon/swipe_tail") end),
         },
 
-        ontimeout=function(inst)
+        ontimeout = function(inst)
             local rand = math.random()
 
             if inst:HasTag("can_beg") then
@@ -136,334 +134,336 @@ local states=
             end
         end,
     },
-    
-    State{
+
+    State {
         name = "cute",
-        tags = {"canrotate"},
-        
+        tags = { "canrotate" },
+
         onenter = function(inst)
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("emote_cute")
         end,
-        timeline = 
+        timeline =
         {
-            TimeEvent(4*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/cute") end),
-            TimeEvent(28*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/cute") end),
+            TimeEvent(4 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/cute") end),
+            TimeEvent(28 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/cute") end),
         },
-        events=
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
     },
-    
-    
-    State{  
+
+
+    State {
         name = "tailchase",
-        tags = {"canrotate","preoccupied"},
-        
+        tags = { "canrotate", "preoccupied" },
+
         onenter = function(inst)
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("emote_tailchase_pre")
         end,
 
-        events=
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("tailchase_loop") end),
         },
     },
 
-    State{
+    State {
         name = "tailchase_loop",
-        tags = {"canrotate","preoccupied"},
-        
+        tags = { "canrotate", "preoccupied" },
+
         onenter = function(inst)
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("emote_tailchase_loop")
         end,
-        
-        timeline = 
+
+        timeline =
         {
-            TimeEvent(11*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark") end),
+            TimeEvent(11 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark") end),
         },
-        events=
-        
+        events =
+
         {
-            EventHandler("animover", function(inst) 
-                if math.random()<0.3 then
-                    inst.sg:GoToState("tailchase_loop") 
+            EventHandler("animover", function(inst)
+                if math.random() < 0.3 then
+                    inst.sg:GoToState("tailchase_loop")
                 else
-                    inst.sg:GoToState("tailchase_pst") 
+                    inst.sg:GoToState("tailchase_pst")
                 end
             end),
 
         },
     },
 
-    State{
+    State {
         name = "tailchase_pst",
-        tags = {"canrotate","preoccupied"},
-        
+        tags = { "canrotate", "preoccupied" },
+
         onenter = function(inst)
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("emote_tailchase_pst")
         end,
-        timeline = 
+        timeline =
         {
-            TimeEvent(11*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark") end),
+            TimeEvent(11 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark") end),
         },
-        events=
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
-    },   
+    },
 
-    State{
+    State {
         name = "ransack_pre",
-        tags = {"canrotate","preoccupied"},
-        
+        tags = { "canrotate", "preoccupied" },
+
         onenter = function(inst)
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("rummage_pre")
         end,
-       
-        events=
+
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("ransack") end),
         },
-    },   
- 
-    State{
+    },
+
+    State {
         name = "ransack",
-        tags = {"canrotate","preoccupied"},
-        
-        onenter = function(inst)     
-        print("ENTERING RANSACK")   
-            
-            inst.components.locomotor:StopMoving()    
-            
-            local act =inst:GetBufferedAction()          
-            print(act.target:HasTag("pogged"))
+        tags = { "canrotate", "preoccupied" },
+
+        onenter = function(inst)
+            --print("ENTERING RANSACK")
+
+            inst.components.locomotor:StopMoving()
+
+            local act = inst:GetBufferedAction()
+            --print(act.target:HasTag("pogged"))
             if not testrummage(inst, act.target) or act.target:HasTag("pogged") then
                 inst:PerformBufferedAction()
---                print("1")
-                inst.sg:GoToState("idle","rummage_pst")
+                --                --print("1")
+                inst.sg:GoToState("idle", "rummage_pst")
             else
-                inst.ransacking = act.target  
+                inst.ransacking = act.target
 
-                act.target.components.container:Open(act.doer)            
-                inst.ransacking = act.target       
+                act.target.components.container:Open(act.doer)
+                inst.ransacking = act.target
                 act.target:AddTag("pogged")
-                           
-                inst.AnimState:PlayAnimation("rummage_loop")                   
-            end            
+
+                inst.AnimState:PlayAnimation("rummage_loop")
+            end
         end,
-        
-        timeline=
-       {
-            TimeEvent(1*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/rummage") end),
-       },
+
+        timeline =
+        {
+            TimeEvent(1 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/rummage") end),
+        },
 
         onupdate = function(inst)
             local p_pt = Vector3(inst.ransacking.Transform:GetWorldPosition())
             local m_pt = Vector3(inst.Transform:GetWorldPosition())
             if distsq(p_pt, m_pt) > 1 * 1 then
-                inst.sg:GoToState("idle","rummage_pst")
-            end        
+                inst.sg:GoToState("idle", "rummage_pst")
+            end
         end,
-       
-        onexit = function(inst)                
-        --print("EXITING RANSACK",inst.keepransacking, inst.ransacking.GUID)
+
+        onexit = function(inst)
+            ----print("EXITING RANSACK",inst.keepransacking, inst.ransacking.GUID)
             if inst.ransacking and not inst.keepransacking then
-                print("SHOULD CLOSE")
+                --print("SHOULD CLOSE")
                 inst.ransacking.components.container:Close()
-                inst.ransacking:RemoveTag("pogged")                                                              
+                inst.ransacking:RemoveTag("pogged")
             end
             inst.keepransacking = nil
-        end,        
+        end,
 
-        events=
+        events =
         {
-            EventHandler("animover", function(inst) 
-                    inst.keepransacking = true 
-                    inst.sg:GoToState("ransack_throw") 
-                end),
+            EventHandler("animover", function(inst)
+                inst.keepransacking = true
+                inst.sg:GoToState("ransack_throw")
+            end),
         },
     },
 
-    State{
+    State {
         name = "ransack_throw",
-        tags = {"canrotate","preoccupied"},
-        
+        tags = { "canrotate", "preoccupied" },
+
         onenter = function(inst)
             inst.AnimState:PlayAnimation("rummage_throw")
         end,
 
-        timeline=
+        timeline =
         {
-            TimeEvent(10*FRAMES, function(inst) tossitems(inst,inst.ransacking) end),
-            TimeEvent(9*FRAMES, function(inst) if math.random() < 0.5 then inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark",nil,.5) end end),
-            TimeEvent(16*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/wilson/make_whoosh") end),
+            TimeEvent(10 * FRAMES, function(inst) tossitems(inst, inst.ransacking) end),
+            TimeEvent(9 * FRAMES, function(inst) if math.random() < 0.5 then inst.SoundEmitter:PlaySound(
+                    "dontstarve_DLC003/creatures/pog/bark", nil, .5) end end),
+            TimeEvent(16 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/wilson/make_whoosh") end),
         },
 
-        onexit = function(inst)    
-            print("SHOULD CLOSE")        
+        onexit = function(inst)
+            --print("SHOULD CLOSE")
             if not inst.keepransacking then
-               inst.ransacking.components.container:Close() 
+                inst.ransacking.components.container:Close()
             end
-            if inst.ransacking then                
-                inst.ransacking:RemoveTag("pogged")                  
-                --inst.ransacking                               
+            if inst.ransacking then
+                inst.ransacking:RemoveTag("pogged")
+                --inst.ransacking
             end
             inst.keepransacking = nil
-        end,        
+        end,
 
-        events=
+        events =
         {
-            EventHandler("animover", function(inst) 
-                    inst.keepransacking = true 
-                    inst.sg:GoToState("ransack") 
-                end),
+            EventHandler("animover", function(inst)
+                inst.keepransacking = true
+                inst.sg:GoToState("ransack")
+            end),
         },
-    },  
+    },
 
-    State{
+    State {
         name = "beg",
-        tags = {"canrotate","preoccupied"},
-        
+        tags = { "canrotate", "preoccupied" },
+
         onenter = function(inst)
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("emote_beg")
-        end,           
+        end,
 
-        timeline=
+        timeline =
         {
-            TimeEvent(1*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/beg") end),
+            TimeEvent(1 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/beg") end),
         },
 
-        events=
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
-    },   
-    
-    State{
+    },
+
+    State {
         name = "belly",
-        tags = {"canrotate"},
-        
+        tags = { "canrotate" },
+
         onenter = function(inst)
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("emote_belly")
 
-            inst.bellysoundtask = inst:DoTaskInTime(math.random()*(81/30), function() inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/belly")   end )
+            inst.bellysoundtask = inst:DoTaskInTime(math.random() * (81 / 30),
+                function() inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/belly") end)
         end,
 
         onexit = function(inst)
             inst.bellysoundtask:Cancel()
             inst.bellysoundtask = nil
-        end,        
+        end,
 
-        timeline=
+        timeline =
         {
-            TimeEvent(1*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/belly") end),
-            TimeEvent(45*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/belly") end),
+            TimeEvent(1 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/belly") end),
+            TimeEvent(45 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/belly") end),
         },
-        
-        events=
+
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
-    },    
+    },
 
-        
-    State{            
+
+    State {
         name = "bark_at_friend",
-        tags = {"canrotate","preoccupied"},
-        
-        onenter = function(inst) 
+        tags = { "canrotate", "preoccupied" },
+
+        onenter = function(inst)
             inst.components.locomotor:WalkForward()
             inst.AnimState:PlayAnimation("emote_stretch")
         end,
-        events=
-        {   
-            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),        
-        },
-        
-        timeline=
+        events =
         {
-            TimeEvent(10*FRAMES, function(inst) bark_at_friends(inst) end),
-            TimeEvent(8*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark") end),
-            TimeEvent(21*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark") end),  
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
-    },    
 
-    State{
+        timeline =
+        {
+            TimeEvent(10 * FRAMES, function(inst) bark_at_friends(inst) end),
+            TimeEvent(8 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark") end),
+            TimeEvent(21 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark") end),
+        },
+    },
+
+    State {
         name = "walk_start",
-        tags = {"moving", "canrotate","walk"},
+        tags = { "moving", "canrotate", "walk" },
 
-        onenter = function(inst) 
+        onenter = function(inst)
             inst.AnimState:PlayAnimation("walk_pre")
         end,
 
         events =
-        {   
-            EventHandler("animover", function(inst) inst.sg:GoToState("walk") end ),        
+        {
+            EventHandler("animover", function(inst) inst.sg:GoToState("walk") end),
         },
     },
-        
-    State{            
+
+    State {
         name = "walk",
-        tags = {"moving", "canrotate","walk"},
-        
-        onenter = function(inst) 
+        tags = { "moving", "canrotate", "walk" },
+
+        onenter = function(inst)
             inst.components.locomotor:WalkForward()
             inst.AnimState:PlayAnimation("walk_loop")
         end,
-        events=
-        {   
-            EventHandler("animover", function(inst) inst.sg:GoToState("walk") end ),        
+        events =
+        {
+            EventHandler("animover", function(inst) inst.sg:GoToState("walk") end),
         },
-        timeline=
+        timeline =
         {
             TimeEvent(FRAMES, function(inst) PlayFootstep(inst) end),
-            TimeEvent(8*FRAMES, function(inst) PlayFootstep(inst) end),
-            TimeEvent(15*FRAMES, function(inst) PlayFootstep(inst) end),
-            TimeEvent(23*FRAMES, function(inst) PlayFootstep(inst) end),
-        },
-    },      
-    
-    State{            
-        name = "walk_stop",
-        tags = {"canrotate","walk"},
-        
-        onenter = function(inst) 
-            inst.components.locomotor:StopMoving()
-            inst.AnimState:PlayAnimation("walk_pst")			
-        end,
-
-        events=
-        {   
-            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),        
+            TimeEvent(8 * FRAMES, function(inst) PlayFootstep(inst) end),
+            TimeEvent(15 * FRAMES, function(inst) PlayFootstep(inst) end),
+            TimeEvent(23 * FRAMES, function(inst) PlayFootstep(inst) end),
         },
     },
 
-    State{
+    State {
+        name = "walk_stop",
+        tags = { "canrotate", "walk" },
+
+        onenter = function(inst)
+            inst.components.locomotor:StopMoving()
+            inst.AnimState:PlayAnimation("walk_pst")
+        end,
+
+        events =
+        {
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
+        },
+    },
+
+    State {
         name = "eat",
-        tags = {"preoccupied"},
-        
-        onenter = function(inst,data)            
+        tags = { "preoccupied" },
+
+        onenter = function(inst, data)
             inst.Physics:Stop()
             inst.AnimState:PlayAnimation("eat_pre")
         end,
-        
-        timeline=
+
+        timeline =
         {
-            TimeEvent(15*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/eat") end),
-            ---TimeEvent(21*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark") end),  
+            TimeEvent(15 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/eat") end),
+            ---TimeEvent(21*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark") end),
         },
 
-        events=
+        events =
         {
-            EventHandler("animover", function(inst)                
+            EventHandler("animover", function(inst)
                 if inst:PerformBufferedAction() then
                     inst.sg:GoToState("eat_loop")
                 else
@@ -471,85 +471,86 @@ local states=
                 end
             end),
         },
-    },      
-    
-    State{
+    },
+
+    State {
         name = "eat_loop",
-        tags = {"busy"},
-        
+        tags = { "busy" },
+
         onenter = function(inst)
             inst.Physics:Stop()
             inst.AnimState:PlayAnimation("eat_loop", true)
-            inst.sg:SetTimeout(1+math.random()*1)
+            inst.sg:SetTimeout(1 + math.random() * 1)
         end,
-        
+
         ontimeout = function(inst)
             inst.sg:GoToState("idle", "eat_pst")
-        end,       
+        end,
     },
 
-    State{
+    State {
         name = "hit",
-        tags = {"busy"},
-        
-        onenter = function(inst)            
+        tags = { "busy" },
+
+        onenter = function(inst)
             inst.AnimState:PlayAnimation("hit")
-            inst.Physics:Stop()            
+            inst.Physics:Stop()
         end,
-        
-        events=
+
+        events =
         {
-            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),
-        },        
-    },    
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
+        },
+    },
 
 }
-CommonStates.AddSimpleState(states,"refuse", "emote_stretch", {"busy"})
+CommonStates.AddSimpleState(states, "refuse", "emote_stretch", { "busy" })
 CommonStates.AddCombatStates(states,
-{
-	hittimeline = {},
+    {
+        hittimeline = {},
 
-	attacktimeline =
-	{
-        TimeEvent(12*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark") end),
-        --TimeEvent(9*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/catcoon/swipe_whoosh") end),
-        TimeEvent(16*FRAMES, function(inst) inst.components.combat:DoAttack(inst.sg.statemem.target) end),
-	},
+        attacktimeline =
+        {
+            TimeEvent(12 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/bark") end),
+            --TimeEvent(9*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/catcoon/swipe_whoosh") end),
+            TimeEvent(16 * FRAMES, function(inst) inst.components.combat:DoAttack(inst.sg.statemem.target) end),
+        },
 
-	deathtimeline =
-	{
-        TimeEvent(1*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/death") end),
-	},
-},
-{attack="attack"})
+        deathtimeline =
+        {
+            TimeEvent(1 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/death") end),
+        },
+    },
+    { attack = "attack" })
 
 CommonStates.AddSleepStates(states,
-{
-    starttimeline =
     {
-        TimeEvent(1*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/yawn") end)
-    },
+        starttimeline =
+        {
+            TimeEvent(1 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/yawn") end)
+        },
 
-    sleeptimeline =
-    {
-        TimeEvent(37*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/catcoon/sleep",nil,.25) end)
-    },
+        sleeptimeline =
+        {
+            TimeEvent(37 * FRAMES,
+                function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/catcoon/sleep", nil, .25) end)
+        },
 
-    waketimeline =
-    {
-        --TimeEvent(31*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/catcoon/pickup") end)
-    },
-})
+        waketimeline =
+        {
+            --TimeEvent(31*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/catcoon/pickup") end)
+        },
+    })
 CommonStates.AddFrozenStates(states)
-CommonStates.AddHopStates(states, true, { pre = "run_pre", loop = "run_loop", pst = "run_pst"})
+CommonStates.AddHopStates(states, true, { pre = "run_pre", loop = "run_loop", pst = "run_pst" })
 CommonStates.AddRunStates(
     states,
     {
-        runtimeline = 
-        { 
+        runtimeline =
+        {
             --TimeEvent(5*FRAMES, function(inst)  end), --inst.SoundEmitter:PlaySound(inst.sounds.walk)
-            TimeEvent(1*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/step") end)
+            TimeEvent(1 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/pog/step") end)
         }
     })
-  
+
 return StateGraph("pog", states, events, "idle", actionhandlers)

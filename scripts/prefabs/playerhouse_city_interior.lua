@@ -204,7 +204,7 @@ end
 ----------------------------------------------------------doormat-----------------------------------------------------------------------------
 local function OnDoneTeleporting(inst, obj)
 	if obj and obj:HasTag("player") then
-		obj.mynetvarCameraMode:set(4)
+
 	end
 
 	inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/store/door_close")
@@ -212,7 +212,6 @@ end
 
 local function OnActivate(inst, doer)
 	if doer and doer:HasTag("player") then
-		doer.mynetvarCameraMode:set(6) ------------------这个暂时留着----------有的地方切不了视角
 		if doer.SoundEmitter then
 			doer.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/store/door_open")
 		end

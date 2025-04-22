@@ -19,6 +19,7 @@ modimport "main/tiledefs"         ----缺少行走的声音
 
 
 
+----生成世界需要用到的内容
 if rawget(_G, "WorldSim") then
     ----------新内容
     modimport "scripts/map/tro_lockandkey"      ----地形锁钥
@@ -41,7 +42,4 @@ if rawget(_G, "WorldSim") then
     modimport "postinit/map/forest_map_new" -----在这里添加哈姆雷特城镇
     modimport "postinit/map/ocean_gen_new"  ----防止新的水面地皮被覆盖 ---但是暴力覆盖似乎太严重
     modimport "postinit/map/node"           ------------防止清空水上内容
-else
-    -------------加载世界前进行的一些修改
-    modimport "main/preinit" ------------修改一些prefab的表
 end

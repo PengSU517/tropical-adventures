@@ -376,7 +376,7 @@ end
 local function OnActivate(inst, doer)
     if doer:HasTag("player") then
         ProfileStatsSet("wormhole_used", true)
-        doer.mynetvarCameraMode:set(1)
+
 
         local other = inst.components.teleporter.targetTeleporter
         if other ~= nil then

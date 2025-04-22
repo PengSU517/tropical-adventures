@@ -13,34 +13,35 @@ if not TheNet:IsDedicated() then ---客机读取主机的overrides---似乎也�
     end)
 end
 
+
 modimport("postinit/world_map")    --theworld.map相关
 modimport("postinit/entityscript") --修改entity相关
 
 
-modimport("postinit/actionrelated")
-modimport("postinit/components/weather")       --热带气候（冬季降雨
-modimport("postinit/tropical_climate")         --热带气候
-modimport("postinit/ham_room")                 --新的room
-modimport("postinit/room_camera")              --房间镜头
-modimport("postinit/boat")                     --单人船相关修改
-modimport("postinit/natureskin_variants")      --和自然皮肤切换相关的所有内容
-modimport("postinit/player_vision_post")       --四眼镜、蝙蝠帽所用
-modimport("postinit/tile_post")                --特殊地皮挖起
-modimport("postinit/components/plantregrowth") --植物再生
-
-
--- do not know how to sort
-modimport("postinit/oceancolor")
-modimport("postinit/postinit_poisonables") --posonables--and loot dropper--
-modimport("postinit/camera")               --旧的房间镜头，但是现在不能删
-modimport("postinit/sim_rain_effect")
--- modimport("postinit/player_darkness") --没有用
-modimport("postinit/farm")    --种植相关  --通过veggies改变随机种子权重
+-----对数据表、参数常量的一些直接修改
+modimport("postinit/oceanfishdef")  --引入热带鱼群
+modimport("postinit/sw_fertilizer") --肥料值定义
+modimport("postinit/naughty")       --淘气值
+modimport("postinit/farm")          --种植相关  --通过veggies改变随机种子权重
 modimport("postinit/wx78_module")
-modimport("postinit/sim_ham") --ham cloud
+modimport("postinit/oceancolor")
 
-modimport("postinit/entity")  --不知道这个是干啥的
-modimport("postinit/naughty") --淘气值？
+--成系统的内容修改
+modimport("postinit/actionrelated")
+modimport("postinit/components/weather")  --热带气候（冬季降雨
+modimport("postinit/tropical_climate")    --热带气候
+modimport("postinit/ham_room")            --新的room
+modimport("postinit/room_camera")         --房间镜头
+modimport("postinit/boat")                --单人船相关修改
+modimport("postinit/natureskin_variants") --和自然皮肤切换相关的所有内容
+modimport("postinit/player_vision_post")  --四眼镜、蝙蝠帽所用
+modimport("postinit/tile_post")           --特殊地皮挖起
+modimport("postinit/poisonables")         --posonables--and loot dropper--
+-- modimport("postinit/camera")               --旧的房间镜头
+-- modimport("postinit/sim_rain_effect")
+-- modimport("postinit/player_darkness") --没有用
+-- modimport("postinit/sim_ham") --ham cloud
+-- modimport("postinit/entity") --不知道这个是干啥的
 
 
 --components
@@ -74,6 +75,7 @@ modimport("postinit/components/locomotor_boat")
 modimport("postinit/components/locomotor") --这两个内容需要整合一下
 modimport("postinit/components/map")
 modimport("postinit/components/penguinspawner")
+modimport("postinit/components/plantregrowth") --植物再生
 modimport("postinit/components/playercontroller")
 modimport("postinit/components/playerspawner")
 modimport("postinit/components/snowtile") -- disable snow effeccts
@@ -107,17 +109,16 @@ modimport("postinit/prefabs/wobster")
 modimport("postinit/prefabs/world")
 
 --screens and widgets
-modimport("postinit/screens/playerhud")      ---雾和花粉症效果在这里
+modimport("postinit/screens/playerhud") ---雾和花粉症效果在这里
 modimport("postinit/widgets/mapstyle")
-modimport("postinit/widgets/container_boat") -- boat container sizing tweak by EvenMr
+modimport("postinit/widgets/container_boat")
 modimport("postinit/widgets/container_widget_boat")
 modimport("postinit/widgets/container_woodleg_boat")
-modimport("postinit/widgets/containers") --new contaoiners
 modimport("postinit/widgets/craftingmenu_ingredients")
 modimport("postinit/widgets/crafttabs")
 modimport("postinit/widgets/healthbadge")
-modimport("postinit/widgets/inventorybar")       -- 船HUD自适应
-modimport("postinit/widgets/seasonsdisplay.lua") --还有树荫
+modimport("postinit/widgets/inventorybar")   -- 船HUD自适应
+modimport("postinit/widgets/seasonsdisplay") --还有树荫
 modimport("postinit/widgets/statusdisplays_speed")
 modimport("postinit/widgets/uiclock_bloodmoon")
 

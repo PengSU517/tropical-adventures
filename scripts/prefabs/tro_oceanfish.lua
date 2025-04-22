@@ -1,7 +1,5 @@
-local FISH_DATA                 = require("prefabs/tro_oceanfishdef") --check
-
+local FISH_DATA                 = require("datadefs/tro_oceanfishdef") --check
 local easing                    = require("easing")
-
 local SWIMMING_COLLISION_MASK   = COLLISION.GROUND
 	+ COLLISION.LAND_OCEAN_LIMITS
 	+ COLLISION.OBSTACLES

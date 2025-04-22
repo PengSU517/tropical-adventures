@@ -179,13 +179,13 @@ end
 --------------------------------------do teleporter------------------------
 local function OnDoneTeleporting(inst, obj)
 	if obj and obj:HasTag("player") then
-		obj.mynetvarCameraMode:set(5)
+
 	end
 end
 
 local function OnDoneTeleportingexit(inst, obj)
 	if obj and obj:HasTag("player") then
-		obj.mynetvarCameraMode:set(3)
+
 	end
 end
 
@@ -205,7 +205,7 @@ end
 local function OnActivate(inst, doer)
 	if doer:HasTag("player") then
 		ProfileStatsSet("wormhole_used", true)
-		doer.mynetvarCameraMode:set(1)
+
 		local other = inst.components.teleporter.targetTeleporter
 		if other ~= nil then
 			DeleteCloseEntsWithTag("WORM_DANGER", other, 15)
@@ -220,7 +220,7 @@ end
 local function OnActivateexit(inst, doer)
 	if doer:HasTag("player") then
 		ProfileStatsSet("wormhole_used", true)
-		doer.mynetvarCameraMode:set(6)
+
 		local other = inst.components.teleporter.targetTeleporter
 		if other ~= nil then
 			DeleteCloseEntsWithTag("WORM_DANGER", other, 15)
