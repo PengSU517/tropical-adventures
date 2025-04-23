@@ -200,6 +200,10 @@ local function CalcSanityAura(inst, observer)
 end
 
 local function ShouldAcceptItem(inst, item)
+    if item.components.unwrappable then
+        return true
+    end
+
     if inst.components.sleeper and inst.components.sleeper:IsAsleep() then
         return false
     end
@@ -321,121 +325,115 @@ local function ShouldAcceptItem(inst, item)
     return false
 end
 
-local function OnGetItemFromPlayer(inst, giver, item)
-    if not inst:HasTag("guard") or inst.prefab == "pig_eskimo" then -- or inst:HasTag("pigqueen")
-        local city = 1
-        if inst:HasTag("city2") then
-            city = 2
+local Trinkets = { "kabobs", "pumpkincookie", "taffy", "oinc", "butterflymuffin", "powcake" }
+local function OnAccept(inst, doer, item)
+    --- Trade items init
+    local Items = {}
+    local RewardList = {}
+    if item.components.unwrappable == nil then
+        Items[item] = true
+    else
+        if item.prefab == "bundle" then
+            RewardList["waxpaper"] = 1
         end
-
-        -- I wear hats (but should they? the art doesn't show)
-        if inst:HasTag("pigqueen") and item.components.equippable then
-            local behappy = false
-            if item.components.equippable.equipslot == EQUIPSLOTS.HEAD then
-                local current = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
-                if current then
-                    inst.components.inventory:DropItem(current)
-                end
-
-                inst.components.inventory:Equip(item)
-                inst.AnimState:Show("hat")
-                behappy = true
-            end
-
-            if item.components.equippable.equipslot == EQUIPSLOTS.HANDS and item.prefab == "pig_scepter" then
-                inst.components.inventory:Equip(item)
-                behappy = true
-            end
-
-            if item.prefab == "relic_4" or item.prefab == "relic_5" then
-                behappy = true
-            end
-            if behappy then
-                inst:PushEvent("behappy")
-            end
-            if item.prefab ~= "pig_scepter" and item.prefab ~= "pigcrownhat" then
-                item:Remove() -- why doesn't trader use a function for deleteitemonaccept...
-            end
+        for _, v in ipairs(item.components.unwrappable.itemdata) do
+            local tradeitem = SpawnPrefab(v.prefab, v.skinname, v.skin_id)
+            tradeitem:SetPersistData(v.data)
+            Items[tradeitem] = true
         end
+    end
 
-        local econ = TheWorld.components.economy
-
-        local econprefab = inst.prefab
-        if inst.econprefab then
-            econprefab = inst.econprefab
-        end
-
-        local wanteditems = econ:GetTradeItems(econprefab)
-        local desc = econ:GetTradeItemDesc(econprefab)
-        --local wantednum =   econ:GetNumberWanted(econprefab,city)
-
-        local wantitem = false
-        local trinket = false
-        for i, wanted in ipairs(wanteditems) do
-            if wanted == item.prefab then
-                wantitem = true
+    --- Sp trade actions
+    if inst:HasTag("guard") then
+        for item in pairs(Items) do
+            if item:HasTag("securitycontract") then
+                inst.SoundEmitter:PlaySound("dontstarve/common/makeFriend")
+                doer.components.leader:AddFollower(inst)
+                inst.components.follower:AddLoyaltyTime(TUNING.PIG_LOYALTY_MAXTIME)
+                Items[item] = false
                 break
             end
         end
-
-        if item.prefab == "trinket_giftshop_1" or item.prefab == "trinket_giftshop_3" and inst:HasTag("city1") then
-            wantitem = true
-            trinket = true
-        end
-
-        if wantitem then
-            if trinket then
-                if giver.components.inventory then
-                    inst:AddTag("recieved_trinket")
-                    inst.sayline(inst, getSpeechType(inst, STRINGS.CITY_PIG_TALK_GIVE_TRINKET_REWARD))
-
-                    local reward = { "kabobs", "pumpkincookie", "taffy", "oinc", "butterflymuffin", "powcake" }
-                    local rewarditem = SpawnPrefab(reward[math.random(1, #reward)])
-                    giver.components.inventory:GiveItem(rewarditem, nil,
-                        Vector3(TheSim:GetScreenPos(inst.Transform:GetWorldPosition())))
-
-                    return true
+    elseif inst:HasTag("pigqueen") then
+        local behappy = false
+        for item in pairs(Items) do
+            if item.components.equippable then
+                if item.components.equippable.equipslot == EQUIPSLOTS.HEAD then
+                    inst.components.inventory:Equip(SpawnPrefab(item.prefab))
+                    inst.AnimState:Show("hat")
+                    behappy = true
+                elseif item.prefab == "pig_scepter" then
+                    inst.components.inventory:Equip(SpawnPrefab(item.prefab))
+                    behappy = true
                 end
+            elseif item.prefab == "relic_4" or item.prefab == "relic_5" then
+                behappy = true
             end
+        end
+        if behappy then
+            inst:PushEvent("behappy")
+        end
+    end
 
-            local reward, qty = econ:MakeTrade(econprefab, city, inst, item.prefab)
-            if item.prefab ~= "pig_scepter" and item.prefab ~= "pigcrownhat" then
-                item:Remove()
-            end
-            if reward then
-                inst:AddTag("troqueihoje")
-                if giver.components.inventory then
-                    inst.sayline(inst,
-                        string.format(getSpeechType(inst, STRINGS.CITY_PIG_TALK_GIVE_REWARD), tostring(1), desc))
-                    --inst.components.talker:Say( string.format(getSpeechType(inst,STRINGS.CITY_PIG_TALK_GIVE_REWARD), tostring(1), desc ))--econ:GetNumberWanted(econprefab,city) ), desc ) )
+    --- Handle trade
+    if not inst:HasTag("guard") then
+        local city = inst:HasTag("city2") and 2 or 1
+        local economy = TheWorld.components.economy
+        local econprefab = inst.econprefab or inst.prefab
 
-                    for i = 1, qty do
-                        local rewarditem = SpawnPrefab(reward)
-                        giver.components.inventory:GiveItem(rewarditem, nil,
-                            Vector3(TheSim:GetScreenPos(inst.Transform:GetWorldPosition())))
+        local TradeItems = economy:GetTradeItems(econprefab)
+        local desc = economy:GetTradeItemDesc(econprefab)
+
+        for item in pairs(Items) do
+            if not inst:HasTag("pigqueen") and (item.prefab == "trinket_giftshop_1" or item.prefab == "trinket_giftshop_3" and inst:HasTag("city1")) then
+                inst:AddTag("recieved_trinket")
+                inst:sayline(getSpeechType(inst, STRINGS.CITY_PIG_TALK_GIVE_TRINKET_REWARD))
+                local reward = Trinkets[math.random(1, #Trinkets)]
+                RewardList[reward] = (RewardList[reward] or 0) + 1
+                Items[item] = false
+            else
+                for _, tradeitem in ipairs(TradeItems or {}) do
+                    if tradeitem == item.prefab then
+                        local reward, quanty = economy:MakeTrade(econprefab, city, inst, item.prefab)
+                        if reward then
+                            inst:AddTag("troqueihoje")
+                            inst:sayline(string.format(getSpeechType(inst, STRINGS.CITY_PIG_TALK_GIVE_REWARD),
+                                tostring(1), desc))
+                            if item.components.stackable then
+                                quanty = quanty * item.components.stackable.stacksize
+                            end
+                            RewardList[reward] = (RewardList[reward] or 0) + quanty
+                            Items[item] = false
+                        end
+                        break
                     end
                 end
-            else
-                inst.sayline(inst, string.format(getSpeechType(inst, STRINGS.CITY_PIG_TALK_TAKE_GIFT), tostring(1), desc))
-                --inst.components.talker:Say( string.format(getSpeechType(inst,STRINGS.CITY_PIG_TALK_TAKE_GIFT), tostring(1), desc ))--econ:GetNumberWanted(econprefab,city) ), desc ) )
-            end
-        end
-        if item:HasTag("relic") and (inst.prefab == "pigman_collector_shopkeep" or inst.prefab == "pigman_collector") then
-            if giver.components.inventory then
-                inst.sayline(inst, getSpeechType(inst, STRINGS.CITY_PIG_TALK_GIVE_RELIC_REWARD))
-                --inst.components.talker:Say( getSpeechType(inst,STRINGS.CITY_PIG_TALK_GIVE_RELIC_REWARD) )
-                local rewarditem = SpawnPrefab("oinc10")
-                giver.components.inventory:GiveItem(rewarditem, nil,
-                    Vector3(TheSim:GetScreenPos(inst.Transform:GetWorldPosition())))
             end
         end
     end
 
-    if inst:HasTag("guard") and item:HasTag("securitycontract") then
-        inst.SoundEmitter:PlaySound("dontstarve/common/makeFriend")
-        giver.components.leader:AddFollower(inst)
-        inst.components.follower:AddLoyaltyTime(TUNING.PIG_LOYALTY_MAXTIME)
-        item:Remove()
+    --- Give rewards
+    for item, give in pairs(Items) do
+        if give then
+            doer.components.inventory:GiveItem(item, nil,
+                Vector3(TheSim:GetScreenPos(inst.Transform:GetWorldPosition())))
+        else
+            item:Remove()
+        end
+    end
+    RewardList["oinc100"] = (RewardList["oinc100"] or 0) + math.floor((RewardList["oinc10"] or 0) / 10) + math.floor((RewardList["oinc"] or 0) / 100)
+    RewardList["oinc10"] = (RewardList["oinc10"] or 0) % 10 + math.floor((RewardList["oinc"] or 0) % 100 / 10)
+    RewardList["oinc"] = (RewardList["oinc"] or 0) % 10
+    for reward, amount in pairs(RewardList) do
+        while amount > 0 do
+            local p = SpawnPrefab(reward)
+            if p.components.stackable then
+                local sz = math.clamp(amount, 1, p.components.stackable.maxsize)
+                p.components.stackable:SetStackSize(sz)
+                amount = amount - sz
+            end
+            doer.components.inventory:GiveItem(p, nil, Vector3(TheSim:GetScreenPos(inst.Transform:GetWorldPosition())))
+        end
     end
 end
 
@@ -856,7 +854,7 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
 
         inst:AddComponent("trader")
         inst.components.trader:SetAcceptTest(ShouldAcceptItem)
-        inst.components.trader.onaccept = OnGetItemFromPlayer
+        inst.components.trader.onaccept = OnAccept
         inst.components.trader.onrefuse = OnRefuseItem
 
         ------------------------------------------
@@ -1233,7 +1231,7 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
 
         inst:AddComponent("trader")
         inst.components.trader:SetAcceptTest(ShouldAcceptItem)
-        inst.components.trader.onaccept = OnGetItemFromPlayer
+        inst.components.trader.onaccept = OnAccept
         inst.components.trader.onrefuse = OnRefuseItem
 
         ------------------------------------------
