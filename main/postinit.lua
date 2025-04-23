@@ -45,6 +45,7 @@ modimport("postinit/poisonables")         --posonables--and loot dropper--
 
 
 --components
+-- modimport("postinit/components/container")
 -- modimport("postinit/components/oceancolor")
 -- modimport("postinit/components/playervision")
 -- modimport("postinit/components/spooked")  --黄蘑菇孢子
@@ -59,17 +60,17 @@ modimport("postinit/components/boatphysics")
 modimport("postinit/components/builder")
 modimport("postinit/components/colourcube")
 modimport("postinit/components/combat")
--- modimport("postinit/components/container")
 modimport("postinit/components/curseditem")
 modimport("postinit/components/dynamicmusic")
+modimport("postinit/components/edible")
 modimport("postinit/components/embarker")
 modimport("postinit/components/flotsamgenerator") --漂浮物刷新，TODO可能不生效
 modimport("postinit/components/groundpounder")    --这个组件拍地板的？
 modimport("postinit/components/hatchable")
 modimport("postinit/components/healthtrigger")
 modimport("postinit/components/hounded")
-modimport("postinit/components/inventory")              ----主要是物品栏的钱的计算
 modimport("postinit/components/inventory_prevent_pick") ----可能和船拿不起来有关系
+modimport("postinit/components/inventory")              ----主要是物品栏的钱的计算
 modimport("postinit/components/inventoryitem")
 modimport("postinit/components/locomotor_boat")
 modimport("postinit/components/locomotor") --这两个内容需要整合一下
@@ -81,16 +82,16 @@ modimport("postinit/components/playerspawner")
 modimport("postinit/components/snowtile") -- disable snow effeccts
 modimport("postinit/components/soundemitter")
 modimport("postinit/components/thief")
+modimport("postinit/components/unwrappable") ---为批量交易提供支持
 modimport("postinit/components/wavemanager")
 modimport("postinit/components/worldstate")
-modimport("postinit/components/edible")
 
 --prefabs
 -- modimport("postinit/prefabs/cave")
 -- modimport("postinit/prefabs/farm_plants")--目前不太需要
 -- modimport("postinit/prefabs/forest")
 -- modimport("postinit/prefabs/image_minisign") --会影响到其他mod
-modimport("postinit/prefabs/spawned_creature")
+-- modimport("postinit/prefabs/player_hayfever")
 modimport("postinit/prefabs/blueprints")
 modimport("postinit/prefabs/dock_kit") --甲板相关
 modimport("postinit/prefabs/floatable_items")
@@ -100,8 +101,8 @@ modimport("postinit/prefabs/meatrack")
 modimport("postinit/prefabs/mosquitosack")
 modimport("postinit/prefabs/mushroom_farm")
 modimport("postinit/prefabs/player_classified")
--- modimport("postinit/prefabs/player_hayfever")
 modimport("postinit/prefabs/player") --shopper, drownable, infestable
+modimport("postinit/prefabs/spawned_creature")
 modimport("postinit/prefabs/sword_lunarplant")
 modimport("postinit/prefabs/trinket_1")
 modimport("postinit/prefabs/warningshadow")
