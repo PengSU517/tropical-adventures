@@ -357,15 +357,9 @@ local function OnAccept(inst, doer, item)
     elseif inst:HasTag("pigqueen") then
         local behappy = false
         for item in pairs(Items) do
-            if item.components.equippable then
-                if item.components.equippable.equipslot == EQUIPSLOTS.HEAD then
-                    inst.components.inventory:Equip(SpawnPrefab(item.prefab))
-                    inst.AnimState:Show("hat")
-                    behappy = true
-                elseif item.prefab == "pig_scepter" then
-                    inst.components.inventory:Equip(SpawnPrefab(item.prefab))
-                    behappy = true
-                end
+            if item.prefab == "pigcrownhat" or item.prefab == "pig_scepter" then
+                inst.components.inventory:Equip(SpawnPrefab(item.prefab))
+                behappy = true
             elseif item.prefab == "relic_4" or item.prefab == "relic_5" then
                 behappy = true
             end
@@ -431,6 +425,8 @@ local function OnAccept(inst, doer, item)
                 local sz = math.clamp(amount, 1, p.components.stackable.maxsize)
                 p.components.stackable:SetStackSize(sz)
                 amount = amount - sz
+            else
+                amount = amount - 1
             end
             doer.components.inventory:GiveItem(p, nil, Vector3(TheSim:GetScreenPos(inst.Transform:GetWorldPosition())))
         end
