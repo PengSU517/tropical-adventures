@@ -200,12 +200,12 @@ local function CalcSanityAura(inst, observer)
 end
 
 local function ShouldAcceptItem(inst, item)
-    if item.components.unwrappable then
-        return true
-    end
-
     if inst.components.sleeper and inst.components.sleeper:IsAsleep() then
         return false
+    end
+
+    if item.components.unwrappable then
+        return true
     end
 
     if item.components.edible then
