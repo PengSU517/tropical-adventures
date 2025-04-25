@@ -2,6 +2,9 @@ GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL,
 
 modimport "main/strings"
 
+local require = require
+local modimport = modimport
+
 --工具函数，全部在GLOBAL里
 require "tools/simutil"
 require "tools/worldutil"
@@ -20,5 +23,5 @@ modimport "main/recipes"
 modimport "main/skins"
 modimport "main/characters"
 modimport "main/tropical_fx"
-modimport "main/containers" --new contaoiners
+modimport "main/containers" --new containers
 modimport "main/rpc"
