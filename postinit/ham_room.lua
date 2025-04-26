@@ -23,59 +23,60 @@ local Utils = require("tools/utils")
 -- end
 
 -----------以下来自猪人部落-------------
--- local StopAmbientRainSound, StopTreeRainSound, StopUmbrellaRainSound, StopBarrierSound
--- local _rainfx, _snowfx, _lunarhailfx
--- local function WeatherClientOnUpdateBefore()
---     if not ThePlayer or TheWorld.ismastersim then return end
+local StopAmbientRainSound, StopTreeRainSound, StopUmbrellaRainSound, StopBarrierSound
+local _rainfx, _snowfx, _lunarhailfx, _pollenfx
+local function WeatherClientOnUpdateBefore()
+    if not ThePlayer then return end
 
---     -- 只在客机执行，这里只改本地玩家视觉效果，实际效果在其他地方修改
---     local x, _, z = ThePlayer.Transform:GetWorldPosition()
---     if checkxz(x, z) then
---         if StopAmbientRainSound then
---             StopAmbientRainSound()
---         end
---         if StopTreeRainSound then
---             StopTreeRainSound()
---         end
---         if StopUmbrellaRainSound then
---             StopUmbrellaRainSound()
---         end
---         if StopBarrierSound then
---             StopBarrierSound()
---         end
+    -- 只在客机执行，这里只改本地玩家视觉效果，实际效果在其他地方修改
+    if ThePlayer:IsInHamRoom() then
+        -- if StopAmbientRainSound then
+        --     StopAmbientRainSound()
+        -- end
+        -- if StopTreeRainSound then
+        --     StopTreeRainSound()
+        -- end
+        -- if StopUmbrellaRainSound then
+        --     StopUmbrellaRainSound()
+        -- end
+        -- if StopBarrierSound then
+        --     StopBarrierSound()
+        -- end
 
---         if _rainfx then
---             _rainfx.particles_per_tick = 0
---             _rainfx.splashes_per_tick = 0
---         end
---         if _lunarhailfx then
---             _lunarhailfx.particles_per_tick = 0
---             _lunarhailfx.splashes_per_tick = 0
---         end
---         if _snowfx then
---             _snowfx.particles_per_tick = 0
---         end
+        if _rainfx then
+            _rainfx.particles_per_tick = 0
+            _rainfx.splashes_per_tick = 0
+        end
+        if _lunarhailfx then
+            _lunarhailfx.particles_per_tick = 0
+            _lunarhailfx.splashes_per_tick = 0
+        end
+        if _snowfx then
+            _snowfx.particles_per_tick = 0
+        end
 
---         return nil, true
---     end
--- end
+        if _pollenfx then
+            _pollenfx.particles_per_tick = 0
+        end
 
--- AddClassPostConstruct("components/weather", function(self)
---     if not TheWorld.ismastersim then
---         StopAmbientRainSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopAmbientRainSound")
---         StopTreeRainSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopTreeRainSound")
---         StopUmbrellaRainSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopUmbrellaRainSound")
---         StopBarrierSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopBarrierSound")
+        return nil, true
+    end
+end
 
---         _rainfx = Utils.ChainFindUpvalue(self.OnPostInit, "_rainfx")
---         _snowfx = Utils.ChainFindUpvalue(self.OnPostInit, "_snowfx")
---         _lunarhailfx = Utils.ChainFindUpvalue(self.OnPostInit, "_lunarhailfx")
---         -- _pollenfx = Utils.ChainFindUpvalue(self.OnPostInit, "_pollenfx") --应该不用管这个特效
+AddClassPostConstruct("components/weather", function(self)
+    StopAmbientRainSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopAmbientRainSound")
+    StopTreeRainSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopTreeRainSound")
+    StopUmbrellaRainSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopUmbrellaRainSound")
+    StopBarrierSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopBarrierSound")
 
---         Utils.FnDecorator(self, "OnUpdate", WeatherClientOnUpdateBefore)
---         self.LongUpdate = self.OnUpdate
---     end
--- end)
+    _rainfx = Utils.ChainFindUpvalue(self.OnPostInit, "_rainfx")
+    _snowfx = Utils.ChainFindUpvalue(self.OnPostInit, "_snowfx")
+    _lunarhailfx = Utils.ChainFindUpvalue(self.OnPostInit, "_lunarhailfx")
+    _pollenfx = Utils.ChainFindUpvalue(self.OnPostInit, "_pollenfx")
+
+    Utils.FnDecorator(self, "OnUpdate", WeatherClientOnUpdateBefore)
+    self.LongUpdate = self.OnUpdate
+end)
 
 
 --懒得找防寒隔热的组件了，直接覆盖onupdate更省事
@@ -449,6 +450,7 @@ end)
 -----屏蔽 闪电 ---暂时先这样
 AddPrefabPostInitAny(function(inst)
     if TheWorld.ismastersim and inst:HasTag("interior_center") then
+        inst:AddTag("raindome") ----避雨标签
         -- inst:AddTag("shadecanopy") --防止自然、过热和玻璃雨的标签
         inst:AddComponent("lightningblocker")
         inst.components.lightningblocker:SetBlockRange(TUNING.SHADE_CANOPY_RANGE_SMALL)
