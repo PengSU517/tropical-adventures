@@ -63,16 +63,20 @@ local function WeatherClientOnUpdateBefore()
     end
 end
 
+local _hasfx = not TheNet:IsDedicated()
+
 AddClassPostConstruct("components/weather", function(self)
     StopAmbientRainSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopAmbientRainSound")
     StopTreeRainSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopTreeRainSound")
     StopUmbrellaRainSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopUmbrellaRainSound")
     StopBarrierSound = Utils.ChainFindUpvalue(self.OnUpdate, "StopBarrierSound")
 
-    _rainfx = Utils.ChainFindUpvalue(self.OnPostInit, "_rainfx")
-    _snowfx = Utils.ChainFindUpvalue(self.OnPostInit, "_snowfx")
-    _lunarhailfx = Utils.ChainFindUpvalue(self.OnPostInit, "_lunarhailfx")
-    _pollenfx = Utils.ChainFindUpvalue(self.OnPostInit, "_pollenfx")
+    if _hasfx then
+        _rainfx = Utils.ChainFindUpvalue(self.OnPostInit, "_rainfx")
+        _snowfx = Utils.ChainFindUpvalue(self.OnPostInit, "_snowfx")
+        _lunarhailfx = Utils.ChainFindUpvalue(self.OnPostInit, "_lunarhailfx")
+        _pollenfx = Utils.ChainFindUpvalue(self.OnPostInit, "_pollenfx")
+    end
 
     Utils.FnDecorator(self, "OnUpdate", WeatherClientOnUpdateBefore)
     self.LongUpdate = self.OnUpdate
