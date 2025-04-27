@@ -22,8 +22,8 @@ local function onhit(inst, worker)
     inst.AnimState:PushAnimation("idle", false)
 
     local fx = SpawnPrefab("robot_leaf_fx")
-    local x, y, z= inst.Transform:GetWorldPosition()
-    fx.Transform:SetPosition(x, y + math.random()*0.5, z)
+    local x, y, z = inst.Transform:GetWorldPosition()
+    fx.Transform:SetPosition(x, y + math.random() * 0.5, z)
 
     inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/vine_hack")
 end
@@ -36,8 +36,8 @@ end
 
 local function MakeTopiary(name, build, n)
     local assets = {
-        Asset("ANIM", "anim/"..build..".zip"),
-        Asset("MINIMAP_IMAGE", "topiary_"..n),
+        Asset("ANIM", "anim/" .. build .. ".zip"),
+        Asset("MINIMAP_IMAGE", "topiary_" .. n),
     }
     local function fn(Sim)
         local inst = CreateEntity()
@@ -76,7 +76,7 @@ local function MakeTopiary(name, build, n)
         --inst.components.inspectable.getstatus = getstatus
 
         MakeSnowCovered(inst)
-        inst:ListenForEvent( "onbuilt", onbuilt)
+        inst:ListenForEvent("onbuilt", onbuilt)
 
         if n == "3" or n == "4" then
             MakeLargeBurnable(inst, nil, nil, true)
@@ -92,7 +92,7 @@ local function MakeTopiary(name, build, n)
         inst.components.fixable:AddRecinstructionStageData("burnt", build, build)
         --inst.components.fixable:SetPrefabName("topiary")
 
-        inst:AddComponent("gridnudger")
+        -- inst:AddComponent("gridnudger")
 
         --inst:SetPrefabNameOverride("topiary")
 
