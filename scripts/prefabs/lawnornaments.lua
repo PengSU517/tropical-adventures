@@ -13,8 +13,10 @@ local function onhammered(inst, worker)
             local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
             local eles = TheSim:FindEntities(x, y, z, 40, { "guard" })
             for k, guardas in pairs(eles) do
-                if guardas.components.combat and guardas.components.combat.target == nil then guardas.components.combat
-                        :SetTarget(worker) end
+                if guardas.components.combat and guardas.components.combat.target == nil then
+                    guardas.components.combat
+                        :SetTarget(worker)
+                end
             end
         end
     end
@@ -47,8 +49,8 @@ end
 
 local function MakeLawnornament(n)
     local assets = {
-        Asset("ANIM", "anim/topiary0"..n..".zip"),
-        Asset("MINIMAP_IMAGE", "lawnornaments_"..n),
+        Asset("ANIM", "anim/topiary0" .. n .. ".zip"),
+        Asset("MINIMAP_IMAGE", "lawnornaments_" .. n),
     }
     local function fn(Sim)
         local inst = CreateEntity()
@@ -57,7 +59,7 @@ local function MakeLawnornament(n)
         inst.entity:AddNetwork()
 
         inst.entity:AddPhysics()
-        MakeObstaclePhysics(inst, .5)
+        MakeObstaclePhysics(inst, .1)
 
         local minimap = inst.entity:AddMiniMapEntity()
         minimap:SetIcon("lawnornament_" .. n .. ".tex")
@@ -65,8 +67,8 @@ local function MakeLawnornament(n)
         inst.entity:AddSoundEmitter()
         inst:AddTag("structure")
 
-        inst.AnimState:SetBank("topiary0".. n)
-        inst.AnimState:SetBuild("topiary0".. n)
+        inst.AnimState:SetBank("topiary0" .. n)
+        inst.AnimState:SetBuild("topiary0" .. n)
 
         inst.AnimState:PlayAnimation("idle")
 
@@ -89,18 +91,18 @@ local function MakeLawnornament(n)
         --inst.components.inspectable.getstatus = getstatus
 
         MakeSnowCovered(inst)
-        inst:ListenForEvent( "onbuilt", onbuilt)
+        inst:ListenForEvent("onbuilt", onbuilt)
 
         --inst:SetPrefabNameOverride("lawnornament")
 
         inst:AddComponent("fixable")
-        inst.components.fixable:AddRecinstructionStageData("burnt", "topiary0".. n, "topiary0".. n)
+        inst.components.fixable:AddRecinstructionStageData("burnt", "topiary0" .. n, "topiary0" .. n)
         --inst.components.fixable:SetPrefabName("lawnornament")
 
         MakeSmallBurnable(inst, nil, nil, true)
         MakeSmallPropagator(inst)
 
-        inst:AddComponent("gridnudger")
+        -- inst:AddComponent("gridnudger")
 
         inst:ListenForEvent("burntup", inst.Remove)
 
@@ -108,16 +110,16 @@ local function MakeLawnornament(n)
         return inst
     end
 
-    return Prefab("lawnornament_"..n, fn, assets, prefabs)
+    return Prefab("lawnornament_" .. n, fn, assets, prefabs)
 end
 
 local function MakeLawnornamentPlacer(n)
-    return MakePlacer("lawnornament_"..n.."_placer", "topiary0"..n, "topiary0"..n, "idle")
+    return MakePlacer("lawnornament_" .. n .. "_placer", "topiary0" .. n, "topiary0" .. n, "idle")
 end
 
 local ret = {}
 
-for i=1, 7 do
+for i = 1, 7 do
     table.insert(ret, MakeLawnornament(i))
     table.insert(ret, MakeLawnornamentPlacer(i))
 end
