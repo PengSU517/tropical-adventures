@@ -1,3 +1,4 @@
+local Phys = require "tools/physics"
 local Driver = Class(function(self, inst)
 	self.inst = inst
 	self.luzequipada = nil
@@ -517,6 +518,7 @@ end
 
 function Driver:OnMount(vehicle)
 	self.vehicle = vehicle
+    Phys.SetImmovable(vehicle)
 	if self.vehicle:HasTag("ocupado") then
 		self.inst.components.talker:Say(STRINGS.SEMBARCO)
 		self.inst:RemoveComponent("driver")
