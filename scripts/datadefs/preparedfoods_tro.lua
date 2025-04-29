@@ -301,22 +301,22 @@ local foods_tro = {
             },
         },
 
-        butterflymuffin_sw = {
-            test = function(cooker, names, tags)
-                return names.butterfly_tropical_wings and not tags.meat and tags.veggie
-            end,
-            priority = 1,
-            weight = 1,
-            foodtype = FOODTYPE.VEGGIE,
-            health = TUNING.HEALING_MED,
-            hunger = TUNING.CALORIES_LARGE,
-            perishtime = TUNING.PERISH_SLOW,
-            sanity = TUNING.SANITY_TINY,
-            cooktime = 2,
-            card_def = {
-                ingredients = { { "butterfly_tropical_wings", 1 }, { "carrot", 2 }, { "twigs", 1 } },
-            },
-        },
+        -- butterflymuffin_sw = {
+        --     test = function(cooker, names, tags)
+        --         return names.butterfly_tropical_wings and not tags.meat and tags.veggie
+        --     end,
+        --     priority = 1,
+        --     weight = 1,
+        --     foodtype = FOODTYPE.VEGGIE,
+        --     health = TUNING.HEALING_MED,
+        --     hunger = TUNING.CALORIES_LARGE,
+        --     perishtime = TUNING.PERISH_SLOW,
+        --     sanity = TUNING.SANITY_TINY,
+        --     cooktime = 2,
+        --     card_def = {
+        --         ingredients = { { "butterfly_tropical_wings", 1 }, { "carrot", 2 }, { "twigs", 1 } },
+        --     },
+        -- },
 
         -- californiaroll_sw = {}
 
