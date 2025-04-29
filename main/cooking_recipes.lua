@@ -30,24 +30,105 @@ if foods.lobsterdinner then
 end
 
 local foodsGrandDef = require("datadefs/preparedfoods_tro")
+
+
+local globalcookerrecipes = require("cooking").recipes
+local duplicated_recipes = {}
+local _AddCookerRecipe = AddCookerRecipe
+
+
+-------------这个方法是对原有的重复食谱进行修改
+local AddCookerRecipe = function(cooker, recipe)
+    -- if globalcookerrecipes then
+    --     print("find global")
+    --     if globalcookerrecipes[cooker] then
+    --         print("not find global cooker")
+    --         if globalcookerrecipes[cooker][recipe.name] then
+    --             print("find global cooker recipes")
+    --         end
+    --     end
+    -- end
+    if not globalcookerrecipes or not globalcookerrecipes[cooker] or not globalcookerrecipes[cooker][recipe.name] then
+        _AddCookerRecipe(cooker, recipe)
+    else
+        duplicated_recipes[recipe.name] = true
+        local old_recipe = globalcookerrecipes[cooker][recipe.name]
+        local oldtest = old_recipe.test
+        local newtest = recipe.test
+        old_recipe.test = function(cooker, names, tags)
+            return (newtest(cooker, names, tags) or oldtest(cooker, names, tags))
+        end
+
+        for i, v in pairs(recipe) do
+            local oldv = old_recipe[i]
+            if oldv == nil then
+                old_recipe[i] = v
+                -- elseif oldv ~= v then
+                --     if type(v) == "function" and type(oldv) == "function" then
+                --         old_recipe[i] = function(...) return pcall(v(...) or oldv(...)) end
+                --     end
+            end
+        end
+
+        -- old_recipe.name = recipe.name
+        -- old_recipe.imagename = recipe.name
+        -- old_recipe.basename = recipe.basename
+        -- old_recipe.overridebuild = recipe.overridebuild
+        -- old_recipe.cookbook_atlas = recipe.cookbook_atlas
+        -- old_recipe.atlasname = recipe.atlasname
+
+        if env.cookerrecipes[cooker] == nil then
+            env.cookerrecipes[cooker] = {}
+        end
+        if recipe.name then
+            table.insert(env.cookerrecipes[cooker], recipe.name)
+        end
+    end
+end
+
+------这个方法是重新添加一个食谱，但有些问题解决不了
+-- local AddCookerRecipe
+-- AddCookerRecipe = function(cooker, recipe)
+--     if (not globalcookerrecipes[cooker] or not globalcookerrecipes[cooker][recipe.name]) then
+--         _AddCookerRecipe(cooker, recipe)
+--     else
+--         local name = recipe.name
+--         recipe.overridesymbolname = recipe.overridesymbolname or name
+--         recipe.imagename = recipe.imagename or name
+--         recipe.basename = recipe.basename or name
+--         recipe.name = name .. "_tro" or "tro food"
+--         AddCookerRecipe(cooker, recipe)
+--         if RegisterFoodAtlas then ----兼容智能锅----但为什么取不到呢，以及无可避免的物品栏贴图覆盖
+--             print("register in smart crockpot")
+--             RegisterFoodAtlas(name, recipe.imagename, recipe.cookbook_atlas)
+--         end
+--     end
+-- end
+
+
+
 for tabIdx, foodTab in pairs(foodsGrandDef) do
     for _, foodDef in pairs(foodTab) do
         if foodDef.isMasterfood == nil then
-            AddCookerRecipe("cookpot", foodDef, true)
-            AddCookerRecipe("archive_cookpot", foodDef, true)
+            AddCookerRecipe("cookpot", foodDef)
+            AddCookerRecipe("archive_cookpot", foodDef)
         end
-        AddCookerRecipe("portablecookpot", foodDef, true)
+        AddCookerRecipe("portablecookpot", foodDef)
         if foodDef.card_def then
             AddRecipeCard("cookpot", foodDef)
         end
+        if duplicated_recipes[foodDef.name] then
+            print("duplicated_recipes", foodDef.name)
+            foodTab[_] = nil
+        end
     end
-    GenerateSpicedFoods(foodTab)
+    GenerateSpicedFoods(foodTab) -----这个函数在env里没有
 end
 
 local spicedfoods = require("spicedfoods")
 for _, foodDef in pairs(spicedfoods) do
     if foodDef.mod then
-        AddCookerRecipe("portablespicer", foodDef, true)
+        AddCookerRecipe("portablespicer", foodDef)
     end
 end
 

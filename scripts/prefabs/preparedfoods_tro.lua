@@ -1,5 +1,3 @@
-require "tro_cooking"
-
 local prefabs =
 {
     "spoiled_food",
