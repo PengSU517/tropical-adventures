@@ -36,29 +36,11 @@ function Driver:OnUpdate(dt) --Set my entity's position and rotation to be the s
 		if self.vehicle.prefab == "surfboard" then
 			local resto = SpawnPrefab("flotsam_surfboard_build")
 			resto.Transform:SetPosition(x, y, z)
-		elseif self.vehicle.prefab == "corkboat" then
-			local resto = SpawnPrefab("flotsam_lograft_build")
-			resto.Transform:SetPosition(x, y, z)
 		elseif self.vehicle.prefab == "raft_old" then
 			local resto = SpawnPrefab("flotsam_bamboo_build")
 			resto.Transform:SetPosition(x, y, z)
 		elseif self.vehicle.prefab == "lograft_old" then
 			local resto = SpawnPrefab("flotsam_lograft_build")
-			resto.Transform:SetPosition(x, y, z)
-		elseif self.vehicle.prefab == "rowboat" then
-			local resto = SpawnPrefab("flotsam_rowboat_build")
-			resto.Transform:SetPosition(x, y, z)
-		elseif self.vehicle.prefab == "cargoboat" then
-			local resto = SpawnPrefab("flotsam_cargo_build")
-			resto.Transform:SetPosition(x, y, z)
-		elseif self.vehicle.prefab == "armouredboat" then
-			local resto = SpawnPrefab("flotsam_armoured_build")
-			resto.Transform:SetPosition(x, y, z)
-		elseif self.vehicle.prefab == "encrustedboat" then
-			local resto = SpawnPrefab("flotsam_encrusted_build")
-			resto.Transform:SetPosition(x, y, z)
-		elseif self.vehicle.prefab == "woodlegsboat" then
-			local resto = SpawnPrefab("flotsam_rowboat_build")
 			resto.Transform:SetPosition(x, y, z)
 		end
 		self.vehicle:Remove()
@@ -67,9 +49,13 @@ function Driver:OnUpdate(dt) --Set my entity's position and rotation to be the s
 		self.inst:RemoveTag("surf")
 		self.inst:RemoveTag("aquatic")
 		self.inst.AnimState:SetSortOrder(0)
-		if self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO) then
-			self.inst.replica.inventory
-				:GetEquippedItem(EQUIPSLOTS.BARCO):Remove()
+        local slots = self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+		if slots then
+            if slots.OnCollapse and not slots.components.container:IsEmpty() then
+                self.inst.components.inventory:Unequip(EQUIPSLOTS.BARCO)
+                slots.components.container:Close(self.inst)
+                slots:OnCollapse()
+            else slots:Remove() end
 		end
 		self.inst:RemoveComponent("driver")
 		local fx = SpawnPrefab("collapse_small")
@@ -131,45 +117,7 @@ function Driver:OnUpdate(dt) --Set my entity's position and rotation to be the s
 		self.inst.components.interactions:BoatDismount2(self.inst)
 	end
 
-
-	----------gira o barco-----------------------------
-	if self.vehicle then
-		--self.inst.components.talker:Say(""..self.inst.Transform:GetRotation().." ")
-
-		--[[
-if TheCamera:GetHeading() == 0 then
-if self.inst.Transform:GetRotation() >= 45 and self.inst.Transform:GetRotation() <= 135 then
-self.vehicle.Transform:SetRotation(self.inst.Transform:GetRotation()+270)
-elseif self.inst.Transform:GetRotation() > 135 and self.inst.Transform:GetRotation() < 180 then
-self.vehicle.Transform:SetRotation(self.inst.Transform:GetRotation()+180)
-elseif self.inst.Transform:GetRotation() >= -180 and self.inst.Transform:GetRotation() <= -135 then
-self.vehicle.Transform:SetRotation(self.inst.Transform:GetRotation()+180)
-elseif self.inst.Transform:GetRotation() > -135 and self.inst.Transform:GetRotation() < -45 then
-self.vehicle.Transform:SetRotation(self.inst.Transform:GetRotation()+90)
-else
-self.vehicle.Transform:SetRotation(self.inst.Transform:GetRotation())
-end
-end
-]]
-
-		--[[
---print(self.inst)
-if self.inst.Transform:GetRotation() >= 45 and self.inst.Transform:GetRotation() <= 135 then
-self.vehicle.Transform:SetRotation(self.inst.Transform:GetRotation()+270)
-elseif self.inst.Transform:GetRotation() > 135 and self.inst.Transform:GetRotation() < 180 then
-self.vehicle.Transform:SetRotation(self.inst.Transform:GetRotation()+180)
-elseif self.inst.Transform:GetRotation() >= -180 and self.inst.Transform:GetRotation() <= -135 then
-self.vehicle.Transform:SetRotation(self.inst.Transform:GetRotation()+180)
-elseif self.inst.Transform:GetRotation() > -135 and self.inst.Transform:GetRotation() < -45 then
-self.vehicle.Transform:SetRotation(self.inst.Transform:GetRotation()+90)
-else
-self.vehicle.Transform:SetRotation(self.inst.Transform:GetRotation())
-end
-]]
-
-		--self.vehicle.Transform:SetPosition(0, -0.2, 0)
-	end
-	---------------------------------------consumo do barco--------------------------------------------------------------------------------
+---------------------------------------consumo do barco--------------------------------------------------------------------------------
 	if self.inst.components.locomotor.isrunning then
 		if self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD) ~= nil and self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD).prefab == "captainhat" then
 			if self.vehicle.prefab == "surfboard" then self.vehicle.components.finiteuses:Use(0.00156) end
@@ -556,46 +504,12 @@ function Driver:OnMount(vehicle)
 	self.inst:StartUpdatingComponent(self)
 
 	-------------------------transfere o conteudo do barco simbolo para o barco do inventario----------------------------------
-	if self.vehicle.components.container then
-		local sailslot = self.vehicle.components.container:GetItemInSlot(1)
-		if sailslot then
-			pegabarco.components.container:GiveItem(sailslot, 1)
-		end
-
-		local luzslot = self.vehicle.components.container:GetItemInSlot(2)
-		if luzslot then
-			pegabarco.components.container:GiveItem(luzslot, 2)
-		end
-
-		local cargoslot1 = self.vehicle.components.container:GetItemInSlot(3)
-		if cargoslot1 then
-			pegabarco.components.container:GiveItem(cargoslot1, 3)
-		end
-
-		local cargoslot2 = self.vehicle.components.container:GetItemInSlot(4)
-		if cargoslot2 then
-			pegabarco.components.container:GiveItem(cargoslot2, 4)
-		end
-
-		local cargoslot3 = self.vehicle.components.container:GetItemInSlot(5)
-		if cargoslot3 then
-			pegabarco.components.container:GiveItem(cargoslot3, 5)
-		end
-
-		local cargoslot4 = self.vehicle.components.container:GetItemInSlot(6)
-		if cargoslot4 then
-			pegabarco.components.container:GiveItem(cargoslot4, 6)
-		end
-
-		local cargoslot5 = self.vehicle.components.container:GetItemInSlot(7)
-		if cargoslot5 then
-			pegabarco.components.container:GiveItem(cargoslot5, 7)
-		end
-
-		local cargoslot6 = self.vehicle.components.container:GetItemInSlot(8)
-		if cargoslot6 then
-			pegabarco.components.container:GiveItem(cargoslot6, 8)
-		end
+    local precontainer = self.vehicle.components.container
+	if precontainer then
+        local pstcontainer = pegabarco.components.container
+        for k, v in pairs(precontainer:GetAllItems()) do 
+            pstcontainer:GiveItem(v, k)
+        end
 
 		pegabarco.components.container:Open(self.inst)
 		self.vehicle:RemoveComponent("container")

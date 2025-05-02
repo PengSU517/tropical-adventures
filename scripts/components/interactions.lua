@@ -87,47 +87,12 @@ function Interactions:BoatDismount(jumper, pt)
 					end
 				end
 				-------------------------transfere o conteudo do barco inventario para o barco do criado---------------------------------
-				if barcoinv.components.container then
-					local sailslot = barcoinv.components.container:GetItemInSlot(1)
-					if sailslot then
-						consumo.components.container:GiveItem(sailslot, 1)
-					end
-
-					local luzslot = barcoinv.components.container:GetItemInSlot(2)
-					if luzslot and luzslot.prefab == "quackeringram" then luzslot.navio1 = nil end
-					if luzslot then
-						consumo.components.container:GiveItem(luzslot, 2)
-					end
-
-					local cargoslot1 = barcoinv.components.container:GetItemInSlot(3)
-					if cargoslot1 then
-						consumo.components.container:GiveItem(cargoslot1, 3)
-					end
-
-					local cargoslot2 = barcoinv.components.container:GetItemInSlot(4)
-					if cargoslot2 then
-						consumo.components.container:GiveItem(cargoslot2, 4)
-					end
-
-					local cargoslot3 = barcoinv.components.container:GetItemInSlot(5)
-					if cargoslot3 then
-						consumo.components.container:GiveItem(cargoslot3, 5)
-					end
-
-					local cargoslot4 = barcoinv.components.container:GetItemInSlot(6)
-					if cargoslot4 then
-						consumo.components.container:GiveItem(cargoslot4, 6)
-					end
-
-					local cargoslot5 = barcoinv.components.container:GetItemInSlot(7)
-					if cargoslot5 then
-						consumo.components.container:GiveItem(cargoslot5, 7)
-					end
-
-					local cargoslot6 = barcoinv.components.container:GetItemInSlot(8)
-					if cargoslot6 then
-						consumo.components.container:GiveItem(cargoslot6, 8)
-					end
+                local precontainer = barcoinv.components.container
+				if precontainer then
+                    local pstcontainer = consumo.components.container
+                    for slot, item in pairs(precontainer:GetAllItems()) do
+                        pstcontainer:GiveItem(item, slot)
+                    end
 				end
 				----------------------------------------------------------------------------------------------------------------------
 				barcoinv:Remove()
