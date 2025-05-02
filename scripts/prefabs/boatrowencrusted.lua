@@ -12,12 +12,6 @@ local assets =
 
 local controlador = nil
 
-local prefabs =
-{
-
-}
-
-
 local function OnSave(inst, data)
 	if inst:HasTag("ocupado") then data.apaga = 1 end
 end
@@ -36,10 +30,6 @@ local function OnLoad(inst, data)
 	end)
 end
 
-local function onfinished(inst)
-	inst:Remove()
-end
-
 local function onhammered(inst)
 	if inst:HasTag("fire") and inst.components.burnable then
 		inst.components.burnable:Extinguish()
@@ -51,6 +41,7 @@ local function onhammered(inst)
 	SpawnPrefab("boards").Transform:SetPosition(inst.Transform:GetWorldPosition())
 	SpawnPrefab("boards").Transform:SetPosition(inst.Transform:GetWorldPosition())
 	inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
+    inst.components.container:DropEverything()
 	inst:Remove()
 end
 
@@ -64,6 +55,11 @@ local function equipaItem(inst, data)
 	if luzslot and luzslot:HasTag("boatlight") then luzslot:AddTag("nonavio") end
 	if luzslot then luzslot.navio = inst end
 	if sailslot then sailslot.navio = inst end
+end
+
+local function OnCollapse(inst)
+    local collapse = SpawnAt("flotsam_rowboat_build", inst)
+    collapse:SetChest(inst)
 end
 
 local function fn()
@@ -121,11 +117,11 @@ local function fn()
 	inst:AddComponent("finiteuses")
 	inst.components.finiteuses:SetMaxUses(800)
 	inst.components.finiteuses:SetUses(800)
-	inst.components.finiteuses:SetOnFinished(onfinished)
 	--	inst.components.finiteuses:SetConsumption(ACTIONS.HACK, 1)
 
 	inst:AddComponent("armor")
 	inst.components.armor:InitCondition(800, 0.99)
+    inst.components.armor:SetKeepOnFinished(true)
 
 	inst:AddComponent("workable")
 	inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
@@ -143,6 +139,7 @@ local function fn()
 
 	--    MakeHauntableLaunchAndSmash(inst)
 
+    inst.OnCollapse = OnCollapse
 	inst.OnLoad = OnLoad
 	inst.OnSave = OnSave
 

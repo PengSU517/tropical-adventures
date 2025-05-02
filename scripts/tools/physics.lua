@@ -1,3 +1,5 @@
+---@author: Runar 2025-04-30 09:50:48
+---v1.1
 local Immovables = {}
 local Utils = require "tools/utils"
 Utils.FnDecorator(Physics, "SetVel", function(p)
@@ -11,13 +13,13 @@ Utils.FnDecorator(Physics, "Teleport", function(p)
     end
 end)
 local function SetImmovable(inst, cancel)
-    if inst.Physics and cancel ~= false then
-        Immovables[inst.Physics] = true
-        return
-    end
-    if cancel == false then
+    if not inst.Physics then return false end
+    if cancel ~= false and Immovables[inst.Physics] == nil then
+        Immovables[inst.Physics] = inst
+    elseif cancel == false then
         Immovables[inst.Physics] = nil
     end
+    return true
 end
 return {
     SetImmovable = SetImmovable,

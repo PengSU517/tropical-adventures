@@ -5,18 +5,8 @@ local assets =
 {
 	Asset("ANIM", "anim/rowboat_basic.zip"),
 	Asset("ANIM", "anim/rowboat_build.zip"),
-	--	Asset("ANIM", "anim/swap_sail.zip"),
-	--	Asset("ANIM", "anim/swap_lantern_boat.zip"),
 	Asset("ANIM", "anim/boat_hud_row.zip"),
 }
-
-local controlador = nil
-
-local prefabs =
-{
-
-}
-
 
 local function OnSave(inst, data)
 	if inst:HasTag("ocupado") then data.apaga = 1 end
@@ -36,10 +26,6 @@ local function OnLoad(inst, data)
 	end)
 end
 
-local function onfinished(inst)
-	inst:Remove()
-end
-
 local function onhammered(inst)
 	if inst:HasTag("fire") and inst.components.burnable then
 		inst.components.burnable:Extinguish()
@@ -49,6 +35,7 @@ local function onhammered(inst)
 	SpawnPrefab("vine").Transform:SetPosition(inst.Transform:GetWorldPosition())
 	SpawnPrefab("vine").Transform:SetPosition(inst.Transform:GetWorldPosition())
 	inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
+    inst.components.container:DropEverything()
 	inst:Remove()
 end
 
@@ -60,6 +47,11 @@ local function equipaItem(inst, data)
 	if luzslot and luzslot:HasTag("boatlight") then luzslot:AddTag("nonavio") end
 	if luzslot then luzslot.navio = inst end
 	if sailslot then sailslot.navio = inst end
+end
+
+local function OnCollapse(inst)
+    local collapse = SpawnAt("flotsam_rowboat_build", inst)
+    collapse:SetChest(inst)
 end
 
 local function fn()
@@ -116,36 +108,25 @@ local function fn()
 	inst:AddComponent("finiteuses")
 	inst.components.finiteuses:SetMaxUses(250)
 	inst.components.finiteuses:SetUses(250)
-	inst.components.finiteuses:SetOnFinished(onfinished)
 	--	inst.components.finiteuses:SetConsumption(ACTIONS.HACK, 1)
 
 	inst:AddComponent("armor")
 	inst.components.armor:InitCondition(250, 0.99)
+    inst.components.armor:SetKeepOnFinished(true)
 
 	inst:AddComponent("workable")
 	inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
 	inst.components.workable:SetWorkLeft(2)
 	inst.components.workable:SetOnFinishCallback(onhammered)
 
-
 	inst:AddComponent("inventoryitem")
-
 
 	inst.components.equippable.equipslot = EQUIPSLOTS.BARCO
 	inst.components.inventoryitem.cangoincontainer = false
 	inst.components.inventoryitem.canbepickedup = false
 	inst:ListenForEvent("itemget", equipaItem)
-	------------------------muda textura do container----------------------------------------------------
-	--inst:ListenForEvent("onopen",function(inst,data)
-	--if data.doer and data.doer.HUD then
-	--local image = data.doer.HUD.controls.containers[inst].inv[1].bgimage
-	--image:SetTexture("images/barco.xml", "barco.tex")
-	--local image = data.doer.HUD.controls.containers[inst].inv[2].bgimage
-	--image:SetTexture("images/barco.xml", "luz.tex")
-	--end end)
 
-	--    MakeHauntableLaunchAndSmash(inst)
-
+    inst.OnCollapse = OnCollapse
 	inst.OnLoad = OnLoad
 	inst.OnSave = OnSave
 
