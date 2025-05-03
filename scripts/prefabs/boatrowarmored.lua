@@ -62,6 +62,11 @@ local function equipaItem(inst, data)
 	if sailslot then sailslot.navio = inst end
 end
 
+local function OnCollapse(inst)
+    local collapse = SpawnAt("flotsam_rowboat_build", inst)
+    collapse:SetChest(inst)
+end
+
 local function fn()
 	local inst = CreateEntity()
 
