@@ -433,19 +433,19 @@ Map.IsHamRoomWallAtPoint = function(self, x, y, z)
     return IsHamRoomAtPoint(x, y, z, true) --true则检查墙点
 end
 
-Map.OutsideWorldAtPoint = function(x, y, z)
+Map.OutsideWorldAtPoint = function(self, x, y, z)
     if type(x) == "table" then
         x, z = x.x or x, x.z or z
     end
 
     -- 未知类型错误bug
-    if type(x) ~= "number" then
-        x = 0
-    end
+    -- if type(x) ~= "number" then
+    --     x = 0
+    -- end
 
-    if type(z) ~= "number" then
-        z = 0
-    end
+    -- if type(z) ~= "number" then
+    --     z = 0
+    -- end
 
     if checkxz(x, z) then --判断的基础，也许光判断z就行了
         return true
