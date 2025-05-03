@@ -201,7 +201,7 @@ end
 
 local _OnCreep = GroundCreep.OnCreep
 function GroundCreep:OnCreep(x, y, z, ...)
-    return _OnCreep(self, x, y, z, ...) and not TheWorld.Map:IsOutsideWorld(x, y, z)
+    return _OnCreep(self, x, y, z, ...) and not TheWorld.Map:OutsideWorldAtPoint(x, y, z)
 end
 
 -- local GroundCreepEntity = GroundCreepEntity
