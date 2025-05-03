@@ -1,5 +1,21 @@
 require("entityscript")
 
+
+GLOBAL.setfenv(1, GLOBAL)
+
+-- local entity_to_inst = {}
+-- local _CreateEntity = CreateEntity
+-- CreateEntity = function()
+--     print("CreateEntity111")
+--     local inst = _CreateEntity()
+--     entity_to_inst[inst.entity] = inst
+--     return inst
+-- end
+
+-- function GetEntityinst(entity)
+--     return entity_to_inst[entity] or nil
+-- end
+
 function EntityScript:IsInTropicalArea()
     return TheWorld.Map:IsTropicalAreaAtPoint(self:GetPosition():Get())
 end
@@ -33,6 +49,15 @@ function EntityScript:IsInWorld()
     -- return true
 end
 
+--实体是否在虚空的房间里面
+function EntityScript:IsInHamRoom()
+    return TheWorld.Map:IsHamRoomAtPoint(self:GetPosition():Get())
+end
+
+function EntityScript:IsOutsideWorld()
+    return TheWorld.Map:OutsideWorldAtPoint(self:GetPosition():Get())
+end
+
 function EntityScript:IsOnLandTile()
     return TheWorld.Map:IsLandTileAtPoint(self.Transform:GetWorldPosition())
 end
@@ -58,11 +83,6 @@ end
 function EntityScript:AwareInVolcanoArea()
     local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("volcano") and true
     return aware or false
-end
-
---实体是否在虚空的房间里面
-function EntityScript:IsInHamRoom()
-    return TheWorld.Map:IsHamRoomAtPoint(self:GetPosition():Get()) --------------------似乎不太对
 end
 
 --推入事件
@@ -144,13 +164,13 @@ end
 --------------------------------------------------------------------------------------------
 ----------------------------------[[ 相关物品hook ]]-----------------------------------------
 --------------------------------------------------------------------------------------------
-local old_CanEntitySeePoint = GLOBAL.CanEntitySeePoint
-GLOBAL.CanEntitySeePoint = function(inst, ...)
+local old_CanEntitySeePoint = CanEntitySeePoint
+CanEntitySeePoint = function(inst, ...)
     return old_CanEntitySeePoint(inst, ...) or inst:IsInHamRoom()
 end
 
-local old_CanEntitySeeInDark = GLOBAL.CanEntitySeeInDark
-GLOBAL.CanEntitySeeInDark = function(inst)
+local old_CanEntitySeeInDark = CanEntitySeeInDark
+CanEntitySeeInDark = function(inst)
     return old_CanEntitySeeInDark(inst) or inst:IsInHamRoom()
 end
 
@@ -172,7 +192,24 @@ function AnimState:SetLayer(layer, ...)
     return _SetLayer(self, layer, ...)
 end
 
+-- local creep_entity = {}
+-- local _AddGroundCreepEntity = Entity.AddGroundCreepEntity
+-- Entity.AddGroundCreepEntity = function(self, ...)
+--     local creep = _AddGroundCreepEntity(self, ...)
+--     creep_entity[creep] = self
+-- end
+
 local _OnCreep = GroundCreep.OnCreep
 function GroundCreep:OnCreep(x, y, z, ...)
-    return _OnCreep(self, x, y, z, ...) and not TheWorld.Map:IsHamRoomAtPoint(x, y, z)
+    return _OnCreep(self, x, y, z, ...) and not TheWorld.Map:IsOutsideWorld(x, y, z)
 end
+
+-- local GroundCreepEntity = GroundCreepEntity
+-- local _SetRadius = GroundCreepEntity.SetRadius
+-- function GroundCreepEntity.SetRadius(self, rad)
+--     local inst = GetEntityinst(self)
+--     if inst and inst:IsOutsideWorld() then
+--         return
+--     end
+--     _SetRadius(self, rad)
+-- end

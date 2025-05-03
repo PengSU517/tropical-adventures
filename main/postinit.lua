@@ -26,6 +26,11 @@ modimport("postinit/farm")          --种植相关  --通过veggies改变随机�
 modimport("postinit/wx78_module")
 modimport("postinit/oceancolor")
 
+
+----对entity C层组件的修改
+-- modimport("postinit/entity/creep")  ---都放在entityscript中修改
+
+
 --成系统的内容修改
 modimport("postinit/actionrelated")
 modimport("postinit/components/weather")  --热带气候（冬季降雨   ------冬雨和室内怎么联动是个问题
