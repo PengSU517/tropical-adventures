@@ -758,33 +758,33 @@ end
 
 
 return
-    Prefab("window_round_light",
-        decofn("interior_window", "interior_window_light_side", "day_loop",
-            {
-                loopanim = true,
-                decal = true,
-                light = true,
-                dayevents = true,
-                followlight = "natural",
-                windowlight = true,
-                dustzmod = 1.3,
-                tags = { "NOBLOCK" }
-            }), assets, prefabs),
-    Prefab("window_round_light_backwall",
-        decofn("interior_window", "interior_window_light", "day_loop",
-            {
-                loopanim = true,
-                decal = true,
-                light = true,
-                dayevents = true,
-                followlight = "natural",
-                windowlight = true,
-                dustxmod = 1.3,
-                tags = { "NOBLOCK" }
-            }), assets, prefabs),
+-- Prefab("window_round_light",
+--     decofn("interior_window", "interior_window_light_side", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = true,
+--             light = true,
+--             dayevents = true,
+--             followlight = "natural",
+--             windowlight = true,
+--             dustzmod = 1.3,
+--             tags = { "NOBLOCK" }
+--         }), assets, prefabs),
+-- Prefab("window_round_light_backwall",
+--     decofn("interior_window", "interior_window_light", "day_loop",
+--         {
+--             loopanim = true,
+--             decal = true,
+--             light = true,
+--             dayevents = true,
+--             followlight = "natural",
+--             windowlight = true,
+--             dustxmod = 1.3,
+--             tags = { "NOBLOCK" }
+--         }), assets, prefabs),
 
 
-    ------------------wall paper rips-------------------------------
+------------------wall paper rips-------------------------------
     Prefab("deco_wallpaper_rip1",
         decofn("interior_wall_decals", "wall_decals", "1", { decal = true, tags = { "NOBLOCK" } }), assets, prefabs),
     Prefab("deco_wallpaper_rip2",

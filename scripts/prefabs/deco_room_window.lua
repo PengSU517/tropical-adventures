@@ -407,7 +407,7 @@ end
 local function Windowfn(prefabname, build, bank, animdata, data)
     local presetdata = {
         curtains = data and data.curtains or false, ------------------这里TRUE FALSE的判定逻辑要注意
-        children = data and data.children or { "window_round_light" },
+        -- children = data and data.children or { "window_round_light" },
         tags = data and data.tags or { "NOBLOCK", "wallsection", "rotatableobject", "room_window" },
         scales = data and data.scales or { x = 1.2, y = 1, z = 1 },
         height = 0,
