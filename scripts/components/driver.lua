@@ -33,16 +33,16 @@ function Driver:OnUpdate(dt) --Set my entity's position and rotation to be the s
 	--remove o barco quebrado
 	local x, y, z = self.inst.Transform:GetWorldPosition()
 	if self.vehicle.components.finiteuses.current <= 0 or self.vehicle.components.workable.workleft <= 0 then
-		if self.vehicle.prefab == "surfboard" then
-			local resto = SpawnPrefab("flotsam_surfboard_build")
-			resto.Transform:SetPosition(x, y, z)
-		elseif self.vehicle.prefab == "raft_old" then
-			local resto = SpawnPrefab("flotsam_bamboo_build")
-			resto.Transform:SetPosition(x, y, z)
-		elseif self.vehicle.prefab == "lograft_old" then
-			local resto = SpawnPrefab("flotsam_lograft_build")
-			resto.Transform:SetPosition(x, y, z)
-		end
+		-- if self.vehicle.prefab == "surfboard" then
+		-- 	local resto = SpawnPrefab("flotsam_surfboard_build")
+		-- 	resto.Transform:SetPosition(x, y, z)
+		-- elseif self.vehicle.prefab == "raft_old" then
+		-- 	local resto = SpawnPrefab("flotsam_bamboo_build")
+		-- 	resto.Transform:SetPosition(x, y, z)
+		-- elseif self.vehicle.prefab == "lograft_old" then
+		-- 	local resto = SpawnPrefab("flotsam_lograft_build")
+		-- 	resto.Transform:SetPosition(x, y, z)
+		-- end
 		self.vehicle:Remove()
 		self.inst:RemoveComponent("rowboatwakespawner")
 		self.inst:RemoveTag("sail")
@@ -51,15 +51,15 @@ function Driver:OnUpdate(dt) --Set my entity's position and rotation to be the s
 		self.inst.AnimState:SetSortOrder(0)
         local slots = self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
 		if slots then
-            if slots.OnCollapse and not slots.components.container:IsEmpty() then
+            -- if slots.OnCollapse and not slots.components.container:IsEmpty() then
                 self.inst.components.inventory:Unequip(EQUIPSLOTS.BARCO)
                 slots.components.container:Close(self.inst)
                 slots:OnCollapse()
-            else slots:Remove() end
+            -- else slots:Remove() end
 		end
 		self.inst:RemoveComponent("driver")
-		local fx = SpawnPrefab("collapse_small")
-		fx.Transform:SetPosition(x, y, z)
+		-- local fx = SpawnPrefab("collapse_small")
+		-- fx.Transform:SetPosition(x, y, z)
 		--self.inst.sg:GoToState("death_boat")
 		return
 	end

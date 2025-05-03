@@ -38,6 +38,9 @@ local function OnPicked(inst, picker, loot)
 	if empty then
 		local fx = SpawnAt("collapse_small", inst)
 		fx:SetMaterial("wood")
+        for _, v in ipairs(inst.chest and inst.chest.loottable or {}) do
+            Launch(SpawnAt(v, inst), inst)
+        end
         inst:Remove()
 	end
 end
