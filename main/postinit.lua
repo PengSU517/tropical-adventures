@@ -55,6 +55,9 @@ modimport("postinit/poisonables")         --posonables--and loot dropper--
 -- modimport("postinit/components/playervision")
 -- modimport("postinit/components/spooked")  --黄蘑菇孢子
 -- modimport("postinit/components/trap")
+
+-- modimport("postinit/components/a__template")
+modimport("postinit/components/snowball")
 modimport("postinit/components/actionqueuer")
 modimport("postinit/components/ambientlighting")
 modimport("postinit/components/ambientsound")

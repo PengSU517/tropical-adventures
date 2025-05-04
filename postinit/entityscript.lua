@@ -55,7 +55,11 @@ function EntityScript:IsInHamRoom()
 end
 
 function EntityScript:IsOutsideWorld()
-    return TheWorld.Map:OutsideWorldAtPoint(self:GetPosition():Get())
+    return TheWorld.Map:IsOutsideWorldAtPoint(self:GetPosition():Get())
+end
+
+function EntityScript:IsInTemperateArea()
+    return TheWorld.Map:IsTemperateAreaAtPoint(self:GetPosition():Get())
 end
 
 function EntityScript:IsOnLandTile()
@@ -201,7 +205,7 @@ end
 
 local _OnCreep = GroundCreep.OnCreep
 function GroundCreep:OnCreep(x, y, z, ...)
-    return _OnCreep(self, x, y, z, ...) and not TheWorld.Map:OutsideWorldAtPoint(x, y, z)
+    return _OnCreep(self, x, y, z, ...) and not TheWorld.Map:IsOutsideWorldAtPoint(x, y, z)
 end
 
 -- local GroundCreepEntity = GroundCreepEntity
