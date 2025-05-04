@@ -10,6 +10,7 @@ AddPrefabPostInit("forest", function(inst)
         inst:AddComponent("whalehunter")
         inst:AddComponent("rainbowjellymigration")
         inst:AddComponent("quaker_interior") ------------这是啥
+        inst:AddComponent("glowflyspawner")
 
 
         if TUNING.sealnado then
