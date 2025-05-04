@@ -91192,8 +91192,8 @@ msgctxt "STRINGS.NAMES.CAVE_ENTRANCE_OPEN_CAVE"
 msgid "Deeper"
 msgstr "下層陷洞"
 
-#. STRINGS.NAMES.CAVE_EXIT
-msgctxt "STRINGS.NAMES.CAVE_EXIT"
+#. STRINGS.NAMES.CAVE_EXIT_OLD
+msgctxt "STRINGS.NAMES.CAVE_EXIT_OLD"
 msgid "Rope"
 msgstr "繩子"
 

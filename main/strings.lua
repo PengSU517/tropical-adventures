@@ -248,10 +248,19 @@ local setting_languages = {
 
 merge(STRINGS, languagerequire("extension/english"), true)
 
-local desiredlang = nil
-if LanguageTranslator.defaultlang then
+
+
+local IsTheFrontEnd = rawget(_G, "TheFrontEnd") and rawget(_G, "IsInFrontEnd") and IsInFrontEnd()
+local desiredlang = LOC.GetLocaleCode()
+if (IsTheFrontEnd and not desiredlang) and LanguageTranslator.defaultlang then -- only use default in FrontEnd or if locale is not set
     desiredlang = LanguageTranslator.defaultlang
 end
+-- local desiredlang = nil
+-- if LanguageTranslator.defaultlang then
+--     desiredlang = LanguageTranslator.defaultlang
+-- end
+
+
 
 print("desired language: " .. (desiredlang or "nil"))
 if desiredlang and setting_languages[desiredlang] then
