@@ -1,6 +1,7 @@
-local CHECK_RADIUS = 40
-local SCREEN_DIST  = 50
-local creaturedef  = require("datadefs/creature_spawn_defs")
+local CHECK_RADIUS               = 60
+local CHECK_RADIUS_SAME_CREATURE = 60
+local SCREEN_DIST                = 50
+local creaturedef                = require("datadefs/creature_spawn_defs")
 
 return Class(function(self, inst)
 	assert(TheWorld.ismastersim, "SchoolSpawner should not exist on client")
@@ -122,7 +123,7 @@ return Class(function(self, inst)
 		--print("SpawnSchool")
 		local prefab = schooldata.prefab
 		local checkname = schooldata.checkname or schooldata.prefab
-		local num_creature = #TheSim:FindEntities(spawnpoint.x, spawnpoint.y, spawnpoint.z, CHECK_RADIUS,
+		local num_creature = #TheSim:FindEntities(spawnpoint.x, spawnpoint.y, spawnpoint.z, CHECK_RADIUS_SAME_CREATURE,
 			{ "spawned_" .. checkname })
 
 		if schooldata.schoolmin < num_creature then
