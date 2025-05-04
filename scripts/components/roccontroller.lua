@@ -652,7 +652,7 @@ function RocController:OnUpdate(dt)
 	end
 
 	if self.stage == _stages.navigating then
-		local player = FindClosestValidPlayerToInst(self.inst, 80, true) --[[or self.inst]]
+		local player = FindClosestValidPlayerToInst(self.inst, 80, true) or self.inst ----为什么会找不到player呢
 		if not player or TheWorld.state.isnight then
 			self.stage = _stages.flying_away
 			return
