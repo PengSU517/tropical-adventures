@@ -433,7 +433,7 @@ Map.IsHamRoomWallAtPoint = function(self, x, y, z)
     return IsHamRoomAtPoint(x, y, z, true) --true则检查墙点
 end
 
-Map.OutsideWorldAtPoint = function(self, x, y, z)
+Map.IsOutsideWorldAtPoint = function(self, x, y, z)
     if type(x) == "table" then
         x, z = x.x or x, x.z or z
     end
@@ -453,6 +453,11 @@ Map.OutsideWorldAtPoint = function(self, x, y, z)
     return false
 end
 
+
+Map.IsTemperateAreaAtPoint = function(self, x, y, z)
+    return not self:IsOutsideWorldAtPoint(x, y, z) and
+        not self:IsTropicalAreaAtPoint(x, y, z)
+end
 
 
 

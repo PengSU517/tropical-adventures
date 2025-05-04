@@ -35,7 +35,7 @@ AddClassPostConstruct("components/weather", function(cmp)
     mapfuncs.SetOverlayLerp = function(map, level, ...)
         if _texture == "levels/textures/snow.tex" then
             local diff = level - _level
-            local maxStep = 0.01 -- Set your desired max step here
+            local maxStep = 0.05 -- Set your desired max step here
 
             if not ThePlayer or not ThePlayer:AwareInTropicalArea() then
                 -- print("tropical_world_snow11111")

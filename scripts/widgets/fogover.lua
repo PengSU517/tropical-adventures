@@ -15,6 +15,7 @@ local FogOver = Class(Widget, function(self, owner)
     self.bg:GetAnimState():SetBuild("clouds_ol")
     self.bg:GetAnimState():PlayAnimation("idle", true)
     self.bg:GetAnimState():AnimateWhilePaused(false)
+    self.bg:GetAnimState():SetDeltaTimeMultiplier(0.7) -----似乎是控制播放速度，如果让速度依赖于方向就好了
     self.bg:SetHAnchor(ANCHOR_MIDDLE)
     self.bg:SetVAnchor(ANCHOR_MIDDLE)
     self.bg:SetScaleMode(SCALEMODE_FIXEDSCREEN_NONDYNAMIC)

@@ -122,7 +122,7 @@ AddComponentPostInit("birdspawner", function(self)
 
             return RelevantSpawnBird(self, bird_prefab, spawnpoint, ignorebait)
         else
-            if not TheWorld.Map:OutsideWorldAtPoint(x, 0, z) then
+            if not TheWorld.Map:IsOutsideWorldAtPoint(x, 0, z) then
                 return _SpawnBird(self, spawnpoint, ignorebait)
             end
         end
