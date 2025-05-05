@@ -41,17 +41,8 @@ local function getspeedbonus(inst)
                 val = bonus
             end
         end
-        if inst.replica.inventory:IsHeavyLifting() then
-            local item = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-            if item.replica.container and item.replica.container:GetItemInSlot(1) and
-                item.replica.container:GetItemInSlot(1):HasTag("sail") then
-                return val * 0.2
-            else
-                return 0
-            end
-        end
     end
-    return math.min(val, 1.8)
+    return math.max(math.min(val - 1, 1), 0)
 end
 
 --------------------这里控制水上的速度-------------------------
@@ -60,7 +51,7 @@ AddComponentPostInit("locomotor", function(self)
     local OldGetSpeedMultiplier = self.GetSpeedMultiplier
     function self:GetSpeedMultiplier()
         if (self.inst and self.inst:HasTag("aquatic") and self.inst:HasTag("player")) then
-            return (getspeedbonus(self.inst) - 1) + OldGetSpeedMultiplier(self) ------乘算改为加算
+            return getspeedbonus(self.inst) + OldGetSpeedMultiplier(self) ------乘算改为加算
         end
         return OldGetSpeedMultiplier(self)
     end
