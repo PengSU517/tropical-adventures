@@ -367,6 +367,7 @@ local function babyfn(Sim)
 	inst.AnimState:PlayAnimation("idle", true)
 
 	inst:AddTag("baby")
+	inst:AddTag("doydoy")
 
 	inst.sounds = babysounds
 
@@ -439,6 +440,7 @@ local function adultfn(Sim)
 	end
 
 	inst:AddTag("mating")
+	inst:AddTag("doydoy")
 	inst.day_to_spawn = 0
 
 	inst.AnimState:SetBank("doydoy")
