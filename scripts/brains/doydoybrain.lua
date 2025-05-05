@@ -15,10 +15,11 @@ local STEAL_TAGS = { "structure" }
 local NO_TAGS = { "FX", "NOCLICK", "DECOR", "INLIMBO", "AQUATIC" }
 
 local doydoy_mate_time = 2
-local doydoy_total_limit = 20
+local doydoy_total_limit = TUNING.DOYDOY_MAX_POPULATION
 local seabeach_amount = {
 	doydoy = 0,
 }
+local SCREEN_DIST = 50
 
 local MAX_CHASE_TIME = 20
 local MAX_WANDER_DIST = 16
@@ -160,7 +161,9 @@ end
 
 local function MateAction(inst)
 	--渡渡鸟总数量限制
-	if seabeach_amount.doydoy > doydoy_total_limit then
+	local pt = inst:GetPosition()
+	local doydoys = TheSim:FindEntities(pt.x, pt.y, pt.z, SCREEN_DIST, { "doydoy" })
+	if #doydoys > doydoy_total_limit then
 		return
 	end
 
