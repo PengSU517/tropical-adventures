@@ -1306,19 +1306,34 @@ DESACTIVATESAIL.fn = function(act)
 end
 AddAction(DESACTIVATESAIL)
 
--- 渡渡羽毛扇摇扇动作写死在sg里了，没留overridebuild，勾一下
-AddStategraphPostInit("wilson", function(sg)
-    local old_enter = sg.states["use_fan"].onenter
-    sg.states["use_fan"].onenter = function(inst, ...)
-        old_enter(inst, ...)
-        local invobject = nil
-        if inst.bufferedaction ~= nil then
-            invobject = inst.bufferedaction.invobject
+
+local JUMPIN = Action({ priority = 10, ghost_valid = true, encumbered_valid = true, invalid_hold_action = true })
+JUMPIN.str = (STRINGS.ACTIONS.JUMPIN)
+JUMPIN.id = "JUMPIN"
+JUMPIN.fn = function(act)
+    if act.doer ~= nil and
+        act.doer.sg ~= nil and
+        act.doer.sg.currentstate.name == "jumpin_pre" then
+        if act.target ~= nil and
+            act.target.components.teleporter ~= nil and
+            act.target.components.teleporter:IsActive() then
+            if act.target:HasTag("hamletteleport") and not act.doer:HasTag("playerghost") then
+                act.doer.sg:GoToState("hamletteleport", { teleporter = act.target })
+            else
+                act.doer.sg:GoToState("jumpin", { teleporter = act.target })
+            end
+            return true
         end
-        local src_symbol = invobject ~= nil and invobject.components.fan ~= nil and
-            invobject.components.fan.overridesymbol
-        if src_symbol == "fan01" then
-            inst.AnimState:OverrideSymbol("fan01", "fan_tropical", src_symbol)
-        end
+        act.doer.sg:GoToState("idle")
     end
-end)
+end
+AddAction(JUMPIN)
+
+--进出房间动作--
+local Oldstrfnjumpin = ACTIONS.JUMPIN.strfn
+ACTIONS.JUMPIN.strfn = function(act)
+    if act.target ~= nil and act.target:HasTag("hamletteleport") then
+        return "HAMLET"
+    end
+    return Oldstrfnjumpin and Oldstrfnjumpin(act) or "GENERIC"
+end

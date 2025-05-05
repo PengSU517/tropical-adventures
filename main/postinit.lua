@@ -135,6 +135,6 @@ modimport("postinit/widgets/uiclock_bloodmoon")
 
 
 --stagegraph
-modimport("postinit/stategraphs/stagegraph_wilson") --需要整理
+-- modimport("postinit/stategraphs/stagegraph_wilson") --需要整理
 modimport("postinit/stategraphs/SGwilson")
 modimport("postinit/stategraphs/SGwilson_client")
