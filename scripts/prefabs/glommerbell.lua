@@ -56,6 +56,7 @@ local function fn()
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("instrument")
+	inst.components.instrument:SetAssetOverrides("bell", "bell01", "dontstarve_DLC001/common/glommer_bell")
 	inst.components.instrument.onplayed = OnPlayed
 
 	inst:AddComponent("inventoryitem")

@@ -744,49 +744,6 @@ local states = {
         end
     },
 
-    State { name = "play_bell",
-        tags = { "doing", "playing" },
-        onenter = function(inst)
-            inst.components.locomotor:Stop()
-            inst.AnimState:PlayAnimation("action_uniqueitem_pre")
-            inst.AnimState:PushAnimation("bell", false)
-            inst.AnimState:OverrideSymbol("bell01", "bell", "bell01")
-            inst.AnimState:Show("ARM_normal")
-            inst.components.inventory:ReturnActiveActionItem(
-                inst.bufferedaction ~= nil and inst.bufferedaction.invobject or nil
-            )
-        end,
-        timeline = {
-            TimeEvent(
-                15 * FRAMES,
-                function(inst)
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC001/common/glommer_bell")
-                end
-            ),
-            TimeEvent(
-                60 * FRAMES,
-                function(inst)
-                    inst:PerformBufferedAction()
-                end
-            )
-        },
-        events = {
-            EventHandler(
-                "animover",
-                function(inst)
-                    if inst.AnimState:AnimDone() then
-                        inst.sg:GoToState("idle")
-                    end
-                end
-            )
-        },
-        onexit = function(inst)
-            if inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
-                inst.AnimState:Show("ARM_carry")
-                inst.AnimState:Hide("ARM_normal")
-            end
-        end
-    },
 
     State { name = "crop_dust", --完全一致
         tags = { "doing", "busy" },
@@ -2777,32 +2734,32 @@ end
 
 
 
-AddStategraphPostInit("wilson", function(sg)
-    local _play_horn_onenter = sg.states["play_horn"].onenter
-    sg.states["play_horn"].onenter = function(inst, ...)
-        _play_horn_onenter(inst, ...)
-        local act = inst:GetBufferedAction()
-        if act and act.invobject and act.invobject.hornbuild then
-            inst.AnimState:OverrideSymbol("horn01", act.invobject.hornbuild or "horn",
-                act.invobject.hornsymbol or "horn01")
-        end
-    end
-    local _play_horn_timeevent_1 = sg.states["play_horn"].timeline[1].fn
-    sg.states["play_horn"].timeline[1].fn = function(inst, ...)
-        local horn = inst.bufferedaction and inst.bufferedaction.invobject
-        if horn:HasTag("new_horn") then
-            if inst:PerformBufferedAction() then
-                if horn.playsound then
-                    inst.SoundEmitter:PlaySound(horn.playsound)
-                end
-            else
-                inst.sg.statemem.action_failed = true
-            end
-        else
-            _play_horn_timeevent_1(inst, ...)
-        end
-    end
-end)
+-- AddStategraphPostInit("wilson", function(sg)
+--     local _play_horn_onenter = sg.states["play_horn"].onenter
+--     sg.states["play_horn"].onenter = function(inst, ...)
+--         _play_horn_onenter(inst, ...)
+--         local act = inst:GetBufferedAction()
+--         if act and act.invobject and act.invobject.hornbuild then
+--             inst.AnimState:OverrideSymbol("horn01", act.invobject.hornbuild or "horn",
+--                 act.invobject.hornsymbol or "horn01")
+--         end
+--     end
+--     local _play_horn_timeevent_1 = sg.states["play_horn"].timeline[1].fn
+--     sg.states["play_horn"].timeline[1].fn = function(inst, ...)
+--         local horn = inst.bufferedaction and inst.bufferedaction.invobject
+--         if horn:HasTag("new_horn") then
+--             if inst:PerformBufferedAction() then
+--                 if horn.playsound then
+--                     inst.SoundEmitter:PlaySound(horn.playsound)
+--                 end
+--             else
+--                 inst.sg.statemem.action_failed = true
+--             end
+--         else
+--             _play_horn_timeevent_1(inst, ...)
+--         end
+--     end
+-- end)
 
 
 AddStategraphPostInit("wilson", function(inst)

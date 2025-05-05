@@ -12,25 +12,10 @@ TUNING.BIRDWHISLE_USES = 5
 
 local function OnPlayedNormal(inst, musician)
     local rocmanager = TheWorld.components.rocmanager
-    -- print("check111111111111")
     if rocmanager then
         -- print("check222222222222")
         rocmanager:Spawn(musician) --需要传入玩家
     end
-    -- if musician then
-    --     local a, b, c = musician.Transform:GetWorldPosition()
-    --     local casa = GetClosestInstWithTag("interior_center", musician, 40) --判断室内，或者直接判断位置
-    --     local nest = GetClosestInstWithTag("roc_nest", musician, 40)
-    --     local roc_entity = TheSim:FindFirstEntityWithTag("roc")       ------------------如果想改成boss的话还得改
-    --     if (not casa) and (not nest) and (not roc_entity) then
-    --         inst:DoTaskInTime(3, function(...)
-    --             local vento = SpawnPrefab("roc")
-    --             if vento then
-    --                 vento.Transform:SetPosition(a + math.random(-10, 10), 0, c + math.random(-10, 10))
-    --             end
-    --         end)
-    --     end
-    -- end
 end
 
 local function OnPlayedCorrupted(inst, musician)
@@ -81,6 +66,8 @@ local function NormalFn()
     inst:AddComponent("inventoryitem")
     inst:AddComponent("instrument")
     inst.components.instrument.range = 0
+    inst.components.instrument:SetAssetOverrides("swap_antler", "swap_horn",
+        "dontstarve_DLC003/common/crafted/roc_flute")
     inst.components.instrument:SetOnPlayedFn(OnPlayedNormal)
 
     inst:AddComponent("tool")
@@ -94,9 +81,9 @@ local function NormalFn()
 
     MakeHauntableLaunch(inst)
 
-    inst.hornbuild = "swap_antler"
-    inst.hornsymbol = "swap_horn"
-    inst.playsound = "dontstarve_DLC003/common/crafted/roc_flute"
+    -- inst.hornbuild = "swap_antler"
+    -- inst.hornsymbol = "swap_horn"
+    -- inst.playsound = "dontstarve_DLC003/common/crafted/roc_flute"
     return inst
 end
 
@@ -134,6 +121,8 @@ local function CorruptedFn()
 
     inst:AddComponent("instrument")
     inst.components.instrument.range = 0
+    inst.components.instrument:SetAssetOverrides("swap_antler_corrupted", "swap_antler_corrupted",
+        "dontstarve_DLC003/common/crafted/roc_flute")
     inst.components.instrument:SetOnPlayedFn(OnPlayedCorrupted)
 
     inst:AddComponent("tool")
@@ -142,9 +131,9 @@ local function CorruptedFn()
 
     MakeHauntableLaunch(inst)
 
-    inst.hornbuild = "swap_antler_corrupted"
-    inst.hornsymbol = "swap_antler_corrupted"
-    inst.playsound = "dontstarve_DLC003/common/crafted/roc_flute"
+    -- inst.hornbuild = "swap_antler_corrupted"
+    -- inst.hornsymbol = "swap_antler_corrupted"
+    -- inst.playsound = "dontstarve_DLC003/common/crafted/roc_flute"
     return inst
 end
 

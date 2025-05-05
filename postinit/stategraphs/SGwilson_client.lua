@@ -508,50 +508,7 @@ local states = {
         end,
     },
 
-    ----这个本来在客机没有
-    State { name = "play_bell",
-        tags = { "doing", "playing" },
-        onenter = function(inst)
-            inst.components.locomotor:Stop()
-            inst.AnimState:PlayAnimation("action_uniqueitem_pre")
-            inst.AnimState:PushAnimation("bell", false)
-            inst.AnimState:OverrideSymbol("bell01", "bell", "bell01")
-            inst.AnimState:Show("ARM_normal")
-            inst.components.inventory:ReturnActiveActionItem(
-                inst.bufferedaction ~= nil and inst.bufferedaction.invobject or nil
-            )
-        end,
-        timeline = {
-            TimeEvent(
-                15 * FRAMES,
-                function(inst)
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC001/common/glommer_bell")
-                end
-            ),
-            TimeEvent(
-                60 * FRAMES,
-                function(inst)
-                    inst:PerformBufferedAction()
-                end
-            )
-        },
-        events = {
-            EventHandler(
-                "animover",
-                function(inst)
-                    if inst.AnimState:AnimDone() then
-                        inst.sg:GoToState("idle")
-                    end
-                end
-            )
-        },
-        onexit = function(inst)
-            if inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
-                inst.AnimState:Show("ARM_carry")
-                inst.AnimState:Hide("ARM_normal")
-            end
-        end
-    },
+
 
     State { name = "pan_start", ----完全一致
         tags = { "prepan", "panning", "working" },
