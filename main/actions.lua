@@ -9,8 +9,7 @@ local STRINGS = STRINGS
 ACTIONS.ADDFUEL.priority = 1 -- Runar: 未定义的优先级，没有的话碎布加燃料会有问题
 ACTIONS.GIVE.priority = 0
 
-AddAction(
-    "LAVASPIT",
+AddAction("LAVASPIT",
     "spit",
     function(act)
         if act.doer and act.target and act.doer.prefab == "dragoon" then
@@ -32,8 +31,7 @@ AddAction(
 )
 
 -- DEPLOY_AI Action [FIX FOR MOBS THAT PLANT TREES]
-AddAction(
-    "DEPLOY_AI",
+AddAction("DEPLOY_AI",
     "Deploy AI",
     function(act)
         if act.invobject and act.invobject.components.deployable then
@@ -53,16 +51,14 @@ AddAction(
 
 
 
-AddAction(
-    "FLUP_HIDE",
+AddAction("FLUP_HIDE",
     "Flup Hide",
     function(act)
         --Dummy action for flup hiding
     end
 )
 
-AddAction(
-    "FISH1",
+AddAction("FISH1",
     "Fish1",
     function(act)
         local fishingrod =
@@ -75,8 +71,7 @@ AddAction(
     end
 )
 
-AddAction(
-    "TIGERSHARK_FEED",
+AddAction("TIGERSHARK_FEED",
     "Tigershark Feed",
     function(act)
         local doer = act.doer
@@ -86,8 +81,7 @@ AddAction(
     end
 )
 
-AddAction(
-    "MATE",
+AddAction("MATE",
     "Mate",
     function(act)
         if act.target == act.doer then
@@ -101,16 +95,14 @@ AddAction(
     end
 )
 
-AddAction(
-    "CRAB_HIDE",
+AddAction("CRAB_HIDE",
     "Crab Hide",
     function(act)
         --Dummy action for crab.
     end
 )
 
-AddAction(
-    "HIDECRAB",
+AddAction("HIDECRAB",
     "Hide",
     function(act)
         if act.doer then
@@ -118,8 +110,7 @@ AddAction(
         end
     end)
 
-AddAction(
-    "SHOWCRAB",
+AddAction("SHOWCRAB",
     "Emerge",
     function(act)
         if act.doer then
@@ -128,8 +119,7 @@ AddAction(
     end)
 
 --[[
-AddAction(
-    "THROW",
+AddAction(    "THROW",
     "Throw",
     function(act)
 	local thrown = act.invobject or act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
@@ -1007,122 +997,23 @@ AddAction(GIVE2)
 
 
 
-local function ExtraPickupRange(doer, dest)
-    if dest ~= nil then
-        local target_x, target_y, target_z = dest:GetPoint()
+local pickupfn = ACTIONS.PICKUP.fn
+local extra_arrive_dist = ACTIONS.PICKUP.extra_arrive_dist
 
-        local is_on_water = TheWorld.Map:IsOceanTileAtPoint(target_x, 0, target_z) and
-            not TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
-        if is_on_water then
-            return 0.75
-        end
-    end
-    return 0
+ACTIONS.PICKUP.extra_arrive_dist = function(doer, dest)
+    return doer:IsInHamRoom() and 2 or extra_arrive_dist()
 end
-
-local PICKUP = Action({ priority = 1, distance = 2, extra_arrive_dist = ExtraPickupRange, mount_valid = true })
-PICKUP.str = (STRINGS.ACTIONS.PICKUP)
-PICKUP.id = "PICKUP"
-PICKUP.fn = function(act)
+ACTIONS.PICKUP.fn = function(act)
     if act.target and act.target.components.inventoryitem and act.target.components.shelfer then
         local item = act.target.components.shelfer:GetGift()
         if item then
-            -- if act.target.components.shelfer.shelf and not act.target.components.shelfer.shelf:HasTag("playercrafted") then
-            --     if act.doer.components.shopper and act.doer.components.shopper:IsWatching(item) then
-            --         if act.doer.components.shopper:CanPayFor(item) then
-            --             act.doer.components.shopper:PayFor(item)
-            --         else
-            --             return false, "CANTPAY"
-            --         end
-            --     else
-            --         if act.target.components.shelfer.shelf and act.target.components.shelfer.shelf.curse then
-            --             act.target.components.shelfer.shelf.curse(act.target)
-            --         end
-            --     end
-            -- end
             if item.components.perishable then item.components.perishable:StartPerishing() end
             act.target = act.target.components.shelfer:GiveGift()
         end
     end
-
-    if act.doer.components.inventory ~= nil and
-        act.target ~= nil and
-        act.target.components.inventoryitem ~= nil and
-        (act.target.components.inventoryitem.canbepickedup or
-            (act.target.components.inventoryitem.canbepickedupalive and not act.doer:HasTag("player")) or
-            act.target.components.inventoryitem.grabbableoverridetag ~= nil and act.doer:HasTag(act.target.components.inventoryitem.grabbableoverridetag)
-        ) and
-        not (act.target:IsInLimbo() or
-            (act.target.components.burnable ~= nil and act.target.components.burnable:IsBurning() and act.target.components.lighter == nil) or
-            (act.target.components.projectile ~= nil and act.target.components.projectile:IsThrown())) then
-        if act.doer.components.itemtyperestrictions ~= nil and not act.doer.components.itemtyperestrictions:IsAllowed(act.target) then
-            return false, "restriction"
-        elseif act.target.components.container ~= nil and act.target.components.container:IsOpenedByOthers(act.doer) then
-            return false, "INUSE"
-        elseif (act.target.components.yotc_racecompetitor ~= nil and act.target.components.entitytracker ~= nil) then
-            local trainer = act.target.components.entitytracker:GetEntity("yotc_trainer")
-            if trainer ~= nil and trainer ~= act.doer then
-                return false, "NOTMINE_YOTC"
-            end
-        elseif act.doer.components.inventory.noheavylifting and act.target:HasTag("heavy") then
-            return false, "NO_HEAVY_LIFTING"
-        end
-
-        if (act.target:HasTag("spider") and act.doer:HasTag("spiderwhisperer")) and
-            (act.target.components.follower.leader ~= nil and act.target.components.follower.leader ~= act.doer) then
-            return false, "NOTMINE_SPIDER"
-        end
-        if act.target.components.curseditem and not act.target.components.curseditem:checkplayersinventoryforspace(act.doer) then
-            return false, "FULL_OF_CURSES"
-        end
-
-        if act.target.components.inventory ~= nil and act.target:HasTag("drop_inventory_onpickup") then
-            act.target.components.inventory:TransferInventory(act.doer)
-        end
-
-        act.doer:PushEvent("onpickupitem", { item = act.target })
-
-        if act.target.components.equippable ~= nil and not act.target.components.equippable:IsRestricted(act.doer) then
-            local equip = act.doer.components.inventory:GetEquippedItem(act.target.components.equippable.equipslot)
-            if equip ~= nil and not act.target.components.inventoryitem.cangoincontainer then
-                --special case for trying to carry two backpacks
-                if equip.components.inventoryitem ~= nil and equip.components.inventoryitem.cangoincontainer then
-                    --act.doer.components.inventory:SelectActiveItemFromEquipSlot(act.target.components.equippable.equipslot)
-                    act.doer.components.inventory:GiveItem(act.doer.components.inventory:Unequip(act.target.components
-                        .equippable.equipslot))
-                else
-                    act.doer.components.inventory:DropItem(equip)
-                end
-                act.doer.components.inventory:Equip(act.target)
-                return true
-            elseif act.doer:HasTag("player") then
-                if equip == nil or act.doer.components.inventory:GetNumSlots() <= 0 then
-                    act.doer.components.inventory:Equip(act.target)
-                    return true
-                elseif GetGameModeProperty("non_item_equips") then
-                    act.doer.components.inventory:DropItem(equip)
-                    act.doer.components.inventory:Equip(act.target)
-                    return true
-                end
-            end
-        end
-
-        act.doer.components.inventory:GiveItem(act.target, nil, act.target:GetPosition())
-        return true
-    end
+    return pickupfn(act)
 end
-AddAction(PICKUP)
 
-
--- local HARVEST1 = Action({ priority = 10, mount_valid = true })
--- HARVEST1.str = (STRINGS.ACTIONS.HARVEST1)
--- HARVEST1.id = "HARVEST1"
--- HARVEST1.fn = function(act)
---     if act.target.components.melter then
---         return act.target.components.melter:Harvest(act.doer)
---     end
--- end
--- AddAction(HARVEST1)
 local old_HARVEST_fn = ACTIONS.HARVEST.fn
 ACTIONS.HARVEST.fn = function(act)
     if act.target.components.melter then return act.target.components.melter:Harvest(act.doer) end
