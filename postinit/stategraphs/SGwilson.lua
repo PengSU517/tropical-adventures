@@ -129,36 +129,36 @@ local function ToggleOnPhysics(inst)
 end
 
 local actionhandlers = {
-    ActionHandler(
-        ACTIONS.LIGHT,
-        function(inst)
-            local equipped = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-            if equipped and equipped:HasTag("magnifying_glass") then
-                return "investigate_start"
-            else
-                return "give"
-            end
-        end
-    ),
+    -- ActionHandler(
+    --     ACTIONS.LIGHT,
+    --     function(inst)
+    --         local equipped = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+    --         if equipped and equipped:HasTag("magnifying_glass") then
+    --             return "investigate_start"
+    --         else
+    --             return "give"
+    --         end
+    --     end
+    -- ),
 
-    ActionHandler(
-        ACTIONS.BLINK,
-        function(inst, action)
-            --		if inst:HasTag("aquatic") and inst:HasTag("soulstealer") then return false end
-            local interior = GetClosestInstWithTag("interior_center", inst, 30)
-            if interior then return false end
-            if TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
-                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
-                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_SWELL and
-                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_ROUGH and
-                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL and
-                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL_SHORE and
-                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_WATERLOG and
-                TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_HAZARDOUS then
-                return action.invobject == nil and inst:HasTag("soulstealer") and "portal_jumpin_pre" or "quicktele"
-            end
-        end
-    ),
+    -- ActionHandler(
+    --     ACTIONS.BLINK,
+    --     function(inst, action)
+    --         --		if inst:HasTag("aquatic") and inst:HasTag("soulstealer") then return false end
+    --         local interior = GetClosestInstWithTag("interior_center", inst, 30)
+    --         if interior then return false end
+    --         if TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
+    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
+    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_SWELL and
+    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_ROUGH and
+    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL and
+    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL_SHORE and
+    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_WATERLOG and
+    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_HAZARDOUS then
+    --             return action.invobject == nil and inst:HasTag("soulstealer") and "portal_jumpin_pre" or "quicktele"
+    --         end
+    --     end
+    -- ),
     ActionHandler(ACTIONS.ACTIVATESAIL, "doshortaction"),
     ActionHandler(ACTIONS.COMPACTPOOP, "doshortaction"),
     ActionHandler(ACTIONS.DESACTIVATESAIL, "doshortaction"),
@@ -229,43 +229,43 @@ local actionhandlers = {
                 nil
         end
     ),
-    ActionHandler(ACTIONS.ATTACK,
-        function(inst, action)
-            inst.sg.mem.localchainattack = not action.forced or nil
-            local playercontroller = inst.components.playercontroller
-            local attack_tag =
-                playercontroller ~= nil and
-                playercontroller.remote_authority and
-                playercontroller.remote_predicting and
-                "abouttoattack" or
-                "attack"
-            if not (inst.sg:HasStateTag(attack_tag) and action.target == inst.sg.statemem.attacktarget or inst.components.health:IsDead()) then
-                local weapon = inst.components.combat ~= nil and inst.components.combat:GetWeapon() or nil
-                --umcompromissing mode compatibility--	
-                if weapon and weapon:HasTag("beegun") then
-                    if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then
-                        return
-                        "beegun_short"
-                    else
-                        return "beegun"
-                    end
-                end
-                if weapon and not ((weapon:HasTag("blowdart") or weapon:HasTag("thrown"))) and inst:HasTag("wathom") and not inst.sg:HasStateTag("attack") and (inst.components.rider ~= nil and not inst.components.rider:IsRiding()) then return ("wathomleap") end
+    -- ActionHandler(ACTIONS.ATTACK,
+    --     function(inst, action)
+    --         inst.sg.mem.localchainattack = not action.forced or nil
+    --         local playercontroller = inst.components.playercontroller
+    --         local attack_tag =
+    --             playercontroller ~= nil and
+    --             playercontroller.remote_authority and
+    --             playercontroller.remote_predicting and
+    --             "abouttoattack" or
+    --             "attack"
+    --         if not (inst.sg:HasStateTag(attack_tag) and action.target == inst.sg.statemem.attacktarget or inst.components.health:IsDead()) then
+    --             local weapon = inst.components.combat ~= nil and inst.components.combat:GetWeapon() or nil
+    --             --umcompromissing mode compatibility--	
+    --             if weapon and weapon:HasTag("beegun") then
+    --                 if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then
+    --                     return
+    --                     "beegun_short"
+    --                 else
+    --                     return "beegun"
+    --                 end
+    --             end
+    --             if weapon and not ((weapon:HasTag("blowdart") or weapon:HasTag("thrown"))) and inst:HasTag("wathom") and not inst.sg:HasStateTag("attack") and (inst.components.rider ~= nil and not inst.components.rider:IsRiding()) then return ("wathomleap") end
 
-                return (weapon == nil and "attack")
-                    or (weapon:HasTag("blowdart") and "blowdart")
-                    or (weapon:HasTag("slingshot") and "slingshot_shoot")
-                    or (weapon:HasTag("thrown") and "throw")
-                    or (weapon:HasTag("pillow") and "attack_pillow_pre")
-                    or (weapon:HasTag("propweapon") and "attack_prop_pre")
-                    or (weapon:HasTag("multithruster") and "multithrust_pre")
-                    or (weapon:HasTag("helmsplitter") and "helmsplitter_pre")
-                    or (weapon:HasTag("speargun") and "speargun")
-                    or (weapon:HasTag("blunderbuss") and "speargun")
-                    or "attack"
-            end
-        end
-    ),
+    --             return (weapon == nil and "attack")
+    --                 or (weapon:HasTag("blowdart") and "blowdart")
+    --                 or (weapon:HasTag("slingshot") and "slingshot_shoot")
+    --                 or (weapon:HasTag("thrown") and "throw")
+    --                 or (weapon:HasTag("pillow") and "attack_pillow_pre")
+    --                 or (weapon:HasTag("propweapon") and "attack_prop_pre")
+    --                 or (weapon:HasTag("multithruster") and "multithrust_pre")
+    --                 or (weapon:HasTag("helmsplitter") and "helmsplitter_pre")
+    --                 or (weapon:HasTag("speargun") and "speargun")
+    --                 or (weapon:HasTag("blunderbuss") and "speargun")
+    --                 or "attack"
+    --         end
+    --     end
+    -- ),
 
     ActionHandler(ACTIONS.SLEEPIN,
         function(inst, action)
@@ -632,7 +632,6 @@ local states = {
         end
     },
 
-
     State { name = "crop_dust", --完全一致
         tags = { "doing", "busy" },
 
@@ -704,7 +703,7 @@ local states = {
     },
 
     State { name = "pan_start", --完全一致
-        tags = { "prepan", "panning", "working" },
+        tags = { "prepan", "panning", "working", "busy" },
         onenter = function(inst)
             inst.components.locomotor:Stop()
             inst.AnimState:PlayAnimation("pan_pre")
@@ -718,7 +717,7 @@ local states = {
     },
 
     State { name = "pan", --完全一致
-        tags = { "prepan", "panning", "working" },
+        tags = { "prepan", "panning", "working", "busy" },
         onenter = function(inst)
             inst.sg.statemem.action = inst:GetBufferedAction()
             inst.AnimState:PlayAnimation("pan_loop", true)
@@ -2296,9 +2295,9 @@ for _, state in ipairs(states) do
 end
 
 
-AddStategraphPostInit("wilson", function(inst)
-    local actionHandler_attack = inst.actionhandlers[ACTIONS.ATTACK].deststate
-    inst.actionhandlers[ACTIONS.ATTACK].deststate = function(inst, action, ...)
+AddStategraphPostInit("wilson", function(sg)
+    local actionHandler_attack = sg.actionhandlers[ACTIONS.ATTACK].deststate
+    sg.actionhandlers[ACTIONS.ATTACK].deststate = function(inst, action, ...)
         if not (inst.sg:HasStateTag("attack") and action.target == inst.sg.statemem.attacktarget or inst.components.health:IsDead()) then
             local weapon = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
             local hand = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
@@ -2307,6 +2306,34 @@ AddStategraphPostInit("wilson", function(inst)
             end
         end
         return actionHandler_attack(inst, action, ...)
+    end
+
+    local actionHandler_blink = sg.actionhandlers[ACTIONS.BLINK].deststate
+    sg.actionhandlers[ACTIONS.BLINK].deststate = function(inst, action, ...)
+        if inst:IsInHamRoom() then
+            return false
+        end
+        return actionHandler_blink(inst, action, ...)
+    end
+
+    local _attack_deststate = sg.actionhandlers[ACTIONS.ATTACK].deststate
+    sg.actionhandlers[ACTIONS.ATTACK].deststate = function(inst, action, ...)
+        local weapon = inst.components.combat ~= nil and inst.components.combat:GetWeapon()
+        if weapon and (weapon:HasTag("blunderbuss") or weapon:HasTag("speargun")) then
+            return "speargun"
+        end
+        return _attack_deststate and _attack_deststate(inst, action, ...)
+    end
+
+    local _light_deststate = sg.actionhandlers[ACTIONS.LIGHT].deststate
+    sg.actionhandlers[ACTIONS.LIGHT].deststate = function(inst, ...)
+        local equipped = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+
+        if equipped and equipped:HasTag("magnifying_glass") then
+            return "investigate_start"
+        else
+            return _light_deststate(inst, ...)
+        end
     end
 end)
 

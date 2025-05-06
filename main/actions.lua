@@ -1040,8 +1040,8 @@ end
 AddAction(PAN)
 
 
-local INVESTIGATEGLASS = Action({ priority = 10, mount_valid = true })
-INVESTIGATEGLASS.str = (STRINGS.ACTIONS.INVESTIGATEGLASS)
+local INVESTIGATEGLASS = Action({ priority = 10, mount_valid = true, distance = 2 })
+INVESTIGATEGLASS.str = (STRINGS.ACTIONS.SPY)
 INVESTIGATEGLASS.id = "INVESTIGATEGLASS"
 INVESTIGATEGLASS.fn = function(act)
     if act.target:HasTag("secret_room") then
