@@ -34,3 +34,21 @@ local task_id = "REGION_LINK_"..tostring(self.region_link_tasks)---连接地形�
 
 ##
 MakeInventoryPhysics(inst, nil, 0.7)就不会被船粘住，obstacle反而会粘住，也就是说海上物体很多是没有碰撞体积的？
+
+##
+货船的贴图，斗篷的贴图消失了
+
+##
+养鱼场不能用了？渔场收获有问题
+
+##
+海獭一直想把船拿起来
+
+##
+威尔伯行动问题  压缩poop和扔poop的 问题
+
+##
+与勋章船灯冲突
+
+##
+帆板，软木舟捡不起来了，帆板的耐久栏还会粘在玩家身上

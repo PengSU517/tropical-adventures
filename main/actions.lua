@@ -1041,7 +1041,7 @@ AddAction(PAN)
 
 
 local INVESTIGATEGLASS = Action({ priority = 10, mount_valid = true, distance = 2 })
-INVESTIGATEGLASS.str = (STRINGS.ACTIONS.SPY)
+INVESTIGATEGLASS.str = STRINGS.ACTIONS.SPY ---怎么显示中文呢
 INVESTIGATEGLASS.id = "INVESTIGATEGLASS"
 INVESTIGATEGLASS.fn = function(act)
     if act.target:HasTag("secret_room") then

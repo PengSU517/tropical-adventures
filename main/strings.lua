@@ -190,7 +190,7 @@ end
 -------------------------------speech importing begin--------------------------------------
 
 
-local DLC_STRINGS = {} --languagerequire("dlc_strings/common") --languagerequire("dlc_strings/common")
+local DLC_STRINGS = languagerequire("dlc_strings/common") --languagerequire("dlc_strings/common")
 
 DLC_STRINGS.CHARACTERS =
 {
