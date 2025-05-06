@@ -1,9 +1,11 @@
-local NUM_RELICS = 5
-
 local Mystery = Class(function(self, inst)
 	self.inst = inst
 
-	self:RollForMystery()
+	inst:DoTaskInTime(0, function()
+		if not self.rolled then
+			self:RollForMystery()
+		end
+	end)
 end)
 
 function Mystery:GenerateReward()
@@ -13,7 +15,7 @@ function Mystery:GenerateReward()
 	end
 
 	local high_tier = {}
-	for i = 1, NUM_RELICS do
+	for i = 1, 3 do
 		table.insert(high_tier, "relic_" .. tostring(i))
 	end
 
@@ -26,32 +28,67 @@ function Mystery:GenerateReward()
 	end
 end
 
-function Mystery:AddReward()
+function Mystery:AddReward(reward)
 	local color = 0.5 + math.random() * 0.5
 	self.inst.AnimState:SetMultColour(color - 0.15, color - 0.15, color, 1)
 
 	self.inst:AddTag("mystery")
-	self.reward = self:GenerateReward()
+	self.reward = reward or self:GenerateReward()
+
+	self.inst:ListenForEvent("onremove", function()
+		if self.inst:HasTag("mystery") and self.inst.components.mystery.investigated then
+			self.inst.components.lootdropper:SpawnLootPrefab(self.reward)
+		end
+	end)
 end
 
 function Mystery:RollForMystery()
+	self.rolled = true
 	if math.random() <= 0.05 then
+		-- self.inst:AddComponent("hiddendanger")
+		-- self.inst.components.hiddendanger.effect = "peculiar_marker_fx"
 		self:AddReward()
 	end
 end
 
 function Mystery:OnLoad(data)
-	if data.has_mystery then
-		self:AddReward()
+	if data.reward then
+		self.reward = data.reward
+	end
+	if data.investigated then
+		self.investigated = data.investigated
+	end
+
+	if data.reward then
+		-- if not self.inst.components.hiddendanger then
+		-- 	self.inst:AddComponent("hiddendanger")
+		-- end
+		-- self.inst.components.hiddendanger.effect = "peculiar_marker_fx"
+		self:AddReward(data.reward)
+	end
+	if data.investigated then
+		-- if self.inst.components.hiddendanger then
+		-- 	self.inst:DoTaskInTime(0, function()
+		-- 		self.inst.components.hiddendanger:ChangeFx("identified_marker_fx")
+		-- 	end)
+		-- end
+	end
+	if data.rolled then
+		self.rolled = data.rolled
 	end
 end
 
 function Mystery:OnSave()
 	local data = {}
-	if self.inst:HasTag("mystery") then
-		data.has_mystery = true
+
+	if self.reward then
+		data.reward = self.reward
 	end
 
+	if self.investigated then
+		data.investigated = self.investigated
+	end
+	data.rolled = self.rolled
 	return data
 end
 
@@ -63,9 +100,15 @@ function Mystery:Investigate(doer)
 	if self.reward then
 		doer.components.talker:Say(GetString(doer.prefab, "ANNOUNCE_MYSTERY_FOUND"))
 		self.investigated = true
+		-- if self.inst.components.hiddendanger then
+		-- 	self.inst.components.hiddendanger:ChangeFx("identified_marker_fx")
+		-- end
 	else
 		doer.components.talker:Say(GetString(doer.prefab, "ANNOUNCE_MYSTERY_NOREWARD"))
 		self.inst:RemoveTag("mystery")
+		-- if self.inst.components.hiddendanger then
+		-- 	self.inst.components.hiddendanger:Clear()
+		-- end
 	end
 end
 

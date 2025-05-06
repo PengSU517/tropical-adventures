@@ -32,16 +32,17 @@ modimport("postinit/oceancolor")
 
 
 --成系统的内容修改
+modimport("postinit/prefabs/lots_of_things") ---对各种prefab追加一些标签或组件
 modimport("postinit/actionrelated")
-modimport("postinit/components/weather")  --热带气候（冬季降雨   ------冬雨和室内怎么联动是个问题
-modimport("postinit/tropical_climate")    --热带气候
-modimport("postinit/ham_room")            --新的room
-modimport("postinit/room_camera")         --房间镜头
-modimport("postinit/boat")                --单人船相关修改
-modimport("postinit/natureskin_variants") --和自然皮肤切换相关的所有内容
-modimport("postinit/player_vision_post")  --四眼镜、蝙蝠帽所用
-modimport("postinit/tile_post")           --特殊地皮挖起
-modimport("postinit/poisonables")         --posonables--and loot dropper--
+modimport("postinit/components/weather")     --热带气候（冬季降雨   ------冬雨和室内怎么联动是个问题
+modimport("postinit/tropical_climate")       --热带气候
+modimport("postinit/ham_room")               --新的room
+modimport("postinit/room_camera")            --房间镜头
+modimport("postinit/boat")                   --单人船相关修改
+modimport("postinit/natureskin_variants")    --和自然皮肤切换相关的所有内容
+modimport("postinit/player_vision_post")     --四眼镜、蝙蝠帽所用
+modimport("postinit/tile_post")              --特殊地皮挖起
+modimport("postinit/poisonables")            --posonables--and loot dropper--
 -- modimport("postinit/camera")               --旧的房间镜头
 -- modimport("postinit/sim_rain_effect")
 -- modimport("postinit/player_darkness") --没有用
@@ -105,7 +106,6 @@ modimport("postinit/prefabs/blueprints")
 modimport("postinit/prefabs/dock_kit") --甲板相关
 modimport("postinit/prefabs/floatable_items")
 modimport("postinit/prefabs/gears")
-modimport("postinit/prefabs/lots_of_things")
 modimport("postinit/prefabs/meatrack")
 modimport("postinit/prefabs/mosquitosack")
 modimport("postinit/prefabs/mushroom_farm")

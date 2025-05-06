@@ -161,46 +161,19 @@ for _, prefab in pairs(
 end
 
 
+local rocks = {
+    "rock1", "rock2", "rock_flintless", "rock_flintless_med", "rock_flintless_low", "rock_moon", "rock_moon_shell",
+    "moonglass_rock", "rock_petrified_tree", "rock_petrified_tree_med", "rock_petrified_tree_tall",
+    "rock_petrified_tree_short", "rock_petrified_tree_old", "pig_ruins_head", "pig_ruins_pig", "pig_ruins_ant",
+    "pig_ruins_idol", "pig_ruins_plaque", "pig_ruins_artichoke", "pig_ruins_truffle", "pig_ruins_sow", "antqueen_throne",
+    "rock_basalt", }
 
--- for _, prefab in pairs(
---     {
---         "snake_amphibious",
---         "bat",
---         "scorpion",
---         "ghost",
---         "antman_warrior",
---         "antman",
---         "hanging_vine",
---         "grabbing_vine",
---         "hanging_vine_patch",
---         "mean_flytrap",
---         "adult_flytrap",
---         "lightrays_jungle",
---         "pog",
---         "zeb",
---         "lightrays"
---     }) do
---     AddPrefabPostInit(prefab, function(inst)
---         inst:AddTag("tropicalspawner")
+for _, prefab in pairs(rocks) do
+    AddPrefabPostInit(prefab, function(inst)
+        if not TheWorld.ismastersim then
+            return
+        end
 
---         -- if not TheWorld.ismastersim then
---         --     return
---         -- end
-
---         -- local function OnTimerDone(inst, data)
---         --     if data.name == "vaiembora" then
---         --         local invader = GetClosestInstWithTag("player", inst, 25)
---         --         if not invader then
---         --             inst:Remove() --为什么要自删呢
---         --         else
---         --             inst.components.timer:StartTimer("vaiembora", 10)
---         --         end
---         --     end
---         -- end
-
-
---         -- inst:AddComponent("timer")
---         -- inst:ListenForEvent("timerdone", OnTimerDone)
---         -- inst.components.timer:StartTimer("vaiembora", 80 + math.random() * 80)
---     end)
--- end
+        inst:AddComponent("mystery")
+    end)
+end

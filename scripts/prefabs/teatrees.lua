@@ -1,25 +1,25 @@
-local assets = {Asset("ANIM", "anim/tree_leaf_short.zip"), Asset("ANIM", "anim/tree_leaf_normal.zip"),
-                Asset("ANIM", "anim/tree_leaf_tall.zip"), Asset("ANIM", "anim/teatree_trunk_build.zip"), -- trunk build (winter leaves build)
-                Asset("ANIM", "anim/teatree_build.zip"), Asset("ANIM", "anim/dust_fx.zip"),
-                Asset("SOUND", "sound/forest.fsb")}
+local assets = { Asset("ANIM", "anim/tree_leaf_short.zip"), Asset("ANIM", "anim/tree_leaf_normal.zip"),
+    Asset("ANIM", "anim/tree_leaf_tall.zip"), Asset("ANIM", "anim/teatree_trunk_build.zip"), -- trunk build (winter leaves build)
+    Asset("ANIM", "anim/teatree_build.zip"), Asset("ANIM", "anim/dust_fx.zip"),
+    Asset("SOUND", "sound/forest.fsb") }
 
 local day_time = 300
-local DECIDUOUS_GROW_TIME = {{
+local DECIDUOUS_GROW_TIME = { {
     base = 1.5 * day_time,
     random = .5 * day_time,
 }, -- short
-{
-    base = 5 * day_time,
-    random = 2 * day_time,
-}, -- normal
-{
-    base = 5 * day_time,
-    random = 2 * day_time,
-}, -- tall
-{
-    base = 1 * day_time,
-    random = .5 * day_time,
-} -- old
+    {
+        base = 5 * day_time,
+        random = 2 * day_time,
+    }, -- normal
+    {
+        base = 5 * day_time,
+        random = 2 * day_time,
+    }, -- tall
+    {
+        base = 1 * day_time,
+        random = .5 * day_time,
+    } -- old
 }
 
 local DECIDUOUS_CHOPS_SMALL = 5
@@ -29,14 +29,14 @@ local DECIDUOUS_CHOPS_TALL = 15
 TUNING.TEATREE_REGEN_TIME = TUNING.TOTAL_DAY_TIME * 4
 TUNING.TEATREE_RELEASE_TIME = 8
 
-local prefabs = {"log", "twigs", "teatree_nut", "charcoal", "green_leaves", "green_leaves_chop", "spoiled_food"}
+local prefabs = { "log", "twigs", "teatree_nut", "charcoal", "green_leaves", "green_leaves_chop", "spoiled_food" }
 
 local treecommon = {
     leavesbuild = "teatree_build",
     prefab_name = "teatree",
-    short_loot = {"log"},
-    normal_loot = {"log", "twigs", "teatree_nut"},
-    tall_loot = {"log", "log", "twigs", "teatree_nut", "teatree_nut"},
+    short_loot = { "log" },
+    normal_loot = { "log", "twigs", "teatree_nut" },
+    tall_loot = { "log", "log", "twigs", "teatree_nut", "teatree_nut" },
     drop_nut = true,
     fx = "green_leaves",
     chopfx = "green_leaves_chop",
@@ -68,7 +68,7 @@ end
 local function ChangeSizeFn(inst)
     inst:RemoveEventCallback("animover", ChangeSizeFn)
     if inst.components.growable then
-        inst.anims = ({short_anims, normal_anims, tall_anims})[inst.components.growable.stage]
+        inst.anims = ({ short_anims, normal_anims, tall_anims })[inst.components.growable.stage]
         PushSway(inst)
     end
 end
@@ -112,7 +112,7 @@ local function GrowTall(inst)
     inst.SoundEmitter:PlaySound("dontstarve/forest/treeGrow")
 end
 
-local growth_stages = {{
+local growth_stages = { {
     name = "short",
     time = function(inst) return GetRandomWithVariance(DECIDUOUS_GROW_TIME[1].base, DECIDUOUS_GROW_TIME[1].random) end,
     fn = SetShort,
@@ -127,7 +127,7 @@ local growth_stages = {{
     time = function(inst) return GetRandomWithVariance(DECIDUOUS_GROW_TIME[3].base, DECIDUOUS_GROW_TIME[3].random) end,
     fn = SetTall,
     growfn = GrowTall,
-}}
+} }
 
 local function chop_tree(inst, chopper, chops)
     if chopper and chopper.components.beaverness and chopper.components.beaverness:IsBeaver() then
@@ -346,7 +346,7 @@ local function spawner_presetup(inst)
     local childspawner = inst:AddComponent("childspawner")
     childspawner.childname = "piko"
     childspawner:SetRareChild("piko_orange", .25)
-    childspawner:SetRegenPeriod(TUNING.TEATREE_REGEN_TIME) -- 4 days regen
+    childspawner:SetRegenPeriod(TUNING.TEATREE_REGEN_TIME)   -- 4 days regen
     childspawner:SetSpawnPeriod(TUNING.TEATREE_RELEASE_TIME) -- 8 seconds spawn
     childspawner:SetMaxChildren(1)
     WorldSettings_ChildSpawner_RegenPeriod(inst, TUNING.TEATREE_REGEN_TIME, true)
@@ -395,17 +395,21 @@ local setupfns = {
 }
 
 local function onsave(inst, data)
-    if inst:HasTag("stump") then data.stump = true
-    elseif inst:HasTag("burnt") or inst:HasTag("fire") then data.burnt = true
-    elseif inst.components.childspawner ~= nil then data.nest = true end
+    if inst:HasTag("stump") then
+        data.stump = true
+    elseif inst:HasTag("burnt") or inst:HasTag("fire") then
+        data.burnt = true
+    elseif inst.components.childspawner ~= nil then
+        data.nest = true
+    end
 end
 
 local function onload(inst, data)
     if not data then return end
     setupfns[data.nest and "nest" or data.burnt and "burnt" or data.stump and "stump" or
-            "normal"](inst)
+        "normal"](inst)
     if not inst.components.growable then return end
-    inst.anims = ({short_anims, normal_anims, tall_anims})[inst.components.growable.stage]
+    inst.anims = ({ short_anims, normal_anims, tall_anims })[inst.components.growable.stage]
     PushSway(inst)
 end
 
@@ -461,7 +465,7 @@ local function tree(name, stage, type)
         inst.components.workable:SetOnFinishCallback(chop_down_tree)
 
         inst:AddComponent("lootdropper")
-        inst:AddComponent("inventory")
+        inst:AddComponent("mystery")
 
         local growable = inst:AddComponent("growable")
         growable.stages = growth_stages
@@ -499,5 +503,5 @@ local function tree(name, stage, type)
 end
 
 return tree("teatree", 0), tree("teatree_burnt", 0, "burnt"),
-       tree("teatree_stump", 0, "stump"), tree("teatree_piko_nest", 0, "nest"),
-       tree("teatree_tall", 3), tree("teatree_normal", 2), tree("teatree_short", 1)
+    tree("teatree_stump", 0, "stump"), tree("teatree_piko_nest", 0, "nest"),
+    tree("teatree_tall", 3), tree("teatree_normal", 2), tree("teatree_short", 1)
