@@ -39,8 +39,8 @@ local function fn(Sim)
     inst.components.finiteuses:SetUses(BOAT_REPAIR_KIT_USES)
     inst.components.finiteuses:SetOnFinished(onfinished)
 
-    inst:AddComponent("equippable")
-    inst.components.equippable.equipslot = EQUIPSLOTS.HANDS
+    -- inst:AddComponent("equippable")
+    -- inst.components.equippable.equipslot = EQUIPSLOTS.HANDS
 
     inst:AddComponent("inspectable")
     inst:AddComponent("interactions")
