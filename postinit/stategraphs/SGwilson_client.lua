@@ -2,19 +2,39 @@ local AddStategraphState = AddStategraphState
 local AddStategraphEvent = AddStategraphEvent
 local AddStategraphPostInit = AddStategraphPostInit
 local AddStategraphActionHandler = AddStategraphActionHandler
-local AddStategraphPostInit = AddStategraphPostInit
 
-local ActionHandler = GLOBAL.ActionHandler
-local EventHandler = GLOBAL.EventHandler
-local State = GLOBAL.State
-local TimeEvent = GLOBAL.TimeEvent
+local ActionHandler = ActionHandler
+local EventHandler = EventHandler
+local State = State
+local TimeEvent = TimeEvent
 
-local FRAMES = GLOBAL.FRAMES
-local ACTIONS = GLOBAL.ACTIONS
-local EQUIPSLOTS = GLOBAL.EQUIPSLOTS
+local FRAMES = FRAMES
+local ACTIONS = ACTIONS
+local EQUIPSLOTS = EQUIPSLOTS
 
 local TIMEOUT = 2
-local DoFoleySounds = nil
+
+
+local function ConfigureSailState(inst)
+    if inst.replica.inventory:IsHeavyLifting() then
+        inst.sg.statemem.heavy = true
+        inst.sg.statemem.heavy_fast = inst:HasTag("mightiness_mighty")
+    elseif inst:GetStormLevel() >= TUNING.SANDSTORM_FULL_LEVEL and not inst.components.playervision:HasGoggleVision() then
+        inst.sg.statemem.sandstorm = true
+    elseif inst:HasTag("groggy") then
+        inst.sg.statemem.groggy = true
+    elseif inst:HasTag("surf") then
+        inst.sg.statemem.surf = true
+    elseif inst:HasTag("sail") then
+        inst.sg.statemem.sail = true
+    elseif inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and
+        inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS):HasTag("oar")
+    then
+        inst.sg.statemem.oar = true
+    else
+        inst.sg.statemem.normal = true
+    end
+end
 
 local function DoEquipmentFoleySounds(inst)
     local inventory = inst.replica.inventory
@@ -36,26 +56,7 @@ local function DoFoleySounds(inst)
 end
 
 local function DoRowSounds(inst)
-    if inst:HasTag("aquatic") then
-        inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boat_paddle")
-    end
-end
-
-local function ConfigureRunState(inst)
-    if inst.replica.inventory:IsHeavyLifting() then
-        inst.sg.statemem.heavy = true
-        inst.sg.statemem.heavy_fast = inst:HasTag("mightiness_mighty")
-    elseif inst:GetStormLevel() >= TUNING.SANDSTORM_FULL_LEVEL and not inst.components.playervision:HasGoggleVision() then
-        inst.sg.statemem.sandstorm = true
-    elseif inst:HasTag("groggy") then
-        inst.sg.statemem.groggy = true
-    else
-        inst.sg.statemem.normal = true
-    end
-end
-
-local function GetRunStateAnim(inst)
-    return "row_loop"
+    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boat_paddle")
 end
 
 local function ToggleOffPhysics(inst)
@@ -75,35 +76,6 @@ local function ToggleOnPhysics(inst)
 end
 
 local actionhandlers = {
-    -- ActionHandler(
-    --     ACTIONS.LIGHT,
-    --     function(inst)
-    --         local equipped = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-    --         if equipped and equipped:HasTag("magnifying_glass") then
-    --             return "investigate_start"
-    --         else
-    --             return "give"
-    --         end
-    --     end
-    -- ),
-    -- ActionHandler(
-    --     ACTIONS.BLINK,
-    --     function(inst, action)
-    --         --		if inst:HasTag("aquatic") and inst:HasTag("soulstealer") then return false end
-    --         local interior = GetClosestInstWithTag("interior_center", inst, 30)
-    --         if interior then return false end
-    --         if TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_SWELL and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_ROUGH and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL_SHORE and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_WATERLOG and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_HAZARDOUS then
-    --             return action.invobject == nil and inst:HasTag("soulstealer") and "portal_jumpin_pre" or "quicktele"
-    --         end
-    --     end
-    -- ),
     ActionHandler(ACTIONS.ACTIVATESAIL, "doshortaction"),
     ActionHandler(ACTIONS.COMPACTPOOP, "doshortaction"),
     ActionHandler(ACTIONS.DESACTIVATESAIL, "doshortaction"),
@@ -139,19 +111,6 @@ local actionhandlers = {
             if inst:HasTag("beaver") then
                 return not inst.sg:HasStateTag("gnawing") and "gnaw" or nil
             end
-
-            local equipamento = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-            --        if equipamento and equipamento.prefab == "shears" then
-
-            --		if not inst.sg:HasStateTag("preshear") then
-            --        if inst.sg:HasStateTag("shearing") then
-            --        return "shear"
-            --        else
-            --        return "shear_start"
-            --        end
-            --        end	
-            --		end
-
             return not inst.sg:HasStateTag("prechop") and "chop_start" or nil
         end
     ),
@@ -173,39 +132,6 @@ local actionhandlers = {
             return not inst.sg:HasStateTag("prechop") and "chop_start" or nil
         end
     ),
-    -- ActionHandler(ACTIONS.ATTACK,
-    --     function(inst, action)
-    --         if not (inst.sg:HasStateTag("attack") and action.target == inst.sg.statemem.attacktarget or inst.replica.health:IsDead()) then
-    --             local equip = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-    --             if equip == nil then
-    --                 return "attack"
-    --             end
-    --             local inventoryitem = equip.replica.inventoryitem
-
-    --             --umcompromissing mode compatibility--	
-    --             if equip and equip:HasTag("beegun") then
-    --                 if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then
-    --                     return
-    --                     "beegun_short"
-    --                 else
-    --                     return "beegun"
-    --                 end
-    --             end
-    --             if equip and not ((equip:HasTag("blowdart") or equip:HasTag("thrown"))) and inst:HasTag("wathom") and not inst.sg:HasStateTag("attack") and (inst.components.rider ~= nil and not inst.components.rider:IsRiding()) then return ("wathomleap") end
-
-
-    --             return (not (inventoryitem ~= nil and inventoryitem:IsWeapon()) and "attack")
-    --                 or (equip:HasTag("blowdart") and "blowdart")
-    --                 or (equip:HasTag("slingshot") and "slingshot_shoot")
-    --                 or (equip:HasTag("thrown") and "throw")
-    --                 or (equip:HasTag("pillow") and "attack_pillow_pre")
-    --                 or (equip:HasTag("propweapon") and "attack_prop_pre")
-    --                 or (equip:HasTag("speargun") and "speargun")
-    --                 or (equip:HasTag("blunderbuss") and "speargun")
-    --                 or "attack"
-    --         end
-    --     end
-    -- ),
 
     ActionHandler(ACTIONS.SLEEPIN,
         function(inst, action)
@@ -233,7 +159,6 @@ local eventhandlers = {
                     inst:PushEvent("sanity_stun_over")
                 end
             end)
-            --          end
         end)
 }
 
@@ -266,8 +191,7 @@ local states = {
         end,
     },
 
-    State {
-        name = "pan_start",
+    State { name = "pan_start",
         tags = { "prepan", "panning", "working" },
         server_states = { "pan_start", "pan" },
 
@@ -299,8 +223,7 @@ local states = {
         end,
     },
 
-    State {
-        name = "investigate_start",
+    State { name = "investigate_start",
         tags = { "preinvestigate", "investigating", "working" },
         server_states = { "investigate_start", "investigate", "investigate_post" },
 
@@ -436,22 +359,6 @@ local states = {
             if inst.components.inventory ~= nil then
                 inst.components.inventory:DropEverything(true)
             end
-
-
-
-            if inst.components.driver then
-                if inst.components.driver.vehicle then inst.components.driver.vehicle:Remove() end
-                inst.AnimState:SetSortOrder(0)
-                inst:RemoveTag("aquatic")
-                inst:RemoveTag("sail")
-                inst:RemoveTag("surf")
-                inst:RemoveComponent("rowboatwakespawner")
-                inst:RemoveComponent("driver")
-                if inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO) then
-                    inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO):Remove()
-                end
-            end
-            --			
         end,
         timeline = {
             TimeEvent(2 * FRAMES, function(inst) inst.DynamicShadow:Enable(false) end),
@@ -519,19 +426,17 @@ local states = {
     State { name = "row_start",
         tags = { "moving", "running", "canrotate", "autopredict", "sailing" },
         onenter = function(inst)
-            ConfigureRunState(inst)
+            ConfigureSailState(inst)
             inst.components.locomotor:RunForward()
-            if inst:HasTag("aquatic") then
-                if inst:HasTag("surf") then
-                    inst.AnimState:PlayAnimation("surf_pre")
-                else
-                    if inst:HasTag("sail") then
-                        inst.AnimState:PlayAnimation("sail_pre")
-                    else
-                        inst.AnimState:PlayAnimation("row_pre")
-                    end
-                end
-                inst.AnimState:AddOverrideBuild("player_actions_paddle")
+            inst.AnimState:AddOverrideBuild("player_actions_paddle")
+            if inst.sg.statemem.heavy then
+                inst.AnimState:PlayAnimation("heavy_idle")
+            elseif inst.sg.statemem.surf then
+                inst.AnimState:PlayAnimation("surf_pre")
+            elseif inst.sg.statemem.sail then
+                inst.AnimState:PlayAnimation("sail_pre")
+            else
+                inst.AnimState:PlayAnimation("row_pre")
             end
         end,
         onupdate = function(inst)
@@ -557,54 +462,47 @@ local states = {
         }
     },
 
-    State { name = "row_loop",
+    State { name = "row_loop", ----删掉似乎都没关系
         tags = { "moving", "running", "canrotate", "sailing" },
         onenter = function(inst)
-            ConfigureRunState(inst)
+            ConfigureSailState(inst)
             inst.components.locomotor:RunForward()
 
-            if inst:HasTag("aquatic") and inst.components.rowboatwakespawner then
-                inst.components.rowboatwakespawner:StartSpawning()
 
-                local barco = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "ironwind" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boatpropellor_lp", "sailmove")
-                end
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "sail" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_cloth", "sailmove")
-                end
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "clothsail" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_cloth", "sailmove")
-                end
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "snakeskinsail" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_snakeskin", "sailmove")
-                end
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "feathersail" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_feather", "sailmove")
-                end
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "woodlegssail" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_sealegs", "sailmove")
-                end
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "malbatrossail" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_sealegs", "sailmove")
+            local barco = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+
+            local sound_mapping = {
+                ironwind      = "dontstarve_DLC002/common/boatpropellor_lp",
+                sail          = "dontstarve_DLC002/common/sail_LP_cloth",
+                clothsail     = "dontstarve_DLC002/common/sail_LP_cloth",
+                snakeskinsail = "dontstarve_DLC002/common/sail_LP_snakeskin",
+                feathersail   = "dontstarve_DLC002/common/sail_LP_feather",
+                woodlegssail  = "dontstarve_DLC002/common/sail_LP_sealegs",
+                malbatrossail = "dontstarve_DLC002/common/sail_LP_feather",
+            }
+
+            if barco and barco.replica.container then
+                local item = barco.replica.container:GetItemInSlot(1)
+                if item then
+                    local sound = sound_mapping[item.prefab]
+                    if sound then
+                        inst.SoundEmitter:PlaySound(sound, "sailmove")
+                    end
                 end
             end
 
-            local anim = GetRunStateAnim(inst)
-            if inst:HasTag("aquatic") then
-                if inst.replica.inventory:IsHeavyLifting() then
-                    anim = "heavy_idle"
-                elseif inst:HasTag("surf") then
-                    anim = "surf_loop"
-                elseif inst:HasTag("sail") then
-                    anim = "sail_loop"
-                elseif inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS).prefab == "oar_driftwood" then
-                    anim = "row_medium"
-                elseif inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS).prefab == "oar" then
-                    anim = "row_medium"
-                else
-                    anim = "row_loop"
-                end
+            local anim
+
+            if inst.sg.statemem.heavy then
+                anim = "heavy_idle"
+            elseif inst.sg.statemem.surf then
+                anim = "surf_loop"
+            elseif inst.sg.statemem.sail then
+                anim = "sail_loop"
+            elseif inst.sg.statemem.oar then
+                anim = "row_medium"
+            else
+                anim = "row_loop"
             end
 
             if not inst.AnimState:IsCurrentAnimation(anim) then
@@ -632,37 +530,19 @@ local states = {
     State { name = "row_stop",
         tags = { "canrotate", "idle", "sailing", "aparece" },
         onenter = function(inst)
-            ConfigureRunState(inst)
-
-            if inst:HasTag("aquatic") and inst.components.rowboatwakespawner then
-                inst.components.rowboatwakespawner:StopSpawning()
-
-                inst.SoundEmitter:KillSound("sailmove")
-            end
-
+            ConfigureSailState(inst)
+            inst.SoundEmitter:KillSound("sailmove")
             inst.components.locomotor:Stop()
-            if inst:HasTag("aquatic") then
-                if inst:HasTag("surf") then
-                    inst.AnimState:PlayAnimation("surf_pst")
-                else
-                    if inst:HasTag("sail") then
-                        inst.AnimState:PlayAnimation("sail_pst")
-                    else
-                        inst.AnimState:PlayAnimation("row_pst")
-                    end
-                end
+            if inst.sg.statemem.heavy then
+                inst.AnimState:PlayAnimation("heavy_idle")
+            elseif inst.sg.statemem.surf then
+                inst.AnimState:PlayAnimation("surf_pst")
+            elseif inst.sg.statemem.sail then
+                inst.AnimState:PlayAnimation("sail_pst")
+            else
+                inst.AnimState:PlayAnimation("row_pst")
             end
         end,
-
-        timeline =
-        {
-            TimeEvent(FRAMES, function(inst)
-                if inst.sg.statemem.goose or inst.sg.statemem.goosegroggy then
-                    PlayFootstep(inst, .5, true)
-                    DoFoleySounds(inst)
-                end
-            end),
-        },
 
         events = {
             EventHandler(
@@ -671,10 +551,7 @@ local states = {
                     if inst.AnimState:AnimDone() then
                         inst.sg:GoToState("idle") --end
                     end
-
-                    if inst:HasTag("aquatic") then
-                        inst.AnimState:ClearOverrideBuild("player_actions_paddle")
-                    end
+                    inst.AnimState:ClearOverrideBuild("player_actions_paddle")
                 end
             )
         }

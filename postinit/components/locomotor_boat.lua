@@ -1,4 +1,3 @@
--------------------------------Boat Speed by EvenMr----------------------------
 local speed_bonus = {
     raft_old = 5 / 6,
     lograft_old = 4 / 6,
@@ -120,4 +119,20 @@ AddComponentPostInit("locomotor", function(self)
             self:StartUpdatingInternal()
         end
     end
+
+    local OldStartHopping = self.StartHopping
+
+
+    function self:StartHopping(x, z, target_platform)
+        if self.inst:HasTag("aquatic") and self.inst.components.driver then
+            self.inst.components.driver:BoatDetached(self.inst)
+            self.inst:RemoveTag("aquatic")
+        end
+        OldStartHopping(self, x, z, target_platform)
+    end
+end)
+
+
+AddComponentPostInit("oar", function(self, inst)
+    inst:AddTag("oar") --科雷真抠门，桨连个自己的标签也没有
 end)

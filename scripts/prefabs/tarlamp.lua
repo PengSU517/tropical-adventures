@@ -441,7 +441,7 @@ local function fn()
     inst.components.machine.turnofffn = turnoff
     inst.components.machine.cooldowntime = 0
 
-    inst.components.fueled.fueltype = "TAR"
+    -- inst.components.fueled.fueltype = "TAR"
     inst.components.fueled:InitializeFuelLevel(TUNING.TORCH_FUEL)
     inst.components.fueled:SetDepletedFn(nofuel)
     inst.components.fueled:SetUpdateFn(fuelupdate)

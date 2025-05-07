@@ -40,11 +40,30 @@ function Interactions:BoatJump(jumper)
 		jumper.sg:GoToState("jumponboatstart", self.inst)
 		jumper:AddComponent("driver")
 		jumper.components.driver.mountdata = self.inst
+		jumper.components.driver:StartUpdating()
+	end
+end
+
+function Interactions:BoatDetached(jumper)
+	if jumper and jumper:HasTag('player') then
+		jumper:RemoveComponent("rowboatwakespawner")
+		if jumper.components.driver then ------这里是判断从一条船跳到另一条船的情况
+			jumper.components.inventory:DropItem(
+				jumper.components.inventory:Unequip(EQUIPSLOTS.BARCO), true, true)
+			-- jumper.components.driver.vehicle:Remove() -------------------------------这里删掉了原来的船
+			jumper.components.driver:StopUpdating()
+			jumper:RemoveTag("sail")
+			jumper:RemoveTag("surf")
+			jumper:RemoveTag("aquatic")
+		end
 	end
 end
 
 function Interactions:BoatDismount(jumper, pt)
 	if jumper and jumper:HasTag('player') then
+		local vehicle = jumper.components.driver.vehicle
+		vehicle:RemoveTag("boat_occupied")
+
 		jumper.Physics:ClearCollisionMask()
 		jumper.Physics:CollidesWith(COLLISION.WORLD)
 		jumper.Physics:CollidesWith(COLLISION.OBSTACLES)
@@ -60,135 +79,7 @@ function Interactions:BoatDismount(jumper, pt)
 		local speed = dist * 1.67
 		jumper.Physics:SetMotorVel(speed, 0, 0)
 		jumper.sg:GoToState("jumponboatdismount")
-
-
-		jumper:RemoveComponent("rowboatwakespawner")
-		if jumper.components.driver then
-			local barcoinv = jumper.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-			if barcoinv and barcoinv.prefab == jumper.components.driver.vehicle.prefab then
-				local consumo = SpawnPrefab(jumper.components.driver.vehicle.prefab)
-				consumo.Transform:SetPosition(jumper.components.driver.vehicle:GetPosition():Get())
-				consumo.components.finiteuses.current = barcoinv.components.finiteuses.current
-
-				local x, y, z = consumo.Transform:GetWorldPosition()
-				if not TheWorld.Map:IsOceanAtPoint(x, y, z, false) then
-					local posifinal = Vector3(consumo.Transform:GetWorldPosition())
-					local destino = FindSwimmableOffset(posifinal, math.random() * 2 * PI, 2, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 4, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 6, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 8, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 12, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 14, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 16, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 20, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 18, 6)
-					if destino then
-						consumo.Transform:SetPosition(x + destino.x, y + destino.y, z + destino.z)
-					end
-				end
-				-------------------------transfere o conteudo do barco inventario para o barco do criado---------------------------------
-                local precontainer = barcoinv.components.container
-				if precontainer then
-                    local pstcontainer = consumo.components.container
-                    for slot, item in pairs(precontainer.slots) do
-                        pstcontainer:GiveItem(item, slot)
-						precontainer.slots[slot] = nil
-                    end
-				end
-				----------------------------------------------------------------------------------------------------------------------
-				barcoinv:Remove()
-			end
-			--if jumper.components.driver.simbolo then jumper.AnimState:ClearOverrideSymbol(jumper.components.driver.simbolo) end
-			--if jumper.components.driver.simbolo1 then jumper.AnimState:ClearOverrideSymbol(jumper.components.driver.simbolo1) end
-			jumper.components.driver.vehicle:Remove()
-			jumper:RemoveComponent("driver")
-			jumper:RemoveTag("sail")
-			jumper:RemoveTag("surf")
-			jumper:RemoveTag("aquatic")
-		end
-	end
-end
-
-function Interactions:BoatDismount2(jumper)
-	if jumper and jumper:HasTag('player') then
-		jumper:RemoveComponent("rowboatwakespawner")
-		if jumper.components.driver then
-			local barcoinv = jumper.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-			if barcoinv and barcoinv.prefab == jumper.components.driver.vehicle.prefab then
-				local consumo = SpawnPrefab(jumper.components.driver.vehicle.prefab)
-				consumo.Transform:SetPosition(jumper.components.driver.vehicle:GetPosition():Get())
-				consumo.components.finiteuses.current = barcoinv.components.finiteuses.current
-
-				local x, y, z = consumo.Transform:GetWorldPosition()
-				if not TheWorld.Map:IsOceanAtPoint(x, y, z, false) then
-					local posifinal = Vector3(consumo.Transform:GetWorldPosition())
-					local destino = FindSwimmableOffset(posifinal, math.random() * 2 * PI, 2, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 4, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 6, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 8, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 12, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 14, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 16, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 20, 6) or
-						FindSwimmableOffset(posifinal, math.random() * 2 * PI, 18, 6)
-					if destino then
-						consumo.Transform:SetPosition(x + destino.x, y + destino.y, z + destino.z)
-					end
-				end
-				-------------------------transfere o conteudo do barco inventario para o barco do criado---------------------------------
-				if barcoinv.components.container then
-					local sailslot = barcoinv.components.container:GetItemInSlot(1)
-					if sailslot then
-						consumo.components.container:GiveItem(sailslot, 1)
-					end
-
-					local luzslot = barcoinv.components.container:GetItemInSlot(2)
-					if luzslot and luzslot.prefab == "quackeringram" then luzslot.navio1 = nil end
-					if luzslot then
-						consumo.components.container:GiveItem(luzslot, 2)
-					end
-
-					local cargoslot1 = barcoinv.components.container:GetItemInSlot(3)
-					if cargoslot1 then
-						consumo.components.container:GiveItem(cargoslot1, 3)
-					end
-
-					local cargoslot2 = barcoinv.components.container:GetItemInSlot(4)
-					if cargoslot2 then
-						consumo.components.container:GiveItem(cargoslot2, 4)
-					end
-
-					local cargoslot3 = barcoinv.components.container:GetItemInSlot(5)
-					if cargoslot3 then
-						consumo.components.container:GiveItem(cargoslot3, 5)
-					end
-
-					local cargoslot4 = barcoinv.components.container:GetItemInSlot(6)
-					if cargoslot4 then
-						consumo.components.container:GiveItem(cargoslot4, 6)
-					end
-
-					local cargoslot5 = barcoinv.components.container:GetItemInSlot(7)
-					if cargoslot5 then
-						consumo.components.container:GiveItem(cargoslot5, 7)
-					end
-
-					local cargoslot6 = barcoinv.components.container:GetItemInSlot(8)
-					if cargoslot6 then
-						consumo.components.container:GiveItem(cargoslot6, 8)
-					end
-				end
-				----------------------------------------------------------------------------------------------------------------------
-				barcoinv:Remove()
-			end
-			--if jumper.components.driver.simbolo then jumper.AnimState:ClearOverrideSymbol(jumper.components.driver.simbolo) end
-			--if jumper.components.driver.simbolo1 then jumper.AnimState:ClearOverrideSymbol(jumper.components.driver.simbolo1) end
-			jumper.components.driver.vehicle:Remove()
-			jumper:RemoveComponent("driver")
-			jumper:RemoveTag("sail")
-			jumper:RemoveTag("surf")
-			jumper:RemoveTag("aquatic")
-		end
+		self:BoatDetached(jumper)
 	end
 end
 

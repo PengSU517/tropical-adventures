@@ -55,7 +55,7 @@ local function fn()
     inst.components.waterproofer.effectiveness = 1
 
     inst:AddComponent("fueled")
-    inst.components.fueled.fueltype = "TAR"
+    -- inst.components.fueled.fueltype = "TAR"
     inst.components.fueled.accepting = true
     inst.components.fueled.bonusmult = 2
     inst.components.fueled:InitializeFuelLevel(1440)

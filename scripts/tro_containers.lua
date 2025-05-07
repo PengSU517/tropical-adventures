@@ -100,9 +100,9 @@ local function boatitemtestfn(container, item, slot)
         return not slotitem and (item:HasTag("sail") or item.prefab == "trawlnet")
     elseif slot == 2 then
         return not slotitem and
-                   (item.prefab == "tarlamp" or item.prefab == "boat_lantern" or item.prefab == "boat_torch" or
-                       item.prefab == "quackeringram" or item.prefab == "boatcannon" or item.prefab ==
-                       "obsidian_boatcannon")
+            (item.prefab == "tarlamp" or item.prefab == "boat_lantern" or item.prefab == "boat_torch" or
+                item.prefab == "quackeringram" or item.prefab == "boatcannon" or item.prefab ==
+                "obsidian_boatcannon")
     else --if slot and slot > 2 then
         if item.components.stackable then
             for i = slot + 1, container:GetNumSlots() do
@@ -173,7 +173,7 @@ params.rowboat.widgetinspect.bgpos = Vector3(0, 120, 0)
 
 params.armouredboat = params.rowboat
 
-params.corkboat = params.rowboat
+
 
 params.encrustedboat = BoatParamCommon("boat_hud_encrusted", nil, 4)
 table.insert(params.encrustedboat.widget.slotpos, Vector3(-330, 45, 0))
@@ -203,6 +203,7 @@ params.raft_old = {
 params.lograft_old = params.raft_old
 
 params.surfboard = params.raft_old
+params.corkboat = params.raft_old
 
 params.trawlnetdropped = params.treasurechest
 
