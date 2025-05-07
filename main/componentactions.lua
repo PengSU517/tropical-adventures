@@ -2,14 +2,6 @@ local AddComponentAction = AddComponentAction
 local ACTIONS = ACTIONS
 
 -------------ATTENTION!!!!!addcomponentaction  同目录会相互覆盖
-AddComponentAction("USEITEM", "inventoryitem", function(inst, doer, target, actions, right)
-    if not right then
-        if target:HasTag("shelfcanaccept") then
-            table.insert(actions, ACTIONS.GIVE2)
-        end
-    end
-end)
-
 
 AddComponentAction("SCENE", "hackable", function(inst, doer, actions, right)
     local equipamento = doer.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
@@ -56,43 +48,21 @@ AddComponentAction("SCENE", "mystery", function(inst, doer, actions, right)
 end)
 
 
-AddComponentAction("SCENE", "interactions",
-    function(inst, doer, actions, right)
-        if not right then
-            if inst:HasTag("boatsw") and not inst:HasTag("ocupado") and
-                not (doer.replica.rider:IsRiding())
-            then
-                table.insert(actions, ACTIONS.BOATMOUNT)
-            end
+AddComponentAction("SCENE", "interactions", function(inst, doer, actions, right)
+    if not right then
+        if inst:HasTag("boatsw") and not inst:HasTag("ocupado") and
+            not (doer.replica.rider:IsRiding())
+        then
+            table.insert(actions, ACTIONS.BOATMOUNT)
         end
-
-        if right then
-            if not inst:HasTag("ocupado") and not doer.replica.inventory:IsFull()
-                and (inst.prefab == "surfboard" or inst.prefab == "corkboat")
-            then
-                table.insert(actions, ACTIONS.RETRIEVE)
-                return
-            end
+    else
+        if not inst:HasTag("ocupado") and (inst.prefab == "surfboard" or inst.prefab == "corkboat")
+        then
+            table.insert(actions, ACTIONS.RETRIEVE)
         end
     end
+end
 )
-AddComponentAction("USEITEM", "interactions",
-    function(inst, doer, target, actions, right)
-        if inst:HasTag("boatrepairkit") and target:HasTag("boatsw") then
-            table.insert(actions, ACTIONS.BOATREPAIR)
-        end
-    end)
-
-AddComponentAction("INVENTORY", "interactions",
-    function(inst, doer, actions)
-        if inst:HasTag("boatlight") and inst:HasTag("nonavio") and not inst:HasTag("ligado") then --and inst:HasTag("nonavio")
-            table.insert(actions, ACTIONS.ACTIVATESAIL)
-        elseif inst:HasTag("boatlight") and inst:HasTag("ligado") then
-            table.insert(actions, ACTIONS.DESACTIVATESAIL)
-        elseif inst:HasTag("tunacan") then
-            table.insert(actions, ACTIONS.OPENTUNA) ----这个需要修改
-        end
-    end)
 
 AddComponentAction("SCENE", "health",
     function(inst, doer, actions, right)
@@ -112,12 +82,41 @@ AddComponentAction("SCENE", "shopped", function(inst, doer, actions, right)
     end
 end)
 
+
+AddComponentAction("USEITEM", "interactions",
+    function(inst, doer, target, actions, right)
+        if inst:HasTag("boatrepairkit") and target:HasTag("boatsw") then
+            table.insert(actions, ACTIONS.BOATREPAIR)
+        end
+    end)
+
+AddComponentAction("USEITEM", "inventoryitem", function(inst, doer, target, actions, right)
+    if not right then
+        if target:HasTag("shelfcanaccept") then
+            table.insert(actions, ACTIONS.GIVE2)
+        end
+    end
+end)
+
+
+AddComponentAction("INVENTORY", "interactions",
+    function(inst, doer, actions)
+        if inst:HasTag("boatlight") and inst:HasTag("nonavio") and not inst:HasTag("ligado") then --and inst:HasTag("nonavio")
+            table.insert(actions, ACTIONS.ACTIVATESAIL)
+        elseif inst:HasTag("boatlight") and inst:HasTag("ligado") then
+            table.insert(actions, ACTIONS.DESACTIVATESAIL)
+        elseif inst:HasTag("tunacan") then
+            table.insert(actions, ACTIONS.OPENTUNA) ----这个需要修改
+        end
+    end)
+
+
+
 AddComponentAction("POINT", "gasser", function(inst, doer, pos, actions, right)
     if right then
         table.insert(actions, ACTIONS.GAS)
     end
 end)
-
 
 AddComponentAction("POINT", "equippable", function(inst, doer, pos, actions, right, target)
     if not doer:HasTag("aquatic") then return end
@@ -130,9 +129,7 @@ AddComponentAction("POINT", "equippable", function(inst, doer, pos, actions, rig
             not (doer.replica.inventory:IsHeavyLifting() or doer:HasTag("deleidotiro")) then
             return table.insert(actions, ACTIONS.BOATCANNON)
         end
-    end
-
-    if not right then
+    else
         if TheWorld.Map:IsPassableAtPoint(pos:Get()) then
             table.insert(actions, ACTIONS.BOATDISMOUNT)
         end
