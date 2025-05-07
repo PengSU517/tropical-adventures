@@ -18,7 +18,7 @@ local prefabs =
 
 
 --local function OnSave(inst, data)
---if inst:HasTag("ocupado") then data.apaga = 1 end
+--if inst:HasTag("boat_occupied") then data.apaga = 1 end
 --end
 
 local function OnLoad(inst, data)

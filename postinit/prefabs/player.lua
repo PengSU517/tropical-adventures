@@ -7,6 +7,8 @@ AddPlayerPostInit(function(inst)
             inst:AddComponent("regionaware")
         end
 
+        inst:AddComponent("driver")
+
         if TUNING.hamlet then
             if TUNING.hayfever then
                 inst:AddComponent("hayfever")

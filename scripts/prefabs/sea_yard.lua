@@ -25,7 +25,7 @@ local loot =
 	"log",
 }
 
-local SEA_YARD_MAX_FUEL_TIME = 30 * 6
+local SEA_YARD_MAX_FUEL_TIME = 30 * 16
 
 local function onturnon(inst)
 	if not inst:HasTag("burnt") then
@@ -55,7 +55,9 @@ local function startTimer(inst, user)
 end
 
 local function startFixingFn(inst, user)
-	if user and user.components.driver and user.components.driver.vehicle and user.components.driver.vehicle.components.finiteuses and user.components.driver.vehicle.components.finiteuses.current < user.components.driver.vehicle.components.finiteuses.total - 1 then
+	if user and user.components.driver and user.components.driver.vehicle and
+		user.components.driver.vehicle.components.finiteuses and
+		user.components.driver.vehicle.components.finiteuses.current < user.components.driver.vehicle.components.finiteuses.total - 1 then
 		if not user.armsfx then
 			local arms = SpawnPrefab("sea_yard_arms_fx")
 			arms.entity:SetParent(user.entity)
@@ -127,8 +129,8 @@ local function fixfn(inst, user)
 		if user.components.driver and user.components.driver.vehicle and user.components.driver.vehicle.components.finiteuses ~= nil then
 			local boat = user.components.driver.vehicle
 			boat.components.finiteuses.current = boat.components.finiteuses.current + 0.7
-			local gastabarco = user.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)           ---------armadura
-			if gastabarco then gastabarco.components.armor.condition = boat.components.finiteuses.current end ---------armadura		
+			boat.components.finiteuses:Use(0)
+			boat.components.armor.condition = boat.components.finiteuses.current
 		end
 
 
@@ -137,6 +139,8 @@ local function fixfn(inst, user)
 		if user.components.finiteuses.current >= user.components.finiteuses.total - 0.4 then stopFixingFn(inst, user) end
 		if user.components.finiteuses ~= nil then
 			user.components.finiteuses.current = user.components.finiteuses.current + 0.7
+			user.components.finiteuses:Use(0)
+			user.components.armor.condition = user.components.finiteuses.current
 		end
 	end
 end
@@ -306,7 +310,7 @@ local function fn(Sim)
 	inst.components.fueled:SetSectionCallback(OnFuelSectionChange)
 	inst.components.fueled:InitializeFuelLevel(SEA_YARD_MAX_FUEL_TIME)
 	inst.components.fueled.bonusmult = 5
-	inst.components.fueled.fueltype = "TAR"
+	-- inst.components.fueled.fueltype = "TAR"
 
 	--	inst:AddComponent("machine")
 	--	inst.components.machine.turnonfn = startFixingFn

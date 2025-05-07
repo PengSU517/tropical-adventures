@@ -50,13 +50,13 @@ end)
 
 AddComponentAction("SCENE", "interactions", function(inst, doer, actions, right)
     if not right then
-        if inst:HasTag("boatsw") and not inst:HasTag("ocupado") and
+        if inst:HasTag("boatsw") and not inst:HasTag("boat_occupied") and
             not (doer.replica.rider:IsRiding())
         then
             table.insert(actions, ACTIONS.BOATMOUNT)
         end
     else
-        if not inst:HasTag("ocupado") and (inst.prefab == "surfboard" or inst.prefab == "corkboat")
+        if not inst:HasTag("boat_occupied") and (inst.prefab == "surfboard" or inst.prefab == "corkboat")
         then
             table.insert(actions, ACTIONS.RETRIEVE)
         end
@@ -85,7 +85,7 @@ end)
 
 AddComponentAction("USEITEM", "interactions",
     function(inst, doer, target, actions, right)
-        if inst:HasTag("boatrepairkit") and target:HasTag("boatsw") then
+        if inst:HasTag("boatrepairkit") and (target:HasTag("boatsw") or target:HasTag("boat_proxy")) then
             table.insert(actions, ACTIONS.BOATREPAIR)
         end
     end)

@@ -420,72 +420,16 @@ local BOATMOUNT = Action({ priority = 10, rmb = true, distance = 8, mount_valid 
 BOATMOUNT.str = (STRINGS.ACTIONS.BOATMOUNT)
 BOATMOUNT.id = "BOATMOUNT"
 BOATMOUNT.fn = function(act)
-    if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and
-        act.target:HasTag("boatsw")
-    then
+    if act.doer and act.target and act.doer:HasTag("player") and act.target:HasTag("boatsw") then
+        local driver = act.doer.components.driver
         act.doer:AddTag("pulando")
-        if act.doer:HasTag("aquatic") then
-            act.doer:RemoveComponent("rowboatwakespawner")
-            if act.doer.components.driver then
-                local barcoinv = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-                if barcoinv and barcoinv.prefab == act.doer.components.driver.vehicle.prefab then
-                    local consumo = SpawnPrefab(act.doer.components.driver.vehicle.prefab)
-                    consumo.Transform:SetPosition(act.doer.components.driver.vehicle:GetPosition():Get())
-                    consumo.components.finiteuses.current = barcoinv.components.finiteuses.current
-                    --transfere o conteudo do barco inventario para o barco do criado--
-                    if barcoinv.components.container then
-                        local sailslot = barcoinv.components.container:GetItemInSlot(1)
-                        if sailslot then
-                            consumo.components.container:GiveItem(sailslot, 1)
-                        end
-
-                        local luzslot = barcoinv.components.container:GetItemInSlot(2)
-                        if luzslot and luzslot.prefab == "quackeringram" then luzslot.navio1 = nil end
-                        if luzslot then
-                            consumo.components.container:GiveItem(luzslot, 2)
-                        end
-
-                        local cargoslot1 = barcoinv.components.container:GetItemInSlot(3)
-                        if cargoslot1 then
-                            consumo.components.container:GiveItem(cargoslot1, 3)
-                        end
-
-                        local cargoslot2 = barcoinv.components.container:GetItemInSlot(4)
-                        if cargoslot2 then
-                            consumo.components.container:GiveItem(cargoslot2, 4)
-                        end
-
-                        local cargoslot3 = barcoinv.components.container:GetItemInSlot(5)
-                        if cargoslot3 then
-                            consumo.components.container:GiveItem(cargoslot3, 5)
-                        end
-
-                        local cargoslot4 = barcoinv.components.container:GetItemInSlot(6)
-                        if cargoslot4 then
-                            consumo.components.container:GiveItem(cargoslot4, 6)
-                        end
-
-                        local cargoslot5 = barcoinv.components.container:GetItemInSlot(7)
-                        if cargoslot5 then
-                            consumo.components.container:GiveItem(cargoslot5, 7)
-                        end
-
-                        local cargoslot6 = barcoinv.components.container:GetItemInSlot(8)
-                        if cargoslot6 then
-                            consumo.components.container:GiveItem(cargoslot6, 8)
-                        end
-                    end
-                    ---
-                    barcoinv:Remove()
-                end
-                act.doer.components.driver.vehicle:Remove()
-                act.doer:RemoveComponent("driver")
-                act.doer:RemoveTag("sail")
-                act.doer:RemoveTag("surf")
-                act.doer:RemoveTag("aquatic")
-            end
+        if act.doer:HasTag("aquatic") then ----从船上向另一条船跳
+            driver:BoatDetached(act.doer)
         end
-        act.target.components.interactions:BoatJump(act.doer)
+        driver.vehicle = act.target
+        driver:BoatJump(act.doer, act.target)
+
+        -- driver:OnMount(act.target)
         return true
     else
         return false
@@ -502,10 +446,7 @@ BOATDISMOUNT.id = "BOATDISMOUNT"
 BOATDISMOUNT.fn = function(act)
     if act.doer ~= nil and act.doer:HasTag("player") then
         act.doer:AddTag("pulando")
-        if not act.doer.components.interactions then
-            act.doer:AddComponent("interactions")
-        end
-        act.doer.components.interactions:BoatDismount(act.doer, act:GetActionPoint())
+        act.doer.components.driver:BoatDismount(act.doer, act:GetActionPoint())
         return true
     end
 end
@@ -612,8 +553,6 @@ TIRO.str = (STRINGS.ACTIONS.TIRO)
 TIRO.id = "TIRO"
 TIRO.fn = function(act)
     if act.doer ~= nil and act.doer:HasTag("ironlord") then
-        --        act.doer:AddComponent("interactions")
-        --        act.doer.components.interactions:TIRO(act.doer, act.target:GetPosition())
         return true
     end
 end
@@ -629,7 +568,7 @@ RETRIEVE.fn = function(act)
         return act.target.components.breeder:Harvest(act.doer)
     end
 
-    if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and act.target.prefab == "surfboard" then
+    if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.prefab == "surfboard" then
         if act.target and act.target.prefab == "surfboard" then
             local panela = SpawnPrefab("SURFBOARD_ITEM")
             if act.target.components.finiteuses then
@@ -641,7 +580,7 @@ RETRIEVE.fn = function(act)
         return true
     end
 
-    if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and act.target.prefab == "corkboat" then
+    if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.prefab == "corkboat" then
         if act.target and act.target.prefab == "corkboat" then
             local panela = SpawnPrefab("corkboatitem")
             if act.target.components.finiteuses then
@@ -697,43 +636,35 @@ local BOATREPAIR = Action({ priority = 10, rmb = true, distance = 1, mount_valid
 BOATREPAIR.str = (STRINGS.ACTIONS.BOATREPAIR)
 BOATREPAIR.id = "BOATREPAIR"
 BOATREPAIR.fn = function(act)
-    if act.doer ~= nil and act.doer:HasTag("aquatic") and act.invobject ~= nil and act.invobject:HasTag("boatrepairkit") then
-        local boat = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-        local boat2 = act.doer.components.driver.vehicle
-        if boat and boat2 then
-            if boat2.components.finiteuses and boat.components.armor.condition and boat2.components.finiteuses.current + 150 >= boat2.components.finiteuses.total then
-                boat2.components.finiteuses.current = boat2.components.finiteuses.total
-                boat.components.armor.condition = boat2.components.finiteuses.current
-                if boat2.components.finiteuses then
-                    boat2.components.finiteuses:Use(1)
-                end
-                if act.invobject.prefab == "sewing_tape" then
-                    local nut = act.invobject
-                    if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then
-                        nut = act.invobject.components.stackable:Get()
-                    end
-                    nut:Remove()
-                else
-                    if act.invobject.components.finiteuses then
-                        act.invobject.components.finiteuses:Use(1)
-                    end
-                end
-                return true
-            end
+    if act.doer and act.invobject and act.target and act.invobject:HasTag("boatrepairkit") then
+        local boat = act.target
+        if act.target:HasTag("boat_proxy") then
+            boat = act.target.entity:GetParent().components.driver.vehicle or boat
+        end
 
-            boat2.components.finiteuses.current = boat2.components.finiteuses.current + 150
-            boat.components.armor.condition = boat.components.armor.condition + 150
+        boat.components.armor:Repair(150)
+        boat.components.finiteuses.current = boat.components.armor.condition
+        boat.components.finiteuses:Use(0) ----需要通过这个发送事件，也许
+
+
+        if act.invobject.prefab == "sewing_tape" then
+            local nut = act.invobject
+            if act.invobject.components.stackable and act.invobject.components.stackable.stacksize > 1 then
+                nut = act.invobject.components.stackable:Get()
+            end
+            nut:Remove()
+        else
             if act.invobject.components.finiteuses then
                 act.invobject.components.finiteuses:Use(1)
             end
         end
+
         return true
     end
 
 
 
-    if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target.components.interactions and
-        act.target:HasTag("boatsw")
+    if act.doer ~= nil and act.target ~= nil and act.doer:HasTag("player") and act.target:HasTag("boatsw")
     then
         local equipamento = act.doer.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
 
@@ -1222,3 +1153,22 @@ ACTIONS.JUMPIN.strfn = function(act)
     end
     return Oldstrfnjumpin and Oldstrfnjumpin(act) or "GENERIC"
 end
+
+
+local _extra_arrive_dist = ACTIONS.DEPLOY.extra_arrive_dist
+local function extra_arrive_dist(doer, dest, bufferedaction, ...)
+    if dest and doer:HasTag("aquatic") then
+        local invobject = bufferedaction and bufferedaction.invobject or nil
+        if invobject:HasTag("boatbuilder") then
+            local target_x, _, target_z = dest:GetPoint()
+            local is_on_water = not TheWorld.Map:IsPassableAtPoint(target_x, 0, target_z)
+            if is_on_water then
+                return (invobject.replica.inventoryitem:DeploySpacingRadius() or 0) + 2.0
+            end
+        end
+    end
+
+    return _extra_arrive_dist(doer, dest, bufferedaction, ...)
+end
+
+ACTIONS.DEPLOY.extra_arrive_dist = extra_arrive_dist

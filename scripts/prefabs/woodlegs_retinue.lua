@@ -34,15 +34,14 @@ local function OnWaterChange(inst, onwater)
 
     if onwater then
         local pegabarco = SpawnPrefab("woodlegsboatamigo")
-        inst:AddComponent("driver2")
-        inst.components.driver2:OnMount(pegabarco)
+        inst.components.driver:OnMount(pegabarco)
+        inst.components.driver:StartUpdating()
     else
-        if inst:HasTag("aquatic") and inst.components.driver2 then
+        if inst:HasTag("aquatic") and inst.components.driver then
             local barcoinv = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
             if barcoinv then barcoinv:Remove() end
-            inst.components.driver2.vehicle:Remove()
             inst:RemoveComponent("rowboatwakespawner")
-            inst:RemoveComponent("driver2")
+            inst.components.driver:StopUpdating()
             inst:RemoveTag("aquatic")
             inst.sg:GoToState("idle")
         end
@@ -201,6 +200,8 @@ local function fn()
         return inst
     end
 
+
+    inst:AddComponent("driver")
     --print("   health")
     inst:AddComponent("health")
     inst.components.health:SetMaxHealth(600)

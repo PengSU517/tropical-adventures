@@ -3,35 +3,37 @@ local AddStategraphEvent = AddStategraphEvent
 local AddStategraphActionHandler = AddStategraphActionHandler
 local AddStategraphPostInit = AddStategraphPostInit
 
-local ActionHandler = GLOBAL.ActionHandler
-local EventHandler = GLOBAL.EventHandler
-local State = GLOBAL.State
-local TimeEvent = GLOBAL.TimeEvent
+local ActionHandler = ActionHandler
+local EventHandler = EventHandler
+local State = State
+local TimeEvent = TimeEvent
 
-local FRAMES = GLOBAL.FRAMES
-local ACTIONS = GLOBAL.ACTIONS
-local EQUIPSLOTS = GLOBAL.EQUIPSLOTS
+local FRAMES = FRAMES
+local ACTIONS = ACTIONS
+local EQUIPSLOTS = EQUIPSLOTS
 
 
-local TIMEOUT = 2
-
-local function ConfigureRunState(inst)
+local function ConfigureSailState(inst)
     if inst.components.inventory:IsHeavyLifting() then
         inst.sg.statemem.heavy = true
-        inst.sg.statemem.heavy_fast = inst.components.mightiness ~= nil and inst.components.mightiness:IsMighty()
         inst.sg:AddStateTag("noslip")
     elseif inst:IsInAnyStormOrCloud() and not inst.components.playervision:HasGoggleVision() then
         inst.sg.statemem.sandstorm = true
     elseif inst:HasTag("groggy") then
         inst.sg.statemem.groggy = true
+    elseif inst:HasTag("surf") then
+        inst.sg.statemem.surf = true
+    elseif inst:HasTag("sail") then
+        inst.sg.statemem.sail = true
+    elseif inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and
+        inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS):HasTag("oar")
+    then
+        inst.sg.statemem.oar = true
     else
         inst.sg.statemem.normal = true
     end
 end
 
-local function GetRunStateAnim(inst)
-    return "row_loop"
-end
 
 local function DoEquipmentFoleySounds(inst)
     for k, v in pairs(inst.components.inventory.equipslots) do
@@ -91,27 +93,6 @@ local function SetSleeperAwakeState(inst)
     inst:ShowActions(true)
 end
 
-local function ClearStatusAilments(inst)
-    if inst.components.freezable ~= nil and inst.components.freezable:IsFrozen() then
-        inst.components.freezable:Unfreeze()
-    end
-    if inst.components.pinnable ~= nil and inst.components.pinnable:IsStuck() then
-        inst.components.pinnable:Unstick()
-    end
-end
-
-local function ForceStopHeavyLifting(inst)
-    if inst.components.inventory:IsHeavyLifting() then
-        inst.components.inventory:DropItem(inst.components.inventory:Unequip(EQUIPSLOTS.BODY), true, true)
-    end
-end
-
-local function DoMountSound(inst, mount, sound)
-    if mount ~= nil and mount.sounds ~= nil then
-        inst.SoundEmitter:PlaySound(mount.sounds[sound], nil, nil, true)
-    end
-end
-
 local function ToggleOffPhysics(inst)
     inst.sg.statemem.isphysicstoggle = true
     inst.Physics:ClearCollisionMask()
@@ -129,36 +110,6 @@ local function ToggleOnPhysics(inst)
 end
 
 local actionhandlers = {
-    -- ActionHandler(
-    --     ACTIONS.LIGHT,
-    --     function(inst)
-    --         local equipped = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-    --         if equipped and equipped:HasTag("magnifying_glass") then
-    --             return "investigate_start"
-    --         else
-    --             return "give"
-    --         end
-    --     end
-    -- ),
-
-    -- ActionHandler(
-    --     ACTIONS.BLINK,
-    --     function(inst, action)
-    --         --		if inst:HasTag("aquatic") and inst:HasTag("soulstealer") then return false end
-    --         local interior = GetClosestInstWithTag("interior_center", inst, 30)
-    --         if interior then return false end
-    --         if TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_COASTAL_SHORE and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_SWELL and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_ROUGH and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_BRINEPOOL_SHORE and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_WATERLOG and
-    --             TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(action:GetActionPoint():Get())) ~= GROUND.OCEAN_HAZARDOUS then
-    --             return action.invobject == nil and inst:HasTag("soulstealer") and "portal_jumpin_pre" or "quicktele"
-    --         end
-    --     end
-    -- ),
     ActionHandler(ACTIONS.ACTIVATESAIL, "doshortaction"),
     ActionHandler(ACTIONS.COMPACTPOOP, "doshortaction"),
     ActionHandler(ACTIONS.DESACTIVATESAIL, "doshortaction"),
@@ -229,43 +180,6 @@ local actionhandlers = {
                 nil
         end
     ),
-    -- ActionHandler(ACTIONS.ATTACK,
-    --     function(inst, action)
-    --         inst.sg.mem.localchainattack = not action.forced or nil
-    --         local playercontroller = inst.components.playercontroller
-    --         local attack_tag =
-    --             playercontroller ~= nil and
-    --             playercontroller.remote_authority and
-    --             playercontroller.remote_predicting and
-    --             "abouttoattack" or
-    --             "attack"
-    --         if not (inst.sg:HasStateTag(attack_tag) and action.target == inst.sg.statemem.attacktarget or inst.components.health:IsDead()) then
-    --             local weapon = inst.components.combat ~= nil and inst.components.combat:GetWeapon() or nil
-    --             --umcompromissing mode compatibility--	
-    --             if weapon and weapon:HasTag("beegun") then
-    --                 if inst.sg.laststate.name == "beegun" or inst.sg.laststate.name == "beegun_short" then
-    --                     return
-    --                     "beegun_short"
-    --                 else
-    --                     return "beegun"
-    --                 end
-    --             end
-    --             if weapon and not ((weapon:HasTag("blowdart") or weapon:HasTag("thrown"))) and inst:HasTag("wathom") and not inst.sg:HasStateTag("attack") and (inst.components.rider ~= nil and not inst.components.rider:IsRiding()) then return ("wathomleap") end
-
-    --             return (weapon == nil and "attack")
-    --                 or (weapon:HasTag("blowdart") and "blowdart")
-    --                 or (weapon:HasTag("slingshot") and "slingshot_shoot")
-    --                 or (weapon:HasTag("thrown") and "throw")
-    --                 or (weapon:HasTag("pillow") and "attack_pillow_pre")
-    --                 or (weapon:HasTag("propweapon") and "attack_prop_pre")
-    --                 or (weapon:HasTag("multithruster") and "multithrust_pre")
-    --                 or (weapon:HasTag("helmsplitter") and "helmsplitter_pre")
-    --                 or (weapon:HasTag("speargun") and "speargun")
-    --                 or (weapon:HasTag("blunderbuss") and "speargun")
-    --                 or "attack"
-    --         end
-    --     end
-    -- ),
 
     ActionHandler(ACTIONS.SLEEPIN,
         function(inst, action)
@@ -545,8 +459,8 @@ local states = {
 
         onexit = function(inst)
             ChangeToCharacterPhysics(inst)
-            if inst.components.driver and inst.components.driver.mountdata then
-                inst.components.driver:OnMount(inst.components.driver.mountdata)
+            if inst.components.driver and inst.components.driver.vehicle then
+                inst.components.driver:BoatAttached(inst.components.driver.vehicle)
             end
             if inst.bufferedaction == inst.sg.statemem.action then
                 inst:ClearBufferedAction()
@@ -591,10 +505,6 @@ local states = {
                         ChangeToCharacterPhysics(inst)
                         --              inst.Transform:SetPosition(inst.posx,0,inst.posz)
                         inst.sg:GoToState("idle")
-                    end
-
-                    if inst.components.interactions then
-                        inst:RemoveComponent("interactions")
                     end
                 end
             )
@@ -930,53 +840,6 @@ local states = {
         },
     },
 
-    State { name = "death_boat",
-        tags = { "busy", "nopredict", "nomorph", "drowning", "nointerrupt" },
-        onenter = function(inst)
-            inst.components.locomotor:Stop()
-            --   inst.AnimState:Hide("swap_arm_carry")
-            --   inst.AnimState:PlayAnimation("sink")
-            inst.AnimState:SetSortOrder(0)
-            if inst.components.inventory ~= nil then
-                inst.components.inventory:DropEverything(true)
-            end
-
-
-
-            if inst.components.driver then
-                if inst.components.driver.vehicle then inst.components.driver.vehicle:Remove() end
-                inst.AnimState:SetSortOrder(0)
-                inst:RemoveTag("aquatic")
-                inst:RemoveTag("sail")
-                inst:RemoveTag("surf")
-                inst:RemoveComponent("rowboatwakespawner")
-                inst:RemoveComponent("driver")
-                if inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO) then
-                    inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO):Remove()
-                end
-            end
-            --			
-        end,
-        timeline = {
-            TimeEvent(2 * FRAMES, function(inst) inst.DynamicShadow:Enable(false) end),
-            TimeEvent(3 * FRAMES, function(inst) inst.sg:GoToState("idle") end)
-        },
-        events = {
-            EventHandler(
-                "animover",
-                function(inst)
-                    if inst.AnimState:AnimDone() then
-                        inst.sg:GoToState("idle")
-                    end
-                end
-            )
-        },
-        onexit = function(inst)
-            inst.DynamicShadow:Enable(true)
-            --			inst.components.health:SetVal(0, "drowning")
-        end
-    },
-
     State { name = "tap",
         tags = { "doing", "busy" },
 
@@ -1039,33 +902,25 @@ local states = {
     State { name = "row_start",
         tags = { "moving", "running", "canrotate", "autopredict", "sailing" },
         onenter = function(inst)
-            ConfigureRunState(inst)
+            ConfigureSailState(inst)
             inst.components.locomotor:RunForward()
-            if inst:HasTag("aquatic") then
-                if inst.replica.inventory:IsHeavyLifting() then
-                    inst.AnimState:PlayAnimation("heavy_idle")
-                elseif inst:HasTag("surf") then
-                    inst.AnimState:PlayAnimation("surf_pre")
-                elseif inst:HasTag("sail") then
-                    inst.AnimState:PlayAnimation("sail_pre")
-                else
-                    inst.AnimState:PlayAnimation("row_pre")
-                end
-            end
-            --goose footsteps should always be light			
-            -- inst.sg.mem.footsteps = (inst.sg.statemem.goose or inst.sg.statemem.goosegroggy) and 4 or 0
-            if inst:HasTag("aquatic") then
-                inst.AnimState:AddOverrideBuild("player_actions_paddle")
+            inst.AnimState:AddOverrideBuild("player_actions_paddle")
+
+            if inst.sg.statemem.heavy then
+                inst.AnimState:PlayAnimation("heavy_idle")
+            elseif inst.sg.statemem.surf then
+                inst.AnimState:PlayAnimation("surf_pre")
+            elseif inst.sg.statemem.sail then
+                inst.AnimState:PlayAnimation("sail_pre")
+            else
+                inst.AnimState:PlayAnimation("row_pre")
             end
         end,
         onupdate = function(inst)
             inst.components.locomotor:RunForward()
         end,
         timeline = {
-
-            --heavy lifting
-            TimeEvent(
-                1 * FRAMES,
+            TimeEvent(1 * FRAMES,
                 function(inst)
                     PlayFootstep(inst, nil, true)
                     DoFoleySounds(inst)
@@ -1088,53 +943,48 @@ local states = {
     State { name = "row_loop",
         tags = { "moving", "running", "canrotate", "sailing" },
         onenter = function(inst)
-            ConfigureRunState(inst)
+            ConfigureSailState(inst)
             inst.components.locomotor:RunForward()
 
-            if inst:HasTag("aquatic") and inst.components.rowboatwakespawner then
-                inst.components.rowboatwakespawner:StartSpawning()
 
-                local barco = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "ironwind" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/boatpropellor_lp", "sailmove")
-                end
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "sail" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_cloth", "sailmove")
-                end
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "clothsail" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_cloth", "sailmove")
-                end
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "snakeskinsail" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_snakeskin", "sailmove")
-                end
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "feathersail" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_feather", "sailmove")
-                end
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "woodlegssail" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_sealegs", "sailmove")
-                end
-                if barco and barco.replica.container and barco.replica.container:GetItemInSlot(1) and barco.replica.container:GetItemInSlot(1).prefab == "malbatrossail" then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/sail_LP_sealegs", "sailmove")
+            local barco = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+
+            local sound_mapping = {
+                ironwind      = "dontstarve_DLC002/common/boatpropellor_lp",
+                sail          = "dontstarve_DLC002/common/sail_LP_cloth",
+                clothsail     = "dontstarve_DLC002/common/sail_LP_cloth",
+                snakeskinsail = "dontstarve_DLC002/common/sail_LP_snakeskin",
+                feathersail   = "dontstarve_DLC002/common/sail_LP_feather",
+                woodlegssail  = "dontstarve_DLC002/common/sail_LP_sealegs",
+                malbatrossail = "dontstarve_DLC002/common/sail_LP_feather",
+            }
+
+            if barco and barco.replica.container then
+                local item = barco.replica.container:GetItemInSlot(1)
+                if item then
+                    local sound = sound_mapping[item.prefab]
+                    if sound then
+                        inst.SoundEmitter:PlaySound(sound, "sailmove")
+                    end
                 end
             end
 
-            local anim = GetRunStateAnim(inst)
 
-            if inst:HasTag("aquatic") then
-                if inst.replica.inventory:IsHeavyLifting() then
-                    anim = "heavy_idle"
-                elseif inst:HasTag("surf") then
-                    anim = "surf_loop"
-                elseif inst:HasTag("sail") then
-                    anim = "sail_loop"
-                elseif inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS).prefab == "oar_driftwood" then
-                    anim = "row_medium"
-                elseif inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) and inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS).prefab == "oar" then
-                    anim = "row_medium"
-                else
-                    anim = "row_loop"
-                end
+            local anim
+
+
+            if inst.sg.statemem.heavy then
+                anim = "heavy_idle"
+            elseif inst.sg.statemem.surf then
+                anim = "surf_loop"
+            elseif inst.sg.statemem.sail then
+                anim = "sail_loop"
+            elseif inst.sg.statemem.oar then
+                anim = "row_medium"
+            else
+                anim = "row_loop"
             end
+
 
             if not inst.AnimState:IsCurrentAnimation(anim) then
                 inst.AnimState:PlayAnimation(anim, true)
@@ -1165,25 +1015,17 @@ local states = {
     State { name = "row_stop",
         tags = { "canrotate", "idle", "sailing" },
         onenter = function(inst)
-            ConfigureRunState(inst)
-
-            if inst:HasTag("aquatic") and inst.components.rowboatwakespawner then
-                inst.components.rowboatwakespawner:StopSpawning()
-
-                inst.SoundEmitter:KillSound("sailmove")
-            end
-
+            ConfigureSailState(inst)
+            inst.SoundEmitter:KillSound("sailmove")
             inst.components.locomotor:Stop()
-            if inst:HasTag("aquatic") then
-                if inst.replica.inventory:IsHeavyLifting() then
-                    inst.AnimState:PlayAnimation("heavy_idle")
-                elseif inst:HasTag("surf") then
-                    inst.AnimState:PlayAnimation("surf_pst")
-                elseif inst:HasTag("sail") then
-                    inst.AnimState:PlayAnimation("sail_pst")
-                else
-                    inst.AnimState:PlayAnimation("row_pst")
-                end
+            if inst.sg.statemem.heavy then
+                inst.AnimState:PlayAnimation("heavy_idle")
+            elseif inst.sg.statemem.surf then
+                inst.AnimState:PlayAnimation("surf_pst")
+            elseif inst.sg.statemem.sail then
+                inst.AnimState:PlayAnimation("sail_pst")
+            else
+                inst.AnimState:PlayAnimation("row_pst")
             end
         end,
 
@@ -1196,9 +1038,8 @@ local states = {
                         inst.sg:GoToState("idle") --end
                     end
 
-                    if inst:HasTag("aquatic") then
-                        inst.AnimState:ClearOverrideBuild("player_actions_paddle")
-                    end
+
+                    inst.AnimState:ClearOverrideBuild("player_actions_paddle")
                 end
             )
         }
@@ -1306,407 +1147,6 @@ local states = {
                 --Interrupted before we are "sleeping"
                 SetSleeperAwakeState(inst)
             end
-        end,
-    },
-
-    State { name = "death",
-        tags = { "busy", "dead", "pausepredict", "nomorph" },
-
-        onenter = function(inst)
-            if inst:HasTag("aquatic") then
-                if inst.components.inventory ~= nil then
-                    inst.components.inventory:DropEverything(true)
-                end
-
-                if inst.components.driver then
-                    if inst.components.driver.vehicle then inst.components.driver.vehicle:Remove() end
-                    inst.AnimState:SetSortOrder(0)
-                    inst:RemoveTag("aquatic")
-                    inst:RemoveTag("sail")
-                    inst:RemoveTag("surf")
-                    inst:RemoveComponent("rowboatwakespawner")
-                    inst:RemoveComponent("driver")
-                    if inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO) then
-                        inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO):Remove()
-                    end
-                end
-            end
-
-            --            assert(inst.deathcause ~= nil, "Entered death state without cause.")
-
-            ClearStatusAilments(inst)
-            ForceStopHeavyLifting(inst)
-
-            inst.components.locomotor:Stop()
-            inst.components.locomotor:Clear()
-            inst:ClearBufferedAction()
-
-            if inst.components.rider:IsRiding() then
-                DoMountSound(inst, inst.components.rider:GetMount(), "yell")
-                inst.AnimState:PlayAnimation("fall_off")
-                inst.sg:AddStateTag("dismounting")
-            else
-                if not inst:HasTag("wereplayer") then
-                    inst.SoundEmitter:PlaySound("dontstarve/wilson/death")
-                elseif inst:HasTag("beaver") then
-                    inst.sg.statemem.beaver = true
-                elseif inst:HasTag("weremoose") then
-                    inst.sg.statemem.moose = true
-                else --if inst:HasTag("weregoose") then
-                    inst.sg.statemem.goose = true
-                end
-
-                if inst.deathsoundoverride ~= nil then
-                    inst.SoundEmitter:PlaySound(inst.deathsoundoverride)
-                elseif not inst:HasTag("mime") then
-                    inst.SoundEmitter:PlaySound((inst.talker_path_override or "dontstarve/characters/") ..
-                        (inst.soundsname or inst.prefab) .. "/death_voice")
-                end
-
-                if HUMAN_MEAT_ENABLED then
-                    inst.components.inventory:GiveItem(SpawnPrefab("humanmeat")) -- Drop some player meat!
-                end
-                if inst.components.revivablecorpse ~= nil then
-                    inst.AnimState:PlayAnimation("death2")
-                else
-                    inst.components.inventory:DropEverything(true)
-                    inst.AnimState:PlayAnimation("death")
-                end
-
-                inst.AnimState:Hide("swap_arm_carry")
-            end
-
-            inst.components.burnable:Extinguish()
-
-            if inst.components.playercontroller ~= nil then
-                inst.components.playercontroller:RemotePausePrediction()
-                inst.components.playercontroller:Enable(false)
-            end
-
-            --Don't process other queued events if we died this frame
-            inst.sg:ClearBufferedEvents()
-        end,
-
-        timeline =
-        {
-            TimeEvent(15 * FRAMES, function(inst)
-                if inst.sg.statemem.beaver then
-                    inst.SoundEmitter:PlaySound("dontstarve/movement/bodyfall_dirt")
-                elseif inst.sg.statemem.goose then
-                    inst.SoundEmitter:PlaySound("dontstarve/movement/bodyfall_dirt")
-                    DoGooseRunFX(inst)
-                end
-            end),
-            TimeEvent(20 * FRAMES, function(inst)
-                if inst.sg.statemem.moose then
-                    inst.SoundEmitter:PlaySound("dontstarve/movement/bodyfall_dirt")
-                end
-            end),
-        },
-
-        onexit = function(inst)
-            --You should never leave this state once you enter it!
-            --            if inst.components.revivablecorpse == nil then
-            --                assert(false, "Left death state.")
-            --            end
-        end,
-
-        events =
-        {
-            EventHandler("animover", function(inst)
-                if inst.AnimState:AnimDone() then
-                    if inst.sg:HasStateTag("dismounting") then
-                        inst.sg:RemoveStateTag("dismounting")
-                        inst.components.rider:ActualDismount()
-
-                        inst.SoundEmitter:PlaySound("dontstarve/wilson/death")
-
-                        if not inst:HasTag("mime") then
-                            inst.SoundEmitter:PlaySound((inst.talker_path_override or "dontstarve/characters/") ..
-                                (inst.soundsname or inst.prefab) .. "/death_voice")
-                        end
-
-                        if HUMAN_MEAT_ENABLED then
-                            inst.components.inventory:GiveItem(SpawnPrefab("humanmeat")) -- Drop some player meat!
-                        end
-                        if inst.components.revivablecorpse ~= nil then
-                            inst.AnimState:PlayAnimation("death2")
-                        else
-                            inst.components.inventory:DropEverything(true)
-                            inst.AnimState:PlayAnimation("death")
-                        end
-
-                        inst.AnimState:Hide("swap_arm_carry")
-                    elseif inst.components.revivablecorpse ~= nil then
-                        inst.sg:GoToState("corpse")
-                    else
-                        inst:PushEvent(inst.ghostenabled and "makeplayerghost" or "playerdied",
-                            { skeleton = TheWorld.Map:IsPassableAtPoint(inst.Transform:GetWorldPosition()) }) -- if we are not on valid ground then don't drop a skeleton
-                    end
-                end
-            end),
-        },
-    },
-
-    State { name = "reviver_rebirth",
-        tags = { "busy", "reviver_rebirth", "pausepredict", "silentmorph", "ghostbuild" },
-
-        onenter = function(inst)
-            if inst.components.playercontroller ~= nil then
-                inst.components.playercontroller:Enable(false)
-                inst.components.playercontroller:RemotePausePrediction()
-            end
-            inst.components.locomotor:Stop()
-            inst.components.locomotor:Clear()
-            inst:ClearBufferedAction()
-
-            SpawnPrefab("ghost_transform_overlay_fx").entity:SetParent(inst.entity)
-
-            inst.SoundEmitter:PlaySound("dontstarve/ghost/ghost_get_bloodpump")
-            if inst.CustomSetSkinMode ~= nil then
-                inst:CustomSetSkinMode(inst.overrideghostskinmode or "ghost_skin")
-            else
-                inst.AnimState:SetBank("ghost")
-                inst.components.skinner:SetSkinMode(inst.overrideghostskinmode or "ghost_skin")
-            end
-            inst.AnimState:PlayAnimation("shudder")
-            inst.AnimState:PushAnimation("brace", false)
-            inst.AnimState:PushAnimation("transform", false)
-            inst.components.health:SetInvincible(true)
-            inst:ShowHUD(false)
-            --            inst:SetCameraDistance(14)
-
-            inst:PushEvent("startghostbuildinstate")
-        end,
-
-        timeline =
-        {
-            TimeEvent(88 * FRAMES, function(inst)
-                inst.DynamicShadow:Enable(true)
-                if inst.CustomSetSkinMode ~= nil then
-                    inst:CustomSetSkinMode(inst.overrideskinmode or "normal_skin")
-                else
-                    inst.AnimState:SetBank("wilson")
-                    inst.components.skinner:SetSkinMode(inst.overrideskinmode or "normal_skin")
-                end
-                inst.AnimState:PlayAnimation("transform_end")
-                inst.SoundEmitter:PlaySound("dontstarve/ghost/ghost_use_bloodpump")
-                inst.sg:RemoveStateTag("ghostbuild")
-                inst:PushEvent("stopghostbuildinstate")
-            end),
-            TimeEvent(89 * FRAMES, function(inst)
-                if inst:HasTag("weregoose") then
-                    DoGooseRunFX(inst)
-                end
-            end),
-            TimeEvent(96 * FRAMES, function(inst)
-                inst.components.bloomer:PopBloom("playerghostbloom")
-                inst.AnimState:SetLightOverride(0)
-            end),
-        },
-
-        events =
-        {
-            EventHandler("animqueueover", function(inst)
-                if inst.AnimState:AnimDone() then
-                    inst.sg:GoToState("idle")
-                end
-            end),
-        },
-
-        onexit = function(inst)
-            --In case of interruptions
-            inst.DynamicShadow:Enable(true)
-            if inst.CustomSetSkinMode ~= nil then
-                inst:CustomSetSkinMode(inst.overrideskinmode or "normal_skin")
-            else
-                inst.AnimState:SetBank("wilson")
-                inst.components.skinner:SetSkinMode(inst.overrideskinmode or "normal_skin")
-            end
-            inst.components.bloomer:PopBloom("playerghostbloom")
-            inst.AnimState:SetLightOverride(0)
-            if inst.sg:HasStateTag("ghostbuild") then
-                inst.sg:RemoveStateTag("ghostbuild")
-                inst:PushEvent("stopghostbuildinstate")
-            end
-            --
-            inst.components.health:SetInvincible(false)
-            if inst.components.playercontroller ~= nil then
-                inst.components.playercontroller:Enable(true)
-            end
-
-            inst:ShowHUD(true)
-            --            inst:SetCameraDistance()
-
-            SerializeUserSession(inst)
-        end,
-    },
-
-    State { name = "amulet_rebirth",
-        tags = { "busy", "nopredict", "silentmorph" },
-
-        onenter = function(inst)
-            if inst.components.playercontroller ~= nil then
-                inst.components.playercontroller:Enable(false)
-            end
-            inst.AnimState:PlayAnimation("amulet_rebirth")
-            inst.AnimState:OverrideSymbol("FX", "player_amulet_resurrect", "FX")
-            inst.components.health:SetInvincible(true)
-            inst:ShowHUD(false)
-            --            inst:SetCameraDistance(14)
-
-            local item = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BODY)
-            if item ~= nil and item.prefab == "amulet" then
-                item = inst.components.inventory:RemoveItem(item)
-                if item ~= nil then
-                    item:Remove()
-                    inst.sg.statemem.usedamulet = true
-                end
-            end
-        end,
-
-        timeline =
-        {
-            TimeEvent(0, function(inst)
-                local stafflight = SpawnPrefab("staff_castinglight")
-                stafflight.Transform:SetPosition(inst.Transform:GetWorldPosition())
-                stafflight:SetUp({ 150 / 255, 46 / 255, 46 / 255 }, 1.7, 1)
-                inst.SoundEmitter:PlaySound("dontstarve/common/rebirth_amulet_raise")
-            end),
-            TimeEvent(60 * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound("dontstarve/common/rebirth_amulet_poof")
-            end),
-            TimeEvent(80 * FRAMES, function(inst)
-                local x, y, z = inst.Transform:GetWorldPosition()
-                local ents = TheSim:FindEntities(x, y, z, 10)
-                for k, v in pairs(ents) do
-                    if v ~= inst and v.components.sleeper ~= nil then
-                        v.components.sleeper:GoToSleep(20)
-                    end
-                end
-            end),
-        },
-
-        events =
-        {
-            EventHandler("animover", function(inst)
-                if inst.AnimState:AnimDone() then
-                    inst.sg:GoToState("idle")
-                end
-            end),
-        },
-
-        onexit = function(inst)
-            if inst.sg.statemem.usedamulet and inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BODY) == nil then
-                inst.AnimState:ClearOverrideSymbol("swap_body")
-            end
-            inst:ShowHUD(true)
-            --            inst:SetCameraDistance()
-            if inst.components.playercontroller ~= nil then
-                inst.components.playercontroller:Enable(true)
-            end
-            inst.components.health:SetInvincible(false)
-            inst.AnimState:ClearOverrideSymbol("FX")
-
-            SerializeUserSession(inst)
-        end,
-    },
-
-    State { name = "corpse_rebirth",
-        tags = { "busy", "noattack", "nopredict", "nomorph" },
-
-        onenter = function(inst)
-            if inst.components.playercontroller ~= nil then
-                inst.components.playercontroller:RemotePausePrediction()
-                inst.components.playercontroller:Enable(false)
-            end
-            inst.AnimState:PlayAnimation("death2_idle")
-
-            inst.components.health:SetInvincible(true)
-            inst:ShowActions(false)
-            --            inst:SetCameraDistance(14)
-        end,
-
-        timeline =
-        {
-            TimeEvent(53 * FRAMES, function(inst)
-                inst.components.bloomer:PushBloom("corpse_rebirth", "shaders/anim.ksh", -2)
-                inst.sg.statemem.fadeintime = (86 - 53) * FRAMES
-                inst.sg.statemem.fadetime = 0
-            end),
-            TimeEvent(86 * FRAMES, function(inst)
-                inst.sg.statemem.physicsrestored = true
-                inst.Physics:ClearCollisionMask()
-                inst.Physics:CollidesWith(COLLISION.WORLD)
-                inst.Physics:CollidesWith(COLLISION.OBSTACLES)
-                inst.Physics:CollidesWith(COLLISION.SMALLOBSTACLES)
-                inst.Physics:CollidesWith(COLLISION.CHARACTERS)
-                inst.Physics:CollidesWith(COLLISION.GIANTS)
-
-                inst.AnimState:PlayAnimation("corpse_revive")
-                if inst.sg.statemem.fade ~= nil then
-                    inst.sg.statemem.fadeouttime = 20 * FRAMES
-                    inst.sg.statemem.fadetotal = inst.sg.statemem.fade
-                end
-                inst.sg.statemem.fadeintime = nil
-            end),
-            TimeEvent((86 + 20) * FRAMES, function(inst)
-                inst.components.bloomer:PopBloom("corpse_rebirth")
-            end),
-        },
-
-        onupdate = function(inst, dt)
-            if inst.sg.statemem.fadeouttime ~= nil then
-                inst.sg.statemem.fade = math.max(0,
-                    inst.sg.statemem.fade - inst.sg.statemem.fadetotal * dt / inst.sg.statemem.fadeouttime)
-                if inst.sg.statemem.fade > 0 then
-                    inst.components.colouradder:PushColour("corpse_rebirth", inst.sg.statemem.fade, inst.sg.statemem
-                        .fade, inst.sg.statemem.fade, 0)
-                else
-                    inst.components.colouradder:PopColour("corpse_rebirth")
-                    inst.sg.statemem.fadeouttime = nil
-                end
-            elseif inst.sg.statemem.fadeintime ~= nil then
-                local k = 1 - inst.sg.statemem.fadetime / inst.sg.statemem.fadeintime
-                inst.sg.statemem.fade = .8 * (1 - k * k)
-                inst.components.colouradder:PushColour("corpse_rebirth", inst.sg.statemem.fade, inst.sg.statemem
-                    .fade,
-                    inst.sg.statemem.fade, 0)
-                inst.sg.statemem.fadetime = inst.sg.statemem.fadetime + dt
-            end
-        end,
-
-        events =
-        {
-            EventHandler("animover", function(inst)
-                if inst.AnimState:AnimDone() and inst.AnimState:IsCurrentAnimation("corpse_revive") then
-                    inst.components.talker:Say(GetString(inst, "ANNOUNCE_REVIVED_FROM_CORPSE"))
-                    inst.sg:GoToState("idle")
-                end
-            end),
-        },
-
-        onexit = function(inst)
-            inst:ShowActions(true)
-            --inst:SetCameraDistance()
-            if inst.components.playercontroller ~= nil then
-                inst.components.playercontroller:Enable(true)
-            end
-            inst.components.health:SetInvincible(false)
-
-            inst.components.bloomer:PopBloom("corpse_rebirth")
-            inst.components.colouradder:PopColour("corpse_rebirth")
-
-            if not inst.sg.statemem.physicsrestored then
-                inst.Physics:ClearCollisionMask()
-                inst.Physics:CollidesWith(COLLISION.WORLD)
-                inst.Physics:CollidesWith(COLLISION.OBSTACLES)
-                inst.Physics:CollidesWith(COLLISION.SMALLOBSTACLES)
-                inst.Physics:CollidesWith(COLLISION.CHARACTERS)
-                inst.Physics:CollidesWith(COLLISION.GIANTS)
-            end
-
-            SerializeUserSession(inst)
         end,
     },
 

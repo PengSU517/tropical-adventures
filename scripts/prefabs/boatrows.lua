@@ -1,8 +1,6 @@
 require "prefabutil"
 
---The test to see if a boat can be built in a certain position is defined in the builder component Builder:CanBuildAtPoint
-local assets =
-{
+local assets = {
 	Asset("ANIM", "anim/boat_hud_encrusted.zip"),
 	Asset("ANIM", "anim/boat_hud_cargo.zip"),
 	Asset("ANIM", "anim/boat_hud_row.zip"),
@@ -26,18 +24,15 @@ local assets =
 }
 
 local function OnSave(inst, data)
-	if inst:HasTag("ocupado") then data.apaga = 1 end
+
 end
 
 local function OnLoad(inst, data)
-	if data and data.apaga then inst:Remove() end
-
 	inst:DoTaskInTime(0, function(inst)
 		local owner = inst.components.inventoryitem.owner
 		if owner ~= nil then
 			owner.components.inventory:DropItem(inst)
-			owner:AddComponent("driver")
-			owner.components.driver:OnMount(inst)
+			owner.components.driver:BoatJump(owner, inst)
 		end
 	end)
 end
@@ -46,319 +41,228 @@ local function OnHammered(inst)
 	if inst:HasTag("fire") and inst.components.burnable then
 		inst.components.burnable:Extinguish()
 	end
-    SpawnAt("collapse_small", inst)
-    for _, v in ipairs(inst.loottable or {}) do
-        SpawnAt(v, inst)
-    end
+	SpawnAt("collapse_small", inst)
+	for _, v in ipairs(inst.loottable or {}) do
+		SpawnAt(v, inst)
+	end
 	inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
-    inst.components.container:DropEverything()
+	inst.components.container:DropEverything()
 	inst:Remove()
 end
 
-local function OnEquipped(inst, data)
+local function OnItemGet(inst, data)
+	local owner = inst.components.inventoryitem.owner
 	local sailslot = inst.components.container:GetItemInSlot(1)
-	if sailslot ~= nil then
-        local target = inst.components.inventoryitem and inst.components.inventoryitem.owner and
-              inst.components.inventoryitem.owner.components.driver.vehicle or inst
-        target.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build, sailslot.symbol)
-    end
 	local luzslot = inst.components.container:GetItemInSlot(2)
-	if luzslot ~= nil then inst.AnimState:OverrideSymbol(luzslot.symboltooverride, luzslot.build, luzslot.symbol) end
+
+	local model = inst
+	if owner and owner.boat_proxy then
+		model = owner.boat_proxy
+	end
+
+	model.AnimState:ClearOverrideSymbol("swap_sail")
+	model.AnimState:ClearOverrideSymbol("swap_propeller")
+	model.AnimState:ClearOverrideSymbol("swap_lantern")
+
+	if sailslot then
+		model.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build,
+			sailslot.symbol)
+	end
+
+	if sailslot and sailslot:HasTag("sail") then
+		inst:AddTag("sail")
+		if owner then
+			owner:AddTag("sail")
+		end
+	else
+		inst:RemoveTag("sail")
+		if owner then
+			owner:RemoveTag("sail")
+		end
+	end
+
+	if luzslot then
+		model.AnimState:OverrideSymbol(luzslot.symboltooverride, luzslot.AnimState:GetBuild() or luzslot.build,
+			luzslot.symbol)
+	end
+
 	if luzslot and luzslot:HasTag("boatlight") then luzslot:AddTag("nonavio") end
 	if luzslot then luzslot.navio = inst end
 	if sailslot then sailslot.navio = inst end
 end
 
-local function OnCollapsed(inst)
-    local collapse = SpawnAt(inst.collapse, inst)
-    SpawnAt("collapse_small", inst)
-    if not inst.components.container or inst.components.container:IsEmpty() then
-        inst:Remove()
-        return
-    end
-    collapse:SetChest(inst)
+local function onequip(inst, owner)
+	-- inst:AddTag("boat_occupied")
+	inst.components.container:Close(owner)
+	local proxy = SpawnAt(inst.prefab .. "_proxy" or "rowboat_proxy", owner)
+	if proxy then
+		proxy.entity:SetParent(owner.entity)
+		owner.boat_proxy = proxy
+		proxy.Transform:SetPosition(0, -0.1, 0)
+		proxy.components.container_proxy:SetMaster(inst)
+		proxy.components.container_proxy:Open(owner)
+		proxy.Transform:SetRotation(inst.Transform:GetRotation())
+		OnItemGet(inst)
+	end
 end
 
-local function common()
-	local inst = CreateEntity()
-	inst.entity:AddTransform()
-	inst.Transform:SetFourFaced()
-	inst.entity:AddAnimState()
-	inst.entity:AddSoundEmitter()
-	inst.banc = "rowboat"
-	inst.entity:AddNetwork()
-	--	inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
-	--	inst.AnimState:SetSortOrder(0)
+local function onunequip(inst, owner)
+	local proxy = owner.boat_proxy
+	if proxy then
+		inst.Transform:SetRotation(proxy.Transform:GetRotation())
+		proxy.entity:SetParent(nil)
+		owner.boat_proxy = nil
+		proxy:Remove()
+	end
+	OnItemGet(inst)
+end
 
-	MakeWaterObstaclePhysics(inst, 0.5, 2, 1.25)
+local function OnCollapsed(inst)
+	local collapse = SpawnAt(inst.collapse, inst)
+	SpawnAt("collapse_small", inst)
+	if not inst.components.container or inst.components.container:IsEmpty() then
+		inst:Remove()
+		return
+	end
+	collapse:SetChest(inst)
+end
 
 
-	inst.AnimState:SetBank("rowboat")
-	inst.AnimState:PlayAnimation("run_loop", true)
 
-	inst.entity:AddMiniMapEntity()
 
-	inst:AddTag("boatsw")
-	inst:AddTag("barcoapto")
-	inst:AddTag("aquatic")
-	inst:AddTag("ignorewalkableplatforms")
-    inst:AddTag("outofreach")
 
-	inst.entity:AddPhysics()
-	inst.Physics:SetCylinder(0.25, 2)
+local function makeBoatFn(config)
+	return function()
+		local inst = CreateEntity()
+		inst.entity:AddTransform()
+		inst.Transform:SetFourFaced()
+		inst.entity:AddAnimState()
+		inst.entity:AddSoundEmitter()
+		inst.entity:AddNetwork()
 
-	inst.entity:SetPristine()
+		inst.AnimState:SetBank(config.bank or "rowboat")
+		inst.banc = config.bank or "rowboat"
+		inst.AnimState:SetBuild(config.build)
+		inst.AnimState:PlayAnimation("run_loop", true)
+		inst.overridebuild = config.build
 
-	if not TheWorld.ismastersim then
+		inst.entity:AddMiniMapEntity()
+		inst.MiniMapEntity:SetIcon(config.icon)
+
+		MakeWaterObstaclePhysics(inst, 0.5, 2, 1.25)
+
+		inst:AddTag("boatsw")
+		inst:AddTag("barcoapto")
+		inst:AddTag("aquatic")
+		inst:AddTag("ignorewalkableplatforms")
+		inst:AddTag("outofreach")
+
+		inst.entity:SetPristine()
+
+		if not TheWorld.ismastersim then return inst end
+
+
+		inst:AddComponent("interactions")
+
+
+		-- Set uses and armor
+		inst:AddComponent("finiteuses")
+		inst:AddComponent("armor")
+		inst.components.armor:SetKeepOnFinished(true)
+		inst.components.finiteuses:SetOnFinished(function(inst) end)
+		inst.components.finiteuses:SetMaxUses(config.maxuses)
+		inst.components.finiteuses:SetUses(config.maxuses)
+		inst.components.armor:InitCondition(config.maxuses, 0.99)
+
+		inst:AddComponent("workable")
+		inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
+		inst.components.workable:SetWorkLeft(3)
+		inst.components.workable:SetOnFinishCallback(OnHammered)
+
+
+		inst:AddComponent("inventoryitem")
+		inst.components.inventoryitem.cangoincontainer = false
+		inst.components.inventoryitem.canbepickedup = false
+		inst:AddComponent("equippable")
+		inst.components.equippable.equipslot = EQUIPSLOTS.BARCO
+		inst.components.equippable:SetOnEquip(onequip)
+		inst.components.equippable:SetOnUnequip(onunequip)
+
+		-- Set container widget
+		inst:AddComponent("container")
+		inst.components.container:WidgetSetup(config.name or "rowboat")
+
+		inst:ListenForEvent("itemget", OnItemGet)
+		inst:ListenForEvent("itemlose", OnItemGet)
+
+
+		inst.OnCollapse = OnCollapsed
+		inst.OnHammer = OnHammered
+		inst.OnLoad = OnLoad
+		inst.OnSave = OnSave
+
+		-- Optional: remove on finished
+		if config.onfinished then
+			inst.components.finiteuses:SetOnFinished(inst.Remove)
+		end
+
+		-- Collapse settings
+		inst.collapse = config.collapse
+		inst.loottable = config.loottable
+		inst.useamount = config.useamount
+
+		-- Add custom tags
+		if config.tags then
+			for _, tag in ipairs(config.tags) do
+				inst:AddTag(tag)
+			end
+		end
+
 		return inst
 	end
-
-	inst:AddComponent("container")
-	inst:AddComponent("interactions")
-	inst:AddComponent("edible")
-	inst.components.edible.foodtype = FOODTYPE.ELEMENTAL
-	inst.components.edible.hungervalue = 2
-	inst:AddComponent("tradable")
-	inst:AddComponent("inspectable")
-
-	inst:AddComponent("equippable")
-	inst.components.equippable.equipslot = EQUIPSLOTS.BARCO
-
-	inst:AddComponent("finiteuses")
-	--	inst.components.finiteuses:SetConsumption(ACTIONS.HACK, 1)
- 
-	inst:AddComponent("armor")
-    inst.components.armor:SetKeepOnFinished(true)
-
-	inst:AddComponent("workable")
-	inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
-	inst.components.workable:SetWorkLeft(2)
-	inst.components.workable:SetOnFinishCallback(OnHammered)
-
-	inst:AddComponent("inventoryitem")
-	inst.components.inventoryitem.cangoincontainer = false
-	inst.components.inventoryitem.canbepickedup = false
-
-	inst:ListenForEvent("itemget", OnEquipped)
-
-    inst.OnHammer = OnHammered
-    inst.OnCollapse = OnCollapsed
-	inst.OnLoad = OnLoad
-	inst.OnSave = OnSave
-
-	return inst
 end
 
-local function armored()
-    local inst = common()
+local function makeFakeBoatFn(config)
+	return function()
+		local inst = CreateEntity()
+		inst.entity:AddTransform()
+		inst.Transform:SetFourFaced()
+		inst.entity:AddAnimState()
+		inst.entity:AddSoundEmitter()
+		inst.entity:AddNetwork()
 
-	inst.AnimState:SetBuild("rowboat_armored_build")
-	inst.overridebuild = "rowboat_armored_build"
-    inst.MiniMapEntity:SetIcon("armouredboat.tex")
+		inst.AnimState:SetBank(config.bank or "rowboat")
+		inst.banc = config.bank or "rowboat"
+		inst.AnimState:SetBuild(config.build)
+		inst.AnimState:PlayAnimation("run_loop", true)
+		inst.overridebuild = config.build
+		-- inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
+		inst.AnimState:SetSortOrder(0)
 
-    if not TheWorld.ismastersim then
-        return inst
-    end
-    
-	inst.components.container:WidgetSetup("armouredboat")
-	inst.components.finiteuses:SetMaxUses(500)
-	inst.components.finiteuses:SetUses(500)
-	inst.components.armor:InitCondition(500, 0.99)
+		inst:SetPrefabNameOverride(config.name)
 
-    inst.collapse = "flotsam_armoured_build"
-    inst.loottable = { "boards", "boards", "boards", "rope", "seashell",
-                       "seashell", "seashell", "seashell", "seashell", }
-    return inst
+		-- inst:AddTag("NOCLICK")
+		inst:AddTag("boat_proxy")
+
+		inst.entity:SetPristine()
+
+		if not TheWorld.ismastersim then return inst end
+
+		-- Set container widget
+		inst:AddComponent("interactions")
+		inst:AddComponent("inspectable")
+		inst:AddComponent("container_proxy")
+		inst.components.container_proxy:SetCanBeOpened(false)
+
+		return inst
+	end
 end
 
-local function cargo()
-    local inst = common()
+local prefabs = {}
 
-	inst.AnimState:SetBuild("rowboat_cargo_build")
-	inst.overridebuild = "rowboat_cargo_build"
-    inst.MiniMapEntity:SetIcon("cargo.tex")
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-    
-	inst.components.container:WidgetSetup("cargoboat")
-	inst.components.finiteuses:SetMaxUses(300)
-	inst.components.finiteuses:SetUses(300)
-	inst.components.armor:InitCondition(300, 0.99)
-
-    inst.collapse = "flotsam_cargo_build"
-    inst.loottable = { "boards", "boards", "boards", "rope", }
-    return inst
+for _, boat in pairs(require("datadefs/boat_defs")) do
+	table.insert(prefabs, Prefab(boat.name, makeBoatFn(boat), assets))
+	table.insert(prefabs, Prefab(boat.name .. "_proxy", makeFakeBoatFn(boat), assets))
 end
 
-local function cork()
-    local inst = common()
-
-	inst.AnimState:SetBuild("coracle_boat_build")
-	inst.overridebuild = "coracle_boat_build"
-    inst.MiniMapEntity:SetIcon("coracle_boat.tex")
-
-    inst:AddTag("pegabarco")
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-    
-	inst.components.container:WidgetSetup("rowboat")
-	inst.components.finiteuses:SetMaxUses(80)
-	inst.components.finiteuses:SetUses(80)
-	inst.components.armor:InitCondition(80, 0.99)
-
-    inst.collapse = "flotsam_lograft_build"
-    inst.loottable = { "cork" }
-    return inst
-end
-
-local function encrusted()
-    local inst = common()
-
-	inst.AnimState:SetBuild("rowboat_encrusted_build")
-	inst.overridebuild = "rowboat_encrusted_build"
-    inst.MiniMapEntity:SetIcon("encrustedboat.tex")
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-    
-	inst.components.container:WidgetSetup("encrustedboat")
-	inst.components.finiteuses:SetMaxUses(800)
-	inst.components.finiteuses:SetUses(800)
-	inst.components.armor:InitCondition(800, 0.99)
-
-    inst.collapse = "flotsam_encrusted_build"
-    inst.loottable = { "limestone", "limestone", "boards", "boards", "boards", }
-    return inst
-end
-
-local function log_old()
-    local inst = common()
-
-	inst.AnimState:SetBank("raft")
-	inst.AnimState:SetBuild("raft_log_build")
-	inst.overridebuild = "raft_log_build"
-	inst.banc = "raft"
-    inst.MiniMapEntity:SetIcon("lograft.tex")
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-    
-	inst.components.container:WidgetSetup("lograft_old")
-	inst.components.finiteuses:SetMaxUses(150)
-	inst.components.finiteuses:SetUses(150)
-	inst.components.finiteuses:SetOnFinished(inst.Remove)
-	inst.components.armor:InitCondition(150, 0.99)
-
-    inst.collapse = "flotsam_lograft_build"
-    inst.loottable = { "log", "log", "log", "cutgrass", "cutgrass", }
-    return inst
-end
-
-local function pirate()
-    local inst = common()
-
-	inst.AnimState:SetBuild("pirate_boat_build")
-	inst.overridebuild = "pirate_boat_build"
-    inst.MiniMapEntity:SetIcon("woodlegsboat.tex")
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-    
-	inst.components.container:WidgetSetup("woodlegsboat")
-	inst.components.finiteuses:SetMaxUses(500)
-	inst.components.finiteuses:SetUses(500)
-	inst.components.armor:InitCondition(500, 0.99)
-
-    inst.collapse = "flotsam_rowboat_build"
-    inst.loottable = { "boards", "boards", "dubloon", "dubloon" }
-    return inst
-end
-
-local function raft_old()
-    local inst = common()
-
-	inst.AnimState:SetBank("raft")
-	inst.AnimState:SetBuild("raft_build")
-	inst.overridebuild = "raft_build"
-	inst.banc = "raft"
-    inst.MiniMapEntity:SetIcon("raft.tex")
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-    
-	inst.components.container:WidgetSetup("raft_old")
-	inst.components.finiteuses:SetMaxUses(150)
-	inst.components.finiteuses:SetUses(150)
-	inst.components.finiteuses:SetOnFinished(inst.Remove)
-	inst.components.armor:InitCondition(150, 0.99)
-
-    inst.collapse = "flotsam_bamboo_build"
-    inst.loottable = { "vine", "bamboo", "bamboo", }
-    return inst
-end
-
-local function rowboat()
-    local inst = common()
-
-	inst.AnimState:SetBuild("rowboat_build")
-	inst.overridebuild = "rowboat_build"
-    inst.MiniMapEntity:SetIcon("rowboat.tex")
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-    
-	inst.components.container:WidgetSetup("rowboat")
-	inst.components.finiteuses:SetMaxUses(250)
-	inst.components.finiteuses:SetUses(250)
-	inst.components.armor:InitCondition(250, 0.99)
-
-    inst.collapse = "flotsam_rowboat_build"
-    inst.loottable = { "boards", "vine", "vine" }
-    return inst
-end
-
-local function surf()
-    local inst = common()
-
-	inst.AnimState:SetBank("raft")
-	inst.AnimState:SetBuild("raft_surfboard_build")
-	inst.overridebuild = "raft_surfboard_build"
-	inst.banc = "raft"
-    inst.MiniMapEntity:SetIcon("surfboard.tex")
-
-    inst:AddTag("pegabarco")
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-    
-	inst.components.container:WidgetSetup("surfboard")
-	inst.components.finiteuses:SetMaxUses(100)
-	inst.components.finiteuses:SetUses(100)
-	inst.components.finiteuses:SetOnFinished(inst.Remove)
-	inst.components.armor:InitCondition(100, 0.99)
-
-    inst.collapse = "flotsam_surfboard_build"
-    inst.loottable = { "seashell" }
-    return inst
-end
-
-return Prefab("armouredboat", armored, assets),
-       Prefab("cargoboat", cargo, assets),
-       Prefab("corkboat", cork, assets),
-       Prefab("encrustedboat", encrusted, assets),
-       Prefab("lograft_old", log_old, assets),
-       Prefab("woodlegsboat", pirate, assets),
-       Prefab("raft_old", raft_old, assets),
-       Prefab("rowboat", rowboat, assets),
-       Prefab("surfboard", surf, assets)
-       
+return unpack(prefabs)

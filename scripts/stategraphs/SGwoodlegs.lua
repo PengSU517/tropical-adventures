@@ -44,7 +44,7 @@ end
 
 local states =
 {
-    State{
+    State {
         name = "funnyidle",
         tags = { "idle" },
 
@@ -76,13 +76,18 @@ local states =
         },
     },
 
-    State{
+    State {
         name = "run_start",
-        tags = {"moving", "running", "canrotate", "sailing"},
-        
+        tags = { "moving", "running", "canrotate", "sailing" },
+
         onenter = function(inst)
-			inst.components.locomotor:RunForward()
-if inst:HasTag("aquatic") then inst.AnimState:PlayAnimation("sail_pre") else inst.AnimState:PlayAnimation("run_pre") end
+            inst.components.locomotor:RunForward()
+            if inst:HasTag("aquatic") then
+                inst.AnimState:PlayAnimation("sail_pre")
+            else
+                inst.AnimState:PlayAnimation(
+                    "run_pre")
+            end
             inst.sg.mem.foosteps = 0
         end,
 
@@ -90,182 +95,195 @@ if inst:HasTag("aquatic") then inst.AnimState:PlayAnimation("sail_pre") else ins
             inst.components.locomotor:RunForward()
         end,
 
-        events=
-        {   
-            EventHandler("animover", function(inst) inst.sg:GoToState("run") end ),        
+        events =
+        {
+            EventHandler("animover", function(inst) inst.sg:GoToState("run") end),
         },
-        
-        timeline=
-        {        
-            TimeEvent(4*FRAMES, function(inst)
+
+        timeline =
+        {
+            TimeEvent(4 * FRAMES, function(inst)
                 inst.SoundEmitter:PlaySound("dontstarve/maxwell/shadowmax_step")
             end),
-        },        
-        
+        },
+
     },
 
-    State{
+    State {
         name = "run",
-        tags = {"moving", "running", "canrotate", "sailing"},
-        
-        onenter = function(inst) 
+        tags = { "moving", "running", "canrotate", "sailing" },
+
+        onenter = function(inst)
             inst.components.locomotor:RunForward()
-if inst:HasTag("aquatic") then inst.AnimState:PlayAnimation("sail_loop") else inst.AnimState:PlayAnimation("run_loop") end
-            
+            if inst:HasTag("aquatic") then
+                inst.AnimState:PlayAnimation("sail_loop")
+            else
+                inst.AnimState:PlayAnimation(
+                    "run_loop")
+            end
         end,
-        
+
         onupdate = function(inst)
             inst.components.locomotor:RunForward()
         end,
 
-        timeline=
+        timeline =
         {
-            TimeEvent(7*FRAMES, function(inst)
-				inst.sg.mem.foosteps = inst.sg.mem.foosteps + 1
+            TimeEvent(7 * FRAMES, function(inst)
+                inst.sg.mem.foosteps = inst.sg.mem.foosteps + 1
                 inst.SoundEmitter:PlaySound("dontstarve/maxwell/shadowmax_step")
             end),
-            TimeEvent(15*FRAMES, function(inst)
-				inst.sg.mem.foosteps = inst.sg.mem.foosteps + 1
+            TimeEvent(15 * FRAMES, function(inst)
+                inst.sg.mem.foosteps = inst.sg.mem.foosteps + 1
                 inst.SoundEmitter:PlaySound("dontstarve/maxwell/shadowmax_step")
             end),
         },
-        
-        events=
-        {   
-            EventHandler("animover", function(inst) inst.sg:GoToState("run") end ),        
+
+        events =
+        {
+            EventHandler("animover", function(inst) inst.sg:GoToState("run") end),
         },
     },
-    
-    State{
-    
+
+    State {
+
         name = "run_stop",
-        tags = {"canrotate", "idle", "sailing"},
-        
-        onenter = function(inst) 
-            inst.Physics:Stop()
-if inst:HasTag("aquatic") then inst.AnimState:PlayAnimation("sail_pst") else inst.AnimState:PlayAnimation("run_pst") end
-        end,
-        
-        events=
-        {   
-            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),        
-        },
-        
-    },	
-	
+        tags = { "canrotate", "idle", "sailing" },
 
-
-
-
-    State{
-        name = "walk_start",
-        tags = {"moving", "canrotate", "sailing"},
-        
         onenter = function(inst)
-            inst.components.locomotor:WalkForward()
-            if inst:HasTag("aquatic") then inst.AnimState:PlayAnimation("sail_pre") else inst.AnimState:PlayAnimation("run_pre") end
+            inst.Physics:Stop()
+            if inst:HasTag("aquatic") then
+                inst.AnimState:PlayAnimation("sail_pst")
+            else
+                inst.AnimState:PlayAnimation(
+                    "run_pst")
+            end
         end,
 
-		timeline =	nil,
-		
-        events=
-        {   
-            EventHandler("animover", function(inst)     if inst.AnimState:AnimDone() then inst.sg:GoToState("walk") end end ),        
-        },	   
-        
+        events =
+        {
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
+        },
+
     },
 
-	
-    State{
-        name = "walk",
-        tags = {"moving", "canrotate", "sailing"},
-		
+
+
+
+
+    State {
+        name = "walk_start",
+        tags = { "moving", "canrotate", "sailing" },
+
         onenter = function(inst)
             inst.components.locomotor:WalkForward()
-			if inst:HasTag("aquatic") then inst.AnimState:PlayAnimation("sail_loop") else inst.AnimState:PlayAnimation("run_loop") end
+            if inst:HasTag("aquatic") then
+                inst.AnimState:PlayAnimation("sail_pre")
+            else
+                inst.AnimState:PlayAnimation(
+                    "run_pre")
+            end
+        end,
+
+        timeline = nil,
+
+        events =
+        {
+            EventHandler("animover", function(inst) if inst.AnimState:AnimDone() then inst.sg:GoToState("walk") end end),
+        },
+
+    },
+
+
+    State {
+        name = "walk",
+        tags = { "moving", "canrotate", "sailing" },
+
+        onenter = function(inst)
+            inst.components.locomotor:WalkForward()
+            if inst:HasTag("aquatic") then
+                inst.AnimState:PlayAnimation("sail_loop")
+            else
+                inst.AnimState:PlayAnimation(
+                    "run_loop")
+            end
             inst.sg:SetTimeout(inst.AnimState:GetCurrentAnimationLength())
         end,
 
         timeline = nil,
 
-        events=
-        {   
-            EventHandler("animover", function(inst)     if inst.AnimState:AnimDone() then inst.sg:GoToState("walk") end end ),        
-        },		
-		
-    },
-		
-    
-    State{
-    
-        name = "walk_stop",
-        tags = {"canrotate" , "sailing"},
-        
-        onenter = function(inst) 
-            inst.Physics:Stop()
-if inst:HasTag("aquatic") then inst.AnimState:PlayAnimation("sail_pst") else inst.AnimState:PlayAnimation("run_pst") end
-        end,
-        
-        events=
-        {   
-            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),        
+        events =
+        {
+            EventHandler("animover", function(inst) if inst.AnimState:AnimDone() then inst.sg:GoToState("walk") end end),
         },
-        
-    },	
+
+    },
+
+
+    State {
+
+        name = "walk_stop",
+        tags = { "canrotate", "sailing" },
+
+        onenter = function(inst)
+            inst.Physics:Stop()
+            if inst:HasTag("aquatic") then
+                inst.AnimState:PlayAnimation("sail_pst")
+            else
+                inst.AnimState:PlayAnimation(
+                    "run_pst")
+            end
+        end,
+
+        events =
+        {
+            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
+        },
+
+    },
 
 
 
-	
-    State{
+
+    State {
         name = "death",
-        tags = {"busy"},
-        
+        tags = { "busy" },
+
         onenter = function(inst)
             inst.Physics:Stop()
             inst.AnimState:Hide("swap_arm_carry")
             inst.AnimState:PlayAnimation("death")
-			
-			
-			
-if inst:HasTag("aquatic") then
-if inst.components.driver2 then
-local barcoinv = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-if barcoinv then 
-barcoinv:Remove()
-end
-inst.components.driver2.vehicle:Remove()
-inst:RemoveComponent("rowboatwakespawner")
-inst:RemoveComponent("driver2")
---inst.AnimState:SetLayer(LAYER_WORLD)
---inst.AnimState:SetSortOrder(0)
---inst:RemoveTag("aquatic")
- end end				
-			
-			
-			
-			
-			
+
+
+
+            if inst:HasTag("aquatic") then
+                if inst.components.driver then
+                    local barcoinv = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+                    if barcoinv then
+                        barcoinv:Remove()
+                    end
+                    inst:RemoveComponent("rowboatwakespawner")
+                    inst.components.driver:StopUpdating()
+                end
+            end
         end,
 
         events =
         {
             EventHandler("animover", function(inst)
-			
-								
-			
-                inst:DoTaskInTime(1, function() 
+                inst:DoTaskInTime(1, function()
                     SpawnPrefab("statue_transition").Transform:SetPosition(inst:GetPosition():Get())
                     SpawnPrefab("statue_transition_2").Transform:SetPosition(inst:GetPosition():Get())
-					SpawnPrefab("woodlegsghost").Transform:SetPosition(inst:GetPosition():Get())
-					SpawnPrefab("skeleton").Transform:SetPosition(inst:GetPosition():Get())
+                    SpawnPrefab("woodlegsghost").Transform:SetPosition(inst:GetPosition():Get())
+                    SpawnPrefab("skeleton").Transform:SetPosition(inst:GetPosition():Get())
                     inst.SoundEmitter:PlaySound("dontstarve/maxwell/shadowmax_despawn")
                     inst:Remove()
                 end)
-            end ),
+            end),
         },
-    },  
+    },
 
-    State{
+    State {
         name = "abandon",
         tags = { "busy" },
 
@@ -285,7 +303,7 @@ inst:RemoveComponent("driver2")
             end),
         },
     },
---[[
+    --[[
     State{
         name = "transformNormal",
         tags = { "transform", "busy", "sleeping" },
@@ -321,7 +339,7 @@ inst:RemoveComponent("driver2")
         end,
     },
 ]]
-    State{
+    State {
         name = "attack",
         tags = { "attack", "busy" },
 
@@ -350,7 +368,7 @@ inst:RemoveComponent("driver2")
         },
     },
 
-    State{
+    State {
         name = "chop",
         tags = { "chopping" },
 
@@ -374,7 +392,7 @@ inst:RemoveComponent("driver2")
         },
     },
 
-    State{
+    State {
         name = "eat",
         tags = { "busy" },
 
@@ -398,7 +416,7 @@ inst:RemoveComponent("driver2")
         },
     },
 
-    State{
+    State {
         name = "hit",
         tags = { "busy" },
 
@@ -416,7 +434,7 @@ inst:RemoveComponent("driver2")
         },
     },
 
-    State{
+    State {
         name = "dropitem",
         tags = { "busy" },
 
@@ -462,18 +480,18 @@ CommonStates.AddRunStates(states,
 ]]
 
 CommonStates.AddSleepStates(states,
-{
-    sleeptimeline =
     {
-        TimeEvent(35 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/pig/sleep") end),
-    },
-})
+        sleeptimeline =
+        {
+            TimeEvent(35 * FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve/pig/sleep") end),
+        },
+    })
 
-CommonStates.AddIdle(states,"funnyidle")
+CommonStates.AddIdle(states, "funnyidle")
 CommonStates.AddSimpleState(states, "refuse", "pig_reject", { "busy" })
 CommonStates.AddFrozenStates(states)
 CommonStates.AddSimpleActionState(states, "pickup", "pig_pickup", 10 * FRAMES, { "busy" })
 CommonStates.AddSimpleActionState(states, "gohome", "pig_pickup", 4 * FRAMES, { "busy" })
-CommonStates.AddHopStates(states, true, { pre = "run_pre", loop = "run_loop", pst = "run_pst"})
+CommonStates.AddHopStates(states, true, { pre = "run_pre", loop = "run_loop", pst = "run_pst" })
 
 return StateGraph("SGwoodlegs", states, events, "idle", actionhandlers)
