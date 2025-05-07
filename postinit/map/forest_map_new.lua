@@ -35,7 +35,7 @@ forest_map.Generate = function(prefab, map_width, map_height, tasks, level, leve
     -----------------------------------------------------------------------------------------------------------------
     if save.ents then
         for i, v in pairs(require("datadefs/translated_prefabs").translated_prefabs) do
-            tableutil.insert_indexes(save.ents[v], save.ents[i])
+            tableutil.insert_components(save.ents[v], save.ents[i])
             save.ents[i] = nil
         end
     end
