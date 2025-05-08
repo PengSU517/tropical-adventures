@@ -173,7 +173,9 @@ local function chop_down_tree(inst, chopper)
         inst.components.lootdropper:DropLoot(pt + TheCamera:GetRightVec())
     end
 
+    -- if inst.components.inventory then
     inst.components.inventory:DropEverything(false, false)
+    -- end
 
     if inst.components.childspawner then
         inst.components.childspawner:ReleaseAllChildren()
@@ -447,6 +449,8 @@ local function tree(name, stage, type)
         if not TheWorld.ismastersim then
             return inst
         end
+
+        inst:AddComponent("inventory")
 
         MakeLargeBurnable(inst)
         inst.components.burnable:SetFXLevel(5)
