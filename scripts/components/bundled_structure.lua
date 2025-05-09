@@ -1,15 +1,21 @@
 local function onname(self, name)
 	self.inst._name:set(tostring(name))
 end
+local function oncave(self, cave)
+    if cave == nil then return end
+    self.inst._cave:set(cave)
+end
 local Bundled_Structure = Class(function(self, inst)
 		self.inst = inst
 		self.canpackfn = nil
 		self.package = nil
 		self.name = nil
+        self.cave = nil
 	end,
 	nil,
 	{
 		name = onname,
+        cave = oncave,
 	})
 
 function Bundled_Structure:HasPackage()
@@ -33,6 +39,7 @@ local function get_name(target)
 end
 
 function Bundled_Structure:Pack(target)
+    self.cave = TheWorld:HasTag("cave") == true
 	self.package = {
 		prefab1 = target:GetSaveRecord(),
 	}
@@ -74,7 +81,7 @@ end
 
 function Bundled_Structure:OnSave()
 	if self.package then
-		return { package = self.package, name = self.name }
+		return { package = self.package, name = self.name, cave = self.cave }
 	end
 end
 
@@ -86,6 +93,9 @@ function Bundled_Structure:OnLoad(data)
 		if data.name then
 			self.name = data.name
 		end
+        if data.cave then
+            self.cave = data.cave
+        end
 	end
 end
 
