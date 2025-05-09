@@ -315,20 +315,24 @@ local function OnGetItemFromPlayer(inst, giver, item)
     -- end
 end
 
-local function onhammered(inst, worker)
-    local targetpos = inst:GetPosition()
-    local package = SpawnPrefab("bundled_structure")
+local function OnHammered(inst, worker)
+    local package = SpawnAt("bundled_structure", inst)
     if package and package.components.bundled_structure then
-        if inst.components.teleporter ~= nil and inst.components.teleporter:IsBusy() then
-            return false
-        end
         package.components.bundled_structure:Pack(inst)
-        package.Transform:SetPosition(targetpos:Get())
-        SpawnPrefab("collapse_small").Transform:SetPosition(inst.Transform:GetWorldPosition())
+        SpawnAt("collapse_small", inst)
         if worker and worker.SoundEmitter then
             worker.SoundEmitter:PlaySound("dontstarve/common/destroy_stone")
-            ---------为啥这里是人播放音效啊，不该是锤烂的房子吗
         end
+    else
+        inst.components.workable:SetWorkLeft(1)
+    end
+end
+
+local function PreHammered(inst, worker)
+    if not (inst.components.teleporter ~= nil and inst.components.teleporter:IsBusy()) then
+        OnHammered(inst, worker)
+    else
+        inst:ListenForEvent("doneteleporting", OnHammered)
     end
 end
 
@@ -447,7 +451,7 @@ local function makehousefn(name, build, bank, data)
         inst:AddComponent("workable")
         inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
         inst.components.workable:SetWorkLeft(4)
-        inst.components.workable:SetOnFinishCallback(onhammered)
+        inst.components.workable:SetOnFinishCallback(PreHammered)
         inst.components.workable:SetOnWorkCallback(onhit)
 
 
