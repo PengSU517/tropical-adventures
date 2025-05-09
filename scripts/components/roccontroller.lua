@@ -186,14 +186,31 @@ local function getanglepointtopoint(x1, z1, x2, z2)
 end
 
 local function IsValidPlayer(player) --是否需要添加其他状态监测
-	if player and player:IsValid() and
-		player:HasTag("player") and
-		player.components.health and
-		not player.components.health:IsDead() and
-		not player:HasTag("playerghost") then
-		return true
+	if not player then
+		--print("errorplayerplayer")
+		return false
 	end
-	return false
+
+	if player.components.health and player.components.health:IsDead() then
+		--print("errorplayerDead")
+		return false
+	end
+
+	if player.replica.inventory and player.replica.inventory:IsHeavyLifting() then
+		--print("errorplayerIsHeavyLifting")
+		return false
+	end
+
+	if player.components.rider and player.components.rider:IsRiding() then
+		--print("errorplayerIsRiding")
+		return false
+	end
+
+	if player:HasTag("playerghost") then
+		--print("errorplayerghost")
+		return false
+	end
+	return true
 end
 
 local function FindClosestValidPlayerToInst(inst, range, isalive)
@@ -201,7 +218,7 @@ local function FindClosestValidPlayerToInst(inst, range, isalive)
 	local rangesq = range * range
 	local closestPlayer = nil
 	for i, v in ipairs(AllPlayers) do
-		if (isalive == nil or isalive ~= IsEntityDeadOrGhost(v)) and v.entity:IsVisible() and IsValidPlayer(v) then
+		if v.entity:IsVisible() and IsValidPlayer(v) then
 			local pos = Vector3(inst.Transform:GetWorldPosition())
 			local distsq = v:GetDistanceSqToPoint(x, y, z)
 			if distsq < rangesq and IsValidTileAtPoint(pos.x, pos.y, pos.z) then
@@ -276,7 +293,7 @@ function RocController:Spawnbodyparts()
 	end
 
 
-	--print("spawnbodypart!!!!!!")
+	----print("spawnbodypart!!!!!!")
 	local angle = self.inst.Transform:GetRotation() * DEGREES
 	if self.nest_dir then
 		angle = self.nest_dir
@@ -570,14 +587,14 @@ function RocController:DoGrab_food()
 end
 
 local function disgrab_player(player)
-	if not player or not IsValidPlayer(player) then
+	if not IsValidPlayer(player) then
 		return
 	end
 	player:PushEvent("disgrabbed")
 end
 
 local function FadeInFinished(player)
-	if not player or not IsValidPlayer(player) then
+	if not IsValidPlayer(player) then
 		return
 	end
 	---添加相机相关操作
@@ -587,7 +604,7 @@ local function FadeInFinished(player)
 end
 
 local function teleport(player)
-	if not player or not IsValidPlayer(player) then
+	if not IsValidPlayer(player) then
 		return
 	end
 	local nest = TheSim:FindFirstEntityWithTag("roc_nest") or TheSim:FindFirstEntityWithTag("multiplayer_portal")
@@ -599,7 +616,7 @@ end
 local function FadeOut(player)
 	-----添加相机相关操作
 
-	if not player or not IsValidPlayer(player) then
+	if not IsValidPlayer(player) then
 		return
 	end
 	-- player:SnapCamera()
@@ -610,7 +627,7 @@ local function FadeOut(player)
 end
 
 local function grab_player(player)
-	if not player or not IsValidPlayer(player) then
+	if not IsValidPlayer(player) then
 		return
 	end
 
@@ -637,7 +654,7 @@ function RocController:DoGrab_player()
 end
 
 function RocController:OnUpdate(dt)
-	--print("stage!!!!!!!!!!!", self.stage)
+	----print("stage!!!!!!!!!!!", self.stage)
 
 	local cx, cy, cz = self.inst.Transform:GetWorldPosition()
 	-- self.inst.Transform:SetPosition(cx, 0, cz)
