@@ -171,10 +171,10 @@ end
 
 local function KeepChoppingAction(inst)
     local keep_chop = inst.components.follower.leader and
-    inst.components.follower.leader:GetDistanceSqToInst(inst) <= KEEP_CHOPPING_DIST * KEEP_CHOPPING_DIST
+        inst.components.follower.leader:GetDistanceSqToInst(inst) <= KEEP_CHOPPING_DIST * KEEP_CHOPPING_DIST
     local target = FindEntity(inst, SEE_TREE_DIST / 3, function(item)
         return item.prefab == "deciduoustree" and item.monster and item.components.workable and
-        item.components.workable.action == ACTIONS.CHOP
+            item.components.workable.action == ACTIONS.CHOP
     end)
     if inst.tree_target ~= nil then target = inst.tree_target end
 
@@ -183,10 +183,10 @@ end
 
 local function StartChoppingCondition(inst)
     local start_chop = inst.components.follower.leader and inst.components.follower.leader.sg and
-    inst.components.follower.leader.sg:HasStateTag("chopping")
+        inst.components.follower.leader.sg:HasStateTag("chopping")
     local target = FindEntity(inst, SEE_TREE_DIST / 3, function(item)
         return item.prefab == "deciduoustree" and item.monster and item.components.workable and
-        item.components.workable.action == ACTIONS.CHOP
+            item.components.workable.action == ACTIONS.CHOP
     end)
     if inst.tree_target ~= nil then target = inst.tree_target end
 
@@ -200,7 +200,7 @@ local function FindTreeToChopAction(inst)
     if target then
         local decid_monst_target = FindEntity(inst, SEE_TREE_DIST / 3, function(item)
             return item.prefab == "deciduoustree" and item.monster and item.components.workable and
-            item.components.workable.action == ACTIONS.CHOP
+                item.components.workable.action == ACTIONS.CHOP
         end)
         if decid_monst_target ~= nil then
             target = decid_monst_target
@@ -225,6 +225,8 @@ end
 local function GoHomeAction(inst)
     if not inst.components.follower.leader and
         HasValidHome(inst) and
+        not inst:HasTag("shopkeep") and
+        not inst:HasTag("pigqueen") and
         not inst.components.combat.target then
         return BufferedAction(inst, inst.components.homeseeker.home, ACTIONS.GOHOME)
     end
@@ -466,8 +468,10 @@ function CityPigBrain:OnStart()
     local day = WhileNode(function() return TheWorld.state.isday end, "IsDay",
         PriorityNode {
             -- start of day, shopkeeper needs to go back this their desk
-            WhileNode(function() return self.inst:HasTag("shopkeep") and not self.inst:HasTag("atdesk") and
-                    not self.inst.changestock end, "shopkeeper opening",
+            WhileNode(function()
+                    return self.inst:HasTag("shopkeep") and not self.inst:HasTag("atdesk") and
+                        not self.inst.changestock
+                end, "shopkeeper opening",
                 DoAction(self.inst, ShopkeeperSitAtDesk, "SitAtDesk", true)),
 
             ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_FIND_MEAT),
@@ -548,8 +552,10 @@ function CityPigBrain:OnStart()
 
                 ChattyNode(self.inst, getSpeechType(self.inst, STRINGS.CITY_PIG_TALK_FLEE),
                     RunAway(self.inst,
-                        function(guy) return guy:HasTag("pig") and guy.components.combat and
-                            guy.components.combat.target == self.inst end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST)),
+                        function(guy)
+                            return guy:HasTag("pig") and guy.components.combat and
+                                guy.components.combat.target == self.inst
+                        end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST)),
 
                 IfNode(function() return self.inst.poop_tip and not self.inst.tipping end, "poop_tip",
                     DoAction(self.inst, PoopTip, "poop_tip", true)),
@@ -558,7 +564,7 @@ function CityPigBrain:OnStart()
                 IfNode(function()
                         local alvo = GetClosestInstWithTag("player", self.inst, 10)
                         return self.inst.components.homeseeker and self.inst.components.homeseeker.home and
-                        self.inst.components.homeseeker.home:HasTag("paytax") and alvo
+                            self.inst.components.homeseeker.home:HasTag("paytax") and alvo
                     end, "pay_taxpre",
                     DoAction(self.inst, PayTaxpre, "pay_taxpre", true)
                 ),
