@@ -2,15 +2,19 @@ local assets =
 {
 	Asset("ANIM", "anim/bundled_structure.zip"),
 }
+
+local Utils = require "tools/utils"
+
 local function ondeploy(inst, pt, deployer)
-	if inst.components.bundled_structure then
+	if inst.components.bundled_structure and inst.components.bundled_structure.cave == TheWorld:HasTag("cave") then
 		inst.components.bundled_structure:Unpack(pt)
 		inst:Remove()
 	end
 end
 
 local function get_name(inst)
-	return #inst._name:value() > 0 and "Packaged " .. inst._name:value() or "Packaged objects"
+    local worldstr = not inst._cave:value() and "Forest " or "Cave "
+	return #inst._name:value() > 0 and "Packaged " .. worldstr .. inst._name:value() or "Packaged " .. worldstr .. "objects"
 end
 
 local function fullfn()
@@ -28,6 +32,7 @@ local function fullfn()
 	inst.AnimState:PlayAnimation("idle")
 	inst:AddTag("bundled_structure")
 	inst:AddTag("nonpackable")
+    inst._cave = net_bool(inst.GUID, "bundled_structure._cave")
 	inst._name = net_string(inst.GUID, "bundled_structure._name")
 	inst.displaynamefn = get_name
 
@@ -39,8 +44,11 @@ local function fullfn()
 	inst:AddComponent("inspectable")
 
 	inst:AddComponent("bundled_structure")
-	inst:AddComponent("deployable")
-	inst.components.deployable.ondeploy = ondeploy
+	local deployable = inst:AddComponent("deployable")
+    Utils.FnDecorator(deployable, "CanDeploy", function(self)
+        if self.inst._cave:value() ~= TheWorld:HasTag("cave") then return {false}, true end
+    end)
+	deployable.ondeploy = ondeploy
 
 	inst:AddComponent("inventoryitem")
 
