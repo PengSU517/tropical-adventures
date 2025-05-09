@@ -142,15 +142,15 @@ local states=
             TimeEvent(22*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/antqueen/insane_LP","insane") end),
             TimeEvent(25*FRAMES, function(inst) TheWorld:PushEvent("antqueenbattle") end),			
             TimeEvent(25*FRAMES, function(inst) 
-			local pt = inst:GetPosition()
-			local ents = TheSim:FindEntities(pt.x, pt.y, pt.z, 25, {"player"}) 
-			for k,item in pairs(ents) do
-			local head = item.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
-			if head and head.prefab == "earmuffshat" then
-			return 
-			end
-			item:PushEvent("sanity_stun", {duration = 3.5})
-			end
+                local pt = inst:GetPosition()
+                local ents = TheSim:FindEntities(pt.x, pt.y, pt.z, 25, {"player"})
+                for k, item in pairs(ents) do
+                    local head = item.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+                    if head and head:HasTag("stunresist") then
+                        return
+                    end
+                    item:PushEvent("sanity_stun", {duration = 3.5})
+                end
 			end),
 
 
