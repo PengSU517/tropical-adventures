@@ -302,7 +302,7 @@ local function makeripple(speed)
 
 		inst.persists = false
 
-		inst:DoPeriodicTask(0.4, testpararemover)
+		inst:DoPeriodicTask(0.05, testpararemover)
 
 		return inst
 	end

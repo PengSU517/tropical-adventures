@@ -335,7 +335,7 @@ local states = {
 
 
     State { name = "cower",
-        tags = { "cower", "pausepredict" },
+        tags = { "cower", "nopredict", "pausepredict" },
 
         onenter = function(inst, data)
             inst.components.locomotor:Stop()
@@ -344,22 +344,10 @@ local states = {
             inst.components.talker:Say("要被吃掉了!") --GetString(inst, "ANNOUNCE_QUAKE")
         end,
 
-        timeline =
-        {
-
-        },
-
-        events =
-        {
-            -- EventHandler("grabbed", function(inst)
-            --     inst.sg:GoToState("grabbed")
-            -- end),
-        },
-
     },
 
     State { name = "grabbed",
-        tags = { "busy", "pausepredict" },
+        tags = { "busy", "nopredict", "pausepredict" },
 
         onenter = function(inst, data)
             if inst.components.playercontroller then
@@ -399,7 +387,7 @@ local states = {
     },
 
     State { name = "disgrabbed",
-        tags = { "busy", "pausepredict", "nomorph", "nodangle", "doing" },
+        tags = { "busy", "pausepredict", "nopredict", "nomorph", "nodangle", "doing" },
 
         onenter = function(inst)
             -- inst:ScreenFade(false, 2)
@@ -703,7 +691,7 @@ local states = {
     },
 
     State { name = "pan_start", --完全一致
-        tags = { "prepan", "panning", "working", "busy" },
+        tags = { "prepan", "panning", "working" },
         onenter = function(inst)
             inst.components.locomotor:Stop()
             inst.AnimState:PlayAnimation("pan_pre")

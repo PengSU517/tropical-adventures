@@ -240,133 +240,6 @@ local eventhandlers = {
 local states = {
 
 
-    State { name = "cower",
-        tags = { "cower", "pausepredict" },
-
-        onenter = function(inst, data)
-            inst.components.locomotor:Stop()
-            inst:ClearBufferedAction()
-            inst.AnimState:PlayAnimation("cower")
-            inst.components.talker:Say("要被吃掉了!") --GetString(inst, "ANNOUNCE_QUAKE")
-        end,
-
-        timeline =
-        {
-
-        },
-
-        events =
-        {
-            -- EventHandler("grabbed", function(inst)
-            --     inst.sg:GoToState("grabbed")
-            -- end),
-        },
-
-    },
-
-    State { name = "grabbed",
-        tags = { "busy", "pausepredict" },
-
-        onenter = function(inst, data)
-            if inst.components.playercontroller then
-                inst.components.playercontroller:Enable(false)
-            end
-            if inst.player_classified and inst.player_classified.MapExplorer then
-                inst.player_classified.MapExplorer:EnableUpdate(false)
-            end
-            -- inst.AnimState:SetFinalOffset(-10)
-            inst.components.sanity:DoDelta(-TUNING.SANITY_MED)
-            -- inst.components.health:SetInvincible(true)
-            inst.AnimState:PlayAnimation("grab_loop")
-            -- inst:ShakeCamera(CAMERASHAKE.FULL, 2, .06, .25) -- duration, speed, scale
-        end,
-        events =
-        {
-            EventHandler("animover", function(inst)
-                inst:Hide()
-                if inst.HUD then
-                    inst.HUD:Hide()
-                end
-
-                if inst.DynamicShadow then
-                    inst.DynamicShadow:Enable(false)
-                end
-
-                -- inst:SnapCamera(5)
-                -- -- inst:ScreenFade(true, 2)
-                -- inst:DoTaskInTime(5, function()
-                --     local nest = TheSim:FindFirstEntityWithTag("roc_nest")
-                --     local nest_pos = nest and Vector3(nest.Transform:GetWorldPosition()) or { 0, 0, 0 }
-                --     inst.Transform:SetPosition(nest_pos:Get())
-                --     inst:PushEvent("disgrabbed")
-                -- end)
-            end),
-        },
-    },
-
-    State { name = "disgrabbed",
-        tags = { "busy", "pausepredict", "nomorph", "nodangle", "doing" },
-
-        onenter = function(inst)
-            -- inst:ScreenFade(false, 2)
-
-            inst:Show()
-
-
-            if inst.DynamicShadow then
-                inst.DynamicShadow:Enable(true)
-            end
-
-
-            inst.AnimState:PlayAnimation("bucked")
-            -- inst.AnimState:PushAnimation("buck_pst", false)
-            -- inst.AnimState:PushAnimation("idle", false)
-        end,
-
-
-
-        timeline =
-        {
-            TimeEvent(8 * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound("dontstarve/movement/bodyfall_dirt")
-                -- inst.components.health:DoDelta(-TUNING.HEALING_MED) --血量
-            end),
-
-            TimeEvent(60 * FRAMES, function(inst)
-
-            end),
-
-            TimeEvent(30 * FRAMES, function(inst)
-                inst.AnimState:PushAnimation("wakeup", false)
-            end),
-        },
-
-        events =
-        {
-            EventHandler("animover", function(inst)
-                if inst.AnimState:IsCurrentAnimation("wakeup") then
-                    -- inst.components.health:SetInvincible(false)
-                    inst.sg:GoToState("idle")
-                end
-            end),
-        },
-
-        onexit = function(inst)
-            if inst.HUD then
-                inst.HUD:Show()
-            end
-
-            if inst.components.playercontroller then
-                inst.components.playercontroller:Enable(true)
-            end
-            if inst.player_classified and inst.player_classified.MapExplorer then
-                inst.player_classified.MapExplorer:EnableUpdate(true)
-            end
-            -- inst.components.playercontroller:Enable(true)
-            -- inst.player_classified.MapExplorer:EnableUpdate(true)
-        end,
-    },
-
     State { name = "jumponboatstart_pre",
         tags = { "doing", "busy", "nointerrupt" },
         onenter = function(inst)
@@ -393,150 +266,70 @@ local states = {
         end,
     },
 
-    State { name = "pan_start", ----完全一致
+    State {
+        name = "pan_start",
         tags = { "prepan", "panning", "working" },
+        server_states = { "pan_start", "pan" },
+
         onenter = function(inst)
             inst.components.locomotor:Stop()
-            inst.AnimState:PlayAnimation("pan_pre")
+            if not inst.sg:ServerStateMatches() then
+                inst.AnimState:PlayAnimation("pan_pre")
+                inst.AnimState:PushAnimation("pan_loop", false)
+            end
+
+            inst:PerformPreviewBufferedAction()
+            inst.sg:SetTimeout(TIMEOUT)
         end,
 
-        events =
-        {
-            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-            EventHandler("animover", function(inst) inst.sg:GoToState("pan") end),
-        },
-    },
-
-    State { name = "pan",
-        tags = { "prepan", "panning", "working" },
-        onenter = function(inst)
-            inst.sg.statemem.action = inst:GetBufferedAction()
-            inst.AnimState:PlayAnimation("pan_loop", true)
-            inst.sg:SetTimeout(1 + math.random())
+        onupdate = function(inst)
+            if inst.sg:ServerStateMatches() then
+                if inst.entity:FlattenMovementPrediction() then
+                    inst.sg:GoToState("idle", "noanim")
+                end
+            elseif inst.bufferedaction == nil then
+                inst.AnimState:PlayAnimation("pan_pst")
+                inst.sg:GoToState("idle", true)
+            end
         end,
-
-        timeline =
-        {
-            TimeEvent(6 * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-            TimeEvent(14 * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-
-            TimeEvent((6 + 15) * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-            TimeEvent((14 + 15) * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-
-            TimeEvent((6 + 30) * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-            TimeEvent((14 + 30) * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-
-            TimeEvent((6 + 45) * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-            TimeEvent((14 + 45) * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-
-            TimeEvent((6 + 60) * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-            TimeEvent((14 + 60) * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound(
-                    "dontstarve_DLC003/common/harvested/pool/pan")
-            end),
-        },
-
 
         ontimeout = function(inst)
-            inst:PerformBufferedAction()
-            inst.sg:GoToState("idle", "pan_pst")
+            inst:ClearBufferedAction()
+            inst.sg:GoToState("idle")
         end,
-
-        events =
-        {
-            EventHandler("unequip", function(inst) inst.sg:GoToState("idle", "pan_pst") end),
-            --EventHandler("animover", function(inst)
-            --    inst.sg:GoToState("idle","pan_pst")
-            --end ),
-        },
     },
 
-    State { name = "investigate_start",
+    State {
+        name = "investigate_start",
         tags = { "preinvestigate", "investigating", "working" },
+        server_states = { "investigate_start", "investigate", "investigate_post" },
+
         onenter = function(inst)
             inst.components.locomotor:Stop()
-            inst.sg:GoToState("investigate")
-            --inst.AnimState:PlayAnimation("chop_pre")
+
+            if not inst:HasTag("investigating") then
+                inst.AnimState:PlayAnimation("lens")
+            end
+
+            inst:PerformPreviewBufferedAction()
+            inst.sg:SetTimeout(TIMEOUT)
         end,
 
-        events =
-        {
-            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-            EventHandler("animover", function(inst) inst.sg:GoToState("investigate") end),
-        },
-    },
-
-    State { name = "investigate",
-        tags = { "preinvestigate", "investigating", "working" },
-        onenter = function(inst)
-            inst.sg.statemem.action = inst:GetBufferedAction()
-            inst.AnimState:PlayAnimation("lens")
+        onupdate = function(inst)
+            if inst.sg:ServerStateMatches() then
+                if inst.entity:FlattenMovementPrediction() then
+                    inst.sg:GoToState("idle", "noanim")
+                end
+            elseif inst.bufferedaction == nil then
+                inst.AnimState:PlayAnimation("lens_pst")
+                inst.sg:GoToState("idle")
+            end
         end,
 
-        timeline =
-        {
-            TimeEvent(9 * FRAMES, function(inst)
-                inst.sg:RemoveStateTag("preinvestigate")
-            end),
-
-
-            TimeEvent(16 * FRAMES, function(inst)
-                inst.sg:RemoveStateTag("investigating")
-            end),
-
-            TimeEvent(45 * FRAMES, function(inst)
-                -- this covers both mystery and lighting now
-                inst:PerformBufferedAction()
-            end),
-        },
-
-        events =
-        {
-            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-            EventHandler("animover", function(inst)
-                inst.sg:GoToState("investigate_post")
-            end),
-        },
-    },
-
-    State { name = "investigate_post",
-        tags = { "investigating", "working" },
-        onenter = function(inst)
-            inst.AnimState:PlayAnimation("lens_pst")
-        end,
-
-        events =
-        {
-            EventHandler("unequip", function(inst) inst.sg:GoToState("idle") end),
-            EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
-        },
+        ontimeout = function(inst)
+            inst:ClearBufferedAction()
+            inst.sg:GoToState("idle")
+        end
     },
 
     State { name = "shear_start",
@@ -720,65 +513,6 @@ local states = {
 
         onexit = function(inst)
             inst.SoundEmitter:KillSound("make_preview")
-        end,
-    },
-
-    State { name = "tap",
-        tags = { "doing", "busy" },
-
-        timeline =
-        {
-            TimeEvent(4 * FRAMES, function(inst)
-                inst.sg:RemoveStateTag("busy")
-            end),
-        },
-
-        onenter = function(inst, timeout)
-            inst.sg:SetTimeout(timeout or 1)
-            inst.components.locomotor:Stop()
-
-            inst.AnimState:PlayAnimation("tamp_pre")
-        end,
-
-        events =
-        {
-            EventHandler("animover", function(inst) inst.sg:GoToState("tap_loop") end),
-        },
-    },
-
-    State { name = "tap_loop",
-        tags = { "doing" },
-
-        onenter = function(inst, timeout)
-            local targ = inst:GetBufferedAction() and inst:GetBufferedAction().target or nil
-            inst.sg:SetTimeout(timeout or 1)
-            inst.components.locomotor:Stop()
-            inst.AnimState:PushAnimation("tamp_loop", true)
-        end,
-
-        timeline =
-        {
-            TimeEvent(1 * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
-            end),
-            TimeEvent(8 * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
-            end),
-            TimeEvent(16 * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
-            end),
-            TimeEvent(24 * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
-            end),
-            TimeEvent(32 * FRAMES, function(inst)
-                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/harvested/tamping_tool")
-            end),
-        },
-
-        ontimeout = function(inst)
-            inst:PerformBufferedAction()
-            inst.AnimState:PlayAnimation("tamp_pst")
-            inst.sg:GoToState("idle", false)
         end,
     },
 
