@@ -94,6 +94,7 @@ modimport("postinit/components/soundemitter")
 modimport("postinit/components/thief")
 modimport("postinit/components/unwrappable") ---为批量交易提供支持
 modimport("postinit/components/wavemanager")
+modimport("postinit/components/worldmigrator")
 modimport("postinit/components/worldstate")
 
 --prefabs
