@@ -1,3 +1,10 @@
+local Utils = require "tools/utils"
+local MigrateList = {}
+
+local function NoHoles(pt)
+    return not TheWorld.Map:IsPointNearHole(pt)
+end
+
 AddComponentPostInit("playerspawner", function(self)
     local OldSpawnAtLocation = self.SpawnAtLocation
     function self:SpawnAtLocation(inst, player, x, y, z, isloading, ...)
@@ -47,4 +54,25 @@ AddComponentPostInit("playerspawner", function(self)
         --     end
         -- end
     end
+    function self:AddOnMigrated(playerNetID, PortalID)
+        MigrateList[playerNetID] = PortalID
+    end
+    Utils.FnDecorator(self, "SpawnAtLocation", function(self, player)
+        if player.migration ~= nil then
+            self._fixmigrate = true
+        end
+    end, function(rets, self, player)
+        if self._fixmigrate then
+            self._fixmigrate = nil
+            local pid = player.Network:GetNetworkID()
+            if MigrateList[pid] then
+                local p = ShardPortals[MigrateList[pid]]
+                local pt = p:GetPosition()
+                pt = pt + (FindWalkableOffset(pt, math.random() * TWOPI, 2, 8, false, true, NoHoles) or Vector3(0,0,0))
+                player.Transform:SetPosition(pt:Get())
+                MigrateList[pid] = nil
+            end
+        end
+        return rets
+    end)
 end)
