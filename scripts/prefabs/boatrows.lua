@@ -3,6 +3,8 @@ require "prefabutil"
 --The test to see if a boat can be built in a certain position is defined in the builder component Builder:CanBuildAtPoint
 local assets =
 {
+	Asset("ANIM", "anim/boat_hud_encrusted.zip"),
+	Asset("ANIM", "anim/boat_hud_cargo.zip"),
 	Asset("ANIM", "anim/boat_hud_row.zip"),
 	Asset("ANIM", "anim/corkboat.zip"),
 	Asset("ANIM", "anim/pirate_boat_build.zip"),
