@@ -106,6 +106,14 @@ local function boatitemtestfn(container, item, slot)
                        item.prefab == "quackeringram" or item.prefab == "boatcannon" or item.prefab ==
                        "obsidian_boatcannon")
     else --if slot and slot > 2 then
+        if item.components.stackable then
+            for i = slot + 1, container:GetNumSlots() do
+                local findslotitem = container:GetItemInSlot(i)
+                if findslotitem and findslotitem.prefab == item.prefab and not findslotitem.components.stackable:IsFull() then
+                    return false
+                end
+            end
+        end
         if not slotitem then return true end
         if slotitem.prefab ~= item.prefab then return false end -- slotitem ~= nil
         return slotitem.components.stackable and not slotitem.components.stackable:IsFull()
@@ -113,8 +121,7 @@ local function boatitemtestfn(container, item, slot)
 end
 params.cargoboat = {
     widget = {
-        slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0), Vector3(-250, 45, 0), Vector3(-330, 45, 0),
-            Vector3(-410, 45, 0), Vector3(-490, 45, 0), Vector3(-570, 45, 0), Vector3(-650, 45, 0) },
+        slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0) },
         slotbg = { {
             atlas = barco_atlas,
             texture = "barco.tex"
@@ -131,6 +138,9 @@ params.cargoboat = {
     type = "chest",
     itemtestfn = boatitemtestfn
 }
+for i = 0, 5 do
+    table.insert(params.cargoboat.widget.slotpos, Vector3(-650 + 80 * i, 45, 0))
+end
 
 params.rowboat = {
     widget = {
@@ -180,7 +190,7 @@ params.woodlegsboat = {
 
 params.encrustedboat = {
     widget = {
-        slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0), Vector3(-250, 45, 0), Vector3(-330, 45, 0) },
+        slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0), Vector3(-330, 45, 0), Vector3(-250, 45, 0) },
         slotbg = { {
             atlas = barco_atlas,
             texture = "barco.tex"
