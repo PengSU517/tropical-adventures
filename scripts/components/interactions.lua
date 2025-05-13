@@ -90,8 +90,9 @@ function Interactions:BoatDismount(jumper, pt)
                 local precontainer = barcoinv.components.container
 				if precontainer then
                     local pstcontainer = consumo.components.container
-                    for slot, item in pairs(precontainer:GetAllItems()) do
+                    for slot, item in pairs(precontainer.slots) do
                         pstcontainer:GiveItem(item, slot)
+						precontainer.slots[slot] = nil
                     end
 				end
 				----------------------------------------------------------------------------------------------------------------------
