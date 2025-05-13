@@ -507,8 +507,9 @@ function Driver:OnMount(vehicle)
     local precontainer = self.vehicle.components.container
 	if precontainer then
         local pstcontainer = pegabarco.components.container
-        for k, v in pairs(precontainer:GetAllItems()) do 
-            pstcontainer:GiveItem(v, k)
+        for slot, item in pairs(precontainer.slots) do 
+            pstcontainer:GiveItem(item, slot)
+			precontainer.slots[slot] = nil
         end
 
 		pegabarco.components.container:Open(self.inst)
