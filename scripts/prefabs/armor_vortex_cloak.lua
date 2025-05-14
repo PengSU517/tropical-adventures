@@ -1,5 +1,3 @@
-require "tools/loadutils"
-
 local DEBUG_MODE = BRANCH == "dev"
 
 local assets = { Asset("ANIM", "anim/armor_vortex_cloak.zip"), Asset("ANIM", "anim/cloak_fx.zip") }

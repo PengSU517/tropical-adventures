@@ -1,5 +1,5 @@
 ---@author: Runar 2025-05-13 21:31:51
----@version: 1.1.0
+---@version: 1.1.1
 ---@usage: require("tools/loadutils")
 -- function AddHotPrefab 游戏内动态添加热加载PrefabFile
 -- function AddHotClass 游戏内动态添加热加载Klass
@@ -7,19 +7,19 @@
 -- 热加载PrefabFile不会影响已有的Prefab,只有新的Prefab会受到影响
 -- 此模块会导致内存泄漏,不要在任何长期存档中加载
 local reloadsymbol = "01" -- 热加载此模块需更改此标记,才能区分是哪一版在起作用
-local _g = getfenv(1)
-setfenv(1, GLOBAL or _g)
+local _g = _G or GLOBAL
+setfenv(1, _g)
 
 -- 写入静态热加载的PrefabFile
 local HotPrefabFiles = {
     -- k:prefab v:filename
-    ["armorvortexcloak"] = "armor_vortex_cloak",
-    ["armorvoidcloak"] = "armor_void_cloak",
+    -- ["armorvortexcloak"] = "armor_vortex_cloak",
+    -- ["armorvoidcloak"] = "armor_void_cloak",
 }
 -- 写入静态热加载的Class
 local HotClasses = {
     -- k:package v:true
-    "tools/loadutils",
+    -- "tools/loadutils" = true,
 }
 
 local AUTO = false
