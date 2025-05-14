@@ -1,3 +1,5 @@
+require "tools/loadutils"
+
 local DEBUG_MODE = BRANCH == "dev"
 
 local assets = { Asset("ANIM", "anim/armor_vortex_cloak.zip"), Asset("ANIM", "anim/cloak_fx.zip") }
@@ -15,14 +17,6 @@ local function spawnwisp(owner)
         local x, y, z = owner.Transform:GetWorldPosition()
         if x ~= nil and y ~= nil and z ~= nil then
             wisp.Transform:SetPosition(x + math.random() * 0.25 - 0.25 / 2, y, z + math.random() * 0.25 - 0.25 / 2)
-        end
-
-        local armadura = owner.components.inventory:GetEquippedItem(equipslot)
-        if armadura and armadura:HasTag("vortex_cloak") and armadura.components.armor.condition <= 0 then
-            armadura.components.armor:SetAbsorption(0)
-        end
-        if armadura and armadura:HasTag("vortex_cloak") and armadura.components.armor.condition > 0 then
-            armadura.components.armor:SetAbsorption(1)
         end
     end
 end
@@ -85,6 +79,7 @@ end
 
 local function ontakefuelitem(inst, _fuel, _fuelvalue, doer)
     inst.components.armor:SetPercent(inst.components.fueled:GetPercent())
+    inst.components.armor:SetAbsorption(1)
     if doer then
         doer.components.sanity:DoDelta(-TUNING.SANITY_TINY)
         doer.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/add_fuel")
@@ -100,7 +95,11 @@ local function OnTakeDamage(inst, damage_amount)
                    inst.components.inventoryitem.owner.components.sanity
     if not sanity then return end
     sanity:DoDelta(-damage_amount * TUNING.ARMOR_SANITY_DMG_AS_SANITY * 3, false)
-    inst.components.fueled:SetPercent(inst.components.armor:GetPercent())
+    local armorleft = inst.components.armor:GetPercent()
+    inst.components.fueled:SetPercent(armorleft)
+    if armorleft <= 0 then
+        inst.components.armor:SetAbsorption(0)
+    end
 end
 
 local function fn()
@@ -174,28 +173,17 @@ local function fn()
     return inst
 end
 
-local function fxfn()
-    local inst = CreateEntity()
-    inst.entity:AddNetwork()
-    inst.entity:AddTransform()
-    inst.entity:AddSoundEmitter()
-    inst.entity:AddAnimState()
+table.insert(require("fx"), {
+    name = "armorvortexcloak_fx",
+    bank = "cloakfx",
+    build = "cloak_fx",
+    anim = "idle",
+    fn = function(inst)
+        for i = 1, 14 do
+            inst.AnimState:Hide("fx" .. i)
+        end
+        inst.AnimState:Show("fx" .. math.random(1, 14))
+    end,
+})
 
-    inst.AnimState:SetBank("cloakfx")
-    inst.AnimState:SetBuild("cloak_fx")
-    inst.AnimState:PlayAnimation("idle", true)
-
-    inst:AddTag("fx")
-
-    for i = 1, 14 do
-        inst.AnimState:Hide("fx" .. i)
-    end
-    inst.AnimState:Show("fx" .. math.random(1, 14))
-
-    inst:ListenForEvent("animover", inst.Remove, inst)
-
-    return inst
-end
-
-return Prefab("common/inventory/armorvortexcloak", fn, assets),
-    Prefab("common/inventory/armorvortexcloak_fx", fxfn, assets)
+return Prefab("common/inventory/armorvortexcloak", fn, assets)
