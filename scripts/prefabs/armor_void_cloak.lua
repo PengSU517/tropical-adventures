@@ -21,16 +21,6 @@ local function spawnwisp(owner)
         if x ~= nil and y ~= nil and z ~= nil then
             wisp.Transform:SetPosition(x + math.random() * 0.25 - 0.25 / 2, y, z + math.random() * 0.25 - 0.25 / 2)
         end
-
-        local armadura = owner.components.inventory:GetEquippedItem(equipslot)
-        if armadura and armadura:HasTag("void_cloak") and armadura.components.armor.condition <= 0 then
-            armadura
-                .components.armor:SetAbsorption(0)
-        end
-        if armadura and armadura:HasTag("void_cloak") and armadura.components.armor.condition > 0 then
-            armadura
-                .components.armor:SetAbsorption(1)
-        end
     end
 end
 
@@ -76,6 +66,7 @@ end
 
 local function ontakefuelitem(inst, _fuel, _fuelvalue, doer)
     inst.components.armor:SetPercent(inst.components.fueled:GetPercent()) -- Runar: 修复时耐久同步燃料
+    inst.components.armor:SetAbsorption(1)
     if doer then
         doer.components.sanity:DoDelta(-TUNING.SANITY_TINY)
         doer.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/add_fuel")
@@ -124,7 +115,11 @@ local function OnTakeDamage(inst, damage_amount)
                    inst.components.inventoryitem.owner.components.sanity
     if not sanity then return end
     sanity:DoDelta(-damage_amount * TUNING.ARMOR_SANITY_DMG_AS_SANITY, false)
-    inst.components.fueled:SetPercent(inst.components.armor:GetPercent())
+    local armorleft = inst.components.armor:GetPercent()
+    inst.components.fueled:SetPercent(armorleft)
+    if armorleft <= 0 then
+        inst.components.armor:SetAbsorption(0)
+    end
 end
 
 local function fn()

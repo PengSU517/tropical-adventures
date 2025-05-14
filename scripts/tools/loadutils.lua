@@ -1,22 +1,31 @@
 ---@author: Runar 2025-05-13 21:31:51
--- Usage: require("tools/loadutils")
+---@version: 1.1.0
+---@usage: require("tools/loadutils")
 -- function AddHotPrefab 游戏内动态添加热加载PrefabFile
 -- function AddHotClass 游戏内动态添加热加载Klass
 -- 被热加载的Klass需要在_ctor内被动态require,否则不生效
 -- 热加载PrefabFile不会影响已有的Prefab,只有新的Prefab会受到影响
+-- 此模块会导致内存泄漏,不要在任何长期存档中加载
+local reloadsymbol = "01" -- 热加载此模块需更改此标记,才能区分是哪一版在起作用
+local _g = getfenv(1)
+setfenv(1, GLOBAL or _g)
 
-if GLOBAL ~= nil then return end
 -- 写入静态热加载的PrefabFile
 local HotPrefabFiles = {
     -- k:prefab v:filename
+    ["armorvortexcloak"] = "armor_vortex_cloak",
+    ["armorvoidcloak"] = "armor_void_cloak",
 }
 -- 写入静态热加载的Class
 local HotClasses = {
     -- k:package v:true
+    "tools/loadutils",
 }
 
-local function t_print(str, ...)
-    print("Tropical Adventures:" .. string.format(str, ...))
+local AUTO = false
+
+local function l_print(str, ...)
+    print(string.format(">> LoadUtils(%s): ", tostring(reloadsymbol)) .. string.format(str, ...))
 end
 
 local function getklassdesc(package)
@@ -25,36 +34,62 @@ local function getklassdesc(package)
     return base, klass
 end
 
-local old_SpawnPrefab = SpawnPrefab
+-----load commands-----
+function l_autoremove(auto)
+    AUTO = auto or not AUTO
+    l_print("set auto as %s", tostring(AUTO))
+end
+
+function l_removeall()
+    for k in pairs(HotPrefabFiles) do
+        c_removeall(k)
+    end
+    l_print("remove all old hot prefabs")
+end
+----------------------
+
+---GLOBAL overrides---
+if not rawget(_g, "RAW_SPAWN") then
+    rawset(_g, "RAW_SPAWN", SpawnPrefab)
+end
 function SpawnPrefab(prefab, ...)
     if HotPrefabFiles[prefab] then
         LoadPrefabFile("prefabs/" .. HotPrefabFiles[prefab])
-        t_print("Reloaded PrefabFile \"%s\"", HotPrefabFiles[prefab])
+        l_print("Reloaded PrefabFile \"%s\" by spawning \"%s\"", HotPrefabFiles[prefab], prefab)
     end
-    return old_SpawnPrefab(prefab, ...)
+    if AUTO then
+        c_removeall(prefab)
+    end
+    return RAW_SPAWN(prefab, ...)
 end
 
-local old_require = require
+if not rawget(_g, "RAW_REQUIRE") then
+    rawset(_g, "RAW_REQUIRE", require)
+end
 function require(package)
     if HotClasses[package] and package.loaded[package] then
         package.loaded[package] = nil
-        t_print("Reloaded %s %s", getklassdesc(package))
+        l_print("Reloaded %s %s", getklassdesc(package))
     end
-    return old_require(package)
+    return RAW_REQUIRE(package)
 end
+----------------------
 
 local function AddHotPrefab(prefab, prefabfile)
     prefabfile = prefabfile or prefab
-    t_print("Added hot load Prefab %s(%s)", prefab, prefabfile)
+    l_print("Added hot load Prefab %s(%s)", prefab, prefabfile)
     HotPrefabFiles[prefab] = prefabfile
 end
 
 local function AddHotClass(package)
-    t_print("Added hot load %s %s", getklassdesc(package))
+    l_print("Added hot load %s %s", getklassdesc(package))
     HotClasses[package] = true
 end
 
+l_print("require \"loadutils\" (%s) ", tostring(reloadsymbol))
+
 return {
+    symbol = reloadsymbol,
     AddHotPrefab = AddHotPrefab,
     AddHotClass = AddHotClass,
 }

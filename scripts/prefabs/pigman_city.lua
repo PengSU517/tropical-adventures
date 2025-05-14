@@ -1409,9 +1409,11 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
             inst:AddComponent("inventory")
         end
 
-        if not inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
-            inst.components.inventory:Equip(SpawnPrefab("hammer"))
-        end
+        inst:DoTaskInTime(0,function() -- 延迟生成，加载的装备要晚一帧
+            if not inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) then
+                inst.components.inventory:Equip(SpawnPrefab("hammer"))
+            end
+        end)
 
         return inst
     end
