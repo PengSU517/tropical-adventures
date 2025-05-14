@@ -17,6 +17,24 @@ local function get_name(inst)
 	return #inst._name:value() > 0 and "Packaged " .. worldstr .. inst._name:value() or "Packaged " .. worldstr .. "objects"
 end
 
+local function OnSave(inst, data)
+    if inst.inv_image_bg then
+        data.image = inst.components.inventoryitem.imagename
+        data.bgimage = inst.inv_image_bg.image
+        data.bgatlas = inst.inv_image_bg.atlas
+    end
+end
+
+local function OnLoad(inst, data)
+    if data.bgimage then
+        inst.inv_image_bg = {
+            image = data.bgimage,
+            atlas = data.bgatlas,
+        }
+        inst.components.inventoryitem:ChangeImageName(data.image)
+    end
+end
+
 local function fullfn()
 	local inst = CreateEntity()
 	inst.entity:AddTransform()
@@ -52,7 +70,8 @@ local function fullfn()
 
 	inst:AddComponent("inventoryitem")
 
-
+    -- inst.OnSave = OnSave
+    -- inst.OnLoad = OnLoad
 
 	MakeMediumBurnable(inst)
 	MakeMediumPropagator(inst)
