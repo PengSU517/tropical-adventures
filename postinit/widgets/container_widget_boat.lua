@@ -55,9 +55,11 @@ AddClassPostConstruct("widgets/containerwidget", function(self)
             self.inst:ListenForEvent("percentusedchange", BoatState, container)
             if GLOBAL.TheWorld.ismastersim then
                 container:PushEvent("percentusedchange",
-                    { percent = container.replica.inventoryitem.classified.percentused:value() / 100 })
-            else
+                    { percent = container.components.finiteuses:GetPercent() })
+            elseif container.replica.inventoryitem.classified then
                 container.replica.inventoryitem:DeserializeUsage()
+            else
+                SendModRPCToServer(GetModRPC("Tropical adventures", "FiniteusesGet"), container)
             end
             self:UpdatePosition()
         end

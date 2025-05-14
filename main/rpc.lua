@@ -46,3 +46,11 @@ AddShardModRPCHandler("Tropical adventures", "ReconnectCaveEntrances", function(
         print(string.format("Tropical Adventures: Could not connect no shot portal"))
     end
 end)
+
+AddModRPCHandler("Tropical adventures", "FiniteusesGet", function(player, item)
+    SendModRPCToClient(GetClientModRPC("Tropical adventures", "FiniteusesPost"), player, item, item.components.finiteuses:GetPercent())
+end)
+
+AddClientModRPCHandler("Tropical adventures", "FiniteusesPost", function(item, percent)
+    item:PushEvent("percentusedchange", { percent = percent })
+end)
