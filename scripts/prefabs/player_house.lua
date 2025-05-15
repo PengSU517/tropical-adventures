@@ -319,6 +319,14 @@ local function OnHammered(inst, worker)
     local package = SpawnAt("bundled_structure", inst)
     if package and package.components.bundled_structure then
         package.components.bundled_structure:Pack(inst)
+        -- if inst.build then
+        --     local build = inst.build:match("[^_]+_[^_]+$"):match("[^_]+")
+        --     package.inv_image_bg = {
+        --         image = "bundled_structure.tex",
+        --         atlas = GetInventoryItemAtlas("bundled_structure.tex"),
+        --     }
+        --     package.components.inventoryitem:ChangeImageName("player_house_" .. build)
+        -- end
         SpawnAt("collapse_small", inst)
         if worker and worker.SoundEmitter then
             worker.SoundEmitter:PlaySound("dontstarve/common/destroy_stone")

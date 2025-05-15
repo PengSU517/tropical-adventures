@@ -422,3 +422,5 @@ for k, v in ipairs(_G.ModManager:GetEnabledServerModNames()) do
         break
     end
 end
+
+GLOBAL.BOATHUDPOSPRESET = Vector3(440, 80 + (GetModConfigData("boatlefthud") or 0), 0)
