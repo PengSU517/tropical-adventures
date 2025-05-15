@@ -1,4 +1,5 @@
-------------------------------------------configura os slots imagem------------------------------------------------------------
+require "tro_containers"
+
 local boat_health =
 {
     cargoboat = 300,
@@ -42,16 +43,13 @@ AddClassPostConstruct("widgets/containerwidget", function(self)
     function self:Open(container, doer)
         OldOpen(self, container, doer)
         local widget = container.replica.container:GetWidget()
-        if widget and widget.slotbg and type(widget.slotbg) == "table" and widget.isboat then
-            for i, v in ipairs(widget.slotbg) do
-                if self.inv[i] then
-                    self.inv[i].bgimage:SetTexture(v.atlas, v.texture)
-                end
-            end
+        if self.boatbadge and widget.badgepos then
+            self.boatbadge:SetPosition(widget.badgepos)
         end
-        if widget and widget.isboat then
-            self.isboat = true
+        if widget and (widget.isboat or widget.isboatinspect) then
             self.boatbadge:Show()
+            self.isboat = not widget.isboatinspect
+            self.isboatinspect = widget.isboatinspect
             self.inst:ListenForEvent("percentusedchange", BoatState, container)
             if GLOBAL.TheWorld.ismastersim then
                 container:PushEvent("percentusedchange",
@@ -63,12 +61,17 @@ AddClassPostConstruct("widgets/containerwidget", function(self)
             end
             self:UpdatePosition()
         end
+        if widget.bgpos then
+            self.bganim:SetPosition(widget.bgpos)
+        end
     end
 
     local OldClose = self.Close
     function self:Close()
         OldClose(self)
-        if self.isboat then
+        self.bganim:SetPosition(0, 0, 0)
+        if self.isboat or self.isboatinspect then
+            self.boatbadge:Hide()
             self.inst:RemoveEventCallback("percentusedchange", BoatState, self.contanier)
         end
     end
