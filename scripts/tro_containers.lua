@@ -175,8 +175,9 @@ params.armouredboat = params.rowboat
 
 params.corkboat = params.rowboat
 
-params.woodlegsboat = BoatParamCommon("boat_hud_encrusted", nil, 3)
+params.woodlegsboat = BoatParamCommon("boat_hud_encrusted", nil, 2) -- actually, 3
 table.insert(params.woodlegsboat.widget.slotpos, Vector3(-300, 45, 0))
+table.insert(params.woodlegsboat.widgetinspect.slotpos, Vector3(-2, -5, 0))
 
 params.encrustedboat = BoatParamCommon("boat_hud_encrusted", nil, 4)
 table.insert(params.encrustedboat.widget.slotpos, Vector3(-330, 45, 0))
