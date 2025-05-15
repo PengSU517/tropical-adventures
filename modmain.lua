@@ -24,5 +24,4 @@ modimport "main/cooking_recipes"
 modimport "main/skins"
 modimport "main/characters"
 modimport "main/tropical_fx"
-modimport "main/containers" --new containers
 modimport "main/rpc"

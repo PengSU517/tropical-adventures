@@ -1,8 +1,6 @@
 local containers = require("containers")
 local barco_atlas = "images/ui/barco.xml"
 local params = containers.params
-local bias = GetModConfigData("boatlefthud") or 0
-GLOBAL.BOATHUDPOSPRESET = Vector3(440, 80 + bias, 0)
 
 params.armorvortexcloak = {
     widget = {
@@ -35,14 +33,14 @@ local hcpos = {
     r = 87,
     angle = 4
 } -- 中心坐标 [x, y] | 半径 r | 起始角 angle(pi / 3 rad)
-local hcbg = {
+local antchest_slotbg = {
     image = "honeychest_slot.tex",
     atlas = resolvefilepath("images/ui/honeychest.xml")
 }
 params.honeychest = {
     widget = {
         slotpos = { Vector3(hcpos.x, hcpos.y + hcpos.r, 0) },
-        slotbg = { hcbg },
+        slotbg = { antchest_slotbg },
         animbank = "ui_chest_3x3",
         animbuild = "ui_honeychest_7x",
         pos = Vector3(hcpos.x, hcpos.y + 200, 0),
@@ -57,7 +55,7 @@ for line = 1, 0, -1 do
     for rad = hcpos.angle, hcpos.angle - 2, -1 do
         table.insert(params.honeychest.widget.slotpos, Vector3(hcpos.x + hcpos.r * math.sin(rad * PI / 3),
             hcpos.y + hcpos.r * line + hcpos.r * math.cos(rad * PI / 3), 0))
-        table.insert(params.honeychest.widget.slotbg, hcbg)
+        table.insert(params.honeychest.widget.slotbg, antchest_slotbg)
     end
 end
 
@@ -119,94 +117,70 @@ local function boatitemtestfn(container, item, slot)
         return slotitem.components.stackable and not slotitem.components.stackable:IsFull()
     end
 end
-params.cargoboat = {
-    widget = {
-        slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0) },
-        slotbg = { {
-            atlas = barco_atlas,
-            texture = "barco.tex"
-        }, {
-            atlas = barco_atlas,
-            texture = "luz.tex"
-        } },
-        animbank = "boat_hud_cargo",
-        animbuild = "boat_hud_cargo",
-        pos = BOATHUDPOSPRESET,
-        isboat = true
+
+local boatequip_bg = {
+    {
+        image = "barco.tex",
+        atlas = barco_atlas,
     },
-    usespecificslotsforitems = true,
-    type = "chest",
-    itemtestfn = boatitemtestfn
+    {
+        image = "luz.tex",
+        atlas = barco_atlas,
+    }
 }
+
+local function BoatParamCommon(build, inspectbuild, numslots)
+    inspectbuild = inspectbuild or string.gsub(build, "hud", "inspect")
+    local param = {
+        widget = {
+            slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0) },
+            slotbg = boatequip_bg,
+            animbank = build,
+            animbuild = build,
+            pos = BOATHUDPOSPRESET,
+            badgepos = Vector3(0, 45, 0),
+            isboat = true,
+        },
+        widgetinspect = {
+            slotpos = { Vector3(40, 70, 0), Vector3(-35, 70, 0) },
+            slotbg = boatequip_bg,
+            animbank = inspectbuild,
+            animbuild = inspectbuild,
+            pos = Vector3(250, 0, 0),
+            badgepos = Vector3(0, 160, 0),
+            isboatinspect = true,
+        },
+        usespecificslotsforitems = true,
+        type = "chest",
+        itemtestfn = boatitemtestfn,
+    }
+    local line = ((numslots or 2) - 2) / 2
+    for l = 1, line do
+        for c = 0, 1 do
+            table.insert(param.widgetinspect.slotpos, Vector3(-35 + c * 75, 70 - l * 75, 0))
+        end
+    end
+    return param
+end
+
+params.cargoboat = BoatParamCommon("boat_hud_cargo", nil, 8)
 for i = 0, 5 do
     table.insert(params.cargoboat.widget.slotpos, Vector3(-650 + 80 * i, 45, 0))
 end
 
-params.rowboat = {
-    widget = {
-        slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0) },
-
-        slotbg = { {
-            atlas = barco_atlas,
-            texture = "barco.tex"
-        }, {
-            atlas = barco_atlas,
-            texture = "luz.tex"
-        } },
-
-        animbank = "boat_hud_row",
-        animbuild = "boat_hud_row",
-        pos = BOATHUDPOSPRESET,
-        isboat = true
-    },
-    usespecificslotsforitems = true,
-    type = "chest",
-    itemtestfn = boatitemtestfn
-}
+params.rowboat = BoatParamCommon("boat_hud_row", nil, 2)
+params.rowboat.widgetinspect.bgpos = Vector3(0, 120, 0)
 
 params.armouredboat = params.rowboat
 
 params.corkboat = params.rowboat
 
-params.woodlegsboat = {
-    widget = {
-        slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0), Vector3(-300, 45, 0) },
-        slotbg = { {
-            atlas = barco_atlas,
-            texture = "barco.tex"
-        }, {
-            atlas = barco_atlas,
-            texture = "luz.tex"
-        } },
-        animbank = "boat_hud_encrusted",
-        animbuild = "boat_hud_encrusted",
-        pos = BOATHUDPOSPRESET,
-        isboat = true
-    },
-    usespecificslotsforitems = true,
-    type = "chest",
-    itemtestfn = boatitemtestfn
-}
+params.woodlegsboat = BoatParamCommon("boat_hud_encrusted", nil, 3)
+table.insert(params.woodlegsboat.widget.slotpos, Vector3(-300, 45, 0))
 
-params.encrustedboat = {
-    widget = {
-        slotpos = { Vector3(-80, 45, 0), Vector3(-155, 45, 0), Vector3(-330, 45, 0), Vector3(-250, 45, 0) },
-        slotbg = { {
-            atlas = barco_atlas,
-            texture = "barco.tex"
-        }, {
-            atlas = barco_atlas,
-            texture = "luz.tex"
-        } },
-        animbank = "boat_hud_encrusted",
-        animbuild = "boat_hud_encrusted",
-        pos = BOATHUDPOSPRESET,
-        isboat = true
-    },
-    usespecificslotsforitems = true,
-    type = "chest",
-    itemtestfn = boatitemtestfn
-}
+params.encrustedboat = BoatParamCommon("boat_hud_encrusted", nil, 4)
+table.insert(params.encrustedboat.widget.slotpos, Vector3(-330, 45, 0))
+table.insert(params.encrustedboat.widget.slotpos, Vector3(-250, 45, 0))
 
 params.raft_old = {
     widget = {
@@ -216,9 +190,15 @@ params.raft_old = {
         pos = BOATHUDPOSPRESET,
         isboat = true
     },
-    usespecificslotsforitems = true,
+    widgetinspect = {
+        slotpos = {},
+        animbank = "boat_inspect_raft",
+        animbuild = "boat_inspect_raft",
+        pos = Vector3(250, 0, 0),
+        badgepos = Vector3(0, 15, 0),
+        isboatinspect = true,
+    },
     type = "chest",
-    itemtestfn = boatitemtestfn
 }
 
 params.lograft_old = params.raft_old
@@ -230,3 +210,5 @@ params.trawlnetdropped = params.treasurechest
 for _, v in pairs(params) do
     containers.MAXITEMSLOTS = math.max(containers.MAXITEMSLOTS, v.widget.slotpos ~= nil and #v.widget.slotpos or 0)
 end
+
+return containers
