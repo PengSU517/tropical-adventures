@@ -98,6 +98,7 @@ local function common()
 	inst:AddTag("barcoapto")
 	inst:AddTag("aquatic")
 	inst:AddTag("ignorewalkableplatforms")
+    inst:AddTag("outofreach")
 
 	inst.entity:AddPhysics()
 	inst.Physics:SetCylinder(0.25, 2)
