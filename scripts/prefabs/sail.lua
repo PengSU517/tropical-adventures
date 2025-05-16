@@ -1,35 +1,11 @@
-local sailassets =
+local assets =
 {
     Asset("ANIM", "anim/swap_sail.zip"),
-}
-
-local clothsailassets =
-{
     Asset("ANIM", "anim/swap_sail_cloth.zip"),
-}
-
-local albatrosassets =
-{
     Asset("ANIM", "anim/swap_sail_malbatro.zip"),
-}
-
-local feathersailassets =
-{
     Asset("ANIM", "anim/swap_sail_feathers.zip"),
-}
-
-local snakeskinsailassets =
-{
     Asset("ANIM", "anim/swap_sail_snakeskin.zip"),
-}
-
-local ironwindassets =
-{
     Asset("ANIM", "anim/swap_propeller.zip"),
-}
-
-local woodlegssailassets =
-{
     Asset("ANIM", "anim/swap_sail_pirate.zip"),
 }
 
@@ -102,7 +78,7 @@ local function onstopmoving(boat, data)
 end
 
 local function onequip(inst, owner)
-    owner.AnimState:OverrideSymbol(inst.symboltooverride, inst.build, inst.symbol)
+    owner.AnimState:OverrideSymbol(inst.symboltooverride, inst.AnimState:GetBuild() or inst.build, inst.symbol)
 
     --    if inst.showPropFX then
     --        local driver = owner.components.drivable.driver
@@ -506,10 +482,10 @@ local function albatros_fn(Sim)
     return inst
 end
 
-return Prefab("common/inventory/sail", sail_fn, sailassets),
-    Prefab("common/inventory/clothsail", clothsail_fn, clothsailassets),
-    Prefab("common/inventory/snakeskinsail", snakeskinsail_fn, snakeskinsailassets),
-    Prefab("common/inventory/feathersail", feathersail_fn, feathersailassets),
-    Prefab("common/inventory/ironwind", ironwind_fn, ironwindassets),
-    Prefab("common/inventory/woodlegssail", woodlegssail_fn, woodlegssailassets),
-    Prefab("common/inventory/malbatrossail", albatros_fn, albatrosassets)
+return Prefab("common/inventory/sail", sail_fn, assets),
+    Prefab("common/inventory/clothsail", clothsail_fn, assets),
+    Prefab("common/inventory/snakeskinsail", snakeskinsail_fn, assets),
+    Prefab("common/inventory/feathersail", feathersail_fn, assets),
+    Prefab("common/inventory/ironwind", ironwind_fn, assets),
+    Prefab("common/inventory/woodlegssail", woodlegssail_fn, assets),
+    Prefab("common/inventory/malbatrossail", albatros_fn, assets)

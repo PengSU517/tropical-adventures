@@ -181,8 +181,8 @@ function Driver:OnUpdate(dt) --Set my entity's position and rotation to be the s
 		end
 		--------------------------------------aplica o simbolo quando adiciona o item no container-----------------------------------
 		if sailslot ~= nil and self.sailequipado == nil then
-			--     self.inst.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.build, sailslot.symbol)
-			self.vehicle.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.build, sailslot.symbol)
+			--     self.inst.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build, sailslot.symbol)
+			self.vehicle.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build, sailslot.symbol)
 			if sailslot.prefab ~= "trawlnet" then
 				self.vehicle:AddTag("sail")
 				gastabarco:AddTag("sail")
@@ -208,8 +208,8 @@ function Driver:OnUpdate(dt) --Set my entity's position and rotation to be the s
 				gastabarco:RemoveTag("sail")
 				self.inst:RemoveTag("sail")
 			end
-			--     self.inst.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.build, sailslot.symbol)
-			self.vehicle.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.build, sailslot.symbol)
+			--     self.inst.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build, sailslot.symbol)
+			self.vehicle.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build, sailslot.symbol)
 			if sailslot.prefab ~= "trawlnet" then
 				self.vehicle:AddTag("sail")
 				gastabarco:AddTag("sail")
@@ -292,7 +292,7 @@ function Driver:OnUpdate(dt) --Set my entity's position and rotation to be the s
 			--if self.inst.sg:HasStateTag("aparece") then self.vehicle:Show() end
 			--self.vehicle:Show()
 			--if sailslot and self.simbolo then
-			--self.vehicle.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.build, sailslot.symbol)
+			--self.vehicle.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build, sailslot.symbol)
 			--self.inst.AnimState:ClearOverrideSymbol(self.simbolo)
 			--end
 			--if luzslot and self.simbolo1 then
@@ -317,7 +317,7 @@ function Driver:OnUpdate(dt) --Set my entity's position and rotation to be the s
 			--end
 			--if sailslot and self.simbolo then
 			--self.vehicle.AnimState:ClearOverrideSymbol(self.simbolo)
-			--self.inst.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.build, sailslot.symbol)
+			--self.inst.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build, sailslot.symbol)
 			--end
 			------nao gasta sail pq parou
 		end
@@ -355,11 +355,11 @@ function Driver:OnUpdate(dt) --Set my entity's position and rotation to be the s
 			end
 			if sailslot.apaga ~= nil then sailslot:Remove() end
 
-			self.vehicle.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.build, sailslot.symbol)
+			self.vehicle.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build, sailslot.symbol)
 			--if self.rededepesca == 0 and (sailslot.medio + sailslot.fundo + sailslot.raso) > 3 then self.rededepesca = 1 end
 			--if self.rededepesca == 2 and (sailslot.medio + sailslot.fundo + sailslot.raso) > 6 then self.rededepesca = 3 end
-			--if self.rededepesca == 1 then self.vehicle.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.build, sailslot.symbol) self.rededepesca = 2 end
-			--if self.rededepesca == 3 then self.vehicle.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.build, sailslot.symbol) self.rededepesca = 4 end 	
+			--if self.rededepesca == 1 then self.vehicle.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build, sailslot.symbol) self.rededepesca = 2 end
+			--if self.rededepesca == 3 then self.vehicle.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build, sailslot.symbol) self.rededepesca = 4 end 	
 			--print(""..sailslot.raso.."")
 
 			local planta = GetClosestInstWithTag("seaweednarede", self.inst, 3)

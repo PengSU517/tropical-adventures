@@ -57,7 +57,11 @@ end
 
 local function OnEquipped(inst, data)
 	local sailslot = inst.components.container:GetItemInSlot(1)
-	if sailslot ~= nil then inst.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.build, sailslot.symbol) end
+	if sailslot ~= nil then
+        local target = inst.components.inventoryitem and inst.components.inventoryitem.owner and
+              inst.components.inventoryitem.owner.components.driver.vehicle or inst
+        target.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build, sailslot.symbol)
+    end
 	local luzslot = inst.components.container:GetItemInSlot(2)
 	if luzslot ~= nil then inst.AnimState:OverrideSymbol(luzslot.symboltooverride, luzslot.build, luzslot.symbol) end
 	if luzslot and luzslot:HasTag("boatlight") then luzslot:AddTag("nonavio") end
