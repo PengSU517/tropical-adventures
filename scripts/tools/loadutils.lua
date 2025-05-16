@@ -1,5 +1,5 @@
 ---@author: Runar 2025-05-13 21:31:51
----@version: 1.1.1
+---@version: 1.1.2
 ---@usage: require("tools/loadutils")
 -- function AddHotPrefab 游戏内动态添加热加载PrefabFile
 -- function AddHotClass 游戏内动态添加热加载Klass
@@ -13,6 +13,7 @@ setfenv(1, _g)
 -- 写入静态热加载的PrefabFile
 local HotPrefabFiles = {
     -- k:prefab v:filename
+    -- woodlegssail = "sail",
     -- ["armorvortexcloak"] = "armor_vortex_cloak",
     -- ["armorvoidcloak"] = "armor_void_cloak",
 }
@@ -56,9 +57,9 @@ function SpawnPrefab(prefab, ...)
     if HotPrefabFiles[prefab] then
         LoadPrefabFile("prefabs/" .. HotPrefabFiles[prefab])
         l_print("Reloaded PrefabFile \"%s\" by spawning \"%s\"", HotPrefabFiles[prefab], prefab)
-    end
-    if AUTO then
-        c_removeall(prefab)
+        if AUTO then
+            c_removeall(prefab)
+        end
     end
     return RAW_SPAWN(prefab, ...)
 end
