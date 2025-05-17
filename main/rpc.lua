@@ -9,6 +9,7 @@ AddShardModRPCHandler("Tropical adventures", "aporkalypse begin date", function(
     end
 end)
 
+--[[
 local function GetNetworkPlayer(NetworkID)
     for _, p in ipairs(AllPlayers) do
         if NetworkID == p.Network:GetNetworkID() then
@@ -17,35 +18,48 @@ local function GetNetworkPlayer(NetworkID)
     end
 end
 
-AddShardModRPCHandler("Tropical adventures", "ReconnectCaveEntrances", function(shardid, playerNetID, otherPortal, portal)
-    if shardid ~= nil then shardid = tostring(shardid) end
-    local player = playerNetID and GetNetworkPlayer(playerNetID)
-    local handled, reason = false, nil
-    if ShardPortals[portal] then
-        local wm = ShardPortals[portal].components.worldmigrator
-        if wm.receivedPortal ~= otherPortal then
-            print(string.format("Tropical Adventures: Reconnect portal %d(%d) -> %d(%d) to -> %d(%d)",
-                                TheShard:GetShardId(), wm.id, wm.linkedWorld, wm.receivedPortal, shardid, otherPortal))
-            wm.linkedWorld = shardid
-            wm.receivedPortal = otherPortal
-            handled = true
+local function r_print(msg, ...)
+    print(string.format(">> Torpical Reconnector(%s): ", tostring(TheShard:GetShardId())), string.format(msg, ...))
+end
+
+local function ResetReceived(portal, receivedID)
+    local wm = portal.components.worldmigrator
+    local old = wm.receivedPortal
+    wm.receivedPortal = receivedID
+    wm._isreconnect = true
+    r_print("Reconnect Portal(%s) received from %s(shard %s) -> %s(shard %s)",
+            tostring(TheShard:GetShardId()),
+            tostring(old),               tostring(wm.linkedWorld),
+            tostring(wm.receivedPortal), tostring(wm.linkedWorld))
+end
+
+AddShardModRPCHandler("Tropical adventures", "ForceMatchPortal", function(shardid, playerNetID, portal, otherportal)
+    if ShardPortals[otherportal] then
+        ResetReceived(ShardPortals[otherportal], portal)
+        if playerNetID then
+            TheWorld.components.playerspawner:AddOnMigrated(playerNetID, otherportal)
         end
     else
-        for _, p in pairs(ShardPortals) do
-            local wm = p.components.worldmigrator
-            if wm.linkedWorld == shardid and wm.receivedPortal == otherPortal and player ~= nil then
-                TheWorld.components.playerspawner:AddOnMigrated(playerNetID, portal)
-                SendModRPCToShard(GetShardModRPC("Tropical adventures", "ReconnectCaveEntrances"), shardid, nil, otherPortal, portal)
-                handled = true
-                break
+        local shortest = { id = nil, dist = 999 }
+        for id, localportal in pairs(ShardPortals) do
+            local wm = localportal.components.worldmigrator
+            if wm.linkedWorld == shardid then
+                local dist = math.abs(tonumber(portal) - tonumber(id))
+                if shortest.dist > dist then
+                    shortest.id = id
+                    shortest.dist = dist
+                end
             end
         end
-        reason = handled ~= true and "NO SHOT"
-    end
-    if handled == false and reason == "NO SHOT" then
-        print(string.format("Tropical Adventures: Could not connect no shot portal"))
+        if shortest.id ~= nil then
+            ResetReceived(ShardPortals[shortest.id], shortest.id)
+            if playerNetID then
+                TheWorld.components.playerspawner:AddOnMigrated(playerNetID, otherportal)
+            end
+        end
     end
 end)
+]]
 
 AddModRPCHandler("Tropical adventures", "FiniteusesGet", function(player, item)
     SendModRPCToClient(GetClientModRPC("Tropical adventures", "FiniteusesPost"), player, item, item.components.finiteuses:GetPercent())
