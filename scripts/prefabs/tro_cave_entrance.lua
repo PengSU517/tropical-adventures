@@ -238,154 +238,56 @@ local function open_fn()
     return inst
 end
 
+local function HamCommon(id)
+    return function()
+        local inst = CreateEntity()
 
-local function fn_ham1(Sim)
-    local inst = CreateEntity()
+        inst.entity:AddTransform()
+        local anim = inst.entity:AddAnimState()
+        inst.entity:AddSoundEmitter()
+        inst.entity:AddMiniMapEntity()
+        inst.entity:AddNetwork()
 
-    inst.entity:AddTransform()
-    local anim = inst.entity:AddAnimState()
-    inst.entity:AddSoundEmitter()
-    inst.entity:AddMiniMapEntity()
-    inst.entity:AddNetwork()
+        MakeObstaclePhysics(inst, 1)
+        inst.MiniMapEntity:SetIcon("cave_open.png")
 
-    MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("cave_open.png")
+        anim:SetBank("cave_entrance")
+        anim:SetBuild("cave_entrance")
 
-    anim:SetBank("cave_entrance")
-    anim:SetBuild("cave_entrance")
+        inst.AnimState:PlayAnimation("open")
 
-    inst.AnimState:PlayAnimation("open")
+        inst:AddTag("antlion_sinkhole_blocker")
 
-    inst:AddTag("antlion_sinkhole_blocker")
+        inst.entity:SetPristine()
 
-    inst.entity:SetPristine()
+        if not TheWorld.ismastersim then
+            return inst
+        end
 
-    if not TheWorld.ismastersim then
+        if TheNet:GetServerIsClientHosted() and not (TheShard:IsMaster() or TheShard:IsSecondary()) then
+            -- On non-sharded servers we'll make these vanish for now, but still generate them
+            -- into the world so that they can magically appear in existing saves when sharded
+            RemovePhysicsColliders(inst)
+            inst.AnimState:SetScale(0, 0)
+            inst.MiniMapEntity:SetEnabled(false)
+            inst:AddTag("NOCLICK")
+            inst:AddTag("CLASSIFIED")
+        end
+
+        inst:AddComponent("inspectable")
+        local worldmigrator = inst:AddComponent("worldmigrator")
+        worldmigrator.id = id
+        worldmigrator.receivedPortal = id
+        worldmigrator.OnSave = function(self) return { linkedWorld = self.linkedWorld } end
+        worldmigrator.OnLoad = function(self, data) self.linkedWorld = data.linkedWorld end
+
         return inst
     end
-
-    if TheNet:GetServerIsClientHosted() and not (TheShard:IsMaster() or TheShard:IsSecondary()) then
-        --On non-sharded servers we'll make these vanish for now, but still generate them
-        --into the world so that they can magically appear in existing saves when sharded
-        RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0, 0)
-        inst.MiniMapEntity:SetEnabled(false)
-        inst:AddTag("NOCLICK")
-        inst:AddTag("CLASSIFIED")
-    end
-
-    inst:AddComponent("inspectable")
-    inst:AddComponent("worldmigrator")
-    inst.components.worldmigrator.id = 1272
-    inst.components.worldmigrator.receivedPortal = 1271
-
-    -- if TUNING.tropicalshards then
-    --     inst.components.worldmigrator.auto = false
-    --     inst.components.worldmigrator.linkedWorld = "2"
-    -- end
-
-    return inst
-end
-
-local function fn_ham2(Sim)
-    local inst = CreateEntity()
-
-    inst.entity:AddTransform()
-    local anim = inst.entity:AddAnimState()
-    inst.entity:AddSoundEmitter()
-    inst.entity:AddMiniMapEntity()
-    inst.entity:AddNetwork()
-
-    MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("cave_open.png")
-
-    anim:SetBank("cave_entrance")
-    anim:SetBuild("cave_entrance")
-
-    inst.AnimState:PlayAnimation("open")
-
-    inst:AddTag("antlion_sinkhole_blocker")
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    if TheNet:GetServerIsClientHosted() and not (TheShard:IsMaster() or TheShard:IsSecondary()) then
-        --On non-sharded servers we'll make these vanish for now, but still generate them
-        --into the world so that they can magically appear in existing saves when sharded
-        RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0, 0)
-        inst.MiniMapEntity:SetEnabled(false)
-        inst:AddTag("NOCLICK")
-        inst:AddTag("CLASSIFIED")
-    end
-
-    inst:AddComponent("inspectable")
-    inst:AddComponent("worldmigrator")
-    inst.components.worldmigrator.id = 1372
-    inst.components.worldmigrator.receivedPortal = 1371
-
-    -- if TUNING.tropicalshards then
-    --     inst.components.worldmigrator.auto = false
-    --     inst.components.worldmigrator.linkedWorld = "2"
-    -- end
-
-    return inst
-end
-
-local function fn_ham3(Sim)
-    local inst = CreateEntity()
-
-    inst.entity:AddTransform()
-    local anim = inst.entity:AddAnimState()
-    inst.entity:AddSoundEmitter()
-    inst.entity:AddMiniMapEntity()
-    inst.entity:AddNetwork()
-
-    MakeObstaclePhysics(inst, 1)
-    inst.MiniMapEntity:SetIcon("cave_open.png")
-
-    anim:SetBank("cave_entrance")
-    anim:SetBuild("cave_entrance")
-
-    inst.AnimState:PlayAnimation("open")
-
-    inst:AddTag("antlion_sinkhole_blocker")
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    if TheNet:GetServerIsClientHosted() and not (TheShard:IsMaster() or TheShard:IsSecondary()) then
-        --On non-sharded servers we'll make these vanish for now, but still generate them
-        --into the world so that they can magically appear in existing saves when sharded
-        RemovePhysicsColliders(inst)
-        inst.AnimState:SetScale(0, 0)
-        inst.MiniMapEntity:SetEnabled(false)
-        inst:AddTag("NOCLICK")
-        inst:AddTag("CLASSIFIED")
-    end
-
-    inst:AddComponent("inspectable")
-    inst:AddComponent("worldmigrator")
-    inst.components.worldmigrator.id = 1472
-    inst.components.worldmigrator.receivedPortal = 1471
-
-    -- if TUNING.tropicalshards then
-    --     inst.components.worldmigrator.auto = false
-    --     inst.components.worldmigrator.linkedWorld = "2"
-    -- end
-
-    return inst
 end
 
 return --[[ Prefab("cave_entrance", closed_fn, assets, prefabs),
     Prefab("cave_entrance_ruins", ruins_fn, assets, prefabs),
     Prefab("cave_entrance_open", open_fn, assets, prefabs), ]]
-    Prefab("cave_entrance_ham1", fn_ham1, assets, prefabs),
-    Prefab("cave_entrance_ham2", fn_ham2, assets, prefabs),
-    Prefab("cave_entrance_ham3", fn_ham3, assets, prefabs)
+    Prefab("cave_entrance_ham1", HamCommon(1271), assets, prefabs),
+    Prefab("cave_entrance_ham2", HamCommon(1371), assets, prefabs),
+    Prefab("cave_entrance_ham3", HamCommon(1471), assets, prefabs)
