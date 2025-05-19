@@ -121,7 +121,6 @@ local actionhandlers = {
     ActionHandler(ACTIONS.SHOP, "doshortaction"),
     ActionHandler(ACTIONS.SMELT, "doshortaction"),
     ActionHandler(ACTIONS.GIVE2, "give"),
-    ActionHandler(ACTIONS.PAINT, "dolongaction"),
     ActionHandler(ACTIONS.DISLODGE, "tap"),
     ActionHandler(ACTIONS.GAS, "crop_dust"),
     ActionHandler(ACTIONS.SURF, "surfando"),
