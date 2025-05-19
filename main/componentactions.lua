@@ -36,6 +36,15 @@ AddComponentAction("SCENE", "dislodgeable", function(inst, doer, actions, right)
     end
 end)
 
+AddComponentAction("SCENE", "breeder", function(inst, doer, actions, right)
+    if not right then
+        if inst.components.breeder and inst.components.breeder.volume > 0 then
+            table.insert(actions, ACTIONS.HARVEST)
+            return
+        end
+    end
+end)
+
 
 AddComponentAction("SCENE", "mystery", function(inst, doer, actions, right)
     if not right then
@@ -102,7 +111,7 @@ AddComponentAction("USEITEM", "fuel", function(inst, doer, target, actions, righ
     if not target.components.container then return end
     if right then
         if inst:HasTag("ANCIENT_REMNANT_fuel") and
-           target:HasTag("ANCIENT_REMNANT_fueled") then
+            target:HasTag("ANCIENT_REMNANT_fueled") then
             RemoveByValue(actions, ACTIONS.STORE)
         end
     else

@@ -990,3 +990,12 @@ local function extra_arrive_dist(doer, dest, bufferedaction, ...)
 end
 
 ACTIONS.DEPLOY.extra_arrive_dist = extra_arrive_dist
+
+
+local Oldharvest = ACTIONS.HARVEST.fn
+ACTIONS.HARVEST.fn = function(act)
+    if act.target.components.breeder and act.target.components.breeder.volume > 0 then
+        return act.target.components.breeder:Harvest(act.doer)
+    end
+    return Oldharvest and Oldharvest(act)
+end
