@@ -113,10 +113,10 @@ function Driver:OnConsumeUses()
 		multi = 0.5
 	end
 	if self.inst.components.locomotor.isrunning then
-		armor:Repair(-vehicle.useamount * multi)
+		armor.condition = armor.condition - vehicle.useamount * multi
 	end
 	finite.current = armor.condition
-	finite:Use(0)
+	-- finite:Use(0)
 end
 
 function Driver:OnStageGraph()

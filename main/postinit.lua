@@ -58,6 +58,7 @@ modimport("postinit/poisonables")            --posonables--and loot dropper--
 -- modimport("postinit/components/trap")
 
 -- modimport("postinit/components/a__template")
+modimport("postinit/components/finiteuses")
 modimport("postinit/components/snowball")
 modimport("postinit/components/actionqueuer")
 modimport("postinit/components/ambientlighting")
