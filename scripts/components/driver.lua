@@ -125,7 +125,7 @@ function Driver:OnStageGraph()
 	local vehicle = self.vehicle
 	local sailslot = vehicle.components.container:GetItemInSlot(1)
 	if inst.boat_proxy and not self.inst.sg:HasStateTag("busy") then
-		if self.inst.sg:HasStateTag("sailing") then
+		if self.inst.sg:HasStateTag("sailing") and sailslot and sailslot:HasTag("sail") then
 			inst.boat_proxy.AnimState:SetBank("wilson")                --把船的骨骼改成人的骨骼
 			inst.boat_proxy.AnimState:AddOverrideBuild("player_actions_paddle") ---在附加上船的动作build
 			if not inst.boat_proxy.AnimState:IsCurrentAnimation("sail_loop") then

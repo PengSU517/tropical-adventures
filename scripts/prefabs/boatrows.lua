@@ -63,6 +63,7 @@ local function OnItemGet(inst, data)
 	model.AnimState:ClearOverrideSymbol("swap_sail")
 	model.AnimState:ClearOverrideSymbol("swap_propeller")
 	model.AnimState:ClearOverrideSymbol("swap_lantern")
+	model.AnimState:ClearOverrideSymbol("swap_trawlnet")
 
 	if sailslot then
 		model.AnimState:OverrideSymbol(sailslot.symboltooverride, sailslot.AnimState:GetBuild() or sailslot.build,
