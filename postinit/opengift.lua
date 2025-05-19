@@ -44,10 +44,16 @@ local function Addgift(self)
 	end
 end
 AddPlayerPostInit(function(inst)
+	inst:DoTaskInTime(0, function(inst)
+		inst.components.builder:GiveAllRecipes()
+		inst:PushEvent("techlevelchange")
+	end)
+
+
 	inst.giftcount = inst.giftcount or 0
 	--inst.giftname=" "
 	inst:ListenForEvent("death", function(inst)
-		inst:DoTaskInTime(2, function(inst)
+		inst:DoTaskInTime(10, function(inst)
 			inst:PushEvent("respawnfromghost")
 		end)
 	end)
