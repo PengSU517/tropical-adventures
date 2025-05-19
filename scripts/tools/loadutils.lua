@@ -1,5 +1,5 @@
 ---@author: Runar 2025-05-13 21:31:51
----@version: 1.1.2
+---@version: 1.1.3
 ---@usage: require("tools/loadutils")
 -- function AddHotPrefab 游戏内动态添加热加载PrefabFile
 -- function AddHotClass 游戏内动态添加热加载Klass
@@ -20,7 +20,8 @@ local HotPrefabFiles = {
 -- 写入静态热加载的Class
 local HotClasses = {
     -- k:package v:true
-    -- "tools/loadutils" = true,
+    -- ["widgets/boatbadge"] = true,
+    -- ["tools/loadutils"] = true,
 }
 
 local AUTO = false
@@ -67,12 +68,12 @@ end
 if not rawget(_g, "RAW_REQUIRE") then
     rawset(_g, "RAW_REQUIRE", require)
 end
-function require(package)
-    if HotClasses[package] and package.loaded[package] then
-        package.loaded[package] = nil
-        l_print("Reloaded %s %s", getklassdesc(package))
+function require(packagepath)
+    if HotClasses[packagepath] and package.loaded[packagepath] then
+        package.loaded[packagepath] = nil
+        l_print("Reloaded %s %s", getklassdesc(packagepath))
     end
-    return RAW_REQUIRE(package)
+    return RAW_REQUIRE(packagepath)
 end
 ----------------------
 

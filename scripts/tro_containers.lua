@@ -147,7 +147,7 @@ local function BoatParamCommon(build, inspectbuild, numslots)
             animbank = inspectbuild,
             animbuild = inspectbuild,
             pos = Vector3(250, 0, 0),
-            badgepos = Vector3(0, 160, 0),
+            badgepos = Vector3(0, 167, 0),
             isboatinspect = true,
         },
         usespecificslotsforitems = true,
