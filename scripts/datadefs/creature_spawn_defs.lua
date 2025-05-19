@@ -18,15 +18,15 @@ local CREATURES   =
 
     mean_flytrap = {
         prefab = "mean_flytrap",
-        schoolmin = 3,
-        schoolmax = 6,
+        schoolmin = 2,
+        schoolmax = 4,
         schoolrange = SCHOOL_AREA.SMALL,
     },
 
     adult_flytrap = {
         prefab = "adult_flytrap",
         schoolmin = 1,
-        schoolmax = 2,
+        schoolmax = 1,
         schoolrange = SCHOOL_AREA.SMALL,
     },
 
@@ -40,14 +40,14 @@ local CREATURES   =
     pog = {
         prefab = "pog",
         schoolmin = 1,
-        schoolmax = 2,
+        schoolmax = 1,
         schoolrange = SCHOOL_AREA.MEDIUM,
     },
 
     jellyfish_planted = {
         prefab = "jellyfish_planted",
-        schoolmin = 3,
-        schoolmax = 7,
+        schoolmin = 2,
+        schoolmax = 5,
         schoolrange = SCHOOL_AREA.SMALL,
     },
     whirlpool = {
@@ -66,26 +66,26 @@ local CREATURES   =
     rainbowjellyfish_planted = {
         prefab = "rainbowjellyfish_planted",
         schoolmin = 2,
-        schoolmax = 6,
+        schoolmax = 5,
         schoolrange = SCHOOL_AREA.SMALL,
     },
     ballphin = {
         prefab = "ballphin2",
-        schoolmin = 2,
+        schoolmin = 1,
         schoolmax = 3,
         schoolrange = SCHOOL_AREA.SMALL,
     },
 
     stungray = {
         prefab = "stungray",
-        schoolmin = 3,
+        schoolmin = 2,
         schoolmax = 6,
         schoolrange = SCHOOL_AREA.SMALL,
     },
 
     bioluminescence = {
         prefab = "bioluminescence",
-        schoolmin = 4,
+        schoolmin = 2,
         schoolmax = 6,
         schoolrange = SCHOOL_AREA.SMALL,
     },
@@ -100,7 +100,7 @@ local CREATURES   =
     knightboat = {
         prefab = "knightboat",
         schoolmin = 1,
-        schoolmax = 3,
+        schoolmax = 1,
         schoolrange = SCHOOL_AREA.SMALL,
     },
 
@@ -135,8 +135,8 @@ local CREATURES   =
 
     sharx = {
         prefab = "sharx",
-        schoolmin = 2,
-        schoolmax = 4,
+        schoolmin = 1,
+        schoolmax = 3,
         schoolrange = SCHOOL_AREA.TINY,
     },
 
