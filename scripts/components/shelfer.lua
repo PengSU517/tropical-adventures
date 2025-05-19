@@ -62,38 +62,21 @@ function Shelfer:GetGift()
 end
 
 function Shelfer:GiveGift()
+    if not self.shelf then return end
+
     self.inst.components.inventoryitem.canbepickedup = false
-    if self.shelf ~= nil then
-        self.shelf.SetImageFromName(self.shelf, nil, self.slot)
-    end
+    self.shelf.SetImageFromName(self.shelf, nil, self.slot)
     local item = self.inst.components.pocket:RemoveItem("shelfitem")
-    if self.inst.components.shelfer and self.inst.components.shelfer.shelf:HasTag("pigcurse") then
-        if self.inst.components.shelfer and self.inst.components.shelfer.shelf.components.timer then
-            self.inst.components.shelfer.shelf.components.timer:StartTimer("spawndelay", 480 * 60)
+    if self.shelf:HasTag("pigcurse") then
+        if self.shelf.components.timer then
+            self.shelf.components.timer:StartTimer("spawndelay", 480 * 60)
         end
-        if math.random() < 0.3 and self.inst.components.shelfer and self.inst.components.shelfer.shelf then
+        if math.random() < 0.3 then
             local ghost = SpawnPrefab("ghost")
-            local pt = Vector3(self.inst.components.shelfer.shelf.Transform:GetWorldPosition())
+            local pt = Vector3(self.shelf.Transform:GetWorldPosition())
             if ghost then ghost.Transform:SetPosition(pt.x, pt.y, pt.z) end
         end
     end
-
-    if self.inst.components.shelfer and self.inst.components.shelfer.shelf:HasTag("yellow_lizardman") then
-        if self.inst.components.shelfer and self.inst.components.shelfer.shelf.components.timer then
-            self.inst.components.shelfer.shelf.components.timer:StartTimer("spawndelay", 480 * 60)
-        end
-        if self.inst.components.shelfer and self.inst.components.shelfer.shelf then
-            local ghost = SpawnPrefab("gw_yellow_lizardman")
-            local pt = Vector3(self.inst.components.shelfer.shelf.Transform:GetWorldPosition())
-            if ghost then ghost.Transform:SetPosition(pt.x, pt.y, pt.z) end
-            local invader = GetClosestInstWithTag("player", self.inst, 17)
-            if invader then
-                ghost.components.combat:SetTarget(invader)
-            end
-        end
-    end
-
-
     return self:ReturnGift(item)
 end
 
