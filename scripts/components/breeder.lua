@@ -1,20 +1,19 @@
 --scripts/components/breeder.lua
-local Breeder =
-    Class(
-        function(self, inst)
-            self.inst = inst
-            self.crops = {}
-            self.volume = 0
-            self.max_volume = 4
-            self.seeded = false
-            self.harvestable = false
-            self.level = 1
-            self.croppoints = {}
-            self.growrate = 1
+local Breeder = Class(
+    function(self, inst)
+        self.inst = inst
+        self.crops = {}
+        self.volume = 0
+        self.max_volume = 4
+        self.seeded = false
+        self.harvestable = false
+        self.level = 1
+        self.croppoints = {}
+        self.growrate = 1
 
-            self.inst:AddTag("breeder")
-        end
-    )
+        self.inst:AddTag("breeder")
+    end
+)
 
 local FISH_FARM_CYCLE_TIME_MIN = 30 * 8
 local FISH_FARM_CYCLE_TIME_MAX = 30 * 12
@@ -54,41 +53,28 @@ function Breeder:OnLoad(data, newents)
 
     if data.breedtasktime then
         self.breedTask =
-            self.inst:DoTaskInTime(
-                data.breedtasktime,
-                function()
-                    self:checkVolume()
-                end
-            )
+            self.inst:DoTaskInTime(data.breedtasktime,
+                function() self:checkVolume() end)
     end
 
     if data.luretasktime then
         self.lureTask =
-            self.inst:DoTaskInTime(
-                data.luretask,
-                function()
-                    self:checkLure()
-                end
-            )
+            self.inst:DoTaskInTime(data.luretask, function() self:checkLure() end)
     end
 
-    self.inst:DoTaskInTime(
-        0,
-        function()
-            self.inst:PushEvent("onVisChange", {})
-        end
+    self.inst:DoTaskInTime(0, function() self.inst:PushEvent("onVisChange", {}) end
     )
 end
 
 function Breeder:checkSeeded()
-    if self.volume < 1 and not self.harvestable then
+    if self.volume < 1 and not self.seeded then
         self:StopBreeding()
     end
     self.inst:PushEvent("onVisChange", {})
 end
 
 function Breeder:updatevolume(delta)
-    self.volume = math.min(math.max(self.volume + delta, 0), self.max_volume)
+    self.volume = math.clamp(self.volume + delta, 0, self.max_volume)
     self:checkSeeded()
 end
 
@@ -166,22 +152,15 @@ function Breeder:checkLure()
 end
 
 function Breeder:checkVolume()
-    if self.seeded then
-        --[[   if self.volume > 0 and not self.harvestable then
+    if self.seeded or self.volume > 0 then
+        if self.volume > 0 then
             self.harvestable = true
-        else]]
+        end
         self:updatevolume(1)
-        --end
+        self.seeded = false
         self.inst:PushEvent("onVisChange", {})
         local time = math.random(FISH_FARM_CYCLE_TIME_MIN, FISH_FARM_CYCLE_TIME_MAX)
-
-        self.breedTask =
-            self.inst:DoTaskInTime(
-                time,
-                function()
-                    self:checkVolume()
-                end
-            )
+        self.breedTask = self.inst:DoTaskInTime(time, function() self:checkVolume() end)
     end
 end
 
@@ -217,27 +196,16 @@ function Breeder:Seed(item)
         self.product = "fish5"
     end
 
-    print(self.product)
+    -- print(self.product)
 
     self.seeded = true
 
     local time = math.random(FISH_FARM_CYCLE_TIME_MIN, FISH_FARM_CYCLE_TIME_MAX)
 
-    self.breedTask =
-        self.inst:DoTaskInTime(
-            time,
-            function()
-                self:checkVolume()
-            end
-        )
+    self.breedTask = self.inst:DoTaskInTime(time, function() self:checkVolume() end)
 
-    self.lureTask =
-        self.inst:DoTaskInTime(
-            FISH_FARM_LURE_TEST_TIME,
-            function()
-                self:checkLure()
-            end
-        )
+    self.lureTask = self.inst:DoTaskInTime(FISH_FARM_LURE_TEST_TIME,
+        function() self:checkLure() end)
 
     if self.onseedfn then
         self.onseedfn(item)
