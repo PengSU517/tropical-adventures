@@ -98,6 +98,19 @@ AddComponentAction("USEITEM", "inventoryitem", function(inst, doer, target, acti
     end
 end)
 
+AddComponentAction("USEITEM", "fuel", function(inst, doer, target, actions, right)
+    if not target.components.container then return end
+    if right then
+        if inst:HasTag("ANCIENT_REMNANT_fuel") and
+           target:HasTag("ANCIENT_REMNANT_fueled") then
+            RemoveByValue(actions, ACTIONS.STORE)
+        end
+    else
+        if target.components.inventoryitem and not target:IsInLimbo() then
+            RemoveByValue(actions, ACTIONS.ADDFUEL)
+        end
+    end
+end)
 
 AddComponentAction("INVENTORY", "interactions",
     function(inst, doer, actions)

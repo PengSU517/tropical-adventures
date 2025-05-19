@@ -3,12 +3,6 @@ local ACTIONS = ACTIONS
 local Action = Action
 local STRINGS = STRINGS
 
-
-
-
-ACTIONS.ADDFUEL.priority = 1 -- Runar: 未定义的优先级，没有的话碎布加燃料会有问题
-ACTIONS.GIVE.priority = 0
-
 AddAction("LAVASPIT",
     "spit",
     function(act)
