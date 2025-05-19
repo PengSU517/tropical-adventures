@@ -76,11 +76,12 @@ local function OnGetItemFromPlayer(inst, giver, item)
         inst:DoTaskInTime(1, function()
             local gems = 0
             if value < 100 then
-                if math.random() <= 0.6 then
-                    SpawnAt("crawlingnightmare", inst)
-                else
-                    SpawnAt("nightmarebeak", inst)
-                end
+                SpawnAt((math.random() <= 0.6) and "crawlingnightmare" or
+                "nightmarebeak", inst):DoTaskInTime(1, function(inst)
+                    if inst.components.combat then
+                        inst.components.combat:SuggestTarget(giver)
+                    end
+                end)
             elseif value < 150 then
                 gems = 1
             elseif value < 200 then
@@ -92,20 +93,12 @@ local function OnGetItemFromPlayer(inst, giver, item)
                 inst.AnimState:PushAnimation("vortex_idle_full", true)
                 inst.SoundEmitter:PlaySound("turnoftides/common/together/water/splash/small")
                 for k = 1, gems do
-                    local nug = SpawnPrefab("purplegem")
-                    local pt = Vector3(inst.Transform:GetWorldPosition()) + Vector3(0, 4.5, 0)
-
-                    nug.Transform:SetPosition(pt:Get())
-                    local down = TheCamera:GetDownVec()
-                    local angle = math.atan2(down.z, down.x) + (math.random() * 60 - 30) * DEGREES
-                    --local angle = (-TUNING.CAM_ROT-90 + math.random()*60-30)/180*PI
-                    local sp = math.random() * 4 + 2
-                    nug.Physics:SetVel(sp * math.cos(angle), math.random() * 2 + 8, sp * math.sin(angle))
+                    LaunchAt(SpawnPrefab("purplegem"), inst, nil, 2, 3, 1)
                 end
-                --				local x, y, z = inst.Transform:GetWorldPosition()
-                --				local fonte = SpawnPrefab("deco_ruins_fountain")
-                --				fonte.Transform:SetPosition(x, y, z)
-                --				inst:Remove()									
+                -- local x, y, z = inst.Transform:GetWorldPosition()
+                -- local fonte = SpawnPrefab("deco_ruins_fountain")
+                -- fonte.Transform:SetPosition(x, y, z)
+                -- inst:Remove()
             end
         end)
     end
