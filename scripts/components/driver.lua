@@ -150,6 +150,10 @@ function Driver:OnUpdate(dt)
 		if self.inst.components.rowboatwakespawner and not self.inst.components.rowboatwakespawner.spawning then
 			self.inst.components.rowboatwakespawner:StartSpawning()
 		end
+
+		if vehicle.components.container and not vehicle.components.container:IsOpen() then
+			vehicle.components.container:Open(self.inst)
+		end
 	else
 		if self.inst.components.rowboatwakespawner and self.inst.components.rowboatwakespawner.spawning then
 			self.inst.components.rowboatwakespawner:StopSpawning()
