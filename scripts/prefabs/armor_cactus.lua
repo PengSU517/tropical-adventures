@@ -54,6 +54,8 @@ local function fn()
 
 	MakeInventoryFloatable(inst)
 
+    inst:AddTag("bramble_resistant")
+
 	inst.entity:SetPristine()
 
 	if not TheWorld.ismastersim then
