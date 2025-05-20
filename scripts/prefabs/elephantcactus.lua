@@ -24,6 +24,8 @@ local prefabs =
 	"twigs",
 }
 
+local tagsignore = { "elephantcactus", "armorcactus" }
+
 local function ontransplantfn(inst)
 	--inst.components.pickable:MakeBarren()
 end
@@ -281,11 +283,14 @@ local function activefn(Sim)
 	inst:AddComponent("combat")
 	inst.components.combat:SetRange(ELEPHANTCACTUS_RANGE)
 	inst.components.combat:SetDefaultDamage(ELEPHANTCACTUS_DAMAGE)
-	inst.components.combat:SetAreaDamage(ELEPHANTCACTUS_RANGE, 1.0)
+	inst.components.combat:SetAreaDamage(ELEPHANTCACTUS_RANGE, 1.0, function(target)
+        return not (target:HasOneOfTags(tagsignore) or target.components.inventory ~= nil and
+            target.components.inventory:EquipHasTag("bramble_resistant"))
+    end)
 	inst.components.combat:SetAttackPeriod(1)
 	inst.components.combat:SetRetargetFunction(1, retargetfn)
 	inst.components.combat:SetKeepTargetFunction(shouldKeepTarget)
-	inst.components.combat.notags = { "elephantcactus", "armorcactus" }
+	inst.components.combat:SetNoAggroTags(tagsignore)
 	inst.components.combat:SetHurtSound("dontstarve_DLC002/creatures/volcano_cactus/hit")
 
 	inst:AddComponent("timer")

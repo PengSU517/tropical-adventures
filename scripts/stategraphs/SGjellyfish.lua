@@ -1,6 +1,6 @@
 local WALK_SPEED = 4
 local RUN_SPEED = 7
-local	    JELLYFISH_DAMAGE = 5
+local        JELLYFISH_DAMAGE = 5
 
 require("stategraphs/commonstates")
 
@@ -67,20 +67,22 @@ local states=
 
         onenter = function(inst)
             inst.Physics:Stop()
-            inst.AnimState:PlayAnimation("idle_shock")		
+            inst.AnimState:PlayAnimation("idle_shock")        
         end,
 
-		timeline=
+        timeline=
         {
             TimeEvent(2*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/jellyfish/electric_water") end),
             TimeEvent(5*FRAMES, function(inst) 
-			local pclose = GetClosestInstWithTag("player", inst, 3)
-			if pclose and pclose.components.health then
-			pclose.components.health:DoDelta(-JELLYFISH_DAMAGE)
-			pclose.sg:GoToState("electrocute")
-			end	end),
+                local player = GetClosestInstWithTag("player", inst, 3)
+                if player and player.components.inventory and player.components.inventory:IsInsulated() ~= true and
+                   player.components.health then
+                    player.components.health:DoDelta(-JELLYFISH_DAMAGE)
+                    player.sg:GoToState("electrocute")
+                end    
+            end),
         },
-		
+        
         events=
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
@@ -138,7 +140,7 @@ local states=
             inst:Hide() 
             inst.Physics:Stop()
             RemovePhysicsColliders(inst)        
-            inst.components.lootdropper:DropLoot(Vector3(inst.Transform:GetWorldPosition()))  			
+            inst.components.lootdropper:DropLoot(Vector3(inst.Transform:GetWorldPosition()))              
         end,
 
     }, 
