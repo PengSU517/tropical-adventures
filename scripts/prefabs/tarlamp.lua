@@ -346,18 +346,22 @@ end
 
 local function mudasimbolo(inst)
     ---------verifica se ta dentro do navio--------------
-    local barco = GetClosestInstWithTag("boatsw", inst, 0.5)
-    local player = GetClosestInstWithTag("player", inst, 0.5)
-    if not barco then
-        if inst:HasTag("nonavio") then inst:RemoveTag("nonavio") end
-        return
-    end
-    if barco and player and inst.components.inventoryitem:IsHeldBy(player) then
-        if inst:HasTag("nonavio") then inst:RemoveTag("nonavio") end
-        return
-    end
-    if barco then
-        if not inst:HasTag("nonavio") then inst:AddTag("nonavio") end
+    -- local barco = GetClosestInstWithTag("boatsw", inst, 0.5)
+    -- local player = GetClosestInstWithTag("player", inst, 0.5)
+    -- if not barco then
+    --     if inst:HasTag("nonavio") then inst:RemoveTag("nonavio") end
+    --     return
+    -- end
+    -- if barco and player and inst.components.inventoryitem:IsHeldBy(player) then
+    --     if inst:HasTag("nonavio") then inst:RemoveTag("nonavio") end
+    --     return
+    -- end
+    -- if barco then
+    --     if not inst:HasTag("nonavio") then inst:AddTag("nonavio") end
+    -- end
+
+    if not inst.components.inventoryitem.owner or not inst.components.inventoryitem.owner:HasTag("player") then
+        inst:RemoveTag("ligado")
     end
 
 
@@ -388,8 +392,6 @@ local function fn()
     inst.AnimState:SetBuild("tarlamp")
     inst.AnimState:PlayAnimation("idle_off")
 
-    inst:AddTag("boatlight")
-    inst:AddTag("aquatic")
     inst:AddTag("light")
     inst:AddTag("tarlamp")
 

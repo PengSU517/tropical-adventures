@@ -121,16 +121,17 @@ AddComponentAction("USEITEM", "fuel", function(inst, doer, target, actions, righ
     end
 end)
 
-AddComponentAction("INVENTORY", "interactions",
-    function(inst, doer, actions)
-        if inst:HasTag("boatlight") and inst:HasTag("nonavio") and not inst:HasTag("ligado") then --and inst:HasTag("nonavio")
-            table.insert(actions, ACTIONS.ACTIVATESAIL)
-        elseif inst:HasTag("boatlight") and inst:HasTag("ligado") then
-            table.insert(actions, ACTIONS.DESACTIVATESAIL)
-        elseif inst:HasTag("tunacan") then
-            table.insert(actions, ACTIONS.OPENTUNA) ----这个需要修改
-        end
-    end)
+AddComponentAction("INVENTORY", "interactions", function(inst, doer, actions)
+    if inst:HasTag("boatlight") and not inst:HasTag("ligado") and
+        inst.components.inventoryitem.owner and inst.components.inventoryitem.owner:HasTag("boatsw") then --and inst:HasTag("nonavio")
+        table.insert(actions, ACTIONS.ACTIVATESAIL)
+    elseif inst:HasTag("boatlight") and inst:HasTag("ligado") and
+        inst.components.inventoryitem.owner and inst.components.inventoryitem.owner:HasTag("boatsw") then
+        table.insert(actions, ACTIONS.DESACTIVATESAIL)
+    elseif inst:HasTag("tunacan") then
+        table.insert(actions, ACTIONS.OPENTUNA) ----这个需要修改
+    end
+end)
 
 
 
