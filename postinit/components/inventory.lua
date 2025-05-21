@@ -102,7 +102,16 @@ local function IsItemNameEquippedClient(self, item_name)
     end
 end
 
+local Utils = require("tools/utils")
 local Inventory = require("components/inventory")
+Utils.FnDecorator(Inventory, "GetOverflowContainer", nil, function(rets, self)
+    if rets[1] ~= nil and rets[1]:IsFull() ~= true then
+        return rets
+    end
+    local barco = self:GetEquippedItem(EQUIPSLOTS.BARCO)
+    return (barco ~= nil and barco.components.container and barco.components.container.canbeopened) and
+            { barco.components.container } or rets
+end)
 Inventory.HasMoney = HasMoney
 Inventory.PayMoney = PayMoney
 Inventory.IsItemNameEquipped = IsItemNameEquipped

@@ -110,6 +110,7 @@ modimport("postinit/prefabs/dock_kit") --甲板相关
 modimport("postinit/prefabs/floatable_items")
 modimport("postinit/prefabs/gears")
 modimport("postinit/prefabs/hats")
+modimport("postinit/prefabs/inventory_classified")
 modimport("postinit/prefabs/meatrack")
 modimport("postinit/prefabs/mosquitosack")
 modimport("postinit/prefabs/mushroom_farm")
