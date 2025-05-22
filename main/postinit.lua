@@ -32,6 +32,7 @@ modimport("postinit/oceancolor")
 
 
 --成系统的内容修改
+
 modimport("postinit/prefabs/lots_of_things") ---对各种prefab追加一些标签或组件
 modimport("postinit/actionrelated")
 modimport("postinit/components/weather")     --热带气候（冬季降雨   ------冬雨和室内怎么联动是个问题
@@ -58,7 +59,7 @@ modimport("postinit/poisonables")            --posonables--and loot dropper--
 -- modimport("postinit/components/trap")
 
 -- modimport("postinit/components/a__template")
-modimport("postinit/components/finiteuses")
+-- modimport("postinit/components/finiteuses")
 modimport("postinit/components/snowball")
 modimport("postinit/components/actionqueuer")
 modimport("postinit/components/ambientlighting")
