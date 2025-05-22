@@ -16,8 +16,7 @@ AddComponentPostInit(
     end
 )
 
-AddComponentPostInit(
-    "playeractionpicker",
+AddComponentPostInit("playeractionpicker",
     function(self)
         local OldGetRightClickActions = self.GetRightClickActions
         function self:GetRightClickActions(position, target, spellbook)
@@ -32,8 +31,7 @@ AddComponentPostInit(
 )
 
 
-AddComponentPostInit(
-    "playeractionpicker",
+AddComponentPostInit("playeractionpicker",
     function(self)
         local OldGetLeftClickActions = self.GetLeftClickActions
         function self:GetLeftClickActions(position, target)
