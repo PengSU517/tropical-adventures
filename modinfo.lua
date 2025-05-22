@@ -42,7 +42,7 @@ name = pub_dev(en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒�
     en_zh(" Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "3.5.17"
+version = "3.5.22"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -667,7 +667,7 @@ local experimental_options =
         name = "dev_portal_reconnector",
         label = en_zh("Reconnect Cave Entrances", "洞穴入口重连"),
         hover = en_zh("If you thought that your world's cave entrances teleported not well, try turn on this option.",
-                      "如果你觉得洞穴入口传送得不是很对，那就启用这个选项。"),
+            "如果你觉得洞穴入口传送得不是很对，那就启用这个选项。"),
         options = {
             { description = en_zh("Disabled", "关闭"), data = false, },
             { description = en_zh("Enabled", "开启"), data = true, },

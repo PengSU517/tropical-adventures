@@ -6,33 +6,36 @@ local assets =
 local Utils = require "tools/utils"
 
 local function ondeploy(inst, pt, deployer)
-	if inst.components.bundled_structure and inst.components.bundled_structure.cave == TheWorld:HasTag("cave") then
-		inst.components.bundled_structure:Unpack(pt)
-		inst:Remove()
+	if inst.components.bundled_structure then
+		if not inst.components.bundled_structure.cave == not TheWorld:HasTag("cave") then
+			inst.components.bundled_structure:Unpack(pt)
+			inst:Remove()
+		end
 	end
 end
 
 local function get_name(inst)
-    local worldstr = not inst._cave:value() and "Forest " or "Cave "
-	return #inst._name:value() > 0 and "Packaged " .. worldstr .. inst._name:value() or "Packaged " .. worldstr .. "objects"
+	local worldstr = not inst._cave:value() and "Forest " or "Cave "
+	return #inst._name:value() > 0 and "Packaged " .. worldstr .. inst._name:value() or
+		"Packaged " .. worldstr .. "objects"
 end
 
 local function OnSave(inst, data)
-    if inst.inv_image_bg then
-        data.image = inst.components.inventoryitem.imagename
-        data.bgimage = inst.inv_image_bg.image
-        data.bgatlas = inst.inv_image_bg.atlas
-    end
+	if inst.inv_image_bg then
+		data.image = inst.components.inventoryitem.imagename
+		data.bgimage = inst.inv_image_bg.image
+		data.bgatlas = inst.inv_image_bg.atlas
+	end
 end
 
 local function OnLoad(inst, data)
-    if data.bgimage then
-        inst.inv_image_bg = {
-            image = data.bgimage,
-            atlas = data.bgatlas,
-        }
-        inst.components.inventoryitem:ChangeImageName(data.image)
-    end
+	if data.bgimage then
+		inst.inv_image_bg = {
+			image = data.bgimage,
+			atlas = data.bgatlas,
+		}
+		inst.components.inventoryitem:ChangeImageName(data.image)
+	end
 end
 
 local function fullfn()
@@ -50,7 +53,7 @@ local function fullfn()
 	inst.AnimState:PlayAnimation("idle")
 	inst:AddTag("bundled_structure")
 	inst:AddTag("nonpackable")
-    inst._cave = net_bool(inst.GUID, "bundled_structure._cave")
+	inst._cave = net_bool(inst.GUID, "bundled_structure._cave")
 	inst._name = net_string(inst.GUID, "bundled_structure._name")
 	inst.displaynamefn = get_name
 
@@ -63,15 +66,15 @@ local function fullfn()
 
 	inst:AddComponent("bundled_structure")
 	local deployable = inst:AddComponent("deployable")
-    Utils.FnDecorator(deployable, "CanDeploy", function(self)
-        if self.inst._cave:value() ~= TheWorld:HasTag("cave") then return {false}, true end
-    end)
+	Utils.FnDecorator(deployable, "CanDeploy", function(self)
+		if self.inst._cave:value() ~= TheWorld:HasTag("cave") then return { false }, true end
+	end)
 	deployable.ondeploy = ondeploy
 
 	inst:AddComponent("inventoryitem")
 
-    -- inst.OnSave = OnSave
-    -- inst.OnLoad = OnLoad
+	-- inst.OnSave = OnSave
+	-- inst.OnLoad = OnLoad
 
 	MakeMediumBurnable(inst)
 	MakeMediumPropagator(inst)
