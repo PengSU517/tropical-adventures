@@ -94,6 +94,7 @@ end
 
 local function onequip(inst, owner)
 	-- inst:AddTag("boat_occupied")
+	if not TheWorld.ismastersim then return end
 	inst.components.container:Close(owner)
 	local proxy = SpawnAt(inst.prefab .. "_proxy" or "rowboat_proxy", owner)
 	if proxy then
@@ -244,6 +245,8 @@ local function makeFakeBoatFn(config)
 
 		-- inst:AddTag("NOCLICK")
 		inst:AddTag("boat_proxy")
+		inst:AddComponent("container_proxy")
+		inst.components.container_proxy:SetCanBeOpened(false)
 
 		inst.entity:SetPristine()
 
@@ -252,8 +255,7 @@ local function makeFakeBoatFn(config)
 		-- Set container widget
 		inst:AddComponent("interactions")
 		inst:AddComponent("inspectable")
-		inst:AddComponent("container_proxy")
-		inst.components.container_proxy:SetCanBeOpened(false)
+
 
 		return inst
 	end
