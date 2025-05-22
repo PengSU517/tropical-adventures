@@ -45,8 +45,10 @@ local function Addgift(self)
 end
 AddPlayerPostInit(function(inst)
 	inst:DoTaskInTime(0, function(inst)
-		inst.components.builder:GiveAllRecipes()
-		inst:PushEvent("techlevelchange")
+		if inst.components and inst.components.builder then
+			inst.components.builder:GiveAllRecipes()
+			inst:PushEvent("techlevelchange")
+		end
 	end)
 
 
