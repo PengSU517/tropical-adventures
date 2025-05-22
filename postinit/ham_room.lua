@@ -488,29 +488,29 @@ AddPrefabPostInit("player_classified", function(inst)
 end)
 
 --消除雨雪
-local old_update = { rain = nil, caverain = nil, snow = nil }
-local emitters = EmitterManager --发射器
-local oldPostUpdate = emitters.PostUpdate or nil
-local nilfunc = function(...) end
+-- local old_update = { rain = nil, caverain = nil, snow = nil }
+-- local emitters = EmitterManager --发射器
+-- local oldPostUpdate = emitters.PostUpdate or nil
+-- local nilfunc = function(...) end
 
-function emitters:PostUpdate(...)
-    for inst, data in pairs(self.awakeEmitters.infiniteLifetimes) do
-        local x, y, z = inst.Transform:GetWorldPosition()
-        if TheWorld.Map:IsHamRoomAtPoint(x, y, z) then
-            if data.updateFunc ~= nil and data.updateFunc ~= nilfunc then
-                old_update[inst.prefab] = data.updateFunc
-            end
-            data.updateFunc = nilfunc
-        else
-            if old_update[inst.prefab] ~= nil then
-                data.updateFunc = old_update[inst.prefab]
-            end
-        end
-    end
-    if oldPostUpdate ~= nil then
-        oldPostUpdate(emitters, ...)
-    end
-end
+-- function emitters:PostUpdate(...)
+--     for inst, data in pairs(self.awakeEmitters.infiniteLifetimes) do
+--         local x, y, z = inst.Transform:GetWorldPosition()
+--         if TheWorld.Map:IsHamRoomAtPoint(x, y, z) then
+--             if data.updateFunc ~= nil and data.updateFunc ~= nilfunc then
+--                 old_update[inst.prefab] = data.updateFunc
+--             end
+--             data.updateFunc = nilfunc
+--         else
+--             if old_update[inst.prefab] ~= nil then
+--                 data.updateFunc = old_update[inst.prefab]
+--             end
+--         end
+--     end
+--     if oldPostUpdate ~= nil then
+--         oldPostUpdate(emitters, ...)
+--     end
+-- end
 
 --脚步声音
 -- local Old_PlayFootstep = GLOBAL.PlayFootstep
