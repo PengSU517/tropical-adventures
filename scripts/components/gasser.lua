@@ -12,7 +12,7 @@ end
 local function SpawnGas(pt)
 	local cloud = SpawnPrefab("gascloud")
 	cloud.spawn(cloud)
-	cloud.Transform:SetPosition(pt.x, pt.y, pt.z)
+	cloud.Transform:SetPosition(pt.x, 0, pt.z)
 	--[[
 	if loot.Physics then
 		local angle = GetPlayer().GetAngleToPoint(pt)*RADIANS

@@ -134,6 +134,11 @@ AddComponentAction("INVENTORY", "interactions", function(inst, doer, actions)
 end)
 
 
+AddComponentAction("EQUIPPED", "gasser", function(inst, doer, target, actions, right)
+    if right and not (doer.replica.rider:IsRiding() or doer:HasTag("bonked")) then
+        table.insert(actions, ACTIONS.GAS)
+    end
+end)
 
 AddComponentAction("POINT", "gasser", function(inst, doer, pos, actions, right)
     if right then
