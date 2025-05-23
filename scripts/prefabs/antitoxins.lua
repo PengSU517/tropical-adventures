@@ -41,6 +41,7 @@ local function syrumpost(inst)
     inst.AnimState:SetBuild("poison_antidote")
     inst:AddTag("aquatic")
     inst:AddTag("preparedfood")
+    inst:AddTag("healerbuffs")
 
     if not TheWorld.ismastersim then return inst end
 
@@ -56,6 +57,7 @@ local function balmpost(inst)
     inst.AnimState:SetBuild("poison_salve")
     inst:AddTag("aquatic")
     inst:AddTag("preparedfood")
+    inst:AddTag("healerbuffs")
 
     if not TheWorld.ismastersim then return inst end
 
@@ -82,6 +84,7 @@ end
 local function oilpost(inst)
     inst.AnimState:SetBank("snakeoil")
     inst.AnimState:SetBuild("snakeoil")
+    inst:AddTag("healerbuffs")
 
     if not TheWorld.ismastersim then return inst end
 
