@@ -65,10 +65,14 @@ local function AddConfigAndTuning(config, source)
 
     ----configuration adjustments----------
     ------worldgen
-    config.WORLDGEN.sw_start = config.WORLDGEN.shipwrecked and (config.WORLDGEN.multiplayerportal == "shipwrecked")
-    config.WORLDGEN.ham_start = config.WORLDGEN.hamlet and (config.WORLDGEN.multiplayerportal == "hamlet")
+    config.WORLDGEN.sw_start = config.WORLDGEN.shipwrecked and (config.WORLDGEN.multiplayerportal == "shipwrecked") and
+        not config.DEVELOP.test_map
+    config.WORLDGEN.ham_start = config.WORLDGEN.hamlet and (config.WORLDGEN.multiplayerportal == "hamlet") and
+        not config.DEVELOP.test_map
+    config.WORLDGEN.world_size_multi = config.DEVELOP.test_map and 0.25 or config.WORLDGEN.world_size_multi
     config.WORLDGEN.together_not_mainland = (config.WORLDGEN.sw_start or config.WORLDGEN.ham_start)
     config.WORLDGEN.together = not ((not config.WORLDGEN.rog) and config.WORLDGEN.together_not_mainland)
+
     ------climate
     config.CLIMATE.sealnado = config.WORLDGEN.shipwrecked and config.CLIMATE.sealnado or false
     config.CLIMATE.fog = config.WORLDGEN.hamlet and config.CLIMATE.fog or false
