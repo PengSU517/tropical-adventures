@@ -322,10 +322,6 @@ if ta_worldgen.multiplayerportal == "shipwrecked" and ta_worldgen.shipwrecked th
             -- table.insert(level.tasks, "HomeIsland_start")
             level.overrides.start_location = "SWStart"
             level.valid_start_tasks = { "HomeIsland" }
-        elseif level.location == "cave" and (not ta_worldgen.together) then
-            -- table.insert(level.tasks, "Plains_start")
-            -- level.overrides.start_location = "HamStart"
-            level.valid_start_tasks = { "Volcano entrance" }
         end
     end)
 elseif ta_worldgen.multiplayerportal == "hamlet" and ta_worldgen.hamlet then
@@ -334,10 +330,6 @@ elseif ta_worldgen.multiplayerportal == "hamlet" and ta_worldgen.hamlet then
             -- table.insert(level.tasks, "Plains_start")
             level.overrides.start_location = "HamStart"
             level.valid_start_tasks = { "Plains" }
-        elseif level.location == "cave" and (not ta_worldgen.together) then
-            -- table.insert(level.tasks, "Plains_start")
-            -- level.overrides.start_location = "HamStart"
-            level.valid_start_tasks = { "HamMudWorld" }
         end
     end)
 end
@@ -346,42 +338,59 @@ end
 
 ---------------------测试模式------------
 if TA_CONFIG.DEVELOP.test_map then
-    if false then
-        AddLevelPreInitAny(function(level)
-            if level.location == "cave" then
-                level.overrides.keep_disconnected_tiles = true
+    AddRoom("BlankOcean", {
+        colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.1 },
+        value = WORLD_TILES.OCEAN_SHALLOW_SHORE,
+        type = NODE_TYPE.Blank,
+        contents = {}
+    })
+    -- Required Tasks
+    AddTask("Make a new pick", {
+        locks = LOCKS.NONE,
+        keys_given = { KEYS.PICKAXE, KEYS.AXE, KEYS.GRASS, KEYS.WOOD, KEYS.TIER1 },
+        room_choices = {
+            ["BlankOcean"] = 1,
+        },
+        room_bg = WORLD_TILES.GRASS,
+        background_room = "Blank",
+        colour = { r = 0, g = 1, b = 0, a = 1 }
+    })
 
-                level.tasks = { "MudWorld", "CaveExitTask1" }
-                -- table.insert(level.tasks, "HamArchiveMaze")
-                level.numoptionaltasks = 0
-                level.optionaltasks = {}
+    AddLevelPreInitAny(function(level)
+        if level.location == "cave" then
+            level.overrides.keep_disconnected_tiles = true
 
-                level.set_pieces = {}
-            end
+            level.tasks = { "MudWorld", "CaveExitTask1" }
+            -- table.insert(level.tasks, "HamArchiveMaze")
+            level.numoptionaltasks = 0
+            level.optionaltasks = {}
+
+            level.set_pieces = {}
+        end
 
 
-            if level.location == "forest" then
-                level.tasks = { "Make a pick" }
-                level.numoptionaltasks = 0
-                level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋
-                level.set_pieces["CaveEntrance"] = { count = 1, tasks = { "Make a pick" } }
-                level.overrides = {}
-                level.overrides.layout_mode = "LinkNodesByKeys"
-                level.required_setpieces = {}
+        if level.location == "forest" then
+            level.tasks = { "Make a new pick" }
+            level.valid_start_tasks = { "Make a new pick" }
+            level.numoptionaltasks = 0
+            level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋
+            level.set_pieces["CaveEntrance"] = { count = 1, tasks = { "Make a new pick" } }
+            level.overrides = {}
+            level.overrides.layout_mode = "LinkNodesByKeys"
+            level.required_setpieces = {}
 
-                level.random_set_pieces = {}
-                level.ordered_story_setpieces = {}
-                level.numrandom_set_pieces = 0
+            level.random_set_pieces = {}
+            level.ordered_story_setpieces = {}
+            level.numrandom_set_pieces = 0
 
-                -- level.ocean_population = nil       --海洋生态 礁石 海带之类的 还有奶奶岛,帝王蟹和猴岛
-                -- level.ocean_prefill_setpieces = {} -- 巨树和盐矿的layout
+            -- level.ocean_population = nil       --海洋生态 礁石 海带之类的 还有奶奶岛,帝王蟹和猴岛
+            -- level.ocean_prefill_setpieces = {} -- 巨树和盐矿的layout
 
-                level.overrides.keep_disconnected_tiles = true
-                level.overrides.roads = "never"
-                level.overrides.birds = "never"  --没鸟
-                level.overrides.has_ocean = true --没海  ----如果设置了有海的话会清除所有非地面地皮然后根据规则重新生成
-                level.required_prefabs = {}      -----这个是为了检测是否有必要的prefabs
-            end
-        end)
-    end
+            level.overrides.keep_disconnected_tiles = true
+            level.overrides.roads = "never"
+            level.overrides.birds = "never"  --没鸟
+            level.overrides.has_ocean = true --没海  ----如果设置了有海的话会清除所有非地面地皮然后根据规则重新生成
+            level.required_prefabs = {}      -----这个是为了检测是否有必要的prefabs
+        end
+    end)
 end

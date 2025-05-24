@@ -368,8 +368,8 @@ worldgen_options = {
         options =
         {
             {
-                description = en_zh("Tiny, 0.1×", "极小 , 0.1×"),
-                data = 0.1
+                description = en_zh("Tiny, 0.5×", "极小 , 0.5×"),
+                data = 0.5
             },
             {
                 description = en_zh("Smaller, 0.75×", "更小, 0.75×"),
