@@ -122,12 +122,17 @@ AddComponentAction("USEITEM", "fuel", function(inst, doer, target, actions, righ
 end)
 
 AddComponentAction("INVENTORY", "interactions", function(inst, doer, actions)
+    if inst:HasTag("tunacan") then
+        table.insert(actions, ACTIONS.OPENTUNA) ----这个需要修改
+    end
+    local barco = doer.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+    if not barco then return end
+    local lantern = barco.replica.container and barco.replica.container:GetItemInSlot(2)
+    if inst ~= lantern then return end
     if inst:HasTag("boatlight") and not inst:HasTag("ligado") then  --and inst:HasTag("nonavio")
         table.insert(actions, ACTIONS.ACTIVATESAIL)
     elseif inst:HasTag("boatlight") and inst:HasTag("ligado") then
         table.insert(actions, ACTIONS.DESACTIVATESAIL)
-    elseif inst:HasTag("tunacan") then
-        table.insert(actions, ACTIONS.OPENTUNA) ----这个需要修改
     end
 end)
 
