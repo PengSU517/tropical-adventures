@@ -15,9 +15,10 @@ local function ondeploy(inst, pt, deployer)
 end
 
 local function get_name(inst)
-	local worldstr = not inst._cave:value() and "Forest " or "Cave "
-	return #inst._name:value() > 0 and "Packaged " .. worldstr .. inst._name:value() or
-		"Packaged " .. worldstr .. "objects"
+    return string.format("%s %s %s",
+        "Packaged",
+        STRINGS.UI.SERVERCREATIONSCREEN[not inst._cave:value() and "FORESTWORLD" or "CAVEWORLD"],
+        tostring(inst._name:value() or "Object"))
 end
 
 local function OnSave(inst, data)
@@ -38,7 +39,7 @@ local function OnLoad(inst, data)
 	end
 end
 
-local function fullfn()
+local function fn()
 	local inst = CreateEntity()
 	inst.entity:AddTransform()
 	inst.entity:AddAnimState()
@@ -53,6 +54,7 @@ local function fullfn()
 	inst.AnimState:PlayAnimation("idle")
 	inst:AddTag("bundled_structure")
 	inst:AddTag("nonpackable")
+    inst:AddTag("nosteal")
 	inst._cave = net_bool(inst.GUID, "bundled_structure._cave")
 	inst._name = net_string(inst.GUID, "bundled_structure._name")
 	inst.displaynamefn = get_name
@@ -83,5 +85,5 @@ local function fullfn()
 	return inst
 end
 
-return Prefab("bundled_structure", fullfn, assets),
+return Prefab("bundled_structure", fn, assets),
 	MakePlacer("bundled_structure_placer", "bundled_structure", "bundled_structure", "idle")
