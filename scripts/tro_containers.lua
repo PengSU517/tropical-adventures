@@ -94,20 +94,24 @@ params.thatchpack.type = "pack"
 params.thatchpack.openlimit = 1
 
 local function boatitemtestfn(container, item, slot)
-    if not slot then return true end -- for "spslots for spitems"
+    if not slot then
+        container._isswift = true
+        container.inst:DoTaskInTime(0, function() container._isswift = nil end)
+        return true
+    end -- for "spslots for spitems"
     local slotitem = container:GetItemInSlot(slot)
+    local s = true
+    if container._isswift then s = slotitem == nil end
     if slot == 1 then
-        return not slotitem and (item:HasTag("sail") or item.prefab == "trawlnet")
+        return s and (item:HasTag("sail") or item.prefab == "trawlnet")
     elseif slot == 2 then
-        return not slotitem and
-            (item.prefab == "tarlamp" or item.prefab == "boat_lantern" or item.prefab == "boat_torch" or
-                item.prefab == "quackeringram" or item.prefab == "boatcannon" or item.prefab ==
-                "obsidian_boatcannon")
-    else --if slot and slot > 2 then
+        return s and (item:HasTag("boatlight") or item:HasTag("quackeringram") or item:HasTag("cannon"))
+    else -- if slot and slot > 2 then
         if item.components.stackable then
             for i = slot + 1, container:GetNumSlots() do
                 local findslotitem = container:GetItemInSlot(i)
-                if findslotitem and findslotitem.prefab == item.prefab and not findslotitem.components.stackable:IsFull() then
+                if findslotitem and findslotitem.prefab == item.prefab and
+                    not findslotitem.components.stackable:IsFull() then
                     return false
                 end
             end
