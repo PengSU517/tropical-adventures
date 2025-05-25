@@ -1,5 +1,5 @@
 ---@author: Runar 2025-05-13 21:31:51
----@version: 1.1.3
+---@version 20250525
 ---@usage: require("tools/loadutils")
 -- function AddHotPrefab 游戏内动态添加热加载PrefabFile
 -- function AddHotClass 游戏内动态添加热加载Klass
@@ -11,17 +11,14 @@ local _g = _G or GLOBAL
 setfenv(1, _g)
 
 -- 写入静态热加载的PrefabFile
+---@type table<string, string>
 local HotPrefabFiles = {
     -- k:prefab v:filename
-    -- woodlegssail = "sail",
-    -- ["armorvortexcloak"] = "armor_vortex_cloak",
-    -- ["armorvoidcloak"] = "armor_void_cloak",
 }
 -- 写入静态热加载的Class
+---@type table<string, boolean>
 local HotClasses = {
     -- k:package v:true
-    -- ["widgets/boatbadge"] = true,
-    -- ["tools/loadutils"] = true,
 }
 
 local AUTO = false
