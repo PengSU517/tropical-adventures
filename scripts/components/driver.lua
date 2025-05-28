@@ -1,3 +1,15 @@
+local sound_mapping = {
+	ironwind      = "dontstarve_DLC002/common/boatpropellor_lp",
+	sail          = "dontstarve_DLC002/common/sail_LP_cloth",
+	clothsail     = "dontstarve_DLC002/common/sail_LP_cloth",
+	snakeskinsail = "dontstarve_DLC002/common/sail_LP_snakeskin",
+	feathersail   = "dontstarve_DLC002/common/sail_LP_feather",
+	woodlegssail  = "dontstarve_DLC002/common/sail_LP_sealegs",
+	malbatrossail = "dontstarve_DLC002/common/sail_LP_feather",
+}
+
+
+
 local Phys = require "tools/physics"
 local Driver = Class(function(self, inst)
 	self.inst = inst
@@ -13,8 +25,6 @@ function Driver:StartUpdating()
 end
 
 function Driver:StopUpdating()
-	local sailslot = self:GetTail()
-	if sailslot and sailslot.components.fueled then sailslot.components.fueled:StopConsuming() end
 	self.inst:StopUpdatingComponent(self)
 end
 
@@ -64,6 +74,9 @@ end
 
 function Driver:BoatDetached(jumper)
 	if jumper and jumper:HasTag('player') then
+		local sailslot = self:GetTail()
+		if sailslot and sailslot.components.fueled then sailslot.components.fueled:StopConsuming() end
+
 		jumper:RemoveComponent("rowboatwakespawner")
 		jumper.components.inventory:DropItem(self.vehicle)
 		self:StopUpdating()
@@ -125,20 +138,29 @@ function Driver:OnStageGraph()
 	-----这一部分相当于船的状态机
 	local inst = self.inst
 	local sailslot = self:GetTail()
-	if inst.boat_proxy and not self.inst.sg:HasStateTag("busy") then
+	local sound = sailslot and sound_mapping[sailslot.prefab]
+	local boat_proxy = inst.boat_proxy
+	if boat_proxy --[[ and not self.inst.sg:HasStateTag("busy") ]] then
 		if self.inst.sg:HasStateTag("sailing") and sailslot and sailslot:HasTag("sail") then
-			inst.boat_proxy.AnimState:SetBank("wilson")                --把船的骨骼改成人的骨骼
-			inst.boat_proxy.AnimState:AddOverrideBuild("player_actions_paddle") ---在附加上船的动作build
-			if not inst.boat_proxy.AnimState:IsCurrentAnimation("sail_loop") then
-				inst.boat_proxy.AnimState:PlayAnimation("sail_loop", true)
+			boat_proxy.AnimState:SetBank("wilson")                --把船的骨骼改成人的骨骼
+			boat_proxy.AnimState:AddOverrideBuild("player_actions_paddle") ---在附加上船的动作build
+			if not boat_proxy.AnimState:IsCurrentAnimation("sail_loop") then
+				boat_proxy.AnimState:PlayAnimation("sail_loop", true)
 			end
+			if not boat_proxy.SoundEmitter:PlayingSound("sailmove") then
+				boat_proxy.SoundEmitter:PlaySound(sound, "sailmove")
+			end
+
 			if sailslot and sailslot.components.fueled then sailslot.components.fueled:StartConsuming() end
 		else
-			inst.boat_proxy.AnimState:SetBank(self.vehicle.banc)
-			inst.boat_proxy.AnimState:ClearOverrideBuild("player_actions_paddle")
-			if not inst.boat_proxy.AnimState:IsCurrentAnimation("run_loop") then
-				inst.boat_proxy.AnimState:PlayAnimation("run_loop", true) ---runloop其实是静止？
+			boat_proxy.AnimState:SetBank(self.vehicle.banc)
+			boat_proxy.AnimState:ClearOverrideBuild("player_actions_paddle")
+			if not boat_proxy.AnimState:IsCurrentAnimation("run_loop") then
+				boat_proxy.AnimState:PlayAnimation("run_loop", true) ---runloop其实是静止？
 			end
+
+			boat_proxy.SoundEmitter:KillSound("sailmove")
+
 			if sailslot and sailslot.components.fueled then sailslot.components.fueled:StopConsuming() end
 		end
 	end

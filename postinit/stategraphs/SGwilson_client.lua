@@ -466,30 +466,6 @@ local states = {
         onenter = function(inst)
             ConfigureSailState(inst)
             inst.components.locomotor:RunForward()
-
-
-            local barco = inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-
-            local sound_mapping = {
-                ironwind      = "dontstarve_DLC002/common/boatpropellor_lp",
-                sail          = "dontstarve_DLC002/common/sail_LP_cloth",
-                clothsail     = "dontstarve_DLC002/common/sail_LP_cloth",
-                snakeskinsail = "dontstarve_DLC002/common/sail_LP_snakeskin",
-                feathersail   = "dontstarve_DLC002/common/sail_LP_feather",
-                woodlegssail  = "dontstarve_DLC002/common/sail_LP_sealegs",
-                malbatrossail = "dontstarve_DLC002/common/sail_LP_feather",
-            }
-
-            if barco and barco.replica.container then
-                local item = barco.replica.container:GetItemInSlot(1)
-                if item then
-                    local sound = sound_mapping[item.prefab]
-                    if sound then
-                        inst.SoundEmitter:PlaySound(sound, "sailmove")
-                    end
-                end
-            end
-
             local anim
 
             if inst.sg.statemem.heavy then
@@ -530,7 +506,6 @@ local states = {
         tags = { "canrotate", "idle", "sailing", "aparece" },
         onenter = function(inst)
             ConfigureSailState(inst)
-            inst.SoundEmitter:KillSound("sailmove")
             inst.components.locomotor:Stop()
             if inst.sg.statemem.heavy then
                 inst.AnimState:PlayAnimation("heavy_idle")
