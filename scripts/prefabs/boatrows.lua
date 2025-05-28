@@ -105,6 +105,10 @@ local function onequip(inst, owner)
 		proxy.components.container_proxy:Open(owner)
 		proxy.Transform:SetRotation(inst.Transform:GetRotation())
 		OnItemGet(inst)
+
+		if inst:HasTag("surfboard") then
+			owner:AddTag("surf")
+		end
 	end
 end
 
@@ -116,6 +120,7 @@ local function onunequip(inst, owner)
 		owner.boat_proxy = nil
 		proxy:Remove()
 	end
+	owner:RemoveTag("surf")
 	OnItemGet(inst)
 end
 

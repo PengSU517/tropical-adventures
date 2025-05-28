@@ -612,8 +612,7 @@ local function ondeploycorkboat(inst, pt, deployer)
         boat.Transform:SetPosition(pt.x, 0, pt.z)
 
         if inst.components.finiteuses and boat.components.finiteuses then
-            boat.components.finiteuses.current = inst
-                .components.finiteuses.current
+            boat.components.finiteuses.current = inst.components.finiteuses.current
         end
 
         inst:Remove()

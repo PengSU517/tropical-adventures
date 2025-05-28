@@ -8,14 +8,18 @@ end)
 
 
 function RowboatWakeSpawner:StartSpawning()
-    self.inst:StartUpdatingComponent(self)
-    self.spawning = true
-    self.timeSinceSpawn = self.spawnPeriod --So that one gets spawned as soon as the boat starts moving
+    if not self.spawning then
+        self.inst:StartUpdatingComponent(self)
+        self.spawning = true
+        self.timeSinceSpawn = self.spawnPeriod --So that one gets spawned as soon as the boat starts moving
+    end
 end
 
 function RowboatWakeSpawner:StopSpawning()
-    self.inst:StopUpdatingComponent(self)
-    self.spawning = false
+    if self.spawning then
+        self.inst:StopUpdatingComponent(self)
+        self.spawning = false
+    end
 end
 
 function RowboatWakeSpawner:OnUpdate(dt)
