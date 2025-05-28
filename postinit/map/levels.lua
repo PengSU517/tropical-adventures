@@ -337,19 +337,12 @@ end
 
 
 ---------------------测试模式------------
-if TA_CONFIG.DEVELOP.test_map then
-    AddRoom("BlankOcean", {
-        colour = { r = 1.0, g = 1.0, b = 1.0, a = 0.1 },
-        value = WORLD_TILES.OCEAN_SHALLOW_SHORE,
-        type = NODE_TYPE.Blank,
-        contents = {}
-    })
-    -- Required Tasks
+if TA_CONFIG.DEVELOP.test_map and true then
     AddTask("Make a new pick", {
         locks = LOCKS.NONE,
         keys_given = { KEYS.PICKAXE, KEYS.AXE, KEYS.GRASS, KEYS.WOOD, KEYS.TIER1 },
         room_choices = {
-            ["BlankOcean"] = 1,
+            ["Blank"] = 1,
         },
         room_bg = WORLD_TILES.GRASS,
         background_room = "Blank",
@@ -360,7 +353,7 @@ if TA_CONFIG.DEVELOP.test_map then
         if level.location == "cave" then
             level.overrides.keep_disconnected_tiles = true
 
-            level.tasks = { "MudWorld", "CaveExitTask1" }
+            level.tasks = { "CaveExitTask1" }
             -- table.insert(level.tasks, "HamArchiveMaze")
             level.numoptionaltasks = 0
             level.optionaltasks = {}
@@ -371,7 +364,9 @@ if TA_CONFIG.DEVELOP.test_map then
 
         if level.location == "forest" then
             level.tasks = { "Make a new pick" }
+            level.overrides.start_location = "BlankStart"
             level.valid_start_tasks = { "Make a new pick" }
+
             level.numoptionaltasks = 0
             level.set_pieces = {} --用新的地形但不执行这一行就会报错，因为这是要在特定地形插入彩蛋
             level.set_pieces["CaveEntrance"] = { count = 1, tasks = { "Make a new pick" } }
@@ -383,8 +378,8 @@ if TA_CONFIG.DEVELOP.test_map then
             level.ordered_story_setpieces = {}
             level.numrandom_set_pieces = 0
 
-            -- level.ocean_population = nil       --海洋生态 礁石 海带之类的 还有奶奶岛,帝王蟹和猴岛
-            -- level.ocean_prefill_setpieces = {} -- 巨树和盐矿的layout
+            level.ocean_population = nil       --海洋生态 礁石 海带之类的 还有奶奶岛,帝王蟹和猴岛
+            level.ocean_prefill_setpieces = {} -- 巨树和盐矿的layout
 
             level.overrides.keep_disconnected_tiles = true
             level.overrides.roads = "never"
