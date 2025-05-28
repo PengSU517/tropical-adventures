@@ -9,6 +9,7 @@ local modimport = modimport
 require "tools/simutil"
 require "tools/worldutil"
 require "tools/standardcomponents"
+require "tools/tropicalconsoles"
 
 
 modimport "main/prefabfiles"
