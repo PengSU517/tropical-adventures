@@ -6,6 +6,10 @@ if TA_CONFIG.DEVELOP.test_mode then --开发人员测试时才可以使用
     modimport("postinit/widgets/hoverer_info")
 end
 
+if TA_CONFIG.DEVELOP.test_map then --开发人员测试时才可以使用
+    modimport("postinit/prefabs/test_world")
+end
+
 if not TheNet:IsDedicated() then ---客机读取主机的overrides---似乎也只能在这里读取了
     print("reupdate overrides in client")
     AddSimPostInit(function()
