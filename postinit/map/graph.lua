@@ -99,7 +99,7 @@ end
 local _PostPopulate = Graph.GlobalPostPopulate
 Graph.GlobalPostPopulate = function(self, entities, width, height, ...)
     _PostPopulate(self, entities, width, height, ...)
-    if true then
+    if not TUNING.test_map then
         GenerateBermudaTriangles(self, entities, width, height)
         -- GenerateTreasure(self, entities, width, height)
     end
