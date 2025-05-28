@@ -169,6 +169,7 @@ local function swinglightobjectfn()
     inst.OnLoad = onload
 
     light:Enable(true)
+    inst.persists = false
     return inst
 end
 
