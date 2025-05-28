@@ -85,7 +85,7 @@ local BOAT_TYPES = {
         loottable = { "seashell" },
         collapse = "flotsam_surfboard_build",
         onfinished = true,
-        tags = { "pegabarco" },
+        tags = { "pegabarco", "surfboard" },
         useamount = 0.00312, -- Updated value
     },
 }

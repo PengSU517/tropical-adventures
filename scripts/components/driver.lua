@@ -13,19 +13,22 @@ function Driver:StartUpdating()
 end
 
 function Driver:StopUpdating()
+	local sailslot = self:GetTail()
+	if sailslot and sailslot.components.fueled then sailslot.components.fueled:StopConsuming() end
 	self.inst:StopUpdatingComponent(self)
 end
 
-function Driver:GetSail()
-	return self.vehicle.components.container:GetItemInSlot(1)
+function Driver:GetTail()
+	return self.vehicle and self.vehicle.components.container:GetItemInSlot(1)
+end
+
+function Driver:GetHead()
+	return self.vehicle and self.vehicle.components.container:GetItemInSlot(2)
 end
 
 function Driver:BoatAttached(vehicle)
 	Phys.SetImmovable(vehicle)
 	vehicle.AnimState:AddOverrideBuild("player_actions_paddle")
-	if vehicle.prefab == "surfboard" then
-		self.inst:AddTag("surf")
-	end
 	self.inst:AddComponent("rowboatwakespawner")
 
 
@@ -66,7 +69,6 @@ function Driver:BoatDetached(jumper)
 		self:StopUpdating()
 
 		jumper:RemoveTag("sail")
-		jumper:RemoveTag("surf")
 		if self.vehicle then
 			self.vehicle:RemoveTag("boat_occupied")
 			self.vehicle.components.workable.workable = true
@@ -122,8 +124,7 @@ end
 function Driver:OnStageGraph()
 	-----这一部分相当于船的状态机
 	local inst = self.inst
-	local vehicle = self.vehicle
-	local sailslot = vehicle.components.container:GetItemInSlot(1)
+	local sailslot = self:GetTail()
 	if inst.boat_proxy and not self.inst.sg:HasStateTag("busy") then
 		if self.inst.sg:HasStateTag("sailing") and sailslot and sailslot:HasTag("sail") then
 			inst.boat_proxy.AnimState:SetBank("wilson")                --把船的骨骼改成人的骨骼
@@ -135,7 +136,9 @@ function Driver:OnStageGraph()
 		else
 			inst.boat_proxy.AnimState:SetBank(self.vehicle.banc)
 			inst.boat_proxy.AnimState:ClearOverrideBuild("player_actions_paddle")
-			inst.boat_proxy.AnimState:PlayAnimation("run_loop", true) ---runloop其实是静止？
+			if not inst.boat_proxy.AnimState:IsCurrentAnimation("run_loop") then
+				inst.boat_proxy.AnimState:PlayAnimation("run_loop", true) ---runloop其实是静止？
+			end
 			if sailslot and sailslot.components.fueled then sailslot.components.fueled:StopConsuming() end
 		end
 	end
@@ -147,17 +150,13 @@ function Driver:OnUpdate(dt)
 	if not vehicle or not inst then return end
 	self:OnConsumeUses()
 	if inst.components.locomotor.isrunning then
-		if self.inst.components.rowboatwakespawner and not self.inst.components.rowboatwakespawner.spawning then
-			self.inst.components.rowboatwakespawner:StartSpawning()
-		end
+		self.inst.components.rowboatwakespawner:StartSpawning()
 
 		if vehicle.components.container and not vehicle.components.container:IsOpen() then
 			vehicle.components.container:Open(self.inst)
 		end
 	else
-		if self.inst.components.rowboatwakespawner and self.inst.components.rowboatwakespawner.spawning then
-			self.inst.components.rowboatwakespawner:StopSpawning()
-		end
+		self.inst.components.rowboatwakespawner:StopSpawning()
 	end
 
 	self:OnStageGraph()
