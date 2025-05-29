@@ -6,6 +6,11 @@ local Builder = require("components/builder")
 Utils.FnDecorator(Builder, "MakeRecipeAtPoint", function(self, recipe)
     if not self:KnowsRecipe(recipe) and recipe.level.HOME and recipe.level.HOME <= 2 then
         self:AddRecipe(recipe.name)
+        if recipe.nounlock then
+            self.inst:DoTaskInTime(1, function()
+                self:RemoveRecipe(recipe.name)
+            end)
+        end
     end
 end)
 
