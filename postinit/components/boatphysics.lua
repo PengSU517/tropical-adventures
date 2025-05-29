@@ -7,8 +7,8 @@ AddComponentPostInit("boatphysics", function(self, inst)
         end
         if self.inst.components.boatring then
             local bumper = self.inst.components.boatring:GetBumperAtPoint(dir_x, dir_z)
-            if bumper and SWP_WAVEBREAK_EFFICIENCY.BUMPER["boat_bumper_" .. bumper.prefab] then
-                force = force * math.max(1 - SWP_WAVEBREAK_EFFICIENCY.BUMPER["boat_bumper_" .. bumper.prefab], 0)
+            if bumper and SWP_WAVEBREAK_EFFICIENCY.BUMPER[string.match(bumper.prefab, "[^_]*$")] then
+                force = force * math.max(1 - SWP_WAVEBREAK_EFFICIENCY.BUMPER[string.match(bumper.prefab, "[^_]*$")], 0)
             end
         end
         return nil, false, {self, dir_x, dir_z, force}
