@@ -150,7 +150,7 @@ local function fn()
     inst.AnimState:SetScale(2.5, 2.5, 2.5)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("chickenhouse.png")
+    minimap:SetIcon("chickenhouse.tex")
 
     anim:SetBank("chicken_house")
     anim:SetBuild("chicken_house")
