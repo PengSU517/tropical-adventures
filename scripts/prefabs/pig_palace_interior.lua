@@ -661,6 +661,7 @@ local function entrance()
 			-- front wall floor lights
 			local part = SpawnPrefab("swinglightobject")
 			if part ~= nil then
+                inst:AddChild(part)
 				part.Transform:SetPosition(x - 18 / 2, 0, z - 26 / 3)
 				part.Transform:SetRotation(-90)
 				if part.components.health ~= nil then
@@ -670,6 +671,7 @@ local function entrance()
 
 			local part = SpawnPrefab("swinglightobject")
 			if part ~= nil then
+                inst:AddChild(part)
 				part.Transform:SetPosition(x - 18 / 2, 0, z + 26 / 3)
 				part.Transform:SetRotation(-90)
 				if part.components.health ~= nil then

@@ -477,6 +477,7 @@ local function decofn(build, bank, animframe, data, assets, prefabs)
                 inst:DoTaskInTime(0, function()
                     if not inst.sunraysspawned then
                         inst.swinglight = SpawnPrefab("swinglightobject")
+                        inst:AddChild(inst.swinglight)
                         inst.swinglight.setLightType(inst.swinglight, followlight)
                         if windowlight then
                             inst.swinglight.setListenEvents(inst.swinglight)

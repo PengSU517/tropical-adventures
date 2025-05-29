@@ -249,6 +249,7 @@ local function RoomSectionfn(prefabname, build, bank, animdata, data)
         if data.light then
             inst:DoTaskInTime(0, function()
                 inst.swinglight = SpawnPrefab("swinglightobject")
+                inst:AddChild(inst.swinglight)
                 inst.swinglight.setLightType(inst.swinglight, data.followlight)
                 if data.windowlight then
                     inst.swinglight.setListenEvents(inst.swinglight)
