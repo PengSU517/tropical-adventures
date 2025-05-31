@@ -16,7 +16,9 @@ local rock_rooms = {
 }
 
 local field_rooms = {
-    [1] = "BG_cultivated_base"
+    [1] = "BG_cultivated_base", -----这个没有应用啊
+    [2] = "cultivated_base_1",
+    [3] = "cultivated_base_2"
 }
 
 if TUNING.ham_start then
@@ -41,6 +43,7 @@ if TUNING.ham_start then
 
     for i, room in ipairs(field_rooms) do
         AddRoomPreInit(room, function(room)
+            table.insert(room.tags, "Balatro_Spawner")
             table.insert(room.tags, "StagehandGarden")
         end)
     end
