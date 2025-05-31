@@ -146,7 +146,7 @@ end
 --     locks = LOCKS.NONE,
 --     keys_given = { KEYS.HARD },
 --     region_id = "shipwrecked",
---     room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+--     room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
 --     room_choices = {
 --         ["JungleDenseMedHome"] = 2,
 --         ["BeachUnkept"] = 1,
@@ -161,7 +161,7 @@ AddTask("HomeIsland", {
     locks = { LOCKS.HARD },
     keys_given = { KEYS.HARD },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["JungleDenseMedHome"] = 1,
         [salasjungle[math.random(1, 24)]] = 1,
@@ -180,7 +180,7 @@ AddTask("Casino", {
     locks = {},
     keys_given = { KEYS.MUSHROOM, KEYS.RABBIT, KEYS.AREA, KEYS.CAVERN, KEYS.SINKHOLE, KEYS.PASSAGE },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["BeachPalmCasino"] = 1,
         [salasbeach[math.random(1, 24)]] = 1,
@@ -195,7 +195,7 @@ AddTask("A_BLANK1", {
     locks = { LOCKS.MUSHROOM },
     keys_given = { KEYS.CAVE },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomSW"] = 2,
@@ -211,7 +211,7 @@ AddTask("RockyGold", {
     locks = { LOCKS.CAVE },
     keys_given = { KEYS.EASY },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["MagmaGold"] = 2,
         ["MagmaGoldBoon"] = 1,
@@ -226,7 +226,7 @@ AddTask("A_BLANK7", {
     locks = { LOCKS.EASY },
     keys_given = { KEYS.EASY },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomSW"] = 2,
@@ -242,7 +242,7 @@ AddTask("BoreKing", {
     locks = { LOCKS.EASY },
     keys_given = { KEYS.EASY },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["PigVillagesw"] = 1,
         ["JungleDenseBerries"] = 1,
@@ -258,7 +258,7 @@ AddTask("RockyTallJungle", {
     locks = { LOCKS.EASY },
     keys_given = { KEYS.EASY },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["MagmaTallBird"] = 1,
         ["MagmaGoldBoon"] = 1,
@@ -274,7 +274,7 @@ AddTask("A_BLANK2", {
     locks = { LOCKS.RABBIT },
     keys_given = { KEYS.INNERTIER },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomSW"] = 2,
@@ -289,7 +289,7 @@ AddTask("BeachSkull", {
     locks = { LOCKS.INNERTIER },
     keys_given = { KEYS.MEDIUM },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         [salasjungle[math.random(1, 24)]] = 1,
         ["JungleRockSkull"] = 1,
@@ -305,7 +305,7 @@ AddTask("A_BLANK8", {
     locks = { LOCKS.MEDIUM },
     keys_given = { KEYS.MEDIUM },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomSW"] = 2,
@@ -320,7 +320,7 @@ AddTask("MagmaJungle", {
     locks = { LOCKS.MEDIUM },
     keys_given = { KEYS.MEDIUM },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["MagmaForest"] = 1, -- MR went from 1-3
         ["JungleDense"] = 1,
@@ -337,7 +337,7 @@ AddTask("Volcano ground", {
     locks = { LOCKS.MEDIUM },
     keys_given = { KEYS.MEDIUM },
     region_id = "volcano",
-    room_tags = { "RoadPoison", "volcano", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "volcano", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         [salasvolcano[math.random(1, 5)]] = 1,
         [salasvolcano[math.random(1, 5)]] = 1,
@@ -418,7 +418,7 @@ AddTask("A_BLANK3", {
     locks = { LOCKS.AREA },
     keys_given = { KEYS.OUTERTIER },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomSW"] = 2,
@@ -432,13 +432,14 @@ AddTask("A_BLANK3", {
 AddTask("JungleMarshy", {
     locks = { LOCKS.OUTERTIER },
     keys_given = { KEYS.HARD },
+    level_set_piece_blocker = true,
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["TidalMermMarsh"] = 3,
         [salasbeach[math.random(1, 24)]] = 1,
         ["BeachSappy"] = 1,
-        ["WaterMangrove"] = 1,
+        ["WaterMangrove"] = 2,
     },
     entrance_room = "ForceDisconnectedRoomSW",
     room_bg = GROUND.JUNGLE,
@@ -450,7 +451,7 @@ AddTask("A_BLANK9", {
     locks = { LOCKS.HARD },
     keys_given = { KEYS.HARD },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomSW"] = 2,
@@ -465,7 +466,7 @@ AddTask("JungleBushy", {
     locks = { LOCKS.HARD },
     keys_given = { KEYS.HARD },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         [salasjungle[math.random(1, 24)]] = 1,
         [salasbeach[math.random(1, 24)]] = 1,
@@ -481,7 +482,7 @@ AddTask("JungleBeachy", {
     locks = { LOCKS.HARD },
     keys_given = { KEYS.HARD },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["JungleDenseMed"] = 1,
         [salasbeach[math.random(1, 24)]] = 1,
@@ -499,7 +500,7 @@ AddTask("A_BLANK4", {
     locks = { LOCKS.CAVERN },
     keys_given = { KEYS.LIGHT },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomSW"] = 2,
@@ -513,8 +514,9 @@ AddTask("A_BLANK4", {
 AddTask("JungleMonkey", {
     locks = { LOCKS.LIGHT },
     keys_given = { KEYS.BLUE },
+    level_set_piece_blocker = true,
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         [salasjungle[math.random(1, 33)]] = 1,
         --        [salasjungle[math.random(1, 33)]] = 1,
@@ -531,7 +533,7 @@ AddTask("A_BLANK10", {
     locks = { LOCKS.BLUE },
     keys_given = { KEYS.BLUE },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomSW"] = 2,
@@ -545,8 +547,9 @@ AddTask("A_BLANK10", {
 AddTask("BeachMarshy", {
     locks = { LOCKS.BLUE },
     keys_given = { KEYS.BLUE },
+    level_set_piece_blocker = true,
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         [salastidal[math.random(1, 4)]] = 2,
         [salastidal[math.random(1, 4)]] = 3,
@@ -562,7 +565,7 @@ AddTask("MoonRocky", {
     locks = { LOCKS.BLUE },
     keys_given = { KEYS.BLUE },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["Magma"] = 1, -- MR went from 1-3
         ["MagmaGold"] = 1,
@@ -581,7 +584,7 @@ AddTask("A_BLANK5", {
     locks = { LOCKS.SINKHOLE },
     keys_given = { KEYS.FUNGUS },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomSW"] = 2,
@@ -596,7 +599,7 @@ AddTask("TigerSharky", {
     locks = { LOCKS.FUNGUS },
     keys_given = { KEYS.RED },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         -- ["JungleNoBerry"] = 1,
         ["TidalSharkHome"] = 1,
@@ -613,7 +616,7 @@ AddTask("A_BLANK11", {
     locks = { LOCKS.RED },
     keys_given = { KEYS.RED },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomSW"] = 2,
@@ -629,7 +632,7 @@ AddTask("Verdent", {
     locks = { LOCKS.RED },
     keys_given = { KEYS.RED },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["Beaverkinghome"] = 1,
         ["Beaverkingcity"] = 1,
@@ -647,7 +650,7 @@ AddTask("BeachBeachy", {
     locks = { LOCKS.RED },
     keys_given = { KEYS.RED },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         [salasbeach[math.random(1, 24)]] = 1,
         [salasbeach[math.random(1, 24)]] = 1, --CM was 5 +
@@ -664,7 +667,7 @@ AddTask("A_BLANK6", {
     locks = { LOCKS.PASSAGE },
     keys_given = { KEYS.LABYRINTH },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomSW"] = 2,
@@ -680,7 +683,7 @@ AddTask("BeachPiggy", {
     locks = { LOCKS.LABYRINTH },
     keys_given = { KEYS.GREEN },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["BeachSand"] = 1,
         ["BeachPiggy"] = 1,
@@ -695,7 +698,7 @@ AddTask("A_BLANK12", {
     locks = { LOCKS.GREEN },
     keys_given = { KEYS.GREEN },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices =
     {
         ["ForceDisconnectedRoomSW"] = 5,
@@ -710,7 +713,7 @@ AddTask("DoyDoyM", {
     locks = { LOCKS.GREEN },
     keys_given = { KEYS.GREEN },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         [salasjungle[math.random(1, 24)]] = 1,
         ["DoyDoyM"] = 1,
@@ -726,7 +729,7 @@ AddTask("DoyDoyF", {
     locks = { LOCKS.GREEN },
     keys_given = { KEYS.GREEN },
     region_id = "shipwrecked",
-    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohasslers", "not_mainland" },
+    room_tags = { "RoadPoison", "shipwrecked", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         [salasjungle[math.random(1, 24)]] = 1,
         ["DoyDoyF"] = 1,
