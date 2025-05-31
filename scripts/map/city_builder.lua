@@ -244,7 +244,11 @@ local unrequired_prefabs =
     "grass",
     "rocks",
     "twigs",
-    "spoiled_food"
+    "spoiled_food",
+    "rock1",
+    "teatree",
+    "chicken",
+    "chickenhouse",
     -- "pugalisk_fountain",
     -- "roc_nest",
     -- "pig_ruins_entrance",
@@ -353,7 +357,9 @@ local function spawn_setpiece(entities, width, height, spawners, layout, pt, cit
             local zdist = math.abs(((data_list[i].z / TILE_SCALE) + height / 2.0) - pt.z) + 0.2
 
             if (xdist * xdist) + (zdist * zdist) <= radius * radius then
-                table.remove(data_list, i)
+                if tableutil.has_component(unrequired_prefabs, prefab) then
+                    table.remove(data_list, i) -----------------
+                end
             end
         end
     end
