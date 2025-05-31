@@ -782,7 +782,7 @@ local function make_parks(entities, width, height, spawners, city, unique, uniqu
                 end
             end
 
-            print("-------------------------------- SHOULD I SPAWN A PALACE?", made_palace)
+            -- print("-------------------------------- SHOULD I SPAWN A PALACE?", made_palace)
             -- Spawn palace first
             if made_palace == false and city.city_id == 2 then
                 local choice = "pig_palace_1"

@@ -349,7 +349,7 @@ if ta_worldgen.ruins then
 end
 
 -----------------------出生地调整-----------------------------
-if ta_worldgen.multiplayerportal == "shipwrecked" and ta_worldgen.shipwrecked then
+if ta_worldgen.sw_start then
     AddLevelPreInitAny(function(level)
         if level.location == "forest" then
             -- table.insert(level.tasks, "HomeIsland_start")
@@ -357,7 +357,13 @@ if ta_worldgen.multiplayerportal == "shipwrecked" and ta_worldgen.shipwrecked th
             level.valid_start_tasks = { "HomeIsland" }
         end
     end)
-elseif ta_worldgen.multiplayerportal == "hamlet" and ta_worldgen.hamlet then
+
+    -- AddTaskPreInitAny(function(task) -----大理石雕像的对应调整
+    --     if not tableutil.has_component(task.room_tags, "shipwrecked") then
+    --         task.level_set_piece_blocker = true
+    --     end
+    -- end)
+elseif ta_worldgen.ham_start then
     AddLevelPreInitAny(function(level)
         if level.location == "forest" then
             -- table.insert(level.tasks, "Plains_start")
@@ -365,6 +371,11 @@ elseif ta_worldgen.multiplayerportal == "hamlet" and ta_worldgen.hamlet then
             level.valid_start_tasks = { "Plains" }
         end
     end)
+    -- AddTaskPreInitAny(function(task)
+    --     if not tableutil.has_component(task.room_tags, "hamlet") then
+    --         task.level_set_piece_blocker = true
+    --     end
+    -- end)
 end
 
 
