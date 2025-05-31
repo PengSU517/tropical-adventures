@@ -136,6 +136,7 @@ if TUNING.sw_start then
     for i, room in ipairs(salasmeadow) do
         AddRoomPreInit(room, function(room)
             table.insert(room.tags, "StagehandGarden")
+            table.insert(room.tags, "Balatro_Spawner")
         end)
     end
 end

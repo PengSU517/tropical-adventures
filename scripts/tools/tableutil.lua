@@ -32,6 +32,10 @@ function tableutil.has_index(tbl, index)
 end
 
 function tableutil.has_component(tbl, component)
+    if type(tbl) ~= "table" then
+        return false
+    end
+
     for _, v in pairs(tbl) do
         if v == component then
             return true
@@ -57,12 +61,15 @@ function tableutil.has_all_of_component(tbl, components)
 end
 
 function tableutil.insert_indexes(tbl, vs)
+    tbl = tbl or {}
     for i, v in pairs(vs) do
         tbl[i] = v
     end
+    return tbl
 end
 
 function tableutil.insert_components(tbl, vs)
+    tbl = tbl or {}
     if type(vs) ~= "table" then
         vs = { vs }
     end
@@ -71,6 +78,7 @@ function tableutil.insert_components(tbl, vs)
             table.insert(tbl, v)
         end
     end
+    return tbl
 end
 
 function tableutil.remove_components(tbl, vs)

@@ -41,7 +41,7 @@ if true then
             level.ocean_prefill_setpieces["HermitcrabIsland"] = 1
             -- level.ocean_prefill_setpieces["CrabKing"] = 1
 
-            tableutil.insert_components(level.ocean_population, {
+            level.ocean_population = tableutil.insert_components(level.ocean_population, {
                 "OceanBrinepool",
             })
         end
@@ -75,6 +75,7 @@ if ta_worldgen.together == false then
                     "Badlands",
                     "For a nice walk",
                     "Lightning Bluff",
+
                 }
             )
 
@@ -88,15 +89,47 @@ if ta_worldgen.together == false then
                     "CaveEntrance",
                 }
             )
+
+            -- tableutil.remove_components(
+            --     level.required_prefabs,
+            --     {
+            --         "gravestone",
+            --         "sculpture_rook",
+            --         "sculpture_bishop",
+            --         "sculpture_knight",
+            --         "terrariumchest",
+            --         "charlie_stage_post",
+            --         "statueharp_hedgespawner",
+            --         "balatro_machine",
+            --     }
+            -- )
             -- level.required_setpieces = {}
 
             -- level.random_set_pieces = {}
             -- level.ordered_story_setpieces = {}
-            level.overrides.layout_mode = "LinkNodesByKeys"
+            -- level.overrides.layout_mode = "LinkNodesByKeys"
             -- level.numrandom_set_pieces = 0
-            level.overrides.keep_disconnected_tiles = true
+            -- level.overrides.keep_disconnected_tiles = true
         end
     end)
+
+    -- AddTaskSetPreInitAny(function(taskset)
+    --     if taskset.location == "forest" then
+    --         tableutil.remove_components(
+    --             taskset.required_prefabs,
+    --             {
+    --                 "gravestone",
+    --                 "sculpture_rook",
+    --                 "sculpture_bishop",
+    --                 "sculpture_knight",
+    --                 "terrariumchest",
+    --                 "charlie_stage_post",
+    --                 "statueharp_hedgespawner",
+    --                 "balatro_machine",
+    --             }
+    --         )
+    --     end
+    -- end)
 end
 
 if ta_worldgen.ocean_content == false then
@@ -139,9 +172,9 @@ if ta_worldgen.ocean_content == false then
 
             -- level.random_set_pieces = {}
             -- level.ordered_story_setpieces = {}
-            level.overrides.layout_mode = "LinkNodesByKeys"
+            -- level.overrides.layout_mode = "LinkNodesByKeys"
             -- level.numrandom_set_pieces = 0
-            level.overrides.keep_disconnected_tiles = true
+            -- level.overrides.keep_disconnected_tiles = true
         end
     end)
 end
@@ -236,7 +269,7 @@ if ta_worldgen.shipwrecked then
             table.insert(level.tasks, "A_BLANK12")
 
             table.insert(level.ocean_population, "OceanBrinepool")
-            tableutil.insert_components(
+            level.required_prefabs = tableutil.insert_components(
                 level.required_prefabs,
                 {
                     "packim_fishbone",
@@ -285,7 +318,7 @@ if ta_worldgen.hamlet then
             level.set_pieces["cave_entranceham2"] = { count = 1, tasks = { "Deep_rainforest_2" } }
             level.set_pieces["cave_entranceham3"] = { count = 1, tasks = { "Deep_lost_ruins_gas" } }
 
-            tableutil.insert_components(
+            level.required_prefabs = tableutil.insert_components(
                 level.required_prefabs,
                 {
                     "pugalisk_fountain",
