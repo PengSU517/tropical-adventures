@@ -37,7 +37,7 @@ function Driver:GetHead()
 end
 
 function Driver:BoatAttached(vehicle)
-	Phys.SetImmovable(vehicle)
+	-- Phys.SetImmovable(vehicle)
 	vehicle.AnimState:AddOverrideBuild("player_actions_paddle")
 	self.inst:AddComponent("rowboatwakespawner")
 
@@ -73,21 +73,23 @@ function Driver:BoatJump(jumper, boat)
 end
 
 function Driver:BoatDetached(jumper)
-	if jumper and jumper:HasTag('player') then
+	if jumper and jumper:HasTag('player') and self.vehicle then
 		local sailslot = self:GetTail()
 		if sailslot and sailslot.components.fueled then sailslot.components.fueled:StopConsuming() end
 
 		jumper:RemoveComponent("rowboatwakespawner")
-		jumper.components.inventory:DropItem(self.vehicle)
+		jumper.components.inventory:DropItem(
+			jumper.components.inventory:Unequip(EQUIPSLOTS.BARCO))
+
+		local x, y, z = self.inst.Transform:GetWorldPosition()
+		self.vehicle.Transform:SetPosition(x, 0, z) ---------不加这一条的话会有一丢丢位置区别
 		self:StopUpdating()
 
 		jumper:RemoveTag("sail")
-		if self.vehicle then
-			self.vehicle:RemoveTag("boat_occupied")
-			self.vehicle.components.workable.workable = true
-			if self.vehicle:HasTag("pegabarco") then
-				self.vehicle.components.inventoryitem.canbepickedup = true
-			end
+		self.vehicle:RemoveTag("boat_occupied")
+		self.vehicle.components.workable.workable = true
+		if self.vehicle:HasTag("pegabarco") then
+			self.vehicle.components.inventoryitem.canbepickedup = true
 		end
 	end
 end
