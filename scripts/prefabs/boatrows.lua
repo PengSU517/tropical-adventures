@@ -43,7 +43,7 @@ local function OnHammered(inst)
 	end
 	SpawnAt("collapse_small", inst)
 	for _, v in ipairs(inst.loottable or {}) do
-		SpawnAt(v, inst)
+		Launch(SpawnAt(v, inst), inst, 1)
 	end
 	inst.SoundEmitter:PlaySound("dontstarve/common/destroy_wood")
 	inst.components.container:DropEverything()
