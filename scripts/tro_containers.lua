@@ -211,6 +211,8 @@ params.corkboat = params.raft_old
 
 params.trawlnetdropped = params.treasurechest
 
+params.shadowwaxwell_boat = params.rowboat
+
 for _, v in pairs(params) do
     containers.MAXITEMSLOTS = math.max(containers.MAXITEMSLOTS, v.widget.slotpos ~= nil and #v.widget.slotpos or 0)
 end

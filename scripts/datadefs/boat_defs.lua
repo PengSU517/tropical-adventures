@@ -88,6 +88,19 @@ local BOAT_TYPES = {
         tags = { "pegabarco", "surfboard" },
         useamount = 0.00312, -- Updated value
     },
+    shadowwaxwell_boat = {
+        name = "shadowwaxwell_boat",
+        build = "waxwell_shadowboat_build",
+        icon = "shadowboat.tex",
+        maxuses = 150,
+        armor = 0,
+        loottable = { "log" },
+        collapse = "flotsam_shadowwaxwell_boat_build",
+        useamount = .0, -- Updated value
+        postfn = function(inst)
+            inst.AnimState:SetMultColour(0, 0, 0, .4)
+        end,
+    },
 }
 
 -- 设置元表以实现默认访问
