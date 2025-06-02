@@ -21,6 +21,7 @@ local assets = {
 	Asset("ANIM", "anim/rowboat_encrusted_build.zip"),
 	Asset("ANIM", "anim/swap_lantern_boat.zip"),
 	Asset("ANIM", "anim/swap_sail.zip"),
+	Asset("ANIM", "anim/waxwell_shadowboat_build.zip"),
 }
 
 local function OnSave(inst, data)
@@ -179,7 +180,7 @@ local function makeBoatFn(config)
 		inst.components.finiteuses:SetOnFinished(function(inst) end)
 		inst.components.finiteuses:SetMaxUses(config.maxuses)
 		inst.components.finiteuses:SetUses(config.maxuses)
-		inst.components.armor:InitCondition(config.maxuses, 0.99)
+		inst.components.armor:InitCondition(config.maxuses, config.armor or 0.99)
 
 		inst:AddComponent("workable")
 		inst.components.workable:SetWorkAction(ACTIONS.HAMMER)
@@ -223,6 +224,10 @@ local function makeBoatFn(config)
 			for _, tag in ipairs(config.tags) do
 				inst:AddTag(tag)
 			end
+		end
+
+		if config.postfn then
+			config.postfn(inst)
 		end
 
 		return inst

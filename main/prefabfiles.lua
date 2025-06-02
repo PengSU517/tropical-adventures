@@ -454,7 +454,6 @@ PrefabFiles = {
     "seaweed",
     "securitycontract",
     "sedimentpuddle",
-    "shadowwaxwell_boat",
     "shark_fin",
     "shark_gills",
     "sharkitten",
