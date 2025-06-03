@@ -66,14 +66,7 @@ local function ondropped(inst)
     local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
     local pt = Vector3(x, y, z)
 
-    if TileGroupManager:IsOceanTile(ground) --[[ground == GROUND.OCEAN_COASTAL or
-        ground == GROUND.OCEAN_COASTAL_SHORE or
-        ground == GROUND.OCEAN_SWELL or
-        ground == GROUND.OCEAN_ROUGH or
-        ground == GROUND.OCEAN_BRINEPOOL or
-        ground == GROUND.OCEAN_HAZARDOUS or
-        ground == GROUND.OCEAN_WATERLOG or
-        ground == GROUND.OCEAN_BRINEPOOL_SHORE]] then
+    if TileGroupManager:IsOceanTile(ground) then
         local movimento = SpawnPrefab("corkboat")
         if movimento then
             movimento.Transform:SetPosition(x, 0, z)
@@ -82,14 +75,7 @@ local function ondropped(inst)
         return inst:Remove()
     end
 
-    if TileGroupManager:IsLandTile(ground) --[[ground ~= GROUND.OCEAN_COASTAL and
-        ground ~= GROUND.OCEAN_WATERLOG and
-        ground ~= GROUND.OCEAN_COASTAL_SHORE and
-        ground ~= GROUND.OCEAN_SWELL and
-        ground ~= GROUND.OCEAN_ROUGH and
-        ground ~= GROUND.OCEAN_BRINEPOOL and
-        ground ~= GROUND.OCEAN_BRINEPOOL_SHORE and
-        ground ~= GROUND.OCEAN_HAZARDOUS]] then
+    if TileGroupManager:IsLandTile(ground) then
         inst.AnimState:PlayAnimation("idle", true)
     end
 end
@@ -97,9 +83,9 @@ end
 local function ondeployraft(inst, pt, deployer)
     local boat = SpawnPrefab("raft")
     if boat ~= nil then
-        boat.Physics:SetCollides(false)
+        --boat.Physics:SetCollides(false)
         boat.Physics:Teleport(pt.x, 0, pt.z)
-        boat.Physics:SetCollides(true)
+        --boat.Physics:SetCollides(true)
 
         inst:Remove()
     end
@@ -161,9 +147,9 @@ end
 local function ondeployraftold(inst, pt, deployer)
     local boat = SpawnPrefab("raft_old")
     if boat ~= nil then
-        boat.Physics:SetCollides(false)
+        --boat.Physics:SetCollides(false)
         boat.Physics:Teleport(pt.x, 0, pt.z)
-        boat.Physics:SetCollides(true)
+        --boat.Physics:SetCollides(true)
 
         inst:Remove()
     end
@@ -225,9 +211,9 @@ end
 local function ondeploylograft(inst, pt, deployer)
     local boat = SpawnPrefab("lograft")
     if boat ~= nil then
-        boat.Physics:SetCollides(false)
+        --boat.Physics:SetCollides(false)
         boat.Physics:Teleport(pt.x, 0, pt.z)
-        boat.Physics:SetCollides(true)
+        --boat.Physics:SetCollides(true)
 
         inst:Remove()
     end
@@ -289,9 +275,9 @@ end
 local function ondeploylograftold(inst, pt, deployer)
     local boat = SpawnPrefab("lograft_old")
     if boat ~= nil then
-        boat.Physics:SetCollides(false)
+        --boat.Physics:SetCollides(false)
         boat.Physics:Teleport(pt.x, 0, pt.z)
-        boat.Physics:SetCollides(true)
+        --boat.Physics:SetCollides(true)
 
         inst:Remove()
     end
@@ -353,9 +339,9 @@ end
 local function ondeployrowboat(inst, pt, deployer)
     local boat = SpawnPrefab("rowboat")
     if boat ~= nil then
-        boat.Physics:SetCollides(false)
+        --boat.Physics:SetCollides(false)
         boat.Physics:Teleport(pt.x, 0, pt.z)
-        boat.Physics:SetCollides(true)
+        --boat.Physics:SetCollides(true)
 
         inst:Remove()
     end
@@ -413,9 +399,9 @@ end
 local function ondeploycargoboat(inst, pt, deployer)
     local boat = SpawnPrefab("cargoboat")
     if boat ~= nil then
-        boat.Physics:SetCollides(false)
+        --boat.Physics:SetCollides(false)
         boat.Physics:Teleport(pt.x, 0, pt.z)
-        boat.Physics:SetCollides(true)
+        --boat.Physics:SetCollides(true)
 
         inst:Remove()
     end
@@ -473,9 +459,9 @@ end
 local function ondeployarmouredboat(inst, pt, deployer)
     local boat = SpawnPrefab("armouredboat")
     if boat ~= nil then
-        boat.Physics:SetCollides(false)
+        --boat.Physics:SetCollides(false)
         boat.Physics:Teleport(pt.x, 0, pt.z)
-        boat.Physics:SetCollides(true)
+        --boat.Physics:SetCollides(true)
 
         inst:Remove()
     end
@@ -533,9 +519,9 @@ end
 local function ondeployencrustedboat(inst, pt, deployer)
     local boat = SpawnPrefab("encrustedboat")
     if boat ~= nil then
-        boat.Physics:SetCollides(false)
+        -- --boat.Physics:SetCollides(false)
         boat.Physics:Teleport(pt.x, 0, pt.z)
-        boat.Physics:SetCollides(true)
+        -- --boat.Physics:SetCollides(true)
 
         inst:Remove()
     end
@@ -594,9 +580,9 @@ end
 local function ondeploysurfboard(inst, pt, deployer)
     local boat = SpawnPrefab("surfboard")
     if boat ~= nil then
-        boat.Physics:SetCollides(false)
+        --boat.Physics:SetCollides(false)
         boat.Physics:Teleport(pt.x, 0, pt.z)
-        boat.Physics:SetCollides(true)
+        --boat.Physics:SetCollides(true)
 
         if inst.components.finiteuses and boat.components.finiteuses then
             boat.components.finiteuses.current = inst
@@ -682,9 +668,9 @@ local function ondeploywoodlegsboat(inst, pt, deployer)
 
 
     if boat ~= nil then
-        boat.Physics:SetCollides(false)
+        --boat.Physics:SetCollides(false)
         boat.Physics:Teleport(pt.x, 0, pt.z)
-        boat.Physics:SetCollides(true)
+        --boat.Physics:SetCollides(true)
 
         inst:Remove()
     end
