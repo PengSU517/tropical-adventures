@@ -266,6 +266,9 @@ local function makeFakeBoatFn(config)
 		inst:AddComponent("interactions")
 		inst:AddComponent("inspectable")
 
+		if config.postfn_proxy then
+			config.postfn_proxy(inst)
+		end
 
 		return inst
 	end

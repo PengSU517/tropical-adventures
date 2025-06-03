@@ -100,6 +100,9 @@ local BOAT_TYPES = {
         postfn = function(inst)
             inst.AnimState:SetMultColour(0, 0, 0, .4)
         end,
+        postfn_proxy = function(inst)
+            inst.AnimState:SetMultColour(0, 0, 0, .4)
+        end,
     },
 }
 
