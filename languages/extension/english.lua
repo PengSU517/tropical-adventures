@@ -97,6 +97,12 @@ TA_STRINGS.ACTIONS.DEPLOY.DEPLOYSEA_CHIMINEA                 = "Deploy"
 TA_STRINGS.ACTIONS.DEPLOY.DEPLOYWATERCHEST                   = "Deploy"
 TA_STRINGS.ACTIONS.DEPLOY.DEPLOYSEA_YARD                     = "Deploy"
 
+TA_STRINGS.ACTIONS.IRONTURNON                                = "Turn On"
+TA_STRINGS.ACTIONS.IRONTURNOFF                               = "Turn Off"
+TA_STRINGS.ACTIONS.CHARGE_UP                                 = "Charge"
+TA_STRINGS.ACTIONS.PUNCH                                     = "Punch"
+TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_SUITUP                = "For Science!"
+
 
 -- Name of Things --
 

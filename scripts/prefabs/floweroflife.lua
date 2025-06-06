@@ -1,5 +1,3 @@
-require "prefabutil"
-
 local assets =
 {
 	Asset("ANIM", "anim/lifeplant.zip"),
@@ -10,6 +8,7 @@ local assets =
 local prefabs =
 {
 	"collapse_small",
+	"waterdrop",
 }
 
 local INTENSITY = .5
@@ -77,41 +76,50 @@ local function CalcSanityAura(inst, observer)
 	return TUNING.SANITYAURA_LARGE
 end
 
-local function sparkle(inst)
-	local player = GetClosestInstWithTag("player", inst, 5)
-	if player then
-		local sparkle = SpawnPrefab("lifeplant_sparkle")
-		sparkle.Transform:SetPosition(player.Transform:GetWorldPosition())
-	end
-end
-
-local function drain(inst)
-	local player = GetClosestInstWithTag("player", inst, 5)
-	if player then
-		player.components.hunger:DoDelta(-1)
-	end
-end
-
 local function onnear(inst)
-	if not inst.reserrecting then
-		inst.starvetask = inst:DoPeriodicTask(0.5, function() sparkle(inst) end)
-		inst.starvetask2 = inst:DoPeriodicTask(2, function() drain(inst) end)
-	end
+	local x, y, z = inst.Transform:GetWorldPosition()
+	local rad = inst.components.playerprox.near
+
+	inst.sparkletask = inst:DoPeriodicTask(0.5, function()
+		local victims = FindPlayersInRange(x, y, z, rad, true)
+		for _,v in ipairs(victims) do
+			if not (v:HasTag("ironlord") or v.components.hunger.current <= 0) then
+				local sparkle = SpawnPrefab("lifeplant_sparkle")
+				sparkle.Transform:SetPosition(v.Transform:GetWorldPosition())
+				sparkle.target = inst
+			end
+		end
+	end)
+
+	inst.starvetask = inst:DoPeriodicTask(2, function()
+		local victims = FindPlayersInRange(x, y, z, rad, true)
+		for _,v in ipairs(victims) do
+			if not (v:HasTag("ironlord") or v.components.hunger.current <= 0) then
+				v.components.hunger:DoDelta(-1)
+			end
+		end
+	end)
+
+	inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/flower_of_life/fx_LP", "drainloop")
 end
 
 local function onfar(inst)
+	if inst.sparkletask then
+		inst.sparkletask:Cancel()
+		inst.sparkletask = nil
+	end
+
 	if inst.starvetask then
 		inst.starvetask:Cancel()
 		inst.starvetask = nil
-
-		inst.starvetask2:Cancel()
-		inst.starvetask2 = nil
 	end
+
+	inst.SoundEmitter:KillSound("drainloop")
 end
 
 local function dig_up(inst, chopper)
-	local drop = inst.components.lootdropper:SpawnLootPrefab("waterdrop")
-	drop.fountain = inst.fountain
+	inst.components.lootdropper:SpawnLootPrefab("waterdrop")
+	inst.SoundEmitter:KillSound("drainloop")
 
 	inst.dug = true
 	inst:Remove()
@@ -129,11 +137,15 @@ local function manageidle(inst)
 	inst:DoTaskInTime(8 + (math.random() * 20), function() inst.manageidle(inst) end)
 end
 
-local function OnHaunt(inst)
-	inst.AnimState:PlayAnimation("burnt", true)
-	inst:DoTaskInTime(2, function() inst:Remove() end)
+local function OnHaunt(inst, haunter)
+	if inst.used then return end
+	inst.used = true
 
+	haunter.Transform:SetPosition(inst.Transform:GetWorldPosition())
+	haunter.SoundEmitter:SetMute(true)  -- Prevent original respawn sound ("dontstarve/ghost/player_revive")
+	haunter:AddTag("magic_respawn")
 
+	inst:Remove()
 	return true
 end
 
@@ -145,29 +157,29 @@ local function fn(Sim)
 	inst.entity:AddMiniMapEntity()
 	inst.entity:AddSoundEmitter()
 	inst.entity:AddNetwork()
+    inst.entity:AddLight()
 
-	MakeObstaclePhysics(inst, 0)
+	MakeObstaclePhysics(inst, .3)
 
-	inst.MiniMapEntity:SetIcon("lifeplant.tex")
+	inst.MiniMapEntity:SetIcon("lifeplant.png")
 
 	inst.AnimState:SetBank("lifeplant")
 	inst.AnimState:SetBuild("lifeplant")
 	inst.AnimState:PlayAnimation("idle_loop", true)
-	-- inst.Transform:SetScale(1.5, 1.5, 1.5)	
-	inst.AnimState:SetScale(1.7, 1.7, 1.7)
+	inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
+	inst.AnimState:SetMultColour(0.9,0.9,0.9,1)
 
 	inst:AddComponent("fader")
 
 	inst:AddTag("lifeplant")
 	inst:AddTag("resurrector")
 
-	local light = inst.entity:AddLight()
 	inst.Light:SetIntensity(INTENSITY)
 	inst.Light:SetColour(180 / 255, 195 / 255, 150 / 255)
 	inst.Light:SetFalloff(0.9)
 	inst.Light:SetRadius(2)
 	inst.Light:Enable(true)
-	fadein(inst)
+
 
 	inst.entity:SetPristine()
 
@@ -193,16 +205,18 @@ local function fn(Sim)
 	inst.components.burnable:SetOnBurntFn(onburnt)
 	MakeLargePropagator(inst)
 
-	inst:AddComponent("sanityaura")
-	inst.components.sanityaura.aurafn = CalcSanityAura
-
 	inst:AddComponent("playerprox")
-
 	inst.components.playerprox:SetDist(6, 7)
 	inst.components.playerprox:SetOnPlayerNear(onnear)
 	inst.components.playerprox:SetOnPlayerFar(onfar)
 
-	inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
+	inst:AddComponent("sanityaura")
+	local max_dist = inst.components.playerprox.near
+	inst.components.sanityaura.aurafn = CalcSanityAura
+	inst.components.sanityaura.max_distsq = max_dist * max_dist
+
+	inst:AddComponent("fader")
+	fadein(inst)
 
 	inst.OnSave = onsave
 	inst.OnLoad = onload
@@ -213,8 +227,8 @@ local function fn(Sim)
 	inst:AddComponent("hauntable")
 	inst.components.hauntable:SetHauntValue(TUNING.HAUNT_INSTANT_REZ)
 	inst.components.hauntable:SetOnHauntFn(OnHaunt)
+	inst.used = false   -- Avoid repeated haunt, just in case
 
-	inst.AnimState:SetMultColour(0.9, 0.9, 0.9, 1)
 	return inst
 end
 
@@ -248,11 +262,11 @@ local function sparklefn(Sim)
 	inst.entity:AddTransform()
 	inst.entity:AddAnimState()
 	inst.entity:AddSoundEmitter()
+	inst.entity:AddPhysics()
 	inst.entity:AddNetwork()
 
-	local physics = inst.entity:AddPhysics()
-	physics:SetMass(1)
-	physics:SetCapsule(0.3, 1)
+    inst.Physics:SetMass(1)
+    inst.Physics:SetCapsule(0.3, 1)
 	inst.Physics:SetFriction(0)
 	inst.Physics:SetDamping(5)
 	inst.Physics:SetCollisionGroup(COLLISION.CHARACTERS)
@@ -262,10 +276,12 @@ local function sparklefn(Sim)
 	inst.AnimState:SetBank("lifeplant_fx")
 	inst.AnimState:SetBuild("lifeplant_fx")
 	inst.AnimState:PlayAnimation("single" .. math.random(1, 3), true)
+	inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
 
-
-	inst:AddTag("flying")
 	inst:AddTag("NOCLICK")
+	inst:AddTag("NOBLOCK")
+	inst:AddTag("FX")
+	inst:AddTag("flying")
 	--inst:AddTag("DELETE_ON_INTERIOR")
 
 	inst.entity:SetPristine()
@@ -278,10 +294,9 @@ local function sparklefn(Sim)
 	inst.components.locomotor.walkspeed = 2
 	inst.components.locomotor:SetTriggersCreep(false)
 
-	inst.AnimState:SetBloomEffectHandle("shaders/anim.ksh")
 	inst:DoTaskInTime(0, function() onspawn(inst) end)
 
-	inst.OnEntitySleep = function() inst:Remove() end
+	inst.OnEntitySleep = inst.Remove
 
 	inst.persists = false
 
@@ -289,5 +304,5 @@ local function sparklefn(Sim)
 end
 
 
-return Prefab("common/objects/lifeplant", fn, assets, prefabs),
-	Prefab("common/objects/lifeplant_sparkle", sparklefn, assets, prefabs)
+return Prefab("lifeplant", fn, assets, prefabs),
+	Prefab("lifeplant_sparkle", sparklefn, assets, prefabs)

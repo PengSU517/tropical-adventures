@@ -23,6 +23,7 @@ local function SpoilLoot(inst, loot)
 end
 
 function Poisonable:SetPoison(dmg, interval, duration)
+	if self.inst:HasTag("poisonimmune") then return end
 	duration = duration or self.defaultDuration
 	self.immuneduration = math.max(self.immuneduration - duration / 2, 0)
 	if self.immuneduration > 0 then

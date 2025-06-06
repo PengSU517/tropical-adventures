@@ -94,7 +94,7 @@ AddRecipe2("armorvoidcloak",
 		image = "armorvoidcloak.tex",
 	}, { "CRAFTING_STATION" })
 SortAfter("armorvoidcloak", "voidclothhat", "CRAFTING_STATION")
-
+AddRecipe2("living_artifact", { Ingredient("infused_iron", 6), Ingredient("waterdrop", 1) }, TECH.LOST, { "MAGIC" })
 AddRecipe2("honeychest",
 	{ Ingredient("chitin", 6), Ingredient("beeswax", 1), Ingredient("honey", 3) }, TECH.LOST,
 	{

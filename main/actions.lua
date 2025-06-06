@@ -547,7 +547,7 @@ BOATCANNON.fn = function(act)
     end
 end
 AddAction(BOATCANNON)
-
+--[[
 local TIRO = Action({ priority = 9, rmb = true, distance = 20, mount_valid = false })
 TIRO.str = (STRINGS.ACTIONS.TIRO)
 TIRO.id = "TIRO"
@@ -558,7 +558,7 @@ TIRO.fn = function(act)
 end
 --TIRO.encumbered_valid =true
 AddAction(TIRO)
-
+]]
 
 local RETRIEVE = Action({ priority = 11, rmb = true, distance = 2, mount_valid = false })
 RETRIEVE.str = (STRINGS.ACTIONS.RETRIEVE)
@@ -999,3 +999,64 @@ ACTIONS.DEPLOY.extra_arrive_dist = extra_arrive_dist
 --     end
 --     return Oldharvest and Oldharvest(act)
 -- end
+
+----------------------------------------------------------------------------------------------------
+--活性机甲
+local IRONTURNON = Action({ priority = 10, distance = 1.5, mount_valid = true })
+IRONTURNON.str = STRINGS.ACTIONS.IRONTURNON
+IRONTURNON.id = "IRONTURNON"
+IRONTURNON.fn = function(act)
+    local inst = act.invobject
+    if inst and inst.components.ironmachine and not inst.components.ironmachine:IsOn() then
+        inst.components.ironmachine:TurnOn()
+        return true
+    end
+end
+AddAction(IRONTURNON)
+
+local IRONTURNOFF = Action({ priority = 10, distance = 1.5, mount_valid = true })
+IRONTURNOFF.str = STRINGS.ACTIONS.IRONTURNOFF
+IRONTURNOFF.id = "IRONTURNOFF"
+IRONTURNOFF.fn = function(act)
+    local inst = act.invobject
+    if inst and inst.components.ironmachine and inst.components.ironmachine:IsOn() then
+        inst.components.ironmachine:TurnOff()
+        return true
+    end
+end
+AddAction(IRONTURNOFF)
+
+local CHARGE_UP = Action({ priority = 10, distance = 1.5, mount_valid = true })
+CHARGE_UP.str = STRINGS.ACTIONS.CHARGE_UP
+CHARGE_UP.id = "CHARGE_UP"
+CHARGE_UP.fn = function(act)
+    if act.doer:HasTag("ironlord") then
+        return true
+    end
+end
+AddAction(CHARGE_UP)
+ACTIONS.CHARGE_UP.do_not_locomote = true
+--[[
+AddAction(nil, "IRONTURNON", STRINGS.ACTIONS.IRONTURNON, function(act)
+    local inst = act.invobject
+    if inst and inst.components.ironmachine and not inst.components.ironmachine:IsOn() then
+        inst.components.ironmachine:TurnOn()
+        return true
+    end
+end)
+
+AddAction(nil, "IRONTURNOFF", STRINGS.ACTIONS.IRONTURNOFF, function(act)
+    local inst = act.invobject
+    if inst and inst.components.ironmachine and inst.components.ironmachine:IsOn() then
+        inst.components.ironmachine:TurnOff()
+        return true
+    end
+end)
+
+AddAction(nil, "CHARGE_UP", STRINGS.ACTIONS.CHARGE_UP, function(act)
+    if act.doer:HasTag("ironlord") then
+        return true
+    end
+end)
+ACTIONS.CHARGE_UP.do_not_locomote = true
+]]

@@ -212,6 +212,7 @@ PrefabFiles = {
     -- "icerockcreatures",
     "invisiblepondfish",
     "iron",
+    "infused_iron",
     "jellyfish_planted",
     "jellyfish",
     "jungle_border_vine",
