@@ -176,6 +176,13 @@ TA_STRINGS_CH.ACTIONS.GAS                                     = "喷"
 TA_STRINGS_CH.ACTIONS.TIRO                                    = "射击"
 TA_STRINGS_CH.ACTIONS.SHOP                                    = "购买"
 TA_STRINGS_CH.ACTIONS.CHECKSHOP                               = "花费 {cost} {costprefab}\n换取 {item}"
+
+TA_STRINGS_CH.ACTIONS.IRONTURNON                              = "开启"
+TA_STRINGS_CH.ACTIONS.IRONTURNOFF                             = "关闭"
+TA_STRINGS_CH.ACTIONS.CHARGE_UP                               = "充能"
+TA_STRINGS_CH.ACTIONS.PUNCH                                   = "重击"
+TA_STRINGS_CH.CHARACTERS.GENERIC.ANNOUNCE_SUITUP              = "为了科学！"
+
 --gorge
 TA_STRINGS_CH.ACTIONS.STOREOPEN                               = "交易"
 TA_STRINGS_CH.ACTIONS.GRIND                                   = "研磨"

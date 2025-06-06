@@ -14,6 +14,9 @@ Assets =
 	Asset("SOUND", "sound/DLC003_AMB_stream.fsb"),
 
 	-------------------animation----------------
+	Asset("ANIM", "anim/livingartifact_meter.zip"),
+    Asset("ANIM", "anim/player_lifeplant.zip"),
+
 	Asset("ANIM", "anim/moon_aporkalypse_phases.zip"),
 	Asset("ANIM", "anim/swap_land_fork.zip"),
 	Asset("ANIM", "anim/player_wagstaff.zip" ),
@@ -148,7 +151,7 @@ Assets =
     Asset("IMAGE", "images/overlays/living_artifact.tex"),
     Asset("ATLAS", "images/overlays/visorvision.xml"),
     Asset("IMAGE", "images/overlays/visorvision.tex"),
-	
+
 	-------------mapstyle -------------------
     Asset("IMAGE", "images/mapstyle/hud_shipwrecked.tex"),
 	Asset("ATLAS", "images/mapstyle/hud_shipwrecked.xml"),

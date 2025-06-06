@@ -26,3 +26,7 @@ modimport "main/skins"
 modimport "main/characters"
 modimport "main/tropical_fx"
 modimport "main/rpc"
+
+modimport "main/AddIronLordHandlers" --活性机甲处理
+modimport "main/AddIronLordPostinit" --活性机甲构造
+modimport "scripts/ArtifactControls" --活性机甲控制
