@@ -1695,6 +1695,84 @@ for _, state in ipairs(states) do
     AddStategraphState("wilson", state)
 end
 
+-- 函数表函数参数与FnDecorator函数参数一致
+local statedecos = {
+    actions = { -- Action.deststate = function(inst, action)
+
+    },
+
+    events = { -- EventHandler.fn = function(inst, data)
+        ["armorbroke"] = {
+            before = function(inst, data)
+                if data and data.armor and (data.armor:HasTag("vortex_cloak") or data.armor:HasTag("void_cloak")) and data.armor._ontakedmg then
+                    return nil, true
+                end
+            end,
+        },
+    },
+
+    states = { -- State.onenter = function(inst)
+        ["attack"] = { -- TODO: 写成独立的sg
+            before = function(inst)
+                if inst.components.rider:IsRiding() then return end
+                local equip = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
+                local cooldown = inst.components.combat.min_attack_period
+                if equip and equip.prefab == "shard_beak" then
+                    if not inst._beakSweepCount or not inst.AnimState:IsCurrentAnimation("atk") then
+                        inst._beakSweepCount = 2
+                    end
+                    if inst._beakSweepCount == 0 then
+                        inst.sg:GoToState("scythe") -- 直接使用收割动作
+                        inst._beakSweepTrigger = true
+                        inst._beakSweepCount = 2
+                    else
+                        inst.AnimState:PlayAnimation("atk_pre")
+                        inst.AnimState:PushAnimation("atk", false)
+                        inst.SoundEmitter:PlaySound("dontstarve/wilson/attack_weapon")
+                        inst._beakSweepCount = inst._beakSweepCount - 1
+                        inst.sg:SetTimeout(cooldown)
+                    end
+                else
+                    inst._beakSweepCount = nil
+                    return 
+                end
+                return nil, true
+            end,
+        },
+        ["use_fan"] = {
+            after = function(rets, inst)
+                local invobject = nil
+                if inst.bufferedaction ~= nil then
+                    invobject = inst.bufferedaction.invobject
+                end
+                local src_symbol = invobject ~= nil and invobject.components.fan ~= nil and
+                    invobject.components.fan.overridesymbol
+                if src_symbol == "fan01" then
+                    inst.AnimState:OverrideSymbol("fan01", "fan_tropical", src_symbol)
+                end
+            end,
+        },
+    },
+}
+
+local Utils = require("tools/utils")
+AddStategraphPostInit("wilson", function(sg)
+    for action, fns in pairs(statedecos.actions) do
+        if sg.actionhandlers[action] then
+            Utils.FnDecorator(sg.actionhandlers[action], "deststate", fns.before, fns.after)
+        end
+    end
+    for event, fns in pairs(statedecos.events) do
+        if sg.events[event] then
+            Utils.FnDecorator(sg.events[event], "fn", fns.before, fns.after)
+        end
+    end
+    for state, fns in pairs(statedecos.states) do
+        if sg.states[state] then
+            Utils.FnDecorator(sg.states[state], "onenter", fns.before, fns.after)
+        end
+    end
+end)
 
 AddStategraphPostInit("wilson", function(sg)
     local actionHandler_attack = sg.actionhandlers[ACTIONS.ATTACK].deststate
@@ -1738,25 +1816,6 @@ AddStategraphPostInit("wilson", function(sg)
     end
 end)
 
-
--- 渡渡羽毛扇摇扇动作写死在sg里了，没留overridebuild，勾一下
-AddStategraphPostInit("wilson", function(sg)
-    local old_enter = sg.states["use_fan"].onenter
-    sg.states["use_fan"].onenter = function(inst, ...)
-        old_enter(inst, ...)
-        local invobject = nil
-        if inst.bufferedaction ~= nil then
-            invobject = inst.bufferedaction.invobject
-        end
-        local src_symbol = invobject ~= nil and invobject.components.fan ~= nil and
-            invobject.components.fan.overridesymbol
-        if src_symbol == "fan01" then
-            inst.AnimState:OverrideSymbol("fan01", "fan_tropical", src_symbol)
-        end
-    end
-end)
-
-
 AddStategraphPostInit("wilson", function(sg)
     local _locomote_eventhandler = sg.events.locomote.fn
     sg.events.locomote.fn = function(inst, data, ...)
@@ -1785,36 +1844,3 @@ AddStategraphPostInit("wilson", function(sg)
     end
 end)
 
--- 碎裂喙横扫sg hooker
-if GetModConfigData("dev_beak") == true then
-    AddStategraphPostInit("wilson", function(sg)
-        local attack = sg.states["attack"]
-        if not attack then return end
-        local _onenter = attack.onenter
-        if not _onenter then return end
-        attack.onenter = function(inst)
-            if inst.components.rider:IsRiding() then return _onenter(inst) end
-            local equip = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS)
-            local cooldown = inst.components.combat.min_attack_period
-            if equip and equip.prefab == "shard_beak" then
-                if not inst._beakSweepCount or not inst.AnimState:IsCurrentAnimation("atk") then
-                    inst._beakSweepCount = 2
-                end
-                if inst._beakSweepCount == 0 then
-                    inst.sg:GoToState("scythe") -- 直接使用收割动作
-                    inst._beakSweepTrigger = true
-                    inst._beakSweepCount = 2
-                else
-                    inst.AnimState:PlayAnimation("atk_pre")
-                    inst.AnimState:PushAnimation("atk", false)
-                    inst.SoundEmitter:PlaySound("dontstarve/wilson/attack_weapon")
-                    inst._beakSweepCount = inst._beakSweepCount - 1
-                    inst.sg:SetTimeout(cooldown)
-                end
-            else
-                inst._beakSweepCount = nil
-                return _onenter(inst)
-            end
-        end
-    end)
-end

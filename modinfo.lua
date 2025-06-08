@@ -653,16 +653,16 @@ personal_options =
 local experimental_options =
 {
     Breaker("Experimental Options", "实验性选项"),
-    {
-        name = "dev_beak",
-        label = en_zh("New Shard Beak", "新碎裂喙"),
-        hover = en_zh("New Shard Beak with AOE attack module", "有范围攻击模组的新碎裂喙"),
-        options = {
-            { description = en_zh("Enabled", "开启"), data = true, },
-            { description = en_zh("Disabled", "关闭"), data = false, },
-        },
-        default = true,
-    },
+    -- {
+    --     name = "dev_beak",
+    --     label = en_zh("New Shard Beak", "新碎裂喙"),
+    --     hover = en_zh("New Shard Beak with AOE attack module", "有范围攻击模组的新碎裂喙"),
+    --     options = {
+    --         { description = en_zh("Enabled", "开启"), data = true, },
+    --         { description = en_zh("Disabled", "关闭"), data = false, },
+    --     },
+    --     default = true,
+    -- },
     {
         name = "dev_portal_reconnector",
         label = en_zh("Reconnect Cave Entrances", "洞穴入口重连"),
