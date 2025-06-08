@@ -5,7 +5,6 @@ local assets =
     Asset("ANIM", "anim/swap_tarlamp_boat.zip"),
 }
 
-
 local prefabs =
 {
     "tarlampfire",
@@ -13,8 +12,7 @@ local prefabs =
 
 local function DoTurnOffSound(inst, owner)
     inst._soundtask = nil
-    (owner ~= nil and owner:IsValid() and owner.SoundEmitter or inst.SoundEmitter):PlaySound(
-        "dontstarve/wilson/lantern_off")
+    (owner ~= nil and owner:IsValid() and owner.SoundEmitter or inst.SoundEmitter):PlaySound("dontstarve/wilson/lantern_off")
 end
 
 local function PlayTurnOffSound(inst)
@@ -35,9 +33,9 @@ end
 local function fuelupdate(inst)
     if inst._light ~= nil then
         local fuelpercent = inst.components.fueled:GetPercent()
-        inst._light.Light:SetIntensity(.75)
-        inst._light.Light:SetRadius(2)
-        inst._light.Light:SetFalloff(0.5)
+        inst._light.Light:SetIntensity(Lerp(.4, .6, fuelpercent))
+        inst._light.Light:SetRadius(Lerp(3, 5, fuelpercent))
+        inst._light.Light:SetFalloff(.9)
     end
 end
 
@@ -77,7 +75,7 @@ local function turnon(inst)
         end
         inst._light.entity:SetParent((owner or inst).entity)
 
-        local map = TheWorld.Map
+        --[[local map = TheWorld.Map
         local x, y, z = inst.Transform:GetWorldPosition()
         local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
 
@@ -96,14 +94,7 @@ local function turnon(inst)
         end
 
         if not plataforma and
-            TileGroupManager:IsOceanTile(ground) --[[(ground == GROUND.OCEAN_COASTAL or
-                ground == GROUND.OCEAN_COASTAL_SHORE or
-                ground == GROUND.OCEAN_SWELL or
-                ground == GROUND.OCEAN_ROUGH or
-                ground == GROUND.OCEAN_BRINEPOOL or
-                ground == GROUND.OCEAN_BRINEPOOL_SHORE or
-                ground == GROUND.OCEAN_WATERLOG or
-                ground == GROUND.OCEAN_HAZARDOUS)]] then
+            TileGroupManager:IsOceanTile(ground) then
             inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
             inst.AnimState:OverrideSymbol("water_ripple", "ripple_build", "water_ripple")
             inst.AnimState:OverrideSymbol("water_shadow", "ripple_build", "water_shadow")
@@ -113,16 +104,15 @@ local function turnon(inst)
             inst.AnimState:SetLayer(LAYER_WORLD)
             inst.AnimState:ClearOverrideSymbol("water_ripple", "ripple_build", "water_ripple")
             inst.AnimState:ClearOverrideSymbol("water_shadow", "ripple_build", "water_shadow")
-            inst.AnimState:PlayAnimation("idle_on")
-        end
+        end]]
+        inst.AnimState:PlayAnimation("idle_on")
 
         if owner ~= nil and inst.components.equippable:IsEquipped() then
             owner.AnimState:Show("LANTERN_OVERLAY")
         end
 
         inst.components.machine.ison = true
-
-        --        inst.components.inventoryitem:ChangeImageName("lantern_lit")
+        inst:PushEvent("lantern_on")
     end
 end
 
@@ -136,7 +126,7 @@ local function turnoff(inst)
         PlayTurnOffSound(inst)
     end
 
-    local map = TheWorld.Map
+    --[[local map = TheWorld.Map
     local x, y, z = inst.Transform:GetWorldPosition()
     local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
 
@@ -157,14 +147,7 @@ local function turnoff(inst)
 
 
     if not plataforma and
-        TileGroupManager:IsOceanTile(ground) --[[(ground == GROUND.OCEAN_COASTAL or
-            ground == GROUND.OCEAN_COASTAL_SHORE or
-            ground == GROUND.OCEAN_SWELL or
-            ground == GROUND.OCEAN_ROUGH or
-            ground == GROUND.OCEAN_BRINEPOOL or
-            ground == GROUND.OCEAN_BRINEPOOL_SHORE or
-            ground == GROUND.OCEAN_WATERLOG or
-            ground == GROUND.OCEAN_HAZARDOUS)]] then
+        TileGroupManager:IsOceanTile(ground) then
         inst.AnimState:SetLayer(LAYER_WORLD_BACKGROUND)
         inst.AnimState:OverrideSymbol("water_ripple", "ripple_build", "water_ripple")
         inst.AnimState:OverrideSymbol("water_shadow", "ripple_build", "water_shadow")
@@ -174,16 +157,15 @@ local function turnoff(inst)
         inst.AnimState:SetLayer(LAYER_WORLD)
         inst.AnimState:ClearOverrideSymbol("water_ripple", "ripple_build", "water_ripple")
         inst.AnimState:ClearOverrideSymbol("water_shadow", "ripple_build", "water_shadow")
-        inst.AnimState:PlayAnimation("idle_off")
-    end
+    end]]
+    inst.AnimState:PlayAnimation("idle_off")
 
     if inst.components.equippable:IsEquipped() then
         inst.components.inventoryitem.owner.AnimState:Hide("LANTERN_OVERLAY")
     end
 
     inst.components.machine.ison = false
-
-    --    inst.components.inventoryitem:ChangeImageName("lantern")
+    inst:PushEvent("lantern_off")
 end
 
 local function OnRemove(inst)
@@ -201,33 +183,15 @@ local function ondropped(inst)
 end
 
 local function onequip(inst, owner)
-    local map = TheWorld.Map
-    local x, y, z = inst.Transform:GetWorldPosition()
-    local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
-    local ground1 = map:GetTile(map:GetTileCoordsAtPoint(x + 5, y, z))
-    local ground2 = map:GetTile(map:GetTileCoordsAtPoint(x - 5, y, z))
-    local ground3 = map:GetTile(map:GetTileCoordsAtPoint(x, y, z + 5))
-    local ground4 = map:GetTile(map:GetTileCoordsAtPoint(x, y, z - 5))
-    local naagua = false
-    if ground == GROUND.UNDERWATER_SANDY or ground == GROUND.UNDERWATER_ROCKY or (ground == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground == GROUND.PIGRUINS and TheWorld:HasTag("cave")) or (ground == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
-    if ground1 == GROUND.UNDERWATER_SANDY or ground1 == GROUND.UNDERWATER_ROCKY or (ground1 == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground1 == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground1 == GROUND.PIGRUINS and TheWorld:HasTag("cave")) or (ground1 == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground1 == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
-    if ground2 == GROUND.UNDERWATER_SANDY or ground2 == GROUND.UNDERWATER_ROCKY or (ground2 == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground2 == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground2 == GROUND.PIGRUINS and TheWorld:HasTag("cave")) or (ground2 == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground2 == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
-    if ground3 == GROUND.UNDERWATER_SANDY or ground3 == GROUND.UNDERWATER_ROCKY or (ground3 == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground3 == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground3 == GROUND.PIGRUINS and TheWorld:HasTag("cave")) or (ground3 == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground3 == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
-    if ground4 == GROUND.UNDERWATER_SANDY or ground4 == GROUND.UNDERWATER_ROCKY or (ground4 == GROUND.BEACH and TheWorld:HasTag("cave")) or (ground4 == GROUND.MAGMAFIELD and TheWorld:HasTag("cave")) or (ground4 == GROUND.PIGRUINS and TheWorld:HasTag("cave")) or (ground4 == GROUND.PEBBLEBEACH and TheWorld:HasTag("cave")) or (ground4 == GROUND.PAINTED and TheWorld:HasTag("cave")) then naagua = true end
-
     owner.AnimState:OverrideSymbol("swap_object", "swap_tarlamp", "swap_lantern")
-    if naagua == false then
-        owner.AnimState:Show("ARM_carry")
-        owner.AnimState:Hide("ARM_normal")
-        owner.AnimState:OverrideSymbol("swap_object", "swap_tarlamp", "swap_lantern")
-        owner.AnimState:OverrideSymbol("lantern_overlay", "swap_tarlamp", "lantern_overlay")
+    owner.AnimState:Show("ARM_carry")
+    owner.AnimState:Hide("ARM_normal")
 
-        if inst.components.fueled:IsEmpty() then
-            owner.AnimState:Hide("LANTERN_OVERLAY")
-        else
-            owner.AnimState:Show("LANTERN_OVERLAY")
-            turnon(inst)
-        end
+    if inst.components.fueled:IsEmpty() then
+        owner.AnimState:Hide("LANTERN_OVERLAY")
+    else
+        owner.AnimState:Show("LANTERN_OVERLAY")
+        turnon(inst)
     end
 end
 
@@ -242,28 +206,25 @@ local function onunequip(inst, owner)
     end
 end
 
-local function depleted(inst)
-    local barco = GetClosestInstWithTag("boatsw", inst, 0.5)
-    if barco and inst.components.inventoryitem:IsHeldBy(barco) then
-        if barco then barco.AnimState:ClearOverrideSymbol(inst.symboltooverride, inst.build, inst.symbol) end
-        inst:Remove()
-        return
+local function onequiptomodel(inst, owner, from_ground)
+    if inst.components.machine.ison then
+        starttrackingowner(inst, owner)
     end
 
-    if not inst.equippedby then
-        local ash = SpawnPrefab("ash")
-        ash.Transform:SetPosition(inst:GetPosition():Get())
-    end
+    turnoff(inst)
 end
 
 local function nofuel(inst)
-    depleted(inst)
     turnoff(inst)
     local owner = inst.components.inventoryitem.owner
     if owner then
-        owner:PushEvent("torchranout", { torch = inst })
+        owner:PushEvent("torchranout", {prefab = inst.prefab, equipslot = inst.components.inventoryitem.equipslot})
     end
+    local rem = SpawnAt("seashell", inst)
     inst:Remove()
+    if owner and owner.components.inventory then
+        owner.components.inventory:GiveItem(rem)
+    end
 end
 
 local function ontakefuel(inst)
@@ -272,106 +233,9 @@ local function ontakefuel(inst)
     end
 end
 
---------------------------------------------------------------------------
 
-local function OnLightWake(inst)
-    if not inst.SoundEmitter:PlayingSound("loop") then
-        inst.SoundEmitter:PlaySound("dontstarve/wilson/lantern_LP", "loop")
-    end
-end
-
-local function OnLightSleep(inst)
-    inst.SoundEmitter:KillSound("loop")
-end
-
---------------------------------------------------------------------------
-
-local function tarlampfirefn()
-    local inst = CreateEntity()
-
-    inst.entity:AddTransform()
-    inst.entity:AddLight()
-    inst.entity:AddSoundEmitter()
-    inst.entity:AddNetwork()
-
-    inst:AddTag("FX")
-
-    inst.Light:SetColour(197 / 255, 197 / 255, 50 / 255)
-
-    inst.entity:SetPristine()
-
-    if not TheWorld.ismastersim then
-        return inst
-    end
-
-    inst.persists = false
-
-    inst.OnEntityWake = OnLightWake
-    inst.OnEntitySleep = OnLightSleep
-
-    return inst
-end
-
-local function liga(inst)
-    if not inst.components.fueled:IsEmpty() then
-        inst.components.fueled:StartConsuming()
-
-        local owner = inst.components.inventoryitem.owner
-
-        if inst._light == nil then
-            inst._light = SpawnPrefab("tarlampfire")
-            inst._light._lantern = inst
-            inst:ListenForEvent("onremove", onremovelight, inst._light)
-            fuelupdate(inst)
-            PlayTurnOnSound(inst)
-        end
-        inst._light.entity:SetParent((owner or inst).entity)
-        inst.AnimState:OverrideSymbol("swap_lantern", "swap_tarlamp_boat", "swap_lantern")
-        --	inst.components.inventoryitem:ChangeImageName("boat_torch")
-        if inst.navio then inst.navio.AnimState:OverrideSymbol(inst.symboltooverride, inst.build, inst.symbol) end
-    end
-end
-
-local function desliga(inst)
-    inst.components.fueled:StopConsuming()
-
-    if inst._light ~= nil then
-        inst._light:Remove()
-        PlayTurnOffSound(inst)
-    end
-    --inst.components.inventoryitem:ChangeImageName("boat_torch_off")
-    inst.AnimState:OverrideSymbol("swap_lantern", "swap_tarlamp_boat", "swap_lantern_off")
-    if inst.navio then inst.navio.AnimState:OverrideSymbol(inst.symboltooverride, inst.build, inst.symbol) end
-end
-
-local function mudasimbolo(inst)
-    ---------verifica se ta dentro do navio--------------
-    -- local barco = GetClosestInstWithTag("boatsw", inst, 0.5)
-    -- local player = GetClosestInstWithTag("player", inst, 0.5)
-    -- if not barco then
-    --     if inst:HasTag("nonavio") then inst:RemoveTag("nonavio") end
-    --     return
-    -- end
-    -- if barco and player and inst.components.inventoryitem:IsHeldBy(player) then
-    --     if inst:HasTag("nonavio") then inst:RemoveTag("nonavio") end
-    --     return
-    -- end
-    -- if barco then
-    --     if not inst:HasTag("nonavio") then inst:AddTag("nonavio") end
-    -- end
-
-    if not inst.components.inventoryitem.owner or not inst.components.inventoryitem.owner:HasTag("player") then
-        inst:RemoveTag("ligado")
-    end
-
-
-    if inst:HasTag("ligado") then
-        inst.symbol = "swap_lantern"
-        liga(inst)
-    else
-        inst.symbol = "swap_lantern_off"
-        desliga(inst)
-    end
+local function tarlampfirefn(inst)
+    inst.Light:SetColour(255 / 255, 180 / 255, 0 / 255)
 end
 
 local function fn()
@@ -381,10 +245,6 @@ local function fn()
     inst.entity:AddAnimState()
     inst.entity:AddSoundEmitter()
     inst.entity:AddNetwork()
-    inst.build = "swap_tarlamp_boat"
-    inst.symbol = "swap_lantern"
-    inst.symboltooverride = "swap_lantern"
-    inst.navio = nil
 
     MakeInventoryPhysics(inst)
 
@@ -394,6 +254,7 @@ local function fn()
 
     inst:AddTag("light")
     inst:AddTag("tarlamp")
+    MakeInventoryFloatable(inst, "med", 0.2, 0.65)
 
     inst.entity:SetPristine()
 
@@ -402,27 +263,13 @@ local function fn()
     end
 
     inst:AddComponent("inspectable")
-    inst:AddComponent("interactions")
 
-    inst:AddComponent("inventoryitem")
-
-
-
-    -----------------------------------
-    inst:AddComponent("lighter")
-    -----------------------------------
-
-    inst:AddComponent("burnable")
-    inst.components.burnable.canlight = false
-    inst.components.burnable.fxprefab = nil
-
-    inst.components.inventoryitem:SetOnDroppedFn(ondropped)
-    inst.components.inventoryitem:SetOnPutInInventoryFn(turnoff)
+    local inventoryitem = inst:AddComponent("inventoryitem")
+    inventoryitem:SetOnDroppedFn(ondropped)
+    inventoryitem:SetOnPutInInventoryFn(turnoff)
 
     inst:AddComponent("heater")
     inst.components.heater.equippedheat = 5
-
-    inst:AddComponent("equippable")
 
     inst:AddComponent("weapon")
     inst.components.weapon:SetDamage(TUNING.LIGHTER_DAMAGE)
@@ -436,20 +283,20 @@ local function fn()
         end
     )
 
-    inst:AddComponent("fueled")
+    inst:AddComponent("equippable")
 
-    inst:AddComponent("machine")
-    inst.components.machine.turnonfn = turnon
-    inst.components.machine.turnofffn = turnoff
-    inst.components.machine.cooldowntime = 0
+    local fueled = inst:AddComponent("fueled")
 
-    -- inst.components.fueled.fueltype = "TAR"
-    inst.components.fueled:InitializeFuelLevel(TUNING.TORCH_FUEL)
-    inst.components.fueled:SetDepletedFn(nofuel)
-    inst.components.fueled:SetUpdateFn(fuelupdate)
-    inst.components.fueled:SetTakeFuelFn(ontakefuel)
-    --    inst.components.fueled:SetFirstPeriod(TUNING.TURNON_FUELED_CONSUMPTION, TUNING.TURNON_FULL_FUELED_CONSUMPTION)
-    inst.components.fueled.accepting = true
+    local machine = inst:AddComponent("machine")
+    machine.turnonfn = turnon
+    machine.turnofffn = turnoff
+    machine.cooldowntime = 0
+
+    fueled:InitializeFuelLevel(TUNING.TORCH_FUEL)
+    fueled:SetDepletedFn(nofuel)
+    fueled:SetUpdateFn(fuelupdate)
+    fueled:SetTakeFuelFn(ontakefuel)
+    fueled.accepting = true
 
     inst._light = nil
 
@@ -457,20 +304,21 @@ local function fn()
 
     inst.components.equippable:SetOnEquip(onequip)
     inst.components.equippable:SetOnUnequip(onunequip)
+    inst.components.equippable:SetOnEquipToModel(onequiptomodel)
 
     inst.OnRemoveEntity = OnRemove
 
     inst._onownerequip = function(owner, data)
         if data.item ~= inst and
-            (data.eslot == EQUIPSLOTS.HANDS or
+            (   data.eslot == EQUIPSLOTS.HANDS or
                 (data.eslot == EQUIPSLOTS.BODY and data.item:HasTag("heavy"))
             ) then
             turnoff(inst)
         end
     end
-    inst:DoPeriodicTask(0.5, mudasimbolo)
+
     return inst
 end
 
 return Prefab("tarlamp", fn, assets, prefabs),
-    Prefab("tarlampfire", tarlampfirefn)
+    Derive("lanternlight", "tarlampfire", tarlampfirefn)
