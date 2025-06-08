@@ -85,20 +85,10 @@ function Shopper:PayFor(prefab)
 	if inventory ~= nil and prefab_wanted ~= nil then
 		if prefab_wanted == "oinc" then
 			inventory:PayMoney(prefab.cost)
-			self:BoughtItem(prefab, player)
-		elseif prefab_wanted == "goldenbar" then
-			inventory:ConsumeByName("goldenbar", 1)
-			self:BoughtItem(prefab, player)
-		elseif prefab_wanted == "lucky_goldnugget" then
-			inventory:ConsumeByName("lucky_goldnugget", 1)
-			self:BoughtItem(prefab, player)
 		else
-			local item = inventory:FindItem(function(look) return look.prefab == prefab_wanted end)
-			if item ~= nil then
-				inventory:RemoveItem(item)
-				self:BoughtItem(prefab, player)
-			end
+			inventory:ConsumeByName(prefab_wanted, prefab.cost)
 		end
+		self:BoughtItem(prefab, player)
 	end
 end
 

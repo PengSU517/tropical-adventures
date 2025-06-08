@@ -52,7 +52,7 @@ local function PayMoney(self, cost)
         for i = 1, math.abs(oincresult) do
             --                inventory:ConsumeByName("oinc", 1 )
             local item = next(self:GetItemByName("oinc", 1, true))
-            if item then self:RemoveItem(item, false, true) end
+            if item then item:Remove() end
         end
     end
     local oinc10result = oinc10gained - oinc10used
@@ -66,7 +66,7 @@ local function PayMoney(self, cost)
         for i = 1, math.abs(oinc10result) do
             --                inventory:ConsumeByName("oinc10", 1 )
             local item = next(self:GetItemByName("oinc10", 1, true))
-            if item then self:RemoveItem(item, false, true) end
+            if item then item:Remove() end
         end
     end
     local oinc100result = 0 - oinc100used
@@ -74,7 +74,7 @@ local function PayMoney(self, cost)
         for i = 1, math.abs(oinc100result) do
             --                inventory:ConsumeByName("oinc100", 1)
             local item = next(self:GetItemByName("oinc100", 1, true))
-            if item then self:RemoveItem(item, false, true) end
+            if item then item:Remove() end
         end
     end
 end
@@ -110,7 +110,7 @@ Utils.FnDecorator(Inventory, "GetOverflowContainer", nil, function(rets, self)
     end
     local barco = self:GetEquippedItem(EQUIPSLOTS.BARCO)
     return (barco ~= nil and barco.components.container and barco.components.container.canbeopened) and
-            { barco.components.container } or rets
+        { barco.components.container } or rets
 end)
 Inventory.HasMoney = HasMoney
 Inventory.PayMoney = PayMoney
