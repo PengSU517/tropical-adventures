@@ -25,10 +25,14 @@ local function spawnwisp(owner)
 end
 
 local function OnBlocked(owner, data, inst)
+    if not inst._ontakedmg then
+        return
+    end
     if inst.components.armor.condition and inst.components.armor.condition > 0 then
         owner:AddChild(SpawnPrefab("vortex_cloak_fx")) -- wait for modify
     end
     setsoundparam(inst)
+    inst._ontakedmg = nil
 end
 
 local function onequip(inst, owner)
@@ -40,7 +44,6 @@ local function onequip(inst, owner)
     inst:ListenForEvent("attacked", inst.OnBlocked, owner)
 
     owner:AddTag("not_hit_stunned")
-    --    owner.components.inventory:SetOverflow(inst)
 
     inst.components.container:Open(owner)
     inst.wisptask = inst:DoPeriodicTask(0.1, function() spawnwisp(owner, inst) end)
@@ -55,7 +58,6 @@ local function onunequip(inst, owner)
     inst:RemoveEventCallback("blocked", inst.OnBlocked, owner)
     inst:RemoveEventCallback("attacked", inst.OnBlocked, owner)
     owner:RemoveTag("not_hit_stunned")
-    --    owner.components.inventory:SetOverflow(nil)
     inst.components.container:Close(owner)
     if inst.wisptask then
         inst.wisptask:Cancel()
@@ -111,6 +113,7 @@ local function _MakeForgeRepairable(inst, material, _onbroken, onrepaired)
 end
 
 local function OnTakeDamage(inst, damage_amount)
+    inst._ontakedmg = damage_amount and damage_amount > 0 or nil
     local sanity = inst.components.inventoryitem.owner and
                    inst.components.inventoryitem.owner.components.sanity
     if not sanity then return end

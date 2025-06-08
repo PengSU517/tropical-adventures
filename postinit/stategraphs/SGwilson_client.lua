@@ -1021,6 +1021,46 @@ AddStategraphState("wilson_client",
     }
 )
 
+-- 函数表函数参数与FnDecorator函数参数一致
+local statedecos = {
+    actions = { -- Action.deststate = function(inst, action)
+
+    },
+
+    events = { -- EventHandler.fn = function(inst, data)
+        ["armorbroke"] = {
+            before = function(inst, data)
+                if data and data.armor and (data.armor:HasTag("vortex_cloak") or data.armor:HasTag("void_cloak")) and data.armor._ontakedmg then
+                    return nil, true
+                end
+            end,
+        }
+    },
+
+    states = { -- State.onenter = function(inst)
+
+    },
+}
+
+local Utils = require("tools/utils")
+AddStategraphPostInit("wilson_client", function(sg)
+    for action, fns in pairs(statedecos.actions) do
+        if sg.actionhandlers[action] then
+            Utils.FnDecorator(sg.actionhandlers[action], "deststate", fns.before, fns.after)
+        end
+    end
+    for event, fns in pairs(statedecos.events) do
+        if sg.events[event] then
+            Utils.FnDecorator(sg.events[event], "fn", fns.before, fns.after)
+        end
+    end
+    for state, fns in pairs(statedecos.states) do
+        if sg.states[state] then
+            Utils.FnDecorator(sg.states[state], "onenter", fns.before, fns.after)
+        end
+    end
+end)
+
 AddStategraphPostInit("wilson_client", function(sg)
     local actionHandler_attack = sg.actionhandlers[ACTIONS.ATTACK].deststate
     sg.actionhandlers[ACTIONS.ATTACK].deststate = function(inst, action, ...)

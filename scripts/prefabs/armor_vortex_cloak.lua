@@ -20,10 +20,14 @@ local function spawnwisp(owner)
 end
 
 local function OnBlocked(owner, data, inst)
+    if not inst._ontakedmg then
+        return
+    end
     if inst.components.armor.condition and inst.components.armor.condition > 0 then
         owner:AddChild(SpawnPrefab("vortex_cloak_fx"))
     end
     setsoundparam(inst)
+    inst._ontakedmg = nil
 end
 
 local function onequip(inst, owner)
@@ -38,7 +42,7 @@ local function onequip(inst, owner)
     inst.components.container.canbeopened = true
     inst.components.container:Open(owner)
     inst.wisptask = inst:DoPeriodicTask(0.1, function()
-        spawnwisp(owner, inst)
+        spawnwisp(owner)
     end)
 
     inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/LP", "vortex")
@@ -55,7 +59,6 @@ local function onunequip(inst, owner)
     inst:RemoveEventCallback("blocked", inst.OnBlocked, owner)
     inst:RemoveEventCallback("attacked", inst.OnBlocked, owner)
     owner:RemoveTag("not_hit_stunned")
-    --    owner.components.inventory:SetOverflow(nil)
     inst.components.container:Close(owner)
     if inst.wisptask then
         inst.wisptask:Cancel()
@@ -85,10 +88,8 @@ local function ontakefuelitem(inst, _fuel, _fuelvalue, doer)
     setsoundparam(inst)
 end
 
-local function SetupEquippable(inst)
-end
-
 local function OnTakeDamage(inst, damage_amount)
+    inst._ontakedmg = damage_amount and damage_amount > 0 or nil
     local sanity = inst.components.inventoryitem.owner and
                    inst.components.inventoryitem.owner.components.sanity
     if not sanity then return end
@@ -151,8 +152,8 @@ local function fn()
     inst.components.armor.ontakedamage = OnTakeDamage
 
     local fueled = inst:AddComponent("fueled")
-    fueled:InitializeFuelLevel(TUNING.ARMORVORTEXFUEL) -- Runar: 原来的燃值是充场面的，现在是等效燃值
-    fueled.fueltype = FUELTYPE.NIGHTMARE               -- 燃料是噩梦燃料
+    fueled:InitializeFuelLevel(TUNING.ARMORVORTEXFUEL)
+    fueled.fueltype = FUELTYPE.NIGHTMARE
     fueled.secondaryfueltype = FUELTYPE.ANCIENT_REMNANT
     fueled.ontakefuelitemfn = ontakefuelitem
     fueled.accepting = true
