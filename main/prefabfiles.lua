@@ -4,6 +4,7 @@ PrefabFiles = {
     "aloe",
     "ancient_herald",
     "ancient_hulk",
+    "ancient_hulk_orb",
     "ancient_robots_assembly",
     "ancient_robots",
     "antchest",
