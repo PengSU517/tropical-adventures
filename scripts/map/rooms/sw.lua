@@ -747,7 +747,7 @@ AddRoom("MagmaGoldBoon", {
             goldnugget = 1,
             tallbirdnest = .1,
             rock_moon = 0.1,
-            rock_moon = 2,
+            -- rock_moon = 2,
             sapling_sw = .5,
             --spiderden= .1,
         },
