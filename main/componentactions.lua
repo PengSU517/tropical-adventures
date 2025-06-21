@@ -36,14 +36,14 @@ AddComponentAction("SCENE", "dislodgeable", function(inst, doer, actions, right)
     end
 end)
 
-AddComponentAction("SCENE", "breeder", function(inst, doer, actions, right)
-    if not right then
-        if inst.components.breeder and inst.components.breeder.volume > 0 then
-            table.insert(actions, ACTIONS.HARVEST)
-            return
-        end
-    end
-end)
+-- AddComponentAction("SCENE", "breeder", function(inst, doer, actions, right)
+--     if not right then
+--         if inst.components.breeder and inst.components.breeder.volume > 0 then
+--             table.insert(actions, ACTIONS.HARVEST)
+--             return
+--         end
+--     end
+-- end)
 
 
 AddComponentAction("SCENE", "mystery", function(inst, doer, actions, right)
@@ -65,9 +65,14 @@ AddComponentAction("SCENE", "interactions", function(inst, doer, actions, right)
             table.insert(actions, ACTIONS.BOATMOUNT)
         end
     else
-        if not inst:HasTag("boat_occupied") and (inst.prefab == "surfboard" or inst.prefab == "corkboat")
-        then
+        if not inst:HasTag("boat_occupied") and (inst.prefab == "surfboard" or inst.prefab == "corkboat") then
             table.insert(actions, ACTIONS.RETRIEVE)
+        end
+
+        if inst.prefab == "fish_farm" then
+            -- if inst.components.breeder and inst.components.breeder.volume > 0 then
+            table.insert(actions, ACTIONS.RETRIEVE)
+            return
         end
     end
 end
@@ -129,7 +134,7 @@ AddComponentAction("INVENTORY", "interactions", function(inst, doer, actions)
     if not barco then return end
     local lantern = barco.replica.container and barco.replica.container:GetItemInSlot(2)
     if inst ~= lantern then return end
-    if inst:HasTag("boatlight") and not inst:HasTag("ligado") then  --and inst:HasTag("nonavio")
+    if inst:HasTag("boatlight") and not inst:HasTag("ligado") then --and inst:HasTag("nonavio")
         table.insert(actions, ACTIONS.ACTIVATESAIL)
     elseif inst:HasTag("boatlight") and inst:HasTag("ligado") then
         table.insert(actions, ACTIONS.DESACTIVATESAIL)
