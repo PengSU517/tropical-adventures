@@ -68,7 +68,7 @@ PrefabFiles = {
     "boatcannon",
     "boatlantern",
     "boatmetal",
-    "boatpirateamigo",
+    -- "boatpirateamigo",
     "boatraft",
     "boatrepairkit",
     "boatrows",

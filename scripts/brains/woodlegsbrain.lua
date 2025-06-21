@@ -30,9 +30,7 @@ local SEE_TREE_DIST = 15
 local SEE_TARGET_DIST = 20
 local SEE_FOOD_DIST = 10
 
-local SEE_BURNING_HOME_DIST_SQ = 20*20
-
-local COMFORT_LIGHT_LEVEL = 0.3
+local SEE_BURNING_HOME_DIST_SQ = 20 * 20
 
 local KEEP_CHOPPING_DIST = 10
 
@@ -131,7 +129,8 @@ local function StartChoppingCondition(inst)
     return inst.tree_target ~= nil
         or (inst.components.follower.leader ~= nil and
             inst.components.follower.leader.sg ~= nil and
-            inst.components.follower.leader.sg:HasStateTag("chopping"))
+            (inst.components.follower.leader.sg:HasStateTag("chopping") or
+                inst.components.follower.leader.sg:HasStateTag("mining")))
         or FindDeciduousTreeMonster(inst) ~= nil
 end
 
@@ -156,13 +155,6 @@ local function HasValidHome(inst)
         and not home:HasTag("burnt")
 end
 
-local function GoHomeAction(inst)
-    if not inst.components.follower.leader and
-        HasValidHome(inst) and
-        not inst.components.combat.target then
-            return BufferedAction(inst, inst.components.homeseeker.home, ACTIONS.GOHOME)
-    end
-end
 
 local function GetLeader(inst)
     return inst.components.follower.leader
@@ -179,22 +171,6 @@ local function GetNoLeaderHomePos(inst)
     return GetHomePos(inst)
 end
 
-local function GetNearestLightPos(inst)
-    local light = GetClosestInstWithTag("lightsource", inst, SEE_LIGHT_DIST)
-    if light then
-        return Vector3(light.Transform:GetWorldPosition())
-    end
-    return nil
-end
-
-local function GetNearestLightRadius(inst)
-    local light = GetClosestInstWithTag("lightsource", inst, SEE_LIGHT_DIST)
-    if light then
-        return light.Light:GetCalculatedRadius()
-    end
-    return 1
-end
-
 local function RescueLeaderAction(inst)
     return BufferedAction(inst, GetLeader(inst), ACTIONS.UNPIN)
 end
@@ -205,13 +181,6 @@ end
 
 local function KeepFaceTargetFn(inst, target)
     return inst.components.follower.leader == target
-end
-
-local function SafeLightDist(inst, target)
-    return (target:HasTag("player") or target:HasTag("playerlight")
-            or (target.inventoryitem and target.inventoryitem:GetGrandOwner() and target.inventoryitem:GetGrandOwner():HasTag("player")))
-        and 4
-        or target.Light:GetCalculatedRadius() / 3
 end
 
 local function IsHomeOnFire(inst)
@@ -228,88 +197,88 @@ end)
 
 function WoodlegsBrain:OnStart()
     --print(self.inst, "PigBrain:OnStart")
-    local day = WhileNode( function() return TheWorld.state.isday end, "IsDay",
-        PriorityNode{
+    local day = WhileNode(function() return TheWorld.state.isday end, "IsDay",
+        PriorityNode {
             ChattyNode(self.inst, "PIG_TALK_FIND_MEAT",
-                DoAction(self.inst, FindFoodAction )),
-            IfNode(function() return StartChoppingCondition(self.inst) end, "chop", 
+                DoAction(self.inst, FindFoodAction)),
+            IfNode(function() return StartChoppingCondition(self.inst) end, "chop",
                 WhileNode(function() return KeepChoppingAction(self.inst) end, "keep chopping",
-                    LoopNode{ 
+                    LoopNode {
                         ChattyNode(self.inst, "PIG_TALK_HELP_CHOP_WOOD",
-                            DoAction(self.inst, FindTreeToChopAction ))})),
+                            DoAction(self.inst, FindTreeToChopAction)) })),
             ChattyNode(self.inst, "PIG_TALK_FOLLOWWILSON",
                 Follow(self.inst, GetLeader, MIN_FOLLOW_DIST, TARGET_FOLLOW_DIST, MAX_FOLLOW_DIST)),
             IfNode(function() return GetLeader(self.inst) end, "has leader",
                 ChattyNode(self.inst, "PIG_TALK_FOLLOWWILSON",
-                    FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn ))),
-
+                    FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn))),
             Leash(self.inst, GetNoLeaderHomePos, LEASH_MAX_DIST, LEASH_RETURN_DIST),
-
-            ChattyNode(self.inst, "PIG_TALK_RUNAWAY_WILSON",
-                RunAway(self.inst, "player", START_RUN_DIST, STOP_RUN_DIST)),
             ChattyNode(self.inst, "PIG_TALK_LOOKATWILSON",
                 FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn)),
             Wander(self.inst, GetNoLeaderHomePos, MAX_WANDER_DIST)
         }, .5)
 
-    local night = WhileNode( function() return not TheWorld.state.isday end, "IsNight",
-        PriorityNode{
+    local night = WhileNode(function() return not TheWorld.state.isday end, "IsNight",
+        PriorityNode {
             ChattyNode(self.inst, "PIG_TALK_RUN_FROM_SPIDER",
                 RunAway(self.inst, "spider", 4, 8)),
             ChattyNode(self.inst, "PIG_TALK_FIND_MEAT",
-                DoAction(self.inst, FindFoodAction )),
-            RunAway(self.inst, "player", START_RUN_DIST, STOP_RUN_DIST, function(target) return ShouldRunAway(self.inst, target) end ),
-			
-			          ChattyNode(self.inst, "PIG_TALK_FOLLOWWILSON",
+                DoAction(self.inst, FindFoodAction)),
+            RunAway(self.inst, "player", START_RUN_DIST, STOP_RUN_DIST, function(target)
+                return ShouldRunAway(self.inst,
+                    target)
+            end),
+
+            ChattyNode(self.inst, "PIG_TALK_FOLLOWWILSON",
                 Follow(self.inst, GetLeader, MIN_FOLLOW_DIST, TARGET_FOLLOW_DIST, MAX_FOLLOW_DIST)),
             IfNode(function() return GetLeader(self.inst) end, "has leader",
                 ChattyNode(self.inst, "PIG_TALK_FOLLOWWILSON",
-                    FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn ))),
---            ChattyNode(self.inst, "PIG_TALK_GO_HOME",
---                WhileNode( function() return not TheWorld.state.iscaveday or not self.inst.LightWatcher:IsInLight() end, "Cave nightness",
---                    DoAction(self.inst, GoHomeAction, "go home", true ))),
---            WhileNode(function() return TheWorld.state.isnight and self.inst.LightWatcher:GetLightValue() > COMFORT_LIGHT_LEVEL end, "IsInLight", -- wants slightly brighter light for this
---                Wander(self.inst, GetNearestLightPos, GetNearestLightRadius, {
---                    minwalktime = 0.6,
---                    randwalktime = 0.2,
---                    minwaittime = 5,
---                    randwaittime = 5
---                })
---            ),
---            ChattyNode(self.inst, "PIG_TALK_FIND_LIGHT",
---                FindLight(self.inst, SEE_LIGHT_DIST, SafeLightDist)),
---            ChattyNode(self.inst, "PIG_TALK_PANIC",
---                Panic(self.inst)),
+                    FaceEntity(self.inst, GetFaceTargetFn, KeepFaceTargetFn))),
         }, 1)
 
     local root =
         PriorityNode(
-        {
-            BrainCommon.PanicWhenScared(self.inst, .25, "PIG_TALK_PANICBOSS"),
-            WhileNode( function() return self.inst.components.hauntable and self.inst.components.hauntable.panic end, "PanicHaunted",
-                ChattyNode(self.inst, "PIG_TALK_PANICHAUNT",
-                    Panic(self.inst))),
-            WhileNode(function() return self.inst.components.health.takingfiredamage end, "OnFire",
-                ChattyNode(self.inst, "PIG_TALK_PANICFIRE",
-                    Panic(self.inst))),
-            ChattyNode(self.inst, "PIG_TALK_FIGHT",
-                WhileNode( function() return self.inst.components.combat.target == nil or not self.inst.components.combat:InCooldown() end, "AttackMomentarily",
-                    ChaseAndAttack(self.inst, MAX_CHASE_TIME, MAX_CHASE_DIST) )),
-            ChattyNode(self.inst, "PIG_TALK_RESCUE",
-                WhileNode( function() return GetLeader(self.inst) and GetLeader(self.inst).components.pinnable and GetLeader(self.inst).components.pinnable:IsStuck() end, "Leader Phlegmed",
-                    DoAction(self.inst, RescueLeaderAction, "Rescue Leader", true) )),
-            ChattyNode(self.inst, "PIG_TALK_FIGHT",
-                WhileNode( function() return self.inst.components.combat.target and self.inst.components.combat:InCooldown() end, "Dodge",
-                    RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST) )),
-            WhileNode(function() return IsHomeOnFire(self.inst) end, "OnFire",
-                ChattyNode(self.inst, "PIG_TALK_PANICHOUSEFIRE",
-                    Panic(self.inst))),
-            RunAway(self.inst, function(guy) return guy:HasTag("pig") and guy.components.combat and guy.components.combat.target == self.inst end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST ),
-            ChattyNode(self.inst, "PIG_TALK_ATTEMPT_TRADE",
-                FaceEntity(self.inst, GetTraderFn, KeepTraderFn)),
-            day,
-            night,
-        }, .5)
+            {
+                BrainCommon.PanicWhenScared(self.inst, .25, "PIG_TALK_PANICBOSS"),
+                WhileNode(function() return self.inst.components.hauntable and self.inst.components.hauntable.panic end,
+                    "PanicHaunted",
+                    ChattyNode(self.inst, "PIG_TALK_PANICHAUNT",
+                        Panic(self.inst))),
+                WhileNode(function() return self.inst.components.health.takingfiredamage end, "OnFire",
+                    ChattyNode(self.inst, "PIG_TALK_PANICFIRE",
+                        Panic(self.inst))),
+                ChattyNode(self.inst, "PIG_TALK_FIGHT",
+                    WhileNode(
+                        function()
+                            return self.inst.components.combat.target == nil or
+                                not self.inst.components.combat:InCooldown()
+                        end, "AttackMomentarily",
+                        ChaseAndAttack(self.inst, MAX_CHASE_TIME, MAX_CHASE_DIST))),
+                ChattyNode(self.inst, "PIG_TALK_RESCUE",
+                    WhileNode(
+                        function()
+                            return GetLeader(self.inst) and GetLeader(self.inst).components.pinnable and
+                                GetLeader(self.inst).components.pinnable:IsStuck()
+                        end, "Leader Phlegmed",
+                        DoAction(self.inst, RescueLeaderAction, "Rescue Leader", true))),
+                ChattyNode(self.inst, "PIG_TALK_FIGHT",
+                    WhileNode(
+                        function() return self.inst.components.combat.target and self.inst.components.combat:InCooldown() end,
+                        "Dodge",
+                        RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST,
+                            STOP_RUN_AWAY_DIST))),
+                WhileNode(function() return IsHomeOnFire(self.inst) end, "OnFire",
+                    ChattyNode(self.inst, "PIG_TALK_PANICHOUSEFIRE",
+                        Panic(self.inst))),
+                RunAway(self.inst,
+                    function(guy)
+                        return guy:HasTag("pig") and guy.components.combat and
+                            guy.components.combat.target == self.inst
+                    end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST),
+                ChattyNode(self.inst, "PIG_TALK_ATTEMPT_TRADE",
+                    FaceEntity(self.inst, GetTraderFn, KeepTraderFn)),
+                day,
+                night,
+            }, .5)
 
     self.bt = BT(self.inst, root)
 end

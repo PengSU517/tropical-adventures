@@ -33,18 +33,15 @@ local function OnWaterChange(inst, onwater)
     inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/crocodog/emerge")
 
     if onwater then
-        local pegabarco = SpawnPrefab("woodlegsboatamigo")
-        inst.components.driver:OnMount(pegabarco)
-        inst.components.driver:StartUpdating()
+        local pegabarco = SpawnPrefab("woodlegsboat")
+        inst.components.driver:BoatAttached(pegabarco)
+        inst:AddTag("aquatic")
     else
-        if inst:HasTag("aquatic") and inst.components.driver then
-            local barcoinv = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-            if barcoinv then barcoinv:Remove() end
-            inst:RemoveComponent("rowboatwakespawner")
-            inst.components.driver:StopUpdating()
-            inst:RemoveTag("aquatic")
-            inst.sg:GoToState("idle")
-        end
+        local barcoinv = inst.components.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+        inst.components.driver:BoatDetached(inst)
+        if barcoinv then barcoinv:Remove() end
+        inst:RemoveTag("aquatic")
+        inst.sg:GoToState("idle")
     end
 end
 
