@@ -176,8 +176,8 @@ function Driver:OnUpdate(dt)
 	if inst.components.locomotor.isrunning then
 		self.inst.components.rowboatwakespawner:StartSpawning()
 
-		if vehicle.components.container and not vehicle.components.container:IsOpen() then
-			vehicle.components.container:Open(self.inst)
+		if vehicle.replica.container and vehicle.replica.container.classified and not vehicle.replica.container:IsOpenedBy(self.inst) then
+			vehicle.replica.container:Open(self.inst)
 		end
 	else
 		self.inst.components.rowboatwakespawner:StopSpawning()
