@@ -23,11 +23,11 @@ local function shardDMGRedirect(self, attacker, damage, weapon, ...) -- 碎裂�
                            {self, attacker, damage * TUNING.SWP_SHARD_DMG.SHADOW_MODIFIER_MAXIMUM, weapon, ...}
                 end
             end
-        elseif weapon.prefab == "shard_beak" then -- 碎裂喙对建筑和巢, 以及碎裂扫的伤害重定向
+        --[[elseif weapon.prefab == "shard_beak" then -- 碎裂喙对建筑和巢, 以及碎裂扫的伤害重定向
             return nil, false, {self, attacker, damage *
                 ((self.inst:HasTag("wall") or self.inst:HasTag("structure") or self.inst.components.childspawner) and
                     TUNING.SWP_SHARD_DMG.STRUCTURE_MODIFIER or 1) *
-                (attacker._beakSweepTrigger == true and TUNING.SWP_SHARD_DMG.SWEEP_MODIFIER or 1), weapon, ...}
+                (attacker._beakSweepTrigger == true and TUNING.SWP_SHARD_DMG.SWEEP_MODIFIER or 1), weapon, ...}]]
         end
     end
 end

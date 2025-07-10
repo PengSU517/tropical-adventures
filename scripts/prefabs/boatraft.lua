@@ -253,6 +253,10 @@ local function SpawnFragment(lp, prefix, offset_x, offset_y, offset_z, ignite)
     return fragment
 end
 
+local function GetSafePhysicsRadius(inst)
+    return (inst.components.hull ~= nil and inst.components.hull:GetRadius() or .8) + 0.18 -- Add a small offset for item overhangs.
+end
+
 local function MakeBoat(name, radius)
     local stats_multiplier = (radius / 4) ^ 2
     local scale_multiplier = radius / 4
@@ -456,6 +460,8 @@ local function MakeBoat(name, radius)
         inst.speed = speed
 
         inst.OnLoadPostPass = OnLoadPostPass
+
+        inst.GetSafePhysicsRadius = GetSafePhysicsRadius
 
         return inst
     end

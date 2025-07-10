@@ -12,6 +12,14 @@ local function shine(inst)
     inst.task = inst:DoTaskInTime(4 + math.random() * 5, shine)
 end
 
+local function BeakDmg(inst, attacker, target)
+    if target and (target:HasTag("wall") or target:HasTag("structure") or target.components.childspawner) then
+        return TUNING.SWP_SHARD_DMG.BEAK * TUNING.SWP_SHARD_DMG.STRUCTURE_MODIFIER *
+                (attacker._beakSweepTrigger == true and TUNING.SWP_SHARD_DMG.SWEEP_MODIFIER or 1)
+    end
+    return TUNING.SWP_SHARD_DMG.BEAK
+end
+
 local function onequip(weapon)
     return function(inst, owner)
         owner.AnimState:OverrideSymbol("swap_object", "swap_des_shard_" .. weapon, "swap_des_shard_" .. weapon)
@@ -124,7 +132,8 @@ local function swordfn()
     if not TheWorld.ismastersim then return inst end
 
     inst:AddComponent("weapon")
-    inst.components.weapon:SetDamage(TUNING.SWP_SHARD_DMG.SWORD)
+    inst.components.weapon:SetDamage(SwordDmg)
+    inst.components.weapon:SetOnAttack(SwordOnAttack)
 
     inst:AddComponent("finiteuses")
     inst.components.finiteuses:SetMaxUses(SWORD_DURABILITY)
@@ -152,7 +161,7 @@ local function beakfn()
     if not TheWorld.ismastersim then return inst end
 
     inst:AddComponent("weapon")
-    inst.components.weapon:SetDamage(TUNING.SWP_SHARD_DMG.BEAK)
+    inst.components.weapon:SetDamage(BeakDmg)
     inst.components.weapon:SetOnAttack(BeakOnAttack)
 
     inst:AddComponent("finiteuses")

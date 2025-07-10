@@ -186,7 +186,6 @@ local function StartBoatPhysics(inst)
     inst.Physics:SetDontRemoveOnSleep(true)
 end
 
-
 local function SpawnFragment(lp, prefix, offset_x, offset_y, offset_z, ignite)
     local fragment = SpawnPrefab(prefix)
     fragment.Transform:SetPosition(lp.x + offset_x, lp.y + offset_y, lp.z + offset_z)
@@ -203,6 +202,10 @@ local function SpawnFragment(lp, prefix, offset_x, offset_y, offset_z, ignite)
     end
 
     return fragment
+end
+
+local function GetSafePhysicsRadius(inst)
+    return (inst.components.hull ~= nil and inst.components.hull:GetRadius() or TUNING.BOAT.RADIUS) + 0.18 -- Add a small offset for item overhangs.
 end
 
 local function fn()
@@ -328,6 +331,8 @@ local function fn()
     inst:DoTaskInTime(0, otheritemtest)
 
     inst.OnLoadPostPass = OnLoadPostPass
+
+    inst.GetSafePhysicsRadius = GetSafePhysicsRadius
 
     return inst
 end
