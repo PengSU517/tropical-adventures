@@ -9,7 +9,6 @@ local modimport = modimport
 require "tools/simutil"
 require "tools/worldutil"
 require "tools/standardcomponents"
-require "tools/tropicalconsoles"
 
 
 modimport "main/prefabfiles"
@@ -26,6 +25,7 @@ modimport "main/skins"
 modimport "main/characters"
 modimport "main/tropical_fx"
 modimport "main/rpc"
+modimport "main/usercommands"
 
 modimport "main/AddIronLordHandlers" --活性机甲处理
 modimport "main/AddIronLordPostinit" --活性机甲构造
