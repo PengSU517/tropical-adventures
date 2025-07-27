@@ -82,3 +82,7 @@ function t_count(name, printonly)
     return count
 
 end
+
+return {
+    list = arrangelist,
+}
