@@ -1,51 +1,31 @@
-AddComponentPostInit("hounded", function(cmp)
-    cmp.inst:DoTaskInTime(0, function()
-        local _spawndata = upvaluehelper.Get(cmp.SetSpawnData, "_spawndata")
-        local _SummonSpawn = upvaluehelper.Get(cmp.SummonSpawn, "SummonSpawn")
-        local _GetSpawnPrefab = upvaluehelper.Get(_SummonSpawn, "GetSpawnPrefab")
-        local _GetSpawnPoint = upvaluehelper.Get(_SummonSpawn, "GetSpawnPoint")
-        local _GetSpecialSpawnChance = upvaluehelper.Get(_GetSpawnPrefab, "GetSpecialSpawnChance")
-        local _SPAWN_DIST = upvaluehelper.Get(_GetSpawnPoint, "SPAWN_DIST")
+local Hounded = require "components/hounded"
 
-        local function SummonSpawn(pt, upgrade, radius_override)
-            local map = TheWorld.Map
-            local x, y, z = pt:Get()
+local _spawndata = upvaluehelper.Get(Hounded.SetSpawnData, "_spawndata")
+local _preservedata = deepcopy(_spawndata)
+local _SummonSpawn = upvaluehelper.Get(Hounded.SummonSpawn, "SummonSpawn")
 
-            local spawndat = deepcopy(_spawndata)
-
-            if TheWorld:HasTag("cave") then
-                _spawndata.base_prefab = "worm"
-                _spawndata.winter_prefab = "worm"
-                _spawndata.summer_prefab = "worm"
-                _spawndata.upgrade_spawn = "worm_boss"
-            elseif TheWorld.Map:IsHamletAreaAtPoint(x, 0, z) then
-                _spawndata.base_prefab = "circlingbat"
-                _spawndata.winter_prefab = "circlingbat"
-                _spawndata.summer_prefab = "circlingbat"
-                _spawndata.upgrade_spawn = " "
-            elseif TheWorld.Map:IsShipwreckedAreaAtPoint(x, 0, z) then
-                _spawndata.base_prefab = "crocodog"
-                _spawndata.winter_prefab = "watercrocodog"
-                _spawndata.summer_prefab = "poisoncrocodog"
-                _spawndata.upgrade_spawn = " "
-            else
-                _spawndata.base_prefab = "hound"
-                _spawndata.winter_prefab = "icehound"
-                _spawndata.summer_prefab = "firehound"
-                _spawndata.upgrade_spawn = "warglet"
-            end
-
-            if _spawndata.base_prefab == "circlingbat" then
-                _SPAWN_DIST = 4
-            else
-                _SPAWN_DIST = 30
-            end
-
-            upvaluehelper.Set(_GetSpawnPoint, "SPAWN_DIST", _SPAWN_DIST)
-            upvaluehelper.Set(cmp.SetSpawnData, "_spawndata", spawndat)
-            _SummonSpawn(pt, upgrade, radius_override)
+local function SummonSpawn(pt, upgrade, radius_override)
+    if not TheWorld:HasTag("cave") then
+        local x, _, z = pt:Get()
+        if TheWorld.Map:IsHamletAreaAtPoint(x, 0, z) then
+            _spawndata.base_prefab = "circlingbat"
+            _spawndata.winter_prefab = "circlingbat"
+            _spawndata.summer_prefab = "circlingbat"
+            _spawndata.upgrade_spawn = " "
+            radius_override = 4
+        elseif TheWorld.Map:IsShipwreckedAreaAtPoint(x, 0, z) then
+            _spawndata.base_prefab = "crocodog"
+            _spawndata.winter_prefab = "watercrocodog"
+            _spawndata.summer_prefab = "poisoncrocodog"
+            _spawndata.upgrade_spawn = " "
+        else
+            _spawndata.base_prefab = _preservedata.base_prefab
+            _spawndata.winter_prefab = _preservedata.winter_prefab
+            _spawndata.summer_prefab = _preservedata.summer_prefab
+            _spawndata.upgrade_spawn = _preservedata.upgrade_spawn
         end
+    end
+    return _SummonSpawn(pt, upgrade, radius_override)
+end
 
-        upvaluehelper.Set(cmp.SummonSpawn, "SummonSpawn", SummonSpawn)
-    end)
-end)
+upvaluehelper.Set(Hounded.SummonSpawn, "SummonSpawn", SummonSpawn)
