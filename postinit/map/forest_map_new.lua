@@ -3,6 +3,7 @@ require("constants")
 require("mathutil")
 
 local ta_worldgen = TA_CONFIG.WORLDGEN
+local multi = ta_worldgen.world_size_multi or 1
 local forest_map = require("map/forest_map")
 
 local old_generatemap = forest_map.Generate
@@ -11,6 +12,31 @@ if SKIP_GEN_CHECKS ~= nil and TA_CONFIG.DEVELOP.test_map then
     print("Skipping generation checks for test map")
     local old = SKIP_GEN_CHECKS
     upvaluehelper.Set(old_generatemap, "SKIP_GEN_CHECKS", true)
+end
+
+-------------------------调整地图大小和海岸线-------但是用的方法有些暴力-------------------
+
+if GLOBAL.rawget(GLOBAL, "WorldSim") then
+    local worldsim = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
+    ------世界大小调整
+
+    if multi ~= 1 then
+        local OldSetWorldSize = worldsim.SetWorldSize
+        worldsim.SetWorldSize = function(self, width, height)
+            print("Setting world size to " .. width .. " times " .. multi)
+            OldSetWorldSize(self, math.ceil(multi * width), math.ceil(multi * height))
+        end
+
+        local OldConvertToTileMap = worldsim.ConvertToTileMap
+        worldsim.ConvertToTileMap = function(self, length)
+            OldConvertToTileMap(self, math.ceil(multi * length))
+        end
+    end
+
+    ------海岸线调整
+    if ta_worldgen.coastline then
+        worldsim.SeparateIslands = function(self) print("Not Seperating Islands") end
+    end
 end
 
 

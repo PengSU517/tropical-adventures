@@ -1,33 +1,4 @@
 local ta_worldgen = TA_CONFIG.WORLDGEN
--------------------------调整地图大小和海岸线-------但是用的方法有些暴力-------------------
-
-if GLOBAL.rawget(GLOBAL, "WorldSim") then
-    local worldsim = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
-
-    ------世界大小调整
-    local multi = ta_worldgen.world_size_multi or 1
-    if multi ~= 1 then
-        local OldSetWorldSize = worldsim.SetWorldSize
-        worldsim.SetWorldSize = function(self, width, height)
-            print("Setting world size to " .. width .. " times " .. multi)
-            OldSetWorldSize(self, math.ceil(multi * width), math.ceil(multi * height))
-        end
-
-        local OldConvertToTileMap = worldsim.ConvertToTileMap
-        worldsim.ConvertToTileMap = function(self, length)
-            OldConvertToTileMap(self, math.ceil(multi * length))
-        end
-    end
-
-    ------海岸线调整
-    if ta_worldgen.coastline then
-        worldsim.SeparateIslands = function(self) print("Not Seperating Islands") end
-    end
-end
-
-
-
-
 
 -----------海上布景---------------会显著加快地形生成
 if true then
