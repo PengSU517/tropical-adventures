@@ -225,23 +225,25 @@ merge(STRINGS, DLC_STRINGS)
 ---------------------speech translation begin---------------------------------
 
 local setting_languages = {
-    de = "german",        --german
-    es = "spanish",       --spanish
-    fr = "french",        --french
-    it = "italian",       --italian
-    ko = "korean",        --korean
-    pt = "portuguese",    --portuguese
-    br = "portuguese_br", --brazilian portuguese
-    pl = "polish",        --polish
-    ru = "russian",       --russian
-    zh = "chinese_s",     --Chinese for Steam
-    zhr = "chinese_s",    --Chinese for WeGame
-    ch = "chinese_s",     --Chinese mod
-    chs = "chinese_s",    --Chinese mod
-    sc = "chinese_s",     --simple Chinese
-    zht = "chinese_t",    --traditional Chinese for Steam
-    tc = "chinese_t",     --traditional Chinese
-    cht = "chinese_t",    --Chinese mod
+    de = "german",         --german
+    es = "spanish",        --spanish
+    fr = "french",         --french
+    it = "italian",        --italian
+    ko = "korean",         --korean
+    pt = "portuguese",     --portuguese
+    br = "portuguese_br",  --brazilian portuguese
+    pl = "polish",         --polish
+    ru = "russian",        --russian
+    zh = "chinese_s",      --Chinese for Steam
+    zhr = "chinese_s",     --Chinese for WeGame
+    ch = "chinese_s",      --Chinese mod
+    chs = "chinese_s",     --Chinese mod
+    sc = "chinese_s",      --simple Chinese
+    zht = "chinese_t",     --traditional Chinese for Steam
+    tc = "chinese_t",      --traditional Chinese
+    cht = "chinese_t",     --Chinese mod
+    chinese = "chinese_s", -- Chinese mod
+
 }
 
 

@@ -2,8 +2,30 @@
 ---全局的locale只在modinfo中存在，在servercreationmain中需要用translator
 local locale = locale or LanguageTranslator.defaultlang
 
-local function en_zh(en, zh)
-    return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
+-- local function en_zh(en, zh)
+--     return (locale == "zh" or locale == "zhr" or locale == "zht") and zh or en
+-- end
+
+local lang = "en"
+local function en_zh(en, zh) -- Other languages don't work
+    local chinese_languages =
+    {
+        zh = "zh",      -- Chinese for Steam
+        zhr = "zh",     -- Chinese for WeGame
+        ch = "zh",      -- Chinese mod
+        chs = "zh",     -- Chinese mod
+        chinese = "zh", -- Chinese mod
+        sc = "zh",      -- simple Chinese
+        zht = "zh",     -- traditional Chinese for Steam
+        tc = "zh",      -- traditional Chinese
+        cht = "zh",     -- Chinese mod
+    }
+
+    if chinese_languages[locale] ~= nil then
+        lang = chinese_languages[locale]
+    end
+
+    return lang == "zh" and zh or en
 end
 
 local function table_insert(t, value, pos)
