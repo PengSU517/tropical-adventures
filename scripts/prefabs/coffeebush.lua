@@ -247,4 +247,6 @@ local function normal_postinit(inst)
     inst.components.workable:SetOnFinishCallback(dig_up_normal)
 end
 
+PICKABLE_FOOD_PRODUCTS["coffeebush"] = true
+
 return createbush("coffeebush", "coffeebush", "coffeebeans", normal_postinit)
