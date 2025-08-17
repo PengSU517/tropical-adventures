@@ -46,7 +46,6 @@ local function fn()
     inst:AddTag("kraken")
     inst:AddTag("tentacle")
     inst:AddTag("nowaves")
-    inst:AddTag("epic")
     inst:AddTag("noteleport")
 
     if not TheWorld.ismastersim then
