@@ -54,11 +54,16 @@ local function fn()
     inst:ListenForEvent("timerdone", OnTimerDone)
     inst.components.timer:StartTimer("spawndelay", 60 * 8 * respawndays)
 
+    -- fixed: 该 prefab 为虎鲨生成点, 不应该具有血量和战斗组件
+    -- note: 尝试清除该部分代码, 但考虑到这段代码可能有其他用途, 故注释保留
+    --[[
     inst:AddComponent("health")
     inst.components.health:SetMaxHealth(1)
     inst.components.health:SetInvincible(true)
 
     inst:AddComponent("combat")
+    ]]--
+    -- fixed end
 
     return inst
 end
