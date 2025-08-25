@@ -768,10 +768,41 @@ end
 
 table_insert(configuration_options, Breaker(" ", " "))
 table_insert(configuration_options, Breaker(" ", " "))
+table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
 table_insert(configuration_options, Breaker("Belows are Server Settings", "以下为服务器设置"))
-table_insert(configuration_options, Breaker("DO NOT WORK WITH A CLIENT WORLD", "客户端开服无效"))
-table_insert(configuration_options, Breaker("CLIENT PLEASE GOTO FOREST/CAVE SETTINGS", "客户端请调整森林/洞穴设置"))
+table_insert(configuration_options, Breaker("DO NOT WORK ", "客户端开服无效"))
+table_insert(configuration_options, Breaker("WITH A CLIENT WORLD", ""))
+table_insert(configuration_options, Breaker("CLIENT PLEASE GOTO", "客户端请调整森林/洞穴设置"))
+table_insert(configuration_options, Breaker("FOREST/CAVE SETTINGS", ""))
+table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
 table_insert(configuration_options, Breaker(" ", " "))
+table_insert(configuration_options, Breaker(" ", " "))
+
+table_insert(configuration_options, Breaker(" ", " "))
+table_insert(configuration_options, Breaker(" ", " "))
+table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
+table_insert(configuration_options, Breaker("Belows are Server Settings", "以下为服务器设置"))
+table_insert(configuration_options, Breaker("DO NOT WORK ", "客户端开服无效"))
+table_insert(configuration_options, Breaker("WITH A CLIENT WORLD", ""))
+table_insert(configuration_options, Breaker("CLIENT PLEASE GOTO", "客户端请调整森林/洞穴设置"))
+table_insert(configuration_options, Breaker("FOREST/CAVE SETTINGS", ""))
+table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
+table_insert(configuration_options, Breaker(" ", " "))
+table_insert(configuration_options, Breaker(" ", " "))
+
+table_insert(configuration_options, Breaker(" ", " "))
+table_insert(configuration_options, Breaker(" ", " "))
+table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
+table_insert(configuration_options, Breaker("Belows are Server Settings", "以下为服务器设置"))
+table_insert(configuration_options, Breaker("DO NOT WORK ", "客户端开服无效"))
+table_insert(configuration_options, Breaker("WITH A CLIENT WORLD", ""))
+table_insert(configuration_options, Breaker("CLIENT PLEASE GOTO", "客户端请调整森林/洞穴设置"))
+table_insert(configuration_options, Breaker("FOREST/CAVE SETTINGS", ""))
+table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
+table_insert(configuration_options, Breaker(" ", " "))
+table_insert(configuration_options, Breaker(" ", " "))
+
+
 
 table_insert(configuration_options, Breaker("World Generation", "世界生成"))
 for i, v in my_ipairs(worldgen_options) do
