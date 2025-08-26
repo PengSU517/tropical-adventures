@@ -8,7 +8,7 @@ function t_arrange(ranking, mininum, printonly)
     local u = {}
     for _, ent in pairs(Ents) do
         if ent ~= nil and ent:IsValid() and ent:IsInLimbo() ~= true then
-            if ent.prefab then
+            if ent.prefab and not string.match(ent.prefab, "_classified$") then
                 u[ent.prefab] = (u[ent.prefab] or 0) + 1
             else
                 u["UNKNOWN"] = (u["UNKNOWN"] or 0) + 1
@@ -23,10 +23,10 @@ function t_arrange(ranking, mininum, printonly)
     print("ARRANGING ENTS")
     arrangelist = {}
     local rn = 0
-    ranking = ranking or 10
+    ranking = ranking or 7
     for k, v in ipairs(s) do
         rn = rn + 1
-        if rn > ranking or v.amount < (mininum or 0) then
+        if rn > ranking or v.amount < (mininum or 300) then
             break
         end
         table.insert(arrangelist, v)
