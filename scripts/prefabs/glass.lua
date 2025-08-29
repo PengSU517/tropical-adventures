@@ -132,8 +132,7 @@ local function swordfn()
     if not TheWorld.ismastersim then return inst end
 
     inst:AddComponent("weapon")
-    inst.components.weapon:SetDamage(SwordDmg)
-    inst.components.weapon:SetOnAttack(SwordOnAttack)
+    inst.components.weapon:SetDamage(TUNING.SWP_SHARD_DMG.SWORD)
 
     inst:AddComponent("finiteuses")
     inst.components.finiteuses:SetMaxUses(SWORD_DURABILITY)
