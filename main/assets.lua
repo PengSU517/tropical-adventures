@@ -1,26 +1,15 @@
 Assets =
 {
-	--LOAD SOUND FILE
-	Asset("SOUNDPACKAGE", "sound/dontstarve_DLC002.fev"),
-	Asset("SOUND", "sound/music_stream_SW.fsb"),
-	Asset("SOUND", "sound/dontstarve_shipwreckedSFX.fsb"),
 
-	Asset("SOUNDPACKAGE", "sound/sw_character.fev"),
-	Asset("SOUND", "sound/sw_character.fsb"),
-
-	Asset("SOUNDPACKAGE", "sound/dontstarve_DLC003.fev"),
-	Asset("SOUND", "sound/DLC003_sfx.fsb"),
-	Asset("SOUND", "sound/DLC003_music_stream.fsb"),
-	Asset("SOUND", "sound/DLC003_AMB_stream.fsb"),
 
 	-------------------animation----------------
 	Asset("ANIM", "anim/livingartifact_meter.zip"),
-    Asset("ANIM", "anim/player_lifeplant.zip"),
+	Asset("ANIM", "anim/player_lifeplant.zip"),
 
 	Asset("ANIM", "anim/moon_aporkalypse_phases.zip"),
 	Asset("ANIM", "anim/swap_land_fork.zip"),
-	Asset("ANIM", "anim/player_wagstaff.zip" ),
-    Asset("ANIM", "anim/player_mount_wagstaff.zip"),
+	Asset("ANIM", "anim/player_wagstaff.zip"),
+	Asset("ANIM", "anim/player_mount_wagstaff.zip"),
 	Asset("ANIM", "anim/player_actions_paddle.zip"),
 	Asset("ANIM", "anim/player_actions_speargun.zip"),
 	Asset("ANIM", "anim/player_actions_tap.zip"),
@@ -80,14 +69,14 @@ Assets =
 
 	Asset("ANIM", "anim/ui_honeychest_7x.zip"), -- ## Hamlet Plus
 
-    Asset("ANIM", "anim/poison.zip"),
-    Asset("ANIM", "anim/poison_meter_overlay.zip"),
+	Asset("ANIM", "anim/poison.zip"),
+	Asset("ANIM", "anim/poison_meter_overlay.zip"),
 
 	--蘑菇农场额外种植动画包，来自老版棱镜
-    Asset("ANIM", "anim/mushroom_farm_cutlichen_build.zip"),
-    Asset("ANIM", "anim/mushroom_farm_foliage1_build.zip"),
-    Asset("ANIM", "anim/mushroom_farm_foliage2_build.zip"),
-    --Asset("ANIM", "anim/mushroom_farm_quagmire_mushrooms_build.zip"),
+	Asset("ANIM", "anim/mushroom_farm_cutlichen_build.zip"),
+	Asset("ANIM", "anim/mushroom_farm_foliage1_build.zip"),
+	Asset("ANIM", "anim/mushroom_farm_foliage2_build.zip"),
+	--Asset("ANIM", "anim/mushroom_farm_quagmire_mushrooms_build.zip"),
 
 	---------------minisign------------------
 	Asset("ATLAS_BUILD", "images/inventoryimages/cookpotfoods_ham.xml", 256),
@@ -125,10 +114,10 @@ Assets =
 	Asset("ATLAS", "images/names_gold_cn_wilbur.xml"),
 	Asset("IMAGE", "images/names_woodlegs.tex"),
 	Asset("ATLAS", "images/names_woodlegs.xml"),
-    Asset("ATLAS", "images/names_gold_cn_woodlegs.xml"),
+	Asset("ATLAS", "images/names_gold_cn_woodlegs.xml"),
 	Asset("IMAGE", "images/names_walani.tex"),
 	Asset("ATLAS", "images/names_walani.xml"),
-    Asset("ATLAS", "images/names_gold_cn_walani.xml"),
+	Asset("ATLAS", "images/names_gold_cn_walani.xml"),
 
 	----------ui-------------------
 	Asset("IMAGE", "images/ui/barco.tex"),
@@ -140,23 +129,23 @@ Assets =
 
 	Asset("IMAGE", "images/fog_cloud.tex"), --云海
 
-    ------------- overlays -------------------
-    Asset("ATLAS", "images/overlays/poison.xml"),
-    Asset("IMAGE", "images/overlays/poison.tex"),
-    Asset("ATLAS", "images/overlays/hayfever.xml"),
-    Asset("IMAGE", "images/overlays/hayfever.tex"),
-    Asset("ATLAS", "images/overlays/fog.xml"),
-    Asset("IMAGE", "images/overlays/fog.tex"),
-    Asset("ATLAS", "images/overlays/living_artifact.xml"),
-    Asset("IMAGE", "images/overlays/living_artifact.tex"),
-    Asset("ATLAS", "images/overlays/visorvision.xml"),
-    Asset("IMAGE", "images/overlays/visorvision.tex"),
+	------------- overlays -------------------
+	Asset("ATLAS", "images/overlays/poison.xml"),
+	Asset("IMAGE", "images/overlays/poison.tex"),
+	Asset("ATLAS", "images/overlays/hayfever.xml"),
+	Asset("IMAGE", "images/overlays/hayfever.tex"),
+	Asset("ATLAS", "images/overlays/fog.xml"),
+	Asset("IMAGE", "images/overlays/fog.tex"),
+	Asset("ATLAS", "images/overlays/living_artifact.xml"),
+	Asset("IMAGE", "images/overlays/living_artifact.tex"),
+	Asset("ATLAS", "images/overlays/visorvision.xml"),
+	Asset("IMAGE", "images/overlays/visorvision.tex"),
 
 	-------------mapstyle -------------------
-    Asset("IMAGE", "images/mapstyle/hud_shipwrecked.tex"),
+	Asset("IMAGE", "images/mapstyle/hud_shipwrecked.tex"),
 	Asset("ATLAS", "images/mapstyle/hud_shipwrecked.xml"),
 
-    Asset("IMAGE", "images/mapstyle/hud_hamlet.tex"),
+	Asset("IMAGE", "images/mapstyle/hud_hamlet.tex"),
 	Asset("ATLAS", "images/mapstyle/hud_hamlet.xml"),
 
 	Asset("IMAGE", "images/mapstyle/hud_pigcity.tex"),
@@ -164,8 +153,8 @@ Assets =
 
 	------------- colour cubes -------------------
 	Asset("IMAGE", "images/colour_cubes/bat_vision_on_cc.tex"),
-    Asset("IMAGE", "images/colour_cubes/heat_vision_cc.tex"),
-    Asset("IMAGE", "images/colour_cubes/shooting_goggles_cc.tex"),
+	Asset("IMAGE", "images/colour_cubes/heat_vision_cc.tex"),
+	Asset("IMAGE", "images/colour_cubes/shooting_goggles_cc.tex"),
 
 	Asset("IMAGE", "images/colour_cubes/sw_mild_day_cc.tex"),
 	Asset("IMAGE", "images/colour_cubes/SW_mild_dusk_cc.tex"),
@@ -202,6 +191,29 @@ Assets =
 
 }
 
+
+local sounds =
+{
+	--LOAD SOUND FILE
+	Asset("SOUNDPACKAGE", "sound/dontstarve_DLC002.fev"),
+	Asset("SOUND", "sound/music_stream_SW.fsb"),
+	Asset("SOUND", "sound/dontstarve_shipwreckedSFX.fsb"),
+
+	Asset("SOUNDPACKAGE", "sound/sw_character.fev"),
+	Asset("SOUND", "sound/sw_character.fsb"),
+
+	Asset("SOUNDPACKAGE", "sound/dontstarve_DLC003.fev"),
+	Asset("SOUND", "sound/DLC003_sfx.fsb"),
+	Asset("SOUND", "sound/DLC003_music_stream.fsb"),
+	Asset("SOUND", "sound/DLC003_AMB_stream.fsb"),
+}
+
+
+if not TheNet:IsDedicated() then
+	for _, asset in ipairs(sounds) do
+		table.insert(Assets, asset)
+	end
+end
 
 AddMinimapAtlas("images/inventoryimages/inventory_shipwrecked.xml")
 AddMinimapAtlas("images/inventoryimages/inventory_hamlet.xml")
