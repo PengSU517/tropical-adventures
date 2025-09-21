@@ -166,3 +166,16 @@ AddIngredientValues({ "piko_orange", }, { filter = 1 }, true, false)
 AddIngredientValues({ "snake_bone", }, { bone = 1 }, true, false)
 AddIngredientValues({ "fennel", "yelow_cap", "yelow_cooked", }, { veggie = 0.5 }, true, false)
 AddIngredientValues({ "quagmire_smallmeat", }, { meat = 0.5, smallmeat = 1 }, true, false) -- "smallmeat" for quagmire, I think
+
+-- Craft Pot Support
+-- Need 64x img
+-- local state, ingtag = pcall(require, "ingredienttags")
+-- if state then
+--     AddFoodTag("antihistamine", { name = "Antihistamine", atlas = "images/inventory_hamlet.xml" })
+--     AddFoodTag("bone", { name = "", atlas = "" })
+--     AddFoodTag("crab", { name = "", atlas = "" })
+--     AddFoodTag("filter", { name = "", atlas = "" })
+--     AddFoodTag("jellyfish", { name = "", atlas = "" })
+--     AddFoodTag("smallmeat", { name = "", atlas = "" })
+-- end
+-- STRINGS.NAMES.ANTIHISTAMINE = "Antihistamine"

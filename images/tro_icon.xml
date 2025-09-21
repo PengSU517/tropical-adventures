@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Atlas>
+    <Texture filename="tro_icon.tex"/>
+    <Elements>
+        <Element name="TA_ICON.tex" u1="0.00195313" u2="0.498047" v1="0.00390625" v2="0.996094"/>
+        <Element name="TE_ICON.tex" u1="0.501953" u2="0.998047" v1="0.00390625" v2="0.996094"/>
+    </Elements>
+    <StraightAlpha>false</StraightAlpha>
+</Atlas>
+
