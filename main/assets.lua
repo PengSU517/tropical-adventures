@@ -128,6 +128,7 @@ Assets =
 	Asset("ATLAS", "images/ui/honeychest.xml"),
 
 	Asset("IMAGE", "images/fog_cloud.tex"), --云海
+    Asset("ATLAS", "images/tro_icon.xml"),
 
 	------------- overlays -------------------
 	Asset("ATLAS", "images/overlays/poison.xml"),

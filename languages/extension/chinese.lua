@@ -6434,6 +6434,18 @@ TA_STRINGS_CH.MERM_KING_TALK_HUNGER_HUNGRY         = "朕要用膳！"
 TA_STRINGS_CH.MERM_KING_TALK_HUNGER_HUNGRISH       = "朕有点饿了..."
 TA_STRINGS_CH.MERM_KING_TALK_HUNGER_FULL           = "你做的很好，退下吧。"
 
+TA_STRINGS_CH.TROPICAL_RECIPETOOLTIP = {
+    ANTIVENOM = "解毒后获得一段时间的抗性",
+    ARMORVORTEXCLOAK = "未装有物品时可以收起",
+    BOAT_ITEM = "轻微抵御海浪的冲击",
+    BOAT_BUMPER_KELP_KIT = "轻微抵御海浪的冲击",
+    BOAT_BUMPER_SHELL_KIT = "轻微抵御海浪的冲击",
+    BOATMETAL_ITEM = "一定程度上抵御海浪的冲击",
+    BUGNET = "可以用于捕捉海面的水母",
+    LUNARPLANTHAT = "免于大雾与声波的侵扰",
+    PUGALISKFOUNTAIN_MADE = "滋润并清凉周围的天地人",
+    VOIDCLOTHHAT = "免于大雾与声波的侵扰",
+}
 -------------------------------------------------------------
 if TA_STRINGS_CH.GF == nil then return end
 
