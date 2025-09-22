@@ -7,11 +7,14 @@ local function r_print(msg, ...)
 end
 
 Utils.FnDecorator(WorldMigrator, "Activate", function(self)
-    if not self._isreconnect and tonumber(self.id) < 100 and tonumber(self.id) ~= tonumber(self.receivedPortal) then -- ignore other mods portals, maybe
+    if not self._isreconnect
+        and self.id and tonumber(self.id)
+        and tonumber(self.id) < 100
+        and tonumber(self.id) ~= tonumber(self.receivedPortal) then -- ignore other mods portals, maybe
         self.receivedPortal = self.id
         -- self._shouldreconnect = true
     end
-end--[[, function(rets, self, doer)
+end --[[, function(rets, self, doer)
     if rets[1] == true and self._shouldreconnect == true then
         self._shouldreconnect = nil
         SendModRPCToShard(GetShardModRPC("Tropical adventures", "ForceMatchPortal"),
