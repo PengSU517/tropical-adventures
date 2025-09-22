@@ -421,7 +421,7 @@ local function wall_tigerpond()
 
     inst:AddTag("NOCLICK")
 
-    inst.persists = false
+    -- inst.persists = false
 
     return inst
 end
