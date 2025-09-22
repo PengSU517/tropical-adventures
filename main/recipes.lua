@@ -464,9 +464,9 @@ AddRecipe2("boatcannon", { Ingredient("coconut", 6), Ingredient("log", 5), Ingre
 AddRecipe2("obsidian_boatcannon",
 	{ Ingredient("obsidian", 6), Ingredient("log", 5), Ingredient("gunpowder", 4) },
 	TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
-AddRecipe2("trawlnet", { Ingredient("bamboo", 2), Ingredient("rope", 3) }, TECH.SEAFARING_TWO,
-	{},
-	{ "NAUTICAL" })
+-- AddRecipe2("trawlnet", { Ingredient("bamboo", 2), Ingredient("rope", 3) }, TECH.SEAFARING_TWO,
+-- 	{},
+-- 	{ "NAUTICAL" })
 AddRecipe2("armor_lifejacket",
 	{ Ingredient("fabric", 2), Ingredient("vine", 2), Ingredient("messagebottleempty_sw", 2) },
 	TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
@@ -477,9 +477,9 @@ AddRecipe2("porto_buoy",
 	{ Ingredient("messagebottleempty_sw", 1), Ingredient("bamboo", 4),
 		Ingredient("bioluminescence", 2) }, TECH.SEAFARING_TWO, { image = "buoy.tex" },
 	{ "LIGHT", "NAUTICAL" })
-AddRecipe2("quackeringram",
-	{ Ingredient("quackenbeak", 1), Ingredient("bamboo", 4), Ingredient("rope", 4) },
-	TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
+-- AddRecipe2("quackeringram",
+-- 	{ Ingredient("quackenbeak", 1), Ingredient("bamboo", 4), Ingredient("rope", 4) },
+-- 	TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
 AddRecipe2("porto_tar_extractor",
 	{ Ingredient("coconut", 2), Ingredient("bamboo", 4), Ingredient("limestone", 4) },
 	TECH.SEAFARING_TWO, { image = "tar_extractor.tex" }, { "NAUTICAL" })
