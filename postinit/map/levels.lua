@@ -8,8 +8,12 @@ if true then
                 level.ocean_prefill_setpieces = {}
             end
 
-            level.ocean_prefill_setpieces["MonkeyIsland"] = 1
+            level.ocean_prefill_setpieces["MonkeyIsland"] =
+                function() return WorldSim:GetWorldSize() >= 425 and 1 or 0 end
             level.ocean_prefill_setpieces["HermitcrabIsland"] = 1
+            level.ocean_prefill_setpieces["MonkeyIslandSmall"] =
+                function() return WorldSim:GetWorldSize() < 425 and 1 or 0 end
+            level.ocean_prefill_setpieces["OceanWhirlBigPortal"] = 1
             -- level.ocean_prefill_setpieces["CrabKing"] = 1
 
             level.ocean_population = tableutil.insert_components(level.ocean_population, {
@@ -20,7 +24,15 @@ if true then
 
     AddRoomPreInit("OceanRough", function(room)
         room.required_prefabs = {}
-        room.contents.countstaticlayouts = {} ---delete  ["HermitcrabIsland"] = 1, 	["MonkeyIsland"] = 1,
+        tableutil.remove_indexes(room.contents.countstaticlayouts, {
+            "HermitcrabIsland",
+            "MonkeyIsland",
+            "MonkeyIslandSmall",
+            "OceanWhirlBigPortal"
+
+        })
+
+        ---delete  ["HermitcrabIsland"] = 1, 	["MonkeyIsland"] = 1,
     end)
 
     AddRoomPreInit("OceanSwell", function(room)
@@ -136,6 +148,8 @@ if ta_worldgen.ocean_content == false then
                     "Waterlogged1",
                     "MonkeyIsland",
                     "HermitcrabIsland",
+                    "MonkeyIslandSmall",
+                    "OceanWhirlBigPortal",
                 }
             )
 
