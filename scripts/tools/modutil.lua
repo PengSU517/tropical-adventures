@@ -60,3 +60,10 @@ function AddComponentPostInit(component, fn)
         if not pcall(fn, ...) then return MODULE_ERROR(component or "unknown component") end
     end)
 end
+
+-- local _AddClassPostConstruct = AddClassPostConstruct
+-- function AddClassPostConstruct(clas, fn)
+--     _AddClassPostConstruct(clas, function(...)
+--         if not pcall(fn, ...) then return MODULE_ERROR(clas or "unknown class") end
+--     end)
+-- end
