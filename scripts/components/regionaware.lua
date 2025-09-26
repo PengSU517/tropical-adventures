@@ -63,6 +63,9 @@ function RegionAware:GetRegionFromArea()
                 return REGIONS[tag]
             end
         end
+        -- if not self.inst:IsOnLandTile() then
+        --     return
+        -- end
     end
 
     return REGIONS.forest

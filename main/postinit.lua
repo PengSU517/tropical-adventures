@@ -136,12 +136,13 @@ modimport("postinit/widgets/container_widget_boat")
 modimport("postinit/widgets/container_woodleg_boat")
 modimport("postinit/widgets/craftingmenu_ingredients")
 modimport("postinit/widgets/crafttabs")
-modimport("postinit/widgets/craftslot") -- 配方tooltip
+modimport("postinit/widgets/craftslot")      -- 配方tooltip
 modimport("postinit/widgets/healthbadge")
 modimport("postinit/widgets/inventorybar")   -- 船HUD自适应
 modimport("postinit/widgets/seasonsdisplay") --还有树荫
 modimport("postinit/widgets/statusdisplays_speed")
 modimport("postinit/widgets/uiclock_bloodmoon")
+modimport("postinit/widgets/seasonclock") -- 静态季节表兼容
 
 
 

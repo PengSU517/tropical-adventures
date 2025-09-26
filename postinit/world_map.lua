@@ -80,6 +80,7 @@ Map.FindVisualNodeAtPoint = function(self, x, y, z, has_tag)
         local best = FindVisualNodeAtPoint_TestArea(self, x, z, 4)
             or FindVisualNodeAtPoint_TestArea(self, x, z, 16)
             or FindVisualNodeAtPoint_TestArea(self, x, z, 64)
+            or FindVisualNodeAtPoint_TestArea(self, x, z, 256)
 
         node_index = (best ~= nil) and self:GetNodeIdAtPoint(best.x, 0, best.z) or 0
     end
