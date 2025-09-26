@@ -159,173 +159,6 @@ function Map:CanPlaceTurfAtPoint(x, y, z, ...)
     return _CanPlaceTurfAtPoint(self, x, y, z, ...) or BASE_TILES[self:GetTileAtPoint(x, y, z)]
 end
 
------area aware related -------------
---[[ AddComponentPostInit("areaaware", function(self)
-    self.current_nearby_area = -1
-    self.current_nearby_area_data = nil
-
-
-    local old = self.UpdatePosition
-    function self:UpdatePosition(x, y, z, ...)
-        local node, node_index = TheWorld.Map:FindVisualNodeAtPoint(x, y, z)
-        if node_index ~= self.current_nearby_area then
-            self.current_nearby_area = node_index or 0
-
-            self.current_nearby_area_data = node and {
-                    id = TheWorld.topology.ids[node_index],
-                    type = node.type,
-                    center = node.cent,
-                    poly = node.poly,
-                    tags = node.tags,
-                }
-                or nil
-
-            -- self.inst:PushEvent("changearea", self.current_nearby_area_data)
-        end
-
-        old(self, x, y, z, ...)
-    end
-
-    function self:CurrentlyInTag(tag)
-        return self.current_nearby_area_data and self.current_nearby_area_data.tags and
-            table.contains(self.current_nearby_area_data.tags, tag)
-    end
-end) ]]
-
-
---------------------------调整地图判定
--- require "components/map"
-
--- --得到瓷砖中心点
--- local old_GetTileCenterPoint = Map.GetTileCenterPoint
--- Map.GetTileCenterPoint = function(self, x, y, z)
---     local map_width, map_height = TheWorld.Map:GetSize()
---     if (type(x) == "number" and math.abs(x) >= map_width) and (type(z) == "number" and math.abs(z) >= map_height) then
---         return math.floor((x) / 4) * 4 + 2, 0, math.floor((z) / 4) * 4 + 2
---     end
---     if z then
---         return old_GetTileCenterPoint(self, x, y, z)
---     else
---         return old_GetTileCenterPoint(self, x, y)
---     end
--- end
-
-
-
-
-
-
-------------------------------------是不是可通行的点----------------------------
-
-
-
-
--- local function IsHamRoomAtPoint(x, y, z)
---     if type(x) ~= "number" then
---         x, y, z = x.x or x, x.y or y, x.z or z
---     end
---     if checkxz(x, z) then -----判断一下以减少运算
---         local entities = TheSim:FindEntities(x, y, z, 20, { "interior_center" })
---         if entities then
---             for i, v in ipairs(entities) do
---                 if v then
---                     local rsize = roomsize[roomtype[v.prefab] or "small"]
---                     local xx, yy, zz = v.Transform:GetWorldPosition()
---                     if ((x - xx) <= rsize.front and (x - xx) >= -rsize.back and math.abs(z - zz) <= rsize.side) then ---11
---                         return true
---                     end
---                 end
---             end
---         end
---     end
-
---     return false
--- end
-
--- local function IsHamRoomWallAtPoint(x, y, z)
---     if type(x) ~= "number" then
---         x, y, z = x.x or x, x.y or y, x.z or z
---     end
-
---     if checkxz(x, z) then
---         local entities = TheSim:FindEntities(x, y, z, 20, { "interior_center" })
---         if entities then
---             for i, v in ipairs(entities) do
---                 if v --[[and v.prefab == "playerhouse_city_floor" ]] then
---                     local rsize = roomsize[roomtype[v.prefab] or "small"]
---                     local xx, yy, zz = v.Transform:GetWorldPosition()
---                     if (x - xx) <= -rsize.back and (x - xx) > -(rsize.back + 0.5) and math.abs(z - zz) <= (rsize.side - 0.5) then ---11
---                         return "back"
---                     elseif (z - zz) >= rsize.side and (z - zz) < (rsize.side + 0.5) and (x - xx) <= rsize.front and (x - xx) >= -(rsize.back - 0.5) then
---                         return "right"
---                     elseif (zz - z) >= rsize.side and (zz - z) < (rsize.side + 0.5) and (x - xx) <= rsize.front and (x - xx) >= -(rsize.back - 0.5) then
---                         return "left"
---                     else
---                         -- return false
---                     end
---                 end
---             end
---         end
---     end
-
---     return false
--- end
-
-
-
--- Map.IsHamRoomAtPoint = function(self, x, y, z)
---     return IsHamRoomAtPoint(x, y, z)
--- end
-
--- Map.IsHamRoomWallAtPoint = function(self, x, y, z)
---     return IsHamRoomWallAtPoint(x, y, z)
--- end
-
-
--- local old_IsPassableAtPoint = Map.IsPassableAtPoint
--- Map.IsPassableAtPoint = function(self, x, y, z, ...)
---     return old_IsPassableAtPoint(self, x, y, z, ...) or IsHamRoomAtPoint(x, y, z)
--- end
-
--- --在该点处是否可见
--- local old_IsVisualGroundAtPoint = Map.IsVisualGroundAtPoint
--- Map.IsVisualGroundAtPoint = function(self, x, y, z, ...)
---     return old_IsVisualGroundAtPoint(self, x, y, z, ...) or IsHamRoomAtPoint(x, y, z)
--- end
--- --是否在地面上
--- local old_IsAboveGroundAtPoint = Map.IsAboveGroundAtPoint
--- Map.IsAboveGroundAtPoint = function(self, x, y, z, ...)
---     return old_IsAboveGroundAtPoint(self, x, y, z, ...) or IsHamRoomAtPoint(x, y, z)
--- end
-
--- -- --能不能种植物---
--- local old_CanPlantAtPoint = Map.CanPlantAtPoint
--- Map.CanPlantAtPoint = function(self, x, y, z, ...)
---     return old_CanPlantAtPoint(self, x, y, z, ...) or IsHamRoomAtPoint(x, y, z)
--- end
-
--- -- --能不能产生耕地堆
--- local old_CanTillSoilAtPoint = Map.CanTillSoilAtPoint
--- Map.CanTillSoilAtPoint = function(self, x, y, z, ignore_tile_type, ...)
---     if IsHamRoomAtPoint(x, y, z) then
---         return old_CanTillSoilAtPoint(self, x, y, z, true, ...)
---     else
---         return old_CanTillSoilAtPoint(self, x, y, z, ignore_tile_type, ...)
---     end
--- end
-
--- local old_CanDeployRecipeAtPoint = Map.CanDeployRecipeAtPoint
-
--- Map.CanDeployRecipeAtPoint = function(self, pt, recipe, rot)
---     if recipe.build_mode == "wallsection" then
---         local pt_x, pt_y, pt_z = pt:Get()
---         return IsHamRoomWallAtPoint(pt_x, pt_y, pt_z)
---     else
---         return old_CanDeployRecipeAtPoint(self, pt, recipe, rot)
---     end
--- end
-
-
 -------------------地图判定（新）------------------------------------
 
 -- local worldwidth, worldheight = TheWorld.Map:GetWorldSize()
@@ -370,9 +203,9 @@ local function CheckNearRoomCenter(x, z, v, checkwall)
 end
 
 local function IsHamRoomAtPoint(x, y, z, checkwall)
-    if type(x) ~= "number" then
-        x, y, z = x.x or x, x.y or y, x.z or z
-    end
+    -- if type(x) ~= "number" then
+    --     x, y, z = x.x or x, x.y or y, x.z or z
+    -- end
 
     if checkxz(x, z) then --判断的基础，也许光判断z就行了
         -- 缓存
@@ -439,15 +272,6 @@ Map.IsOutsideWorldAtPoint = function(self, x, y, z)
         x, z = x.x or x, x.z or z
     end
 
-    -- 未知类型错误bug
-    -- if type(x) ~= "number" then
-    --     x = 0
-    -- end
-
-    -- if type(z) ~= "number" then
-    --     z = 0
-    -- end
-
     if checkxz(x, z) then --判断的基础，也许光判断z就行了
         return true
     end
@@ -481,6 +305,24 @@ local function GetHamHomeBefore(self, x, y, z, extra_radius) ----yz乱用的后�
 end
 
 
+---------- 根据components/deployable.lua判断需要覆盖的方法
+Utils.FnDecorator(Map, "IsAboveGroundAtPoint", CheckHamRoomBefore)
+Utils.FnDecorator(Map, "IsPassableAtPoint", CheckHamRoomBefore)
+Utils.FnDecorator(Map, "IsVisualGroundAtPoint", CheckHamRoomBefore)
+Utils.FnDecorator(Map, "CanPlantAtPoint", CheckHamRoomBefore)             --允许房间里种植，不知道算不算超模
+
+
+-------------地皮中心---------------------
+local _GetTileCenterPoint = Map.GetTileCenterPoint
+function Map:GetTileCenterPoint(x, y, z, ...)
+    if z and checkxz(x, z) then
+        return math.floor(x / 4) * 4 + 2, 0, math.floor(z / 4) * 4 + 2
+    else
+        return _GetTileCenterPoint(self, x, y, z, ...)
+    end
+end
+
+
 ---------放置检查---------------------限制制作的配方-----------------------
 local banrecipe = { "playerhouse_city", "pighouse_city", "city_lamp", "pig_guard_tower", "pig_guard_tower_palace",
     "pugaliskfountain_made",
@@ -489,62 +331,6 @@ local banrecipe = { "playerhouse_city", "pighouse_city", "city_lamp", "pig_guard
     "hua_player_house_pvz_recipe", "hua_player_house_tardis_recipe", "infantree_carpet", "myth_house_bamboo"
 
 }
-
--- local function isbanned(name, banrecipe)
---     for i, v in ipairs(banrecipe) do
---         if name == v then
---             return true
---         end
---     end
--- end
-
-local function CheckHamRoomBeforeDeploy(self, pt, recipe, rot)
-    if recipe.build_mode == "insidedoor" then
-        local pt_x, pt_y, pt_z = pt:Get()
-        local isbackwall = IsHamRoomAtPoint(pt_x, pt_y, pt_z, true)
-        if isbackwall ~= "back" then
-            return { false }, true
-        end
-    elseif recipe.build_mode == "wallsection" then
-        local pt_x, pt_y, pt_z = pt:Get()
-        local iswall = IsHamRoomAtPoint(pt_x, pt_y, pt_z, true)
-        if not iswall then
-            return { false }, true
-        end
-    elseif tableutil.has_component(banrecipe, recipe.name) or string.find(recipe.name, "pig_shop") then
-        local pt_x, pt_y, pt_z = pt:Get()
-        local isroom = IsHamRoomAtPoint(pt_x, pt_y, pt_z, false)
-        if isroom then
-            return { false }, true
-        end
-    end
-end
-
-
------------地皮中心点----------------
-local function GetHamTileCenterPointBefore(self, x, y, z)
-    if type(x) ~= "number" then
-        x, y, z = x.x or x, x.y or y, x.z or z
-    end
-
-    if z and checkxz(x, z) then
-        return { math.floor(x / 4) * 4 + 2, 0, math.floor(z / 4) * 4 + 2 }, true
-    end
-end
-
-
-
-
----------- 根据components/deployable.lua判断需要覆盖的方法
-Utils.FnDecorator(Map, "IsAboveGroundAtPoint", CheckHamRoomBefore)
-Utils.FnDecorator(Map, "IsPassableAtPoint", CheckHamRoomBefore)
-Utils.FnDecorator(Map, "IsVisualGroundAtPoint", CheckHamRoomBefore)
-Utils.FnDecorator(Map, "CanPlantAtPoint", CheckHamRoomBefore)             --允许房间里种植，不知道算不算超模
--- Utils.FnDecorator(Map, "CanDeployRecipeAtPoint", CheckHamRoomBeforeDeploy) -------检查放置
-Utils.FnDecorator(Map, "GetTileCenterPoint", GetHamTileCenterPointBefore) -------地皮中心
--- Utils.FnDecorator(Map, "GetPlatformAtPoint", GetHamHomeBefore)             -------platform
-
-
 
 local old_CanDeployRecipeAtPoint = Map.CanDeployRecipeAtPoint
 Map.CanDeployRecipeAtPoint = function(self, pt, recipe, rot)
