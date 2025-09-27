@@ -334,43 +334,59 @@ local tile_tbl = {
     OCEAN_BRINEPOOL = "OCEAN_CORAL_NEW",
     OCEAN_BRINEPOOL_SHORE = "OCEAN_CORAL_NEW",
     OCEAN_HAZARDOUS = "OCEAN_SHIPGRAVEYARD_NEW",
+
+    OCEAN_CORAL = "OCEAN_CORAL_NEW",
+    LILYPOND = "LILYPOND_NEW",
+    MANGROVE = "MANGROVE_NEW",
 }
 
+local _color = (TUNING.ocean_color == "tropical" or TUNING.ocean_style == "tropical")
+local _style = (TUNING.ocean_style == "tropical")
+local _blue = (TA_CONFIG.PERSONAL.ocean_color == "blue")
+
 local function tile_redirect(tbl)
-    for origin, override in pairs(tbl) do
-        if not WORLD_TILES[origin] then
-            return
-        end
+    -----大地图
+    for k, v in pairs(GroundTiles.ground) do
+        if IsOceanTile(v[1]) and not IsTroWaterTile(v[1]) then
+            if _color then
+                v[2] = tro_tiledefs["OCEAN_CORAL_NEW"].ground_tile_def
+                for origin, override in pairs(tbl) do
+                    if v[1] == WORLD_TILES[origin] then
+                        v[2] = tro_tiledefs[override].ground_tile_def
+                        break
+                    end
+                end
 
-        if TUNING.ocean_color == "tropical" or TUNING.ocean_style == "tropical" then
-            if not is_worldgen then
-                TileGroupManager:AddInvalidTile(TileGroups.TransparentOceanTiles, WORLD_TILES[origin])
-                TileGroupManager:AddValidTile(TileGroups.TAOceanTiles, WORLD_TILES[origin])
-            end
+                if not is_worldgen then
+                    TileGroupManager:AddInvalidTile(TileGroups.TransparentOceanTiles, v[1])
+                    TileGroupManager:AddValidTile(TileGroups.TAOceanTiles, v[1])
+                end
 
-            if TUNING.ocean_style == "tropical" then
-                ChangeTileRenderOrder(WORLD_TILES[origin], WORLD_TILES.MONKEY_DOCK, false)
-            end
-
-            for k, v in pairs(GroundTiles.ground) do
-                if v[1] == WORLD_TILES[origin] then
-                    -- print("findit!!!!!!!!!!!!")
-
-                    v[2] = tro_tiledefs[override].ground_tile_def
+                if _style then
+                    ChangeTileRenderOrder(WORLD_TILES[v[1]], WORLD_TILES.MONKEY_DOCK, false)
+                end
+            elseif _blue then
+                for k, v in pairs(GroundTiles.ground) do
+                    for origin, override in pairs(tbl) do
+                        if v[1] == WORLD_TILES[origin] then
+                            v[2].colors = tro_tiledefs[override].ground_tile_def.colors
+                            break
+                        end
+                    end
                 end
             end
-        elseif TA_CONFIG.PERSONAL.ocean_color == "blue" then
-            for k, v in pairs(GroundTiles.ground) do
-                if v[1] == WORLD_TILES[origin] then
-                    v[2].colors = tro_tiledefs[override].ground_tile_def.colors
-                end
-            end
         end
+    end
 
-        for k, v in pairs(GroundTiles.minimap) do
-            if v[1] == WORLD_TILES[origin] then
-                -- print("findit!!!!!!!!!!!!")
-                v[2] = tro_tiledefs[override].minimap_tile_def
+    ----小地图
+    for k, v in pairs(GroundTiles.minimap) do
+        if IsOceanTile(v[1]) and not IsTroWaterTile(v[1]) then
+            v[2] = tro_tiledefs["OCEAN_CORAL_NEW"].minimap_tile_def
+            for origin, override in pairs(tbl) do
+                if v[1] == WORLD_TILES[origin] then
+                    v[2] = tro_tiledefs[override].minimap_tile_def
+                    break
+                end
             end
         end
     end
