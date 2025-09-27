@@ -68,25 +68,29 @@ end
 
 ----area aware related--------------------
 function EntityScript:AwareInTropicalArea() ----减少计算量
-    return self.components.areaaware and
-        (self.components.areaaware:CurrentlyInTag("tropical")
-            or self.components.areaaware:CurrentlyInTag("ForceDisconnected")) and
-        true or false
+    -- return self.components.areaaware and
+    --     (self.components.areaaware:CurrentlyInTag("tropical")
+    --         or self.components.areaaware:CurrentlyInTag("ForceDisconnected")) and
+    --     true or false
+    return self:HasTag("region_shipwrecked") or self:HasTag("region_volcano") or self:HasTag("region_hamlet") or false
 end
 
 function EntityScript:AwareInShipwreckedArea()
-    local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("shipwrecked") and true
-    return aware or false
+    -- local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("shipwrecked") and true
+    -- return aware or false
+    return self:HasTag("region_shipwrecked") or self:HasTag("region_volcano") or false
 end
 
 function EntityScript:AwareInHamletArea()
-    local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("hamlet") and true
-    return aware or false
+    -- local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("hamlet") and true
+    -- return aware or false
+    return self:HasTag("region_hamlet") or false
 end
 
 function EntityScript:AwareInVolcanoArea()
-    local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("volcano") and true
-    return aware or false
+    -- local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("volcano") and true
+    -- return aware or false
+    return self:HasTag("region_volcano") or false
 end
 
 --推入事件
