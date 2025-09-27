@@ -4,6 +4,7 @@ local Util = require "tools/utils"
 Util.FnDecorator(UIClock, "_ctor", nil, function(rets, clock)
     if not clock._cave then
         clock.inst:ListenForEvent("aporkalypsephasechanged", function(_, phase)
+            TheWorld.state.isaporkalypse = phase == "aporkalypse"
             if phase == "aporkalypse" then
                 clock:ShowMoon()
                 clock:OnClockSegsChanged({ night = 16 })
