@@ -6446,6 +6446,10 @@ TA_STRINGS_CH.TROPICAL_RECIPETOOLTIP = {
     PUGALISKFOUNTAIN_MADE = "滋润并清凉周围的天地人",
     VOIDCLOTHHAT = "免于大雾与声波的侵扰",
 }
+
+TA_STRINGS_CH.UI.SANDBOXMENU = {
+    APORKALYPSE = "大灾变",
+}
 -------------------------------------------------------------
 if TA_STRINGS_CH.GF == nil then return end
 

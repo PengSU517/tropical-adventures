@@ -108,10 +108,13 @@ AddClassPostConstruct(dir, function(self)
         self:ChangeRegion()
     end)
 
+    self.inst:ListenForEvent("aporkalypsephasechanged", function(_, phase)
+        self:ChangeRegion()
+    end, TheWorld)
+
     local GetSeasonString = self.GetSeasonString
     function self:GetSeasonString()
         local str = GetSeasonString(self)
-        -- print("SEASON", str)
         if ThePlayer and TheWorld then
             local season = TheWorld.state.season
             if ThePlayer:AwareInShipwreckedArea() or ThePlayer:AwareInVolcanoArea() then ----每次要判断两次位置，有点无语
@@ -120,7 +123,9 @@ AddClassPostConstruct(dir, function(self)
                 str = STRINGS.UI.SANDBOXMENU[string.upper(seasonmap.ham[season])] or str
             end
         end
-        -- print("SEASON", str)
+        if TheWorld.state.isaporkalypse then
+            str = string.format("%s\n(%s)", str, STRINGS.UI.SANDBOXMENU.APORKALYPSE or "Aporkalypse")
+        end
         return str
     end
 end)
