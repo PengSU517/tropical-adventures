@@ -99,7 +99,7 @@ local function onequip(inst, owner)
 	inst.components.container:Close(owner)
 	local proxy = SpawnAt(inst.prefab .. "_proxy" or "rowboat_proxy", owner)
 	if proxy then
-        owner:AddChild(proxy)
+		owner:AddChild(proxy)
 		owner.boat_proxy = proxy
 		proxy.Transform:SetPosition(0, -0.1, 0)
 		proxy.components.container_proxy:SetMaster(inst)
@@ -117,9 +117,9 @@ local function onunequip(inst, owner)
 	local proxy = owner.boat_proxy
 	if proxy then
 		inst.Transform:SetRotation(proxy.Transform:GetRotation())
-        owner:RemoveChild(proxy)
+		owner:RemoveChild(proxy)
 		owner.boat_proxy = nil
-		proxy:Remove()
+		proxy:Remove() ------这儿似乎有问题
 	end
 	owner:RemoveTag("surf")
 	OnItemGet(inst)
@@ -130,9 +130,9 @@ local function OnCollapsed(inst)
 	SpawnAt("collapse_small", inst)
 	if not inst.components.container or inst.components.container:IsEmpty() then
 		inst:Remove()
-        if collapse and collapse.components.pickable then
-            collapse.components.pickable.canbepicked = false
-        end
+		if collapse and collapse.components.pickable then
+			collapse.components.pickable.canbepicked = false
+		end
 		return
 	end
 	collapse:SetChest(inst)

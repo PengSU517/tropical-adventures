@@ -1,6 +1,5 @@
-REGION_NAMES = { "forest", "cave", "shipwrecked", "volcano", "hamlet" }
+REGION_NAMES = { "volcano", "shipwrecked", "hamlet", "forest", }
 REGIONS = table.invert(REGION_NAMES)
-
 
 local function onregion(self, region, _region)
     --print("RegionAware:onregion11111111", region, _region)
@@ -21,7 +20,6 @@ local RegionAware = Class(function(self, inst)
         self.period = 10
         self.timetonextperiod = 0
         self.regionpos = nil
-        self.start_new_period = false
 
         if not inst.components.areaaware then ----基于areaaware组件
             inst:AddComponent("areaaware")
@@ -29,9 +27,12 @@ local RegionAware = Class(function(self, inst)
 
         self.areaaware = inst.components.areaaware
 
-        inst:StartUpdatingComponent(self)
 
-        -- inst:DoTaskInTime(0, function() self:GetRegion() end)
+        inst:ListenForEvent("changearea", function(inst, data)
+            self:GetRegion()
+        end)
+
+        inst:StartUpdatingComponent(self)
     end,
     nil,
     {
@@ -41,39 +42,25 @@ local RegionAware = Class(function(self, inst)
 function RegionAware:OnUpdate(dt)
     if self.timetonextperiod > 0 then
         self.timetonextperiod = self.timetonextperiod - dt
-    else
-        -- print("RegionAware:OnUpdate")
-        self:GetRegion()
-        if self.start_new_period then
-            self.timetonextperiod = self.period
-            self.start_new_period = false
-        end
     end
 end
 
 function RegionAware:GetRegionFromArea()
-    if TheWorld:HasTag("cave") then
-        return REGIONS.cave
-    elseif self.inst:IsInHamRoom() then
-        return
-    else
-        if not self.areaaware then return end
-        for i, tag in pairs(REGION_NAMES) do
+    if self.inst:IsInWorld() then
+        for i = 1, (#REGION_NAMES - 1) do
+            local tag = REGION_NAMES[i]
             if self.areaaware:CurrentlyInTag(tag) then
                 return REGIONS[tag]
             end
         end
-        -- if not self.inst:IsOnLandTile() then
-        --     return
-        -- end
+        return REGIONS.forest
     end
-
-    return REGIONS.forest
 end
 
-function RegionAware:GetRegion(forceupdate)
+function RegionAware:GetRegion(force)
     local pt = self.inst:GetPosition()
-    if forceupdate or not self.regionpos or pt:Dist(self.regionpos) > 8 then
+
+    if self.timetonextperiod <= 0 or pt:Dist(self.regionpos) > 50 or force then
         local oldregion = self.region
         local newregion = self:GetRegionFromArea()
 
@@ -86,20 +73,22 @@ function RegionAware:GetRegion(forceupdate)
                 -- print("region change server")
                 -- print(self.region)
                 self.inst:PushEvent("regionchange", { region = self.region, oldregion = oldregion })
-                self.start_new_period = true
             end
         end
+
+        self.timetonextperiod = self.period
     end
+
 
     -- --print("RegionAware:GetRegion", self.region or "nil")
     return self.region
 end
 
-function RegionAware:IsInRegion(region, forceupdate)
-    if not self.region or forceupdate then
-        self:GetRegion(forceupdate)
+function RegionAware:IsInRegion(regionname)
+    if not self.region then
+        self:GetRegion()
     end
-    return REGION_NAMES[self.region] == region
+    return REGIONS[self.region] == regionname
 end
 
 --convert region to string, and then back on save, incase the ordering changes.
