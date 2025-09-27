@@ -11,6 +11,9 @@ Util.FnDecorator(UIClock, "_ctor", nil, function(rets, clock)
                 local _phase = clock._phase
                 clock._phase = nil
                 clock:OnPhaseChanged(_phase)
+                if TheWorld.net then
+                    TheWorld.net:PushEvent("segsdirty")
+                end
             end
         end, TheWorld)
     end
