@@ -173,7 +173,8 @@ for _, prefab in pairs(rocks) do
         if not TheWorld.ismastersim then
             return
         end
-
-        inst:AddComponent("mystery")
+        if not inst.components.mystery then
+            inst:AddComponent("mystery")
+        end
     end)
 end
