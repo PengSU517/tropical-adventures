@@ -6,7 +6,7 @@ Util.FnDecorator(UIClock, "_ctor", nil, function(rets, clock)
         clock.inst:ListenForEvent("aporkalypsephasechanged", function(_, phase)
             if phase == "aporkalypse" then
                 clock:ShowMoon()
-                clock:OnClockSegsChanged()
+                clock:OnClockSegsChanged({ night = 16 })
             else
                 local _phase = clock._phase
                 clock._phase = nil
