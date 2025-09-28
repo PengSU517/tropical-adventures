@@ -99,6 +99,12 @@ TUNING.IRON_LORD_TIME = 180
 
 --constants-----------------------
 ----------------------------------
+---
+GLOBAL.REGION_NAMES = { "volcano", "shipwrecked", "hamlet", "forest", }
+GLOBAL.REGIONS = table.invert(REGION_NAMES)
+
+
+
 GLOBAL.EQUIPSLOTS.BARCO = "barco"
 GLOBAL.FUELTYPE.TAR = "TAR"
 GLOBAL.FUELTYPE.REPARODEBARCO = "REPARODEBARCO"
