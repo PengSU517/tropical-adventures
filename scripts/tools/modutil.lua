@@ -35,35 +35,37 @@ function Modrequire(modulename, modname, newenv)
     end
 end
 
--- local _AddPlayerPostInit = AddPlayerPostInit
--- -- local initprint = Utils.FindUpvalue(AddPlayerPostInit, "initprint")
--- AddPlayerPostInit = function(fn)
---     -- if initprint then initprint("AddPlayerPostInit_Overrided") end
---     if postinitfns.ComponentPostInit["playervision"] == nil then
---         postinitfns.ComponentPostInit["playervision"] = {}
---     end
---     table.insert(postinitfns.ComponentPostInit["playervision"], function(self)
---         if not pcall(fn, self and self.inst) then return MODULE_ERROR("player") end
---     end)
--- end
+if GetModConfigData("compatible_adjustment") then
+    -- local _AddPlayerPostInit = AddPlayerPostInit
+    -- -- local initprint = Utils.FindUpvalue(AddPlayerPostInit, "initprint")
+    -- AddPlayerPostInit = function(fn)
+    --     -- if initprint then initprint("AddPlayerPostInit_Overrided") end
+    --     if postinitfns.ComponentPostInit["playervision"] == nil then
+    --         postinitfns.ComponentPostInit["playervision"] = {}
+    --     end
+    --     table.insert(postinitfns.ComponentPostInit["playervision"], function(self)
+    --         if not pcall(fn, self and self.inst) then return MODULE_ERROR("player") end
+    --     end)
+    -- end
 
-local _AddPrefabPostInit = AddPrefabPostInit
-function AddPrefabPostInit(prefab, fn)
-    _AddPrefabPostInit(prefab, function(...)
-        if not pcall(fn, ...) then return MODULE_ERROR(prefab or "unknown prefab") end
-    end)
+    local _AddPrefabPostInit = AddPrefabPostInit
+    function AddPrefabPostInit(prefab, fn)
+        _AddPrefabPostInit(prefab, function(...)
+            if not pcall(fn, ...) then return MODULE_ERROR(prefab or "unknown prefab") end
+        end)
+    end
+
+    local _AddComponentPostInit = AddComponentPostInit
+    function AddComponentPostInit(component, fn)
+        _AddComponentPostInit(component, function(...)
+            if not pcall(fn, ...) then return MODULE_ERROR(component or "unknown component") end
+        end)
+    end
+
+    -- local _AddClassPostConstruct = AddClassPostConstruct
+    -- function AddClassPostConstruct(clas, fn)
+    --     _AddClassPostConstruct(clas, function(...)
+    --         if not pcall(fn, ...) then return MODULE_ERROR(clas or "unknown class") end
+    --     end)
+    -- end
 end
-
-local _AddComponentPostInit = AddComponentPostInit
-function AddComponentPostInit(component, fn)
-    _AddComponentPostInit(component, function(...)
-        if not pcall(fn, ...) then return MODULE_ERROR(component or "unknown component") end
-    end)
-end
-
--- local _AddClassPostConstruct = AddClassPostConstruct
--- function AddClassPostConstruct(clas, fn)
---     _AddClassPostConstruct(clas, function(...)
---         if not pcall(fn, ...) then return MODULE_ERROR(clas or "unknown class") end
---     end)
--- end
