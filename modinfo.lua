@@ -672,9 +672,9 @@ personal_options =
 
 }
 
-local experimental_options =
+experimental_options =
 {
-    Breaker("Experimental Options", "实验性选项"),
+
     -- {
     --     name = "dev_beak",
     --     label = en_zh("New Shard Beak", "新碎裂喙"),
@@ -685,6 +685,19 @@ local experimental_options =
     --     },
     --     default = true,
     -- },
+
+    {
+        name = "compatible_adjustment",
+        label = en_zh("Compatiable Adjustment", "兼容性调整"),
+        hover = en_zh("Improve Mod compatibility, but maybe add some lags.",
+            "增强Mod兼容性，但也许会增加卡顿"),
+        options = {
+            { description = en_zh("Disabled", "关闭"), data = false, },
+            { description = en_zh("Enabled", "开启"), data = true, },
+        },
+        default = true,
+    },
+
     {
         name = "dev_portal_reconnector",
         label = en_zh("Reconnect Cave Entrances", "洞穴入口重连"),
@@ -755,6 +768,7 @@ end
 --     default = false,
 -- })
 
+table_insert(configuration_options, Breaker("Experimental Options", "实验性选项"))
 for i, v in my_ipairs(experimental_options) do
     table_insert(configuration_options, v)
 end
