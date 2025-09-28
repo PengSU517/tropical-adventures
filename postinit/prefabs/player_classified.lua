@@ -1,3 +1,8 @@
+local REGION_NAMES = REGION_NAMES
+local REGIONS = REGIONS
+
+
+
 -----------------------------Treasure Reveal by EvenMr----------------------------
 local function OnRevealTreasureDirty(inst)
     if inst._parent ~= nil and inst._parent.HUD and TheCamera then
@@ -16,18 +21,21 @@ local function OnRevealTreasureDirty(inst)
 end
 
 local function OnRegionDirty(inst)
-    if inst._parent ~= nil then
-        -- print("region change client")
-        -- print(inst._region:value())
-        --立即推送客机可能有些 内容还来不及更新
-        inst._parent:PushEventInTime(0.1, "regionchange_client", { region = inst._region:value() })
+    -- print("region change dirty")
+    -- print(inst._region:value())
+    --立即推送客机可能有些 内容还来不及更新
+    if inst._parent then -----------------------这个函数似乎也有问题
+        -- print("region change pushevent  client")
+        inst._parent:PushEventInTime(0, "regionchange_client", { region = inst._region:value() })
     end
 end
 
 
 local function RegisterNetListeners(inst)
+    inst._parent = inst.entity:GetParent()
+
     if TheWorld.ismastersim then
-        inst._parent = inst.entity:GetParent()
+
     else
         ----主机客机都推送的同名event放在这里
     end
@@ -44,6 +52,6 @@ AddPrefabPostInit("player_classified", function(inst)
     inst.revealtreasure = net_uint(inst.GUID, "messagebottle_sw.reveal", "revealtreasuredirty")
 
 
-    inst._region:set(1)
+    inst._region:set(REGIONS.forest)
     inst:DoTaskInTime(0, RegisterNetListeners)
 end)

@@ -1,17 +1,29 @@
-REGION_NAMES = { "volcano", "shipwrecked", "hamlet", "forest", }
-REGIONS = table.invert(REGION_NAMES)
+local REGION_NAMES = REGION_NAMES
+local REGIONS = REGIONS
 
 local function onregion(self, region, _region)
-    --print("RegionAware:onregion11111111", region, _region)
+    print("REGION CHANGED TO ", REGION_NAMES[self.region])
+
+    -- self.inst:DoTaskInTime(0, function(inst)
+    -------这里必须延迟足够的时间，否则在世界刚加载时，客机接收不到这次推送，
+    ----------但这又会造成延迟，所以还是算了
     if self.inst.player_classified ~= nil then
+        -- print("change classified")
         self.inst.player_classified._region:set(region or REGIONS.forest)
     end
+    -- end)
+
+
     if _region then
         self.inst:RemoveTag("region_" .. REGION_NAMES[_region])
     end
     if region then
         self.inst:AddTag("region_" .. REGION_NAMES[region])
     end
+
+
+    self.inst:PushEvent("regionchange", { region = region, oldregion = _region })
+    ----------------这里在 加载完毕后会发送个事件，所以监听这个时间的组件们可以不用初始化
 end
 
 local RegionAware = Class(function(self, inst)
@@ -27,12 +39,8 @@ local RegionAware = Class(function(self, inst)
 
         self.areaaware = inst.components.areaaware
 
-
-        inst:ListenForEvent("changearea", function(inst, data)
-            self:GetRegion()
-        end)
-
-        inst:StartUpdatingComponent(self)
+        inst:DoTaskInTime(0, function(inst) self:GetRegion(true) end)
+        inst:ListenForEvent("changearea", function(inst, data) self:GetRegion() end)
     end,
     nil,
     {
@@ -42,6 +50,8 @@ local RegionAware = Class(function(self, inst)
 function RegionAware:OnUpdate(dt)
     if self.timetonextperiod > 0 then
         self.timetonextperiod = self.timetonextperiod - dt
+    else
+        self.inst:StopUpdatingComponent(self)
     end
 end
 
@@ -69,14 +79,10 @@ function RegionAware:GetRegion(force)
             self.regionpos = pt
             if newregion ~= oldregion then
                 self.region = newregion
-
-                -- print("region change server")
-                -- print(self.region)
-                self.inst:PushEvent("regionchange", { region = self.region, oldregion = oldregion })
             end
+            self.timetonextperiod = self.period
+            self.inst:StartUpdatingComponent(self)
         end
-
-        self.timetonextperiod = self.period
     end
 
 
@@ -112,7 +118,7 @@ function RegionAware:OnLoad(data, refs)
     if data.regionpos then
         self.regionpos = Vector3(data.regionpos.x, data.regionpos.y, data.regionpos.z)
     end
-    self.inst:PushEvent("regionchange", { region = self.region })
+    -- self.inst:PushEvent("regionchange", { region = self.region })
 end
 
 function RegionAware:GetDebugString()

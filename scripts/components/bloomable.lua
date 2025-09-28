@@ -74,7 +74,7 @@ end
 function Bloomable:SeasonChange(data)
     if self:CanBloom() then
         if TheWorld.state.isspring and not self.blooming then
-            print("OHHHH")
+            -- print("OHHHH")
             self:DoStartBloomTask(self.time + math.random() * self.timevarriance)
         elseif (not TheWorld.state.isspring) and self.blooming then
             self:DoStopBloomTask(self.time + math.random() * self.timevarriance)

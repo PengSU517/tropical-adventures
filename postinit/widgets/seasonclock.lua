@@ -101,7 +101,7 @@ AddClassPostConstruct(dir, function(self)
         end
     end
 
-    self:ChangeRegion()
+    self.inst:DoTaskInTime(0, function() self:ChangeRegion() end)
 
     -- ThePlayer:ListenForEvent("changearea", function(inst, data)
     ThePlayer:ListenForEvent("regionchange_client", function(inst, data)
