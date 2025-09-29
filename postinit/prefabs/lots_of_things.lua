@@ -178,3 +178,15 @@ for _, prefab in pairs(rocks) do
         end
     end)
 end
+
+AddPrefabPostInit("deco_palace_throne", function(inst)
+    inst.OnEntityWake = function(inst)
+        local ent = TheSim:FindFirstEntityWithTag("pigqueen")
+        if ent then
+            inst:DoTaskInTime(0, function(inst)
+                ent.Transform:SetPosition(inst.Transform:GetWorldPosition())
+            end)
+        end
+    end
+end
+)
