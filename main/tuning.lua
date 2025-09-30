@@ -40,7 +40,7 @@ TUNING.HAMROOM = {
     },
 
     roomsize = {
-        small = { back = 2.5, front = 9, side = 7.5 },
+        small = { back = 3.5, front = 7.5, side = 7.5 },
         medium = { back = 5, front = 8.5, side = 7.5 },
         big = { back = 5, front = 9.5, side = 9 },
         large = { back = 5, front = 8, side = 11.5 },
