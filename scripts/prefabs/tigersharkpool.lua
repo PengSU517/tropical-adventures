@@ -405,6 +405,7 @@ local function wall_tigerpond()
     inst.Transform:SetEightFaced()
 
     inst:AddTag("blocker")
+    inst:AddTag("wall_room")
     local phys = inst.entity:AddPhysics()
     phys:SetMass(0)
     phys:SetCollisionGroup(COLLISION.WORLD)
