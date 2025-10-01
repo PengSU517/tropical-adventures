@@ -465,8 +465,9 @@ local function makehousefn(name, build, bank, data)
 
         inst:AddComponent("inspectable")
 
-        inst:WatchWorldState("issnowcovered", OnSnowCoveredChagned)
-        OnSnowCoveredChagned(inst) --为啥要写两次啊，还少了个参数
+        MakeSnowCovered(inst, .01)
+        -- inst:WatchWorldState("issnowcovered", OnSnowCoveredChagned)
+        -- OnSnowCoveredChagned(inst) --为啥要写两次啊，还少了个参数
 
         inst:WatchWorldState("phase", updatelight)
         updatelight(inst, TheWorld.state.phase)

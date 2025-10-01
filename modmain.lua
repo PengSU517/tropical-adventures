@@ -7,7 +7,6 @@ local modimport = modimport
 
 --工具函数，全部在GLOBAL里
 require "tools/simutil"
-require "tools/worldutil"
 require "tools/standardcomponents"
 
 

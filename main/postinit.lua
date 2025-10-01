@@ -40,7 +40,8 @@ modimport("postinit/oceancolor")
 modimport("postinit/prefabs/lots_of_things") ---对各种prefab追加一些标签或组件
 modimport("postinit/actionrelated")
 modimport("postinit/components/weather")     --热带气候（冬季降雨   ------冬雨和室内怎么联动是个问题
-modimport("postinit/tropical_climate")       --热带气候
+modimport("postinit/climate_tropical")       --热带气候
+modimport("postinit/climate_nonforest")      --非大陆气候
 modimport("postinit/ham_room")               --新的room
 modimport("postinit/room_camera")            --房间镜头
 modimport("postinit/boat")                   --单人船相关修改
@@ -141,8 +142,8 @@ modimport("postinit/widgets/healthbadge")
 modimport("postinit/widgets/inventorybar")   -- 船HUD自适应
 modimport("postinit/widgets/seasonsdisplay") --还有树荫
 modimport("postinit/widgets/statusdisplays_speed")
-modimport("postinit/widgets/uiclock") -- 血月时钟
-modimport("postinit/widgets/seasonclock") -- 静态季节表兼容
+modimport("postinit/widgets/uiclock")        -- 血月时钟
+modimport("postinit/widgets/seasonclock")    -- 静态季节表兼容
 
 
 

@@ -11,11 +11,11 @@ local natureskins = {
             name = "saplingnova",
             minimapicon = "sapling.png",
             extra_init_fn = function(inst, skinname)
-                CancelNoGrowInWinter(inst)
+                -- CancelNoGrowInWinter(inst)
                 -- inst.AnimState:SetFilter("lightgreen")
             end,
             extra_clear_fn = function(inst, skinname)
-                MakeNoGrowInWinter(inst)
+                -- MakeNoGrowInWinter(inst)
                 -- inst.AnimState:SetFilter("generic")
             end,
         },
@@ -29,11 +29,11 @@ local natureskins = {
             skintype = "tropical",
             name = "grassnova",
             extra_init_fn = function(inst, skinname)
-                CancelNoGrowInWinter(inst)
+                -- CancelNoGrowInWinter(inst)
                 inst.AnimState:SetFilter("green")
             end,
             extra_clear_fn = function(inst, skinname)
-                MakeNoGrowInWinter(inst)
+                -- MakeNoGrowInWinter(inst)
                 inst.AnimState:SetFilter("generic")
             end,
         },

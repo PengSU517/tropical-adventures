@@ -29,22 +29,43 @@ function MakeObsidianTool(inst)
     heater:SetThermics(true, false)
 end
 
-local function TogglePickable(pickable, iswinter)
-    if iswinter then
-        pickable:Pause()
-    else
-        pickable:Resume()
-    end
+IsInTropicalArea = function(inst)
+    -- local x, _, z = inst:GetPosition():Get()-----这个东西似乎要等待一帧
+    local x, _, z = inst.Transform:GetWorldPosition() ----这个东西也取不到值
+    return TheWorld.Map:IsTropicalAreaAtPoint(x, 0, z)
 end
 
+IsInShipwreckedArea = function(inst)
+    local x, _, z = inst.Transform:GetWorldPosition()
+    return TheWorld.Map:IsShipwreckedAreaAtPoint(x, 0, z)
+end
+
+IsInHamletArea = function(inst)
+    local x, _, z = inst.Transform:GetWorldPosition()
+    return TheWorld.Map:IsHamletAreaAtPoint(x, 0, z)
+end
+
+IsInVolcanoArea = function(inst)
+    local x, _, z = inst.Transform:GetWorldPosition()
+    return TheWorld.Map:IsVolcanoAreaAtPoint(x, 0, z)
+end
+
+IsInHamRoom = function(inst)
+    local x, _, z = inst.Transform:GetWorldPosition()
+    return TheWorld.Map:IsHamRoomAtPoint(x, 0, z)
+end
+
+
+local old_MakeNoGrowInWinter = MakeNoGrowInWinter
 function MakeNoGrowInWinter(inst)
-    inst.components.pickable:WatchWorldState("iswinter", TogglePickable)
-    TogglePickable(inst.components.pickable, TheWorld.state.iswinter)
-end
-
-function CancelNoGrowInWinter(inst)
-    inst.components.pickable:StopWatchingWorldState("iswinter", TogglePickable)
-    inst.components.pickable:Resume()
+    inst:DoTaskInTime(0.05, function()
+        if inst.Transform ~= nil then
+            local x, y, z = inst.Transform:GetWorldPosition()
+            if TheWorld.Map:IsForestAreaAtPoint(x, y, z) then
+                old_MakeNoGrowInWinter(inst)
+            end
+        end
+    end)
 end
 
 function MakeNoWinterItem(inst)
@@ -53,10 +74,30 @@ function MakeNoWinterItem(inst)
     inst:StopWatchingOneOfWorldStates("snowlevel")
 end
 
-function CancelMakeNoWinterItem(inst)
-    -- inst:ReWatchingOneOfWorldStates("iswinter")
-    -- inst:ReWatchingOneOfWorldStates("snowlevel")
+-- function CancelMakeNoWinterItem(inst)
+--     -- inst:ReWatchingOneOfWorldStates("iswinter")
+--     -- inst:ReWatchingOneOfWorldStates("snowlevel")
+-- end
+
+--清除积雪覆盖效果
+local Old_MakeSnowCovered = MakeSnowCovered
+local function ClearSnowCoveredPristine(inst)
+    inst.AnimState:ClearOverrideSymbol("snow", "snow", "snow")
+    inst:RemoveTag("SnowCovered")
+    inst.AnimState:Hide("snow")
 end
+MakeSnowCovered = function(inst, ...)
+    Old_MakeSnowCovered(inst, ...)
+    inst:DoTaskInTime(0.05, function()
+        if inst.Transform ~= nil then
+            local x, y, z = inst.Transform:GetWorldPosition()
+            if TheWorld.Map:IsNotForestAreaAtPoint(x, y, z) then
+                ClearSnowCoveredPristine(inst)
+            end
+        end
+    end)
+end
+
 
 function SpawnWavesSW(inst, numWaves, totalAngle, waveSpeed, wavePrefab, initialOffset, idleTime, instantActive,
                       random_angle)
