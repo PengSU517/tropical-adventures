@@ -94,43 +94,28 @@ Map.FindVisualNodeAtPoint = function(self, x, y, z, has_tag)
     end
 end
 
+Map.IsCityAreaAtPoint = function(self, x, y, z)
+    return self:FindVisualNodeAtPoint(x, y, z, "City_Foundation")
+end
+
+Map.IsCivilizedAreaAtPoint = function(self, x, y, z)
+    return self:FindVisualNodeAtPoint(x, y, z, "civilized")
+end
 
 Map.IsTropicalAreaAtPoint = function(self, x, y, z)
-    local node = self:FindVisualNodeAtPoint(x, y, z, "tropical")
-        or self:FindVisualNodeAtPoint(x, y, z, "ForceDisconnected")
-
-    if node ~= nil then
-        return true
-    else
-        return false
-    end
+    return self:FindVisualNodeAtPoint(x, y, z, "tropical")
 end
 
 Map.IsShipwreckedAreaAtPoint = function(self, x, y, z)
-    local node = self:FindVisualNodeAtPoint(x, y, z, "shipwrecked")
-    if node ~= nil then
-        return true
-    else
-        return false
-    end
+    return self:FindVisualNodeAtPoint(x, y, z, "shipwrecked")
 end
 
 Map.IsHamletAreaAtPoint = function(self, x, y, z)
-    local node = self:FindVisualNodeAtPoint(x, y, z, "hamlet")
-    if node ~= nil then
-        return true
-    else
-        return false
-    end
+    return self:FindVisualNodeAtPoint(x, y, z, "hamlet")
 end
 
 Map.IsVolcanoAreaAtPoint = function(self, x, y, z)
-    local node = self:FindVisualNodeAtPoint(x, y, z, "volcano")
-    if node ~= nil then
-        return true
-    else
-        return false
-    end
+    return self:FindVisualNodeAtPoint(x, y, z, "volcano")
 end
 
 local _SetTile = Map.SetTile
@@ -309,7 +294,7 @@ end
 Utils.FnDecorator(Map, "IsAboveGroundAtPoint", CheckHamRoomBefore)
 Utils.FnDecorator(Map, "IsPassableAtPoint", CheckHamRoomBefore)
 Utils.FnDecorator(Map, "IsVisualGroundAtPoint", CheckHamRoomBefore)
-Utils.FnDecorator(Map, "CanPlantAtPoint", CheckHamRoomBefore)             --允许房间里种植，不知道算不算超模
+Utils.FnDecorator(Map, "CanPlantAtPoint", CheckHamRoomBefore) --允许房间里种植，不知道算不算超模
 
 
 -------------地皮中心---------------------
@@ -321,7 +306,6 @@ function Map:GetTileCenterPoint(x, y, z, ...)
         return _GetTileCenterPoint(self, x, y, z, ...)
     end
 end
-
 
 ---------放置检查---------------------限制制作的配方-----------------------
 local banrecipe = { "playerhouse_city", "pighouse_city", "city_lamp", "pig_guard_tower", "pig_guard_tower_palace",

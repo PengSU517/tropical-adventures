@@ -67,6 +67,17 @@ function EntityScript:IsOnLandTile()
 end
 
 ----area aware related--------------------
+---
+function EntityScript:AwareInCityArea()
+    local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("City_Foundation") and true
+    return aware or false
+end
+
+function EntityScript:AwareInCivilizedArea()
+    local aware = self.components.areaaware and self.components.areaaware:CurrentlyInTag("civilized") and true
+    return aware or false
+end
+
 function EntityScript:AwareInTropicalArea() ----减少计算量
     -- return self.components.areaaware and
     --     (self.components.areaaware:CurrentlyInTag("tropical")

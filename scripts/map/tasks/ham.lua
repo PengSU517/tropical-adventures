@@ -223,7 +223,7 @@ AddTask("Edge_of_civilization", {
     locks = LOCKS.JUNGLE_DEPTH_2,
     keys_given = KEYS.CIVILIZATION_1,
     region_id = "hamlet",
-    room_tags = { "City1", "RoadPoison", "hamlet", "tropical", "nohunt", "nohasslers", "not_mainland" },
+    room_tags = { "City1", "civilized", "RoadPoison", "hamlet", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["cultivated_base_1"] = math.random(3, 5),
         ["piko_land"] = math.random(2, 3),
@@ -244,7 +244,7 @@ AddTask("Pigtopia", {
     keys_given = KEYS.CIVILIZATION_2,
     level_set_piece_blocker = true,
     region_id = "hamlet",
-    room_tags = { "City1", "RoadPoison", "hamlet", "tropical", "nohunt", "nohasslers", "not_mainland" },
+    room_tags = { "City1", "civilized", "RoadPoison", "hamlet", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["city_base_1"] = math.random(5, 7),
         -- ["suburb_base_1"] = math.random(2, 3),
@@ -264,7 +264,7 @@ AddTask("Pigtopia_capital", {
     keys_given = KEYS.ISLAND_2,
     level_set_piece_blocker = true,
     region_id = "hamlet",
-    room_tags = { "City1", "RoadPoison", "hamlet", "tropical", "nohunt", "nohasslers", "not_mainland" },
+    room_tags = { "City1", "civilized", "RoadPoison", "hamlet", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["city_base_1"] = math.random(3, 4),
     },
@@ -335,7 +335,7 @@ AddTask("Other_edge_of_civilization", {
     locks = LOCKS.OTHER_JUNGLE_DEPTH_1,
     keys_given = KEYS.OTHER_CIVILIZATION_1,
     region_id = "hamlet_palace",
-    room_tags = { "City1", "RoadPoison", "hamlet", "tropical", "nohunt", "nohasslers", "not_mainland" },
+    room_tags = { "City2", "civilized", "RoadPoison", "hamlet", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["cultivated_base_2"] = math.random(2, 3),
         ["piko_land"] = math.random(1, 2),
@@ -355,7 +355,7 @@ AddTask("Other_pigtopia", {
     keys_given = KEYS.OTHER_CIVILIZATION_2,
     level_set_piece_blocker = true,
     region_id = "hamlet_palace",
-    room_tags = { "City2", "RoadPoison", "hamlet", "tropical", "nohunt", "nohasslers", "not_mainland" },
+    room_tags = { "City2", "civilized", "RoadPoison", "hamlet", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["city_base_2"] = math.random(5, 7),
         -- ["suburb_base_2"] = math.random(2, 3),
@@ -375,7 +375,7 @@ AddTask("Other_pigtopia_capital", {
     keys_given = KEYS.ISLAND_3,
     level_set_piece_blocker = true,
     region_id = "hamlet_palace",
-    room_tags = { "City2", "RoadPoison", "hamlet", "tropical", "nohunt", "nohasslers", "not_mainland" },
+    room_tags = { "City2", "civilized", "RoadPoison", "hamlet", "tropical", "nohunt", "nohasslers", "not_mainland" },
     room_choices = {
         ["city_base_2"] = math.random(3, 4),
     },

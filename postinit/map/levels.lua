@@ -369,6 +369,7 @@ end
 if TA_CONFIG.DEVELOP.test_map and true then
     AddTask("Make a new pick", {
         locks = LOCKS.NONE,
+        tags = { "nohunt", "nohasslers", "civilized" },
         keys_given = { KEYS.PICKAXE, KEYS.AXE, KEYS.GRASS, KEYS.WOOD, KEYS.TIER1 },
         room_choices = {
             ["Blank"] = 1,
