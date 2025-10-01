@@ -8,7 +8,7 @@ local easing = require("easing")
 --[[ BaseHassler class definition ]]
 --------------------------------------------------------------------------
 return Class(function(self, inst)
-	assert(TheWorld.ismastersim, "Beargerspawner should not exist on client")
+	assert(TheWorld.ismastersim, "Twisterspawner should not exist on client")
 
 	--------------------------------------------------------------------------
 	--[[ Private constants ]]
@@ -33,8 +33,8 @@ return Class(function(self, inst)
 	local _announcewarningsoundinterval = 4
 
 	local _targetNum = 0
-	local _firstBeargerSpawnChance = 1
-	local _secondBeargerSpawnChance = 0
+	local _firstTwisterSpawnChance = 1
+	local _secondTwisterSpawnChance = 0
 
 	local _numSpawned = 0
 
@@ -42,29 +42,20 @@ return Class(function(self, inst)
 	local _activehasslers = {}
 	local _activeplayers = {}
 
-	local _lastBeargerKillDay = nil
+	local _lastTwisterKillDay = nil
 
 	--------------------------------------------------------------------------
 	--[[ Private member functions ]]
 	--------------------------------------------------------------------------
 
-	local function CanSpawnBearger()
-		--print("TheWorld state.isspring", TheWorld.state.isspring)
-		--print("No boss time?", TheWorld.state.cycles, TUNING.NO_BOSS_TIME)
-		--print("numspawned", _numSpawned, _targetNum)
-		--print("lastkillday", _lastBeargerKillDay)
-		return (TheWorld.state.isspring == true) and
-			TheWorld.state.cycles > TUNING.NO_BOSS_TIME and
+	local function CanSpawnTwister()
+		return (TheWorld.state.isspring == true) and TheWorld.state.cycles > TUNING.NO_BOSS_TIME and
 			(_numSpawned < _targetNum or
-				(not _lastBeargerKillDay or ((TheWorld.state.cycles - _lastBeargerKillDay) > TUNING.NO_BOSS_TIME)))
+				(not _lastTwisterKillDay or ((TheWorld.state.cycles - _lastTwisterKillDay) > TUNING.NO_BOSS_TIME)))
 	end
 
 	local function IsEligible(player)
-		local area = player.components.areaaware
-		return player:IsValid()
-			and TheWorld.Map:IsVisualGroundAtPoint(player.Transform:GetWorldPosition())
-			and area:GetCurrentArea() ~= nil
-			and area:CurrentlyInTag("tropical")
+		return player:IsValid() and player:AwareInTropicalArea() and not player:AwareInCityArea()
 	end
 
 	local function PickPlayer()
@@ -109,7 +100,7 @@ return Class(function(self, inst)
 		self.inst:StopUpdatingComponent(self)
 
 		if _numSpawned >= _targetNum then
-			print("Not spawning bearger - already at maximum number")
+			print("Not spawning twister - already at maximum number")
 			return nil
 		end
 
@@ -121,17 +112,17 @@ return Class(function(self, inst)
 			return hassler
 		end
 
-		print("Not spawning bearger - can't find spawn point")
+		print("Not spawning twister - can't find spawn point")
 	end
 
-	local function SpawnBearger()
+	local function SpawnTwister()
 		if _numSpawned < _targetNum and TheWorld.state.isspring and TheWorld.state.cycles > TUNING.NO_BOSS_TIME then
 			local spawndelay = .25 * TheWorld.state.remainingdaysinseason * TUNING.TOTAL_DAY_TIME / _targetNum
 			local spawnrandom = .25 * spawndelay
 			if _timetospawn == nil or _timetospawn > spawndelay + spawnrandom then
 				_timetospawn = GetRandomWithVariance(spawndelay, spawnrandom)
 			end
-			--print("Spawning Bearger ", _timetospawn)
+			--print("Spawning Twister ", _timetospawn)
 			self.inst:StartUpdatingComponent(self)
 		else
 			_timetospawn = nil
@@ -144,22 +135,22 @@ return Class(function(self, inst)
 	--------------------------------------------------------------------------
 
 	local function OnSeasonTick(src, data)
-		-- If bearger gets killed and bearger isn't set to lots, _lastBeargerKillDay will be set
+		-- If twister gets killed and twister isn't set to lots, _lastTwisterKillDay will be set
 		-- In this case, we need to not respawn until the following spring, so let's make sure that
 		-- a fairly large number of days has passed since the kill.
-		--print("BeargerSpawner got isspring event", _lastBeargerKillDay or "nil", TheWorld.state.cycles)
+		--print("TwisterSpawner got isspring event", _lastTwisterKillDay or "nil", TheWorld.state.cycles)
 
-		if data.season == "spring" and (not _lastBeargerKillDay or ((TheWorld.state.cycles - _lastBeargerKillDay) > TUNING.NO_BOSS_TIME)) then
+		if data.season == "spring" and (not _lastTwisterKillDay or ((TheWorld.state.cycles - _lastTwisterKillDay) > TUNING.NO_BOSS_TIME)) then
 			_targetNum = 0
 			local chance = math.random()
-			--print("Spawning first bearger?", chance, _firstBeargerSpawnChance)
-			if chance < _firstBeargerSpawnChance then
+			--print("Spawning first twister?", chance, _firstTwisterSpawnChance)
+			if chance < _firstTwisterSpawnChance then
 				_targetNum = _targetNum + 1
 			end
 
 			chance = math.random()
-			--print("Spawning second bearger?", chance, _secondBeargerSpawnChance)
-			if _targetNum > 0 and chance < _secondBeargerSpawnChance then
+			--print("Spawning second twister?", chance, _secondTwisterSpawnChance)
+			if _targetNum > 0 and chance < _secondTwisterSpawnChance then
 				_targetNum = _targetNum + 1
 			end
 
@@ -178,10 +169,10 @@ return Class(function(self, inst)
 
 			-- if _numSpawned is less than _targetNum, then allow spawning
 			if _numSpawned < _targetNum then
-				SpawnBearger()
+				SpawnTwister()
 			end
 			--else
-			--print("BeargerSpawner got end spring")
+			--print("TwisterSpawner got end spring")
 		end
 	end
 
@@ -208,27 +199,27 @@ return Class(function(self, inst)
 	end
 
 	local function OnHasslerRemoved(src, hassler)
-		--print("Bearger removed", hassler)
+		--print("Twister removed", hassler)
 		_activehasslers[hassler] = nil
 	end
 
 
 	local function OnHasslerKilled(src, hassler)
-		--print("Bearger killed", hassler)
+		--print("Twister killed", hassler)
 		_activehasslers[hassler] = nil
 		_timetospawn = nil
 		_targetplayer = nil
 
 
-		-- If WorldSettings has Bearger = Lots, then let Beargers respawn immediately after being killed instead
+		-- If WorldSettings has Twister = Lots, then let Twisters respawn immediately after being killed instead
 		-- of waiting for the following spring
-		if (_firstBeargerSpawnChance >= 1 and _secondBeargerSpawnChance >= 1) then
-			--print("Bearger settings were lots, respawning immediately")
+		if (_firstTwisterSpawnChance >= 1 and _secondTwisterSpawnChance >= 1) then
+			--print("Twister settings were lots, respawning immediately")
 			_numSpawned = _numSpawned - 1
-			SpawnBearger()
+			SpawnTwister()
 		else
-			_lastBeargerKillDay = TheWorld.state.cycles
-			--print("Kill day is", _lastBeargerKillDay)
+			_lastTwisterKillDay = TheWorld.state.cycles
+			--print("Kill day is", _lastTwisterKillDay)
 		end
 	end
 
@@ -236,16 +227,16 @@ return Class(function(self, inst)
 	--[[ Public member functions ]]
 	--------------------------------------------------------------------------
 
-	function self:SetSecondBeargerChance(chance)
-		_secondBeargerSpawnChance = chance
+	function self:SetSecondTwisterChance(chance)
+		_secondTwisterSpawnChance = chance
 	end
 
-	function self:SetFirstBeargerChance(chance)
-		_firstBeargerSpawnChance = chance
+	function self:SetFirstTwisterChance(chance)
+		_firstTwisterSpawnChance = chance
 	end
 
 	local function _DoWarningSpeech(player)
-		--TODO: bearger specific strings
+		--TODO: twister specific strings
 		player.components.talker:Say(GetString(player, "ANNOUNCE_DEERCLOPS"))
 	end
 
@@ -260,7 +251,7 @@ return Class(function(self, inst)
 	function self:DoWarningSound(_targetplayer)
 		--Players near _targetplayer will hear the warning sound from the
 		--same direction and volume offset from their own local positions
-		SpawnPrefab("beargerwarning_lvl" ..
+		SpawnPrefab("twisterwarning_lvl" ..
 			(((_timetospawn == nil or
 					_timetospawn < 30) and "4") or
 				(_timetospawn < 60 and "3") or
@@ -270,7 +261,7 @@ return Class(function(self, inst)
 	end
 
 	function self:OnUpdate(dt)
-		--print("BeargerSpawner time to spawn is ", _timetospawn or "nil", _numSpawned or "0", _targetNum or "0")
+		--print("TwisterSpawner time to spawn is ", _timetospawn or "nil", _numSpawned or "0", _targetNum or "0")
 		if _timetospawn ~= nil then
 			_timetospawn = _timetospawn - dt
 			if _timetospawn <= 0 then
@@ -290,7 +281,7 @@ return Class(function(self, inst)
 				if not _warning and _timetospawn < _warnduration then
 					-- let's pick a random player here
 					PickPlayer()
-					--print("Bearger warning player", _targetplayer)
+					--print("Twister warning player", _targetplayer)
 					if not _targetplayer then
 						return
 					end
@@ -319,9 +310,9 @@ return Class(function(self, inst)
 					self:DoWarningSound(_targetplayer)
 				end
 			end
-		elseif CanSpawnBearger() then
-			--print("BeargerSpawner OnUpdate spawning bearger")
-			SpawnBearger()
+		elseif CanSpawnTwister() then
+			--print("TwisterSpawner OnUpdate spawning twister")
+			SpawnTwister()
 		end
 	end
 
@@ -339,7 +330,7 @@ return Class(function(self, inst)
 			warning = _warning,
 			timetospawn = _timetospawn,
 			targetnum = _targetNum,
-			lastKillDay = _lastBeargerKillDay,
+			lastKillDay = _lastTwisterKillDay,
 			numSpawned = _numSpawned,
 		}
 
@@ -361,10 +352,10 @@ return Class(function(self, inst)
 		_warning = data.warning or false
 		_timetospawn = data.timetospawn
 		_targetNum = data.targetnum or 0
-		_lastBeargerKillDay = data.lastKillDay
+		_lastTwisterKillDay = data.lastKillDay
 		_numSpawned = data.numSpawned or 0
 
-		--print("Bearger OnLoad", _targetNum or "nil", _timetospawn or "nil", _numSpawned or "nil", _lastBeargerKillDay or "nil")
+		--print("Twister OnLoad", _targetNum or "nil", _timetospawn or "nil", _numSpawned or "nil", _lastTwisterKillDay or "nil")
 		self.inst:StopUpdatingComponent(self)
 	end
 
@@ -377,10 +368,10 @@ return Class(function(self, inst)
 			end
 		end
 
-		--print("BeargerSpawner LoadPostPass")
+		--print("TwisterSpawner LoadPostPass")
 
 
-		if CanSpawnBearger() then
+		if CanSpawnTwister() then
 			self.inst:StartUpdatingComponent(self)
 		end
 	end
@@ -398,7 +389,7 @@ return Class(function(self, inst)
 		elseif _timetospawn > 0 then
 			s = s ..
 				string.format(
-					"%s Bearger is coming in %2.2f (next warning in %2.2f), target number: %d, current number: %d",
+					"%s Twister is coming in %2.2f (next warning in %2.2f), target number: %d, current number: %d",
 					_warning and "WARNING" or "WAITING", _timetospawn, _timetonextwarningsound, _targetNum, _numSpawned)
 		else
 			s = s .. string.format("SPAWNING!!!")
