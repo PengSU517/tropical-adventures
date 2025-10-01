@@ -40,18 +40,18 @@ end)
 
 --- world_network postinit
 --- #1
--- AddPrefabPostInitAny(function(inst)
---     if not TheWorld or TheWorld.net ~= inst then
---         return
---     end
+AddPrefabPostInitAny(function(inst)
+    if not TheWorld or TheWorld.net ~= inst then
+        return
+    end
 
---     if TUNING.aporkalypse then
---         print("add aporkalypse in world net")
---         inst:AddComponent("aporkalypse")
---     else
---         print("not add aporkalypse in world net")
---     end
--- end)
+    if TUNING.aporkalypse then
+        print("add aporkalypse in world net")
+        inst:AddComponent("aporkalypse")
+    else
+        print("not add aporkalypse in world net")
+    end
+end)
 
 --- #2
 -- if TUNING.aporkalypse then
@@ -61,20 +61,21 @@ end)
 -- end
 
 --- #3
-if TUNING.aporkalypse then
-    local worldnetworks = {}
-    local MakeWorldNetwork = require("prefabs/world_network")
-    local function WorldNetPostInit(inst)
-        inst:AddComponent("aporkalypse")
-    end
-    package.loaded["prefabs/world_network"] = function(name, ...)
-        if not worldnetworks[name] then
-            worldnetworks[name] = true
-            AddPrefabPostInit(name, WorldNetPostInit)
-        end
-        return MakeWorldNetwork(name, ...)
-    end
-end
+-- if TUNING.aporkalypse then
+--     print("add aporkalypse in world net  package load")
+--     local worldnetworks = {}
+--     local MakeWorldNetwork = require("prefabs/world_network")
+--     local function WorldNetPostInit(inst)
+--         inst:AddComponent("aporkalypse")
+--     end
+--     package.loaded["prefabs/world_network"] = function(name, ...)
+--         if not worldnetworks[name] then
+--             worldnetworks[name] = true
+--             AddPrefabPostInit(name, WorldNetPostInit)
+--         end
+--         return MakeWorldNetwork(name, ...)
+--     end
+-- end
 -------------------------
 
 AddPrefabPostInit("forest_network", function(inst)
