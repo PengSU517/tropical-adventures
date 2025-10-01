@@ -58,8 +58,12 @@ function EntityScript:IsOutsideWorld()
     return TheWorld.Map:IsOutsideWorldAtPoint(self:GetPosition():Get())
 end
 
-function EntityScript:IsInTemperateArea()
-    return TheWorld.Map:IsTemperateAreaAtPoint(self:GetPosition():Get())
+function EntityScript:IsNotInForestArea()
+    return TheWorld.Map:IsNotForestAreaAtPoint(self:GetPosition():Get())
+end
+
+function EntityScript:IsInForestArea()
+    return TheWorld.Map:IsForestAreaAtPoint(self:GetPosition():Get())
 end
 
 function EntityScript:IsOnLandTile()

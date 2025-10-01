@@ -253,10 +253,6 @@ Map.IsHamRoomWallAtPoint = function(self, x, y, z)
 end
 
 Map.IsOutsideWorldAtPoint = function(self, x, y, z)
-    if type(x) == "table" then
-        x, z = x.x or x, x.z or z
-    end
-
     if checkxz(x, z) then --判断的基础，也许光判断z就行了
         return true
     end
@@ -264,7 +260,12 @@ Map.IsOutsideWorldAtPoint = function(self, x, y, z)
 end
 
 
-Map.IsTemperateAreaAtPoint = function(self, x, y, z)
+Map.IsNotForestAreaAtPoint = function(self, x, y, z)
+    return self:IsOutsideWorldAtPoint(x, y, z) or
+        self:IsTropicalAreaAtPoint(x, y, z)
+end
+
+Map.IsForestAreaAtPoint = function(self, x, y, z)
     return not self:IsOutsideWorldAtPoint(x, y, z) and
         not self:IsTropicalAreaAtPoint(x, y, z)
 end

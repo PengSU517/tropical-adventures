@@ -14,7 +14,7 @@ AddPrefabPostInit("snowball_item", function(inst)
         return
     end
     inst:DoTaskInTime(0, function()
-        if not inst:IsInTemperateArea() then
+        if not inst:IsInForestArea() then
             inst:Remove()
         end
     end)

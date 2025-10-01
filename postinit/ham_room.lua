@@ -131,16 +131,6 @@ AddPrefabPostInit("world", function(inst)
     inst:AddComponent("getposition_hamroom")
 end)
 
-AddPrefabPostInit("dirtpile", function(inst)
-    if TheWorld.ismastersim then
-        inst:DoTaskInTime(0, function(...)
-            if inst:IsInHamRoom() then
-                inst:Remove()
-            end
-        end)
-    end
-end)
-
 
 ---------spidereggsack
 local _custom_candeploy_fn = function(inst, pt, mouseover, deployer, rot)
@@ -192,18 +182,6 @@ AddPrefabPostInit("telestaff", function(inst)
         end
     end
 end)
-
---陷坑
-AddComponentPostInit("sinkholespawner", function(self, inst)
-    local old_SpawnSinkhole = self.SpawnSinkhole
-    self.SpawnSinkhole = function(self, spawnpt, ...)
-        if TheWorld.Map:IsHamRoomAtPoint(spawnpt.x, 0, spawnpt.z) then
-            return false
-        else
-            old_SpawnSinkhole(self, spawnpt, ...)
-        end
-    end
-end) --farming_manager
 
 
 
@@ -340,25 +318,6 @@ end)
 
 
 
---清除积雪覆盖效果
-local Old_MakeSnowCovered = GLOBAL.MakeSnowCovered
-local function ClearSnowCoveredPristine(inst)
-    inst.AnimState:ClearOverrideSymbol("snow", "snow", "snow")
-    inst:RemoveTag("SnowCovered")
-    inst.AnimState:Hide("snow")
-end
-GLOBAL.MakeSnowCovered = function(inst, ...)
-    Old_MakeSnowCovered(inst, ...)
-    inst:DoTaskInTime(0, function()
-        if inst.Transform ~= nil then
-            local x, y, z = inst.Transform:GetWorldPosition()
-            if TheWorld.Map:IsHamRoomAtPoint(x, y, z) then
-                ClearSnowCoveredPristine(inst)
-            end
-        end
-    end)
-end
-
 
 --是否枯萎
 AddComponentPostInit("witherable", function(self)
@@ -384,72 +343,6 @@ end)
 --         end
 --     end
 -- end)
-
-
-
-AddPrefabPostInit("forest", function(inst)
-    if not TheWorld.ismastersim then
-        return
-    end
-
-    --青蛙雨
-    local frograin = upvaluehelper.GetWorldHandle(inst, "israining", "components/frograin") --下雨
-    ----最终搜到的也不是这个组件，而只是worldhandle对应的函数
-    if frograin then
-        -- print("找到青蛙雨了")
-        local GetSpawnPoint = upvaluehelper.Get(frograin, "GetSpawnPoint")
-        if GetSpawnPoint ~= nil then
-            local old = GetSpawnPoint
-            local function newGetSpawnPoint(pt)
-                if TheWorld.Map:IsHamRoomAtPoint(pt:Get()) then
-                    -- print("成功")
-                    return nil
-                end
-                return old(pt)
-            end
-            upvaluehelper.Set(frograin, "GetSpawnPoint", newGetSpawnPoint)
-        end
-    end
-
-    --玻璃雨
-    local lunarrain = upvaluehelper.GetWorldHandle(inst, "islunarhailing", "components/lunarhailmanager") --下雨
-
-    if lunarrain then
-        -- print("找到玻璃雨了")
-        local GetSpawnPoint = upvaluehelper.Get(lunarrain, "GetSpawnPoint")
-        if GetSpawnPoint ~= nil then
-            local old = GetSpawnPoint
-            local function newGetSpawnPoint(pt)
-                if TheWorld.Map:IsHamRoomAtPoint(pt:Get()) then
-                    -- print("成功玻璃雨")
-                    return nil
-                end
-                return old(pt)
-            end
-            upvaluehelper.Set(lunarrain, "GetSpawnPoint", newGetSpawnPoint)
-        end
-    end
-
-
-    ---野火
-    local wildfires = upvaluehelper.GetEventHandle(TheWorld, "ms_lightwildfireforplayer", "components/wildfires") --野火
-    if wildfires then
-        local LightFireForPlayer = upvaluehelper.Get(wildfires, "LightFireForPlayer")
-        if LightFireForPlayer ~= nil then
-            local old = LightFireForPlayer
-            local function NewLightFireForPlayer(player, rescheduleFn)
-                if player ~= nil then
-                    local x, y, z = player.Transform:GetWorldPosition()
-                    if TheWorld.Map:IsHamRoomAtPoint(x, y, z) then
-                        return
-                    end
-                end
-                old(player, rescheduleFn)
-            end
-            upvaluehelper.Set(wildfires, "LightFireForPlayer", NewLightFireForPlayer)
-        end
-    end
-end)
 
 -----屏蔽 闪电 ---暂时先这样
 AddPrefabPostInitAny(function(inst)
