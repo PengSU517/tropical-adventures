@@ -63,6 +63,7 @@ local function fn2()
     inst:AddTag("NOBLOCK") -------应该是这个的block
     inst:AddTag("birdblocker")
     inst:AddTag("wall")
+    inst:AddTag("wall_room")
 
     return inst
 end

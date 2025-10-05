@@ -30,7 +30,7 @@ local function createroom(inst)
 	z = TheWorld.components.contador:GetZ()
 
 	---------------------------cria a parede inicio------------------------------------------------------------------	
-	local tipodemuro = "wall_tigerpond"
+	local tipodemuro = "wall_invisible"
 	---------------------------cria a parede inicio -------------------------------------
 	---------------------------parade dos aposento------------------------------------------------------------------	
 	local y = 0

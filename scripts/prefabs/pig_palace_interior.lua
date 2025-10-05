@@ -158,7 +158,7 @@ local function entrance()
 
 
 		---------------------------cria a parede inicio------------------------------------------------------------------	
-		local tipodemuro = "wall_tigerpond"
+		local tipodemuro = "wall_invisible"
 		---------------------------cria a parede inicio -------------------------------------
 		---------------------------cria a parede inicio------------------------------------------------------------------	
 		local y = 0
@@ -792,7 +792,7 @@ local function entrance()
 
 
 			---------------------------cria a parede inicio------------------------------------------------------------------	
-			local tipodemuro = "wall_tigerpond"
+			local tipodemuro = "wall_invisible"
 			---------------------------parade dos aposento------------------------------------------------------------------	
 			local y = 0
 
@@ -1114,7 +1114,7 @@ local function entrance()
 			z = TheWorld.components.contador:GetZ()
 
 			---------------------------cria a parede inicio------------------------------------------------------------------	
-			local tipodemuro = "wall_tigerpond"
+			local tipodemuro = "wall_invisible"
 			---------------------------parade dos aposento------------------------------------------------------------------	
 			local y = 0
 
