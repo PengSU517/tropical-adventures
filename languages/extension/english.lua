@@ -103,6 +103,18 @@ TA_STRINGS.ACTIONS.CHARGE_UP                                 = "Charge"
 TA_STRINGS.ACTIONS.PUNCH                                     = "Punch"
 TA_STRINGS.CHARACTERS.GENERIC.ANNOUNCE_SUITUP                = "For Science!"
 
+TA_STRINGS.TROPICAL_RECIPETOOLTIP = {
+    ANTIVENOM = "Gain resistance for a period of time after detoxification",
+    ARMORVORTEXCLOAK = "Can be held in hand when there are no items inside",
+    BOAT_ITEM = "Slightly resistant to the impact of waves",
+    BOAT_BUMPER_KELP_KIT = "Slightly resistant to the impact of waves",
+    BOAT_BUMPER_SHELL_KIT = "Slightly resistant to the impact of waves",
+    BOATMETAL_ITEM = "More resistant to the impact of waves",
+    BUGNET = "It can be used to catch jellyfish on the sea surface",
+    LUNARPLANTHAT = "Free from the disturbance of fog and noise",
+    PUGALISKFOUNTAIN_MADE = "Nourish and cool the surround",
+    VOIDCLOTHHAT = "Free from the disturbance of fog and noise",
+}
 
 -- Name of Things --
 
