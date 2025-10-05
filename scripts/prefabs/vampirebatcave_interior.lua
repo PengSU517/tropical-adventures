@@ -48,7 +48,7 @@ local function entrance()
 		inst.exit.Transform:SetPosition(TheWorld.components.contador:GetX() - 8, 0, TheWorld.components.contador:GetZ())
 	end
 	---------------------------cria a parede inicio------------------------------------------------------------------	
-	local tipodemuro = "wall_tigerpond"
+	local tipodemuro = "wall_invisible"
 	---------------------------cria a parede inicio -------------------------------------
 	---------------------------parade dos aposento------------------------------------------------------------------	
 

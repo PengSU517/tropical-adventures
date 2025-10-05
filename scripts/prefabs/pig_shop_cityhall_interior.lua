@@ -148,7 +148,7 @@ local function entrance()
 		inst.exit = SpawnPrefab("pig_shop_cityhall_door_saida")
 		inst.exit.Transform:SetPosition(x + 5.2, 0, z + 0.5)
 		---------------------------cria a parede inicio------------------------------------------------------------------	
-		local tipodemuro = "wall_tigerpond" --这应该是墙柱子
+		local tipodemuro = "wall_invisible" --这应该是墙柱子
 		---------------------------cria a parede inicio -------------------------------------
 		---------------------------parade dos aposento------------------------------------------------------------------	
 		-- local y = 0

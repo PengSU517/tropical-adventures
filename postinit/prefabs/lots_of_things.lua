@@ -218,7 +218,7 @@ AddPrefabPostInitAny(function(inst)
             local ents = TheSim:FindEntities(x, y, z, 20, { "wall_room" })
             if #ents <= 0 then
                 print("interior_center does not have wall")
-                local tipodemuro = "wall_tigerpond"
+                local tipodemuro = "wall_invisible"
                 for xx = -40, 40 do
                     for zz = -40, 40 do
                         if CheckNearRoomCenter(xx / 2, zz / 2, rsize) then
