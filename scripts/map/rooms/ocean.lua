@@ -57,6 +57,9 @@ AddRoom("WaterMangrove", {
 
         countprefabs = {
             watertree_pillar2 = 1,
+            seatarospawner = 1,
+            oxwaterspawner = 1,
+            
 
         },
         prefabspawnfn = {
