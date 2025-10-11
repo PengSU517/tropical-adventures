@@ -1792,6 +1792,7 @@ SortAfter("transmute_cork", "transmute_twigs_tro", "CHARACTER")
 AddCharacterRecipe("transmute_driftwood_log_tro", { Ingredient("cork", 2) }, TECH.NONE,
 	{ product = "driftwood_log", builder_skill = "wilson_alchemy_1", description = "transmute_driftwood_log_tro" })
 SortAfter("transmute_driftwood_log_tro", "transmute_cork", "CHARACTER")
+
 -- WORNWOOD
 AddCharacterRecipe("wormwood_seaweed_stalk",
 	{ Ingredient(CHARACTER_INGREDIENT.HEALTH, 10), Ingredient("spoiled_food", 3), Ingredient("kelp", 8) }, TECH.NONE,
@@ -1799,8 +1800,7 @@ AddCharacterRecipe("wormwood_seaweed_stalk",
 		builder_skill = "wormwood_juicyberrybushcrafting",
 		product = "seaweed_stalk",
 		sg_state = "form_log",
-		actionstr =
-		"GROW",
+		actionstr = "GROW",
 		allowautopick = true,
 		no_deconstruction = true,
 		description = "wormwood_seaweed_stalk"

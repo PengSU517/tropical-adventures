@@ -1,6 +1,6 @@
 require "prefabutil"
 
---local cooking = require("smelting")
+--local cooking = require("tools/smelting")
 
 
 local assets =
@@ -43,7 +43,7 @@ end
 local function ShowProduct(inst)
 	if not inst:HasTag("burnt") then
 		local product = inst.components.melter.product
-		local smelting = require("smelting")
+		local smelting = require("tools/smelting")
 		if product ~= "smeltingrecipecard" then
 			local build, symbol = smelting.getOverrideSymbol(product)
 			inst.AnimState:OverrideSymbol("swap_item", build or GetInventoryItemAtlas(product .. ".tex"),
@@ -291,7 +291,7 @@ local function fn(Sim)
 	inst.entity:AddNetwork()
 
 	local minimap = inst.entity:AddMiniMapEntity()
-	minimap:SetIcon("cookpot.tex")
+	minimap:SetIcon("smelter.tex")
 
 	local light = inst.entity:AddLight()
 	inst.Light:Enable(false)

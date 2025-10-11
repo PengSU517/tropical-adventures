@@ -1,7 +1,8 @@
---local cooking = require("smelting")
+--local cooking = require("tools/smelting")
 local night_time = 60
 local BASE_COOK_TIME = night_time * .3333
-local smelting = require("smelting")
+local smelting = require("tools/smelting")
+local recipes = require("datadefs/smeltrecipes").recipes
 
 local Melter = Class(function(self, inst)
 	self.inst = inst
@@ -24,7 +25,11 @@ local Melter = Class(function(self, inst)
 	self.specialcookername = nil -- a special cookername to check first before falling back to cookername default
 	self.productcooker = nil  -- hold on to the cookername that is cooking the current product
 
-	self.inst:AddTag("stewer")
+	-- self.inst:AddTag("stewer")
+
+	if not inst.components.stewer then
+		self.inst:AddComponent("stewer")
+	end
 end)
 
 local function dospoil(inst)
@@ -243,7 +248,7 @@ function Melter:StopCooking(reason)
 end
 
 function Melter:Harvest(harvester)
-	print("HERE?")
+	-- print("HERE?")
 	if self.done then
 		if self.onharvest then
 			self.onharvest(self.inst)
@@ -266,6 +271,10 @@ function Melter:Harvest(harvester)
 				end
 				]]
 				if loot then
+					local stacksize = recipes[self.product] and recipes[self.product].stacksize or 1
+					if stacksize > 1 then
+						loot.components.stackable:SetStackSize(stacksize)
+					end
 					--[[
                     loot.targetMoisture = 0
 					loot:DoTaskInTime(2*FRAMES, function()

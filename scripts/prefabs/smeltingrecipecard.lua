@@ -1,4 +1,4 @@
-local smelting = require("smelting")
+local smelting = require("tools/smelting")
 local recipes = smelting.recipes
 
 local function SetRecipe(inst, recipe_name)
@@ -21,8 +21,8 @@ local function getdesc(inst, viewer)
                 { num = card.attributes[1][2], ing = STRINGS.NAMES[string.upper(card.attributes[1][1])] })
             for i = 2, #card.attributes do
                 ing_str = ing_str ..
-                subfmt(STRINGS.SMELTINGRECIPECARD_DESC.INGREDIENTS_MORE,
-                    { num = card.attributes[i][2], ing = STRINGS.NAMES[string.upper(card.attributes[i][1])] })
+                    subfmt(STRINGS.SMELTINGRECIPECARD_DESC.INGREDIENTS_MORE,
+                        { num = card.attributes[i][2], ing = STRINGS.NAMES[string.upper(card.attributes[i][1])] })
             end
 
             return subfmt(STRINGS.SMELTINGRECIPECARD_DESC.BASE,
