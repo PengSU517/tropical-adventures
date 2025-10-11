@@ -752,13 +752,13 @@ developer_options =
 configuration_options = {}
 
 table_insert(configuration_options, Breaker("Client Adjustments", "客户端调整"))
-table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
-table_insert(configuration_options, Breaker("Belows are Client Settings", "以下为客户端设置"))
-table_insert(configuration_options, Breaker("DO NOT WORK ", "“创建游戏”时设置无效"))
-table_insert(configuration_options, Breaker("WHEN HOSTING GAME", ""))
-table_insert(configuration_options, Breaker("please go to Mods setting", "请调整主界面的“模组”设置"))
-table_insert(configuration_options, Breaker("IN THE MAIN MENU", ""))
-table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
+-- table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
+-- table_insert(configuration_options, Breaker("Belows are Client Settings", "以下为客户端设置"))
+-- table_insert(configuration_options, Breaker("DO NOT WORK ", "“创建游戏”时设置无效"))
+-- table_insert(configuration_options, Breaker("WHEN HOSTING GAME", ""))
+-- table_insert(configuration_options, Breaker("please go to Mods setting", "请调整主界面的“模组”设置"))
+-- table_insert(configuration_options, Breaker("IN THE MAIN MENU", ""))
+-- table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
 for i, v in my_ipairs(personal_options) do
     table_insert(configuration_options, v)
 end
@@ -777,11 +777,11 @@ end
 
 
 table_insert(configuration_options, Breaker("Experimental Options", "实验性选项"))
-table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
-table_insert(configuration_options, Breaker("Belows are Experimental Settings", "以下为实验性设置"))
-table_insert(configuration_options, Breaker("PLEASE DISABLE THEM", "如有问题请关闭"))
-table_insert(configuration_options, Breaker("WHEN ENCOUNTERING PROBLEMS", ""))
-table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
+-- table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
+-- table_insert(configuration_options, Breaker("Belows are Experimental Settings", "以下为实验性设置"))
+-- table_insert(configuration_options, Breaker("PLEASE DISABLE THEM", "如有问题请关闭"))
+-- table_insert(configuration_options, Breaker("WHEN ENCOUNTERING PROBLEMS", ""))
+-- table_insert(configuration_options, Breaker("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"))
 for i, v in my_ipairs(experimental_options) do
     table_insert(configuration_options, v)
 end
