@@ -74,7 +74,7 @@ end
 
 params.smelter = deepcopy(params.cookpot)
 params.smelter.widget.buttoninfo.text = STRINGS.ACTIONS.SMELT
-local smelting = require("smelting")
+local smelting = require("tools/smelting")
 function params.smelter.itemtestfn(container, item, slot)
     return smelting.isAttribute(item.prefab)
 end

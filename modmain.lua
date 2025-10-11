@@ -20,6 +20,7 @@ modimport "main/postinit" --postinit相关全都在这里
 modimport "main/recipe_tabs"
 modimport "main/recipes"
 modimport "main/cooking_recipes"
+modimport "main/smelting_recipes"
 modimport "main/skins"
 modimport "main/characters"
 modimport "main/tropical_fx"

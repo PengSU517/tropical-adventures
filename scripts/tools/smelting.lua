@@ -1,43 +1,20 @@
 -- @author: Runar
 -- cooking style
 local Path = "@../mods/workshop-2896126381/scripts/smelting.lua:"
-
-local Attributes = {
-    greengem = { gem = 27, }, -- gem
-    yellowgem = { gem = 9, },
-    orangegem = { gem = 3, },
-    purplegem = { gem = 1, },
-    bluegem = { gem = .5, },
-    redgem = { gem = .5, },
-    iron = { iron = 1, }, -- iron
-    magnifying_glass = { iron = 1, },
-    goldpan = { iron = 1, },
-    ballpein_hammer = { iron = 1, },
-    shears = { iron = 1, },
-    candlehat = { iron = 1, },
-    halberd = { iron = 1, },
-    armor_metalplate = { iron = 1, },
-    metalplatehat = { iron = 1, },
-    obsidian = { nitro = 2.5, }, -- nitro
-    nitre = { nitro = 1, },
-    flint = { nitro = .25, },
-    goldnugget = { gold = 1, }, -- gold
-    dubloon = { gold = .5, },
-    gold_dust = { gold = .25, },
-    rocks = { mineral = .25, }, -- mineral
-}
-
-local Products = require("datadefs/smeltrecipes")
-
+local Attributes = {}
+local Products = {}
 local smelt_cards = {}
-local function AddSmeltCard(recipename)
-    table.insert(smelt_cards, recipename)
+
+
+function AddSmeltCard(recipe)
+    table.insert(smelt_cards, recipe)
 end
-for k, v in pairs(Products) do
-    if v.card_def then
-        AddSmeltCard(k)
-    end
-end
+
+-- for k, v in pairs(Products) do
+--     if v.card_def then
+--         AddSmeltCard(k)
+--     end
+-- end
 
 --- AddMeltAttributeValue({ "iron" }, { iron = 1 })
 ---@param names table 添加到炼钢炉的物品名表，如 "{ "iron" }"
@@ -53,26 +30,30 @@ function AddMeltAttributeValue(names, tags)
             Attributes[name][tagname] = tagval
         end
     end
+
+    -- AddIngredientValues(names, tags, false, false)
 end
 
 -- AddMeltProduct({ alloy = { priority = 5, test = { iron = 4 } } })
 ---@param recipes table 添加到炼钢炉配方的表，需要有优先级 "priority" 以及测试函数 "test"
-local function AddMeltProduct(recipes)
+function AddMeltProduct(recipes)
     for name, recipe in pairs(recipes) do
-        assert(not Products[name], Path .. "59: attempt to add existed melt recipe \"" .. name .. "\"")
-        assert(type(recipe.test) == "table", Path .. "59: attempt to add non recipe for \"" .. name .. "\"")
-        Products[name] = {
-            priority = recipe.priority or 0,
-            test = {},
-            overridebuild = recipe.overridebuild or name,
-            overridesymbolname =
-                recipe.overridesymbolname or name
-        }
-        for attrtag, attrval in pairs(recipe.test) do
-            assert(type(attrtag) == "string", Path .. "63: attempt to add non attribute tag to \"" .. name .. "\"")
-            assert(type(attrval) == "number", Path .. "63: attempt to add non attribute value to \"" .. name .. "\"")
-            Products[name].test[attrtag] = attrval
-        end
+        -- assert(not Products[name], Path .. "59: attempt to add existed melt recipe \"" .. name .. "\"")
+        -- assert(type(recipe.test) == "table", Path .. "59: attempt to add non recipe for \"" .. name .. "\"")
+
+        Products[name] = recipe
+        -- Products[name] = {
+        --     priority = recipe.priority or 0,
+        --     test = {},
+        --     overridebuild = recipe.overridebuild or name,
+        --     overridesymbolname =
+        --         recipe.overridesymbolname or name
+        -- }
+        -- for attrtag, attrval in pairs(recipe.test) do
+        --     assert(type(attrtag) == "string", Path .. "63: attempt to add non attribute tag to \"" .. name .. "\"")
+        --     assert(type(attrval) == "number", Path .. "63: attempt to add non attribute value to \"" .. name .. "\"")
+        --     Products[name].test[attrtag] = attrval
+        -- end
     end
 end
 
@@ -115,10 +96,10 @@ local function isAttribute(item)
 end
 
 return {
-    -- attributes = Attributes,
+    attributes = Attributes,
     recipes = Products,
     cards = smelt_cards,
-    AddMeltProduct = AddMeltProduct,
+    -- AddMeltProduct = AddMeltProduct,
     -- getMeltAttr = getAttr,
     getMeltProd = getProd,
     getOverrideSymbol = getOverrideSymbol,
