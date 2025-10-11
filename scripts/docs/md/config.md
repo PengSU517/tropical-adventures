@@ -117,3 +117,86 @@ print("shard id is " .. id) ----关键是在客户端获取不到啊
 
 local server_name = TheNet:GetServerName()
 print("server_name is " .. (server_name or "nil"))
+
+
+
+if not TheNet:IsDedicated() then
+    local server_name = TheNet:GetServerName()
+    print("server_name: " .. (server_name or "nil"))
+
+    local desc = tostring(TheNet:GetServerDescription())
+    print("des: ")
+    print(desc)
+
+    local mods = TheNet:GetServerModNames()
+    print("mods: ")
+    print(mods)
+
+    if type(mods) == "table" then
+        for i, v in pairs(mods) do
+            print(i, v)
+        end
+    end
+
+
+    for i, v in pairs(instrument_userdata(TheNet)) do
+        print(i, v)
+    end
+
+    print("ShardIndex: ")
+    if ShardGameIndex and ShardGameIndex.GetGenOptions then
+        print(ShardGameIndex:GetGenOptions())
+    end
+end
+
+
+
+
+
+
+-- if not TheNet:IsDedicated() then
+--     -- print("TA Mod Loading server listing")
+
+--     -----可以拿到服务器的所有信息，但是怎么确定当前连接的shard是个问题
+--     local success, data = RunInSandboxSafeCatchInfiniteLoops(TheNet:GetServerListing().world_gen_data)
+--     ------TheNet:GetServerListingFromActualIndex
+--     local decoded_data = DecodeAndUnzipString(data.str)
+--     for i, v in pairs(decoded_data) do
+--         print("---------------------------------------------------------------------------")
+--         print(i, v)
+--         for ii, vv in pairs(v) do
+--             print(ii, vv)
+--             if type(vv) == "table" and ii == "overrides" then
+--                 print("overrides---------------------------")
+--                 for iii, vvv in pairs(vv) do
+--                     print(iii, vvv)
+--                 end
+--             end
+--         end
+--     end
+--     print("---------------------------------the net---------------------------------")
+--     for i, v in pairs(instrument_userdata(TheNet)) do
+--         print(i, v)
+--     end
+
+--     local id = TheShard:GetShardId()
+--     print("shard id is " .. id) ----关键是在客户端获取不到啊
+
+--     -- local function DoLoadWorldOverrides()
+--     --     local function onload(savedata)
+--     --         if savedata then
+--     --             print("load world overrides savedata")
+--     --             print(savedata)
+--     --         end
+--     --     end
+--     --     local shardGameIndex = shardGameIndex or ShardGameIndex
+--     --     if not shardGameIndex then
+--     --         require("shardindex")
+--     --         shardGameIndex = ShardIndex()
+--     --         shardGameIndex:Load()
+--     --     end
+
+--     --     shardGameIndex:GetSaveData(onload)
+--     -- end
+--     -- DoLoadWorldOverrides()
+-- end
