@@ -1,12 +1,11 @@
 local assets =
 {
     Asset("ANIM", "anim/walkingstick.zip"),
-    Asset("ANIM", "anim/swap_walkingstick.zip"),
     --Asset("INV_IMAGE", "cane"),
 }
 
 local function OnEquip(inst, owner)
-    owner.AnimState:OverrideSymbol("swap_object", "swap_walkingstick", "swap_walkingstick")
+    owner.AnimState:OverrideSymbol("swap_object", "walkingstick", "swap_walkingstick")
     owner.AnimState:Show("ARM_carry")
     owner.AnimState:Hide("ARM_normal")
 
