@@ -104,6 +104,7 @@ modimport("postinit/components/unwrappable") ---为批量交易提供支持
 modimport("postinit/components/wavemanager")
 modimport("postinit/components/worldmigrator")
 modimport("postinit/components/worldstate")
+-- modimport("postinit/components/hunter_insight")
 
 --prefabs
 -- modimport("postinit/prefabs/cave")
