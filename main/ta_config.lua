@@ -1,4 +1,9 @@
+modimport("modinfo")
 GLOBAL.TA_CONFIG = {}
+
+local customize_dat = require("datadefs/customization")
+local worldgen_options = customize_dat.worldgen_options
+local climate_options = customize_dat.climate_options
 
 ----这个函数在modmain和非世界生成阶段的modworldgenmain运行正常？，thesim只在modmain存在，还是说只在生成世界之后存在呢
 local function ModGetLocalLevelDataOverride()
@@ -59,6 +64,7 @@ local function AddConfigAndTuning(config, source)
 
     config.WORLDGEN = addconfig({}, source, worldgen_options)
     config.CLIMATE = addconfig({}, source, climate_options)
+
     config.PERSONAL = addconfig({}, {}, personal_options, true)                       ----这里读取客机配置
     config.DEVELOP = addconfig({}, {}, developer_options)
     config.DEPENDENCY = { ndnr = KnownModIndex:IsModEnabled("workshop-2823458540"), } ----富贵险中求
@@ -129,5 +135,4 @@ if rawget(_G, "TheSim") then
     end
 end
 
------相关内容迁移到了 "tools/configutil",因为需要复用
 AddConfigAndTuning(TA_CONFIG, world_overrides)

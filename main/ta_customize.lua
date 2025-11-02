@@ -1,5 +1,3 @@
-modimport("modinfo")
-
 local locale = LanguageTranslator.defaultlang
 
 local function en_zh(en, zh)
@@ -7,33 +5,9 @@ local function en_zh(en, zh)
 end
 
 local LEVELCATEGORY = LEVELCATEGORY
-local dstgen_atlas = "images/worldgen_customization.xml"
-local dstset_atlas = "images/worldsettings_customization.xml"
-local dst_atlas = "images/customisation.xml"
-local sw_atlas = "images/hud/customization_shipwrecked.xml"
-local ham_atlas = "images/hud/customization_porkland.xml"
-
-
-local options_enable = {
-    { text = en_zh("Disabled", "关闭"), data = false },
-    { text = en_zh("Enabled", "开启"), data = true },
-}
-
-local worldgen_customization = deepcopy(worldgen_options)
-local climate_customization = deepcopy(climate_options)
-local ta_customization = { worldgen_customization, climate_customization }
-for i1, v1 in ipairs(ta_customization) do
-    for i2, v2 in ipairs(v1) do
-        -- print(v2.name or "can not find the name")
-        v2.desc = v2.options
-        v2.value = v2.default
-        if v2.desc then
-            for i3, v3 in ipairs(v2.desc) do
-                v3.text = v3.description
-            end
-        end
-    end
-end
+local customize_dat = require("datadefs/customization")
+local worldgen_customization = customize_dat.worldgen_options
+local climate_customization = customize_dat.climate_options
 
 local ta_customize_table = {
     ta_worldgen = {
