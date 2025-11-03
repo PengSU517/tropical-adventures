@@ -10,38 +10,80 @@ local WORLD_TILES = WORLD_TILES
 local GROUND = GROUND
 
 
-local DEFAULT_OCEAN_COLOR =
+local SHALLOW_SHORE_OCEAN_COLOR =
 {
-    primary_color = { 0, 255, 200, 0 },
-    secondary_color = { 0, 110, 86, 0 },
-    secondary_color_dusk = { 0, 110, 76, 0 },
-    minimap_color = { 23, 62, 51, 102 },
-}
-
-local MANGROVE_COLOR =
-{
-    primary_color = { 84, 155, 101, 60 },
-    secondary_color = { 52, 84, 50, 140 },
-    secondary_color_dusk = { 52, 84, 50, 50 },
-    minimap_color = { 84, 155, 101, 50 },
-}
-
-local OCEAN_CORAL_COLOR =
-{
-    primary_color = { 220, 240, 255, 160 },
+    primary_color = { 220, 240, 255, 60 },
     secondary_color = { 21, 96, 110, 140 },
     secondary_color_dusk = { 0, 0, 0, 50 },
     minimap_color = { 23, 51, 62, 102 },
 }
 
-local LILYPOND_COLOR =
+local SHALLOW_OCEAN_COLOR =
 {
-    primary_color = { 20, 80, 55, 5 },
-    secondary_color = { 20, 80, 55, 5 },
-    secondary_color_dusk = { 20, 80, 55, 5 },
-    minimap_color = { 20, 80, 55, 5 },
+    primary_color = { 0, 255, 255, 100 }, --{ 20, 255, 150, 255 },--255是全白   透明度调成0就是完全透明（基底颜色且没有纹理）
+    secondary_color = { 25, 123, 167, 100 },
+    secondary_color_dusk = { 10, 120, 125, 120 },
+    minimap_color = { 23, 51, 62, 102 },
 }
 
+local MEDIUM_OCEAN_COLOR =
+{
+    primary_color = { 150, 255, 255, 18 },
+    secondary_color = { 0, 45, 80, 220 },
+    secondary_color_dusk = { 9, 52, 57, 150 },
+    minimap_color = { 14, 34, 61, 204 },
+}
+
+local DEEP_OCEAN_COLOR =
+{
+    primary_color = { 10, 200, 220, 30 },
+    secondary_color = { 1, 20, 45, 230 },
+    secondary_color_dusk = { 5, 20, 25, 230 },
+    minimap_color = { 19, 20, 40, 230 },
+}
+
+local SHIPGRAVEYARD_OCEAN_COLOR =
+{
+    primary_color = { 255, 255, 255, 25 },
+    secondary_color = { 0, 8, 18, 51 },
+    secondary_color_dusk = { 0, 0, 0, 150 },
+    minimap_color = { 8, 8, 14, 51 },
+}
+
+local MANGROVE_OCEAN_COLOR =
+{
+    primary_color = { 5, 185, 220, 60 },
+    secondary_color = { 5, 20, 45, 200 },
+    secondary_color_dusk = { 5, 15, 20, 200 },
+    minimap_color = { 40, 87, 93, 51 },
+}
+
+local CORAL_OCEAN_COLOR =
+{
+    primary_color = { 220, 255, 255, 28 },
+    secondary_color = { 25, 123, 167, 100 },
+    secondary_color_dusk = { 10, 120, 125, 120 },
+    minimap_color = { 40, 87, 93, 51 },
+}
+
+local LILYPOND_SHORE_OCEAN_COLOR =
+{
+    primary_color = { 5, 185, 220, 60 },
+    secondary_color = { 5, 20, 45, 200 },
+    secondary_color_dusk = { 5, 15, 20, 200 },
+    minimap_color = { 40, 87, 93, 51 },
+}
+
+local WAVETINTS =
+{
+    shallow = { 0.8, 0.9, 1 },
+    rough = { 0.65, 0.84, 0.94 },
+    swell = { 0.65, 0.84, 0.94 },
+    brinepool = { 0.65, 0.92, 0.94 },
+    hazardous = { 0.40, 0.50, 0.62 },
+    waterlog = { 1, 1, 1 },
+    lilypond = { 1, 1, 1 },
+}
 
 GLOBAL.setfenv(1, GLOBAL) --这个是让所有的全局变量挂在global上
 
@@ -72,7 +114,7 @@ local TileRanges =
 }
 
 
-local tro_tiledefs = {
+tro_tiledefs = {
 
 
     -------------------以下为水体地皮---------------------
@@ -87,7 +129,7 @@ local tro_tiledefs = {
             noise_texture = "sw/water_mangrove",
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
-            -- colors = MANGROVE_COLOR,
+            colors = MANGROVE_OCEAN_COLOR,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -108,8 +150,8 @@ local tro_tiledefs = {
             -- is_shoreline = true,   -------------加上
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
-            -- colors = LILYPOND_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
-            -- wavetint = WAVETINTS.waterlog,
+            colors = LILYPOND_SHORE_OCEAN_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
+            wavetint = WAVETINTS.waterlog,
             is_shoreline = true,
         },
         minimap_tile_def = {
@@ -129,7 +171,7 @@ local tro_tiledefs = {
             noise_texture = "sw/water_coral", --   "ground_water_coral",
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
-            -- colors = OCEAN_CORAL_COLOR,
+            colors = CORAL_OCEAN_COLOR,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -147,8 +189,9 @@ local tro_tiledefs = {
             name = "sw/water_shallow",
             noise_texture = "sw/water_shallow",
             flashpoint_modifier = 250,
-            -- is_shoreline = true,
+            is_shoreline = true,
             ocean_depth = "SHALLOW",
+            colors = SHALLOW_SHORE_OCEAN_COLOR,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -166,6 +209,7 @@ local tro_tiledefs = {
             noise_texture = "sw/water_shallow",
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
+            colors = SHALLOW_OCEAN_COLOR,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -185,6 +229,7 @@ local tro_tiledefs = {
             noise_texture = "sw/water_medium",
             flashpoint_modifier = 250,
             ocean_depth = "DEEP",
+            colors = MEDIUM_OCEAN_COLOR,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -202,6 +247,7 @@ local tro_tiledefs = {
             noise_texture = "sw/water_deep",
             flashpoint_modifier = 250,
             ocean_depth = "VERY_DEEP",
+            colors = DEEP_OCEAN_COLOR,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -219,6 +265,7 @@ local tro_tiledefs = {
             noise_texture = "sw/water_graveyard",
             flashpoint_modifier = 250,
             ocean_depth = "BASIC",
+            colors = SHIPGRAVEYARD_OCEAN_COLOR,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -1001,16 +1048,16 @@ ChangeTileRenderOrder(WORLD_TILES.FOUNDATION, WORLD_TILES.WOODFLOOR, true)
 -- ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.OCEAN_COASTAL, false)
 -- ChangeTileRenderOrder(WORLD_TILES.OCEAN_COASTAL, WORLD_TILES.OCEAN_COASTAL, false)---这种海洋地皮不可能在陆地地皮上面
 
-ChangeTileRenderOrder(WORLD_TILES.LILYPOND, WORLD_TILES.DIRT, false)
-ChangeTileRenderOrder(WORLD_TILES.OCEAN_CORAL, WORLD_TILES.DIRT, false)
-ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.DIRT, false)
--- ChangeTileRenderOrder(WORLD_TILES.OCEAN_COASTAL, WORLD_TILES.CARPET2, true)---这种海洋地皮不可能在陆地地皮上面
-ChangeTileRenderOrder(WORLD_TILES.OCEAN_SHALLOW, WORLD_TILES.MONKEY_DOCK, false)
-ChangeTileRenderOrder(WORLD_TILES.OCEAN_SHALLOW_SHORE, WORLD_TILES.MONKEY_DOCK, false)
-ChangeTileRenderOrder(WORLD_TILES.OCEAN_MEDIUM, WORLD_TILES.MONKEY_DOCK, false)
-ChangeTileRenderOrder(WORLD_TILES.OCEAN_DEEP, WORLD_TILES.MONKEY_DOCK, false)
-ChangeTileRenderOrder(WORLD_TILES.OCEAN_CORAL, WORLD_TILES.MONKEY_DOCK, false)
-ChangeTileRenderOrder(WORLD_TILES.OCEAN_SHIPGRAVEYARD, WORLD_TILES.MONKEY_DOCK, false)
+ChangeTileRenderOrder(WORLD_TILES.LILYPOND, WORLD_TILES.OCEAN_COASTAL, false)
+ChangeTileRenderOrder(WORLD_TILES.OCEAN_CORAL, WORLD_TILES.OCEAN_COASTAL, false)
+-- ChangeTileRenderOrder(WORLD_TILES.MANGROVE, WORLD_TILES.DIRT, false)
+-- -- ChangeTileRenderOrder(WORLD_TILES.OCEAN_COASTAL, WORLD_TILES.CARPET2, true)---这种海洋地皮不可能在陆地地皮上面
+-- ChangeTileRenderOrder(WORLD_TILES.OCEAN_SHALLOW, WORLD_TILES.MONKEY_DOCK, false)
+-- ChangeTileRenderOrder(WORLD_TILES.OCEAN_SHALLOW_SHORE, WORLD_TILES.MONKEY_DOCK, false)
+-- ChangeTileRenderOrder(WORLD_TILES.OCEAN_MEDIUM, WORLD_TILES.MONKEY_DOCK, false)
+-- ChangeTileRenderOrder(WORLD_TILES.OCEAN_DEEP, WORLD_TILES.MONKEY_DOCK, false)
+-- ChangeTileRenderOrder(WORLD_TILES.OCEAN_CORAL, WORLD_TILES.MONKEY_DOCK, false)
+-- ChangeTileRenderOrder(WORLD_TILES.OCEAN_SHIPGRAVEYARD, WORLD_TILES.MONKEY_DOCK, false)
 
 
 

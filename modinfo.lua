@@ -135,54 +135,15 @@ end
 
 
 
-personal_options =
+
+
+global_options =
 {
-    {
-        name = "room_view_key",
-        label = en_zh("Room view", "房间视角"),
-        hover = en_zh("lower or higher view", "拉低/拉高视角"),
-        options = options_pairedkey,
-        default = "mp", ----  -/+
-    },
 
     {
-        name = "build_height_key",
-        label = en_zh("Building height", "建造高度"),
-        hover = en_zh("windows or hanging section while building", "窗户、悬挂型建筑高度调整"),
-        options = options_pairedkey,
-        default = "du", ----  "↓/↑"
-    },
-
-    {
-        name = "build_rotation_key",
-        label = en_zh("Building rotation", "建造角度"),
-        hover = en_zh("wall sections, rugs and some decorations", "墙饰/地毯和部分装饰物的建造角度"),
-        options = options_pairedkey,
-        default = "qe", ----  q/e
-    },
-
-    {
-        name = "boatlefthud",
-        label = en_zh("Boat HUD(Vertical Adjustment)", "海难船只HUD高度补偿"),
-        hover = en_zh(
-            "Here u can adjust the height of the ShipWreck Boat HUD(It's already self-adapted)",
-            "在这里可以调整海难船只HUD的高度补偿(自适应调整)"),
-        options =
-        {
-            { description = "0", data = 0 },
-            { description = "↑20", data = 20 },
-            { description = "↑40", data = 40 },
-            { description = "↑80", data = 80 },
-        },
-        default = 0,
-    },
-
-
-
-    {
-        name = "ocean_color", ----这是纯客机
-        label = en_zh("Ocean filter", "海洋滤镜"),
-        hover = en_zh("Ocean Filter, only working with default dst ocean", "海洋滤镜，仅对原版海洋有效"),
+        name = "ocean_style", ----这是纯客机
+        label = en_zh("Ocean Style", "海洋风格"),
+        hover = en_zh("Ocean Style", "海洋风格"),
         options =
         {
             {
@@ -196,20 +157,15 @@ personal_options =
                 data = "tropical"
             },
 
-            -- {
-            --     description = en_zh("All Blue ", "碧蓝"),
-            --     hover = en_zh("A new style", "碧蓝的联机海洋"),
-            --     data = "blue"
-            -- },
+            {
+                description = en_zh("Mixed Blue ", "碧蓝"),
+                hover = en_zh("tropical dst oceam", "热带风格的联机海洋"),
+                data = "blue"
+            },
 
         },
-        default = "default",
+        default = "blue",
     },
-
-}
-
-experimental_options =
-{
 
     {
         name = "compatible_adjustment",
@@ -272,7 +228,53 @@ developer_options =
     } or {}, ]]
 }
 
+client_options =
+{
+    {
+        name = "room_view_key",
+        label = en_zh("Room view", "房间视角"),
+        hover = en_zh("lower or higher view", "拉低/拉高视角"),
+        options = options_pairedkey,
+        default = "mp", ----  -/+
+    },
 
+    {
+        name = "build_height_key",
+        label = en_zh("Building height", "建造高度"),
+        hover = en_zh("windows or hanging section while building", "窗户、悬挂型建筑高度调整"),
+        options = options_pairedkey,
+        default = "du", ----  "↓/↑"
+    },
+
+    {
+        name = "build_rotation_key",
+        label = en_zh("Building rotation", "建造角度"),
+        hover = en_zh("wall sections, rugs and some decorations", "墙饰/地毯和部分装饰物的建造角度"),
+        options = options_pairedkey,
+        default = "qe", ----  q/e
+    },
+
+    {
+        name = "boatlefthud",
+        label = en_zh("Boat HUD(Vertical Adjustment)", "海难船只HUD高度补偿"),
+        hover = en_zh(
+            "Here u can adjust the height of the ShipWreck Boat HUD(It's already self-adapted)",
+            "在这里可以调整海难船只HUD的高度补偿(自适应调整)"),
+        options =
+        {
+            { description = "0", data = 0 },
+            { description = "↑20", data = 20 },
+            { description = "↑40", data = 40 },
+            { description = "↑80", data = 80 },
+        },
+        default = 0,
+    },
+
+
+
+
+
+}
 
 configuration_options = {}
 
@@ -283,17 +285,18 @@ if isdev then
     end
 end
 
-table_insert(configuration_options, Breaker("Experimental Options", "实验性选项"))
-for i, v in my_ipairs(experimental_options) do
+table_insert(configuration_options, Breaker("Global Options", "全局选项"))
+for i, v in my_ipairs(global_options) do
     table_insert(configuration_options, v)
 end
 
+table_insert(configuration_options, Breaker("WHEN HOSTING GAME", ""))
 table_insert(configuration_options, Breaker("Client Adjustments", "客户端调整"))
 table_insert(configuration_options, Breaker("Belows are Client Settings", "以下为客户端设置"))
 table_insert(configuration_options, Breaker("DO NOT WORK ", "“创建游戏”时设置无效"))
 table_insert(configuration_options, Breaker("WHEN HOSTING GAME", ""))
 
-for i, v in my_ipairs(personal_options) do
+for i, v in my_ipairs(client_options) do
     table_insert(configuration_options, v)
 end
 
