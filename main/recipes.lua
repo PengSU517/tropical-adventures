@@ -52,6 +52,20 @@ AddRecipe2 = function(name, ingredients, tech, config, filters)
 	-- end
 	if not AllRecipes[name] then
 		old_addrecipe2(name, ingredients, tech, config, filters)
+
+		-- Handle sorting directly in AddRecipe2
+		if config then
+			if config.sort_before then
+				for _, sort_config in ipairs(config.sort_before) do
+					SortBefore(name, sort_config.recipe, sort_config.filter)
+				end
+			end
+			if config.sort_after then
+				for _, sort_config in ipairs(config.sort_after) do
+					SortAfter(name, sort_config.recipe, sort_config.filter)
+				end
+			end
+		end
 	else
 		local newname = name .. "_other"
 		STRINGS.NAMES[string.upper(newname)] = (STRINGS.NAMES[string.upper(name)] or STRINGS.NAMES.UNKNOWN)
@@ -81,10 +95,12 @@ AddRecipe2("pugaliskfountain_made",
 AddRecipe2("armorvortexcloak", { Ingredient("ancient_remnant", 5), Ingredient("armor_sanity", 1) }, TECH.LOST, {
 
 	image = "armorvortexcloak.tex",
+	sort_after = {
+		{ recipe = "dreadstonehat", filter = "ARMOUR" },
+		{ recipe = "dreadstonehat", filter = "MAGIC" },
+		{ recipe = "seedpouch",     filter = "CONTAINERS" }
+	}
 }, { "ARMOUR", "MAGIC", "CONTAINERS" })
-SortAfter("armorvortexcloak", "dreadstonehat", "ARMOUR")
-SortAfter("armorvortexcloak", "dreadstonehat", "MAGIC")
-SortAfter("armorvortexcloak", "seedpouch", "CONTAINERS")
 
 AddRecipe2("armorvoidcloak",
 	{ Ingredient("armorvortexcloak", 1), Ingredient("horrorfuel", 4), Ingredient("voidcloth", 4),
@@ -92,10 +108,16 @@ AddRecipe2("armorvoidcloak",
 		nounlock = true,
 
 		image = "armorvoidcloak.tex",
+		sort_after = {
+			{ recipe = "voidclothhat", filter = "CRAFTING_STATION" }
+		}
 	}, { "CRAFTING_STATION" })
-SortAfter("armorvoidcloak", "voidclothhat", "CRAFTING_STATION")
 AddRecipe2("living_artifact", { Ingredient("infused_iron", 6), Ingredient("waterdrop", 1) }, TECH.LOST,
-	{}, { "MAGIC", "ARMOUR" })
+	{
+		sort_after = {
+			{ recipe = "armorvortexcloak", filter = "MAGIC" }
+		}
+	}, { "MAGIC", "ARMOUR" })
 AddRecipe2("honeychest",
 	{ Ingredient("chitin", 6), Ingredient("beeswax", 1), Ingredient("honey", 3) }, TECH.LOST,
 	{
@@ -110,30 +132,38 @@ AddRecipe2("wx78module_movespeed_sw",
 	{ Ingredient("scandata", 2), Ingredient("crab", 1) }, TECH.ROBOTMODULECRAFT_ONE, {
 		builder_tag = "upgrademoduleowner",
 		product = "wx78module_movespeed",
+		sort_after = {
+			{ recipe = "wx78module_movespeed", filter = "CHARACTER" }
+		}
 	}, { "CHARACTER" })
-SortAfter("wx78module_movespeed_sw", "wx78module_movespeed", "CHARACTER")
 
 AddRecipe2("wx78module_movespeed_ham",
 	{ Ingredient("scandata", 2), Ingredient("piko", 1) }, TECH.ROBOTMODULECRAFT_ONE, {
 		builder_tag = "upgrademoduleowner",
 		product = "wx78module_movespeed",
+		sort_after = {
+			{ recipe = "wx78module_movespeed_sw", filter = "CHARACTER" }
+		}
 	}, { "CHARACTER" })
-SortAfter("wx78module_movespeed_ham", "wx78module_movespeed_sw", "CHARACTER")
 
 AddRecipe2("wx78module_maxhunger_sw",
 	{ Ingredient("scandata", 3), Ingredient("shark_gills", 1), Ingredient("wx78module_maxhunger1", 1) },
 	TECH.ROBOTMODULECRAFT_ONE, {
 		builder_tag = "upgrademoduleowner",
 		product = "wx78module_maxhunger",
+		sort_after = {
+			{ recipe = "wx78module_maxhunger", filter = "CHARACTER" }
+		}
 	}, { "CHARACTER" })
-SortAfter("wx78module_maxhunger_sw", "wx78module_maxhunger", "CHARACTER")
 
 AddRecipe2("wx78module_taser_ham",
 	{ Ingredient("scandata", 5), Ingredient("feather_thunder", 1) }, TECH.ROBOTMODULECRAFT_ONE, {
 		builder_tag = "upgrademoduleowner",
 		product = "wx78module_taser",
+		sort_after = {
+			{ recipe = "wx78module_taser", filter = "CHARACTER" }
+		}
 	}, { "CHARACTER" })
-SortAfter("wx78module_taser_ham", "wx78module_taser", "CHARACTER")
 
 -- AddRecipe2("reno_window_greenhouse", { Ingredient("oinc", 8) }, TECH.HOME_ONE,
 -- 	{  nounlock = true },
@@ -170,15 +200,31 @@ AddRecipe2("loot_pumper",
 
 --CHARACTER--
 AddRecipe2("surfboard_item", { Ingredient("boards", 1), Ingredient("seashell", 1) }, TECH.NONE,
-	{ builder_tag = "walani", image = "surfboard_item.tex" }, { "CHARACTER" })
+	{
+		builder_tag = "walani",
+		image = "surfboard_item.tex",
+		sort_after = {
+			{ recipe = "wx78_scanner_item", filter = "CHARACTER" }
+		}
+	}, { "CHARACTER" })
 AddRecipe2("porto_woodlegsboat",
 	{ Ingredient("boards", 4), Ingredient("dubloon", 4), Ingredient("boatcannon", 1) }, TECH.NONE,
-	{ builder_tag = "woodlegs" }, { "CHARACTER" })
+	{
+		builder_tag = "woodlegs",
+		sort_after = {
+			{ recipe = "surfboard_item", filter = "CHARACTER" }
+		}
+	}, { "CHARACTER" })
 AddRecipe2("woodlegshat",
 	{ Ingredient("boneshard", 4), Ingredient("fabric", 3), Ingredient("dubloon", 10) },
 	TECH.NONE, { builder_tag = "woodlegs" }, { "CHARACTER" })
 AddRecipe2("poisonbalm", { Ingredient("livinglog", 1), Ingredient("venomgland", 1) }, TECH.NONE,
-	{ builder_tag = "plantkin" }, { "CHARACTER" })
+	{
+		builder_tag = "plantkin",
+		sort_after = {
+			{ recipe = "livinglog", filter = "CHARACTER" }
+		}
+	}, { "CHARACTER" })
 
 AddRecipe2("mermhouse_fisher_crafted",
 	{ Ingredient("boards", 5), Ingredient("cutreeds", 3), Ingredient("oceanfish_small_61_inv", 2) },
@@ -189,6 +235,9 @@ AddRecipe2("mermhouse_fisher_crafted",
 			local ground_tile = GLOBAL.TheWorld.Map:GetTileAtPoint(pt.x, pt.y, pt.z)
 			return ground_tile and (ground_tile == GROUND.MARSH or ground_tile == GROUND.TIDALMARSH)
 		end,
+		sort_after = {
+			{ recipe = "mermwatchtower", filter = "CHARACTER" }
+		},
 	}, { "CHARACTER" })
 AddRecipe2("mermhouse_tropical_crafted",
 	{ Ingredient("boards", 5), Ingredient("cutreeds", 3), Ingredient("oceanfish_small_61_inv", 2) },
@@ -250,7 +299,12 @@ AddRecipe2("obsidiancoconade",
 	{ Ingredient("coconade", 3), Ingredient("obsidian", 3), Ingredient("dragoonheart", 1) },
 	TECH.OBSIDIAN_TWO, { nounlock = true, numtogive = 3 }, { "CRAFTING_STATION" })
 AddRecipe2("book_meteor", { Ingredient("papyrus", 2), Ingredient("obsidian", 2) }, TECH.SCIENCE_TWO,
-	{ builder_tag = "bookbuilder", }, { "CHARACTER" })
+	{
+		builder_tag = "bookbuilder",
+		sort_after = {
+			{ recipe = "book_sleep", filter = "CHARACTER" }
+		}
+	}, { "CHARACTER" })
 
 -- AddRecipe2("book_gardening", { Ingredient("papyrus", 2), Ingredient("seeds", 1), Ingredient("poop", 1) },
 -- 	TECH.SCIENCE_TWO, { builder_tag = "bookbuilder", }, { "CHARACTER" })
@@ -263,22 +317,50 @@ AddRecipe2("sail_stick",
 	TECH.OBSIDIAN_TWO, { nounlock = true }, { "CRAFTING_STATION" })
 
 --OTHER--
-AddRecipe2("machete", { Ingredient("flint", 3), Ingredient("twigs", 1) }, TECH.NONE, {}, { "TOOLS" })
-AddRecipe2("goldenmachete", { Ingredient("twigs", 4), Ingredient("goldnugget", 2) }, TECH.SCIENCE_TWO, {}, { "TOOLS" })
+AddRecipe2("machete", { Ingredient("flint", 3), Ingredient("twigs", 1) }, TECH.NONE, {
+	sort_after = {
+		{ recipe = "axe", filter = "TOOLS" }
+	}
+}, { "TOOLS" })
+AddRecipe2("goldenmachete", { Ingredient("twigs", 4), Ingredient("goldnugget", 2) }, TECH.SCIENCE_TWO, {
+	sort_after = {
+		{ recipe = "goldenaxe", filter = "TOOLS" }
+	}
+}, { "TOOLS" })
 AddRecipe2("telescope", { Ingredient("goldnugget", 1), Ingredient("pigskin", 1), Ingredient("messagebottleempty_sw", 1) },
-	TECH.SEAFARING_TWO, {}, { "TOOLS" })
+	TECH.SEAFARING_TWO, {
+		sort_after = {
+			{ recipe = "compass", filter = "TOOLS" }
+		}
+	}, { "TOOLS" })
 AddRecipe2("supertelescope", { Ingredient("telescope", 1), Ingredient("goldnugget", 1), Ingredient("tigereye", 1) },
-	TECH.SEAFARING_TWO, {}, { "TOOLS" })
+	TECH.SEAFARING_TWO, {
+		sort_after = {
+			{ recipe = "telescope", filter = "TOOLS" }
+		}
+	}, { "TOOLS" })
 AddRecipe2("monkeyball", { Ingredient("cave_banana", 1), Ingredient("snakeskin", 2), Ingredient("rope", 2) },
-	TECH.SCIENCE_ONE, {}, { "TOOLS" })
+	TECH.SCIENCE_ONE, {
+		sort_after = {
+			{ recipe = "megaflare", filter = "TOOLS" }
+		}
+	}, { "TOOLS" })
 AddRecipe2("chiminea", { Ingredient("log", 2), Ingredient("limestone", 3), Ingredient("sand", 2) },
 	TECH.NONE, { placer = "chiminea_placer" }, { "LIGHT", "COOKING" })
 AddRecipe2("bottlelantern", { Ingredient("messagebottleempty_sw", 1), Ingredient("bioluminescence", 2) },
 	TECH.SCIENCE_TWO, {}, { "LIGHT" })
 AddRecipe2("boat_lantern",
 	{ Ingredient("messagebottleempty_sw", 1), Ingredient("twigs", 2), Ingredient("bioluminescence", 1) },
-	TECH.SCIENCE_TWO, {}, { "LIGHT", "NAUTICAL" })
-AddRecipe2("boat_torch", { Ingredient("torch", 1), Ingredient("twigs", 2) }, TECH.ONE, {}, { "LIGHT", "NAUTICAL" })
+	TECH.SCIENCE_TWO, {
+		sort_after = {
+			{ recipe = "boat_torch", filter = "LIGHT" }
+		}
+	}, { "LIGHT", "NAUTICAL" })
+AddRecipe2("boat_torch", { Ingredient("torch", 1), Ingredient("twigs", 2) }, TECH.ONE, {
+	sort_after = {
+		{ recipe = "coldfirepit", filter = "LIGHT" }
+	}
+}, { "LIGHT", "NAUTICAL" })
 AddRecipe2("porto_sea_chiminea", { Ingredient("sand", 4), Ingredient("tar", 6), Ingredient("limestone", 6) },
 	TECH.SCIENCE_ONE, { image = "sea_chiminea.tex" }, { "LIGHT" })
 AddRecipe2("tarlamp", { Ingredient("seashell", 1), Ingredient("tar", 1) }, TECH.SCIENCE_ONE, {}, { "LIGHT" })
@@ -313,16 +395,39 @@ AddRecipe2("armorseashell",
 	{ Ingredient("seashell", 10), Ingredient("rope", 1), Ingredient("seaweed", 2) }, TECH.SCIENCE_TWO,
 	{}, { "ARMOUR" })
 AddRecipe2("bell", { Ingredient("glommerwings", 1), Ingredient("glommerflower", 1) }, TECH.MAGIC_TWO,
-	{}, { "MAGIC" })
+	{
+		sort_after = {
+			{ recipe = "ox_flute", filter = "MAGIC" }
+		}
+	}, { "MAGIC" })
 AddRecipe2("oxhat", { Ingredient("rope", 1), Ingredient("seashell", 4), Ingredient("ox_horn", 1) },
-	TECH.SCIENCE_ONE, {}, { "ARMOUR" })
+	TECH.SCIENCE_ONE, {
+		sort_after = {
+			{ recipe = "footballhat", filter = "ARMOUR" }
+		}
+	}, { "ARMOUR" })
 AddRecipe2("armorcactus", { Ingredient("needlespear", 3), Ingredient("armorwood", 1) }, TECH.SCIENCE_TWO,
-	{}, { "ARMOUR" })
+	{
+		sort_after = {
+			{ recipe = "armorlimestone", filter = "ARMOUR" }
+		}
+	}, { "ARMOUR" })
 AddRecipe2("snakeskinhat", { Ingredient("boneshard", 1), Ingredient("snakeskin", 1), Ingredient("strawhat", 1) },
-	TECH.SCIENCE_TWO, {}, { "CLOTHING", "RAIN" })
+	TECH.SCIENCE_TWO, {
+		sort_after = {
+			{ recipe = "rainhat", filter = "CLOTHING" },
+			{ recipe = "rainhat", filter = "RAIN" }
+		}
+	}, { "CLOTHING", "RAIN" })
 AddRecipe2("armor_snakeskin",
 	{ Ingredient("boneshard", 2), Ingredient("snakeskin", 2), Ingredient("vine", 1) }, TECH
-	.SCIENCE_TWO, {}, { "CLOTHING", "RAIN" })
+	.SCIENCE_TWO, {
+		sort_after = {
+			{ recipe = "raincoat", filter = "CLOTHING" },
+			{ recipe = "raincoat", filter = "RAIN" },
+			{ recipe = "raincoat", filter = "WINTER" }
+		}
+	}, { "CLOTHING", "RAIN", "WINTER" })
 AddRecipe2("palmleaf_umbrella", { Ingredient("twigs", 4), Ingredient("petals", 6), Ingredient("palmleaf", 3) },
 	TECH.NONE, {}, { "CLOTHING", "RAIN" })
 AddRecipe2("double_umbrellahat",
@@ -363,7 +468,13 @@ AddRecipe2("turf_snakeskinfloor", { Ingredient("snakeskin", 2), Ingredient("fabr
 	TECH.SCIENCE_TWO, { numtogive = 4 }, { "DECOR" })
 AddRecipe2("sand_castle",
 	{ Ingredient("sand", 4), Ingredient("palmleaf", 2), Ingredient("seashell", 3) }, TECH
-	.NONE, { placer = "sand_castle_placer" }, { "STRUCTURES" })
+	.NONE, {
+		placer = "sand_castle_placer",
+		sort_after = {
+			{ recipe = "sisturn",  filter = "STRUCTURES" },
+			{ recipe = "endtable", filter = "DECOR" }
+		}
+	}, { "STRUCTURES", "DECOR" })
 -- AddRecipe2("turf_road", { Ingredient("cutstone", 1), Ingredient("flint", 2) }, TECH.SCIENCE_TWO, { numtogive = 4 },
 -- 	{ "DECOR" })
 -- if GetModConfigData("kindofworld") == 10 then --WHAT?
@@ -373,15 +484,36 @@ AddRecipe2("sand_castle",
 
 AddRecipe2("dragoonden",
 	{ Ingredient("dragoonheart", 1), Ingredient("rocks", 5), Ingredient("obsidian", 4) },
-	TECH.SCIENCE_TWO, { placer = "dragoonden_placer" }, { "STRUCTURES" })
+	TECH.SCIENCE_TWO, {
+		placer = "dragoonden_placer",
+		sort_after = {
+			{ recipe = "rabbithouse", filter = "STRUCTURES" }
+		}
+	}, { "STRUCTURES" })
 AddRecipe2("wildborehouse",
 	{ Ingredient("pigskin", 4), Ingredient("palmleaf", 5), Ingredient("bamboo", 8) }, TECH.SCIENCE_TWO,
-	{ placer = "wildborehouse_placer", image = "wildborehouse_craft.tex" }, { "STRUCTURES" })
+	{
+		placer = "wildborehouse_placer",
+		image = "wildborehouse_craft.tex",
+		sort_after = {
+			{ recipe = "pighouse", filter = "STRUCTURES" }
+		}
+	}, { "STRUCTURES" })
 AddRecipe2("primeapebarrel", { Ingredient("twigs", 10), Ingredient("cave_banana", 3), Ingredient("poop", 4) },
-	TECH.SCIENCE_TWO, { placer = "primeapebarrel_placer" }, { "STRUCTURES" })
+	TECH.SCIENCE_TWO, {
+		placer = "primeapebarrel_placer",
+		sort_after = {
+			{ recipe = "porto_ballphinhouse", filter = "STRUCTURES" }
+		}
+	}, { "STRUCTURES" })
 AddRecipe2("porto_ballphinhouse",
 	{ Ingredient("limestone", 4), Ingredient("seaweed", 4), Ingredient("dorsalfin", 2) },
-	TECH.SCIENCE_ONE, { image = "ballphinhouse_craft.tex" }, { "STRUCTURES" })
+	TECH.SCIENCE_ONE, {
+		image = "ballphinhouse_craft.tex",
+		sort_after = {
+			{ recipe = "wildborehouse", filter = "STRUCTURES" }
+		}
+	}, { "STRUCTURES" })
 AddRecipe2("sandbag_item", { Ingredient("fabric", 2), Ingredient("sand", 3) }, TECH.SCIENCE_TWO,
 	{ numtogive = 4 }, { "STRUCTURES" })
 AddRecipe2("doydoynest", { Ingredient("twigs", 8), Ingredient("doydoyfeather", 2), Ingredient("poop", 4) },
@@ -405,17 +537,44 @@ AddRecipe2("mussel_bed", { Ingredient("mussel", 1), Ingredient("coral", 1) }, TE
 AddRecipe2("porto_fish_farm", { Ingredient("silk", 2), Ingredient("rope", 2), Ingredient("coconut", 4) },
 	TECH.SCIENCE_ONE, { image = "fish_farm.tex" }, { "GARDENING" })
 AddRecipe2("tropicalfan", { Ingredient("cutreeds", 2), Ingredient("rope", 2), Ingredient("doydoyfeather", 5) },
-	TECH.SCIENCE_TWO, {}, { "SUMMER" })
+	TECH.SCIENCE_TWO, {
+		sort_after = {
+			{ recipe = "featherfan", filter = "SUMMER" },
+			{ recipe = "featherfan", filter = "CLOTHING" }
+		}
+	}, { "SUMMER", "CLOTHING" })
 AddRecipe2("palmleaf_hut",
 	{ Ingredient("palmleaf", 4), Ingredient("bamboo", 4), Ingredient("rope", 3) },
-	TECH.SCIENCE_TWO, { placer = "palmleaf_hut_placer" }, { "SUMMER" })
+	TECH.SCIENCE_TWO, {
+		placer = "palmleaf_hut_placer",
+		sort_before = {
+			{ recipe = "lightning_rod", filter = "RAIN" }
+		},
+		sort_after = {
+			{ recipe = "siestahut", filter = "STRUCTURES" },
+			{ recipe = "siestahut", filter = "SUMMER" }
+		}
+	}, { "SUMMER", "RAIN", "STRUCTURES" })
 
 
 AddRecipe2("slow_farmplot", { Ingredient("cutgrass", 8), Ingredient("poop", 4), Ingredient("log", 4) }, TECH.SCIENCE_ONE,
-	{ min_spacing = 3.2, placer = "slow_farmplot_placer", image = "slow_farmplot.tex", }, { "GARDENING" })
+	{
+		min_spacing = 3.2,
+		placer = "slow_farmplot_placer",
+		image = "slow_farmplot.tex",
+		sort_after = {
+			{ recipe = "seedpouch", filter = "GARDENING" }
+		}
+	}, { "GARDENING" })
 AddRecipe2("fast_farmplot", { Ingredient("cutgrass", 10), Ingredient("poop", 6), Ingredient("rocks", 4) },
-	TECH.SCIENCE_ONE, { min_spacing = 3.2, placer = "fast_farmplot_placer", image = "fast_farmplot.tex", },
-	{ "GARDENING" })
+	TECH.SCIENCE_ONE, {
+		min_spacing = 3.2,
+		placer = "fast_farmplot_placer",
+		image = "fast_farmplot.tex",
+		sort_after = {
+			{ recipe = "slow_farmplot", filter = "GARDENING" }
+		}
+	}, { "GARDENING" })
 
 AddRecipe2("chickenhouse", { Ingredient("seeds", 6), Ingredient("boards", 4), Ingredient("feather_chicken", 2) },
 	TECH.SCIENCE_TWO, { placer = "chickenhouse_placer", }, { "STRUCTURES" })
@@ -463,46 +622,96 @@ AddRecipe2("boatcannon", { Ingredient("coconut", 6), Ingredient("log", 5), Ingre
 	TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
 AddRecipe2("obsidian_boatcannon",
 	{ Ingredient("obsidian", 6), Ingredient("log", 5), Ingredient("gunpowder", 4) },
-	TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
+	TECH.SEAFARING_TWO, {
+		sort_after = {
+			{ recipe = "obsidiancoconade", filter = "OBSIDIAN" }
+		}
+	}, { "NAUTICAL", "OBSIDIAN" })
 -- AddRecipe2("trawlnet", { Ingredient("bamboo", 2), Ingredient("rope", 3) }, TECH.SEAFARING_TWO,
 -- 	{},
 -- 	{ "NAUTICAL" })
 AddRecipe2("armor_lifejacket",
 	{ Ingredient("fabric", 2), Ingredient("vine", 2), Ingredient("messagebottleempty_sw", 2) },
-	TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
+	TECH.SEAFARING_TWO, {
+		sort_after = {
+			{ recipe = "armor_windbreaker", filter = "CLOTHING" }
+		}
+	}, { "NAUTICAL", "CLOTHING" })
 AddRecipe2("seatrap",
 	{ Ingredient("palmleaf", 4), Ingredient("messagebottleempty_sw", 2),
-		Ingredient("jellyfish", 1) }, TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
+		Ingredient("jellyfish", 1) }, TECH.SEAFARING_TWO, {
+		sort_after = {
+			{ recipe = "birdtrap", filter = "TOOLS" },
+			{ recipe = "birdtrap", filter = "GARDENING" }
+		}
+	}, { "NAUTICAL", "TOOLS", "GARDENING" })
 AddRecipe2("porto_buoy",
 	{ Ingredient("messagebottleempty_sw", 1), Ingredient("bamboo", 4),
-		Ingredient("bioluminescence", 2) }, TECH.SEAFARING_TWO, { image = "buoy.tex" },
-	{ "LIGHT", "NAUTICAL" })
+		Ingredient("bioluminescence", 2) }, TECH.SEAFARING_TWO, {
+		image = "buoy.tex",
+		sort_before = {
+			{ recipe = "nightlight", filter = "STRUCTURES" }
+		},
+		sort_after = {
+			{ recipe = "boat_lantern", filter = "LIGHT" }
+		}
+	}, { "LIGHT", "NAUTICAL", "STRUCTURES" })
 -- AddRecipe2("quackeringram",
 -- 	{ Ingredient("quackenbeak", 1), Ingredient("bamboo", 4), Ingredient("rope", 4) },
 -- 	TECH.SEAFARING_TWO, {}, { "NAUTICAL" })
 AddRecipe2("porto_tar_extractor",
 	{ Ingredient("coconut", 2), Ingredient("bamboo", 4), Ingredient("limestone", 4) },
-	TECH.SEAFARING_TWO, { image = "tar_extractor.tex" }, { "NAUTICAL" })
+	TECH.SEAFARING_TWO, {
+		image = "tar_extractor.tex",
+		sort_after = {
+			{ recipe = "icemaker", filter = "STRUCTURES" }
+		}
+	}, { "NAUTICAL", "STRUCTURES" })
 AddRecipe2("porto_sea_yard", { Ingredient("limestone", 6), Ingredient("tar", 6), Ingredient("log", 4) },
-	TECH.SEAFARING_TWO, { image = "sea_yard.tex" }, { "NAUTICAL" })
+	TECH.SEAFARING_TWO, {
+		image = "sea_yard.tex",
+		sort_after = {
+			{ recipe = "porto_tar_extractor", filter = "STRUCTURES" }
+		}
+	}, { "NAUTICAL", "STRUCTURES" })
 
 --HAMLET--
 -- if GetModConfigData("Hamlet") ~= 5 or GetModConfigData("startlocation") == 15 or GetModConfigData("kindofworld") == 5 then --GetModConfigData("painted_sands")
 AddRecipe2("shears", { Ingredient("twigs", 2), Ingredient("iron", 2) }, TECH.SCIENCE_ONE,
-	{},
+	{
+		sort_after = {
+			{ recipe = "goldenpitchfork", filter = "TOOLS" }
+		}
+	},
 	{ "TOOLS" })
 AddRecipe2("bugrepellent", { Ingredient("tuber_crop", 6), Ingredient("venus_stalk", 1) },
-	TECH.SCIENCE_ONE, {}, { "TOOLS" })
+	TECH.SCIENCE_ONE, {
+		sort_after = {
+			{ recipe = "reskin_tool", filter = "TOOLS" }
+		}
+	}, { "TOOLS" })
 AddRecipe2("clawpalmtree_cone", { Ingredient("cork", 1), Ingredient("poop", 1) }, TECH.SCIENCE_ONE, {
 }, { "REFINE" })
 AddRecipe2("venomgland", { Ingredient("froglegs_poison", 3) }, TECH.SCIENCE_TWO, {
 }, { "REFINE" })
-AddRecipe2("goldpan", { Ingredient("iron", 2), Ingredient("hammer", 1) }, TECH.SCIENCE_ONE, {},
+AddRecipe2("goldpan", { Ingredient("iron", 2), Ingredient("hammer", 1) }, TECH.SCIENCE_ONE, {
+		sort_after = {
+			{ recipe = "bugrepellent", filter = "TOOLS" }
+		}
+	},
 	{ "TOOLS", "LEGACY" })
 AddRecipe2("bathat", { Ingredient("pigskin", 2), Ingredient("batwing", 1), Ingredient("compass", 1) },
-	TECH.SCIENCE_TWO, {}, { "LIGHT" })
+	TECH.SCIENCE_TWO, {
+		sort_after = {
+			{ recipe = "molehat", filter = "LIGHT" }
+		}
+	}, { "LIGHT" })
 AddRecipe2("candlehat", { Ingredient("cork", 4), Ingredient("iron", 2) }, TECH.SCIENCE_ONE,
-	{}, { "LIGHT" })
+	{
+		sort_after = {
+			{ recipe = "cotl_tabernacle_level1", filter = "LIGHT" }
+		}
+	}, { "LIGHT" })
 AddRecipe2("glass_shards", { Ingredient("sand", 3) }, TECH.SCIENCE_ONE, {}, { "REFINE" })
 AddRecipe2("goldnugget", { Ingredient("gold_dust", 6) }, TECH.SCIENCE_ONE, {}, { "REFINE" })
 AddRecipe2("shard_sword",
@@ -538,9 +747,17 @@ AddRecipe2("sprinkler", { Ingredient("alloy", 2), Ingredient("bluegem", 1), Ingr
 AddRecipe2("smelter", { Ingredient("cutstone", 6), Ingredient("boards", 4), Ingredient("redgem", 1) },
 	TECH.SCIENCE_TWO, { placer = "smetler_placer" }, { "PROTOTYPERS" })
 AddRecipe2("ballpein_hammer", { Ingredient("iron", 2), Ingredient("twigs", 1) }, TECH.SCIENCE_ONE,
-	{}, { "TOOLS", "LEGACY" })
+	{
+		sort_after = {
+			{ recipe = "goldpan", filter = "TOOLS" }
+		}
+	}, { "TOOLS", "LEGACY" })
 AddRecipe2("magnifying_glass", { Ingredient("iron", 1), Ingredient("twigs", 1), Ingredient("bluegem", 1) },
-	TECH.SCIENCE_TWO, {}, { "TOOLS", "LEGACY" })
+	TECH.SCIENCE_TWO, {
+		sort_after = {
+			{ recipe = "ballpein_hammer", filter = "TOOLS" }
+		}
+	}, { "TOOLS", "LEGACY" })
 AddRecipe2("disguisehat", { Ingredient("twigs", 2), Ingredient("pigskin", 1), Ingredient("beardhair", 1) },
 	TECH.SCIENCE_TWO, {}, { "CLOTHING" })
 AddRecipe2("pithhat",
@@ -556,7 +773,7 @@ AddRecipe2("corkboatitem", { Ingredient("rope", 1), Ingredient("cork", 4) }, TEC
 	{ "NAUTICAL" })
 
 AddRecipe2("bonestaff", { Ingredient("pugalisk_skull", 1), Ingredient("boneshard", 1), Ingredient("nightmarefuel", 2) },
-	TECH.LOST, { "TOOLS", "MAGIC" })
+	TECH.LOST, {}, { "TOOLS", "WEAPONS", "MAGIC" })
 -- end
 
 
@@ -570,22 +787,45 @@ AddRecipe2("antler_corrupted", { Ingredient("antler", 1), Ingredient("nightmaref
 
 AddRecipe2("piratihatitator",
 	{ Ingredient("parrot", 1), Ingredient("boards", 4), Ingredient("piratehat", 1) }, TECH.SCIENCE_ONE,
-	{ placer = "piratihatitator_placer" }, { "PROTOTYPERS", "MAGIC", "STRUCTURES" })
-SortAfter("piratihatitator", "researchlab4", "PROTOTYPERS")
-SortAfter("piratihatitator", "researchlab4", "MAGIC")
-SortAfter("piratihatitator", "researchlab4", "STRUCTURES")
+	{
+		placer = "piratihatitator_placer",
+		sort_after = {
+			{ recipe = "researchlab4", filter = "PROTOTYPERS" },
+			{ recipe = "researchlab4", filter = "MAGIC" },
+			{ recipe = "researchlab4", filter = "STRUCTURES" }
+		}
+	}, { "PROTOTYPERS", "MAGIC", "STRUCTURES" })
 
 AddRecipe2("hogusporkusator",
 	{ Ingredient("pigskin", 4), Ingredient("boards", 4), Ingredient("feather_robin_winter", 4) },
-	TECH.SCIENCE_ONE, { placer = "hogusporkusator_placer" }, { "PROTOTYPERS", "MAGIC", "STRUCTURES" })
-SortAfter("hogusporkusator", "researchlab4", "PROTOTYPERS")
-SortAfter("hogusporkusator", "researchlab4", "MAGIC")
-SortAfter("hogusporkusator", "researchlab4", "STRUCTURES")
+	TECH.SCIENCE_ONE, {
+		placer = "hogusporkusator_placer",
+		sort_after = {
+			{ recipe = "piratihatitator", filter = "PROTOTYPERS" },
+			{ recipe = "piratihatitator", filter = "MAGIC" },
+			{ recipe = "piratihatitator", filter = "STRUCTURES" }
+		}
+	}, { "PROTOTYPERS", "MAGIC", "STRUCTURES" })
 
 --CITY----------------------------
 
 
 -- AddRecipe2("city_hammer", { Ingredient("iron", 2), Ingredient("twigs", 1) }, TECH.CITY_ONE,
+AddRecipe2("mutator_tropical", { Ingredient("mutator_warrior", 1), Ingredient("venomgland", 3) }, TECH.NONE,
+	{
+		builder_tag = "wurt",
+		sort_after = {
+			{ recipe = "mutator_warrior", filter = "CHARACTER" }
+		}
+	}, { "CHARACTER" })
+AddRecipe2("mutator_frost", { Ingredient("mutator_moon", 1), Ingredient("ice", 3) }, TECH.NONE,
+	{
+		builder_tag = "wurt",
+		sort_after = {
+			{ recipe = "mutator_moon", filter = "CHARACTER" }
+		}
+	}, { "CHARACTER" })
+
 -- 	{ --[[nounlock = true]] }, { "HAMLET" })
 AddRecipe2("securitycontract", { Ingredient("oinc", 10) }, TECH.CITY_ONE, { nounlock = false },
 	{ "HAMLET" })
@@ -1582,218 +1822,65 @@ AddRecipe2("bed8", { Ingredient("oinc", 22) }, TECH.HOME_ONE,
 	{ nounlock = false, min_spacing = 1, placer = "bed8_placer" }, { "INTERIOR" })
 
 -- Sort
-SortAfter("hammer", "pitchfork", "TOOLS")
-SortBefore("chiminea", "cotl_tabernacle_level1", "LIGHT")
-SortBefore("chiminea", "cotl_tabernacle_level1", "COOKING")
-SortBefore("chiminea", "cotl_tabernacle_level1", "WINTER")
-SortAfter("obsidianfirepit", "firepit", "LIGHT")
-SortAfter("obsidianfirepit", "firepit", "COOKING")
-SortAfter("obsidianfirepit", "firepit", "WINTER")
-SortAfter("bottlelantern", "lantern", "LIGHT")
-SortAfter("porto_sea_chiminea", "chiminea", "LIGHT")
-SortAfter("porto_sea_chiminea", "chiminea", "COOKING")
-SortAfter("porto_sea_chiminea", "chiminea", "WINTER")
-SortAfter("porto_waterchest", "treasurechest", "STRUCTURES")
-SortAfter("porto_waterchest", "treasurechest", "CONTAINERS")
-SortAfter("wall_limestone_item", "wall_stone_item", "STRUCTURES")
-SortAfter("wall_limestone_item", "wall_stone_item", "DECOR")
-SortAfter("wall_enforcedlimestone_item", "wall_limestone_item", "STRUCTURES")
-SortAfter("wall_enforcedlimestone_item", "wall_limestone_item", "DECOR")
-SortAfter("wildborehouse", "pighouse", "STRUCTURES")
-SortAfter("porto_ballphinhouse", "wildborehouse", "STRUCTURES")
-SortAfter("primeapebarrel", "porto_ballphinhouse", "STRUCTURES")
-SortAfter("dragoonden", "rabbithouse", "STRUCTURES")
-SortAfter("turf_snakeskinfloor", "turf_carpetfloor", "DECOR")
-SortAfter("sandbag_item", "wall_dreadstone_item", "STRUCTURES")
-SortAfter("sandbag_item", "wall_dreadstone_item", "DECOR")
-SortAfter("sand_castle", "sisturn", "STRUCTURES")
-SortAfter("sand_castle", "endtable", "DECOR")
-SortAfter("mussel_stick", "premiumwateringcan", "GARDENING")
-SortAfter("slow_farmplot", "seedpouch", "GARDENING")
-SortAfter("fast_farmplot", "slow_farmplot", "GARDENING")
-SortAfter("porto_fish_farm", "fast_farmplot", "GARDENING")
-SortAfter("mussel_bed", "compostwrap", "GARDENING")
-SortAfter("monkeyball", "megaflare", "TOOLS")
-SortAfter("palmleaf_umbrella", "grass_umbrella", "RAIN")
-SortAfter("palmleaf_umbrella", "grass_umbrella", "SUMMER")
-SortAfter("palmleaf_umbrella", "grass_umbrella", "CLOTHING")
-SortAfter("antivenom", "lifeinjector", "RESTORATION")
-SortBefore("thatchpack", "backpack", "CONTAINERS")
-SortBefore("thatchpack", "backpack", "CLOTHING")
-SortAfter("seasack", "icepack", "CONTAINERS")
-SortAfter("seasack", "icepack", "COOKING")
-SortAfter("seasack", "icepack", "CLOTHING")
-SortAfter("palmleaf_hut", "siestahut", "STRUCTURES")
-SortBefore("palmleaf_hut", "lightning_rod", "RAIN")
-SortAfter("palmleaf_hut", "siestahut", "SUMMER")
-SortAfter("tropicalfan", "featherfan", "SUMMER")
-SortAfter("tropicalfan", "featherfan", "CLOTHING")
-SortAfter("doydoynest", "rabbithouse", "STRUCTURES")
-SortAfter("machete", "axe", "TOOLS")
-SortAfter("goldenmachete", "goldenaxe", "TOOLS")
-SortAfter("porto_researchlab5", "researchlab2", "PROTOTYPERS")
-SortAfter("porto_researchlab5", "researchlab2", "STRUCTURES")
-SortBefore("icemaker", "icebox", "COOKING")
-SortAfter("icemaker", "firesuppressor", "SUMMER")
-SortAfter("icemaker", "smelter", "STRUCTURES")
-SortAfter("piratihatitator", "researchlab4", "PROTOTYPERS")
-SortAfter("piratihatitator", "researchlab4", "MAGIC")
-SortAfter("piratihatitator", "researchlab4", "STRUCTURES")
-SortAfter("hogusporkusator", "piratihatitator", "PROTOTYPERS")
-SortAfter("hogusporkusator", "piratihatitator", "MAGIC")
-SortAfter("hogusporkusator", "piratihatitator", "STRUCTURES")
-SortAfter("ox_flute", "panflute", "MAGIC")
-SortAfter("fabric", "beeswax", "REFINE")
-SortAfter("limestone", "fabric", "REFINE")
-SortAfter("nubbin", "limestone", "REFINE")
-SortAfter("goldnugget", "nubbin", "REFINE")
-SortAfter("ice", "goldnugget", "REFINE")
-SortAfter("messagebottleempty_sw", "ice", "REFINE")
-SortAfter("spear_poison", "spear", "WEAPONS")
-SortAfter("armorseashell", "armorwood", "ARMOUR")
-SortAfter("armorlimestone", "armormarble", "ARMOUR")
-SortAfter("armorcactus", "armorlimestone", "ARMOUR")
-SortAfter("oxhat", "footballhat", "ARMOUR")
-SortAfter("blowdart_poison", "blowdart_fire", "WEAPONS")
-SortAfter("coconade", "gunpowder", "WEAPONS")
-SortAfter("spear_launcher", "spear_wathgrithr_lightning", "WEAPONS")
-SortAfter("cutlass", "nightstick", "WEAPONS")
-SortAfter("brainjellyhat", "researchlab3", "PROTOTYPERS")
-SortAfter("brainjellyhat", "catcoonhat", "CLOTHING")
-SortAfter("shark_teethhat", "brainjellyhat", "CLOTHING")
-SortAfter("snakeskinhat", "rainhat", "CLOTHING")
-SortAfter("snakeskinhat", "rainhat", "RAIN")
-SortAfter("armor_snakeskin", "raincoat", "CLOTHING")
-SortAfter("armor_snakeskin", "raincoat", "RAIN")
-SortAfter("armor_snakeskin", "raincoat", "WINTER")
-SortAfter("blubbersuit", "armor_snakeskin", "CLOTHING")
-SortAfter("blubbersuit", "armor_snakeskin", "RAIN")
-SortAfter("blubbersuit", "armor_snakeskin", "WINTER")
-SortAfter("tarsuit", "blubbersuit", "CLOTHING")
-SortAfter("tarsuit", "blubbersuit", "RAIN")
-SortAfter("armor_windbreaker", "tarsuit", "CLOTHING")
-SortAfter("armor_windbreaker", "tarsuit", "RAIN")
-SortAfter("gashat", "brainjellyhat", "CLOTHING")
-SortAfter("gashat", "shark_teethhat", "CLOTHING")
-SortAfter("aerodynamichat", "gasmaskhat", "CLOTHING")
-SortAfter("double_umbrellahat", "eyebrellahat", "CLOTHING")
-SortAfter("double_umbrellahat", "eyebrellahat", "RAIN")
-SortAfter("double_umbrellahat", "eyebrellahat", "SUMMER")
-SortBefore("tarlamp", "lantern", "LIGHT")
-SortAfter("boat_torch", "coldfirepit", "LIGHT")
-SortAfter("boat_lantern", "boat_torch", "LIGHT")
-SortAfter("seatrap", "birdtrap", "TOOLS")
-SortAfter("seatrap", "birdtrap", "GARDENING")
-SortAfter("trawlnet", "oceanfishingrod", "TOOLS")
-SortAfter("trawlnet", "oceanfishingrod", "FISHING")
-SortAfter("telescope", "compass", "TOOLS")
-SortAfter("supertelescope", "telescope", "TOOLS")
-SortAfter("captainhat", "bushhat", "CLOTHING")
-SortAfter("piratehat", "captainhat", "CLOTHING")
-SortAfter("armor_lifejacket", "armor_windbreaker", "CLOTHING")
-SortBefore("porto_buoy", "nightlight", "STRUCTURES")
-SortAfter("porto_buoy", "boat_lantern", "LIGHT")
-SortAfter("quackendrill", "trawlnet", "TOOLS")
-SortAfter("porto_tar_extractor", "icemaker", "STRUCTURES")
-SortAfter("porto_sea_yard", "porto_tar_extractor", "STRUCTURES")
-SortAfter("turf_jungle", "turf_monkey_ground", "DECOR")
-SortAfter("turf_meadow", "turf_jungle", "DECOR")
-SortAfter("turf_tidalmarsh", "turf_meadow", "DECOR")
-SortAfter("turf_magmafield", "turf_tidalmarsh", "DECOR")
-SortAfter("turf_ash", "turf_magmafield", "DECOR")
-SortAfter("turf_volcano", "turf_ash", "DECOR")
-SortAfter("turf_beach", "turf_volcano", "DECOR")
-SortAfter("obsidian_boatcannon", "obsidiancoconade", "OBSIDIAN")
-SortAfter("surfboard_item", "wx78_scanner_item", "CHARACTER")
-SortAfter("woodlegshat", "surfboard_item", "CHARACTER")
-SortAfter("book_meteor", "book_sleep", "CHARACTER")
-SortAfter("mutator_tropical", "mutator_warrior", "CHARACTER")
-SortAfter("mutator_frost", "mutator_moon", "CHARACTER")
-SortAfter("poisonbalm", "livinglog", "CHARACTER")
-SortAfter("seaweed_stalk", "wormwood_lureplant", "CHARACTER")
-SortAfter("mermhouse_fisher_crafted", "mermwatchtower", "CHARACTER")
-SortAfter("shard_sword", "nightsword", "WEAPONS")
-SortAfter("shard_beak", "shard_sword", "WEAPONS")
-SortAfter("shard_sword", "nightsword", "MAGIC")
-SortAfter("shard_beak", "shard_sword", "MAGIC")
-SortAfter("shears", "goldenpitchfork", "TOOLS")
-SortAfter("halberd", "shears", "TOOLS")
-SortAfter("bugrepellent", "reskin_tool", "TOOLS")
-SortAfter("goldpan", "bugrepellent", "TOOLS")
-SortAfter("ballpein_hammer", "goldpan", "TOOLS")
-SortAfter("magnifying_glass", "ballpein_hammer", "TOOLS")
-SortAfter("bathat", "molehat", "LIGHT")
-SortAfter("candlehat", "cotl_tabernacle_level1", "LIGHT")
-SortAfter("smelter", "firesuppressor", "STRUCTURES")
-SortAfter("smelter", "wintersfeastoven", "PROTOTYPERS")
-SortAfter("basefan", "smelter", "STRUCTURES")
-SortAfter("basefan", "icemaker", "SUMMER")
-SortAfter("glass_shards", "messagebottleempty_sw", "REFINE")
-SortAfter("pigskin", "bearger_fur", "REFINE")
-SortAfter("halberd", "boomerang", "WEAPONS")
-SortAfter("cork_bat", "halberd", "WEAPONS")
-SortAfter("blunderbuss", "shard_beak", "WEAPONS")
-SortAfter("armor_weevole", "cookiecutterhat", "ARMOUR")
-SortAfter("antsuit", "beehat", "ARMOUR")
-SortAfter("antmaskhat", "antsuit", "ARMOUR")
-SortAfter("armor_metalplate", "antmaskhat", "ARMOUR")
-SortAfter("metalplatehat", "armor_metalplate", "ARMOUR")
-SortAfter("disguisehat", "mermhat", "CLOTHING")
-SortBefore("pithhat", "snakeskinhat", "CLOTHING")
-SortAfter("gasmaskhat", "gashat", "CLOTHING")
-SortAfter("thunderhat", "snakeskinhat", "CLOTHING")
-SortAfter("bell", "ox_flute", "MAGIC")
-SortAfter("bonestaff", "icestaff", "MAGIC")
-SortAfter("bonestaff", "ballpein_hammer", "TOOLS")
-SortAfter("living_artifact", "armorvortexcloak", "MAGIC")
-SortAfter("turf_fields", "turf_beach", "DECOR")
-SortAfter("turf_deeprainforest", "turf_fields", "DECOR")
-SortAfter("turf_quagmire_gateway", "turf_deeprainforest", "DECOR")
-SortAfter("turf_quagmire_citystone", "turf_quagmire_gateway", "DECOR")
-SortAfter("turf_quagmire_parkfield", "turf_quagmire_citystone", "DECOR")
-SortAfter("turf_quagmire_parkstone", "turf_quagmire_parkfield", "DECOR")
-SortAfter("turf_quagmire_peatforest", "turf_quagmire_parkstone", "DECOR")
-SortAfter("corkchest", "porto_waterchest", "STRUCTURES")
-SortAfter("corkchest", "porto_waterchest", "CONTAINERS")
-SortAfter("roottrunk_child", "corkchest", "STRUCTURES")
-SortAfter("roottrunk_child", "corkchest", "CONTAINERS")
-SortBefore("chestupgrade_stacksize", "treasurechest", "CONTAINERS")
-SortAfter("antchest", "saltbox", "STRUCTURES")
-SortAfter("antchest", "saltbox", "CONTAINERS")
-SortAfter("antchest", "saltbox", "COOKING")
-SortAfter("antchest", "beebox", "GARDENING")
-SortBefore("sprinkler", "beebox", "GARDENING")
-SortAfter("porto_lograft", "seafaring_prototyper", "SEAFARING")
-SortAfter("porto_raft", "porto_lograft", "SEAFARING")
-SortAfter("boatmetal_item", "boat_item", "SEAFARING")
-SortAfter("armor_weevole", "armor_windbreaker", "RAIN")
-SortAfter("seafaring_prototyper", "researchlab3", "PROTOTYPERS")
-SortAfter("tacklestation", "seafaring_prototyper", "PROTOTYPERS")
-SortAfter("cartographydesk", "tacklestation", "PROTOTYPERS")
 
 -- Extend recipes
 -- CHARACTER with skill
 -- WILSON
 AddCharacterRecipe("transmute_bamboo", { Ingredient("cutgrass", 2) }, TECH.NONE,
-	{ product = "bamboo", builder_skill = "wilson_alchemy_1", description = "transmute_bamboo" })
-SortAfter("transmute_bamboo", "transmute_twigs", "CHARACTER")
+	{
+		product = "bamboo",
+		builder_skill = "wilson_alchemy_1",
+		description = "transmute_bamboo",
+		sort_after = {
+			{ recipe = "transmute_twigs", filter = "CHARACTER" }
+		}
+	})
 AddCharacterRecipe("transmute_cutgrass_tro", { Ingredient("bamboo", 1) }, TECH.NONE,
-	{ product = "cutgrass", builder_skill = "wilson_alchemy_1", description = "transmute_cutgrass_tro" })
-SortAfter("transmute_cutgrass_tro", "transmute_bamboo", "CHARACTER")
+	{
+		product = "cutgrass",
+		builder_skill = "wilson_alchemy_1",
+		description = "transmute_cutgrass_tro",
+		sort_after = {
+			{ recipe = "transmute_bamboo", filter = "CHARACTER" }
+		}
+	})
 AddCharacterRecipe("transmute_vine", { Ingredient("twigs", 2) }, TECH.NONE,
-	{ product = "vine", builder_skill = "wilson_alchemy_1", description = "transmute_vine" })
-SortAfter("transmute_vine", "transmute_cutgrass_tro", "CHARACTER")
+	{
+		product = "vine",
+		builder_skill = "wilson_alchemy_1",
+		description = "transmute_vine",
+		sort_after = {
+			{ recipe = "transmute_cutgrass_tro", filter = "CHARACTER" }
+		}
+	})
 AddCharacterRecipe("transmute_twigs_tro", { Ingredient("vine", 1) }, TECH.NONE,
-	{ product = "twigs", builder_skill = "wilson_alchemy_1", description = "transmute_twings_tro" })
-SortAfter("transmute_twigs_tro", "transmute_vine", "CHARACTER")
+	{
+		product = "twigs",
+		builder_skill = "wilson_alchemy_1",
+		description = "transmute_twings_tro",
+		sort_after = {
+			{ recipe = "transmute_vine", filter = "CHARACTER" }
+		}
+	})
 AddCharacterRecipe("transmute_cork", { Ingredient("driftwood_log", 2) }, TECH.NONE,
-	{ product = "cork", builder_skill = "wilson_alchemy_1", description = "transmute_cork" })
-SortAfter("transmute_cork", "transmute_twigs_tro", "CHARACTER")
+	{
+		product = "cork",
+		builder_skill = "wilson_alchemy_1",
+		description = "transmute_cork",
+		sort_after = {
+			{ recipe = "transmute_twigs_tro", filter = "CHARACTER" }
+		}
+	})
 AddCharacterRecipe("transmute_driftwood_log_tro", { Ingredient("cork", 2) }, TECH.NONE,
-	{ product = "driftwood_log", builder_skill = "wilson_alchemy_1", description = "transmute_driftwood_log_tro" })
-SortAfter("transmute_driftwood_log_tro", "transmute_cork", "CHARACTER")
+	{
+		product = "driftwood_log",
+		builder_skill = "wilson_alchemy_1",
+		description = "transmute_driftwood_log_tro",
+		sort_after = {
+			{ recipe = "transmute_cork", filter = "CHARACTER" }
+		}
+	})
 
--- WORNWOOD
 AddCharacterRecipe("wormwood_seaweed_stalk",
 	{ Ingredient(CHARACTER_INGREDIENT.HEALTH, 10), Ingredient("spoiled_food", 3), Ingredient("kelp", 8) }, TECH.NONE,
 	{
@@ -1803,6 +1890,8 @@ AddCharacterRecipe("wormwood_seaweed_stalk",
 		actionstr = "GROW",
 		allowautopick = true,
 		no_deconstruction = true,
-		description = "wormwood_seaweed_stalk"
+		description = "wormwood_seaweed_stalk",
+		sort_after = {
+			{ recipe = "wormwood_juicyberrybush", filter = "CHARACTER" }
+		}
 	})
-SortAfter("wormwood_seaweed_stalk", "wormwood_juicyberrybush", "CHARACTER")
