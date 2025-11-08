@@ -119,7 +119,9 @@ local function onunequip(inst, owner)
 		inst.Transform:SetRotation(proxy.Transform:GetRotation())
 		owner:RemoveChild(proxy)
 		owner.boat_proxy = nil
-		proxy:Remove() ------这儿似乎有问题
+		if proxy:IsValid() then
+			proxy:Remove() ------这儿似乎有问题
+		end
 	end
 	owner:RemoveTag("surf")
 	OnItemGet(inst)
@@ -257,6 +259,7 @@ local function makeFakeBoatFn(config)
 		inst:SetPrefabNameOverride(config.name)
 
 		-- inst:AddTag("NOCLICK")
+		-- inst:AddTag("FX")
 		inst:AddTag("boat_proxy")
 		inst:AddComponent("container_proxy")
 		inst.components.container_proxy:SetCanBeOpened(false)
