@@ -263,7 +263,7 @@ local function IsWater(tile)
         tile == GROUND.OCEAN_COASTAL_SHORE
 end
 
-function GetSpawnPoint(inst, pt)
+local function GetSpawnPoint(inst, pt)
     --    if ThePlayer:HasTag("aquatic") then
     --        return
     --    end

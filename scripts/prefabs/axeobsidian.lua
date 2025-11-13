@@ -156,6 +156,13 @@ local function obsidianfn(Sim)
 
     MakeHauntableLaunch(inst)
 
+    local old_Remove = inst.Remove
+
+    function inst:Remove()
+        RemoveObsidianLight(self)
+        return old_Remove(self)
+    end
+
     return inst
 end
 
