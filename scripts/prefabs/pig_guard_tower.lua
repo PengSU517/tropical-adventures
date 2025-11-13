@@ -135,7 +135,7 @@ local function onhammered(inst, worker)
         if worker and worker:HasTag("player") and not worker:HasTag("sneaky") then
             local x, y, z = inst.Transform:GetWorldPosition()
             local tiletype = TheWorld.Map:GetTile(TheWorld.Map:GetTileCoordsAtPoint(pt:Get()))
-            local eles = TheSim:FindEntities(x, y, z, 40, { "guard" })
+            local eles = TheSim:FindEntities(x, y, z, 40, { "guard" }, { "mermguard" })
             for k, guardas in pairs(eles) do
                 if guardas.components.combat and guardas.components.combat.target == nil then
                     guardas.components.combat
