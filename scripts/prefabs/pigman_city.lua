@@ -490,7 +490,7 @@ local function callGuards(inst, attacker)
     local x, y, z = inst.Transform:GetWorldPosition()
 
 
-    local eles = TheSim:FindEntities(x, y, z, 30, { "guard" })
+    local eles = TheSim:FindEntities(x, y, z, 30, { "guard" }, { "mermguard" })
     if #eles > 1 then return end
 
     local ents = TheSim:FindEntities(x, y, z, 30, { "guard_entrance" })

@@ -47,7 +47,7 @@ end
 local function OnAttacked(inst, data)
 	if data and data.attacker and data.attacker:HasTag("player") and not data.attacker:HasTag("sneaky") then
 		local x, y, z = inst.Transform:GetWorldPosition()
-		local eles = TheSim:FindEntities(x, y, z, 40, { "guard" })
+		local eles = TheSim:FindEntities(x, y, z, 40, { "guard" }, { "mermguard" })
 		for k, guardas in pairs(eles) do
 			if guardas.components.combat and guardas.components.combat.target == nil then
 				guardas.components.combat
