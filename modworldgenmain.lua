@@ -1,12 +1,17 @@
---推荐使用腾讯的lua插件
-
 GLOBAL.setmetatable(env, { __index = function(t, k) return GLOBAL.rawget(GLOBAL, k) end })
 
 
 local require = require
 local modimport = modimport
+local function Import(modulename)
+    local f = GLOBAL.kleiloadlua(modulename)
+    if f and type(f) == "function" then
+        setfenv(f, GLOBAL)
+        return f()
+    end
+end
 
-require "tools/upvaluehelper"     ----用来hook的一些函数
+Upvaluehelper = Import(MODROOT .. "scripts/tools/bbgoat_upvaluehelper.lua") ----用来hook的一些函数 
 require "tools/tableutil"         ----一些表相关的工具函数，都在表tableutil里
 require "tools/tileutil"          ----一些关于tile的工具函数
 require "tools/spawnutil"         ----地形生成相关工具

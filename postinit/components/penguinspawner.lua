@@ -1,14 +1,14 @@
 AddComponentPostInit("penguinspawner", function(cmp)
     local TryToSpawnFlock
     for per, _ in pairs(cmp.inst.pendingtasks) do
-        TryToSpawnFlock = upvaluehelper.Get(per.fn, "TryToSpawnFlock")
+        TryToSpawnFlock = Upvaluehelper.GetUpvalue(per.fn, "TryToSpawnFlock")
         if TryToSpawnFlock then
             break
         end
     end
     local TryToSpawnFlockForPlayer
     if TryToSpawnFlock then
-        TryToSpawnFlockForPlayer = upvaluehelper.Get(TryToSpawnFlock, "TryToSpawnFlockForPlayer")
+        TryToSpawnFlockForPlayer = Upvaluehelper.GetUpvalue(TryToSpawnFlock, "TryToSpawnFlockForPlayer")
     end
     if not TryToSpawnFlockForPlayer then
         return print("Failed to edit penguinspawner", TryToSpawnFlock, TryToSpawnFlockForPlayer)
@@ -19,6 +19,6 @@ AddComponentPostInit("penguinspawner", function(cmp)
             end
             TryToSpawnFlockForPlayer(playerdata)
         end
-        upvaluehelper.Set(TryToSpawnFlock, "TryToSpawnFlockForPlayer", newTryToSpawnFlockForPlayer)
+        Upvaluehelper.SetUpvalue(TryToSpawnFlock, newTryToSpawnFlockForPlayer, "TryToSpawnFlockForPlayer")
     end
 end)

@@ -1,5 +1,4 @@
 local Utils = require("tools/utils")
--- local upvaluehelper = require("tools/upvaluehelper")
 
 --限制制作的配方
 -- local banrecipe = { "hua_player_house_recipe", "homesign", "townportal", "telebase", "hua_player_house1_recipe",
@@ -363,7 +362,7 @@ AddPrefabPostInit("player_classified", function(inst)
     -- 	return
     -- end
     inst:DoTaskInTime(0.1, function()
-        local play_theme_music = upvaluehelper.GetEventHandle(inst, "play_theme_music")
+        local play_theme_music = Upvaluehelper.GetEventHandle(inst, "play_theme_music")
         if play_theme_music ~= nil then
             inst:RemoveEventCallback("play_theme_music", play_theme_music)
             -- inst.entity:GetParent():RemoveEventCallback("play_theme_music",play_theme_music)
