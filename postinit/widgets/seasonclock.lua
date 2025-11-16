@@ -70,7 +70,7 @@ local seasonmap = {
 }
 
 AddClassPostConstruct(dir, function(self)
-    local COLOURS = upvaluehelper.Get(self.OnSeasonLengthsChanged, "COLOURS")
+    local COLOURS = Upvaluehelper.GetUpvalue(self.OnSeasonLengthsChanged, "COLOURS")
 
     function self:ChangeRegion()
         if ThePlayer and TheWorld then

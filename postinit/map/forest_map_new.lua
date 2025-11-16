@@ -1,4 +1,3 @@
--- local upvaluehelper = require("tools/upvaluehelper")
 require("constants")
 require("mathutil")
 
@@ -7,11 +6,11 @@ local multi = ta_worldgen.world_size_multi or 1
 local forest_map = require("map/forest_map")
 
 local old_generatemap = forest_map.Generate
-local SKIP_GEN_CHECKS = upvaluehelper.Get(old_generatemap, "SKIP_GEN_CHECKS")
+local SKIP_GEN_CHECKS = Upvaluehelper.GetUpvalue(old_generatemap, "SKIP_GEN_CHECKS")
 if SKIP_GEN_CHECKS ~= nil and TA_CONFIG.DEVELOP.test_map then
     print("Skipping generation checks for test map")
     local old = SKIP_GEN_CHECKS
-    upvaluehelper.Set(old_generatemap, "SKIP_GEN_CHECKS", true)
+    Upvaluehelper.SetUpvalue(old_generatemap, true, "SKIP_GEN_CHECKS")
 end
 
 -------------------------调整地图大小和海岸线-------但是用的方法有些暴力-------------------

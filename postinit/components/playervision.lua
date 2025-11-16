@@ -34,9 +34,9 @@ local VISION_PHASEFN = {
 
 
 AddComponentPostInit("playervision", function(self)
-    -- local NIGHTVISION_COLOURCUBES = upvaluehelper.Get(self.UpdateCCTable, "NIGHTVISION_COLOURCUBES")
-    -- local GHOSTVISION_COLOURCUBES = upvaluehelper.Get(self.UpdateCCTable, "GHOSTVISION_COLOURCUBES")
-    -- local NIGHTVISION_PHASEFN = upvaluehelper.Get(self.UpdateCCTable, "NIGHTVISION_PHASEFN")
+    -- local NIGHTVISION_COLOURCUBES = Upvaluehelper.GetUpvalue(self.UpdateCCTable, "NIGHTVISION_COLOURCUBES")
+    -- local GHOSTVISION_COLOURCUBES = Upvaluehelper.GetUpvalue(self.UpdateCCTable, "GHOSTVISION_COLOURCUBES")
+    -- local NIGHTVISION_PHASEFN = Upvaluehelper.GetUpvalue(self.UpdateCCTable, "NIGHTVISION_PHASEFN")
 
     -- self.inst:ListenForEvent("enterinterior_client", function() self:UpdateCCTable() end)
     -- self.inst:ListenForEvent("leaveinterior_client", function() self:UpdateCCTable() end)

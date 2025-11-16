@@ -44,7 +44,7 @@ local ambient_sounds =
 
 AddComponentPostInit("ambientsound", function(self)
     local inst = self.inst
-    AMBIENT_SOUNDS = upvaluehelper.Get(self.OnUpdate, "AMBIENT_SOUNDS")
+    AMBIENT_SOUNDS = Upvaluehelper.GetUpvalue(self.OnUpdate, "AMBIENT_SOUNDS")
     for name, v in pairs(ambient_sounds) do
         AMBIENT_SOUNDS[name] = v
     end
