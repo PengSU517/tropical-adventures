@@ -64,7 +64,7 @@ name = pub_dev(en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒�
     en_zh(" Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "3.10.5"
+version = "3.11.16"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -157,14 +157,14 @@ global_options =
                 data = "tropical"
             },
 
-            {
-                description = en_zh("Mixed Blue ", "碧蓝"),
-                hover = en_zh("tropical dst oceam", "热带风格的联机海洋"),
-                data = "blue"
-            },
+            -- {
+            --     description = en_zh("Mixed Blue ", "碧蓝"),
+            --     hover = en_zh("tropical dst oceam", "热带风格的联机海洋"),
+            --     data = "blue"
+            -- },
 
         },
-        default = "blue",
+        default = "tropical",
     },
 
     {
