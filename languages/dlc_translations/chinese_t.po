@@ -91700,7 +91700,7 @@ msgstr "咖啡樹"
 #. STRINGS.NAMES.DUG_ELEPHANTCACTUS
 msgctxt "STRINGS.NAMES.DUG_ELEPHANTCACTUS"
 msgid "Elephant Cactus"
-msgstr "巨型仙人掌"
+msgstr "象仙人掌根"
 
 #. STRINGS.NAMES.DUG_GRASS
 msgctxt "STRINGS.NAMES.DUG_GRASS"
@@ -91770,17 +91770,17 @@ msgstr "茄子種子"
 #. STRINGS.NAMES.ELEPHANTCACTUS
 msgctxt "STRINGS.NAMES.ELEPHANTCACTUS"
 msgid "Elephant Cactus"
-msgstr "巨型仙人掌"
+msgstr "象仙人掌"
 
 #. STRINGS.NAMES.ELEPHANTCACTUS_ACTIVE
 msgctxt "STRINGS.NAMES.ELEPHANTCACTUS_ACTIVE"
 msgid "Prickly Elephant Cactus"
-msgstr "易怒的巨型仙人掌"
+msgstr "易怒的象仙人掌"
 
 #. STRINGS.NAMES.ELEPHANTCACTUS_STUMP
 msgctxt "STRINGS.NAMES.ELEPHANTCACTUS_STUMP"
 msgid "Elephant Cactus Stump"
-msgstr "巨型仙人掌樹樁"
+msgstr "象仙人掌樹樁"
 
 #. STRINGS.NAMES.ENCRUSTEDBOAT
 msgctxt "STRINGS.NAMES.ENCRUSTEDBOAT"
