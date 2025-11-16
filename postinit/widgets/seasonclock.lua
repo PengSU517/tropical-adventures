@@ -108,9 +108,9 @@ AddClassPostConstruct(dir, function(self)
         self:ChangeRegion()
     end)
 
-    self.inst:ListenForEvent("aporkalypsephasechanged", function(_, phase)
+    TheWorld:ListenForEvent("aporkalypsephasechanged", function(_, phase)
         self:ChangeRegion()
-    end, TheWorld)
+    end)
 
     local GetSeasonString = self.GetSeasonString
     function self:GetSeasonString()
