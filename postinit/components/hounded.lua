@@ -11,7 +11,7 @@ AddComponentPostInit("hounded", function(cmp)
             local map = TheWorld.Map
             local x, y, z = pt:Get()
 
-            local spawndat = deepcopy(_spawndata)
+            -- local spawndat = deepcopy(_spawndata)
 
             if TheWorld:HasTag("cave") then
                 _spawndata.base_prefab = "worm"
