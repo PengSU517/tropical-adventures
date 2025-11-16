@@ -1,5 +1,3 @@
--- local Utils = require("tools/utils")
-
 --pcall是否会显著影响性能开销是个问题
 local function MODULE_ERROR(module)
     print("API_ERROR:", module)
@@ -37,7 +35,7 @@ end
 
 if GetModConfigData("compatible_adjustment") then
     -- local _AddPlayerPostInit = AddPlayerPostInit
-    -- -- local initprint = Utils.FindUpvalue(AddPlayerPostInit, "initprint")
+    -- -- local initprint = Upvaluehelper.GetUpvalue(AddPlayerPostInit, "initprint")
     -- AddPlayerPostInit = function(fn)
     --     -- if initprint then initprint("AddPlayerPostInit_Overrided") end
     --     if postinitfns.ComponentPostInit["playervision"] == nil then
