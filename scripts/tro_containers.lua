@@ -20,6 +20,11 @@ for y = 0, 4 do
         table.insert(params.armorvortexcloak.widget.slotpos, Vector3(75 * x - 162, 75 * y - 186, 0))
     end
 end
+params.armorvortexcloak.itemtestfn = function(container, item, slot)
+    return item.prefab ~= "wortox_soul"
+end
+
+params.armorvoidcloak = params.piggyback
 
 local function antchestitemtestfn(container, item, slot)
     return ANTCHEST_PRESERVATION[item.prefab]

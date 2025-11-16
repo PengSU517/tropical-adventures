@@ -196434,7 +196434,7 @@ msgstr "灯"
 #. STRINGS.NAMES.APORKALYPSE_CLOCK
 msgctxt "STRINGS.NAMES.APORKALYPSE_CLOCK"
 msgid "Aporkalypse Calendar"
-msgstr "灾变日历"
+msgstr "天启日历"
 
 #. STRINGS.NAMES.ARMORCACTUS
 msgctxt "STRINGS.NAMES.ARMORCACTUS"
@@ -198424,7 +198424,7 @@ msgstr "巨型仙人掌"
 #. STRINGS.NAMES.ELEPHANTCACTUS_ACTIVE
 msgctxt "STRINGS.NAMES.ELEPHANTCACTUS_ACTIVE"
 msgid "Prickly Elephant Cactus"
-msgstr "多刺的巨型仙人掌"
+msgstr "易怒的象仙人掌"
 
 #. STRINGS.NAMES.ELEPHANTCACTUS_STUMP
 msgctxt "STRINGS.NAMES.ELEPHANTCACTUS_STUMP"

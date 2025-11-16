@@ -115,7 +115,7 @@ end
 local function OnTakeDamage(inst, damage_amount)
     inst._ontakedmg = damage_amount and damage_amount > 0 or nil
     local sanity = inst.components.inventoryitem.owner and
-                   inst.components.inventoryitem.owner.components.sanity
+        inst.components.inventoryitem.owner.components.sanity
     if not sanity then return end
     sanity:DoDelta(-damage_amount * TUNING.ARMOR_SANITY_DMG_AS_SANITY, false)
     local armorleft = inst.components.armor:GetPercent()
@@ -149,11 +149,9 @@ local function fn()
 
     inst.entity:SetPristine()
 
-    local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("armor_void_cloak.tex")
+    inst.entity:AddMiniMapEntity():SetIcon("armor_void_cloak.tex")
 
     if not TheWorld.ismastersim then
-        inst.OnEntityReplicated = function(inst) inst.replica.container:WidgetSetup("piggyback") end
         return inst
     end
 
@@ -163,12 +161,11 @@ local function fn()
     inst.components.inventoryitem.cangoincontainer = false
     inst.foleysound = "dontstarve_DLC003/common/crafted/vortex_armour/foley"
 
-    local container = inst:AddComponent("container")
-    container:WidgetSetup("piggyback")
+    inst:AddComponent("container"):WidgetSetup()
 
     local armor = inst:AddComponent("armor")
     armor:InitCondition(TUNING.ARMORVOID, TUNING.ARMORVOID_ABSORPTION)
-    inst.components.armor.ontakedamage = OnTakeDamage
+    armor.ontakedamage = OnTakeDamage
 
     local fueled = inst:AddComponent("fueled")
     fueled:InitializeFuelLevel(TUNING.ARMORVOIDFUEL)
@@ -177,14 +174,11 @@ local function fn()
     fueled.ontakefuelitemfn = ontakefuelitem
     fueled.accepting = true
 
-    local planardefense = inst:AddComponent("planardefense")
-    planardefense:SetBaseDefense(TUNING.ARMOR_VOIDCLOTH_PLANAR_DEF) --虚空长袍的位面防御
+    inst:AddComponent("planardefense"):SetBaseDefense(TUNING.ARMOR_VOIDCLOTH_PLANAR_DEF) --虚空长袍的位面防御
 
-    local damagetyperesist = inst:AddComponent("damagetyperesist")
-    damagetyperesist:AddResist("shadow_aligned", inst, TUNING.ARMOR_VOIDCLOTH_SHADOW_RESIST) --虚空长袍的10%暗影阵营减伤
+    inst:AddComponent("damagetyperesist"):AddResist("shadow_aligned", inst, TUNING.ARMOR_VOIDCLOTH_SHADOW_RESIST) --虚空长袍的10%暗影阵营减伤
 
-    local shadowlevel = inst:AddComponent("shadowlevel")
-    shadowlevel:SetDefaultLevel(TUNING.ARMOR_VOIDCLOTH_SHADOW_LEVEL) --虚空长袍的老麦3级暗影之力
+    inst:AddComponent("shadowlevel"):SetDefaultLevel(TUNING.ARMOR_VOIDCLOTH_SHADOW_LEVEL) --虚空长袍的老麦3级暗影之力
 
     local equippable = inst:AddComponent("equippable")
     equippable.equipslot = equipslot
