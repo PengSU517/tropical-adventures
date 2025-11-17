@@ -237,8 +237,7 @@ end
 local function OnBlocked(inst, data)
     if (data.weapon == nil or (not data.weapon:HasTag("projectile") and data.weapon.projectile == nil))
         and data.attacker and data.attacker.components.combat and data.stimuli ~= "thorns" and not data.attacker:HasTag("thorny")
-        and (data.attacker.components.combat == nil or (data.attacker.components.combat.defaultdamage > 0)) and
-        inst:GetDistanceSqToInst(data.attacker) < ELEPHANTCACTUS_RANGE * ELEPHANTCACTUS_RANGE then
+        and (data.attacker.components.combat == nil or (data.attacker.components.combat.defaultdamage > 0)) then
         data.attacker.components.combat:GetAttacked(inst, ELEPHANTCACTUS_DAMAGE / 2, nil, "thorns")
         inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/armour/cactus")
     end
@@ -293,6 +292,10 @@ local function activefn(Sim)
     inst.components.combat:SetKeepTargetFunction(shouldKeepTarget)
     inst.components.combat:SetNoAggroTags(tagsignore)
     inst.components.combat:SetHurtSound("dontstarve_DLC002/creatures/volcano_cactus/hit")
+    local GetAttacked = inst.components.combat.GetAttacked
+    inst.components.combat.GetAttacked = function(self, attacker, damage, weapon, stimuli, ...)
+        return stimuli ~= "soul" and GetAttacked(self, attacker, damage, weapon, stimuli, ...) or false
+    end
 
     inst:AddComponent("timer")
     inst:ListenForEvent("timerdone", ontimerdone)
