@@ -238,7 +238,7 @@ local function OnBlocked(inst, data)
     if (data.weapon == nil or (not data.weapon:HasTag("projectile") and data.weapon.projectile == nil))
         and data.attacker and data.attacker.components.combat and data.stimuli ~= "thorns" and not data.attacker:HasTag("thorny")
         and (data.attacker.components.combat == nil or (data.attacker.components.combat.defaultdamage > 0)) and
-        data:GetDistanceSqToInst(data.attacker) < ELEPHANTCACTUS_RANGE * ELEPHANTCACTUS_RANGE then
+        inst:GetDistanceSqToInst(data.attacker) < ELEPHANTCACTUS_RANGE * ELEPHANTCACTUS_RANGE then
         data.attacker.components.combat:GetAttacked(inst, ELEPHANTCACTUS_DAMAGE / 2, nil, "thorns")
         inst.SoundEmitter:PlaySound("dontstarve_DLC002/common/armour/cactus")
     end
