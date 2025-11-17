@@ -4,10 +4,10 @@ AddPrefabPostInit("forest", function(inst)
     end
 
     --青蛙雨
-    local frograin = upvaluehelper.GetWorldHandle(inst, "israining", "components/frograin") --下雨
+    local frograin = Upvaluehelper.GetWorldHandle(inst, "israining", "components/frograin") --下雨
     if frograin then
         -- print("找到青蛙雨了")
-        local GetSpawnPoint = upvaluehelper.Get(frograin, "GetSpawnPoint")
+        local GetSpawnPoint = Upvaluehelper.GetUpvalue(frograin, "GetSpawnPoint")
         if GetSpawnPoint ~= nil then
             local old = GetSpawnPoint
             local function newGetSpawnPoint(pt)
@@ -17,14 +17,14 @@ AddPrefabPostInit("forest", function(inst)
                 end
                 return old(pt)
             end
-            upvaluehelper.Set(frograin, "GetSpawnPoint", newGetSpawnPoint)
+            Upvaluehelper.SetUpvalue(frograin, newGetSpawnPoint, "GetSpawnPoint")
         end
     end
 
 
-    local wildfires = upvaluehelper.GetEventHandle(TheWorld, "ms_lightwildfireforplayer", "components/wildfires") --野火
+    local wildfires = Upvaluehelper.GetEventHandle(TheWorld, "ms_lightwildfireforplayer", "components/wildfires") --野火
     if wildfires then
-        local LightFireForPlayer = upvaluehelper.Get(wildfires, "LightFireForPlayer")
+        local LightFireForPlayer = Upvaluehelper.GetUpvalue(wildfires, "LightFireForPlayer")
         if LightFireForPlayer ~= nil then
             local old = LightFireForPlayer
             local function NewLightFireForPlayer(player, rescheduleFn)
@@ -36,7 +36,7 @@ AddPrefabPostInit("forest", function(inst)
                 end
                 old(player, rescheduleFn)
             end
-            upvaluehelper.Set(wildfires, "LightFireForPlayer", NewLightFireForPlayer)
+            Upvaluehelper.SetUpvalue(wildfires, NewLightFireForPlayer, "LightFireForPlayer")
         end
     end
 end)

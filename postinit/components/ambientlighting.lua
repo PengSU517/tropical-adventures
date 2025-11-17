@@ -1,5 +1,3 @@
--- local upvaluehelper = require("tools/upvaluehelper")
-
 local COLOURS = {
 	INTERIOR_COLOURS =
 	{
@@ -53,11 +51,11 @@ local COLOURS = {
 
 AddComponentPostInit("ambientlighting", function(self, inst)
 	-- if false and not TheNet:IsDedicated() then ------这种非全局性的东西还是不要放到ambientlighting
-	-- 	local DoUpdateFlash = upvaluehelper.Get(self.OnUpdate, "DoUpdateFlash")
-	-- 	local PushCurrentColour = upvaluehelper.Get(self.OnUpdate, "PushCurrentColour")
-	-- 	local _realcolour = upvaluehelper.Get(DoUpdateFlash, "_realcolour")
-	-- 	local _overridecolour = upvaluehelper.Get(DoUpdateFlash, "_overridecolour")
-	-- 	local _ComputeTargetColour = upvaluehelper.Get(DoUpdateFlash, "ComputeTargetColour")
+	-- 	local DoUpdateFlash = Upvaluehelper.GetUpvalue(self.OnUpdate, "DoUpdateFlash")
+	-- 	local PushCurrentColour = Upvaluehelper.GetUpvalue(self.OnUpdate, "PushCurrentColour")
+	-- 	local _realcolour = Upvaluehelper.GetUpvalue(DoUpdateFlash, "_realcolour")
+	-- 	local _overridecolour = Upvaluehelper.GetUpvalue(DoUpdateFlash, "_overridecolour")
+	-- 	local _ComputeTargetColour = Upvaluehelper.GetUpvalue(DoUpdateFlash, "ComputeTargetColour")
 
 	-- 	local _activatedplayer
 
@@ -75,7 +73,7 @@ AddComponentPostInit("ambientlighting", function(self, inst)
 	-- 		_ComputeTargetColour(targetsettings, timeoverride, ...)
 	-- 	end
 
-	-- 	upvaluehelper.Set(DoUpdateFlash, "ComputeTargetColour", ComputeTargetColour)
+	-- 	Upvaluehelper.SetUpvalue(DoUpdateFlash, ComputeTargetColour, "ComputeTargetColour")
 
 
 
@@ -106,11 +104,11 @@ AddComponentPostInit("ambientlighting", function(self, inst)
 	-- end
 
 	if true then
-		local DoUpdateFlash = upvaluehelper.Get(self.OnUpdate, "DoUpdateFlash")
-		local PushCurrentColour = upvaluehelper.Get(self.OnUpdate, "PushCurrentColour")
-		local _realcolour = upvaluehelper.Get(DoUpdateFlash, "_realcolour")   ---真正的颜色(控制查理)
-		local _overridecolour = upvaluehelper.Get(DoUpdateFlash, "_overridecolour") ---表现的颜色
-		local _ComputeTargetColour = upvaluehelper.Get(DoUpdateFlash, "ComputeTargetColour")
+		local DoUpdateFlash = Upvaluehelper.GetUpvalue(self.OnUpdate, "DoUpdateFlash")
+		local PushCurrentColour = Upvaluehelper.GetUpvalue(self.OnUpdate, "PushCurrentColour")
+		local _realcolour = Upvaluehelper.GetUpvalue(DoUpdateFlash, "_realcolour")   ---真正的颜色(控制查理)
+		local _overridecolour = Upvaluehelper.GetUpvalue(DoUpdateFlash, "_overridecolour") ---表现的颜色
+		local _ComputeTargetColour = Upvaluehelper.GetUpvalue(DoUpdateFlash, "ComputeTargetColour")
 
 		local function ComputeTargetColour(targetsettings, timeoverride, ...)
 			if not TheWorld:HasTag("cave") and TheWorld.state.isaporkalypse and targetsettings.currentcolourset.PHASE_COLOURS.spring then
@@ -123,7 +121,7 @@ AddComponentPostInit("ambientlighting", function(self, inst)
 			_ComputeTargetColour(targetsettings, timeoverride, ...)
 		end
 
-		upvaluehelper.Set(DoUpdateFlash, "ComputeTargetColour", ComputeTargetColour)
+		Upvaluehelper.SetUpvalue(DoUpdateFlash, ComputeTargetColour, "ComputeTargetColour")
 
 
 

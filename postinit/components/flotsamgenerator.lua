@@ -1,13 +1,13 @@
 ----海上漂浮物刷新
 
 AddComponentPostInit("flotsamgenerator", function(self)
-    local _SpawnGuaranteedFlotsam = upvaluehelper.Get(self.ScheduleGuaranteedSpawn, "SpawnGuaranteedFlotsam")
-    local _ScheduleSpawn = upvaluehelper.Get(self.ToggleUpdate, "ScheduleSpawn")
-    local _SpawnFlotsamForPlayer = upvaluehelper.Get(_SpawnGuaranteedFlotsam, "SpawnFlotsamForPlayer")
-    local _scheduledtasks = upvaluehelper.Get(_SpawnFlotsamForPlayer, "_scheduledtasks")
-    local _GetSpawnPoint = upvaluehelper.Get(_SpawnFlotsamForPlayer, "GetSpawnPoint")
-    local flotsam_prefabs = upvaluehelper.Get(self.SpawnFlotsam, "flotsam_prefabs")
-    local guaranteed_presets = upvaluehelper.Get(self.ToggleUpdate, "guaranteed_presets")
+    local _SpawnGuaranteedFlotsam = Upvaluehelper.GetUpvalue(self.ScheduleGuaranteedSpawn, "SpawnGuaranteedFlotsam")
+    local _ScheduleSpawn = Upvaluehelper.GetUpvalue(self.ToggleUpdate, "ScheduleSpawn")
+    local _SpawnFlotsamForPlayer = Upvaluehelper.GetUpvalue(_SpawnGuaranteedFlotsam, "SpawnFlotsamForPlayer")
+    local _scheduledtasks = Upvaluehelper.GetUpvalue(_SpawnFlotsamForPlayer, "_scheduledtasks")
+    local _GetSpawnPoint = Upvaluehelper.GetUpvalue(_SpawnFlotsamForPlayer, "GetSpawnPoint")
+    local flotsam_prefabs = Upvaluehelper.GetUpvalue(self.SpawnFlotsam, "flotsam_prefabs")
+    local guaranteed_presets = Upvaluehelper.GetUpvalue(self.ToggleUpdate, "guaranteed_presets")
 
     if flotsam_prefabs then
         flotsam_prefabs["waterygrave"] = 0.1
@@ -41,8 +41,8 @@ AddComponentPostInit("flotsamgenerator", function(self)
         return _SpawnFlotsamForPlayer(player, reschedule, override_prefab, override_notrealflotsam, ...)
     end
 
-    upvaluehelper.Set(_ScheduleSpawn, "SpawnFlotsamForPlayer", SpawnFlotsamForPlayer)
-    upvaluehelper.Set(_SpawnGuaranteedFlotsam, "SpawnFlotsamForPlayer", SpawnFlotsamForPlayer)
+    Upvaluehelper.SetUpvalue(_ScheduleSpawn, SpawnFlotsamForPlayer, "SpawnFlotsamForPlayer")
+    Upvaluehelper.SetUpvalue(_SpawnGuaranteedFlotsam, SpawnFlotsamForPlayer, "SpawnFlotsamForPlayer")
 
     -- local _ScheduleGuaranteedSpawn = self.ScheduleGuaranteedSpawn
     -- self.ScheduleGuaranteedSpawn = function(self, ...)

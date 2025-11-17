@@ -29,7 +29,7 @@ AddComponentPostInit("oceancolor", function(self)
 		self.currentphase = phase
 	end
 
-	local _COLOURS = upvaluehelper.Get(self.OnPhaseChanged, "COLORS")
+	local _COLOURS = Upvaluehelper.GetUpvalue(self.OnPhaseChanged, "COLORS")
 	COLOURSETS.forest = deepcopy(_COLOURS)
 
 	local _activatedplayer

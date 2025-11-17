@@ -1,5 +1,3 @@
--- local upvaluehelper = require("tools/upvaluehelper")
-
 local CUBES = table.invert({ "default", "shipwrecked", "volcano", "hamlet" })
 
 
@@ -93,14 +91,14 @@ local REGION_SEASON_COLOURCUBES = {
 AddComponentPostInit("colourcube", function(self)
 	local OnOverrideCCPhaseFn, _UpdateAmbientCCTable, _SEASON_COLOURCUBES
 	for i, v in ipairs(self.inst.event_listening["playeractivated"][TheWorld]) do
-		OnOverrideCCPhaseFn = upvaluehelper.Get(v, "OnOverrideCCPhaseFn")
+		OnOverrideCCPhaseFn = Upvaluehelper.GetUpvalue(v, "OnOverrideCCPhaseFn")
 		if OnOverrideCCPhaseFn then
 			break
 		end
 	end
 
-	_UpdateAmbientCCTable = upvaluehelper.Get(OnOverrideCCPhaseFn, "UpdateAmbientCCTable")
-	_SEASON_COLOURCUBES = upvaluehelper.Get(_UpdateAmbientCCTable, "SEASON_COLOURCUBES")
+	_UpdateAmbientCCTable = Upvaluehelper.GetUpvalue(OnOverrideCCPhaseFn, "UpdateAmbientCCTable")
+	_SEASON_COLOURCUBES = Upvaluehelper.GetUpvalue(_UpdateAmbientCCTable, "SEASON_COLOURCUBES")
 
 	local _activatedplayer
 	local _showencc = CUBES.default
@@ -109,31 +107,31 @@ AddComponentPostInit("colourcube", function(self)
 			if TheWorld.state.isaporkalypse and not TheWorld:HasTag("cave") then
 				if _showencc ~= CUBES.aporka then
 					_showencc = CUBES.aporka
-					upvaluehelper.Set(_UpdateAmbientCCTable, "SEASON_COLOURCUBES", REGION_SEASON_COLOURCUBES.aporkalypse)
+					Upvaluehelper.SetUpvalue(_UpdateAmbientCCTable, REGION_SEASON_COLOURCUBES.aporkalypse, "SEASON_COLOURCUBES")
 				end
 			elseif _activatedplayer:AwareInShipwreckedArea() then
 				--print("colourcube shipwrecked")
 				if _showencc ~= CUBES.shipwrecked then
 					_showencc = CUBES.shipwrecked
-					upvaluehelper.Set(_UpdateAmbientCCTable, "SEASON_COLOURCUBES", REGION_SEASON_COLOURCUBES.shipwrecked)
+					Upvaluehelper.SetUpvalue(_UpdateAmbientCCTable, REGION_SEASON_COLOURCUBES.shipwrecked, "SEASON_COLOURCUBES")
 				end
 			elseif _activatedplayer:AwareInHamletArea() then
 				--print("colourcube hamlet")
 				if _showencc ~= CUBES.hamlet then
 					_showencc = CUBES.hamlet
-					upvaluehelper.Set(_UpdateAmbientCCTable, "SEASON_COLOURCUBES", REGION_SEASON_COLOURCUBES.hamlet)
+					Upvaluehelper.SetUpvalue(_UpdateAmbientCCTable, REGION_SEASON_COLOURCUBES.hamlet, "SEASON_COLOURCUBES")
 				end
 			elseif _activatedplayer:AwareInVolcanoArea() then
 				--print("colourcube volcano")
 				if _showencc ~= CUBES.vlocano then
 					_showencc = CUBES.volcano
-					upvaluehelper.Set(_UpdateAmbientCCTable, "SEASON_COLOURCUBES", REGION_SEASON_COLOURCUBES.volcano)
+					Upvaluehelper.SetUpvalue(_UpdateAmbientCCTable, REGION_SEASON_COLOURCUBES.volcano, "SEASON_COLOURCUBES")
 				end
 			else
 				--print("colourcube default")
 				if _showencc ~= CUBES.default then
 					_showencc = CUBES.default
-					upvaluehelper.Set(_UpdateAmbientCCTable, "SEASON_COLOURCUBES", _SEASON_COLOURCUBES)
+					Upvaluehelper.SetUpvalue(_UpdateAmbientCCTable, _SEASON_COLOURCUBES, "SEASON_COLOURCUBES")
 				end
 			end
 		end
@@ -141,7 +139,7 @@ AddComponentPostInit("colourcube", function(self)
 		return _UpdateAmbientCCTable(blendtime)
 	end
 
-	upvaluehelper.Set(OnOverrideCCPhaseFn, "UpdateAmbientCCTable", UpdateAmbientCCTable)
+	Upvaluehelper.SetUpvalue(OnOverrideCCPhaseFn, UpdateAmbientCCTable, "UpdateAmbientCCTable")
 
 	local function onClimateDirty()
 		-- print("colourcube climate dirty")

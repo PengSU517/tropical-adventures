@@ -51,10 +51,10 @@ AddComponentPostInit("dynamicmusic", function(self, inst)
     ------------------------------Adding Climate Music---------------------------------
     local _activatedplayer
     local OnPlayerActivated = inst:GetEventCallbacks("playeractivated", inst, "scripts/components/dynamicmusic.lua")
-    local BUSYTHEMES = upvaluehelper.Get(OnPlayerActivated, "BUSYTHEMES")
+    local BUSYTHEMES = Upvaluehelper.GetUpvalue(OnPlayerActivated, "BUSYTHEMES")
 
     local OnEnableDynamicMusic = inst:GetEventCallbacks("enabledynamicmusic", TheWorld)
-    local StopBusy = upvaluehelper.Get(OnEnableDynamicMusic, "StopBusy")
+    local StopBusy = Upvaluehelper.GetUpvalue(OnEnableDynamicMusic, "StopBusy")
 
 
     ---勾不了函数我还勾不了参数吗，我可太牛逼了
