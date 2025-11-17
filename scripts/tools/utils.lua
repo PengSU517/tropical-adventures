@@ -259,38 +259,6 @@ function FN.EasingQuad(val, mode, k)
     end
 end
 
----查找并返回给定函数中指定名称的upvalue，建议只在初始化时调用
----经常用于获取Prefabs[XXX].fn中想用又大段的local函数，比如三叉戟的技能函数
----需要注意的是有拿不到的风险，其他mod有可能覆盖或包装需要查询的函数，这样就会导致获取不到想要的值，因此需要从多个函数中尝试获取，多次判断
----@param fn function 闭包函数，你希望从中查找upvalue。
----@param upvalueName string 你想要查找的upvalue的名称
----@return any val 查找到的值
----@return integer index 上值的索引，如果这个值为nil则表示没有找到指定的上值
-function FN.FindUpvalue(fn, upvalueName)
-    local i = 1
-    while true do
-        local name, value = debug.getupvalue(fn, i)
-        if not name then break end -- 没有更多的upvalue了
-        if name == upvalueName then
-            return value, i
-        end
-        i = i + 1
-    end
-end
-
----链式查询上值，找不到就返回nil，应该比上面那个更常用，因为这个是链式的
-function FN.ChainFindUpvalue(fn, ...)
-    local val = fn
-    local i
-    for _, name in ipairs({ ... }) do
-        val, i = FN.FindUpvalue(val, name)
-        if i == nil then
-            return nil
-        end
-    end
-    return val
-end
-
 ----------------------------------------------------------------------------------------------------
 
 ---属性更改监听器，监听表的属性赋值操作，因为元方法__newindex无法监听已有属性的赋值操作，因此实现了该函数，兼容原有的__newindex元方法。

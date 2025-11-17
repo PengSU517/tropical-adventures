@@ -1,11 +1,11 @@
 AddComponentPostInit("hounded", function(cmp)
     cmp.inst:DoTaskInTime(0, function()
-        local _spawndata = upvaluehelper.Get(cmp.SetSpawnData, "_spawndata")
-        local _SummonSpawn = upvaluehelper.Get(cmp.SummonSpawn, "SummonSpawn")
-        local _GetSpawnPrefab = upvaluehelper.Get(_SummonSpawn, "GetSpawnPrefab")
-        local _GetSpawnPoint = upvaluehelper.Get(_SummonSpawn, "GetSpawnPoint")
-        local _GetSpecialSpawnChance = upvaluehelper.Get(_GetSpawnPrefab, "GetSpecialSpawnChance")
-        local _SPAWN_DIST = upvaluehelper.Get(_GetSpawnPoint, "SPAWN_DIST")
+        local _spawndata = Upvaluehelper.GetUpvalue(cmp.SetSpawnData, "_spawndata")
+        local _SummonSpawn = Upvaluehelper.GetUpvalue(cmp.SummonSpawn, "SummonSpawn")
+        local _GetSpawnPrefab = Upvaluehelper.GetUpvalue(_SummonSpawn, "GetSpawnPrefab")
+        local _GetSpawnPoint = Upvaluehelper.GetUpvalue(_SummonSpawn, "GetSpawnPoint")
+        local _GetSpecialSpawnChance = Upvaluehelper.GetUpvalue(_GetSpawnPrefab, "GetSpecialSpawnChance")
+        local _SPAWN_DIST = Upvaluehelper.GetUpvalue(_GetSpawnPoint, "SPAWN_DIST")
 
         local function SummonSpawn(pt, upgrade, radius_override)
             local map = TheWorld.Map
@@ -46,11 +46,11 @@ AddComponentPostInit("hounded", function(cmp)
                 _SPAWN_DIST = 30
             end
 
-            upvaluehelper.Set(_GetSpawnPoint, "SPAWN_DIST", _SPAWN_DIST)
-            upvaluehelper.Set(cmp.SetSpawnData, "_spawndata", _spawndata)
+            Upvaluehelper.SetUpvalue(_GetSpawnPoint, _SPAWN_DIST, "SPAWN_DIST")
+            Upvaluehelper.SetUpvalue(cmp.SetSpawnData, _spawndata, "_spawndata")
             return _SummonSpawn(pt, upgrade, radius_override)
         end
 
-        upvaluehelper.Set(cmp.SummonSpawn, "SummonSpawn", SummonSpawn)
+        Upvaluehelper.SetUpvalue(cmp.SummonSpawn, SummonSpawn, "SummonSpawn")
     end)
 end)

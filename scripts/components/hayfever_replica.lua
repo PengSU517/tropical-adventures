@@ -1,7 +1,7 @@
 local function OnSneezetimeDirty(inst)
 	local sneezetime = inst.replica.hayfever._nextsneeze:value() or 999
-	print("sneeze time is dirty")
-	print(sneezetime)
+	-- print("sneeze time is dirty")
+	-- print(sneezetime)
 	inst:PushEvent("updatehayfever", { sneezetime = sneezetime })
 end
 
