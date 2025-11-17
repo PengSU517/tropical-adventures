@@ -29,7 +29,10 @@ Upvaluehelper = Import(MODROOT .. "scripts/utils/bbgoat_upvaluehelper.lua") or r
 ]]
 --- @param fn function 要被显示所有上值的函数
 local function LookUpvalue(fn)
-    if type(fn) ~= "function" then print("LookUpvalue 错误：传入的参数不是函数，而是",type(fn)) return end
+    if type(fn) ~= "function" then
+        print("LookUpvalue 错误：传入的参数不是函数，而是", type(fn))
+        return
+    end
     local i = 1
     local _value
     local _name = ''
@@ -68,15 +71,21 @@ end
 ---@return function 拥有该上值的函数
 local function FindUpvalue(fn, name, fnfile, valuefile)
     local level = visitnum + 1
-    if type(fn) ~= "function" then TryToClose(level) return end
-    if visit[fn] then TryToClose(level) return end -- 已访问过就返回
+    if type(fn) ~= "function" then
+        TryToClose(level)
+        return
+    end
+    if visit[fn] then
+        TryToClose(level)
+        return
+    end -- 已访问过就返回
     visit[fn] = true
     visitnum = visitnum + 1
 
     local i = 1
     while true do
         local upname, upvalue = debug.getupvalue(fn, i)
-        if not upname then break end -- 全找完了，跳出
+        if not upname then break end         -- 全找完了，跳出
         if upname and upname == name then
             if type(fnfile) == "string" then -- 限定文件 防止被别人提前hook导致取错
                 local fninfo = debug.getinfo(fn)
@@ -84,7 +93,7 @@ local function FindUpvalue(fn, name, fnfile, valuefile)
 
                 if (fninfo.source and fninfo.source:match(fnfile)) and (not valuefile or (valueinfo and valueinfo.source:match(valuefile))) then -- 来源正确，返回
                     return TryToClose(level, upvalue, i, fn)
-                else -- 来源错误，递归查找
+                else                                                                                                                             -- 来源错误，递归查找
                     if type(upvalue) == "function" then
                         local upupvalue, upupi, upupfn = FindUpvalue(upvalue, name, fnfile, valuefile)
                         if upupvalue ~= nil then
@@ -96,8 +105,8 @@ local function FindUpvalue(fn, name, fnfile, valuefile)
                 local valueinfo = debug.getinfo(upvalue)
 
                 if valueinfo and valueinfo.source:match(valuefile) then -- 来源正确，返回
-                    return TryToClose(level, upvalue, i ,fn)
-                else -- 来源错误，递归查找
+                    return TryToClose(level, upvalue, i, fn)
+                else                                                    -- 来源错误，递归查找
                     local upupvalue, upupi, upupfn = FindUpvalue(upvalue, name, fnfile, valuefile)
                     if upupvalue ~= nil then
                         return TryToClose(level, upupvalue, upupi, upupfn)
@@ -107,7 +116,7 @@ local function FindUpvalue(fn, name, fnfile, valuefile)
                 return TryToClose(level, upvalue, i, fn)
             end
         end
-        if upvalue and type(upvalue) == "function" and not visit[upvalue] then -- 没有访问过的
+        if upvalue and type(upvalue) == "function" and not visit[upvalue] then             -- 没有访问过的
             local upupvalue, upupi, upupfn = FindUpvalue(upvalue, name, fnfile, valuefile) -- 找不到就递归查找
             if upupvalue ~= nil then
                 return TryToClose(level, upupvalue, upupi, upupfn)
@@ -155,10 +164,10 @@ end
 ---@return function 拥有该上值的函数
 local function GetUpvalue(fn, ...)
     local prv, i, prv_var = nil, nil, "(起点)"
-    for j,var in ipairs({...}) do
-        assert(type(fn) == "function", "我们正在寻找 "..var..", 但在它之前的值 "
-            ..prv_var.." 不是function (它是一个 "..type(fn)
-            ..") 这是完整的链条: "..table.concat({"(起点)", ...}, "→"))
+    for j, var in ipairs({ ... }) do
+        assert(type(fn) == "function", "我们正在寻找 " .. var .. ", 但在它之前的值 "
+            .. prv_var .. " 不是function (它是一个 " .. type(fn)
+            .. ") 这是完整的链条: " .. table.concat({ "(起点)", ... }, "→"))
         prv_var = var
         fn, i, prv = GetUpvalueHelper(fn, var)
     end
@@ -203,8 +212,11 @@ if not hidden_fns then
     local _debug_setfenv = debug.setfenv
 
     function debug.getupvalue(fn, ...) return _debug_getupvalue(hidden_fns[fn] or fn, ...) end
+
     function debug.setupvalue(fn, ...) return _debug_setupvalue(hidden_fns[fn] or fn, ...) end
+
     function debug.getfenv(fn, ...) return _debug_getfenv(hidden_fns[fn] or fn, ...) end
+
     function debug.setfenv(fn, ...) return _debug_setfenv(hidden_fns[fn] or fn, ...) end
 
     hidden_fns[debug.getupvalue] = _debug_getupvalue
@@ -284,7 +296,7 @@ local function Getmoddata(name, cat, id, ...)
 
     if ... then
         if result and type(result) == "table" then
-            for _,v in ipairs(result) do
+            for _, v in ipairs(result) do
                 if type(v) == "function" then
                     local val = GetUpvalue(v, ...)
                     if val then return val end
@@ -299,13 +311,13 @@ end
 local function FunctionTest(fn, file, test, source, listener)
     if fn and type(fn) ~= "function" then return false end
     local data = debug.getinfo(fn)
-    if file and type(file) == "string" then        --文件名判定
-        local matchstr = "/"..file..".lua"
+    if file and type(file) == "string" then --文件名判定
+        local matchstr = "/" .. file .. ".lua"
         if not data.source or not data.source:match(matchstr) then
             return false
         end
     end
-    if test and type(test) == "function" and  not test(data,source,listener) then return false end    --测试通过
+    if test and type(test) == "function" and not test(data, source, listener) then return false end --测试通过
     return true
 end
 
@@ -322,7 +334,7 @@ local function GetEventHandle(inst, event, file, test)
     if type(inst) == "table" then
         if inst.event_listening and inst.event_listening[event] then -- 遍历他在监听的事件 我在监听谁
             local listenings = inst.event_listening[event]
-            for listening, fns in pairs(listenings) do -- 遍历被监听者
+            for listening, fns in pairs(listenings) do               -- 遍历被监听者
                 if fns and type(fns) == "table" then
                     for _, fn in pairs(fns) do
                         if FunctionTest(fn, file, test, listening, inst) then -- 寻找成功就返回
@@ -335,7 +347,7 @@ local function GetEventHandle(inst, event, file, test)
 
         if inst.event_listeners and inst.event_listeners[event] then -- 遍历监听他的事件的 谁在监听我
             local listeners = inst.event_listeners[event]
-            for listener, fns in pairs(listeners) do -- 遍历监听者
+            for listener, fns in pairs(listeners) do                 -- 遍历监听者
                 if fns and type(fns) == "table" then
                     for _, fn in pairs(fns) do
                         if FunctionTest(fn, file, test, inst, listener) then -- 寻找成功就返回
@@ -363,7 +375,7 @@ local function GetWorldHandle(inst, var, file)
     end
 end
 
-return {
+Upvaluehelper = {
     LookUpvalue = LookUpvalue,
     FindUpvalue = FindUpvalue,
     GetUpvalue = GetUpvalue,
