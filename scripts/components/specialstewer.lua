@@ -235,7 +235,7 @@ function SpecialStewer:StartCooking()
             self.product_spoilage = nil
         end
 
-        self.cooktime = cooktime * TUNING.BASE_COOK_TIME
+        self.cooktime = (cooktime or 1) * TUNING.BASE_COOK_TIME
 
         -- self.targettime = GetTime() + cooktime
         -- if self.task ~= nil then

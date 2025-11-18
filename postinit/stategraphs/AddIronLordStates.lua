@@ -154,7 +154,7 @@ local IronLordStates =
           onexit = function(inst)
                inst.artifact.ToggleVisual(inst, false)
                inst.artifact.SetNetVar("control", inst, false)
-               inst.artifact.ToggleComponents(inst, false)
+               inst.artifact:ToggleComponents(inst, false)
 
                local state = "bucked_post"
                if inst:HasTag("preparetodie") then
