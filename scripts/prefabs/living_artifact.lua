@@ -4,10 +4,10 @@ local IRON_LORD_DAMAGE = 68
 -- local IRON_LORD_TIME = 180
 local IRON_LORD_SPEED_MULT = 1.35
 
-local assets = {Asset("ANIM", "anim/living_artifact.zip"), Asset("ANIM", "anim/living_suit_build.zip"),
-                Asset("ANIM", "anim/player_living_suit_morph.zip"), Asset("ANIM", "anim/player_living_suit_punch.zip"),
-                Asset("ANIM", "anim/player_living_suit_shoot.zip"),
-                Asset("ANIM", "anim/player_living_suit_destruct.zip")}
+local assets = { Asset("ANIM", "anim/living_artifact.zip"), Asset("ANIM", "anim/living_suit_build.zip"),
+    Asset("ANIM", "anim/player_living_suit_morph.zip"), Asset("ANIM", "anim/player_living_suit_punch.zip"),
+    Asset("ANIM", "anim/player_living_suit_shoot.zip"),
+    Asset("ANIM", "anim/player_living_suit_destruct.zip") }
 
 --[[
 local function BecomeIronLord(inst, instant)
@@ -23,8 +23,8 @@ end
 ]]
 local function SetNetVar(var, inst, val)
     local netvar = var == "fuel" and inst.player_classified.artifactfuel or var == "explode" and
-                       inst.player_classified.artifactexplode or var == "control" and
-                       inst.player_classified.artifactcontrol or nil
+        inst.player_classified.artifactexplode or var == "control" and
+        inst.player_classified.artifactcontrol or nil
 
     if netvar then
         netvar:set_local(val) -- Force dirty
@@ -85,8 +85,8 @@ local function ToggleVisual(inst, on)
     inst.components.playervision:ForceGoggleVision(on)
 end
 
-local IRON_LORD_TAGS = {"ironlord", "fireimmune", "laser_immune", "insomniac", "toughworker", "poisonimmune"} -- 可能导致标签溢出
-local ARTIFACT_TAGS = {"nosteal"}
+local IRON_LORD_TAGS = { "ironlord", "fireimmune", "laser_immune", "insomniac", "toughworker", "poisonimmune" } -- 可能导致标签溢出
+local ARTIFACT_TAGS = { "nosteal" }
 
 local function ToggleTags(inst, on)
     if on then
@@ -112,97 +112,103 @@ local function SaveData(inst, label, new_data)
     return old_data
 end
 
-local function ToggleComponents(inst, on)
-    ToggleTags(inst, on)
+local function ToggleComponents(inst, user, on)
+    ToggleTags(user, on)
     if on then
-        if inst.components.poisonable then
-            inst.components.poisonable:WearOff()
+        if user.components.poisonable then
+            user.components.poisonable:WearOff()
         end
 
         -- inst.components.inventory:DropEverything(true, false)
 
-        inst.components.talker:Say(GetString(inst.prefab, "ANNOUNCE_SUITUP"))
+        user.components.talker:Say(GetString(user.prefab, "ANNOUNCE_SUITUP"))
 
-        inst:AddComponent("worker")
-        inst.components.worker:SetAction(ACTIONS.DIG, 1)
-        inst.components.worker:SetAction(ACTIONS.CHOP, 4)
-        inst.components.worker:SetAction(ACTIONS.MINE, 3)
-        inst.components.worker:SetAction(ACTIONS.HAMMER, 3)
-        inst.components.worker:SetAction(ACTIONS.HACK, 2)
+        user:AddComponent("worker")
+        user.components.worker:SetAction(ACTIONS.DIG, 1)
+        user.components.worker:SetAction(ACTIONS.CHOP, 4)
+        user.components.worker:SetAction(ACTIONS.MINE, 3)
+        user.components.worker:SetAction(ACTIONS.HAMMER, 3)
+        user.components.worker:SetAction(ACTIONS.HACK, 2)
 
-        if inst.prefab ~= "wanda" then
-            inst.components.health:SetPercent(1)
-        end -- health:SetPercent(1) will change age (to 20?)
-        SaveData(inst, "healthredirect", inst.components.health.redirect)
-        inst.components.health.redirect = function() return true end -- Avoid SetInvincible(), it removes all the "hit" reactions...
-        inst.components.health.disable_penalty = true -- Pause but not reset
+        if user.prefab ~= "wanda" and inst:HasTag("isnew") then
+            user.components.health:SetPercent(1)
+        end                                                          -- health:SetPercent(1) will change age (to 20?)
+        SaveData(user, "healthredirect", user.components.health.redirect)
+        user.components.health.redirect = function() return true end -- Avoid SetInvincible(), it removes all the "hit" reactions...
+        user.components.health.disable_penalty = true                -- Pause but not reset
 
-        inst.components.sanity:SetPercent(1)
-        inst.components.sanity.ignore = true
+        if inst:HasTag("isnew") then
+            user.components.sanity:SetPercent(1)
+        end
+        user.components.sanity.ignore = true
 
-        inst.components.hunger:SetPercent(1)
-        inst.components.hunger:Pause()
+        if inst:HasTag("isnew") then
+            user.components.hunger:SetPercent(1)
+        end
+        user.components.hunger:Pause()
 
-        SaveData(inst, "caneat", inst.components.eater.caneat)
-        inst.components.eater.caneat = {} -- No eating
+        SaveData(user, "caneat", user.components.eater.caneat)
+        user.components.eater.caneat = {}                         -- No eating
 
-        inst.components.temperature:SetTemp(TUNING.STARTING_TEMP) -- Pause with fixed value
+        user.components.temperature:SetTemp(TUNING.STARTING_TEMP) -- Pause with fixed value
 
-        inst.components.moisture:ForceDry(true)
+        user.components.moisture:ForceDry(true)
 
-        SaveData(inst, "defaultdmg", inst.components.combat.defaultdamage)
-        inst.components.combat:SetDefaultDamage(IRON_LORD_DAMAGE)
-        SaveData(inst, "customdmg", inst.components.combat.customdamagemultfn)
-        inst.components.combat.customdamagemultfn = nil
+        SaveData(user, "defaultdmg", user.components.combat.defaultdamage)
+        user.components.combat:SetDefaultDamage(IRON_LORD_DAMAGE)
+        SaveData(user, "customdmg", user.components.combat.customdamagemultfn)
+        user.components.combat.customdamagemultfn = nil
 
-        inst.components.locomotor:SetExternalSpeedMultiplier(inst, "ironlord_speed", IRON_LORD_SPEED_MULT)
+        user.components.locomotor:SetExternalSpeedMultiplier(user, "ironlord_speed", IRON_LORD_SPEED_MULT)
 
-        inst.components.inventory.isexternallyinsulated:SetModifier(inst, true)
+        user.components.inventory.isexternallyinsulated:SetModifier(user, true)
 
-        inst.components.cursable:RemoveMonkeyCurse(true)
-        inst:RemoveComponent("cursable")
+        user.components.cursable:RemoveMonkeyCurse(true)
+        user:RemoveComponent("cursable")
 
         -- inst.components.grogginess:ResetGrogginess()
 
-        if inst.components.mightiness then -- Wolfgang
-            inst.components.mightiness:Pause()
+        if user.components.mightiness then -- Wolfgang
+            user.components.mightiness:Pause()
         end
 
-        if inst.components.thirst then -- Compatible with "Don't Starve: Dehydrated"
-            inst.components.thirst:SetPercent(1)
-            inst.components.thirst:Pause()
+        if user.components.thirst then -- Compatible with "Don't Starve: Dehydrated"
+            user.components.thirst:SetPercent(1)
+            user.components.thirst:Pause()
         end
+
+        inst:RemoveTag("isnew")
     else
-        inst:RemoveComponent("worker")
+        user:RemoveComponent("worker")
 
-        inst.components.health.redirect = SaveData(inst, "healthredirect")
-        inst.components.health.disable_penalty = false
+        user.components.health.redirect = SaveData(user, "healthredirect")
+        user.components.health.disable_penalty = false
 
-        inst.components.sanity.ignore = false
+        user.components.sanity.ignore = false
 
-        inst.components.hunger:Resume()
+        user.components.hunger:Resume()
 
-        inst.components.eater.caneat = SaveData(inst, "caneat")
+        user.components.eater.caneat = SaveData(user, "caneat")
 
-        inst.components.temperature:SetTemp() -- Unpause
+        user.components.temperature:SetTemp() -- Unpause
 
-        inst.components.moisture:ForceDry(false)
+        user.components.moisture:ForceDry(false)
 
-        inst.components.combat:SetDefaultDamage(SaveData(inst, "defaultdmg"))
-        inst.components.combat.customdamagemultfn = SaveData(inst, "customdmg")
+        user.components.combat:SetDefaultDamage(SaveData(user, "defaultdmg"))
+        user.components.combat.customdamagemultfn = SaveData(user, "customdmg")
 
-        inst.components.locomotor:RemoveExternalSpeedMultiplier(inst, "ironlord_speed")
+        user.components.locomotor:RemoveExternalSpeedMultiplier(user, "ironlord_speed")
 
-        inst.components.inventory.isexternallyinsulated:RemoveModifier(inst)
+        user.components.inventory.isexternallyinsulated:RemoveModifier(user)
 
-        inst:AddComponent("cursable")
+        user:AddComponent("cursable")
 
-        if inst.components.mightiness then
-            inst.components.mightiness:Resume()
+        if user.components.mightiness then
+            user.components.mightiness:Resume()
         end
 
-        if inst.components.thirst then
-            inst.components.thirst:Resume()
+        if user.components.thirst then
+            user.components.thirst:Resume()
         end
     end
 end
@@ -214,7 +220,7 @@ local function onequip(inst, owner)
     inst.owner.artifact = inst
 
     inst.SetNetVar("fuel", inst.owner, inst.components.fueled.currentfuel)
-    inst.ToggleComponents(inst.owner, true)
+    inst:ToggleComponents(inst.owner, true)
 
     if inst.components.ironmachine:IsOn() then
          -- IsOn when enter, skip morph
@@ -245,7 +251,7 @@ local function onturnon(inst)
     inst.owner.artifact = inst
 
     inst.SetNetVar("fuel", inst.owner, inst.components.fueled.currentfuel)
-    inst.ToggleComponents(inst.owner, true)
+    inst:ToggleComponents(inst.owner, true)
 
     if inst.components.ironmachine:IsOn() then
         -- IsOn when enter, skip morph
@@ -269,6 +275,7 @@ local function ondepleted(inst)
 end
 
 local function onsave(inst, data)
+    data.isnew = inst:HasTag("isnew")
     data.skins = inst.skins
     data.build = inst.build
     data.ison = inst.components.ironmachine:IsOn()
@@ -276,6 +283,9 @@ end
 
 local function onload(inst, data)
     if data then
+        if data.isnew then
+            inst:AddTag("isnew")
+        end
         if data.skins then
             inst.skins = data.skins
         end
@@ -287,6 +297,10 @@ local function onload(inst, data)
             inst:DoTaskInTime(0, function() inst.components.ironmachine:TurnOn() end)
         end
     end
+end
+
+local function OnBuilt(inst)
+    inst:AddTag("isnew")
 end
 
 local function fn(Sim)
@@ -345,6 +359,8 @@ local function fn(Sim)
             inst.SetNetVar("fuel", inst.owner, inst.components.fueled.currentfuel)
         end
     end)
+
+    inst.OnBuilt = OnBuilt
 
     MakeHauntableLaunch(inst)
 
