@@ -51,6 +51,7 @@ function ObsidianTool:SetCharge(num)
 end
 
 function ObsidianTool:Ignite(doer, target)
+    if self.charge < self.maxcharge then return end
     if target.SoundEmitter then
         target.SoundEmitter:PlaySound("dontstarve/wilson/blowdart_impact_fire")
     end
