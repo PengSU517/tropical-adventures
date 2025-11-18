@@ -204,7 +204,7 @@ end
 local hidden_fns = rawget(_G, "UpvalueHackerHiddenFns")
 if not hidden_fns then
     hidden_fns = {}
-    UpvalueHackerHiddenFns = hidden_fns -- 将hidden_fns映射到全局变量UpvalueHackerHiddenFns使其它模组也能访问到它
+    GLOBAL.UpvalueHackerHiddenFns = hidden_fns -- 将hidden_fns映射到全局变量UpvalueHackerHiddenFns使其它模组也能访问到它
 
     local _debug_getupvalue = debug.getupvalue
     local _debug_setupvalue = debug.setupvalue
