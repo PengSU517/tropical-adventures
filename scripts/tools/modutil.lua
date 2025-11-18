@@ -37,6 +37,21 @@ function modrequire(modulename, modname, newenv)
     return package_loaded[modulename] and unpack(package_loaded[modulename])
 end
 
+-----针对被hook比较多容易报错的组件
+local _AddPrefabPostInit = AddPrefabPostInit
+function AddPrefabPostInitSafe(prefab, fn)
+    _AddPrefabPostInit(prefab, function(...)
+        if not pcall(fn, ...) then return MODULE_ERROR(prefab or "unknown prefab") end
+    end)
+end
+
+local _AddComponentPostInit = AddComponentPostInit
+function AddComponentPostInitSafe(component, fn)
+    _AddComponentPostInit(component, function(...)
+        if not pcall(fn, ...) then return MODULE_ERROR(component or "unknown component") end
+    end)
+end
+
 if GetModConfigData("compatible_adjustment") then
     -- local _AddPlayerPostInit = AddPlayerPostInit
     -- -- local initprint = Upvaluehelper.GetUpvalue(AddPlayerPostInit, "initprint")
