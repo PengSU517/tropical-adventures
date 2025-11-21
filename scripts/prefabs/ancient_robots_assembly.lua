@@ -44,7 +44,6 @@ local function breakapart(inst)
 
     if inst.arms > 0 then
         for i = 1, inst.arms do
-            print("spawning arm")
 
             local sx = x - down.x
             local sz = z + down.z

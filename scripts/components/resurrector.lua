@@ -15,7 +15,7 @@ function Resurrector:Resurrect(dude)
     self.penalty = 0
 
     if SaveGameIndex:CanUseExternalResurector() then
-        print("Resurrector:Resurrect", self.inst)
+        --print("Resurrector:Resurrect", self.inst)
         SaveGameIndex:DeregisterResurrector(self.inst)
     end
 end
@@ -26,7 +26,7 @@ end
 
 function Resurrector:OnBuilt(builder)
     if SaveGameIndex:CanUseExternalResurector() and (self.used == nil or self.used == false) and self.active == true then
-        print("OnBuilt Saving resurrector", self.inst)
+        --print("OnBuilt Saving resurrector", self.inst)
         SaveGameIndex:RegisterResurrector(self.inst, self.penalty)
     end
 

@@ -51,8 +51,6 @@ local function OnTalk(inst, script)
 end
 
 local function OnAttacked(inst, data)
-    print("ON ATTACKED")
-    local attacker = data.attacker
     inst:ClearBufferedAction()
     inst.attacked = true
     local attacker = data and data.attacker

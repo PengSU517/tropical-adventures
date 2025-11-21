@@ -11,7 +11,6 @@ local prefabs =
 }
 
 local function growtree(inst)
-    print("GROWTREE")
     inst.growtask = nil
     inst.growtime = nil
     local tree = SpawnPrefab("teatree")
@@ -33,7 +32,6 @@ local function plant(inst, growtime)
     if inst.components.edible then
         inst:RemoveComponent("edible")
     end
-    print("PLANT", growtime)
 
     inst.growtask = inst:DoTaskInTime(growtime, growtree)
 end

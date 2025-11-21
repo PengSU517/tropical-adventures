@@ -2,7 +2,7 @@ local REGION_NAMES = REGION_NAMES
 local REGIONS = REGIONS
 
 local function onregion(self, region, _region)
-    print("REGION CHANGED TO ", REGION_NAMES[self.region])
+    -- print("REGION CHANGED TO ", REGION_NAMES[self.region])
 
     -- self.inst:DoTaskInTime(0, function(inst)
     -------这里必须延迟足够的时间，否则在世界刚加载时，客机接收不到这次推送，

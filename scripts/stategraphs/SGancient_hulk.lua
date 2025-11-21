@@ -23,7 +23,6 @@ local function teleport(inst)
 	
     local tile = TheWorld.Map:GetTileAtPoint(pt.x, pt.y, pt.z)
     if tile == GROUND.IMPASSABLE or tile == GROUND.INVALID or tile == GROUND.OCEAN_COASTAL or tile == GROUND.OCEAN_COASTAL_SHORE or tile == GROUND.OCEAN_SWELL or tile == GROUND.OCEAN_ROUGH or tile == GROUND.OCEAN_BRINEPOOL or tile == GROUND.OCEAN_BRINEPOOL_SHORE or tile == GROUND.OCEAN_WATERLOG or tile == GROUND.OCEAN_HAZARDOUS then
-	print("1111")
 	pt = Vector3(inst.Transform:GetWorldPosition())
 	end
 	
@@ -688,7 +687,6 @@ local states=
         tags = {"busy"},
         
         onenter = function(inst)
-            print("======= START ===============")
             inst.Transform:SetNoFaced()
             if inst.components.locomotor then
                 inst.components.locomotor:StopMoving()

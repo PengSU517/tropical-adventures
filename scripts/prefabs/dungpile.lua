@@ -32,7 +32,6 @@ local CATCOONDEN_REGEN_TIME = 30 * 4
 local CATCOONDEN_RELEASE_TIME = 30
 
 local function spawndungball(inst)
-    print("spawn dung")
     local ball = SpawnPrefab("dungball")
     ball.Transform:SetPosition(inst.Transform:GetWorldPosition())
     ball.AnimState:PlayAnimation("idle")

@@ -100,7 +100,6 @@ end
 function Multibody:OnStartMove()
 	if self.state ~= STATES.MOVING and self.state ~= STATES.DEAD then
 		self.state = STATES.MOVING
-		print("START MOVE")
 		for i, body in ipairs(self.bodies) do
 			body.components.segmented:StartMove()
 		end
@@ -114,7 +113,6 @@ end
 function Multibody:OnStopMove()
 	if self.state ~= STATES.IDLE and self.state ~= STATES.DEAD then
 		self.state = STATES.IDLE
-		print("STOP MOVE")
 
 		for i, body in ipairs(self.bodies) do
 			if i == 1 and #self.bodies == self.maxbodies then

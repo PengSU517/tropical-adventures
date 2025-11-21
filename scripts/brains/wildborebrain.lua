@@ -261,7 +261,7 @@ local function ShouldRunFromPlayerFn(hunter, inst)
 
     inst.reset_annoyance_task = inst:DoTaskInTime(10, resetfn)
 
-    print(string.format("%2.0f/%2.0f", inst.annoyance, ANNOYANCE_THRESHOLD))
+    --print(string.format("%2.0f/%2.0f", inst.annoyance, ANNOYANCE_THRESHOLD))
 
     if inst.annoyance >= ANNOYANCE_THRESHOLD then
         GetAnnoyedFn(inst, hunter)

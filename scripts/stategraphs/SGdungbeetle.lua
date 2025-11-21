@@ -561,7 +561,6 @@ local states=
 		tags = {"busy"},
 		
 		onenter = function(inst)
-			print("frozen test",inst.components.freezable:IsFrozen())
 			if inst:HasTag("hasdung") then                
 				inst.sg:GoToState("bumped")
 			else 
@@ -583,7 +582,6 @@ local states=
         tags = {"busy"},
         
         onenter = function(inst)
-            print("frozen test",inst.components.freezable:IsFrozen())
             if inst:HasTag("hasdung") then                
                 inst.sg:GoToState("bumped")
             else 

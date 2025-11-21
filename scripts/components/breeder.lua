@@ -97,7 +97,6 @@ local function SpawnPredatorPrefab(inst)
     if #predators > 2 then
         return nil
     end
-    print("PREDATORS SPAWNING")
     return SpawnPrefab(prefab)
 end
 

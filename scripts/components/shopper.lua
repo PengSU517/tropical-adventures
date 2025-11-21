@@ -25,7 +25,6 @@ function Shopper:CanPayFor(prefab)
 	local inventory = player.components.inventory
 
 	if self:IsWatching(prefab) == false then
-		print("NOT WATCHED")
 		return true
 	end
 

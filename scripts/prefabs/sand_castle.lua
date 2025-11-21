@@ -47,7 +47,7 @@ local function workcallback(inst, worker, workleft)
 end
 
 local function sectioncallback(newsection, oldsection, inst)
-	print("section callback", newsection, oldsection)
+	-- print("section callback", newsection, oldsection)
 	inst.components.workable:SetWorkLeft(newsection)
 	setanim(inst)
 end

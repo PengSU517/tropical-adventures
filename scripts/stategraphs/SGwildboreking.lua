@@ -483,8 +483,7 @@ local states =
         onenter = function(inst)
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("death")
-            inst.components.lootdropper:DropLoot(inst:GetPosition())            
-            print("Removing Pig King body")
+            inst.components.lootdropper:DropLoot(inst:GetPosition())
 	    inst:DoTaskInTime(2, ErodeAway)
         end,
 

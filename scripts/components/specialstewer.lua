@@ -107,7 +107,6 @@ end
 local function dostewstep(inst, self)
     self.task = nil
     if self:IsWorking() then
-        print(self.inst.components.fueled.currentfuel)
         if self.inst.components.container and not self.inst.components.shelf then self.inst.components.container.canbeopened = false end
         if not self.iscooking then --and not self.isdone then
             self:StartCooking()

@@ -2420,7 +2420,7 @@ local function DoneSpinning(inst)
 	inst.prize = nil
 	inst.prizevalue = nil
 
-	print("Slot machine has " .. tostring(inst.coins) .. " dubloons.")
+	-- print("Slot machine has " .. tostring(inst.coins) .. " dubloons.")
 	inst.sg:GoToState("fake_idle")
 end
 

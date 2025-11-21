@@ -20,7 +20,7 @@ SetSharedLootTable('firetwister_seal',
 local function OnEntitySleep(inst)
 	--This means the player let the seal live.
 	--Let the seal escape & leave a gift of some sort behind.
-	print("seal left")
+
 	--local seal = SpawnPrefab("magic_seal")
 	--seal.Transform:SetPosition(inst:GetPosition():Get())
 	inst:Remove()

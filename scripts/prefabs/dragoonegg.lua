@@ -32,7 +32,6 @@ SetSharedLootTable('dragoonegg',
 
 
 local function DropLoot(inst)
-	print("dragoonegg - DropLoot")
 
 	if inst.components.hatchable.toohot then
 

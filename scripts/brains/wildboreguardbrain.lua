@@ -218,9 +218,9 @@ function WildboreGuardBrain:NeedToRunAway()
    if PK == nil then
        return false
    end
-   if PK.__brain:CanJump() then
-       print("Minion is running away!");
-   end
+--    if PK.__brain:CanJump() then
+--        print("Minion is running away!");
+--    end
    return PK.__brain:CanJump()
 end
 
@@ -287,7 +287,7 @@ function WildboreGuardBrain:OnStart()
                         if not self:IsPlayerNearby() then 
 						self.inst.sg:GoToState("caifora")
 --                            self.inst:Remove() 
-                            print("Minion lost players. Despawn!") 
+                            --print("Minion lost players. Despawn!") 
                         else
                             self.ChekingForPlayers = false
                         end

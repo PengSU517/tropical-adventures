@@ -46,10 +46,10 @@ AddPrefabPostInitAny(function(inst)
     end
 
     if TUNING.aporkalypse then
-        print("add aporkalypse in world net")
+        -- print("add aporkalypse in world net")
         inst:AddComponent("aporkalypse")
     else
-        print("not add aporkalypse in world net")
+        -- print("not add aporkalypse in world net")
     end
 end)
 
@@ -79,6 +79,5 @@ end)
 -------------------------
 
 AddPrefabPostInit("forest_network", function(inst)
-    print("print forest_network", inst)
     inst:AddComponent("weatherham")
 end)

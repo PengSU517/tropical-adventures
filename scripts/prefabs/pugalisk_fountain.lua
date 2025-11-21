@@ -51,7 +51,7 @@ local function reset(inst)
 
     if snake == true then return end
 
-    --print("RESET THE PUGALISK FOUNTAIN")
+    -- print("RESET THE PUGALISK FOUNTAIN")
     if inst.dry then
         inst.components.activatable.inactive = true
         inst.AnimState:PlayAnimation("flow_pre")
@@ -59,7 +59,7 @@ local function reset(inst)
         -- inst.SoundEmitter:KillSound("burble")
 
         inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/pugalisk/fountain_LP", "burble")
-        print("SNAKE PUGALISK RESPAWNED!!!")
+        -- print("SNAKE PUGALISK RESPAWNED!!!")
 
         inst.dry = false
     end

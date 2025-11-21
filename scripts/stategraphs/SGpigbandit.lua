@@ -136,7 +136,6 @@ local states =
         tags = {"busy","evade"},
         
         onenter = function(inst)
-        print("HIT")
             inst.SoundEmitter:PlaySound("dontstarve/pig/oink")
             inst.AnimState:PlayAnimation("hit")
             --inst.components.locomotor:Stop() 

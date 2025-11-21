@@ -37,7 +37,7 @@ end
 
 ----注册食材度的 图标
 if AddFoodTag then
-    print("注册食材度图标")
+    -- print("注册食材度图标")
     for i, v in pairs(attributes) do
         local tex = v.tex .. ".tex"
         local atlas = GetInventoryItemAtlas(tex)

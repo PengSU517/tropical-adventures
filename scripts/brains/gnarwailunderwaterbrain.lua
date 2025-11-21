@@ -141,10 +141,8 @@ if inst.sg:HasStateTag("hide") then inst.sg:GoToState("idle") end
 if inst.components.combat and inst.components.combat.target then
 local x, y, z = inst.components.combat.target:GetPosition():Get()
 local dir =  inst.components.combat.target:GetPosition() - inst:GetPosition()
-print(dir)
 if dir.x > 15 or dir.x < -15 or dir.z > 15 or dir.z < - 15 then
 inst.components.combat:SetTarget(nil)
-print("3")
 end
 end
 end

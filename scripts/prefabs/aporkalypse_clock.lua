@@ -98,10 +98,10 @@ local function SpawnChildren(inst)
 			clock:AddTag("INTERIOR_LIMBO")
 		end
 		clock.OnRemoveEntity = function(self)
-			print("A clock was removed!")
+			-- print("A clock was removed!")
 			for i, v in ipairs(inst.clocks) do
 				if v == self then
-					print("removing it from our clocks!")
+					-- print("removing it from our clocks!")
 					table.remove(inst.clocks, i)
 					return
 				end

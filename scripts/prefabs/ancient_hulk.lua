@@ -71,7 +71,6 @@ SetSharedLootTable('ancient_hulk',
 
 local INTENSITY = .75
 local function SetLightValue(inst, val1, val2, time)
-    print("LIGHT VALUE", val1, val2, time)
     inst.components.fader:StopAll()
     if val1 and val2 and time then
         inst.Light:Enable(true)
@@ -723,7 +722,6 @@ local function fn(Sim)
 
     inst:ListenForEvent("onremove", function()
         inst.SoundEmitter:KillSound("gears")
-        print("KILLLL GEARS!!!!!!!!!")
     end, inst)
 
     ------------------------------------------

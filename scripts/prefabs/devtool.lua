@@ -90,7 +90,6 @@ local function onattacked(inst, owner, targer)
     fx.Transform:SetScale(0.5, 0.5, 0.5)
     inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/bearger/groundpound")
     local points = GetPoints(owner:GetPosition())
-    print(points)
     for k, v in ipairs(points) do
         for j, x in ipairs(v) do
             inst:DoTaskInTime(0.2 * (k - 1), function() SpawnPrefab("groundpound_fx").Transform:SetPosition(x:Get()) end)

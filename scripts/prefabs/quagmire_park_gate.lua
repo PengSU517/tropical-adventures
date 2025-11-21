@@ -381,7 +381,6 @@ local function lockabledoor_getstatus(inst)
 end
 
 local function onusekey(inst, key, doer)
-    print("qeqwweqeqwe")
     if not key:IsValid() or key.components.klaussackkey == nil or inst._isunlocked:value() then
         return false, nil, false
     elseif key.components.klaussackkey.keytype ~= inst.keyid then

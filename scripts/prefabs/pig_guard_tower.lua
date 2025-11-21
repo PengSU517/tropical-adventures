@@ -241,16 +241,16 @@ local function onload(inst, data)
 end
 
 local function callguards(inst, threat)
-    print("CALLING GUARD AT TOWER")
+    --print("CALLING GUARD AT TOWER")
     if inst.components.spawner then
         if inst.components.spawner:IsOccupied() then
-            print("RELEASING")
+            --print("RELEASING")
             inst.components.spawner:ReleaseChild()
         end
         if inst.components.spawner.child then
             local pig = inst.components.spawner.child
             if pig.components.combat.target == nil then
-                print("ALERTING PIG GUARD")
+                --print("ALERTING PIG GUARD")
                 pig:DoTaskInTime(math.random() * 1, function()
                     pig:PushEvent("atacked", { attacker = threat, damage = 0, weapon = nil })
                 end)

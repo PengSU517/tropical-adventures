@@ -239,7 +239,7 @@ local function onload(inst, data)
 end
 
 local function spawn_shop(inst)
-    -- print("CHECKING",inst.cancelspawn,inst.forcespawn)
+    --print("CHECKING",inst.cancelspawn,inst.forcespawn)
 
     if not inst.cancelspawn then
         if inst.forcespawn then
@@ -304,7 +304,6 @@ local function spawn_shop(inst)
 end
 
 local function makespawnerfn(Sim)
-    print("SPAWNER SPAWNING")
 
     local inst = CreateEntity()
     local trans = inst.entity:AddTransform()
@@ -331,7 +330,7 @@ local function makespawnerfn(Sim)
 
 
 
-        print("KILLING A SHOP SPAWNER")
+        --print("KILLING A SHOP SPAWNER")
         inst:Remove()
     end) -- spawn_shop(inst)
 

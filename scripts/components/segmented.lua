@@ -82,7 +82,7 @@ end
 
 function Segmented:StopMove()
 	if self.state ~= STATES.DEAD then
-		print("STOPPING SEGMENT MOVE", self.inst:HasTag("switchToTailProp"))
+		--print("STOPPING SEGMENT MOVE", self.inst:HasTag("switchToTailProp"))
 		self.state = STATES.IDLE
 	end
 end
@@ -292,7 +292,7 @@ end
 function Segmented:SetToEnd()
 	self.lastrun = true
 	if self.inst.host and self.inst.host.components.multibody.tail then
-		print("PURGE OLD TAIL")
+		--print("PURGE OLD TAIL")
 		self.inst.host.components.multibody.tail:PushEvent("tail_should_exit")
 	end
 end

@@ -30,7 +30,6 @@ local function MountDungAction(inst)
 
     local target = FindEntity(inst, SEE_DUNG_DIST, function(item) return not inst:HasTag("hasdung") and item:HasTag("dungball") end)
     if target then
-        print("HAS TARGET, SETTING MOUNT ACTION")
         inst.dung_target = target
         local act = BufferedAction(inst, target, ACTIONS.MOUNTDUNG)
         act.validfn = function() return not inst:HasTag("hasdung") and target:HasTag("dungball") end

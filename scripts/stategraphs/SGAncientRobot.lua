@@ -313,7 +313,7 @@ local events=
                 inst:RemoveTag("dormant")                        
                 inst.sg:GoToState("activate") 
         end),
-    EventHandler("deactivate", function(inst) print("DEACTIVATE EVENT")
+    EventHandler("deactivate", function(inst)
             if not inst:HasTag("dormant") then
              --   inst.components.health:StartRegen(1000, 5)
                 inst.wantstodeactivate = nil
@@ -404,7 +404,6 @@ local states=
         tags = {"busy"},
         
         onenter = function(inst, pushanim)
-            print("HERE")
             inst.Physics:SetDamping(0)
             inst.Physics:SetMotorVel(0,-35,0) -- -20+math.random()*10
             inst.AnimState:PlayAnimation("idle_fall", true)
@@ -418,7 +417,6 @@ local states=
             end
             
             if pt.y <= 0.1 then
-                print("LAND")
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/hulk_metal_robot/explode_small",nil,.25)
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step")
                 pt.y = 0                
@@ -446,7 +444,6 @@ local states=
         tags = {"busy","dormant"},
         
         onenter = function(inst, pushanim)
-            print("SEPARATE")
             --inst.wantstodeactivate = nil
             inst.components.locomotor:StopMoving()          
             inst.AnimState:PlayAnimation("separate")          
@@ -1902,7 +1899,6 @@ runtimeline =
     {
         startenter = function(inst)
             if inst:HasTag("ribs") then
-                print("CHECK 2")
                 --inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step","robo_walk_LP")
             end
         end,

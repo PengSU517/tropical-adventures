@@ -58,7 +58,7 @@ function Vineable:SetGrowTask(time)
 end
 
 function Vineable:BeginRegrow()
-	print("BEGIN REGROW TASK", self.inst.GUID)
+	-- print("BEGIN REGROW TASK", self.inst.GUID)
 	self:SetGrowTask(20 + (math.random() * 20))
 end
 
@@ -144,7 +144,7 @@ function Vineable:LoadPostPass(ents, data)
 	end
 
 	if data.regrowtimeleft then
-		print("RELOADING TASK TIME", data.regrowtimeleft)
+		-- print("RELOADING TASK TIME", data.regrowtimeleft)
 		self:SetGrowTask(data.regrowtimeleft)
 	end
 end

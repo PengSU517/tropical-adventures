@@ -108,7 +108,7 @@ local states=
 					inst:ForceFacePoint(inst.components.combat.target:GetPosition()) 
 				end 
 				inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/dragoon/attack_strike")
-				print("dragoon attack")
+				-- print("dragoon attack")
 			end),
 
 			TimeEvent(20*FRAMES, function(inst) 

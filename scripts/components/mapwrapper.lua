@@ -165,7 +165,7 @@ local function get_angle(inst, x, y, z)
 	end
 
 	local angle = -math.atan2(dz - z, dx - x)
-	print("get_angle", dist, angle, angle / DEGREES, angle * DEGREES)
+	--print("get_angle", dist, angle, angle / DEGREES, angle * DEGREES)
 	return angle / DEGREES
 end
 
@@ -265,7 +265,7 @@ function MapWrapper:OnUpdate(dt)
 		if not is_inrange(MAPWRAPPER_WARN_RANGE) then
 			self.state = STATE_WAIT
 		elseif is_inrange(MAPWRAPPER_LOSECONTROL_RANGE) then
-			print("lose control", MAPWRAPPER_LOSECONTROL_RANGE, self.inst.Transform:GetRotation())
+			--print("lose control", MAPWRAPPER_LOSECONTROL_RANGE, self.inst.Transform:GetRotation())
 			self.inst.components.talker:Say(GetString(self.inst, "ANNOUNCE_MAPWRAP_LOSECONTROL"))
 			if not self.inst:HasTag("playerghost") then
 				self.inst.components.health:SetInvincible(true)
@@ -339,7 +339,7 @@ function MapWrapper:OnUpdate(dt)
 				dx = math.max(dx, left + (MAPWRAPPER_GAINCONTROL_RANGE * 4 + 4))
 			end
 
-			print("teleport", dx, dy, dz, self.inst.Transform:GetRotation())
+			--print("teleport", dx, dy, dz, self.inst.Transform:GetRotation())
 			self.inst.Transform:SetPosition(dx, dy, dz)
 			self.state = STATE_MOVEFROMEDGE
 			self.inst:DoTaskInTime(2, function()
@@ -354,7 +354,7 @@ function MapWrapper:OnUpdate(dt)
 		self.inst.Physics:SetMotorVelOverride(TUNING.WILSON_RUN_SPEED, 0, 0)
 
 		if not is_inrange(MAPWRAPPER_GAINCONTROL_RANGE) then
-			print("gain control")
+			--print("gain control")
 			if not self.inst:HasTag("playerghost") then
 				self.inst:ShowHUD(true)
 				if self.inst.components.sanity then

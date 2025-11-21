@@ -217,7 +217,7 @@ AddPrefabPostInitAny(function(inst)
             local rsize = roomsize[roomtype[inst.prefab] or "small"]
             local ents = TheSim:FindEntities(x, y, z, 20, { "wall_room" })
             if #ents <= 0 then
-                print("interior_center does not have wall")
+                -- print("interior_center does not have wall")
                 local tipodemuro = "wall_invisible"
                 for xx = -40, 40 do
                     for zz = -40, 40 do
@@ -229,7 +229,7 @@ AddPrefabPostInitAny(function(inst)
                     end
                 end
             else
-                print("interior_center does have wall")
+                -- print("interior_center does have wall")
             end
         end)
     end

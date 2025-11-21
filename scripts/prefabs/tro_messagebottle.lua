@@ -27,9 +27,6 @@ local function onunwrapped(inst, pos, doer)
 			doer.player_classified.revealtreasure:set_local(val)
 			doer.player_classified.revealtreasure:set(val)
 		end
-		print(davez)
-		print(x)
-		print(z)
 		inst:Remove()
 		return
 	end
@@ -55,9 +52,6 @@ local function onunwrapped(inst, pos, doer)
 			doer.player_classified.revealtreasure:set_local(val)
 			doer.player_classified.revealtreasure:set(val)
 		end
-		print(davez)
-		print(x)
-		print(z)
 		inst:Remove()
 		return
 	end
@@ -93,8 +87,6 @@ local function onunwrapped(inst, pos, doer)
 		local val = (x + 16384) * 65536 + (y + 16384)
 		doer.player_classified.revealtreasure:set_local(val)
 		doer.player_classified.revealtreasure:set(val)
-		print(x)
-		print(y)
 	end
 
 	inst:Remove()

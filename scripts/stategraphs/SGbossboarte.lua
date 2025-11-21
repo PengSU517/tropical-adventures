@@ -402,7 +402,6 @@ local states =
         events = {
             EventHandler("animover", function(inst)
                 if inst.AnimState:IsCurrentAnimation("banner_loop") and inst.sg.statemem.loops <= 3 then
-                    print("need to play sound")
 --                    if not inst.sg.statemem.gbdone then
                         inst:PerformBufferedAction()
 						burstattack(inst)

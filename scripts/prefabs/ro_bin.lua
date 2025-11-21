@@ -74,11 +74,9 @@ local function OnWaterChange(inst, onwater)
         inst.onwater = true
         inst.altstep = nil
         inst.sg:GoToState("takeoff")
-        print("ROBIN ON WATER")
     else
         inst.onwater = false
         inst.sg:GoToState("land")
-        print("ROBIN ON LAND")
     end
 end
 

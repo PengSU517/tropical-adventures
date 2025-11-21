@@ -86,7 +86,7 @@ local Aporkalypse = Class(function(self, inst)
 	self.OnUpdate = function(dt)
 		-- print("try update aporkalypse")
 		if _phasedirty then
-			print("aporkalypse phase changed:", PHASE_NAMES[self._phase:value()])
+			-- print("aporkalypse phase changed:", PHASE_NAMES[self._phase:value()])
 			_world:PushEvent("aporkalypsephasechanged", PHASE_NAMES[self._phase:value()])
 			_phasedirty = false
 		end

@@ -544,10 +544,8 @@ local function decofn(build, bank, animframe, data, assets, prefabs)
                         if workleft <= 0 then
                             TheWorld.components.quaker_interior:ForceQuake("cavein", inst)
                             inst.components.workable:SetWorkable(false)
-                            print("QUAKE: CAVE IN!!!")
                         else
                             TheWorld.components.quaker_interior:ForceQuake("pillarshake", inst)
-                            print("QUAKE: pillar!!!")
                         end
                     end
                     -- TheCamera:Shake("FULL", 1.0, 0.05, .2)

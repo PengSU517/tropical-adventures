@@ -169,7 +169,6 @@ local function OnSave(inst, data)
         data.build = inst.saveartdata.build
         data.anim = inst.saveartdata.anim
         if inst.saveartdata.scale then
-            print("SCALE-X SAVE", inst.saveartdata.scale[1])
             data.scaleX = inst.saveartdata.scale[1]
             data.scaleY = inst.saveartdata.scale[2]
             data.scaleX = inst.saveartdata.scale[3]
@@ -212,7 +211,6 @@ local function OnLoad(inst, data)
             inst:Show()
         end
         if data.scaleX then
-            print("HAD SCALE-X", data.scaleX)
             inst.AnimState:SetScale(data.scaleX, data.scaleY, data.scaleZ)
             inst:Show()
         end

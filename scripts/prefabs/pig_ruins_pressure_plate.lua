@@ -48,7 +48,6 @@ end
 
 local function trigger(inst)
     if inst:HasTag("trap_dart") then
-        print("TRIGGER DARTS!")
         local pt = Vector3(inst.Transform:GetWorldPosition())
         local ents = TheSim:FindEntities(pt.x, pt.y, pt.z, 50, { "dartthrower" }, { "INTERIOR_LIMBO" })
         for i, ent in ipairs(ents) do
@@ -59,7 +58,6 @@ local function trigger(inst)
             end
         end
     elseif inst:HasTag("trap_spear") then
-        print("TRIGGER SPEARS!")
         local pt = Vector3(inst.Transform:GetWorldPosition())
         local dist = 50
         if inst:HasTag("localtrap") then
@@ -85,7 +83,6 @@ end
 local function untrigger(inst)
     if inst:HasTag("trap_dart") then
     elseif inst:HasTag("trap_spear") then
-        print("TRIGGER SPEARS!")
         local pt = Vector3(inst.Transform:GetWorldPosition())
         local dist = 50
         if inst:HasTag("localtrap") then
@@ -109,7 +106,6 @@ local function untrigger(inst)
 end
 
 local function onnear(inst)
-    print("TRIGGER")
     --  if inst.weights == 0 then
     if inst.components.disarmable and inst.components.disarmable.armed and not inst.down then
         inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/pressure_plate/hit")
@@ -124,7 +120,6 @@ local function onnear(inst)
     end
     -- end
     -- inst.weights = inst.weights +1
-    -- print("near",inst.weights)
 end
 
 local function onfar(inst)
@@ -141,7 +136,6 @@ local function onfar(inst)
         end
     end
     -- end
-    --  print("far",inst.weights)
 end
 
 local function testfn(testinst)

@@ -685,12 +685,12 @@ local function SetNormalPig(inst, brain_id)
 end
 
 local function normalizetorch(torch)
-    print("normalizing torch")
+    --print("normalizing torch")
     torch.components.fueled.unlimited_fuel = nil
 end
 
 local function normalizehalberd(halberd)
-    print("normalizing halberd")
+    --print("normalizing halberd")
     halberd.components.finiteuses.unlimited_uses = nil
 end
 
@@ -894,7 +894,7 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
             data.children = {}
             -- for the shopkeepers if they have spawned their desk
             if inst.desk then
-                print("SAVING THE DESK")
+                --print("SAVING THE DESK")
                 table.insert(data.children, inst.desk.GUID)
                 data.desk = inst.desk.GUID
             end
@@ -1271,7 +1271,7 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
             data.children = {}
             -- for the shopkeepers if they have spawned their desk
             if inst.desk then
-                print("SAVING THE DESK")
+                --print("SAVING THE DESK")
                 table.insert(data.children, inst.desk.GUID)
                 data.desk = inst.desk.GUID
             end
@@ -1296,7 +1296,7 @@ local function makefn(name, build, fixer, guard_pig, shopkeeper, tags, sex, econ
                 data.guards_called = true
             end
             if inst.task_guard1 or inst.task_guard2 then
-                print("SAVING GUARD TASKS")
+                --print("SAVING GUARD TASKS")
                 data.doSpawnGuardTask = true
             end
             -- end shopkeeper stuff

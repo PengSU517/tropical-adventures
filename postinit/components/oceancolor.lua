@@ -34,7 +34,7 @@ AddComponentPostInit("oceancolor", function(self)
 
 	local _activatedplayer
 	local function OnRegionChanged(src, dat)
-		print("OnRegionChanged", dat and dat.region)
+		--print("OnRegionChanged", dat and dat.region)
 		local regionname = REGION_NAMES[dat and dat.region or 1] ----region为什么是个表？
 		local colors = COLOURSETS[regionname] or COLOURSETS.forest
 

@@ -33,7 +33,6 @@ local LEIF_REAWAKEN_RADIUS = 20
 local COCONUT_GROWTIME = { base = 2.5 * day_time, random = 0.75 * day_time }
 
 local function growtree(inst)
-    print("GROWTREE")
     inst.growtask = nil
     inst.growtime = nil
     local tree = SpawnPrefab("palmtree_short")
@@ -53,7 +52,6 @@ local function plant(inst, growtime)
     inst.AnimState:PlayAnimation("planted", true)
     inst.SoundEmitter:PlaySound("dontstarve/wilson/plant_tree")
     inst.growtime = GetTime() + growtime
-    print("PLANT", growtime)
     inst.growtask = inst:DoTaskInTime(growtime, growtree)
 
     if inst.components.edible then

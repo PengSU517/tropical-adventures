@@ -7,7 +7,6 @@ local events =
 }
 
 local function ReleaseDoydoy(inst)
-	print("ReleaseDoydoy")
 	local doydoy = SpawnPrefab("doydoy")
 	doydoy.Transform:SetPosition(inst:GetPosition():Get())
 	doydoy.sg:GoToState("hatch")
@@ -15,7 +14,6 @@ local function ReleaseDoydoy(inst)
 end
 
 local function Hatch(inst)
-	print("Hatch")
 	inst.EggHatched = true
 	inst:DoTaskInTime(0.1, ReleaseDoydoy)
 end

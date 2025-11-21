@@ -50,7 +50,6 @@ local function update(inst)
     if inst.components.pickable and inst.components.pickable.cycles_left > 0 then
         inst.components.pickable.caninteractwith = true
         inst.components.pickable.canbepicked = true
-        print(inst.components.pickable.cycles_left)
     end
 end
 

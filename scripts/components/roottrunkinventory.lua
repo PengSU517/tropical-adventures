@@ -40,7 +40,6 @@ function RootTrunkInventory:empty(target)
 	if t_cont and cont then
 		for i, slot in pairs(cont.slots) do
 			local item = cont:RemoveItemBySlot(i)
-			print(item.prefab)
 			t_cont:GiveItem(item, i, nil, nil, true)
 		end
 	end
@@ -52,7 +51,6 @@ function RootTrunkInventory:fill(source)
 	if s_cont and cont then
 		for i, slot in pairs(s_cont.slots) do
 			local item = s_cont:RemoveItemBySlot(i)
-			print(item.prefab)
 			cont:GiveItem(item, i, nil, nil, true)
 		end
 	end

@@ -171,7 +171,7 @@ local states=
         onexit = function(inst)
             inst.SoundEmitter:KillSound("insane")
             -- TheMixer:PopMix("mute")
-            print("mix_off")           
+            -- print("mix_off")     
         end,
     },
 

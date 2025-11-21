@@ -39,7 +39,6 @@ local function FindRandomOffscreenPoint(inst)
 --            end 
         end        
     end
-    print("FAILED!!!!!!")
     return nil
 end
 

@@ -94,7 +94,6 @@ function Cycletimer:OnLoad(data)
 end
 
 function Cycletimer:Pause()
-	print("Pause")
 	if self.inst.cycletask1 then
 		self.task1time = self.inst:TimeRemainingInTask(self.inst.cycletask1info)
 		self.inst.cycletask1:Cancel()
@@ -108,7 +107,6 @@ function Cycletimer:Pause()
 end
 
 function Cycletimer:Resume()
-	print("Resume")
 	if self.task1time then
 		self.inst.cycletask1, self.inst.cycletask1info = self.inst:ResumeTask(self.task1time,
 			function() self:startcycle2() end)

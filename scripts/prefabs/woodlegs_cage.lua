@@ -111,14 +111,12 @@ local function ItemGet(inst, giver, item)
 end
 
 local function MakeComplete(inst)
-	print("Made Complete")
 	inst.collectedKeys = { woodlegs_key1 = true, woodlegs_key2 = true, woodlegs_key3 = true }
 end
 
 local function OnLoad(inst, data)
 	if data then
 		if data.makecomplete == 1 then
-			print("has make complete data")
 			MakeComplete(inst)
 			TestForUnlock(inst)
 		end

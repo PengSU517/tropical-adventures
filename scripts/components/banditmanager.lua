@@ -131,7 +131,7 @@ return Class(function(self, inst)
     --------------------------------------------------------------------------
 
     function self:SpawnBanditOnPlayer(player)
-        print("generate a bandit in world!!!")
+        --print("generate a bandit in world!!!")
 
         local x, y, z = player.Transform:GetWorldPosition()
         local ents = TheSim:FindEntities(x, y, z, 40, { "bandit_cover" })

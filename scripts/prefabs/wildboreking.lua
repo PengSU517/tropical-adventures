@@ -619,7 +619,7 @@ local function Horror(Target)
 end
 
 local function fnDoUseStaff(inst)
-    print("Pig King is using staff")
+    -- print("Pig King is using staff")
     if inst.__brain then
         local Targets = inst.__brain:GetTargets()
 
@@ -663,7 +663,7 @@ local function OnKilled(inst)
 end
 
 local function OnDead(inst)
-    print("Pig King is dead!")
+    -- print("Pig King is dead!")
     fnDespawnMinions(inst)
     DoLoot(inst)
     inst.sg:GoToState("death")
@@ -684,7 +684,7 @@ local function DoMakePigsAttack(inst)
         if players == nil or #players == 0 then
             return
         end
-        print("Pig King is setting targets for nearby pigs")
+        -- print("Pig King is setting targets for nearby pigs")
 
         for i, pig in ipairs(pigs) do
             pig.PigKing = inst

@@ -29,7 +29,6 @@ local SIT_BOY_DIST = 10
 local function HarvestAction(inst)
     local target = FindEntity(inst, SEE_DIST, function(item) return item.components.breeder and item.components.breeder.volume > 0 end)
     if target then
-        print("target",target.prefab)
         return BufferedAction(inst, target, ACTIONS.HARVEST)
     end
 end

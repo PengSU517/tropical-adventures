@@ -47,7 +47,6 @@ local loot =
 local TAIL_FEATHERS_MAX = PEAGAWK_TAIL_FEATHERS_MAX
 
 local function refreshart(inst)
-    print(inst.feathers)
     for i = 1, TAIL_FEATHERS_MAX do
         if inst.feathers < i then
             inst.AnimState:Hide("perd_tail_" .. i)

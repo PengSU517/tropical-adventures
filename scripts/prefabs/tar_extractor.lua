@@ -175,7 +175,6 @@ local function onload(inst, data)
 end
 
 local function OnFuelEmpty(inst)
-	print("OnFuelEmpty")
 	inst.components.machine:TurnOff()
 end
 

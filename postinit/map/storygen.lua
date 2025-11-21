@@ -22,7 +22,7 @@ STORYGEN = nil
 local old_buildstory = BuildStory
 BuildStory = function(tasks, story_gen_params, level)
     TOPOLOGY_SAVE, STORYGEN = old_buildstory(tasks, story_gen_params, level)
-    print("BuildStory data has been saved!")
+    -- print("BuildStory data has been saved!")
     return TOPOLOGY_SAVE, STORYGEN
 end
 

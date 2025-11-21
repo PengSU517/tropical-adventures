@@ -70,7 +70,7 @@ local function onpickedfn(inst)
     inst.AnimState:PushAnimation("picked")
 
     local target = FindEntity(inst, 50, function(item) return item:HasTag("platapine") end)
-    print("BILL_SPAWN_CHANCE", BILL_SPAWN_CHANCE)
+    -- print("BILL_SPAWN_CHANCE", BILL_SPAWN_CHANCE)
     if not target and math.random() < BILL_SPAWN_CHANCE then
         local x, y, z = inst.Transform:GetWorldPosition()
         local bill = SpawnPrefab("bill")

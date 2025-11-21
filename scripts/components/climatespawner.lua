@@ -200,7 +200,7 @@ return Class(function(self, inst)
     --------------------------------------------------------------------------
 
     function self:SetSpawnTimes(delay)
-        print "DEPRECATED: SetSpawnTimes() in birdspawner.lua, use birdattractor.spawnmodifier instead"
+        --print "DEPRECATED: SetSpawnTimes() in birdspawner.lua, use birdattractor.spawnmodifier instead"
         _minspawndelay = delay.min
         _maxspawndelay = delay.max
     end
