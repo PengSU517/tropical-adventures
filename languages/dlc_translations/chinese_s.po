@@ -196434,7 +196434,7 @@ msgstr "灯"
 #. STRINGS.NAMES.APORKALYPSE_CLOCK
 msgctxt "STRINGS.NAMES.APORKALYPSE_CLOCK"
 msgid "Aporkalypse Calendar"
-msgstr "天启日历"
+msgstr "灾变日历"
 
 #. STRINGS.NAMES.ARMORCACTUS
 msgctxt "STRINGS.NAMES.ARMORCACTUS"
