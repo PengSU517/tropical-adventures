@@ -101,15 +101,17 @@ local function FindUpvalue(fn, name, fnfile, valuefile)
                         end
                     end
                 end
-            elseif type(valuefile) == "string" and type(upvalue) == "function" then -- 仅限定获取到的上值来自某个文件
-                local valueinfo = debug.getinfo(upvalue)
+            elseif type(valuefile) == "string" then -- 仅限定获取到的上值来自某个文件
+                if type(upvalue) == "function" then
+                    local valueinfo = debug.getinfo(upvalue)
 
-                if valueinfo and valueinfo.source:match(valuefile) then -- 来源正确，返回
-                    return TryToClose(level, upvalue, i, fn)
-                else                                                    -- 来源错误，递归查找
-                    local upupvalue, upupi, upupfn = FindUpvalue(upvalue, name, fnfile, valuefile)
-                    if upupvalue ~= nil then
-                        return TryToClose(level, upupvalue, upupi, upupfn)
+                    if valueinfo and valueinfo.source:match(valuefile) then -- 来源正确，返回
+                        return TryToClose(level, upvalue, i, fn)
+                    else                                                    -- 来源错误，递归查找
+                        local upupvalue, upupi, upupfn = FindUpvalue(upvalue, name, fnfile, valuefile)
+                        if upupvalue ~= nil then
+                            return TryToClose(level, upupvalue, upupi, upupfn)
+                        end
                     end
                 end
             else -- 未限定文件，直接返回
