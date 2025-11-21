@@ -136,8 +136,8 @@ local function HookSeasonBadge(self)
         local season_trans = {"autumn", "winter", "spring", "summer"} ----季节列表
         local season_lookup = {}
         for i,v in ipairs(season_trans) do season_lookup[v] = i end
-        local COMPACTSEASONS -- 紧凑型季节时钟
-        local MICROSEASONS -- 最简易季节时钟
+        local COMPACTSEASONS ----紧凑型季节时钟
+        local MICROSEASONS ----最简易季节时钟
 
         local old_Scale = self.season.bg:GetScale()
         local old_Position = self.season.num:GetPosition()
@@ -230,7 +230,7 @@ local function HookSeasonBadge(self)
         MICROSEASONS = Upvaluehelper.GetUpvalue(old_UpdateText, "MICROSEASONS")
 
         local new_UpdateText = function(focused, ...)
-            old_UpdateText(focused)
+            old_UpdateText(focused, ...)
             UpdateText(focused)
         end
         self.season.UpdateText = new_UpdateText
@@ -247,6 +247,6 @@ local function HookSeasonBadge(self)
     end
 end
 
----- 只有一个会通过self.season的判断
+----只有一个会通过self.season的判断
 AddClassPostConstruct("widgets/statusdisplays", HookSeasonBadge) ----紧凑型时钟
 AddClassPostConstruct("widgets/controls", HookSeasonBadge) ----最简易时钟
