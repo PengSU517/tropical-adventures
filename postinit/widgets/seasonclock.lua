@@ -117,7 +117,7 @@ AddClassPostConstruct(dir, function(self)
         local str = GetSeasonString(self)
         if ThePlayer and TheWorld then
             local season = TheWorld.state.season
-            if ThePlayer:AwareInShipwreckedArea() or ThePlayer:AwareInVolcanoArea() then ----每次要判断两次位置，有点无语
+            if ThePlayer:AwareInShipwreckedArea() then
                 str = STRINGS.UI.SANDBOXMENU[string.upper(seasonmap.sw[season])] or str
             elseif ThePlayer:AwareInHamletArea() then
                 str = STRINGS.UI.SANDBOXMENU[string.upper(seasonmap.ham[season])] or str
@@ -129,3 +129,124 @@ AddClassPostConstruct(dir, function(self)
         return str
     end
 end)
+
+----适配紧凑型/最简易季节时钟
+local function HookSeasonBadge(self)
+    if self.season then
+        local season_trans = {"autumn", "winter", "spring", "summer"} ----季节列表
+        local season_lookup = {}
+        for i,v in ipairs(season_trans) do season_lookup[v] = i end
+        local COMPACTSEASONS -- 紧凑型季节时钟
+        local MICROSEASONS -- 最简易季节时钟
+
+        local old_Scale = self.season.bg:GetScale()
+        local old_Position = self.season.num:GetPosition()
+        local ChangedScale = false
+
+        local function UpdateText(focused)
+            local str = self.season.num:GetString()
+            if focused and not MICROSEASONS then ----离下一季还有几天
+                str = str:gsub("(%d+)(.*)\n(.*)", function(days, to, season)
+                    if season then
+                        local world_season = TheWorld.state.season
+                        local season_i = season_lookup[world_season]
+                        local season_length = 0
+
+                        if season_i == nil then ----当前季节不在我们的季节列表中
+                            return days .. to .. "\n" .. season
+                        end
+
+                        repeat
+                            season_i = season_i%#season_trans + 1
+                            local lengthstr = season_trans[season_i] .. "length"
+                            season_length = TheWorld.state[lengthstr]
+                        until season_length and season_length > 0
+
+                        if ThePlayer and TheWorld then
+                            if ThePlayer:AwareInShipwreckedArea() then
+                                season = STRINGS.UI.SANDBOXMENU[string.upper(seasonmap.sw[season_trans[season_i]])] or season
+                            elseif ThePlayer:AwareInHamletArea() then
+                                season = STRINGS.UI.SANDBOXMENU[string.upper(seasonmap.ham[season_trans[season_i]])] or season
+                            end
+                        end
+                    end
+                    return days .. to .. "\n" .. season
+                end)
+            else
+                if MICROSEASONS then
+                    if focused then
+                        if ThePlayer and TheWorld then
+                            local season = TheWorld.state.season
+                            if ThePlayer:AwareInShipwreckedArea() then
+                                str = STRINGS.UI.SANDBOXMENU[string.upper(seasonmap.sw[season])] or str
+                            elseif ThePlayer:AwareInHamletArea() then
+                                str = STRINGS.UI.SANDBOXMENU[string.upper(seasonmap.ham[season])] or str
+                            end
+                        end
+                        if TheWorld.state.isaporkalypse then
+                            str = string.format("%s\n(%s)", str, STRINGS.UI.SANDBOXMENU.APORKALYPSE or "Aporkalypse")
+                        end
+                        if string.find(str, "\n") then ----有换行说明大灾变了
+                            self.season.bg:SetScale(0.65, .645, 1) ----调整背景大小以塞得下字符串
+                            self.season.num:SetPosition(0, -40.5) ----原来的字有点偏
+                            ChangedScale = true
+                        end
+                    elseif ChangedScale then
+                        self.season.bg:SetScale(old_Scale.x, old_Scale.y, old_Scale.z)
+                        self.season.num:SetPosition(old_Position.x, old_Position.y, old_Position.z)
+                        ChangedScale = false
+                    end
+                elseif COMPACTSEASONS then
+                    str = str:gsub("(.*)\n(.*)", function(progress, season)
+                        if season then
+                            if ThePlayer and TheWorld then
+                                local world_season = TheWorld.state.season
+                                if ThePlayer:AwareInShipwreckedArea() then
+                                    season = STRINGS.UI.SANDBOXMENU[string.upper(seasonmap.sw[world_season])] or season
+                                elseif ThePlayer:AwareInHamletArea() then
+                                    season = STRINGS.UI.SANDBOXMENU[string.upper(seasonmap.ham[world_season])] or season
+                                end
+                            end
+                            if TheWorld.state.isaporkalypse then
+                                season = string.format("%s\n(%s)", season, STRINGS.UI.SANDBOXMENU.APORKALYPSE) or "Aporkalypse"
+
+                                self.season.bg:SetScale(0.65, 1, 1) ----调整背景大小以塞得下字符串
+                                self.season.num:SetPosition(0, -40.5) ----原来的字有点偏
+                                ChangedScale = true
+                            elseif ChangedScale then
+                                self.season.bg:SetScale(old_Scale.x, old_Scale.y, old_Scale.z)
+                                self.season.num:SetPosition(old_Position.x, old_Position.y, old_Position.z)
+                                ChangedScale = false
+                            end
+                        end
+                        return progress .. "\n" .. season
+                    end)
+                end
+            end
+            self.season.num:SetString(str)
+        end
+        local old_UpdateText = self.season.UpdateText
+        COMPACTSEASONS = Upvaluehelper.GetUpvalue(old_UpdateText, "COMPACTSEASONS")
+        MICROSEASONS = Upvaluehelper.GetUpvalue(old_UpdateText, "MICROSEASONS")
+
+        local new_UpdateText = function(focused, ...)
+            old_UpdateText(focused)
+            UpdateText(focused)
+        end
+        self.season.UpdateText = new_UpdateText
+        Upvaluehelper.SetUpvalue(self.season.OnGainFocus, new_UpdateText, "UpdateText") ----或者修改self.season.OnLoseFocus，它们用的是同一个上值
+
+        ----切换地区时更新字符串
+        ThePlayer:ListenForEvent("regionchange_client", function(inst, data)
+            new_UpdateText(false)
+        end)
+
+        TheWorld:ListenForEvent("aporkalypsephasechanged", function(_, phase)
+            new_UpdateText(false)
+        end)
+    end
+end
+
+---- 只有一个会通过self.season的判断
+AddClassPostConstruct("widgets/statusdisplays", HookSeasonBadge) ----紧凑型时钟
+AddClassPostConstruct("widgets/controls", HookSeasonBadge) ----最简易时钟
