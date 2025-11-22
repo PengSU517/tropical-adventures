@@ -841,6 +841,7 @@ AddRecipe2("playerhouse_city",
 		min_spacing = 3.2,
 		placer = "playerhouse_city_placer",
 		image = "pig_house_sale.tex",
+        no_deconstruction = true,
 		--[[build_mode = BUILDMODE.WATER]]
 	},
 	{ "HAMLET" })
