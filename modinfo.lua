@@ -64,7 +64,7 @@ name = pub_dev(en_zh("Tropical Adventures|Ship of Theseus", "热带冒险|忒修
     en_zh("Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "3.11.22"
+version = "3.11.23"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -93,7 +93,7 @@ dont_starve_compatible = false
 all_clients_require_mod = true
 -- client_only_mod = false
 reign_of_giants_compatible = false
-server_filter_tags = { "Shipwrecked", "Hamlet", "海难", "哈姆雷特", "猪镇", "三合一" }
+server_filter_tags = { "Shipwrecked", "Hamlet", "海难", "哈姆雷特", "猪镇", "三合一", "热带冒险"}
 
 icon_atlas = "images/modicon/modicon.xml"
 icon = "modicon.tex"
