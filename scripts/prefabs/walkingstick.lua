@@ -69,7 +69,7 @@ local function fn()
 
     inst:AddComponent("fueled")
     inst.components.fueled.fueltype = FUELTYPE.USAGE
-    inst.components.fueled:InitializeFuelLevel(TUNING.DAY_TIME_DEFAULT * 3)
+    inst.components.fueled:InitializeFuelLevel(TUNING.TOTAL_DAY_TIME * 3)
     inst.components.fueled:SetDepletedFn(inst.Remove)
 
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
