@@ -110,6 +110,6 @@ local function fn()
     return inst
 end
 
-PICKABLE_FOOD_PRODUCTS["nettle"] = true
+PICKABLE_FOOD_PRODUCTS["cutnettle"] = true
 
 return Prefab("forest/objects/nettle", fn, assets, prefabs)
