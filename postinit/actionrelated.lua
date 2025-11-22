@@ -16,35 +16,27 @@ AddComponentPostInit(
     end
 )
 
-AddComponentPostInit("playeractionpicker",
-    function(self)
-        local OldGetRightClickActions = self.GetRightClickActions
-        function self:GetRightClickActions(position, target, spellbook)
-            local boat = self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-            local acts = OldGetRightClickActions(self, position, target, spellbook)
-            if #acts <= 0 and boat then
-                acts = self:GetPointActions(position, boat, true)
-            end
-            return acts
+AddComponentPostInit("playeractionpicker", function(PlayerActionPicker)
+    local GetRightClickActions = PlayerActionPicker.GetRightClickActions
+    function PlayerActionPicker:GetRightClickActions(position, target, spellbook)
+        local boat = self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+        local acts = GetRightClickActions(self, position, target, spellbook)
+        if act ~= nil and #acts <= 0 and boat then
+            acts = self:GetPointActions(position, boat, true)
         end
+        return acts
     end
-)
 
-
-AddComponentPostInit("playeractionpicker",
-    function(self)
-        local OldGetLeftClickActions = self.GetLeftClickActions
-        function self:GetLeftClickActions(position, target)
-            local boat = self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
-            local acts = OldGetLeftClickActions(self, position, target)
-
-            if #acts <= 0 and boat and TheWorld.Map:IsPassableAtPoint(position:Get()) then
-                acts = self:GetPointActions(position, boat, nil)
-            end
-            return acts
+    local GetLeftClickActions = PlayerActionPicker.GetLeftClickActions
+    function PlayerActionPicker:GetLeftClickActions(position, target)
+        local boat = self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
+        local acts = GetLeftClickActions(self, position, target)
+        if act ~= nil and #acts <= 0 and boat and TheWorld.Map:IsPassableAtPoint(position:Get()) then
+            acts = self:GetPointActions(position, boat, nil)
         end
+        return acts
     end
-)
+end)
 
 
 AddComponentPostInit("fueled", function(self)
