@@ -60,11 +60,11 @@ local function pub_dev(pub, dev)
     return isdev and dev or pub
 end
 
-name = pub_dev(en_zh(" Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船"),
-    en_zh(" Tropical Adventures|Dev", "热带冒险|开发版"))
+name = pub_dev(en_zh("Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船"),
+    en_zh("Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "3.11.16"
+version = "3.11.22"
 forumthread = ""
 api_version = 10
 priority = -100
