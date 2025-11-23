@@ -272,7 +272,7 @@ local setting_languages = {
 
 }
 
-merge(STRINGS, languagerequire("extension/english"), true) -- 加载额外DLC字符串（强制覆盖现有字符串）
+merge(STRINGS, languagerequire("extension/english_extension"), true) -- 加载额外DLC字符串（强制覆盖现有字符串）
 
 require("translator")
 local LanguageTranslator = GLOBAL.LanguageTranslator
