@@ -24,6 +24,7 @@ local function fn(Sim)
     inst.AnimState:PlayAnimation("idle")
 
     inst:AddTag("poisonous")
+    inst:AddTag("badfood")
     MakeInventoryFloatable(inst)
 
     inst.entity:SetPristine()
