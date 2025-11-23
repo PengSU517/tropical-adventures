@@ -142,7 +142,7 @@ function Driver:OnStageGraph()
 	local sailslot = self:GetTail()
 	local sound = sailslot and sound_mapping[sailslot.prefab]
 	local boat_proxy = inst.boat_proxy
-	if boat_proxy --[[ and not self.inst.sg:HasStateTag("busy") ]] then
+	if boat_proxy and boat_proxy:IsValid() --[[ and not self.inst.sg:HasStateTag("busy") ]] then
 		if self.inst.sg:HasStateTag("sailing") and sailslot and sailslot:HasTag("sail") then
 			boat_proxy.AnimState:SetBank("wilson")                --把船的骨骼改成人的骨骼
 			boat_proxy.AnimState:AddOverrideBuild("player_actions_paddle") ---在附加上船的动作build
