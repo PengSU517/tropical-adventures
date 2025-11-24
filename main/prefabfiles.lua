@@ -199,7 +199,7 @@ PrefabFiles = {
     "hanging_vine",
     "harpoon",
     "hats_hamlet",
-    "hatty_piggy_tfc",
+    -- "hatty_piggy_tfc",
     "hedge",
     "herald_tatters",
     "hippo_antler",
