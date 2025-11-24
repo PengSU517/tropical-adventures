@@ -1,9 +1,8 @@
-
 AddComponentPostInit("combat", function(self)
     function self:GetWeapon()
         if self.inst.components.inventory ~= nil then
             local item = self.inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) or
-            self.inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+                self.inst.components.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
             return item ~= nil
                 and item.components.weapon ~= nil
                 and (item.components.projectile ~= nil or
@@ -22,7 +21,7 @@ AddClassPostConstruct("components/combat_replica", function(self)
             return self.inst.components.combat:GetWeapon()
         elseif self.inst.replica.inventory ~= nil then
             local item = self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HANDS) or
-            self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
+                self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.HEAD)
             if item ~= nil and item:HasTag("weapon") then
                 if item:HasTag("projectile") or item:HasTag("rangedweapon") then
                     return item
@@ -63,6 +62,7 @@ AddClassPostConstruct("screens/playerhud", function(self)
 
         if self.batview and self.trapmarker and shootview ~= nil and self.owner then
             if not (self.batview.shown or self.trapmarker.shown or shootview) and
+                self.owner.replica.inventory and
                 self.owner.replica.inventory:EquipHasTag("invisiblegoggles") then
                 self.gogglesover.bg:SetTint(1, 1, 1, 0)
             elseif (self.batview.shown or self.trapmarker.shown or shootview) and
