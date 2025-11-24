@@ -756,8 +756,7 @@ return {
     GROTTO_PILLAR_BUG = "Unimportant Pillar",
     HAMLET_TO_DST = "Portal to Together",
     HATSHOP_DOOR_SAIDA = "Door",
-    HATSHOP_ENTRANCE = "The Sow's Ear \
-Hat Shop",
+    HATSHOP_ENTRANCE = "The Sow's Ear \n Hat Shop",
     HATTY_PIGGY_TFC = "Piggy",
     HONEYCHEST = "Honey Chest",
     HOUNDB = "Hound",
@@ -920,8 +919,7 @@ Hat Shop",
     PIG_SHOP_ANTIQUITIES_DOOR_SAIDA = "Door",
     PIG_SHOP_ARCANE_DOOR_ENTRADA = "Door",
     PIG_SHOP_ARCANE_DOOR_SAIDA = "Door",
-    PIG_SHOP_ARCANE_ENTRANCE = "The Flying Pig \
-Arcane Shop",
+    PIG_SHOP_ARCANE_ENTRANCE = "The Flying Pig \n Arcane Shop",
     PIG_SHOP_BANK_DOOR_ENTRADA = "Door",
     PIG_SHOP_BANK_DOOR_SAIDA = "Door",
     PIG_SHOP_BANK_ENTRANCE = "Swinesbury Mineral Exchange",
@@ -936,17 +934,14 @@ Arcane Shop",
     PIG_SHOP_DELI_ENTRANCE = "The Sterling Trough Deli",
     PIG_SHOP_FLORIST_DOOR_ENTRADA = "Door",
     PIG_SHOP_FLORIST_DOOR_SAIDA = "Door",
-    PIG_SHOP_FLORIST_ENTRANCE = "Miss Sow's\
-Floral Arrangements",
+    PIG_SHOP_FLORIST_ENTRANCE = "Miss Sow's\n Floral Arrangements",
     PIG_SHOP_GENERAL_DOOR_ENTRADA = "Door",
     PIG_SHOP_GENERAL_DOOR_SAIDA = "Door",
-    PIG_SHOP_GENERAL_ENTRANCE = "Pigg and Pigglet's\
-General Store",
+    PIG_SHOP_GENERAL_ENTRANCE = "Pigg and Pigglet's\n General Store",
     PIG_SHOP_HATSHOP_DOOR_ENTRADA = "Door",
     PIG_SHOP_HOOFSPA_DOOR_ENTRATA = "Door",
     PIG_SHOP_HOOFSPA_DOOR_SAIDA = "Door",
-    PIG_SHOP_HOOFSPA_ENTRANCE = "Curly Tails\
-Mud Spa",
+    PIG_SHOP_HOOFSPA_ENTRANCE = "Curly Tails\n Mud Spa",
     PIG_SHOP_PRODUCE_DOOR_ENTRATA = "Door",
     PIG_SHOP_PRODUCE_DOOR_SAIDA = "Door",
     PIG_SHOP_PRODUCE_ENTRANCE = "Swinesbury Fine Grocer's",
@@ -956,8 +951,7 @@ Mud Spa",
     PIG_SHOP_TINKER_ENTRANCE = "The Tinkerer's Tower",
     PIG_SHOP_WEAPONS_DOOR_ENTRADA = "Door",
     PIG_SHOP_WEAPONS_DOOR_SAIDA = "Door",
-    PIG_SHOP_WEAPONS_ENTRANCE = "The Boar's Tusk \
-Weapon Shop",
+    PIG_SHOP_WEAPONS_ENTRANCE = "The Boar's Tusk \n Weapon Shop",
     PILLAR_PIGARCHIVE = "Pig Pillar",
     PLAYERHOUSE_CITY_DOOR_METAL_CIMA = "Industrial Door",
     PLAYERHOUSE_CITY_DOOR_PANO_CIMA = "Round Doorway",
@@ -1517,6 +1511,12 @@ Weapon Shop",
       LEGACY = "Legacy",
       NAUTICAL = "Nautical",
     },
+
+    CRAFTING = {
+      NEEDSHOME_ONE = "need to be in a home to make this.",    --"需要在房间内的灯光下制作。",
+      NEEDSCITY_ONE = "need to use the city key to make this." --"使用城镇钥匙来制作一个原型!"
+    }
+
   },
   WALLY1 = "Chump.",
   WALLY2 = "Nice Sailing",

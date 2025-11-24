@@ -11665,3 +11665,12 @@ msgctxt "STRINGS.WOODLEGSHAT"
 msgid "幸运帽"
 msgstr "幸运帽"
 
+#. STRINGS.UI.CRAFTING.NEEDSHOME_ONE
+msgctxt "STRINGS.UI.CRAFTING.NEEDSHOME_ONE"
+msgid "需要在房间内的灯光下制作!"
+msgstr "需要在房间内的灯光下制作!"
+
+#. STRINGS.UI.CRAFTING.NEEDSCITY_ONE
+msgctxt "STRINGS.UI.CRAFTING.NEEDSCITY_ONE"
+msgid "使用城镇钥匙来制作一个原型!"
+msgstr "使用城镇钥匙来制作一个原型!"
