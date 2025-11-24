@@ -21,7 +21,7 @@ AddComponentPostInit("playeractionpicker", function(PlayerActionPicker)
     function PlayerActionPicker:GetRightClickActions(position, target, spellbook)
         local boat = self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
         local acts = GetRightClickActions(self, position, target, spellbook)
-        if act ~= nil and #acts <= 0 and boat then
+        if not (act and #act > 0) and boat then
             acts = self:GetPointActions(position, boat, true)
         end
         return acts
@@ -31,7 +31,7 @@ AddComponentPostInit("playeractionpicker", function(PlayerActionPicker)
     function PlayerActionPicker:GetLeftClickActions(position, target)
         local boat = self.inst.replica.inventory:GetEquippedItem(EQUIPSLOTS.BARCO)
         local acts = GetLeftClickActions(self, position, target)
-        if act ~= nil and #acts <= 0 and boat and TheWorld.Map:IsPassableAtPoint(position:Get()) then
+        if not (act and #act > 0) and boat and TheWorld.Map:IsPassableAtPoint(position:Get()) then
             acts = self:GetPointActions(position, boat, nil)
         end
         return acts
