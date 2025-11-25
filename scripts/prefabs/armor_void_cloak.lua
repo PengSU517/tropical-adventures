@@ -161,7 +161,7 @@ local function fn()
     inst.components.inventoryitem.cangoincontainer = false
     inst.foleysound = "dontstarve_DLC003/common/crafted/vortex_armour/foley"
 
-    inst:AddComponent("container"):WidgetSetup()
+    inst:AddComponent("container"):WidgetSetup("armorvoidcloak")
 
     local armor = inst:AddComponent("armor")
     armor:InitCondition(TUNING.ARMORVOID, TUNING.ARMORVOID_ABSORPTION)
