@@ -552,12 +552,7 @@ local states = {
             end),
 
             TimeEvent(20 * FRAMES, function(inst)
-                if TheWorld.ismastersim then
-                    inst:PerformBufferedAction()
-                end
-                if not TheWorld.ismastersim then
-                    inst:PerformPreviewBufferedAction()
-                end
+                inst:PerformBufferedAction()
             end),
         },
 
@@ -1711,7 +1706,7 @@ local statedecos = {
         },
     },
 
-    states = { -- State.onenter = function(inst)
+    states = {         -- State.onenter = function(inst)
         ["attack"] = { -- TODO: 写成独立的sg
             before = function(inst)
                 if inst.components.rider:IsRiding() then return end
@@ -1734,7 +1729,7 @@ local statedecos = {
                     end
                 else
                     inst._beakSweepCount = nil
-                    return 
+                    return
                 end
                 return nil, true
             end,
@@ -1843,4 +1838,3 @@ AddStategraphPostInit("wilson", function(sg)
         return _locomote_eventhandler(inst, data, ...)
     end
 end)
-

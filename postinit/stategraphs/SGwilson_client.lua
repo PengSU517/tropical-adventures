@@ -923,6 +923,46 @@ local states = {
             end
         end,
     },
+
+    State { name = "crop_dust", --完全一致
+        tags = { "doing", "busy" },
+
+        onenter = function(inst)
+            inst.components.locomotor:Stop()
+            inst.AnimState:PlayAnimation("cropdust_pre")
+            inst.AnimState:PushAnimation("cropdust_loop")
+            inst.AnimState:PushAnimation("cropdust_loop")
+            inst.AnimState:PushAnimation("cropdust_loop")
+            inst.AnimState:PushAnimation("cropdust_pst")
+        end,
+
+        timeline =
+        {
+            TimeEvent(10 * FRAMES, function(inst)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/items/bugrepellent")
+            end),
+
+            TimeEvent(4 * FRAMES, function(inst)
+                inst.sg:RemoveStateTag("busy")
+            end),
+
+            TimeEvent(20 * FRAMES, function(inst)
+                inst:PerformPreviewBufferedAction()
+            end),
+        },
+
+        events = {
+            EventHandler(
+                "animover",
+                function(inst)
+                    if inst.AnimState:AnimDone() then
+                        inst.sg:GoToState("idle")
+                    end
+                end
+            )
+        },
+    },
+
 }
 
 for _, actionhandler in ipairs(actionhandlers) do
