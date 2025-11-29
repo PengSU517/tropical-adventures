@@ -743,9 +743,11 @@ AddAction(GIVE2)
 local pickupfn = ACTIONS.PICKUP.fn
 local extra_arrive_dist = ACTIONS.PICKUP.extra_arrive_dist
 
-ACTIONS.PICKUP.extra_arrive_dist = function(doer, dest)
-    return doer:IsInHamRoom() and 2 or extra_arrive_dist()
+ACTIONS.PICKUP.extra_arrive_dist = function(doer, dest, ...)
+    return doer:IsInHamRoom() and 2 or extra_arrive_dist(doer, dest, ...) ----检测房间也不是很合理，但是shelfer没有客机
 end
+
+
 ACTIONS.PICKUP.fn = function(act)
     if act.target and act.target.components.inventoryitem and act.target.components.shelfer then
         local item = act.target.components.shelfer:GetGift()
