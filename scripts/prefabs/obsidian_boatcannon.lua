@@ -85,7 +85,7 @@ local function fn(Sim)
     inst.symboltooverride = "swap_lantern" --swap_lantern_off
     inst.navio = nil
 
-    inst:AddTag("boatcannon")
+    inst:AddTag("sw_boatcannon")
     inst:AddTag("cannon")
 
     inst.entity:SetPristine()
