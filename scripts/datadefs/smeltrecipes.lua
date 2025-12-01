@@ -1,45 +1,39 @@
 local Attributes = {
-    iron = { tex = "iron" },
-    gem = { tex = "purplegem" },
+    ferrum = { tex = "iron" },
+    corundum = { tex = "purplegem" },
     nitro = { tex = "nitre" },
-    gold = { tex = "goldnugget" },
-    mineral = { tex = "rocks" },
+    aurum = { tex = "goldnugget" },
+    silicate = { tex = "rocks" },
 }
 
-
-
-
 local Ingredients = {
-    greengem = { gem = 1 }, -- gem
-    yellowgem = { gem = 0.5 },
-    orangegem = { gem = 0.25 },
-    purplegem = { gem = 0.1, },
-    bluegem = { gem = .05, },
-    redgem = { gem = .05, },
+    greengem = { corundum = 54 / 22 }, -- gem
+    yellowgem = { corundum = 18 / 22 },
+    orangegem = { corundum = 6 / 22 },
+    purplegem = { corundum = 2 / 22, },
+    bluegem = { corundum = 1 / 22, },
+    redgem = { corundum = 1 / 22, },
 
-    iron = { iron = 1, }, -- iron
-    magnifying_glass = { iron = 1, },
-    goldpan = { iron = 1, },
-    ballpein_hammer = { iron = 1, },
-    shears = { iron = 1, },
-    candlehat = { iron = 1, },
-    halberd = { iron = 1, },
-    armor_metalplate = { iron = 1, },
-    metalplatehat = { iron = 1, },
+    ferrum = { ferrum = 1, }, -- iron
+    magnifying_glass = { ferrum = 1, },
+    goldpan = { ferrum = 1, },
+    ballpein_hammer = { ferrum = 1, },
+    shears = { ferrum = 1, },
+    candlehat = { ferrum = 1, },
+    halberd = { ferrum = 1, },
+    armor_metalplate = { ferrum = 1, },
+    metalplatehat = { ferrum = 1, },
 
     obsidian = { nitro = 2.5, }, -- nitro
     nitre = { nitro = 1, },
     flint = { nitro = .25, },
 
+    goldnugget = { aurum = 1, }, -- gold
+    dubloon = { aurum = .5, },
+    gold_dust = { aurum = .25, },
 
-    goldnugget = { gold = 1, }, -- gold
-    dubloon = { gold = .5, },
-    gold_dust = { gold = .25, },
-
-
-    rocks = { mineral = .25, }, -- mineral
+    rocks = { silicate = .25, }, -- mineral
 }
-
 
 local Recipes = {
     ash = {
@@ -51,7 +45,7 @@ local Recipes = {
     },
     opalpreciousgem = { -- gem
         priority = 20,
-        test = function(worker, names, attrs) return attrs.gem and attrs.gem >= 2 end,
+        test = function(worker, names, attrs) return attrs.corundum and attrs.corundum >= 4 end,
         overridebuild = "gems",
         overridesymbolname = "opalgem",
         card_def = {
@@ -60,7 +54,7 @@ local Recipes = {
     },
     greengem = {
         priority = 10,
-        test = function(worker, names, attrs) return attrs.gem and attrs.gem >= 1 end,
+        test = function(worker, names, attrs) return attrs.corundum and attrs.corundum >= 2.7 end,
         overridebuild = "gems",
         overridesymbolname = "greengem",
         card_def = {
@@ -69,7 +63,7 @@ local Recipes = {
     },
     yellowgem = {
         priority = 5,
-        test = function(worker, names, attrs) return attrs.gem and attrs.gem >= 0.5 end,
+        test = function(worker, names, attrs) return attrs.corundum and attrs.corundum >= 1 end,
         overridebuild = "gems",
         overridesymbolname = "yellowgem",
         card_def = {
@@ -78,7 +72,7 @@ local Recipes = {
     },
     orangegem = {
         priority = 3,
-        test = function(worker, names, attrs) return attrs.gem and attrs.gem >= 0.3 end,
+        test = function(worker, names, attrs) return attrs.corundum and attrs.corundum >= .35 end,
         overridebuild = "gems",
         overridesymbolname = "orangegem",
         card_def = {
@@ -87,7 +81,7 @@ local Recipes = {
     },
     alloy = { -- iron
         priority = 5,
-        test = function(worker, names, attrs) return attrs.iron and attrs.iron >= 4 end,
+        test = function(worker, names, attrs) return attrs.ferrum and attrs.ferrum >= 4 end,
         overridebuild = "alloy",
         overridesymbolname = "alloy01",
         card_def = {
@@ -114,7 +108,7 @@ local Recipes = {
     },
     goldenbar = { -- gold
         priority = 10,
-        test = function(worker, names, attrs) return attrs.gold and attrs.gold >= 2 end,
+        test = function(worker, names, attrs) return attrs.aurum and attrs.aurum >= 2 end,
         overridebuild = "alloygold",
         overridesymbolname = "alloy01",
         card_def = {
@@ -123,7 +117,7 @@ local Recipes = {
     },
     goldnugget = {
         priority = 5,
-        test = function(worker, names, attrs) return attrs.gold and attrs.gold >= 1 end,
+        test = function(worker, names, attrs) return attrs.aurum and attrs.aurum >= 1 end,
         overridebuild = "tree_rock_normal",
         overridesymbolname = "swap_goldnugget", ---用的 宝石树的资源
         card_def = {
@@ -132,7 +126,7 @@ local Recipes = {
     },
     stonebar = { -- mineral
         priority = 1,
-        test = function(worker, names, attrs) return attrs.mineral and attrs.mineral >= 1 end,
+        test = function(worker, names, attrs) return attrs.silicate and attrs.silicate >= 1 end,
         overridebuild = "alloystone",
         overridesymbolname = "alloy01",
         card_def = {
@@ -140,7 +134,6 @@ local Recipes = {
         },
     },
 }
-
 
 for i, v in pairs(Recipes) do
     v.name = v.name or i

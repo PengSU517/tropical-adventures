@@ -37,7 +37,7 @@ end
 
 local function onequip(inst, owner)
     owner.AnimState:OverrideSymbol("swap_body", "armor_void_cloak", "swap_body")
-    owner.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/void_armour/equip_off")
+    --owner.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/void_armour/equip_off")
 
 
     inst:ListenForEvent("blocked", inst.OnBlocked, owner)
