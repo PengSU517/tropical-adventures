@@ -744,7 +744,8 @@ local pickupfn = ACTIONS.PICKUP.fn
 local extra_arrive_dist = ACTIONS.PICKUP.extra_arrive_dist
 
 ACTIONS.PICKUP.extra_arrive_dist = function(doer, dest, ...)
-    return doer:IsInHamRoom() and 2 or extra_arrive_dist(doer, dest, ...) ----检测房间也不是很合理，但是shelfer没有客机
+    return dest and dest.inst and dest.inst:HasTag("shelfcanaccept") and 2 or extra_arrive_dist(doer, dest, ...) -- shelfer没有客机但是有tag, 试试这个
+    --return doer:IsInHamRoom() and 2 or extra_arrive_dist(doer, dest, ...) ----检测房间也不是很合理，但是shelfer没有客机
 end
 
 
