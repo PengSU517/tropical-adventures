@@ -6,6 +6,8 @@ local PoisonOver = Class(Widget, function(self, owner)
     self.owner = owner
     Widget._ctor(self, "PoisonOver")
 
+    self:UpdateWhilePaused(false)
+
     self:SetClickable(false)
 
     self.bg = self:AddChild(Image("images/overlays/poison.xml", "poison_over.tex"))
