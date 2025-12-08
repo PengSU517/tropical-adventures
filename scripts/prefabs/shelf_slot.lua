@@ -34,7 +34,7 @@ local function common()
     anim:SetBuild("shelf_slot")
     anim:SetBank("shelf_slot")
     anim:PlayAnimation("idle")
-    inst.AnimState:SetMultColour(255 / 255, 255 / 255, 255 / 255, 0.02)
+    inst.AnimState:SetMultColour(1, 1, 1, 0)
     --    anim:Hide("mouseclick")
 
     -- inst:AddTag("cost_one_oinc")
