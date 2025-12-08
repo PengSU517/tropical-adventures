@@ -14,7 +14,7 @@ local Ingredients = {
     bluegem = { corundum = 1 / 22, },
     redgem = { corundum = 1 / 22, },
 
-    ferrum = { ferrum = 1, }, -- iron
+    iron = { ferrum = 1, }, -- iron
     magnifying_glass = { ferrum = 1, },
     goldpan = { ferrum = 1, },
     ballpein_hammer = { ferrum = 1, },
