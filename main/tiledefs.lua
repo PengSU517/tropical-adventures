@@ -130,6 +130,8 @@ tro_tiledefs = {
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
             colors = MANGROVE_OCEAN_COLOR,
+            is_shoreline = true,
+            nogroundoverlays = true,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -147,12 +149,12 @@ tro_tiledefs = {
         ground_tile_def  = {
             name = "sw/water_medium", ----- "water_medium"
             noise_texture = "ham/water_lilypond2",
-            -- is_shoreline = true,   -------------加上
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
             colors = LILYPOND_SHORE_OCEAN_COLOR, ----有了这个就会有边缘的瀑布效果--而且不能改颜色？
             wavetint = WAVETINTS.waterlog,
             is_shoreline = true,
+            nogroundoverlays = true,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -172,6 +174,8 @@ tro_tiledefs = {
             flashpoint_modifier = 250,
             ocean_depth = "SHALLOW",
             colors = CORAL_OCEAN_COLOR,
+            is_shoreline = true,
+            nogroundoverlays = true,
         },
         minimap_tile_def = {
             name = "map_edge",
@@ -190,6 +194,7 @@ tro_tiledefs = {
             noise_texture = "sw/water_shallow",
             flashpoint_modifier = 250,
             is_shoreline = true,
+            nogroundoverlays = true,
             ocean_depth = "SHALLOW",
             colors = SHALLOW_SHORE_OCEAN_COLOR,
         },
@@ -208,6 +213,7 @@ tro_tiledefs = {
             name = "sw/water_shallow",
             noise_texture = "sw/water_shallow",
             flashpoint_modifier = 250,
+            nogroundoverlays = true,
             ocean_depth = "SHALLOW",
             colors = SHALLOW_OCEAN_COLOR,
         },
@@ -228,6 +234,7 @@ tro_tiledefs = {
             name = "sw/water_medium",
             noise_texture = "sw/water_medium",
             flashpoint_modifier = 250,
+            nogroundoverlays = true,
             ocean_depth = "DEEP",
             colors = MEDIUM_OCEAN_COLOR,
         },
@@ -246,6 +253,7 @@ tro_tiledefs = {
             name = "sw/water_deep",
             noise_texture = "sw/water_deep",
             flashpoint_modifier = 250,
+            nogroundoverlays = true,
             ocean_depth = "VERY_DEEP",
             colors = DEEP_OCEAN_COLOR,
         },
@@ -264,6 +272,7 @@ tro_tiledefs = {
             name = "sw/water_deep",
             noise_texture = "sw/water_graveyard",
             flashpoint_modifier = 250,
+            nogroundoverlays = true,
             ocean_depth = "BASIC",
             colors = SHIPGRAVEYARD_OCEAN_COLOR,
         },
