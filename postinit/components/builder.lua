@@ -27,8 +27,8 @@ Utils.FnDecorator(Builder, "KnowsRecipe", function(self, recipe)
         recipe = GetValidRecipe(recipe)
     end
 
-    if recipe and not recipe.nounlock and self.inst.components.inventory:EquipHasTag("brainjelly") then
-        return {true}, true
+    if recipe and not recipe.nounlock and not (recipe.level.ANCIENT and recipe.level.ANCIENT >= 10) and self.inst.components.inventory:EquipHasTag("brainjelly") then
+        return { true }, true
     end
 end)
 
@@ -50,31 +50,31 @@ Utils.FnDecorator(Builder, "HasIngredients", function(self, recipe)
     end
 
     if self.freebuildmode then
-        return {true}, true
+        return { true }, true
     end
     for i, v in ipairs(recipe.ingredients) do
         local amount = math.max(1, RoundBiasedUp(v.amount * self.ingredientmod))
         if v.type == "oinc" then
             if self.inst.components.inventory:HasMoney() < amount then
-                return {false}, true
+                return { false }, true
             end
         else
             if not self.inst.components.inventory:Has(v.type, amount, true) then
-                return {false}, true
+                return { false }, true
             end
         end
     end
     for i, v in ipairs(recipe.character_ingredients) do
         if not self:HasCharacterIngredient(v) then
-            return {false}, true
+            return { false }, true
         end
     end
     for i, v in ipairs(recipe.tech_ingredients) do
         if not self:HasTechIngredient(v) then
-            return {false}, true
+            return { false }, true
         end
     end
-    return {true}, true
+    return { true }, true
 end)
 
 Utils.FnDecorator(Builder, "RemoveIngredients", function(self, ingredients, recname, ...)
@@ -88,7 +88,7 @@ Utils.FnDecorator(Builder, "RemoveIngredients", function(self, ingredients, recn
             end
         end
     end
-    return nil, nil, {self, ingredients, recname, ...}
+    return nil, nil, { self, ingredients, recname, ... }
 end)
 
 ----------------
@@ -101,8 +101,8 @@ Utils.FnDecorator(Builder_replica, "KnowsRecipe", function(self, recipe)
         recipe = GetValidRecipe(recipe)
     end
 
-    if recipe and not recipe.nounlock and self.inst.replica.inventory:EquipHasTag("brainjelly") then
-        return {true}, true
+    if recipe and not recipe.nounlock and not (recipe.level.ANCIENT and recipe.level.ANCIENT >= 10) and self.inst.replica.inventory:EquipHasTag("brainjelly") then
+        return { true }, true
     end
 end)
 
