@@ -87,6 +87,7 @@ if ta_worldgen.together == false then
             --     }
             -- )
             -- level.required_setpieces = {}
+            level.numrandom_set_pieces = 0
 
             -- level.random_set_pieces = {}
             -- level.ordered_story_setpieces = {}
@@ -271,6 +272,8 @@ if ta_worldgen.shipwrecked then
                     "firetwister",
                 }
             )
+
+            level.numrandom_set_pieces = level.numrandom_set_pieces + 5
         end
     end)
 end
@@ -317,6 +320,8 @@ if ta_worldgen.hamlet then
 
                 }
             )
+
+            level.numrandom_set_pieces = level.numrandom_set_pieces + 4
         end
     end)
 end
