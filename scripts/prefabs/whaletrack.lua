@@ -21,7 +21,7 @@ local function OnInvestigated(inst, doer)
     local pt = Vector3(inst.Transform:GetWorldPosition())
     --print("dirtpile - OnInvestigated", pt)
 
-    local hunter = TheWorld.components.whalehunter
+    local hunter = TheWorld.components.whale_hunter
     if hunter ~= nil then
         hunter:OnDirtInvestigated(pt, doer)
     end

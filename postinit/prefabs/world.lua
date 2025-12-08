@@ -7,7 +7,7 @@ AddPrefabPostInit("forest", function(inst)
         inst:AddComponent("roottrunkinventory") ---------------这个是啥啊
         inst:AddComponent("creature_spawner")   ----不只有生物，还有旋涡，天光之类的内容
         -- inst:AddComponent("tropicalspawner")
-        inst:AddComponent("whalehunter")
+        inst:AddComponent("whale_hunter")
         inst:AddComponent("rainbowjellymigration")
         inst:AddComponent("quaker_interior") ------------这是啥
         inst:AddComponent("glowflyspawner")
