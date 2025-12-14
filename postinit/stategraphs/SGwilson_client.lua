@@ -1171,3 +1171,21 @@ AddStategraphPostInit("wilson_client", function(sg)
         _locomote_eventhandler(inst, data)
     end
 end)
+
+
+AddStategraphPostInit("wilson_client", function(sg)
+    local _run_monkey_start_onenter = sg.states["run_monkey_start"].onenter
+    local _ConfigureRunState = Upvaluehelper.GetUpvalue(_run_monkey_start_onenter, "ConfigureRunState")
+    local ConfigureRunState = function(inst)
+        _ConfigureRunState(inst)
+        inst.sg.statemem.normalwonkey = inst.sg.statemem.normalwonkey or inst:HasTag("wilbur") or nil
+    end
+
+    local _run_start_onenter = sg.states["run_start"].onenter
+    local _run_onupdate = sg.states["run"].onupdate
+    local _run_onenter = sg.states["run"].onenter
+
+    Upvaluehelper.SetUpvalue(_run_start_onenter, ConfigureRunState, "ConfigureRunState")
+    Upvaluehelper.SetUpvalue(_run_onupdate, ConfigureRunState, "ConfigureRunState")
+    Upvaluehelper.SetUpvalue(_run_onenter, ConfigureRunState, "ConfigureRunState")
+end)
