@@ -233,5 +233,5 @@ local function createmachine(level, name, soundprefix, techtree, giftsound)
     return Prefab(name, fn, assets, prefabs)
 end
 
-return createmachine(2, "researchlab5", "lvl2", TUNING.PROTOTYPER_TREES.ALCHEMYMACHINE),
+return createmachine(2, "researchlab5", "lvl2", TUNING.PROTOTYPER_TREES.SEA_SCIENCE),
     MakePlacer("researchlab5_placer", "researchlab5", "researchlab5", "idle")

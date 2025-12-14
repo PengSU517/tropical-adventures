@@ -52,6 +52,7 @@ TUNING.PROTOTYPER_TREES.HOME_ONE = TechTree.Create({ HOME = 1, })
 TUNING.PROTOTYPER_TREES.HOME_TWO = TechTree.Create({ HOME = 2, })
 
 
+TUNING.PROTOTYPER_TREES.SEA_SCIENCE = TechTree.Create({ SCIENCE = 2, SEAFARING = 2 })
 
 for i, v in pairs(AllRecipes) do
 	if v.level.OBSIDIAN == nil then v.level.OBSIDIAN = 0 end
@@ -60,26 +61,19 @@ for i, v in pairs(AllRecipes) do
 end
 
 
-GLOBAL.RECIPETABS['OBSIDIANTAB'] = {
-	str = "OBSIDIANTAB",
-	sort = 90,
-	icon = "tab_volcano.tex",
-	icon_atlas = tab_atlas,
-	crafting_station = true
-}
+
 AddPrototyperDef("obsidian_workbench",
-	{ action_str = "OBSIDIANTAB", icon_image = "tab_volcano.tex", icon_atlas = tab_atlas, is_crafting_station = true })
+	{ action_str = "FORGE", icon_image = "tab_volcano.tex", icon_atlas = tab_atlas, is_crafting_station = true })
+AddPrototyperDef("key_to_city", { action_str = "SHOP", icon_image = "tab_city.tex", icon_atlas = tab_atlas })
+AddPrototyperDef("wallrenovation", { action_str = "SHOP", icon_image = "tab_home_decor.tex", icon_atlas = tab_atlas })
+AddPrototyperDef("researchlab5", { icon_image = "station_science.tex", icon_atlas = CRAFTING_ICONS_ATLAS })
 
-GLOBAL.RECIPETABS['CITY'] = { str = "CITY", sort = 91, icon = "tab_city.tex", icon_atlas = tab_atlas, crafting_station = false }
-AddPrototyperDef("key_to_city",
-	{ action_str = "CITY", icon_image = "tab_city.tex", icon_atlas = tab_atlas, is_crafting_station = false })
+----action_str不起作用
+---------------------
 
-
-GLOBAL.RECIPETABS['HOME'] = { str = "HOME", sort = 92, icon = "tab_home_decor.tex", icon_atlas = tab_atlas, crafting_station = false }
-AddPrototyperDef("wallrenovation",
-	{ action_str = "HOME", icon_image = "tab_home_decor.tex", icon_atlas = tab_atlas, is_crafting_station = false })
-
-
+-- PROTOTYPER_DEFS.researchlab5 = PROTOTYPER_DEFS.researchlab2
+PROTOTYPER_DEFS.piratihatitator = PROTOTYPER_DEFS.researchlab4
+PROTOTYPER_DEFS.hogusporkusator = PROTOTYPER_DEFS.researchlab4
 
 
 
