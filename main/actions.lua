@@ -975,6 +975,13 @@ ACTIONS.JUMPIN.strfn = function(act)
     return Oldstrfnjumpin and Oldstrfnjumpin(act) or "GENERIC"
 end
 
+local STORE_strfn = ACTIONS.STORE.strfn
+ACTIONS.STORE.strfn = function(act)
+    if act.target ~= nil and act.target.prefab == "smelter" then
+        return nil -- "SMELT" require STRINGS.ACTIONS.STORE.SMELT
+    end
+    return STORE_strfn and STORE_strfn(act)
+end
 
 local _extra_arrive_dist = ACTIONS.DEPLOY.extra_arrive_dist
 local function extra_arrive_dist(doer, dest, bufferedaction, ...)
