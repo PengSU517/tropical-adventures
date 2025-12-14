@@ -16,7 +16,7 @@ local function containerhack(inst)
     local function lock(self, fname)
         local oldfn = self[fname]
         self[fname] = function(self, slot, ...)
-            if (self._parent or self.inst).prefab == "woodlegsboat" and slot == 1 then
+            if (self._parent or self.inst).prefab == "woodlegsboat" and (slot == 1 or slot == 2) then
                 return
             else
                 oldfn(self, slot, ...)
