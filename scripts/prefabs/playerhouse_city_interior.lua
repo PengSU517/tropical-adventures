@@ -101,10 +101,10 @@ local function OnTurnOff(inst)
 	inst.components.prototyper.on = false
 end
 
-local function WallFn(inst)
+local function WallFn()
 	local inst = CreateEntity()
 	inst.entity:AddTransform()
-	inst.entity:AddAnimState()
+	--inst.entity:AddAnimState()
 	inst.entity:AddSoundEmitter()
 	inst.entity:AddNetwork()
 
@@ -118,7 +118,7 @@ local function WallFn(inst)
 
 	inst:AddTag("NOBLOCK")
 	inst:AddTag("NOCLICK")
-	inst:AddTag("prototyper")
+	--inst:AddTag("prototyper")
 
 	inst.entity:SetPristine()
 

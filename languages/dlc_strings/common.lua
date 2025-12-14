@@ -132,6 +132,9 @@ local STRINGS =
     --ACTION MOUSEOVER TEXT
     ACTIONS                =
     {
+        OPEN_CRAFTING = {
+            SHOP = "Shop",
+        },
         TRAVEL = "Travel",
         BUNDLE = "Use",
         BUNDLESTORE = "Store",
