@@ -334,6 +334,7 @@ local function circlingbatfn()
     inst:AddTag("monster")
     inst:AddTag("hostile")
     inst:AddTag("circlingbat")
+    inst:AddTag("flying")
 
 
 

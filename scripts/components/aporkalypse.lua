@@ -137,9 +137,13 @@ end
 
 Aporkalypse.ScheduleAporkalypseTasks = _ismastersim and function(self)
 	if TheWorld:HasTag("cave") then
-		self:ScheduleHeraldCheck()
+		self.inst:DoTaskInTime(TUNING.SEG_TIME, function()
+			self:ScheduleHeraldCheck()
+		end)
 	end
-	self:ScheduleVampireBatCheck()
+	self.inst:DoTaskInTime(TUNING.SEG_TIME, function()
+		self:ScheduleVampireBatCheck()
+	end)
 end
 
 Aporkalypse.ScheduleHeraldCheck = _ismastersim and function(self)
@@ -155,6 +159,7 @@ Aporkalypse.ScheduleHeraldCheck = _ismastersim and function(self)
 					end
 					if herald and herald.components.combat then
 						herald.components.combat:SuggestTarget(player)
+						break
 					end
 				end
 			end
@@ -167,9 +172,10 @@ Aporkalypse.ScheduleVampireBatCheck = _ismastersim and function(self)
 	self.vampire_check_task = self.inst:StartThread(function()
 		Sleep(math.random(TUNING.SEG_TIME / 8, TUNING.SEG_TIME / 4))
 		if self:IsActive() then
+			local _num = math.ceil(math.min(24 * #AllPlayers, 50) / #AllPlayers)
 			for _, player in ipairs(AllPlayers) do
 				if player and player:IsInWorld() and player:IsValid() and player.components.health and not player.components.health:IsDead() then
-					for i = 1, 24 do
+					for i = 1, _num do
 						local x, y, z = player.Transform:GetWorldPosition()
 						local theta = math.random() * TWOPI
 						local r = 4 + math.random() * 16
