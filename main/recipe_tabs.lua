@@ -64,11 +64,11 @@ end
 
 AddPrototyperDef("obsidian_workbench",
 	{ action_str = "FORGE", icon_image = "tab_volcano.tex", icon_atlas = tab_atlas, is_crafting_station = true })
-AddPrototyperDef("key_to_city", { action_str = "SHOP", icon_image = "tab_city.tex", icon_atlas = tab_atlas })
-AddPrototyperDef("wallrenovation", { action_str = "SHOP", icon_image = "tab_home_decor.tex", icon_atlas = tab_atlas })
+AddPrototyperDef("key_to_city", { icon_image = "tab_city.tex", icon_atlas = tab_atlas })
+AddPrototyperDef("wallrenovation", { icon_image = "tab_home_decor.tex", icon_atlas = tab_atlas })
 AddPrototyperDef("researchlab5", { icon_image = "station_science.tex", icon_atlas = CRAFTING_ICONS_ATLAS })
 
-----action_str不起作用
+----action_str 是动作文本，和制作栏界面按钮没关系，需修改recipe.actionstr
 ---------------------
 
 -- PROTOTYPER_DEFS.researchlab5 = PROTOTYPER_DEFS.researchlab2
