@@ -592,7 +592,7 @@ local function MakeFish(name, has_cooked, has_seeds)
 
 		if dryablefish then
 			inst:AddComponent("dryable")
-			inst.components.dryable:SetProduct("smallmeat_dried")
+			inst.components.dryable:SetProduct("fishmeat_small_dried")
 			inst.components.dryable:SetDryTime(TUNING.DRY_FAST)
 		end
 

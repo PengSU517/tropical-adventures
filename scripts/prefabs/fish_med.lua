@@ -95,7 +95,7 @@ local function makefish_med(bank, build)
 		inst.components.cookable.product = "fishmeat_cooked"
 
 		inst:AddComponent("dryable")
-		inst.components.dryable:SetProduct("meat_dried")
+		inst.components.dryable:SetProduct("fishmeat_dried")
 		inst.components.dryable:SetDryTime(TUNING.DRY_FAST)
 
 		MakeHauntableLaunchAndPerish(inst)
@@ -154,7 +154,7 @@ local function quagmire_crabmeat_fn()
 	inst.components.cookable.product = "quagmire_crabmeat_cooked"
 
 	inst:AddComponent("dryable")
-	inst.components.dryable:SetProduct("smallmeat_dried")
+	inst.components.dryable:SetProduct("fishmeat_small_dried")
 	inst.components.dryable:SetDryTime(TUNING.DRY_FAST)
 
 	inst:AddComponent("bait")
