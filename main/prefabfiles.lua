@@ -540,6 +540,7 @@ PrefabFiles = {
     "tro_grass",
     "tro_messagebottle",
     "tro_oceanfish",
+    "tro_planted_tree",
     "tro_plantables",
     "tro_poop",
     "tro_schoolherd",
