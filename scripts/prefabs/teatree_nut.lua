@@ -88,6 +88,8 @@ local function fn()
 
     MakeInventoryFloatable(inst)
 
+    inst._custom_candeploy_fn = test_ground
+
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
@@ -127,7 +129,6 @@ local function fn()
 
     inst:AddComponent("deployable")
     inst.components.deployable:SetDeployMode(DEPLOYMODE.CUSTOM)
-    inst._custom_candeploy_fn = test_ground
     inst.components.deployable.ondeploy = ondeploy
 
     inst.OnSave = OnSave
