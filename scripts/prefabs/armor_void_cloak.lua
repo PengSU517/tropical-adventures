@@ -14,13 +14,17 @@ local function setsoundparam(inst)
     inst.SoundEmitter:SetParameter("vortex", "intensity", param)
 end
 
-local function spawnwisp(owner)
-    if owner then
-        local wisp = SpawnPrefab("armorvortexcloak_fx")
-        local x, y, z = owner.Transform:GetWorldPosition()
-        if x ~= nil and y ~= nil and z ~= nil then
-            wisp.Transform:SetPosition(x + math.random() * 0.25 - 0.25 / 2, y, z + math.random() * 0.25 - 0.25 / 2)
-        end
+local function spawnwisp_client(inst)
+    if inst.equipped:value() then
+        inst.wisptask = inst:DoPeriodicTask(0.1, function(this)
+            local fx = SpawnPrefab("armorvortexcloak_fx_client")
+            local x, y, z = this.Transform:GetWorldPosition()
+            fx.Transform:SetPosition(x + math.random() * 0.25 - 0.25 / 2, y, z + math.random() * 0.25 - 0.25 / 2)
+            fx.AnimState:SetAddColour(math.random() * .5, 0, 0, 0)
+        end)
+    elseif inst.wisptask ~= nil then
+        inst.wisptask:Cancel()
+        inst.wisptask = nil
     end
 end
 
@@ -46,7 +50,7 @@ local function onequip(inst, owner)
     owner:AddTag("not_hit_stunned")
 
     inst.components.container:Open(owner)
-    inst.wisptask = inst:DoPeriodicTask(0.1, function() spawnwisp(owner, inst) end)
+    inst.equipped:set(true)
 
     inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/LP", "vortex")
     setsoundparam(inst)
@@ -59,11 +63,7 @@ local function onunequip(inst, owner)
     inst:RemoveEventCallback("attacked", inst.OnBlocked, owner)
     owner:RemoveTag("not_hit_stunned")
     inst.components.container:Close(owner)
-    if inst.wisptask then
-        inst.wisptask:Cancel()
-        inst.wisptask = nil
-    end
-    --    inst.SoundEmitter:KillSound("vortex")
+    inst.equipped:set(false)
 end
 
 local function ontakefuelitem(inst, _fuel, _fuelvalue, doer)
@@ -147,9 +147,16 @@ local function fn()
     --shadowlevel (from shadowlevel component) added to pristine state for optimization
     inst:AddTag("shadowlevel")
 
-    inst.entity:SetPristine()
+    inst.equipped = net_bool(inst.GUID, "cloak.equipped", "cloak.equippeddirty")
+    inst.equipped:set(false)
 
     inst.entity:AddMiniMapEntity():SetIcon("armor_void_cloak.tex")
+
+    inst.entity:SetPristine()
+
+    if not TheNet:IsDedicated() then
+        inst:ListenForEvent("cloak.equippeddirty", spawnwisp_client)
+    end
 
     if not TheWorld.ismastersim then
         return inst
@@ -174,11 +181,11 @@ local function fn()
     fueled.ontakefuelitemfn = ontakefuelitem
     fueled.accepting = true
 
-    inst:AddComponent("planardefense"):SetBaseDefense(TUNING.ARMOR_VOIDCLOTH_PLANAR_DEF) --虚空长袍的位面防御
+    inst:AddComponent("planardefense"):SetBaseDefense(TUNING.ARMOR_VOIDCLOTH_PLANAR_DEF)                          --虚空长袍的位面防御
 
     inst:AddComponent("damagetyperesist"):AddResist("shadow_aligned", inst, TUNING.ARMOR_VOIDCLOTH_SHADOW_RESIST) --虚空长袍的10%暗影阵营减伤
 
-    inst:AddComponent("shadowlevel"):SetDefaultLevel(TUNING.ARMOR_VOIDCLOTH_SHADOW_LEVEL) --虚空长袍的老麦3级暗影之力
+    inst:AddComponent("shadowlevel"):SetDefaultLevel(TUNING.ARMOR_VOIDCLOTH_SHADOW_LEVEL)                         --虚空长袍的老麦3级暗影之力
 
     local equippable = inst:AddComponent("equippable")
     equippable.equipslot = equipslot

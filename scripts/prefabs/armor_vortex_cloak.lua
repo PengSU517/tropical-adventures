@@ -9,13 +9,16 @@ local function setsoundparam(inst)
     inst.SoundEmitter:SetParameter("vortex", "intensity", param)
 end
 
-local function spawnwisp(owner)
-    if owner then
-        local wisp = SpawnPrefab("armorvortexcloak_fx")
-        local x, y, z = owner.Transform:GetWorldPosition()
-        if x ~= nil and y ~= nil and z ~= nil then
-            wisp.Transform:SetPosition(x + math.random() * 0.25 - 0.25 / 2, y, z + math.random() * 0.25 - 0.25 / 2)
-        end
+local function spawnwisp_client(inst)
+    if inst.equipped:value() then
+        inst.wisptask = inst:DoPeriodicTask(0.1, function(this)
+            local fx = SpawnPrefab("armorvortexcloak_fx_client")
+            local x, y, z = this.Transform:GetWorldPosition()
+            fx.Transform:SetPosition(x + math.random() * 0.25 - 0.25 / 2, y, z + math.random() * 0.25 - 0.25 / 2)
+        end)
+    elseif inst.wisptask ~= nil then
+        inst.wisptask:Cancel()
+        inst.wisptask = nil
     end
 end
 
@@ -38,12 +41,9 @@ local function onequip(inst, owner)
     inst:ListenForEvent("attacked", inst.OnBlocked, owner)
 
     owner:AddTag("not_hit_stunned")
-    --    owner.components.inventory:SetOverflow(inst)
     inst.components.container.canbeopened = true
     inst.components.container:Open(owner)
-    inst.wisptask = inst:DoPeriodicTask(0.1, function()
-        spawnwisp(owner)
-    end)
+    inst.equipped:set(true)
 
     inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/LP", "vortex")
     setsoundparam(inst)
@@ -60,17 +60,13 @@ local function onunequip(inst, owner)
     inst:RemoveEventCallback("attacked", inst.OnBlocked, owner)
     owner:RemoveTag("not_hit_stunned")
     inst.components.container:Close(owner)
-    if inst.wisptask then
-        inst.wisptask:Cancel()
-        inst.wisptask = nil
-    end
+    inst.equipped:set(false)
     if inst.components.container:IsEmpty() == true then
         close(inst)
         inst.components.inventoryitem.cangoincontainer = true
     else
         inst.components.inventoryitem.cangoincontainer = false
     end
-    --    inst.SoundEmitter:KillSound("vortex")
 end
 
 local function ondrop(inst, owner)
@@ -91,7 +87,7 @@ end
 local function OnTakeDamage(inst, damage_amount)
     inst._ontakedmg = damage_amount and damage_amount > 0 or nil
     local sanity = inst.components.inventoryitem.owner and
-                   inst.components.inventoryitem.owner.components.sanity
+        inst.components.inventoryitem.owner.components.sanity
     if not sanity then return end
     sanity:DoDelta(-damage_amount * TUNING.ARMOR_SANITY_DMG_AS_SANITY * 3, false)
     local armorleft = inst.components.armor:GetPercent()
@@ -102,6 +98,7 @@ local function OnTakeDamage(inst, damage_amount)
 end
 
 local function fn()
+    ---@class vortex_cloak: ent
     local inst = CreateEntity()
 
     inst.entity:AddTransform()
@@ -123,10 +120,17 @@ local function fn()
     -- shadowlevel (from shadowlevel component) added to pristine state for optimization
     inst:AddTag("shadowlevel")
 
-    inst.entity:SetPristine()
-
     local minimap = inst.entity:AddMiniMapEntity()
     minimap:SetIcon("armor_vortex_cloak.tex")
+
+    inst.equipped = net_bool(inst.GUID, "cloak.equipped", "cloak.equippeddirty")
+    inst.equipped:set(false)
+
+    inst.entity:SetPristine()
+
+    if not TheNet:IsDedicated() then
+        inst:ListenForEvent("cloak.equippeddirty", spawnwisp_client)
+    end
 
     if not TheWorld.ismastersim then
         return inst
@@ -172,17 +176,31 @@ local function fn()
     return inst
 end
 
-table.insert(require("fx"), {
-    name = "armorvortexcloak_fx",
-    bank = "cloakfx",
-    build = "cloak_fx",
-    anim = "idle",
-    fn = function(inst)
+local function fx()
+    ---@class armorvortexcloak_fx_client: ent
+    local inst = CreateEntity()
+    inst.entity:AddTransform()
+
+    if not TheNet:IsDedicated() then
+        inst.entity:AddAnimState()
+        inst.AnimState:SetBank("cloakfx")
+        inst.AnimState:SetBuild("cloak_fx")
+        inst.AnimState:PlayAnimation("idle")
         for i = 1, 14 do
             inst.AnimState:Hide("fx" .. i)
         end
         inst.AnimState:Show("fx" .. math.random(1, 14))
-    end,
-})
+        inst:ListenForEvent("animover", inst.Remove)
+    else
+        inst:DoTaskInTime(0, inst.Remove)
+    end
 
-return Prefab("common/inventory/armorvortexcloak", fn, assets)
+    inst:AddTag("FX")
+
+    inst.persists = false
+
+    return inst
+end
+
+return Prefab("common/inventory/armorvortexcloak", fn, assets),
+    Prefab("armorvortexcloak_fx_client", fx, assets)
