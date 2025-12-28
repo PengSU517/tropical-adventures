@@ -208,7 +208,7 @@ local function HookSeasonBadge(self)
                                 end
                             end
                             if TheWorld.state.isaporkalypse then
-                                season = string.format("%s\n(%s)", season, STRINGS.UI.SANDBOXMENU.APORKALYPSE) or "Aporkalypse"
+                                season = string.format("%s\n(%s)", season, STRINGS.UI.SANDBOXMENU.APORKALYPSE or "Aporkalypse")
 
                                 self.season.bg:SetScale(0.65, 1, 1) ----调整背景大小以塞得下字符串
                                 self.season.num:SetPosition(0, -40.5) ----原来的字有点偏
