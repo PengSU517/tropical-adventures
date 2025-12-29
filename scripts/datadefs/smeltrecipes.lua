@@ -7,12 +7,12 @@ local Attributes = {
 }
 
 local Ingredients = {
-    greengem = { corundum = 54 / 22 }, -- gem
-    yellowgem = { corundum = 18 / 22 },
-    orangegem = { corundum = 6 / 22 },
-    purplegem = { corundum = 2 / 22, },
-    bluegem = { corundum = 1 / 22, },
-    redgem = { corundum = 1 / 22, },
+    greengem = { corundum = 54 / 2 }, -- for display, don't use it
+    yellowgem = { corundum = 18 / 2 },
+    orangegem = { corundum = 6 / 2 },
+    purplegem = { corundum = 2 / 2 },
+    bluegem = { corundum = 1 / 2 },
+    redgem = { corundum = 1 / 2 },
 
     iron = { ferrum = 1, }, -- iron
     magnifying_glass = { ferrum = 1, },
@@ -45,38 +45,54 @@ local Recipes = {
     },
     opalpreciousgem = { -- gem
         priority = 20,
-        test = function(worker, names, attrs) return attrs.corundum and attrs.corundum >= 4 end,
+        --test = function(worker, names, attrs) return attrs.corundum and attrs.corundum >= 4 end,
+        test = function(worker, names, attrs)
+            return names.greengem and (names.greengem >= 2 or
+                names.yellowgem and names.yellowgem >= 2)
+            end,
         overridebuild = "gems",
         overridesymbolname = "opalgem",
         card_def = {
-            attributes = { { "greengem", 1 }, { "yellowgem", 1 }, { "orangegem", 2 } },
+            attributes = { { "greengem", 1 }, { "yellowgem", 2 }, { "purplegem", 1 } },
         },
     },
     greengem = {
         priority = 10,
-        test = function(worker, names, attrs) return attrs.corundum and attrs.corundum >= 2.7 end,
+        --test = function(worker, names, attrs) return attrs.corundum and attrs.corundum >= 2.7 end,
+        test = function(worker, names, attrs)
+            return names.yellowgem and names.yellowgem >= 3 and
+                (names.yellowgem >= 4 or names.orangegem)
+        end,
         overridebuild = "gems",
         overridesymbolname = "greengem",
         card_def = {
-            attributes = { { "yellowgem", 1 }, { "orangegem", 3 } },
+            attributes = { { "yellowgem", 3 }, { "orangegem", 1 } },
         },
     },
     yellowgem = {
         priority = 5,
-        test = function(worker, names, attrs) return attrs.corundum and attrs.corundum >= 1 end,
+        --test = function(worker, names, attrs) return attrs.corundum and attrs.corundum >= 1 end,
+        test = function(worker, names, attrs)
+            return names.greengem == 1 or names.orangegem and names.orangegem >= 3 and
+                (names.purplegem or names.orangegem >= 4)
+        end,
         overridebuild = "gems",
         overridesymbolname = "yellowgem",
         card_def = {
-            attributes = { { "orangegem", 1 }, { "purplegem", 3 } },
+            attributes = { { "orangegem", 3 }, { "purplegem", 1 } },
         },
     },
     orangegem = {
         priority = 3,
-        test = function(worker, names, attrs) return attrs.corundum and attrs.corundum >= .35 end,
+        --test = function(worker, names, attrs) return attrs.corundum and attrs.corundum >= .35 end,
+        test = function(worker, names, attrs)
+            return names.yellowgem == 1 and not names.greengem or
+                names.purplegem and names.purplegem >= 3
+        end,
         overridebuild = "gems",
         overridesymbolname = "orangegem",
         card_def = {
-            attributes = { { "purplegem", 2 }, { "bluegem", 3 } },
+            attributes = { { "purplegem", 3 } },
         },
     },
     alloy = { -- iron
