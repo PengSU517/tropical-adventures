@@ -269,7 +269,6 @@ local setting_languages = {
     tc = "chinese_t",      --traditional Chinese
     cht = "chinese_t",     --Chinese mod
     chinese = "chinese_s", -- Chinese mod
-
 }
 
 merge(STRINGS, languagerequire("extension/english_extension"), true) -- 加载额外DLC字符串（强制覆盖现有字符串）
@@ -286,14 +285,18 @@ LanguageTranslator.LoadPOFile = function(self, fname, lang)
         -- Translator不允许我们添加现有的语言
         -- 相反，我们创造“新”语言，然后手动将它们合并到实际的语言数据中
         self:LoadPOFile("languages/dlc_translations/" .. setting_languages[lang] .. ".po", lang .. "_TEMP") -- 加载字符串翻译到临时语言
-        self:LoadPOFile("languages/extension/chinese_extension.po", lang .. "_TEMP_extension") -- 加载额外DLC字符串翻译（强制覆盖现有字符串）
+        if setting_languages[lang] == "chinese_s" or setting_languages[lang] == "chinese_t" then
+            self:LoadPOFile("languages/extension/chinese_extension.po", lang .. "_TEMP_extension") -- 加载中文额外DLC字符串翻译（强制覆盖现有字符串）
+        end
         if setting_languages[lang] == "chinese_t" then -- 如果使用繁体中文，则额外加载简体中文翻译垫底，最后才是英文翻译
             self:LoadPOFile("languages/dlc_translations/chinese_s.po", "chinese_s_TEMP")
             merge(self.languages[lang .. "_TEMP"], LanguageTranslator.languages["chinese_s_TEMP"])
             LanguageTranslator.languages["chinese_s_TEMP"] = nil
         end
         merge(self.languages[lang], self.languages[lang .. "_TEMP"])
-        merge(self.languages[lang], self.languages[lang .. "_TEMP_extension"], true)
+        if self.languages[lang .. "_TEMP_extension"] then
+            merge(self.languages[lang], self.languages[lang .. "_TEMP_extension"], true)
+        end
         self.languages[lang .. "_TEMP_extension"] = nil
         self.languages[lang .. "_TEMP"] = nil
 
@@ -301,21 +304,20 @@ LanguageTranslator.LoadPOFile = function(self, fname, lang)
     end
 end
 
-local IsTheFrontEnd = rawget(_G, "TheFrontEnd") and rawget(_G, "IsInFrontEnd") and IsInFrontEnd()
-local desiredlang = LOC.GetLocaleCode()
-if (IsTheFrontEnd and not desiredlang) and LanguageTranslator.defaultlang then -- 仅在FrontEnd中使用default，或者如果locale未设置
-    desiredlang = LanguageTranslator.defaultlang
-end
+local desiredlang = LanguageTranslator.defaultlang or "en"
 
-print("热带冒险: 当前游戏语言 = " .. (desiredlang or "nil"))
+print("热带冒险: 当前游戏语言 = " .. tostring(desiredlang))
 if desiredlang and setting_languages[desiredlang] then
     local _defaultlang = LanguageTranslator.defaultlang
 
     -- 加载翻译文件
     LanguageTranslator:LoadPOFile("languages/dlc_translations/" .. setting_languages[desiredlang] .. ".po",
         desiredlang .. "_TEMP")                           -- 加载字符串翻译到临时语言
-    LanguageTranslator:LoadPOFile("languages/extension/chinese_extension.po",
-        desiredlang .. "_TEMP_extension")                 -- 加载额外DLC字符串翻译（强制覆盖现有字符串）
+
+    if setting_languages[desiredlang] == "chinese_s" or setting_languages[desiredlang] == "chinese_t" then
+        LanguageTranslator:LoadPOFile("languages/extension/chinese_extension.po",
+            desiredlang .. "_TEMP_extension")                 -- 加载中文额外DLC字符串翻译（强制覆盖现有字符串）
+    end
 
     if setting_languages[desiredlang] == "chinese_t" then -- 如果使用繁体中文，则额外加载简体中文翻译垫底，最后才是英文翻译
         LanguageTranslator:LoadPOFile("languages/dlc_translations/chinese_s.po", "chinese_s_TEMP")
@@ -326,7 +328,9 @@ if desiredlang and setting_languages[desiredlang] then
     -- 合并翻译
     if _defaultlang then
         merge(LanguageTranslator.languages[_defaultlang], LanguageTranslator.languages[desiredlang .. "_TEMP"])
-        merge(LanguageTranslator.languages[_defaultlang], LanguageTranslator.languages[desiredlang .. "_TEMP_extension"], true) -- 加载额外DLC字符串翻译（强制覆盖现有字符串）
+        if LanguageTranslator.languages[desiredlang .. "_TEMP_extension"] then
+            merge(LanguageTranslator.languages[_defaultlang], LanguageTranslator.languages[desiredlang .. "_TEMP_extension"], true) -- 加载额外DLC字符串翻译（强制覆盖现有字符串）
+        end
         LanguageTranslator.defaultlang = _defaultlang
     end
     -- TranslateStringTable(STRINGS) -- 非必要不使用
