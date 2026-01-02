@@ -6,7 +6,6 @@ local assets =
 
 local prefabs =
 {
-    --  "acorn_cooked",
     "spoiled_food"
 }
 
@@ -25,45 +24,11 @@ local function ondeploy(inst, pt)
     plant(inst, timeToGrow)
 end
 
-local function stopgrowing(inst)
-    if inst.growtask then
-        inst.growtask:Cancel()
-        inst.growtask = nil
-    end
-    inst.growtime = nil
-end
-
-local function restartgrowing(inst)
-    if inst and not inst.growtask then
-        local growtime = GetRandomWithVariance(TUNING.ACORN_GROWTIME.base, TUNING.ACORN_GROWTIME.random)
-        inst.growtime = GetTime() + growtime
-        inst.growtask = inst:DoTaskInTime(growtime, growtree)
-    end
-end
-
 local function test_ground(inst, pt)
     local map = TheWorld.Map
     local tile_id = map:GetTileAtPoint(pt:Get())
     return map:CanDeployPlantAtPoint(pt, inst) and
     ((IsLandTile(tile_id) and (not GROUND_FLOORING[tile_id])) or (tile_id == GROUND.CHECKEREDLAWN))
-end
-
-local function describe(inst)
-    if inst.growtime then
-        return "PLANTED"
-    end
-end
-
-local function OnSave(inst, data)
-    if inst.growtime then
-        data.growtime = inst.growtime - GetTime()
-    end
-end
-
-local function OnLoad(inst, data)
-    if data and data.growtime then
-        plant(inst, data.growtime)
-    end
 end
 
 local function fn()
@@ -117,22 +82,15 @@ local function fn()
     inst.components.stackable.maxsize = TUNING.STACK_SIZE_SMALLITEM
 
     inst:AddComponent("inspectable")
-    inst.components.inspectable.getstatus = describe
 
     MakeSmallBurnable(inst, TUNING.SMALL_BURNTIME)
-    inst:ListenForEvent("onignite", stopgrowing)
-    inst:ListenForEvent("onextinguish", restartgrowing)
     MakeSmallPropagator(inst)
-    --    inst.components.burnable:MakeDragonflyBait(3)
 
     inst:AddComponent("inventoryitem")
 
     inst:AddComponent("deployable")
     inst.components.deployable:SetDeployMode(DEPLOYMODE.CUSTOM)
     inst.components.deployable.ondeploy = ondeploy
-
-    inst.OnSave = OnSave
-    inst.OnLoad = OnLoad
 
     return inst
 end

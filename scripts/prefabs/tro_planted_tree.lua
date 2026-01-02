@@ -2,6 +2,10 @@ local teatree_assets = {
     Asset("ANIM", "anim/teatree_nut.zip"),
 }
 
+local palmtree_assets = {
+    Asset("ANIM", "anim/coconut.zip"),
+}
+
 local function growtree(inst)
     local grow_prefab = type(inst.growprefab) == "table" and GetRandomItem(inst.growprefab) or inst.growprefab
     local tree = SpawnPrefab(grow_prefab)
@@ -41,10 +45,10 @@ local function sapling_fn(build, anim, growprefab, tag, fireproof, overrideloot,
 
     if type(growprefab) == "table" then
         for k, prefab in pairs(growprefab) do
-            table.insert(scrapbook_adddeps, prefab == tag and tag.."_tall" or string.gsub(prefab, "short", "tall"))
+            table.insert(scrapbook_adddeps, prefab == tag and tag .. "_tall" or string.gsub(prefab, "short", "tall"))
         end
     else
-        table.insert(scrapbook_adddeps, growprefab == tag and tag.."_tall" or string.gsub(growprefab, "short", "tall"))
+        table.insert(scrapbook_adddeps, growprefab == tag and tag .. "_tall" or string.gsub(growprefab, "short", "tall"))
     end
 
     local function fn()
@@ -55,7 +59,7 @@ local function sapling_fn(build, anim, growprefab, tag, fireproof, overrideloot,
         inst.entity:AddSoundEmitter()
         inst.entity:AddNetwork()
 
-		inst:SetDeploySmartRadius(override_deploy_smart_radius or DEPLOYSPACING_RADIUS[DEPLOYSPACING.DEFAULT] / 2)
+        inst:SetDeploySmartRadius(override_deploy_smart_radius or DEPLOYSPACING_RADIUS[DEPLOYSPACING.DEFAULT] / 2)
 
         inst.AnimState:SetBank(build)
         inst.AnimState:SetBuild(build)
@@ -87,7 +91,7 @@ local function sapling_fn(build, anim, growprefab, tag, fireproof, overrideloot,
         inst:AddComponent("inspectable")
 
         inst:AddComponent("lootdropper")
-        inst.components.lootdropper:SetLoot(overrideloot or {"twigs"})
+        inst.components.lootdropper:SetLoot(overrideloot or { "twigs" })
 
         inst:AddComponent("workable")
         inst.components.workable:SetWorkAction(ACTIONS.DIG)
@@ -112,4 +116,5 @@ local function sapling_fn(build, anim, growprefab, tag, fireproof, overrideloot,
     return fn
 end
 
-return Prefab("teatree_sapling", sapling_fn("teatree_nut", "idle_planted", "teatree", "teatree"), teatree_assets)
+return Prefab("teatree_sapling", sapling_fn("teatree_nut", "idle_planted", "teatree", "teatree"), teatree_assets),
+    Prefab("coconut_sapling", sapling_fn("coconut", "planted", "palmtree_short", "palmtree"), palmtree_assets)
