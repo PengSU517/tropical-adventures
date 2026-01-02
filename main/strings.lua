@@ -302,6 +302,13 @@ LanguageTranslator.LoadPOFile = function(self, fname, lang)
         merge(self.languages[lang], self.languages[lang .. "_TEMP"])
         self.languages[lang .. "_TEMP"] = nil
 
+        ---繁体中文打底
+        if setting_languages[lang] == "chinese_t" then -- 如果使用繁体中文，则额外加载简体中文翻译垫底，最后才是英文翻译
+            self:LoadPOFile("languages/dlc_translations/chinese_s.po", "chinese_s_TEMP")
+            merge(self.languages[lang], LanguageTranslator.languages["chinese_s_TEMP"])
+            LanguageTranslator.languages["chinese_s_TEMP"] = nil
+        end
+
 
         ----针对中文添加补充台词
         if setting_languages[lang] == "chinese_t" or setting_languages[lang] == "chinese_s" then
@@ -324,11 +331,20 @@ print("Trpical Adventures: The present desired language is " .. tostring(desired
 
 if langset then
     local _defaultlang = LanguageTranslator.defaultlang
+
     -- 加载翻译文件
     LanguageTranslator:LoadPOFile("languages/dlc_translations/" .. langset .. ".po", "_TEMP")
     merge(LanguageTranslator.languages[_defaultlang], LanguageTranslator.languages["_TEMP"])
     LanguageTranslator.languages["_TEMP"] = nil
 
+    ---繁体中文打底
+    if setting_languages[_defaultlang] == "chinese_t" then -- 如果使用繁体中文，则额外加载简体中文翻译垫底，最后才是英文翻译
+        self:LoadPOFile("languages/dlc_translations/chinese_s.po", "chinese_s_TEMP")
+        merge(self.languages[_defaultlang], LanguageTranslator.languages["chinese_s_TEMP"])
+        LanguageTranslator.languages["chinese_s_TEMP"] = nil
+    end
+
+    ----针对中文添加补充台词
     if langset == "chinese_t" or langset == "chinese_s" then
         LanguageTranslator:LoadPOFile("languages/extension/chinese_extension.po", "_TEMP_extension") -- 加载额外DLC字符串翻译（强制覆盖现有字符串）
         merge(LanguageTranslator.languages[_defaultlang], LanguageTranslator.languages["_TEMP_extension"], true)
