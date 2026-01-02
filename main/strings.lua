@@ -59,7 +59,7 @@ local function findComplement(table1, table2)
     local function recursiveFindComplement(t1, t2)
         local complement = {}
         for k, v in pairs(t1) do
-            if v ~= nil and t2[k] == nil then
+            if type(k) ~= "number" and v ~= nil and t2[k] == nil then
                 -- t2 中没有这个键，加入补集
                 complement[k] = _deepcopy(v)
             elseif type(v) == 'table' and type(t2[k]) == 'table' then
@@ -245,7 +245,17 @@ merge(STRINGS, DLC_STRINGS) -- 加载DLC字符串
 -- local ch_filePath = "chinese_extension.txt"
 -- saveTableToFile(ch_complement, ch_filePath)
 
+-- local CH_strings = languagerequire("extension/chinese_extension")
+-- local EN_strings = languagerequire("extension/english_extension")
+-- local en_merged = merge(EN_strings, CH_strings)
+-- local en_filePath = "english_extension.txt"
+-- saveTableToFile(en_merged, en_filePath)
 
+
+-- local EN_strings = languagerequire("extension/english_extension")
+-- local en_complement = findComplement(EN_strings, STRINGS)
+-- local en_filePath = "english_extension1.txt"
+-- saveTableToFile(en_complement, en_filePath)
 
 
 ---------------------speech translation begin / start adding mod strings---------------------------------
@@ -253,6 +263,7 @@ merge(STRINGS, DLC_STRINGS) -- 加载DLC字符串
 local setting_languages = {
     de = "german",         --german
     es = "spanish",        --spanish
+    ja = "japanese",       --japanese
     fr = "french",         --french
     it = "italian",        --italian
     ko = "korean",         --korean
@@ -279,64 +290,56 @@ local LanguageTranslator = GLOBAL.LanguageTranslator
 -- 为兼容其它翻译模组HOOK这个，防止因其它模组使用LoadPOFile使我们的翻译失效
 local LoadPOFile_old = LanguageTranslator.LoadPOFile
 LanguageTranslator.LoadPOFile = function(self, fname, lang)
+    print("The loaded language is" .. (lang or "nil"))
     LoadPOFile_old(self, fname, lang)
     if setting_languages[lang] then
         local _defaultlang = self.defaultlang
         -- Translator不允许我们添加现有的语言
         -- 相反，我们创造“新”语言，然后手动将它们合并到实际的语言数据中
+
+        ------添加原有dlc的台词
         self:LoadPOFile("languages/dlc_translations/" .. setting_languages[lang] .. ".po", lang .. "_TEMP") -- 加载字符串翻译到临时语言
-        if setting_languages[lang] == "chinese_s" or setting_languages[lang] == "chinese_t" then
-            self:LoadPOFile("languages/extension/chinese_extension.po", lang .. "_TEMP_extension") -- 加载中文额外DLC字符串翻译（强制覆盖现有字符串）
-        end
-        if setting_languages[lang] == "chinese_t" then -- 如果使用繁体中文，则额外加载简体中文翻译垫底，最后才是英文翻译
-            self:LoadPOFile("languages/dlc_translations/chinese_s.po", "chinese_s_TEMP")
-            merge(self.languages[lang .. "_TEMP"], LanguageTranslator.languages["chinese_s_TEMP"])
-            LanguageTranslator.languages["chinese_s_TEMP"] = nil
-        end
         merge(self.languages[lang], self.languages[lang .. "_TEMP"])
-        if self.languages[lang .. "_TEMP_extension"] then
-            merge(self.languages[lang], self.languages[lang .. "_TEMP_extension"], true)
-        end
-        self.languages[lang .. "_TEMP_extension"] = nil
         self.languages[lang .. "_TEMP"] = nil
+
+
+        ----针对中文添加补充台词
+        if setting_languages[lang] == "chinese_t" or setting_languages[lang] == "chinese_s" then
+            self:LoadPOFile("languages/extension/chinese_extension.po", lang .. "_TEMP_extension") -- 加载额外DLC字符串翻译（强制覆盖现有字符串）
+            merge(self.languages[lang], self.languages[lang .. "_TEMP_extension"], true)
+            self.languages[lang .. "_TEMP_extension"] = nil
+        end
 
         self.defaultlang = _defaultlang
     end
 end
 
+
+
+-------------------加载本模组的台词------------------------------------
 local desiredlang = LanguageTranslator.defaultlang or "en"
+local mod_set_lang = TUNING.set_language or "auto"
+local langset = mod_set_lang == "auto" and setting_languages[desiredlang] or setting_languages[mod_set_lang]
+print("Trpical Adventures: The present desired language is " .. tostring(desiredlang))
 
-print("热带冒险: 当前游戏语言 = " .. tostring(desiredlang))
-if desiredlang and setting_languages[desiredlang] then
+if langset then
     local _defaultlang = LanguageTranslator.defaultlang
-
     -- 加载翻译文件
-    LanguageTranslator:LoadPOFile("languages/dlc_translations/" .. setting_languages[desiredlang] .. ".po",
-        desiredlang .. "_TEMP")                           -- 加载字符串翻译到临时语言
+    LanguageTranslator:LoadPOFile("languages/dlc_translations/" .. langset .. ".po", "_TEMP")
+    merge(LanguageTranslator.languages[_defaultlang], LanguageTranslator.languages["_TEMP"])
+    LanguageTranslator.languages["_TEMP"] = nil
 
-    if setting_languages[desiredlang] == "chinese_s" or setting_languages[desiredlang] == "chinese_t" then
-        LanguageTranslator:LoadPOFile("languages/extension/chinese_extension.po",
-            desiredlang .. "_TEMP_extension")                 -- 加载中文额外DLC字符串翻译（强制覆盖现有字符串）
+    if langset == "chinese_t" or langset == "chinese_s" then
+        LanguageTranslator:LoadPOFile("languages/extension/chinese_extension.po", "_TEMP_extension") -- 加载额外DLC字符串翻译（强制覆盖现有字符串）
+        merge(LanguageTranslator.languages[_defaultlang], LanguageTranslator.languages["_TEMP_extension"], true)
+        LanguageTranslator.languages["_TEMP_extension"] = nil
     end
 
-    if setting_languages[desiredlang] == "chinese_t" then -- 如果使用繁体中文，则额外加载简体中文翻译垫底，最后才是英文翻译
-        LanguageTranslator:LoadPOFile("languages/dlc_translations/chinese_s.po", "chinese_s_TEMP")
-        merge(LanguageTranslator.languages[desiredlang .. "_TEMP"], LanguageTranslator.languages["chinese_s_TEMP"])
-        LanguageTranslator.languages["chinese_s_TEMP"] = nil
+
+
+    if mod_set_lang ~= "auto" then
+        TranslateStringTable(STRINGS) -- 非必要不使用
     end
 
-    -- 合并翻译
-    if _defaultlang then
-        merge(LanguageTranslator.languages[_defaultlang], LanguageTranslator.languages[desiredlang .. "_TEMP"])
-        if LanguageTranslator.languages[desiredlang .. "_TEMP_extension"] then
-            merge(LanguageTranslator.languages[_defaultlang], LanguageTranslator.languages[desiredlang .. "_TEMP_extension"], true) -- 加载额外DLC字符串翻译（强制覆盖现有字符串）
-        end
-        LanguageTranslator.defaultlang = _defaultlang
-    end
-    -- TranslateStringTable(STRINGS) -- 非必要不使用
-
-    -- 清理临时翻译语言
-    LanguageTranslator.languages[desiredlang .. "_TEMP"] = nil
-    LanguageTranslator.languages[desiredlang .. "_TEMP_extension"] = nil
     LanguageTranslator.defaultlang = _defaultlang
 end
