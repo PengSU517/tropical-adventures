@@ -339,8 +339,8 @@ if langset then
 
     ---繁体中文打底
     if setting_languages[_defaultlang] == "chinese_t" then -- 如果使用繁体中文，则额外加载简体中文翻译垫底，最后才是英文翻译
-        self:LoadPOFile("languages/dlc_translations/chinese_s.po", "chinese_s_TEMP")
-        merge(self.languages[_defaultlang], LanguageTranslator.languages["chinese_s_TEMP"])
+        LanguageTranslator:LoadPOFile("languages/dlc_translations/chinese_s.po", "chinese_s_TEMP")
+        merge(LanguageTranslator.languages[_defaultlang], LanguageTranslator.languages["chinese_s_TEMP"])
         LanguageTranslator.languages["chinese_s_TEMP"] = nil
     end
 
