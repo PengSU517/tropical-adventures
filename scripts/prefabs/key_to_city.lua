@@ -88,7 +88,7 @@ local function fn(Sim)
     if not TheWorld.ismastersim then
         return inst
     end
-    
+
     inst._owner = nil
     inst._container = nil
 
@@ -120,7 +120,9 @@ end
 local function icon_init(inst)
     inst.icon = SpawnPrefab("globalmapicon")
     inst.icon.MiniMapEntity:SetPriority(11)
-    inst.icon:TrackEntity(inst)
+    if inst.icon.TrackEntity then
+        inst.icon:TrackEntity(inst) ----按理来说这个函数肯定存在的，但是却找不到
+    end
 end
 
 local function iconfn()
