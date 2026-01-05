@@ -1,34 +1,34 @@
 require("stategraphs/commonstates")
 
-local actionhandlers = 
+local actionhandlers =
 {
     --ActionHandler(ACTIONS.PICKUP, "doshortaction"),
     --ActionHandler(ACTIONS.EAT, "eat"),
     --ActionHandler(ACTIONS.CHOP, "chop"),
     --ActionHandler(ACTIONS.PICKUP, "pickup"),
-    ActionHandler(ACTIONS.SPECIAL_ACTION, nil),	
+    ActionHandler(ACTIONS.SPECIAL_ACTION, nil),
 }
 
 local SHAKE_DIST = 40
 
 local function removemoss(inst)
     inst.removemoss(inst)
---[[
-    if inst:HasTag("mossy") then           
+    --[[
+    if inst:HasTag("mossy") then
         inst:RemoveTag("mossy")
         local x, y, z = inst.Transform:GetWorldPosition()
         for i=1,math.random(12,15) do
-            inst:DoTaskInTime(math.random()*0.5,function()                
+            inst:DoTaskInTime(math.random()*0.5,function()
                 local fx = SpawnPrefab("robot_leaf_fx")
                 fx.Transform:SetPosition(x + (math.random()*4) -2 ,y,z + (math.random()*4) -2)
             end)
         end
-    end    
+    end
     ]]
 end
 
-local function setfires(x,y,z, rad)
-    for i, v in ipairs(TheSim:FindEntities(x, 0, z, rad, nil, { "laser", "DECOR", "INLIMBO" })) do 
+local function setfires(x, y, z, rad)
+    for i, v in ipairs(TheSim:FindEntities(x, 0, z, rad, nil, { "laser", "DECOR", "INLIMBO" })) do
         if v.components.burnable then
             v.components.burnable:Ignite()
         end
@@ -37,10 +37,10 @@ end
 local function DoDamage(inst, rad)
     local targets = {}
     local x, y, z = inst.Transform:GetWorldPosition()
-  
-    setfires(x,y,z, rad)
-    for i, v in ipairs(TheSim:FindEntities(x, 0, z, rad, nil, { "laser", "DECOR", "INLIMBO" })) do  --  { "_combat", "pickable", "campfire", "CHOP_workable", "HAMMER_workable", "MINE_workable", "DIG_workable" }
-        if not targets[v] and v:IsValid() and not v:IsInLimbo() and not (v.components.health ~= nil and v.components.health:IsDead()) and not v:HasTag("laser_immune") then            
+
+    setfires(x, y, z, rad)
+    for i, v in ipairs(TheSim:FindEntities(x, 0, z, rad, nil, { "laser", "DECOR", "INLIMBO" })) do --  { "_combat", "pickable", "campfire", "CHOP_workable", "HAMMER_workable", "MINE_workable", "DIG_workable" }
+        if not targets[v] and v:IsValid() and not v:IsInLimbo() and not (v.components.health ~= nil and v.components.health:IsDead()) and not v:HasTag("laser_immune") then
             local vradius = 0
             if v.Physics then
                 vradius = v.Physics:GetRadius()
@@ -49,31 +49,30 @@ local function DoDamage(inst, rad)
             local range = rad + vradius
 
             if v:GetDistanceSqToPoint(Vector3(x, y, z)) < range * range then
-			
                 local isworkable = false
                 if v.components.workable ~= nil then
                     local work_action = v.components.workable:GetWorkAction()
                     --V2C: nil action for campfires
                     isworkable =
-                        (   work_action == nil and v:HasTag("campfire")    ) or
-                        
-                            (   work_action == ACTIONS.CHOP or
-                                work_action == ACTIONS.HAMMER or
-                                work_action == ACTIONS.MINE or   
-                                work_action == ACTIONS.DIG
-                            )
+                        (work_action == nil and v:HasTag("campfire")) or
+
+                        (work_action == ACTIONS.CHOP or
+                            work_action == ACTIONS.HAMMER or
+                            work_action == ACTIONS.MINE or
+                            work_action == ACTIONS.DIG
+                        )
                 end
                 if isworkable then
                     targets[v] = true
-                    v:DoTaskInTime(0.6, function() 
+                    v:DoTaskInTime(0.6, function()
                         if v.components.workable then
-                            v.components.workable:Destroy(inst) 
-                            local vx,vy,vz = v.Transform:GetWorldPosition()
-                            v:DoTaskInTime(0.3, function() setfires(vx,vy,vz,1) end)
+                            v.components.workable:Destroy(inst)
+                            local vx, vy, vz = v.Transform:GetWorldPosition()
+                            v:DoTaskInTime(0.3, function() setfires(vx, vy, vz, 1) end)
                         end
-                     end)
+                    end)
                     if v:IsValid() and v:HasTag("stump") then
-                       -- v:Remove()
+                        -- v:Remove()
                     end
                 elseif v.components.pickable ~= nil
                     and v.components.pickable:CanBePicked()
@@ -90,9 +89,8 @@ local function DoDamage(inst, rad)
                             targets[loot] = true
                         end
                     end
-
-                elseif v.components.health then                    
-                    inst.components.combat:DoAttack(v)                
+                elseif v.components.health then
+                    inst.components.combat:DoAttack(v)
                     if v:IsValid() then
                         if not v.components.health or not v.components.health:IsDead() then
                             if v.components.freezable ~= nil then
@@ -110,14 +108,12 @@ local function DoDamage(inst, rad)
                                 end
                             end
                         end
-                    end                   
+                    end
                 end
                 if v:IsValid() and v.AnimState then
                     SpawnPrefab("laserhit"):SetTarget(v)
                 end
             end
-					
-			
         end
     end
 end
@@ -148,7 +144,6 @@ local function UpdateHit(inst)
 end
 
 local function powerglow(inst)
-    
     if inst.components.bloomer ~= nil then
         inst.components.bloomer:PushBloom(inst, "shaders/anim.ksh", -1)
     else
@@ -160,7 +155,7 @@ end
 
 local function SpawnLaser(inst)
     assert(inst.sg.statemem.targetpos)
-    local numsteps = 10   
+    local numsteps = 10
     local x, y, z = inst.Transform:GetWorldPosition()
 
     --if inst.components.combat.target then
@@ -171,11 +166,11 @@ local function SpawnLaser(inst)
     local yt = inst.sg.statemem.targetpos.y
     local zt = inst.sg.statemem.targetpos.z
 
-    local dist =  math.sqrt(inst:GetDistanceSqToPoint(  Vector3(xt, yt, zt)  )) -3--  math.sqrt( ) ) - 2
+    local dist = math.sqrt(inst:GetDistanceSqToPoint(Vector3(xt, yt, zt))) - 3 --  math.sqrt( ) ) - 2
 
-    local angle = (inst:GetAngleToPoint(xt, yt, zt) +90)* DEGREES
+    local angle = (inst:GetAngleToPoint(xt, yt, zt) + 90) * DEGREES
 
-    local step = .75   
+    local step = .75
     local ground = TheWorld.Map
     local targets, skiptoss = {}, {}
     local i = -1
@@ -188,7 +183,7 @@ local function SpawnLaser(inst)
         x1 = x + dist * math.sin(angle)
         z1 = z + dist * math.cos(angle)
         local tile = ground:GetTileAtPoint(x1, 0, z1)
-        
+
         if tile == 255 or tile < 2 then
             if i <= 0 then
                 return
@@ -196,17 +191,19 @@ local function SpawnLaser(inst)
             noground = true
         end
         fx = SpawnPrefab(i > 0 and "laser" or "laserempty")
-        fx.caster = inst
-        fx.Transform:SetPosition(x1, 0, z1)
-        fx:Trigger(delay * FRAMES, targets, skiptoss)
+        if fx then
+            fx.caster = inst
+            fx.Transform:SetPosition(x1, 0, z1)
+            fx:Trigger(delay * FRAMES, targets, skiptoss)
+        end
         if i == 0 then
-        --    ShakeAllCameras(CAMERASHAKE.FULL, .7, .02, .6, fx, 30)
+            --    ShakeAllCameras(CAMERASHAKE.FULL, .7, .02, .6, fx, 30)
         end
         if noground then
             break
         end
     end
---[[
+    --[[
     if i < numsteps then
         dist = (i + .5) * step + offset
         x1 = x + dist * math.sin(angle)
@@ -247,107 +244,106 @@ local function SetLightColour(inst, val)
     end
 end
 
-local events=
+local events =
 {
     CommonHandlers.OnStep(),
-    CommonHandlers.OnLocomote(true,true),
+    CommonHandlers.OnLocomote(true, true),
     CommonHandlers.OnSleep(),
     CommonHandlers.OnFreeze(),
 
-    --EventHandler("doattack", function(inst, data) if not inst.components.health:IsDead() then 
-       -- inst.sg:GoToState("attack", data.target) 
+    --EventHandler("doattack", function(inst, data) if not inst.components.health:IsDead() then
+    -- inst.sg:GoToState("attack", data.target)
     --    end end),
-    EventHandler("dobeamattack", function(inst, data) 
-                    if not inst.sg:HasStateTag("activating") and not inst.sg:HasStateTag("busy") then
-                        inst.sg:GoToState("laserbeam", data.target) 
-                    end
-        end),  
-    EventHandler("doleapattack", function(inst,data)
-                    if not inst.sg:HasStateTag("activating") and not inst.sg:HasStateTag("busy") then 
-                        inst.sg:GoToState("leap_attack_pre", data.target)
-                    end
-         end),          
+    EventHandler("dobeamattack", function(inst, data)
+        if not inst.sg:HasStateTag("activating") and not inst.sg:HasStateTag("busy") then
+            inst.sg:GoToState("laserbeam", data.target)
+        end
+    end),
+    EventHandler("doleapattack", function(inst, data)
+        if not inst.sg:HasStateTag("activating") and not inst.sg:HasStateTag("busy") then
+            inst.sg:GoToState("leap_attack_pre", data.target)
+        end
+    end),
     EventHandler("death", function(inst) inst.sg:GoToState("death") end),
-    EventHandler("attacked", function(inst) 
-            removemoss(inst)
-            inst.hits = inst.hits+ 1
-           -- if inst.components.health:GetPercent() > 0 then                 
+    EventHandler("attacked", function(inst)
+        removemoss(inst)
+        inst.hits = inst.hits + 1
+        -- if inst.components.health:GetPercent() > 0 then
 
-            if inst.hits > 2 then                
-                if math.random()*inst.hits >= 2 then
+        if inst.hits > 2 then
+            if math.random() * inst.hits >= 2 then
+                local x, y, z = inst.Transform:GetWorldPosition()
+                inst.components.lootdropper:SpawnLootPrefab("iron", Vector3(x, y, z))
+                inst.hits = 0
 
-                    local x, y, z= inst.Transform:GetWorldPosition()
-                    inst.components.lootdropper:SpawnLootPrefab("iron", Vector3(x,y,z))
-                    inst.hits = 0
-
-                    if inst:HasTag("dormant") then
-                        if  math.random() < 0.6 then
-                            inst.wantstodeactivate = nil
-                            inst:RemoveTag("dormant")                                
-                            inst:PushEvent("shock")
-                            inst.lifetime = 20 --120
-                            if not inst.updatetask then
-                                inst.updatetask = inst:DoPeriodicTask(inst.UPDATETIME, inst.periodicupdate)
-                            end                                                                                                            
+                if inst:HasTag("dormant") then
+                    if math.random() < 0.6 then
+                        inst.wantstodeactivate = nil
+                        inst:RemoveTag("dormant")
+                        inst:PushEvent("shock")
+                        inst.lifetime = 20 --120
+                        if not inst.updatetask then
+                            inst.updatetask = inst:DoPeriodicTask(inst.UPDATETIME, inst.periodicupdate)
                         end
-                    elseif not inst.sg:HasStateTag("attack") and not inst.sg:HasStateTag("activating") then                        
-                        inst.sg:GoToState("hit")
                     end
+                elseif not inst.sg:HasStateTag("attack") and not inst.sg:HasStateTag("activating") then
+                    inst.sg:GoToState("hit")
                 end
             end
+        end
 
-            if inst:HasTag("dormant") and not inst.sg:HasStateTag("busy") then
-                inst.sg:GoToState("hit_dormant")       
-            end
-               
-            --end
-        end),
+        if inst:HasTag("dormant") and not inst.sg:HasStateTag("busy") then
+            inst.sg:GoToState("hit_dormant")
+        end
+
+        --end
+    end),
     EventHandler("shock", function(inst)
-                inst.wantstodeactivate = nil
-                inst:RemoveTag("dormant") 
-                inst.sg:GoToState("shock") 
-        end),
-    EventHandler("activate", function(inst) 
-            --    inst.components.health:StopRegen()
-                inst.wantstodeactivate = nil
-                inst:RemoveTag("dormant")                        
-                inst.sg:GoToState("activate") 
-        end),
+        inst.wantstodeactivate = nil
+        inst:RemoveTag("dormant")
+        inst.sg:GoToState("shock")
+    end),
+    EventHandler("activate", function(inst)
+        --    inst.components.health:StopRegen()
+        inst.wantstodeactivate = nil
+        inst:RemoveTag("dormant")
+        inst.sg:GoToState("activate")
+    end),
     EventHandler("deactivate", function(inst)
-            if not inst:HasTag("dormant") then
-             --   inst.components.health:StartRegen(1000, 5)
-                inst.wantstodeactivate = nil
-                inst:AddTag("dormant")  
-                inst.sg:GoToState("deactivate") 
-            end
-        end),
+        if not inst:HasTag("dormant") then
+            --   inst.components.health:StartRegen(1000, 5)
+            inst.wantstodeactivate = nil
+            inst:AddTag("dormant")
+            inst.sg:GoToState("deactivate")
+        end
+    end),
 }
 
-local states=
+local states =
 {
-    State{
+    State {
         name = "idle",
-        tags = {"idle", "canrotate"},
-        
+        tags = { "idle", "canrotate" },
+
         onenter = function(inst, pushanim)
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("idle", true)
-            inst.sg:SetTimeout(2 + 2*math.random())
+            inst.sg:SetTimeout(2 + 2 * math.random())
         end,
---------------------------------------------- arm/claw
---------------------------------------------- ribs
---------------------------------------------- leg
---------------------------------------------- head
-        
-        ontimeout=function(inst)
-                inst.sg:GoToState("taunt")
+        --------------------------------------------- arm/claw
+        --------------------------------------------- ribs
+        --------------------------------------------- leg
+        --------------------------------------------- head
+
+        ontimeout = function(inst)
+            inst.sg:GoToState("taunt")
         end,
     },
 
-    State{
+    State {
         name = "idle_dormant",
-        tags = {"idle","dormant"},
-        
+        tags = { "idle", "dormant" },
+
         onenter = function(inst, pushanim)
             --inst.wantstodeactivate = nil
             inst.components.locomotor:StopMoving()
@@ -360,52 +356,52 @@ local states=
                 inst.AnimState:PlayAnimation("full")
             end
         end,
-        timeline=
+        timeline =
         {
---------------------------------------------- leg
-            TimeEvent(12*FRAMES, function(inst) 
+            --------------------------------------------- leg
+            TimeEvent(12 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
                 end
             end),
-            TimeEvent(12*FRAMES, function(inst) 
+            TimeEvent(12 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
                 end
             end),
-            TimeEvent(27*FRAMES, function(inst) 
+            TimeEvent(27 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo_small",nil,0.5)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo_small", nil, 0.5)
                 end
             end),
-            TimeEvent(31*FRAMES, function(inst) 
+            TimeEvent(31 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo_small",nil,0.5)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo_small", nil, 0.5)
                 end
             end),
-            TimeEvent(45*FRAMES, function(inst) 
+            TimeEvent(45 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo",nil,0.6)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo", nil, 0.6)
                 end
             end),
-        },   
---------------------------------------------- arm/claw
---------------------------------------------- ribs
---------------------------------------------- head
-        events=
+        },
+        --------------------------------------------- arm/claw
+        --------------------------------------------- ribs
+        --------------------------------------------- head
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle_dormant") end),
-        },           
+        },
 
-    },  
+    },
 
-    State{
+    State {
         name = "fall",
-        tags = {"busy"},
-        
+        tags = { "busy" },
+
         onenter = function(inst, pushanim)
             inst.Physics:SetDamping(0)
-            inst.Physics:SetMotorVel(0,-35,0) -- -20+math.random()*10
+            inst.Physics:SetMotorVel(0, -35, 0) -- -20+math.random()*10
             inst.AnimState:PlayAnimation("idle_fall", true)
         end,
 
@@ -413,22 +409,21 @@ local states=
             local pt = Point(inst.Transform:GetWorldPosition())
 
             if pt.y < 2 then
-                inst.Physics:SetMotorVel(0,0,0)
+                inst.Physics:SetMotorVel(0, 0, 0)
             end
-            
+
             if pt.y <= 0.1 then
-                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/hulk_metal_robot/explode_small",nil,.25)
+                inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/boss/hulk_metal_robot/explode_small", nil, .25)
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step")
-                pt.y = 0                
+                pt.y = 0
                 inst.Physics:Stop()
                 inst.Physics:SetDamping(5)
-                inst.Physics:Teleport(pt.x,pt.y,pt.z)              
+                inst.Physics:Teleport(pt.x, pt.y, pt.z)
                 inst.sg:GoToState("separate")
---                local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
---                if player then
---                    player.components.playercontroller:ShakeCamera(inst, "FULL", 0.7, 0.02, 2, SHAKE_DIST)
---                end           
-
+                --                local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
+                --                if player then
+                --                    player.components.playercontroller:ShakeCamera(inst, "FULL", 0.7, 0.02, 2, SHAKE_DIST)
+                --                end
             end
         end,
 
@@ -436,730 +431,728 @@ local states=
             local pt = inst:GetPosition()
             pt.y = 0
             inst.Transform:SetPosition(pt:Get())
-        end,        
+        end,
     },
 
-    State{
+    State {
         name = "separate",
-        tags = {"busy","dormant"},
-        
+        tags = { "busy", "dormant" },
+
         onenter = function(inst, pushanim)
             --inst.wantstodeactivate = nil
-            inst.components.locomotor:StopMoving()          
-            inst.AnimState:PlayAnimation("separate")          
-        end,   
-        
-        events=
+            inst.components.locomotor:StopMoving()
+            inst.AnimState:PlayAnimation("separate")
+        end,
+
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle_dormant") end),
-        },           
+        },
 
-    }, 	
-	
-    State{
+    },
+
+    State {
         name = "hit_dormant",
-        tags = {"bisy","dormant"},
-        
+        tags = { "bisy", "dormant" },
+
         onenter = function(inst, pushanim)
             --inst.wantstodeactivate = nil
-            inst.components.locomotor:StopMoving()          
-            inst.AnimState:PlayAnimation("dormant_hit")          
-        end,   
-        
-        events=
+            inst.components.locomotor:StopMoving()
+            inst.AnimState:PlayAnimation("dormant_hit")
+        end,
+
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle_dormant") end),
-        },           
+        },
 
-    },      
+    },
 
-    State{
+    State {
         name = "shock",
-        tags = {"busy","activating"},
-        
+        tags = { "busy", "activating" },
+
         onenter = function(inst, pushanim)
             --inst.AnimState:SetBloomEffectHandle( "shaders/anim.ksh" )
-            removemoss(inst) 
-           -- inst:RemoveTag("dormant")      
+            removemoss(inst)
+            -- inst:RemoveTag("dormant")
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("shock")
         end,
-        
-        timeline=
+
+        timeline =
         {
---------------------------------------------- leg
-            TimeEvent(6*FRAMES, function(inst) 
+            --------------------------------------------- leg
+            TimeEvent(6 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro",nil,0.5)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro", nil, 0.5)
                 end
             end),
-            TimeEvent(9*FRAMES, function(inst) 
+            TimeEvent(9 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro",nil,0.5)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro", nil, 0.5)
                 end
             end),
---------------------------------------------- ribs
-            TimeEvent(9*FRAMES, function(inst) 
+            --------------------------------------------- ribs
+            TimeEvent(9 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro",nil,0.5)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro", nil, 0.5)
                 end
             end),
-            TimeEvent(13*FRAMES, function(inst) 
+            TimeEvent(13 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro",nil,0.5)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro", nil, 0.5)
                 end
             end),
---------------------------------------------- arm
-            TimeEvent(10*FRAMES, function(inst) 
+            --------------------------------------------- arm
+            TimeEvent(10 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro",nil,0.5)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro", nil, 0.5)
                 end
             end),
-            TimeEvent(10*FRAMES, function(inst) 
+            TimeEvent(10 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro",nil,0.5)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro", nil, 0.5)
                 end
             end),
-    --------------------------------------------- head
-            TimeEvent(2*FRAMES, function(inst) 
+            --------------------------------------------- head
+            TimeEvent(2 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro",nil,0.5)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro", nil, 0.5)
                 end
             end),
-            TimeEvent(5*FRAMES, function(inst) 
+            TimeEvent(5 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(7*FRAMES, function(inst) 
+            TimeEvent(7 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro",nil,0.5)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro", nil, 0.5)
                 end
             end),
-            TimeEvent(10*FRAMES, function(inst) 
+            TimeEvent(10 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
         },
 
-        events=
+        events =
         {
             EventHandler("animover", function(inst)
-                inst.sg:GoToState("activate") 
+                inst.sg:GoToState("activate")
             end),
-        }, 
-    },   
+        },
+    },
 
-    State{
+    State {
         name = "activate",
-        tags = {"busy","activating"},
-        
+        tags = { "busy", "activating" },
+
         onenter = function(inst, pushanim)
             removemoss(inst)
-            
+
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("activate")
-            inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/gears_LP","gears")
+            inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/gears_LP", "gears")
             inst.SoundEmitter:SetParameter("gears", "intensity", .5)
             inst:AddTag("hostile")
         end,
-        
-        timeline=
+
+        timeline =
         {
---------------------------------------------- arm/claw
-            TimeEvent(3*FRAMES, function(inst) 
+            --------------------------------------------- arm/claw
+            TimeEvent(3 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
                     inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active")
                     inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/start")
                 end
             end),
-            TimeEvent(4*FRAMES, function(inst) 
+            TimeEvent(4 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active")
                 end
             end),
-            TimeEvent(6*FRAMES, function(inst) 
+            TimeEvent(6 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active") 
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active")
                 end
             end),
-            TimeEvent(8*FRAMES, function(inst) 
+            TimeEvent(8 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active") 
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active")
                 end
             end),
-            TimeEvent(9*FRAMES, function(inst) 
+            TimeEvent(9 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active") 
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active")
                 end
             end),
-            TimeEvent(12*FRAMES, function(inst) 
+            TimeEvent(12 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active") 
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active")
                 end
             end),
 
-            TimeEvent(16*FRAMES, function(inst) 
+            TimeEvent(16 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active") 
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/active")
                 end
             end),
-            TimeEvent(30*FRAMES, function(inst) 
+            TimeEvent(30 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(37*FRAMES, function(inst) 
+            TimeEvent(37 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo") 
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
                 end
             end),
-            TimeEvent(30*FRAMES, function(inst) 
+            TimeEvent(30 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(41*FRAMES, function(inst) 
+            TimeEvent(41 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(50*FRAMES, function(inst) 
+            TimeEvent(50 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(51*FRAMES, function(inst) 
+            TimeEvent(51 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo") 
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
                 end
             end),
-            TimeEvent(53*FRAMES, function(inst) 
+            TimeEvent(53 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(62*FRAMES, function(inst) 
+            TimeEvent(62 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo") 
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
                 end
             end),
-            TimeEvent(70*FRAMES, function(inst) 
+            TimeEvent(70 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo") 
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
                 end
             end),
---------------------------------------------- head
-            TimeEvent(0*FRAMES, function(inst) 
+            --------------------------------------------- head
+            TimeEvent(0 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/start")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/start")
                 end
             end),
 
-            TimeEvent(1*FRAMES, function(inst) 
+            TimeEvent(1 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
                 end
             end),
-            TimeEvent(3*FRAMES, function(inst) 
+            TimeEvent(3 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
                 end
             end),
-            TimeEvent(5*FRAMES, function(inst) 
+            TimeEvent(5 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
                 end
             end),
-            TimeEvent(6*FRAMES, function(inst) 
+            TimeEvent(6 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
                 end
             end),
-            TimeEvent(9*FRAMES, function(inst) 
+            TimeEvent(9 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
                 end
             end),
-            TimeEvent(12*FRAMES, function(inst) 
+            TimeEvent(12 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
                 end
             end),
-            TimeEvent(14*FRAMES, function(inst) 
+            TimeEvent(14 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(16*FRAMES, function(inst) 
+            TimeEvent(16 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/active")
                 end
             end),
-            TimeEvent(17*FRAMES, function(inst) 
+            TimeEvent(17 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(27*FRAMES, function(inst) 
+            TimeEvent(27 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(30*FRAMES, function(inst) 
+            TimeEvent(30 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(37*FRAMES, function(inst) 
+            TimeEvent(37 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(40*FRAMES, function(inst) 
+            TimeEvent(40 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(54*FRAMES, function(inst) 
+            TimeEvent(54 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(57*FRAMES, function(inst) 
+            TimeEvent(57 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            
+
             --------------------------------------------- leg
-            TimeEvent(0*FRAMES, function(inst) 
+            TimeEvent(0 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
                     inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/active")
                     inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/start")
                 end
             end),
-            
-            TimeEvent(4*FRAMES, function(inst) 
+
+            TimeEvent(4 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/active")
                 end
             end),
-            TimeEvent(5*FRAMES, function(inst) 
+            TimeEvent(5 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/active")
                 end
             end),
-            TimeEvent(9*FRAMES, function(inst) 
+            TimeEvent(9 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/active")
                 end
             end),
-            TimeEvent(13*FRAMES, function(inst) 
+            TimeEvent(13 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/active")
                 end
             end),
-             TimeEvent(14*FRAMES, function(inst) 
+            TimeEvent(14 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(17*FRAMES, function(inst) 
+            TimeEvent(17 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(27*FRAMES, function(inst) 
+            TimeEvent(27 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
                 end
             end),
-            TimeEvent(44*FRAMES, function(inst) 
+            TimeEvent(44 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
                 end
             end),
-            TimeEvent(58*FRAMES, function(inst) 
+            TimeEvent(58 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/step",nil,.06)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/step", nil, .06)
                 end
             end),
             --------------------------------------------- ribs
-            TimeEvent(2*FRAMES, function(inst) 
+            TimeEvent(2 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/start")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/start")
                 end
             end),
-            
-            TimeEvent(4*FRAMES, function(inst) 
+
+            TimeEvent(4 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
                 end
             end),
-            TimeEvent(6*FRAMES, function(inst) 
+            TimeEvent(6 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
                 end
             end),
-            TimeEvent(8*FRAMES, function(inst) 
+            TimeEvent(8 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
                 end
             end),
-            TimeEvent(9*FRAMES, function(inst) 
+            TimeEvent(9 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(10*FRAMES, function(inst) 
+            TimeEvent(10 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
                 end
             end),
-            TimeEvent(12*FRAMES, function(inst) 
+            TimeEvent(12 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
                 end
             end),
-            TimeEvent(13*FRAMES, function(inst) 
+            TimeEvent(13 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(14*FRAMES, function(inst) 
+            TimeEvent(14 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
                 end
             end),
-            TimeEvent(16*FRAMES, function(inst) 
+            TimeEvent(16 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/active")
                 end
             end),
-            TimeEvent(18*FRAMES, function(inst) 
+            TimeEvent(18 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(21*FRAMES, function(inst) 
+            TimeEvent(21 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(30*FRAMES, function(inst) 
+            TimeEvent(30 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(33*FRAMES, function(inst) 
+            TimeEvent(33 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(36*FRAMES, function(inst) 
+            TimeEvent(36 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
-            TimeEvent(39*FRAMES, function(inst) 
+            TimeEvent(39 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/electro")
                 end
             end),
- 
+
         },
-        
-        events=
+
+        events =
         {
             EventHandler("animover", function(inst)
                 --inst:RestartBrain()
-                inst.sg:GoToState("taunt") 
+                inst.sg:GoToState("taunt")
             end),
-        },        
-    }, 
+        },
+    },
 
-    State{
+    State {
         name = "deactivate",
-        tags = {"busy","deactivating"},
-        
+        tags = { "busy", "deactivating" },
+
         onenter = function(inst, pushanim)
             --inst.AnimState:SetBloomEffectHandle( "" )
-           -- inst.wantstodeactivate = nil
+            -- inst.wantstodeactivate = nil
             --inst:StopBrain()
             inst.components.locomotor:StopMoving()
-            --inst:AddTag("dormant")              
+            --inst:AddTag("dormant")
             inst.AnimState:PlayAnimation("deactivate")
-            if inst:HasTag("robot_arm") then 
+            if inst:HasTag("robot_arm") then
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/stop")
-                end
-            if inst:HasTag("robot_head") then 
+            end
+            if inst:HasTag("robot_head") then
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/stop")
-                end
-            if inst:HasTag("robot_leg") then 
+            end
+            if inst:HasTag("robot_leg") then
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/stop")
-                end
-            if inst:HasTag("robot_ribs") then 
+            end
+            if inst:HasTag("robot_ribs") then
                 inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/stop")
-                end
+            end
 
             inst:RemoveTag("hostile")
         end,
 
-        timeline=
+        timeline =
         {
---------------------------------------------- arm/claw
-            TimeEvent(0*FRAMES, function(inst) 
+            --------------------------------------------- arm/claw
+            TimeEvent(0 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/green")
                 end
             end),
-            TimeEvent(9*FRAMES, function(inst) 
+            TimeEvent(9 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/green")
                 end
             end),
-            TimeEvent(14*FRAMES, function(inst) 
+            TimeEvent(14 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/green")
                 end
             end),
-            TimeEvent(21*FRAMES, function(inst) 
+            TimeEvent(21 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/green")
                 end
             end),
-            TimeEvent(38*FRAMES, function(inst) 
+            TimeEvent(38 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/green")
                 end
             end),
-            TimeEvent(36*FRAMES, function(inst) 
+            TimeEvent(36 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
                 end
             end),
---------------------------------------------- head
-            TimeEvent(5*FRAMES, function(inst) 
+            --------------------------------------------- head
+            TimeEvent(5 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/green")
                 end
             end),
-            TimeEvent(13*FRAMES, function(inst) 
+            TimeEvent(13 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/green")
                 end
             end),
-            TimeEvent(19*FRAMES, function(inst) 
+            TimeEvent(19 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/green")
                 end
             end),
-            TimeEvent(23*FRAMES, function(inst) 
+            TimeEvent(23 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/green")
                 end
             end),
-            TimeEvent(38*FRAMES, function(inst) 
+            TimeEvent(38 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/green")
                 end
             end),
---------------------------------------------- leg
-            TimeEvent(3*FRAMES, function(inst) 
+            --------------------------------------------- leg
+            TimeEvent(3 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/green")
                 end
             end),
-            TimeEvent(12*FRAMES, function(inst) 
+            TimeEvent(12 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/green")
                 end
             end),
-            TimeEvent(16*FRAMES, function(inst) 
+            TimeEvent(16 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/green")
                 end
             end),
-            TimeEvent(23*FRAMES, function(inst) 
+            TimeEvent(23 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/green")
                 end
             end),
-            TimeEvent(31*FRAMES, function(inst) 
+            TimeEvent(31 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/green")
                 end
             end),
-            TimeEvent(43*FRAMES, function(inst) 
+            TimeEvent(43 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/step")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/step")
                 end
             end),
-    --------------------------------------------- ribs
-            TimeEvent(0*FRAMES, function(inst) 
+            --------------------------------------------- ribs
+            TimeEvent(0 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/green")
                 end
             end),
-            TimeEvent(9*FRAMES, function(inst) 
+            TimeEvent(9 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/green")
                 end
             end),
-            TimeEvent(14*FRAMES, function(inst) 
+            TimeEvent(14 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/green")
                 end
             end),
-            TimeEvent(21*FRAMES, function(inst) 
+            TimeEvent(21 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/green")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/green")
                 end
             end),
 
         },
 
-        events=
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle_dormant") end),
-        },        
-    },            
-    
-    State{
+        },
+    },
+
+    State {
         name = "taunt",
-        tags = {"busy","canrotate"},
-        
+        tags = { "busy", "canrotate" },
+
         onenter = function(inst)
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("taunt")
         end,
 
-        events=
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
-        },        
+        },
 
 
         timeline =
         {
---------------------------------------------- arm/claw
-            TimeEvent(3*FRAMES, function(inst) 
+            --------------------------------------------- arm/claw
+            TimeEvent(3 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
                 end
             end),
-            TimeEvent(7*FRAMES, function(inst) 
+            TimeEvent(7 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
                 end
             end),
-            TimeEvent(15*FRAMES, function(inst) 
+            TimeEvent(15 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/taunt")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/taunt")
                 end
             end),
-            TimeEvent(29*FRAMES, function(inst) 
+            TimeEvent(29 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
                 end
             end),
-            TimeEvent(33*FRAMES, function(inst) 
+            TimeEvent(33 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
                 end
             end),
 
---------------------------------------------- ribs
-            TimeEvent(4*FRAMES, function(inst) 
+            --------------------------------------------- ribs
+            TimeEvent(4 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
                 end
             end),
-            TimeEvent(17*FRAMES, function(inst) 
+            TimeEvent(17 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
                 end
             end),
-            TimeEvent(21*FRAMES, function(inst) 
+            TimeEvent(21 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/taunt")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/taunt")
                 end
             end),
-            TimeEvent(45*FRAMES, function(inst) 
+            TimeEvent(45 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
                 end
             end),
 
---------------------------------------------- leg
-            TimeEvent(5*FRAMES, function(inst) 
+            --------------------------------------------- leg
+            TimeEvent(5 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
                 end
             end),
-            TimeEvent(15*FRAMES, function(inst) 
+            TimeEvent(15 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
                 end
             end),
-            TimeEvent(42*FRAMES, function(inst) 
+            TimeEvent(42 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
                 end
             end),
             --------------------------------------------- head
-            TimeEvent(0*FRAMES, function(inst) 
+            TimeEvent(0 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
                 end
             end),
-            TimeEvent(2*FRAMES, function(inst) 
+            TimeEvent(2 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
                     inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/taunt")
                 end
             end),
-            TimeEvent(12*FRAMES, function(inst) 
+            TimeEvent(12 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step","steps")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step", "steps")
                     inst.SoundEmitter:SetParameter("steps", "intensity", .05)
-
                 end
             end),
-            TimeEvent(17*FRAMES, function(inst) 
+            TimeEvent(17 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
                 end
             end),
-            TimeEvent(19*FRAMES, function(inst) 
+            TimeEvent(19 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
                     inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/taunt")
                 end
             end),
-            TimeEvent(24*FRAMES, function(inst) 
+            TimeEvent(24 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step","steps")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step", "steps")
                     inst.SoundEmitter:SetParameter("steps", "intensity", .08)
-
                 end
             end),
-            TimeEvent(32*FRAMES, function(inst) 
+            TimeEvent(32 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
                 end
             end),
---------------------------------------------------
+            --------------------------------------------------
 
             TimeEvent(23 * FRAMES, function(inst)
                 if inst:HasTag("lightning_taunt") then
-local pos = Vector3(inst.Transform:GetWorldPosition())
---                    TheWorld:PushEvent("ms_sendlightningstrike", pos)
-					SpawnPrefab("lightning").Transform:SetPosition(pos:Get())
---                        GetPlayer().SoundEmitter:PlaySound("dontstarve/rain/thunder_close")
---                        GetPlayer().components.playercontroller:ShakeCamera(inst, "FULL", 0.7, 0.02, .5, 40)
+                    local pos = Vector3(inst.Transform:GetWorldPosition())
+                    --                    TheWorld:PushEvent("ms_sendlightningstrike", pos)
+                    SpawnPrefab("lightning").Transform:SetPosition(pos:Get())
+                    --                        GetPlayer().SoundEmitter:PlaySound("dontstarve/rain/thunder_close")
+                    --                        GetPlayer().components.playercontroller:ShakeCamera(inst, "FULL", 0.7, 0.02, .5, 40)
                 end
             end),
         },
@@ -1167,9 +1160,9 @@ local pos = Vector3(inst.Transform:GetWorldPosition())
 
     },
 
-    State{
+    State {
         name = "laserbeam",
-        tags = { "busy","attack" },
+        tags = { "busy", "attack" },
 
         onenter = function(inst, target)
             inst.Physics:Stop()
@@ -1177,7 +1170,7 @@ local pos = Vector3(inst.Transform:GetWorldPosition())
             if not inst:HasTag("noeightfaced") then
                 inst.Transform:SetEightFaced()
             end
-     --       EnableEightFaced(inst)
+            --       EnableEightFaced(inst)
             if target ~= nil and target:IsValid() then
                 if inst.components.combat:TargetIs(target) then
                     inst.components.combat:StartAttack()
@@ -1213,162 +1206,164 @@ local pos = Vector3(inst.Transform:GetWorldPosition())
         timeline =
         {
             --------------------------------------------- arm/claw
-            TimeEvent(3*FRAMES, function(inst) 
+            TimeEvent(3 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
                 end
             end),
-            -- TimeEvent(4*FRAMES, function(inst) 
+            -- TimeEvent(4*FRAMES, function(inst)
             --     if inst:HasTag("robot_arm") then
             --        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
             --     end
             -- end),
 
-            TimeEvent(7*FRAMES, function(inst) 
+            TimeEvent(7 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser_pre")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser_pre")
                 end
             end),
 
-            TimeEvent(19*FRAMES, function(inst) 
+            TimeEvent(19 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
                 end
             end),
 
-            TimeEvent(30*FRAMES, function(inst) 
+            TimeEvent(30 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .12)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .12)
                 end
             end),
-            TimeEvent(32*FRAMES, function(inst) 
+            TimeEvent(32 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .24)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .24)
                 end
             end),
-            TimeEvent(34*FRAMES, function(inst) 
+            TimeEvent(34 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .48)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .48)
                 end
             end),
-            TimeEvent(36*FRAMES, function(inst) 
+            TimeEvent(36 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .60)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .60)
                 end
             end),
-            TimeEvent(38*FRAMES, function(inst) 
+            TimeEvent(38 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .72)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .72)
                 end
             end),
-            TimeEvent(40*FRAMES, function(inst) 
+            TimeEvent(40 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .84)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .84)
                 end
             end),
-            TimeEvent(42*FRAMES, function(inst) 
+            TimeEvent(42 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .96)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .96)
                 end
             end),
-            TimeEvent(44*FRAMES, function(inst) 
+            TimeEvent(44 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", 1)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", 1)
                 end
             end),
-            TimeEvent(47*FRAMES, function(inst) 
+            TimeEvent(47 * FRAMES, function(inst)
                 if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/step")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/step")
                 end
             end),
             --------------------------------------------- ribs
-            TimeEvent(4*FRAMES, function(inst) 
+            TimeEvent(4 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
                 end
             end),
-            TimeEvent(4*FRAMES, function(inst) 
+            TimeEvent(4 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
-                end
-            end),
-
-            TimeEvent(2*FRAMES, function(inst) 
-                if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser_pre")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
                 end
             end),
 
-            TimeEvent(19*FRAMES, function(inst) 
+            TimeEvent(2 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser_pre")
                 end
             end),
 
-            TimeEvent(22*FRAMES, function(inst) 
+            TimeEvent(19 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .12)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo")
                 end
             end),
-            TimeEvent(24*FRAMES, function(inst) 
+
+            TimeEvent(22 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .24)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .12)
                 end
             end),
-            TimeEvent(26*FRAMES, function(inst) 
+            TimeEvent(24 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .48)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .24)
                 end
             end),
-            TimeEvent(28*FRAMES, function(inst) 
+            TimeEvent(26 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .60)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .48)
                 end
             end),
-            TimeEvent(30*FRAMES, function(inst) 
+            TimeEvent(28 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .72)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .60)
                 end
             end),
-            TimeEvent(32*FRAMES, function(inst) 
+            TimeEvent(30 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .84)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .72)
                 end
             end),
-            TimeEvent(34*FRAMES, function(inst) 
+            TimeEvent(32 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", .96)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .84)
                 end
             end),
-            TimeEvent(36*FRAMES, function(inst) 
+            TimeEvent(34 * FRAMES, function(inst)
                 if inst:HasTag("robot_ribs") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser","laserfilter")
-                   inst.SoundEmitter:SetParameter("laserfilter", "intensity", 1)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", .96)
+                end
+            end),
+            TimeEvent(36 * FRAMES, function(inst)
+                if inst:HasTag("robot_ribs") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/laser", "laserfilter")
+                    inst.SoundEmitter:SetParameter("laserfilter", "intensity", 1)
                 end
             end),
 
             TimeEvent(6 * FRAMES, function(inst)
-               -- TheCamera:Shake("VERTICAL",  .2,  .02, .5)
+                -- TheCamera:Shake("VERTICAL",  .2,  .02, .5)
                 SetLightValue(inst, .97)
             end),
 
-            TimeEvent(8 * FRAMES, function(inst) inst.Light:Enable(true) 
-                                                 SetLightValueAndOverride(inst, 0.05, .2) end),
+            TimeEvent(8 * FRAMES, function(inst)
+                inst.Light:Enable(true)
+                SetLightValueAndOverride(inst, 0.05, .2)
+            end),
             TimeEvent(9 * FRAMES, function(inst) SetLightValueAndOverride(inst, 0.1, .15) end),
             TimeEvent(10 * FRAMES, function(inst) SetLightValueAndOverride(inst, 0.15, .05) end),
             TimeEvent(11 * FRAMES, function(inst) SetLightValueAndOverride(inst, 0.20, 0) end),
@@ -1395,7 +1390,7 @@ local pos = Vector3(inst.Transform:GetWorldPosition())
             end),
             TimeEvent(30 * FRAMES, function(inst)
                 SpawnLaser(inst)
-			    inst.sg.statemem.target = nil	
+                inst.sg.statemem.target = nil
                 SetLightValueAndOverride(inst, 1.08, .7)
             end),
             TimeEvent(31 * FRAMES, function(inst) SetLightValueAndOverride(inst, 1.12, 1) end),
@@ -1403,7 +1398,7 @@ local pos = Vector3(inst.Transform:GetWorldPosition())
             TimeEvent(33 * FRAMES, function(inst) SetLightValueAndOverride(inst, 1.06, .4) end),
             TimeEvent(34 * FRAMES, function(inst) SetLightValueAndOverride(inst, 1.1, .6) end),
             TimeEvent(35 * FRAMES, function(inst) inst.sg.statemem.lightval = 1.1 end),
-            TimeEvent(36 * FRAMES, function(inst) 
+            TimeEvent(36 * FRAMES, function(inst)
                 inst.sg.statemem.lightval = 1.035
                 SetLightColour(inst, .9)
             end),
@@ -1430,7 +1425,7 @@ local pos = Vector3(inst.Transform:GetWorldPosition())
         },
 
         onexit = function(inst)
-            if inst:HasTag("IsSixFaced") then 
+            if inst:HasTag("IsSixFaced") then
                 inst.Transform:SetSixFaced()
             else
                 inst.Transform:SetFourFaced()
@@ -1438,105 +1433,110 @@ local pos = Vector3(inst.Transform:GetWorldPosition())
             SetLightValueAndOverride(inst, 1, 0)
             SetLightColour(inst, 1)
             if not inst.sg.statemem.keepfacing then
-      --          DisableEightFaced(inst)
+                --          DisableEightFaced(inst)
             end
         end,
     },
 
-    State{
-            
+    State {
+
         name = "leap_attack_pre",
-        tags = {"attack", "canrotate", "busy","leapattack"},
-        
+        tags = { "attack", "canrotate", "busy", "leapattack" },
+
         onenter = function(inst, target)
-            inst.components.locomotor:Stop()                    
+            inst.components.locomotor:Stop()
             inst.AnimState:PlayAnimation("atk_pre")
             inst.sg.statemem.startpos = Vector3(inst.Transform:GetWorldPosition())
             inst.sg.statemem.targetpos = Vector3(target.Transform:GetWorldPosition())
         end,
 
-		timeline=
+        timeline =
         {
---------------------------------------------- leg
-            TimeEvent(0*FRAMES, function(inst) 
+            --------------------------------------------- leg
+            TimeEvent(0 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
                 end
             end),
---------------------------------------------- head
-            TimeEvent(7*FRAMES, function(inst) 
+            --------------------------------------------- head
+            TimeEvent(7 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
                 end
             end),
-            TimeEvent(9*FRAMES, function(inst) 
+            TimeEvent(9 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
                 end
             end),
-            TimeEvent(11*FRAMES, function(inst) 
+            TimeEvent(11 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
                 end
             end),
         },
-            
-        events=
+
+        events =
         {
-            EventHandler("animover", function(inst) inst.sg:GoToState("leap_attack",{startpos =inst.sg.statemem.startpos, targetpos =inst.sg.statemem.targetpos}) end),
+            EventHandler("animover", function(inst)
+                inst.sg:GoToState("leap_attack",
+                    { startpos = inst.sg.statemem.startpos, targetpos = inst.sg.statemem.targetpos })
+            end),
         },
     },
 
-    State{
+    State {
 
         name = "leap_attack",
-        tags = {"attack", "canrotate", "busy", "leapattack"},
-        
+        tags = { "attack", "canrotate", "busy", "leapattack" },
+
         onenter = function(inst, data)
             inst.sg.statemem.startpos = data.startpos
             inst.sg.statemem.targetpos = data.targetpos
             inst.components.locomotor:Stop()
             inst.Physics:SetActive(false)
             inst.components.locomotor:EnableGroundSpeedMultiplier(false)
-            inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/bearger/swhoosh")		
-			
+            inst.SoundEmitter:PlaySound("dontstarve_DLC001/creatures/bearger/swhoosh")
+
             inst.components.combat:StartAttack()
-            inst.AnimState:PlayAnimation("atk_loop")            
+            inst.AnimState:PlayAnimation("atk_loop")
         end,
 
 
 
-        timeline=
+        timeline =
         {
---------------------------------------------- leg
-            TimeEvent(18*FRAMES, function(inst) 
+            --------------------------------------------- leg
+            TimeEvent(18 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
                 end
             end),
---------------------------------------------- arm/claw
---------------------------------------------- ribs
---------------------------------------------- leg
---------------------------------------------- head
-            TimeEvent(0*FRAMES, function(inst) 
+            --------------------------------------------- arm/claw
+            --------------------------------------------- ribs
+            --------------------------------------------- leg
+            --------------------------------------------- head
+            TimeEvent(0 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
                 end
             end),
-             TimeEvent(3*FRAMES, function(inst) 
-                 if inst:HasTag("robot_head") then
+            TimeEvent(3 * FRAMES, function(inst)
+                if inst:HasTag("robot_head") then
                     inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/attack")
-                 end
-             end),
-             TimeEvent(25*FRAMES, function(inst) powerglow(inst) end), 
+                end
+            end),
+            TimeEvent(25 * FRAMES, function(inst) powerglow(inst) end),
         },
 
         onupdate = function(inst)
-			local percent = inst.AnimState:GetCurrentAnimationTime () / inst.AnimState:GetCurrentAnimationLength() -- substitui o inst.AnimState:GetPercent()
+            local percent = inst.AnimState:GetCurrentAnimationTime() /
+                inst.AnimState:GetCurrentAnimationLength() -- substitui o inst.AnimState:GetPercent()
             local xdiff = inst.sg.statemem.targetpos.x - inst.sg.statemem.startpos.x
-            local zdiff = inst.sg.statemem.targetpos.z - inst.sg.statemem.startpos.z           
+            local zdiff = inst.sg.statemem.targetpos.z - inst.sg.statemem.startpos.z
 
-            inst.Transform:SetPosition(inst.sg.statemem.startpos.x+(xdiff*percent),0,inst.sg.statemem.startpos.z+(zdiff*percent))
+            inst.Transform:SetPosition(inst.sg.statemem.startpos.x + (xdiff * percent), 0,
+                inst.sg.statemem.startpos.z + (zdiff * percent))
         end,
 
         onexit = function(inst)
@@ -1547,27 +1547,27 @@ local pos = Vector3(inst.Transform:GetWorldPosition())
             inst.sg.statemem.startpos = nil
             inst.sg.statemem.targetpos = nil
         end,
-        
-        
-        events=
+
+
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("leap_attack_pst") end),
         },
     },
 
 
-    State{
+    State {
 
         name = "leap_attack_pst",
-        tags = {"busy"},
-        
-        onenter = function(inst, target)            
+        tags = { "busy" },
+
+        onenter = function(inst, target)
             --inst.components.groundpounder:GroundPound()
 
---            local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
---            if player then
---                player.components.playercontroller:ShakeCamera(inst, "VERTICAL", 0.5, 0.03, 2, SHAKE_DIST)
---            end
+            --            local player = GetClosestInstWithTag("player", inst, SHAKE_DIST)
+            --            if player then
+            --                player.components.playercontroller:ShakeCamera(inst, "VERTICAL", 0.5, 0.03, 2, SHAKE_DIST)
+            --            end
 
             local ring = SpawnPrefab("laser_ring")
             ring.Transform:SetPosition(inst.Transform:GetWorldPosition())
@@ -1578,102 +1578,101 @@ local pos = Vector3(inst.Transform:GetWorldPosition())
 
         timeline =
         {
-            TimeEvent(5*FRAMES, function(inst)DoDamage(inst, 1.5) end), 
-            TimeEvent(10*FRAMES, function(inst)DoDamage(inst, 2.5) end), 
-            TimeEvent(15*FRAMES, function(inst)DoDamage(inst, 3.3) end),
---------------------------------------------- leg
-            TimeEvent(2*FRAMES, function(inst) 
+            TimeEvent(5 * FRAMES, function(inst) DoDamage(inst, 1.5) end),
+            TimeEvent(10 * FRAMES, function(inst) DoDamage(inst, 2.5) end),
+            TimeEvent(15 * FRAMES, function(inst) DoDamage(inst, 3.3) end),
+            --------------------------------------------- leg
+            TimeEvent(2 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/smash")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/smash")
                 end
             end),
-            TimeEvent(12*FRAMES, function(inst) 
+            TimeEvent(12 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
                 end
             end),
-            TimeEvent(18*FRAMES, function(inst) 
+            TimeEvent(18 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
                 end
             end),
-            TimeEvent(28*FRAMES, function(inst) 
+            TimeEvent(28 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/step",nil,.06)
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/step", nil, .06)
                 end
             end),
-            TimeEvent(30*FRAMES, function(inst) 
+            TimeEvent(30 * FRAMES, function(inst)
                 if inst:HasTag("robot_leg") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo")
                 end
             end),
---------------------------------------------- head
-            TimeEvent(0*FRAMES, function(inst) 
+            --------------------------------------------- head
+            TimeEvent(0 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/smash")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/smash")
                 end
             end),
-            TimeEvent(13*FRAMES, function(inst) 
+            TimeEvent(13 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo")
                 end
             end),
-            TimeEvent(17*FRAMES, function(inst) 
+            TimeEvent(17 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step")
                 end
             end),
-            TimeEvent(31*FRAMES, function(inst) 
+            TimeEvent(31 * FRAMES, function(inst)
                 if inst:HasTag("robot_head") then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step","steps")
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step", "steps")
                     inst.SoundEmitter:SetParameter("steps", "intensity", .08)
-
                 end
             end),
         },
 
-        events=
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
     },
 
-    State{
+    State {
         name = "attack",
-        tags = {"attack", "busy"},
-        
-        onenter = function(inst, target)    
-			inst.sg.statemem.target = target
+        tags = { "attack", "busy" },
+
+        onenter = function(inst, target)
+            inst.sg.statemem.target = target
             inst.components.combat:StartAttack()
             inst.components.locomotor:StopMoving()
             inst.AnimState:PlayAnimation("atk", false)
-        end,        
-        
-        timeline=
-        {
---------------------------------------------- arm/claw
---------------------------------------------- ribs
---------------------------------------------- leg
---------------------------------------------- head
+        end,
 
-        --    TimeEvent(15*FRAMES, function(inst) inst.components.combat:DoAttack(inst.sg.statemem.target) end),
+        timeline =
+        {
+            --------------------------------------------- arm/claw
+            --------------------------------------------- ribs
+            --------------------------------------------- leg
+            --------------------------------------------- head
+
+            --    TimeEvent(15*FRAMES, function(inst) inst.components.combat:DoAttack(inst.sg.statemem.target) end),
         },
-        
-        events=
+
+        events =
         {
             EventHandler("animover", function(inst) inst.sg:GoToState("idle") end),
         },
-    },    
-    
-    State{
+    },
+
+    State {
         name = "death",
-        tags = {"busy"},
-        
+        tags = { "busy" },
+
         onenter = function(inst)
             inst.AnimState:PlayAnimation("death")
             inst.Physics:Stop()
-            RemovePhysicsColliders(inst)            
-            inst.components.lootdropper:DropLoot(Vector3(inst.Transform:GetWorldPosition()))            
+            RemovePhysicsColliders(inst)
+            inst.components.lootdropper:DropLoot(Vector3(inst.Transform:GetWorldPosition()))
         end,
     },
 }
@@ -1681,44 +1680,44 @@ local pos = Vector3(inst.Transform:GetWorldPosition())
 CommonStates.AddWalkStates(
     states,
     {
-        walktimeline = 
+        walktimeline =
         {
             --------------------------------------------
-            -- TimeEvent(6*FRAMES, function(inst)       
+            -- TimeEvent(6*FRAMES, function(inst)
             --     if inst:HasTag("robot_ribs") then
             --        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step" "steps")
             --        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
             --     end
             -- end),
-            -- TimeEvent(16*FRAMES, function(inst)       
+            -- TimeEvent(16*FRAMES, function(inst)
             --     if inst:HasTag("robot_ribs") then
             --        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step" "steps")
             --        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
             --     end
             -- end),
-            -- TimeEvent(21*FRAMES, function(inst)       
+            -- TimeEvent(21*FRAMES, function(inst)
             --     if inst:HasTag("robot_ribs") then
             --        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step" "steps")
             --        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
             --     end
             -- end),
-            -- TimeEvent(25*FRAMES, function(inst)       
+            -- TimeEvent(25*FRAMES, function(inst)
             --     if inst:HasTag("robot_ribs") then
             --        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step" "steps")
             --        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
             --     end
             -- end),
-            -- TimeEvent(38*FRAMES, function(inst)       
+            -- TimeEvent(38*FRAMES, function(inst)
             --     if inst:HasTag("robot_ribs") then
             --        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step" "steps")
             --        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
             --     end
             -- end),
-            
+
             -- TimeEvent(16*FRAMES, function(inst) inst.SoundEmitter:PlaySound(inst.sounds.walk) end),
             -- TimeEvent(21*FRAMES, function(inst) inst.SoundEmitter:PlaySound(inst.sounds.walk) end),
             -- TimeEvent(25*FRAMES, function(inst) inst.SoundEmitter:PlaySound(inst.sounds.walk) end),
-            -- TimeEvent(38*FRAMES, function(inst) inst.SoundEmitter:PlaySound(inst.sounds.walk) end),    
+            -- TimeEvent(38*FRAMES, function(inst) inst.SoundEmitter:PlaySound(inst.sounds.walk) end),
             --------------------------------------------
         }
     })
@@ -1726,175 +1725,174 @@ CommonStates.AddWalkStates(
 CommonStates.AddRunStates(
     states,
     {
-        starttimeline = 
+        starttimeline =
         {
-            -- TimeEvent(0*FRAMES, function(inst)       
+            -- TimeEvent(0*FRAMES, function(inst)
             --         if inst:HasTag("robot_leg") then
             --            inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/step", "steps")
             --            inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
             --         end
-                    
+
             --     end),
---------------------------------------------- head
-                TimeEvent(0*FRAMES, function(inst)                                          
-                    if inst:HasTag("robot_head") then
-                       inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo","servo")
-                        inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
-                    end
-                end),
---------------------------------------------- arm/claw
---------------------------------------------- ribs
-                TimeEvent(1*FRAMES, function(inst)                                          
-                    if inst:HasTag("robot_ribs") then
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step","steps")
-                        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
-                    end
-                end),
-
-            TimeEvent(0*FRAMES, function(inst) inst.Physics:Stop() end ),
-        },
-        
-
-runtimeline = 
-        {
-                TimeEvent(0*FRAMES, function(inst) 
-                    inst.Physics:Stop() 
-                    inst.components.locomotor:WalkForward()
-
-                    if inst:HasTag("robot_arm") then
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo","servo")
-                        inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/drag")
-                        inst.SoundEmitter:SetParameter("servo", "intensity", math.random())                        
-                    end
-                end ),
-
-                TimeEvent(1*FRAMES, function(inst)                                          
-                    if inst:HasTag("robot_head") then
-                        -- inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step","steps")
-                        -- inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo","servo")
-                        inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
-                    end
-                end),                
-
-                TimeEvent(5*FRAMES, function(inst)    
-                    if inst:HasTag("robot_leg") then
-                       inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo",nil,0.8)
-                    end
-                end),
-
-                TimeEvent(6*FRAMES, function(inst)   
-                    if inst:HasTag("robot_arm") then
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/step","steps")
-                        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
-                    end                                                       
-                    if inst:HasTag("robot_ribs") then
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step","steps")
-                        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo","servo")
-                        inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
-                    end
-                end),
-
-                TimeEvent(14*FRAMES, function(inst)       
-                    if inst:HasTag("robot_arm") then
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo","servo")
-                        inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
-                    end                    
-                    if inst:HasTag("robot_leg") then
-                       inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/step", "steps") 
-                       inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
-                    end
-     
-                end),
-
-                TimeEvent(16*FRAMES, function(inst)                                         
-                    if inst:HasTag("robot_ribs") then
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step_wires","steps")
-                        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo","servo")
-                        inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
-                    end
-                end),
-
-                TimeEvent(17*FRAMES, function(inst)                                          
-                    if inst:HasTag("robot_head") then
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step","steps")
-                        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
-                    end
-                end),
-
-                TimeEvent(21*FRAMES, function(inst)        
-                    if inst:HasTag("robot_ribs") then
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step","steps")
-                        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo","servo")
-                        inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
-                    end
-                end),
-
-                TimeEvent(25*FRAMES, function(inst)                                          
-                    if inst:HasTag("robot_arm") then
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/step","steps")
-                        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
-                    end
-                    if inst:HasTag("robot_ribs") then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step","steps")
-                    inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo","servo")
+            --------------------------------------------- head
+            TimeEvent(0 * FRAMES, function(inst)
+                if inst:HasTag("robot_head") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo", "servo")
                     inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
-                    end                    
-                end),
-
-                TimeEvent(28*FRAMES, function(inst)                                          
-                    if inst:HasTag("robot_arm") then
-                       inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo","servo")
-                        inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
-                    end
-                end),
-
-                TimeEvent(38*FRAMES, function(inst)       
-                    if inst:HasTag("robot_ribs") then
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step","steps")
-                        inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
-                        inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo","servo")
-                        inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
-                    end
-                end),
-
-
-                
-                TimeEvent(48*FRAMES, function(inst) 
-                    inst.Physics:Stop() 
-                end ),
-        },
-
-        endtimeline= 
-        {
-                TimeEvent(3*FRAMES, function(inst)       
-                    if inst:HasTag("robot_ribs") then
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step","steps")
+                end
+            end),
+            --------------------------------------------- arm/claw
+            --------------------------------------------- ribs
+            TimeEvent(1 * FRAMES, function(inst)
+                if inst:HasTag("robot_ribs") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step", "steps")
                     inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
-                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo","servo")
-                    inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
-                    end
-                end),
---------------------------------------------- arm/claw                
-                TimeEvent(33*FRAMES, function(inst) 
-                if inst:HasTag("robot_arm") then
-                   inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
                 end
             end),
 
-                TimeEvent(48*FRAMES, function(inst) 
-                    inst.Physics:Stop() 
-                end ),
+            TimeEvent(0 * FRAMES, function(inst) inst.Physics:Stop() end),
+        },
+
+
+        runtimeline =
+        {
+            TimeEvent(0 * FRAMES, function(inst)
+                inst.Physics:Stop()
+                inst.components.locomotor:WalkForward()
+
+                if inst:HasTag("robot_arm") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo", "servo")
+                    inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/drag")
+                    inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
+                end
+            end),
+
+            TimeEvent(1 * FRAMES, function(inst)
+                if inst:HasTag("robot_head") then
+                    -- inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step","steps")
+                    -- inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/servo", "servo")
+                    inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
+                end
+            end),
+
+            TimeEvent(5 * FRAMES, function(inst)
+                if inst:HasTag("robot_leg") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/servo", nil, 0.8)
+                end
+            end),
+
+            TimeEvent(6 * FRAMES, function(inst)
+                if inst:HasTag("robot_arm") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/step", "steps")
+                    inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
+                end
+                if inst:HasTag("robot_ribs") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step", "steps")
+                    inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo", "servo")
+                    inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
+                end
+            end),
+
+            TimeEvent(14 * FRAMES, function(inst)
+                if inst:HasTag("robot_arm") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo", "servo")
+                    inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
+                end
+                if inst:HasTag("robot_leg") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/leg/step", "steps")
+                    inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
+                end
+            end),
+
+            TimeEvent(16 * FRAMES, function(inst)
+                if inst:HasTag("robot_ribs") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step_wires", "steps")
+                    inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo", "servo")
+                    inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
+                end
+            end),
+
+            TimeEvent(17 * FRAMES, function(inst)
+                if inst:HasTag("robot_head") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/head/step", "steps")
+                    inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
+                end
+            end),
+
+            TimeEvent(21 * FRAMES, function(inst)
+                if inst:HasTag("robot_ribs") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step", "steps")
+                    inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo", "servo")
+                    inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
+                end
+            end),
+
+            TimeEvent(25 * FRAMES, function(inst)
+                if inst:HasTag("robot_arm") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/step", "steps")
+                    inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
+                end
+                if inst:HasTag("robot_ribs") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step", "steps")
+                    inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo", "servo")
+                    inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
+                end
+            end),
+
+            TimeEvent(28 * FRAMES, function(inst)
+                if inst:HasTag("robot_arm") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo", "servo")
+                    inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
+                end
+            end),
+
+            TimeEvent(38 * FRAMES, function(inst)
+                if inst:HasTag("robot_ribs") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step", "steps")
+                    inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo", "servo")
+                    inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
+                end
+            end),
+
+
+
+            TimeEvent(48 * FRAMES, function(inst)
+                inst.Physics:Stop()
+            end),
+        },
+
+        endtimeline =
+        {
+            TimeEvent(3 * FRAMES, function(inst)
+                if inst:HasTag("robot_ribs") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/step", "steps")
+                    inst.SoundEmitter:SetParameter("steps", "intensity", math.random())
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/ribs/servo", "servo")
+                    inst.SoundEmitter:SetParameter("servo", "intensity", math.random())
+                end
+            end),
+            --------------------------------------------- arm/claw
+            TimeEvent(33 * FRAMES, function(inst)
+                if inst:HasTag("robot_arm") then
+                    inst.SoundEmitter:PlaySound("dontstarve_DLC003/creatures/enemy/metal_robot/arm/servo")
+                end
+            end),
+
+            TimeEvent(48 * FRAMES, function(inst)
+                inst.Physics:Stop()
+            end),
 
         },
 
     },
-    {startrun="walk_pre",run="walk_loop",stoprun="walk_pst"},
+    { startrun = "walk_pre", run = "walk_loop", stoprun = "walk_pst" },
     true,
     {
         startenter = function(inst)
@@ -1905,29 +1903,29 @@ runtimeline =
         --[[
         loopenter = function(inst)
 
-        end,        
+        end,
         endenter = function(inst)
-            
+
         end,
         ]]
         startexit = function(inst)
             if not inst.cleantransition then
                 inst.SoundEmitter:KillSound("robo_walk_LP")
-            end            
+            end
         end,
         loopexit = function(inst)
             if not inst.cleantransition then
                 inst.SoundEmitter:KillSound("robo_walk_LP")
-            end 
-        end,        
+            end
+        end,
         endexit = function(inst)
-           inst.SoundEmitter:KillSound("robo_walk_LP")
+            inst.SoundEmitter:KillSound("robo_walk_LP")
         end,
     })
 
-CommonStates.AddSimpleState(states,"hit", "hit")
+CommonStates.AddSimpleState(states, "hit", "hit")
 CommonStates.AddFrozenStates(states)
-    
+
 return StateGraph("ancientrobot", states, events, "idle", actionhandlers)
 
 
