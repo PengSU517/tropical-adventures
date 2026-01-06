@@ -996,9 +996,9 @@ for tile, def in pairs(tro_tiledefs) do
     local tile_id = WORLD_TILES[tile]
     if def.tile_range == TileRanges.TRO_OCEAN then
         if not is_worldgen then
-            TileGroupManager:AddInvalidTile(TileGroups.TransparentOceanTiles, tile_id)
-            -- TileGroupManager:AddValidTile(TileGroups.OceanTiles, tile_id)
-            TileGroupManager:AddValidTile(TileGroups.TAOceanTiles, tile_id)
+            -- TileGroupManager:AddInvalidTile(TileGroups.TransparentOceanTiles, tile_id)
+            -- -- TileGroupManager:AddValidTile(TileGroups.OceanTiles, tile_id)
+            -- TileGroupManager:AddValidTile(TileGroups.TAOceanTiles, tile_id)
         end
         TRO_OCEAN_TILES[tile_id] = true
     elseif def.tile_range == TileRanges.OCEAN then

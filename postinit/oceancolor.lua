@@ -36,8 +36,6 @@ local tile_tbl = {
     MANGROVE = "MANGROVE",
 }
 
-
-
 local function tile_redirect(tbl)
     -----大地图
     for k, v in pairs(GroundTiles.ground) do
@@ -50,6 +48,7 @@ local function tile_redirect(tbl)
                         break
                     end
                 end
+                -- v[2].colors = nil
 
                 if not is_worldgen then
                     TileGroupManager:AddInvalidTile(TileGroups.TransparentOceanTiles, v[1])
@@ -70,12 +69,14 @@ local function tile_redirect(tbl)
 
     ----小地图
     for k, v in pairs(GroundTiles.minimap) do
-        if IsOceanTile(v[1]) and not IsTroWaterTile(v[1]) then
-            v[2] = tro_tiledefs["OCEAN_CORAL"].minimap_tile_def
-            for origin, override in pairs(tbl) do
-                if v[1] == WORLD_TILES[origin] then
-                    v[2] = tro_tiledefs[override].minimap_tile_def
-                    break
+        if IsOceanTile(v[1]) then
+            if _color then
+                v[2] = tro_tiledefs["OCEAN_CORAL"].minimap_tile_def
+                for origin, override in pairs(tbl) do
+                    if v[1] == WORLD_TILES[origin] then
+                        v[2] = tro_tiledefs[override].minimap_tile_def
+                        break
+                    end
                 end
             end
         end
