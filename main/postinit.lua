@@ -4,6 +4,7 @@ if TA_CONFIG.DEVELOP.test_mode then --开发人员测试时才可以使用
     modimport("postinit/seafork")
     modimport("postinit/opengift")
     modimport("postinit/widgets/hoverer_info")
+    modimport("postinit/components/clockstop")
 end
 
 if TA_CONFIG.DEVELOP.test_map then --开发人员测试时才可以使用
