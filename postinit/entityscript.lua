@@ -108,36 +108,37 @@ function EntityScript:AwareInVolcanoArea()
     return self:HasTag("region_volcano") or false
 end
 
---推入事件
-local _PushEvent = EntityScript.PushEvent
-function EntityScript:PushEvent(event, data)
-    if not self.eventmuted or not self.eventmuted[event] then                    --没有静默
-        _PushEvent(self, event, data)
-        if self.eventlistening_shared and self.eventlistening_shared[event] then --是否分享
-            local parent = self.entity:GetParent()
-            if parent and parent:IsValid() then
-                parent:PushEvent(event, data)
-            end
-        end
-    end
-end
+-----暂时用不到修改pushevent，而且这个函数用到的太多，
+-- --推入事件
+-- local _PushEvent = EntityScript.PushEvent
+-- function EntityScript:PushEvent(event, data)
+--     if not self.eventmuted or not self.eventmuted[event] then                    --没有静默
+--         _PushEvent(self, event, data)
+--         if self.eventlistening_shared and self.eventlistening_shared[event] then --是否分享
+--             local parent = self.entity:GetParent()
+--             if parent and parent:IsValid() then
+--                 parent:PushEvent(event, data)
+--             end
+--         end
+--     end
+-- end
 
---事件监听静默
-function EntityScript:SetEventMute(event, muted)
-    if self.eventmuted == nil then
-        self.eventmuted = {}
-    end
-    -- print(event)
-    self.eventmuted[event] = muted and true or nil
-end
+-- --事件监听静默
+-- function EntityScript:SetEventMute(event, muted)
+--     if self.eventmuted == nil then
+--         self.eventmuted = {}
+--     end
+--     -- print(event)
+--     self.eventmuted[event] = muted and true or nil
+-- end
 
---事件监听共享--会同时分享给上一级
-function EntityScript:SetEventShare(event, shared)
-    if self.eventlistening_shared == nil then
-        self.eventlistening_shared = {}
-    end
-    self.eventlistening_shared[event] = shared and true or nil
-end
+-- --事件监听共享--会同时分享给上一级
+-- function EntityScript:SetEventShare(event, shared)
+--     if self.eventlistening_shared == nil then
+--         self.eventlistening_shared = {}
+--     end
+--     self.eventlistening_shared[event] = shared and true or nil
+-- end
 
 function EntityScript:StopWatchingOneOfWorldStates(var)
     if not self.worldstatewatching then return end
