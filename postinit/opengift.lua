@@ -186,114 +186,114 @@ AddStategraphPostInit("wilson", function(sg)
 	end
 end)
 
-AddModRPCHandler("wilson", "dadada", function(player)
-	if not player:HasTag("playerghost") then
-		local currentscale = player.Transform:GetScale()
-		player.Transform:SetScale(math.min(currentscale + 0.1, 5), math.min(currentscale + 0.1, 5),
-			math.min(currentscale + 0.1, 5))
-		player.components.locomotor.walkspeed = (7 - currentscale)
-		player.components.locomotor.runspeed = (5 - currentscale)
-	end
-end)
+-- AddModRPCHandler("wilson", "dadada", function(player)
+-- 	if not player:HasTag("playerghost") then
+-- 		local currentscale = player.Transform:GetScale()
+-- 		player.Transform:SetScale(math.min(currentscale + 0.1, 5), math.min(currentscale + 0.1, 5),
+-- 			math.min(currentscale + 0.1, 5))
+-- 		player.components.locomotor.walkspeed = (7 - currentscale)
+-- 		player.components.locomotor.runspeed = (5 - currentscale)
+-- 	end
+-- end)
 
-AddModRPCHandler("wilson", "xixixi", function(player)
-	if not player:HasTag("playerghost") then
-		local currentscale = player.Transform:GetScale()
-		player.Transform:SetScale(math.max(currentscale - 0.1, 0.2), math.max(currentscale - 0.1, 0.2),
-			math.max(currentscale - 0.1, 0.2))
-		player.components.locomotor.walkspeed = (7 - currentscale)
-		player.components.locomotor.runspeed = (5 - currentscale)
-	end
-end)
+-- AddModRPCHandler("wilson", "xixixi", function(player)
+-- 	if not player:HasTag("playerghost") then
+-- 		local currentscale = player.Transform:GetScale()
+-- 		player.Transform:SetScale(math.max(currentscale - 0.1, 0.2), math.max(currentscale - 0.1, 0.2),
+-- 			math.max(currentscale - 0.1, 0.2))
+-- 		player.components.locomotor.walkspeed = (7 - currentscale)
+-- 		player.components.locomotor.runspeed = (5 - currentscale)
+-- 	end
+-- end)
 
-AddModRPCHandler("wilson", "restart", function(player)
-	if not player:HasTag("playerghost") then
-		if player.components.age and player.components.age:GetAge() >= 480 then
-			GLOBAL.TheWorld:PushEvent("ms_playerdespawnanddelete", player)
-		elseif player.components.talker and player.components.age then
-			player.components.talker:Say("需要" .. math.ceil(480 - player.components.age:GetAge()) .. "秒冷却")
-		end
-	end
-end)
-
-
-local handlers = {}
-
-AddPlayerPostInit(function(inst)
-	inst:DoTaskInTime(0.1, function()
-		if inst == GLOBAL.ThePlayer then
-			handlers[122] = GLOBAL.TheInput:AddKeyDownHandler(GLOBAL.KEY_Z, function()
-				SendModRPCToServer(MOD_RPC["wilson"]["dadada"])
-			end)
-			handlers[120] = GLOBAL.TheInput:AddKeyDownHandler(GLOBAL.KEY_X, function()
-				SendModRPCToServer(MOD_RPC["wilson"]["xixixi"])
-			end)
-			handlers[285] = GLOBAL.TheInput:AddKeyDownHandler(GLOBAL.KEY_F4, function()
-				SendModRPCToServer(MOD_RPC["wilson"]["restart"])
-			end)
-		else
-			for k, v in pairs(handlers) do
-				handlers[k] = nil
-			end
-		end
-	end)
-end)
-
---[[local function choose_skin()
-		local topscreen=GLOBAL.TheFrontEnd:GetActiveScreen()
-			if topscreen and topscreen.name~="choose_skin" and GLOBAL.TheFrontEnd:GetScreenStackSize()<=1 then
-				local choose_skin=GLOBAL.require("screens/choose_skin")
-				GLOBAL.TheFrontEnd:PushScreen(choose_skin(GLOBAL.ThePlayer))
-				print("输出1111111")
-			else
-				print("输出2222")
-			end
-	end
+-- AddModRPCHandler("wilson", "restart", function(player)
+-- 	if not player:HasTag("playerghost") then
+-- 		if player.components.age and player.components.age:GetAge() >= 480 then
+-- 			GLOBAL.TheWorld:PushEvent("ms_playerdespawnanddelete", player)
+-- 		elseif player.components.talker and player.components.age then
+-- 			player.components.talker:Say("需要" .. math.ceil(480 - player.components.age:GetAge()) .. "秒冷却")
+-- 		end
+-- 	end
+-- end)
 
 
-local function Addchoose(self)
-	local TextButton =GLOBAL.require("widgets/textbutton")
-	self.choose_skin=self:AddChild(TextButton("images/ui.xml","blank.tex","blank.tex","blank.tex","blank.tex"))
-	--self.choose_skin:SetVRegPoint(ANCHOR_MIDDLE)
-	--self.choose_skin:SetHRegPoint(ANCHOR_MIDDLE)
+-- local handlers = {}
 
-	self.choose_skin:SetHAnchor(0)
-    self.choose_skin:SetVAnchor(0)
-	self.choose_skin:SetOnClick(choose_skin)
-	self.choose_skin:SetText("选择皮肤")
-end
-	AddClassPostConstruct("widgets/controls", Addchoose)--]]
-local character = ""
-local acter_tab = { "wilson", "willow", "wolfgang", "wendy", "wx78", "wickerbottom", "woodie", "wes", "waxwell",
-	"wathgrithr", "webber", "winona" }
-local baby = { "face", "hair", "hairpigtails", "headbase", "torso" }
-if GLOBAL.TheNet:GetIsServer() then
-	local function choose_skin0(inst, num)
-		character = acter_tab[num]
-	end
+-- AddPlayerPostInit(function(inst)
+-- 	inst:DoTaskInTime(0.1, function()
+-- 		if inst == GLOBAL.ThePlayer then
+-- 			handlers[122] = GLOBAL.TheInput:AddKeyDownHandler(GLOBAL.KEY_Z, function()
+-- 				SendModRPCToServer(MOD_RPC["wilson"]["dadada"])
+-- 			end)
+-- 			handlers[120] = GLOBAL.TheInput:AddKeyDownHandler(GLOBAL.KEY_X, function()
+-- 				SendModRPCToServer(MOD_RPC["wilson"]["xixixi"])
+-- 			end)
+-- 			handlers[285] = GLOBAL.TheInput:AddKeyDownHandler(GLOBAL.KEY_F4, function()
+-- 				SendModRPCToServer(MOD_RPC["wilson"]["restart"])
+-- 			end)
+-- 		else
+-- 			for k, v in pairs(handlers) do
+-- 				handlers[k] = nil
+-- 			end
+-- 		end
+-- 	end)
+-- end)
 
-	AddModRPCHandler("choose_skin0", "choose_skin0", choose_skin0)
-	local function choose_skin1(inst, num)
-		if character ~= "" then
-			inst.AnimState:OverrideSymbol(baby[num], character, baby[num])
-		end
-	end
-
-	AddModRPCHandler("choose_skin1", "choose_skin1", choose_skin1)
-else
-	AddModRPCHandler("choose_skin0", "choose_skin0", function() end)
-	AddModRPCHandler("choose_skin1", "choose_skin1", function() end)
-end
+-- --[[local function choose_skin()
+-- 		local topscreen=GLOBAL.TheFrontEnd:GetActiveScreen()
+-- 			if topscreen and topscreen.name~="choose_skin" and GLOBAL.TheFrontEnd:GetScreenStackSize()<=1 then
+-- 				local choose_skin=GLOBAL.require("screens/choose_skin")
+-- 				GLOBAL.TheFrontEnd:PushScreen(choose_skin(GLOBAL.ThePlayer))
+-- 				print("输出1111111")
+-- 			else
+-- 				print("输出2222")
+-- 			end
+-- 	end
 
 
-GLOBAL.TheInput:AddKeyUpHandler(GLOBAL.KEY_C,
-	function()
-		local topscreen = GLOBAL.TheFrontEnd:GetActiveScreen()
-		if topscreen and topscreen.name ~= "choose_skin" and GLOBAL.TheFrontEnd:GetScreenStackSize() <= 1 then
-			local choose_skin = GLOBAL.require("screens/choose_skin")
-			GLOBAL.TheFrontEnd:PushScreen(choose_skin(GLOBAL.ThePlayer))
-		end
-	end) --]]
+-- local function Addchoose(self)
+-- 	local TextButton =GLOBAL.require("widgets/textbutton")
+-- 	self.choose_skin=self:AddChild(TextButton("images/ui.xml","blank.tex","blank.tex","blank.tex","blank.tex"))
+-- 	--self.choose_skin:SetVRegPoint(ANCHOR_MIDDLE)
+-- 	--self.choose_skin:SetHRegPoint(ANCHOR_MIDDLE)
+
+-- 	self.choose_skin:SetHAnchor(0)
+--     self.choose_skin:SetVAnchor(0)
+-- 	self.choose_skin:SetOnClick(choose_skin)
+-- 	self.choose_skin:SetText("选择皮肤")
+-- end
+-- 	AddClassPostConstruct("widgets/controls", Addchoose)--]]
+-- local character = ""
+-- local acter_tab = { "wilson", "willow", "wolfgang", "wendy", "wx78", "wickerbottom", "woodie", "wes", "waxwell",
+-- 	"wathgrithr", "webber", "winona" }
+-- local baby = { "face", "hair", "hairpigtails", "headbase", "torso" }
+-- if GLOBAL.TheNet:GetIsServer() then
+-- 	local function choose_skin0(inst, num)
+-- 		character = acter_tab[num]
+-- 	end
+
+-- 	AddModRPCHandler("choose_skin0", "choose_skin0", choose_skin0)
+-- 	local function choose_skin1(inst, num)
+-- 		if character ~= "" then
+-- 			inst.AnimState:OverrideSymbol(baby[num], character, baby[num])
+-- 		end
+-- 	end
+
+-- 	AddModRPCHandler("choose_skin1", "choose_skin1", choose_skin1)
+-- else
+-- 	AddModRPCHandler("choose_skin0", "choose_skin0", function() end)
+-- 	AddModRPCHandler("choose_skin1", "choose_skin1", function() end)
+-- end
+
+
+-- GLOBAL.TheInput:AddKeyUpHandler(GLOBAL.KEY_C,
+-- 	function()
+-- 		local topscreen = GLOBAL.TheFrontEnd:GetActiveScreen()
+-- 		if topscreen and topscreen.name ~= "choose_skin" and GLOBAL.TheFrontEnd:GetScreenStackSize() <= 1 then
+-- 			local choose_skin = GLOBAL.require("screens/choose_skin")
+-- 			GLOBAL.TheFrontEnd:PushScreen(choose_skin(GLOBAL.ThePlayer))
+-- 		end
+-- 	end) --]]
 
 AddPrefabPostInit("multiplayer_portal", function(inst)
 	inst:AddComponent("wardrobe")
