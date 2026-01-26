@@ -131,6 +131,7 @@ modimport("postinit/prefabs/trinket_1")
 modimport("postinit/prefabs/warningshadow")
 modimport("postinit/prefabs/wobster")
 modimport("postinit/prefabs/world")
+modimport("postinit/prefabs/wurt")
 
 --screens and widgets
 modimport("postinit/screens/playerhud") ---雾和花粉症效果在这里
