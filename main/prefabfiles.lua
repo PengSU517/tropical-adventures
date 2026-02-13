@@ -233,7 +233,7 @@ PrefabFiles = {
     "lake",
     "laser_ring",
     "laser",
-    "lavaarena_bishop",
+    --"lavaarena_bishop",
     "lavaarena_hound",
     "lavaarena_knight",
     "lavaarena_merm",
