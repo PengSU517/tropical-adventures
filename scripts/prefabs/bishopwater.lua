@@ -32,7 +32,7 @@ local prefabs_nightmare =
     "bishop_nightmare_ruinsrespawner_inst",
 }
 
-local brain = require "brains/bishopbrain"
+local brain = require "brains/bishopwaterbrain"
 
 SetSharedLootTable('bishopwater',
     {
@@ -132,7 +132,7 @@ local function common_fn(build, tag)
     inst:AddComponent("locomotor")
     inst.components.locomotor.walkspeed = TUNING.BISHOP_WALK_SPEED
 
-    inst:SetStateGraph("SGbishop")
+    inst:SetStateGraph("SGbishopwater")
     inst:SetBrain(brain)
 
     inst:AddComponent("sleeper")
@@ -233,7 +233,7 @@ local function common_fn2(build, tag)
     inst:AddComponent("locomotor")
     inst.components.locomotor.walkspeed = TUNING.BISHOP_WALK_SPEED
 
-    inst:SetStateGraph("SGbishop")
+    inst:SetStateGraph("SGbishopwater")
     inst:SetBrain(brain)
 
     inst:AddComponent("sleeper")
