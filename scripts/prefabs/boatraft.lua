@@ -1,22 +1,8 @@
-local assets =
-{
-    Asset("ANIM", "anim/raft_basic.zip"),
-    Asset("ANIM", "anim/raft_build.zip"),
-    Asset("ANIM", "anim/raft_log_build.zip"),
-    Asset("ANIM", "anim/raft_rot.zip"),
-}
+local assets = {Asset("ANIM", "anim/raft_basic.zip"), Asset("ANIM", "anim/raft_build.zip"),
+                Asset("ANIM", "anim/raft_log_build.zip"), Asset("ANIM", "anim/raft_rot.zip")}
 
-local prefabs =
-{
-    "boat_water_fx",
-    "boat_leak",
-    "fx_boat_crackle",
-    "boatfragment03",
-    "boatfragment04",
-    "boatfragment05",
-    "fx_boat_pop",
-    "walkingplank",
-}
+local prefabs = {"boat_water_fx", "boat_leak", "fx_boat_crackle", "boatfragment03", "boatfragment04", "boatfragment05",
+                 "fx_boat_pop", "walkingplank"}
 
 local sounds = {
     place = "turnoftides/common/together/boat/place",
@@ -25,11 +11,37 @@ local sounds = {
     sink = "turnoftides/common/together/boat/sink",
     hit = "turnoftides/common/together/boat/hit",
     thunk = "turnoftides/common/together/boat/thunk",
-    movement = "turnoftides/common/together/boat/movement",
+    movement = "turnoftides/common/together/boat/movement"
 }
 
-local BOATBUMPER_MUST_TAGS = { "boatbumper" }
-local BOATCANNON_MUST_TAGS = { "boatcannon" }
+local BOATBUMPER_MUST_TAGS = {"boatbumper"}
+local BOATCANNON_MUST_TAGS = {"boatcannon"}
+
+local BOAT_CONFIGS = {
+    lograft = {
+        name = "lograft",
+        radius = 0.8,
+        anim_build = "raft_log_build",
+        lip_prefab = "boatliplograft"
+    },
+    raft = {
+        name = "raft",
+        radius = 0.8,
+        anim_build = "raft_build",
+        lip_prefab = "boatlipraft"
+    },
+    boat_raft_rot = {
+        name = "boat_raft_rot",
+        radius = 3.2,
+        anim_build = "raft_rot",
+        lip_prefab = "boatlipraftrot",
+        additional_lips = {{
+            prefab = "boatlip",
+            symbol_override = {"boat_plants", "boat_test", ""},
+            scale = 0.88
+        }}
+    }
+}
 
 local function OnLoadPostPass(inst)
     local boatring = inst.components.boatring
@@ -80,7 +92,7 @@ local function speed(inst)
 end
 
 local function OnRepaired(inst)
-    --inst.SoundEmitter:PlaySound("dontstarve/creatures/together/fossil/repair")
+    -- inst.SoundEmitter:PlaySound("dontstarve/creatures/together/fossil/repair")
 end
 
 local function BoatCam_IsEnabledFn()
@@ -121,7 +133,7 @@ local function BoatCam_UpdateFn(dt, params, parent, best_dist_sq)
     local look_ahead_percentage = math.min(math.max(velocity / look_ahead_max_velocity, 0), 1)
     local look_ahead_amount = look_ahead_max_dist * look_ahead_percentage
 
-    --Average target_camera_offset to get rid of some of the noise.
+    -- Average target_camera_offset to get rid of some of the noise.
     state.target_camera_offset.x = (state.target_camera_offset.x + velocity_normalized_x * look_ahead_amount) / 2
     state.target_camera_offset.z = (state.target_camera_offset.z + velocity_normalized_z * look_ahead_amount) / 2
 
@@ -141,18 +153,17 @@ local function BoatCam_UpdateFn(dt, params, parent, best_dist_sq)
 end
 
 local function StartBoatCamera(inst)
-    local camera_settings =
-    {
+    local camera_settings = {
         state = {
             target_camera_offset = Vector3(0, 1.5, 0),
             camera_offset = Vector3(0, 1.5, 0),
             last_platform_x = 0,
             last_platform_z = 0,
-            target_pan_gain = 4,
+            target_pan_gain = 4
         },
         UpdateFn = BoatCam_UpdateFn,
         ActiveFn = BoatCam_ActiveFn,
-        IsEnabled = BoatCam_IsEnabledFn,
+        IsEnabled = BoatCam_IsEnabledFn
     }
 
     TheFocalPoint.components.focalpoint:StartFocusSource(inst, nil, nil, math.huge, math.huge, -1, camera_settings)
@@ -178,7 +189,9 @@ local function RemoveConstrainedPhysicsObj(physics_obj)
 end
 
 local function AddConstrainedPhysicsObj(boat, physics_obj)
-    physics_obj:ListenForEvent("onremove", function() RemoveConstrainedPhysicsObj(physics_obj) end, boat)
+    physics_obj:ListenForEvent("onremove", function()
+        RemoveConstrainedPhysicsObj(physics_obj)
+    end, boat)
 
     physics_obj:DoTaskInTime(0, function()
         if boat:IsValid() then
@@ -189,13 +202,15 @@ local function AddConstrainedPhysicsObj(boat, physics_obj)
 end
 
 local function on_start_steering(inst)
-    if ThePlayer and ThePlayer.components.playercontroller ~= nil and ThePlayer.components.playercontroller.isclientcontrollerattached then
+    if ThePlayer and ThePlayer.components.playercontroller ~= nil and
+        ThePlayer.components.playercontroller.isclientcontrollerattached then
         inst.components.reticule:CreateReticule()
     end
 end
 
 local function on_stop_steering(inst)
-    if ThePlayer and ThePlayer.components.playercontroller ~= nil and ThePlayer.components.playercontroller.isclientcontrollerattached then
+    if ThePlayer and ThePlayer.components.playercontroller ~= nil and
+        ThePlayer.components.playercontroller.isclientcontrollerattached then
         inst.lastreticuleangle = nil
         inst.components.reticule:DestroyReticule()
     end
@@ -256,7 +271,9 @@ local function GetSafePhysicsRadius(inst)
     return (inst.components.hull ~= nil and inst.components.hull:GetRadius() or .8) + 0.18 -- Add a small offset for item overhangs.
 end
 
-local function MakeBoat(name, radius)
+local function MakeBoat(config)
+    local name = config.name
+    local radius = config.radius
     local stats_multiplier = (radius / 4) ^ 2
     local scale_multiplier = radius / 4
 
@@ -272,14 +289,15 @@ local function MakeBoat(name, radius)
 
         inst:AddTag("ignorewalkableplatforms")
         inst:AddTag("antlion_sinkhole_blocker")
-        if name == "boat_raft_rot" then
-            inst:AddTag("boat")
-        else
-            inst:AddTag("swboat")
+
+        -- 根据配置添加标签
+        inst:AddTag("boat")
+        for _, tag in ipairs(config.tags or {}) do
+            inst:AddTag(tag)
         end
+
         inst.sounds = sounds
         inst.walksound = "wood"
-
         inst.boat_crackle = "fx_boat_crackle"
 
         inst.sinkloot = function()
@@ -296,7 +314,9 @@ local function MakeBoat(name, radius)
         inst.postsinkfn = function()
             local fx_boat_crackle = SpawnPrefab("fx_boat_pop")
             fx_boat_crackle.Transform:SetPosition(inst.Transform:GetWorldPosition())
-            inst.SoundEmitter:PlaySoundWithParams(inst.sounds.damage, { intensity = 1 })
+            inst.SoundEmitter:PlaySoundWithParams(inst.sounds.damage, {
+                intensity = 1
+            })
             inst.SoundEmitter:PlaySoundWithParams(inst.sounds.sink)
         end
 
@@ -323,14 +343,12 @@ local function MakeBoat(name, radius)
         phys:CollidesWith(COLLISION.WORLD)
         phys:CollidesWith(COLLISION.OBSTACLES)
         phys:SetCylinder(radius, 3)
-        --Boats currently need to not go to sleep because
-        --constraints will cause a crash if either the target object or the source object is removed from the physics world
+        -- Boats currently need to not go to sleep because
+        -- constraints will cause a crash if either the target object or the source object is removed from the physics world
         phys:SetDontRemoveOnSleep(true)
 
         inst.AnimState:SetBank("raft")
-        --		inst.AnimState:SetBuild("raft_log_build")
-        --		inst.AnimState:SetBuild("raft_build")	
-
+        -- inst.AnimState:SetBuild(config.build)
         inst.name = name
         inst.AnimState:PlayAnimation(inst.name, true)
 
@@ -364,10 +382,16 @@ local function MakeBoat(name, radius)
             --            inst:ListenForEvent("obj_got_on_platform", OnObjGotOnPlatform)
             --            inst:ListenForEvent("obj_got_off_platform", OnObjGotOffPlatform)
 
-            inst:ListenForEvent("endsteeringreticule",
-                function(inst, data) if ThePlayer and ThePlayer == data.player then inst:on_stop_steering() end end)
-            inst:ListenForEvent("starsteeringreticule",
-                function(inst, data) if ThePlayer and ThePlayer == data.player then inst:on_start_steering() end end)
+            inst:ListenForEvent("endsteeringreticule", function(inst, data)
+                if ThePlayer and ThePlayer == data.player then
+                    inst:on_stop_steering()
+                end
+            end)
+            inst:ListenForEvent("starsteeringreticule", function(inst, data)
+                if ThePlayer and ThePlayer == data.player then
+                    inst:on_start_steering()
+                end
+            end)
 
             inst:AddComponent("boattrail")
         end
@@ -381,30 +405,29 @@ local function MakeBoat(name, radius)
         if not TheWorld.ismastersim then
             return inst
         end
+
         inst:AddComponent("hull")
         inst.components.hull:SetRadius(radius)
         local boatlip = SpawnPrefab('boatlipinvisible')
-        if name == "raft" then
-            inst.barco = SpawnPrefab('boatlipraft')
-            inst.barco.entity:SetParent(inst.entity)
-            inst.barco.Transform:SetPosition(0, 0, 0)
-        end
-        if name == "lograft" then
-            inst.barco = SpawnPrefab('boatliplograft')
-            inst.barco.entity:SetParent(inst.entity)
-            inst.barco.Transform:SetPosition(0, 0, 0)
-        end
 
-        if name == "boat_raft_rot" then
-            inst.barco2 = SpawnPrefab('boatlipraftrot')
-            inst.barco2.entity:SetParent(inst.entity)
-            inst.barco2.Transform:SetPosition(0, 0, 0)
+        -- 根据配置创建船唇
+        inst.barco = SpawnPrefab(config.lip_prefab)
+        inst.barco.entity:SetParent(inst.entity)
+        inst.barco.Transform:SetPosition(0, 0, 0)
 
-            inst.barco3 = SpawnPrefab('boatlip')
-            inst.barco3.AnimState:OverrideSymbol("boat_plants", "boat_test", "")
-            inst.barco3.entity:SetParent(inst.entity)
-            inst.barco3.Transform:SetPosition(0, 0, 0)
-            inst.barco3.Transform:SetScale(0.88, 0.88, 0.88)
+        -- 处理额外的船唇
+        if config.additional_lips then
+            for _, lip_config in ipairs(config.additional_lips) do
+                local additional_lip = SpawnPrefab(lip_config.prefab)
+                if lip_config.symbol_override then
+                    additional_lip.AnimState:OverrideSymbol(unpack(lip_config.symbol_override))
+                end
+                additional_lip.entity:SetParent(inst.entity)
+                additional_lip.Transform:SetPosition(0, 0, 0)
+                if lip_config.scale then
+                    additional_lip.Transform:SetScale(lip_config.scale, lip_config.scale, lip_config.scale)
+                end
+            end
         end
 
         boatlip.AnimState:SetScale(scale_multiplier, scale_multiplier, scale_multiplier)
@@ -561,8 +584,8 @@ local function MakeBoat(name, radius)
         phys:CollidesWith(COLLISION.FLYERS)
         phys:CollidesWith(COLLISION.WORLD)
         phys:SetTriangleMesh(ITEM_COLLISION_MESH)
-        --Boats currently need to not go to sleep because
-        --constraints will cause a crash if either the target object or the source object is removed from the physics world
+        -- Boats currently need to not go to sleep because
+        -- constraints will cause a crash if either the target object or the source object is removed from the physics world
         phys:SetDontRemoveOnSleep(true)
 
         inst:AddTag("NOBLOCK")
@@ -579,22 +602,16 @@ local function MakeBoat(name, radius)
         return inst
     end
 
-    return { Prefab(name, fn, assets, prefabs),
-        Prefab("boat_player_collision_" .. name, boat_player_collision_fn),
-        Prefab("boat_item_collision_" .. name, boat_item_collision_fn) }
+    return {Prefab(name, fn, assets, prefabs), Prefab("boat_player_collision_" .. name, boat_player_collision_fn),
+            Prefab("boat_item_collision_" .. name, boat_item_collision_fn)}
 end
 
+-- 使用配置表批量生成船的 prefab
 local FilePrefabs = {}
-for i, v in ipairs(MakeBoat("lograft", 0.8)) do
-    table.insert(FilePrefabs, v)
-end
-
-for i, v in ipairs(MakeBoat("raft", 0.8)) do
-    table.insert(FilePrefabs, v)
-end
-
-for i, v in ipairs(MakeBoat("boat_raft_rot", 3.2)) do
-    table.insert(FilePrefabs, v)
+for _, config in pairs(BOAT_CONFIGS) do
+    for i, v in ipairs(MakeBoat(config)) do
+        table.insert(FilePrefabs, v)
+    end
 end
 
 return unpack(FilePrefabs)
