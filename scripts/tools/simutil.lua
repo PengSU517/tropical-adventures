@@ -1,10 +1,14 @@
 local atlas_list = { -----有序表，需要有一定的优先级
-    [1] = "cookpotfoods_sw",
-    [2] = "cookpotfoods_ham",
-    [3] = "inventory_shipwrecked",
-    [4] = "inventory_hamlet",
-    [5] = "inventory_extension",
+    [1] = "images/inventoryimages/cookpotfoods_sw.xml",
+    [2] = "images/inventoryimages/cookpotfoods_ham.xml",
+    [3] = "images/inventoryimages/inventory_shipwrecked.xml",
+    [4] = "images/inventoryimages/inventory_hamlet.xml",
+    [5] = "images/inventoryimages/inventory_extension.xml",
+    -- [6] = "images/hud/customization_shipwrecked.xml",
+    -- [7] = "images/hud/customization_porkland.xml",
+    [6] = "images/inventoryimages/pigmancity.xml",
 }
+
 
 
 local old_GetInventoryItemAtlas_Internal = GetInventoryItemAtlas_Internal
@@ -13,7 +17,7 @@ function GetInventoryItemAtlas_Internal(imagename, no_fallback)
     ----inventoryimages3.xml 不知道在哪里，很奇怪，里面包含了海难哈姆的内容
     local rst = nil
     for i, v in ipairs(atlas_list) do
-        local path = resolvefilepath("images/inventoryimages/" .. v .. ".xml")
+        local path = resolvefilepath( v )
         if TheSim:AtlasContains(path, imagename) then
             rst = path
             break

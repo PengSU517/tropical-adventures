@@ -626,4 +626,5 @@ PrefabFiles = {
     "goggles",
     "tro_monsterwarningsounds",
     "tro_spider",
+    -- "tro_wikibook",
 }

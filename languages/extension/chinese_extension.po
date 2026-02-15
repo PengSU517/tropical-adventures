@@ -10210,6 +10210,11 @@ msgctxt "STRINGS.NAMES.WHIRLPOOL"
 msgid "漩涡"
 msgstr "漩涡"
 
+#. STRINGS.NAMES.WIKIBOOK
+msgctxt "STRINGS.NAMES.WIKIBOOK"
+msgid "冒险百科"
+msgstr "冒险百科"
+
 #. STRINGS.NAMES.WILBUR
 msgctxt "STRINGS.NAMES.WILBUR"
 msgid "威尔伯"

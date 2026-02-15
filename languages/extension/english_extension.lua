@@ -2073,6 +2073,7 @@ return {
     WHEAT_OVERSIZED_WAXED = "Waxed Oversized Wheat",
     WHEAT_SEEDS = "Wheat Seeds",
     WHIRLPOOL = "Whirlpool",
+    WIKIBOOK = "Wiki Book of Adventures",
     WILBUR = "Wilbur",
     WILDBEAVER = "Wildbeaver",
     WILDBEAVERGUARD = "Wildbeaver Guard",

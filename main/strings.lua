@@ -349,6 +349,9 @@ if langset then
         LanguageTranslator:LoadPOFile("languages/extension/chinese_extension.po", "_TEMP_extension") -- 加载额外DLC字符串翻译（强制覆盖现有字符串）
         merge(LanguageTranslator.languages[_defaultlang], LanguageTranslator.languages["_TEMP_extension"], true)
         LanguageTranslator.languages["_TEMP_extension"] = nil
+
+
+        TUNING.LANGUAGE_CHINESE = true   -----for other modules
     end
 
 

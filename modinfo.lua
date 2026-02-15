@@ -64,29 +64,15 @@ name = pub_dev(en_zh("Tropical Adventures|Ship of Theseus", "热带冒险|忒修
     en_zh("Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "4.2.13"
+version = "26.02.23"
 forumthread = ""
 api_version = 10
 priority = -100
 
-local desen = [[
-Personal modification of Tropical Experience
-]]
 
-local desch = [[
-在热带体验mod的基础上,保留海难和哈姆雷特的内容并做了一些修改
-QQ 群：469668062
-]]
 
-local updateen = [[
 
-]]
-
-local updatech = [[
-
-]]
-
-description = en_zh(desen .. "Version " .. version .. updateen, desch .. "版本 " .. version .. updatech)
+description = en_zh("Version " .. version, "版本 " .. version)
 
 dst_compatible = true
 dont_starve_compatible = false

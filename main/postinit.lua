@@ -148,6 +148,7 @@ modimport("postinit/widgets/seasonsdisplay") --还有树荫
 modimport("postinit/widgets/statusdisplays_speed")
 modimport("postinit/widgets/uiclock")        -- 血月时钟
 modimport("postinit/widgets/seasonclock")    -- 静态季节表兼容
+modimport("postinit/widgets/wikibook")
 
 
 

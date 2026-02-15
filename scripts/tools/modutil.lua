@@ -3,7 +3,7 @@ local function MODULE_ERROR(module)
     print("API_ERROR:", module)
 end
 
-function GetModEnv(modname)
+function GLOBAL.GetModEnv(modname)
     for k, mod_name in pairs(ModManager:GetEnabledModNames()) do
         if mod_name == modname then
             local mod = ModManager:GetMod(mod_name)
@@ -14,7 +14,7 @@ end
 
 local package_loaded = {}
 --- import files outside the script folder or even from other mods
-function modrequire(modulename, modname, newenv)
+function GLOBAL.modrequire(modulename, modname, newenv)
     local rootpath
     local env = env
     if modname ~= nil then

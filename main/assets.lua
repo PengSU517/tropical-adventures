@@ -3,6 +3,10 @@ Assets =
 
 
 	-------------------animation----------------
+	Asset("ANIM", "anim/pig_ruins_entrance_build.zip"),
+	Asset("ANIM", "anim/pig_ruins_entrance.zip"),
+
+
 	Asset("ANIM", "anim/livingartifact_meter.zip"),
 	Asset("ANIM", "anim/player_lifeplant.zip"),
 
@@ -95,6 +99,14 @@ Assets =
 	Asset("IMAGE", "images/inventoryimages/inventory_extension.tex"),
 	Asset("ATLAS", "images/inventoryimages/inventory_extension.xml"),
 
+	Asset("IMAGE", "images/inventoryimages/pigmancity.tex"),
+	Asset("ATLAS", "images/inventoryimages/pigmancity.xml"),
+
+	Asset("IMAGE", "images/hud/customization_porkland.tex"),
+	Asset("ATLAS", "images/hud/customization_porkland.xml"),
+	Asset("IMAGE", "images/hud/customization_shipwrecked.tex"),
+	Asset("ATLAS", "images/hud/customization_shipwrecked.xml"),
+
 
 	--新的食谱大图与物品栏贴图
 	Asset("IMAGE", "images/cookbook/cookbook_sw.tex"),
@@ -128,7 +140,10 @@ Assets =
 	Asset("ATLAS", "images/ui/honeychest.xml"),
 
 	Asset("IMAGE", "images/fog_cloud.tex"), --云海
-    Asset("ATLAS", "images/tro_icon.xml"),
+	Asset("ATLAS", "images/tro_icon.xml"),
+
+	Asset("IMAGE", "images/code.tex"),
+	Asset("ATLAS", "images/code.xml"),
 
 	------------- overlays -------------------
 	Asset("ATLAS", "images/overlays/poison.xml"),
