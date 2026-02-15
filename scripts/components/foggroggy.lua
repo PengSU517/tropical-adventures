@@ -83,7 +83,14 @@ function Foggroggy:Enable()
     self.enabled = true
     self.inst:StartUpdatingComponent(self)
     if self.inst.components.talker and not self.inst.components.health:IsDead() then
-        self.inst.components.talker:Say(string.format(GetString(self.inst, "ANNOUNCE_TOO_HUMID"), " "))
+        -- 修复模组角色未定义 ANNOUNCE_TOO_HUMID 时, GetString 返回 nil 导致 format 报错的 bug
+        -- NOTE: 测试时, 这段代码会导致长达几秒钟的断线加载, 不能确定是否是普遍情况, 没有找到原因
+        local s = GetString(self.inst, "ANNOUNCE_TOO_HUMID")
+        if s == nil then
+            local idx = math.random(#STRINGS.CHARACTERS.GENERIC.ANNOUNCE_TOO_HUMID)
+            s = STRINGS.CHARACTERS.GENERIC.ANNOUNCE_TOO_HUMID[idx]
+        end
+        self.inst.components.talker:Say(string.format(s, " "))
     end
 end
 
