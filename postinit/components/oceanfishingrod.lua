@@ -6,7 +6,10 @@ Utils.FnDecorator(OceanFishingRod, "_LaunchFishProjectile", function(self, fish)
     local fisher = inventoryitem and inventoryitem:GetGrandOwner()
     if not fisher:HasTag("aquatic") then return end
     fish:DoTaskInTime(.25, function(inst)
-        fisher.components.inventory:GiveItem(SpawnAt(inst.prefab .. "_inv", inst))
-        inst:Remove()
+        local newprefab = SpawnAt(inst.prefab .. "_inv", inst) or SpawnAt(inst.prefab .. "_land", inst)
+        if newprefab then
+            fisher.components.inventory:GiveItem(newprefab)
+            inst:Remove()
+        end        
     end)
 end)
