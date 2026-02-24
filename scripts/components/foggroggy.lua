@@ -21,6 +21,7 @@ local Foggroggy = Class(function(self, inst)
     self.should_clear      = false
     self.has_venting_equip = false
     self.foggroggylevel    = 0
+    self.loco              = self.inst.components.locomotor
     inst:WatchWorldState("isfoggy", Check)
     inst:DoTaskInTime(0, Check)
     -- inst:StartUpdatingComponent(self)
@@ -31,7 +32,7 @@ end, nil, {
 function Foggroggy:ShouldBeClear()
     local x, y, z = self.inst.Transform:GetWorldPosition()
     local hasequip = self.inv and self.inv:EquipHasTag("clearfog")
-    return hasequip or not self.inst:AwareInHamletArea() or
+    return hasequip or self.inst:IsInHamRoom() or not self.inst:AwareInHamletArea() or
         #TheSim:FindEntities(x, y, z, TUNING.FAN_RANGE, { "blows_air" }) > 0
 end
 
@@ -40,25 +41,37 @@ function Foggroggy:HasVentingEquip()
 end
 
 function Foggroggy:CanGroggy()
-    return not self.has_venting_equip
+    return not self.has_venting_equip and not self.should_clear
 end
 
 function Foggroggy:OnUpdate(dt)
     self.should_clear = self:ShouldBeClear()
     self.has_venting_equip = self:HasVentingEquip()
-    local foggyrate = math.min(1, TheWorld.state.fograte * 5)
-    if self:CanGroggy() then
-        self.foggroggylevel = foggyrate
+    local foggyrate = math.clamp(TheWorld.state.fograte * 5, 0, 0.7)
 
-        -- self.inst:AddTag("hamfogspeed")
+
+    if self.should_clear then
+        self.foggroggylevel = 0
     else
-        -- self.inst:RemoveTag("hamfogspeed")
-
-        if self.should_clear then
-            self.foggroggylevel = 0
-        else
+        if self.has_venting_equip then
             self.foggroggylevel = foggyrate * 0.5
+        else
+            self.foggroggylevel = foggyrate
+            if foggyrate > 0.5 then
+                if not self.inst:HasTag("groggy") then
+                    self.inst:AddTag("groggy")
+                    self.groggy_bcz_foggy = true
+                end
+                self.loco:SetExternalSpeedMultiplier(self.inst, "hamfogspeed",
+                    1 - foggyrate)
+                return
+            end
         end
+    end
+    if self.groggy_bcz_foggy and self.inst:HasTag("groggy") then
+        self.inst:RemoveTag("groggy")
+        self.groggy_bcz_foggy = false
+        self.loco:RemoveExternalSpeedMultiplier(self.inst, "hamfogspeed")
     end
 end
 
@@ -97,7 +110,6 @@ end
 function Foggroggy:Disable()
     if self.enabled == true then
         self.foggroggylevel = 0
-        self.inst:RemoveTag("hamfogspeed")
         self.inst:StopUpdatingComponent(self)
         self.enabled = false
         if self.inst.components.talker and not self.inst.components.health:IsDead() then

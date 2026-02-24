@@ -134,7 +134,8 @@ AddComponentPostInit("weather", function(self)
 
         local preciprate = _world.state.precipitationrate
         -- local moisture = _world.state.moistureceil
-        local playerintropical = _activatedplayer and _activatedplayer:AwareInTropicalArea()
+        local playerintropical = _activatedplayer and _activatedplayer:AwareInTropicalArea() and
+            not _activatedplayer:IsInHamRoom()
         -- local playerinhamlet = _activatedplayer and _activatedplayer:AwareInHamletArea()
         local winterrain = playerintropical and _world.state.issnowing
         -- local winterfog = playerinhamlet and moisture > TUNING.FOG_MOISTURE_RATE
