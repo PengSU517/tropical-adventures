@@ -215,9 +215,20 @@ AddRecipe2("porto_woodlegsboat",
 			{ recipe = "surfboard_item", filter = "CHARACTER" }
 		}
 	}, { "CHARACTER" })
+AddRecipe2("dubloon", { Ingredient("goldnugget", 1) }, TECH.NONE,
+	{
+		builder_tag = "woodlegs",
+		sort_after = {
+			{ recipe = "porto_woodlegsboat", filter = "CHARACTER" }
+		},
+		numtogive = 2
+	}, { "CHARACTER" })
+
+
 AddRecipe2("woodlegshat",
 	{ Ingredient("boneshard", 4), Ingredient("fabric", 3), Ingredient("dubloon", 10) },
 	TECH.NONE, { builder_tag = "woodlegs" }, { "CHARACTER" })
+
 AddRecipe2("poisonbalm", { Ingredient("livinglog", 1), Ingredient("venomgland", 1) }, TECH.NONE,
 	{
 		builder_tag = "plantkin",
@@ -841,7 +852,7 @@ AddRecipe2("playerhouse_city",
 		min_spacing = 3.2,
 		placer = "playerhouse_city_placer",
 		image = "pig_house_sale.tex",
-        no_deconstruction = true,
+		no_deconstruction = true,
 		--[[build_mode = BUILDMODE.WATER]]
 	},
 	{ "HAMLET" })
