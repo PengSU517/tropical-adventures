@@ -64,7 +64,7 @@ name = pub_dev(en_zh("Tropical Adventures|Ship of Theseus", "热带冒险|忒修
     en_zh("Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng, Runar, momo, 杰杰"
-version = "26.02.23"
+version = "26.02.25"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -72,7 +72,10 @@ priority = -100
 
 
 
-description = en_zh("Version " .. version, "版本 " .. version)
+local desc_ch = "进入游戏后，单机左下角图标查看模组百科。所有你想知道的内容都在这里了。"
+local desc_en =
+"After entering the game, click the icon in the lower left corner to view the mod wiki. All the things you want to know are here."
+description = en_zh(desc_en, desc_ch)
 
 dst_compatible = true
 dont_starve_compatible = false
@@ -125,6 +128,32 @@ end
 
 global_options =
 {
+
+    -- {
+    --     name = "set_language",
+    --     label = en_zh("Language", "选择语言"),
+    --     hover = "ch/en/ja/ko/es/fr/ru/it/pl/de/pt/br",
+
+    --     options =
+    --     {
+    --         { description = en_zh("Auto", "自动"), data = "auto", hover = en_zh("Following your game language", "跟随游戏默认语言") },
+    --         { description = "中文", data = "ch" },
+    --         { description = "English", data = "en" },
+    --         { description = "Japanese", data = "ja" },
+    --         { description = "Korean", data = "ko" },
+    --         { description = "Spanish", data = "es" },
+    --         { description = "French", data = "fr" },
+    --         { description = "Russian", data = "ru" },
+    --         { description = "Italian", data = "it" },
+    --         { description = "Polish", data = "pl" },
+    --         { description = "German", data = "de" },
+    --         { description = "Portuguese", data = "pt" },
+    --         { description = "Portuguese_br", data = "br" },
+
+
+    --     },
+    --     default = "auto",
+    -- },
 
 
     {
@@ -217,31 +246,7 @@ developer_options =
 
 client_options =
 {
-    -- {
-    --     name = "set_language",
-    --     label = en_zh("Language", "选择语言"),
-    --     hover = "ch/en/ja/ko/es/fr/ru/it/pl/de/pt/br",
 
-    --     options =
-    --     {
-    --         { description = en_zh("Auto", "自适应"), data = "auto", hover = "Following your game language" },
-    --         { description = "中文", data = "ch" },
-    --         { description = "English", data = "en" },
-    --         { description = "Japanese", data = "ja" },
-    --         { description = "Korean", data = "ko" },
-    --         { description = "Spanish", data = "es" },
-    --         { description = "French", data = "fr" },
-    --         { description = "Russian", data = "ru" },
-    --         { description = "Italian", data = "it" },
-    --         { description = "Polish", data = "pl" },
-    --         { description = "German", data = "de" },
-    --         { description = "Portuguese", data = "pt" },
-    --         { description = "Portuguese_br", data = "br" },
-
-
-    --     },
-    --     default = "auto",
-    -- },
 
     {
         name = "room_view_key",

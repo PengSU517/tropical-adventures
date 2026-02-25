@@ -4,245 +4,257 @@ local WikiDesc = {
         world = {
             name = "World Settings",
             intro = [[This mod only retains the [Shipwrecked] and [Hamlet] portions.
-                    Players can experience the original DST content along with
-                    Shipwrecked and Hamlet content in the same world ([no world-hopping required]).
+                    Players can experience vanilla DST content, Shipwrecked,
+                    and Hamlet content simultaneously in the same world ([No world-hopping required]).
                     ----------------
-                    When generating a world via the client, please adjust settings through the [Forest and Caves customization screens].
-                    For dedicated servers, as there are no direct settings, please generate the world via the [client] first and then upload it to the server.]]
+                    When generating a world via the client, please adjust settings through the [Forest & Caves tab].
+                    For dedicated servers, please [generate the world via the client] first, then upload the save to the server.]]
         },
         seasons = {
             name = "Seasons",
             intro =
-            [[Seasons change according to the [region]: the Forest region features Autumn, Winter, Spring, and Summer;
-                    the Shipwrecked region features Mild, Hurricane, Monsoon, and Dry seasons;
-                    the Hamlet region features Temperate, Humid, and Lush seasons.
+            [[Seasons change according to the [Region]. The Reign of Giants region features Autumn, Winter, Spring, and Summer.
+                    The Shipwrecked region features Mild, Hurricane, Monsoon, and Dry seasons.
+                    The Hamlet region features Temperate, Humid, and Lush seasons.
                     ----------------
-                    [Color filters], [Music], and other environmental effects will switch based on the region and season.]]
+                    [Filters], [Music], and other effects will switch dynamically based on the region and season.]]
         },
 
         bundled_structure = {
-            intro = [[Pack the [playerhouse_city] or other [shops] with internal spaces
-                    into a [bundled_structure] by [hammering] them.
-                    The [bundled_structure] will preserve all items contained within the building.
+            intro = [[Pack the [playerhouse_city] or other [Shops] with internal spaces
+                    into a [bundled_structure] by [Hammering] them.
+                    The [bundled_structure] will preserve all items inside the building.
                     ----------------
-                    Deploying the [bundled_structure] back onto the ground restores your previous property, allowing for house relocation.
-                    Note!!! This operation [cannot cross worlds].]]
+                    Simply place the [bundled_structure] back on the ground to restore the property, allowing for easy relocation.
+                    Note: This action [cannot cross between different worlds].
+            ]]
         },
         volcano = {
             name = "Volcano",
-            intro =
-            [[The Volcano currently exists as an [independent island] in the overworld. The [temperature] at the Volcano is significantly higher than in other regions.
+            intro = [[The Volcano currently exists as an [Independent Island] in the overworld.
+                    The [Temperature] inside the Volcano is significantly higher than in other regions.
                     ----------------
-                    The [Volcano Eruption] mechanics are not yet fully implemented and will not occur naturally at this time.]]
+                    The [Volcano Eruption] mechanic is not yet fully implemented and will not erupt naturally for now.]]
         },
         waves = {
             name = "Waves",
-            intro = [[Waves will impact [boats], but better vessels and [bumpers] will reduce the influence of waves.
-                    For details on the wave-breaking efficiency of various boats and bumpers, please refer to the [Boats (DST)] section.]]
+            intro = [[Waves will rock the [Ship], but better vessels and [Bumpers] will reduce the impact.
+                    For specific wave-breaking efficiency of various boats and bumpers, see the [Boats (Multiplayer)] section.]]
         },
 
         floods = {
             name = "Flooding",
-            intro = [[The flooding mechanics are still being refined and have been temporarily removed.]]
+            intro = [[The flooding mechanic is currently being refined and has been temporarily removed.]]
         },
         ruins = {
             name = "Ruins",
-            intro =
-            [[Ruins are no longer generated as surface mazes; they are [generated underground] using a maze system similar to the Ancient [Archive].
+            intro = [[The Ruins are no longer room-based mazes on the surface. Instead, they [Generate Underground]
+                    as a maze system similar to the Ancient [Archive].
                     ----------------
-                    The [CAVE_EXIT] near the ruins leads to [Snake Island (also Poison Island)]. It connects to the [Green Mushroom Forest] of the DST Caves through the underground Hamlet region.]]
+                    The [CAVE_EXIT] near the Ruins leads to [Snake Island (also Poison Island)].
+                    The underground Hamlet region connects to the [Green Mushroom Forest] of the DST caves.]]
         },
 
         anthill = {
             name = "Anthill",
-            intro = [[Anthills are no longer surface mazes but rather a specific area within the caves.
+            intro = [[The Anthill is no longer a surface-generated room maze, but an area within the caves.
                     ----------------
-                    The [CAVE_EXIT] near the Anthill leads to the [Palace City]. It connects to the [Green Mushroom Forest] of the DST Caves through the underground Hamlet region.]]
+                    The [CAVE_EXIT] near the Anthill leads to the [Palace City].
+                    It connects to the [Green Mushroom Forest] via the underground Hamlet region.]]
         },
 
         aporkalypse = {
             name = "Aporkalypse",
-            intro = [[By default, the Aporkalypse begins when the world reaches day 120.
-                    The entire world turns blood-red during the event.
-                    [ancient_herald] and [vampirebat] will spawn [underground] periodically, while only [vampirebat] will spawn [on the surface].
+            intro = [[By default, the Aporkalypse begins when the world reaches Day 120.
+                    During the Aporkalypse, the entire world turns blood-red.
+                    [Underground], [ancient_herald] and [vampirebat] will spawn periodically; [Surface] will only spawn [vampirebat].
                     ----------------
-                    The [aporkalypse_clock] is located deep within the [Hamlet Ruins Maze] in the caves. Rotate the [aporkalypse_clock] to stop the Aporkalypse.
+                    The [aporkalypse_clock] is located deep within the [Hamlet Ruins Maze] in the caves.
+                    Turn the [aporkalypse_clock] to stop the Aporkalypse.
                     ----------------
-                    Please note that the Aporkalypse requires synchronization between the surface and caves and conflicts with the "Don't Starve Alone" mod.]]
+                    Please note that the Aporkalypse requires surface and underground synchronization and conflicts with [Standalone Long Road].]]
         },
     },
 
-    -- Structures (Including all Shops)
+    -- Structures (Including all shops)
     structures = {
         pugalisk_fountain = {
-            intro =
-            [[During a [Full Moon], if no [pugalisk] is alive in the world, moonlight will refill the [pugalisk_fountain].
-                    Once a player takes the [waterdrop] from the [pugalisk_fountain], a [pugalisk] will spawn.
+            intro = [[During a [Full Moon], if no [pugalisk] is currently alive in the world,
+                    moonlight will refill the [pugalisk_fountain].
+                    Once a player takes the [waterdrop] from the [pugalisk_fountain], it will spawn a [pugalisk].
                     ----------------
-                    [waterdrop] can be planted and provides a sanity restoration effect.
+                    [waterdrop] can be planted and provides Sanity restoration.
                     ----------------
-                    Defeating the [pugalisk] will drop the blueprint for the [pugalisk_fountain].
+                    Defeating the [pugalisk] will drop the crafting blueprint for the [pugalisk_fountain].
                     ----------------
-                    Crafted [pugalisk_fountain] structures possess greater power, providing cooling, lightning/rain protection, and sanity restoration.]]
+                    Man-made [pugalisk_fountain] structures are more powerful, offering cooling,
+                    lightning and rain protection, and Sanity restoration.]]
         },
         pig_palace = {
-            intro = [[The [pigman_queen] in the main hall can be traded with for the [pedestal_key].
-                    Use the [pedestal_key] in the side hall's display cases to obtain rare items
-                    such as the [key_to_city], [city_hammer], and [TRINKET_GIFTSHOP_4].]]
+            intro = [[The [pigman_queen] in the main hall can trade for the [pedestal_key].
+                    The [pedestal_key] can be used at display cases in the side halls to exchange for rare items.
+                    Examples include [key_to_city], [city_hammer], and [TRINKET_GIFTSHOP_4].]]
         },
         pig_shop_cityhall = {
             intro =
             [[[pigman_mayor] acts as a trading NPC, accepting [goldnugget], [oinc], [dubloon], and other materials.
                     ----------------
-                    Inside City Hall, you can also exchange for the [deed] and [securitycontract] via display cases.]]
+                    Inside the City Hall, you can also exchange for items like [deed] and [securitycontract] via display cases.]]
         },
         playerhouse_city = {
-            intro =
-            [[Interiors allow for item crafting via [Interior Tech], enabling upgrades to the home's decor and appearance.]]
+            intro = [[Inside, you can craft items via [Interior Tech] to upgrade the house's decor and appearance.]]
         },
         pig_shop_deli = {
-            intro = [[Sells high-tier dishes, including [ratatouille], [meatballs], and the expensive [dragonpie].
+            intro = [[Sells high-end cuisine, including [ratatouille], [meatballs], and the expensive [dragonpie].
                     ----------------
-                    An excellent place to stock up on high-value food items.]]
+                    An excellent place to stock up on cost-effective food.]]
         },
         pig_shop_general = {
-            intro = [[Provides basic tools. Sells the [axe], [pickaxe], [minerhat], and [umbrella].
+            intro = [[Provides basic tools. Sells [axe], [pickaxe], [minerhat], and [umbrella].
                     ----------------
-                    Also sells [fabric], [flint], and other common survival supplies.]]
+                    Also sells common household supplies like [fabric] and [flint].]]
         },
         pig_shop_hoofspa = {
-            intro = [[The town pharmacy. Provides [healingsalve], [bandage], and [antivenom].
+            intro = [[The town pharmacy. Offers [healingsalve], [bandage], and [antivenom].
                     ----------------
-                    If you have enough funds, you can even purchase a [lifeinjector].]]
+                    If you have enough money, you can even buy a [lifeinjector].]]
         },
         pig_shop_produce = {
             intro = [[Sells fresh ingredients such as [meat], [eggplant], [pumpkin], and [watermelon].
                     ----------------
-                    Perfect for taking back to camp to use with a Crock Pot.]]
+                    Perfect for taking back to camp to use in the Crock Pot.]]
         },
         pig_shop_florist = {
-            intro = [[Sells plant seeds and flora, including [corn_seeds], [pumpkin_seeds], and [dug_berrybush].
+            intro = [[Sells plant seeds and vegetation, including [corn_seeds], [pumpkin_seeds], and [dug_berrybush].
                     ----------------
-                    Also offers [flowerhat] and various decorative plants.]]
+                    Also provides [flowerhat] and various decorative plants.]]
         },
         pig_shop_antiquities = {
-            intro = [[The most valuable shop in Hamlet. Sells [gears], [mandrake], and [deerclops_eyeball].
+            intro = [[The most precious shop in Hamlet. Sells [gears], [mandrake], and [deerclops_eyeball].
                     ----------------
-                    You can even directly purchase BOSS drops like [dragon_scales].]]
+                    You can even directly purchase boss drops like [dragon_scales].]]
         },
         pig_shop_academy = {
-            intro = [[A center for academic research. Sells [malbatross_feather], [trunk_summer], and [shark_fin].
+            intro = [[A place of learning. Sells [malbatross_feather], [trunk_summer], and [shark_fin].
                     ----------------
-                    The source of materials for researching high-tier technologies like the [townportaltalisman].]]
+                    This is your source of materials for researching high-tier tech like the [townportaltalisman].]]
         },
         pig_shop_arcane = {
-            intro = [[Sells magical items, including the [icestaff], [firestaff], and [nightsword].
+            intro = [[Sells magical items, including [icestaff], [firestaff], and [nightsword].
                     ----------------
-                    Also provides the [blueamulet] and the essential [livinglog].]]
+                    Also provides [blueamulet] and the essential [livinglog].]]
         },
         pig_shop_weapons = {
-            intro = [[Sells various armaments, including the [halberd], [cutlass], and [blowdart_pipe].
+            intro = [[Sells various armaments, including [halberd], [cutlass], and [blowdart_pipe].
                     ----------------
-                    [coconade] and various [trap] items are also bestsellers here.]]
+                    [coconade] and various [trap] items are also best-sellers here.]]
         },
         pig_shop_hatshop = {
-            intro = [[The fashion center. Sells the [tophat], [beefalohat], and the rare [walrushat].
+            intro = [[The fashion center. Sells [tophat], [beefalohat], and the rare [walrushat].
                     ----------------
-                    The [sewing_kit] is an essential item for every gentleman to maintain their appearance.]]
+                    The [sewing_kit] is a must-have for any gentleman to maintain their dignity.]]
         },
         pig_shop_bank = {
-            intro = [[The currency center. Responsible for money exchange and also sells some minerals.
+            intro = [[The currency center. Responsible for currency exchange and selling some minerals.
                     ----------------
-                    The [pigman_banker] is in charge of guarding all the wealth.]]
+                    The [pigman_banker] oversees all the wealth.]]
         },
         pig_shop_tinker = {
-            intro = [[The blueprint shop. Sells various rare blueprints.]]
+            intro = [[The Blueprint Shop. Sells various rare blueprints.]]
         },
     },
 
-    -- Creatures
+    -- Mobs
     mobs = {
-        firetwister = { intro = [[Spawns in the Volcano region. A fire-attribute variant of the [twister].]] },
-        twister = { intro = [[A seasonal threat in both the Hamlet and Shipwrecked regions.]] },
-        slipstor = { intro = [[A peculiar creature of the Jungle regions.]] },
-        wildboreking = { intro = [[Similar to the [pigking], can be traded for gold but is aggressive.]] },
-        ancient_herald = { intro = [[The herald of the Aporkalypse. Drops the [vortex_cloak] crafting blueprint upon death.]] },
-        kraken = { intro = [[A beast of the deep sea. The first [messagebottle_sw] you open can locate its nest.]] },
+        firetwister = { intro = [[Spawns in the Volcano region. A fire-elemental variant of the [twister].]] },
+        twister = { intro = [[A seasonal threat in the Hamlet and Shipwrecked regions.]] },
+        slipstor = { intro = [[A peculiar creature found in the Jungle region.]] },
+        wildboreking = { intro = [[Similar to the [pigking]; trades for gold but is aggressive.]] },
+        ancient_herald = { intro = [[The avatar of the Aporkalypse. Drops the crafting recipe for the [ARMORVORTEXCLOAK].]] },
+        pugalisk = {
+            intro = [[During a Full Moon, it spawns from the [pugalisk_fountain].
+                    ----------------
+                    Defeating it drops the blueprint for the [pugalisk_fountain].]]
+        },
+        kraken = {
+            intro = [[A deep-sea behemoth. The first [messagebottle_sw] you open can locate its nest.]]
+        },
 
         pigman_mayor = {
-            intro = [[The Administrator. Purchases [goldnugget], [goldenbar], and other gold products.]]
+            intro = [[The administrator. Purchases gold products like [goldnugget] and [goldenbar].]]
         },
         pigman_queen = {
-            intro = [[The Supreme Ruler. Highly interested in the [pigcrownhat], [pig_scepter], and [relic_4].]]
+            intro = [[The supreme ruler. Highly interested in the [pigcrownhat], [pig_scepter], and [relic_4].]]
         },
         pigman_beautician = {
-            intro = [[Obsessed with feathers. You can sell [peagawkfeather] and [feather_robin] to her.]]
+            intro = [[Has an obsessive love for feathers. You can sell [peagawkfeather] and [feather_robin] to her.]]
         },
         pigman_florist = {
             intro = [[An environmentalist. Purchases [petals], [foliage], and [succulent_picked].]]
         },
         pigman_erudite = {
-            intro = [[An occult scholar. Specializes in purchasing [nightmarefuel].]]
+            intro = [[An occultist. Specializes in purchasing [nightmarefuel].]]
         },
         pigman_hatmaker = {
-            intro = [[Requires large amounts of [silk] to craft various marvelous hats.]]
+            intro = [[Needs large amounts of [silk] to craft various marvelous hats.]]
         },
         pigman_storeowner = {
-            intro = [[Thrifty and hardworking. Will purchase the [clippings] you obtain from trimming the city hedges.]]
+            intro = [[Frugal and diligent. Will buy [clippings] obtained from trimming city greenery.]]
         },
         pigman_banker = {
-            intro = [[A high-end trader. Responsible for purchasing [redgem], [bluegem], and other expensive gems.]]
+            intro = [[High-end trader. Purchases various expensive gems like [redgem] and [bluegem].]]
         },
         pigman_collector = {
-            intro = [[Loves collecting toys like [trinket_1], as well as [stinger] and [spidergland].]]
+            intro = [[Enjoys collecting toys like [trinket_1], as well as [stinger] and [spidergland].]]
         },
         pigman_hunter = {
-            intro = [[A brave hunter. Purchases [houndstooth] and [hippo_antler].]]
+            intro = [[A brave hunter. Will buy [houndstooth] and [hippo_antler].]]
         },
         pigman_professor = {
-            intro = [[An expert on antiquities. You can hand over [relic_1] and other relics found in ruins to him.]]
+            intro = [[Antiquities expert. You can bring him cultural relics like [relic_1] excavated from the Ruins.]]
         },
         pigman_usher = {
             intro = [[Loves sweets. Purchases [honey], [jammypreserves], and [waffles].]]
         },
         pigman_farmer = {
-            intro = [[A gatherer of basic resources. Purchases [cutgrass] and [twigs].]]
+            intro = [[Collector of basic resources. Purchases [cutgrass] and [twigs].]]
         },
         pigman_miner = {
-            intro = [[A mineral enthusiast. Earn rewards by selling [rocks] to him.]]
+            intro = [[Ore enthusiast. Earn rewards by selling [rocks] to him.]]
         },
         pigman_mechanic = {
-            intro = [[A master of engineering. Purchases refined [boards], [cutstone], and [rope].]]
+            intro = [[Master of engineering. Purchases processed [boards], [cutstone], and [rope].]]
         },
         pigman_royalguard = {
-            intro = [[A guardian of order. Can be hired as a bodyguard using a [securitycontract].]]
+            intro = [[Guardian of order. Can be hired as a bodyguard using a [securitycontract].]]
         },
     },
 
     -- Items
     items = {
         ship = {
-            name = "Boats (Single-player)",
+            name = "Ship (Single-player)",
             intro =
-            [[Unlocked via the [SEAFARING_PROTOTYPER], no longer through [RESEARCHLAB2]. The core tool for single-player navigation.]]
+            [[Unlocked via the [SEAFARING_PROTOTYPER] instead of the [RESEARCHLAB2]. The core tool for solo navigation.]]
         },
         boat = {
-            name = "Boats (Multiplayer)",
-            intro = [[Vessels for cooperative sailing. Can be equipped with [bumpers] to resist wave impacts.
+            name = "Boat (Multiplayer)",
+            intro = [[A vehicle for cooperative sailing. Can be equipped with [Bumpers] to resist wave impact.
                     ----------------
-                    DST Boats: [boat]/[boat_pirate]/[boat_ancient]/[boatmetal] reduce wave impact by 30%/30%/40%/90% respectively;
+                    DST Boats: [boat], [boat_pirate], [boat_ancient], and [boatmetal] reduce wave impact by 30%, 30%, 40%, and 90% respectively.
                     ----------------
-                    Bumpers: [BOAT_BUMPER_KELP]/[BOAT_BUMPER_SHELL]/[BOAT_BUMPER_YOTD]/[BOAT_BUMPER_CRABKING] reduce impact by 60%/80%/80%/100% respectively in the direction of installation.]]
+                    Bumpers: [BOAT_BUMPER_KELP], [BOAT_BUMPER_SHELL], [BOAT_BUMPER_YOTD], and [BOAT_BUMPER_CRABKING] reduce impact from the installed direction by 60%, 80%, 80%, and 100% respectively.]]
         },
         smelter = {
             name = "Smelter",
-            intro = [[An advanced facility for smelting [iron], [goldnugget], or refining minerals.
-                    Alchemy recipes can be viewed through the [Smart Pot] mod.]]
+            intro = [[An advanced facility for smelting [iron], [goldnugget], or refining ores.
+                    Smelting recipes can be viewed through the [Smart Cooking] mod.]]
         },
     },
 }
 
 local WikiTerms = {
+    -- Terms
     type = "Type",
     recipe = "Recipe",
     unable_to_craft = "Unable to Craft",
@@ -250,7 +262,7 @@ local WikiTerms = {
     hostile = "Hostile",
     location = "Location",
     desc = "Description",
-    attitude = "Attitude",
+    attitude = "Faction",
     unknown = "Unknown",
     about = "Announcement",
     generation = "Mechanics",
@@ -259,12 +271,12 @@ local WikiTerms = {
     items = "Items",
     related = "Related Items",
     -----------
-    mod_background = "Development Background",
+    mod_background = "Dev Background",
     mod_progress = "Update Log",
-    mod_about = "Tropical Adventures | Ship of Theseus",
-    mod_preview = "Introduction",
-    mod_sponser = "Sponsorship",
-    click_to_read = "Click to read \"Tropical Adventures\"WikiBook",
+    mod_about = "Tropical Adventure | Ship of Theseus",
+    mod_preview = "Foreword",
+    mod_sponser = "Support / Donate",
+    click_to_read = "Click to view 'Tropical Adventure' Wiki",
 }
 
 return {

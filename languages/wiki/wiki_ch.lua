@@ -161,8 +161,15 @@ local WikiDesc = {
         twister = { intro = [[哈姆雷特和海难地区的季节性威胁。]] },
         slipstor = { intro = [[丛林地区的奇特生物。]] },
         wildboreking = { intro = [[类似于[pigking]，可以换取金子，但具有攻击性。]] },
-        ancient_herald = { intro = [[毁灭季的化身。击杀掉落[vortex_cloak]的制作图纸。]] },
-        kraken = { intro = [[深海巨兽。打开的第一个[messagebottle_sw]可以定位其巢穴。]] },
+        ancient_herald = { intro = [[毁灭季的化身。击杀掉落[ARMORVORTEXCLOAK]的制作图纸。]] },
+        pugalisk = {
+            intro = [[在月圆时，会从[pugalisk_fountain]中生成。
+                    ----------------
+                    击杀会掉落[pugalisk_fountain]的蓝图。]]
+        },
+        kraken = {
+            intro = [[深海巨兽。打开的第一个[messagebottle_sw]可以定位其巢穴。]]
+        },
 
         pigman_mayor = {
             intro = [[管理者。收购[goldnugget]和[goldenbar]等金制品。]]

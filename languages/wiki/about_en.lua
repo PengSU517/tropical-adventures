@@ -7,8 +7,23 @@ Given the extensive volume of this mod, the encyclopedia primarily covers origin
 ]]
 
 local str_progress = [[
-26.02.23 Update:
-    1. Added Mod Wiki
+We would like to extend our sincere gratitude to the original "Tropical Experience" development team (represented by Vagner),
+as well as Runar、momo、狼轩木林、杰杰、月下独酌、酒酒、萌新 and BBGoat、绯世行 for their invaluable technical assistance and support.
+Furthermore, during the development process, we drew great inspiration and experience from several outstanding mods, including "Candy House" and "Above the cloud."
+We truly appreciate the foundations laid by these talented developers.
+
+==========================================
+Planning Update:
+    1. Fixing trawlnet...
+
+
+Feb 26, 2025 Update:
+    1. Added Mod Wiki/Encyclopedia.
+    2. Fixed an error occurring when fishing for lobsters on a boat in single-player.
+    3. Fixed an issue where fog and rain would appear indoors within the Hamlet region during winter.
+    4. Corrected default turf detection for different regions (e.g., the default turf for the shipwrecked is now set to Sand).
+    5. Fixed missing iron ore textures when Smart Cooking is enabled.
+    6. Added a recipe for the Captain to craft gold coins.
 
 
 =========================================
@@ -18,7 +33,7 @@ local str_preview = [[
 The full name of this mod is 【Tropical Adventure | Ship of Theseus】.
 True to its name, my goal is to maintain the mod's availability while gradually replacing and updating its original content—much like the Ship of Theseus—allowing it to continuously find new life.
 
-If you feel your journey thus far has been exciting, feel free to support us through a donation. Your appreciation is an affirmation of our past work and the driving force for us to keep going.
+If you feel your journey thus far has been exciting, feel free to support us through a donation. Your appreciation is an affirmation of our past work!
 ]]
 
 local WikiAbout = {
