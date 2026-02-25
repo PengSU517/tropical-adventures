@@ -116,20 +116,19 @@ Map.IsVolcanoAreaAtPoint = function(self, x, y, z)
     return self:FindVisualNodeAtPoint(x, y, z, "volcano")
 end
 
+local width, height
 local _SetTile = Map.SetTile
-function Map:SetTile(x, y, tile, ...)
+function Map:SetTile(tile_x, tile_y, tile, ...)
+    if not width then
+        width, height = TheWorld.Map:GetWorldSize()
+    end
     local newtile
     if tile == WORLD_TILES.DIRT then
-        if self:IsVolcanoAreaAtPoint(x, 0, y) then
-            print("is in volcano")
-        end
-        newtile =
-        -- (self:IsVolcanoAreaAtPoint(x, 0, y) and WORLD_TILES.VOLCANO_ROCK) or
-            (self:IsShipwreckedAreaAtPoint(x, 0, y) and WORLD_TILES.BEACH) or nil
-
-        print(newtile)
+        local x = (tile_x - width / 2) * TILE_SCALE
+        local z = (tile_y - height / 2) * TILE_SCALE
+        newtile = (self:IsShipwreckedAreaAtPoint(x, 0, z) and WORLD_TILES.BEACH) or nil
     end
-    _SetTile(self, x, y, newtile or tile, ...)
+    _SetTile(self, tile_x, tile_y, newtile or tile, ...)
 end
 
 local BASE_TILES = {
