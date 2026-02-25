@@ -176,6 +176,7 @@
         <Element name="interior_wall_upholstered.tex" u1="0.615479" u2="0.645752" v1="0.907959" v2="0.938232"/>
         <Element name="interior_wall_wood.tex" u1="0.64624" u2="0.676514" v1="0.907959" v2="0.938232"/>
         <Element name="iron.tex" u1="0.677002" u2="0.707275" v1="0.907959" v2="0.938232"/>
+        <Element name="ferrum.tex" u1="0.677002" u2="0.707275" v1="0.907959" v2="0.938232"/>
         <Element name="iron_door.tex" u1="0.707764" u2="0.738037" v1="0.907959" v2="0.938232"/>
         <Element name="jellybug.tex" u1="0.738525" u2="0.768799" v1="0.907959" v2="0.938232"/>
         <Element name="jellybug_cooked.tex" u1="0.769287" u2="0.799561" v1="0.907959" v2="0.938232"/>

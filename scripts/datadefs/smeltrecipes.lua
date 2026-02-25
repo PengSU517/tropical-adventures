@@ -1,5 +1,5 @@
 local Attributes = {
-    ferrum = { tex = "iron" },
+    ferrum = { tex = "ferrum" },
     corundum = { tex = "purplegem" },
     nitro = { tex = "nitre" },
     aurum = { tex = "goldnugget" },
@@ -49,7 +49,7 @@ local Recipes = {
         test = function(worker, names, attrs)
             return names.greengem and (names.greengem >= 2 or
                 names.yellowgem and names.yellowgem >= 2)
-            end,
+        end,
         overridebuild = "gems",
         overridesymbolname = "opalgem",
         card_def = {
