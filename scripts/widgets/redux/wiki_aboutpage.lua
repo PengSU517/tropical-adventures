@@ -19,7 +19,7 @@ end
 -------------------------------------------------------------------------------------------------------
 
 local is_ch = TUNING.LANGUAGE_CHINESE
-local size_multi = is_ch and 1 or 0.5
+local size_multi = is_ch and 1 or 0.7
 
 local WikiAboutPage = Class(Widget, function(self, parent_screen, category)
     Widget._ctor(self, "WikiAboutPage")

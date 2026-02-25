@@ -256,7 +256,7 @@ local WikiTerms = {
     -----------
     mod_background = "制作背景",
     mod_progress = "更新日志",
-    mod_about = "热带冒险|忒休斯之船",
+    mod_about = "热带冒险 | 忒修斯之船",
     mod_preview = "写在前面",
     mod_sponser = "赞助",
     click_to_read = "点击查看\"热带冒险\"百科",

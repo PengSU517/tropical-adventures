@@ -9,7 +9,7 @@ local WikiIcon = Class(Widget, function(self)
         "images/inventoryimages1.xml", "book_research_station.tex",
         -- "images/scrapbook.xml", "icon_empty.tex",
         nil, nil, nil, nil, { 1, 1 }, { 0, 0 }))
-    self.pageIcon:SetScale(1.5, 1.5, 1.5)
+    self.pageIcon:SetScale(2, 2, 2)
     self.pageIcon:SetHAnchor(1)                        -- 设置原点x坐标位置，0、1、2分别对应屏幕中、左、右
     self.pageIcon:SetVAnchor(2)                        -- 设置原点y坐标位置，0、1、2分别对应屏幕中、上、下
     self.pageIcon:SetPosition(70, 70, 0)
