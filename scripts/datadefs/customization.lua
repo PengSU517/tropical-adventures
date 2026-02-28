@@ -227,8 +227,8 @@ local worldgen_options = {
 
     {
         name = "world_size_multi",
-        label = en_zh("World size multi", "世界大小乘数"),
-        hover = en_zh("World size multi", "世界大小乘数"),
+        label = en_zh("World area multi", "世界面积乘数"),
+        hover = en_zh("World area multi", "世界面积乘数"),
         options =
         {
             {
@@ -251,9 +251,13 @@ local worldgen_options = {
                 description = en_zh("Huger, 1.5×", "巨大, 1.5×"),
                 data = 1.5
             },
+            {
+                description = en_zh("xHuger, 2×", "超巨大, 2×"),
+                data = 2
+            },
 
         },
-        default = 1.25,
+        default = 1.5,
         order = 8,
         image = "world_size.tex",
         atlas = dst_atlas,

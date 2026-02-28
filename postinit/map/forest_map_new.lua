@@ -2,7 +2,7 @@ require("constants")
 require("mathutil")
 
 local ta_worldgen = TA_CONFIG.WORLDGEN
-local multi = ta_worldgen.world_size_multi or 1
+local multi = math.sqrt(ta_worldgen.world_size_multi) or 1
 local forest_map = require("map/forest_map")
 
 local old_generatemap = forest_map.Generate
@@ -15,6 +15,7 @@ end
 
 -------------------------调整地图大小和海岸线-------但是用的方法有些暴力-------------------
 
+
 if GLOBAL.rawget(GLOBAL, "WorldSim") then
     local worldsim = GLOBAL.getmetatable(GLOBAL.WorldSim).__index
     ------世界大小调整
@@ -22,13 +23,22 @@ if GLOBAL.rawget(GLOBAL, "WorldSim") then
     if multi ~= 1 then
         local OldSetWorldSize = worldsim.SetWorldSize
         worldsim.SetWorldSize = function(self, width, height)
-            print("Setting world size to " .. width .. " times " .. multi)
-            OldSetWorldSize(self, math.ceil(multi * width), math.ceil(multi * height))
+            if width % 25 == 0 then ----这个判断是为了让放缩只执行一次，以兼容其他修改地图的模组（比如山河表里
+                print("Setting world size to " .. width .. " times " .. multi)
+                OldSetWorldSize(self, math.ceil(multi * width), math.ceil(multi * height))
+            else
+                OldSetWorldSize(self, width, height)
+            end
         end
 
         local OldConvertToTileMap = worldsim.ConvertToTileMap
         worldsim.ConvertToTileMap = function(self, length)
-            OldConvertToTileMap(self, math.ceil(multi * length))
+            if length % 25 == 0 then ----这个判断是为了让放缩只执行一次，以兼容其他修改地图的模组（比如山河表里
+                print("Setting map length to " .. length .. " times " .. multi)
+                OldConvertToTileMap(self, math.ceil(multi * length))
+            else
+                OldConvertToTileMap(self, length)
+            end
         end
     end
 
@@ -38,7 +48,7 @@ if GLOBAL.rawget(GLOBAL, "WorldSim") then
     end
 end
 
-
+local HAMLET_GENERATED = false
 forest_map.Generate = function(prefab, map_width, map_height, tasks, level, level_type, ...)
     local save = old_generatemap(prefab, map_width, map_height, tasks, level, level_type, ...)
     if save == nil then return save end
@@ -55,7 +65,11 @@ forest_map.Generate = function(prefab, map_width, map_height, tasks, level, leve
         save.map.tiles, save.map.tiledata, save.map.nav, save.map.adj, save.map.nodeidtilemap =
             WorldSim:GetEncodedMap(join_islands) ----这是存储地形数据的关键
     end
-    build_porkland(save.ents, TOPOLOGY_SAVE, save.map.width, save.map.height, deepcopy(level.overrides))
+    if HAMLET_GENERATED == false then
+        build_porkland(save.ents, TOPOLOGY_SAVE, save.map.width, save.map.height, deepcopy(level.overrides))
+        HAMLET_GENERATED = true
+    end
+
     ----mapwidth,height在其中发生过改变
     -----------------------------------------------------------------------------------------------------------------
     if save.ents then
