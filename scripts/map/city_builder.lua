@@ -1,5 +1,7 @@
+-- 引入地图布局模块，用于加载预设的建筑结构
 local obj_layout = require("map/object_layout")
 
+-- 定义四个方向的步进值，用于在网格中进行坐标偏移
 local DIR_STEP = {
     { x = 1,  z = 0 },
     { x = 0,  z = 1 },
@@ -7,12 +9,15 @@ local DIR_STEP = {
     { x = 0,  z = -1 },
 }
 
+-- 标记重要唯一建筑是否已经生成，确保每个城市/世界只有一个
 local made_palace = false
 local made_cityhall = false
 local made_playerhouse = false
 
+-- 默认生成的城市数量
 local CITIES = 2
 
+-- 普通公园的布局选择池
 local PARK_CHOICES = {
     "city_park_1",
     "city_park_2",
@@ -22,6 +27,7 @@ local PARK_CHOICES = {
     "city_park_8",
 }
 
+-- 具有唯一性质或特殊样式的公园布局选择池
 local UNIQUE_PARK_CHOICES = {
     "city_park_6",
     "city_park_7",
@@ -29,10 +35,12 @@ local UNIQUE_PARK_CHOICES = {
     "city_park_10",
 }
 
+-- 必须生成的农田布局（当前为空，预留给特殊任务道具如传送机零件）
 local REQUIRED_FARMS = {
     --"teleportato_hamlet_potato_layout",
 }
 
+-- 普通农田的布局选择池
 local FARM_CHOICES = {
     "farm_1",
     "farm_2",
@@ -41,12 +49,14 @@ local FARM_CHOICES = {
     "farm_5",
 }
 
+-- 农田间隙填充物的布局选择池
 local FARM_FILLER_CHOICES = {
     "farm_fill_1",
     "farm_fill_2",
     "farm_fill_3",
 }
 
+-- 城市1（通常是主城）的建筑配额，定义了各种商店和民居的数量
 local BUILDING_QUOTAS = {
     { prefab = "pig_shop_deli_entrance",    num = 1 },
     -- { prefab = "pig_shop_academy_entrance", num = 1 },
@@ -63,6 +73,7 @@ local BUILDING_QUOTAS = {
 
 }
 
+-- 城市2（通常是副城/高级城）的建筑配额，包含武器店、奥术店等
 local BUILDING_QUOTAS_2 = {
     -- { prefab = "pig_shop_antiquities_entrance",  num = 2 },
     -- { prefab = "pig_shop_hatshop_entrance", num = 1 },
@@ -78,22 +89,20 @@ local BUILDING_QUOTAS_2 = {
 
 }
 
-local VALID_TILES = { WORLD_TILES.SUBURB, WORLD_TILES.FOUNDATION }
+-- 定义允许放置城市建筑的合法地皮类型
+local VALID_TILES = { WORLD_TILES.SUBURB, WORLD_TILES.FOUNDATION, WORLD_TILES.FIELDS }
 
-local VALID_TILES_CITY = { WORLD_TILES.CHECKEREDLAWN, WORLD_TILES.FOUNDATION }
+-- 基础地形校验地皮类型，包含道路
+local VALID_TILES_BASE = { WORLD_TILES.SUBURB, WORLD_TILES.FOUNDATION, WORLD_TILES.ROAD, WORLD_TILES.FIELDS }
 
-local function opp_dir(dir)
-    if dir == 1 then
-        return 3
-    elseif dir == 2 then
-        return 4
-    elseif dir == 3 then
-        return 1
-    elseif dir == 4 then
-        return 2
-    end
-end
+-- 城市中心区域的校验地皮类型
+local VALID_TILES_CITY = { WORLD_TILES.CHECKEREDLAWN, WORLD_TILES.FOUNDATION, WORLD_TILES.ROAD }
 
+-- 所有属于城市范畴的地皮类型汇总，用于边缘检测
+local VALID_TILES_CITY_ALL = { WORLD_TILES.SUBURB, WORLD_TILES.CHECKEREDLAWN, WORLD_TILES.FOUNDATION,
+    WORLD_TILES.ROAD, WORLD_TILES.COBBLEROAD }
+
+-- 方向辅助函数：根据当前方向和增量（左转/右转）返回新的方向索引
 local function get_dir(dir, inc)
     if dir == 1 then
         return inc > 0 and 2 or 4
@@ -106,6 +115,7 @@ local function get_dir(dir, inc)
     end
 end
 
+-- 在临时实体列表中查找指定范围内、指定名称的实体
 local function find_temp_ents(data, x, z, range, prefabs)
     local ents = {}
 
@@ -130,6 +140,7 @@ local function find_temp_ents(data, x, z, range, prefabs)
     return ents
 end
 
+-- 向临时实体列表中添加一个新的待生成实体及其所属城市信息
 local function add_temp_ents(data, x, z, prefab, city_id, properties)
     local save_data = {
         x = x,
@@ -142,6 +153,7 @@ local function add_temp_ents(data, x, z, prefab, city_id, properties)
     table.insert(data, save_data)
 end
 
+-- 将实体数据转换为游戏引擎可识别的坐标格式（Tile 空间转世界空间）
 local function set_entity(entities, width, height, prop, x, z, city_id, properties)
     if entities[prop] == nil then
         entities[prop] = {}
@@ -155,142 +167,87 @@ local function set_entity(entities, width, height, prop, x, z, city_id, properti
     local save_data = properties or {}
     save_data.x = (x - width / 2) * TILE_SCALE
     save_data.z = (z - height / 2) * TILE_SCALE
-    -- save_data.scenario = scenario --------------------------------------暂时不明白是干啥的
+    -- save_data.scenario = scenario -- 预留的场景脚本标记
 
     table.insert(entities[prop], save_data)
 end
 
-local function find_entities(entities, x, z, range, props)
-    local ents = {}
-
-    for p, prop in ipairs(props) do
-        for i, testent in ipairs(entities[prop]) do
-            local xdist = math.abs(testent.x - x)
-            local zdist = math.abs(testent.z - z)
-            if (xdist * xdist) + (zdist * zdist) < range * range then
-                table.insert(ents, {
-                    prop = prop,
-                    x = testent.x,
-                    y = testent.z
-                })
-            end
-        end
-    end
-
-    return ents
-end
-
+-- 批量导出所有临时生成的刷怪笼/实体到最终的实体表
 local function export_spawners_to_entites(entities, width, height, spawners)
     for i, spawner in ipairs(spawners) do
         set_entity(entities, width, height, spawner.prefab, spawner.x, spawner.z, spawner.city, spawner.properties)
     end
 end
 
+-- 检测目标点及其周围 5x5 范围内地皮是否属于合法的城市区域，防止建筑跨越到水里或森林
 local function test_tile(pt, types)
-    local ground = WorldSim:GetTile(pt.x, pt.z) -- pt is in TILE SPACE
-
-    local test = true
-
-    local original_tile_types = {}
-    if ground then
-        for x = -1, 1 do
-            for z = -1, 1 do
-                table.insert(original_tile_types, WorldSim:GetTile(pt.x + x, pt.z + z))
-            end
-        end
-    end
-
-    for i, original_tile_type in ipairs(original_tile_types) do
-        if original_tile_type then
-            if original_tile_type < 2 then
-                test = false
-                break
-            else
-                -- 5 is the centre tile
-                if i == 5 and types then
-                    local check = false
-                    for p, tiletype in ipairs(types) do
-                        if tiletype == original_tile_type then
-                            check = true
-                            break
+    local ground = WorldSim:GetTile(pt.x, pt.z) -- 获取目标点地皮
+    if types then
+        for _, tiletype in ipairs(types) do
+            if tiletype == ground then
+                for i = -2, 2 do
+                    for t = -2, 2 do
+                        local edge_pt = {
+                            x = pt.x + i,
+                            z = pt.z + t
+                        }
+                        local ground = WorldSim:GetTile(edge_pt.x, edge_pt.z)
+                        if ground and types then
+                            if not table.contains(VALID_TILES_CITY_ALL, ground) then
+                                return false -- 如果边缘触及非城市地皮，则判定无效
+                            end
                         end
                     end
-                    if check == false then
-                        test = false
-                    end
                 end
+                return true
             end
         end
     end
-
-    return test
+    return false
 end
 
+-- 修改指定坐标的地皮类型，默认修改为鹅卵石路（COBBLEROAD）
 local function place_tile(pt, tile)
-    local ground = WorldSim:GetTile(pt.x, pt.z)                        -- pt is in TILE SPACE
+    local ground = WorldSim:GetTile(pt.x, pt.z)
 
-    if ground and not SpawnUtil.IsCloseToWaterTile(pt.x, pt.z, 1) then ----在水边不再重新铺地皮
-        if not tile then
-            tile = WORLD_TILES.COBBLEROAD
-        end
+    if ground then
         WorldSim:SetTile(pt.x, pt.z, tile)
-        -- maybe do a reseve tile thing here?
     end
 end
 
 
-local unrequired_prefabs =
-{
+-- 定义清理黑名单，在生成城市建筑前，会自动移除这些原生资源（草、石块、树木等）
+local unrequired_prefabs = {
     "grass",
     "rocks",
-    "twigs",
-    "spoiled_food",
     "rock1",
+    "rock2",
+    "rock_flintless",
+    "flint",
+    "twigs",
+    "sapling",
+    "berrybush",
+    "spoiled_food",
     "teatree",
     "chicken",
     "chickenhouse",
-    -- "pugalisk_fountain",
-    -- "roc_nest",
-    -- "pig_ruins_entrance",
-    -- "pig_ruins_entrance2",
-    -- "pig_ruins_entrance3",
-    -- "pig_ruins_entrance4",
-    -- "pig_ruins_entrance5",
-    -- "pig_ruins_exit",
-    -- "pig_ruins_exit2",
-    -- "pig_ruins_exit4",
-
-    -- "anthill_exit",
-    -- "anthill_exit",
-    -- "anthill",
-
-    -- --"teleportato_hamlet_base",
-    -- --"teleportato_hamlet_box",
-    -- --"teleportato_hamlet_crank",
-    -- --"teleportato_hamlet_ring",
-    -- --"teleportato_hamlet_potato", -- THE POTATO IS HANDLED IN CITYBUILDER AS A UNIQUE FARM.
-
-    -- "ancient_robot_ribs",
-    -- "ancient_robot_head",
-    -- "ancient_robot_claw",
-    -- "ancient_robot_claw",
-    -- "ancient_robot_leg",
-    -- "ancient_robot_leg",
+    "sapling_ham",
+    "grass_ham"
 }
 
-
+-- 清理指定坐标点半径 8 范围内的原生杂物，为建筑腾出空间
 local function clear_ground(entities, width, height, pt)
-    local radius = 6
+    local radius = 4
     for prefab, data_list in pairs(entities) do
-        local reserved = false
+        local should_clear = false
         for i, rprefab in ipairs(unrequired_prefabs) do
-            if prefab ~= rprefab then
-                reserved = true
+            if prefab == rprefab then
+                should_clear = true
                 break
             end
         end
 
-        if not reserved then
+        if should_clear then
             for i = #data_list, 1, -1 do
                 local x_dist = math.abs(((data_list[i].x / TILE_SCALE) + width / 2.0) - pt.x) + 0.2
                 local z_dist = math.abs(((data_list[i].z / TILE_SCALE) + height / 2.0) - pt.z) + 0.2
@@ -303,19 +260,20 @@ local function clear_ground(entities, width, height, pt)
     end
 end
 
+-- 城市地块核心生成函数：清理地面、铺设 17x17 的地基（Foundation）以及 3x3 的路中心
 local function place_tile_city(entities, width, height, pt)
     clear_ground(entities, width, height, pt)
 
-    place_tile(pt)
-    for i = -6, 6 do
-        for t = -6, 6 do
+    -- 循环生成大面积的地基，带有一点随机碎边效果
+    for i = -8, 8 do
+        for t = -8, 8 do
             local new_pt = {
                 x = pt.x + i,
                 z = pt.z + t
             }
-            -- print("TESTING THE TILE TYPE", WorldSim:GetTile(newpt.x, newpt.z))
             if WorldSim:GetTile(new_pt.x, new_pt.z) > 1 then
-                if math.random() < 0.15 or (t < math.abs(4) and i < math.abs(4)) then
+                -- 核心 9x9 区域必填，外围随机填充
+                if math.random() < 0.15 or (math.abs(t) <= 4 and math.abs(i) <= 4) then
                     if test_tile(new_pt, VALID_TILES) then
                         place_tile(new_pt, WORLD_TILES.FOUNDATION)
                     end
@@ -323,27 +281,39 @@ local function place_tile_city(entities, width, height, pt)
             end
         end
     end
-end
 
-local function spawn_setpiece(entities, width, height, spawners, layout, pt, city)
-    if layout == "pig_palace_1" then
-        print("SPAWNING A PALACE THROUGH THE CITY BUILDER")
+    -- 在地块中心铺设 3x3 的街道
+    for i = -1, 1 do
+        for t = -1, 1 do
+            local edge_pt = {
+                x = pt.x + i,
+                z = pt.z + t
+            }
+            if WorldSim:GetTile(edge_pt.x, edge_pt.z) > 1 then
+                if test_tile(edge_pt, VALID_TILES) then
+                    place_tile(edge_pt, WORLD_TILES.ROAD)
+                end
+            end
+        end
     end
 
+    place_tile(pt, WORLD_TILES.COBBLEROAD)
+end
+
+-- 生成预设布局（Setpiece），如猪王宫殿、市政厅。处理旋转、翻转、地皮校验及实体添加
+local function spawn_setpiece(entities, width, height, spawners, layout, pt, city)
     local setpiece = obj_layout.LayoutForDefinition(layout)
-    -- THESE SET PIECES NEED AN ODD NUMBER OF TILES BOTH COL AND ROW,
-    -- because they are centered on a single tile.. to be even, it would need code to select the tile that gets placed at the center
+    -- 校验布局必须为奇数尺寸，以便有一个明确的中心点
     assert(#setpiece.ground % 2 ~= 0, "ERROR, THE SET PIECE HAS AN EVEN NUMBER OF ROWS")
     assert(#setpiece.ground[1] % 2 ~= 0, "ERROR, THE SET PIECE HAS AN EVEN NUMBER OF COLS")
 
-    local reverse = math.random() < 0.5 -- flips the x and y axis
-    local flip = math.random() < 0.5    -- reverses the direction along the x axis.
+    local reverse = math.random() < 0.5 -- 随机交换 X/Z 轴（旋转 90 度）
+    local flip = math.random() < 0.5    -- 随机镜像翻转
 
     local offset_x = ((#setpiece.ground - 1) / 2 + 1)
     local offset_z = ((#setpiece.ground[1] - 1) / 2 + 1)
 
     local x_flip = 1
-
     if flip then
         offset_x = offset_x * -1
         x_flip = -1
@@ -351,6 +321,7 @@ local function spawn_setpiece(entities, width, height, spawners, layout, pt, cit
 
     local radius = math.max(#setpiece.ground, #setpiece.ground[1]) / 2 * 1.4
 
+    -- 生成前再次清理该范围内的原生资源
     for prefab, data_list in pairs(entities) do
         for i = #data_list, 1, -1 do
             local xdist = math.abs(((data_list[i].x / TILE_SCALE) + width / 2.0) - pt.x) + 0.2
@@ -358,58 +329,40 @@ local function spawn_setpiece(entities, width, height, spawners, layout, pt, cit
 
             if (xdist * xdist) + (zdist * zdist) <= radius * radius then
                 if tableutil.has_component(unrequired_prefabs, prefab) then
-                    table.remove(data_list, i) -----------------
+                    table.remove(data_list, i)
                 end
             end
         end
     end
 
+    -- 第一遍：检查布局覆盖的所有地皮是否都在陆地上
     local ground_valid = true
     for x = 1, #setpiece.ground do
         for y = 1, #setpiece.ground[x] do
             local new_pt = {}
-            local step = x
-            if flip then
-                step = step * -1
-            end
             if reverse then
-                new_pt = {
-                    x = (pt.x - offset_x + (x * x_flip)),
-                    y = 0,
-                    z = (pt.z - offset_z + (y))
-                }
+                new_pt = { x = (pt.x - offset_x + (x * x_flip)), y = 0, z = (pt.z - offset_z + (y)) }
             else
-                new_pt = {
-                    x = (pt.x - offset_x + (y * x_flip)),
-                    y = 0,
-                    z = (pt.z - offset_z + (x))
-                }
+                new_pt = { x = (pt.x - offset_x + (y * x_flip)), y = 0, z = (pt.z - offset_z + (x)) }
             end
             local original_tile_type = WorldSim:GetTile(math.floor(new_pt.x), math.floor(new_pt.z))
-            if not original_tile_type or original_tile_type <= 1 then
+            if not original_tile_type or not IsLandTile(original_tile_type) then
                 ground_valid = false
             end
         end
     end
+
+    -- 第二遍：如果地皮合法，则正式铺设地皮并添加实体到 spawners 列表
     if ground_valid then
         for x = 1, #setpiece.ground do
             for y = 1, #setpiece.ground[x] do
                 local new_pt = {}
                 if reverse then
-                    new_pt = {
-                        x = (pt.x - offset_x + (x * x_flip)),
-                        y = 0,
-                        z = (pt.z - offset_z + (y))
-                    }
+                    new_pt = { x = (pt.x - offset_x + (x * x_flip)), y = 0, z = (pt.z - offset_z + (y)) }
                 else
-                    new_pt = {
-                        x = (pt.x - offset_x + (y * x_flip)),
-                        y = 0,
-                        z = (pt.z - offset_z + (x))
-                    }
+                    new_pt = { x = (pt.x - offset_x + (y * x_flip)), y = 0, z = (pt.z - offset_z + (x)) }
                 end
                 local tile = setpiece.ground_types[setpiece.ground[x][y]]
-
                 if tile and tile > 0 then
                     place_tile(new_pt, tile)
                 end
@@ -418,30 +371,17 @@ local function spawn_setpiece(entities, width, height, spawners, layout, pt, cit
 
         for prefab, list in pairs(setpiece.layout) do
             for t, data in ipairs(list) do
-                -- local spawnprop = SpawnPrefab(prop)
-
                 local new_pt = {}
                 if reverse then
-                    new_pt = {
-                        x = (pt.x + (list[t].y * x_flip)),
-                        y = 0,
-                        z = (pt.z + (list[t].x)),
-                    }
+                    new_pt = { x = (pt.x + (list[t].y * x_flip)), y = 0, z = (pt.z + (list[t].x)) }
                 else
-                    new_pt = {
-                        x = (pt.x + (list[t].x * x_flip)),
-                        y = 0,
-                        z = (pt.z + (list[t].y)),
-                    }
+                    new_pt = { x = (pt.x + (list[t].x * x_flip)), y = 0, z = (pt.z + (list[t].y)) }
                 end
 
                 local city_temp = city.city_id
-                if layout == "city_park_7" and prefab == "oinc" then
-                    city_temp = nil
-                end
-                if layout == "pig_playerhouse_1" and prefab ~= "playerhouse_city" then
-                    city_temp = nil
-                end
+                -- 处理特殊情况：有些掉落物（如金币）或玩家房子不应继承城市所有权脚本
+                if layout == "city_park_7" and prefab == "oinc" then city_temp = nil end
+                if layout == "pig_playerhouse_1" and prefab ~= "playerhouse_city" then city_temp = nil end
 
                 add_temp_ents(spawners, new_pt.x, new_pt.z, prefab, city_temp, data.properties)
             end
@@ -453,9 +393,10 @@ local function spawn_setpiece(entities, width, height, spawners, layout, pt, cit
     end
 end
 
+-- 在路边指定位置放置“商店占位符”，后续会被替换为真正的商店实体
 local function set_shop(spawners, pt, dir, i, offset, nil_wieght, city)
     local spawn = "pig_shop_spawner"
-    local OFFSET = 6 / 4
+    local OFFSET = 8 / 4 -- 这里的 2.0 偏移量让商店对齐到 8x8 街道侧边
     local new_pt = {
         x = pt.x + (DIR_STEP[dir].x * i * OFFSET) + (OFFSET * DIR_STEP[get_dir(dir, offset)].x),
         y = 0,
@@ -464,24 +405,22 @@ local function set_shop(spawners, pt, dir, i, offset, nil_wieght, city)
 
     local pigshops_spawners = find_temp_ents(spawners, new_pt.x, new_pt.z, 1, { spawn })
 
-    local groundtile = WorldSim:GetTile(math.floor(new_pt.x), math.floor(new_pt.z))
-
-    if #pigshops_spawners == 0
-        and IsLandTile(groundtile)
-        and test_tile(new_pt, VALID_TILES_CITY) then
+    if #pigshops_spawners == 0 and test_tile(new_pt, VALID_TILES_CITY) then
         add_temp_ents(spawners, new_pt.x, new_pt.z, spawn, city.city_id)
     end
 end
 
-local function add_pig_shops(spawners, pt, dir, nil_wieght, city) -- pig shops and parks..
+-- 在道路的两侧尝试添加商店
+local function add_pig_shops(spawners, pt, dir, nil_wieght, city)
     for i = 1, 3 do
         set_shop(spawners, pt, dir, i, 1, nil_wieght, city)
         set_shop(spawners, pt, dir, i, -1, nil_wieght, city)
     end
 end
 
+-- 计算并记录“公园区域”的坐标，公园通常占地较大（8x8 街区）
 local function set_park_coord(pt, dir, i, offset, city)
-    local OFFSET = 6 / 4
+    local OFFSET = 8 / 4
 
     local new_pt = {
         x = pt.x + (DIR_STEP[dir].x * i * OFFSET) + (OFFSET * DIR_STEP[get_dir(dir, offset)].x * math.abs(offset)),
@@ -489,9 +428,8 @@ local function set_park_coord(pt, dir, i, offset, city)
         z = pt.z + (DIR_STEP[dir].z * i * OFFSET) + (OFFSET * DIR_STEP[get_dir(dir, offset)].z * math.abs(offset))
     }
 
-    -- make sure all 25 tiles are free.
     local pass = true
-
+    -- 确保拟定公园区域内的地皮是完整的，没有穿模到水里
     for x = -2, 2 do
         for y = -2, 2 do
             local ground = WorldSim:GetTile(math.floor(new_pt.x) + (x), math.floor(new_pt.z) + (y))
@@ -512,20 +450,22 @@ local function set_park_coord(pt, dir, i, offset, city)
         end
         if pass then
             new_pt.city_id = city.city_id
-            table.insert(city.parks, new_pt)
+            table.insert(city.parks, new_pt) -- 存入城市的公园候选点列表
         end
     end
 end
 
-local function add_park_zones(pt, dir, city) -- pig shops and parks..
+-- 在街道尽头或特定偏移处标记公园候选区域
+local function add_park_zones(pt, dir, city)
     local i = 2
     set_park_coord(pt, dir, i, 2, city)
     set_park_coord(pt, dir, i, -2, city)
 end
 
+-- 在路灯杆位放置路灯实体，防止重复放置
 local function spawn_city_light(spawners, pt, dir, offset, city_id)
     local spawn = "city_lamp"
-    local OFFSET = 5 / 8
+    local OFFSET = 1
     local newpt = {
         x = pt.x + (DIR_STEP[dir].x * OFFSET) + (OFFSET * DIR_STEP[get_dir(dir, offset)].x),
         y = 0,
@@ -535,35 +475,27 @@ local function spawn_city_light(spawners, pt, dir, offset, city_id)
     local lamps = find_temp_ents(spawners, newpt.x, newpt.z, 0.5, { spawn })
 
     if #lamps == 0 then
-        local ground = WorldSim:GetTile(math.floor(newpt.x), math.floor(newpt.z))
-        if ground then
+        if test_tile(newpt, VALID_TILES_CITY) then
             add_temp_ents(spawners, newpt.x, newpt.z, spawn, city_id)
         end
     end
 end
 
+-- 在街道节点两侧添加路灯
 local function add_city_lights(spawners, pt, dir, city_id)
     spawn_city_light(spawners, pt, dir, 1, city_id)
     spawn_city_light(spawners, pt, dir, -1, city_id)
 end
 
+-- 道路延展逻辑：从当前点向指定方向“走”一段距离，边走边铺设城市地皮，并沿途添加设施
 local function make_road(entities, width, height, spawners, pt, dir, sub_urb, city)
-    local step_max = 7
+    local step_max = 9
     local step = 1
     local new_pt = nil
-    local offset = 1 -- 4
+    local offset = 1
 
-    local two_way_chance = 0.8
-    local bend_chance = 0.4
-    local not_t_int_chance = 0.3
     local nil_pig_shop_weight = 6
-
-    if sub_urb then
-        two_way_chance = 0.8
-        bend_chance = 0.2
-        not_t_int_chance = 0.6
-        nil_pig_shop_weight = 12
-    end
+    if sub_urb then nil_pig_shop_weight = 12 end
 
     while step < step_max and step > -1 do
         new_pt = {
@@ -572,61 +504,37 @@ local function make_road(entities, width, height, spawners, pt, dir, sub_urb, ci
             z = pt.z + (DIR_STEP[dir].z * step * offset)
         }
 
-        if test_tile(new_pt, VALID_TILES) then
+        if test_tile(new_pt, VALID_TILES_BASE) then
             place_tile_city(entities, width, height, new_pt)
-            -- placeTile(newpt)
             step = step + 1
         else
-            step = -1
+            step = -1 -- 遇到边缘停止延伸
         end
     end
 
+    -- 如果道路延伸成功，则在末端添加配套设施
     if step == step_max then
-        -- has reached a new intersection
-        local dir_set = { false, false, false, false }
-
-        if math.random() < two_way_chance then
-            -- just a 2 way
-            if math.random() < bend_chance then
-                local inc = math.random() < 0.5 and -1 or 1
-                dir_set[get_dir(dir, inc)] = true
-            else
-                -- go strait
-                dir_set[dir] = true
-            end
-        else
-            -- a 3 way
-            dir_set = { true, true, true, true }
-            dir_set[opp_dir(dir)] = false
-
-            if math.random() < not_t_int_chance then
-                -- include strait
-                local inc = math.random() < 0.5 and -1 or 1
-                dir_set[get_dir(dir, inc)] = false
-            else
-                -- T branch
-                dir_set[dir] = false
-            end
-        end
         add_pig_shops(spawners, pt, dir, nil_pig_shop_weight, city)
         add_park_zones(pt, dir, city)
         add_city_lights(spawners, pt, dir, city.city_id)
     end
 end
 
+-- 基础坐标取整辅助函数
 local function get_div1_tile(x, y, z)
     x = x - (math.fmod(x, 1))
     z = z - (math.fmod(z, 1))
-
     return x, y, z
 end
 
-local function get_div6_tile(x, y, z)
-    x = x - (math.fmod(x, 6))
-    z = z - (math.fmod(z, 6))
+-- 8x8 网格对齐函数：确保所有街道节点都锁定在 8 为倍数的网格中心点上
+local function get_div8_tile(x, y, z)
+    x = x - (math.fmod(x, 8)) + 4
+    z = z - (math.fmod(z, 8)) + 4
     return x, y, z
 end
 
+-- 检查某个点是否已经存在于坐标列表中，避免重复处理
 local function is_pt_in_list(pt, data)
     local idx = nil
     for i, coord in ipairs(data) do
@@ -638,12 +546,13 @@ local function is_pt_in_list(pt, data)
     return idx
 end
 
+-- 迷宫式生长辅助函数：从当前点向四面探测，如果在待选网格内则加入开放路径
 local function add_dirs(pt, grid, open_dirs)
     for dir, data in ipairs(DIR_STEP) do
         local new_pt = {
-            x = pt.x + (data.x * 6),
+            x = pt.x + (data.x * 8),
             y = pt.y,
-            z = pt.z + (data.z * 6)
+            z = pt.z + (data.z * 8)
         }
 
         local idx = is_pt_in_list(new_pt, grid)
@@ -651,6 +560,7 @@ local function add_dirs(pt, grid, open_dirs)
             table.insert(open_dirs, { pt = pt, newpt = new_pt, dir = dir })
             table.remove(grid, idx)
         else
+            -- 随机概率允许向已处理的方向生成“断头路”
             if math.random() < 0.3 then
                 table.insert(open_dirs, { pt = pt, dir = dir })
             end
@@ -660,80 +570,63 @@ local function add_dirs(pt, grid, open_dirs)
 end
 
 
+-- 城市生成核心逻辑：选择起点，填充网格，通过类似 Prim 算法的逻辑随机生成街道网格
 local function create_city(entities, width, height, spawners, city)
     local start_node = nil
 
-    -- this requires that at least one of the city nodes's center is not outside the land.
+    -- 尝试在城市区域内找一个合法的起点
     while not start_node do
         local idx = math.random(1, #city.citynodes)
         start_node = city.citynodes[idx]
         local x, z = start_node.cent[1], start_node.cent[2]
         local y = 0
-        x, y, z = get_div6_tile(x, 0, z)
-        local testpt = {
-            x = x,
-            y = y,
-            z = z
-        }
-        if not test_tile(testpt, VALID_TILES) then
-            start_node = nil
-        end
+        x, y, z = get_div8_tile(x, 0, z)
+        local testpt = { x = x, y = y, z = z }
+        if not test_tile(testpt, VALID_TILES) then start_node = nil end
     end
 
 
-    -- this is to catch if every node center was outside the land
+    -- 如果中心点都不行，则遍历多边形顶点尝试找起点
     if not start_node then
         local new_node_list = deepcopy(city.citynodes)
         while not start_node do
             local idx = math.random(1, #new_node_list)
             start_node = new_node_list[idx]
             local ok = false
-
             for i = 1, #start_node.poly.x, 1 do
                 local x, z = start_node.poly.x[i], start_node.poly.y[i]
                 local y = 0
-
-                x, y, z = get_div6_tile(x, 0, z)
-
-                local testpt = {
-                    x = x,
-                    y = y,
-                    z = z
-                }
-                if test_tile(testpt, VALID_TILES) then
+                x, y, z = get_div8_tile(x, 0, z)
+                if test_tile({ x = x, y = y, z = z }, VALID_TILES) then
                     ok = true
                     break
                 end
             end
-            if not ok then
-                start_node = nil
-            end
+            if not ok then start_node = nil end
             table.remove(new_node_list, idx)
         end
     end
 
     local x, z = start_node.cent[1], start_node.cent[2]
     local y = 0
-    x, y, z = get_div6_tile(x, 0, z)
+    x, y, z = get_div8_tile(x, 0, z)
 
     local grid = { { x = x, y = y, z = z } }
 
+    -- 扫描 17x17 的范围，将所有属于城市 Tag 且地皮合法的点加入网格列表
     for nx = -8, 8 do
         for nz = -8, 8 do
             local newpt = {
-                x = x + (nx * 6),
+                x = x + (nx * 8),
                 y = y,
-                grid,
-                z = z + (nz * 6)
+                z = z + (nz * 8)
             }
-
             local in_city_node = false
             for i, node in ipairs(city.citynodes) do
                 if WorldSim:PointInSite(node.id, newpt.x, newpt.z) then
                     in_city_node = true
                 end
             end
-
             if test_tile(newpt, VALID_TILES) and in_city_node then
                 table.insert(grid, newpt)
             end
@@ -748,6 +641,7 @@ local function create_city(entities, width, height, spawners, city)
         place_tile_city(entities, width, height, start)
     end
 
+    -- 迭代生成路口和街道
     local maxintersections = 30
     local opendirs = {}
 
@@ -758,7 +652,6 @@ local function create_city(entities, width, height, spawners, city)
         local data = opendirs[idx]
         make_road(entities, width, height, spawners, data.pt, data.dir, true, city)
         if data.newpt then
-            -- add_temp_ents(spawners, data.newpt.x, data.newpt.z, "onemanband", city.city_id)
             grid, opendirs = add_dirs(data.newpt, grid, opendirs)
             maxintersections = maxintersections - 1
         end
@@ -766,33 +659,27 @@ local function create_city(entities, width, height, spawners, city)
     end
 end
 
+-- 在预留的公园候选点生成公园、皇宫、市政厅或玩家房子
 local function make_parks(entities, width, height, spawners, city, unique, unique_parks)
     local total_parks = #city.citynodes
-    if unique then
-        total_parks = unique_parks
-    end
+    if unique then total_parks = unique_parks end
 
     for i = 1, total_parks do
         if #city.parks > 0 then
             local index = math.random(1, #city.parks)
             local park = city.parks[index]
 
+            -- 公园区域如果有商店占位符，先移除
             local pigshops_spawners = find_temp_ents(spawners, park.x, park.z, 3, { "pig_shop_spawner" })
-
-            -- local pigshops_spawners = TheSim:FindEntities(park.x, park.y, park.z, 15, {"pig_shop_spawner"})
             for _, spawner in ipairs(pigshops_spawners) do
                 for s = #spawners, 1, -1 do
-                    if spawner == spawners[s] then
-                        table.remove(spawners, s)
-                    end
+                    if spawner == spawners[s] then table.remove(spawners, s) end
                 end
             end
 
-            -- print("-------------------------------- SHOULD I SPAWN A PALACE?", made_palace)
-            -- Spawn palace first
+            -- 优先级：皇宫 (城市2) > 市政厅 (城市1) > 玩家房 (城市1) > 普通/特殊公园
             if made_palace == false and city.city_id == 2 then
                 local choice = "pig_palace_1"
-                print("--------------------------------  PLACING PALACE")
                 if choice ~= nil then
                     spawn_setpiece(entities, width, height, spawners, choice, { x = park.x, y = park.y, z = park.z },
                         city)
@@ -836,6 +723,7 @@ local function make_parks(entities, width, height, spawners, city, unique, uniqu
     end
 end
 
+-- 在农田区域生成具体的农田布局
 local function place_farm(entities, width, height, spawners, nodes, city, total, set)
     local placed_farms = 0
     local break_limit = 0
@@ -848,21 +736,15 @@ local function place_farm(entities, width, height, spawners, nodes, city, total,
             local farm_num = math.random(1, #nodes)
             local untested = true
             for i, checked_node in ipairs(tested_nodes) do
-                if checked_node == farm_num then
-                    untested = false
-                end
+                if checked_node == farm_num then untested = false end
             end
 
             if untested then
                 table.insert(tested_nodes, farm_num)
-
-                local location = {
-                    x = nodes[farm_num].cent[1],
-                    y = 0,
-                    z = nodes[farm_num].cent[2],
-                }
+                local location = { x = nodes[farm_num].cent[1], y = 0, z = nodes[farm_num].cent[2] }
                 location.x, location.y, location.z = get_div1_tile(location.x, location.y, location.z)
 
+                -- 校验：农田不能太靠近水边
                 local place_farm = true and not SpawnUtil.IsCloseToWaterTile(location.x, location.z, 1)
                 if place_farm then
                     local choice = set[math.random(1, #set)]
@@ -882,22 +764,22 @@ local function place_farm(entities, width, height, spawners, nodes, city, total,
     return nodes
 end
 
+-- 放置必须生成的特殊农田（如传送机基座相关的）
 local function place_unique_farms(entities, width, height, spawners, cities)
     for i, farm in ipairs(REQUIRED_FARMS) do
         local city = math.random(1, CITIES)
-
         local nodes = cities[city].farmnodes
         place_farm(entities, width, height, spawners, nodes, cities[city], 1, { farm })
     end
 end
 
+-- 在被标记为 Cultivated（耕作地）的区域生成农田和农田守卫塔
 local function make_farms(entities, width, height, spawners, nodes, city)
     nodes = place_farm(entities, width, height, spawners, nodes, city, 3, FARM_CHOICES)
     nodes = place_farm(entities, width, height, spawners, nodes, city, 5, FARM_FILLER_CHOICES)
 
     for i, node in ipairs(nodes) do
         local prefabs = find_temp_ents(spawners, node.cent[1], node.cent[2], 1)
-
         if #prefabs == 0 then
             if test_tile({ x = node.cent[1], z = node.cent[2] }, { WORLD_TILES.FIELDS }) then
                 add_temp_ents(spawners, node.cent[1], node.cent[2], "pig_guard_tower", city.city_id)
@@ -906,17 +788,13 @@ local function make_farms(entities, width, height, spawners, nodes, city)
     end
 end
 
+-- 建筑配额结算：将“商店占位符”随机替换为配额表中定义的具体商店和房屋
 local function set_buildings(spawners, city)
     local building_quotas = {}
-
     local set = BUILDING_QUOTAS
-    if city.city_id == 2 then
-        set = BUILDING_QUOTAS_2
-    end
+    if city.city_id == 2 then set = BUILDING_QUOTAS_2 end
 
-    for item, data in pairs(set) do
-        building_quotas[item] = data
-    end
+    for item, data in pairs(set) do building_quotas[item] = data end
 
     local eligable_list = {}
     for i, spawn in ipairs(spawners) do
@@ -928,7 +806,6 @@ local function set_buildings(spawners, city)
     for _, data_set in pairs(building_quotas) do
         local building_type = data_set.prefab
         local num = data_set.num
-
         for t = 1, num do
             if #eligable_list > 0 then
                 local location = math.random(1, #eligable_list)
@@ -940,6 +817,7 @@ local function set_buildings(spawners, city)
         end
     end
 
+    -- 移除最后剩下没被替换的占位符
     for i = #spawners, 1, -1 do
         if spawners[i].prefab == "pig_shop_spawner" and spawners[i].city == city.city_id then
             table.remove(spawners, i)
@@ -947,6 +825,7 @@ local function set_buildings(spawners, city)
     end
 end
 
+-- 全局移除所有剩余的商店占位符（冗余清理）
 local function remove_shop_spawners(spawners)
     for i = #spawners, 1, -1 do
         if spawners[i].prefab == "pig_shop_spawner" then
@@ -955,57 +834,48 @@ local function remove_shop_spawners(spawners)
     end
 end
 
--- finds if an item is in a list, removes it and returns the item.
+-- 列表查找并移除辅助函数
 local function is_in_list(list_item, list, dont_remove)
     for i, item in ipairs(list) do
         if item == list_item then
-            if not dont_remove then
-                table.remove(list, i)
-            end
+            if not dont_remove then table.remove(list, i) end
             return item
         end
     end
     return false
 end
 
+-- 嵌套列表查找辅助函数
 local function is_in_nested_list(list_item, parent_list)
     for i, items in pairs(parent_list) do
-        if is_in_list(list_item, items, true) then
-            return list_item
-        end
+        if is_in_list(list_item, items, true) then return list_item end
     end
     return false
 end
 
+-- 【核心主函数】：执行整个猪人城市的生成流程
 local function make_cities(entities, topology_save, worldsim, width, height, setcurrent_gen_params)
     print("BUILDING PIG CULTURE")
 
-    local spawners = {} -- anything that is added here that needs to be looked at before finally being added to the entites list.
+    local spawners = {} -- 初始化临时实体列表
 
+    -- 重置全局唯一建筑标记
     made_palace = false
     made_cityhall = false
     made_playerhouse = false
 
+    -- 第一阶段：根据世界拓扑数据识别并分类城市节点和农田节点
     local cities = {}
     for city_id = 1, CITIES do
-        cities[city_id] = {}
-        cities[city_id].parks = {}
-        cities[city_id].citynodes = {}
-        cities[city_id].farmnodes = {}
-        cities[city_id].city_id = city_id
-        -- cities[city_id].spawners = {}
+        cities[city_id] = { parks = {}, citynodes = {}, farmnodes = {}, city_id = city_id }
 
         for task, node in pairs(topology_save.root:GetNodes(true)) do
             if table.contains(node.data.tags, "City" .. city_id) then
                 local poly_x, poly_y = WorldSim:GetPointsForSite(node.id)
                 local c_x, c_y = WorldSim:GetSiteCentroid(node.id)
-                local nodedata = {
-                    cent = { c_x, c_y },
-                    id = node.id,
-                    poly = { x = poly_x, y = poly_y }
-                }
+                local nodedata = { cent = { c_x, c_y }, id = node.id, poly = { x = poly_x, y = poly_y } }
 
-                if is_in_nested_list(node.id, topology_save.GlobalTags["City_Foundation"]) then -- and not nodedata.suburb == true
+                if is_in_nested_list(node.id, topology_save.GlobalTags["City_Foundation"]) then
                     table.insert(cities[city_id].citynodes, nodedata)
                 end
 
@@ -1016,22 +886,24 @@ local function make_cities(entities, topology_save, worldsim, width, height, set
         end
     end
 
+    -- 第二阶段：生成农田布局
     place_unique_farms(entities, width, height, spawners, cities)
 
+    -- 第三阶段：对每个城市执行网格生成、公园放置、建筑结算
     for city_ID, city in ipairs(cities) do
         create_city(entities, width, height, spawners, city)
         make_parks(entities, width, height, spawners, city, true, 2)
         make_parks(entities, width, height, spawners, city)
         set_buildings(spawners, city)
         make_farms(entities, width, height, spawners, city.farmnodes, city)
-        -- makeFarms(city.farmnodes,city, 25, FARM_FILLER_CHOICES)
     end
 
+    -- 第四阶段：收尾，清理占位符并将结果导出到游戏世界实体列表
     remove_shop_spawners(spawners)
-
     export_spawners_to_entites(entities, width, height, spawners)
 
     return entities
 end
 
+-- 返回生成函数给世界加载器
 return make_cities
