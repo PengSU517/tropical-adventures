@@ -7,6 +7,10 @@ local WikiDesc = {
                     Players can experience vanilla DST content, Shipwrecked,
                     and Hamlet content simultaneously in the same world ([No world-hopping required]).
                     ----------------
+                    The world's default starting area is [Hamlet].
+                    Marble setpieces will spawn randomly across the entire map.
+                    Other content, such as the Stagehand (Stageplay), Junkyard, and Balatro machine, will spawn in the starting location's area.
+                    ----------------
                     When generating a world via the client, please adjust settings through the [Forest & Caves tab].
                     For dedicated servers, please [generate the world via the client] first, then upload the save to the server.]]
         },
@@ -277,6 +281,9 @@ local WikiTerms = {
     mod_preview = "Foreword",
     mod_sponser = "Support / Donate",
     click_to_read = "Click to view 'Tropical Adventure' Wiki",
+    drag = "drag",
+    reset = "reset",
+    zoom = "zoom",
 }
 
 return {

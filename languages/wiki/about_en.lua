@@ -16,6 +16,10 @@ We truly appreciate the foundations laid by these talented developers.
 Planning Update:
     1. Fixing trawlnet...
 
+26.02.28 Update:
+    1. Terrain generation is now compatible with [Montfluv].
+    2. Optimized the Mod Wiki UI.
+
 
 Feb 26, 2025 Update:
     1. Added Mod Wiki/Encyclopedia.
@@ -30,10 +34,11 @@ Feb 26, 2025 Update:
 ]]
 
 local str_preview = [[
-The full name of this mod is 【Tropical Adventure | Ship of Theseus】.
-True to its name, my goal is to maintain the mod's availability while gradually replacing and updating its original content—much like the Ship of Theseus—allowing it to continuously find new life.
+The full name of this mod is [Tropical Adventure | Ship of Theseus].
 
-If you feel your journey thus far has been exciting, feel free to support us through a donation. Your appreciation is an affirmation of our past work!
+True to its name, our goal is to gradually replace and update the original content—ensuring the mod remains functional at all times—so it can continue to evolve and stay fresh.
+
+If you've found the journey so far to be exciting, feel free to support us through a donation. Your appreciation is an affirmation of our past work and the driving force that keeps us updating!
 ]]
 
 local WikiAbout = {
