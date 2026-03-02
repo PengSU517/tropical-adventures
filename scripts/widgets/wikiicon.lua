@@ -10,21 +10,28 @@ local SCROLL_UP = MOUSEBUTTON_SCROLLUP       -- 滚轮向上 (4)
 local SCROLL_DOWN = MOUSEBUTTON_SCROLLDOWN   -- 滚轮向下 (5)
 local SAVE_KEY = "WikiIcon_User_Layout"      -- 存档键名
 
--- -- 存档读写封装（确保数据持久化）
--- local function SaveData(id, value)
---     if not id then return end
---     if SaveModData then
---         SaveModData(id, value)
---     end
--- end
+-- [[以下代码来自蘑菇慕斯]]
 
--- local function LoadData(id)
---     if not id then return nil end
---     if LoadModData then
---         return LoadModData(id)
---     end
---     return nil
--- end
+-- 文件存储 --
+-- 文件存储 id的值应该是存储数据的ID, 不同功能绝不应该设置相同的ID
+local SavePSData = require("persistentdata")
+local DataContainerID = "ModData_DragZoomUI"
+local ModDataContainer = SavePSData(DataContainerID)
+ModDataContainer:Load()
+
+local function SaveData(id, value)
+    if not id then return end
+    ModDataContainer:SetValue(id, value)
+    ModDataContainer:Save()
+    print("ModDragZoomUI存储数据", id, value)
+end
+
+local function LoadData(id)
+    if not id then return end
+    local value = ModDataContainer:GetValue(id)
+    if value == nil then print("ModDragZoomUI读取失败, 再次尝试", id) end
+    return value
+end
 
 local WikiIcon = Class(Widget, function(self)
     Widget._ctor(self, "WikiIcon")
@@ -32,13 +39,14 @@ local WikiIcon = Class(Widget, function(self)
 
     -- 1. 创建图标按钮
     self.pageIcon = self.root:AddChild(ImageButton(
+    -- "images/tro_icon.xml", "TA_ICON.tex",
         "images/inventoryimages1.xml", "book_research_station.tex",
         nil, nil, nil, nil, { 1, 1 }, { 0, 0 }))
 
     self.pageIcon:SetScale(2.5, 2.5, 2.5)
     self.pageIcon:SetHAnchor(1)      -- 左
     self.pageIcon:SetVAnchor(2)      -- 下
-    self.pageIcon:SetPosition(350, 70, 0)
+    self.pageIcon:SetPosition(500, 300, 0)
     self.pageIcon:SetClickable(true) -- 确保接收鼠标事件
 
     -- 基础功能：点击打开界面
@@ -86,11 +94,11 @@ local WikiIcon = Class(Widget, function(self)
             pos = { x = pos.x, y = pos.y, z = pos.z },
             scale = { x = scx, y = scy, z = scz }
         }
-        -- SaveData(SAVE_KEY, data)
+        SaveData(SAVE_KEY, data)
     end
 
     self.LoadLayout             = function()
-        local data = nil --LoadData(SAVE_KEY)
+        local data = LoadData(SAVE_KEY)
         if data then
             if data.pos then
                 self.ApplyTransform(self.pageIcon, oldSetPos, data.pos.x, data.pos.y, data.pos.z)
