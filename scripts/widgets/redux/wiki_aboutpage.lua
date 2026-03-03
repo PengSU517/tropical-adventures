@@ -96,7 +96,7 @@ function WikiAboutPage:LeftDesc()
     about_text:SetVAlign(ANCHOR_TOP)
     about_text:SetMultilineTruncatedString(desc_about.str_back, 100, 370)
     local _, textH_5 = about_text:GetRegionSize()
-    y = y - textH_4 / 2 - textH_5 / 2 - 30
+    y = y - textH_4 / 2 - textH_5 / 2
     about_text:SetPosition(0, y)
 
     about_text = left_widget:AddChild(Text(HEADERFONT, name_font_size * size_multi, "", UICOLOURS.BRONZE))
@@ -110,8 +110,7 @@ function WikiAboutPage:LeftDesc()
     about_text:SetVAlign(ANCHOR_TOP)
     about_text:SetMultilineTruncatedString(desc_about.str_progress, 100, 370)
     local _, textH_1 = about_text:GetRegionSize()
-    -- y = y - textH_0/2 - textH_1/2 - 30
-    y = y - textH_0 / 2 - textH_1 / 2 - 30
+    y = y - textH_0 / 2 - textH_1 / 2
     about_text:SetPosition(0, y)
 
     -- 滑动区域的宽

@@ -63,8 +63,8 @@ end
 name = pub_dev(en_zh("Tropical Adventures|Ship of Theseus", "热带冒险|忒修斯之船"),
     en_zh("Tropical Adventures|Dev", "热带冒险|开发版"))
 
-author = "Peng, Runar, momo, 杰杰"
-version = "26.02.25"
+author = "Peng et al."
+version = "26.03.03"
 forumthread = ""
 api_version = 10
 priority = -100

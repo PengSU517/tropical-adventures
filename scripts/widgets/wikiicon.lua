@@ -15,7 +15,7 @@ local SAVE_KEY = "WikiIcon_User_Layout"      -- 存档键名
 -- 文件存储 --
 -- 文件存储 id的值应该是存储数据的ID, 不同功能绝不应该设置相同的ID
 local SavePSData = require("persistentdata")
-local DataContainerID = "ModData_DragZoomUI"
+local DataContainerID = "ModWiki_DragZoomUI"
 local ModDataContainer = SavePSData(DataContainerID)
 ModDataContainer:Load()
 
@@ -23,13 +23,13 @@ local function SaveData(id, value)
     if not id then return end
     ModDataContainer:SetValue(id, value)
     ModDataContainer:Save()
-    print("ModDragZoomUI存储数据", id, value)
+    print("ModWiki_DragZoomUI存储数据", id, value)
 end
 
 local function LoadData(id)
     if not id then return end
     local value = ModDataContainer:GetValue(id)
-    if value == nil then print("ModDragZoomUI读取失败, 再次尝试", id) end
+    if value == nil then print("ModWiki_DragZoomUI读取失败, 再次尝试", id) end
     return value
 end
 
