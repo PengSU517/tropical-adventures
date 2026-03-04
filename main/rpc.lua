@@ -9,7 +9,7 @@ AddShardModRPCHandler("Tropical adventures", "aporkalypse begin date", function(
     end
 end)
 
---[[
+--[=[
 local function GetNetworkPlayer(NetworkID)
     for _, p in ipairs(AllPlayers) do
         if NetworkID == p.Network:GetNetworkID() then
@@ -59,12 +59,4 @@ AddShardModRPCHandler("Tropical adventures", "ForceMatchPortal", function(shardi
         end
     end
 end)
-]]
-
-AddModRPCHandler("Tropical adventures", "FiniteusesGet", function(player, item)
-    SendModRPCToClient(GetClientModRPC("Tropical adventures", "FiniteusesPost"), player, item, item.components.finiteuses:GetPercent())
-end)
-
-AddClientModRPCHandler("Tropical adventures", "FiniteusesPost", function(item, percent)
-    item:PushEvent("percentusedchange", { percent = percent })
-end)
+]=]

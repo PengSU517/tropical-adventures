@@ -18,26 +18,28 @@ AddClassPostConstruct("widgets/containerwidget", function(self)
     self.boatbadge:SetPosition(0, 45, 0)
     self.boatbadge:Hide()
 
-    local function BoatState(inst, data)
-        self.boatbadge:SetPercent(data.percent, boat_health[inst.prefab] or 150)
+    local function CheckBoatState(inst)
+        print("boat of widget", inst)
+        local percent = inst and inst.GetPercentUsed and inst:GetPercentUsed() or 1.
+
+        self.boatbadge:SetPercent(percent, boat_health[inst.prefab] or 150)
 
         if self.boathealth then
-            if data.percent > self.boathealth then
+            if percent > self.boathealth then
                 self.boatbadge:PulseGreen()
-            elseif data.percent < self.boathealth - 0.015 then
+            elseif percent < self.boathealth - 0.015 then
                 self.boatbadge:PulseRed()
             end
         end
 
-        self.boathealth = data.percent
+        self.boathealth = percent
 
-        if data.percent <= .25 then
+        if percent <= .25 then
             self.boatbadge:StartWarning()
         else
             self.boatbadge:StopWarning()
         end
     end
-
 
     local OldOpen = self.Open
     function self:Open(container, doer)
@@ -50,15 +52,8 @@ AddClassPostConstruct("widgets/containerwidget", function(self)
             self.boatbadge:Show()
             self.isboat = not widget.isboatinspect
             self.isboatinspect = widget.isboatinspect
-            self.inst:ListenForEvent("percentusedchange", BoatState, container)
-            if GLOBAL.TheWorld.ismastersim then
-                container:PushEvent("percentusedchange",
-                    { percent = container.components.finiteuses:GetPercent() })
-            elseif container.replica.inventoryitem.classified then
-                container.replica.inventoryitem:DeserializeUsage()
-            else
-                SendModRPCToServer(GetModRPC("Tropical adventures", "FiniteusesGet"), container)
-            end
+            CheckBoatState(container)
+            self.inst:ListenForEvent("boatrow._percentuseddirty", CheckBoatState, container)
             self:UpdatePosition()
         end
         if widget.bgpos then
@@ -72,7 +67,7 @@ AddClassPostConstruct("widgets/containerwidget", function(self)
         self.bganim:SetPosition(0, 0, 0)
         if self.isboat or self.isboatinspect then
             self.boatbadge:Hide()
-            self.inst:RemoveEventCallback("percentusedchange", BoatState, self.contanier)
+            self.inst:RemoveEventCallback("boatrow._percentuseddirty", CheckBoatState, self.container)
         end
     end
 
