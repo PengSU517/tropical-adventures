@@ -191,17 +191,37 @@ function WikiAboutPage:RightDesc()
     y = y - textH_X / 2 - 30
     about_text:SetPosition(0, y)
 
-    local textH_4 = 200
+    local textH_3 = 150
+    about_text = right_widget:AddChild(Text(HEADERFONT, name_font_size * size_multi, desc_terms.mod_sponser,
+        UICOLOURS.BROWN_DARK))
+    y = y - textH_3
+    about_text:SetPosition(0, y)
 
+    local textH_4 = 100
     about_text = right_widget:AddChild(Image("images/code.xml", "code.tex"))
     y = y - textH_4
     about_text:SetPosition(0, y)
     about_text:SetScale(0.25)
 
+    local textH_5 = 100
+    about_text = right_widget:AddChild(Text(HEADERFONT, name_font_size * size_multi, desc_terms.mod_sponser_list,
+        UICOLOURS.BROWN_DARK))
+    y = y - textH_5
+    about_text:SetPosition(0, y)
+
+    local about_text = right_widget:AddChild(Text(HEADERFONT, text_font_size * size_multi, "", UICOLOURS.BROWN_DARK))
+    about_text:SetHAlign(ANCHOR_LEFT)
+    about_text:SetVAlign(ANCHOR_TOP)
+    about_text:SetMultilineTruncatedString("Nobody yet", 200, 300)
+    local _, textH_X = about_text:GetRegionSize()
+    y = y - textH_X / 2 - 30
+    about_text:SetPosition(0, y)
+
+
 
 
     local width = 360
-    local height = textH_4 + 300
+    local height = textH_4 + textH_3 + textH_5 + 300
     local PANEL_HEIGHT = 530
     local max_visible_height = PANEL_HEIGHT - 80 -- -20
     local padding = 5

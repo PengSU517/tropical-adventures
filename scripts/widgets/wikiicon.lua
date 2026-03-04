@@ -135,7 +135,7 @@ local WikiIcon = Class(Widget, function(self)
             handled = true
             local curX, curY, curZ = inst:GetLooseScale()
             local step = (button == SCROLL_UP) and 0.05 or -0.05
-            local nextS = math.max(1, curX + step) -- 限制最小缩放防止消失
+            local nextS = math.clamp(curX + step, 1, 5) -- 限制最小缩放防止消失
             self.ApplyTransform(inst, oldSetScale, nextS, nextS, nextS)
             self.SaveLayout()
         end
@@ -161,6 +161,7 @@ local WikiIcon = Class(Widget, function(self)
         zoomIcon, desc_terms.zoom
     )
     self.pageIcon:SetTooltip(fullTooltip)
+    self.pageIcon:SetTooltipPos(0, 40, 0)
 
     self:LoadLayout() -- 启动时自动加载保存的位置和大小
 

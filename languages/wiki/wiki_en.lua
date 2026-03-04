@@ -279,7 +279,10 @@ local WikiTerms = {
     mod_progress = "Update Log",
     mod_about = "Tropical Adventure | Ship of Theseus",
     mod_preview = "Foreword",
-    mod_sponser = "Support / Donate",
+    mod_sponser = "Donate & Support US !!",
+    mod_sponser_list = "Sponser List",
+
+    --------
     click_to_read = "Click to view 'Tropical Adventure' Wiki",
     drag = "drag",
     reset = "reset",

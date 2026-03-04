@@ -269,7 +269,10 @@ local WikiTerms = {
     mod_progress = "更新日志",
     mod_about = "热带冒险 | 忒修斯之船",
     mod_preview = "写在前面",
-    mod_sponser = "赞助",
+    mod_sponser = "打赏支持我们！！",
+    mod_sponser_list = "赞助名单",
+
+    -- 提示
     click_to_read = "点击查看\"热带冒险\"百科",
     drag = "拖拽",
     reset = "重置",
