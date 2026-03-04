@@ -29,12 +29,10 @@ POPUPS.WIKIBOOK.fn = function(inst, show)
     end
 end
 
-
-
-
-if true then
-    local wikiIcon = require("widgets/wikiicon")
-    AddClassPostConstruct("widgets/controls", function(self)
-        self.wikiIcon = self:AddChild(wikiIcon()) --说明页图标
-    end)
-end
+local wikiIcon = require("widgets/wikiicon")
+AddClassPostConstruct("widgets/controls", function(self)
+    self.wikiIcon = self:AddChild(wikiIcon())     --说明页图标
+    if self.hover ~= nil then
+        self.hover:MoveToFront()
+    end
+end)
