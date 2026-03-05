@@ -19,7 +19,6 @@ AddClassPostConstruct("widgets/containerwidget", function(self)
     self.boatbadge:Hide()
 
     local function CheckBoatState(inst)
-        print("boat of widget", inst)
         local percent = inst and inst.GetPercentUsed and inst:GetPercentUsed() or 1.
 
         self.boatbadge:SetPercent(percent, boat_health[inst.prefab] or 150)

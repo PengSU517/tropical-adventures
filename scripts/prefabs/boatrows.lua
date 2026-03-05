@@ -181,9 +181,8 @@ local function makeBoatFn(config)
         inst:AddTag("outofreach")
 
         inst.percentused = net_byte(inst.GUID, "boatrow._percentused", "boatrow._percentuseddirty")
-        inst.percentused:set(1)
+        inst.percentused:set_local(100)
         inst.GetPercentUsed = GetPercentUsed
-        print("boat", inst)
 
         inst.entity:SetPristine()
 
