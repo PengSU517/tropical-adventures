@@ -5,7 +5,7 @@ local lobster_assets            =
 {
     Asset("ANIM", "anim/lobster_build.zip"),
     Asset("ANIM", "anim/lobster_build_color.zip"),
-    Asset("ANIM", "anim/lobster.zip"),
+    Asset("ANIM", "anim/lobster_tropical.zip"),
     Asset("ANIM", "anim/lobster_water.zip"),
 }
 
@@ -37,6 +37,7 @@ local function fn()
     local inst = Prefabs.wobster_sheller_land.fn()
     inst:SetPrefabName("lobster_land")
 
+    inst.AnimState:SetBank("lobster_tropical")
     inst.AnimState:SetBuild("lobster_build_color")
 
     if not TheWorld.ismastersim then return inst end
@@ -47,6 +48,8 @@ local function fn()
 
     inst.components.cookable.product = "lobster_dead_cooked"
 
+    inst:SetStateGraph("SGlobsterland")
+
     return inst
 end
 
@@ -56,7 +59,7 @@ local function water_fn()
 
     inst:AddTag("lobster")
 
-    inst.AnimState:SetBank("lobster")
+    inst.AnimState:SetBank("lobster_tropical")
     inst.AnimState:SetBuild("lobster_build")
     inst.AnimState:SetMultColour(1, 1, 1, .3)
 
@@ -68,7 +71,7 @@ local function water_fn()
     lootdropper.trappable = true
     lootdropper:SetLoot({ "lobster_land" })
 
-    inst:SetStateGraph("SGwobstersw")
+    inst:SetStateGraph("SGlobster")
 
     return inst
 end

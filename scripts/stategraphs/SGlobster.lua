@@ -1,220 +1,258 @@
 require("stategraphs/commonstates")
 
-local actionhandlers = 
+local actionhandlers =
 {
-	ActionHandler(ACTIONS.EAT, "eat"),
-	ActionHandler(ACTIONS.GOHOME, "gohome"),
+    ActionHandler(
+        ACTIONS.EAT,
+        function(inst, action)
+            return (action.target.components.oceanfishable ~= nil and "bitehook_pre") or nil
+        end
+    ),
+    ActionHandler(ACTIONS.GOHOME, "enter_home"),
 }
 
-local events=
+local events =
 {
-	CommonHandlers.OnSleep(),
-	CommonHandlers.OnFreeze(),
-	CommonHandlers.OnDeath(),
-	CommonHandlers.OnAttacked(),
-	CommonHandlers.OnLocomote(true, true),
-	EventHandler("trapped", function(inst) inst.sg:GoToState("trapped") end),
+    CommonHandlers.OnLocomote(true, false),
 }
 
-local states=
+local states =
 {
-	State{
-		
-		name = "idle",
-		tags = {"idle", "canrotate"},
-		onenter = function(inst, playanim)
-			inst.Physics:Stop()
-			if playanim then
-				inst.AnimState:PlayAnimation(playanim)
-				inst.AnimState:PushAnimation("idle", true)
-			else
-				inst.AnimState:PlayAnimation("idle", true)
-			end
-		end,
-	},
-	
-	State{
-		
-		name = "gohome",
-		tags = {"busy"},
-		onenter = function(inst, playanim)
-			inst.Physics:Stop()
-			inst.AnimState:PlayAnimation("burrow")
-			inst.components.health:SetInvincible(true)
-			inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/burrow")
-		end,
-		events=
-		{
-			EventHandler("animover", function (inst, data) 
-				inst:PerformBufferedAction()
-				inst.sg:GoToState("idle")
-			end),
-		},
-		onexit = function(inst)
-			inst.components.health:SetInvincible(false)
-		end,
-	},
-	
-	State{
-		name = "eat",
-		-- TEMP ART!!!!
-		onenter = function(inst)
-			inst.Physics:Stop()
-			inst.AnimState:PlayAnimation("sleep_pre", false)
-			inst.AnimState:PushAnimation("sleep_loop", true)
-			inst.sg:SetTimeout(2+math.random()*4)
-		end,
-		
-		ontimeout= function(inst)
-			inst:PerformBufferedAction()
-			inst.sg:GoToState("idle", "sleep_pst")
-		end,
-	},    
+    State{
+        name = "bitehook_pre",
+        tags = { "busy" },
 
-	State{
-		name = "death",
-		tags = {"busy"},
-		
-		onenter = function(inst)
-			inst.AnimState:PlayAnimation("death")
-			inst.Physics:Stop()
-			RemovePhysicsColliders(inst)
-			inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/death")
-		end,
+        onenter = function(inst)
+            inst.components.locomotor:Stop()
 
-		events =
-		{
-			EventHandler("animover", function(inst) SpawnPrefab("lobster_dead").Transform:SetPosition(inst:GetPosition():Get()) end)
-		},
+            inst.AnimState:PlayAnimation("walk", false)
 
-	}, 
+            inst:PerformBufferedAction()
+        end,
 
-	State{
-		name = "fall",
-		tags = {"busy", "stunned"},
-		onenter = function(inst)
-			inst.Physics:SetDamping(0)
-			inst.Physics:SetMotorVel(0,-20+math.random()*10,0)
-			inst.AnimState:PlayAnimation("stunned_loop", true)
-			inst:CheckTransformState()
-		end,
-		
-		onupdate = function(inst)
-			local pt = Point(inst.Transform:GetWorldPosition())
-			if pt.y < 2 then
-				inst.Physics:SetMotorVel(0,0,0)
-			end
-			
-			if pt.y <= .1 then
-				pt.y = 0
+        events =
+        {
+            EventHandler("animover", function(inst)
+                if inst.AnimState:AnimDone() then
+                    if inst.components.oceanfishable ~= nil and inst.components.oceanfishable:GetRod() ~= nil then
+                        inst.sg:GoToState("bitehook_loop")
+                    else
+                        inst.sg:GoToState("bitehook_escape")
+                    end
+                end
+            end),
+        },
+    },
 
-				inst.Physics:Stop()
-				inst.Physics:SetDamping(5)
-				inst.Physics:Teleport(pt.x,pt.y,pt.z)
-				inst.DynamicShadow:Enable(true)
-				inst.sg:GoToState("stunned")
-			end
-		end,
+    State{
+        name = "bitehook_loop",
+        tags = { "busy" },
 
-		onexit = function(inst)
-			local pt = inst:GetPosition()
-			pt.y = 0
-			inst.Transform:SetPosition(pt:Get())
-		end,
-	},    
-	
-	State{
-		name = "stunned",
-		tags = {"busy", "stunned"},
-		
-		onenter = function(inst) 
-			inst.Physics:Stop()
-			inst.AnimState:PlayAnimation("stunned_loop", true)
-			if inst.components.inventoryitem then
-				inst.components.inventoryitem.canbepickedup = true
-			end
-		end,
-		
-		onexit = function(inst)
-			if inst.components.inventoryitem then
-				inst.components.inventoryitem.canbepickedup = false
-			end
-		end,
-		
-		ontimeout = function(inst) inst.sg:GoToState("idle") end,
-	},
-	
-	State{
-		name = "trapped",
-		tags = {"busy", "trapped"},
-		
-		onenter = function(inst) 
-			inst.Physics:Stop()
-			inst:ClearBufferedAction()
-			inst.AnimState:PlayAnimation("idle", true)
-			inst.sg:SetTimeout(2)
-		end,
-		
-		ontimeout = function(inst) inst.sg:GoToState("idle") end,
-	},
-	State{
-		name = "hit",
-		tags = {"busy"},
-		
-		onenter = function(inst)
-			inst.AnimState:PlayAnimation("hit")
-			inst.Physics:Stop()            
-		end,
-		
-		events=
-		{
-			EventHandler("animover", function(inst) inst.sg:GoToState("idle") end ),
-		},        
-	},    
+        onenter = function(inst)
+            inst.components.locomotor:Stop()
+            inst.AnimState:PlayAnimation("walk", true)
+            inst.sg:SetTimeout(2 + math.random() * 0.5)
+        end,
 
+        onupdate = function(inst)
+            if inst.components.oceanfishable ~= nil and inst.components.oceanfishable:GetRod() ~= nil then
+                if not inst:HasTag("partiallyhooked") then
+                    inst.sg:GoToState("idle")
+                end
+            else
+                inst.sg:GoToState("bitehook_escape")
+                inst.components.oceanfishable:SetRod(nil)
+            end
+        end,
+
+        ontimeout = function(inst)
+            if inst:HasTag("partiallyhooked") then
+                inst.sg:GoToState("bitehook_escape")
+                if inst.components.oceanfishable ~= nil and inst.components.oceanfishable:GetRod() ~= nil then
+                    inst.components.oceanfishable:GetRod().components.oceanfishingrod:StopFishing("linetooloose")
+                else
+                    inst.components.oceanfishable:SetRod(nil)
+                end
+            end
+        end,
+    },
+
+    State{
+        name = "bitehook_escape",
+        tags = { "busy", "jumping" },
+        
+        onenter = function(inst)
+            inst.components.locomotor:Stop()
+
+            local x, y, z = inst.Transform:GetWorldPosition()
+            inst.sg.statemem.underboat = (TheWorld.Map:GetPlatformAtPoint(x, y, z, inst:GetPhysicsRadius(0)) ~= nil)
+
+            if inst.sg.statemem.underboat then
+                inst.AnimState:PlayAnimation("idle")
+            else
+                inst.AnimState:PlayAnimation("idle")
+                inst.AnimState:PushAnimation("idle", false)
+            end
+        end,
+        
+        timeline =
+        {
+            TimeEvent(2*FRAMES, function(inst)
+                if not inst.sg.statemem.underboat then
+                    SpawnPrefab("ocean_splash_small1").Transform:SetPosition(inst.Transform:GetWorldPosition())
+                    inst.AnimState:SetSortOrder(0)
+                    inst.AnimState:SetLayer(LAYER_WORLD)
+                end
+            end),
+
+            TimeEvent(3*FRAMES, function(inst) 
+                if not inst.sg.statemem.underboat then 
+                    inst.Physics:SetMotorVelOverride(-1, 0, 0)
+                end
+            end),
+
+            TimeEvent(21*FRAMES, function(inst)
+                if not inst.sg.statemem.underboat then
+                    SpawnPrefab("ocean_splash_small1").Transform:SetPosition(inst.Transform:GetWorldPosition())
+                    inst.Physics:ClearMotorVelOverride()
+                end
+                inst.components.locomotor:Stop()
+            end),
+        },
+
+        events =
+        {
+            EventHandler("animqueueover", function(inst)
+                if inst.AnimState:AnimDone() then
+                    if not inst.sg.statemem.underboat then
+                        SpawnPrefab("ocean_splash_small1").Transform:SetPosition(inst.Transform:GetWorldPosition())
+                    end
+                    inst.sg:GoToState("idle")
+                end
+            end),
+        },
+
+        onexit = function(inst)
+            if not inst.sg.statemem.underboat then
+                inst.AnimState:SetSortOrder(ANIM_SORT_ORDER_BELOW_GROUND.UNDERWATER)
+                inst.AnimState:SetLayer(LAYER_WIP_BELOW_OCEAN)
+                inst.Physics:ClearMotorVelOverride()
+            end
+
+            if inst:HasTag("partiallyhooked") and inst.components.oceanfishable ~= nil then
+                inst.components.oceanfishable:SetRod(nil)
+            end
+        end,
+    },
+
+    State{
+        name = "launched_out_of_water",
+        tags = { "busy", "jumping" },
+
+        onenter = function(inst)
+            inst.components.locomotor:Stop()
+
+            SpawnPrefab("ocean_splash_small1").Transform:SetPosition(inst.Transform:GetWorldPosition())
+			inst.AnimState:SetBuild("lobster_build_color")
+			inst.AnimState:SetMultColour(1, 1, 1, 1)
+            inst.AnimState:PlayAnimation("idle", true)
+        end,
+    },
+
+    State{
+        name = "hop_pst",
+        tags = {"busy", "jumping"},
+
+        onenter = function(inst)
+            inst.AnimState:PlayAnimation("idle", false)
+        end,
+
+        timeline =
+        {
+            TimeEvent(3*FRAMES, function(inst)
+                SpawnPrefab("ocean_splash_small1").Transform:SetPosition(inst.Transform:GetWorldPosition())
+            end),
+        },
+
+        events =
+        {
+            EventHandler("animover", function(inst)
+                if inst.AnimState:AnimDone() then
+                    inst.sg:GoToState("idle")
+                end
+            end),
+        },
+    },
+
+    State{
+        name = "spawn_in",
+        tags = {"busy"},
+
+        onenter = function(inst)
+            inst.components.locomotor:StopMoving()
+            inst.AnimState:PlayAnimation("idle")
+            inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/burrow")
+        end,
+
+        events =
+        {
+            EventHandler("animover", function(inst)
+                if inst.AnimState:AnimDone() then
+                    inst.sg:GoToState("idle")
+                end
+            end),
+        },
+    },
 }
+
+CommonStates.AddIdle(states, false, "idle")
+
+local function play_run_step(inst)
+    inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/step")
+end
+
 CommonStates.AddWalkStates(states, {
 	starttimeline =
 	{
-		TimeEvent(0, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/walk") end)
+		TimeEvent(0, function(inst) inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/step") end)
 	},
 
 	walktimeline =
 	{
-		TimeEvent(0*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/walk") end),
-		TimeEvent(5*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/walk") end),
-		TimeEvent(10*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/walk") end),
+		TimeEvent(0*FRAMES, function(inst) inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/step") end),
+		TimeEvent(5*FRAMES, function(inst) inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/step") end),
+		TimeEvent(10*FRAMES, function(inst) inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/step") end),
 	},
 
 	endtimeline = 
 	{
-		TimeEvent(0, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/walk") end)
+		TimeEvent(0, function(inst) inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/step") end)
 	},
 }, {walk = "walk"})
+
 CommonStates.AddRunStates(states, {
 	starttimeline =
 	{
 		TimeEvent(0, function(inst) 
-			inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/run") 
-			inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/scared") 
+			inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/step") 
+--			inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/scared") 
 		end)
 	},
 
 	runtimeline =
 	{
-		TimeEvent(0*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/run") end),
-		TimeEvent(2*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/run") end),
-		TimeEvent(4*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/run") end),
-		TimeEvent(6*FRAMES, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/run") end),
+		TimeEvent(0*FRAMES, function(inst) inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/step") end),
+		TimeEvent(2*FRAMES, function(inst) inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/step") end),
+		TimeEvent(4*FRAMES, function(inst) inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/step") end),
+		TimeEvent(6*FRAMES, function(inst) inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/step") end),
 	},
 
 	endtimeline = 
 	{
-		TimeEvent(0, function(inst) inst.SoundEmitter:PlaySound("dontstarve_DLC002/creatures/lobster/run") end)
+		TimeEvent(0, function(inst) inst.SoundEmitter:PlaySound("hookline_2/creatures/wobster/step") end)
 	},
 }, {run = "run", stoprun = "idle"})
-CommonStates.AddSleepStates(states)
-CommonStates.AddFrozenStates(states)
 
-  
-return StateGraph("lobster", states, events, "idle", actionhandlers)
+CommonStates.AddSimpleActionState(states, "enter_home", "idle", 2*FRAMES, {"busy"})
+
+return StateGraph("wobstersw", states, events, "spawn_in", actionhandlers)

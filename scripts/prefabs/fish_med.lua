@@ -223,7 +223,7 @@ local function lobster_dead_fn()
 	inst.entity:AddAnimState()
 	inst.entity:AddNetwork()
 
-	inst.AnimState:SetBank("lobster")
+	inst.AnimState:SetBank("lobster_tropical")
 	inst.AnimState:SetBuild("lobster_build_color")
 	inst.AnimState:PlayAnimation("idle_dead")
 
@@ -275,7 +275,7 @@ local function lobster_dead_cooked_fn()
 	inst.entity:AddAnimState()
 	inst.entity:AddNetwork()
 
-	inst.AnimState:SetBank("lobster")
+	inst.AnimState:SetBank("lobster_tropical")
 	inst.AnimState:SetBuild("lobster_build_color")
 	inst.AnimState:PlayAnimation("idle_cooked")
 
