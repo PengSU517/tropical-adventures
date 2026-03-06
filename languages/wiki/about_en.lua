@@ -46,7 +46,7 @@ local str_preview = [[
 The Ship of Theseus: Our goal is to gradually overhaul and update the original content—breathing new life into it—all while ensuring the mod remains 100% playable throughout the process.
 Please note that all current updates are passion projects done in the free time of the author and our community members. Progress will be slow, so we appreciate your patience and ask that you don't expect too much too soon.
 -----------------------------------------
-Want to help out? We'd love to have you! Github Page: [PengSU517/tropical-adventures] to connect and contribute.
+Want to help out? We'd love to have you! Github Page: [PengsTA/tropical-adventures] to connect and contribute.
 You can also support us through donations! Every contribution goes straight into the ongoing development and maintenance of the mod.
 Your support means the world to us—it validates the hard work we've put in and gives us the motivation to keep the updates coming!
 ]]
