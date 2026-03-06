@@ -64,7 +64,7 @@ name = pub_dev(en_zh("Tropical Adventures|Ship of Theseus", "热带冒险|忒修
     en_zh("Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng et al."
-version = "26.03.03"
+version = "26.03.06"
 forumthread = ""
 api_version = 10
 priority = -100

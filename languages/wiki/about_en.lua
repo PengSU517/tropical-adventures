@@ -1,4 +1,8 @@
-local str_back = [[This mod originates from the classic 【Tropical Experience】 mod.
+local str_back =
+[[The full name of this mod is
+[Tropical Adventures | Ship of Theseus].
+-----------------------------------------
+This mod originates from the classic 【Tropical Experience】 mod.
 It retains the Shipwrecked and Hamlet portions while implementing extensive optimizations and additions.
 Currently, this mod offers 【high compatibility】; however, as one of the largest mods in the Workshop, compatibility issues may arise with certain large-scale mods.
 It is 【not recommended】 to enable this alongside other mods that 【contain single-player DLC content】 or mods that modify single-player DLC assets.
@@ -15,6 +19,10 @@ We truly appreciate the foundations laid by these talented developers.
 ==========================================
 Planning Update:
     1. Fixing trawlnet...(maybe next time)
+
+26.03.06 Update：
+    1. update wiki UI
+    2. better boat UI
 
 26.03.03 Update:
     1. Terrain generation is now compatible with [Montfluv].
@@ -35,17 +43,24 @@ Feb 26, 2025 Update:
 ]]
 
 local str_preview = [[
-The full name of this mod is [Tropical Adventures | Ship of Theseus].
+The Ship of Theseus: Our goal is to gradually overhaul and update the original content—breathing new life into it—all while ensuring the mod remains 100% playable throughout the process.
+Please note that all current updates are passion projects done in the free time of the author and our community members. Progress will be slow, so we appreciate your patience and ask that you don't expect too much too soon.
+-----------------------------------------
+Want to help out? We'd love to have you! Github Page: [PengSU517/tropical-adventures] to connect and contribute.
+You can also support us through donations! Every contribution goes straight into the ongoing development and maintenance of the mod.
+Your support means the world to us—it validates the hard work we've put in and gives us the motivation to keep the updates coming!
+]]
 
-True to its name, our goal is to gradually replace and update the original content—ensuring the mod remains functional at all times—so it can continue to evolve and stay fresh.
 
-If you've found the journey so far to be exciting, feel free to support us through a donation. Your appreciation is an affirmation of our past work and the driving force that keeps us updating!
+local str_donation = [[
+Nobody yet.
 ]]
 
 local WikiAbout = {
     str_back = str_back,
     str_progress = str_progress,
     str_preview = str_preview,
+    str_donation = str_donation,
 }
 
 return {

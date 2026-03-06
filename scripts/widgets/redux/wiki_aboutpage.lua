@@ -197,7 +197,7 @@ function WikiAboutPage:RightDesc()
     y = y - textH_3
     about_text:SetPosition(0, y)
 
-    local textH_4 = 100
+    local textH_4 = 150
     about_text = right_widget:AddChild(Image("images/code.xml", "code.tex"))
     y = y - textH_4
     about_text:SetPosition(0, y)
@@ -212,7 +212,7 @@ function WikiAboutPage:RightDesc()
     local about_text = right_widget:AddChild(Text(HEADERFONT, text_font_size * size_multi, "", UICOLOURS.BROWN_DARK))
     about_text:SetHAlign(ANCHOR_LEFT)
     about_text:SetVAlign(ANCHOR_TOP)
-    about_text:SetMultilineTruncatedString("Nobody yet", 200, 300)
+    about_text:SetMultilineTruncatedString(desc_about.str_donation, 200, 300)
     local _, textH_X = about_text:GetRegionSize()
     y = y - textH_X / 2 - 30
     about_text:SetPosition(0, y)
