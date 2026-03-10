@@ -108,9 +108,7 @@ return Class(function(self, inst)
 
             self.begin_date = currentTime + delta
 
-            for id in pairs(Shard_GetConnectedShards()) do
-                SendModRPCToShard(SHARD_MOD_RPC["Tropical adventures"]["aporkalypse begin date"], id, self.begin_date)
-            end
+            SendModRPCToShard(SHARD_MOD_RPC["Tropical adventures"]["aporkalypse begin date"], nil, self.begin_date)
         end
 
         function self:ScheduleAporkalypseTasks()

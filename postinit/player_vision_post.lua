@@ -60,32 +60,35 @@ AddClassPostConstruct("screens/playerhud", function(self)
     function self:OnUpdate(dt)
         old_OnUpdate(self, dt)
 
-        if self.batview and self.trapmarker and shootview ~= nil and self.owner then
-            if not (self.batview.shown or self.trapmarker.shown or shootview) and
-                self.owner.replica.inventory and
-                self.owner.replica.inventory:EquipHasTag("invisiblegoggles") then
-                self.gogglesover.bg:SetTint(1, 1, 1, 0)
-            elseif (self.batview.shown or self.trapmarker.shown or shootview) and
-                not self.owner.replica.inventory:EquipHasTag("invisiblegoggles") then
-                self.gogglesover.bg:SetTint(1, 1, 1, 1)
-            end
+        local owner = self.owner
+        local inventory = owner and owner.replica.inventory or nil
+        if inventory ~= nil then
+            if self.batview and self.trapmarker and shootview ~= nil then
+                if not (self.batview.shown or self.trapmarker.shown or shootview) and
+                    inventory:EquipHasTag("invisiblegoggles") then
+                    self.gogglesover.bg:SetTint(1, 1, 1, 0)
+                elseif (self.batview.shown or self.trapmarker.shown or shootview) and
+                    not inventory:EquipHasTag("invisiblegoggles") then
+                    self.gogglesover.bg:SetTint(1, 1, 1, 1)
+                end
 
-            if not self.batview.shown and self.owner.replica.inventory:EquipHasTag("batvision") then
-                self.batview:StartSonar()
-            elseif self.batview.shown and not self.owner.replica.inventory:EquipHasTag("batvision") then
-                self.batview:StopSonar()
-            end
+                if not self.batview.shown and inventory:EquipHasTag("batvision") then
+                    self.batview:StartSonar()
+                elseif self.batview.shown and not inventory:EquipHasTag("batvision") then
+                    self.batview:StopSonar()
+                end
 
-            if not self.trapmarker.shown and self.owner.replica.inventory:EquipHasTag("dangervision") then
-                self.trapmarker:ShowMarker()
-            elseif self.trapmarker.shown and not self.owner.replica.inventory:EquipHasTag("dangervision") then
-                self.trapmarker:HideMarker()
-            end
+                if not self.trapmarker.shown and inventory:EquipHasTag("dangervision") then
+                    self.trapmarker:ShowMarker()
+                elseif self.trapmarker.shown and not inventory:EquipHasTag("dangervision") then
+                    self.trapmarker:HideMarker()
+                end
 
-            if not shootview and self.owner.replica.inventory:EquipHasTag("shootvision") then
-                shootview = true
-            elseif shootview and not self.owner.replica.inventory:EquipHasTag("shootvision") then
-                shootview = false
+                if not shootview and inventory:EquipHasTag("shootvision") then
+                    shootview = true
+                elseif shootview and not inventory:EquipHasTag("shootvision") then
+                    shootview = false
+                end
             end
         end
     end
