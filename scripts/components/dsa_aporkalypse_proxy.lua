@@ -1,6 +1,6 @@
 return Class(function(self, inst)
     local _world = TheWorld
-    local _aporkalypse = _world.components.aporkalypse
+    local _aporkalypse = _world.net.components.aporkalypse
     local _begindate = _aporkalypse.begin_date
     self.inst = inst
 
