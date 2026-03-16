@@ -160,7 +160,7 @@ local function RemoveFromInteriorScene(inst)
 end
 
 local function onnear(inst)
-	local aporkalypse = TheWorld.net.components.aporkalypse
+	local aporkalypse = TheWorld.components.aporkalypse
 	if aporkalypse and aporkalypse:IsActive() then
 	else
 		inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/objects/aporkalypse_clock/totem_LP", "totem_sound")
@@ -247,7 +247,7 @@ local function make_master_fn()
 
 	local changeaporkalypse_fn = function(world, data)
 		local total_time = (TheWorld.state.cycles + TheWorld.state.time) * TUNING.TOTAL_DAY_TIME
-		local aporkalypse = TheWorld.net.components.aporkalypse
+		local aporkalypse = TheWorld.components.aporkalypse
 
 		if not aporkalypse then return end
 

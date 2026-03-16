@@ -25,7 +25,7 @@ modimport "main/smelting_recipes"
 modimport "main/skins"
 modimport "main/characters"
 modimport "main/tropical_fx"
-modimport "main/rpc"
+--modimport "main/rpc" -- 空的
 modimport "main/usercommands"
 
 modimport "main/AddIronLordHandlers" -- 活性机甲处理

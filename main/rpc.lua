@@ -1,15 +1,15 @@
 local AddModRPCHandler = AddModRPCHandler
 local AddShardModRPCHandler = AddShardModRPCHandler
 
+--[=[
 AddShardModRPCHandler("Tropical adventures", "aporkalypse begin date", function(shardid, date)
-    local aporka = TheWorld.net.components.aporkalypse
+    local aporka = TheWorld.components.aporkalypse
 
     if aporka then
         aporka.begin_date = date
     end
 end)
 
---[=[
 local function GetNetworkPlayer(NetworkID)
     for _, p in ipairs(AllPlayers) do
         if NetworkID == p.Network:GetNetworkID() then

@@ -1,6 +1,6 @@
 return Class(function(self, inst)
     local _world = TheWorld
-    local _aporkalypse = _world.net.components.aporkalypse
+    local _aporkalypse = _world.components.aporkalypse
     local _begindate = _aporkalypse.begin_date
     self.inst = inst
 
@@ -23,6 +23,10 @@ return Class(function(self, inst)
             end
         end
         InitProxy()
+    end
+
+    function self:SetDate(date)
+        _begindate = date
     end
 
     function self:OnSave(data)

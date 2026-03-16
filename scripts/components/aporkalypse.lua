@@ -2,6 +2,25 @@ local daytime = TUNING.TOTAL_DAY_TIME
 local PHASE_NAMES = { "fiesta", "calm", "near", "aporkalypse", }
 local PHASES = table.invert(PHASE_NAMES)
 
+local function onbegindate(self, new)
+    if TheWorld ~= nil then
+        if TheWorld.shard ~= nil and TheWorld.shard._aporkalypse_begin_date ~= nil then
+            TheWorld.shard._aporkalypse_begin_date:set(new)
+        end
+        if TheWorld.components.dsa_aporkalypse_proxy ~= nil then
+            TheWorld.components.dsa_aporkalypse_proxy:SetDate(new)
+        end
+    end
+end
+
+local function onphase(self, new)
+    if TheWorld ~= nil then
+        if TheWorld.net ~= nil and TheWorld.net._aporkalypse_phase ~= nil then
+            TheWorld.net._aporkalypse_phase:set(new)
+        end
+    end
+end
+
 return Class(function(self, inst)
     local _world = TheWorld
     local _ismastersim = _world.ismastersim
@@ -24,52 +43,51 @@ return Class(function(self, inst)
     self.fiesta_begin_date = 0
 
     local _phasedirty = true
-    self._phase = net_tinybyte(inst.GUID, "aporkalypse._phase", "aporkalypsephasedirty")
-    self._phase:set(PHASES.calm)
+    self._phase = PHASES.calm
 
     if _ismastersim then
         local stagefunc = function()
-            -- print("aporkalypsephase:", self._phase:value())
+            -- print("aporkalypsephase:", self._phase)
             -- print("aporkalypsebegindate:", self.begin_date / daytime)
             -- print("aporkalypsenowadays:", GetTimeTnSeconds() / daytime)
             -- print("fiestadate:", self.fiesta_begin_date / daytime)
 
-            if self._phase:value() <= PHASES.calm then
+            if self._phase <= PHASES.calm then
                 if GetTimeTnSeconds() >= (self.begin_date - self.near_days) then
-                    self._phase:set(PHASES.near)
+                    self._phase = PHASES.near
                 end
             end
 
-            if self._phase:value() <= PHASES.near then
+            if self._phase <= PHASES.near then
                 if GetTimeTnSeconds() >= self.begin_date then
-                    self._phase:set(PHASES.aporkalypse)
+                    self._phase = PHASES.aporkalypse
                     self.real_start_date = GetTimeTnSeconds()
                     self:ScheduleAporkalypseTasks()
                 end
-            elseif self._phase:value() == PHASES.aporkalypse then
+            elseif self._phase == PHASES.aporkalypse then
                 if GetTimeTnSeconds() > self.begin_date then
                     if (GetTimeTnSeconds() - self.real_start_date) >= self.aporkalypse_duration then
-                        self._phase:set(PHASES.fiesta)
+                        self._phase = PHASES.fiesta
                         self.fiesta_begin_date = GetTimeTnSeconds()
                         self:ScheduleAporkalypse()
                         self.first_time = false
                     end
                 else
                     if (GetTimeTnSeconds() - self.real_start_date) >= self.should_fiesta_duration then
-                        self._phase:set(PHASES.fiesta)
+                        self._phase = PHASES.fiesta
                         self.fiesta_begin_date = GetTimeTnSeconds()
                         self.first_time = false
                     else
-                        self._phase:set(PHASES.calm)
+                        self._phase = PHASES.calm
                         self.first_time = false
                     end
                 end
             end
 
-            if self._phase:value() == PHASES.fiesta then
+            if self._phase == PHASES.fiesta then
                 local fiesta_elapsed = GetTimeTnSeconds() - self.fiesta_begin_date
                 if self.fiesta_duration - fiesta_elapsed < 0 then
-                    self._phase:set(PHASES.calm)
+                    self._phase = PHASES.calm
                 end
             end
         end
@@ -77,7 +95,7 @@ return Class(function(self, inst)
         function self:OnSave(data)
             return
             {
-                phase = self._phase:value(),
+                phase = self._phase,
                 begin_date = self.begin_date,
                 real_start_date = self.real_start_date,
                 fiesta_begin_date = self.fiesta_begin_date,
@@ -87,7 +105,7 @@ return Class(function(self, inst)
 
         function self:OnLoad(data)
             if data then
-                self._phase:set(data.phase or PHASES.calm) --这里也会推送事件，所以不用手动推送了
+                self._phase = data.phase or PHASES.calm --这里也会推送事件，所以不用手动推送了
                 self.fiesta_begin_date = data.fiesta_begin_date
                 self.first_time = data.first_time
                 self.real_start_date = data.real_start_date
@@ -108,7 +126,7 @@ return Class(function(self, inst)
 
             self.begin_date = currentTime + delta
 
-            SendModRPCToShard(SHARD_MOD_RPC["Tropical adventures"]["aporkalypse begin date"], nil, self.begin_date)
+            --SendModRPCToShard(SHARD_MOD_RPC["Tropical adventures"]["aporkalypse begin date"], nil, self.begin_date)
         end
 
         function self:ScheduleAporkalypseTasks()
@@ -172,7 +190,7 @@ return Class(function(self, inst)
     end
 
     function self:IsNear()
-        return self._phase:value() == PHASES.near
+        return self._phase == PHASES.near
     end
 
     function self:GetBeginDate()
@@ -180,26 +198,29 @@ return Class(function(self, inst)
     end
 
     function self:IsActive()
-        return self._phase:value() == PHASES.aporkalypse
+        return self._phase == PHASES.aporkalypse
     end
 
     function self:GetFiestaActive()
-        return self._phase:value() == PHASES.fiesta
+        return self._phase == PHASES.fiesta
     end
 
     function self:OnUpdate(dt)
         -- print("try update aporkalypse")
-        if _phasedirty then
-            -- print("aporkalypse phase changed:", PHASE_NAMES[self._phase:value()])
-            _world:PushEvent("aporkalypsephasechanged", PHASE_NAMES[self._phase:value()])
-            _phasedirty = false
-        end
+        --if _phasedirty then
+        --     print("aporkalypse phase changed:", PHASE_NAMES[self._phase])
+        --    _world:PushEvent("aporkalypsephasechanged", PHASE_NAMES[self._phase])
+        --    _phasedirty = false
+        --end
         if _ismastersim then end
     end
 
     self.LongUpdate = self.OnUpdate
 
-    inst:ListenForEvent("aporkalypsephasedirty", function() _phasedirty = true end)
+    --inst:ListenForEvent("aporkalypsephasedirty", function() _phasedirty = true end)
 
     inst:StartUpdatingComponent(self)
-end)
+end, nil, {
+    begin_date = onbegindate,
+    _phase = onphase,
+})

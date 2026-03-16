@@ -4,7 +4,7 @@ if TA_CONFIG.DEVELOP.test_mode then --开发人员测试时才可以使用
     modimport "postinit/seafork"
     modimport "postinit/opengift"
     modimport "postinit/widgets/hoverer_info"
-    modimport "postinit/components/clockstop"
+    --modimport "postinit/components/clockstop"
 end
 
 if TA_CONFIG.DEVELOP.test_map then --开发人员测试时才可以使用
@@ -149,9 +149,6 @@ modimport "postinit/widgets/statusdisplays_speed"
 modimport "postinit/widgets/uiclock"        -- 血月时钟
 modimport "postinit/widgets/seasonclock"    -- 静态季节表兼容
 modimport "postinit/widgets/wikibook"
-
--- 模组适配
-modimport "workshops/dsa/main"
 
 --stagegraph
 -- modimport "postinit/stategraphs/stagegraph_wilson" --需要整理
