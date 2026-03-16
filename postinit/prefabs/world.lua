@@ -39,7 +39,7 @@ AddPrefabPostInit("cave", function(inst)
 end)
 
 AddPrefabPostInit("world", function(inst)
-    if TUNING.aporkalypse then
+    if TUNING.aporkalypse and TheWorld.ismastersim then
         inst:AddComponent("aporkalypse")
         if KnownModIndex:IsModEnabled("workshop-2657513551") then
             inst:AddComponent("dsa_aporkalypse_proxy")
