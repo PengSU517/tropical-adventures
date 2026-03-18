@@ -163,6 +163,7 @@ return Class(function(self, inst)
                     Sleep(math.random(TUNING.SEG_TIME / 2, TUNING.SEG_TIME))
                 end
                 self.herald_check_task = nil
+                _herald_check_timer = 0
             end)
         end
 
@@ -189,6 +190,7 @@ return Class(function(self, inst)
                     end
                 end
                 self.vampire_check_task = nil
+                _vampire_check_timer = 0
             end)
         end
 
