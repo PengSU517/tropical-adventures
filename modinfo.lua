@@ -1,3 +1,5 @@
+---@diagnostic disable: lowercase-global
+
 -----世界设置里的值不能是false,否则会用默认设置，所以modinfo最好保持同步
 ---全局的locale只在modinfo中存在，在servercreationmain中需要用translator
 local locale = locale or LanguageTranslator.defaultlang
@@ -72,7 +74,7 @@ priority = -100
 
 
 
-local desc_ch = "进入游戏后，单机左下角图标查看模组百科。所有你想知道的内容都在这里了。"
+local desc_ch = "进入游戏后，单击左下角图标查看模组百科。所有你想知道的内容都在这里了。"
 local desc_en =
 "After entering the game, click the icon in the lower left corner to view the mod wiki. All the things you want to know are here."
 description = en_zh(desc_en, desc_ch)
