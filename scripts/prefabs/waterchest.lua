@@ -1,3 +1,6 @@
+local params = require"containers".params
+params.waterchest = params.treasurechest
+
 local prefabs =
 {
     "boards",
@@ -140,5 +143,5 @@ local function MakeChest(name, bank, build, indestructible, custom_postinit, pre
     return Prefab(name, fn, assets, prefabs)
 end
 
-return MakeChest("waterchest", "water_chest", "water_chest", false, nil, { "collapse_small" }),
+return MakeChest("waterchest", "water_chest", "water_chest", false, nil, { "collapse_small" }, "waterchest"),
     MakePlacer("waterchest_placer", "water_chest", "water_chest", "closed")
