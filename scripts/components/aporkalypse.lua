@@ -1,5 +1,5 @@
 local _daytime = TUNING.TOTAL_DAY_TIME -- 480s
-local _seg = TUNING.SEG_TIME -- 30s
+local _seg = TUNING.SEG_TIME           -- 30s
 local PHASE_NAMES = { "fiesta", "calm", "near", "aporkalypse", }
 local PHASES = table.invert(PHASE_NAMES)
 
@@ -47,51 +47,51 @@ return Class(function(self, inst)
     local _herald_check_timer = .0
     local _vampire_check_timer = .0
 
-    local _phase = PHASES.calm
+    self._phase = PHASES.calm
 
     --if _ismastersim then
     local stagefunc = function()
-        -- print("aporkalypsephase:", _phase)
+        -- print("aporkalypsephase:", self._phase)
         -- print("aporkalypsebegindate:", self.begin_date / daytime)
         -- print("aporkalypsenowadays:", GetTimeTnSeconds() / daytime)
         -- print("fiestadate:", self.fiesta_begin_date / daytime)
 
-        if _phase <= PHASES.calm then
+        if self._phase <= PHASES.calm then
             if GetTimeTnSeconds() >= (self.begin_date - self.near_days) then
-                _phase = PHASES.near
+                self._phase = PHASES.near
             end
         end
 
-        if _phase <= PHASES.near then
+        if self._phase <= PHASES.near then
             if GetTimeTnSeconds() >= self.begin_date then
-                _phase = PHASES.aporkalypse
+                self._phase = PHASES.aporkalypse
                 self.real_start_date = GetTimeTnSeconds()
                 self:ScheduleAporkalypseTasks()
             end
-        elseif _phase == PHASES.aporkalypse then
+        elseif self._phase == PHASES.aporkalypse then
             if GetTimeTnSeconds() > self.begin_date then
                 if (GetTimeTnSeconds() - self.real_start_date) >= self.aporkalypse_duration then
-                    _phase = PHASES.fiesta
+                    self._phase = PHASES.fiesta
                     self.fiesta_begin_date = GetTimeTnSeconds()
                     self:ScheduleAporkalypse()
                     self.first_time = false
                 end
             else
                 if (GetTimeTnSeconds() - self.real_start_date) >= self.should_fiesta_duration then
-                    _phase = PHASES.fiesta
+                    self._phase = PHASES.fiesta
                     self.fiesta_begin_date = GetTimeTnSeconds()
                     self.first_time = false
                 else
-                    _phase = PHASES.calm
+                    self._phase = PHASES.calm
                     self.first_time = false
                 end
             end
         end
 
-        if _phase == PHASES.fiesta then
+        if self._phase == PHASES.fiesta then
             local fiesta_elapsed = GetTimeTnSeconds() - self.fiesta_begin_date
             if self.fiesta_duration - fiesta_elapsed < 0 then
-                _phase = PHASES.calm
+                self._phase = PHASES.calm
             end
         end
     end
@@ -99,7 +99,7 @@ return Class(function(self, inst)
     function self:OnSave(data)
         return
         {
-            phase = _phase,
+            phase = self._phase,
             begin_date = self.begin_date,
             real_start_date = self.real_start_date,
             fiesta_begin_date = self.fiesta_begin_date,
@@ -109,7 +109,7 @@ return Class(function(self, inst)
 
     function self:OnLoad(data)
         if data then
-            _phase = data.phase or PHASES.calm --这里也会推送事件，所以不用手动推送了
+            self._phase = data.phase or PHASES.calm --这里也会推送事件，所以不用手动推送了
             self.fiesta_begin_date = data.fiesta_begin_date
             self.first_time = data.first_time
             self.real_start_date = data.real_start_date
@@ -204,7 +204,7 @@ return Class(function(self, inst)
     end
 
     function self:IsNear()
-        return _phase == PHASES.near
+        return self._phase == PHASES.near
     end
 
     function self:GetBeginDate()
@@ -212,11 +212,11 @@ return Class(function(self, inst)
     end
 
     function self:IsActive()
-        return _phase == PHASES.aporkalypse
+        return self._phase == PHASES.aporkalypse
     end
 
     function self:GetFiestaActive()
-        return _phase == PHASES.fiesta
+        return self._phase == PHASES.fiesta
     end
 
     function self:OnUpdate(dt)
@@ -229,6 +229,10 @@ return Class(function(self, inst)
     end
 
     self.LongUpdate = self.OnUpdate
+
+    function self:GetDebugString()
+        return string.format("aporkalypse begin_date: %d phase: %s", self.begin_date, PHASE_NAMES[self._phase])
+    end
 
     inst:StartUpdatingComponent(self)
 end, nil, {
