@@ -42,7 +42,9 @@ return Class(function(self, inst)
     self.real_start_date = 0
     self.fiesta_begin_date = 0
 
-    local _phasedirty = true
+    local _herald_check_timer = .0
+    local _vampire_check_timer = .0
+
     self._phase = PHASES.calm
 
     if _ismastersim then
@@ -142,7 +144,8 @@ return Class(function(self, inst)
 
         function self:ScheduleHeraldCheck()
             self.herald_check_task = self.inst:StartThread(function()
-                Sleep(math.random(TUNING.SEG_TIME / 2, TUNING.SEG_TIME))
+                _herald_check_timer = math.random(TUNING.SEG_TIME / 2, TUNING.SEG_TIME)
+                Sleep(_herald_check_timer)
                 while self:IsActive() do
                     for _, player in ipairs(AllPlayers) do ----isinworld好像不太对
                         if player and player:IsInWorld() and player:IsValid() and player.components.health and not player.components.health:IsDead() then
@@ -159,12 +162,14 @@ return Class(function(self, inst)
                     end
                     Sleep(math.random(TUNING.SEG_TIME / 2, TUNING.SEG_TIME))
                 end
+                self.herald_check_task = nil
             end)
         end
 
         function self:ScheduleVampireBatCheck()
             self.vampire_check_task = self.inst:StartThread(function()
-                Sleep(math.random(TUNING.SEG_TIME / 8, TUNING.SEG_TIME / 4))
+                _vampire_check_timer = math.random(TUNING.SEG_TIME / 8, TUNING.SEG_TIME / 4)
+                Sleep(_vampire_check_timer)
                 if self:IsActive() then
                     local _num = math.ceil(math.min(24 * #AllPlayers, 50) / #AllPlayers)
                     for _, player in ipairs(AllPlayers) do
@@ -183,10 +188,19 @@ return Class(function(self, inst)
                         end
                     end
                 end
+                self.vampire_check_task = nil
             end)
         end
 
         inst:ListenForEvent("clocktick", stagefunc, _world)
+    end
+
+    function self:GetHeraldTimer()
+        return _herald_check_timer
+    end
+
+    function self:GetVampireTimer()
+        return _vampire_check_timer
     end
 
     function self:IsNear()
@@ -206,18 +220,15 @@ return Class(function(self, inst)
     end
 
     function self:OnUpdate(dt)
-        -- print("try update aporkalypse")
-        --if _phasedirty then
-        --     print("aporkalypse phase changed:", PHASE_NAMES[self._phase])
-        --    _world:PushEvent("aporkalypsephasechanged", PHASE_NAMES[self._phase])
-        --    _phasedirty = false
-        --end
-        if _ismastersim then end
+        if _herald_check_timer and _herald_check_timer > .0 then
+            _herald_check_timer = math.max(.0, _herald_check_timer - dt)
+        end
+        if _vampire_check_timer and _vampire_check_timer > .0 then
+            _vampire_check_timer = math.max(.0, _vampire_check_timer - dt)
+        end
     end
 
     self.LongUpdate = self.OnUpdate
-
-    --inst:ListenForEvent("aporkalypsephasedirty", function() _phasedirty = true end)
 
     inst:StartUpdatingComponent(self)
 end, nil, {
