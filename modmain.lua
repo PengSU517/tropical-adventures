@@ -31,3 +31,5 @@ modimport "main/usercommands"
 modimport "main/AddIronLordHandlers" -- 活性机甲处理
 modimport "main/AddIronLordPostinit" -- 活性机甲构造
 modimport "scripts/ArtifactControls" -- 活性机甲控制
+
+modimport "main/event_timer_compat" -- 兼容全局事件计时器模组
