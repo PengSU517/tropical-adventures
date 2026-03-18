@@ -18,6 +18,8 @@ TUNING.BUILD_HEIGHT = 0 ---rpc用来接收建筑高度数据-------也可以修�
 TUNING.FAN_RANGE = 30
 TUNING.FOG_MOISTURE_RATE = 1000
 
+TUNING.TROPICAL_ADVENTURE_ACTIVATED = true
+
 TUNING.HAMROOM = {
     roomtype = {
         playerhouse_city_floor = "large",
