@@ -31,12 +31,12 @@ local Aporkalypse = Class(function(self, inst)
 	self.fiesta_begin_date = nil
 
 	local _phasedirty = true
-	self._phase = net_tinybyte(inst.GUID, "aporkalypse._phase", "aporkalypsephasedirty")
-	self._phase:set(PHASES.calm)
+	_phase = net_tinybyte(inst.GUID, "aporkalypse._phase", "aporkalypsephasedirty")
+	_phase:set(PHASES.calm)
 
 ```
 
-如毁灭季组件，这里最重要的是定义了一个网络变量`self._phase = net_tinybyte(inst.GUID, "aporkalypse._phase", "aporkalypsephasedirty")`用来存储毁灭季的阶段。
+如毁灭季组件，这里最重要的是定义了一个网络变量`_phase = net_tinybyte(inst.GUID, "aporkalypse._phase", "aporkalypsephasedirty")`用来存储毁灭季的阶段。
 
 网络变量进行值设置的时候，会触发一个事件`aporkalypsephasedirty`，所以这里需要监听这个事件，当这个事件触发的时候，`_phasedirty`变量会变成true，然后就可以进行更新了。
 `inst:ListenForEvent("aporkalypsephasedirty", function() _phasedirty = true end)`
@@ -47,8 +47,8 @@ local Aporkalypse = Class(function(self, inst)
 self.OnUpdate = function(dt)
 		-- print("try update aporkalypse")
 		if _phasedirty then
-			print("aporkalypse phase changed:", PHASE_NAMES[self._phase:value()])
-			_world:PushEvent("aporkalypsephasechanged", PHASE_NAMES[self._phase:value()])
+			print("aporkalypse phase changed:", PHASE_NAMES[_phase:value()])
+			_world:PushEvent("aporkalypsephasechanged", PHASE_NAMES[_phase:value()])
 			_phasedirty = false
 		end
 		if _ismastersim then end
