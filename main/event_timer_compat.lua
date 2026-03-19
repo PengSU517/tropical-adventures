@@ -4,10 +4,10 @@ local AddPrefabPostInit = AddPrefabPostInit
 GLOBAL.setfenv(1, GLOBAL)
 if not (rawget(_G, "EventTimer") and rawget(_G, "WarningEvents")) then return end
 
-local TimeToString = EventTimer.env.TimeToString -- 格式化时间
+local TimeToString = EventTimer.env.TimeToString           -- 格式化时间
 local ReplacePrefabName = EventTimer.env.ReplacePrefabName -- 填充Prefab名字
 local Extract_by_format = EventTimer.env.Extract_by_format -- 反向提取信息
-local ModLanguage = EventTimer.env.ModLanguage -- 语言
+local ModLanguage = EventTimer.env.ModLanguage             -- 语言
 
 local function zh_en(zh, en)
     return ModLanguage == "zh" and zh or en
@@ -65,7 +65,7 @@ local strings = {
             "Warning: <prefab=pigbandit> is present!"
         ),
     },
-    tigersharktorch = { -- 虎鲨
+    tigershark_spawner = { -- 虎鲨
         tips = zh_en(
             "<prefab=tigershark>已刷新！",
             "<prefab=tigershark> has regenerate!"
@@ -106,10 +106,10 @@ end
 --------------------------------------------------------------------------------------------------------------
 
 local TimerPrefabList = {
-    "kraken_spawner", -- 海妖
-    "tigersharktorch", -- 虎鲨
-    "slipstor_spawner", -- 大滑怪
-    "firetwister_spawner", -- 火豹卷
+    "kraken_spawner",       -- 海妖
+    "tigershark_spawner",   -- 虎鲨
+    "slipstor_spawner",     -- 大滑怪
+    "firetwister_spawner",  -- 火豹卷
     "wildboreking_spawner", -- 野猪王
 }
 
@@ -165,7 +165,8 @@ TropicalAdventuresEvents = {
 
     aporkalypse = { -- 大灾变倒计时
         gettimefn = function()
-            return TheWorld.components.aporkalypse and (not TheWorld.components.aporkalypse:IsActive()) and TheWorld.components.aporkalypse.begin_date - GetTimeTnSeconds()
+            return TheWorld.components.aporkalypse and (not TheWorld.components.aporkalypse:IsActive()) and
+            TheWorld.components.aporkalypse.begin_date - GetTimeTnSeconds()
         end,
         gettextfn = function(time)
             if time and time > 0 then
@@ -173,8 +174,8 @@ TropicalAdventuresEvents = {
             end
         end,
         image = {
-			atlas = "images/Aporkalypse_Clock.xml",
-			tex = "Aporkalypse_Clock.tex",
+            atlas = "images/Aporkalypse_Clock.xml",
+            tex = "Aporkalypse_Clock.tex",
             scale = 0.2
         },
         DisableShardRPC = true, -- 地上地下都有这个组件，同步会冲突
@@ -191,8 +192,10 @@ TropicalAdventuresEvents = {
                 return true, string.format(STRINGS.eventtimer.aporkalypse.cooldown, TimeToString(time)), 10, nil, 1
             elseif time == 480 then
                 return true, string.format(STRINGS.eventtimer.aporkalypse.tips, TimeToString(time)), 10, nil, 2
-            elseif time == 0 then -- 这个写法比较特殊..为了保证大灾变确实开始了
-                return true, not (GetTime() > 1 and GetTime() < 10) and StringToFunction(STRINGS.eventtimer.aporkalypse.tips_ready), 5, 1, 3 -- 延迟1秒是因为大灾变在1秒后才真正开始
+            elseif time == 0 then                                                                                                            -- 这个写法比较特殊..为了保证大灾变确实开始了
+                return true,
+                    not (GetTime() > 1 and GetTime() < 10) and
+                    StringToFunction(STRINGS.eventtimer.aporkalypse.tips_ready), 5, 1, 3                                                     -- 延迟1秒是因为大灾变在1秒后才真正开始
             end
             return false
         end
@@ -201,7 +204,7 @@ TropicalAdventuresEvents = {
         gettimefn = function()
             if TheWorld.components.aporkalypse and TheWorld.components.aporkalypse:IsActive() then
                 if TheWorld:HasTag("cave") then
-                    return GetTimeLeft("aporkalypse.herald", TheWorld)() -- 先驱
+                    return GetTimeLeft("aporkalypse.herald", TheWorld)()  -- 先驱
                 else
                     return GetTimeLeft("aporkalypse.vampire", TheWorld)() -- 蝙蝠
                 end
@@ -211,7 +214,8 @@ TropicalAdventuresEvents = {
             if time and time > 0 then
                 if TheWorld:HasTag("cave") then
                     local VampireTimer = GetTimeLeft("aporkalypse.vampire", TheWorld)()
-                    return string.format(ReplacePrefabName(strings.aporkalypse.attack), VampireTimer and TimeToString(VampireTimer) or strings.aporkalypse.attacked, TimeToString(time))
+                    return string.format(ReplacePrefabName(strings.aporkalypse.attack),
+                        VampireTimer and TimeToString(VampireTimer) or strings.aporkalypse.attacked, TimeToString(time))
                 else
                     return string.format(ReplacePrefabName(STRINGS.eventtimer.batted.cooldown), TimeToString(time))
                 end
@@ -225,13 +229,13 @@ TropicalAdventuresEvents = {
             end
         end,
         forestimage = { -- 灾变日历的图片
-			atlas = "images/Aporkalypse_Clock.xml",
-			tex = "Aporkalypse_Clock.tex",
+            atlas = "images/Aporkalypse_Clock.xml",
+            tex = "Aporkalypse_Clock.tex",
             scale = 0.2
         },
         caveimage = { -- 远古先驱的图片
-			atlas = "images/Ancient_Herald.xml",
-			tex = "Ancient_Herald.tex",
+            atlas = "images/Ancient_Herald.xml",
+            tex = "Ancient_Herald.tex",
             scale = 0.2,
             offset = {
                 x = 0,
@@ -272,9 +276,9 @@ TropicalAdventuresEvents = {
             end
         end,
         image = {
-			atlas = "images/Roc.xml",
-			tex = "Roc.tex",
-		},
+            atlas = "images/Roc.xml",
+            tex = "Roc.tex",
+        },
         anim = {
             scale = 0.008,
             build = "roc_head_build",
@@ -323,8 +327,8 @@ TropicalAdventuresEvents = {
             end
         end,
         image = {
-			atlas = "images/pig_bandit.xml",
-			tex = "pig_bandit.tex",
+            atlas = "images/pig_bandit.xml",
+            tex = "pig_bandit.tex",
             scale = 0.07,
         },
         anim = {
@@ -371,7 +375,8 @@ TropicalAdventuresEvents = {
             if time and target and target.name then
                 description = string.format(STRINGS.eventtimer.twisterspawner.targeted, target.name, TimeToString(time))
             elseif time then
-                description = string.format(ReplacePrefabName(STRINGS.eventtimer.twisterspawner.cooldown), TimeToString(time))
+                description = string.format(ReplacePrefabName(STRINGS.eventtimer.twisterspawner.cooldown),
+                    TimeToString(time))
             end
 
             return description
@@ -393,7 +398,8 @@ TropicalAdventuresEvents = {
             local text = ThePlayer.HUD.WarningEventTimeData.twisterspawner_text
             local target, _ = Extract_by_format(text, STRINGS.eventtimer.twisterspawner.targeted)
             if target and time then
-                return string.format(ReplacePrefabName(STRINGS.eventtimer.twisterspawner.target), target, TimeToString(time))
+                return string.format(ReplacePrefabName(STRINGS.eventtimer.twisterspawner.target), target,
+                    TimeToString(time))
             elseif time then
                 return string.format(ReplacePrefabName(STRINGS.eventtimer.twisterspawner.cooldown), TimeToString(time))
             end
@@ -411,7 +417,7 @@ TropicalAdventuresEvents = {
         end
     },
     kraken_spawner = { -- 海妖
-        gettimefn = GetTimeLeft("spawndelay" ,"kraken_spawner"),
+        gettimefn = GetTimeLeft("spawndelay", "kraken_spawner"),
         anim = {
             scale = 0.027,
             bank = "quacken",
@@ -437,8 +443,8 @@ TropicalAdventuresEvents = {
             return false
         end
     },
-    tigersharktorch = { -- 虎鲨
-        gettimefn = GetTimeLeft("spawndelay" ,"tigersharktorch"),
+    tigershark_spawner = { -- 虎鲨
+        gettimefn = GetTimeLeft("spawndelay", "tigershark_spawner"),
         anim = {
             scale = 0.03,
             bank = "tigershark",
@@ -451,21 +457,21 @@ TropicalAdventuresEvents = {
             },
         },
         announcefn = function()
-            local time = ThePlayer.HUD.WarningEventTimeData.tigersharktorch_time
+            local time = ThePlayer.HUD.WarningEventTimeData.tigershark_spawner_time
             if time and time > 0 then
                 return string.format(ReplacePrefabName(STRINGS.eventtimer.tigersharker.cooldown), TimeToString(time))
             end
         end,
         tipsfn = function()
-            local time = ThePlayer.HUD.WarningEventTimeData.tigersharktorch_time
+            local time = ThePlayer.HUD.WarningEventTimeData.tigershark_spawner_time
             if ready_attack(time) then
-                return true, StringToFunction(ReplacePrefabName(strings.tigersharktorch.tips)), 10, time, 2
+                return true, StringToFunction(ReplacePrefabName(strings.tigershark_spawner.tips)), 10, time, 2
             end
             return false
         end
     },
     slipstor_spawner = { -- 大滑怪
-        gettimefn = GetTimeLeft("spawndelay" ,"slipstor_spawner"),
+        gettimefn = GetTimeLeft("spawndelay", "slipstor_spawner"),
         anim = {
             scale = 0.07,
             bank = "slipstor",
@@ -485,13 +491,13 @@ TropicalAdventuresEvents = {
         end
     },
     firetwister_spawner = { -- 火豹卷
-        gettimefn = GetTimeLeft("spawndelay" ,"firetwister_spawner"),
+        gettimefn = GetTimeLeft("spawndelay", "firetwister_spawner"),
         anim = {
             scale = 0.03,
             bank = "twister",
             build = "twister_build",
             animation = "idle_loop",
-            multcolour = {255 / 255, 150 / 255, 0 / 255, 1},
+            multcolour = { 255 / 255, 150 / 255, 0 / 255, 1 },
             loop = true,
             uioffset = {
                 x = 0,
@@ -517,7 +523,7 @@ TropicalAdventuresEvents = {
         end
     },
     wildboreking_spawner = { -- 野猪王
-        gettimefn = GetTimeLeft("spawndelay" ,"wildboreking_spawner"),
+        gettimefn = GetTimeLeft("spawndelay", "wildboreking_spawner"),
         anim = {
             scale = 0.055,
             bank = "pigkingext",
@@ -539,7 +545,7 @@ TropicalAdventuresEvents = {
                 return string.format(ReplacePrefabName(strings.wildboreking_spawner.cooldown), TimeToString(time))
             end
         end,
-        tipsfn = function ()
+        tipsfn = function()
             local time = ThePlayer.HUD.WarningEventTimeData.wildboreking_spawner_time
             if ready_attack(time) then
                 return true, StringToFunction(ReplacePrefabName(strings.wildboreking_spawner.tips)), 10, time, 2

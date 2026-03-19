@@ -294,7 +294,7 @@ local function OnDeadTiger(inst)
         end
     end)
 
-    local spawner = SpawnPrefab("tigersharktorch")
+    local spawner = SpawnPrefab("tigershark_spawner")
     if spawner then
         spawner.Transform:SetPosition(x, y, z)
     end
