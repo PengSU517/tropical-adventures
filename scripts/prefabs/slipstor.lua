@@ -193,7 +193,7 @@ local function OnHaunt(inst)
 end
 
 
-function OnDeadSlipstor(inst)
+local function OnDeadSlipstor(inst)
     local x, y, z = inst.Transform:GetLocalPosition()
 
     --inst:DoTaskInTime(50*FRAMES, function(inst)

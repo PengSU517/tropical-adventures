@@ -293,6 +293,11 @@ local function OnDeadTiger(inst)
             inst.entrada = 1
         end
     end)
+
+    local spawner = SpawnPrefab("tigersharktorch")
+    if spawner then
+        spawner.Transform:SetPosition(x, y, z)
+    end
 end
 
 local function fn()
