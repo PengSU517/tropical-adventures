@@ -87,11 +87,11 @@ end)
 
 -- local help functions
 -- local function IsHamTile(tile)
--- 	return PL_LAND_TILES[tile] or false --有没有定义好的函数
+--  return PL_LAND_TILES[tile] or false --有没有定义好的函数
 -- end
 
 -- local function IsCityTile(tile)
--- 	return tile == GROUND.FOUNDATION or tile == GROUND.COBBLEROAD or tile == GROUND.LAWN or tile == GROUND.FIELDS
+--  return tile == GROUND.FOUNDATION or tile == GROUND.COBBLEROAD or tile == GROUND.LAWN or tile == GROUND.FIELDS
 -- end
 
 local function IsValidTile(tile)
@@ -219,9 +219,11 @@ local function FindClosestValidPlayerToInst(inst, range, isalive)
 	local closestPlayer = nil
 	for i, v in ipairs(AllPlayers) do
 		if v.entity:IsVisible() and IsValidPlayer(v) then
-			local pos = Vector3(inst.Transform:GetWorldPosition())
+			-- [修复] 获取目标玩家的坐标，而不是大鸟(inst)自身的坐标
+			local px, py, pz = v.Transform:GetWorldPosition()
 			local distsq = v:GetDistanceSqToPoint(x, y, z)
-			if distsq < rangesq and IsValidTileAtPoint(pos.x, pos.y, pos.z) then
+			-- [修复] 判定目标玩家是否在合法地皮上
+			if distsq < rangesq and IsValidTileAtPoint(px, py, pz) then
 				rangesq = distsq
 				closestPlayer = v
 			end
@@ -669,7 +671,9 @@ function RocController:OnUpdate(dt)
 	end
 
 	if self.stage == _stages.navigating then
-		local player = FindClosestValidPlayerToInst(self.inst, 80, true) or self.inst ----为什么会找不到player呢
+		-- [修复] 删除了后面的 or self.inst，确保找不到玩家时返回 nil，而不是将自身作为目标
+		local player = FindClosestValidPlayerToInst(self.inst, 80, true)
+
 		if not player or TheWorld.state.isnight then
 			self.stage = _stages.flying_away
 			return
@@ -796,16 +800,16 @@ function RocController:OnSave()
 
 
 	-- if self.currentleg then
-	-- 	data.currentleg = self.currentleg.GUID
+	--  data.currentleg = self.currentleg.GUID
 	-- end
 	if self.scaleup then
 		data.scaleup = self.scaleup.targetscale
 	end
 	-- if self.landed then
-	-- 	data.landed = self.landed
+	--  data.landed = self.landed
 	-- end
 	-- if self.liftoff then
-	-- 	data.liftoff = self.liftoff
+	--  data.liftoff = self.liftoff
 	-- end
 
 
@@ -856,20 +860,20 @@ function RocController:OnLoad(data)
 	-- self.offset_diff = data.offset_diff or nil
 
 	-- if data.currentleg then
-	-- 	self.currentleg = data.currentleg
+	--  self.currentleg = data.currentleg
 	-- end
 	if data.scaleup then
 		self.scaleup = { targetscale = data.scaleup }
 	end
 	-- if data.landed then
-	-- 	self.landed = data.landed
+	--  self.landed = data.landed
 	-- end
 	-- if data.liftoff then
-	-- 	self.liftoff = data.liftoff
+	--  self.liftoff = data.liftoff
 	-- end
 
 	-- if data.stage then
-	-- 	self.stage = data.stage
+	--  self.stage = data.stage
 	-- end
 end
 
