@@ -130,8 +130,8 @@ end
 
 local function GetTimeLeft(name, prefab)
     return function()
-        local ent = timerprefabs[prefab]
-        if ent and ent.components.timer then
+        local ent = timerprefabs[prefab] or prefab
+        if ent and ent.components and ent.components.timer then
             if not ent.components.timer:IsPaused(name) then
                 local time = ent.components.timer:GetTimeLeft(name)
                 return time and time < 65535 and time
@@ -201,17 +201,17 @@ TropicalAdventuresEvents = {
         gettimefn = function()
             if TheWorld.components.aporkalypse and TheWorld.components.aporkalypse:IsActive() then
                 if TheWorld:HasTag("cave") then
-                    return TheWorld.components.aporkalypse:GetHeraldTimer() -- 先驱
+                    return GetTimeLeft("aporkalypse.herald", TheWorld)() -- 先驱
                 else
-                    return TheWorld.components.aporkalypse:GetVampireTimer() -- 蝙蝠
+                    return GetTimeLeft("aporkalypse.vampire", TheWorld)() -- 蝙蝠
                 end
             end
         end,
         gettextfn = function(time)
             if time and time > 0 then
                 if TheWorld:HasTag("cave") then
-                    local VampireTimer = TheWorld.components.aporkalypse:GetVampireTimer()
-                    return string.format(ReplacePrefabName(strings.aporkalypse.attack), VampireTimer == 0 and strings.aporkalypse.attacked or TimeToString(VampireTimer), TimeToString(time))
+                    local VampireTimer = GetTimeLeft("aporkalypse.vampire", TheWorld)()
+                    return string.format(ReplacePrefabName(strings.aporkalypse.attack), VampireTimer and TimeToString(VampireTimer) or strings.aporkalypse.attacked, TimeToString(time))
                 else
                     return string.format(ReplacePrefabName(STRINGS.eventtimer.batted.cooldown), TimeToString(time))
                 end
