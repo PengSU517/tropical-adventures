@@ -67,8 +67,8 @@ end
 local function initshark(inst)
     if inst.entrada == nil then
         local x, y, z = inst.Transform:GetLocalPosition()
-        local fx = SpawnPrefab("tigersharktorch")
-        fx.Transform:SetPosition(x, y, z)
+        -- local fx = SpawnPrefab("tigersharktorch")
+        -- fx.Transform:SetPosition(x, y, z)
         local tigre = SpawnPrefab("tigershark")
         if tigre ~= nil then
             tigre.Transform:SetPosition(x, y, z)
