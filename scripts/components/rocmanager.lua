@@ -171,12 +171,12 @@ function Rocmanager:ShouldSpawn()
 	end
 end
 
-function Rocmanager:LongUpdate(dt)
-	self.nexttime = self.nexttime - dt
-end
+-- function Rocmanager:LongUpdate(dt)
+-- 	self.nexttime = self.nexttime - dt
+-- end
 
 function Rocmanager:OnUpdate(dt)
-
+	self.nexttime = self.nexttime - dt
 end
 
 return Rocmanager

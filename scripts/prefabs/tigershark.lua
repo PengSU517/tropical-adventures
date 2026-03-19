@@ -284,7 +284,7 @@ local function OnEntitySleep(inst)
     inst.components.tiletracker:Stop()
 end
 
-function OnDeadTiger(inst)
+local function OnDeadTiger(inst)
     local x, y, z = inst.Transform:GetLocalPosition()
     inst:DoTaskInTime(50 * FRAMES, function(inst)
         if inst.entrada == nil then
