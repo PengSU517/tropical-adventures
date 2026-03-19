@@ -1,5 +1,5 @@
 local SPAWNDIST = 40
-local TESTTIME = TUNING.SEG_TIME / 2
+local TESTTIME = 1 --TUNING.SEG_TIME / 2
 
 local Rocmanager = Class(function(self, inst)
 	self.disabled = false
@@ -175,8 +175,8 @@ end
 -- 	self.nexttime = self.nexttime - dt
 -- end
 
-function Rocmanager:OnUpdate(dt)
-	self.nexttime = self.nexttime - dt
-end
+-- function Rocmanager:OnUpdate(dt)
+-- 	self.nexttime = self.nexttime - dt
+-- end
 
 return Rocmanager
