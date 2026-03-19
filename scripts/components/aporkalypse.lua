@@ -20,9 +20,13 @@ local function onphase(self, new)
             TheWorld.net._aporkalypse_phase:set(new)
         end
     end
+    if new ~= PHASES.aporkalypse and self.inst ~= nil and self.inst.components.timer ~= nil then
+        self.inst.components.timer:StopTimer("aporkalypse.herald")
+        self.inst.components.timer:StopTimer("aporkalypse.vampire")
+    end
 end
 
-return Class(function(self, inst)
+return Class(function(self, inst) ---@param inst TheWorld
     local _world = TheWorld
     --local _ismastersim = _world.ismastersim
     assert(_world.ismastersim, "aporkalypse should not exist on client")
@@ -44,13 +48,10 @@ return Class(function(self, inst)
     self.real_start_date = 0
     self.fiesta_begin_date = 0
 
-    local _herald_check_timer = .0
-    local _vampire_check_timer = .0
-
     self._phase = PHASES.calm
 
     --if _ismastersim then
-    local stagefunc = function()
+    local function stagefunc()
         -- print("aporkalypsephase:", self._phase)
         -- print("aporkalypsebegindate:", self.begin_date / daytime)
         -- print("aporkalypsenowadays:", GetTimeTnSeconds() / daytime)
@@ -96,6 +97,67 @@ return Class(function(self, inst)
         end
     end
 
+    local function onheraldtimerdone()
+        if self:IsActive() then
+            for _, player in ipairs(AllPlayers) do
+                if player and player:IsValid() and player.components.health and not player.components.health:IsDead() then
+                    local herald = GetClosestInstWithTag("ancient", player, 30)
+                    if not herald then
+                        local valid_position = FindNearbyLand(player:GetPosition())
+                        if valid_position then herald = SpawnAt("ancient_herald", valid_position) end
+                    end
+                    if herald and herald.components.combat then
+                        herald.components.combat:SuggestTarget(player)
+                        break
+                    end
+                end
+            end
+            inst.components.timer:StartTimer("aporkalypse.herald", math.random(_seg / 2, _seg))
+        end
+    end
+
+    function self:ScheduleHeraldCheck()
+        inst.components.timer:StartTimer("aporkalypse.herald", math.random(_seg / 2, _seg) + _seg)
+    end
+
+    local function onvampiretimerdone()
+        if self:IsActive() then
+            local _num = math.ceil(math.min(24 * #AllPlayers, 50) / #AllPlayers)
+            for _, player in ipairs(AllPlayers) do
+                if player and player:IsInWorld() and player:IsValid() and player.components.health and not player.components.health:IsDead() then
+                    for i = 1, _num do
+                        local x, y, z = player.Transform:GetWorldPosition()
+                        local theta = math.random() * TWOPI
+                        local r = 4 + math.random() * 16
+                        x = x + r * math.sin(theta)
+                        z = z + r * math.cos(theta)
+                        local vampirebat = SpawnAt("circlingbat", Vector3(x, 0, z))
+                        if vampirebat and vampirebat.components.combat then
+                            vampirebat.components.combat:SuggestTarget(player)
+                        end
+                    end
+                end
+            end
+        end
+    end
+
+    local function ontimerdone(_, data)
+        if data ~= nil then
+            if data.name == "aporkalypse.herald" then
+                onheraldtimerdone()
+            elseif data.name == "aporkalypse.vampire" then
+                onvampiretimerdone()
+            end
+        end
+    end
+
+    function self:OnRemoveFromEntity()
+        inst:RemoveEventCallback("clocktick", stagefunc, _world)
+        inst:RemoveEventCallback("timerdone", ontimerdone)
+    end
+
+    self.OnRemoveEntity = self.OnRemoveFromEntity
+
     function self:OnSave(data)
         return
         {
@@ -140,68 +202,14 @@ return Class(function(self, inst)
         self:ScheduleVampireBatCheck()
     end
 
-    function self:ScheduleHeraldCheck()
-        self.herald_check_task = self.inst:StartThread(function()
-            Sleep(_seg)
-            repeat
-                _herald_check_timer = math.random(_seg / 2, _seg)
-                Sleep(_herald_check_timer)
-                for _, player in ipairs(AllPlayers) do
-                    if player and player:IsValid() and player.components.health and not player.components.health:IsDead() then
-                        local herald = GetClosestInstWithTag("ancient", player, 30)
-                        if not herald then
-                            local valid_position = FindNearbyLand(player:GetPosition())
-                            if valid_position then herald = SpawnAt("ancient_herald", valid_position) end
-                        end
-                        if herald and herald.components.combat then
-                            herald.components.combat:SuggestTarget(player)
-                            break
-                        end
-                    end
-                end
-            until not self:IsActive()
-            self.herald_check_task = nil
-            _herald_check_timer = 0
-        end)
-    end
-
     function self:ScheduleVampireBatCheck()
-        self.vampire_check_task = self.inst:StartThread(function()
-            _vampire_check_timer = math.random(_seg / 8, _seg / 4) + _seg
-            Sleep(_vampire_check_timer)
-            if self:IsActive() then
-                local _num = math.ceil(math.min(24 * #AllPlayers, 50) / #AllPlayers)
-                for _, player in ipairs(AllPlayers) do
-                    if player and player:IsInWorld() and player:IsValid() and player.components.health and not player.components.health:IsDead() then
-                        for i = 1, _num do
-                            local x, y, z = player.Transform:GetWorldPosition()
-                            local theta = math.random() * TWOPI
-                            local r = 4 + math.random() * 16
-                            x = x + r * math.sin(theta)
-                            z = z + r * math.cos(theta)
-                            local vampirebat = SpawnAt("circlingbat", Vector3(x, 0, z))
-                            if vampirebat and vampirebat.components.combat then
-                                vampirebat.components.combat:SuggestTarget(player)
-                            end
-                        end
-                    end
-                end
-            end
-            self.vampire_check_task = nil
-            _vampire_check_timer = 0
-        end)
+        inst.components.timer:StartTimer("aporkalypse.vampire", math.random(_seg / 8, _seg / 4) + _seg)
     end
 
     inst:ListenForEvent("clocktick", stagefunc, _world)
+
+    inst:ListenForEvent("timerdone", ontimerdone)
     --end
-
-    function self:GetHeraldTimer()
-        return _herald_check_timer
-    end
-
-    function self:GetVampireTimer()
-        return _vampire_check_timer
-    end
 
     function self:IsNear()
         return self._phase == PHASES.near
@@ -219,22 +227,15 @@ return Class(function(self, inst)
         return self._phase == PHASES.fiesta
     end
 
-    function self:OnUpdate(dt)
-        if _herald_check_timer and _herald_check_timer > .0 then
-            _herald_check_timer = math.max(.0, _herald_check_timer - dt)
-        end
-        if _vampire_check_timer and _vampire_check_timer > .0 then
-            _vampire_check_timer = math.max(.0, _vampire_check_timer - dt)
-        end
-    end
+    --function self:OnUpdate(dt) end
 
-    self.LongUpdate = self.OnUpdate
+    --self.LongUpdate = self.OnUpdate
 
     function self:GetDebugString()
         return string.format("aporkalypse begin_date: %d phase: %s", self.begin_date, PHASE_NAMES[self._phase])
     end
 
-    inst:StartUpdatingComponent(self)
+    --inst:StartUpdatingComponent(self)
 end, nil, {
     begin_date = onbegindate,
     _phase = onphase,
