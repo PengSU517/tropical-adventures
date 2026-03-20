@@ -20,6 +20,18 @@ We truly appreciate the foundations laid by these talented developers.
 Planning Update:
     1. Fixing trawlnet...(maybe next time)
 
+26.03.20 Update:
+    1. Now perfectly compatible with the [Global Event Timer] mod! As long as you have that Mod enabled, you can see the countdowns for various BOSSes directly on your screen, allowing you to prepare your defenses in advance.
+    2. The Aporkalypse is now perfectly adapted to the "Don't Starve Alone (DSA)" single-player mode. Fixed the issue where triggering the Aporkalypse would cause an error previously, greatly improving the stability of both multiplayer and single-player gameplay.
+
+    3. Tiger Shark combat is now smoother. Also cleared up redundant Tiger Shark spawn points on the map.
+    4. Fixed the issue where the ROC could not land normally.
+    5. Optimized the issue of the Twister sucking in too many items.
+
+    6. The Smelter and Crock Pot can now more accurately identify whether what you put in is an "ore" or an "ingredient", preventing misjudgments!
+    7. Water Chest Fix: Fixed the issue where the water chest had no interactive UI.
+    8. Crop Adjustment: Hidden wheat and turnips.
+
 26.03.06 Update：
     1. update wiki UI
     2. better boat UI
