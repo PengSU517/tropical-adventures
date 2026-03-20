@@ -66,11 +66,11 @@ PLANT_DEFS.turnip.moisture                   = {
     min_percent = TUNING.FARM_PLANT_DROUGHT_TOLERANCE
 }
 
-PLANT_DEFS.sweet_potato.good_seasons         = { autumn = true,                spring = true, summer = true }
-PLANT_DEFS.aloe.good_seasons                 = { autumn = true,                spring = true, summer = true }
-PLANT_DEFS.radish.good_seasons               = { autumn = true,                spring = true                }
-PLANT_DEFS.wheat.good_seasons                = {                winter = true, spring = true                }
-PLANT_DEFS.turnip.good_seasons               = { autumn = true,                               summer = true }
+PLANT_DEFS.sweet_potato.good_seasons         = { autumn = true, spring = true, summer = true }
+PLANT_DEFS.aloe.good_seasons                 = { autumn = true, spring = true, summer = true }
+PLANT_DEFS.radish.good_seasons               = { autumn = true, spring = true }
+PLANT_DEFS.wheat.good_seasons                = { winter = true, spring = true }
+PLANT_DEFS.turnip.good_seasons               = { autumn = true, summer = true }
 
 PLANT_DEFS.sweet_potato.nutrient_consumption = { 0, 0, M }
 PLANT_DEFS.aloe.nutrient_consumption         = { 0, M, 0 }
@@ -482,3 +482,10 @@ PLANT_DEFS.wheat.plantregistryinfo = {
 PLANT_DEFS.wheat.plantregistrywidget = "widgets/redux/farmplantpage"
 PLANT_DEFS.wheat.plantregistrysummarywidget = "widgets/redux/farmplantsummarywidget"
 PLANT_DEFS.wheat.pictureframeanim = { anim = "emoteXL_happycheer", time = 0.5 }
+
+
+
+
+
+PLANT_DEFS.wheat = nil
+PLANT_DEFS.turnip = nil
