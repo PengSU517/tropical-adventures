@@ -61,6 +61,10 @@ local function ShouldGoHome(inst)
 end
 
 local function ShouldFindFood(inst)
+    -- 如果当前有仇恨目标（正在战斗），则忽略食物，防止丢仇恨
+    if inst.components.combat.target ~= nil then
+        return false
+    end
     local comida = GetClosestInstWithTag("meat", inst, 60)
     return comida
 end
@@ -165,13 +169,11 @@ function TigersharkBrain:OnStart()
         {
             WhileNode(function() return ShouldFindFood(self.inst) end, "FindFood",
                 DoAction(self.inst, FindFoodAction)),
-            ChattyNode(self.inst, "PIG_GUARD_TALK_FIGHT",
-                WhileNode(
-                    function() return self.inst.components.combat.target == nil or
-                        not self.inst.components.combat:InCooldown() end, "AttackMomentarily",
-                    ChaseAndAttack(self.inst, SpringCombatMod(MAX_CHASE_TIME), SpringCombatMod(MAX_CHARGE_DIST)))),
 
-            -- Dodge behavior commented out to prevent pulling away and triggering jump
+            -- 修改核心：去掉了冷却期间中止追击的愚蠢设定，让它死盯玩家
+            ChaseAndAttack(self.inst, SpringCombatMod(MAX_CHASE_TIME), SpringCombatMod(MAX_CHARGE_DIST)),
+
+            -- Dodge 行为已被注释掉，防止主动拉开距离触发跳跃条件
             -- ChattyNode(self.inst, "PIG_GUARD_TALK_FIGHT",
             --    WhileNode(function() return self.inst.components.combat.target ~= nil and self.inst.components.combat:InCooldown() and math.random(1,4) > 2 end, "Dodge",
             --        RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST))),
