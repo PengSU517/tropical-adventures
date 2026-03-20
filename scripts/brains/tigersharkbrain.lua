@@ -12,8 +12,8 @@ local MAX_CHARGE_DIST = 60
 
 local DO_ACTIONS_DISTANCE = 30
 
-local FOOD_TAGS = {"edible"}
-local NO_TAGS = {"FX", "NOCLICK", "DECOR", "INLIMBO", "kittenchow"}
+local FOOD_TAGS = { "edible" }
+local NO_TAGS = { "FX", "NOCLICK", "DECOR", "INLIMBO", "kittenchow" }
 
 local GO_HOME_DIST = 10
 
@@ -29,7 +29,7 @@ end)
 local wandertimes =
 {
     minwalktime = 6,
-    randwalktime =  6,
+    randwalktime = 6,
     minwaittime = 5,
     randwaittime = 5,
 }
@@ -61,7 +61,7 @@ local function ShouldGoHome(inst)
 end
 
 local function ShouldFindFood(inst)
-	local comida = GetClosestInstWithTag("meat", inst, 60)
+    local comida = GetClosestInstWithTag("meat", inst, 60)
     return comida
 end
 
@@ -116,9 +116,9 @@ local function FindFoodAction(inst)
         function(item)
             return item:GetTimeAlive() >= 8
                 and item.prefab ~= "mandrake"
-				and item.prefab ~= "seeds"
+                and item.prefab ~= "seeds"
                 and item.components.edible ~= nil
- --               and (not noveggie or item.components.edible.foodtype == FOODTYPE.MEAT)
+                --               and (not noveggie or item.components.edible.foodtype == FOODTYPE.MEAT)
                 and item:IsOnValidGround()
                 and inst.components.eater:CanEat(item)
         end,
@@ -136,7 +136,7 @@ local function FindFoodAction(inst)
                 and item.components.shelf.itemonshelf ~= nil
                 and item.components.shelf.cantakeitem
                 and item.components.shelf.itemonshelf.components.edible ~= nil
---                and (not noveggie or item.components.shelf.itemonshelf.components.edible.foodtype == FOODTYPE.MEAT)
+                --                and (not noveggie or item.components.shelf.itemonshelf.components.edible.foodtype == FOODTYPE.MEAT)
                 and item:IsOnValidGround()
                 and inst.components.eater:CanEat(item.components.shelf.itemonshelf)
         end,
@@ -153,52 +153,57 @@ local function GetWanderPoint(inst)
         return inst.components.knownlocations:GetLocation("point_of_interest")
     end
 
---    if inst:FindSharkHome() and inst:GetPosition():Dist(inst:FindSharkHome():GetPosition()) < 40 then
---        return inst:FindSharkHome():GetPosition()
---    end
+    --    if inst:FindSharkHome() and inst:GetPosition():Dist(inst:FindSharkHome():GetPosition()) < 40 then
+    --        return inst:FindSharkHome():GetPosition()
+    --    end
 
     return inst:GetPosition()
 end
 
 function TigersharkBrain:OnStart()
     local root = PriorityNode(
-    {
-		WhileNode(function() return ShouldFindFood(self.inst) end, "FindFood",
-                DoAction(self.inst, FindFoodAction )),	
-	        ChattyNode(self.inst, "PIG_GUARD_TALK_FIGHT",
-            WhileNode(function() return self.inst.components.combat.target == nil or not self.inst.components.combat:InCooldown() end, "AttackMomentarily",
-                ChaseAndAttack(self.inst, SpringCombatMod(MAX_CHASE_TIME), SpringCombatMod(MAX_CHARGE_DIST)))),
-        ChattyNode(self.inst, "PIG_GUARD_TALK_FIGHT",
-            WhileNode(function() return self.inst.components.combat.target ~= nil and self.inst.components.combat:InCooldown() and math.random(1,4) > 2 end, "Dodge",
-                RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST))),
-	
---StalkerChaseAndAttack(self.inst)
-        ---- Combat Actions ----
- --       WhileNode(function() return self.inst.CanRun and self.inst.components.combat.target and
- --       (distsq(self.inst:GetPosition(), self.inst.components.combat.target:GetPosition()) > 10*10 or self.inst.sg:HasStateTag("running")) end,
- --       "Charge Behaviours", ChaseAndRam(self.inst, MAX_CHASE_TIME, GIVE_UP_DIST, MAX_CHARGE_DIST)),
- --       ChaseAndAttack(self.inst),
+        {
+            WhileNode(function() return ShouldFindFood(self.inst) end, "FindFood",
+                DoAction(self.inst, FindFoodAction)),
+            ChattyNode(self.inst, "PIG_GUARD_TALK_FIGHT",
+                WhileNode(
+                    function() return self.inst.components.combat.target == nil or
+                        not self.inst.components.combat:InCooldown() end, "AttackMomentarily",
+                    ChaseAndAttack(self.inst, SpringCombatMod(MAX_CHASE_TIME), SpringCombatMod(MAX_CHARGE_DIST)))),
 
---        WhileNode(function() return self.inst.components.combat.target ~= nil and self.inst.components.combat:InCooldown() and math.random(1,4) > 1 end, "Dodge",
---        RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST)),
-				
-				
---        ChattyNode(self.inst, "PIG_GUARD_TALK_FIGHT",
---            WhileNode(function() return self.inst.components.combat.target ~= nil and self.inst.components.combat:InCooldown() and math.random(1,10) == 1 end, "Mind",
---				DoAction(self.inst, function() return MindcontrolAction(self.inst) end))),	
-		
-		
-		WhileNode(function() return ShouldGoHome(self.inst) end, "ShouldGoHome",
-        DoAction(self.inst, GoHomeAction, "Go Home", true)),
+            -- Dodge behavior commented out to prevent pulling away and triggering jump
+            -- ChattyNode(self.inst, "PIG_GUARD_TALK_FIGHT",
+            --    WhileNode(function() return self.inst.components.combat.target ~= nil and self.inst.components.combat:InCooldown() and math.random(1,4) > 2 end, "Dodge",
+            --        RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST))),
 
---		DoAction(self.inst, function() return FindFoodAction(self.inst) end)
- 
+            --StalkerChaseAndAttack(self.inst)
+            ---- Combat Actions ----
+            --       WhileNode(function() return self.inst.CanRun and self.inst.components.combat.target and
+            --       (distsq(self.inst:GetPosition(), self.inst.components.combat.target:GetPosition()) > 10*10 or self.inst.sg:HasStateTag("running")) end,
+            --       "Charge Behaviours", ChaseAndRam(self.inst, MAX_CHASE_TIME, GIVE_UP_DIST, MAX_CHARGE_DIST)),
+            --       ChaseAndAttack(self.inst),
 
-        WhileNode(function() return not self.inst.CanFly end, "Wander Behaviours", --Wander around
-		Wander(self.inst, function() return self.inst.components.knownlocations:GetLocation("home") end, MAX_IDLE_WANDER_DIST)),
---		Wander(self.inst, function() return GetWanderPoint(self.inst) end, MAX_IDLE_WANDER_DIST, wandertimes)),
+            --        WhileNode(function() return self.inst.components.combat.target ~= nil and self.inst.components.combat:InCooldown() and math.random(1,4) > 1 end, "Dodge",
+            --        RunAway(self.inst, function() return self.inst.components.combat.target end, RUN_AWAY_DIST, STOP_RUN_AWAY_DIST)),
 
-    }, .25)
+
+            --        ChattyNode(self.inst, "PIG_GUARD_TALK_FIGHT",
+            --            WhileNode(function() return self.inst.components.combat.target ~= nil and self.inst.components.combat:InCooldown() and math.random(1,10) == 1 end, "Mind",
+            --				DoAction(self.inst, function() return MindcontrolAction(self.inst) end))),	
+
+
+            WhileNode(function() return ShouldGoHome(self.inst) end, "ShouldGoHome",
+                DoAction(self.inst, GoHomeAction, "Go Home", true)),
+
+            --		DoAction(self.inst, function() return FindFoodAction(self.inst) end)
+
+
+            WhileNode(function() return not self.inst.CanFly end, "Wander Behaviours", --Wander around
+                Wander(self.inst, function() return self.inst.components.knownlocations:GetLocation("home") end,
+                    MAX_IDLE_WANDER_DIST)),
+            --		Wander(self.inst, function() return GetWanderPoint(self.inst) end, MAX_IDLE_WANDER_DIST, wandertimes)),
+
+        }, .25)
     self.bt = BT(self.inst, root)
 end
 

@@ -49,14 +49,7 @@ local function GetIsOnWater(inst)
     local x, y, z = inst.Transform:GetWorldPosition()
     local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
 
-    if TileGroupManager:IsOceanTile(ground) --[[ground == GROUND.OCEAN_SWELL or
-        ground == GROUND.OCEAN_COASTAL or
-        ground == GROUND.OCEAN_COASTAL_SHORE or
-        ground == GROUND.OCEAN_ROUGH or
-        ground == GROUND.OCEAN_BRINEPOOL or
-        ground == GROUND.OCEAN_BRINEPOOL_SHORE or
-        ground == GROUND.OCEAN_WATERLOG or
-        ground == GROUND.OCEAN_HAZARDOUS]] then
+    if TileGroupManager:IsOceanTile(ground) then
         return true
     else
         return false
@@ -349,14 +342,7 @@ local states =
             local x, y, z = inst.Transform:GetWorldPosition()
             local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
 
-            if TileGroupManager:IsLandTile(ground) --[[ground ~= GROUND.OCEAN_SWELL and
-                ground ~= GROUND.OCEAN_COASTAL and
-                ground ~= GROUND.OCEAN_COASTAL_SHORE and
-                ground ~= GROUND.OCEAN_ROUGH and
-                ground ~= GROUND.OCEAN_BRINEPOOL and
-                ground ~= GROUND.OCEAN_BRINEPOOL_SHORE and
-                ground ~= GROUND.OCEAN_WATERLOG and
-                ground ~= GROUND.OCEAN_HAZARDOUS]] then
+            if TileGroupManager:IsLandTile(ground) then
                 inst:ClearStateGraph()
                 inst:SetStateGraph("SGtigershark_ground")
                 inst.AnimState:SetBuild("tigershark_ground_build")
@@ -507,7 +493,7 @@ local states =
         {
             EventHandler("animqueueover", function(inst)
                 inst.AttackCounter = inst.AttackCounter + 1
-                if inst.AttackCounter >= 2 then
+                if inst.AttackCounter >= 6 then
                     inst.AttackCounter = 0
                     inst.CanFly = true
                     inst.sg:GoToState("dive")

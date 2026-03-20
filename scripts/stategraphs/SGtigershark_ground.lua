@@ -222,14 +222,7 @@ local states =
             local x, y, z = inst.Transform:GetWorldPosition()
             local ground = map:GetTile(map:GetTileCoordsAtPoint(x, y, z))
 
-            if TileGroupManager:IsOceanTile(ground) --[[ground == GROUND.OCEAN_SWELL or
-                ground == GROUND.OCEAN_COASTAL or
-                ground == GROUND.OCEAN_COASTAL_SHORE or
-                ground == GROUND.OCEAN_ROUGH or
-                ground == GROUND.OCEAN_BRINEPOOL or
-                ground == GROUND.OCEAN_BRINEPOOL_SHORE or
-                ground == GROUND.OCEAN_WATERLOG or
-                ground == GROUND.OCEAN_HAZARDOUS]] then
+            if TileGroupManager:IsOceanTile(ground) then
                 inst:ClearStateGraph()
                 inst:SetStateGraph("SGtigershark_water")
                 inst.AnimState:SetBuild("tigershark_water_build")
@@ -351,7 +344,7 @@ local states =
         {
             EventHandler("animover", function(inst)
                 inst.AttackCounter = inst.AttackCounter + 1
-                if inst.AttackCounter >= 3 then
+                if inst.AttackCounter >= 6 then
                     inst.AttackCounter = 0
                     inst.podepular = true
                 end
@@ -519,10 +512,11 @@ CommonStates.AddRunStates(states,
                 inst.components.rowboatwakespawner:StopSpawning()
                 local target = inst:GetTarget()
                 if target and not inst:HasTag("aquatic") and not inst.sg:HasStateTag("specialattack") then
-                    --                local dist = inst:GetPosition():Dist(target)
-                    --                 if (dist > 8 and inst.podepular) then
-                    if (inst.podepular) then
+                    if inst.podepular and not inst.components.timer:TimerExists("GroundPoundCD") then
+                        inst.components.timer:StartTimer("GroundPoundCD", 15)
                         inst.sg:GoToState("jump")
+                        inst.podepular = false
+                    elseif inst.podepular then
                         inst.podepular = false
                     end
                 end
