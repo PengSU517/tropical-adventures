@@ -14,37 +14,6 @@ local Whirlpool = Class(function(self, inst)
 	self.whirlpooling_player = false
 	self.spitplayer = false
 end)
-function CheckLOSFromPoint(pos, target_pos)
-	--[[
-    local dist = target_pos:Dist(pos)
-    local vec = (target_pos - pos):GetNormalized()
-
-    local ents = TheSim:FindEntities(pos.x, pos.y, pos.z, dist, {"blocker"})
-
-    for k,v in pairs(ents) do
-        local blocker_pos = v:GetPosition()
-        local blocker_vec = (blocker_pos - pos):GetNormalized()
-        local blocker_perp = Vector3(-blocker_vec.z, 0, blocker_vec.x)
-        local blocker_radius = v.Physics:GetRadius()
-        blocker_radius = math.max(0.75, blocker_radius)
-
-        local blocker_edge1 = blocker_pos + Vector3(blocker_perp.x * blocker_radius, 0, blocker_perp.z * blocker_radius)
-        local blocker_edge2 = blocker_pos - Vector3(blocker_perp.x * blocker_radius, 0, blocker_perp.z * blocker_radius)
-
-        local blocker_vec1 = (blocker_edge1 - pos):GetNormalized()
-        local blocker_vec2 = (blocker_edge2 - pos):GetNormalized()
-
---        if isbetween(vec, blocker_vec1, blocker_vec2) then
-            -- print(v, "blocks LoS.")
-            -- print("-----------")
---            return false
---        end
-    end
-    -- print("Nothing blocked LoS.")
-    -- print("-----------")
-]]
-	return true
-end
 
 function Whirlpool:TurnOn()
 	self.inst:StartUpdatingComponent(self)

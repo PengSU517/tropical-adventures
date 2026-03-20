@@ -14,37 +14,7 @@ local Vacuum = Class(function(self, inst)
 	self.vacuuming_player = false
 	self.spitplayer = false
 end)
-function CheckLOSFromPoint(pos, target_pos)
-	--[[
-    local dist = target_pos:Dist(pos)
-    local vec = (target_pos - pos):GetNormalized()
 
-    local ents = TheSim:FindEntities(pos.x, pos.y, pos.z, dist, {"blocker"})
-
-    for k,v in pairs(ents) do
-        local blocker_pos = v:GetPosition()
-        local blocker_vec = (blocker_pos - pos):GetNormalized()
-        local blocker_perp = Vector3(-blocker_vec.z, 0, blocker_vec.x)
-        local blocker_radius = v.Physics:GetRadius()
-        blocker_radius = math.max(0.75, blocker_radius)
-
-        local blocker_edge1 = blocker_pos + Vector3(blocker_perp.x * blocker_radius, 0, blocker_perp.z * blocker_radius)
-        local blocker_edge2 = blocker_pos - Vector3(blocker_perp.x * blocker_radius, 0, blocker_perp.z * blocker_radius)
-
-        local blocker_vec1 = (blocker_edge1 - pos):GetNormalized()
-        local blocker_vec2 = (blocker_edge2 - pos):GetNormalized()
-
---        if isbetween(vec, blocker_vec1, blocker_vec2) then
-            -- print(v, "blocks LoS.")
-            -- print("-----------")
---            return false
---        end
-    end
-    -- print("Nothing blocked LoS.")
-    -- print("-----------")
-]]
-	return true
-end
 
 function Vacuum:TurnOn()
 	self.inst:StartUpdatingComponent(self)
@@ -78,28 +48,37 @@ function Vacuum:SpitItem(item)
 end
 
 function Vacuum:OnUpdate(dt)
-	-- find entities within radius and vacuum them towards my location
 	local pt = self.inst:GetPosition()
-	local ents = TheSim:FindEntities(pt.x, 0, pt.z, self.consumeradius, nil, self.noTags)
 
-	for k, v in pairs(ents) do
+	-- 1. 防宕机吞噬物品逻辑
+	local ents_consume = TheSim:FindEntities(pt.x, 0, pt.z, self.consumeradius, nil, self.noTags)
+	for k, v in pairs(ents_consume) do
 		if v and v.components.inventoryitem and not v.components.inventoryitem:IsHeld() then
-			if not self.inst.components.inventory:GiveItem(v) then
-				self:SpitItem(v)
+			-- 限制最大吸入数量，多余的直接化为灰烬
+			if self.inst.components.inventory:NumItems() < 20 then
+				if not self.inst.components.inventory:GiveItem(v) then
+					self:SpitItem(v)
+				end
+			else
+				local ash = SpawnPrefab("ash")
+				if ash then ash.Transform:SetPosition(v.Transform:GetWorldPosition()) end
+				v:Remove()
 			end
 		end
 	end
 
-	ents = TheSim:FindEntities(pt.x, pt.y, pt.z, self.vacuumradius, nil, self.noTags)
-
-	for k, v in pairs(ents) do
-		if v and v.Physics and v.components.inventoryitem and not v.components.inventoryitem:IsHeld() and not v:HasTag("boat") and CheckLOSFromPoint(self.inst:GetPosition(), v:GetPosition()) then
+	-- 2. 限制单帧牵引物品逻辑（缓解服务器压力）
+	local ents_pull = TheSim:FindEntities(pt.x, pt.y, pt.z, self.vacuumradius, { "_inventoryitem" }, self.noTags)
+	local pull_count = 0
+	for k, v in pairs(ents_pull) do
+		if pull_count >= 20 then break end
+		if v and v.Physics and v.components.inventoryitem and not v.components.inventoryitem:IsHeld() and not v:HasTag("boat") then
 			local x, y, z = v:GetPosition():Get()
-			y = .1
-			v.Physics:Teleport(x, y, z)
-			local dir = v:GetPosition() - self.inst:GetPosition()
-			local angle = math.atan2(-dir.z, -dir.x)
+			v.Physics:Teleport(x, 0.1, z)
+			local dir = pt - v:GetPosition()
+			local angle = math.atan2(dir.z, dir.x)
 			v.Physics:SetVel(math.cos(angle) * self.vacuumspeed, 0, math.sin(angle) * self.vacuumspeed)
+			pull_count = pull_count + 1
 		else
 			v:AddTag("NOVACUUM")
 			v:DoTaskInTime(1, function() v:RemoveTag("NOVACUUM") end)
