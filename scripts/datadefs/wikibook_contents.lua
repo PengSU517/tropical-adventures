@@ -47,6 +47,13 @@ local desc_contents = {
             -- desc_atlas = dst_atlas,
         },
 
+        house_extension = {
+            priority = 3.5,
+            y_offset = 200,
+            desc_tex = "curtain_door.tex",
+            -- desc_atlas = "images/quagmire_recipebook.xml",
+        },
+
         ruins = {
             priority = 4,
             desc_build = "pig_ruins_entrance_build",

@@ -137,3 +137,6 @@ if rawget(_G, "TheSim") then
 end
 
 AddConfigAndTuning(TA_CONFIG, world_overrides)
+
+
+TUNING.TROPICAL_ADVENTURE_VERSION = version

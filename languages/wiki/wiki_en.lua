@@ -33,6 +33,12 @@ local WikiDesc = {
                     Note: This action [cannot cross between different worlds].
             ]]
         },
+
+        house_extension = {
+            name = "House extension",
+            intro = [[do not need [CONSTRUCTION_PERMIT], only need to place [HOUSE_DOOR] on the back wall。
+            Nowadays, the house extension is [tree-like structure], instead of [net-like structure], meanng that you could only place [HOUSE_DOOR] on the back wall.]]
+        },
         volcano = {
             name = "Volcano",
             intro = [[The Volcano currently exists as an [Independent Island] in the overworld.
@@ -76,7 +82,7 @@ local WikiDesc = {
                     The [aporkalypse_clock] is located deep within the [Hamlet Ruins Maze] in the caves.
                     Turn the [aporkalypse_clock] to stop the Aporkalypse.
                     ----------------
-                    Please note that the Aporkalypse requires surface and underground synchronization and conflicts with [Standalone Long Road].]]
+                    Now it is compatible with [Don't Starve Alone].]]
         },
     },
 

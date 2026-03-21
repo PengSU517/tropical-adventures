@@ -3,12 +3,12 @@ local ImageButton = require "widgets/imagebutton"
 local desc_terms = require("datadefs/wikibook_contents").wiki_terms
 
 -- 定义按键常量（对应 DST 标准输入值）
-local MOUSEBUTTON_CLICK = MOUSEBUTTON_LEFT   -- 右键拖拽 (2)
-local MOUSEBUTTON_DRAG = MOUSEBUTTON_RIGHT   -- 右键拖拽 (2)
-local MOUSEBUTTON_RESET = MOUSEBUTTON_MIDDLE -- 中键复位 (3)
-local SCROLL_UP = MOUSEBUTTON_SCROLLUP       -- 滚轮向上 (4)
-local SCROLL_DOWN = MOUSEBUTTON_SCROLLDOWN   -- 滚轮向下 (5)
-local SAVE_KEY = "WikiIcon_User_Layout"      -- 存档键名
+local MOUSEBUTTON_CLICK = MOUSEBUTTON_LEFT                                   -- 右键拖拽 (2)
+local MOUSEBUTTON_DRAG = MOUSEBUTTON_RIGHT                                   -- 右键拖拽 (2)
+local MOUSEBUTTON_RESET = MOUSEBUTTON_MIDDLE                                 -- 中键复位 (3)
+local SCROLL_UP = MOUSEBUTTON_SCROLLUP                                       -- 滚轮向上 (4)
+local SCROLL_DOWN = MOUSEBUTTON_SCROLLDOWN                                   -- 滚轮向下 (5)
+local SAVE_KEY = "WikiIcon_User_Layout" .. TUNING.TROPICAL_ADVENTURE_VERSION -- 存档键名
 
 -- [[以下代码来自蘑菇慕斯]]
 

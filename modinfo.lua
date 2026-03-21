@@ -66,7 +66,7 @@ name = pub_dev(en_zh("Tropical Adventures|Ship of Theseus", "热带冒险|忒修
     en_zh("Tropical Adventures|Dev", "热带冒险|开发版"))
 
 author = "Peng et al."
-version = "26.03.20"
+version = "26.03.21"
 forumthread = ""
 api_version = 10
 priority = -100
@@ -206,7 +206,7 @@ global_options =
             { description = en_zh("Disabled", "关闭"), data = false, },
             { description = en_zh("Enabled", "开启"), data = true, },
         },
-        default = true,
+        default = false,
     },
 }
 
