@@ -1,5 +1,5 @@
-local _daytime = TUNING.TOTAL_DAY_TIME -- 480s
-local _seg = TUNING.SEG_TIME           -- 30s
+local _daytime = TUNING.TOTAL_DAY_TIME     -- 480s
+local _seg = TUNING.SEG_TIME * 8           -- 30s
 local PHASE_NAMES = { "fiesta", "calm", "near", "aporkalypse", }
 local PHASES = table.invert(PHASE_NAMES)
 
@@ -99,7 +99,7 @@ return Class(function(self, inst) ---@param inst TheWorld
 
     local function onheraldtimerdone()
         if self:IsActive() then
-            for _, player in ipairs(AllPlayers) do
+            for _, player in pairs(AllPlayers) do
                 if player and player:IsValid() and player.components.health and not player.components.health:IsDead() then
                     local herald = GetClosestInstWithTag("ancient", player, 30)
                     if not herald then
@@ -122,8 +122,8 @@ return Class(function(self, inst) ---@param inst TheWorld
 
     local function onvampiretimerdone()
         if self:IsActive() then
-            local _num = math.ceil(math.min(24 * #AllPlayers, 50) / #AllPlayers)
-            for _, player in ipairs(AllPlayers) do
+            local _num = math.ceil(math.min(16 * #AllPlayers, 50) / #AllPlayers)
+            for _, player in pairs(AllPlayers) do
                 if player and player:IsInWorld() and player:IsValid() and player.components.health and not player.components.health:IsDead() then
                     for i = 1, _num do
                         local x, y, z = player.Transform:GetWorldPosition()
@@ -203,7 +203,7 @@ return Class(function(self, inst) ---@param inst TheWorld
     end
 
     function self:ScheduleVampireBatCheck()
-        inst.components.timer:StartTimer("aporkalypse.vampire", math.random(_seg / 8, _seg / 4) + _seg)
+        inst.components.timer:StartTimer("aporkalypse.vampire", math.random(_seg / 8, _seg / 4))
     end
 
     inst:ListenForEvent("clocktick", stagefunc, _world)
