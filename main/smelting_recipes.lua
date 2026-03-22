@@ -33,24 +33,24 @@ cooking.IsCookingIngredient = function(prefabname)
     -- 2. 如果它是我们注册的熔炼材料，我们需要判断它是“纯矿石”还是“跨界材料”
     if smelting.isAttribute(prefabname) then
         -- 获取这个物品在当前游戏环境下的所有食材度标签
-        local tags = cooking.ingredients[prefabname]
+        local is_pure_ore = true
+        local tags = cooking.ingredients[prefabname].tags
         if tags then
-            local is_pure_ore = true
-
             -- 遍历它身上的每一个标签
             for tag_name, val in pairs(tags) do
                 -- 如果发现任何一个标签【不在】我们的熔炼 attributes 表里
                 -- 意味着这是原版标签(如meat)或其他后加载Mod添加的标签！
                 if not attributes[tag_name] then
+                    -- print("[Smelting] Warning: Ingredient " ..
+                    --     prefabname .. " has non-smelting ingredient tag " .. tag_name)
                     is_pure_ore = false
                     break
                 end
             end
-
-            -- 如果它【只是】个纯矿石（全身只有熔炼标签，没有任何外界食物标签），则拦截！
-            if is_pure_ore then
-                return false
-            end
+        end
+        -- 如果它【只是】个纯矿石（全身只有熔炼标签，没有任何外界食物标签），则拦截！
+        if is_pure_ore then
+            return false
         end
     end
 
