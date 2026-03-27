@@ -1,12 +1,23 @@
-local _daytime = TUNING.TOTAL_DAY_TIME     -- 480s
-local _seg = TUNING.SEG_TIME * 8           -- 30s
+local _daytime = TUNING.TOTAL_DAY_TIME -- 480s
+local _seg = TUNING.SEG_TIME * 8       -- 30s
 local PHASE_NAMES = { "fiesta", "calm", "near", "aporkalypse", }
 local PHASES = table.invert(PHASE_NAMES)
 
-local function onbegindate(self, new)
+function Shard_SyncAporkalypseBeginDate(date)
+    date = date or TheWorld.components.aporkalypse ~= nil and TheWorld.components.aporkalypse.begin_date
+    if date == nil then return end
+    if Shard_IsMaster() then
+        TheWorld.shard._aporkalypse_begin_date:set(date)
+    else
+        SendModRPCToShard(GetShardModRPC("TropicalAdventures", "SyncAporkalypseBeginDate"), SHARDID.MASTER, date)
+    end
+end
+
+local function onbegindate(self, new, old)
+    if new == old then return end
     if TheWorld ~= nil then
         if TheWorld.shard ~= nil and TheWorld.shard._aporkalypse_begin_date ~= nil then
-            TheWorld.shard._aporkalypse_begin_date:set(new)
+            Shard_SyncAporkalypseBeginDate(new)
         end
         if TheWorld.components.dsa_aporkalypse_proxy ~= nil then
             TheWorld.components.dsa_aporkalypse_proxy:SetDate(new)
@@ -146,7 +157,7 @@ return Class(function(self, inst) ---@param inst TheWorld
             if data.name == "aporkalypse.herald" then
                 onheraldtimerdone()
             elseif data.name == "aporkalypse.vampire" then
-                onvampiretimerdone()
+                --onvampiretimerdone()
             end
         end
     end
