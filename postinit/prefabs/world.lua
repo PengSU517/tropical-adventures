@@ -92,10 +92,13 @@ local PHASES = table.invert(PHASE_NAMES)
 local function NetAporkalypsePostInit(inst)
     if TUNING.aporkalypse then
         inst._aporkalypse_phase = net_tinybyte(inst.GUID, "aporkalypse.phase", "aporkalypse.phasedirty")
-        inst._aporkalypse_phase:set_local(2) --// TODO: 尝试获取真实值并立即同步
+        inst._aporkalypse_phase:set_local(2)
         inst:ListenForEvent("aporkalypse.phasedirty", function()
             TheWorld:PushEvent("aporkalypsephasechanged", PHASE_NAMES[inst._aporkalypse_phase:value()])
         end)
+        if TheWorld and TheWorld.ismastersim and TheWorld.components.aporkalypse then
+            inst._aporkalypse_phase:set(TheWorld.components.aporkalypse._phase)
+        end
     end
 end
 
@@ -109,11 +112,14 @@ AddPrefabPostInit("cave_network", NetAporkalypsePostInit)
 AddPrefabPostInit("shard_network", function(inst)
     if TUNING.aporkalypse then
         inst._aporkalypse_begin_date = net_uint(inst.GUID, "aporkalypse.begin_date", "aporkalypse.begin_datedirty")
-        inst._aporkalypse_begin_date:set_local(57600) --// TODO: 尝试获取真实值并立即同步
+        inst._aporkalypse_begin_date:set_local(57600)
         inst:ListenForEvent("aporkalypse.begin_datedirty", function()
             if TheWorld.components.aporkalypse ~= nil then
                 TheWorld.components.aporkalypse.begin_date = inst._aporkalypse_begin_date:value()
             end
         end)
+        if TheWorld.ismastershard then
+            Shard_SyncAporkalypseBeginDate()
+        end
     end
 end)

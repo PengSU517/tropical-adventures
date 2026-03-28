@@ -5,7 +5,7 @@ local PHASES = table.invert(PHASE_NAMES)
 
 function Shard_SyncAporkalypseBeginDate(date)
     date = date or TheWorld.components.aporkalypse ~= nil and TheWorld.components.aporkalypse.begin_date
-    if date == nil then return end
+    if date == nil or not (TheWorld.shard and TheWorld.shard._aporkalypse_begin_date) then return end
     if Shard_IsMaster() then
         TheWorld.shard._aporkalypse_begin_date:set(date)
     else
@@ -16,9 +16,7 @@ end
 local function onbegindate(self, new, old)
     if new == old then return end
     if TheWorld ~= nil then
-        if TheWorld.shard ~= nil and TheWorld.shard._aporkalypse_begin_date ~= nil then
-            Shard_SyncAporkalypseBeginDate(new)
-        end
+        Shard_SyncAporkalypseBeginDate(new)
         if TheWorld.components.dsa_aporkalypse_proxy ~= nil then
             TheWorld.components.dsa_aporkalypse_proxy:SetDate(new)
         end
@@ -39,7 +37,7 @@ end
 
 return Class(function(self, inst) ---@param inst TheWorld
     local _world = TheWorld
-    --local _ismastersim = _world.ismastersim
+    local _ismastershard = _world.ismastershard
     assert(_world.ismastersim, "aporkalypse should not exist on client")
 
     local function GetTimeTnSeconds()
@@ -61,8 +59,7 @@ return Class(function(self, inst) ---@param inst TheWorld
 
     self._phase = PHASES.calm
 
-    --if _ismastersim then
-    local function stagefunc()
+    local function onclocktick()
         -- print("aporkalypsephase:", self._phase)
         -- print("aporkalypsebegindate:", self.begin_date / daytime)
         -- print("aporkalypsenowadays:", GetTimeTnSeconds() / daytime)
@@ -157,36 +154,38 @@ return Class(function(self, inst) ---@param inst TheWorld
             if data.name == "aporkalypse.herald" then
                 onheraldtimerdone()
             elseif data.name == "aporkalypse.vampire" then
-                --onvampiretimerdone()
+                onvampiretimerdone()
             end
         end
     end
 
     function self:OnRemoveFromEntity()
-        inst:RemoveEventCallback("clocktick", stagefunc, _world)
+        inst:RemoveEventCallback("clocktick", onclocktick, _world)
         inst:RemoveEventCallback("timerdone", ontimerdone)
     end
 
     self.OnRemoveEntity = self.OnRemoveFromEntity
 
-    function self:OnSave(data)
-        return
-        {
-            phase = self._phase,
-            begin_date = self.begin_date,
-            real_start_date = self.real_start_date,
-            fiesta_begin_date = self.fiesta_begin_date,
-            first_time = self.first_time,
-        }
-    end
+    if _ismastershard then
+        function self:OnSave(data)
+            return
+            {
+                phase = self._phase,
+                begin_date = self.begin_date,
+                real_start_date = self.real_start_date,
+                fiesta_begin_date = self.fiesta_begin_date,
+                first_time = self.first_time,
+            }
+        end
 
-    function self:OnLoad(data)
-        if data then
-            self._phase = data.phase or PHASES.calm --这里也会推送事件，所以不用手动推送了
-            self.fiesta_begin_date = data.fiesta_begin_date
-            self.first_time = data.first_time
-            self.real_start_date = data.real_start_date
-            self.begin_date = data.begin_date or (GetTimeTnSeconds() + (120 * _daytime))
+        function self:OnLoad(data)
+            if data then
+                self._phase = data.phase or PHASES.calm --这里也会推送事件，所以不用手动推送了
+                self.fiesta_begin_date = data.fiesta_begin_date
+                self.first_time = data.first_time
+                self.real_start_date = data.real_start_date
+                self.begin_date = data.begin_date or (GetTimeTnSeconds() + (120 * _daytime))
+            end
         end
     end
 
@@ -202,8 +201,6 @@ return Class(function(self, inst) ---@param inst TheWorld
         end
 
         self.begin_date = currentTime + delta
-
-        --SendModRPCToShard(SHARD_MOD_RPC["Tropical adventures"]["aporkalypse begin date"], nil, self.begin_date)
     end
 
     function self:ScheduleAporkalypseTasks()
@@ -217,10 +214,9 @@ return Class(function(self, inst) ---@param inst TheWorld
         inst.components.timer:StartTimer("aporkalypse.vampire", math.random(_seg / 8, _seg / 4))
     end
 
-    inst:ListenForEvent("clocktick", stagefunc, _world)
+    inst:ListenForEvent("clocktick", onclocktick, _world)
 
     inst:ListenForEvent("timerdone", ontimerdone)
-    --end
 
     function self:IsNear()
         return self._phase == PHASES.near
@@ -245,8 +241,6 @@ return Class(function(self, inst) ---@param inst TheWorld
     function self:GetDebugString()
         return string.format("aporkalypse begin_date: %d phase: %s", self.begin_date, PHASE_NAMES[self._phase])
     end
-
-    --inst:StartUpdatingComponent(self)
 end, nil, {
     begin_date = onbegindate,
     _phase = onphase,
