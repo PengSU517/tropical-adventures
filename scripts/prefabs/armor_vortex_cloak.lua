@@ -152,7 +152,7 @@ local function fn()
     local armor = inst:AddComponent("armor")
     armor:InitCondition(TUNING.ARMORVORTEX, TUNING.ARMORVORTEX_ABSORPTION)
     armor:SetKeepOnFinished(true)
-    armor:SetImmuneTags({ "shadow" })
+    armor:AddNonresistTags("shadow")
     inst.components.armor.ontakedamage = OnTakeDamage
 
     local fueled = inst:AddComponent("fueled")

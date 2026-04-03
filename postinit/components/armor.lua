@@ -1,27 +1,20 @@
-local TROENV = env
-GLOBAL.setfenv(1, GLOBAL)
+local Armor = require "components/armor"
 
-
-----------------------------------------------------------------------------------------
-local Armor = require("components/armor")
-
-TROENV.AddComponentPostInit("Armor", function(self)
-
-end)
-
-function Armor:SetImmuneTags(tags)
-    self.immunetags = tags
+function Armor:AddNonresistTags(...)
+    self.nonresisttags = self.nonresisttags or {}
+    for _, tag in ipairs { ... } do
+        table.insert(self.nonresisttags, tag)
+    end
 end
 
-local oldcanresist = Armor.CanResist
-function Armor:CanResist(attacker, weapon)
-    if attacker and self.immunetags then
-        for k, v in pairs(self.immunetags) do
+local CanResist = Armor.CanResist
+function Armor:CanResist(attacker, ...)
+    if attacker and self.nonresisttags then
+        for k, v in ipairs(self.nonresisttags) do
             if attacker:HasTag(v) then
                 return false
             end
         end
     end
-
-    return oldcanresist
+    return CanResist(self, attacker, ...)
 end
