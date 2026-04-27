@@ -1,7 +1,7 @@
 local SPAWNDIST = 40
 
 local Rocmanager = Class(function(self, inst)
-	-- self.disabled = false
+	self.disabled = false
 	self.inst = inst
 	-- self.inst:DoPeriodicTask(TESTTIME, function() self:ShouldSpawn() end) --
 	self.roc = nil
@@ -48,7 +48,7 @@ end)
 function Rocmanager:OnSave()
 	local refs = {}
 	local data = {}
-	-- data.disabled = self.disabled
+	data.disabled = self.disabled
 	data.nexttime = self.nexttime
 
 	if self.roc and self.roc:IsValid() then
@@ -60,9 +60,9 @@ function Rocmanager:OnSave()
 end
 
 function Rocmanager:OnLoad(data)
-	-- if data.disabled then
-	-- 	self.disabled = data.disabled
-	-- end
+	if data.disabled then
+		self.disabled = data.disabled
+	end
 	if data.nexttime then
 		self.nexttime = data.nexttime
 	end
@@ -83,9 +83,9 @@ function Rocmanager:RemoveRoc(inst)
 	end
 end
 
--- function Rocmanager:Disable()
--- 	self.disabled = true
--- end
+function Rocmanager:Disable()
+	self.disabled = true
+end
 
 function Rocmanager:GetNextSpawnTime()
 	return (TUNING.TOTAL_DAY_TIME * 10) + (math.random() * TUNING.TOTAL_DAY_TIME * 10)
@@ -131,9 +131,9 @@ function Rocmanager:Spawn(summoner)
 end
 
 function Rocmanager:ShouldSpawn(dt)
-	-- if self.disabled then
-	-- 	return
-	-- end
+	if self.disabled then
+		return
+	end
 
 	-- will only spawn before the first half of daylight.
 	if not self.roc then --clock:GetNormTime() < (clock.daysegs / 16) /2 then
