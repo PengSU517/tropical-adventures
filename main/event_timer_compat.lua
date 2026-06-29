@@ -2,7 +2,7 @@ local Upvaluehelper = Upvaluehelper
 local AddPrefabPostInit = AddPrefabPostInit
 
 GLOBAL.setfenv(1, GLOBAL)
-if not (rawget(_G, "EventTimer") and rawget(_G, "WarningEvents")) then return end
+if not TUNING.GlobalEventsTimerEnabled then return end
 
 local TimeToString = EventTimer.env.TimeToString           -- 格式化时间
 local ReplacePrefabName = EventTimer.env.ReplacePrefabName -- 填充Prefab名字
@@ -13,10 +13,10 @@ local function zh_en(zh, en)
     return ModLanguage == "zh" and zh or en
 end
 
--- 如果event_time > 0，在刚进入游戏的1~10秒内返回true
+-- 如果event_time > 0，在刚进入游戏的10秒内返回true
 local function JustEntered(event_time)
     if not checknumber(event_time) then return end
-    return GetTime() > 1 and GetTime() < 10 and event_time > 0
+    return GetTime() < 10 and event_time > 0
 end
 
 -- 将字符串打包为一个返回该字符串的函数
