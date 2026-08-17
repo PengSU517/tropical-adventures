@@ -1,110 +1,70 @@
-local assets =
-{
-    Asset("ANIM", "anim/pig_ruins_well.zip"),
+local assets = { Asset("ANIM", "anim/pig_ruins_well.zip"), }
+
+local currency = {
+    oinc = 1,
+    oinc10 = 10,
+    oinc100 = 100,
+    goldnugget = 20,
+    dubloon = 5,
 }
 
-local prefabs =
-{
+local function CurrencyTest(inst, item) return item and currency[item.prefab] ~= nil end
 
-}
+local function FountainOnAccept(inst, giver, item)
+    local value = item and currency[item.prefab] or 0
 
-local function ShouldAcceptItem(inst, item)
-    if not inst:HasTag("vortex") then
-        local can_accept = item.components.currency or item.prefab == "goldnugget" or item.prefab == "dubloon" or
-            item.prefab == "oinc" or item.prefab == "oinc10" or
-            item.prefab ==
-            "oinc100" --and (Prefabs[seed_name] or item.prefab == "seeds" or item.components.edible.foodtype == "MEAT")
+    inst.AnimState:PlayAnimation("splash")
+    inst.AnimState:PushAnimation("idle_full", true)
 
-        return can_accept
-    else
-        return true
+    inst.SoundEmitter:PlaySound("turnoftides/common/together/water/splash/small")
+
+    if math.random() * 25 < value then
+        inst:DoTaskInTime(1, function()
+            if giver.components.poisonable ~= nil then
+                giver.components.poisonable:WearOff()
+            end
+            if giver.components.health and giver.components.health:GetPercent() < 1 then
+                giver.components.health:DoDelta(value * 5, false, inst.prefab)
+                giver:PushEvent("celebrate")
+            end
+        end)
     end
 end
 
-local function OnRefuseItem(inst, item)
-    --    inst.AnimState:PlayAnimation("flap")
-    --    inst.SoundEmitter:PlaySound("dontstarve/birds/wingflap_cage")
-    --    inst.AnimState:PushAnimation("idle_bird")
-end
+local function EndsOnAccept(inst, giver, item)
+    if item == nil then return end
+    inst.AnimState:PlayAnimation("vortex_splash")
+    inst.AnimState:PlayAnimation("vortex_empty")
+    inst.AnimState:PushAnimation("vortex_idle_full", true)
+    inst.SoundEmitter:PlaySound("turnoftides/common/together/water/splash/small")
 
-local function OnGetItemFromPlayer(inst, giver, item)
-    if not inst:HasTag("vortex") then
-        local value = 0
-        if item.prefab == "oinc" then
-            value = 1
-        elseif item.prefab == "oinc10" then
-            value = 10
-        elseif item.prefab == "oinc100" then
-            value = 100
-        elseif item.prefab == "goldnugget" then
-            value = 20
-        elseif item.prefab == "dubloon" then
-            value = 5
-        end
+    local gem = 0
+    if item:HasTag("gem") and item.prefab ~= "purplegem" then
+        gem = math.random() > .5 and 1 or gem
+    elseif item.prefab == "nightmarefuel" then
+        gem = math.random() > .5 and 3 or 1
+    else
+        gem = math.random() > .99 and 1 or gem
+    end
 
-        inst.AnimState:PlayAnimation("splash")
-        inst.AnimState:PushAnimation("idle_full", true)
-
-        inst.SoundEmitter:PlaySound("turnoftides/common/together/water/splash/small")
-
+    if gem <= 0 then
         inst:DoTaskInTime(1, function()
-            if math.random() * 25 < value then
-                if giver.components.poisonable ~= nil then
-                    giver.components.poisonable:WearOff()
-                end
-                if giver.components.health and giver.components.health:GetPercent() < 1 then
-                    giver.components.health:DoDelta(value * 5, false, inst.prefab)
-                    giver:PushEvent("celebrate")
-                end
+            local mob = SpawnAt(math.random() < .6 and "crawlingnightmare" or "nightmarebeak", inst)
+            if mob ~= nil and mob.components.combat ~= nil then
+                mob.components.combat:SuggestTarget(giver)
             end
         end)
     else
         inst.AnimState:PlayAnimation("vortex_splash")
-        inst.AnimState:PlayAnimation("vortex_empty")
         inst.AnimState:PushAnimation("vortex_idle_full", true)
         inst.SoundEmitter:PlaySound("turnoftides/common/together/water/splash/small")
-
-        local value = 1
-        if item.prefab == "nightmarefuel" then
-            value = 100
-        elseif item.prefab == "redgem" or item.prefab == "bluegem" or item.prefab == "orangegem" or item.prefab == "yellowgem" or item.prefab == "greengem" then
-            value = 50
+        for _ = 1, gem do
+            LaunchAt(SpawnPrefab("purplegem"), inst, nil, 2, 3, 1)
         end
-
-        value = value + math.random() * 100
-
-        inst:DoTaskInTime(1, function()
-            local gems = 0
-            if value < 100 then
-                SpawnAt((math.random() <= 0.6) and "crawlingnightmare" or
-                "nightmarebeak", inst):DoTaskInTime(1, function(inst)
-                    if inst.components.combat then
-                        inst.components.combat:SuggestTarget(giver)
-                    end
-                end)
-            elseif value < 150 then
-                gems = 1
-            elseif value < 200 then
-                gems = 3
-            end
-
-            if gems > 0 then
-                inst.AnimState:PlayAnimation("vortex_splash")
-                inst.AnimState:PushAnimation("vortex_idle_full", true)
-                inst.SoundEmitter:PlaySound("turnoftides/common/together/water/splash/small")
-                for k = 1, gems do
-                    LaunchAt(SpawnPrefab("purplegem"), inst, nil, 2, 3, 1)
-                end
-                -- local x, y, z = inst.Transform:GetWorldPosition()
-                -- local fonte = SpawnPrefab("deco_ruins_fountain")
-                -- fonte.Transform:SetPosition(x, y, z)
-                -- inst:Remove()
-            end
-        end)
     end
 end
 
-local function decofn()
+local function fountain()
     local inst = CreateEntity()
     inst.entity:AddNetwork()
     local trans = inst.entity:AddTransform()
@@ -117,7 +77,7 @@ local function decofn()
     --        anim:SetOrientation(ANIM_ORIENTATION.RotatingBillboard)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("pig_ruins_well.tex")
+    minimap:SetIcon("pig_ruins_well.png")
 
     inst:AddTag("blocker")
     inst.entity:AddPhysics()
@@ -137,9 +97,8 @@ local function decofn()
     end
 
     inst:AddComponent("trader")
-    inst.components.trader:SetAcceptTest(ShouldAcceptItem)
-    inst.components.trader.onaccept = OnGetItemFromPlayer
-    inst.components.trader.onrefuse = OnRefuseItem
+    inst.components.trader:SetAcceptTest(CurrencyTest)
+    inst.components.trader.onaccept = FountainOnAccept
 
     inst:AddComponent("inspectable")
 
@@ -148,7 +107,7 @@ local function decofn()
     return inst
 end
 
-local function decofn1()
+local function endswell()
     local inst = CreateEntity()
     inst.entity:AddNetwork()
     local trans = inst.entity:AddTransform()
@@ -160,7 +119,7 @@ local function decofn1()
     anim:PlayAnimation("vortex_idle_full", true)
 
     local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("pig_ruins_well_vortex.tex")
+    minimap:SetIcon("pig_ruins_well_vortex.png")
 
     inst:AddTag("blocker")
     inst.entity:AddPhysics()
@@ -171,8 +130,6 @@ local function decofn1()
     inst.Physics:CollidesWith(COLLISION.ITEMS)
     inst.Physics:CollidesWith(COLLISION.CHARACTERS)
 
-    inst:AddTag("vortex")
-
     inst.entity:SetPristine()
 
     if not TheWorld.ismastersim then
@@ -180,9 +137,7 @@ local function decofn1()
     end
 
     inst:AddComponent("trader")
-    inst.components.trader:SetAcceptTest(ShouldAcceptItem)
-    inst.components.trader.onaccept = OnGetItemFromPlayer
-    inst.components.trader.onrefuse = OnRefuseItem
+    inst.components.trader.onaccept = EndsOnAccept
 
     inst:AddComponent("inspectable")
 
@@ -191,5 +146,5 @@ local function decofn1()
     return inst
 end
 
-return Prefab("deco_ruins_fountain", decofn, assets, prefabs),
-    Prefab("deco_ruins_endswell", decofn1, assets, prefabs)
+return Prefab("deco_ruins_fountain", fountain, assets),
+    Prefab("deco_ruins_endswell", endswell, assets)
