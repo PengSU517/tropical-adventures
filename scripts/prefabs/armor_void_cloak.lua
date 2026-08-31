@@ -9,22 +9,57 @@ local assets =
 
 local equipslot = --[[ EQUIPSLOTS.BACK or ]] EQUIPSLOTS.BODY -- 四格中设定为背包
 
-local function setsoundparam(inst)
+local function SetSoundParam(inst)
     local param = Remap(inst.components.armor.condition, 0, inst.components.armor.maxcondition, 0, 1)
     inst.SoundEmitter:SetParameter("vortex", "intensity", param)
 end
 
-local function spawnwisp_client(inst)
-    if inst.equipped:value() then
-        inst.wisptask = inst:DoPeriodicTask(0.1, function(this)
-            local fx = SpawnPrefab("armorvortexcloak_fx_client")
-            local x, y, z = this.Transform:GetWorldPosition()
-            fx.Transform:SetPosition(x + math.random() * 0.25 - 0.25 / 2, y, z + math.random() * 0.25 - 0.25 / 2)
-            fx.AnimState:SetAddColour(math.random() * .5, 0, 0, 0)
-        end)
-    elseif inst.wisptask ~= nil then
-        inst.wisptask:Cancel()
-        inst.wisptask = nil
+local function SetDefenses(inst, isbroken)
+    inst.components.armor:SetAbsorption(not isbroken and 1 or 0)
+    local level = 0
+    if not isbroken and inst.components.medal_immortal ~= nil then
+        level = inst.components.medal_immortal:GetLevel() or 0
+    end
+    if inst.components.planardefense ~= nil then
+        inst.components.planardefense:SetBaseDefense(isbroken and 0
+            or TUNING.VOID_CLOAK.PLANAR_DEF + level * TUNING.VOID_CLOAK.IMMORTAL_PLANAR_DEF)
+    end
+    if inst.components.medal_chaosdefense ~= nil then
+        inst.components.medal_chaosdefense:SetBaseDefense(level * TUNING.VOID_CLOAK.CHAOS_DEF)
+    end
+end
+
+local function StartWispTask(inst)
+    inst.wisptask = inst:DoPeriodicTask(0.1, function(this)
+        if not (this.replica.equippable and this.replica.equippable:IsEquipped()) then return end
+        local fx = SpawnPrefab("armorvortexcloak_fx_client")
+        local x, y, z = this.Transform:GetWorldPosition()
+        fx.Transform:SetPosition(x + math.random() * 0.25 - 0.25 / 2, y, z + math.random() * 0.25 - 0.25 / 2)
+        fx.AnimState:SetAddColour(math.random() * .5, 0, 0, 0)
+    end)
+end
+
+local function UpdateBrokenState(inst, isbroken)
+    local owner = inst.components.inventoryitem.owner
+    if owner ~= nil then
+        if isbroken then
+            owner:RemoveTag("not_hit_stunned")
+        elseif inst.components.equippable ~= nil and inst.components.equippable:IsEquipped() then
+            owner:AddTag("not_hit_stunned")
+        end
+    end
+    SetDefenses(inst, isbroken)
+    inst._isbroken = isbroken
+end
+
+local function OnArmorPercentChanged(inst)
+    local armor = inst.components.armor
+    if armor == nil then
+        return
+    end
+    local isbroken = armor:GetPercent() <= 0
+    if inst._isbroken ~= isbroken then
+        UpdateBrokenState(inst, isbroken)
     end
 end
 
@@ -35,81 +70,8 @@ local function OnBlocked(owner, data, inst)
     if inst.components.armor.condition and inst.components.armor.condition > 0 then
         owner:AddChild(SpawnPrefab("vortex_cloak_fx")) -- wait for modify
     end
-    setsoundparam(inst)
+    SetSoundParam(inst)
     inst._ontakedmg = nil
-end
-
-local function onequip(inst, owner)
-    owner.AnimState:OverrideSymbol("swap_body", "armor_void_cloak", "swap_body")
-    --owner.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/void_armour/equip_off")
-
-
-    inst:ListenForEvent("blocked", inst.OnBlocked, owner)
-    inst:ListenForEvent("attacked", inst.OnBlocked, owner)
-
-    owner:AddTag("not_hit_stunned")
-
-    inst.components.container:Open(owner)
-    inst.equipped:set(true)
-
-    inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/LP", "vortex")
-    setsoundparam(inst)
-end
-
-local function onunequip(inst, owner)
-    owner.AnimState:ClearOverrideSymbol("swap_body")
-    owner.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/equip_on")
-    inst:RemoveEventCallback("blocked", inst.OnBlocked, owner)
-    inst:RemoveEventCallback("attacked", inst.OnBlocked, owner)
-    owner:RemoveTag("not_hit_stunned")
-    inst.components.container:Close(owner)
-    inst.equipped:set(false)
-end
-
-local function ontakefuelitem(inst, _fuel, _fuelvalue, doer)
-    inst.components.armor:SetPercent(inst.components.fueled:GetPercent()) -- Runar: 修复时耐久同步燃料
-    inst.components.armor:SetAbsorption(1)
-    if doer then
-        doer.components.sanity:DoDelta(-TUNING.SANITY_TINY)
-        doer.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/add_fuel")
-    end
-    setsoundparam(inst)
-end
-
-local function OnBroken(inst)
-    local owner = inst.components.inventoryitem.owner
-    if owner ~= nil and owner:HasTag("not_hit_stunned") ~= nil then
-        owner:RemoveTag("not_hit_stunned")
-    end
-end
-
-local function OnRepaired(inst)
-    local owner = inst.components.inventoryitem.owner
-    if owner ~= nil and owner:HasTag("not_hit_stunned") == nil then
-        owner:AddTag("not_hit_stunned")
-    end
-end
-
-local function _MakeForgeRepairable(inst, material, _onbroken, onrepaired)
-    local function __onbroken(inst)
-        if _onbroken ~= nil then
-            _onbroken(inst)
-        end
-    end
-    if inst.components.armor ~= nil then
-        assert(not (DEBUG_MODE and inst.components.armor.onfinished ~= nil))
-        inst.components.armor:SetKeepOnFinished(true)
-        inst.components.armor:SetOnFinished(__onbroken)
-    elseif inst.components.finiteuses ~= nil then
-        assert(not (DEBUG_MODE and inst.components.finiteuses.onfinished ~= nil))
-        inst.components.finiteuses:SetOnFinished(__onbroken)
-    elseif inst.components.fueled ~= nil then
-        assert(not (DEBUG_MODE and inst.components.fueled.depleted ~= nil))
-        inst.components.fueled:SetDepletedFn(__onbroken)
-    end
-    inst:AddComponent("forgerepairable")
-    inst.components.forgerepairable:SetRepairMaterial(material)
-    inst.components.forgerepairable:SetOnRepaired(onrepaired)
 end
 
 local function OnTakeDamage(inst, damage_amount)
@@ -118,14 +80,80 @@ local function OnTakeDamage(inst, damage_amount)
         inst.components.inventoryitem.owner.components.sanity
     if not sanity then return end
     sanity:DoDelta(-damage_amount * TUNING.ARMOR_SANITY_DMG_AS_SANITY, false)
-    local armorleft = inst.components.armor:GetPercent()
-    inst.components.fueled:SetPercent(armorleft)
-    if armorleft <= 0 then
-        inst.components.armor:SetAbsorption(0)
+end
+
+local function OnTroRepaired(inst, _fuel, _fuelvalue, doer)
+    if doer then
+        doer.components.sanity:DoDelta(-TUNING.SANITY_TINY)
+        doer.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/add_fuel")
+    end
+    SetSoundParam(inst)
+end
+
+local function MakeForgeRepairable(inst, material)
+    if inst.components.armor ~= nil then
+        assert(not (DEBUG_MODE and inst.components.armor.onfinished ~= nil))
+        inst.components.armor:SetKeepOnFinished(true)
+    elseif inst.components.finiteuses ~= nil then
+        assert(not (DEBUG_MODE and inst.components.finiteuses.onfinished ~= nil))
+    elseif inst.components.fueled ~= nil then
+        assert(not (DEBUG_MODE and inst.components.fueled.depleted ~= nil))
+    end
+    inst:AddComponent("forgerepairable")
+    inst.components.forgerepairable:SetRepairMaterial(material)
+end
+
+local function ImmortalFn(inst, level, isadd)
+    local mult = TUNING.VOID_CLOAK.IMMORTAL_ARMOR_MULT + level * TUNING.VOID_CLOAK.IMMORTAL_ARMOR_BONUS
+    if inst.components.armor ~= nil then
+        inst.components.armor.maxcondition = TUNING.VOID_CLOAK.ARMOR / TUNING.VOID_CLOAK.IMMORTAL_ARMOR_MULT * mult
+    end
+    if isadd then
+        if inst.components.armor ~= nil then
+            inst.components.armor:SetPercent(1)
+        end
+    end
+    SetDefenses(inst)
+end
+
+local function OnSave(inst, data)
+    if inst.components.armor ~= nil then
+        data.armor_percent = inst.components.armor:GetPercent()
     end
 end
 
-local function fn()
+local function OnLoad(inst, data)
+    if data ~= nil and data.armor_percent ~= nil and inst.components.armor ~= nil then
+        inst.components.armor:SetPercent(data.armor_percent)
+    end
+end
+
+local function OnEquip(inst, owner)
+    owner.AnimState:OverrideSymbol("swap_body", "armor_void_cloak", "swap_body")
+
+    inst:ListenForEvent("blocked", inst.OnBlocked, owner)
+    inst:ListenForEvent("attacked", inst.OnBlocked, owner)
+
+    if not inst._isbroken then
+        owner:AddTag("not_hit_stunned")
+    end
+
+    inst.components.container:Open(owner)
+
+    inst.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/LP", "vortex")
+    SetSoundParam(inst)
+end
+
+local function OnUnequip(inst, owner)
+    owner.AnimState:ClearOverrideSymbol("swap_body")
+    owner.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/equip_on")
+    inst:RemoveEventCallback("blocked", inst.OnBlocked, owner)
+    inst:RemoveEventCallback("attacked", inst.OnBlocked, owner)
+    owner:RemoveTag("not_hit_stunned")
+    inst.components.container:Close(owner)
+end
+
+local function Fn()
     local inst = CreateEntity()
 
     inst.entity:AddTransform()
@@ -138,24 +166,27 @@ local function fn()
     inst.AnimState:SetBuild("armor_void_cloak")
     inst.AnimState:PlayAnimation("anim")
 
+    inst.entity:AddMiniMapEntity():SetIcon("armor_void_cloak.tex")
+
     MakeInventoryFloatable(inst)
 
     inst:AddTag("backpack")
-    inst:AddTag("void_cloak")
+    inst:AddTag("vortex_cloak")
     inst:AddTag("shadow_item")
 
     --shadowlevel (from shadowlevel component) added to pristine state for optimization
     inst:AddTag("shadowlevel")
 
-    inst.equipped = net_bool(inst.GUID, "cloak.equipped", "cloak.equippeddirty")
-    inst.equipped:set(false)
+    inst.medal_repair_immortal = {
+        immortal_fruit = TUNING.VOID_CLOAK.IMMORTAL_FRUIT_REPAIR,
+    }
 
-    inst.entity:AddMiniMapEntity():SetIcon("armor_void_cloak.tex")
+    inst.tro_repair = TUNING.TROREPAIR.CLOAKCOMMON
 
     inst.entity:SetPristine()
 
     if not TheNet:IsDedicated() then
-        inst:ListenForEvent("cloak.equippeddirty", spawnwisp_client)
+        StartWispTask(inst)
     end
 
     if not TheWorld.ismastersim then
@@ -163,41 +194,50 @@ local function fn()
     end
 
     inst:AddComponent("inspectable")
-    inst:AddComponent("inventoryitem")
 
+    inst:AddComponent("inventoryitem")
     inst.components.inventoryitem.cangoincontainer = false
+
     inst.foleysound = "dontstarve_DLC003/common/crafted/vortex_armour/foley"
 
     inst:AddComponent("container"):WidgetSetup("armorvoidcloak")
 
     local armor = inst:AddComponent("armor")
-    armor:InitCondition(TUNING.ARMORVOID, TUNING.ARMORVOID_ABSORPTION)
+    armor:InitCondition(TUNING.VOID_CLOAK.ARMOR, TUNING.VOID_CLOAK.ARMOR_ABSORPTION)
     armor.ontakedamage = OnTakeDamage
 
-    local fueled = inst:AddComponent("fueled")
-    fueled:InitializeFuelLevel(TUNING.ARMORVOIDFUEL)
-    fueled.fueltype = FUELTYPE.NIGHTMARE -- 燃料是噩梦燃料
-    fueled.secondaryfueltype = FUELTYPE.ANCIENT_REMNANT
-    fueled.ontakefuelitemfn = ontakefuelitem
-    fueled.accepting = true
+    inst:AddComponent("planardefense")
 
-    inst:AddComponent("planardefense"):SetBaseDefense(TUNING.ARMOR_VOIDCLOTH_PLANAR_DEF)                          --虚空长袍的位面防御
+    inst:AddComponent("damagetyperesist"):AddResist("shadow_aligned", inst, TUNING.VOID_CLOAK.SHADOW_RESIST) --虚空长袍的10%暗影阵营减伤
 
-    inst:AddComponent("damagetyperesist"):AddResist("shadow_aligned", inst, TUNING.ARMOR_VOIDCLOTH_SHADOW_RESIST) --虚空长袍的10%暗影阵营减伤
-
-    inst:AddComponent("shadowlevel"):SetDefaultLevel(TUNING.ARMOR_VOIDCLOTH_SHADOW_LEVEL)                         --虚空长袍的老麦3级暗影之力
+    inst:AddComponent("shadowlevel"):SetDefaultLevel(TUNING.VOID_CLOAK.SHADOW_LEVEL)
 
     local equippable = inst:AddComponent("equippable")
     equippable.equipslot = equipslot
-    equippable:SetOnEquip(onequip)
-    equippable:SetOnUnequip(onunequip)
+    equippable:SetOnEquip(OnEquip)
+    equippable:SetOnUnequip(OnUnequip)
 
-    --采用修改后的联机版中的虚空长袍的机制
-    _MakeForgeRepairable(inst, "voidcloth", OnBroken, OnRepaired)
+    MakeForgeRepairable(inst, "voidcloth")
+
+    pcall(inst.AddComponent, inst, "medal_chaosdefense")
+    local ok, medal_immortal = pcall(inst.AddComponent, inst, "medal_immortal")
+    if ok then
+        medal_immortal:SetMaxLevel(TUNING.VOID_CLOAK.IMMORTAL_MAXLEVEL)
+        medal_immortal:SetOnImmortal(ImmortalFn)
+    end
+    SetDefenses(inst)
+
+    inst._isbroken = false
+    inst:ListenForEvent("percentusedchange", OnArmorPercentChanged)
+
+    inst.OnSave = OnSave
+    inst.OnLoad = OnLoad
 
     inst.OnBlocked = function(owner, data) OnBlocked(owner, data, inst) end
+
+    inst.OnTroRepaired = OnTroRepaired
 
     return inst
 end
 
-return Prefab("common/inventory/armorvoidcloak", fn, assets)
+return Prefab("common/inventory/armorvoidcloak", Fn, assets)

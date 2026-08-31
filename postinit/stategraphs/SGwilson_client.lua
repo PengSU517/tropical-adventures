@@ -141,6 +141,7 @@ local actionhandlers = {
             return action.invobject ~= nil and "bedroll" or action.target:HasTag("cama") and "bedroll1" or "tent"
         end
     ),
+    ActionHandler(ACTIONS.TROREPAIR, "give"),
 }
 
 local eventhandlers = {

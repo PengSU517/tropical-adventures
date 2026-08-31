@@ -1046,6 +1046,44 @@ CHARGE_UP.fn = function(act)
 end
 AddAction(CHARGE_UP)
 ACTIONS.CHARGE_UP.do_not_locomote = true
+
+local function AddUses(fuel, fueled, uses, doer)
+    uses = uses or 0
+    local current, max
+    if fueled.components.armor then
+        current, max = fueled.components.armor.condition, fueled.components.armor.maxcondition
+    end
+    if not (current and max) then return end
+    if fueled.OnTroRepaired then
+        fueled:OnTroRepaired(fuel, uses, doer)
+    end
+    if fueled.components.armor then
+        fueled.components.armor:Repair(uses)
+    end
+    if fuel.components.stackable then
+        fuel.components.stackable:Get():Remove()
+    else
+        fuel:Remove()
+    end
+    return true
+end
+
+local TROREPAIR = Action({ priority = 10, mount_valid = true, paused_valid = true })
+TROREPAIR.str = STRINGS.ACTIONS.GIVE.REPAIR
+TROREPAIR.id = "TROREPAIR"
+TROREPAIR.fn = function (act)
+    if act.doer and act.invobject and act.target then
+        local uses
+        local prefab = act.invobject.prefab
+        if act.target.tro_repair and act.target.tro_repair[prefab] then
+            uses = act.target.tro_repair[prefab]
+        end
+        if uses then
+            return AddUses(act.invobject, act.target, uses, act.doer)
+        end
+    end
+end
+AddAction(TROREPAIR)
 --[[
 AddAction(nil, "IRONTURNON", STRINGS.ACTIONS.IRONTURNON, function(act)
     local inst = act.invobject

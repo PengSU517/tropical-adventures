@@ -79,15 +79,42 @@ TUNING.SWP_SHARD_DMG = {
     SWEEP_MODIFIER = .5,
 }
 
---armor---------------------------
+--cloak----------------------------
 ----------------------------------
-TUNING.ARMORVORTEX = TUNING.DEFAULT_CHARACTER_HEALTH * 3
-TUNING.ARMORVORTEXFUEL = TUNING.ARMORVORTEX / 45 * TUNING.LARGE_FUEL
-TUNING.ARMORVORTEX_ABSORPTION = 1
+--漩涡斗篷/虚空斗篷
+local vortex_armor = 450 --漩涡斗篷护甲耐久 450
+local void_armor = 855 --虚空斗篷护甲耐久 855
 
-TUNING.ARMORVOID = TUNING.ARMORVORTEX / 10 * 19
-TUNING.ARMORVOIDFUEL = TUNING.ARMORVOID / 45 * TUNING.LARGE_FUEL
-TUNING.ARMORVOID_ABSORPTION = TUNING.ARMORVORTEX_ABSORPTION
+TUNING.VORTEX_CLOAK =
+{
+    ARMOR = vortex_armor,                                         --护甲耐久
+    ARMOR_ABSORPTION = 1,                                         --减伤比例
+    SANITY_DMG_AS_SANITY = TUNING.ARMOR_SANITY_DMG_AS_SANITY * 3, --受击时伤害转化为san损失的比例(护甲san损的3倍)
+    SHADOW_LEVEL = TUNING.ARMOR_SANITY_SHADOW_LEVEL,              --影甲的老麦2级暗影之力
+}
+
+TUNING.VOID_CLOAK =
+{
+    ARMOR = void_armor,                                           --护甲耐久
+    ARMOR_ABSORPTION = TUNING.VORTEX_CLOAK.ARMOR_ABSORPTION,      --减伤比例
+    PLANAR_DEF = TUNING.ARMOR_VOIDCLOTH_PLANAR_DEF,               --位面防御
+    SHADOW_RESIST = TUNING.ARMOR_VOIDCLOTH_SHADOW_RESIST,         --暗影阵营伤害减免
+    SHADOW_LEVEL = TUNING.ARMOR_VOIDCLOTH_SHADOW_LEVEL,           --老麦3级暗影之力
+    IMMORTAL_MAXLEVEL = 5,                                        --最大不朽等级
+    IMMORTAL_ARMOR_MULT = 19,                                     --不朽之力的护甲耐久倍率基数
+    IMMORTAL_ARMOR_BONUS = 3,                                     --每级不朽之力的护甲耐久倍率加成
+    CHAOS_DEF = 3,                                                --每级不朽之力提供的混沌防御
+    IMMORTAL_PLANAR_DEF = 1,                                      --每级不朽之力提供的位面防御
+    IMMORTAL_FRUIT_REPAIR = 90,                                   --单个不朽果实可修补的耐久
+}
+
+TUNING.TROREPAIR = {
+    CLOAKCOMMON = {
+        nightmarefuel = 45,
+        horrorfuel = 90,
+        ancient_remnant = 450,
+    }
+}
 
 TUNING.ARMOROBSIDIAN = TUNING.DEFAULT_CHARACTER_HEALTH * 9
 

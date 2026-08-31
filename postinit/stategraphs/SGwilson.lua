@@ -196,7 +196,7 @@ local actionhandlers = {
             end
         end
     ),
-
+    ActionHandler(ACTIONS.TROREPAIR, "give"),
 }
 
 local eventhandlers = {
