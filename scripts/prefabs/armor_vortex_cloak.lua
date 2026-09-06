@@ -27,15 +27,12 @@ local function OnDrop(inst, owner)
     inst.components.container.canbeopened = true
 end
 
-local function OnBlocked(owner, data, inst)
-    if not inst._ontakedmg then
-        return
-    end
-    if inst.components.armor.condition and inst.components.armor.condition > 0 then
-        owner:AddChild(SpawnPrefab("vortex_cloak_fx"))
-    end
-    SetSoundParam(inst)
-    inst._ontakedmg = nil
+local function OnTakeDamage(inst, damage_amount)
+    inst._ontakedmg = damage_amount and damage_amount > 0 or nil
+    local sanity = inst.components.inventoryitem.owner and
+        inst.components.inventoryitem.owner.components.sanity
+    if not sanity then return end
+    sanity:DoDelta(-damage_amount * TUNING.VORTEX_CLOAK.SANITY_DMG_AS_SANITY, false)
 end
 
 local function OnEquip(inst, owner)
@@ -68,27 +65,30 @@ local function OnUnequip(inst, owner)
     end
 end
 
+local function OnBlocked(owner, data, inst)
+    if not inst._ontakedmg then
+        return
+    end
+    if inst.components.armor.condition > 0 then
+        owner:AddChild(SpawnPrefab("vortex_cloak_fx"))
+    end
+    SetSoundParam(inst)
+    inst._ontakedmg = nil
+end
+
+--耐久归零时减伤失效，修复后恢复
+local function PercentChanged(inst, data)
+    if inst.components.armor and data.percent then
+        inst.components.armor:SetAbsorption(data.percent > 0 and 1 or 0)
+    end
+end
+
 local function OnTroRepaired(inst, _fuel, _fuelvalue, doer)
-    inst.components.armor:SetAbsorption(1)
     if doer then
         doer.components.sanity:DoDelta(-TUNING.SANITY_TINY)
         doer.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/add_fuel")
     end
     SetSoundParam(inst)
-end
-
-local function OnTakeDamage(inst, damage_amount)
-    inst._ontakedmg = damage_amount and damage_amount > 0 or nil
-    local sanity = inst.components.inventoryitem.owner and
-        inst.components.inventoryitem.owner.components.sanity
-    if not sanity then return end
-    sanity:DoDelta(-damage_amount * TUNING.VORTEX_CLOAK.SANITY_DMG_AS_SANITY, false)
-end
-
-local function PercentChanged(inst, data)
-    if inst.components.armor and data.percent then
-        inst.components.armor:SetAbsorption(data.percent > 0 and 1 or 0)
-    end
 end
 
 local function Fn()
@@ -114,8 +114,7 @@ local function Fn()
     -- shadowlevel (from shadowlevel component) added to pristine state for optimization
     inst:AddTag("shadowlevel")
 
-    local minimap = inst.entity:AddMiniMapEntity()
-    minimap:SetIcon("armor_vortex_cloak.tex")
+    inst.entity:AddMiniMapEntity():SetIcon("armor_vortex_cloak.tex")
 
     inst.tro_repair = TUNING.TROREPAIR.CLOAKCOMMON
 
@@ -146,7 +145,7 @@ local function Fn()
     armor:InitCondition(TUNING.VORTEX_CLOAK.ARMOR, TUNING.VORTEX_CLOAK.ARMOR_ABSORPTION)
     armor:SetKeepOnFinished(true)
     armor:AddNonresistTags("shadow")
-    inst.components.armor.ontakedamage = OnTakeDamage
+    armor.ontakedamage = OnTakeDamage
 
     local shadowlevel = inst:AddComponent("shadowlevel")
     shadowlevel:SetDefaultLevel(TUNING.VORTEX_CLOAK.SHADOW_LEVEL) -- Runar: 影甲的老麦2级暗影之力

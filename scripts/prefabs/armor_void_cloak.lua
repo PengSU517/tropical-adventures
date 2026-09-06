@@ -14,6 +14,17 @@ local function SetSoundParam(inst)
     inst.SoundEmitter:SetParameter("vortex", "intensity", param)
 end
 
+local function StartWispTask(inst)
+    inst.wisptask = inst:DoPeriodicTask(0.1, function(this)
+        if not (this.replica.equippable and this.replica.equippable:IsEquipped()) then return end
+        local fx = SpawnPrefab("armorvortexcloak_fx_client")
+        local x, y, z = this.Transform:GetWorldPosition()
+        fx.Transform:SetPosition(x + math.random() * 0.25 - 0.25 / 2, y, z + math.random() * 0.25 - 0.25 / 2)
+        fx.AnimState:SetAddColour(math.random() * .5, 0, 0, 0)
+    end)
+end
+
+--设置减伤与位面/混沌防御(破损时清零，否则按基础值+不朽等级加成)
 local function SetDefenses(inst, isbroken)
     inst.components.armor:SetAbsorption(not isbroken and 1 or 0)
     local level = 0
@@ -29,16 +40,7 @@ local function SetDefenses(inst, isbroken)
     end
 end
 
-local function StartWispTask(inst)
-    inst.wisptask = inst:DoPeriodicTask(0.1, function(this)
-        if not (this.replica.equippable and this.replica.equippable:IsEquipped()) then return end
-        local fx = SpawnPrefab("armorvortexcloak_fx_client")
-        local x, y, z = this.Transform:GetWorldPosition()
-        fx.Transform:SetPosition(x + math.random() * 0.25 - 0.25 / 2, y, z + math.random() * 0.25 - 0.25 / 2)
-        fx.AnimState:SetAddColour(math.random() * .5, 0, 0, 0)
-    end)
-end
-
+--按耐久是否归零更新破损状态:清零/恢复防御，并同步防击晕标签
 local function UpdateBrokenState(inst, isbroken)
     local owner = inst.components.inventoryitem.owner
     if owner ~= nil then
@@ -52,6 +54,7 @@ local function UpdateBrokenState(inst, isbroken)
     inst._isbroken = isbroken
 end
 
+--耐久归零/修复(虚空布料、不朽果实、燃料等一切途径)时统一刷新破损状态
 local function OnArmorPercentChanged(inst)
     local armor = inst.components.armor
     if armor == nil then
@@ -63,69 +66,12 @@ local function OnArmorPercentChanged(inst)
     end
 end
 
-local function OnBlocked(owner, data, inst)
-    if not inst._ontakedmg then
-        return
-    end
-    if inst.components.armor.condition and inst.components.armor.condition > 0 then
-        owner:AddChild(SpawnPrefab("vortex_cloak_fx")) -- wait for modify
-    end
-    SetSoundParam(inst)
-    inst._ontakedmg = nil
-end
-
 local function OnTakeDamage(inst, damage_amount)
     inst._ontakedmg = damage_amount and damage_amount > 0 or nil
     local sanity = inst.components.inventoryitem.owner and
         inst.components.inventoryitem.owner.components.sanity
     if not sanity then return end
     sanity:DoDelta(-damage_amount * TUNING.ARMOR_SANITY_DMG_AS_SANITY, false)
-end
-
-local function OnTroRepaired(inst, _fuel, _fuelvalue, doer)
-    if doer then
-        doer.components.sanity:DoDelta(-TUNING.SANITY_TINY)
-        doer.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/add_fuel")
-    end
-    SetSoundParam(inst)
-end
-
-local function MakeForgeRepairable(inst, material)
-    if inst.components.armor ~= nil then
-        assert(not (DEBUG_MODE and inst.components.armor.onfinished ~= nil))
-        inst.components.armor:SetKeepOnFinished(true)
-    elseif inst.components.finiteuses ~= nil then
-        assert(not (DEBUG_MODE and inst.components.finiteuses.onfinished ~= nil))
-    elseif inst.components.fueled ~= nil then
-        assert(not (DEBUG_MODE and inst.components.fueled.depleted ~= nil))
-    end
-    inst:AddComponent("forgerepairable")
-    inst.components.forgerepairable:SetRepairMaterial(material)
-end
-
-local function ImmortalFn(inst, level, isadd)
-    local mult = TUNING.VOID_CLOAK.IMMORTAL_ARMOR_MULT + level * TUNING.VOID_CLOAK.IMMORTAL_ARMOR_BONUS
-    if inst.components.armor ~= nil then
-        inst.components.armor.maxcondition = TUNING.VOID_CLOAK.ARMOR / TUNING.VOID_CLOAK.IMMORTAL_ARMOR_MULT * mult
-    end
-    if isadd then
-        if inst.components.armor ~= nil then
-            inst.components.armor:SetPercent(1)
-        end
-    end
-    SetDefenses(inst)
-end
-
-local function OnSave(inst, data)
-    if inst.components.armor ~= nil then
-        data.armor_percent = inst.components.armor:GetPercent()
-    end
-end
-
-local function OnLoad(inst, data)
-    if data ~= nil and data.armor_percent ~= nil and inst.components.armor ~= nil then
-        inst.components.armor:SetPercent(data.armor_percent)
-    end
 end
 
 local function OnEquip(inst, owner)
@@ -151,6 +97,58 @@ local function OnUnequip(inst, owner)
     inst:RemoveEventCallback("attacked", inst.OnBlocked, owner)
     owner:RemoveTag("not_hit_stunned")
     inst.components.container:Close(owner)
+end
+
+local function MakeForgeRepairable(inst, material)
+    assert(not (DEBUG_MODE and inst.components.armor.onfinished ~= nil))
+    inst.components.armor:SetKeepOnFinished(true)
+    inst:AddComponent("forgerepairable")
+    inst.components.forgerepairable:SetRepairMaterial(material)
+end
+
+local function ImmortalFn(inst, level, isadd)
+    --重算不朽之力带来的耐久上限(加载存档时也需要恢复)
+    local mult = TUNING.VOID_CLOAK.IMMORTAL_ARMOR_MULT + level * TUNING.VOID_CLOAK.IMMORTAL_ARMOR_BONUS
+    if inst.components.armor ~= nil then
+        inst.components.armor.maxcondition = TUNING.VOID_CLOAK.ARMOR / TUNING.VOID_CLOAK.IMMORTAL_ARMOR_MULT * mult
+    end
+    if isadd then
+        if inst.components.armor ~= nil then
+            inst.components.armor:SetPercent(1)
+        end
+    end
+    SetDefenses(inst)
+end
+
+local function OnSave(inst, data)
+    if inst.components.armor ~= nil then
+        data.armor_percent = inst.components.armor:GetPercent()
+    end
+end
+
+local function OnLoad(inst, data)
+    if data ~= nil and data.armor_percent ~= nil and inst.components.armor ~= nil then
+        inst.components.armor:SetPercent(data.armor_percent)
+    end
+end
+
+local function OnBlocked(owner, data, inst)
+    if not inst._ontakedmg then
+        return
+    end
+    if inst.components.armor.condition > 0 then
+        owner:AddChild(SpawnPrefab("vortex_cloak_fx")) -- wait for modify
+    end
+    SetSoundParam(inst)
+    inst._ontakedmg = nil
+end
+
+local function OnTroRepaired(inst, _fuel, _fuelvalue, doer)
+    if doer then
+        doer.components.sanity:DoDelta(-TUNING.SANITY_TINY)
+        doer.SoundEmitter:PlaySound("dontstarve_DLC003/common/crafted/vortex_armour/add_fuel")
+    end
+    SetSoundParam(inst)
 end
 
 local function Fn()
@@ -219,6 +217,7 @@ local function Fn()
 
     MakeForgeRepairable(inst, "voidcloth")
 
+    -- 适配能力勋章不朽之力
     pcall(inst.AddComponent, inst, "medal_chaosdefense")
     local ok, medal_immortal = pcall(inst.AddComponent, inst, "medal_immortal")
     if ok then
@@ -227,6 +226,7 @@ local function Fn()
     end
     SetDefenses(inst)
 
+    --耐久变化时刷新破损状态(防御清零/恢复与防击晕标签)
     inst._isbroken = false
     inst:ListenForEvent("percentusedchange", OnArmorPercentChanged)
 

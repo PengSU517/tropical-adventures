@@ -106,7 +106,6 @@ AddComponentAction("USEITEM", "interactions",
 
 AddComponentAction("USEITEM", "inventoryitem", function(inst, doer, target, actions, right)
     local prefab = inst.prefab
-    print(prefab, target.tro_repair and target.tro_repair[prefab])
     if target.tro_repair ~= nil and target.tro_repair[prefab] ~= nil then
         table.insert(actions, ACTIONS.TROREPAIR)
     end

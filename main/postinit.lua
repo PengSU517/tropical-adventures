@@ -127,6 +127,7 @@ modimport "postinit/prefabs/player_classified"
 modimport "postinit/prefabs/player" --shopper, drownable, infestable
 modimport "postinit/prefabs/spawned_creature"
 modimport "postinit/prefabs/sword_lunarplant"
+modimport "postinit/prefabs/tea" -- 冰茶转换小巧思
 modimport "postinit/prefabs/trinket_1"
 modimport "postinit/prefabs/warningshadow"
 modimport "postinit/prefabs/wobster"
